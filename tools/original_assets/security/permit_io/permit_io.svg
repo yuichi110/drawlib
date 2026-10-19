@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+  <!-- Permit.io Purple & Orange Layered Diamond / Key Emblem -->
+  <rect x="24" y="24" width="208" height="208" rx="48" fill="#4C1D95"/>
+  <polygon points="128,48 200,120 128,192 56,120" fill="#8B5CF6"/>
+  <polygon points="128,76 172,120 128,164 84,120" fill="#F97316"/>
+  <circle cx="128" cy="120" r="18" fill="#FFFFFF"/>
+  <rect x="118" y="132" width="20" height="52" rx="8" fill="#FFFFFF"/>
+</svg>

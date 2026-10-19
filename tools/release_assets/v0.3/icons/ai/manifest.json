@@ -1,7 +1,7 @@
 {
   "format_version": "2.0",
   "provider": "ai",
-  "created_at": "2026-10-19T01:02:15.588251+00:00",
+  "created_at": "2026-10-19T13:23:19.751643+00:00",
   "canvas_size": [
     512,
     512
@@ -10,20 +10,27 @@
     460,
     460
   ],
-  "total_files": 40,
+  "total_files": 60,
   "aliases": {
     "anthropic": "claude",
     "chatgpt": "openai",
+    "copilot_ai": "copilot",
+    "fireworks": "fireworks_ai",
+    "github_copilot": "copilot",
     "google_gemini": "gemini",
     "hf": "huggingface",
     "hugging_face": "huggingface",
     "llama": "meta_llama",
     "meta": "meta_llama",
     "mistral_ai": "mistral",
+    "nvidia_triton": "triton",
     "open_hands": "openhands",
+    "phoenix": "arize_phoenix",
+    "pydantic": "pydantic_ai",
     "sk": "semantic_kernel",
     "sklearn": "scikit_learn",
     "tf": "tensorflow",
+    "together": "together_ai",
     "weights_and_biases": "wandb"
   },
   "files": {
@@ -40,6 +47,19 @@
         485
       ]
     },
+    "arize_phoenix_default.png": {
+      "icon_name": "arize_phoenix",
+      "variant": "default",
+      "source_script": "ai/arize_phoenix_default.py",
+      "size_bytes": 47573,
+      "sha256": "b3be84c1fbc6451e6e898faa25c30d289aedf7b053e7aaa82c7c059a3081752c",
+      "bbox": [
+        59,
+        26,
+        452,
+        486
+      ]
+    },
     "autogen_default.png": {
       "icon_name": "autogen",
       "variant": "default",
@@ -51,6 +71,19 @@
         52,
         486,
         459
+      ]
+    },
+    "braintrust_default.png": {
+      "icon_name": "braintrust",
+      "variant": "default",
+      "source_script": "ai/braintrust_default.py",
+      "size_bytes": 17000,
+      "sha256": "d2b80a53db357775427644c54fecd28553c930f8187f968d109b93c859bbd6bd",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
       ]
     },
     "claude_default.png": {
@@ -79,6 +112,19 @@
         486
       ]
     },
+    "copilot_default.png": {
+      "icon_name": "copilot",
+      "variant": "default",
+      "source_script": "ai/copilot_default.py",
+      "size_bytes": 19988,
+      "sha256": "79544e4bb609e00c6413442b6f234df5f8fcbc7a044aabcde0393570587370d2",
+      "bbox": [
+        26,
+        73,
+        486,
+        438
+      ]
+    },
     "crewai_default.png": {
       "icon_name": "crewai",
       "variant": "default",
@@ -89,6 +135,32 @@
         51,
         26,
         461,
+        486
+      ]
+    },
+    "cursor_default.png": {
+      "icon_name": "cursor",
+      "variant": "default",
+      "source_script": "ai/cursor_default.py",
+      "size_bytes": 13579,
+      "sha256": "13d3ebc21725ff22c8706dd4f503dfff583d3128069f760ea340ac44be6c7b0f",
+      "bbox": [
+        54,
+        26,
+        458,
+        486
+      ]
+    },
+    "deepgram_default.png": {
+      "icon_name": "deepgram",
+      "variant": "default",
+      "source_script": "ai/deepgram_default.py",
+      "size_bytes": 11074,
+      "sha256": "c408bc7a98fc0dc382ee343437969c9f647e60a640ad1cc72211bb865c9d3fcd",
+      "bbox": [
+        37,
+        26,
+        474,
         486
       ]
     },
@@ -116,6 +188,45 @@
         56,
         486,
         455
+      ]
+    },
+    "elevenlabs_default.png": {
+      "icon_name": "elevenlabs",
+      "variant": "default",
+      "source_script": "ai/elevenlabs_default.py",
+      "size_bytes": 1775,
+      "sha256": "ad885ab21cab100c141e08c1e4bc46897c14fdf4389e1c214969a7937adc4f9c",
+      "bbox": [
+        122,
+        26,
+        390,
+        486
+      ]
+    },
+    "firecrawl_default.png": {
+      "icon_name": "firecrawl",
+      "variant": "default",
+      "source_script": "ai/firecrawl_default.py",
+      "size_bytes": 12275,
+      "sha256": "f3ec82f6280df2feff1d740de2419984274e3fcce95bc8ffc281a039c19846ee",
+      "bbox": [
+        93,
+        26,
+        419,
+        486
+      ]
+    },
+    "fireworks_ai_default.png": {
+      "icon_name": "fireworks_ai",
+      "variant": "default",
+      "source_script": "ai/fireworks_ai_default.py",
+      "size_bytes": 14688,
+      "sha256": "f089edeab3b718e48c13487738c3afcb63f66062ab7e748f28c392ac6727af82",
+      "bbox": [
+        26,
+        141,
+        486,
+        371
       ]
     },
     "gemini_default.png": {
@@ -155,6 +266,19 @@
         35,
         486,
         477
+      ]
+    },
+    "groq_default.png": {
+      "icon_name": "groq",
+      "variant": "default",
+      "source_script": "ai/groq_default.py",
+      "size_bytes": 14974,
+      "sha256": "ac6f1ad78705c7e17632ae889810fe31fdbed179e601bdfbbb1f24ab1f0b1ee1",
+      "bbox": [
+        95,
+        26,
+        417,
+        486
       ]
     },
     "haystack_default.png": {
@@ -274,6 +398,19 @@
         486
       ]
     },
+    "livekit_default.png": {
+      "icon_name": "livekit",
+      "variant": "default",
+      "source_script": "ai/livekit_default.py",
+      "size_bytes": 1840,
+      "sha256": "80af29caa801bb2ca48663946589761138deee24c752847e0cf78f1974a8250b",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
     "llamaindex_default.png": {
       "icon_name": "llamaindex",
       "variant": "default",
@@ -284,6 +421,19 @@
         73,
         26,
         439,
+        486
+      ]
+    },
+    "mastra_default.png": {
+      "icon_name": "mastra",
+      "variant": "default",
+      "source_script": "ai/mastra_default.py",
+      "size_bytes": 36013,
+      "sha256": "0c60162bd1630d38582971fdc50f40145e5a432e748c2d2fbb464c659204e6a2",
+      "bbox": [
+        26,
+        26,
+        486,
         486
       ]
     },
@@ -337,6 +487,19 @@
         26,
         486,
         486
+      ]
+    },
+    "modal_default.png": {
+      "icon_name": "modal",
+      "variant": "default",
+      "source_script": "ai/modal_default.py",
+      "size_bytes": 24637,
+      "sha256": "6e8e38bf4b7607c4b5ffb0eab0b693eb9d214c4c709c7f36a2ff776469af61ed",
+      "bbox": [
+        26,
+        132,
+        486,
+        379
       ]
     },
     "n8n_default.png": {
@@ -417,6 +580,19 @@
         413
       ]
     },
+    "openrouter_default.png": {
+      "icon_name": "openrouter",
+      "variant": "default",
+      "source_script": "ai/openrouter_default.py",
+      "size_bytes": 12672,
+      "sha256": "f26884d719ce8a71d731ab6882f4112944ee61fff76483169f8a1109e085f14e",
+      "bbox": [
+        26,
+        93,
+        486,
+        418
+      ]
+    },
     "perplexity_default.png": {
       "icon_name": "perplexity",
       "variant": "default",
@@ -428,6 +604,19 @@
         26,
         457,
         486
+      ]
+    },
+    "pydantic_ai_default.png": {
+      "icon_name": "pydantic_ai",
+      "variant": "default",
+      "source_script": "ai/pydantic_ai_default.py",
+      "size_bytes": 20129,
+      "sha256": "48f0a827175db30a8b923526be4bf252383bf0640fa6d147b950d00e59a9a64d",
+      "bbox": [
+        26,
+        56,
+        486,
+        455
       ]
     },
     "pytorch_default.png": {
@@ -469,6 +658,32 @@
         486
       ]
     },
+    "replicate_default.png": {
+      "icon_name": "replicate",
+      "variant": "default",
+      "source_script": "ai/replicate_default.py",
+      "size_bytes": 1888,
+      "sha256": "e0a7ac084133e7e7e8d6b494715a2a8519df046759facb2a58c008cff1240569",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "runpod_default.png": {
+      "icon_name": "runpod",
+      "variant": "default",
+      "source_script": "ai/runpod_default.py",
+      "size_bytes": 24823,
+      "sha256": "e5c9d380fc32109ddcb1070a2b33633e338e1b11f4102ddd8daa97106b493e4d",
+      "bbox": [
+        45,
+        26,
+        467,
+        486
+      ]
+    },
     "scikit_learn_default.png": {
       "icon_name": "scikit_learn",
       "variant": "default",
@@ -495,6 +710,19 @@
         486
       ]
     },
+    "sglang_default.png": {
+      "icon_name": "sglang",
+      "variant": "default",
+      "source_script": "ai/sglang_default.py",
+      "size_bytes": 17930,
+      "sha256": "b3f52acfffa6cbc34c6015af2232b3278b43e8e8973f0ad3359314858ca270f4",
+      "bbox": [
+        51,
+        26,
+        460,
+        486
+      ]
+    },
     "streamlit_default.png": {
       "icon_name": "streamlit",
       "variant": "default",
@@ -508,6 +736,19 @@
         381
       ]
     },
+    "tavily_default.png": {
+      "icon_name": "tavily",
+      "variant": "default",
+      "source_script": "ai/tavily_default.py",
+      "size_bytes": 12893,
+      "sha256": "ffe1e56874fe2e49cd48a90ee6cee7495fd52fc9076490aff7702e7dcb7d8505",
+      "bbox": [
+        29,
+        26,
+        483,
+        486
+      ]
+    },
     "tensorflow_default.png": {
       "icon_name": "tensorflow",
       "variant": "default",
@@ -518,6 +759,32 @@
         50,
         26,
         461,
+        486
+      ]
+    },
+    "together_ai_default.png": {
+      "icon_name": "together_ai",
+      "variant": "default",
+      "source_script": "ai/together_ai_default.py",
+      "size_bytes": 20161,
+      "sha256": "91de7da86702b1f62c3c533a1e0e01b378c6bea8293d86fd84303743ded5a101",
+      "bbox": [
+        26,
+        41,
+        486,
+        470
+      ]
+    },
+    "triton_default.png": {
+      "icon_name": "triton",
+      "variant": "default",
+      "source_script": "ai/triton_default.py",
+      "size_bytes": 13361,
+      "sha256": "d927cb596b74417d86d57eb0a50f4d755da6c9fa91f5b5887555ca6a0b7fbb9b",
+      "bbox": [
+        26,
+        26,
+        486,
         486
       ]
     },

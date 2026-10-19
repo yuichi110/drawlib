@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+  <!-- NVIDIA Triton Inference Server Trident + Green/Dark Tech Emblem -->
+  <rect x="24" y="24" width="208" height="208" rx="40" fill="#1A1A1A"/>
+  <path d="M128,44 L150,76 L137,76 L137,180 L156,180 L128,214 L100,180 L119,180 L119,76 L106,76 Z" fill="#76B900"/>
+  <path d="M70,68 L94,94 L82,94 L82,138 L119,154 L119,172 L64,148 L64,94 L52,94 Z" fill="#76B900"/>
+  <path d="M186,68 L204,94 L192,94 L192,148 L137,172 L137,154 L174,138 L174,94 L162,94 Z" fill="#76B900"/>
+</svg>

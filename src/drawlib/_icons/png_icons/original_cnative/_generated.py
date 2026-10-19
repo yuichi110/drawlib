@@ -198,6 +198,26 @@ def backstage(
     _write(xy=xy, width=width, name="backstage", style=style, variant=variant)
 
 
+def calico(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Cloud Native concept icon representing calico.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="calico", style=style, variant=variant)
+
+
 def ceph(
     xy: Coordinate,
     width: PosFloat,
@@ -215,7 +235,7 @@ def ceph(
         variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="rook", style=style, variant=variant)
+    _write(xy=xy, width=width, name="ceph", style=style, variant=variant)
 
 
 def cert_manager(
@@ -278,6 +298,46 @@ def cj(
     _write(xy=xy, width=width, name="k8s_cronjob", style=style, variant=variant)
 
 
+def cloudnative_pg(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Cloud Native concept icon representing cloudnative pg.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="cloudnative_pg", style=style, variant=variant)
+
+
+def cloudnativepg(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Cloud Native concept icon representing cloudnativepg.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="cloudnative_pg", style=style, variant=variant)
+
+
 def cm(
     xy: Coordinate,
     width: PosFloat,
@@ -296,6 +356,26 @@ def cm(
 
     """
     _write(xy=xy, width=width, name="k8s_configmap", style=style, variant=variant)
+
+
+def cnpg(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Cloud Native concept icon representing cnpg.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="cloudnative_pg", style=style, variant=variant)
 
 
 def configmap(
@@ -698,6 +778,26 @@ def ep(
     _write(xy=xy, width=width, name="k8s_endpoint", style=style, variant=variant)
 
 
+def eso(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Cloud Native concept icon representing eso.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="external_secrets", style=style, variant=variant)
+
+
 def etcd(
     xy: Coordinate,
     width: PosFloat,
@@ -716,6 +816,26 @@ def etcd(
 
     """
     _write(xy=xy, width=width, name="etcd", style=style, variant=variant)
+
+
+def external_secrets(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Cloud Native concept icon representing external secrets.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="external_secrets", style=style, variant=variant)
 
 
 def falco(
@@ -1778,6 +1898,26 @@ def k8s_worker(
     _write(xy=xy, width=width, name="k8s_node", style=style, variant=variant)
 
 
+def karpenter(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Cloud Native concept icon representing karpenter.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="karpenter", style=style, variant=variant)
+
+
 def keda(
     xy: Coordinate,
     width: PosFloat,
@@ -1918,6 +2058,26 @@ def kubevirt(
     _write(xy=xy, width=width, name="kubevirt", style=style, variant=variant)
 
 
+def kustomize(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Cloud Native concept icon representing kustomize.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="kustomize", style=style, variant=variant)
+
+
 def kyverno(
     xy: Coordinate,
     width: PosFloat,
@@ -1958,6 +2118,26 @@ def linkerd(
     _write(xy=xy, width=width, name="linkerd", style=style, variant=variant)
 
 
+def longhorn(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Cloud Native concept icon representing longhorn.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="longhorn", style=style, variant=variant)
+
+
 def master(
     xy: Coordinate,
     width: PosFloat,
@@ -1976,6 +2156,26 @@ def master(
 
     """
     _write(xy=xy, width=width, name="k8s_control_plane", style=style, variant=variant)
+
+
+def metallb(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Cloud Native concept icon representing metallb.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="metallb", style=style, variant=variant)
 
 
 def microk8s(
@@ -2358,6 +2558,26 @@ def pod(
     _write(xy=xy, width=width, name="k8s_pod", style=style, variant=variant)
 
 
+def project_calico(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Cloud Native concept icon representing project calico.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="calico", style=style, variant=variant)
+
+
 def prom(
     xy: Coordinate,
     width: PosFloat,
@@ -2578,6 +2798,26 @@ def service(
     _write(xy=xy, width=width, name="k8s_service", style=style, variant=variant)
 
 
+def spiffe(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Cloud Native concept icon representing spiffe.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="spiffe", style=style, variant=variant)
+
+
 def statefulset(
     xy: Coordinate,
     width: PosFloat,
@@ -2596,6 +2836,26 @@ def statefulset(
 
     """
     _write(xy=xy, width=width, name="k8s_statefulset", style=style, variant=variant)
+
+
+def strimzi(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Cloud Native concept icon representing strimzi.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="strimzi", style=style, variant=variant)
 
 
 def sts(
@@ -2698,6 +2958,46 @@ def tanzu(
     _write(xy=xy, width=width, name="tanzu", style=style, variant=variant)
 
 
+def temporal(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Cloud Native concept icon representing temporal.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="temporal", style=style, variant=variant)
+
+
+def temporal_io(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Cloud Native concept icon representing temporal io.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="temporal", style=style, variant=variant)
+
+
 def tkg(
     xy: Coordinate,
     width: PosFloat,
@@ -2736,6 +3036,46 @@ def vcluster(
 
     """
     _write(xy=xy, width=width, name="vcluster", style=style, variant=variant)
+
+
+def velero(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Cloud Native concept icon representing velero.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="velero", style=style, variant=variant)
+
+
+def vitess(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Cloud Native concept icon representing vitess.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="vitess", style=style, variant=variant)
 
 
 def worker_node(

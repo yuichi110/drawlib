@@ -11,8 +11,8 @@ All public image functions and types are imported from `drawlib.images`:
 
 ```python
 from drawlib.images import (
-    image,                 # Primary function to draw images onto the canvas
-    Dimage,                # Image manipulation model (wraps PIL Image)
+    image,  # Primary function to draw images onto the canvas
+    Dimage,  # Image manipulation model (wraps PIL Image)
     get_dimage_from_code,  # Render Drawlib Python code in-memory to a Dimage
 )
 ```
@@ -66,7 +66,7 @@ dimg = Dimage("assets/logo.png")
 w, h = dimg.get_image_size()
 
 # Apply monochrome color tint
-tinted_dimg = dimg.fill((52, 152, 219)) # Tint all non-transparent pixels with blue
+tinted_dimg = dimg.fill((52, 152, 219))  # Tint all non-transparent pixels with blue
 
 # Deep copy
 dimg_copy = dimg.copy()

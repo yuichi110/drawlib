@@ -157,9 +157,7 @@ def publish(
     env_token_name = "TEST_PYPI_TOKEN" if test_pypi else "PYPI_TOKEN"
     resolved_token = token or os.environ.get(env_token_name)
     if not resolved_token:
-        err_console.print(
-            f"[bold red]Error: Token not found. Set ${env_token_name} or pass --token <TOKEN>[/bold red]"
-        )
+        err_console.print(f"[bold red]Error: Token not found. Set ${env_token_name} or pass --token <TOKEN>[/bold red]")
         raise typer.Exit(code=1)
 
     target_name = "TestPyPI" if test_pypi else "PyPI"

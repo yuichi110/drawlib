@@ -91,11 +91,13 @@ class TestClassNode:
     def test_add_attributes_batch(self) -> None:
         """Verify batch adding attributes from tuples and AttributeInfo."""
         node = ClassNode(name="Order")
-        node.add_attributes([
-            ("order_id", "str", True),
-            ("total", "float", False),
-            AttributeInfo(name="created_at", type="datetime", is_public=True),
-        ])
+        node.add_attributes(
+            [
+                ("order_id", "str", True),
+                ("total", "float", False),
+                AttributeInfo(name="created_at", type="datetime", is_public=True),
+            ]
+        )
         assert len(node.attributes) == 3
         assert node.attributes[0].name == "order_id"
         assert node.attributes[0].symbol == "+"
@@ -127,11 +129,13 @@ class TestClassNode:
     def test_add_methods_batch(self) -> None:
         """Verify batch adding methods from tuples and MethodInfo."""
         node = ClassNode(name="Controller")
-        node.add_methods([
-            ("index", "Response", ""),
-            ("save", "bool", "entity: Any", False),
-            MethodInfo(name="delete", params="id: int", return_type="void"),
-        ])
+        node.add_methods(
+            [
+                ("index", "Response", ""),
+                ("save", "bool", "entity: Any", False),
+                MethodInfo(name="delete", params="id: int", return_type="void"),
+            ]
+        )
         assert len(node.methods) == 3
         assert node.methods[0].name == "index"
         assert node.methods[1].symbol == "-"

@@ -1,7 +1,7 @@
 {
   "format_version": "2.0",
   "provider": "original_ai",
-  "created_at": "2026-10-19T01:02:43.209965+00:00",
+  "created_at": "2026-10-19T13:23:44.478478+00:00",
   "canvas_size": [
     512,
     512
@@ -10,15 +10,18 @@
     460,
     460
   ],
-  "total_files": 60,
+  "total_files": 80,
   "aliases": {
     "agent": "ai_agent",
     "agent_swarm": "multi_agent",
     "anthropic": "claude",
     "benchmark": "evaluation",
     "chatgpt": "openai",
+    "copilot_ai": "copilot",
     "embedding": "embedding_vector",
     "eval": "evaluation",
+    "fireworks": "fireworks_ai",
+    "github_copilot": "copilot",
     "google_gemini": "gemini",
     "gpu": "gpu_node",
     "guardrail": "prompt_guardrail",
@@ -32,12 +35,16 @@
     "meta": "meta_llama",
     "mistral_ai": "mistral",
     "npu": "npu_node",
+    "nvidia_triton": "triton",
     "open_hands": "openhands",
+    "phoenix": "arize_phoenix",
     "prompt": "prompt_template",
+    "pydantic": "pydantic_ai",
     "rag": "rag_knowledge_base",
     "sk": "semantic_kernel",
     "sklearn": "scikit_learn",
     "tf": "tensorflow",
+    "together": "together_ai",
     "tool_use": "function_calling",
     "tpu": "npu_node",
     "training": "training_pipeline",
@@ -85,6 +92,19 @@
         486
       ]
     },
+    "arize_phoenix_default.png": {
+      "icon_name": "arize_phoenix",
+      "variant": "default",
+      "source_script": "original_ai/arize_phoenix_default.py",
+      "size_bytes": 43051,
+      "sha256": "80fae7cd2e1a014363d5a7f50e8fcdd34eff11e0a40910a816da547859fdb7e1",
+      "bbox": [
+        32,
+        26,
+        479,
+        486
+      ]
+    },
     "autogen_default.png": {
       "icon_name": "autogen",
       "variant": "default",
@@ -96,6 +116,19 @@
         51,
         486,
         461
+      ]
+    },
+    "braintrust_default.png": {
+      "icon_name": "braintrust",
+      "variant": "default",
+      "source_script": "original_ai/braintrust_default.py",
+      "size_bytes": 30752,
+      "sha256": "ecfea22774131404f3bffd3333986265831f03bbf4441885453cbc72db38a138",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
       ]
     },
     "claude_default.png": {
@@ -124,6 +157,19 @@
         486
       ]
     },
+    "copilot_default.png": {
+      "icon_name": "copilot",
+      "variant": "default",
+      "source_script": "original_ai/copilot_default.py",
+      "size_bytes": 36896,
+      "sha256": "bb1f148f21481a31cae2a56cec92f09f810915a22312d65be0d82d1a5d2c89fe",
+      "bbox": [
+        26,
+        72,
+        486,
+        439
+      ]
+    },
     "crewai_default.png": {
       "icon_name": "crewai",
       "variant": "default",
@@ -137,6 +183,19 @@
         486
       ]
     },
+    "cursor_default.png": {
+      "icon_name": "cursor",
+      "variant": "default",
+      "source_script": "original_ai/cursor_default.py",
+      "size_bytes": 25082,
+      "sha256": "66dca52c7b4f5e2e7a47c41904c8cf170ec569c51b06dd5bdd8a1d0ccb8b88a0",
+      "bbox": [
+        54,
+        26,
+        458,
+        486
+      ]
+    },
     "dataset_default.png": {
       "icon_name": "dataset",
       "variant": "default",
@@ -147,6 +206,19 @@
         26,
         26,
         486,
+        486
+      ]
+    },
+    "deepgram_default.png": {
+      "icon_name": "deepgram",
+      "variant": "default",
+      "source_script": "original_ai/deepgram_default.py",
+      "size_bytes": 18688,
+      "sha256": "82f8fc149b31ad2890ea62d44fdce225416db954fbdd81bb39093f49165033ec",
+      "bbox": [
+        37,
+        26,
+        475,
         486
       ]
     },
@@ -174,6 +246,19 @@
         55,
         486,
         456
+      ]
+    },
+    "elevenlabs_default.png": {
+      "icon_name": "elevenlabs",
+      "variant": "default",
+      "source_script": "original_ai/elevenlabs_default.py",
+      "size_bytes": 1794,
+      "sha256": "891b5b07a651900543e0d7208420093684ce415fc8296eb19ad42c89885f84e4",
+      "bbox": [
+        119,
+        26,
+        392,
+        486
       ]
     },
     "embedding_vector_default.png": {
@@ -226,6 +311,32 @@
         29,
         486,
         483
+      ]
+    },
+    "firecrawl_default.png": {
+      "icon_name": "firecrawl",
+      "variant": "default",
+      "source_script": "original_ai/firecrawl_default.py",
+      "size_bytes": 24713,
+      "sha256": "5755bcd6ac2093cae689aed0b71fa301af9c4444311bcd4f90ab4911b9daa29f",
+      "bbox": [
+        91,
+        26,
+        420,
+        486
+      ]
+    },
+    "fireworks_ai_default.png": {
+      "icon_name": "fireworks_ai",
+      "variant": "default",
+      "source_script": "original_ai/fireworks_ai_default.py",
+      "size_bytes": 26264,
+      "sha256": "e4c2b5d9d47218f5ec55f2461629eef35606faa7454b44c08369ed8ba4adbf99",
+      "bbox": [
+        26,
+        140,
+        486,
+        372
       ]
     },
     "function_calling_default.png": {
@@ -290,6 +401,19 @@
         26,
         26,
         486,
+        486
+      ]
+    },
+    "groq_default.png": {
+      "icon_name": "groq",
+      "variant": "default",
+      "source_script": "original_ai/groq_default.py",
+      "size_bytes": 26992,
+      "sha256": "d6a67179b088f4904241b21e7253ce9f64d8cb48f0b8d3688c67ec8a7c370deb",
+      "bbox": [
+        93,
+        26,
+        418,
         486
       ]
     },
@@ -423,6 +547,19 @@
         486
       ]
     },
+    "livekit_default.png": {
+      "icon_name": "livekit",
+      "variant": "default",
+      "source_script": "original_ai/livekit_default.py",
+      "size_bytes": 1960,
+      "sha256": "743aa7fb3abec2d7d8a2561c55cd198cb7e4e7110d0292e75529d6987f519123",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
     "llamaindex_default.png": {
       "icon_name": "llamaindex",
       "variant": "default",
@@ -442,6 +579,19 @@
       "source_script": "original_ai/llm_model_default.py",
       "size_bytes": 20626,
       "sha256": "1c5b1b5ee312506295a82858296874d41a8c1fbd0a8ca26936454ef62fe9b82f",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "mastra_default.png": {
+      "icon_name": "mastra",
+      "variant": "default",
+      "source_script": "original_ai/mastra_default.py",
+      "size_bytes": 70261,
+      "sha256": "633985014fe0a2252d4db5509ea19982390874553bb9f58ca09319bd699b3e08",
       "bbox": [
         26,
         26,
@@ -499,6 +649,19 @@
         26,
         486,
         486
+      ]
+    },
+    "modal_default.png": {
+      "icon_name": "modal",
+      "variant": "default",
+      "source_script": "original_ai/modal_default.py",
+      "size_bytes": 42928,
+      "sha256": "47ce12278cf3722f0cc7e85177b941091df9aeb94a54db3fd4ce96c67c3db219",
+      "bbox": [
+        26,
+        131,
+        486,
+        381
       ]
     },
     "model_registry_default.png": {
@@ -631,6 +794,19 @@
         418
       ]
     },
+    "openrouter_default.png": {
+      "icon_name": "openrouter",
+      "variant": "default",
+      "source_script": "original_ai/openrouter_default.py",
+      "size_bytes": 23059,
+      "sha256": "f7ca3d9fb31bb18649794a241587b66b863bbe2141b344c3bc5b53c103ebbd1e",
+      "bbox": [
+        26,
+        92,
+        486,
+        420
+      ]
+    },
     "perplexity_default.png": {
       "icon_name": "perplexity",
       "variant": "default",
@@ -668,6 +844,19 @@
         41,
         486,
         470
+      ]
+    },
+    "pydantic_ai_default.png": {
+      "icon_name": "pydantic_ai",
+      "variant": "default",
+      "source_script": "original_ai/pydantic_ai_default.py",
+      "size_bytes": 36552,
+      "sha256": "8adefb634cdd51f9cde70f3cd92f6006bc07a0d9dcd43433b45bf2c4bfe70d23",
+      "bbox": [
+        26,
+        56,
+        486,
+        456
       ]
     },
     "pytorch_default.png": {
@@ -722,6 +911,32 @@
         486
       ]
     },
+    "replicate_default.png": {
+      "icon_name": "replicate",
+      "variant": "default",
+      "source_script": "original_ai/replicate_default.py",
+      "size_bytes": 2029,
+      "sha256": "b128292e13f02579e3316d3cd8074d8093fa663f4cd665f26789910ce8149058",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "runpod_default.png": {
+      "icon_name": "runpod",
+      "variant": "default",
+      "source_script": "original_ai/runpod_default.py",
+      "size_bytes": 45912,
+      "sha256": "93072d71a19c39e9e33c67559bf3e1ae551ac1d55ab44c7779314e99fa643db9",
+      "bbox": [
+        45,
+        26,
+        467,
+        486
+      ]
+    },
     "scikit_learn_default.png": {
       "icon_name": "scikit_learn",
       "variant": "default",
@@ -748,6 +963,19 @@
         486
       ]
     },
+    "sglang_default.png": {
+      "icon_name": "sglang",
+      "variant": "default",
+      "source_script": "original_ai/sglang_default.py",
+      "size_bytes": 22908,
+      "sha256": "9b7a46ea07e6c06a527c251f62b64682192ef3acac285d7cb38bf5ccbdd0f33a",
+      "bbox": [
+        51,
+        26,
+        461,
+        486
+      ]
+    },
     "streamlit_default.png": {
       "icon_name": "streamlit",
       "variant": "default",
@@ -759,6 +987,19 @@
         128,
         486,
         384
+      ]
+    },
+    "tavily_default.png": {
+      "icon_name": "tavily",
+      "variant": "default",
+      "source_script": "original_ai/tavily_default.py",
+      "size_bytes": 22024,
+      "sha256": "e3c4a2584cb34d5c59c6b0ad1f83fbcad5a10c1764e9be4d14d56bab977c4551",
+      "bbox": [
+        29,
+        26,
+        483,
+        486
       ]
     },
     "tensorflow_default.png": {
@@ -774,6 +1015,19 @@
         486
       ]
     },
+    "together_ai_default.png": {
+      "icon_name": "together_ai",
+      "variant": "default",
+      "source_script": "original_ai/together_ai_default.py",
+      "size_bytes": 30469,
+      "sha256": "75e6761dff9f6a1827613f02f85bbe911572f8b1db6f0ccca5ac863c352a87ff",
+      "bbox": [
+        26,
+        41,
+        486,
+        470
+      ]
+    },
     "training_pipeline_default.png": {
       "icon_name": "training_pipeline",
       "variant": "default",
@@ -784,6 +1038,19 @@
         41,
         26,
         471,
+        486
+      ]
+    },
+    "triton_default.png": {
+      "icon_name": "triton",
+      "variant": "default",
+      "source_script": "original_ai/triton_default.py",
+      "size_bytes": 24678,
+      "sha256": "2aee64deb94b14be42ab04142e428b554e5eed2b60891babd6be90982f896cf3",
+      "bbox": [
+        26,
+        26,
+        486,
         486
       ]
     },

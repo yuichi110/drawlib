@@ -1,7 +1,7 @@
 {
   "format_version": "2.0",
   "provider": "data",
-  "created_at": "2026-10-19T01:02:33.015592+00:00",
+  "created_at": "2026-10-19T13:23:23.329440+00:00",
   "canvas_size": [
     512,
     512
@@ -10,20 +10,25 @@
     460,
     460
   ],
-  "total_files": 50,
+  "total_files": 70,
   "aliases": {
     "apache_airflow": "airflow",
+    "apache_arrow": "arrow",
     "apache_beam": "beam",
     "apache_cassandra": "cassandra",
+    "apache_doris": "doris",
     "apache_druid": "druid",
     "apache_flink": "flink",
     "apache_hadoop": "hadoop",
+    "apache_hudi": "hudi",
     "apache_iceberg": "iceberg",
     "apache_kafka": "kafka",
     "apache_nifi": "nifi",
+    "apache_parquet": "parquet",
     "apache_pulsar": "pulsar",
     "apache_spark": "spark",
     "apache_superset": "superset",
+    "chroma": "chromadb",
     "cockroach": "cockroachdb",
     "crdb": "cockroachdb",
     "delta": "delta_lake",
@@ -39,7 +44,9 @@
     "rabbit": "rabbitmq",
     "scylla": "scylladb",
     "sqlserver": "sql_server",
-    "timescale": "timescaledb"
+    "timescale": "timescaledb",
+    "yb": "yugabytedb",
+    "yugabyte": "yugabytedb"
   },
   "files": {
     "airbyte_default.png": {
@@ -68,6 +75,19 @@
         486
       ]
     },
+    "arrow_default.png": {
+      "icon_name": "arrow",
+      "variant": "default",
+      "source_script": "data/arrow_default.py",
+      "size_bytes": 9868,
+      "sha256": "afb2a7b65f80bc4b2487c150346908eefbea5c51e8d44c236b686d7690602ef4",
+      "bbox": [
+        26,
+        64,
+        486,
+        448
+      ]
+    },
     "beam_default.png": {
       "icon_name": "beam",
       "variant": "default",
@@ -92,6 +112,19 @@
         134,
         486,
         377
+      ]
+    },
+    "chromadb_default.png": {
+      "icon_name": "chromadb",
+      "variant": "default",
+      "source_script": "data/chromadb_default.py",
+      "size_bytes": 11672,
+      "sha256": "11150ac6bcc7698654d7215f8c04293fd77bb44d55eb78dc5c2f701e15b1741a",
+      "bbox": [
+        26,
+        108,
+        486,
+        403
       ]
     },
     "clickhouse_default.png": {
@@ -159,6 +192,19 @@
         486
       ]
     },
+    "datahub_default.png": {
+      "icon_name": "datahub",
+      "variant": "default",
+      "source_script": "data/datahub_default.py",
+      "size_bytes": 11673,
+      "sha256": "a5154140136f78745f929c98270e614031ef802eb0cc111ba482aad6f9a74b60",
+      "bbox": [
+        26,
+        183,
+        486,
+        328
+      ]
+    },
     "dbt_default.png": {
       "icon_name": "dbt",
       "variant": "default",
@@ -195,6 +241,19 @@
         26,
         26,
         486,
+        486
+      ]
+    },
+    "doris_default.png": {
+      "icon_name": "doris",
+      "variant": "default",
+      "source_script": "data/doris_default.py",
+      "size_bytes": 16899,
+      "sha256": "cb9ad0eab68519e4febe2fddf5c0105bdb1ff716ca6bda4e4676b38db8511e9b",
+      "bbox": [
+        82,
+        26,
+        429,
         486
       ]
     },
@@ -237,6 +296,19 @@
         486
       ]
     },
+    "fivetran_default.png": {
+      "icon_name": "fivetran",
+      "variant": "default",
+      "source_script": "data/fivetran_default.py",
+      "size_bytes": 15467,
+      "sha256": "b5cb34a1960ea20ed6b625411c17e014fd0848d1e9ad760ee79f3a01fe142f33",
+      "bbox": [
+        90,
+        26,
+        421,
+        486
+      ]
+    },
     "flink_default.png": {
       "icon_name": "flink",
       "variant": "default",
@@ -261,6 +333,19 @@
         83,
         486,
         428
+      ]
+    },
+    "hudi_default.png": {
+      "icon_name": "hudi",
+      "variant": "default",
+      "source_script": "data/hudi_default.py",
+      "size_bytes": 22254,
+      "sha256": "82da9e8e14055378883e7c74c4751fe51dda6f9f2b5fbfe2a18abbb8265000ec",
+      "bbox": [
+        26,
+        44,
+        486,
+        468
       ]
     },
     "iceberg_default.png": {
@@ -302,6 +387,19 @@
         486
       ]
     },
+    "lancedb_default.png": {
+      "icon_name": "lancedb",
+      "variant": "default",
+      "source_script": "data/lancedb_default.py",
+      "size_bytes": 25122,
+      "sha256": "39f2aca40d057d435f487b152a17a3a5ef5233e9c0e1f4fc687bcd76a29150ab",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
     "mariadb_default.png": {
       "icon_name": "mariadb",
       "variant": "default",
@@ -313,6 +411,19 @@
         103,
         486,
         409
+      ]
+    },
+    "marimo_default.png": {
+      "icon_name": "marimo",
+      "variant": "default",
+      "source_script": "data/marimo_default.py",
+      "size_bytes": 61586,
+      "sha256": "e235f7e7bc55bde9113d8fba7bbd10ae5e0fb6b1da3c13d1b054277bf9f47d02",
+      "bbox": [
+        33,
+        26,
+        478,
+        486
       ]
     },
     "meilisearch_default.png": {
@@ -338,6 +449,19 @@
         26,
         26,
         486,
+        486
+      ]
+    },
+    "metabase_default.png": {
+      "icon_name": "metabase",
+      "variant": "default",
+      "source_script": "data/metabase_default.py",
+      "size_bytes": 25977,
+      "sha256": "04c1ff1f5c477a3c83cb94d186ee7d341e464ed1ae37463f8e5f169f17cc23c6",
+      "bbox": [
+        74,
+        26,
+        438,
         486
       ]
     },
@@ -419,6 +543,19 @@
         471
       ]
     },
+    "neon_default.png": {
+      "icon_name": "neon",
+      "variant": "default",
+      "source_script": "data/neon_default.py",
+      "size_bytes": 11105,
+      "sha256": "9d1c45e3643e3877e7f7c15032025a6c9c3579d5603f1b41229ff90c4a2ea4fe",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
     "nifi_default.png": {
       "icon_name": "nifi",
       "variant": "default",
@@ -429,6 +566,19 @@
         92,
         26,
         420,
+        486
+      ]
+    },
+    "openmetadata_default.png": {
+      "icon_name": "openmetadata",
+      "variant": "default",
+      "source_script": "data/openmetadata_default.py",
+      "size_bytes": 15966,
+      "sha256": "448bc269fa9461636f2947aac04ed0073eb9d39d29dfe9c32b2f76d996ceda1e",
+      "bbox": [
+        30,
+        26,
+        482,
         486
       ]
     },
@@ -458,6 +608,58 @@
         486
       ]
     },
+    "parquet_default.png": {
+      "icon_name": "parquet",
+      "variant": "default",
+      "source_script": "data/parquet_default.py",
+      "size_bytes": 28304,
+      "sha256": "4b1be9a29de2760eaf108874cd93063b2cff62422c57d559aa05390befd9c6d6",
+      "bbox": [
+        26,
+        84,
+        486,
+        427
+      ]
+    },
+    "pgvector_default.png": {
+      "icon_name": "pgvector",
+      "variant": "default",
+      "source_script": "data/pgvector_default.py",
+      "size_bytes": 13105,
+      "sha256": "ee49615aecbf94053437e54065480a4605102c1e4c7e4f36b445a5cb109df891",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "planetscale_default.png": {
+      "icon_name": "planetscale",
+      "variant": "default",
+      "source_script": "data/planetscale_default.py",
+      "size_bytes": 12964,
+      "sha256": "c5013ecc3916965e1fd914d0f6edffc7d23a8abc8e512f6c62abfb4fcf92604b",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "polars_default.png": {
+      "icon_name": "polars",
+      "variant": "default",
+      "source_script": "data/polars_default.py",
+      "size_bytes": 11088,
+      "sha256": "d5e23d0f8d6fba32043b3de606ab023de9d67655a362c6d14571bca5e9c3dbef",
+      "bbox": [
+        26,
+        141,
+        486,
+        370
+      ]
+    },
     "postgresql_default.png": {
       "icon_name": "postgresql",
       "variant": "default",
@@ -468,6 +670,19 @@
         32,
         26,
         479,
+        486
+      ]
+    },
+    "prefect_default.png": {
+      "icon_name": "prefect",
+      "variant": "default",
+      "source_script": "data/prefect_default.py",
+      "size_bytes": 9037,
+      "sha256": "7b4e2f4419239d226ad270a77be59215954f4c27eec88c6524c8b7bbc0818b71",
+      "bbox": [
+        108,
+        26,
+        404,
         486
       ]
     },
@@ -507,6 +722,19 @@
         26,
         26,
         486,
+        486
+      ]
+    },
+    "redash_default.png": {
+      "icon_name": "redash",
+      "variant": "default",
+      "source_script": "data/redash_default.py",
+      "size_bytes": 11580,
+      "sha256": "7d0dbb5cd825e1e1540a167d44740af893566e4fcdcb92ce41733a66ddec1287",
+      "bbox": [
+        75,
+        26,
+        437,
         486
       ]
     },
@@ -601,6 +829,19 @@
         486
       ]
     },
+    "starrocks_default.png": {
+      "icon_name": "starrocks",
+      "variant": "default",
+      "source_script": "data/starrocks_default.py",
+      "size_bytes": 20934,
+      "sha256": "ab05accf6c21c260b8e12d6582a7f37c7e67811b95a61b0b79e4287c09cddd45",
+      "bbox": [
+        50,
+        26,
+        461,
+        486
+      ]
+    },
     "supabase_default.png": {
       "icon_name": "supabase",
       "variant": "default",
@@ -666,6 +907,19 @@
         486
       ]
     },
+    "turso_default.png": {
+      "icon_name": "turso",
+      "variant": "default",
+      "source_script": "data/turso_default.py",
+      "size_bytes": 22843,
+      "sha256": "88d68dd8e4e1de6dec9196fac92d0373b3ae73171e0d6d2e0922acca68cee5e0",
+      "bbox": [
+        39,
+        26,
+        473,
+        486
+      ]
+    },
     "valkey_default.png": {
       "icon_name": "valkey",
       "variant": "default",
@@ -690,6 +944,19 @@
         117,
         486,
         395
+      ]
+    },
+    "yugabytedb_default.png": {
+      "icon_name": "yugabytedb",
+      "variant": "default",
+      "source_script": "data/yugabytedb_default.py",
+      "size_bytes": 8428,
+      "sha256": "c97384dbca107b711a2a8bcb37d5d5b0e554b5cbedecbf99197565e8e6b61985",
+      "bbox": [
+        26,
+        47,
+        486,
+        465
       ]
     }
   }

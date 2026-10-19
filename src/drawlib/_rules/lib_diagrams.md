@@ -954,10 +954,12 @@ cd.draw(xy=(0.0, 0.0))
 - **Nullable**: `nullable=False` marks mandatory fields.
 - **Batch Additions**:
   ```python
-  entity.add_columns([
-      ("user_id", "INT", False, True, False),  # (name, type, pk, fk, nullable)
-      ("created_at", "TIMESTAMP"),
-  ])
+  entity.add_columns(
+      [
+          ("user_id", "INT", False, True, False),  # (name, type, pk, fk, nullable)
+          ("created_at", "TIMESTAMP"),
+      ]
+  )
   ```
 - **Dynamic vs Fixed Sizing**: Entities automatically calculate their height from column counts. If an explicit `height` is passed that exceeds content, the extra space is kept as a clean, blank background margin.
 
@@ -981,8 +983,8 @@ rel = users.connect(
     cardinality="1:*",
     start_side="right",
     end_side="left",
-    start_column="id",       # Anchors to 'id' row in users
-    end_column="user_id",    # Anchors to 'user_id' row in orders
+    start_column="id",  # Anchors to 'id' row in users
+    end_column="user_id",  # Anchors to 'user_id' row in orders
     label="places",
     show=True,
 )

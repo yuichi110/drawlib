@@ -50,11 +50,11 @@ from drawlib.tools import build_html
 build_html(
     input_path="docs_src/",
     output="docs_html/",
-    styles="styles.py",             # Optional Python styles script
-    utils="utils.py",               # Optional Python utils script
-    css_mode="external",            # "external" (default) or "embed"
-    no_cache=False,                 # Force re-rendering all code blocks
-    image_format="png",             # "png" or "webp"
+    styles="styles.py",  # Optional Python styles script
+    utils="utils.py",  # Optional Python utils script
+    css_mode="external",  # "external" (default) or "embed"
+    no_cache=False,  # Force re-rendering all code blocks
+    image_format="png",  # "png" or "webp"
 )
 ```
 
@@ -115,9 +115,9 @@ from drawlib.tools import export_code_block
 # Export block 1 from a Markdown document:
 export_code_block(
     file_path="docs_src/architecture.md",
-    target="1",                      # 1-based index or target filename (e.g. "arch.png")
+    target="1",  # 1-based index or target filename (e.g. "arch.png")
     output_path=".drawlib/scratch/arch.png",
-    grid=True,                       # Overlay coordinate grid lines (-g)
+    grid=True,  # Overlay coordinate grid lines (-g)
     styles_path="styles.py",
     utils_path="utils.py",
 )
@@ -211,7 +211,7 @@ from drawlib.tools import export_css, list_css
 
 # List CSS style presets:
 html_presets = list_css(target="html")  # [{"name": "google", "description": ...}, ...]
-pdf_presets = list_css(target="pdf")    # [{"name": "default", ...}, ...]
+pdf_presets = list_css(target="pdf")  # [{"name": "default", ...}, ...]
 
 # Export a preset CSS stylesheet:
 export_css(name="google", output_path="style.css", target="html", force=True)
@@ -226,6 +226,7 @@ export_css(name="google", output_path="style.css", target="html", force=True)
 ```python
 from pathlib import Path
 from drawlib.tools import build_html, build_markdown, export_code_block
+
 
 def run_documentation_pipeline() -> None:
     src_dir = Path("docs_src")
@@ -246,6 +247,7 @@ def run_documentation_pipeline() -> None:
     )
     print("Documentation build completed successfully!")
 
+
 if __name__ == "__main__":
     run_documentation_pipeline()
 ```
@@ -255,6 +257,7 @@ if __name__ == "__main__":
 ```python
 from pathlib import Path
 from drawlib.tools import export_code_block
+
 
 def test_architecture_diagram_generation(tmp_path: Path) -> None:
     output_png = tmp_path / "test_arch.png"

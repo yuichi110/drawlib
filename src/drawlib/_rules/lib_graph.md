@@ -103,10 +103,34 @@ layout = g.get_layout(margin=8.0)
 for e in layout.edges:
     lines(e.points, arrow_head="->", style=Styles.DarkBold)
 
-circle(layout["A"].xy, radius=8.0, style=Styles.PrimaryFlat, text="A\n(16, 26)", text_style=Styles.WhiteBold.patch(text_size=10.5))
-circle(layout["B"].xy, radius=8.0, style=Styles.PrimaryNeutral, text="B\n(50, 36)", text_style=Styles.DarkBold.patch(text_size=10.5))
-circle(layout["C"].xy, radius=8.0, style=Styles.PrimaryNeutral, text="C\n(50, 16)", text_style=Styles.DarkBold.patch(text_size=10.5))
-circle(layout["D"].xy, radius=8.0, style=Styles.SecondaryNeutral, text="D\n(84, 26)", text_style=Styles.DarkBold.patch(text_size=10.5))
+circle(
+    layout["A"].xy,
+    radius=8.0,
+    style=Styles.PrimaryFlat,
+    text="A\n(16, 26)",
+    text_style=Styles.WhiteBold.patch(text_size=10.5),
+)
+circle(
+    layout["B"].xy,
+    radius=8.0,
+    style=Styles.PrimaryNeutral,
+    text="B\n(50, 36)",
+    text_style=Styles.DarkBold.patch(text_size=10.5),
+)
+circle(
+    layout["C"].xy,
+    radius=8.0,
+    style=Styles.PrimaryNeutral,
+    text="C\n(50, 16)",
+    text_style=Styles.DarkBold.patch(text_size=10.5),
+)
+circle(
+    layout["D"].xy,
+    radius=8.0,
+    style=Styles.SecondaryNeutral,
+    text="D\n(84, 26)",
+    text_style=Styles.DarkBold.patch(text_size=10.5),
+)
 
 save()
 ```

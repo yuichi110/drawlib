@@ -14,6 +14,7 @@ from __future__ import annotations
 from drawlib._icons.png_icons._base import PngIconProvider
 
 ORIGINAL_CODE_ALIASES: dict[str, str] = {
+    "apollo_graphql": "apollo",
     "aspnet": "dotnet",
     "assertion": "unit_test",
     "async_worker": "background_worker",
@@ -37,6 +38,7 @@ ORIGINAL_CODE_ALIASES: dict[str, str] = {
     "dependency": "package_module",
     "dom_tree": "xml_markup",
     "echo_go": "echo",
+    "elixir_lang": "elixir",
     "endpoint": "rest_api",
     "event_hook": "webhook",
     "executable": "binary_executable",
@@ -55,12 +57,14 @@ ORIGINAL_CODE_ALIASES: dict[str, str] = {
     "job_worker": "background_worker",
     "js": "javascript",
     "json_data": "json_schema",
+    "julia_lang": "julia",
     "jvm": "java",
     "kt": "kotlin",
     "lambda_func": "serverless_func",
     "lexer": "regex_parser",
     "library": "sdk_library",
     "linter": "linter_formatter",
+    "lua_lang": "lua",
     "markup_doc": "xml_markup",
     "module": "package_module",
     "monolithic_app": "monolith",
@@ -75,6 +79,7 @@ ORIGINAL_CODE_ALIASES: dict[str, str] = {
     "proto": "protobuf",
     "py": "python",
     "query_api": "graphql_api",
+    "r_lang": "r",
     "rb": "ruby",
     "reactjs": "react",
     "realtime_stream": "websocket",
@@ -84,6 +89,7 @@ ORIGINAL_CODE_ALIASES: dict[str, str] = {
     "rs": "rust",
     "ruby_on_rails": "rails",
     "runtime": "runtime_vm",
+    "scala_lang": "scala",
     "scheduled_task": "cron_job",
     "script": "source_code",
     "sdk": "sdk_library",
@@ -92,6 +98,7 @@ ORIGINAL_CODE_ALIASES: dict[str, str] = {
     "sh": "bash",
     "shell": "bash",
     "socket": "websocket",
+    "sol": "solidity",
     "spring_boot": "spring",
     "static_analysis": "linter_formatter",
     "swagger": "openapi",
@@ -105,6 +112,7 @@ ORIGINAL_CODE_ALIASES: dict[str, str] = {
     "vs_code": "vscode",
     "vue": "vuejs",
     "wasm": "webassembly",
+    "zig_lang": "zig",
 }
 
 ORIGINAL_CODE_PROVIDER = PngIconProvider(

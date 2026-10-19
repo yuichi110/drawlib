@@ -288,9 +288,7 @@ class TestGanttChartRendering:
                 draw_ratio=0.5,
                 draw_direction="bottom_to_top",
             )
-            t2 = chart.add_task(
-                "Build", start="W2", end="W4", style=Style(shape_fill_color=(40, 200, 120)), show=False
-            )
+            t2 = chart.add_task("Build", start="W2", end="W4", style=Style(shape_fill_color=(40, 200, 120)), show=False)
             ms = chart.add_milestone("Launch", at="W4", style=Style(shape_fill_color=(255, 200, 0)), show=False)
             mk = chart.add_marker(at=1.5, style=Style(line_color=(239, 68, 68)), show=False)
             dep = chart.add_dependency(t1, t2, show=True)

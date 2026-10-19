@@ -19,12 +19,11 @@ All public color classes and conversion utilities are imported from `drawlib.pre
 from drawlib.preset_colors import (
     # First-class Color model
     Color,
-
     # Standard Color Constant Classes
-    CssColors,               # Full CSS / W3C 140 standard named colors
-    DefaultColors,           # Palette class used by preset style 'default'
-    MonochromeColors,        # Grayscale palette class used by 'monochrome'
-    GoogleColors,            # Palette class used by 'google' theme
+    CssColors,  # Full CSS / W3C 140 standard named colors
+    DefaultColors,  # Palette class used by preset style 'default'
+    MonochromeColors,  # Grayscale palette class used by 'monochrome'
+    GoogleColors,  # Palette class used by 'google' theme
 )
 
 # Or access active theme colors dynamically as PascalCase tokens:
@@ -70,13 +69,13 @@ The standard set for rapid prototyping, architecture diagrams, and geometric sty
 Contains all 140 standardized CSS color definitions for precise styling:
 
 ```python
-CssColors.AliceBlue          # (240, 248, 255)
-CssColors.CornflowerBlue     # (100, 149, 237)
-CssColors.DarkSlateGray      # (47, 79, 79)
-CssColors.LightCoral         # (240, 128, 128)
-CssColors.MediumSeaGreen     # (60, 179, 113)
-CssColors.MidnightBlue       # (25, 25, 112)
-CssColors.SteelBlue          # (70, 130, 180)
+CssColors.AliceBlue  # (240, 248, 255)
+CssColors.CornflowerBlue  # (100, 149, 237)
+CssColors.DarkSlateGray  # (47, 79, 79)
+CssColors.LightCoral  # (240, 128, 128)
+CssColors.MediumSeaGreen  # (60, 179, 113)
+CssColors.MidnightBlue  # (25, 25, 112)
+CssColors.SteelBlue  # (70, 130, 180)
 # ... and 133 more standardized web color attributes
 ```
 
@@ -115,7 +114,7 @@ Parse hexadecimal color notation with optional alpha override:
 from drawlib.preset_colors import Color
 
 # 6-digit hex string
-c1 = Color.from_hex("#3498db")             # (52, 152, 219, 1.0)
+c1 = Color.from_hex("#3498db")  # (52, 152, 219, 1.0)
 
 # Direct instantiation
 c2 = Color("#3498db")
@@ -125,7 +124,7 @@ c3 = Color.from_hex("#2ecc71", alpha=0.5)  # (46, 204, 113, 0.5)
 c4 = Color("#2ecc71", alpha=0.5)
 
 # 3-digit shorthand
-c5 = Color("#f00")                         # (255, 0, 0, 1.0)
+c5 = Color("#f00")  # (255, 0, 0, 1.0)
 ```
 
 ### 4.3. Channel Properties & Conversions
@@ -135,13 +134,13 @@ c5 = Color("#f00")                         # (255, 0, 0, 1.0)
 from drawlib.styles import Colors
 
 c = Colors.Blue.patch(alpha=0.5)
-print(c.r)     # 31
-print(c.g)     # 31
-print(c.b)     # 255
-print(c.alpha) # 0.5 (alias: c.a)
-print(c.rgb)   # (31, 31, 255)
+print(c.r)  # 31
+print(c.g)  # 31
+print(c.b)  # 255
+print(c.alpha)  # 0.5 (alias: c.a)
+print(c.rgb)  # (31, 31, 255)
 print(c.rgba)  # (31, 31, 255, 0.5)
-print(c.hex)   # '#1f1fff80'
+print(c.hex)  # '#1f1fff80'
 ```
 
 ---

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+  <!-- Palo Alto Networks Prisma Cloud 3-Facet Cyan/Blue Prism Shield -->
+  <polygon points="128,18 226,86 128,136" fill="#00C0E8"/>
+  <polygon points="128,18 30,86 128,136" fill="#38BDF8"/>
+  <polygon points="30,86 128,136 128,238" fill="#0284C7"/>
+  <polygon points="226,86 128,136 128,238" fill="#0369A1"/>
+  <polygon points="128,62 178,98 128,186 78,98" fill="#FFFFFF" fill-opacity="0.28"/>
+</svg>

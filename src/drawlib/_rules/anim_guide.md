@@ -73,7 +73,7 @@ start_xy, end_xy = (32, 20), (68, 20)
 tips = [*get_intermediate_points(start_xy, end_xy, num=5), end_xy]
 
 for i, tip_xy in enumerate(tips):
-    is_last = (i == len(tips) - 1)
+    is_last = i == len(tips) - 1
     with anim.frame(duration=2.0 if is_last else 0.12):
         rectangle((20, 20), width=20, height=14, style=Styles.Neutral.patch(shape_r=2), text="Source")
         dst_style = Styles.PrimaryFlat if is_last else Styles.Neutral
@@ -116,7 +116,7 @@ for pkt_xy in packet_pts:
 
 # Phase 2: Receiver smoothly transitions from White to Primary
 for i, bg_color in enumerate(fade_colors):
-    is_last = (i == len(fade_colors) - 1)
+    is_last = i == len(fade_colors) - 1
     with anim.frame(duration=2.0 if is_last else 0.12):
         rectangle((20, 20), width=20, height=14, style=Styles.Neutral, text="Sender")
         recv_style = Styles.Neutral.patch(shape_fill_color=bg_color)
@@ -147,7 +147,7 @@ anim = Animation(fps=1.5)
 stages = ["Plan", "Build", "Test", "Deploy"]
 
 for step in range(len(stages)):
-    is_last = (step == len(stages) - 1)
+    is_last = step == len(stages) - 1
     with anim.frame(duration=2.5 if is_last else 0.8):
         proc = ChevronProcess(
             style=Styles.Neutral,
@@ -306,11 +306,11 @@ flow.connect(nodes[1], nodes[2])
 
 for step in range(len(nodes)):
     for i, node in enumerate(nodes):
-        node.show = (i <= step)
+        node.show = i <= step
         node.style = Styles.PrimaryFlat if i == step else Styles.PrimaryNeutral
         node.text_style = Styles.WhiteBold if i == step else Styles.DarkBold
 
-    is_last = (step == len(nodes) - 1)
+    is_last = step == len(nodes) - 1
     with anim.frame(duration=2.5 if is_last else 0.8):
         flow.draw()
 

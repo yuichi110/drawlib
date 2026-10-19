@@ -248,4 +248,3 @@ class TestOrthogonalRouting:
         # Right exit to Bottom entry
         path = compute_orthogonal_path((10.0, 10.0), (30.0, 30.0), start_side="right", end_side="bottom")
         assert path == [(10.0, 10.0), (30.0, 10.0), (30.0, 30.0)]
-

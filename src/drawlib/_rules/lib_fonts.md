@@ -12,14 +12,12 @@ All public font classes are imported from `drawlib.fonts`:
 from drawlib.fonts import (
     # Universal & Default Fonts (CJK + Latin)
     Font,
-
     # Alphabet & Technical Typography
     FontSansSerif,
     FontSerif,
     FontMonoSpace,
     FontRoboto,
     FontSourceCode,
-
     # Regional & Non-Latin Scripts
     FontJapanese,
     FontChinese,
@@ -27,7 +25,6 @@ from drawlib.fonts import (
     FontArabic,
     FontThai,
     FontBrahmic,
-
     # Custom Font File Loader
     FontFile,
 )
@@ -57,7 +54,7 @@ uv run drawlib cache clear
 
 ```python
 Font.SANSSERIF_THIN
-Font.SANSSERIF_REGULAR    # Default font for shapes and canvas text
+Font.SANSSERIF_REGULAR  # Default font for shapes and canvas text
 Font.SANSSERIF_BOLD
 Font.SERIF_THIN
 Font.SERIF_REGULAR

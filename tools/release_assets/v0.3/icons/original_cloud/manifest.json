@@ -1,7 +1,7 @@
 {
   "format_version": "2.0",
   "provider": "original_cloud",
-  "created_at": "2026-10-19T01:02:56.273686+00:00",
+  "created_at": "2026-10-19T13:24:02.420366+00:00",
   "canvas_size": [
     512,
     512
@@ -10,7 +10,7 @@
     460,
     460
   ],
-  "total_files": 142,
+  "total_files": 147,
   "aliases": {
     "ad": "directory_service",
     "agent": "ai_agent",
@@ -22,6 +22,8 @@
     "apigw": "api_gateway",
     "audit": "audit_compliance",
     "auth": "identity_auth",
+    "b2": "backblaze",
+    "backblaze_b2": "backblaze",
     "backup": "backup_archive",
     "bastion": "bastion_host",
     "batch": "batch_job",
@@ -37,6 +39,7 @@
     "cron": "scheduler",
     "db": "database",
     "ddos": "ddos_protection",
+    "deno": "deno_deploy",
     "desktop": "desktop_app",
     "disk": "block_storage",
     "do": "digitalocean",
@@ -286,6 +289,19 @@
         473
       ]
     },
+    "backblaze_default.png": {
+      "icon_name": "backblaze",
+      "variant": "default",
+      "source_script": "original_cloud/backblaze_default.py",
+      "size_bytes": 29409,
+      "sha256": "3c1dd08303403adc89e8a55535c7e7933acbfe6c56545ec68f119fd7820d0887",
+      "bbox": [
+        118,
+        26,
+        394,
+        486
+      ]
+    },
     "backup_archive_default.png": {
       "icon_name": "backup_archive",
       "variant": "default",
@@ -507,6 +523,19 @@
         486
       ]
     },
+    "coolify_default.png": {
+      "icon_name": "coolify",
+      "variant": "default",
+      "source_script": "original_cloud/coolify_default.py",
+      "size_bytes": 2873,
+      "sha256": "6974761b6b41649e4a179e1b13e744485e9f9913ba833fbb57f0eef2939840bc",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
     "cost_management_default.png": {
       "icon_name": "cost_management",
       "variant": "default",
@@ -622,6 +651,19 @@
         102,
         486,
         409
+      ]
+    },
+    "deno_deploy_default.png": {
+      "icon_name": "deno_deploy",
+      "variant": "default",
+      "source_script": "original_cloud/deno_deploy_default.py",
+      "size_bytes": 55727,
+      "sha256": "61791b37a885a8f706218e0520b59c4b56fcbe668bef7fbd599ca1d0c1fb9142",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
       ]
     },
     "desktop_app_default.png": {
@@ -1729,6 +1771,19 @@
         462
       ]
     },
+    "upstash_default.png": {
+      "icon_name": "upstash",
+      "variant": "default",
+      "source_script": "original_cloud/upstash_default.py",
+      "size_bytes": 41661,
+      "sha256": "636fcfb160474c8f7bcbb7aa45e27372ea45cfbf9f476621321aaf149d7227f9",
+      "bbox": [
+        79,
+        26,
+        432,
+        486
+      ]
+    },
     "user_default.png": {
       "icon_name": "user",
       "variant": "default",
@@ -1896,6 +1951,19 @@
         38,
         486,
         473
+      ]
+    },
+    "wasabi_default.png": {
+      "icon_name": "wasabi",
+      "variant": "default",
+      "source_script": "original_cloud/wasabi_default.py",
+      "size_bytes": 55883,
+      "sha256": "64cbf4381f4297f98db08b03ff9c95313693087ce7886eab8ff88a1a75502fee",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
       ]
     },
     "web_browser_default.png": {

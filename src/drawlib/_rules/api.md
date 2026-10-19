@@ -18,22 +18,73 @@ from drawlib.preset_colors import CssColors, DefaultColors, GoogleColors, Monoch
 
 # 3. Drawing Primitives
 from drawlib.shapes import (
-    arc, arrow, arrow_arc, arrow_l, arrow_polyline, arrow_u, brace, bubblespeech,
-    checkmark, chevron, circle, clock, cloud, cube, cylinder, document, ellipse,
-    explosion, face, fan, forbidden, funnel, gear, heart, lightning, math_symbol,
-    moon, parallelogram, pin, plaque, polygon, rectangle, regularpolygon, rhombus,
-    ribbon, shape, shield, star, sun, tag, trapezoid, triangle, wedge,
+    arc,
+    arrow,
+    arrow_arc,
+    arrow_l,
+    arrow_polyline,
+    arrow_u,
+    brace,
+    bubblespeech,
+    checkmark,
+    chevron,
+    circle,
+    clock,
+    cloud,
+    cube,
+    cylinder,
+    document,
+    ellipse,
+    explosion,
+    face,
+    fan,
+    forbidden,
+    funnel,
+    gear,
+    heart,
+    lightning,
+    math_symbol,
+    moon,
+    parallelogram,
+    pin,
+    plaque,
+    polygon,
+    rectangle,
+    regularpolygon,
+    rhombus,
+    ribbon,
+    shape,
+    shield,
+    star,
+    sun,
+    tag,
+    trapezoid,
+    triangle,
+    wedge,
 )
 from drawlib.lines import (
-    line, line_arc, line_bezier1, line_bezier2, line_curved,
-    lines, lines_curved, lines_bezier,
+    line,
+    line_arc,
+    line_bezier1,
+    line_bezier2,
+    line_curved,
+    lines,
+    lines_curved,
+    lines_bezier,
 )
 from drawlib.text import text, text_vertical
 
 # 4. High-Level Diagrams & Auto-Layout Graphs
 from drawlib.graph import (
-    ArchitectureGraph, Cluster, Edge, GraphLayout, GridGraph,
-    LayerGraph, Node, RadialGraph, TreeGraph,
+    ArchitectureGraph,
+    Cluster,
+    Edge,
+    GraphLayout,
+    GridGraph,
+    LayerGraph,
+    Node,
+    RadialGraph,
+    TreeGraph,
 )
 from drawlib.diagrams.architecture import ArchitectureDiagram, Edge, Junction, Node, NodeGroup
 from drawlib.diagrams.flow import FlowDiagram
@@ -44,10 +95,27 @@ from drawlib.diagrams.er import ERDiagram
 
 # 5. SmartArts Structured Components
 from drawlib.smartarts import (
-    BoxList, BulletPoints, CalendarItem, CardList, ChevronProcess, Cycle,
-    DayCalendar, GeoMap, GridLayout, KpiCard, KpiCards, MindMapNode,
-    MonthCalendar, Panel, Pyramid, Roadmap, SourceCode, SourceCodeStyles,
-    Table, TreeNode, WeekCalendar,
+    BoxList,
+    BulletPoints,
+    CalendarItem,
+    CardList,
+    ChevronProcess,
+    Cycle,
+    DayCalendar,
+    GeoMap,
+    GridLayout,
+    KpiCard,
+    KpiCards,
+    MindMapNode,
+    MonthCalendar,
+    Panel,
+    Pyramid,
+    Roadmap,
+    SourceCode,
+    SourceCodeStyles,
+    Table,
+    TreeNode,
+    WeekCalendar,
 )
 
 # 6. Statistical & Project Charts
@@ -61,10 +129,39 @@ from drawlib.charts.gantt import Dependency, GanttChart, Marker, Milestone, Sect
 
 # 7. Icons & Media
 from drawlib.icons import (
-    ai, aws, azure, business, client, cloud, cnative, code, data, devops, facility, font_icon, gcp, itservice,
-    network, original_ai, original_business, original_client, original_cloud, original_cnative, original_code,
-    original_data, original_devops, original_facility, original_itservice, original_network,
-    original_security, original_server, original_workspace, phosphor, security, server, workspace,
+    ai,
+    aws,
+    azure,
+    business,
+    client,
+    cloud,
+    cnative,
+    code,
+    data,
+    devops,
+    facility,
+    font_icon,
+    gcp,
+    itservice,
+    network,
+    original_ai,
+    original_business,
+    original_client,
+    original_cloud,
+    original_cnative,
+    original_code,
+    original_data,
+    original_devops,
+    original_facility,
+    original_itservice,
+    original_network,
+    original_security,
+    original_server,
+    original_workspace,
+    phosphor,
+    security,
+    server,
+    workspace,
 )
 from drawlib.images import Dimage, get_dimage_from_code, image
 from drawlib.fonts import Font, FontFile, get_font, list_fonts, list_system_fonts
@@ -518,7 +615,7 @@ pie.draw((104, 26))
 ## 10. Icons & Media (`drawlib.icons`, `drawlib.images`, `drawlib.fonts`)
 
 ### 10.1 Icons
-Drawlib integrates Phosphor vector icons alongside vendor and domain icon suites (`gcp`, `aws`, `azure`, `ai`, `business`, `client`, `cloud`, `cnative`, `code`, `data`, `devops`, `facility`, `itservice`, `network`, `security`, `server`, `workspace`, `original_cloud`, `original_business`, `original_client`, `original_cnative`, `original_code`, `original_data`, `original_devops`, `original_facility`, `original_itservice`, `original_ai`, `original_network`, `original_security`, `original_server`, `original_workspace`). `ai` provides 40 official AI, LLM, Agent framework, Protocol, and ML ecosystem icons, `business` provides 48 official Business, ERP, CRM, ITSM, FinTech, E-Commerce, CPaaS, and B2B SaaS icons, `client` provides 60 official Web Browser, Client OS, App Store, PC/Mobile Brand, Smart Device, Gaming, Streaming, Connected Car, Heavy Machinery, Factory Automation & Peripheral icons, `cloud` provides 40 official Cloud Provider, Parent Company, Global Hosting/VPS/Edge, Modern PaaS/BaaS, and Japan Cloud & Hosting brand icons, `cnative` provides 60 Kubernetes & Cloud Native (CNCF / K8s distributions / Observability) icons, `code` provides 72 official Programming Language, Framework, Runtime, API & IDE icons, `data` provides 50 Database & Data Platform icons, `devops` provides 40 official DevOps, CI/CD, IaC, DevSecOps, and Observability icons, `facility` provides 49 official Data Center, IX, Telecom Carrier, Facility Hardware, and Semiconductor/Electronics Manufacturing icons, `itservice` provides 44 official IT Services, GSI, Strategy/IT Consulting, SIer, BPO, and IT Staffing corporate brand icons, `network` provides 70 Network icons (48 official CDN, DNS, registrar, proxy, VPN, firewall, SOHO & network vendor logos + 22 Cisco topology icons with `variant="default" | "classic" | "modern"`), `security` provides 60 official Security vendor & OSS icons, `server` provides 82 Server icons (56 official server vendor, chip, SBC, OS, virtualization & storage logos + 26 Dell EMC & VMware hybrid infrastructure icons), `workspace` provides 40 official Workplace, Productivity, Collaboration, and Office SaaS icons, while `original_cloud`, `original_ai`, `original_business`, `original_client`, `original_cnative`, `original_code`, `original_data`, `original_devops`, `original_facility`, `original_itservice`, `original_network`, `original_security`, `original_server`, and `original_workspace` provide 2D flat Drawlib pastel counterparts:
+Drawlib integrates Phosphor vector icons alongside vendor and domain icon suites (`gcp`, `aws`, `azure`, `ai`, `business`, `client`, `cloud`, `cnative`, `code`, `data`, `devops`, `facility`, `itservice`, `network`, `security`, `server`, `workspace`, `original_cloud`, `original_business`, `original_client`, `original_cnative`, `original_code`, `original_data`, `original_devops`, `original_facility`, `original_itservice`, `original_ai`, `original_network`, `original_security`, `original_server`, `original_workspace`). `ai` provides 60 official AI, LLM, Agent framework, Protocol, and ML ecosystem icons, `business` provides 48 official Business, ERP, CRM, ITSM, FinTech, E-Commerce, CPaaS, and B2B SaaS icons, `client` provides 60 official Web Browser, Client OS, App Store, PC/Mobile Brand, Smart Device, Gaming, Streaming, Connected Car, Heavy Machinery, Factory Automation & Peripheral icons, `cloud` provides 45 official Cloud Provider, Parent Company, Global Hosting/VPS/Edge, Modern PaaS/BaaS, and Japan Cloud & Hosting brand icons, `cnative` provides 73 Kubernetes & Cloud Native (CNCF / K8s distributions / Observability) icons, `code` provides 97 official Programming Language, Framework, Runtime, API & IDE icons, `data` provides 70 Database & Data Platform icons, `devops` provides 58 official DevOps, CI/CD, IaC, DevSecOps, and Observability icons, `facility` provides 49 official Data Center, IX, Telecom Carrier, Facility Hardware, and Semiconductor/Electronics Manufacturing icons, `itservice` provides 44 official IT Services, GSI, Strategy/IT Consulting, SIer, BPO, and IT Staffing corporate brand icons, `network` provides 70 Network icons (48 official CDN, DNS, registrar, proxy, VPN, firewall, SOHO & network vendor logos + 22 Cisco topology icons with `variant="default" | "classic" | "modern"`), `security` provides 74 official Security vendor & OSS icons, `server` provides 82 Server icons (56 official server vendor, chip, SBC, OS, virtualization & storage logos + 26 Dell EMC & VMware hybrid infrastructure icons), `workspace` provides 40 official Workplace, Productivity, Collaboration, and Office SaaS icons, while `original_cloud`, `original_ai`, `original_business`, `original_client`, `original_cnative`, `original_code`, `original_data`, `original_devops`, `original_facility`, `original_itservice`, `original_network`, `original_security`, `original_server`, and `original_workspace` provide 2D flat Drawlib pastel counterparts:
 
 ```drawlib code=show file=icons_example.png
 from drawlib.canvas import setup

@@ -26,11 +26,11 @@ def test_gcp_generate_code() -> None:
         icon_variants={"compute_engine": ["default", "modern"], "app_engine": ["default"]},
         aliases={"gce": "compute_engine"},
     )
-    assert 'def compute_engine(' in code
+    assert "def compute_engine(" in code
     assert 'variant: Literal["default", "modern"] = "default"' in code
-    assert 'def gce(' in code
+    assert "def gce(" in code
     assert 'name="compute_engine"' in code
-    assert 'def app_engine(' in code
+    assert "def app_engine(" in code
     assert 'variant: Literal["default"] = "default"' in code
 
 

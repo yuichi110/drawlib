@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+  <!-- Clean SQL Database Cylinder + SQL Pill Badge -->
+  <ellipse cx="128" cy="56" rx="84" ry="30" fill="#38BDF8"/>
+  <path d="M44,56 L44,128 C44,145 81,158 128,158 C175,158 212,145 212,128 L212,56 C212,73 175,86 128,86 C81,86 44,73 44,56 Z" fill="#0284C7"/>
+  <path d="M44,128 L44,196 C44,213 81,226 128,226 C175,226 212,213 212,196 L212,128 C212,145 175,158 128,158 C81,158 44,145 44,128 Z" fill="#0369A1"/>
+  <rect x="62" y="104" width="132" height="56" rx="14" fill="#F59E0B"/>
+  <!-- S Q L letters in white -->
+  <path d="M100,120 L82,120 L82,130 L100,130 L100,144 L80,144" fill="none" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="126" cy="132" r="13" fill="none" stroke="#FFFFFF" stroke-width="8"/>
+  <line x1="132" y1="138" x2="142" y2="148" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round"/>
+  <polyline points="156,118 156,144 176,144" fill="none" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

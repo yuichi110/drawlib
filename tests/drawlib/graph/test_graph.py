@@ -130,12 +130,7 @@ class TestTreeGraph:
             for j in range(i + 1, len(node_list)):
                 n1, n2 = node_list[i], node_list[j]
                 # Check horizontal or vertical separation
-                separated = (
-                    n1.right <= n2.left
-                    or n2.right <= n1.left
-                    or n1.top <= n2.bottom
-                    or n2.top <= n1.bottom
-                )
+                separated = n1.right <= n2.left or n2.right <= n1.left or n1.top <= n2.bottom or n2.top <= n1.bottom
                 assert separated, f"Nodes '{n1.id}' and '{n2.id}' overlap!"
 
     def test_multi_root_forest(self) -> None:

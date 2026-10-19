@@ -130,9 +130,7 @@ def sync_assets_command(
         return
 
     sync_release_assets(assets_dir, target_py, tag=resolved_tag, check=False)
-    console.print(
-        f"[bold green]★ Successfully synchronized {len(packages)} packages into {target_py}![/bold green]"
-    )
+    console.print(f"[bold green]★ Successfully synchronized {len(packages)} packages into {target_py}![/bold green]")
 
 
 @app.command("build")
@@ -162,9 +160,7 @@ def build_archives(
     target_out = output_dir / resolved_tag
     target_out.mkdir(parents=True, exist_ok=True)
 
-    console.print(
-        f"[bold cyan]Building {len(targets)} asset package(s) into {target_out}...[/bold cyan]"
-    )
+    console.print(f"[bold cyan]Building {len(targets)} asset package(s) into {target_out}...[/bold cyan]")
 
     for pkg in targets:
         zip_bytes = build_package_zip(pkg, assets_dir)
@@ -311,9 +307,7 @@ def upload_assets(
     uploaded_count = 0
     skipped_count = 0
 
-    manifest_map: dict[str, AssetManifestItem] = (
-        dict(remote_manifest.assets) if remote_manifest else {}
-    )
+    manifest_map: dict[str, AssetManifestItem] = dict(remote_manifest.assets) if remote_manifest else {}
 
     for pkg in targets:
         existing_asset = remote_assets.get(pkg.archive_name)
@@ -362,9 +356,7 @@ def upload_assets(
         console.print("  [bold green]✓[/bold green] Updated asset_manifest.json on GitHub Release")
 
     console.print()
-    console.print(
-        f"[bold green]★ Complete! Uploaded: {uploaded_count}, Skipped: {skipped_count}[/bold green]"
-    )
+    console.print(f"[bold green]★ Complete! Uploaded: {uploaded_count}, Skipped: {skipped_count}[/bold green]")
 
 
 def _determine_removal_targets(
@@ -380,9 +372,7 @@ def _determine_removal_targets(
     assert package is not None
     pkg = RELEASE_ASSET_PACKAGES[package]
     if pkg.archive_name not in remote_assets:
-        console.print(
-            f"[yellow]Asset '{pkg.archive_name}' does not exist on remote release '{resolved_tag}'.[/yellow]"
-        )
+        console.print(f"[yellow]Asset '{pkg.archive_name}' does not exist on remote release '{resolved_tag}'.[/yellow]")
         return []
     return [pkg.archive_name]
 

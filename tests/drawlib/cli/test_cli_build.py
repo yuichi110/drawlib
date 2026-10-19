@@ -405,7 +405,7 @@ def test_cli_build_html_favicon_resolution(tmp_path) -> None:
 
     (src_dir / "template.html").write_text(
         '<!DOCTYPE html><html><head>{% if favicon_href %}<link rel="icon" href="{{ favicon_href }}">'
-        "{% endif %}{% if css_href %}<link rel=\"stylesheet\" href=\"{{ css_href }}\">"
+        '{% endif %}{% if css_href %}<link rel="stylesheet" href="{{ css_href }}">'
         "{% endif %}</head><body>{{ body }}</body></html>",
         encoding="utf-8",
     )
@@ -444,5 +444,3 @@ def test_cli_build_slide_favicon(tmp_path) -> None:
 
     index_html = (out_dir / "index.html").read_text(encoding="utf-8")
     assert '<link rel="icon" type="image/png" href="_assets/favicon.png">' in index_html
-
-

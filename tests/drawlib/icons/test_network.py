@@ -211,4 +211,3 @@ class TestOriginalNetworkIcons:
         """Verify FileNotFoundError when requesting an invalid Original Network icon file."""
         with pytest.raises(FileNotFoundError):
             ORIGINAL_NETWORK_PROVIDER.get_icon_path("non_existent_orig_network_icon_xyz")
-

@@ -101,17 +101,13 @@ def _build_presets_code(manifest_data: dict[str, Any]) -> str:
     for enum_name, preset_key in cities_items:
         lines.append(f'    {enum_name} = "{preset_key}"')
 
-    lines.append(
-        "\n\nPRESET_DEFAULT_RANGES: Final[dict[str, tuple[tuple[float, float], tuple[float, float]]]] = {"
-    )
+    lines.append("\n\nPRESET_DEFAULT_RANGES: Final[dict[str, tuple[tuple[float, float], tuple[float, float]]]] = {")
     for k in sorted(default_ranges.keys()):
         (lon0, lon1), (lat0, lat1) = default_ranges[k]
         lines.append(f'    "{k}": (({lon0}, {lon1}), ({lat0}, {lat1})),')
     lines.append("}\n")
 
-    lines.append(
-        '\n__all__ = [\n    "PRESET_DEFAULT_RANGES",\n    "Cities",\n    "Countries",\n    "World",\n]\n'
-    )
+    lines.append('\n__all__ = [\n    "PRESET_DEFAULT_RANGES",\n    "Cities",\n    "Countries",\n    "World",\n]\n')
     return "\n".join(lines)
 
 

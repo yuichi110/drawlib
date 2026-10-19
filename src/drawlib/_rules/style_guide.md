@@ -337,9 +337,9 @@ Lines and arrows guide the viewer's eyes through the diagram:
    - **`lines(xys=[...], arrow_head="->", style=Styles.DarkBold)`**: Renders a clean $90^\circ$ Manhattan route in a single call, attaching the arrowhead strictly to the final segment:
      ```python
      # L-shaped routing through an intermediate right-angle corner:
-     src_port = (gateway_xy[0], gateway_xy[1] - box_h / 2)   # Bottom port
-     dst_port = (db_xy[0] - box_w / 2, db_xy[1])             # Left port
-     waypoint = (src_port[0], dst_port[1])                  # 90° corner waypoint
+     src_port = (gateway_xy[0], gateway_xy[1] - box_h / 2)  # Bottom port
+     dst_port = (db_xy[0] - box_w / 2, db_xy[1])  # Left port
+     waypoint = (src_port[0], dst_port[1])  # 90° corner waypoint
      lines([src_port, waypoint, dst_port], arrow_head="->", style=Styles.DarkBold)
      ```
    - **`lines_curved(xys=[...], r=3.0, arrow_head="->", style=Styles.DarkBold)`**: Smoothly fillets right-angle corners with radius `r`, producing professional cloud architecture network topologies.

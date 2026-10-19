@@ -67,4 +67,3 @@ def test_all_doc_exist() -> None:
                 all_drawlib_objects_have_doc = False
 
     assert all_drawlib_objects_have_doc
-

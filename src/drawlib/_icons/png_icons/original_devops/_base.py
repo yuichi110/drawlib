@@ -24,10 +24,13 @@ ORIGINAL_DEVOPS_ALIASES: dict[str, str] = {
     "config": "config_management",
     "dd": "datadog",
     "feature_toggle": "feature_flag",
+    "fluentbit": "fluent_bit",
     "gh": "github",
     "gha": "github_actions",
     "gitops": "gitops_controller",
     "gl": "gitlab",
+    "grafana_mimir": "mimir",
+    "grafana_tempo": "tempo",
     "hashicorp_consul": "consul",
     "hashicorp_vault": "vault",
     "iac": "config_management",
@@ -49,14 +52,17 @@ ORIGINAL_DEVOPS_ALIASES: dict[str, str] = {
     "repo": "git_repository",
     "runner": "build_runner",
     "sbom": "package_dependency",
-    "secret": "secret_vault",
-    "secret_manager": "secret_vault",
+    "secret": "secret_vault",  # noqa: S105
+    "secret_manager": "secret_vault",  # noqa: S105
     "sonar": "sonarqube",
     "sonatype_nexus": "nexus",
     "testing": "test_automation",
     "tf": "terraform",
     "tofu": "opentofu",
     "tracing": "distributed_tracing",
+    "turbo": "turborepo",
+    "victoriametrics": "victoria_metrics",
+    "vm_metrics": "victoria_metrics",
     "vulnerability_scan": "security_scan",
 }
 

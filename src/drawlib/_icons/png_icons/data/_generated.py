@@ -78,6 +78,26 @@ def apache_airflow(
     _write(xy=xy, width=width, name="airflow", style=style, variant=variant)
 
 
+def apache_arrow(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Data concept icon representing apache arrow.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="arrow", style=style, variant=variant)
+
+
 def apache_beam(
     xy: Coordinate,
     width: PosFloat,
@@ -116,6 +136,26 @@ def apache_cassandra(
 
     """
     _write(xy=xy, width=width, name="cassandra", style=style, variant=variant)
+
+
+def apache_doris(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Data concept icon representing apache doris.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="doris", style=style, variant=variant)
 
 
 def apache_druid(
@@ -178,6 +218,26 @@ def apache_hadoop(
     _write(xy=xy, width=width, name="hadoop", style=style, variant=variant)
 
 
+def apache_hudi(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Data concept icon representing apache hudi.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="hudi", style=style, variant=variant)
+
+
 def apache_iceberg(
     xy: Coordinate,
     width: PosFloat,
@@ -236,6 +296,26 @@ def apache_nifi(
 
     """
     _write(xy=xy, width=width, name="nifi", style=style, variant=variant)
+
+
+def apache_parquet(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Data concept icon representing apache parquet.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="parquet", style=style, variant=variant)
 
 
 def apache_pulsar(
@@ -298,6 +378,26 @@ def apache_superset(
     _write(xy=xy, width=width, name="superset", style=style, variant=variant)
 
 
+def arrow(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Data concept icon representing arrow.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="arrow", style=style, variant=variant)
+
+
 def beam(
     xy: Coordinate,
     width: PosFloat,
@@ -336,6 +436,46 @@ def cassandra(
 
     """
     _write(xy=xy, width=width, name="cassandra", style=style, variant=variant)
+
+
+def chroma(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Data concept icon representing chroma.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="chromadb", style=style, variant=variant)
+
+
+def chromadb(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Data concept icon representing chromadb.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="chromadb", style=style, variant=variant)
 
 
 def clickhouse(
@@ -478,6 +618,26 @@ def databricks(
     _write(xy=xy, width=width, name="databricks", style=style, variant=variant)
 
 
+def datahub(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Data concept icon representing datahub.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="datahub", style=style, variant=variant)
+
+
 def dbt(
     xy: Coordinate,
     width: PosFloat,
@@ -576,6 +736,26 @@ def deltalake(
 
     """
     _write(xy=xy, width=width, name="delta_lake", style=style, variant=variant)
+
+
+def doris(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Data concept icon representing doris.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="doris", style=style, variant=variant)
 
 
 def druid(
@@ -678,6 +858,26 @@ def es(
     _write(xy=xy, width=width, name="elasticsearch", style=style, variant=variant)
 
 
+def fivetran(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Data concept icon representing fivetran.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="fivetran", style=style, variant=variant)
+
+
 def flink(
     xy: Coordinate,
     width: PosFloat,
@@ -716,6 +916,26 @@ def hadoop(
 
     """
     _write(xy=xy, width=width, name="hadoop", style=style, variant=variant)
+
+
+def hudi(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Data concept icon representing hudi.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="hudi", style=style, variant=variant)
 
 
 def iceberg(
@@ -798,6 +1018,26 @@ def kafka(
     _write(xy=xy, width=width, name="kafka", style=style, variant=variant)
 
 
+def lancedb(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Data concept icon representing lancedb.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="lancedb", style=style, variant=variant)
+
+
 def mariadb(
     xy: Coordinate,
     width: PosFloat,
@@ -816,6 +1056,26 @@ def mariadb(
 
     """
     _write(xy=xy, width=width, name="mariadb", style=style, variant=variant)
+
+
+def marimo(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Data concept icon representing marimo.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="marimo", style=style, variant=variant)
 
 
 def meilisearch(
@@ -856,6 +1116,26 @@ def memcached(
 
     """
     _write(xy=xy, width=width, name="memcached", style=style, variant=variant)
+
+
+def metabase(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Data concept icon representing metabase.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="metabase", style=style, variant=variant)
 
 
 def milvus(
@@ -1018,6 +1298,26 @@ def neo4j(
     _write(xy=xy, width=width, name="neo4j", style=style, variant=variant)
 
 
+def neon(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Data concept icon representing neon.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="neon", style=style, variant=variant)
+
+
 def nifi(
     xy: Coordinate,
     width: PosFloat,
@@ -1036,6 +1336,26 @@ def nifi(
 
     """
     _write(xy=xy, width=width, name="nifi", style=style, variant=variant)
+
+
+def openmetadata(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Data concept icon representing openmetadata.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="openmetadata", style=style, variant=variant)
 
 
 def opensearch(
@@ -1098,6 +1418,26 @@ def oracle_db(
     _write(xy=xy, width=width, name="oracle_db", style=style, variant=variant)
 
 
+def parquet(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Data concept icon representing parquet.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="parquet", style=style, variant=variant)
+
+
 def pg(
     xy: Coordinate,
     width: PosFloat,
@@ -1116,6 +1456,66 @@ def pg(
 
     """
     _write(xy=xy, width=width, name="postgresql", style=style, variant=variant)
+
+
+def pgvector(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Data concept icon representing pgvector.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="pgvector", style=style, variant=variant)
+
+
+def planetscale(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Data concept icon representing planetscale.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="planetscale", style=style, variant=variant)
+
+
+def polars(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Data concept icon representing polars.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="polars", style=style, variant=variant)
 
 
 def postgres(
@@ -1156,6 +1556,26 @@ def postgresql(
 
     """
     _write(xy=xy, width=width, name="postgresql", style=style, variant=variant)
+
+
+def prefect(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Data concept icon representing prefect.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="prefect", style=style, variant=variant)
 
 
 def pulsar(
@@ -1236,6 +1656,26 @@ def rabbitmq(
 
     """
     _write(xy=xy, width=width, name="rabbitmq", style=style, variant=variant)
+
+
+def redash(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Data concept icon representing redash.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="redash", style=style, variant=variant)
 
 
 def redis(
@@ -1418,6 +1858,26 @@ def sqlserver(
     _write(xy=xy, width=width, name="sql_server", style=style, variant=variant)
 
 
+def starrocks(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Data concept icon representing starrocks.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="starrocks", style=style, variant=variant)
+
+
 def supabase(
     xy: Coordinate,
     width: PosFloat,
@@ -1538,6 +1998,26 @@ def trino(
     _write(xy=xy, width=width, name="trino", style=style, variant=variant)
 
 
+def turso(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Data concept icon representing turso.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="turso", style=style, variant=variant)
+
+
 def valkey(
     xy: Coordinate,
     width: PosFloat,
@@ -1576,3 +2056,63 @@ def weaviate(
 
     """
     _write(xy=xy, width=width, name="weaviate", style=style, variant=variant)
+
+
+def yb(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Data concept icon representing yb.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="yugabytedb", style=style, variant=variant)
+
+
+def yugabyte(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Data concept icon representing yugabyte.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="yugabytedb", style=style, variant=variant)
+
+
+def yugabytedb(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Data concept icon representing yugabytedb.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="yugabytedb", style=style, variant=variant)

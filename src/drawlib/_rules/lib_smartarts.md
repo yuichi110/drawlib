@@ -975,8 +975,8 @@ kpi = KpiCards(
     description_style=Styles.Muted.patch(text_size=10.5),
     accent_style=Styles.PrimaryFlat,
     icon_style=Styles.PrimaryBold,
-    accent_position="left_pill",   # "left_pill" | "top_bar" | "none"
-    metric_layout="left_column",   # "left_column" | "top_stack"
+    accent_position="left_pill",  # "left_pill" | "top_bar" | "none"
+    metric_layout="left_column",  # "left_column" | "top_stack"
     metric_width_ratio=0.28,
     spacing=3.0,
 )
@@ -1061,11 +1061,11 @@ cl = CardList(
     style=Styles.Neutral,
     text_style=Styles.DarkBold.patch(text_size=12.0),
     description_style=Styles.Muted.patch(text_size=10.5),
-    badge_shape="rounded_rect",   # "rounded_rect" | "circle" | "none"
+    badge_shape="rounded_rect",  # "rounded_rect" | "circle" | "none"
     badge_style=Styles.PrimaryNeutral,
     badge_text_style=Styles.PrimaryBold.patch(text_size=11.0),
     icon_style=Styles.PrimaryBold,
-    direction="vertical",         # "vertical" | "horizontal"
+    direction="vertical",  # "vertical" | "horizontal"
     spacing=2.5,
     show_arrows=False,
     arrow_style=None,
@@ -1166,10 +1166,10 @@ rm = Roadmap(
     badge_style=Styles.SecondaryNeutral,
     badge_text_style=Styles.DarkBold.patch(text_size=10.5),
     icon_style=Styles.PrimaryBold,
-    direction="vertical",         # "vertical" | "horizontal"
-    curve_bend=0.0,               # -0.5..0.5 Bezier bend for vertical spine (0.0 = straight arrow)
-    card_shape="rounded_rect",    # "rounded_rect" | "pill"
-    alternating=False,            # True alternates cards above/below spine (horizontal mode)
+    direction="vertical",  # "vertical" | "horizontal"
+    curve_bend=0.0,  # -0.5..0.5 Bezier bend for vertical spine (0.0 = straight arrow)
+    card_shape="rounded_rect",  # "rounded_rect" | "pill"
+    alternating=False,  # True alternates cards above/below spine (horizontal mode)
 )
 item = rm.add(
     text="Foundation & Core Engine",
@@ -1354,7 +1354,13 @@ mcal = MonthCalendar(
     saturday_text_style=Styles.PrimaryBold.patch(text_size=10.0),
 )
 mcal.add("2026-10-06", "2026-10-09", text="Design Sprint")
-mcal.add("2026-10-10", "2026-10-13", text="Cross-Week Cutover", style=Styles.PrimaryFlat, text_style=Styles.WhiteBold.patch(text_size=9.5))
+mcal.add(
+    "2026-10-10",
+    "2026-10-13",
+    text="Cross-Week Cutover",
+    style=Styles.PrimaryFlat,
+    text_style=Styles.WhiteBold.patch(text_size=9.5),
+)
 mcal.draw(xy=(6.0, 6.0), width=110.0, height=64.0)
 
 # 2. WeekCalendar (top All-day X-axis bars + lower hourly grid)

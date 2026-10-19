@@ -1,7 +1,7 @@
 {
   "format_version": "2.0",
   "provider": "original_code",
-  "created_at": "2026-10-19T01:02:59.262784+00:00",
+  "created_at": "2026-10-19T13:24:06.070566+00:00",
   "canvas_size": [
     512,
     512
@@ -10,8 +10,9 @@
     460,
     460
   ],
-  "total_files": 96,
+  "total_files": 121,
   "aliases": {
+    "apollo_graphql": "apollo",
     "aspnet": "dotnet",
     "assertion": "unit_test",
     "async_worker": "background_worker",
@@ -35,6 +36,7 @@
     "dependency": "package_module",
     "dom_tree": "xml_markup",
     "echo_go": "echo",
+    "elixir_lang": "elixir",
     "endpoint": "rest_api",
     "event_hook": "webhook",
     "executable": "binary_executable",
@@ -53,12 +55,14 @@
     "job_worker": "background_worker",
     "js": "javascript",
     "json_data": "json_schema",
+    "julia_lang": "julia",
     "jvm": "java",
     "kt": "kotlin",
     "lambda_func": "serverless_func",
     "lexer": "regex_parser",
     "library": "sdk_library",
     "linter": "linter_formatter",
+    "lua_lang": "lua",
     "markup_doc": "xml_markup",
     "module": "package_module",
     "monolithic_app": "monolith",
@@ -73,6 +77,7 @@
     "proto": "protobuf",
     "py": "python",
     "query_api": "graphql_api",
+    "r_lang": "r",
     "rb": "ruby",
     "reactjs": "react",
     "realtime_stream": "websocket",
@@ -82,6 +87,7 @@
     "rs": "rust",
     "ruby_on_rails": "rails",
     "runtime": "runtime_vm",
+    "scala_lang": "scala",
     "scheduled_task": "cron_job",
     "script": "source_code",
     "sdk": "sdk_library",
@@ -90,6 +96,7 @@
     "sh": "bash",
     "shell": "bash",
     "socket": "websocket",
+    "sol": "solidity",
     "spring_boot": "spring",
     "static_analysis": "linter_formatter",
     "swagger": "openapi",
@@ -102,7 +109,8 @@
     "vitejs": "vite",
     "vs_code": "vscode",
     "vue": "vuejs",
-    "wasm": "webassembly"
+    "wasm": "webassembly",
+    "zig_lang": "zig"
   },
   "files": {
     "android_studio_default.png": {
@@ -144,6 +152,32 @@
         468
       ]
     },
+    "apollo_default.png": {
+      "icon_name": "apollo",
+      "variant": "default",
+      "source_script": "original_code/apollo_default.py",
+      "size_bytes": 44048,
+      "sha256": "17a4d511a33de9e5e38cec97c3d123b1c1f080aae578184eaa51580ca1bfd9a6",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "appwrite_default.png": {
+      "icon_name": "appwrite",
+      "variant": "default",
+      "source_script": "original_code/appwrite_default.py",
+      "size_bytes": 21178,
+      "sha256": "3c9facd49d778219c62bee63a9c4a6074b6ef1b88d07d3adc8711360a43ded3d",
+      "bbox": [
+        26,
+        52,
+        486,
+        459
+      ]
+    },
     "astro_default.png": {
       "icon_name": "astro",
       "variant": "default",
@@ -154,6 +188,19 @@
         93,
         26,
         419,
+        486
+      ]
+    },
+    "axum_default.png": {
+      "icon_name": "axum",
+      "variant": "default",
+      "source_script": "original_code/axum_default.py",
+      "size_bytes": 27803,
+      "sha256": "0451b554a9dac2d8b88a350093395c4f0b29d4e5182a4cceb380cc2b55c89396",
+      "bbox": [
+        55,
+        26,
+        457,
         486
       ]
     },
@@ -194,6 +241,19 @@
         26,
         486,
         486
+      ]
+    },
+    "biome_default.png": {
+      "icon_name": "biome",
+      "variant": "default",
+      "source_script": "original_code/biome_default.py",
+      "size_bytes": 25462,
+      "sha256": "8dfb8a04159530d3ba6402386d421dca0f5b48eac4eb83b3a839e675054e372a",
+      "bbox": [
+        26,
+        55,
+        486,
+        456
       ]
     },
     "blazor_default.png": {
@@ -298,6 +358,19 @@
         29,
         486,
         482
+      ]
+    },
+    "convex_default.png": {
+      "icon_name": "convex",
+      "variant": "default",
+      "source_script": "original_code/convex_default.py",
+      "size_bytes": 42575,
+      "sha256": "68eba843fc37fc3a33c8d9771880f25377603343873804a20a8ef7b3b2319592",
+      "bbox": [
+        29,
+        26,
+        483,
+        486
       ]
     },
     "cpp_default.png": {
@@ -428,6 +501,45 @@
         35,
         486,
         476
+      ]
+    },
+    "electron_default.png": {
+      "icon_name": "electron",
+      "variant": "default",
+      "source_script": "original_code/electron_default.py",
+      "size_bytes": 57890,
+      "sha256": "5dd89436c16ff688ae5afa8db405d2d69c5cdf6919062de2896212e1321be4cf",
+      "bbox": [
+        43,
+        26,
+        468,
+        486
+      ]
+    },
+    "elixir_default.png": {
+      "icon_name": "elixir",
+      "variant": "default",
+      "source_script": "original_code/elixir_default.py",
+      "size_bytes": 39174,
+      "sha256": "a14af93410e53e83bd424aa05f16b09148411c85e3164a27045e94a9ee663ac4",
+      "bbox": [
+        114,
+        26,
+        397,
+        486
+      ]
+    },
+    "expo_default.png": {
+      "icon_name": "expo",
+      "variant": "default",
+      "source_script": "original_code/expo_default.py",
+      "size_bytes": 26550,
+      "sha256": "a5477b2704953e605e1489c759e46d63cbeea10afc4f10afdda98b4c5b4cce59",
+      "bbox": [
+        26,
+        48,
+        486,
+        463
       ]
     },
     "express_default.png": {
@@ -573,6 +685,19 @@
         353
       ]
     },
+    "hasura_default.png": {
+      "icon_name": "hasura",
+      "variant": "default",
+      "source_script": "original_code/hasura_default.py",
+      "size_bytes": 42991,
+      "sha256": "c8e3a69f740f0185b40696b379d41a03063c2f1d7f08f00ee28311a7e1b1a95e",
+      "bbox": [
+        28,
+        26,
+        484,
+        486
+      ]
+    },
     "hono_default.png": {
       "icon_name": "hono",
       "variant": "default",
@@ -690,6 +815,19 @@
         462
       ]
     },
+    "julia_default.png": {
+      "icon_name": "julia",
+      "variant": "default",
+      "source_script": "original_code/julia_default.py",
+      "size_bytes": 27272,
+      "sha256": "966136a3de663c319319eae04d0b4c9300219c7d10d290d35deecdda72f4dcb5",
+      "bbox": [
+        26,
+        42,
+        486,
+        469
+      ]
+    },
     "kotlin_default.png": {
       "icon_name": "kotlin",
       "variant": "default",
@@ -727,6 +865,19 @@
         52,
         486,
         460
+      ]
+    },
+    "lua_default.png": {
+      "icon_name": "lua",
+      "variant": "default",
+      "source_script": "original_code/lua_default.py",
+      "size_bytes": 52292,
+      "sha256": "71b1dd451c76808a92fa4390a788b4626e4465b945b31403ff9183673457b7bf",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
       ]
     },
     "microservice_default.png": {
@@ -885,6 +1036,32 @@
         379
       ]
     },
+    "pnpm_default.png": {
+      "icon_name": "pnpm",
+      "variant": "default",
+      "source_script": "original_code/pnpm_default.py",
+      "size_bytes": 2383,
+      "sha256": "3c767f519a19a7704fc5eee325c605314414a48ada0628a611d5bfe2a9a9aed2",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "pocketbase_default.png": {
+      "icon_name": "pocketbase",
+      "variant": "default",
+      "source_script": "original_code/pocketbase_default.py",
+      "size_bytes": 18428,
+      "sha256": "3e495d2ac03be54dfa355ede256edd8b9e6fc024f6cca931f37bafeec49a0793",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
     "poetry_default.png": {
       "icon_name": "poetry",
       "variant": "default",
@@ -976,6 +1153,32 @@
         486
       ]
     },
+    "quarkus_default.png": {
+      "icon_name": "quarkus",
+      "variant": "default",
+      "source_script": "original_code/quarkus_default.py",
+      "size_bytes": 32497,
+      "sha256": "d8c467e69a6ad0e253917cc7fe995dbab09ad2a86c1605fcf301dc5e05c631df",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "r_default.png": {
+      "icon_name": "r",
+      "variant": "default",
+      "source_script": "original_code/r_default.py",
+      "size_bytes": 32879,
+      "sha256": "3b39835b194b533fe1f02b635e2cdb482f5baee932c2d6cedd62c75a08ece910",
+      "bbox": [
+        26,
+        77,
+        486,
+        434
+      ]
+    },
     "rails_default.png": {
       "icon_name": "rails",
       "variant": "default",
@@ -1026,6 +1229,19 @@
         80,
         486,
         431
+      ]
+    },
+    "remix_default.png": {
+      "icon_name": "remix",
+      "variant": "default",
+      "source_script": "original_code/remix_default.py",
+      "size_bytes": 16014,
+      "sha256": "cab1f221af16f409a57e28af9e3193db02c0c3785a1fc4b3ce4284e714cf380b",
+      "bbox": [
+        57,
+        26,
+        455,
+        486
       ]
     },
     "rest_api_default.png": {
@@ -1093,6 +1309,19 @@
         486
       ]
     },
+    "scala_default.png": {
+      "icon_name": "scala",
+      "variant": "default",
+      "source_script": "original_code/scala_default.py",
+      "size_bytes": 18465,
+      "sha256": "3a79989a02283db0f29034af93a7f713ec39b12d5fdaeb41a9cd56da551f0e64",
+      "bbox": [
+        107,
+        26,
+        404,
+        486
+      ]
+    },
     "sdk_library_default.png": {
       "icon_name": "sdk_library",
       "variant": "default",
@@ -1117,6 +1346,19 @@
         48,
         486,
         463
+      ]
+    },
+    "solidity_default.png": {
+      "icon_name": "solidity",
+      "variant": "default",
+      "source_script": "original_code/solidity_default.py",
+      "size_bytes": 24243,
+      "sha256": "a390411bbd5e601fa0746890551a9fb1c1f367ad3219d04f526609413d65a0ec",
+      "bbox": [
+        105,
+        26,
+        406,
+        486
       ]
     },
     "source_code_default.png": {
@@ -1145,6 +1387,19 @@
         486
       ]
     },
+    "sql_default.png": {
+      "icon_name": "sql",
+      "variant": "default",
+      "source_script": "original_code/sql_default.py",
+      "size_bytes": 24716,
+      "sha256": "12ed143db574e19e371dde72a93c93935e3b0d71bf7cc91f2d78150bb68b0f7e",
+      "bbox": [
+        62,
+        26,
+        450,
+        486
+      ]
+    },
     "sqlalchemy_default.png": {
       "icon_name": "sqlalchemy",
       "variant": "default",
@@ -1156,6 +1411,19 @@
         173,
         486,
         339
+      ]
+    },
+    "storybook_default.png": {
+      "icon_name": "storybook",
+      "variant": "default",
+      "source_script": "original_code/storybook_default.py",
+      "size_bytes": 28824,
+      "sha256": "817bcb4a560c6b9f15e68350e939a3d2c27751b6d221540fea9e87a4984abb5e",
+      "bbox": [
+        70,
+        26,
+        441,
+        486
       ]
     },
     "svelte_default.png": {
@@ -1197,6 +1465,19 @@
         396
       ]
     },
+    "tauri_default.png": {
+      "icon_name": "tauri",
+      "variant": "default",
+      "source_script": "original_code/tauri_default.py",
+      "size_bytes": 42719,
+      "sha256": "6744050a7e0d698391b6b39632a2f3db3d401304e8713e50bb472754d880ebff",
+      "bbox": [
+        51,
+        26,
+        461,
+        486
+      ]
+    },
     "tokio_default.png": {
       "icon_name": "tokio",
       "variant": "default",
@@ -1208,6 +1489,19 @@
         52,
         486,
         460
+      ]
+    },
+    "trpc_default.png": {
+      "icon_name": "trpc",
+      "variant": "default",
+      "source_script": "original_code/trpc_default.py",
+      "size_bytes": 54085,
+      "sha256": "3e04bdca340e2382522b5c441b6042cae62f83baf9fa9331c81d28c61d2525aa",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
       ]
     },
     "typescript_default.png": {
@@ -1273,6 +1567,19 @@
         26,
         485,
         486
+      ]
+    },
+    "vitest_default.png": {
+      "icon_name": "vitest",
+      "variant": "default",
+      "source_script": "original_code/vitest_default.py",
+      "size_bytes": 22072,
+      "sha256": "142154813b2026ddcdb8e331d4d6eb783e4bcfde9b68a5bd44ad064d645f41af",
+      "bbox": [
+        26,
+        46,
+        486,
+        466
       ]
     },
     "vscode_default.png": {
@@ -1351,6 +1658,32 @@
         38,
         486,
         473
+      ]
+    },
+    "yarn_default.png": {
+      "icon_name": "yarn",
+      "variant": "default",
+      "source_script": "original_code/yarn_default.py",
+      "size_bytes": 46048,
+      "sha256": "227fd9a781ccc456576964170b1cf58b4fe22970e3515ca4a0527e97eed9a7f0",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "zig_default.png": {
+      "icon_name": "zig",
+      "variant": "default",
+      "source_script": "original_code/zig_default.py",
+      "size_bytes": 32567,
+      "sha256": "ec5058ad7a23b73e24f4b632bea064dd6460cc77902c6b38dcf1a3d8bf961dba",
+      "bbox": [
+        26,
+        40,
+        486,
+        471
       ]
     }
   }

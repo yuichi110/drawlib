@@ -1,7 +1,7 @@
 {
   "format_version": "2.0",
   "provider": "original_security",
-  "created_at": "2026-10-19T01:03:05.870107+00:00",
+  "created_at": "2026-10-19T13:23:55.130176+00:00",
   "canvas_size": [
     512,
     512
@@ -10,7 +10,7 @@
     460,
     460
   ],
-  "total_files": 84,
+  "total_files": 103,
   "aliases": {
     "active_directory": "directory_service",
     "ad": "directory_service",
@@ -43,6 +43,7 @@
     "endpoint_security": "edr_xdr",
     "entra": "entra_id",
     "falcon": "crowdstrike",
+    "fido2": "passkey",
     "fireeye": "trellix",
     "fortigate": "fortinet",
     "gpg": "gnupg",
@@ -55,6 +56,7 @@
     "intrusion_prevention": "ids_ips",
     "ips": "ids_ips",
     "ipsec_vpn": "vpn_gateway",
+    "json_web_token": "jwt",
     "key_management": "hsm_kms",
     "kms": "hsm_kms",
     "ldap": "directory_service",
@@ -66,17 +68,22 @@
     "nessus": "tenable",
     "network_firewall": "firewall",
     "ngfw": "firewall",
+    "oauth": "oauth2",
     "one_password": "onepassword",
+    "openid": "oidc",
+    "openid_connect": "oidc",
+    "palo_alto_prisma": "prisma_cloud",
     "paloalto": "palo_alto",
     "pam": "pam_bastion",
     "panw": "palo_alto",
-    "passkey": "mfa_auth",
     "password_vault": "secret_vault",
+    "permit": "permit_io",
     "ping": "ping_identity",
     "playbook": "soar",
     "portswigger": "burp_suite",
     "privileged_access": "pam_bastion",
     "s1": "sentinelone",
+    "saml2": "saml",
     "sase": "zero_trust",
     "sast": "vulnerability_scan",
     "scrubbing_center": "ddos_protection",
@@ -103,6 +110,7 @@
     "vpn_tunnel": "vpn_gateway",
     "vuln_scanner": "vulnerability_scan",
     "web_application_firewall": "waf",
+    "webauthn": "passkey",
     "wg": "wireguard",
     "xdr": "edr_xdr",
     "yubikey": "yubico",
@@ -134,6 +142,32 @@
         26,
         464,
         486
+      ]
+    },
+    "authelia_default.png": {
+      "icon_name": "authelia",
+      "variant": "default",
+      "source_script": "original_security/authelia_default.py",
+      "size_bytes": 62195,
+      "sha256": "509e0d9b26f1509c35a801955dba1c4562612a17ea5e07970720883ba1c0773f",
+      "bbox": [
+        26,
+        29,
+        486,
+        482
+      ]
+    },
+    "authentik_default.png": {
+      "icon_name": "authentik",
+      "variant": "default",
+      "source_script": "original_security/authentik_default.py",
+      "size_bytes": 16891,
+      "sha256": "d0cdf23a191822610cafca19e7b21031a8790f118592a7e926e2f5ac32342fea",
+      "bbox": [
+        26,
+        79,
+        486,
+        433
       ]
     },
     "bitwarden_default.png": {
@@ -175,6 +209,19 @@
         449
       ]
     },
+    "cerbos_default.png": {
+      "icon_name": "cerbos",
+      "variant": "default",
+      "source_script": "original_security/cerbos_default.py",
+      "size_bytes": 23766,
+      "sha256": "abb92f01e35c75eefe29d8817d3d7ea96c72d097d90229818b8cbe647bc2b7db",
+      "bbox": [
+        65,
+        26,
+        447,
+        486
+      ]
+    },
     "checkmarx_default.png": {
       "icon_name": "checkmarx",
       "variant": "default",
@@ -201,6 +248,19 @@
         476
       ]
     },
+    "clerk_default.png": {
+      "icon_name": "clerk",
+      "variant": "default",
+      "source_script": "original_security/clerk_default.py",
+      "size_bytes": 28006,
+      "sha256": "83ca2fb604f6bd8e3b922c5e60a5d9d7877ca13f76beeb0abce9fdf5ae3a47a3",
+      "bbox": [
+        70,
+        26,
+        441,
+        486
+      ]
+    },
     "cloudflare_default.png": {
       "icon_name": "cloudflare",
       "variant": "default",
@@ -212,6 +272,19 @@
         148,
         486,
         364
+      ]
+    },
+    "crowdsec_default.png": {
+      "icon_name": "crowdsec",
+      "variant": "default",
+      "source_script": "original_security/crowdsec_default.py",
+      "size_bytes": 58025,
+      "sha256": "e275ce568cd8ac959fdd92e895db629b652d2bd3b433c64c03290b2a6c019b96",
+      "bbox": [
+        26,
+        27,
+        486,
+        485
       ]
     },
     "crowdstrike_default.png": {
@@ -409,6 +482,19 @@
         422
       ]
     },
+    "gitleaks_default.png": {
+      "icon_name": "gitleaks",
+      "variant": "default",
+      "source_script": "original_security/gitleaks_default.py",
+      "size_bytes": 22876,
+      "sha256": "bf3c96bf4ab5d45a38d2edee500d83f498c9cfc3d3ccca0e5b33663b8048dc9f",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
     "gnupg_default.png": {
       "icon_name": "gnupg",
       "variant": "default",
@@ -511,6 +597,19 @@
         33,
         486,
         479
+      ]
+    },
+    "jwt_default.png": {
+      "icon_name": "jwt",
+      "variant": "default",
+      "source_script": "original_security/jwt_default.py",
+      "size_bytes": 16955,
+      "sha256": "4d5e3ec1f3f597c86debf6ca22ccd8ee757723f09d3ac33602a7d3f9cf54560e",
+      "bbox": [
+        26,
+        67,
+        486,
+        444
       ]
     },
     "kaspersky_default.png": {
@@ -630,6 +729,32 @@
         365
       ]
     },
+    "oauth2_default.png": {
+      "icon_name": "oauth2",
+      "variant": "default",
+      "source_script": "original_security/oauth2_default.py",
+      "size_bytes": 30027,
+      "sha256": "6408d1d028d393179e4810bc9ab714dc339b2291d42ab4ec92b96cd3027dcefb",
+      "bbox": [
+        38,
+        26,
+        474,
+        486
+      ]
+    },
+    "oidc_default.png": {
+      "icon_name": "oidc",
+      "variant": "default",
+      "source_script": "original_security/oidc_default.py",
+      "size_bytes": 23151,
+      "sha256": "d2d386ce9bbdbf968ca52c76ad0143829114f208f6c9719830edd71574107921",
+      "bbox": [
+        26,
+        79,
+        486,
+        433
+      ]
+    },
     "okta_default.png": {
       "icon_name": "okta",
       "variant": "default",
@@ -666,6 +791,32 @@
         26,
         26,
         486,
+        486
+      ]
+    },
+    "openfga_default.png": {
+      "icon_name": "openfga",
+      "variant": "default",
+      "source_script": "original_security/openfga_default.py",
+      "size_bytes": 40735,
+      "sha256": "5fad37b1f7d6545106761d46fa7eed2ac1fad3637861622b8a3002c3d19f13dd",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "ory_default.png": {
+      "icon_name": "ory",
+      "variant": "default",
+      "source_script": "original_security/ory_default.py",
+      "size_bytes": 16603,
+      "sha256": "58f04e347121055a28167fe84557085548db84b3369cafb0e126cdeb54bb11c1",
+      "bbox": [
+        138,
+        26,
+        373,
         486
       ]
     },
@@ -721,6 +872,32 @@
         486
       ]
     },
+    "passkey_default.png": {
+      "icon_name": "passkey",
+      "variant": "default",
+      "source_script": "original_security/passkey_default.py",
+      "size_bytes": 25752,
+      "sha256": "17839c5c49473eb0395f33acef9d1ecbeb6549005497f8397a814f6d246ddcd5",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "permit_io_default.png": {
+      "icon_name": "permit_io",
+      "variant": "default",
+      "source_script": "original_security/permit_io_default.py",
+      "size_bytes": 21970,
+      "sha256": "da026e42abf6fb4af3fb243169c8a1c300be8c899be3e413638a5f33943ab90a",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
     "ping_identity_default.png": {
       "icon_name": "ping_identity",
       "variant": "default",
@@ -745,6 +922,19 @@
         32,
         486,
         479
+      ]
+    },
+    "prisma_cloud_default.png": {
+      "icon_name": "prisma_cloud",
+      "variant": "default",
+      "source_script": "original_security/prisma_cloud_default.py",
+      "size_bytes": 34905,
+      "sha256": "a5712fc0b9f10ae16c9dd279574ab70931daf0c2de5343d146deef80921ed4fc",
+      "bbox": [
+        48,
+        26,
+        463,
+        486
       ]
     },
     "proofpoint_default.png": {
@@ -799,6 +989,19 @@
         423
       ]
     },
+    "saml_default.png": {
+      "icon_name": "saml",
+      "variant": "default",
+      "source_script": "original_security/saml_default.py",
+      "size_bytes": 32261,
+      "sha256": "1788f7c64e996ced5028172543af004c66666e6908d2554a7cfe46217f1b6afb",
+      "bbox": [
+        26,
+        42,
+        486,
+        470
+      ]
+    },
     "secret_vault_default.png": {
       "icon_name": "secret_vault",
       "variant": "default",
@@ -823,6 +1026,19 @@
         26,
         486,
         486
+      ]
+    },
+    "semgrep_default.png": {
+      "icon_name": "semgrep",
+      "variant": "default",
+      "source_script": "original_security/semgrep_default.py",
+      "size_bytes": 29480,
+      "sha256": "22d884b2f2be9700f6bf6d802fa7b9459db1133ac0b73576e808722884cd0b11",
+      "bbox": [
+        26,
+        163,
+        486,
+        349
       ]
     },
     "sentinelone_default.png": {
@@ -903,6 +1119,19 @@
         486
       ]
     },
+    "stytch_default.png": {
+      "icon_name": "stytch",
+      "variant": "default",
+      "source_script": "original_security/stytch_default.py",
+      "size_bytes": 23325,
+      "sha256": "079e8868b4846172137b1a539cfbf06f01cb66e0dd8ab0cfa80b88167787887f",
+      "bbox": [
+        26,
+        179,
+        486,
+        332
+      ]
+    },
     "sumo_logic_default.png": {
       "icon_name": "sumo_logic",
       "variant": "default",
@@ -914,6 +1143,19 @@
         26,
         486,
         486
+      ]
+    },
+    "supertokens_default.png": {
+      "icon_name": "supertokens",
+      "variant": "default",
+      "source_script": "original_security/supertokens_default.py",
+      "size_bytes": 37856,
+      "sha256": "26114c6f9ef1c55fc38e980767a2842f176ed8957966f0bbb669ba07c4076a3a",
+      "bbox": [
+        26,
+        46,
+        486,
+        465
       ]
     },
     "suricata_default.png": {
@@ -1148,6 +1390,19 @@
         142,
         486,
         369
+      ]
+    },
+    "workos_default.png": {
+      "icon_name": "workos",
+      "variant": "default",
+      "source_script": "original_security/workos_default.py",
+      "size_bytes": 31099,
+      "sha256": "52448faca6b728ab885edec61c73d1b8b183cf053c90a04ee3f98868441c32d3",
+      "bbox": [
+        26,
+        56,
+        486,
+        456
       ]
     },
     "yubico_default.png": {

@@ -26,9 +26,9 @@ class TestOriginalCodeIcons:
     """Tests for `drawlib.icons.original_code` and `OriginalCodeIcon`."""
 
     def test_original_code_all_icons(self, tmp_path: Path) -> None:
-        """Verify all 96 canonical icons (24 concepts + 72 brands) and 91 aliases exist and render."""
+        """Verify all 121 canonical icons (24 concepts + 97 brands) and 99 aliases exist and render."""
         clear()
-        canonical_96 = [
+        canonical_121 = [
             "source_code",
             "sdk_library",
             "package_module",
@@ -125,17 +125,42 @@ class TestOriginalCodeIcons:
             "android_studio",
             "vscode",
             "intellij",
+            "scala",
+            "elixir",
+            "zig",
+            "lua",
+            "r",
+            "julia",
+            "solidity",
+            "sql",
+            "apollo",
+            "hasura",
+            "trpc",
+            "axum",
+            "quarkus",
+            "pocketbase",
+            "appwrite",
+            "convex",
+            "remix",
+            "tauri",
+            "electron",
+            "expo",
+            "pnpm",
+            "yarn",
+            "biome",
+            "vitest",
+            "storybook",
         ]
-        assert len(canonical_96) == 96
-        for idx, name in enumerate(canonical_96):
+        assert len(canonical_121) == 121
+        for idx, name in enumerate(canonical_121):
             assert hasattr(original_code, name), f"Missing canonical icon: {name}"
             assert hasattr(OriginalCodeIcon, name.upper()), f"Missing enum: {name.upper()}"
-            col = idx % 12
-            row = idx // 12
+            col = idx % 13
+            row = idx // 13
             fn = getattr(original_code, name)
-            fn(xy=(8 + col * 7.5, 90 - row * 11), width=6, style=Style(), variant="default")
+            fn(xy=(6 + col * 7.2, 92 - row * 9.0), width=5.5, style=Style(), variant="default")
 
-        assert len(ORIGINAL_CODE_ALIASES) == 91
+        assert len(ORIGINAL_CODE_ALIASES) == 99
         for alias in ORIGINAL_CODE_ALIASES:
             assert hasattr(original_code, alias), f"Missing alias function: {alias}"
             assert hasattr(OriginalCodeIcon, alias.upper()), f"Missing alias enum: {alias.upper()}"

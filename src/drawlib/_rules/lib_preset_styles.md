@@ -792,6 +792,7 @@ s_alert = Styles["RedSolidBold"]
 assert s_alert.line_width == 2.25
 assert s_alert.shape_fill_color == (0, 0, 0, 0.0)  # Transparent fill
 
+
 # 2. Dynamic styling based on runtime condition
 def get_node_style(health_status: str) -> Style:
     status_map = {

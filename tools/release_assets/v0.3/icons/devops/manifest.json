@@ -1,7 +1,7 @@
 {
   "format_version": "2.0",
   "provider": "devops",
-  "created_at": "2026-10-19T01:02:33.726269+00:00",
+  "created_at": "2026-10-19T13:23:33.888147+00:00",
   "canvas_size": [
     512,
     512
@@ -10,16 +10,19 @@
     460,
     460
   ],
-  "total_files": 40,
+  "total_files": 58,
   "aliases": {
     "actions": "github_actions",
     "artifactory": "jfrog",
     "bb": "bitbucket",
     "circle": "circleci",
     "dd": "datadog",
+    "fluentbit": "fluent_bit",
     "gh": "github",
     "gha": "github_actions",
     "gl": "gitlab",
+    "grafana_mimir": "mimir",
+    "grafana_tempo": "tempo",
     "hashicorp_consul": "consul",
     "hashicorp_vault": "vault",
     "nr": "new_relic",
@@ -28,7 +31,10 @@
     "sonar": "sonarqube",
     "sonatype_nexus": "nexus",
     "tf": "terraform",
-    "tofu": "opentofu"
+    "tofu": "opentofu",
+    "turbo": "turborepo",
+    "victoriametrics": "victoria_metrics",
+    "vm_metrics": "victoria_metrics"
   },
   "files": {
     "ansible_default.png": {
@@ -37,6 +43,19 @@
       "source_script": "devops/ansible_default.py",
       "size_bytes": 20707,
       "sha256": "e347be80686b641b20b4b321e570cecaf57c994f450d1a4cbe62505e5c0ceb74",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "bazel_default.png": {
+      "icon_name": "bazel",
+      "variant": "default",
+      "source_script": "devops/bazel_default.py",
+      "size_bytes": 5416,
+      "sha256": "5acc67e482e3db39b7d2a95869f710a247835a411244d7bd50175d1e4c66bfe0",
       "bbox": [
         26,
         26,
@@ -55,6 +74,19 @@
         49,
         486,
         463
+      ]
+    },
+    "bruno_default.png": {
+      "icon_name": "bruno",
+      "variant": "default",
+      "source_script": "devops/bruno_default.py",
+      "size_bytes": 30814,
+      "sha256": "6689c37e96fe51278c50c3f344fc28bc1f72f953421a9d23e9f8656a8593ccbd",
+      "bbox": [
+        26,
+        55,
+        486,
+        456
       ]
     },
     "buildkite_default.png": {
@@ -109,6 +141,19 @@
         486
       ]
     },
+    "dagger_default.png": {
+      "icon_name": "dagger",
+      "variant": "default",
+      "source_script": "devops/dagger_default.py",
+      "size_bytes": 34317,
+      "sha256": "1916ac44eef04c3d79777555328ebece7905e3710319ee80a7152a2f0ac45c68",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
     "datadog_default.png": {
       "icon_name": "datadog",
       "variant": "default",
@@ -133,6 +178,19 @@
         26,
         483,
         486
+      ]
+    },
+    "fluent_bit_default.png": {
+      "icon_name": "fluent_bit",
+      "variant": "default",
+      "source_script": "devops/fluent_bit_default.py",
+      "size_bytes": 17307,
+      "sha256": "dae3b5c462532c1b3c21f27c28fa6935b6cbccde9e53f4148a7573ea7c63502b",
+      "bbox": [
+        26,
+        93,
+        486,
+        418
       ]
     },
     "git_default.png": {
@@ -185,6 +243,45 @@
         34,
         486,
         477
+      ]
+    },
+    "honeycomb_default.png": {
+      "icon_name": "honeycomb",
+      "variant": "default",
+      "source_script": "devops/honeycomb_default.py",
+      "size_bytes": 13434,
+      "sha256": "d5f64c5bbd0bc43feb980f85ab8026345743e9f4db1f23471de75654808e1e9a",
+      "bbox": [
+        26,
+        39,
+        486,
+        473
+      ]
+    },
+    "incident_io_default.png": {
+      "icon_name": "incident_io",
+      "variant": "default",
+      "source_script": "devops/incident_io_default.py",
+      "size_bytes": 14319,
+      "sha256": "14822193f5c9d26611e2b40107ee706bca37c2db3e1bf2360f78cf262ad20f5c",
+      "bbox": [
+        85,
+        26,
+        427,
+        486
+      ]
+    },
+    "insomnia_default.png": {
+      "icon_name": "insomnia",
+      "variant": "default",
+      "source_script": "devops/insomnia_default.py",
+      "size_bytes": 23670,
+      "sha256": "c894f3f8e18c462de785b185c29080d05653307d041dfe813ee185823eb8f9ae",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
       ]
     },
     "jenkins_default.png": {
@@ -265,6 +362,19 @@
         486
       ]
     },
+    "launchdarkly_default.png": {
+      "icon_name": "launchdarkly",
+      "variant": "default",
+      "source_script": "devops/launchdarkly_default.py",
+      "size_bytes": 15281,
+      "sha256": "6a6f503aaafbe72cd9970794076e0fd60c38b42c736f81a9224ef51d9dfb3b38",
+      "bbox": [
+        26,
+        26,
+        486,
+        485
+      ]
+    },
     "loki_default.png": {
       "icon_name": "loki",
       "variant": "default",
@@ -275,6 +385,19 @@
         57,
         26,
         454,
+        486
+      ]
+    },
+    "mimir_default.png": {
+      "icon_name": "mimir",
+      "variant": "default",
+      "source_script": "devops/mimir_default.py",
+      "size_bytes": 17702,
+      "sha256": "9089abf5e695e618d590fa872299296b9e3a5cb620dec91055d261364b3103bf",
+      "bbox": [
+        51,
+        26,
+        460,
         486
       ]
     },
@@ -304,6 +427,19 @@
         486
       ]
     },
+    "nx_default.png": {
+      "icon_name": "nx",
+      "variant": "default",
+      "source_script": "devops/nx_default.py",
+      "size_bytes": 17671,
+      "sha256": "c525094f9fdb6a52073bc106a4a4e640b2719e269a1fb19304aca5871a3c365b",
+      "bbox": [
+        26,
+        113,
+        486,
+        399
+      ]
+    },
     "opentofu_default.png": {
       "icon_name": "opentofu",
       "variant": "default",
@@ -314,6 +450,19 @@
         43,
         26,
         469,
+        486
+      ]
+    },
+    "opsgenie_default.png": {
+      "icon_name": "opsgenie",
+      "variant": "default",
+      "source_script": "devops/opsgenie_default.py",
+      "size_bytes": 14256,
+      "sha256": "a471652445da99d776f307506a95acf06c2a9797f4c3d8c09f7dad9e7558490f",
+      "bbox": [
+        62,
+        26,
+        449,
         486
       ]
     },
@@ -421,6 +570,19 @@
         459
       ]
     },
+    "signoz_default.png": {
+      "icon_name": "signoz",
+      "variant": "default",
+      "source_script": "devops/signoz_default.py",
+      "size_bytes": 20223,
+      "sha256": "4f1a7e394e52fa3c0b37db7691ba5e1fd97fa57a41499536a528cd8a81d7a642",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
     "slack_default.png": {
       "icon_name": "slack",
       "variant": "default",
@@ -499,6 +661,19 @@
         486
       ]
     },
+    "tempo_default.png": {
+      "icon_name": "tempo",
+      "variant": "default",
+      "source_script": "devops/tempo_default.py",
+      "size_bytes": 9031,
+      "sha256": "41a36bbfe6403c74b8f29977090ca96e1b8e47d1d7308ef8d97f6ed987ae2dc0",
+      "bbox": [
+        26,
+        68,
+        486,
+        443
+      ]
+    },
     "terraform_default.png": {
       "icon_name": "terraform",
       "variant": "default",
@@ -512,6 +687,19 @@
         486
       ]
     },
+    "thanos_default.png": {
+      "icon_name": "thanos",
+      "variant": "default",
+      "source_script": "devops/thanos_default.py",
+      "size_bytes": 4197,
+      "sha256": "ba229fd19274332d085d5b9ba8ebf1f0be625733b5603a85b93a5ea454e3f498",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
     "trivy_default.png": {
       "icon_name": "trivy",
       "variant": "default",
@@ -522,6 +710,32 @@
         56,
         26,
         455,
+        486
+      ]
+    },
+    "turborepo_default.png": {
+      "icon_name": "turborepo",
+      "variant": "default",
+      "source_script": "devops/turborepo_default.py",
+      "size_bytes": 21998,
+      "sha256": "02c76ffc085a2c813c595d9c845db4558c9bae6ce421ab45362a32e59035bc91",
+      "bbox": [
+        70,
+        26,
+        441,
+        486
+      ]
+    },
+    "unleash_default.png": {
+      "icon_name": "unleash",
+      "variant": "default",
+      "source_script": "devops/unleash_default.py",
+      "size_bytes": 1851,
+      "sha256": "e18154077565d038cfd874168fc46bcc158a7370008246ac6dff1f9dcf9963c8",
+      "bbox": [
+        26,
+        26,
+        486,
         486
       ]
     },
@@ -548,6 +762,32 @@
         26,
         26,
         486,
+        486
+      ]
+    },
+    "vector_default.png": {
+      "icon_name": "vector",
+      "variant": "default",
+      "source_script": "devops/vector_default.py",
+      "size_bytes": 19152,
+      "sha256": "52a009f800d23994bdc80992f9748da3b319408757f72c63caa63dff82696dbc",
+      "bbox": [
+        60,
+        26,
+        452,
+        486
+      ]
+    },
+    "victoria_metrics_default.png": {
+      "icon_name": "victoria_metrics",
+      "variant": "default",
+      "source_script": "devops/victoria_metrics_default.py",
+      "size_bytes": 24671,
+      "sha256": "71fe8b1e6eb478f4e1032eeb1dedc733d85656e4dc4b2ee4a8b43534dc720085",
+      "bbox": [
+        55,
+        26,
+        456,
         486
       ]
     }

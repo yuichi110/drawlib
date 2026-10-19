@@ -13,11 +13,10 @@ All public type models and styling base classes are imported from `drawlib.types
 from drawlib.types import (
     # Primary Styling Model
     Style,
-
     # Architectural Base Classes
-    BaseColors,          # Base class for defining custom color palettes
-    BaseStyles,          # Base class for defining custom preset styles
-    FontBase,            # Base class for font representations
+    BaseColors,  # Base class for defining custom color palettes
+    BaseStyles,  # Base class for defining custom preset styles
+    FontBase,  # Base class for font representations
 )
 ```
 
@@ -153,13 +152,16 @@ You can define cohesive organizational design systems by subclassing `BaseStyles
 from drawlib.preset_colors import Color
 from drawlib.types import BaseColors, BaseStyles, Style
 
+
 class AcmeColors(BaseColors):
     BrandBlue: Color = Color.from_hex("#0052cc")
     BrandOrange: Color = Color.from_hex("#ff5630")
     NeutralDark: Color = Color.from_hex("#172b4d")
     NeutralLight: Color = Color.from_hex("#f4f5f7")
 
+
 acme_colors = AcmeColors()
+
 
 class AcmeTheme(BaseStyles):
     primary: Style = Style(

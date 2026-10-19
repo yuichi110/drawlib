@@ -222,13 +222,13 @@ from drawlib.preset_colors import CssColors
 from drawlib.types import Style
 
 custom_shape_style = Style(
-    shape_fill_color=CssColors.AliceBlue,      # Interior fill color (RGB, RGBA, or hex)
-    alpha=0.85,                                # Opacity float: 0.0 (transparent) to 1.0 (opaque)
-    shape_line_color=CssColors.SteelBlue,      # Stroke boundary color
-    shape_line_width=2.5,                      # Stroke thickness in points (0 disables border)
-    shape_line_style="dashed",                 # "solid" | "dashed" | "dotted" | "dashdot"
-    halign="center",                      # Layout horizontal anchor
-    valign="center",                      # Layout vertical anchor
+    shape_fill_color=CssColors.AliceBlue,  # Interior fill color (RGB, RGBA, or hex)
+    alpha=0.85,  # Opacity float: 0.0 (transparent) to 1.0 (opaque)
+    shape_line_color=CssColors.SteelBlue,  # Stroke boundary color
+    shape_line_width=2.5,  # Stroke thickness in points (0 disables border)
+    shape_line_style="dashed",  # "solid" | "dashed" | "dotted" | "dashdot"
+    halign="center",  # Layout horizontal anchor
+    valign="center",  # Layout vertical anchor
 )
 ```
 
@@ -262,9 +262,9 @@ custom_text_style = Style(
     text_color=CssColors.MidnightBlue,
     text_size=18,
     text_font=FontRoboto.ROBOTO_BOLD,
-    angle=0.0,                       # Freeze text horizontally even if shape rotates
-    text_flip=False,                 # Invert 180 degrees if True
-    xy_shift=(0.0, -3.0),            # Relative micro-adjustment offset (dx, dy)
+    angle=0.0,  # Freeze text horizontally even if shape rotates
+    text_flip=False,  # Invert 180 degrees if True
+    xy_shift=(0.0, -3.0),  # Relative micro-adjustment offset (dx, dy)
 )
 ```
 
@@ -308,8 +308,7 @@ def circle(
     style: Style,
     text: str = "",
     text_style: Style | None = None,
-) -> None:
-    ...
+) -> None: ...
 ```
 
 #### Parameter Breakdown
@@ -371,8 +370,7 @@ def ellipse(
     style: Style,
     text: str = "",
     text_style: Style | None = None,
-) -> None:
-    ...
+) -> None: ...
 ```
 
 #### Parameter Breakdown
@@ -440,8 +438,7 @@ def wedge(
     style: Style | None = None,
     text: str = "",
     text_style: Style | None = None,
-) -> None:
-    ...
+) -> None: ...
 ```
 
 #### Parameter Breakdown
@@ -510,8 +507,7 @@ def fan(
     style: Style | None = None,
     text: str = "",
     text_style: Style | None = None,
-) -> None:
-    ...
+) -> None: ...
 ```
 
 #### Parameter Breakdown
@@ -578,8 +574,7 @@ def arc(
     style: Style | None = None,
     text: str = "",
     text_style: Style | None = None,
-) -> None:
-    ...
+) -> None: ...
 ```
 
 #### Parameter Breakdown
@@ -651,8 +646,7 @@ def cylinder(
     disks: int = 1,
     text: str = "",
     text_style: Style | None = None,
-) -> None:
-    ...
+) -> None: ...
 ```
 
 #### Parameter Breakdown
@@ -700,14 +694,20 @@ def face(
     radius: float,
     *,
     variant: Literal[
-        "smile", "neutral", "sad", "angry", "surprised",
-        "dizzy", "dead", "skull", "devil",
+        "smile",
+        "neutral",
+        "sad",
+        "angry",
+        "surprised",
+        "dizzy",
+        "dead",
+        "skull",
+        "devil",
     ] = "smile",
     style: Style,
     text: str = "",
     text_style: Style | None = None,
-) -> None:
-    ...
+) -> None: ...
 ```
 
 #### Parameter Breakdown
@@ -754,8 +754,7 @@ def cloud(
     style: Style,
     text: str = "",
     text_style: Style | None = None,
-) -> None:
-    ...
+) -> None: ...
 ```
 
 #### Parameter Breakdown
@@ -790,8 +789,7 @@ def brace(
     style: Style,
     text: str = "",
     text_style: Style | None = None,
-) -> None:
-    ...
+) -> None: ...
 ```
 
 #### Parameter Breakdown
@@ -825,8 +823,7 @@ def cube(
     style: Style,
     text: str = "",
     text_style: Style | None = None,
-) -> None:
-    ...
+) -> None: ...
 ```
 
 #### Parameter Breakdown
@@ -854,10 +851,15 @@ def document(
     height: float,
     *,
     variant: Literal[
-        "wave", "standard",
-        "folded", "page", "note",
-        "double_wave", "snippet",
-        "folded_wave", "report",
+        "wave",
+        "standard",
+        "folded",
+        "page",
+        "note",
+        "double_wave",
+        "snippet",
+        "folded_wave",
+        "report",
     ] = "wave",
     stacked: int = 1,
     wave_ratio: float | None = None,
@@ -865,8 +867,7 @@ def document(
     style: Style,
     text: str = "",
     text_style: Style | None = None,
-) -> None:
-    ...
+) -> None: ...
 ```
 
 #### Parameter Breakdown
@@ -949,8 +950,7 @@ def rectangle(
     style: Style | None = None,
     text: str = "",
     text_style: Style | None = None,
-) -> None:
-    ...
+) -> None: ...
 ```
 
 ##### Parameter Breakdown
@@ -1016,8 +1016,7 @@ def parallelogram(
     style: Style | None = None,
     text: str = "",
     text_style: Style | None = None,
-) -> None:
-    ...
+) -> None: ...
 ```
 
 #### Parameter Breakdown
@@ -1082,8 +1081,7 @@ def rhombus(
     style: Style | None = None,
     text: str = "",
     text_style: Style | None = None,
-) -> None:
-    ...
+) -> None: ...
 ```
 
 #### Parameter Breakdown
@@ -1155,8 +1153,7 @@ def trapezoid(
     style: Style | None = None,
     text: str = "",
     text_style: Style | None = None,
-) -> None:
-    ...
+) -> None: ...
 ```
 
 #### Parameter Breakdown
@@ -1230,8 +1227,7 @@ def triangle(
     style: Style | None = None,
     text: str = "",
     text_style: Style | None = None,
-) -> None:
-    ...
+) -> None: ...
 ```
 
 #### Parameter Breakdown
@@ -1293,8 +1289,7 @@ def regularpolygon(
     style: Style | None = None,
     text: str = "",
     text_style: Style | None = None,
-) -> None:
-    ...
+) -> None: ...
 ```
 
 #### Parameter Breakdown
@@ -1356,8 +1351,7 @@ def polygon(
     style: Style | None = None,
     text: str = "",
     text_style: Style | None = None,
-) -> None:
-    ...
+) -> None: ...
 ```
 
 #### Parameter Breakdown
@@ -1419,8 +1413,7 @@ def star(
     style: Style | None = None,
     text: str = "",
     text_style: Style | None = None,
-) -> None:
-    ...
+) -> None: ...
 ```
 
 #### Parameter Breakdown
@@ -1489,8 +1482,7 @@ def gear(
     style: Style,
     text: str = "",
     text_style: Style | None = None,
-) -> None:
-    ...
+) -> None: ...
 ```
 
 #### Parameter Breakdown
@@ -1548,8 +1540,23 @@ Draws a mathematical operator symbol (`+`, `-`, `×`, `÷`, `=`, `≠`) as a fil
 def math_symbol(
     xy: tuple[float, float],
     symbol: Literal[
-        "+", "-", "−", "*", "x", "×", "/", "÷", "=", "!=", "≠",
-        "plus", "minus", "multiply", "divide", "equal", "not_equal",
+        "+",
+        "-",
+        "−",
+        "*",
+        "x",
+        "×",
+        "/",
+        "÷",
+        "=",
+        "!=",
+        "≠",
+        "plus",
+        "minus",
+        "multiply",
+        "divide",
+        "equal",
+        "not_equal",
     ],
     width: float,
     height: float | None = None,
@@ -1558,8 +1565,7 @@ def math_symbol(
     style: Style,
     text: str = "",
     text_style: Style | None = None,
-) -> None:
-    ...
+) -> None: ...
 ```
 
 #### Parameter Breakdown
@@ -1613,8 +1619,7 @@ def bubblespeech(
     style: Style | None = None,
     text: str = "",
     text_style: Style | None = None,
-) -> None:
-    ...
+) -> None: ...
 ```
 
 #### Parameter Breakdown
@@ -1696,8 +1701,7 @@ def shape(
     style: Style | None = None,
     text: str = "",
     text_style: Style | None = None,
-) -> None:
-    ...
+) -> None: ...
 ```
 
 #### Parameter Breakdown
@@ -1799,8 +1803,7 @@ def arrow(
     style: Style | None = None,
     text: str = "",
     text_style: Style | None = None,
-) -> None:
-    ...
+) -> None: ...
 ```
 
 #### Parameter Breakdown
@@ -1867,8 +1870,7 @@ def arrow_l(
     head: Literal["->", "<-", "<->"] = "->",
     *,
     style: Style | None = None,
-) -> None:
-    ...
+) -> None: ...
 ```
 
 #### Parameter Breakdown
@@ -1934,8 +1936,7 @@ def arrow_u(
     head: Literal["->", "<-", "<->"] = "->",
     *,
     style: Style | None = None,
-) -> None:
-    ...
+) -> None: ...
 ```
 
 #### Parameter Breakdown
@@ -2006,8 +2007,7 @@ def arrow_arc(
     style: Style | None = None,
     text: str = "",
     text_style: Style | None = None,
-) -> None:
-    ...
+) -> None: ...
 ```
 
 #### Parameter Breakdown
@@ -2070,8 +2070,7 @@ def arrow_polyline(
     *,
     head: Literal["->", "<-", "<->"] = "->",
     style: Style | None = None,
-) -> None:
-    ...
+) -> None: ...
 ```
 
 #### Parameter Breakdown
@@ -2139,8 +2138,7 @@ def chevron(
     style: Style | None = None,
     text: str = "",
     text_style: Style | None = None,
-) -> None:
-    ...
+) -> None: ...
 ```
 
 #### Parameter Breakdown

@@ -138,6 +138,26 @@ def anthropic(
     _write(xy=xy, width=width, name="claude", style=style, variant=variant)
 
 
+def arize_phoenix(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original AI concept icon representing arize phoenix.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="arize_phoenix", style=style, variant=variant)
+
+
 def autogen(
     xy: Coordinate,
     width: PosFloat,
@@ -176,6 +196,26 @@ def benchmark(
 
     """
     _write(xy=xy, width=width, name="evaluation", style=style, variant=variant)
+
+
+def braintrust(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original AI concept icon representing braintrust.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="braintrust", style=style, variant=variant)
 
 
 def chatgpt(
@@ -238,6 +278,46 @@ def cohere(
     _write(xy=xy, width=width, name="cohere", style=style, variant=variant)
 
 
+def copilot(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original AI concept icon representing copilot.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="copilot", style=style, variant=variant)
+
+
+def copilot_ai(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original AI concept icon representing copilot ai.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="copilot", style=style, variant=variant)
+
+
 def crewai(
     xy: Coordinate,
     width: PosFloat,
@@ -258,6 +338,26 @@ def crewai(
     _write(xy=xy, width=width, name="crewai", style=style, variant=variant)
 
 
+def cursor(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original AI concept icon representing cursor.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="cursor", style=style, variant=variant)
+
+
 def dataset(
     xy: Coordinate,
     width: PosFloat,
@@ -276,6 +376,26 @@ def dataset(
 
     """
     _write(xy=xy, width=width, name="dataset", style=style, variant=variant)
+
+
+def deepgram(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original AI concept icon representing deepgram.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="deepgram", style=style, variant=variant)
 
 
 def deepseek(
@@ -316,6 +436,26 @@ def dify(
 
     """
     _write(xy=xy, width=width, name="dify", style=style, variant=variant)
+
+
+def elevenlabs(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original AI concept icon representing elevenlabs.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="elevenlabs", style=style, variant=variant)
 
 
 def embedding(
@@ -438,6 +578,66 @@ def fine_tuning(
     _write(xy=xy, width=width, name="fine_tuning", style=style, variant=variant)
 
 
+def firecrawl(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original AI concept icon representing firecrawl.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="firecrawl", style=style, variant=variant)
+
+
+def fireworks(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original AI concept icon representing fireworks.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="fireworks_ai", style=style, variant=variant)
+
+
+def fireworks_ai(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original AI concept icon representing fireworks ai.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="fireworks_ai", style=style, variant=variant)
+
+
 def function_calling(
     xy: Coordinate,
     width: PosFloat,
@@ -476,6 +676,26 @@ def gemini(
 
     """
     _write(xy=xy, width=width, name="gemini", style=style, variant=variant)
+
+
+def github_copilot(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original AI concept icon representing github copilot.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="copilot", style=style, variant=variant)
 
 
 def google_gemini(
@@ -576,6 +796,26 @@ def grok(
 
     """
     _write(xy=xy, width=width, name="grok", style=style, variant=variant)
+
+
+def groq(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original AI concept icon representing groq.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="groq", style=style, variant=variant)
 
 
 def guardrail(
@@ -858,6 +1098,26 @@ def litellm(
     _write(xy=xy, width=width, name="litellm", style=style, variant=variant)
 
 
+def livekit(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original AI concept icon representing livekit.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="livekit", style=style, variant=variant)
+
+
 def llama(
     xy: Coordinate,
     width: PosFloat,
@@ -956,6 +1216,26 @@ def lora(
 
     """
     _write(xy=xy, width=width, name="fine_tuning", style=style, variant=variant)
+
+
+def mastra(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original AI concept icon representing mastra.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="mastra", style=style, variant=variant)
 
 
 def mcp(
@@ -1098,6 +1378,26 @@ def mlflow(
     _write(xy=xy, width=width, name="mlflow", style=style, variant=variant)
 
 
+def modal(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original AI concept icon representing modal.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="modal", style=style, variant=variant)
+
+
 def model_registry(
     xy: Coordinate,
     width: PosFloat,
@@ -1238,6 +1538,26 @@ def nvidia(
     _write(xy=xy, width=width, name="nvidia", style=style, variant=variant)
 
 
+def nvidia_triton(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original AI concept icon representing nvidia triton.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="triton", style=style, variant=variant)
+
+
 def ollama(
     xy: Coordinate,
     width: PosFloat,
@@ -1338,6 +1658,26 @@ def openhands(
     _write(xy=xy, width=width, name="openhands", style=style, variant=variant)
 
 
+def openrouter(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original AI concept icon representing openrouter.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="openrouter", style=style, variant=variant)
+
+
 def perplexity(
     xy: Coordinate,
     width: PosFloat,
@@ -1356,6 +1696,26 @@ def perplexity(
 
     """
     _write(xy=xy, width=width, name="perplexity", style=style, variant=variant)
+
+
+def phoenix(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original AI concept icon representing phoenix.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="arize_phoenix", style=style, variant=variant)
 
 
 def prompt(
@@ -1416,6 +1776,46 @@ def prompt_template(
 
     """
     _write(xy=xy, width=width, name="prompt_template", style=style, variant=variant)
+
+
+def pydantic(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original AI concept icon representing pydantic.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="pydantic_ai", style=style, variant=variant)
+
+
+def pydantic_ai(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original AI concept icon representing pydantic ai.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="pydantic_ai", style=style, variant=variant)
 
 
 def pytorch(
@@ -1518,6 +1918,46 @@ def ray(
     _write(xy=xy, width=width, name="ray", style=style, variant=variant)
 
 
+def replicate(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original AI concept icon representing replicate.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="replicate", style=style, variant=variant)
+
+
+def runpod(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original AI concept icon representing runpod.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="runpod", style=style, variant=variant)
+
+
 def scikit_learn(
     xy: Coordinate,
     width: PosFloat,
@@ -1556,6 +1996,26 @@ def semantic_kernel(
 
     """
     _write(xy=xy, width=width, name="semantic_kernel", style=style, variant=variant)
+
+
+def sglang(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original AI concept icon representing sglang.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="sglang", style=style, variant=variant)
 
 
 def sk(
@@ -1618,6 +2078,26 @@ def streamlit(
     _write(xy=xy, width=width, name="streamlit", style=style, variant=variant)
 
 
+def tavily(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original AI concept icon representing tavily.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="tavily", style=style, variant=variant)
+
+
 def tensorflow(
     xy: Coordinate,
     width: PosFloat,
@@ -1656,6 +2136,46 @@ def tf(
 
     """
     _write(xy=xy, width=width, name="tensorflow", style=style, variant=variant)
+
+
+def together(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original AI concept icon representing together.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="together_ai", style=style, variant=variant)
+
+
+def together_ai(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original AI concept icon representing together ai.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="together_ai", style=style, variant=variant)
 
 
 def tool_use(
@@ -1756,6 +2276,26 @@ def training_pipeline(
 
     """
     _write(xy=xy, width=width, name="training_pipeline", style=style, variant=variant)
+
+
+def triton(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original AI concept icon representing triton.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="triton", style=style, variant=variant)
 
 
 def vector_database(

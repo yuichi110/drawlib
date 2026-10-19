@@ -13,12 +13,12 @@ All line-drawing functionality is implemented in the internal canvas engine (`dr
 ### 1.1. Public Domain Functions
 ```python
 from drawlib.lines import (
-    line,          # Straight line segment between two coordinates
-    line_arc,      # Open arc along an elliptical or circular boundary
+    line,  # Straight line segment between two coordinates
+    line_arc,  # Open arc along an elliptical or circular boundary
     line_bezier1,  # Quadratic Bézier curve with 1 control point
     line_bezier2,  # Cubic Bézier curve with 2 control points
-    line_curved,   # Circular/arc-based spline with scalar bend factor
-    lines,         # Chained polyline through a sequence of vertices
+    line_curved,  # Circular/arc-based spline with scalar bend factor
+    lines,  # Chained polyline through a sequence of vertices
     lines_bezier,  # Multi-segment path mixing straight and Bézier segments
     lines_curved,  # Chained polyline with automatic corner fillet radius
 )
@@ -736,12 +736,12 @@ from drawlib.types import Style
 from drawlib.styles import Colors, Styles
 
 custom_style = Styles.Primary.patch(
-    line_color=Colors.Red,        # Stroke color (RGB/RGBA tuple, Colors.*, or hex)
-    line_width=2.5,               # Stroke width in points (default: 1.0)
-    line_style="dashed",          # Stroke pattern: "solid" | "dashed" | "dotted" | "dashdot"
-    alpha=0.85,                   # Overall opacity [0.0 (transparent) to 1.0 (opaque)]
-    line_arrow_head_fill=True,    # Filled arrowhead triangle
-    line_arrow_head_scale=24.0,   # Arrowhead size
+    line_color=Colors.Red,  # Stroke color (RGB/RGBA tuple, Colors.*, or hex)
+    line_width=2.5,  # Stroke width in points (default: 1.0)
+    line_style="dashed",  # Stroke pattern: "solid" | "dashed" | "dotted" | "dashdot"
+    alpha=0.85,  # Overall opacity [0.0 (transparent) to 1.0 (opaque)]
+    line_arrow_head_fill=True,  # Filled arrowhead triangle
+    line_arrow_head_scale=24.0,  # Arrowhead size
 )
 ```
 
@@ -834,9 +834,9 @@ Placing text directly on top of a line stroke can make the letters illegible. Dr
 badge_style = Styles.Primary.patch(
     text_size=10,
     text_color=Colors.Navy,
-    text_bg_fill_color=Colors.White,    # Masks the underlying line stroke
-    text_bg_line_color=Colors.Gray5,    # Optional border around the label badge
-    text_bg_line_width=0.5,             # Subtle border width
+    text_bg_fill_color=Colors.White,  # Masks the underlying line stroke
+    text_bg_line_color=Colors.Gray5,  # Optional border around the label badge
+    text_bg_line_width=0.5,  # Subtle border width
     halign="center",
     valign="center",
 )
@@ -1002,6 +1002,7 @@ def route_manhattan(
     x1, y1 = start
     x2, y2 = end
     return [(x1, y1), (x2, y1), (x2, y2)] if horizontal_first else [(x1, y1), (x1, y2), (x2, y2)]
+
 
 def route_dogleg(
     start: tuple[float, float],

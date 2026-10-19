@@ -236,7 +236,7 @@ class TestDownloadAndExtract:
         assert target_file.read_bytes() == b"downloaded"
 
     def test_download_all_release_assets(self):
-        """Test download_all_release_assets iterates over all 51 packages."""
+        """Test download_all_release_assets iterates over all 81 packages."""
         with patch("drawlib._release_assets.ReleaseAssetPackage.download_and_extract") as mock_dl:
             download_all_release_assets()
-            assert mock_dl.call_count == 51
+            assert mock_dl.call_count == 81

@@ -14,12 +14,14 @@ from __future__ import annotations
 from drawlib._icons.png_icons._base import PngIconProvider
 
 CODE_ALIASES: dict[str, str] = {
+    "apollo_graphql": "apollo",
     "aspnet": "dotnet",
     "c_lang": "c",
     "cplusplus": "cpp",
     "cs": "csharp",
     "css": "css3",
     "echo_go": "echo",
+    "elixir_lang": "elixir",
     "expressjs": "express",
     "gin_gonic": "gin",
     "golang": "go",
@@ -28,8 +30,10 @@ CODE_ALIASES: dict[str, str] = {
     "html": "html5",
     "jetbrains": "intellij",
     "js": "javascript",
+    "julia_lang": "julia",
     "jvm": "java",
     "kt": "kotlin",
+    "lua_lang": "lua",
     "nest": "nestjs",
     "net": "dotnet",
     "next": "nextjs",
@@ -38,13 +42,16 @@ CODE_ALIASES: dict[str, str] = {
     "openjdk": "java",
     "proto": "protobuf",
     "py": "python",
+    "r_lang": "r",
     "rb": "ruby",
     "reactjs": "react",
     "rn": "react_native",
     "rs": "rust",
     "ruby_on_rails": "rails",
+    "scala_lang": "scala",
     "sh": "bash",
     "shell": "bash",
+    "sol": "solidity",
     "spring_boot": "spring",
     "swagger": "openapi",
     "tailwind": "tailwind_css",
@@ -53,6 +60,7 @@ CODE_ALIASES: dict[str, str] = {
     "vs_code": "vscode",
     "vue": "vuejs",
     "wasm": "webassembly",
+    "zig_lang": "zig",
 }
 
 CODE_PROVIDER = PngIconProvider(

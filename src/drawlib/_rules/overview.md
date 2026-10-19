@@ -152,6 +152,7 @@ Estimating pixel-perfect coordinates by trial-and-error wastes developer time. D
 - Pass `grid=True` to `show()` in interactive environments:
   ```python
   from drawlib.canvas import show
+
   show(grid=True)
   ```
 - Or run CLI headless export with `--grid` / `-g`:
@@ -266,6 +267,7 @@ Every visual element in Drawlib is governed by clean, strongly-typed style objec
   - Can be customized directly:
     ```python
     from drawlib.types import Style
+
     my_style = Style(fill_color=(240, 248, 255), line_color=(30, 144, 255), line_width=2)
     ```
   - **Immutability & Safety**: Use `style.copy()` when deriving modified variants to prevent mutation side-effects.
@@ -601,6 +603,7 @@ drawlib rules show <topic> --rebuild
   ```python
   from drawlib.smartarts import ChevronProcess, Table
   from drawlib.styles import Styles
+
   cp = ChevronProcess(style=Styles.PrimaryFlat, text_style=Styles.WhiteBold, description_style=Styles.White)
   cp.add("Plan")
   cp.add("Build")
@@ -658,6 +661,7 @@ drawlib rules show <topic> --rebuild
 - **Key Syntax**:
   ```python
   from drawlib.canvas import clear, save, setup
+
   setup(width=140, height=70, background_color=(250, 250, 250))
   save("output.png")
   ```
@@ -671,6 +675,7 @@ drawlib rules show <topic> --rebuild
 - **Key Syntax**:
   ```python
   from drawlib.preset_colors import Color, DefaultColors
+
   c1 = Color.from_hex("#3498db", alpha=0.8)
   c2 = DefaultColors.Blue.patch(alpha=0.2)
   ```
@@ -684,6 +689,7 @@ drawlib rules show <topic> --rebuild
 - **Key Syntax**:
   ```python
   from drawlib.fonts import Font, FontFile, FontRoboto
+
   custom_font = FontFile("fonts/brand.ttf")
   ```
 - **When to read**: Refer to this rule when selecting typographic weights, rendering multi-language diagrams, formatting monospace source code, or loading custom brand typefaces.
@@ -696,6 +702,7 @@ drawlib rules show <topic> --rebuild
 - **Key Syntax**:
   ```python
   from drawlib.images import Dimage, get_dimage_from_code, image
+
   image((50, 30), width=20, image="logo.png")
   ```
 - **When to read**: Refer to this rule when incorporating company logos, external architecture badges, screenshots, or composing nested diagrams dynamically.
@@ -708,6 +715,7 @@ drawlib rules show <topic> --rebuild
 - **Key Syntax**:
   ```python
   from drawlib.math import get_angle, get_center_and_size, get_distance
+
   angle = get_angle(p1, p2)
   (cx, cy), (w, h) = get_center_and_size([(10, 20), (40, 50), (30, 10)])
   ```
@@ -721,6 +729,7 @@ drawlib rules show <topic> --rebuild
 - **Key Syntax**:
   ```python
   from drawlib.types import BaseStyles, Style
+
   custom_style = Style(shape_fill_color=(50, 100, 200), shape_line_width=2, text_size=14)
   ```
 - **When to read**: Refer to this rule when building reusable design systems, encapsulating corporate styles, or writing type-safe drawing utilities.
@@ -733,6 +742,7 @@ drawlib rules show <topic> --rebuild
 - **Key Syntax**:
   ```python
   from drawlib.tools import build_html, export_code_block
+
   build_html("docs_src/", "docs_html/")
   export_code_block("docs_src/arch.md", "1", "output.png")
   ```
@@ -746,7 +756,8 @@ drawlib rules show <topic> --rebuild
 - **Key Syntax**:
   ```python
   from drawlib.styles import Colors, Styles  # Dynamic runtime Styles and Colors
-  from drawlib.utils import custom_box       # User-defined helper utilities
+  from drawlib.utils import custom_box  # User-defined helper utilities
+
   rectangle((30, 20), width=40, height=20, style=Styles.Primary)
   ```
 - **When to read**: Refer to this rule when customizing project-wide palettes or themes, defining reusable helper functions, or decoupling drawing scripts from hardcoded styles.
@@ -759,6 +770,7 @@ drawlib rules show <topic> --rebuild
 - **Key Syntax**:
   ```python
   from drawlib.anim import Animation
+
   anim = Animation(fps=10.0)
   with anim.frame():
       circle((50, 50), radius=10, style=Styles.Primary)
@@ -773,6 +785,7 @@ drawlib rules show <topic> --rebuild
 - **Key Syntax**:
   ```python
   from drawlib.slide import BoundingBox, current_slide
+
   text((7, 1.5), current_slide.text, style=Styles.MutedSmall)
   ```
 - **When to read**: Refer to `project-slide` when authoring presentation slide decks, placing `::: block` containers, or adding speaker notes, and `lib-slide` when using the `drawlib.slide` Python API.
@@ -785,6 +798,7 @@ drawlib rules show <topic> --rebuild
 - **Key Syntax**:
   ```python
   from drawlib.graph import ArchitectureGraph
+
   g = ArchitectureGraph(direction="LR")
   g.node("api", width=24, height=14)
   g.node("db", width=24, height=14)

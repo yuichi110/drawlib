@@ -16,16 +16,23 @@ from drawlib._icons.png_icons._base import PngIconProvider
 AI_ALIASES: dict[str, str] = {
     "anthropic": "claude",
     "chatgpt": "openai",
+    "copilot_ai": "copilot",
+    "fireworks": "fireworks_ai",
+    "github_copilot": "copilot",
     "google_gemini": "gemini",
     "hf": "huggingface",
     "hugging_face": "huggingface",
     "llama": "meta_llama",
     "meta": "meta_llama",
     "mistral_ai": "mistral",
+    "nvidia_triton": "triton",
     "open_hands": "openhands",
+    "phoenix": "arize_phoenix",
+    "pydantic": "pydantic_ai",
     "sk": "semantic_kernel",
     "sklearn": "scikit_learn",
     "tf": "tensorflow",
+    "together": "together_ai",
     "weights_and_biases": "wandb",
 }
 

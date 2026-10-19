@@ -66,11 +66,13 @@ class TestEntity:
     def test_add_columns_batch(self) -> None:
         """Verify batch adding columns from tuples and ColumnInfo."""
         ent = Entity(name="logs")
-        ent.add_columns([
-            ("id", "BIGINT", True),
-            ("message", "TEXT", False, False, False),
-            ColumnInfo(name="level", type="VARCHAR(10)", pk=False, fk=False, nullable=True),
-        ])
+        ent.add_columns(
+            [
+                ("id", "BIGINT", True),
+                ("message", "TEXT", False, False, False),
+                ColumnInfo(name="level", type="VARCHAR(10)", pk=False, fk=False, nullable=True),
+            ]
+        )
         assert len(ent.columns) == 3
         assert ent.columns[0].pk is True
         assert ent.columns[1].nullable is False

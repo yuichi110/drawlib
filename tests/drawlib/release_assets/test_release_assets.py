@@ -155,7 +155,7 @@ def test_asset_manifest_serialization() -> None:
 def test_release_asset_packages_container() -> None:
     """Test ReleaseAssetPackages container attributes, indexing, and methods."""
     assert isinstance(RELEASE_ASSET_PACKAGES, ReleaseAssetPackages)
-    assert len(RELEASE_ASSET_PACKAGES) == 51
+    assert len(RELEASE_ASSET_PACKAGES) == 81
 
     # Direct attribute access with full IDE autocompletion
     roboto = RELEASE_ASSET_PACKAGES.font_roboto
@@ -213,10 +213,10 @@ def test_release_asset_packages_container() -> None:
     assert "unknown_package" not in RELEASE_ASSET_PACKAGES
 
     # Keys, values, items, all
-    assert len(RELEASE_ASSET_PACKAGES.keys()) == 51
-    assert len(RELEASE_ASSET_PACKAGES.values()) == 51
-    assert len(RELEASE_ASSET_PACKAGES.items()) == 51
-    assert len(RELEASE_ASSET_PACKAGES.all()) == 51
+    assert len(RELEASE_ASSET_PACKAGES.keys()) == 81
+    assert len(RELEASE_ASSET_PACKAGES.values()) == 81
+    assert len(RELEASE_ASSET_PACKAGES.items()) == 81
+    assert len(RELEASE_ASSET_PACKAGES.all()) == 81
 
 
 def test_release_asset_package_name_enum() -> None:

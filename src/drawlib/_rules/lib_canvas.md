@@ -11,12 +11,12 @@ All canvas lifecycle functions can be imported from `drawlib.canvas`:
 
 ```python
 from drawlib.canvas import (
-    canvas,       # Underlying singleton Canvas instance
-    clear,        # Reset canvas state and options between images
-    setup,        # Set canvas dimensions, grid, background color, DPI
-    get_dimage,   # Render canvas in-memory and return a Dimage object
-    save,         # Save canvas drawing to an image file on disk
-    show,         # Display canvas in a local desktop preview window
+    canvas,  # Underlying singleton Canvas instance
+    clear,  # Reset canvas state and options between images
+    setup,  # Set canvas dimensions, grid, background color, DPI
+    get_dimage,  # Render canvas in-memory and return a Dimage object
+    save,  # Save canvas drawing to an image file on disk
+    show,  # Display canvas in a local desktop preview window
 )
 ```
 

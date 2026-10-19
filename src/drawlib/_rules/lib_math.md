@@ -10,14 +10,14 @@ All public math and geometry functions are imported from `drawlib.math`:
 
 ```python
 from drawlib.math import (
-    get_angle,                     # Calculate angle in degrees from point A to point B
-    get_center_and_size,           # Compute center coordinates and bounding box dimensions
-    get_distance,                  # Compute Euclidean distance between two points
-    get_intermediate_path_point,   # Compute 50% arc-length midpoint along a polyline path
+    get_angle,  # Calculate angle in degrees from point A to point B
+    get_center_and_size,  # Compute center coordinates and bounding box dimensions
+    get_distance,  # Compute Euclidean distance between two points
+    get_intermediate_path_point,  # Compute 50% arc-length midpoint along a polyline path
     get_intermediate_path_points,  # Compute evenly spaced points along a polyline path
-    get_intermediate_paths,        # Compute progressive partial sub-paths along a polyline
-    get_intermediate_point,        # Compute the 50% midpoint between two points
-    get_intermediate_points,       # Compute evenly spaced points along a segment
+    get_intermediate_paths,  # Compute progressive partial sub-paths along a polyline
+    get_intermediate_point,  # Compute the 50% midpoint between two points
+    get_intermediate_points,  # Compute evenly spaced points along a segment
 )
 ```
 

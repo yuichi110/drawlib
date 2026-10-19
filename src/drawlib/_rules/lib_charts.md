@@ -92,8 +92,7 @@ class Axis:
         unit: str = "",
         label: str = "",
         label_style: Style | None = None,
-    ) -> None:
-        ...
+    ) -> None: ...
 ```
 
 #### Axis Scaling Engines:
@@ -979,11 +978,11 @@ You can define coordinated palettes using RGB/RGBA tuples:
 ```python
 # Modern High-Contrast Corporate Palette
 PALETTE_CORPORATE = {
-    "primary": (15, 23, 42, 1.0),      # Slate Dark
+    "primary": (15, 23, 42, 1.0),  # Slate Dark
     "accent_blue": (37, 99, 235, 1.0),  # Vivid Blue
-    "accent_teal": (13, 148, 136, 1.0), # Teal
-    "accent_amber": (217, 119, 6, 1.0), # Amber
-    "grid": (226, 232, 240, 0.8),       # Light Slate Divider
+    "accent_teal": (13, 148, 136, 1.0),  # Teal
+    "accent_amber": (217, 119, 6, 1.0),  # Amber
+    "grid": (226, 232, 240, 0.8),  # Light Slate Divider
 }
 ```
 

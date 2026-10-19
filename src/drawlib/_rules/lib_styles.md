@@ -76,6 +76,7 @@ PROJECT_NAME = "Enterprise Cloud Architecture"
 API_BASE_URL = "https://api.internal.net"
 DATABASE_PORT = 5432
 
+
 def draw_service_card(center: tuple[float, float], title: str, subtitle: str) -> None:
     """Reusable diagram component for microservice nodes."""
     x, y = center

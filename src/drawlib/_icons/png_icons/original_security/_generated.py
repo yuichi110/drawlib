@@ -178,6 +178,46 @@ def auth0(
     _write(xy=xy, width=width, name="auth0", style=style, variant=variant)
 
 
+def authelia(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Security concept icon representing authelia.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="authelia", style=style, variant=variant)
+
+
+def authentik(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Security concept icon representing authentik.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="authentik", style=style, variant=variant)
+
+
 def azure_ad(
     xy: Coordinate,
     width: PosFloat,
@@ -358,6 +398,26 @@ def casb(
     _write(xy=xy, width=width, name="casb", style=style, variant=variant)
 
 
+def cerbos(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Security concept icon representing cerbos.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="cerbos", style=style, variant=variant)
+
+
 def certificate_authority(
     xy: Coordinate,
     width: PosFloat,
@@ -518,6 +578,26 @@ def cisco_duo(
     _write(xy=xy, width=width, name="duo", style=style, variant=variant)
 
 
+def clerk(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Security concept icon representing clerk.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="clerk", style=style, variant=variant)
+
+
 def cloud_access_security(
     xy: Coordinate,
     width: PosFloat,
@@ -556,6 +636,26 @@ def cloudflare(
 
     """
     _write(xy=xy, width=width, name="cloudflare", style=style, variant=variant)
+
+
+def crowdsec(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Security concept icon representing crowdsec.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="crowdsec", style=style, variant=variant)
 
 
 def crowdstrike(
@@ -1058,6 +1158,26 @@ def falcon(
     _write(xy=xy, width=width, name="crowdstrike", style=style, variant=variant)
 
 
+def fido2(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Security concept icon representing fido2.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="passkey", style=style, variant=variant)
+
+
 def fireeye(
     xy: Coordinate,
     width: PosFloat,
@@ -1136,6 +1256,26 @@ def fortinet(
 
     """
     _write(xy=xy, width=width, name="fortinet", style=style, variant=variant)
+
+
+def gitleaks(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Security concept icon representing gitleaks.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="gitleaks", style=style, variant=variant)
 
 
 def gnupg(
@@ -1496,6 +1636,46 @@ def ipsec_vpn(
 
     """
     _write(xy=xy, width=width, name="vpn_gateway", style=style, variant=variant)
+
+
+def json_web_token(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Security concept icon representing json web token.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="jwt", style=style, variant=variant)
+
+
+def jwt(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Security concept icon representing jwt.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="jwt", style=style, variant=variant)
 
 
 def kaspersky(
@@ -1898,6 +2078,66 @@ def nmap(
     _write(xy=xy, width=width, name="nmap", style=style, variant=variant)
 
 
+def oauth(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Security concept icon representing oauth.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="oauth2", style=style, variant=variant)
+
+
+def oauth2(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Security concept icon representing oauth2.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="oauth2", style=style, variant=variant)
+
+
+def oidc(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Security concept icon representing oidc.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="oidc", style=style, variant=variant)
+
+
 def okta(
     xy: Coordinate,
     width: PosFloat,
@@ -1978,6 +2218,86 @@ def onepassword(
     _write(xy=xy, width=width, name="onepassword", style=style, variant=variant)
 
 
+def openfga(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Security concept icon representing openfga.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="openfga", style=style, variant=variant)
+
+
+def openid(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Security concept icon representing openid.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="oidc", style=style, variant=variant)
+
+
+def openid_connect(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Security concept icon representing openid connect.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="oidc", style=style, variant=variant)
+
+
+def ory(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Security concept icon representing ory.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="ory", style=style, variant=variant)
+
+
 def osquery(
     xy: Coordinate,
     width: PosFloat,
@@ -2036,6 +2356,26 @@ def palo_alto(
 
     """
     _write(xy=xy, width=width, name="palo_alto", style=style, variant=variant)
+
+
+def palo_alto_prisma(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Security concept icon representing palo alto prisma.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="prisma_cloud", style=style, variant=variant)
 
 
 def paloalto(
@@ -2135,7 +2475,7 @@ def passkey(
         variant: Visual variant of the icon ('default'). Defaults to "default".
 
     """
-    _write(xy=xy, width=width, name="mfa_auth", style=style, variant=variant)
+    _write(xy=xy, width=width, name="passkey", style=style, variant=variant)
 
 
 def password_vault(
@@ -2156,6 +2496,46 @@ def password_vault(
 
     """
     _write(xy=xy, width=width, name="secret_vault", style=style, variant=variant)
+
+
+def permit(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Security concept icon representing permit.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="permit_io", style=style, variant=variant)
+
+
+def permit_io(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Security concept icon representing permit io.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="permit_io", style=style, variant=variant)
 
 
 def ping(
@@ -2256,6 +2636,26 @@ def portswigger(
 
     """
     _write(xy=xy, width=width, name="burp_suite", style=style, variant=variant)
+
+
+def prisma_cloud(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Security concept icon representing prisma cloud.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="prisma_cloud", style=style, variant=variant)
 
 
 def privileged_access(
@@ -2376,6 +2776,46 @@ def s1(
 
     """
     _write(xy=xy, width=width, name="sentinelone", style=style, variant=variant)
+
+
+def saml(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Security concept icon representing saml.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="saml", style=style, variant=variant)
+
+
+def saml2(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Security concept icon representing saml2.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="saml", style=style, variant=variant)
 
 
 def sase(
@@ -2638,6 +3078,26 @@ def seg(
     _write(xy=xy, width=width, name="email_security", style=style, variant=variant)
 
 
+def semgrep(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Security concept icon representing semgrep.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="semgrep", style=style, variant=variant)
+
+
 def sentinelone(
     xy: Coordinate,
     width: PosFloat,
@@ -2818,6 +3278,26 @@ def sso(
     _write(xy=xy, width=width, name="iam_sso", style=style, variant=variant)
 
 
+def stytch(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Security concept icon representing stytch.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="stytch", style=style, variant=variant)
+
+
 def sumo_logic(
     xy: Coordinate,
     width: PosFloat,
@@ -2856,6 +3336,26 @@ def sumologic(
 
     """
     _write(xy=xy, width=width, name="sumo_logic", style=style, variant=variant)
+
+
+def supertokens(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Security concept icon representing supertokens.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="supertokens", style=style, variant=variant)
 
 
 def suricata(
@@ -3378,6 +3878,26 @@ def web_application_firewall(
     _write(xy=xy, width=width, name="waf", style=style, variant=variant)
 
 
+def webauthn(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Security concept icon representing webauthn.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="passkey", style=style, variant=variant)
+
+
 def wg(
     xy: Coordinate,
     width: PosFloat,
@@ -3456,6 +3976,26 @@ def wiz(
 
     """
     _write(xy=xy, width=width, name="wiz", style=style, variant=variant)
+
+
+def workos(
+    xy: Coordinate,
+    width: PosFloat,
+    *,
+    style: Style,
+    variant: Literal["default"] = "default",
+) -> None:
+    """Draws an Original Security concept icon representing workos.
+
+    Args:
+        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
+            Default alignment is center, center.
+        width: Horizontal size of the icon.
+        style: Style object (required).
+        variant: Visual variant of the icon ('default'). Defaults to "default".
+
+    """
+    _write(xy=xy, width=width, name="workos", style=style, variant=variant)
 
 
 def xdr(

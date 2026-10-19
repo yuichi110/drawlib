@@ -1,7 +1,7 @@
 {
   "format_version": "2.0",
   "provider": "original_cnative",
-  "created_at": "2026-10-19T01:02:57.495386+00:00",
+  "created_at": "2026-10-19T13:23:51.522582+00:00",
   "canvas_size": [
     512,
     512
@@ -10,7 +10,7 @@
     460,
     460
   ],
-  "total_files": 60,
+  "total_files": 73,
   "aliases": {
     "api_server": "k8s_api_server",
     "apiserver": "k8s_api_server",
@@ -19,9 +19,10 @@
     "argo_workflows": "argo",
     "argocd": "argo",
     "autoscaler": "k8s_hpa",
-    "ceph": "rook",
     "cj": "k8s_cronjob",
+    "cloudnativepg": "cloudnative_pg",
     "cm": "k8s_configmap",
+    "cnpg": "cloudnative_pg",
     "configmap": "k8s_configmap",
     "container_runtime": "containerd",
     "control_plane": "k8s_control_plane",
@@ -36,6 +37,7 @@
     "endpoints": "k8s_endpoint",
     "envoy_proxy": "envoy",
     "ep": "k8s_endpoint",
+    "eso": "external_secrets",
     "fluent_bit": "fluentd",
     "fluentbit": "fluentd",
     "flux_cd": "flux",
@@ -75,6 +77,7 @@
     "persistent_volume_claim": "k8s_pvc",
     "po": "k8s_pod",
     "pod": "k8s_pod",
+    "project_calico": "calico",
     "prom": "prometheus",
     "pv": "k8s_pv",
     "pvc": "k8s_pvc",
@@ -87,6 +90,7 @@
     "sts": "k8s_statefulset",
     "svc": "k8s_service",
     "talos_linux": "talos",
+    "temporal_io": "temporal",
     "tkg": "tanzu",
     "worker_node": "k8s_node"
   },
@@ -117,6 +121,32 @@
         486
       ]
     },
+    "calico_default.png": {
+      "icon_name": "calico",
+      "variant": "default",
+      "source_script": "original_cnative/calico_default.py",
+      "size_bytes": 59768,
+      "sha256": "86b42ea3268aa9393354126279e3e7c7a9b63ee103f115deab8d96a7299df497",
+      "bbox": [
+        26,
+        34,
+        486,
+        478
+      ]
+    },
+    "ceph_default.png": {
+      "icon_name": "ceph",
+      "variant": "default",
+      "source_script": "original_cnative/ceph_default.py",
+      "size_bytes": 54305,
+      "sha256": "a3d4345190565a672cd8425d2870f2a335d9c0f07cb72e7d7abd9658a38898ad",
+      "bbox": [
+        26,
+        31,
+        486,
+        481
+      ]
+    },
     "cert_manager_default.png": {
       "icon_name": "cert_manager",
       "variant": "default",
@@ -140,6 +170,19 @@
         38,
         26,
         474,
+        486
+      ]
+    },
+    "cloudnative_pg_default.png": {
+      "icon_name": "cloudnative_pg",
+      "variant": "default",
+      "source_script": "original_cnative/cloudnative_pg_default.py",
+      "size_bytes": 34899,
+      "sha256": "e79e79e50f69ea0e23a5192cc986117e53ac6549acae2309cdd8393ae13a2c55",
+      "bbox": [
+        36,
+        26,
+        476,
         486
       ]
     },
@@ -227,6 +270,19 @@
       "source_script": "original_cnative/etcd_default.py",
       "size_bytes": 39852,
       "sha256": "701951548d8c4f6e10abceeacf1a42c52406c2ab2a3c4f246193a8e81d0de6a2",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "external_secrets_default.png": {
+      "icon_name": "external_secrets",
+      "variant": "default",
+      "source_script": "original_cnative/external_secrets_default.py",
+      "size_bytes": 28060,
+      "sha256": "0cd90c09ecf3be4210f90dad57bcc791cf9c13f15e2845a4330d6611396dee0c",
       "bbox": [
         26,
         26,
@@ -624,6 +680,19 @@
         479
       ]
     },
+    "karpenter_default.png": {
+      "icon_name": "karpenter",
+      "variant": "default",
+      "source_script": "original_cnative/karpenter_default.py",
+      "size_bytes": 26163,
+      "sha256": "d5ecfdb7b57cfe0507bed1e2ce0e0f62df7da6401d49defef46a413c6b0ef0f7",
+      "bbox": [
+        26,
+        51,
+        486,
+        460
+      ]
+    },
     "keda_default.png": {
       "icon_name": "keda",
       "variant": "default",
@@ -689,6 +758,19 @@
         479
       ]
     },
+    "kustomize_default.png": {
+      "icon_name": "kustomize",
+      "variant": "default",
+      "source_script": "original_cnative/kustomize_default.py",
+      "size_bytes": 19796,
+      "sha256": "5f4e80534b5722c70e51474d9f6fecd699334fd1624d7ce9abc075352371782b",
+      "bbox": [
+        55,
+        26,
+        457,
+        486
+      ]
+    },
     "kyverno_default.png": {
       "icon_name": "kyverno",
       "variant": "default",
@@ -712,6 +794,32 @@
         33,
         26,
         478,
+        486
+      ]
+    },
+    "longhorn_default.png": {
+      "icon_name": "longhorn",
+      "variant": "default",
+      "source_script": "original_cnative/longhorn_default.py",
+      "size_bytes": 19912,
+      "sha256": "ea28a20c64dc8bad73bcfb6b71d9ef8b23797fc96bd99f6d3c71ec1052a158e8",
+      "bbox": [
+        26,
+        66,
+        486,
+        445
+      ]
+    },
+    "metallb_default.png": {
+      "icon_name": "metallb",
+      "variant": "default",
+      "source_script": "original_cnative/metallb_default.py",
+      "size_bytes": 49610,
+      "sha256": "d17d60e635022019f15009a222bc40c150e6189bd6f89a39f7785153c622f5b5",
+      "bbox": [
+        26,
+        26,
+        486,
         486
       ]
     },
@@ -832,6 +940,32 @@
         486
       ]
     },
+    "spiffe_default.png": {
+      "icon_name": "spiffe",
+      "variant": "default",
+      "source_script": "original_cnative/spiffe_default.py",
+      "size_bytes": 10069,
+      "sha256": "be8c3334e6bf002d94c29a8f3bc127e48b4d658a1eec4e972119f29c7253f77b",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "strimzi_default.png": {
+      "icon_name": "strimzi",
+      "variant": "default",
+      "source_script": "original_cnative/strimzi_default.py",
+      "size_bytes": 31333,
+      "sha256": "dffc1197f1d423dbddb19b1fb83c7ae37bbed1c7a95ca129de982049c5d409eb",
+      "bbox": [
+        57,
+        26,
+        455,
+        486
+      ]
+    },
     "talos_default.png": {
       "icon_name": "talos",
       "variant": "default",
@@ -858,6 +992,19 @@
         480
       ]
     },
+    "temporal_default.png": {
+      "icon_name": "temporal",
+      "variant": "default",
+      "source_script": "original_cnative/temporal_default.py",
+      "size_bytes": 38605,
+      "sha256": "54de334d02281c5ebb3a7737f0894d470b203443e584e0665046e90fcf297b89",
+      "bbox": [
+        26,
+        27,
+        486,
+        484
+      ]
+    },
     "vcluster_default.png": {
       "icon_name": "vcluster",
       "variant": "default",
@@ -869,6 +1016,32 @@
         46,
         486,
         466
+      ]
+    },
+    "velero_default.png": {
+      "icon_name": "velero",
+      "variant": "default",
+      "source_script": "original_cnative/velero_default.py",
+      "size_bytes": 49329,
+      "sha256": "c0d355680c42baed35ca1c4d2d592460d580ae603ed62fd855655f306ab4beed",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "vitess_default.png": {
+      "icon_name": "vitess",
+      "variant": "default",
+      "source_script": "original_cnative/vitess_default.py",
+      "size_bytes": 28550,
+      "sha256": "7e97a6b19a85ad632c25522d1cea8a532368d9b37f0acac492dd5035d6c74b47",
+      "bbox": [
+        64,
+        26,
+        448,
+        486
       ]
     }
   }

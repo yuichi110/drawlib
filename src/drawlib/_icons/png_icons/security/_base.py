@@ -31,9 +31,11 @@ SECURITY_ALIASES: dict[str, str] = {
     "letsencrypt": "lets_encrypt",
     "mcafee": "trellix",
     "nessus": "tenable",
-    "one_password": "onepassword",
+    "one_password": "onepassword",  # noqa: S105
+    "palo_alto_prisma": "prisma_cloud",
     "paloalto": "palo_alto",
     "panw": "palo_alto",
+    "permit": "permit_io",
     "ping": "ping_identity",
     "portswigger": "burp_suite",
     "s1": "sentinelone",

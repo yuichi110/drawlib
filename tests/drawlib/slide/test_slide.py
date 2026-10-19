@@ -362,7 +362,7 @@ text((96, 20), current_slide.text, style=Styles.White)
         src_dir.mkdir()
 
         block_header = (
-            '::: block xy=(80, 140) width=740 height=840 font_size=20px '
+            "::: block xy=(80, 140) width=740 height=840 font_size=20px "
             'compact=true style="transform: translateY(-25px);"'
         )
         (src_dir / "01_options.md").write_text(
@@ -667,8 +667,7 @@ rectangle((20, 10), width=10, height=10, style=Styles.Neutral)
         assert 'data-anim-loop="once"' in html_content
         assert 'data-anim-pause="2,4"' in html_content
         assert (
-            f'<canvas class="drawlib-anim-canvas" data-src="images/01_anim/flow.png" '
-            f'data-base64="{expected_b64}"'
+            f'<canvas class="drawlib-anim-canvas" data-src="images/01_anim/flow.png" data-base64="{expected_b64}"'
         ) in html_content
         assert 'class="anim-play-badge"' in html_content
 
@@ -743,9 +742,7 @@ Note block one.
         out_dir_2 = tmp_path / "slide_out_2"
         src_dir.mkdir()
 
-        custom_font_path = (
-            Path(__file__).resolve().parents[2] / "assets" / "avenger" / "regular.ttf"
-        ).as_posix()
+        custom_font_path = (Path(__file__).resolve().parents[2] / "assets" / "avenger" / "regular.ttf").as_posix()
 
         (src_dir / "01_fonts.md").write_text(
             f"""::: block xy=(80, 40) width=1760 height=900
@@ -901,5 +898,3 @@ utils.draw_page_number()
         assert "Project Readme" not in html
         assert "Output Viewer Readme" not in html
         assert "Output HTML Viewer Readme" not in html
-
-
