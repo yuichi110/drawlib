@@ -157,10 +157,12 @@ from drawlib.icons import (
     original_network,
     original_security,
     original_server,
+    original_social,
     original_workspace,
     phosphor,
     security,
     server,
+    social,
     workspace,
 )
 from drawlib.images import Dimage, get_dimage_from_code, image

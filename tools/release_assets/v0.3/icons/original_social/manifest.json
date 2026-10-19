@@ -1,0 +1,954 @@
+{
+  "format_version": "2.0",
+  "provider": "original_social",
+  "created_at": "2026-10-19T16:09:14.479767+00:00",
+  "canvas_size": [
+    512,
+    512
+  ],
+  "inner_size": [
+    460,
+    460
+  ],
+  "total_files": 66,
+  "aliases": {
+    "abematv": "abema",
+    "ad_campaign": "ad_targeting",
+    "adwords": "google_ads",
+    "ambassador": "influencer",
+    "article": "tech_blog",
+    "attribution": "conversion_funnel",
+    "audio_room": "podcast_mic",
+    "auto_reply": "chatbot_account",
+    "b_hatena": "hatena",
+    "blog_post": "tech_blog",
+    "broadcast_message": "push_campaign",
+    "bsky": "bluesky",
+    "creator": "influencer",
+    "cvr": "conversion_funnel",
+    "devto": "dev_to",
+    "digital_ad": "ad_targeting",
+    "fb": "facebook",
+    "fb_messenger": "messenger",
+    "feed": "timeline_feed",
+    "follower_graph": "social_graph",
+    "forum": "community_forum",
+    "funnel": "conversion_funnel",
+    "ga": "google_analytics",
+    "ga4": "google_analytics",
+    "gtm": "google_tag_manager",
+    "hackernews": "hacker_news",
+    "hatena_blog": "hatena",
+    "hatena_bookmark": "hatena",
+    "hn": "hacker_news",
+    "ig": "instagram",
+    "insta": "instagram",
+    "kakaotalk": "kakao",
+    "kol": "influencer",
+    "likes": "user_engagement",
+    "live": "live_streaming",
+    "live_broadcast": "live_streaming",
+    "lycorp": "yahoo_japan",
+    "meetup": "community_forum",
+    "moderation": "content_moderation",
+    "network_graph": "social_graph",
+    "news_feed": "timeline_feed",
+    "nico": "nicovideo",
+    "niconico": "nicovideo",
+    "oauth_login": "social_login",
+    "official_account": "chatbot_account",
+    "podcast": "podcast_mic",
+    "podcasts": "apple_podcasts",
+    "push_notification": "push_campaign",
+    "qa_board": "community_forum",
+    "reactions": "user_engagement",
+    "reels": "short_video",
+    "repost": "viral_share",
+    "retargeting": "ad_targeting",
+    "retweet": "viral_share",
+    "review_rating": "user_engagement",
+    "share": "viral_share",
+    "shorts": "short_video",
+    "snap": "snapchat",
+    "social_bot": "chatbot_account",
+    "spam_filter": "content_moderation",
+    "speakerdeck": "speaker_deck",
+    "sso_social": "social_login",
+    "stackoverflow": "stack_overflow",
+    "tech_writing": "tech_blog",
+    "tg": "telegram",
+    "timeline": "timeline_feed",
+    "trust_and_safety": "content_moderation",
+    "twitter": "x",
+    "ugc": "user_engagement",
+    "vertical_video": "short_video",
+    "viral": "viral_share",
+    "voice_chat": "podcast_mic",
+    "wa": "whatsapp",
+    "webinar": "live_streaming",
+    "weixin": "wechat",
+    "yahoo_jp": "yahoo_japan",
+    "ycombinator": "hacker_news",
+    "yt": "youtube"
+  },
+  "files": {
+    "abema_default.png": {
+      "icon_name": "abema",
+      "variant": "default",
+      "source_script": "original_social/abema_default.py",
+      "size_bytes": 17741,
+      "sha256": "370d9931ce025c86d7ba44245b11616be46e9b27dfee6c31a591e8e19aee57b0",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "ad_targeting_default.png": {
+      "icon_name": "ad_targeting",
+      "variant": "default",
+      "source_script": "original_social/ad_targeting_default.py",
+      "size_bytes": 39921,
+      "sha256": "a49a821fac550f4cd53c73a339bb0539f3eea52cf1499d9dfb5adc95c9e12ef0",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "amplitude_default.png": {
+      "icon_name": "amplitude",
+      "variant": "default",
+      "source_script": "original_social/amplitude_default.py",
+      "size_bytes": 38244,
+      "sha256": "da7e3643f4b421f679628cd478e4e9b2f64a84cc8b96e50307e4145be179374b",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "apple_podcasts_default.png": {
+      "icon_name": "apple_podcasts",
+      "variant": "default",
+      "source_script": "original_social/apple_podcasts_default.py",
+      "size_bytes": 53848,
+      "sha256": "db3da9c0ee7f01a40d0f121026a1ccd519acc08de9285695af898ef477a5742b",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "appsflyer_default.png": {
+      "icon_name": "appsflyer",
+      "variant": "default",
+      "source_script": "original_social/appsflyer_default.py",
+      "size_bytes": 32409,
+      "sha256": "0329a9c981248051aba4d25923635328636a6b9cfefb9d77a6423c136636aed0",
+      "bbox": [
+        33,
+        26,
+        479,
+        486
+      ]
+    },
+    "bilibili_default.png": {
+      "icon_name": "bilibili",
+      "variant": "default",
+      "source_script": "original_social/bilibili_default.py",
+      "size_bytes": 25261,
+      "sha256": "b0f7133794d86a585bafda6d19f725aa2fb45a7936a6e0458f117a604e6af6da",
+      "bbox": [
+        26,
+        50,
+        486,
+        461
+      ]
+    },
+    "bluesky_default.png": {
+      "icon_name": "bluesky",
+      "variant": "default",
+      "source_script": "original_social/bluesky_default.py",
+      "size_bytes": 30581,
+      "sha256": "e31ad6375cc8614bcb672944af53d159bfab3fde8aac2f77017e59a2ac255d6c",
+      "bbox": [
+        26,
+        53,
+        486,
+        459
+      ]
+    },
+    "chatbot_account_default.png": {
+      "icon_name": "chatbot_account",
+      "variant": "default",
+      "source_script": "original_social/chatbot_account_default.py",
+      "size_bytes": 19133,
+      "sha256": "fe04bcf099ca21728a617f434ffe851ef472f3a1429bc230cef2cc216cdcffb1",
+      "bbox": [
+        69,
+        26,
+        442,
+        486
+      ]
+    },
+    "community_forum_default.png": {
+      "icon_name": "community_forum",
+      "variant": "default",
+      "source_script": "original_social/community_forum_default.py",
+      "size_bytes": 13817,
+      "sha256": "76021b685ba4e9892ac1c9718b90916fea86a22ce09d1ef1231f4c0b1592cf51",
+      "bbox": [
+        26,
+        35,
+        486,
+        477
+      ]
+    },
+    "connpass_default.png": {
+      "icon_name": "connpass",
+      "variant": "default",
+      "source_script": "original_social/connpass_default.py",
+      "size_bytes": 44413,
+      "sha256": "e9ceebcc1a996b1c5351d48be6465b0f2eb77cbf477cde4913e317e1f2c35a9b",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "content_moderation_default.png": {
+      "icon_name": "content_moderation",
+      "variant": "default",
+      "source_script": "original_social/content_moderation_default.py",
+      "size_bytes": 33044,
+      "sha256": "6da396a38360c4b608ddda985113ba952018190572d9fff8c6ebdf1d67993309",
+      "bbox": [
+        51,
+        26,
+        460,
+        486
+      ]
+    },
+    "conversion_funnel_default.png": {
+      "icon_name": "conversion_funnel",
+      "variant": "default",
+      "source_script": "original_social/conversion_funnel_default.py",
+      "size_bytes": 16230,
+      "sha256": "bc43ce14a64acc44654426c7ae85482dadac50c1d7dfe94e58cbd685d95985bc",
+      "bbox": [
+        34,
+        26,
+        477,
+        486
+      ]
+    },
+    "dev_to_default.png": {
+      "icon_name": "dev_to",
+      "variant": "default",
+      "source_script": "original_social/dev_to_default.py",
+      "size_bytes": 14273,
+      "sha256": "8b900796c15e211e497df52d3168865d671d832224c564b70737d45bd1b24381",
+      "bbox": [
+        26,
+        118,
+        486,
+        394
+      ]
+    },
+    "discord_default.png": {
+      "icon_name": "discord",
+      "variant": "default",
+      "source_script": "original_social/discord_default.py",
+      "size_bytes": 28645,
+      "sha256": "7a078e858964f766071c07e23d2e515d98fdb7f9569d45c9e5d6ec6414f084b6",
+      "bbox": [
+        26,
+        76,
+        486,
+        435
+      ]
+    },
+    "facebook_default.png": {
+      "icon_name": "facebook",
+      "variant": "default",
+      "source_script": "original_social/facebook_default.py",
+      "size_bytes": 25123,
+      "sha256": "bd503bc801345c2a60cb831486d4ca42aa8646e5f90ae9c2b136e89017e01cc6",
+      "bbox": [
+        26,
+        26,
+        486,
+        485
+      ]
+    },
+    "google_ads_default.png": {
+      "icon_name": "google_ads",
+      "variant": "default",
+      "source_script": "original_social/google_ads_default.py",
+      "size_bytes": 29533,
+      "sha256": "8762b5b526bcb558fb6616df8988d2ec83889cb9b3d14aa83e3fe3f70236b989",
+      "bbox": [
+        26,
+        46,
+        486,
+        466
+      ]
+    },
+    "google_analytics_default.png": {
+      "icon_name": "google_analytics",
+      "variant": "default",
+      "source_script": "original_social/google_analytics_default.py",
+      "size_bytes": 16605,
+      "sha256": "966f9b3121a502c4256564abd1780ce565393785ddcdeaf0d3e35c472d5f8177",
+      "bbox": [
+        48,
+        26,
+        464,
+        486
+      ]
+    },
+    "google_tag_manager_default.png": {
+      "icon_name": "google_tag_manager",
+      "variant": "default",
+      "source_script": "original_social/google_tag_manager_default.py",
+      "size_bytes": 31132,
+      "sha256": "78d07ba7bfb8df61ea4e8fdd20c39b945e465a7336d888a3774f81a0b0245ba4",
+      "bbox": [
+        26,
+        26,
+        485,
+        486
+      ]
+    },
+    "hacker_news_default.png": {
+      "icon_name": "hacker_news",
+      "variant": "default",
+      "source_script": "original_social/hacker_news_default.py",
+      "size_bytes": 11096,
+      "sha256": "9323f0bcbb81e5c9c5b38de9b07370bf48e2f761f09126feb2c45a50984f7508",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "hashnode_default.png": {
+      "icon_name": "hashnode",
+      "variant": "default",
+      "source_script": "original_social/hashnode_default.py",
+      "size_bytes": 20391,
+      "sha256": "475a4f5a1e8d73b5d59d03b2cd457cf333e80c79831218cfcbd578d4e7ea7309",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "hatena_default.png": {
+      "icon_name": "hatena",
+      "variant": "default",
+      "source_script": "original_social/hatena_default.py",
+      "size_bytes": 18008,
+      "sha256": "555daab4d6b0d7aca42eba3991fcc07b2e438ebda5b6eee696b34cb840cebe11",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "influencer_default.png": {
+      "icon_name": "influencer",
+      "variant": "default",
+      "source_script": "original_social/influencer_default.py",
+      "size_bytes": 37251,
+      "sha256": "5bca194b47f383c20d242b52f22c4a036dfe97e2d1fc42ad7e9e09a93533a063",
+      "bbox": [
+        26,
+        43,
+        486,
+        468
+      ]
+    },
+    "instagram_default.png": {
+      "icon_name": "instagram",
+      "variant": "default",
+      "source_script": "original_social/instagram_default.py",
+      "size_bytes": 27927,
+      "sha256": "6204ae09117d8c61e4d2df54fb49a8b53ddbfaa9a3cceaf3c048c0c5eb79c08b",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "kakao_default.png": {
+      "icon_name": "kakao",
+      "variant": "default",
+      "source_script": "original_social/kakao_default.py",
+      "size_bytes": 28060,
+      "sha256": "a6c8f988e50936d54ba5395c445650bb1101c535a03f3fb29a5fd3d2603c10d1",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "line_default.png": {
+      "icon_name": "line",
+      "variant": "default",
+      "source_script": "original_social/line_default.py",
+      "size_bytes": 26158,
+      "sha256": "3cc4783f660579467e9a5f4b7709d06d2fac35f4ee163832f336ffdc719d67e4",
+      "bbox": [
+        26,
+        36,
+        486,
+        475
+      ]
+    },
+    "linkedin_default.png": {
+      "icon_name": "linkedin",
+      "variant": "default",
+      "source_script": "original_social/linkedin_default.py",
+      "size_bytes": 14071,
+      "sha256": "fa38809f5cd66c12159dca2e77ce84621cc80e65ddc36a662b96b09b436efdb8",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "live_streaming_default.png": {
+      "icon_name": "live_streaming",
+      "variant": "default",
+      "source_script": "original_social/live_streaming_default.py",
+      "size_bytes": 18398,
+      "sha256": "156bee7a799a18f2458c4a05a2a1f5daa7a14faa8dc4c6c825e82e711f803871",
+      "bbox": [
+        26,
+        34,
+        486,
+        477
+      ]
+    },
+    "mastodon_default.png": {
+      "icon_name": "mastodon",
+      "variant": "default",
+      "source_script": "original_social/mastodon_default.py",
+      "size_bytes": 29790,
+      "sha256": "94f2608fe92d053437ad87f9876cd7bd7bb31f6e3eed8e22f5b03aa4f008a599",
+      "bbox": [
+        38,
+        26,
+        474,
+        486
+      ]
+    },
+    "medium_default.png": {
+      "icon_name": "medium",
+      "variant": "default",
+      "source_script": "original_social/medium_default.py",
+      "size_bytes": 23757,
+      "sha256": "3b74f5f32890b614fb422dc644ed47bd4646f71ca77e61cbdd70b9b4dd9688e1",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "messenger_default.png": {
+      "icon_name": "messenger",
+      "variant": "default",
+      "source_script": "original_social/messenger_default.py",
+      "size_bytes": 33461,
+      "sha256": "52acd1a8df07d9119f9ebaee7005393ee38b6d1a0ae6094c84d2201f205e2e8d",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "meta_ads_default.png": {
+      "icon_name": "meta_ads",
+      "variant": "default",
+      "source_script": "original_social/meta_ads_default.py",
+      "size_bytes": 34928,
+      "sha256": "5f2914dd5c00005b78a1281103359283d4b446eb2940d151f0a8d65a0c7ca506",
+      "bbox": [
+        26,
+        85,
+        486,
+        427
+      ]
+    },
+    "mixpanel_default.png": {
+      "icon_name": "mixpanel",
+      "variant": "default",
+      "source_script": "original_social/mixpanel_default.py",
+      "size_bytes": 25317,
+      "sha256": "b569f2727790f48891987e56a9577a6780390502ce0426e4a15f66e271bb2674",
+      "bbox": [
+        26,
+        36,
+        486,
+        476
+      ]
+    },
+    "nicovideo_default.png": {
+      "icon_name": "nicovideo",
+      "variant": "default",
+      "source_script": "original_social/nicovideo_default.py",
+      "size_bytes": 15283,
+      "sha256": "75848d149ab4ef60aaf3be3148d49173a0b1e29cc78b232c47a0a08fdd621886",
+      "bbox": [
+        26,
+        39,
+        486,
+        473
+      ]
+    },
+    "note_default.png": {
+      "icon_name": "note",
+      "variant": "default",
+      "source_script": "original_social/note_default.py",
+      "size_bytes": 15313,
+      "sha256": "fd2ae811400675f2b78d25f90c47cbb666926be4809785d21302e86b50143271",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "pinterest_default.png": {
+      "icon_name": "pinterest",
+      "variant": "default",
+      "source_script": "original_social/pinterest_default.py",
+      "size_bytes": 43684,
+      "sha256": "e8c17d73428123b9c00a195aaef000725d7346ba612bffefabfa73c2410352e1",
+      "bbox": [
+        27,
+        26,
+        485,
+        486
+      ]
+    },
+    "podcast_mic_default.png": {
+      "icon_name": "podcast_mic",
+      "variant": "default",
+      "source_script": "original_social/podcast_mic_default.py",
+      "size_bytes": 18779,
+      "sha256": "4d9b8d07b8c54d115723bb1e5d9c609731b020c3141b0e29e005e2a1807816f0",
+      "bbox": [
+        26,
+        37,
+        486,
+        474
+      ]
+    },
+    "push_campaign_default.png": {
+      "icon_name": "push_campaign",
+      "variant": "default",
+      "source_script": "original_social/push_campaign_default.py",
+      "size_bytes": 17617,
+      "sha256": "eb126a41dded3e265d612df875249898c6b138c9160fb673a04240f2782b9f39",
+      "bbox": [
+        26,
+        85,
+        486,
+        426
+      ]
+    },
+    "qiita_default.png": {
+      "icon_name": "qiita",
+      "variant": "default",
+      "source_script": "original_social/qiita_default.py",
+      "size_bytes": 40418,
+      "sha256": "3cd05ba69866dde4539eed181d7af4294a8c2a58b6a839d9e0c6dd893b3193da",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "reddit_default.png": {
+      "icon_name": "reddit",
+      "variant": "default",
+      "source_script": "original_social/reddit_default.py",
+      "size_bytes": 43173,
+      "sha256": "ed535a92ccea565c6f1dbbbe5ebb95a8547f5c28768447a33a1e6e477159d772",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "short_video_default.png": {
+      "icon_name": "short_video",
+      "variant": "default",
+      "source_script": "original_social/short_video_default.py",
+      "size_bytes": 15853,
+      "sha256": "bbf6ede9e81b8611441b92000a82996ca8de8708d1782ed2c05cdb08c37bd31e",
+      "bbox": [
+        110,
+        26,
+        402,
+        486
+      ]
+    },
+    "signal_default.png": {
+      "icon_name": "signal",
+      "variant": "default",
+      "source_script": "original_social/signal_default.py",
+      "size_bytes": 55985,
+      "sha256": "417668b2e4b99f258a4ab08573ac842ac0e92918aab7d4319f421abd72d9ca70",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "snapchat_default.png": {
+      "icon_name": "snapchat",
+      "variant": "default",
+      "source_script": "original_social/snapchat_default.py",
+      "size_bytes": 27005,
+      "sha256": "f3b7fc0307a24806b981106f78c79b738705dadc55ec43437042ec163c154e22",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "social_graph_default.png": {
+      "icon_name": "social_graph",
+      "variant": "default",
+      "source_script": "original_social/social_graph_default.py",
+      "size_bytes": 43028,
+      "sha256": "b26f992422c4c11014752747a92861f07ef1023eb841e3caca78ed8f420daec2",
+      "bbox": [
+        26,
+        57,
+        486,
+        454
+      ]
+    },
+    "social_login_default.png": {
+      "icon_name": "social_login",
+      "variant": "default",
+      "source_script": "original_social/social_login_default.py",
+      "size_bytes": 17627,
+      "sha256": "026d357a3f88eeb785f2be95fe6ab70ea582232f064d14794890eb674fe3c88c",
+      "bbox": [
+        26,
+        89,
+        486,
+        423
+      ]
+    },
+    "soundcloud_default.png": {
+      "icon_name": "soundcloud",
+      "variant": "default",
+      "source_script": "original_social/soundcloud_default.py",
+      "size_bytes": 23135,
+      "sha256": "9c7646f18b231393be32de67d5c24c1b8b54cdebb1aa25314d0fd295086249f2",
+      "bbox": [
+        26,
+        149,
+        486,
+        362
+      ]
+    },
+    "speaker_deck_default.png": {
+      "icon_name": "speaker_deck",
+      "variant": "default",
+      "source_script": "original_social/speaker_deck_default.py",
+      "size_bytes": 20809,
+      "sha256": "f6529dc18504f765d6879a746987767e752f3d261c4b94bd0528eb41ebddc1ca",
+      "bbox": [
+        26,
+        110,
+        486,
+        402
+      ]
+    },
+    "spotify_default.png": {
+      "icon_name": "spotify",
+      "variant": "default",
+      "source_script": "original_social/spotify_default.py",
+      "size_bytes": 40272,
+      "sha256": "604b2f523e573e788093b8783c1c9953c55621f6b9d7976a684232ebc365b33b",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "stack_overflow_default.png": {
+      "icon_name": "stack_overflow",
+      "variant": "default",
+      "source_script": "original_social/stack_overflow_default.py",
+      "size_bytes": 31914,
+      "sha256": "973eab167bef4446a54ce7b405a8d7ff1231c36615b62be15ed700873edebca8",
+      "bbox": [
+        61,
+        26,
+        451,
+        486
+      ]
+    },
+    "substack_default.png": {
+      "icon_name": "substack",
+      "variant": "default",
+      "source_script": "original_social/substack_default.py",
+      "size_bytes": 9578,
+      "sha256": "65543af9c33c2d96e7933488a3bb0feda97099ac8894ef120449c12410e69065",
+      "bbox": [
+        55,
+        26,
+        457,
+        486
+      ]
+    },
+    "tech_blog_default.png": {
+      "icon_name": "tech_blog",
+      "variant": "default",
+      "source_script": "original_social/tech_blog_default.py",
+      "size_bytes": 13237,
+      "sha256": "d3bdfbed9572a5d9520430a8ad20dbad07dc431652577c4e63dec4f21b70fb25",
+      "bbox": [
+        55,
+        26,
+        457,
+        486
+      ]
+    },
+    "telegram_default.png": {
+      "icon_name": "telegram",
+      "variant": "default",
+      "source_script": "original_social/telegram_default.py",
+      "size_bytes": 33679,
+      "sha256": "95ff26ff141be5a8eca06eeaea55ff893473df362254ed50aabf35e5777e5641",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "threads_default.png": {
+      "icon_name": "threads",
+      "variant": "default",
+      "source_script": "original_social/threads_default.py",
+      "size_bytes": 45170,
+      "sha256": "5d0da238bb2b1368431ebb6342327496904b90fa722e202c50a1b99ae3e10bbb",
+      "bbox": [
+        52,
+        26,
+        459,
+        486
+      ]
+    },
+    "tiktok_default.png": {
+      "icon_name": "tiktok",
+      "variant": "default",
+      "source_script": "original_social/tiktok_default.py",
+      "size_bytes": 20851,
+      "sha256": "a1e9ef47368b7ef56527476e671420131695390e07aa6d2b1f0bea9f81a6d12e",
+      "bbox": [
+        55,
+        26,
+        456,
+        486
+      ]
+    },
+    "timeline_feed_default.png": {
+      "icon_name": "timeline_feed",
+      "variant": "default",
+      "source_script": "original_social/timeline_feed_default.py",
+      "size_bytes": 16744,
+      "sha256": "7b1e7b9be8adf2ec614a8f136f5b6552cd21de16249c98592c29a7ec89685fb9",
+      "bbox": [
+        55,
+        26,
+        457,
+        486
+      ]
+    },
+    "tver_default.png": {
+      "icon_name": "tver",
+      "variant": "default",
+      "source_script": "original_social/tver_default.py",
+      "size_bytes": 19490,
+      "sha256": "f0003692140fdfa577deb5f22e0e37140ab2a56133b23f9bf3b89879ae46644b",
+      "bbox": [
+        26,
+        65,
+        486,
+        446
+      ]
+    },
+    "twitch_default.png": {
+      "icon_name": "twitch",
+      "variant": "default",
+      "source_script": "original_social/twitch_default.py",
+      "size_bytes": 5604,
+      "sha256": "b406005d5cd4bb07098825adad62ee39eb1adaf8e0bcfc4d69e39102ab7d7ba8",
+      "bbox": [
+        61,
+        26,
+        450,
+        486
+      ]
+    },
+    "user_engagement_default.png": {
+      "icon_name": "user_engagement",
+      "variant": "default",
+      "source_script": "original_social/user_engagement_default.py",
+      "size_bytes": 30163,
+      "sha256": "98df024c59825dc91a553ad72a426c256dc636a84f6a9de8779a45f2c4c58dc4",
+      "bbox": [
+        26,
+        62,
+        486,
+        449
+      ]
+    },
+    "viber_default.png": {
+      "icon_name": "viber",
+      "variant": "default",
+      "source_script": "original_social/viber_default.py",
+      "size_bytes": 50423,
+      "sha256": "f940dad86ba078d1ad822f7977e58eb446935a3db4d5b0b87a03808f68a2788c",
+      "bbox": [
+        38,
+        26,
+        474,
+        486
+      ]
+    },
+    "vimeo_default.png": {
+      "icon_name": "vimeo",
+      "variant": "default",
+      "source_script": "original_social/vimeo_default.py",
+      "size_bytes": 27195,
+      "sha256": "6f252ca162778b64528b6da77d7782a8587a162f3b8c4f9cbb0bbab34c59353b",
+      "bbox": [
+        26,
+        57,
+        486,
+        455
+      ]
+    },
+    "viral_share_default.png": {
+      "icon_name": "viral_share",
+      "variant": "default",
+      "source_script": "original_social/viral_share_default.py",
+      "size_bytes": 32236,
+      "sha256": "87708f36f3dc5214267a89e35365411068893bf54e885dace064f35121725e8d",
+      "bbox": [
+        35,
+        26,
+        477,
+        486
+      ]
+    },
+    "wechat_default.png": {
+      "icon_name": "wechat",
+      "variant": "default",
+      "source_script": "original_social/wechat_default.py",
+      "size_bytes": 30295,
+      "sha256": "07cb5f7415f526a390d11c04e220dca69a2b3093d9d7e6b9bde65e259e83e689",
+      "bbox": [
+        26,
+        67,
+        486,
+        445
+      ]
+    },
+    "whatsapp_default.png": {
+      "icon_name": "whatsapp",
+      "variant": "default",
+      "source_script": "original_social/whatsapp_default.py",
+      "size_bytes": 45617,
+      "sha256": "e36cf216441d659bf795abff48efd53b63b047eeb916fc3b2384ecf4e559362a",
+      "bbox": [
+        27,
+        26,
+        485,
+        486
+      ]
+    },
+    "x_default.png": {
+      "icon_name": "x",
+      "variant": "default",
+      "source_script": "original_social/x_default.py",
+      "size_bytes": 48139,
+      "sha256": "c709e4587bbb1cb909d7032b9a82b6cda08fcd1673db11281a3f934061bb5b65",
+      "bbox": [
+        26,
+        27,
+        486,
+        484
+      ]
+    },
+    "yahoo_japan_default.png": {
+      "icon_name": "yahoo_japan",
+      "variant": "default",
+      "source_script": "original_social/yahoo_japan_default.py",
+      "size_bytes": 24497,
+      "sha256": "9dd7e689e8b54c2817cddc5ae1bb3e25cf57ac85444dc3133454d9d188043888",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "youtube_default.png": {
+      "icon_name": "youtube",
+      "variant": "default",
+      "source_script": "original_social/youtube_default.py",
+      "size_bytes": 17314,
+      "sha256": "8e8642485eeeaf5cb0848478925a8801eafe2a185b1ac86fa1c601dcc24b4894",
+      "bbox": [
+        26,
+        93,
+        486,
+        418
+      ]
+    },
+    "zenn_default.png": {
+      "icon_name": "zenn",
+      "variant": "default",
+      "source_script": "original_social/zenn_default.py",
+      "size_bytes": 26498,
+      "sha256": "f064e250258bd811442b09fbea5c15da05d730336f14ace1c8832a5eb6c773e1",
+      "bbox": [
+        26,
+        30,
+        486,
+        481
+      ]
+    }
+  }
+}

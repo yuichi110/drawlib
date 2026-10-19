@@ -42,10 +42,12 @@ from drawlib._icons import (
     original_network,
     original_security,
     original_server,
+    original_social,
     original_workspace,
     phosphor,
     security,
     server,
+    social,
     workspace,
 )
 
@@ -78,9 +80,11 @@ sys.modules["drawlib.icons.original_itservice"] = original_itservice
 sys.modules["drawlib.icons.original_network"] = original_network
 sys.modules["drawlib.icons.original_security"] = original_security
 sys.modules["drawlib.icons.original_server"] = original_server
+sys.modules["drawlib.icons.original_social"] = original_social
 sys.modules["drawlib.icons.original_workspace"] = original_workspace
 sys.modules["drawlib.icons.security"] = security
 sys.modules["drawlib.icons.server"] = server
+sys.modules["drawlib.icons.social"] = social
 sys.modules["drawlib.icons.workspace"] = workspace
 
 __all__ = [
@@ -112,9 +116,11 @@ __all__ = [
     "original_network",
     "original_security",
     "original_server",
+    "original_social",
     "original_workspace",
     "phosphor",
     "security",
     "server",
+    "social",
     "workspace",
 ]

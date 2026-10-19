@@ -41,10 +41,12 @@ from drawlib._diagrams.architecture._icons import (
     OriginalNetworkIcon,
     OriginalSecurityIcon,
     OriginalServerIcon,
+    OriginalSocialIcon,
     OriginalWorkspaceIcon,
     PhosphorIcon,
     SecurityIcon,
     ServerIcon,
+    SocialIcon,
     WorkspaceIcon,
 )
 from drawlib._diagrams.sequence import (
@@ -88,6 +90,7 @@ __all__ = [
     "OriginalNetworkIcon",
     "OriginalSecurityIcon",
     "OriginalServerIcon",
+    "OriginalSocialIcon",
     "OriginalWorkspaceIcon",
     "Participant",
     "ParticipantGroup",
@@ -95,6 +98,7 @@ __all__ = [
     "SecurityIcon",
     "SequenceDiagram",
     "ServerIcon",
+    "SocialIcon",
     "WorkspaceIcon",
     "icons",
 ]

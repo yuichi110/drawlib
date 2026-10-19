@@ -55,10 +55,12 @@ from drawlib._diagrams.architecture._icons import (
     OriginalNetworkIcon,
     OriginalSecurityIcon,
     OriginalServerIcon,
+    OriginalSocialIcon,
     OriginalWorkspaceIcon,
     PhosphorIcon,
     SecurityIcon,
     ServerIcon,
+    SocialIcon,
     WorkspaceIcon,
 )
 from drawlib._diagrams.sequence._block import Block
@@ -85,6 +87,7 @@ def draw_enum_icon(
         | OriginalNetworkIcon
         | OriginalSecurityIcon
         | OriginalServerIcon
+        | OriginalSocialIcon
         | OriginalWorkspaceIcon
         | AiIcon
         | AwsIcon
@@ -103,6 +106,7 @@ def draw_enum_icon(
         | PhosphorIcon
         | SecurityIcon
         | ServerIcon
+        | SocialIcon
         | WorkspaceIcon
     ),
     canvas_xy: tuple[float, float],

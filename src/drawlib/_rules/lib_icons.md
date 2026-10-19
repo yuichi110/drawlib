@@ -82,10 +82,12 @@ from drawlib.icons import (
     original_network,
     original_security,
     original_server,
+    original_social,
     original_workspace,
     phosphor,
     security,
     server,
+    social,
     workspace,
 )
 
@@ -128,10 +130,12 @@ import drawlib.icons.original_itservice as original_itservice
 import drawlib.icons.original_network as original_network
 import drawlib.icons.original_security as original_security
 import drawlib.icons.original_server as original_server
+import drawlib.icons.original_social as original_social
 import drawlib.icons.original_workspace as original_workspace
 import drawlib.icons.phosphor as phosphor
 import drawlib.icons.security as security
 import drawlib.icons.server as server
+import drawlib.icons.social as social
 import drawlib.icons.workspace as workspace
 ```
 

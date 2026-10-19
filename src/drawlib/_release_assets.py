@@ -112,9 +112,11 @@ class ReleaseAssetPackageName(StrEnum):
     ICON_ORIGINAL_NETWORK = "icon_original_network"
     ICON_ORIGINAL_SECURITY = "icon_original_security"
     ICON_ORIGINAL_SERVER = "icon_original_server"
+    ICON_ORIGINAL_SOCIAL = "icon_original_social"
     ICON_ORIGINAL_WORKSPACE = "icon_original_workspace"
     ICON_SECURITY = "icon_security"
     ICON_SERVER = "icon_server"
+    ICON_SOCIAL = "icon_social"
     ICON_WORKSPACE = "icon_workspace"
     MAP_CITIES = "map_cities"
     MAP_COUNTRIES = "map_countries"
@@ -202,9 +204,11 @@ class ReleaseAssetPackages(BaseReleaseAssetPackages):
     icon_original_network: ReleaseAssetPackage
     icon_original_security: ReleaseAssetPackage
     icon_original_server: ReleaseAssetPackage
+    icon_original_social: ReleaseAssetPackage
     icon_original_workspace: ReleaseAssetPackage
     icon_security: ReleaseAssetPackage
     icon_server: ReleaseAssetPackage
+    icon_social: ReleaseAssetPackage
     icon_workspace: ReleaseAssetPackage
     map_cities: ReleaseAssetPackage
     map_countries: ReleaseAssetPackage
@@ -656,7 +660,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         name=ReleaseAssetPackageName.ICON_AI,
         category="icon",
         archive_name="icon_ai.zip",
-        archive_sha256="41ba01ffbaefb5ecac8a1f2e5a37e1096f859173736f82908bc1e2aacd0ae3a1",
+        archive_sha256="1eaaed6d3e55d03ab32cb39bf903908332c4f23eb3dbc874a76d98500570d3f5",
         source_rel_path="icons/ai",
         target_rel_path="icons/ai",
         files=(
@@ -727,7 +731,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         name=ReleaseAssetPackageName.ICON_AWS,
         category="icon",
         archive_name="icon_aws.zip",
-        archive_sha256="7212d9cc9f60a6b1b3ede4af61187456b374ecf848ab4fd27c22c39204e936b6",
+        archive_sha256="b714cc9b46c857fdb9ac2c3a4bb2ad120eedef536e8984da0a54eb5201acc1dc",
         source_rel_path="icons/aws",
         target_rel_path="icons/aws",
         files=(
@@ -1067,7 +1071,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         name=ReleaseAssetPackageName.ICON_AZURE,
         category="icon",
         archive_name="icon_azure.zip",
-        archive_sha256="e72d266a5fa622b6c8450e86e39cac04637620814c889f9cad8d541da35f48ab",
+        archive_sha256="1f40fd6f32258b6d9764f67b2fe7e0514fbadcc3be71a1c1962c7bcf9373f87c",
         source_rel_path="icons/azure",
         target_rel_path="icons/azure",
         files=(
@@ -1328,7 +1332,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         name=ReleaseAssetPackageName.ICON_BUSINESS,
         category="icon",
         archive_name="icon_business.zip",
-        archive_sha256="5b35e4b7bc85596a0ebc7b6650b1f6af9bd0abbda9e504269d492a8153f9b581",
+        archive_sha256="2f7bc07f3039034a81b74d0fc1feaa2d629a11cf5596f03b0c367ab9637dd4e6",
         source_rel_path="icons/business",
         target_rel_path="icons/business",
         files=(
@@ -1387,7 +1391,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         name=ReleaseAssetPackageName.ICON_CLIENT,
         category="icon",
         archive_name="icon_client.zip",
-        archive_sha256="df764a6f2bb356a89819731f12dc3b36d40f71126ecf9a2034c4880e1c5ba661",
+        archive_sha256="38fed3bb7e9962a87180034459b054a501711f074aaeb3e4f8db24d3ae3bb200",
         source_rel_path="icons/client",
         target_rel_path="icons/client",
         files=(
@@ -1458,7 +1462,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         name=ReleaseAssetPackageName.ICON_CLOUD,
         category="icon",
         archive_name="icon_cloud.zip",
-        archive_sha256="35a6c1c55b875dd9b20feb5c8162112669c2d73974d84b408925793bf001d6ab",
+        archive_sha256="c5e8249643128a39eee5db3017cd6440cfe5021bf0a9a1f2f5b4d63691faa315",
         source_rel_path="icons/cloud",
         target_rel_path="icons/cloud",
         files=(
@@ -1514,7 +1518,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         name=ReleaseAssetPackageName.ICON_CNATIVE,
         category="icon",
         archive_name="icon_cnative.zip",
-        archive_sha256="1803267437a2b9375739e811169fa35e0dd976e49bc89946237c92d5f0ef1441",
+        archive_sha256="73464d6f5fca2eafbc0670dc0fefea3d505aa888d0e87cfde284c80761f0c605",
         source_rel_path="icons/cnative",
         target_rel_path="icons/cnative",
         files=(
@@ -1598,7 +1602,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         name=ReleaseAssetPackageName.ICON_CODE,
         category="icon",
         archive_name="icon_code.zip",
-        archive_sha256="ea4c6eb1184b315b8704adcf04d3e53094b2ac78e7fd1c86acdc5c8dc78e3d80",
+        archive_sha256="dbb7452d4e47604e8e130fe63d1b52061ae30e6ca7f5e704b76336ca8eb2b31f",
         source_rel_path="icons/code",
         target_rel_path="icons/code",
         files=(
@@ -1706,7 +1710,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         name=ReleaseAssetPackageName.ICON_DATA,
         category="icon",
         archive_name="icon_data.zip",
-        archive_sha256="b7aa8825fb7478a22def1139b01973c93a1921a4ea08461d6a9f78135b91acc8",
+        archive_sha256="ae907522769dffc4c86ce1304aadf44171b566879489c8cbc27215411c8cef19",
         source_rel_path="icons/data",
         target_rel_path="icons/data",
         files=(
@@ -1787,7 +1791,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         name=ReleaseAssetPackageName.ICON_DEVOPS,
         category="icon",
         archive_name="icon_devops.zip",
-        archive_sha256="ad44122e1287e804f942f919dbd2626d4c4a468180fa3223432eee735b2c6503",
+        archive_sha256="229384c3b5313646ed8d59054288400ebdd57e03ba3ac682b83958fbcb119015",
         source_rel_path="icons/devops",
         target_rel_path="icons/devops",
         files=(
@@ -1856,7 +1860,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         name=ReleaseAssetPackageName.ICON_FACILITY,
         category="icon",
         archive_name="icon_facility.zip",
-        archive_sha256="5b7a0d2395c0838db3834abcea5118e151fc34bb141a25307546d9fdb706cb90",
+        archive_sha256="24ec7aa152a4fbec5132facaaf39db215cbd1f9a45816a52b746c869a8e4b9f9",
         source_rel_path="icons/facility",
         target_rel_path="icons/facility",
         files=(
@@ -1916,7 +1920,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         name=ReleaseAssetPackageName.ICON_GCP,
         category="icon",
         archive_name="icon_gcp.zip",
-        archive_sha256="be36a32792e6e894ceb1e09d46ae39011832099aea28afa621fd846fef48acb7",
+        archive_sha256="4253d1f70a2fae7411b48f04fd70bb3ae10ddd00c5f6ac11ab97053c5826d29d",
         source_rel_path="icons/gcp",
         target_rel_path="icons/gcp",
         files=(
@@ -2222,7 +2226,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         name=ReleaseAssetPackageName.ICON_ITSERVICE,
         category="icon",
         archive_name="icon_itservice.zip",
-        archive_sha256="c4b72dc71ff932c2bd6a6ceb16ef0e887d3cb18f11a5fb70c38727540f157ae4",
+        archive_sha256="e7c6688dd983d74e66b8c7af948fb134e5e32c6116729eb398cb0fa92e6d8c65",
         source_rel_path="icons/itservice",
         target_rel_path="icons/itservice",
         files=(
@@ -2277,7 +2281,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         name=ReleaseAssetPackageName.ICON_NETWORK,
         category="icon",
         archive_name="icon_network.zip",
-        archive_sha256="36233e59ebd13b88b6b633a03122e8cca47f6cab98e71ab301e50fc3c64d1066",
+        archive_sha256="ee742fda86fbbde29e97107435aa48fc4376a60d13af8f93e1f4c1fb1c231fec",
         source_rel_path="icons/network",
         target_rel_path="icons/network",
         files=(
@@ -2380,7 +2384,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         name=ReleaseAssetPackageName.ICON_ORIGINAL_AI,
         category="icon",
         archive_name="icon_original_ai.zip",
-        archive_sha256="ca8b374cdd3410fafadf84633407b5861ecd5799acc8e0e9dfbd31d7ef21a5c6",
+        archive_sha256="48d8542226fc41cb849989d244dbdadbed331f9816de49b5c40fa6050bfeb1e7",
         source_rel_path="icons/original_ai",
         target_rel_path="icons/original_ai",
         files=(
@@ -2471,7 +2475,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         name=ReleaseAssetPackageName.ICON_ORIGINAL_BUSINESS,
         category="icon",
         archive_name="icon_original_business.zip",
-        archive_sha256="97d670063fa1597f9baa153535b5e1514d51ca55d0593c74bfb5a8ac437facfa",
+        archive_sha256="a9763c407fb377f7216b9688995b3a25fd244ba44f7865945b5d361a86ea16ab",
         source_rel_path="icons/original_business",
         target_rel_path="icons/original_business",
         files=(
@@ -2558,7 +2562,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         name=ReleaseAssetPackageName.ICON_ORIGINAL_CLIENT,
         category="icon",
         archive_name="icon_original_client.zip",
-        archive_sha256="4641cac3f213fb80921eee0d62653e81a80b62e044ee47c98109143533d32b98",
+        archive_sha256="7189c344a3b55308806bdfabdaf164c092e095e7d2ac1772febac819bb5db102",
         source_rel_path="icons/original_client",
         target_rel_path="icons/original_client",
         files=(
@@ -2661,7 +2665,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         name=ReleaseAssetPackageName.ICON_ORIGINAL_CLOUD,
         category="icon",
         archive_name="icon_original_cloud.zip",
-        archive_sha256="e146a247b06222a2a7554be1366bca9d758ce112af6b81d6c458bf131a24508f",
+        archive_sha256="50cf7f1887a9d3cfc6fef80fc43fd763a50b55544c87dcdfeab750d197dedac8",
         source_rel_path="icons/original_cloud",
         target_rel_path="icons/original_cloud",
         files=(
@@ -2819,7 +2823,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         name=ReleaseAssetPackageName.ICON_ORIGINAL_CNATIVE,
         category="icon",
         archive_name="icon_original_cnative.zip",
-        archive_sha256="0b81d36f61ea11f094353db5cb38bc42e4762ecd2aae754ed42fbc2e309fed26",
+        archive_sha256="6cdd4f7b5735a053612336d045bcfe3a7d5d0786975ef64417f195450906d0cc",
         source_rel_path="icons/original_cnative",
         target_rel_path="icons/original_cnative",
         files=(
@@ -2903,7 +2907,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         name=ReleaseAssetPackageName.ICON_ORIGINAL_CODE,
         category="icon",
         archive_name="icon_original_code.zip",
-        archive_sha256="ea91e3ec59767bcffd275e8b2d39b31724758f6b3dcae12a09135f59a5d9c521",
+        archive_sha256="4bb8ce476f1319513a6f2c9e02f8208ac4ed98b190536214bf3777c5dcbb2d7d",
         source_rel_path="icons/original_code",
         target_rel_path="icons/original_code",
         files=(
@@ -3035,7 +3039,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         name=ReleaseAssetPackageName.ICON_ORIGINAL_DATA,
         category="icon",
         archive_name="icon_original_data.zip",
-        archive_sha256="a611eaecaa00dfb4bd6d29ba7cbeec6e1f23fd1eb961f7fb0daa36e9d37a29d2",
+        archive_sha256="a037c375fea43f2db9067b55c9c47f1103dc53770a72af64123a73d995d098c6",
         source_rel_path="icons/original_data",
         target_rel_path="icons/original_data",
         files=(
@@ -3132,7 +3136,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         name=ReleaseAssetPackageName.ICON_ORIGINAL_DEVOPS,
         category="icon",
         archive_name="icon_original_devops.zip",
-        archive_sha256="1dcc10e840631ad78c6822d2287ad5dafa6e4e39cec782181e88b48b2b05fbf2",
+        archive_sha256="18080a57e67ad2fabb52fe8a4f6c26916517df190a5e078c485ee7770c8e24fe",
         source_rel_path="icons/original_devops",
         target_rel_path="icons/original_devops",
         files=(
@@ -3221,7 +3225,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         name=ReleaseAssetPackageName.ICON_ORIGINAL_FACILITY,
         category="icon",
         archive_name="icon_original_facility.zip",
-        archive_sha256="442ed4f6a4bd3bfff283e2b48e29c4b6e14dd0e69c65c648c60941b7e9de2a79",
+        archive_sha256="093364219b63a3c9f6d3f00471c6a25367c7f5d063e756bff4d4bcfe6fbc9682",
         source_rel_path="icons/original_facility",
         target_rel_path="icons/original_facility",
         files=(
@@ -3318,7 +3322,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         name=ReleaseAssetPackageName.ICON_ORIGINAL_ITSERVICE,
         category="icon",
         archive_name="icon_original_itservice.zip",
-        archive_sha256="85ea97ef731f913c0ac8963ce57b6689ed7b4edb163b82a3c7544a4548b94540",
+        archive_sha256="10e0558fd1abb6c0873c01f2d151dd424710c7a54b1fd4aba6ca1b8b3722bacf",
         source_rel_path="icons/original_itservice",
         target_rel_path="icons/original_itservice",
         files=(
@@ -3393,7 +3397,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         name=ReleaseAssetPackageName.ICON_ORIGINAL_NETWORK,
         category="icon",
         archive_name="icon_original_network.zip",
-        archive_sha256="d3d1b484a364ecb609acec1cde57b331187bffd9efea28f6a20f13d9fcf481f5",
+        archive_sha256="fc2b4041fe14952107831c691a6120a6e208e375b507d585b1cf671563db5b6d",
         source_rel_path="icons/original_network",
         target_rel_path="icons/original_network",
         files=(
@@ -3474,7 +3478,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         name=ReleaseAssetPackageName.ICON_ORIGINAL_SECURITY,
         category="icon",
         archive_name="icon_original_security.zip",
-        archive_sha256="7451faa0200a665c21935648242101259188209a05adc15669bb2af0d48d7bdb",
+        archive_sha256="64115d7460c861834b72f3fb58057d9d40c5ed10a88f1d61766a8ae5a188c4f5",
         source_rel_path="icons/original_security",
         target_rel_path="icons/original_security",
         files=(
@@ -3588,7 +3592,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         name=ReleaseAssetPackageName.ICON_ORIGINAL_SERVER,
         category="icon",
         archive_name="icon_original_server.zip",
-        archive_sha256="6d7e5758798982c2a860b1ded03c94c602a6d7f50927c60ed8912a08f605687d",
+        archive_sha256="4aabe2ee486267c0650751f38f3a26d6b1a4a7b6cba330e02349df2ee56b0ed9",
         source_rel_path="icons/original_server",
         target_rel_path="icons/original_server",
         files=(
@@ -3675,11 +3679,88 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
             "xen_default.png",
         ),
     ),
+    icon_original_social=ReleaseAssetPackage(
+        name=ReleaseAssetPackageName.ICON_ORIGINAL_SOCIAL,
+        category="icon",
+        archive_name="icon_original_social.zip",
+        archive_sha256="3944d7a17549cfa76f3a4840aef3d0d296ac4a735745b20fab41fb92f309816c",
+        source_rel_path="icons/original_social",
+        target_rel_path="icons/original_social",
+        files=(
+            "abema_default.png",
+            "ad_targeting_default.png",
+            "amplitude_default.png",
+            "apple_podcasts_default.png",
+            "appsflyer_default.png",
+            "bilibili_default.png",
+            "bluesky_default.png",
+            "chatbot_account_default.png",
+            "community_forum_default.png",
+            "connpass_default.png",
+            "content_moderation_default.png",
+            "conversion_funnel_default.png",
+            "dev_to_default.png",
+            "discord_default.png",
+            "facebook_default.png",
+            "google_ads_default.png",
+            "google_analytics_default.png",
+            "google_tag_manager_default.png",
+            "hacker_news_default.png",
+            "hashnode_default.png",
+            "hatena_default.png",
+            "influencer_default.png",
+            "instagram_default.png",
+            "kakao_default.png",
+            "line_default.png",
+            "linkedin_default.png",
+            "live_streaming_default.png",
+            "manifest.json",
+            "mastodon_default.png",
+            "medium_default.png",
+            "messenger_default.png",
+            "meta_ads_default.png",
+            "mixpanel_default.png",
+            "nicovideo_default.png",
+            "note_default.png",
+            "pinterest_default.png",
+            "podcast_mic_default.png",
+            "push_campaign_default.png",
+            "qiita_default.png",
+            "reddit_default.png",
+            "short_video_default.png",
+            "signal_default.png",
+            "snapchat_default.png",
+            "social_graph_default.png",
+            "social_login_default.png",
+            "soundcloud_default.png",
+            "speaker_deck_default.png",
+            "spotify_default.png",
+            "stack_overflow_default.png",
+            "substack_default.png",
+            "tech_blog_default.png",
+            "telegram_default.png",
+            "threads_default.png",
+            "tiktok_default.png",
+            "timeline_feed_default.png",
+            "tver_default.png",
+            "twitch_default.png",
+            "user_engagement_default.png",
+            "viber_default.png",
+            "vimeo_default.png",
+            "viral_share_default.png",
+            "wechat_default.png",
+            "whatsapp_default.png",
+            "x_default.png",
+            "yahoo_japan_default.png",
+            "youtube_default.png",
+            "zenn_default.png",
+        ),
+    ),
     icon_original_workspace=ReleaseAssetPackage(
         name=ReleaseAssetPackageName.ICON_ORIGINAL_WORKSPACE,
         category="icon",
         archive_name="icon_original_workspace.zip",
-        archive_sha256="afe28e14b0f774e55f27e26178171a3872fc403ed298a0d20fd749cedadec132",
+        archive_sha256="5c448a1aa348e25e99653c96b244126b2d79c43ae36ae75a16ce6cbdca429c54",
         source_rel_path="icons/original_workspace",
         target_rel_path="icons/original_workspace",
         files=(
@@ -3747,7 +3828,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         name=ReleaseAssetPackageName.ICON_SECURITY,
         category="icon",
         archive_name="icon_security.zip",
-        archive_sha256="9a4d41c67bec939c23d76376c7a8a90f3128912c9d971bfd303223f15a8f7b8f",
+        archive_sha256="ad35adc0a17a5abea758512fa547725f6c8c16768ef449633cf274b593792edc",
         source_rel_path="icons/security",
         target_rel_path="icons/security",
         files=(
@@ -3832,7 +3913,7 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
         name=ReleaseAssetPackageName.ICON_SERVER,
         category="icon",
         archive_name="icon_server.zip",
-        archive_sha256="033e1740b8bdaca545fdb110854eeabe4609e5ff0a16b65998e0ac778191dd1a",
+        archive_sha256="89f8b7cc71a6b09742124dd14d8b3b604c581633ac3c0f2d40637083019f5623",
         source_rel_path="icons/server",
         target_rel_path="icons/server",
         files=(
@@ -3921,11 +4002,72 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
             "xen_default.png",
         ),
     ),
+    icon_social=ReleaseAssetPackage(
+        name=ReleaseAssetPackageName.ICON_SOCIAL,
+        category="icon",
+        archive_name="icon_social.zip",
+        archive_sha256="100d0eb45b6975ca76e0654a6d902ff45a2996c5cc8a03b14b05b843ae75a35f",
+        source_rel_path="icons/social",
+        target_rel_path="icons/social",
+        files=(
+            "abema_default.png",
+            "amplitude_default.png",
+            "apple_podcasts_default.png",
+            "appsflyer_default.png",
+            "bilibili_default.png",
+            "bluesky_default.png",
+            "connpass_default.png",
+            "dev_to_default.png",
+            "discord_default.png",
+            "facebook_default.png",
+            "google_ads_default.png",
+            "google_analytics_default.png",
+            "google_tag_manager_default.png",
+            "hacker_news_default.png",
+            "hashnode_default.png",
+            "hatena_default.png",
+            "instagram_default.png",
+            "kakao_default.png",
+            "line_default.png",
+            "linkedin_default.png",
+            "manifest.json",
+            "mastodon_default.png",
+            "medium_default.png",
+            "messenger_default.png",
+            "meta_ads_default.png",
+            "mixpanel_default.png",
+            "nicovideo_default.png",
+            "note_default.png",
+            "pinterest_default.png",
+            "qiita_default.png",
+            "reddit_default.png",
+            "signal_default.png",
+            "snapchat_default.png",
+            "soundcloud_default.png",
+            "speaker_deck_default.png",
+            "spotify_default.png",
+            "stack_overflow_default.png",
+            "substack_default.png",
+            "telegram_default.png",
+            "threads_default.png",
+            "tiktok_default.png",
+            "tver_default.png",
+            "twitch_default.png",
+            "viber_default.png",
+            "vimeo_default.png",
+            "wechat_default.png",
+            "whatsapp_default.png",
+            "x_default.png",
+            "yahoo_japan_default.png",
+            "youtube_default.png",
+            "zenn_default.png",
+        ),
+    ),
     icon_workspace=ReleaseAssetPackage(
         name=ReleaseAssetPackageName.ICON_WORKSPACE,
         category="icon",
         archive_name="icon_workspace.zip",
-        archive_sha256="36e2cfe693ba3762a30f5ed1df3929e2c41e48c254101b8fc05bb553e5163070",
+        archive_sha256="3bd190e3d4a1ff646b2737f12a0a72add8f58d386f04e57a1828a4504d261c62",
         source_rel_path="icons/workspace",
         target_rel_path="icons/workspace",
         files=(

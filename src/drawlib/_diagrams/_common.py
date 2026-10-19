@@ -47,9 +47,11 @@ import drawlib._icons.png_icons.original_itservice._generated as original_itserv
 import drawlib._icons.png_icons.original_network._generated as original_network_gen
 import drawlib._icons.png_icons.original_security._generated as original_security_gen
 import drawlib._icons.png_icons.original_server._generated as original_server_gen
+import drawlib._icons.png_icons.original_social._generated as original_social_gen
 import drawlib._icons.png_icons.original_workspace._generated as original_workspace_gen
 import drawlib._icons.png_icons.security._generated as security_gen
 import drawlib._icons.png_icons.server._generated as server_gen
+import drawlib._icons.png_icons.social._generated as social_gen
 import drawlib._icons.png_icons.workspace._generated as workspace_gen
 from drawlib._core.l3_colors import ColorType
 from drawlib._core.l3_fonts import Font
@@ -87,10 +89,12 @@ from drawlib._diagrams.architecture._icons import (
     OriginalNetworkIcon,
     OriginalSecurityIcon,
     OriginalServerIcon,
+    OriginalSocialIcon,
     OriginalWorkspaceIcon,
     PhosphorIcon,
     SecurityIcon,
     ServerIcon,
+    SocialIcon,
     WorkspaceIcon,
 )
 from drawlib._diagrams.architecture._types import IconType
@@ -112,6 +116,7 @@ _ENUM_ICON_MODULES: dict[type, ModuleType] = {
     OriginalNetworkIcon: original_network_gen,
     OriginalSecurityIcon: original_security_gen,
     OriginalServerIcon: original_server_gen,
+    OriginalSocialIcon: original_social_gen,
     OriginalWorkspaceIcon: original_workspace_gen,
     AiIcon: ai_gen,
     AwsIcon: aws_gen,
@@ -130,6 +135,7 @@ _ENUM_ICON_MODULES: dict[type, ModuleType] = {
     PhosphorIcon: phosphor_gen,
     SecurityIcon: security_gen,
     ServerIcon: server_gen,
+    SocialIcon: social_gen,
     WorkspaceIcon: workspace_gen,
 }
 
@@ -261,6 +267,7 @@ def draw_enum_icon(
         | OriginalNetworkIcon
         | OriginalSecurityIcon
         | OriginalServerIcon
+        | OriginalSocialIcon
         | OriginalWorkspaceIcon
         | AiIcon
         | AwsIcon
@@ -279,6 +286,7 @@ def draw_enum_icon(
         | PhosphorIcon
         | SecurityIcon
         | ServerIcon
+        | SocialIcon
         | WorkspaceIcon
     ),
     canvas_xy: tuple[float, float],
@@ -357,6 +365,7 @@ def draw_diagram_icon(
             OriginalNetworkIcon,
             OriginalSecurityIcon,
             OriginalServerIcon,
+            OriginalSocialIcon,
             OriginalWorkspaceIcon,
             AiIcon,
             AwsIcon,
@@ -375,6 +384,7 @@ def draw_diagram_icon(
             PhosphorIcon,
             SecurityIcon,
             ServerIcon,
+            SocialIcon,
             WorkspaceIcon,
         ),
     ):

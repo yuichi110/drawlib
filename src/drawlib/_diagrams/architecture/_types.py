@@ -47,10 +47,12 @@ from drawlib._diagrams.architecture._icons import (
     OriginalNetworkIcon,
     OriginalSecurityIcon,
     OriginalServerIcon,
+    OriginalSocialIcon,
     OriginalWorkspaceIcon,
     PhosphorIcon,
     SecurityIcon,
     ServerIcon,
+    SocialIcon,
     WorkspaceIcon,
 )
 
@@ -92,6 +94,7 @@ IconType: TypeAlias = (
     | OriginalNetworkIcon
     | OriginalSecurityIcon
     | OriginalServerIcon
+    | OriginalSocialIcon
     | OriginalWorkspaceIcon
     | AiIcon
     | AwsIcon
@@ -110,6 +113,7 @@ IconType: TypeAlias = (
     | PhosphorIcon
     | SecurityIcon
     | ServerIcon
+    | SocialIcon
     | WorkspaceIcon
     | CustomIcon
     | Dimage

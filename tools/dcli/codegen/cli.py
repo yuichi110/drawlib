@@ -342,6 +342,26 @@ def gen_icon_original_itservice() -> None:
     console.print("[bold green]✓ Original IT Service icon bindings generated successfully![/bold green]")
 
 
+@app.command("icon-social")
+def gen_icon_social() -> None:
+    """Normalize native Drawlib Social icons and generate Python bindings."""
+    src_path = PROJECT_ROOT / "tools/icons_src/social"
+    dest_path = PROJECT_ROOT / "tools/release_assets/v0.3/icons/social"
+    manifest_file = write_provider_manifest("social", src_path, dest_path)
+    generate_original_provider_code("social", manifest_file=manifest_file)
+    console.print("[bold green]✓ Social icon bindings generated successfully![/bold green]")
+
+
+@app.command("icon-original-social")
+def gen_icon_original_social() -> None:
+    """Normalize native Drawlib Original Social icons and generate Python bindings."""
+    src_path = PROJECT_ROOT / "tools/icons_src/original_social"
+    dest_path = PROJECT_ROOT / "tools/release_assets/v0.3/icons/original_social"
+    manifest_file = write_provider_manifest("original_social", src_path, dest_path)
+    generate_original_provider_code("original_social", manifest_file=manifest_file)
+    console.print("[bold green]✓ Original Social icon bindings generated successfully![/bold green]")
+
+
 @app.command("icon-client")
 def gen_icon_client() -> None:
     """Normalize native Drawlib Client icons and generate Python bindings."""
