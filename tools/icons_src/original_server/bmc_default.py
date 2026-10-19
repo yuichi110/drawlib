@@ -92,11 +92,9 @@ Icon.draw_round_polyline(
 
 # 'C' (x=59.0 .. 65.5)
 c_pts = [
-    (62.2 + 3.2 * math.cos(math.radians(deg)), 33.3 + 3.2 * math.sin(math.radians(deg)))
-    for deg in range(40, 181, 15)
+    (62.2 + 3.2 * math.cos(math.radians(deg)), 33.3 + 3.2 * math.sin(math.radians(deg))) for deg in range(40, 181, 15)
 ] + [
-    (62.2 + 3.2 * math.cos(math.radians(deg)), 29.7 + 3.2 * math.sin(math.radians(deg)))
-    for deg in range(180, 321, 15)
+    (62.2 + 3.2 * math.cos(math.radians(deg)), 29.7 + 3.2 * math.sin(math.radians(deg))) for deg in range(180, 321, 15)
 ]
 Icon.draw_round_polyline(c_pts, width_units=lw, color=Icon.DARK)
 

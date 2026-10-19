@@ -63,13 +63,17 @@ ang_mid_l = math.atan2(wave_mid[0][1] - CY, wave_mid[0][0] - CX)
 ang_top_l = math.atan2(wave_top[0][1] - CY, wave_top[0][0] - CX)
 
 right_rim = [
-    (CX + R_MEDALLION * math.cos(ang_top_r + (ang_mid_r - ang_top_r) * (i / 6)),
-     CY + R_MEDALLION * math.sin(ang_top_r + (ang_mid_r - ang_top_r) * (i / 6)))
+    (
+        CX + R_MEDALLION * math.cos(ang_top_r + (ang_mid_r - ang_top_r) * (i / 6)),
+        CY + R_MEDALLION * math.sin(ang_top_r + (ang_mid_r - ang_top_r) * (i / 6)),
+    )
     for i in range(1, 6)
 ]
 left_rim = [
-    (CX + R_MEDALLION * math.cos(ang_mid_l + (ang_top_l - ang_mid_l) * (i / 6)),
-     CY + R_MEDALLION * math.sin(ang_mid_l + (ang_top_l - ang_mid_l) * (i / 6)))
+    (
+        CX + R_MEDALLION * math.cos(ang_mid_l + (ang_top_l - ang_mid_l) * (i / 6)),
+        CY + R_MEDALLION * math.sin(ang_mid_l + (ang_top_l - ang_mid_l) * (i / 6)),
+    )
     for i in range(1, 6)
 ]
 

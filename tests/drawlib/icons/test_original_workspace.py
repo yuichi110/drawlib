@@ -26,9 +26,9 @@ class TestOriginalWorkspaceIcons:
     """Tests for `drawlib.icons.original_workspace` and `OriginalWorkspaceIcon`."""
 
     def test_original_workspace_all_icons(self, tmp_path: Path) -> None:
-        """Verify all 74 canonical icons (24 concepts + 50 brands) and 79 aliases exist and render."""
+        """Verify all 57 canonical icons (17 concepts + 40 brands) and 62 aliases exist and render."""
         clear()
-        canonical_74 = [
+        canonical_57 = [
             "email",
             "calendar",
             "chat_message",
@@ -45,14 +45,7 @@ class TestOriginalWorkspaceIcons:
             "project_plan",
             "whiteboard",
             "form_survey",
-            "e_signature",
             "workflow_automation",
-            "crm",
-            "erp",
-            "helpdesk",
-            "hr_portal",
-            "billing_invoice",
-            "ecommerce_store",
             "microsoft_365",
             "microsoft_teams",
             "outlook",
@@ -88,32 +81,22 @@ class TestOriginalWorkspaceIcons:
             "adobe_acrobat",
             "dropbox",
             "box",
-            "docusign",
             "trello",
             "linear",
             "airtable",
             "zapier",
-            "salesforce",
-            "hubspot",
-            "zendesk",
-            "servicenow",
-            "sap",
-            "workday",
-            "dynamics_365",
             "tableau",
-            "stripe",
-            "shopify",
         ]
-        assert len(canonical_74) == 74
-        for idx, name in enumerate(canonical_74):
+        assert len(canonical_57) == 57
+        for idx, name in enumerate(canonical_57):
             assert hasattr(original_workspace, name), f"Missing canonical icon: {name}"
             assert hasattr(OriginalWorkspaceIcon, name.upper()), f"Missing enum: {name.upper()}"
             col = idx % 10
             row = idx // 10
             fn = getattr(original_workspace, name)
-            fn(xy=(8 + col * 9.0, 90 - row * 11), width=6.5, style=Style(), variant="default")
+            fn(xy=(8 + col * 9.0, 90 - row * 13), width=6.5, style=Style(), variant="default")
 
-        assert len(ORIGINAL_WORKSPACE_ALIASES) == 79
+        assert len(ORIGINAL_WORKSPACE_ALIASES) == 62
         for alias in ORIGINAL_WORKSPACE_ALIASES:
             assert hasattr(original_workspace, alias), f"Missing alias function: {alias}"
             assert hasattr(OriginalWorkspaceIcon, alias.upper()), f"Missing alias enum: {alias.upper()}"
@@ -128,11 +111,11 @@ class TestOriginalWorkspaceIcons:
         original_workspace.mail(xy=(15, 70), width=10, style=Style())
         original_workspace.wiki(xy=(30, 70), width=10, style=Style())
         original_workspace.gantt(xy=(45, 70), width=10, style=Style())
-        original_workspace.itsm(xy=(60, 70), width=10, style=Style())
+        original_workspace.agile_board(xy=(60, 70), width=10, style=Style())
         original_workspace.m365(xy=(75, 70), width=10, style=Style())
         original_workspace.teams(xy=(90, 70), width=10, style=Style())
         original_workspace.gsuite(xy=(15, 45), width=10, style=Style())
-        original_workspace.sfdc(xy=(30, 45), width=10, style=Style())
+        original_workspace.powerbi(xy=(30, 45), width=10, style=Style())
 
         out = tmp_path / "test_original_workspace_aliases.png"
         save(str(out))
@@ -148,7 +131,7 @@ class TestOriginalWorkspaceIcons:
             edge_text_style=Styles.Dark,
         )
         n1 = diag.add(
-            Node("Helpdesk", width=20, height=20, icon=OriginalWorkspaceIcon.HELPDESK),
+            Node("Kanban", width=20, height=20, icon=OriginalWorkspaceIcon.KANBAN_BOARD),
             (20, 50),
         )
         n2 = diag.add(
@@ -173,4 +156,4 @@ class TestOriginalWorkspaceIcons:
         assert ORIGINAL_WORKSPACE_PROVIDER.asset_subdir == "icons/original_workspace"
         assert ORIGINAL_WORKSPACE_PROVIDER.aliases["mail"] == "email"
         assert ORIGINAL_WORKSPACE_PROVIDER.aliases["m365"] == "microsoft_365"
-        assert ORIGINAL_WORKSPACE_PROVIDER.aliases["sfdc"] == "salesforce"
+        assert ORIGINAL_WORKSPACE_PROVIDER.aliases["powerbi"] == "power_bi"

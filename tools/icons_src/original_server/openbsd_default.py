@@ -97,10 +97,7 @@ for i in range(n_fg):
     if ang_end <= ang_start:
         ang_end += 360.0
     steps = max(8, int((ang_end - ang_start) / 2.5))
-    arc_pts = [
-        polar(r_body, ang_start + (ang_end - ang_start) * (k / steps))
-        for k in range(steps + 1)
-    ]
+    arc_pts = [polar(r_body, ang_start + (ang_end - ang_start) * (k / steps)) for k in range(steps + 1)]
     Icon.draw_round_polyline(arc_pts, width_units=w, color=Icon.DARK, closed=False)
 
 # Draw foreground spike DARK V-outlines with short inward root ticks

@@ -38,7 +38,25 @@ rings = [r0, r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13, r14]
 # fmt: on
 
 # 1. Flat pastel cyan elliptical atom rings with transparent holes and center nucleus
-polygon(rings[0], holes=[rings[1], rings[2], rings[3], rings[4], rings[5], rings[6], rings[7], rings[8], rings[10], rings[11], rings[12], rings[13], rings[14]], style=Icon.fill_style("#59D2F3"))
+polygon(
+    rings[0],
+    holes=[
+        rings[1],
+        rings[2],
+        rings[3],
+        rings[4],
+        rings[5],
+        rings[6],
+        rings[7],
+        rings[8],
+        rings[10],
+        rings[11],
+        rings[12],
+        rings[13],
+        rings[14],
+    ],
+    style=Icon.fill_style("#59D2F3"),
+)
 polygon(rings[9], style=Icon.fill_style("#59D2F3"))
 
 # 2. Crisp DARK outlines on outer rings, inner orbit holes, and center nucleus

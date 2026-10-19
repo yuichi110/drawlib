@@ -17,6 +17,7 @@ from drawlib._icons import (
     ai,
     aws,
     azure,
+    business,
     client,
     cloud,
     cnative,
@@ -28,6 +29,7 @@ from drawlib._icons import (
     gcp,
     network,
     original_ai,
+    original_business,
     original_client,
     original_cloud,
     original_cnative,
@@ -50,6 +52,7 @@ sys.modules["drawlib.icons.phosphor"] = phosphor
 sys.modules["drawlib.icons.ai"] = ai
 sys.modules["drawlib.icons.aws"] = aws
 sys.modules["drawlib.icons.azure"] = azure
+sys.modules["drawlib.icons.business"] = business
 sys.modules["drawlib.icons.client"] = client
 sys.modules["drawlib.icons.cloud"] = cloud
 sys.modules["drawlib.icons.cnative"] = cnative
@@ -60,6 +63,7 @@ sys.modules["drawlib.icons.facility"] = facility
 sys.modules["drawlib.icons.gcp"] = gcp
 sys.modules["drawlib.icons.network"] = network
 sys.modules["drawlib.icons.original_ai"] = original_ai
+sys.modules["drawlib.icons.original_business"] = original_business
 sys.modules["drawlib.icons.original_client"] = original_client
 sys.modules["drawlib.icons.original_cloud"] = original_cloud
 sys.modules["drawlib.icons.original_cnative"] = original_cnative
@@ -79,6 +83,7 @@ __all__ = [
     "ai",
     "aws",
     "azure",
+    "business",
     "client",
     "cloud",
     "cnative",
@@ -90,6 +95,7 @@ __all__ = [
     "gcp",
     "network",
     "original_ai",
+    "original_business",
     "original_client",
     "original_cloud",
     "original_cnative",

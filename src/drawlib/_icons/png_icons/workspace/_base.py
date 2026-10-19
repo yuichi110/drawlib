@@ -18,7 +18,6 @@ WORKSPACE_ALIASES: dict[str, str] = {
     "adobe": "adobe_acrobat",
     "box_storage": "box",
     "cisco_webex": "webex",
-    "dynamics": "dynamics_365",
     "gcal": "google_calendar",
     "gchat": "google_chat",
     "gdocs": "google_docs",
@@ -42,8 +41,6 @@ WORKSPACE_ALIASES: dict[str, str] = {
     "power_apps": "power_automate",
     "powerbi": "power_bi",
     "ppt": "powerpoint",
-    "sfdc": "salesforce",
-    "snow": "servicenow",
     "teams": "microsoft_teams",
 }
 

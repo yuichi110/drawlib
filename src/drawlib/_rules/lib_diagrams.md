@@ -156,6 +156,9 @@ from drawlib.diagrams.architecture import (
     AiIcon,
     AwsIcon,
     AzureIcon,
+    BusinessIcon,
+    ClientIcon,
+    CloudIcon,
     CnativeIcon,
     CodeIcon,
     CustomIcon,
@@ -163,10 +166,9 @@ from drawlib.diagrams.architecture import (
     DevopsIcon,
     FacilityIcon,
     GcpIcon,
-    ClientIcon,
-    CloudIcon,
     NetworkIcon,
     OriginalAiIcon,
+    OriginalBusinessIcon,
     OriginalClientIcon,
     OriginalCloudIcon,
     OriginalCnativeIcon,
@@ -210,7 +212,7 @@ from drawlib.diagrams.architecture import (
 | `text` | `str` | `""` | Node label text (supports `\n`). |
 | `width` | `float` | `20.0` | Card bounding box width in canvas units. |
 | `height` | `float` | `16.0` | Card bounding box height in canvas units. |
-| `icon` | `IconType` | `None` | `PhosphorIcon`, `GcpIcon`, `AiIcon`, `AwsIcon`, `AzureIcon`, `ClientIcon`, `CloudIcon`, `CnativeIcon`, `CodeIcon`, `DataIcon`, `DevopsIcon`, `FacilityIcon`, `NetworkIcon`, `SecurityIcon`, `ServerIcon`, `WorkspaceIcon`, `OriginalCloudIcon`, `OriginalClientIcon`, `OriginalCnativeIcon`, `OriginalCodeIcon`, `OriginalDataIcon`, `OriginalDevopsIcon`, `OriginalFacilityIcon`, `OriginalAiIcon`, `OriginalNetworkIcon`, `OriginalSecurityIcon`, `OriginalServerIcon`, `OriginalWorkspaceIcon`, icon callable, `CustomIcon`, `Dimage`, `PIL.Image`, or path. |
+| `icon` | `IconType` | `None` | `PhosphorIcon`, `GcpIcon`, `AiIcon`, `AwsIcon`, `AzureIcon`, `BusinessIcon`, `ClientIcon`, `CloudIcon`, `CnativeIcon`, `CodeIcon`, `DataIcon`, `DevopsIcon`, `FacilityIcon`, `NetworkIcon`, `SecurityIcon`, `ServerIcon`, `WorkspaceIcon`, `OriginalCloudIcon`, `OriginalBusinessIcon`, `OriginalClientIcon`, `OriginalCnativeIcon`, `OriginalCodeIcon`, `OriginalDataIcon`, `OriginalDevopsIcon`, `OriginalFacilityIcon`, `OriginalAiIcon`, `OriginalNetworkIcon`, `OriginalSecurityIcon`, `OriginalServerIcon`, `OriginalWorkspaceIcon`, icon callable, `CustomIcon`, `Dimage`, `PIL.Image`, or path. |
 | `icon_size` | `float` | `8.0` | Outer width and height of the icon/image. |
 | `style` | `Style \| None` | `None` | Optional style override for the icon or image. |
 | `text_style` | `Style \| None` | `None` | Optional explicit style override for the label text (supports `xy_shift`, `angle`). |
@@ -238,19 +240,20 @@ from drawlib.diagrams.architecture import (
 - `AwsIcon` & `AzureIcon`: Official AWS (`AwsIcon.EC2`, `AwsIcon.S3`) and Azure (`AzureIcon.VIRTUAL_MACHINE`, `AzureIcon.AKS`) architecture icons.
 - `CloudIcon`: 40 official Cloud Provider, Parent Company, Global Hosting/VPS/Edge, Modern PaaS/BaaS, and Japan Cloud & Hosting brand icons + 24 shorthand aliases (`CloudIcon.AWS`, `CloudIcon.GOOGLE_CLOUD`, `CloudIcon.AZURE`, `CloudIcon.ORACLE_CLOUD`, `CloudIcon.IBM_CLOUD`, `CloudIcon.CLOUDFLARE`, `CloudIcon.DIGITALOCEAN`, `CloudIcon.VERCEL`, `CloudIcon.SUPABASE`, `CloudIcon.SAKURA`, `CloudIcon.CONOHA`, etc.).
 - `AiIcon`: 40 official AI, LLM, Agent framework, Protocol, and ML ecosystem icons + 13 shorthand aliases (`AiIcon.OPENAI`, `AiIcon.CLAUDE`, `AiIcon.GEMINI`, `AiIcon.LANGCHAIN`, `AiIcon.MCP`, `AiIcon.A2A`, `AiIcon.PYTORCH`, `AiIcon.HUGGINGFACE`, etc.).
+- `BusinessIcon`: 48 official Business, ERP, CRM, ITSM, FinTech, E-Commerce, CPaaS, and B2B SaaS icons + 33 shorthand aliases (`BusinessIcon.SAP`, `BusinessIcon.SALESFORCE`, `BusinessIcon.SERVICENOW`, `BusinessIcon.STRIPE`, `BusinessIcon.SHOPIFY`, `BusinessIcon.HUBSPOT`, `BusinessIcon.ZENDESK`, `BusinessIcon.WORKDAY`, `BusinessIcon.DOCUSIGN`, `BusinessIcon.DYNAMICS_365`, `BusinessIcon.KINTONE`, `BusinessIcon.FREEE`, etc.).
 - `ClientIcon`: 60 official Web Browser, Client OS, App Store, PC/Mobile Brand, Smart Device, Gaming, Streaming, Connected Car, Heavy Machinery, Factory Automation & Peripheral icons + 73 shorthand aliases (`ClientIcon.CHROME`, `ClientIcon.SAFARI`, `ClientIcon.WINDOWS`, `ClientIcon.MACOS`, `ClientIcon.IOS`, `ClientIcon.ANDROID`, `ClientIcon.PLAY_STORE`, `ClientIcon.APPLE`, `ClientIcon.KINDLE`, `ClientIcon.ALEXA`, `ClientIcon.TESLA`, `ClientIcon.CATERPILLAR`, etc.).
 - `CnativeIcon`: 60 Cloud Native icons (20 Kubernetes resources + 40 CNCF/K8s distribution/Observability projects) + 77 shorthand aliases (`CnativeIcon.KUBERNETES`, `CnativeIcon.OPENSHIFT`, `CnativeIcon.RANCHER`, `CnativeIcon.K3S`, `CnativeIcon.POD`, `CnativeIcon.DEPLOYMENT`, `CnativeIcon.PROMETHEUS`, `CnativeIcon.GRAFANA`, `CnativeIcon.ISTIO`, `CnativeIcon.ARGO`, etc.).
 - `CodeIcon`: 72 official Programming Language, Framework, Runtime, API & IDE icons + 39 shorthand aliases (`CodeIcon.PYTHON`, `CodeIcon.FASTAPI`, `CodeIcon.REACT`, `CodeIcon.TYPESCRIPT`, `CodeIcon.GO`, `CodeIcon.RUST`, `CodeIcon.FIREBASE`, `CodeIcon.COLAB`, `CodeIcon.ANTIGRAVITY`, `CodeIcon.ANDROID_STUDIO`, etc.).
 - `DataIcon`: 50 Database & Data Platform icons + 28 shorthand aliases (`DataIcon.POSTGRESQL`, `DataIcon.REDIS`, `DataIcon.KAFKA`, `DataIcon.SNOWFLAKE`, `DataIcon.DATABRICKS`, `DataIcon.SPARK`, `DataIcon.DUCKDB`, etc.).
 - `DevopsIcon`: 40 official DevOps, CI/CD, IaC, DevSecOps, and Observability icons + 17 shorthand aliases (`DevopsIcon.GITHUB`, `DevopsIcon.GITHUB_ACTIONS`, `DevopsIcon.TERRAFORM`, `DevopsIcon.ANSIBLE`, `DevopsIcon.DATADOG`, `DevopsIcon.SENTRY`, `DevopsIcon.JIRA`, `DevopsIcon.SLACK`, etc.).
-- `FacilityIcon`: 40 official Data Center, IX, Telecom Carrier, and Facility Hardware icons + 17 shorthand aliases (`FacilityIcon.EQUINIX`, `FacilityIcon.DIGITAL_REALTY`, `FacilityIcon.MEGAPORT`, `FacilityIcon.STARLINK`, `FacilityIcon.NTT`, `FacilityIcon.KDDI`, `FacilityIcon.SCHNEIDER_ELECTRIC`, `FacilityIcon.VERTIV`, `FacilityIcon.RITTAL`, `FacilityIcon.PANDUIT`, etc.).
+- `FacilityIcon`: 49 official Data Center, IX, Telecom Carrier, Facility Hardware, and Semiconductor/Electronics Manufacturing icons + 27 shorthand aliases (`FacilityIcon.EQUINIX`, `FacilityIcon.DIGITAL_REALTY`, `FacilityIcon.MEGAPORT`, `FacilityIcon.STARLINK`, `FacilityIcon.NTT`, `FacilityIcon.KDDI`, `FacilityIcon.SCHNEIDER_ELECTRIC`, `FacilityIcon.VERTIV`, `FacilityIcon.RITTAL`, `FacilityIcon.PANDUIT`, etc.).
 - `NetworkIcon`: 70 Network icons (48 official CDN, DNS, registrar, proxy, VPN, firewall, SOHO & network vendor logos + 22 Cisco topology icons) + 64 shorthand aliases (`NetworkIcon.CLOUDFLARE`, `NetworkIcon.NGINX`, `NetworkIcon.TRAEFIK`, `NetworkIcon.WIREGUARD`, `NetworkIcon.FORTINET`, `NetworkIcon.CISCO`, `NetworkIcon.TP_LINK`, `NetworkIcon.LETS_ENCRYPT`, `NetworkIcon.CISCO_ROUTER`, `NetworkIcon.CISCO_FIREWALL`, etc.).
 - `SecurityIcon`: 60 official Security vendor & OSS icons + 28 shorthand aliases (`SecurityIcon.OKTA`, `SecurityIcon.CROWDSTRIKE`, `SecurityIcon.PALO_ALTO`, `SecurityIcon.QRADAR`, `SecurityIcon.WIZ`, `SecurityIcon.BURP_SUITE`, `SecurityIcon.YUBICO`, etc.).
 - `ServerIcon`: 82 Server icons (56 official server vendor, chip, SBC, OS, virtualization & storage logos + 26 Dell EMC & VMware topology icons) + 58 shorthand aliases (`ServerIcon.LINUX`, `ServerIcon.UBUNTU`, `ServerIcon.WINDOWS`, `ServerIcon.MAC_MINI`, `ServerIcon.RASPBERRY_PI`, `ServerIcon.PROXMOX`, `ServerIcon.SYNOLOGY`, `ServerIcon.DELL_RACK_SERVER`, `ServerIcon.VMWARE_VCENTER`, etc.).
-- `WorkspaceIcon`: 50 official Workplace, Productivity, Collaboration, CRM/ERP, and Business SaaS icons + 31 shorthand aliases (`WorkspaceIcon.MICROSOFT_365`, `WorkspaceIcon.MICROSOFT_TEAMS`, `WorkspaceIcon.GOOGLE_WORKSPACE`, `WorkspaceIcon.GMAIL`, `WorkspaceIcon.SLACK`, `WorkspaceIcon.NOTION`, `WorkspaceIcon.FIGMA`, `WorkspaceIcon.SALESFORCE`, `WorkspaceIcon.SAP`, `WorkspaceIcon.STRIPE`, etc.).
-- `OriginalCloudIcon`, `OriginalClientIcon`, `OriginalCnativeIcon`, `OriginalCodeIcon`, `OriginalDataIcon`, `OriginalDevopsIcon`, `OriginalFacilityIcon`, `OriginalAiIcon`, `OriginalNetworkIcon`, `OriginalSecurityIcon`, `OriginalServerIcon`, `OriginalWorkspaceIcon`: Vendor-neutral Drawlib 2D pastel icon suites (`OriginalCloudIcon.CLOUD`, `OriginalCloudIcon.AWS`, `OriginalCloudIcon.CLOUDFLARE`, `OriginalClientIcon.LAPTOP`, `OriginalClientIcon.CHROME`, `OriginalCnativeIcon.KUBERNETES`, `OriginalCodeIcon.PYTHON`, `OriginalCodeIcon.FASTAPI`, `OriginalDataIcon.POSTGRESQL`, `OriginalDataIcon.KAFKA`, `OriginalFacilityIcon.DATACENTER`, `OriginalFacilityIcon.POWER_PLANT`, `OriginalNetworkIcon.ROUTER`, `OriginalSecurityIcon.FIREWALL`, `OriginalSecurityIcon.ZERO_TRUST`, `OriginalServerIcon.RACK_SERVER`, `OriginalWorkspaceIcon.EMAIL`, `OriginalWorkspaceIcon.SLACK`, etc.).
+- `WorkspaceIcon`: 40 official Workplace, Productivity, Collaboration, and Office SaaS icons + 28 shorthand aliases (`WorkspaceIcon.MICROSOFT_365`, `WorkspaceIcon.MICROSOFT_TEAMS`, `WorkspaceIcon.GOOGLE_WORKSPACE`, `WorkspaceIcon.GMAIL`, `WorkspaceIcon.SLACK`, `WorkspaceIcon.NOTION`, `WorkspaceIcon.FIGMA`, `WorkspaceIcon.JIRA`, `WorkspaceIcon.MIRO`, `WorkspaceIcon.ZOOM`, etc.).
+- `OriginalCloudIcon`, `OriginalBusinessIcon`, `OriginalClientIcon`, `OriginalCnativeIcon`, `OriginalCodeIcon`, `OriginalDataIcon`, `OriginalDevopsIcon`, `OriginalFacilityIcon`, `OriginalAiIcon`, `OriginalNetworkIcon`, `OriginalSecurityIcon`, `OriginalServerIcon`, `OriginalWorkspaceIcon`: Vendor-neutral Drawlib 2D pastel icon suites (`OriginalCloudIcon.CLOUD`, `OriginalCloudIcon.AWS`, `OriginalCloudIcon.CLOUDFLARE`, `OriginalBusinessIcon.ERP`, `OriginalBusinessIcon.CRM`, `OriginalBusinessIcon.SAP`, `OriginalClientIcon.LAPTOP`, `OriginalClientIcon.CHROME`, `OriginalCnativeIcon.KUBERNETES`, `OriginalCodeIcon.PYTHON`, `OriginalCodeIcon.FASTAPI`, `OriginalDataIcon.POSTGRESQL`, `OriginalDataIcon.KAFKA`, `OriginalFacilityIcon.DATACENTER`, `OriginalFacilityIcon.POWER_PLANT`, `OriginalNetworkIcon.ROUTER`, `OriginalSecurityIcon.FIREWALL`, `OriginalSecurityIcon.ZERO_TRUST`, `OriginalServerIcon.RACK_SERVER`, `OriginalWorkspaceIcon.EMAIL`, `OriginalWorkspaceIcon.SLACK`, etc.).
 - `PhosphorIcon`: 1,531 modern interface icons (`PhosphorIcon.USER`, `PhosphorIcon.DATABASE`, `PhosphorIcon.BROWSER`, etc.).
-- Direct callables/images: `phosphor.*`, `gcp.*`, `ai.*`, `aws.*`, `azure.*`, `client.*`, `cloud.*`, `cnative.*`, `code.*`, `data.*`, `devops.*`, `facility.*`, `network.*`, `security.*`, `server.*`, `workspace.*`, `original_*.*` functions, `Dimage`, `PIL.Image.Image`, file paths (`str` / `Path`), or `CustomIcon(image)`.
+- Direct callables/images: `phosphor.*`, `gcp.*`, `ai.*`, `aws.*`, `azure.*`, `business.*`, `client.*`, `cloud.*`, `cnative.*`, `code.*`, `data.*`, `devops.*`, `facility.*`, `network.*`, `security.*`, `server.*`, `workspace.*`, `original_*.*` functions, `Dimage`, `PIL.Image.Image`, file paths (`str` / `Path`), or `CustomIcon(image)`.
 
 ### 3.3 Production Examples
 

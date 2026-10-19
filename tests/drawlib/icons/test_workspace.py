@@ -23,7 +23,7 @@ class TestWorkspaceIcons:
     """Tests for official Workspace icon provider and diagram enum."""
 
     def test_workspace_all_icons(self, tmp_path: Path) -> None:
-        """Verify all 50 official workplace, collaboration, and business SaaS icons render cleanly."""
+        """Verify all 40 official workplace and collaboration icons render cleanly."""
         clear()
         names = [
             "microsoft_365",
@@ -61,22 +61,13 @@ class TestWorkspaceIcons:
             "adobe_acrobat",
             "dropbox",
             "box",
-            "docusign",
             "trello",
             "linear",
             "airtable",
             "zapier",
-            "salesforce",
-            "hubspot",
-            "zendesk",
-            "servicenow",
-            "sap",
-            "workday",
-            "dynamics_365",
             "tableau",
-            "stripe",
-            "shopify",
         ]
+        assert len(names) == 40
         for idx, name in enumerate(names):
             col = idx % 10
             row = idx // 10
@@ -94,8 +85,8 @@ class TestWorkspaceIcons:
         workspace.teams(xy=(30, 70), width=10, style=Style())
         workspace.gdrive(xy=(45, 70), width=10, style=Style())
         workspace.gdocs(xy=(60, 70), width=10, style=Style())
-        workspace.sfdc(xy=(75, 70), width=10, style=Style())
-        workspace.snow(xy=(90, 70), width=10, style=Style())
+        workspace.powerbi(xy=(75, 70), width=10, style=Style())
+        workspace.gsuite(xy=(90, 70), width=10, style=Style())
 
         out = tmp_path / "test_workspace_aliases.png"
         save(str(out))
@@ -112,7 +103,7 @@ class TestWorkspaceIcons:
         )
         n1 = diag.add(Node("M365", width=20, height=20, icon=WorkspaceIcon.MICROSOFT_365), (20, 50))
         n2 = diag.add(Node("Slack", width=20, height=20, icon=WorkspaceIcon.SLACK), (50, 50))
-        n3 = diag.add(Node("Salesforce", width=20, height=20, icon=WorkspaceIcon.SALESFORCE), (80, 50))
+        n3 = diag.add(Node("Notion", width=20, height=20, icon=WorkspaceIcon.NOTION), (80, 50))
         diag.connect(n1, n2)
         diag.connect(n2, n3)
         diag.draw((5, 10))
@@ -126,4 +117,4 @@ class TestWorkspaceIcons:
         assert WORKSPACE_PROVIDER.package_name == "icon_workspace"
         assert WORKSPACE_PROVIDER.aliases["m365"] == "microsoft_365"
         assert WORKSPACE_PROVIDER.aliases["teams"] == "microsoft_teams"
-        assert WORKSPACE_PROVIDER.aliases["sfdc"] == "salesforce"
+        assert WORKSPACE_PROVIDER.aliases["powerbi"] == "power_bi"

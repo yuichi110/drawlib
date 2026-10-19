@@ -68,6 +68,7 @@ for i in range(7):
 
 polygon(outer_inf, holes=[hole_bl, hole_tr], style=Icon.fill_style(Icon.WHITE))
 
+
 # 3. Secondary loop bridges in #6B9EE8 (left and right outer arcs)
 def arc_pts(
     cx_arc: float,

@@ -1,7 +1,7 @@
 {
   "format_version": "2.0",
   "provider": "original_workspace",
-  "created_at": "2026-10-18T23:06:10.972532+00:00",
+  "created_at": "2026-10-19T01:03:08.544958+00:00",
   "canvas_size": [
     512,
     512
@@ -10,24 +10,16 @@
     460,
     460
   ],
-  "total_files": 74,
+  "total_files": 57,
   "aliases": {
-    "accounting": "billing_invoice",
     "acrobat": "adobe_acrobat",
     "adobe": "adobe_acrobat",
     "agile_board": "kanban_board",
-    "back_office": "erp",
     "box_storage": "box",
     "brainstorm": "whiteboard",
     "broadcast": "announcement",
     "canvas_board": "whiteboard",
     "cisco_webex": "webex",
-    "contract_sign": "e_signature",
-    "customer_management": "crm",
-    "digital_sign": "e_signature",
-    "dynamics": "dynamics_365",
-    "employee_directory": "hr_portal",
-    "enterprise_resource": "erp",
     "feedback_form": "form_survey",
     "file_sync": "cloud_drive",
     "gantt": "project_plan",
@@ -40,11 +32,9 @@
     "gsheets": "google_sheets",
     "gslides": "google_slides",
     "gsuite": "google_workspace",
-    "human_resources": "hr_portal",
     "inbox": "email",
     "instant_message": "chat_message",
     "internal_docs": "knowledge_base",
-    "itsm": "helpdesk",
     "m365": "microsoft_365",
     "mail": "email",
     "meeting_invite": "calendar",
@@ -61,8 +51,6 @@
     "no_code_flow": "workflow_automation",
     "office_365": "microsoft_365",
     "online_meeting": "video_meeting",
-    "online_shop": "ecommerce_store",
-    "payment": "billing_invoice",
     "pdf_file": "pdf_document",
     "phone_call": "voice_call",
     "power_apps": "power_automate",
@@ -71,16 +59,11 @@
     "questionnaire": "form_survey",
     "report_pdf": "pdf_document",
     "roadmap": "project_plan",
-    "sales_lead": "crm",
     "schedule": "calendar",
-    "sfdc": "salesforce",
     "shared_drive": "cloud_drive",
     "sheet": "spreadsheet",
-    "shopping_cart": "ecommerce_store",
     "slide_deck": "presentation",
     "slides": "presentation",
-    "snow": "servicenow",
-    "support_ticket": "helpdesk",
     "table_doc": "spreadsheet",
     "task_board": "kanban_board",
     "team_chat": "chat_message",
@@ -143,19 +126,6 @@
         43,
         486,
         469
-      ]
-    },
-    "billing_invoice_default.png": {
-      "icon_name": "billing_invoice",
-      "variant": "default",
-      "source_script": "original_workspace/billing_invoice_default.py",
-      "size_bytes": 21192,
-      "sha256": "ead53188264db1151ce58bab3e8396bd070ea47a542e287c99de5f292701c336",
-      "bbox": [
-        26,
-        27,
-        486,
-        484
       ]
     },
     "box_default.png": {
@@ -236,19 +206,6 @@
         477
       ]
     },
-    "crm_default.png": {
-      "icon_name": "crm",
-      "variant": "default",
-      "source_script": "original_workspace/crm_default.py",
-      "size_bytes": 25232,
-      "sha256": "d574ee91b7c77d75784b5e89a28437b82b69c284dbd2343b5aaa784b5f97c83c",
-      "bbox": [
-        26,
-        42,
-        486,
-        469
-      ]
-    },
     "discord_default.png": {
       "icon_name": "discord",
       "variant": "default",
@@ -275,19 +232,6 @@
         486
       ]
     },
-    "docusign_default.png": {
-      "icon_name": "docusign",
-      "variant": "default",
-      "source_script": "original_workspace/docusign_default.py",
-      "size_bytes": 10737,
-      "sha256": "0c05f7c2a90d126516a7dfe09216e6a3a8c066188e00299e3384fc20c3e1d4c2",
-      "bbox": [
-        26,
-        26,
-        486,
-        486
-      ]
-    },
     "dropbox_default.png": {
       "icon_name": "dropbox",
       "variant": "default",
@@ -301,45 +245,6 @@
         452
       ]
     },
-    "dynamics_365_default.png": {
-      "icon_name": "dynamics_365",
-      "variant": "default",
-      "source_script": "original_workspace/dynamics_365_default.py",
-      "size_bytes": 20604,
-      "sha256": "016eeaecfa72c9a5fabbbbf05fd9e0436bad2434da53434819388bceff3b1323",
-      "bbox": [
-        84,
-        26,
-        428,
-        486
-      ]
-    },
-    "e_signature_default.png": {
-      "icon_name": "e_signature",
-      "variant": "default",
-      "source_script": "original_workspace/e_signature_default.py",
-      "size_bytes": 16923,
-      "sha256": "78d2b4ab3a2d3f8f758ef39906705be0bf5c1ddb4f3991970474f5e3446915c0",
-      "bbox": [
-        26,
-        30,
-        486,
-        481
-      ]
-    },
-    "ecommerce_store_default.png": {
-      "icon_name": "ecommerce_store",
-      "variant": "default",
-      "source_script": "original_workspace/ecommerce_store_default.py",
-      "size_bytes": 17751,
-      "sha256": "194b427e4da3948f4052ac29b24bca4a5dfc05124d7c67e16c9dcd46d3a3ab77",
-      "bbox": [
-        34,
-        26,
-        478,
-        486
-      ]
-    },
     "email_default.png": {
       "icon_name": "email",
       "variant": "default",
@@ -351,19 +256,6 @@
         75,
         486,
         436
-      ]
-    },
-    "erp_default.png": {
-      "icon_name": "erp",
-      "variant": "default",
-      "source_script": "original_workspace/erp_default.py",
-      "size_bytes": 35418,
-      "sha256": "984e60cec341a8660335174796764cda3e3f181e22c1c5b921a9dcb282e7a4b1",
-      "bbox": [
-        26,
-        47,
-        486,
-        465
       ]
     },
     "excel_default.png": {
@@ -532,45 +424,6 @@
         30,
         26,
         481,
-        486
-      ]
-    },
-    "helpdesk_default.png": {
-      "icon_name": "helpdesk",
-      "variant": "default",
-      "source_script": "original_workspace/helpdesk_default.py",
-      "size_bytes": 30965,
-      "sha256": "5a67f0eba937cdd540d350ba1efbb131308e04a8251bbf33a8eb8b06416308e5",
-      "bbox": [
-        26,
-        30,
-        486,
-        481
-      ]
-    },
-    "hr_portal_default.png": {
-      "icon_name": "hr_portal",
-      "variant": "default",
-      "source_script": "original_workspace/hr_portal_default.py",
-      "size_bytes": 14838,
-      "sha256": "9cb461c972f574da990bf45b66699d934866db2937dc379298605faf2d29efc4",
-      "bbox": [
-        78,
-        26,
-        434,
-        486
-      ]
-    },
-    "hubspot_default.png": {
-      "icon_name": "hubspot",
-      "variant": "default",
-      "source_script": "original_workspace/hubspot_default.py",
-      "size_bytes": 31455,
-      "sha256": "7daa57a00ab2ea59102d23b7e4abe024182e0bb44e39debb2024ad63f88c2c81",
-      "bbox": [
-        48,
-        26,
-        463,
         486
       ]
     },
@@ -795,45 +648,6 @@
         465
       ]
     },
-    "salesforce_default.png": {
-      "icon_name": "salesforce",
-      "variant": "default",
-      "source_script": "original_workspace/salesforce_default.py",
-      "size_bytes": 38728,
-      "sha256": "7f078b791874a1764369e7b39b1ceb784a3f9814369db6f300ed8cd58409c146",
-      "bbox": [
-        26,
-        93,
-        486,
-        419
-      ]
-    },
-    "sap_default.png": {
-      "icon_name": "sap",
-      "variant": "default",
-      "source_script": "original_workspace/sap_default.py",
-      "size_bytes": 21245,
-      "sha256": "8d0b15c98b51d8687161830184e609eac0daa6f1c5bcbab88e0d471afc5363d2",
-      "bbox": [
-        26,
-        139,
-        486,
-        372
-      ]
-    },
-    "servicenow_default.png": {
-      "icon_name": "servicenow",
-      "variant": "default",
-      "source_script": "original_workspace/servicenow_default.py",
-      "size_bytes": 29520,
-      "sha256": "01d94cb01a580825285382a33e54bf3e0f9db818b89789bec3772c54acc25bf9",
-      "bbox": [
-        26,
-        49,
-        486,
-        463
-      ]
-    },
     "sharepoint_default.png": {
       "icon_name": "sharepoint",
       "variant": "default",
@@ -845,19 +659,6 @@
         31,
         486,
         481
-      ]
-    },
-    "shopify_default.png": {
-      "icon_name": "shopify",
-      "variant": "default",
-      "source_script": "original_workspace/shopify_default.py",
-      "size_bytes": 38371,
-      "sha256": "dbfdc4a05d42234304c598c04c8eaa9d4bfd243043e6308238eb09c75e2a9a1b",
-      "bbox": [
-        53,
-        26,
-        459,
-        486
       ]
     },
     "slack_default.png": {
@@ -884,19 +685,6 @@
         32,
         486,
         479
-      ]
-    },
-    "stripe_default.png": {
-      "icon_name": "stripe",
-      "variant": "default",
-      "source_script": "original_workspace/stripe_default.py",
-      "size_bytes": 27360,
-      "sha256": "d92f5bb31ac1194cd082aba37fa4d8d83f9905077e65a77f5e3dcbc1edd6c35f",
-      "bbox": [
-        90,
-        26,
-        422,
-        486
       ]
     },
     "tableau_default.png": {
@@ -990,19 +778,6 @@
         470
       ]
     },
-    "workday_default.png": {
-      "icon_name": "workday",
-      "variant": "default",
-      "source_script": "original_workspace/workday_default.py",
-      "size_bytes": 32809,
-      "sha256": "c62b6a526f7345c97f887fe481dbeeda9557ef62cefe7e59221c4ff1aaefbb89",
-      "bbox": [
-        80,
-        26,
-        431,
-        486
-      ]
-    },
     "workflow_automation_default.png": {
       "icon_name": "workflow_automation",
       "variant": "default",
@@ -1027,19 +802,6 @@
         26,
         484,
         486
-      ]
-    },
-    "zendesk_default.png": {
-      "icon_name": "zendesk",
-      "variant": "default",
-      "source_script": "original_workspace/zendesk_default.py",
-      "size_bytes": 21478,
-      "sha256": "d567ff87b615cbb1372f79455c7d0c4a6d80a7f80dff915764b06f53b76a336f",
-      "bbox": [
-        26,
-        80,
-        486,
-        431
       ]
     },
     "zoom_default.png": {

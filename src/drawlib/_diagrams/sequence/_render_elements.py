@@ -31,6 +31,7 @@ from drawlib._diagrams.architecture._icons import (
     AiIcon,
     AwsIcon,
     AzureIcon,
+    BusinessIcon,
     ClientIcon,
     CloudIcon,
     CnativeIcon,
@@ -41,6 +42,7 @@ from drawlib._diagrams.architecture._icons import (
     GcpIcon,
     NetworkIcon,
     OriginalAiIcon,
+    OriginalBusinessIcon,
     OriginalClientIcon,
     OriginalCloudIcon,
     OriginalCnativeIcon,
@@ -69,6 +71,7 @@ from drawlib._diagrams.sequence._types import IconType, PaddingType
 def draw_enum_icon(
     icon: (
         OriginalAiIcon
+        | OriginalBusinessIcon
         | OriginalClientIcon
         | OriginalCloudIcon
         | OriginalCnativeIcon
@@ -83,6 +86,7 @@ def draw_enum_icon(
         | AiIcon
         | AwsIcon
         | AzureIcon
+        | BusinessIcon
         | ClientIcon
         | CloudIcon
         | CnativeIcon

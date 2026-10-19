@@ -33,10 +33,7 @@ raw_rings: list[list[tuple[float, float]]] = [
 ]
 # fmt: on
 
-rings = [
-    [(cx + (x - cx) * scale, cy + (y - cy) * scale) for x, y in ring]
-    for ring in raw_rings
-]
+rings = [[(cx + (x - cx) * scale, cy + (y - cy) * scale) for x, y in ring] for ring in raw_rings]
 
 # 1. White interlocking 6-part knot body (center hexagon and 6 petal pockets stay transparent)
 polygon(rings[7], holes=rings[:7], style=Icon.fill_style(Icon.WHITE))

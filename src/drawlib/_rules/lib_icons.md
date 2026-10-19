@@ -57,9 +57,10 @@ from drawlib.icons import (
     ai,
     aws,
     azure,
+    business,
+    client,
     cloud,
     cnative,
-    client,
     code,
     data,
     devops,
@@ -68,6 +69,8 @@ from drawlib.icons import (
     gcp,
     network,
     original_ai,
+    original_business,
+    original_client,
     original_cloud,
     original_cnative,
     original_code,
@@ -99,18 +102,24 @@ Drawlib also registers submodules in `sys.modules` to support explicit submodule
 
 ```python
 import drawlib.icons.ai as ai
+import drawlib.icons.business as business
 import drawlib.icons.client as client
 import drawlib.icons.cloud as cloud
 import drawlib.icons.cnative as cnative
 import drawlib.icons.code as code
 import drawlib.icons.data as data
+import drawlib.icons.devops as devops
 import drawlib.icons.facility as facility
 import drawlib.icons.gcp as gcp
 import drawlib.icons.network as network
+import drawlib.icons.original_ai as original_ai
+import drawlib.icons.original_business as original_business
+import drawlib.icons.original_client as original_client
 import drawlib.icons.original_cloud as original_cloud
 import drawlib.icons.original_cnative as original_cnative
 import drawlib.icons.original_code as original_code
 import drawlib.icons.original_data as original_data
+import drawlib.icons.original_devops as original_devops
 import drawlib.icons.original_facility as original_facility
 import drawlib.icons.original_network as original_network
 import drawlib.icons.original_security as original_security
@@ -388,11 +397,12 @@ GCP icons are normalized `512x512` PNG assets (`<service>_<variant>.png`) packag
 2. **Developer Workspace Fallback**: If running in developer mode, it checks `tools/release_assets/v0.3/icons/gcp/`.
 3. **Automated Lazy Download**: If missing, `ensure_asset_available()` downloads the verified package archive from GitHub Releases and extracts it to the local cache.
 
-### 5.4. AI, Cloud, Cloud Native, Code, Data, DevOps, Facility, Network, Security, Server, AWS, Azure & Original Icon Suites
+### 5.4. AI, Business, Client, Cloud, Cloud Native, Code, Data, DevOps, Facility, Network, Security, Server, Workspace, AWS, Azure & Original Icon Suites
 
 Drawlib also provides dedicated PNG icon suites under the exact same `(xy, width, *, style, variant=...)` contract:
 
 - **AI (`drawlib.icons.ai` / `AiIcon`)**: 40 canonical official AI, LLM, Agent framework, Protocol, and ML ecosystem icons + 13 shorthand aliases (`a2a`, `autogen`, `claude`, `cohere`, `crewai`, `deepseek`, `dify`, `gemini`, `gradio`, `grok`, `haystack`, `huggingface`, `jax`, `jupyter`, `keras`, `langchain`, `langfuse`, `langgraph`, `litellm`, `llamaindex`, `mcp`, `meta_llama`, `mistral`, `mlflow`, `n8n`, `nvidia`, `ollama`, `onnx`, `openai`, `openhands`, `perplexity`, `pytorch`, `qwen`, `ray`, `scikit_learn`, `semantic_kernel`, `streamlit`, `tensorflow`, `vllm`, `wandb`).
+- **Business (`drawlib.icons.business` / `BusinessIcon`)**: 48 canonical official Business, ERP, CRM, ITSM, FinTech, E-Commerce, CPaaS, and B2B SaaS icons + 33 shorthand aliases (`adyen`, `algolia`, `bamboohr`, `bigcommerce`, `braze`, `cloudsign`, `concur`, `contentful`, `coupa`, `deel`, `docusign`, `dynamics_365`, `freee`, `freshdesk`, `genesys`, `hubspot`, `intercom`, `kintone`, `line`, `magento`, `mailgun`, `marketo`, `moneyforward`, `netsuite`, `odoo`, `paypal`, `paypay`, `pipedrive`, `plaid`, `salesforce`, `sanity`, `sansan`, `sap`, `sendgrid`, `servicenow`, `shopify`, `smarthr`, `square`, `strapi`, `stripe`, `twilio`, `vonage`, `woocommerce`, `wordpress`, `workday`, `zendesk`, `zoho`, `zuora`).
 - **Cloud (`drawlib.icons.cloud` / `CloudIcon`)**: 40 canonical official Cloud Provider, Parent Company, Global Hosting/VPS/Edge, Modern PaaS/BaaS, and Japan Cloud & Hosting brand icons + 24 shorthand aliases (`akamai`, `alibaba`, `alibaba_cloud`, `amazon`, `aws`, `azure`, `cloudflare`, `conoha`, `digitalocean`, `fastly`, `firebase`, `fly_io`, `google`, `google_cloud`, `heroku`, `hetzner`, `huawei`, `huawei_cloud`, `ibm`, `ibm_cloud`, `idcf`, `ionos`, `kagoya`, `linode`, `microsoft`, `netlify`, `nifcloud`, `oracle`, `oracle_cloud`, `ovhcloud`, `railway`, `render`, `sakura`, `scaleway`, `supabase`, `tencent`, `tencent_cloud`, `vercel`, `vultr`, `xserver`).
 - **Cloud Native (`drawlib.icons.cnative` / `CnativeIcon`)**: 60 canonical Kubernetes & Cloud Native ecosystem icons + 77 shorthand aliases (20 Kubernetes resources: `k8s_api_server`, `k8s_configmap`, `k8s_control_plane`, `k8s_crd`, `k8s_cronjob`, `k8s_daemonset`, `k8s_deployment`, `k8s_endpoint`, `k8s_hpa`, `k8s_ingress`, `k8s_job`, `k8s_namespace`, `k8s_network_policy`, `k8s_node`, `k8s_pod`, `k8s_pv`, `k8s_pvc`, `k8s_secret`, `k8s_service`, `k8s_statefulset`; 40 Cloud Native & K8s distribution projects: `argo`, `backstage`, `cert_manager`, `cilium`, `containerd`, `coredns`, `crossplane`, `dapr`, `docker`, `envoy`, `etcd`, `falco`, `fluentd`, `flux`, `grafana`, `harbor`, `helm`, `istio`, `jaeger`, `k0s`, `k3s`, `keda`, `kind`, `knative`, `kubernetes`, `kubevirt`, `kyverno`, `linkerd`, `microk8s`, `minikube`, `okd`, `opa`, `openshift`, `opentelemetry`, `prometheus`, `rancher`, `rook`, `talos`, `tanzu`, `vcluster`).
 - **Code (`drawlib.icons.code` / `CodeIcon`)**: 72 canonical official Programming Language, Framework, Runtime, API & IDE icons + 39 shorthand aliases (`android_studio`, `angular`, `antigravity`, `astro`, `bash`, `blazor`, `bun`, `c`, `cargo`, `celery`, `colab`, `cpp`, `csharp`, `css3`, `dart`, `deno`, `django`, `dotnet`, `echo`, `express`, `fastapi`, `firebase`, `flask`, `flutter`, `gin`, `go`, `gradle`, `graphql`, `grpc`, `hono`, `html5`, `htmx`, `intellij`, `java`, `javascript`, `jquery`, `kotlin`, `laravel`, `nestjs`, `nextjs`, `nodejs`, `npm`, `numpy`, `nuxt`, `openapi`, `pandas`, `php`, `poetry`, `prisma`, `protobuf`, `pydantic`, `pypi`, `pytest`, `python`, `rails`, `react`, `react_native`, `ruby`, `rust`, `spring`, `sqlalchemy`, `svelte`, `swift`, `tailwind_css`, `tokio`, `typescript`, `uv`, `uvicorn`, `vite`, `vscode`, `vuejs`, `webassembly`).
@@ -404,11 +414,11 @@ Drawlib also provides dedicated PNG icon suites under the exact same `(xy, width
   - Vendor & OSS logos support `variant="default"`.
 - **Security (`drawlib.icons.security` / `SecurityIcon`)**: 60 canonical official Security vendor & OSS icons + 28 shorthand aliases (`aqua_security`, `auth0`, `bitwarden`, `burp_suite`, `checkmarx`, `checkpoint`, `cloudflare`, `crowdstrike`, `cyberark`, `darktrace`, `digicert`, `duo`, `entra_id`, `f5`, `fortinet`, `gnupg`, `google_secops`, `graylog`, `imperva`, `kaspersky`, `lacework`, `lets_encrypt`, `malwarebytes`, `metasploit`, `microsoft_defender`, `netskope`, `nmap`, `okta`, `onelogin`, `onepassword`, `osquery`, `owasp`, `palo_alto`, `ping_identity`, `proofpoint`, `qradar`, `qualys`, `rapid7`, `sectigo`, `sentinelone`, `snort`, `sophos`, `sumo_logic`, `suricata`, `symantec`, `sysdig`, `teleport`, `tenable`, `trellix`, `trend_micro`, `vectra_ai`, `venafi`, `veracode`, `wazuh`, `wireguard`, `wireshark`, `wiz`, `yubico`, `zeek`, `zscaler`).
 - **Server (`drawlib.icons.server` / `ServerIcon`)**: 82 canonical Server icons + 58 shorthand aliases (56 official vendor, chip, SBC, OS, virtualization & storage logos: `almalinux`, `alpine_linux`, `amd`, `apc`, `apple`, `arch_linux`, `arduino`, `arm`, `asus`, `beaglebone`, `buffalo`, `centos`, `citrix`, `debian`, `dell`, `fedora`, `freebsd`, `fujitsu`, `hitachi`, `hpe`, `ibm`, `intel`, `kali_linux`, `kvm`, `lenovo`, `linux`, `lxc`, `mac_mini`, `nec`, `netapp`, `nixos`, `nutanix`, `openbsd`, `openstack`, `openzfs`, `proxmox`, `pure_storage`, `qemu`, `qnap`, `raspberry_pi`, `redhat`, `risc_v`, `rocky_linux`, `rubrik`, `seagate`, `supermicro`, `suse`, `synology`, `truenas`, `ubuntu`, `veeam`, `virtualbox`, `vmware`, `western_digital`, `windows`, `xen`; 26 Dell EMC & VMware server, virtualization, and storage icons: `dell_rack_server`, `dell_blade_chassis`, `dell_tower_server`, `dell_gpu_server`, `dell_hci_appliance`, `dell_bmc_management`, `dell_san_storage`, `dell_nas_storage`, `dell_object_storage`, `dell_backup_appliance`, `dell_tape_library`, `dell_fc_switch`, `vmware_rack_server`, `vmware_esxi_host`, `vmware_vm`, `vmware_vm_group`, `vmware_template`, `vmware_snapshot`, `vmware_vcenter`, `vmware_cluster`, `vmware_resource_pool`, `vmware_vmotion`, `vmware_vswitch`, `vmware_datastore`, `vmware_vsan`, `vmware_storage_array`).
-- **Workspace (`drawlib.icons.workspace` / `WorkspaceIcon`)**: 50 canonical official Workplace, Productivity, Collaboration, CRM/ERP, and Business SaaS icons + 31 shorthand aliases (`adobe_acrobat`, `airtable`, `asana`, `box`, `canva`, `confluence`, `discord`, `docusign`, `dropbox`, `dynamics_365`, `excel`, `figma`, `gmail`, `google_calendar`, `google_chat`, `google_docs`, `google_drive`, `google_forms`, `google_meet`, `google_sheets`, `google_slides`, `google_workspace`, `hubspot`, `jira`, `linear`, `microsoft_365`, `microsoft_teams`, `miro`, `monday`, `notion`, `onedrive`, `outlook`, `power_automate`, `power_bi`, `powerpoint`, `salesforce`, `sap`, `servicenow`, `sharepoint`, `shopify`, `slack`, `stripe`, `tableau`, `trello`, `webex`, `word`, `workday`, `zapier`, `zendesk`, `zoom`).
+- **Workspace (`drawlib.icons.workspace` / `WorkspaceIcon`)**: 40 canonical official Workplace, Productivity, Collaboration, and Office SaaS icons + 28 shorthand aliases (`adobe_acrobat`, `airtable`, `asana`, `box`, `canva`, `confluence`, `discord`, `dropbox`, `excel`, `figma`, `gmail`, `google_calendar`, `google_chat`, `google_docs`, `google_drive`, `google_forms`, `google_meet`, `google_sheets`, `google_slides`, `google_workspace`, `jira`, `linear`, `microsoft_365`, `microsoft_teams`, `miro`, `monday`, `notion`, `onedrive`, `outlook`, `power_automate`, `power_bi`, `powerpoint`, `sharepoint`, `slack`, `tableau`, `trello`, `webex`, `word`, `zapier`, `zoom`).
 - **Client (`drawlib.icons.client` / `ClientIcon`)**: 60 canonical official Web Browser, Client OS, App Store, PC/Mobile Brand, Smart Device, Gaming, Streaming, Connected Car, Heavy Machinery, Factory Automation, and Peripheral icons + 73 shorthand aliases (`abb`, `acer`, `alexa`, `amazon_fire`, `android`, `app_store`, `apple`, `arc`, `asus`, `bluetooth`, `bmw`, `brave`, `brother`, `canon`, `caterpillar`, `chrome`, `chromeos`, `chromium`, `dell`, `edge`, `epson`, `fanuc`, `fire_tv`, `firefox`, `fitbit`, `honeywell`, `hp`, `ios`, `john_deere`, `kindle`, `komatsu`, `lenovo`, `linux`, `logitech`, `macos`, `meta`, `microsoft`, `microsoft_store`, `netflix`, `nintendo`, `opera`, `panasonic`, `play_store`, `playstation`, `ricoh`, `safari`, `samsung`, `siemens`, `sony`, `switchbot`, `tesla`, `tor_browser`, `toyota`, `ubuntu`, `usb`, `vivaldi`, `windows`, `xbox`, `youtube`, `zebra`).
 - **AWS (`drawlib.icons.aws` / `AwsIcon`)**: Official AWS service & category icons.
 - **Azure (`drawlib.icons.azure` / `AzureIcon`)**: Official Microsoft Azure service icons.
-- **Original (`original_cloud`, `original_devops`, `original_ai`, `original_client`, `original_cnative`, `original_code`, `original_data`, `original_facility`, `original_network`, `original_security`, `original_server`, `original_workspace`)**: Vendor-neutral Drawlib 2D pastel icons (`original_cloud` provides 142 cloud concept & brand icons + 101 aliases; `original_devops` provides 60 DevOps, CI/CD, IaC, DevSecOps, and Observability icons + 44 shorthand aliases; `original_ai` provides 60 AI, LLM, Agent, and ML ecosystem icons + 32 shorthand aliases; `original_client` provides 92 client device, wearable, display, peripheral, smart home, car, heavy machinery, robot, and pastel brand icons + 145 shorthand aliases; `original_cnative` provides 60 Kubernetes & Cloud Native ecosystem icons + 77 shorthand aliases; `original_code` provides 96 programming, software architecture, framework, API, and IDE icons + 90 shorthand aliases; `original_data` provides 50 Database & Data Platform icons + 28 shorthand aliases; `original_facility` provides 86 facility, site, cleanroom, utility, cabling, transport, and vendor icons + 120 shorthand aliases; `original_network` provides 70 network topology & vendor/OSS icons + 82 shorthand aliases; `original_security` provides 84 security concept & vendor/OSS icons + 96 shorthand aliases; `original_server` provides 80 server, hardware, OS, virtualization, and storage icons + 86 shorthand aliases; `original_workspace` provides 74 workplace concept & business SaaS icons + 79 shorthand aliases).
+- **Original (`original_cloud`, `original_devops`, `original_ai`, `original_business`, `original_client`, `original_cnative`, `original_code`, `original_data`, `original_facility`, `original_network`, `original_security`, `original_server`, `original_workspace`)**: Vendor-neutral Drawlib 2D pastel icons (`original_cloud` provides 142 cloud concept & brand icons + 101 aliases; `original_devops` provides 60 DevOps, CI/CD, IaC, DevSecOps, and Observability icons + 44 shorthand aliases; `original_ai` provides 60 AI, LLM, Agent, and ML ecosystem icons + 32 shorthand aliases; `original_business` provides 76 enterprise business concept & SaaS brand icons + 96 shorthand aliases; `original_client` provides 92 client device, wearable, display, peripheral, smart home, car, heavy machinery, robot, and pastel brand icons + 145 shorthand aliases; `original_cnative` provides 60 Kubernetes & Cloud Native ecosystem icons + 77 shorthand aliases; `original_code` provides 96 programming, software architecture, framework, API, and IDE icons + 90 shorthand aliases; `original_data` provides 50 Database & Data Platform icons + 28 shorthand aliases; `original_facility` provides 86 facility, site, cleanroom, utility, cabling, transport, and vendor icons + 120 shorthand aliases; `original_network` provides 70 network topology & vendor/OSS icons + 82 shorthand aliases; `original_security` provides 84 security concept & vendor/OSS icons + 96 shorthand aliases; `original_server` provides 80 server, hardware, OS, virtualization, and storage icons + 86 shorthand aliases; `original_workspace` provides 57 workplace concept & productivity SaaS icons + 62 shorthand aliases).
 
 ---
 

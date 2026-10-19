@@ -26,19 +26,23 @@ def _sc(pts: list[tuple[float, float]]) -> list[tuple[float, float]]:
     return [(50.0 + (x - 50.0) * s, 50.0 + (y - 50.0) * s) for x, y in pts]
 
 
-y_letter = _sc([
-    (50.31, 51.23),
-    (57.86, 72.63),
-    (68.76, 72.63),
-    (50.37, 27.37),
-    (38.85, 27.37),
-    (44.12, 39.76),
-    (31.24, 72.6),
-    (42.37, 72.6),
-])
+y_letter = _sc(
+    [
+        (50.31, 51.23),
+        (57.86, 72.63),
+        (68.76, 72.63),
+        (50.37, 27.37),
+        (38.85, 27.37),
+        (44.12, 39.76),
+        (31.24, 72.6),
+        (42.37, 72.6),
+    ]
+)
 
 # 1. Pastel lime-green circular badge (Colors.Green3 + DARK w=1.9 border)
-circle((50.0, 50.0), radius=41.0 * s, style=Icon.fill_style(Colors.Green3, border_color=Icon.DARK, border_units=w_badge))
+circle(
+    (50.0, 50.0), radius=41.0 * s, style=Icon.fill_style(Colors.Green3, border_color=Icon.DARK, border_units=w_badge)
+)
 
 # 2. White 'y' letter (WHITE + DARK 1.5 outline)
 polygon(y_letter, style=Icon.no_border_fill(Icon.WHITE))

@@ -302,14 +302,10 @@ _draw_seal_eye(40.6, 38.6, 3.1, 2.0, 0.7)
 
 # Half-visible muzzle and nose on front-left seal (clipped above y_fl)
 fl_muzzle = [
-    (34.0 + 4.3 * math.cos(math.radians(a)), 34.6 + 4.3 * math.sin(math.radians(a)))
-    for a in range(0, 181, 10)
+    (34.0 + 4.3 * math.cos(math.radians(a)), 34.6 + 4.3 * math.sin(math.radians(a))) for a in range(0, 181, 10)
 ]
 polygon(fl_muzzle, style=Icon.no_border_fill(Icon.WHITE))
-fl_nose = [
-    (34.0 + 2.4 * math.cos(math.radians(a)), 34.6 + 2.4 * math.sin(math.radians(a)))
-    for a in range(0, 181, 12)
-]
+fl_nose = [(34.0 + 2.4 * math.cos(math.radians(a)), 34.6 + 2.4 * math.sin(math.radians(a))) for a in range(0, 181, 12)]
 polygon(fl_nose, style=Icon.no_border_fill(Icon.DARK))
 
 # Wave bar right under front-left seal
@@ -335,8 +331,7 @@ circle((53.8, 30.8), radius=1.65, style=Icon.no_border_fill(Icon.WHITE))
 circle((67.4, 30.8), radius=1.65, style=Icon.no_border_fill(Icon.WHITE))
 
 fr_muzzle_raw = [
-    (60.6 + 4.5 * math.cos(2.0 * math.pi * i / 36), 31.8 + 4.5 * math.sin(2.0 * math.pi * i / 36))
-    for i in range(36)
+    (60.6 + 4.5 * math.cos(2.0 * math.pi * i / 36), 31.8 + 4.5 * math.sin(2.0 * math.pi * i / 36)) for i in range(36)
 ]
 fr_muzzle = _clip_y_between(fr_muzzle_raw, y_fr, 90.0)
 polygon(fr_muzzle, style=Icon.no_border_fill(Icon.WHITE))

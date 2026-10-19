@@ -62,9 +62,7 @@ base_flank_bl: list[tuple[float, float]] = [
     (x_sq_l, 50.0 + r_in - (cx_ld - x_sq_l)),
 ]
 
-base_flank_tr: list[tuple[float, float]] = [
-    (100.0 - py, 100.0 - px) for px, py in reversed(base_flank_bl)
-]
+base_flank_tr: list[tuple[float, float]] = [(100.0 - py, 100.0 - px) for px, py in reversed(base_flank_bl)]
 
 y_wing_l = 50.0 + r_out - (cx_ld - x_sq_l)
 x_shaft_b = cx_ld + r_out - (y_sq_b - 50.0)

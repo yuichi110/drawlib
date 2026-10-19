@@ -51,10 +51,12 @@ def _quad_bezier(
     for i in range(1, steps + 1):
         t = i / steps
         mt = 1.0 - t
-        pts.append((
-            (mt**2) * p0[0] + 2.0 * mt * t * p1[0] + (t**2) * p2[0],
-            (mt**2) * p0[1] + 2.0 * mt * t * p1[1] + (t**2) * p2[1],
-        ))
+        pts.append(
+            (
+                (mt**2) * p0[0] + 2.0 * mt * t * p1[0] + (t**2) * p2[0],
+                (mt**2) * p0[1] + 2.0 * mt * t * p1[1] + (t**2) * p2[1],
+            )
+        )
     return pts
 
 

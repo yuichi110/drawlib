@@ -20,10 +20,10 @@ Cisco.draw_modern_badge()
 
 # 4 upper puff circles (cx, cy, r) over a flat baseline at y = 33.5
 puffs: list[tuple[float, float, float]] = [
-    (29.0, 43.0, 9.5),   # 0: Left lobe (bottom at 33.5)
+    (29.0, 43.0, 9.5),  # 0: Left lobe (bottom at 33.5)
     (38.5, 52.5, 10.5),  # 1: Upper-left lobe
     (55.5, 54.0, 14.5),  # 2: Upper-right main crown
-    (71.0, 42.5, 9.0),   # 3: Right lobe (bottom at 33.5)
+    (71.0, 42.5, 9.0),  # 3: Right lobe (bottom at 33.5)
 ]
 
 # Compute exact outer intersections between adjacent upper puffs (0->1, 1->2, 2->3)

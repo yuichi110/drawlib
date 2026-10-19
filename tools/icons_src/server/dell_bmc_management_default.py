@@ -90,9 +90,7 @@ outer_pts: list[tuple[float, float]] = [
 # Left jaw tip fillet (0 deg to ang_tip_l around (WRENCH_CX - HW_IN - R_CORNER, tip_cy))
 for i in range(11):
     ang = math.radians(ang_tip_l * (i / 10.0))
-    outer_pts.append(
-        (WRENCH_CX - HW_IN - R_CORNER + R_CORNER * math.cos(ang), tip_cy + R_CORNER * math.sin(ang))
-    )
+    outer_pts.append((WRENCH_CX - HW_IN - R_CORNER + R_CORNER * math.cos(ang), tip_cy + R_CORNER * math.sin(ang)))
 
 # Left head outer arc (ang_tip_l CCW down to ang_neck_l)
 for i in range(1, 29):
@@ -113,9 +111,7 @@ for i in range(29):
 # Right jaw tip fillet (ang_tip_r CCW to 180 deg around (WRENCH_CX + HW_IN + R_CORNER, tip_cy))
 for i in range(1, 11):
     ang = math.radians(ang_tip_r + (180.0 - ang_tip_r) * (i / 10.0))
-    outer_pts.append(
-        (WRENCH_CX + HW_IN + R_CORNER + R_CORNER * math.cos(ang), tip_cy + R_CORNER * math.sin(ang))
-    )
+    outer_pts.append((WRENCH_CX + HW_IN + R_CORNER + R_CORNER * math.cos(ang), tip_cy + R_CORNER * math.sin(ang)))
 
 # Inner transparent wrench cutout (CCW)
 inner_pts: list[tuple[float, float]] = []

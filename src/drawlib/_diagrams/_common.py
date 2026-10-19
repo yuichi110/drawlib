@@ -23,6 +23,7 @@ import drawlib._icons.font_icons.phosphor._generated as phosphor_gen
 import drawlib._icons.png_icons.ai._generated as ai_gen
 import drawlib._icons.png_icons.aws._generated as aws_gen
 import drawlib._icons.png_icons.azure._generated as azure_gen
+import drawlib._icons.png_icons.business._generated as business_gen
 import drawlib._icons.png_icons.client._generated as client_gen
 import drawlib._icons.png_icons.cloud._generated as cloud_gen
 import drawlib._icons.png_icons.cnative._generated as cnative_gen
@@ -33,6 +34,7 @@ import drawlib._icons.png_icons.facility._generated as facility_gen
 import drawlib._icons.png_icons.gcp._generated as gcp_gen
 import drawlib._icons.png_icons.network._generated as network_gen
 import drawlib._icons.png_icons.original_ai._generated as original_ai_gen
+import drawlib._icons.png_icons.original_business._generated as original_business_gen
 import drawlib._icons.png_icons.original_client._generated as original_client_gen
 import drawlib._icons.png_icons.original_cloud._generated as original_cloud_gen
 import drawlib._icons.png_icons.original_cnative._generated as original_cnative_gen
@@ -58,6 +60,7 @@ from drawlib._diagrams.architecture._icons import (
     AiIcon,
     AwsIcon,
     AzureIcon,
+    BusinessIcon,
     ClientIcon,
     CloudIcon,
     CnativeIcon,
@@ -69,6 +72,7 @@ from drawlib._diagrams.architecture._icons import (
     GcpIcon,
     NetworkIcon,
     OriginalAiIcon,
+    OriginalBusinessIcon,
     OriginalClientIcon,
     OriginalCloudIcon,
     OriginalCnativeIcon,
@@ -92,6 +96,7 @@ EdgeT = TypeVar("EdgeT")
 
 _ENUM_ICON_MODULES: dict[type, ModuleType] = {
     OriginalAiIcon: original_ai_gen,
+    OriginalBusinessIcon: original_business_gen,
     OriginalClientIcon: original_client_gen,
     OriginalCloudIcon: original_cloud_gen,
     OriginalCnativeIcon: original_cnative_gen,
@@ -106,6 +111,7 @@ _ENUM_ICON_MODULES: dict[type, ModuleType] = {
     AiIcon: ai_gen,
     AwsIcon: aws_gen,
     AzureIcon: azure_gen,
+    BusinessIcon: business_gen,
     ClientIcon: client_gen,
     CloudIcon: cloud_gen,
     CnativeIcon: cnative_gen,
@@ -237,6 +243,7 @@ def render_diagram_title(
 def draw_enum_icon(
     icon: (
         OriginalAiIcon
+        | OriginalBusinessIcon
         | OriginalClientIcon
         | OriginalCloudIcon
         | OriginalCnativeIcon
@@ -251,6 +258,7 @@ def draw_enum_icon(
         | AiIcon
         | AwsIcon
         | AzureIcon
+        | BusinessIcon
         | ClientIcon
         | CloudIcon
         | CnativeIcon
@@ -329,6 +337,7 @@ def draw_diagram_icon(
         icon,
         (
             OriginalAiIcon,
+            OriginalBusinessIcon,
             OriginalClientIcon,
             OriginalCloudIcon,
             OriginalCnativeIcon,
@@ -343,6 +352,7 @@ def draw_diagram_icon(
             AiIcon,
             AwsIcon,
             AzureIcon,
+            BusinessIcon,
             ClientIcon,
             CloudIcon,
             CnativeIcon,

@@ -302,6 +302,26 @@ def gen_icon_original_workspace() -> None:
     console.print("[bold green]✓ Original Workspace icon bindings generated successfully![/bold green]")
 
 
+@app.command("icon-business")
+def gen_icon_business() -> None:
+    """Normalize native Drawlib Business icons and generate Python bindings."""
+    src_path = PROJECT_ROOT / "tools/icons_src/business"
+    dest_path = PROJECT_ROOT / "tools/release_assets/v0.3/icons/business"
+    manifest_file = write_provider_manifest("business", src_path, dest_path)
+    generate_original_provider_code("business", manifest_file=manifest_file)
+    console.print("[bold green]✓ Business icon bindings generated successfully![/bold green]")
+
+
+@app.command("icon-original-business")
+def gen_icon_original_business() -> None:
+    """Normalize native Drawlib Original Business icons and generate Python bindings."""
+    src_path = PROJECT_ROOT / "tools/icons_src/original_business"
+    dest_path = PROJECT_ROOT / "tools/release_assets/v0.3/icons/original_business"
+    manifest_file = write_provider_manifest("original_business", src_path, dest_path)
+    generate_original_provider_code("original_business", manifest_file=manifest_file)
+    console.print("[bold green]✓ Original Business icon bindings generated successfully![/bold green]")
+
+
 @app.command("icon-client")
 def gen_icon_client() -> None:
     """Normalize native Drawlib Client icons and generate Python bindings."""

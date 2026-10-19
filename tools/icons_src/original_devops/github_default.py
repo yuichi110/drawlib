@@ -187,10 +187,7 @@ _RAW_OCTOCAT: list[tuple[float, float]] = [
     (62.99, 10.09),
 ]
 
-octocat_open: list[tuple[float, float]] = [
-    (cx + (x - 50.0) * scale, cy + (y - 48.99) * scale)
-    for x, y in _RAW_OCTOCAT
-]
+octocat_open: list[tuple[float, float]] = [(cx + (x - 50.0) * scale, cy + (y - 48.99) * scale) for x, y in _RAW_OCTOCAT]
 
 # Close Octocat along the bottom arc of the r_badge circle
 ang_r = math.atan2(octocat_open[-1][1] - cy, octocat_open[-1][0] - cx)

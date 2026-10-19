@@ -45,11 +45,13 @@ kh_r = 43.0 * (82.0 / 295.0)
 for i in range(25):
     ang = math.radians(-69.5 + (249.5 - (-69.5)) * (i / 24))
     inner_hex_pts.append((kh_cx + kh_r * math.cos(ang), kh_cy + kh_r * math.sin(ang)))
-inner_hex_pts.extend([
-    _svg_pt(112.5, 185.9),
-    _svg_pt(112.5, 218.1),
-    _svg_pt(83.1, 199.5),
-])
+inner_hex_pts.extend(
+    [
+        _svg_pt(112.5, 185.9),
+        _svg_pt(112.5, 218.1),
+        _svg_pt(83.1, 199.5),
+    ]
+)
 polygon(inner_hex_pts, style=Icon.no_border_fill(Colors.Blue3))
 
 # 3. Outer folded hexagonal ribbon frame (Colors.Purple3)
@@ -108,17 +110,19 @@ full_contour = [
 for i in range(25):
     ang = math.radians(-69.5 + (249.5 - (-69.5)) * (i / 24))
     full_contour.append((kh_cx + kh_r * math.cos(ang), kh_cy + kh_r * math.sin(ang)))
-full_contour.extend([
-    _svg_pt(112.5, 185.9),
-    _svg_pt(112.5, 247.5),
-    _svg_pt(127.7, 257.1),
-    _svg_pt(222.7, 203.4),
-    _svg_pt(222.7, 92.1),
-    _svg_pt(128.8, 36.7),
-    _svg_pt(32.2, 92.1),
-    _svg_pt(32.2, 196.7),
-    _svg_pt(52.6, 209.7),
-])
+full_contour.extend(
+    [
+        _svg_pt(112.5, 185.9),
+        _svg_pt(112.5, 247.5),
+        _svg_pt(127.7, 257.1),
+        _svg_pt(222.7, 203.4),
+        _svg_pt(222.7, 92.1),
+        _svg_pt(128.8, 36.7),
+        _svg_pt(32.2, 92.1),
+        _svg_pt(32.2, 196.7),
+        _svg_pt(52.6, 209.7),
+    ]
+)
 Icon.draw_round_polyline(full_contour, width_units=w, color=Icon.DARK, closed=True)
 
 save()

@@ -22,6 +22,7 @@ from drawlib._diagrams.architecture._icons import (
     AiIcon,
     AwsIcon,
     AzureIcon,
+    BusinessIcon,
     ClientIcon,
     CloudIcon,
     CnativeIcon,
@@ -33,6 +34,7 @@ from drawlib._diagrams.architecture._icons import (
     GcpIcon,
     NetworkIcon,
     OriginalAiIcon,
+    OriginalBusinessIcon,
     OriginalClientIcon,
     OriginalCloudIcon,
     OriginalCnativeIcon,
@@ -76,6 +78,7 @@ DiagramPadding = float | tuple[float, float, float, float]
 IconFunction = Callable[..., object]
 IconType: TypeAlias = (
     OriginalAiIcon
+    | OriginalBusinessIcon
     | OriginalClientIcon
     | OriginalCloudIcon
     | OriginalCnativeIcon
@@ -90,6 +93,7 @@ IconType: TypeAlias = (
     | AiIcon
     | AwsIcon
     | AzureIcon
+    | BusinessIcon
     | ClientIcon
     | CloudIcon
     | CnativeIcon

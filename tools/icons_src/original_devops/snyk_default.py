@@ -88,10 +88,7 @@ head_left = [
 head_right = _mirror(head_left)
 neck_bottom_right = _mirror(neck_bottom_left)
 dog_outline = (
-    head_left
-    + list(reversed(head_right[:-1]))
-    + neck_bottom_right[1:]
-    + list(reversed(neck_bottom_left[1:-1]))
+    head_left + list(reversed(head_right[:-1])) + neck_bottom_right[1:] + list(reversed(neck_bottom_left[1:-1]))
 )
 polygon(dog_outline, style=Icon.no_border_fill(COAT))
 

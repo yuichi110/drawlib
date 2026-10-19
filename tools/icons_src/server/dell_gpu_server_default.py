@@ -89,10 +89,7 @@ for k in range(4):
         (U_TIP, U_OUT),
         (-U_OUT, U_OUT),
     ]
-    world_pts = [
-        (FAN_CX + u * ux + v * vx, FAN_CY + u * uy + v * vy)
-        for u, v in local_pts
-    ]
+    world_pts = [(FAN_CX + u * ux + v * vx, FAN_CY + u * uy + v * vy) for u, v in local_pts]
     polygon(world_pts, style=Icon.no_border_fill(Dell.BLUE))
 
 save()

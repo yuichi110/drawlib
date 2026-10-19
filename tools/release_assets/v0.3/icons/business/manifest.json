@@ -1,0 +1,675 @@
+{
+  "format_version": "2.0",
+  "provider": "business",
+  "created_at": "2026-10-19T01:05:01.157621+00:00",
+  "canvas_size": [
+    512,
+    512
+  ],
+  "inner_size": [
+    460,
+    460
+  ],
+  "total_files": 48,
+  "aliases": {
+    "adobe_commerce": "magento",
+    "adobe_marketo": "marketo",
+    "bamboo_hr": "bamboohr",
+    "bc": "bigcommerce",
+    "big_commerce": "bigcommerce",
+    "cloud_sign": "cloudsign",
+    "cybozu_kintone": "kintone",
+    "d365": "dynamics_365",
+    "docu_sign": "docusign",
+    "dynamics": "dynamics_365",
+    "fresh_desk": "freshdesk",
+    "genesys_cloud": "genesys",
+    "line_messenger": "line",
+    "mf": "moneyforward",
+    "money_forward": "moneyforward",
+    "ms_dynamics": "dynamics_365",
+    "net_suite": "netsuite",
+    "oracle_netsuite": "netsuite",
+    "pay_pal": "paypal",
+    "pay_pay": "paypay",
+    "pipe_drive": "pipedrive",
+    "sap_concur": "concur",
+    "sap_erp": "sap",
+    "send_grid": "sendgrid",
+    "service_now": "servicenow",
+    "sfdc": "salesforce",
+    "smart_hr": "smarthr",
+    "snow": "servicenow",
+    "twilio_sendgrid": "sendgrid",
+    "woo": "woocommerce",
+    "woo_commerce": "woocommerce",
+    "wp": "wordpress",
+    "zoho_crm": "zoho"
+  },
+  "files": {
+    "adyen_default.png": {
+      "icon_name": "adyen",
+      "variant": "default",
+      "source_script": "business/adyen_default.py",
+      "size_bytes": 5663,
+      "sha256": "a14bfe4962f90af1271705196a69b89e1d42ab3ff0431dbc62f7995904133892",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "algolia_default.png": {
+      "icon_name": "algolia",
+      "variant": "default",
+      "source_script": "business/algolia_default.py",
+      "size_bytes": 15255,
+      "sha256": "3ce654bab3ce1562bbff9196afc5c41ded5d0d5b1da9b6c8cbf69e7e7575d461",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "bamboohr_default.png": {
+      "icon_name": "bamboohr",
+      "variant": "default",
+      "source_script": "business/bamboohr_default.py",
+      "size_bytes": 16421,
+      "sha256": "45f4866740dd9c1a06ad5f6b4c834bc898a570187accc79afcb6a59593b2ecf1",
+      "bbox": [
+        26,
+        73,
+        486,
+        438
+      ]
+    },
+    "bigcommerce_default.png": {
+      "icon_name": "bigcommerce",
+      "variant": "default",
+      "source_script": "business/bigcommerce_default.py",
+      "size_bytes": 10439,
+      "sha256": "815c85daaf8639d073cbcc639b6606f654ff1e2f6a077872145d5d3ccbe9e372",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "braze_default.png": {
+      "icon_name": "braze",
+      "variant": "default",
+      "source_script": "business/braze_default.py",
+      "size_bytes": 25198,
+      "sha256": "4fd01a59b1c56d3d78ce4805d3aeabc053ab45dba9f960f2c8b55d68215d380f",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "cloudsign_default.png": {
+      "icon_name": "cloudsign",
+      "variant": "default",
+      "source_script": "business/cloudsign_default.py",
+      "size_bytes": 17955,
+      "sha256": "e5feea9b30ea7bcf36fcae50d5b8466ebbd39c933181d3e8f3dfcb9d6dbd34b5",
+      "bbox": [
+        26,
+        84,
+        486,
+        428
+      ]
+    },
+    "concur_default.png": {
+      "icon_name": "concur",
+      "variant": "default",
+      "source_script": "business/concur_default.py",
+      "size_bytes": 10065,
+      "sha256": "3c3fee559d7f27a521db68658872e7f4a9f5e1f4aa5e7225178f531d89774793",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "contentful_default.png": {
+      "icon_name": "contentful",
+      "variant": "default",
+      "source_script": "business/contentful_default.py",
+      "size_bytes": 19610,
+      "sha256": "2eeb567283db3dc6f653db0ff1305bc500159c0c9a011f8eb69976b3cb8b3987",
+      "bbox": [
+        52,
+        26,
+        460,
+        486
+      ]
+    },
+    "coupa_default.png": {
+      "icon_name": "coupa",
+      "variant": "default",
+      "source_script": "business/coupa_default.py",
+      "size_bytes": 33560,
+      "sha256": "7a30d9b92eee244ff4a8c65cc11f036cbdf20570a88701eba087483841861ebb",
+      "bbox": [
+        26,
+        45,
+        486,
+        466
+      ]
+    },
+    "deel_default.png": {
+      "icon_name": "deel",
+      "variant": "default",
+      "source_script": "business/deel_default.py",
+      "size_bytes": 12947,
+      "sha256": "2cd2647d87272e527cf643d8742200ee5a97f962f233a74ba6428f079976a774",
+      "bbox": [
+        26,
+        39,
+        486,
+        473
+      ]
+    },
+    "docusign_default.png": {
+      "icon_name": "docusign",
+      "variant": "default",
+      "source_script": "business/docusign_default.py",
+      "size_bytes": 6218,
+      "sha256": "69c68321e3587b0f68328a8f4dbf451d922c757c734a02100a2c57de7d0f2a21",
+      "bbox": [
+        26,
+        26,
+        485,
+        486
+      ]
+    },
+    "dynamics_365_default.png": {
+      "icon_name": "dynamics_365",
+      "variant": "default",
+      "source_script": "business/dynamics_365_default.py",
+      "size_bytes": 23798,
+      "sha256": "9872366f85d5b77a2d23abae213222e8b33f740c65e274b0faa5189b29ec3c16",
+      "bbox": [
+        85,
+        26,
+        426,
+        486
+      ]
+    },
+    "freee_default.png": {
+      "icon_name": "freee",
+      "variant": "default",
+      "source_script": "business/freee_default.py",
+      "size_bytes": 16162,
+      "sha256": "201dcca9526d7a1e7dc591233293974f87cbc5f71b61965f6091827152352510",
+      "bbox": [
+        72,
+        26,
+        440,
+        486
+      ]
+    },
+    "freshdesk_default.png": {
+      "icon_name": "freshdesk",
+      "variant": "default",
+      "source_script": "business/freshdesk_default.py",
+      "size_bytes": 16085,
+      "sha256": "7002a6d9c3d591fa47606b135d588ad21daecf32081b1eb182fba0b96fdac234",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "genesys_default.png": {
+      "icon_name": "genesys",
+      "variant": "default",
+      "source_script": "business/genesys_default.py",
+      "size_bytes": 28215,
+      "sha256": "39cd9c3338c810bba1f6370ec55f41611341ffd6715a10d2e465a1baeb5b5a1b",
+      "bbox": [
+        26,
+        38,
+        486,
+        473
+      ]
+    },
+    "hubspot_default.png": {
+      "icon_name": "hubspot",
+      "variant": "default",
+      "source_script": "business/hubspot_default.py",
+      "size_bytes": 17466,
+      "sha256": "73348828a9fef2904186a5b890434eb9ead7a77fbe3399d2f293bd57f023dc8a",
+      "bbox": [
+        49,
+        26,
+        463,
+        486
+      ]
+    },
+    "intercom_default.png": {
+      "icon_name": "intercom",
+      "variant": "default",
+      "source_script": "business/intercom_default.py",
+      "size_bytes": 12439,
+      "sha256": "5ba23121668fa7398c67d752eefcaa3f0114e31807f77ecda9b1c80ab8274298",
+      "bbox": [
+        32,
+        26,
+        480,
+        486
+      ]
+    },
+    "kintone_default.png": {
+      "icon_name": "kintone",
+      "variant": "default",
+      "source_script": "business/kintone_default.py",
+      "size_bytes": 23582,
+      "sha256": "6b38cdc213d0efec5612b47b251b487b4cd8346e028827c721e7b66eb07bdd7c",
+      "bbox": [
+        26,
+        85,
+        486,
+        427
+      ]
+    },
+    "line_default.png": {
+      "icon_name": "line",
+      "variant": "default",
+      "source_script": "business/line_default.py",
+      "size_bytes": 12573,
+      "sha256": "1286a5607fe8730ee73e5a4e6ca0bec7558223ae88f1f41b21fdb08779901a6b",
+      "bbox": [
+        26,
+        36,
+        486,
+        475
+      ]
+    },
+    "magento_default.png": {
+      "icon_name": "magento",
+      "variant": "default",
+      "source_script": "business/magento_default.py",
+      "size_bytes": 13017,
+      "sha256": "286e9b3674db3e8f780377b4ea1c0e7c21b74c290b92afd9ba20bfe1b0b20b1f",
+      "bbox": [
+        57,
+        26,
+        455,
+        486
+      ]
+    },
+    "mailgun_default.png": {
+      "icon_name": "mailgun",
+      "variant": "default",
+      "source_script": "business/mailgun_default.py",
+      "size_bytes": 28103,
+      "sha256": "36ce5bebb88c901a7650ca2f5349c9e544f44f42d9430270768fc7ad30d94689",
+      "bbox": [
+        29,
+        26,
+        482,
+        486
+      ]
+    },
+    "marketo_default.png": {
+      "icon_name": "marketo",
+      "variant": "default",
+      "source_script": "business/marketo_default.py",
+      "size_bytes": 7372,
+      "sha256": "9313c10081445008bbff5fcaa4948fe0459552c12efd3c0d7a5d85b720661ac2",
+      "bbox": [
+        59,
+        26,
+        453,
+        486
+      ]
+    },
+    "moneyforward_default.png": {
+      "icon_name": "moneyforward",
+      "variant": "default",
+      "source_script": "business/moneyforward_default.py",
+      "size_bytes": 20368,
+      "sha256": "9d4efb45748b0aaf88b9c1991adef608cdf13442f2d183d9392c17520f7c041f",
+      "bbox": [
+        26,
+        49,
+        486,
+        462
+      ]
+    },
+    "netsuite_default.png": {
+      "icon_name": "netsuite",
+      "variant": "default",
+      "source_script": "business/netsuite_default.py",
+      "size_bytes": 7444,
+      "sha256": "7aa279e0e166725d2a84e4b1c9c323ceebe384d7d8295e8b59985568da246ab7",
+      "bbox": [
+        26,
+        34,
+        486,
+        477
+      ]
+    },
+    "odoo_default.png": {
+      "icon_name": "odoo",
+      "variant": "default",
+      "source_script": "business/odoo_default.py",
+      "size_bytes": 15789,
+      "sha256": "db8f930e68678778307423678abe66b623422cecee866860f6a73ea17e054bc1",
+      "bbox": [
+        26,
+        183,
+        486,
+        329
+      ]
+    },
+    "paypal_default.png": {
+      "icon_name": "paypal",
+      "variant": "default",
+      "source_script": "business/paypal_default.py",
+      "size_bytes": 13560,
+      "sha256": "e3cf8180613fed404429295c3a5e8d87ee2619428826cc32e89c5f2da0fe7fe6",
+      "bbox": [
+        61,
+        26,
+        451,
+        486
+      ]
+    },
+    "paypay_default.png": {
+      "icon_name": "paypay",
+      "variant": "default",
+      "source_script": "business/paypay_default.py",
+      "size_bytes": 14823,
+      "sha256": "3bc8555dc4494e0920771eec46915122d540928e869c5cd321cf80ea08c0d446",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "pipedrive_default.png": {
+      "icon_name": "pipedrive",
+      "variant": "default",
+      "source_script": "business/pipedrive_default.py",
+      "size_bytes": 10593,
+      "sha256": "4c6f128d9be1d962007f7e2deebce3c2d35190bf6becc5a7cbbcfd8e2cc047e6",
+      "bbox": [
+        73,
+        26,
+        438,
+        486
+      ]
+    },
+    "plaid_default.png": {
+      "icon_name": "plaid",
+      "variant": "default",
+      "source_script": "business/plaid_default.py",
+      "size_bytes": 34711,
+      "sha256": "1b17dfb3e590c66cc6d8f05ae144e414b1694f69d7cd7cf17a8cc01d78f72d96",
+      "bbox": [
+        28,
+        26,
+        484,
+        486
+      ]
+    },
+    "salesforce_default.png": {
+      "icon_name": "salesforce",
+      "variant": "default",
+      "source_script": "business/salesforce_default.py",
+      "size_bytes": 19698,
+      "sha256": "ac26bb0b537101444bcaa9d7eea866481544e39ad3e6d772a063dbd8b90e602e",
+      "bbox": [
+        26,
+        95,
+        486,
+        417
+      ]
+    },
+    "sanity_default.png": {
+      "icon_name": "sanity",
+      "variant": "default",
+      "source_script": "business/sanity_default.py",
+      "size_bytes": 18078,
+      "sha256": "14e0f7c2c2cb5949205efcb040c0ddaebfbcd0950477f638680847993d2ab2d4",
+      "bbox": [
+        81,
+        26,
+        431,
+        486
+      ]
+    },
+    "sansan_default.png": {
+      "icon_name": "sansan",
+      "variant": "default",
+      "source_script": "business/sansan_default.py",
+      "size_bytes": 13679,
+      "sha256": "836f6b4a276c62d7f1c9f650fbc4f0beaf8c82aa747e8ed47d65d4fda10df016",
+      "bbox": [
+        26,
+        170,
+        486,
+        341
+      ]
+    },
+    "sap_default.png": {
+      "icon_name": "sap",
+      "variant": "default",
+      "source_script": "business/sap_default.py",
+      "size_bytes": 14113,
+      "sha256": "22dfd90e9fd62112164ce66a565cf0074cbeef2125e4af85e1deade14b5f1a64",
+      "bbox": [
+        26,
+        142,
+        486,
+        370
+      ]
+    },
+    "sendgrid_default.png": {
+      "icon_name": "sendgrid",
+      "variant": "default",
+      "source_script": "business/sendgrid_default.py",
+      "size_bytes": 1898,
+      "sha256": "1ebcd44480369c0ce493a49ce8dcf9c2a8ae8778a39b3fd4513023796e7ca91f",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "servicenow_default.png": {
+      "icon_name": "servicenow",
+      "variant": "default",
+      "source_script": "business/servicenow_default.py",
+      "size_bytes": 16543,
+      "sha256": "a7df8b5de74a9f92c8b99c85fb18924de52d42cf6f927839da09a327efeaa6d7",
+      "bbox": [
+        26,
+        49,
+        486,
+        462
+      ]
+    },
+    "shopify_default.png": {
+      "icon_name": "shopify",
+      "variant": "default",
+      "source_script": "business/shopify_default.py",
+      "size_bytes": 22693,
+      "sha256": "bbd9996c2346d47e8514ba9781a4f8f0d0941724d0c97f3fbc69e455a85a145a",
+      "bbox": [
+        54,
+        26,
+        458,
+        486
+      ]
+    },
+    "smarthr_default.png": {
+      "icon_name": "smarthr",
+      "variant": "default",
+      "source_script": "business/smarthr_default.py",
+      "size_bytes": 20561,
+      "sha256": "bc5c9e4ef27114d41ed558920db9828170191a87c166495c77d8ea25ea7a043c",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "square_default.png": {
+      "icon_name": "square",
+      "variant": "default",
+      "source_script": "business/square_default.py",
+      "size_bytes": 7225,
+      "sha256": "89ce7e0608bf7c96152761e66982aa2ac8cc16b877a8902bbd2854cbe516604e",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "strapi_default.png": {
+      "icon_name": "strapi",
+      "variant": "default",
+      "source_script": "business/strapi_default.py",
+      "size_bytes": 7521,
+      "sha256": "f6939794fffde646559728f356638c19e7731ac5851e05946d9035e1ae9a9242",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "stripe_default.png": {
+      "icon_name": "stripe",
+      "variant": "default",
+      "source_script": "business/stripe_default.py",
+      "size_bytes": 14017,
+      "sha256": "cf2f1f53069a51f32fa5a04de96b23314c54d05a98954a022b956af55beb4bce",
+      "bbox": [
+        91,
+        26,
+        420,
+        486
+      ]
+    },
+    "twilio_default.png": {
+      "icon_name": "twilio",
+      "variant": "default",
+      "source_script": "business/twilio_default.py",
+      "size_bytes": 25967,
+      "sha256": "8dfc0e025e40b6e0f115a3fd7477bdf6034b126687ac9cb330c419b029981cb2",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "vonage_default.png": {
+      "icon_name": "vonage",
+      "variant": "default",
+      "source_script": "business/vonage_default.py",
+      "size_bytes": 8989,
+      "sha256": "e4956c18bf98bf71b472707b67d5eb112ff8fec11ce1ab05a2eab692002b8fea",
+      "bbox": [
+        26,
+        55,
+        486,
+        456
+      ]
+    },
+    "woocommerce_default.png": {
+      "icon_name": "woocommerce",
+      "variant": "default",
+      "source_script": "business/woocommerce_default.py",
+      "size_bytes": 19890,
+      "sha256": "1bbd3c6697f0f389e94d68ec4a27350514005ef76127f5ddfd9dbd2a81095d48",
+      "bbox": [
+        26,
+        119,
+        486,
+        393
+      ]
+    },
+    "wordpress_default.png": {
+      "icon_name": "wordpress",
+      "variant": "default",
+      "source_script": "business/wordpress_default.py",
+      "size_bytes": 39294,
+      "sha256": "a402f4b114ac4969167b8858a672a47ef0ba6d56ee0a901accba2d578eb5c043",
+      "bbox": [
+        26,
+        26,
+        486,
+        486
+      ]
+    },
+    "workday_default.png": {
+      "icon_name": "workday",
+      "variant": "default",
+      "source_script": "business/workday_default.py",
+      "size_bytes": 17654,
+      "sha256": "77782e1588677a3313229a1e78a44b97e78fd3ca1e06ceff0eb2c3ef38d2ccf5",
+      "bbox": [
+        82,
+        26,
+        430,
+        486
+      ]
+    },
+    "zendesk_default.png": {
+      "icon_name": "zendesk",
+      "variant": "default",
+      "source_script": "business/zendesk_default.py",
+      "size_bytes": 12256,
+      "sha256": "79500ce887c87fd6f856aca6ba30762471b8ab5ede036bb939ba4e1e21b2b7d4",
+      "bbox": [
+        26,
+        81,
+        486,
+        430
+      ]
+    },
+    "zoho_default.png": {
+      "icon_name": "zoho",
+      "variant": "default",
+      "source_script": "business/zoho_default.py",
+      "size_bytes": 24104,
+      "sha256": "a63731a1bcae1565fdbbd107677b1392e837f017b4d4af30874b42de265444f6",
+      "bbox": [
+        26,
+        176,
+        486,
+        335
+      ]
+    },
+    "zuora_default.png": {
+      "icon_name": "zuora",
+      "variant": "default",
+      "source_script": "business/zuora_default.py",
+      "size_bytes": 10231,
+      "sha256": "624de7ff5817d0b296841e017992f66926332cd003383feaa4976371f69f4741",
+      "bbox": [
+        26,
+        36,
+        486,
+        475
+      ]
+    }
+  }
+}

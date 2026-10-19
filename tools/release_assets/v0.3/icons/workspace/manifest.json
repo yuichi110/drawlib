@@ -1,7 +1,7 @@
 {
   "format_version": "2.0",
   "provider": "workspace",
-  "created_at": "2026-10-18T23:06:35.131676+00:00",
+  "created_at": "2026-10-19T01:03:11.775039+00:00",
   "canvas_size": [
     512,
     512
@@ -10,13 +10,12 @@
     460,
     460
   ],
-  "total_files": 50,
+  "total_files": 40,
   "aliases": {
     "acrobat": "adobe_acrobat",
     "adobe": "adobe_acrobat",
     "box_storage": "box",
     "cisco_webex": "webex",
-    "dynamics": "dynamics_365",
     "gcal": "google_calendar",
     "gchat": "google_chat",
     "gdocs": "google_docs",
@@ -40,8 +39,6 @@
     "power_apps": "power_automate",
     "powerbi": "power_bi",
     "ppt": "powerpoint",
-    "sfdc": "salesforce",
-    "snow": "servicenow",
     "teams": "microsoft_teams"
   },
   "files": {
@@ -136,19 +133,6 @@
         434
       ]
     },
-    "docusign_default.png": {
-      "icon_name": "docusign",
-      "variant": "default",
-      "source_script": "workspace/docusign_default.py",
-      "size_bytes": 6218,
-      "sha256": "69c68321e3587b0f68328a8f4dbf451d922c757c734a02100a2c57de7d0f2a21",
-      "bbox": [
-        26,
-        26,
-        485,
-        486
-      ]
-    },
     "dropbox_default.png": {
       "icon_name": "dropbox",
       "variant": "default",
@@ -160,19 +144,6 @@
         60,
         486,
         451
-      ]
-    },
-    "dynamics_365_default.png": {
-      "icon_name": "dynamics_365",
-      "variant": "default",
-      "source_script": "workspace/dynamics_365_default.py",
-      "size_bytes": 23798,
-      "sha256": "9872366f85d5b77a2d23abae213222e8b33f740c65e274b0faa5189b29ec3c16",
-      "bbox": [
-        85,
-        26,
-        426,
-        486
       ]
     },
     "excel_default.png": {
@@ -328,19 +299,6 @@
         30,
         26,
         481,
-        486
-      ]
-    },
-    "hubspot_default.png": {
-      "icon_name": "hubspot",
-      "variant": "default",
-      "source_script": "workspace/hubspot_default.py",
-      "size_bytes": 17466,
-      "sha256": "73348828a9fef2904186a5b890434eb9ead7a77fbe3399d2f293bd57f023dc8a",
-      "bbox": [
-        49,
-        26,
-        463,
         486
       ]
     },
@@ -500,45 +458,6 @@
         470
       ]
     },
-    "salesforce_default.png": {
-      "icon_name": "salesforce",
-      "variant": "default",
-      "source_script": "workspace/salesforce_default.py",
-      "size_bytes": 19698,
-      "sha256": "ac26bb0b537101444bcaa9d7eea866481544e39ad3e6d772a063dbd8b90e602e",
-      "bbox": [
-        26,
-        95,
-        486,
-        417
-      ]
-    },
-    "sap_default.png": {
-      "icon_name": "sap",
-      "variant": "default",
-      "source_script": "workspace/sap_default.py",
-      "size_bytes": 14113,
-      "sha256": "22dfd90e9fd62112164ce66a565cf0074cbeef2125e4af85e1deade14b5f1a64",
-      "bbox": [
-        26,
-        142,
-        486,
-        370
-      ]
-    },
-    "servicenow_default.png": {
-      "icon_name": "servicenow",
-      "variant": "default",
-      "source_script": "workspace/servicenow_default.py",
-      "size_bytes": 16543,
-      "sha256": "a7df8b5de74a9f92c8b99c85fb18924de52d42cf6f927839da09a327efeaa6d7",
-      "bbox": [
-        26,
-        49,
-        486,
-        462
-      ]
-    },
     "sharepoint_default.png": {
       "icon_name": "sharepoint",
       "variant": "default",
@@ -552,19 +471,6 @@
         480
       ]
     },
-    "shopify_default.png": {
-      "icon_name": "shopify",
-      "variant": "default",
-      "source_script": "workspace/shopify_default.py",
-      "size_bytes": 22693,
-      "sha256": "bbd9996c2346d47e8514ba9781a4f8f0d0941724d0c97f3fbc69e455a85a145a",
-      "bbox": [
-        54,
-        26,
-        458,
-        486
-      ]
-    },
     "slack_default.png": {
       "icon_name": "slack",
       "variant": "default",
@@ -575,19 +481,6 @@
         26,
         26,
         486,
-        486
-      ]
-    },
-    "stripe_default.png": {
-      "icon_name": "stripe",
-      "variant": "default",
-      "source_script": "workspace/stripe_default.py",
-      "size_bytes": 14017,
-      "sha256": "cf2f1f53069a51f32fa5a04de96b23314c54d05a98954a022b956af55beb4bce",
-      "bbox": [
-        91,
-        26,
-        420,
         486
       ]
     },
@@ -643,19 +536,6 @@
         470
       ]
     },
-    "workday_default.png": {
-      "icon_name": "workday",
-      "variant": "default",
-      "source_script": "workspace/workday_default.py",
-      "size_bytes": 17654,
-      "sha256": "77782e1588677a3313229a1e78a44b97e78fd3ca1e06ceff0eb2c3ef38d2ccf5",
-      "bbox": [
-        82,
-        26,
-        430,
-        486
-      ]
-    },
     "zapier_default.png": {
       "icon_name": "zapier",
       "variant": "default",
@@ -667,19 +547,6 @@
         26,
         484,
         486
-      ]
-    },
-    "zendesk_default.png": {
-      "icon_name": "zendesk",
-      "variant": "default",
-      "source_script": "workspace/zendesk_default.py",
-      "size_bytes": 12256,
-      "sha256": "79500ce887c87fd6f856aca6ba30762471b8ab5ede036bb939ba4e1e21b2b7d4",
-      "bbox": [
-        26,
-        81,
-        486,
-        430
       ]
     },
     "zoom_default.png": {
