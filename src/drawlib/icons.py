@@ -27,6 +27,7 @@ from drawlib._icons import (
     facility,
     font_icon,
     gcp,
+    itservice,
     network,
     original_ai,
     original_business,
@@ -37,6 +38,7 @@ from drawlib._icons import (
     original_data,
     original_devops,
     original_facility,
+    original_itservice,
     original_network,
     original_security,
     original_server,
@@ -61,6 +63,7 @@ sys.modules["drawlib.icons.data"] = data
 sys.modules["drawlib.icons.devops"] = devops
 sys.modules["drawlib.icons.facility"] = facility
 sys.modules["drawlib.icons.gcp"] = gcp
+sys.modules["drawlib.icons.itservice"] = itservice
 sys.modules["drawlib.icons.network"] = network
 sys.modules["drawlib.icons.original_ai"] = original_ai
 sys.modules["drawlib.icons.original_business"] = original_business
@@ -71,6 +74,7 @@ sys.modules["drawlib.icons.original_code"] = original_code
 sys.modules["drawlib.icons.original_data"] = original_data
 sys.modules["drawlib.icons.original_devops"] = original_devops
 sys.modules["drawlib.icons.original_facility"] = original_facility
+sys.modules["drawlib.icons.original_itservice"] = original_itservice
 sys.modules["drawlib.icons.original_network"] = original_network
 sys.modules["drawlib.icons.original_security"] = original_security
 sys.modules["drawlib.icons.original_server"] = original_server
@@ -93,6 +97,7 @@ __all__ = [
     "facility",
     "font_icon",
     "gcp",
+    "itservice",
     "network",
     "original_ai",
     "original_business",
@@ -103,6 +108,7 @@ __all__ = [
     "original_data",
     "original_devops",
     "original_facility",
+    "original_itservice",
     "original_network",
     "original_security",
     "original_server",

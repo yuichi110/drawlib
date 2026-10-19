@@ -40,6 +40,7 @@ from drawlib._diagrams.architecture._icons import (
     DevopsIcon,
     FacilityIcon,
     GcpIcon,
+    ItserviceIcon,
     NetworkIcon,
     OriginalAiIcon,
     OriginalBusinessIcon,
@@ -50,6 +51,7 @@ from drawlib._diagrams.architecture._icons import (
     OriginalDataIcon,
     OriginalDevopsIcon,
     OriginalFacilityIcon,
+    OriginalItserviceIcon,
     OriginalNetworkIcon,
     OriginalSecurityIcon,
     OriginalServerIcon,
@@ -79,6 +81,7 @@ def draw_enum_icon(
         | OriginalDataIcon
         | OriginalDevopsIcon
         | OriginalFacilityIcon
+        | OriginalItserviceIcon
         | OriginalNetworkIcon
         | OriginalSecurityIcon
         | OriginalServerIcon
@@ -95,6 +98,7 @@ def draw_enum_icon(
         | DevopsIcon
         | FacilityIcon
         | GcpIcon
+        | ItserviceIcon
         | NetworkIcon
         | PhosphorIcon
         | SecurityIcon

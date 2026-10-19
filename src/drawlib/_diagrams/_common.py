@@ -32,6 +32,7 @@ import drawlib._icons.png_icons.data._generated as data_gen
 import drawlib._icons.png_icons.devops._generated as devops_gen
 import drawlib._icons.png_icons.facility._generated as facility_gen
 import drawlib._icons.png_icons.gcp._generated as gcp_gen
+import drawlib._icons.png_icons.itservice._generated as itservice_gen
 import drawlib._icons.png_icons.network._generated as network_gen
 import drawlib._icons.png_icons.original_ai._generated as original_ai_gen
 import drawlib._icons.png_icons.original_business._generated as original_business_gen
@@ -42,6 +43,7 @@ import drawlib._icons.png_icons.original_code._generated as original_code_gen
 import drawlib._icons.png_icons.original_data._generated as original_data_gen
 import drawlib._icons.png_icons.original_devops._generated as original_devops_gen
 import drawlib._icons.png_icons.original_facility._generated as original_facility_gen
+import drawlib._icons.png_icons.original_itservice._generated as original_itservice_gen
 import drawlib._icons.png_icons.original_network._generated as original_network_gen
 import drawlib._icons.png_icons.original_security._generated as original_security_gen
 import drawlib._icons.png_icons.original_server._generated as original_server_gen
@@ -70,6 +72,7 @@ from drawlib._diagrams.architecture._icons import (
     DevopsIcon,
     FacilityIcon,
     GcpIcon,
+    ItserviceIcon,
     NetworkIcon,
     OriginalAiIcon,
     OriginalBusinessIcon,
@@ -80,6 +83,7 @@ from drawlib._diagrams.architecture._icons import (
     OriginalDataIcon,
     OriginalDevopsIcon,
     OriginalFacilityIcon,
+    OriginalItserviceIcon,
     OriginalNetworkIcon,
     OriginalSecurityIcon,
     OriginalServerIcon,
@@ -104,6 +108,7 @@ _ENUM_ICON_MODULES: dict[type, ModuleType] = {
     OriginalDataIcon: original_data_gen,
     OriginalDevopsIcon: original_devops_gen,
     OriginalFacilityIcon: original_facility_gen,
+    OriginalItserviceIcon: original_itservice_gen,
     OriginalNetworkIcon: original_network_gen,
     OriginalSecurityIcon: original_security_gen,
     OriginalServerIcon: original_server_gen,
@@ -120,6 +125,7 @@ _ENUM_ICON_MODULES: dict[type, ModuleType] = {
     DevopsIcon: devops_gen,
     FacilityIcon: facility_gen,
     GcpIcon: gcp_gen,
+    ItserviceIcon: itservice_gen,
     NetworkIcon: network_gen,
     PhosphorIcon: phosphor_gen,
     SecurityIcon: security_gen,
@@ -251,6 +257,7 @@ def draw_enum_icon(
         | OriginalDataIcon
         | OriginalDevopsIcon
         | OriginalFacilityIcon
+        | OriginalItserviceIcon
         | OriginalNetworkIcon
         | OriginalSecurityIcon
         | OriginalServerIcon
@@ -267,6 +274,7 @@ def draw_enum_icon(
         | DevopsIcon
         | FacilityIcon
         | GcpIcon
+        | ItserviceIcon
         | NetworkIcon
         | PhosphorIcon
         | SecurityIcon
@@ -345,6 +353,7 @@ def draw_diagram_icon(
             OriginalDataIcon,
             OriginalDevopsIcon,
             OriginalFacilityIcon,
+            OriginalItserviceIcon,
             OriginalNetworkIcon,
             OriginalSecurityIcon,
             OriginalServerIcon,
@@ -361,6 +370,7 @@ def draw_diagram_icon(
             DevopsIcon,
             FacilityIcon,
             GcpIcon,
+            ItserviceIcon,
             NetworkIcon,
             PhosphorIcon,
             SecurityIcon,

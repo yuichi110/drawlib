@@ -97,6 +97,7 @@ class ReleaseAssetPackageName(StrEnum):
     ICON_DEVOPS = "icon_devops"
     ICON_FACILITY = "icon_facility"
     ICON_GCP = "icon_gcp"
+    ICON_ITSERVICE = "icon_itservice"
     ICON_NETWORK = "icon_network"
     ICON_ORIGINAL_AI = "icon_original_ai"
     ICON_ORIGINAL_BUSINESS = "icon_original_business"
@@ -107,6 +108,7 @@ class ReleaseAssetPackageName(StrEnum):
     ICON_ORIGINAL_DATA = "icon_original_data"
     ICON_ORIGINAL_DEVOPS = "icon_original_devops"
     ICON_ORIGINAL_FACILITY = "icon_original_facility"
+    ICON_ORIGINAL_ITSERVICE = "icon_original_itservice"
     ICON_ORIGINAL_NETWORK = "icon_original_network"
     ICON_ORIGINAL_SECURITY = "icon_original_security"
     ICON_ORIGINAL_SERVER = "icon_original_server"
@@ -185,6 +187,7 @@ class ReleaseAssetPackages(BaseReleaseAssetPackages):
     icon_devops: ReleaseAssetPackage
     icon_facility: ReleaseAssetPackage
     icon_gcp: ReleaseAssetPackage
+    icon_itservice: ReleaseAssetPackage
     icon_network: ReleaseAssetPackage
     icon_original_ai: ReleaseAssetPackage
     icon_original_business: ReleaseAssetPackage
@@ -195,6 +198,7 @@ class ReleaseAssetPackages(BaseReleaseAssetPackages):
     icon_original_data: ReleaseAssetPackage
     icon_original_devops: ReleaseAssetPackage
     icon_original_facility: ReleaseAssetPackage
+    icon_original_itservice: ReleaseAssetPackage
     icon_original_network: ReleaseAssetPackage
     icon_original_security: ReleaseAssetPackage
     icon_original_server: ReleaseAssetPackage
@@ -2113,6 +2117,61 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
             "workload_identity_pool_default.png",
         ),
     ),
+    icon_itservice=ReleaseAssetPackage(
+        name=ReleaseAssetPackageName.ICON_ITSERVICE,
+        category="icon",
+        archive_name="icon_itservice.zip",
+        archive_sha256="202041af51afe5c54477ac3d4df8dc40d5c3b14b314330ea5a26f5ff9e91096b",
+        source_rel_path="icons/itservice",
+        target_rel_path="icons/itservice",
+        files=(
+            "accenture_default.png",
+            "adecco_default.png",
+            "atos_default.png",
+            "bain_default.png",
+            "bcg_default.png",
+            "booz_allen_default.png",
+            "capgemini_default.png",
+            "cgi_default.png",
+            "cognizant_default.png",
+            "concentrix_default.png",
+            "deloitte_default.png",
+            "dxc_default.png",
+            "endava_default.png",
+            "epam_default.png",
+            "ey_default.png",
+            "fujitsu_default.png",
+            "genpact_default.png",
+            "globant_default.png",
+            "hcltech_default.png",
+            "hitachi_default.png",
+            "ibm_default.png",
+            "indra_default.png",
+            "infosys_default.png",
+            "kpmg_default.png",
+            "kyndryl_default.png",
+            "leidos_default.png",
+            "ltimindtree_default.png",
+            "manifest.json",
+            "manpower_default.png",
+            "mckinsey_default.png",
+            "nec_default.png",
+            "nri_default.png",
+            "ntt_data_default.png",
+            "pwc_default.png",
+            "rackspace_default.png",
+            "randstad_default.png",
+            "slalom_default.png",
+            "sopra_steria_default.png",
+            "t_systems_default.png",
+            "tcs_default.png",
+            "tech_mahindra_default.png",
+            "teksystems_default.png",
+            "thoughtworks_default.png",
+            "tietoevry_default.png",
+            "wipro_default.png",
+        ),
+    ),
     icon_network=ReleaseAssetPackage(
         name=ReleaseAssetPackageName.ICON_NETWORK,
         category="icon",
@@ -3035,6 +3094,81 @@ RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages] = ReleaseAssetPackages(
             "verizon_default.png",
             "vertiv_default.png",
             "warehouse_default.png",
+        ),
+    ),
+    icon_original_itservice=ReleaseAssetPackage(
+        name=ReleaseAssetPackageName.ICON_ORIGINAL_ITSERVICE,
+        category="icon",
+        archive_name="icon_original_itservice.zip",
+        archive_sha256="fe28ed356812837ca15fc16e4cc17dd725cbbb2501047bb8ed7afd349cd32f07",
+        source_rel_path="icons/original_itservice",
+        target_rel_path="icons/original_itservice",
+        files=(
+            "accenture_default.png",
+            "adecco_default.png",
+            "architect_lead_default.png",
+            "atos_default.png",
+            "bain_default.png",
+            "bcg_default.png",
+            "booz_allen_default.png",
+            "bpo_center_default.png",
+            "capgemini_default.png",
+            "cgi_default.png",
+            "client_enterprise_default.png",
+            "cognizant_default.png",
+            "concentrix_default.png",
+            "dedicated_team_default.png",
+            "deloitte_default.png",
+            "dxc_default.png",
+            "endava_default.png",
+            "epam_default.png",
+            "escalation_flow_default.png",
+            "ey_default.png",
+            "fujitsu_default.png",
+            "genpact_default.png",
+            "globant_default.png",
+            "hcltech_default.png",
+            "hitachi_default.png",
+            "ibm_default.png",
+            "indra_default.png",
+            "infosys_default.png",
+            "it_consulting_default.png",
+            "joint_venture_default.png",
+            "kpmg_default.png",
+            "kyndryl_default.png",
+            "leidos_default.png",
+            "ltimindtree_default.png",
+            "manifest.json",
+            "manpower_default.png",
+            "mckinsey_default.png",
+            "msp_operations_default.png",
+            "nec_default.png",
+            "nri_default.png",
+            "ntt_data_default.png",
+            "offshore_lab_default.png",
+            "org_hierarchy_default.png",
+            "pmo_office_default.png",
+            "prime_contractor_default.png",
+            "project_manager_default.png",
+            "pwc_default.png",
+            "raci_matrix_default.png",
+            "rackspace_default.png",
+            "randstad_default.png",
+            "ses_engineer_default.png",
+            "sla_contract_default.png",
+            "slalom_default.png",
+            "sopra_steria_default.png",
+            "staff_augmentation_default.png",
+            "steering_committee_default.png",
+            "support_operator_default.png",
+            "system_integrator_default.png",
+            "t_systems_default.png",
+            "tcs_default.png",
+            "tech_mahindra_default.png",
+            "teksystems_default.png",
+            "thoughtworks_default.png",
+            "tietoevry_default.png",
+            "wipro_default.png",
         ),
     ),
     icon_original_network=ReleaseAssetPackage(

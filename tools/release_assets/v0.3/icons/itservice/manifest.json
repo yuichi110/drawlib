@@ -1,0 +1,629 @@
+{
+  "format_version": "2.0",
+  "provider": "itservice",
+  "created_at": "2026-10-19T07:12:19.841234+00:00",
+  "canvas_size": [
+    512,
+    512
+  ],
+  "inner_size": [
+    460,
+    460
+  ],
+  "total_files": 44,
+  "aliases": {
+    "accenture_plc": "accenture",
+    "acn": "accenture",
+    "adecco_group": "adecco",
+    "akkodis": "adecco",
+    "bah": "booz_allen",
+    "bain_and_company": "bain",
+    "booz_allen_hamilton": "booz_allen",
+    "boston_consulting_group": "bcg",
+    "cgi_group": "cgi",
+    "cts": "cognizant",
+    "deloitte_touche": "deloitte",
+    "dxc_technology": "dxc",
+    "epam_systems": "epam",
+    "ernst_and_young": "ey",
+    "eviden": "atos",
+    "experis": "manpower",
+    "hcl": "hcltech",
+    "hcl_technologies": "hcltech",
+    "ibm_consulting": "ibm",
+    "indra_sistemas": "indra",
+    "larsen_toubro_infotech": "ltimindtree",
+    "lti": "ltimindtree",
+    "manpowergroup": "manpower",
+    "mckinsey_and_company": "mckinsey",
+    "mindtree": "ltimindtree",
+    "minsait": "indra",
+    "modis": "adecco",
+    "nomura_research_institute": "nri",
+    "nttdata": "ntt_data",
+    "pricewaterhousecoopers": "pwc",
+    "rackspace_technology": "rackspace",
+    "randstad_digital": "randstad",
+    "slalom_consulting": "slalom",
+    "sopra": "sopra_steria",
+    "tata_consultancy_services": "tcs",
+    "techm": "tech_mahindra",
+    "tek_systems": "teksystems",
+    "tieto": "tietoevry",
+    "tsystems": "t_systems"
+  },
+  "files": {
+    "accenture_default.png": {
+      "icon_name": "accenture",
+      "variant": "default",
+      "source_script": "itservice/accenture_default.py",
+      "size_bytes": 9031,
+      "sha256": "3ae5460bbd82a607e922b97daa2bf580497173429521bd0dde4da3b4b47de8d6",
+      "bbox": [
+        38,
+        26,
+        473,
+        486
+      ]
+    },
+    "adecco_default.png": {
+      "icon_name": "adecco",
+      "variant": "default",
+      "source_script": "itservice/adecco_default.py",
+      "size_bytes": 14934,
+      "sha256": "0b967b7699548e13c5c243a2f00c4497ed1d334221891b5c628f41e27be6ea65",
+      "bbox": [
+        26,
+        132,
+        486,
+        379
+      ]
+    },
+    "atos_default.png": {
+      "icon_name": "atos",
+      "variant": "default",
+      "source_script": "itservice/atos_default.py",
+      "size_bytes": 15113,
+      "sha256": "ea49b7499f8124a9e3571996e0cac01718b7347755c79b593c81246bfdf764ae",
+      "bbox": [
+        26,
+        181,
+        486,
+        331
+      ]
+    },
+    "bain_default.png": {
+      "icon_name": "bain",
+      "variant": "default",
+      "source_script": "itservice/bain_default.py",
+      "size_bytes": 17890,
+      "sha256": "ebe9930023f0fa45c9c1a4cb0712116304e7605d46959bc35381c90b08e89cfa",
+      "bbox": [
+        26,
+        170,
+        486,
+        342
+      ]
+    },
+    "bcg_default.png": {
+      "icon_name": "bcg",
+      "variant": "default",
+      "source_script": "itservice/bcg_default.py",
+      "size_bytes": 12015,
+      "sha256": "2a94240f83c8f6493d8e1e20f49af9b7ad03018fc4e2f8c4a1d6c49602892bb8",
+      "bbox": [
+        26,
+        162,
+        486,
+        350
+      ]
+    },
+    "booz_allen_default.png": {
+      "icon_name": "booz_allen",
+      "variant": "default",
+      "source_script": "itservice/booz_allen_default.py",
+      "size_bytes": 15809,
+      "sha256": "9507687331e2f30bd103c3623a95810e68b5127bcc9057cbfc8f2fee4b476a9c",
+      "bbox": [
+        26,
+        159,
+        486,
+        353
+      ]
+    },
+    "capgemini_default.png": {
+      "icon_name": "capgemini",
+      "variant": "default",
+      "source_script": "itservice/capgemini_default.py",
+      "size_bytes": 23743,
+      "sha256": "da9153068f54e6976405834d7324faa459b0e0ca056a7da19f1e6d35590134e2",
+      "bbox": [
+        26,
+        94,
+        486,
+        417
+      ]
+    },
+    "cgi_default.png": {
+      "icon_name": "cgi",
+      "variant": "default",
+      "source_script": "itservice/cgi_default.py",
+      "size_bytes": 12588,
+      "sha256": "f154405b5cac744edea3b1cf91e2adf4ce1caee050fd302fac5f6686945d6b23",
+      "bbox": [
+        26,
+        149,
+        486,
+        363
+      ]
+    },
+    "cognizant_default.png": {
+      "icon_name": "cognizant",
+      "variant": "default",
+      "source_script": "itservice/cognizant_default.py",
+      "size_bytes": 18807,
+      "sha256": "ac946573985379fece13608bd59f34a8fd5b0f32288d7fc09a647a889a359e75",
+      "bbox": [
+        26,
+        118,
+        486,
+        393
+      ]
+    },
+    "concentrix_default.png": {
+      "icon_name": "concentrix",
+      "variant": "default",
+      "source_script": "itservice/concentrix_default.py",
+      "size_bytes": 12953,
+      "sha256": "4a4052b07119681ba8330449e604fa70a8a6b18e5a57cc03f50b1c3c5ef887ea",
+      "bbox": [
+        26,
+        178,
+        486,
+        334
+      ]
+    },
+    "deloitte_default.png": {
+      "icon_name": "deloitte",
+      "variant": "default",
+      "source_script": "itservice/deloitte_default.py",
+      "size_bytes": 10004,
+      "sha256": "65f7a165054e23618635ce168f6848379bc0e252e4d07ee584c566519c0149cb",
+      "bbox": [
+        26,
+        213,
+        486,
+        299
+      ]
+    },
+    "dxc_default.png": {
+      "icon_name": "dxc",
+      "variant": "default",
+      "source_script": "itservice/dxc_default.py",
+      "size_bytes": 21446,
+      "sha256": "863d84365b5f0b489b8e6672b2c7b95339a9b9213626044144d52c6a5e85377b",
+      "bbox": [
+        26,
+        124,
+        486,
+        387
+      ]
+    },
+    "endava_default.png": {
+      "icon_name": "endava",
+      "variant": "default",
+      "source_script": "itservice/endava_default.py",
+      "size_bytes": 15735,
+      "sha256": "6c607c22d5ace599026c3a29b9841b1388531f202db40a37848db183a028395a",
+      "bbox": [
+        26,
+        149,
+        486,
+        363
+      ]
+    },
+    "epam_default.png": {
+      "icon_name": "epam",
+      "variant": "default",
+      "source_script": "itservice/epam_default.py",
+      "size_bytes": 11698,
+      "sha256": "d88df73b979dbb206967f164f4fc01fccb4c542501f61c781443198a316a8dec",
+      "bbox": [
+        26,
+        175,
+        486,
+        337
+      ]
+    },
+    "ey_default.png": {
+      "icon_name": "ey",
+      "variant": "default",
+      "source_script": "itservice/ey_default.py",
+      "size_bytes": 10625,
+      "sha256": "2e9ed579d1708c5180dd1ec7d02362069b06a05cdc6ade86fb46e2dda808b571",
+      "bbox": [
+        28,
+        26,
+        484,
+        486
+      ]
+    },
+    "fujitsu_default.png": {
+      "icon_name": "fujitsu",
+      "variant": "default",
+      "source_script": "itservice/fujitsu_default.py",
+      "size_bytes": 11569,
+      "sha256": "bf9e4faf6268ac751bbc507ed7697f3173bb9fbbd556e6ca58a12ef82994b08b",
+      "bbox": [
+        26,
+        144,
+        486,
+        368
+      ]
+    },
+    "genpact_default.png": {
+      "icon_name": "genpact",
+      "variant": "default",
+      "source_script": "itservice/genpact_default.py",
+      "size_bytes": 15005,
+      "sha256": "2da28e4e023e1389342783d8297e9873d5fa5a3d5e20907af88e18e42cbbec06",
+      "bbox": [
+        26,
+        171,
+        486,
+        340
+      ]
+    },
+    "globant_default.png": {
+      "icon_name": "globant",
+      "variant": "default",
+      "source_script": "itservice/globant_default.py",
+      "size_bytes": 17321,
+      "sha256": "88ca56dbdcac18b2cc0aa265652d52b3f5cd2d7395c2915398b4878927776e6b",
+      "bbox": [
+        26,
+        117,
+        486,
+        394
+      ]
+    },
+    "hcltech_default.png": {
+      "icon_name": "hcltech",
+      "variant": "default",
+      "source_script": "itservice/hcltech_default.py",
+      "size_bytes": 7088,
+      "sha256": "b3a165dcc72752cd087c9455b1f9790945635a745001bac781c94c012ef9e71c",
+      "bbox": [
+        26,
+        223,
+        486,
+        289
+      ]
+    },
+    "hitachi_default.png": {
+      "icon_name": "hitachi",
+      "variant": "default",
+      "source_script": "itservice/hitachi_default.py",
+      "size_bytes": 4483,
+      "sha256": "44a5d212509db41d1d950a1b3b5e9173850a88cf47e54b06e73d7a5c8f86fb1d",
+      "bbox": [
+        26,
+        219,
+        486,
+        292
+      ]
+    },
+    "ibm_default.png": {
+      "icon_name": "ibm",
+      "variant": "default",
+      "source_script": "itservice/ibm_default.py",
+      "size_bytes": 6297,
+      "sha256": "770f77f849950dc868d91df2d55ba4324c1fbbcc12c1ba346a9f442344e5badd",
+      "bbox": [
+        26,
+        170,
+        486,
+        342
+      ]
+    },
+    "indra_default.png": {
+      "icon_name": "indra",
+      "variant": "default",
+      "source_script": "itservice/indra_default.py",
+      "size_bytes": 5506,
+      "sha256": "8b0becd5e623beb59ccf9e8be8d33181a019f634822fc04c4ea2d896b8808c34",
+      "bbox": [
+        26,
+        195,
+        486,
+        316
+      ]
+    },
+    "infosys_default.png": {
+      "icon_name": "infosys",
+      "variant": "default",
+      "source_script": "itservice/infosys_default.py",
+      "size_bytes": 15809,
+      "sha256": "e279dc5e2138d7c55cf2c6deb87533751db5587398f86f44acc40a887ff1c565",
+      "bbox": [
+        26,
+        171,
+        486,
+        341
+      ]
+    },
+    "kpmg_default.png": {
+      "icon_name": "kpmg",
+      "variant": "default",
+      "source_script": "itservice/kpmg_default.py",
+      "size_bytes": 12759,
+      "sha256": "e25d08951f9f22c6ccb63ee2fd57fb647fb72a4acdaf59a0f275ca0eb0925115",
+      "bbox": [
+        26,
+        164,
+        486,
+        347
+      ]
+    },
+    "kyndryl_default.png": {
+      "icon_name": "kyndryl",
+      "variant": "default",
+      "source_script": "itservice/kyndryl_default.py",
+      "size_bytes": 11490,
+      "sha256": "16d0fba29624b4839931870d384de6da8097e6492689104ef85d46a01b220e0f",
+      "bbox": [
+        26,
+        183,
+        486,
+        329
+      ]
+    },
+    "leidos_default.png": {
+      "icon_name": "leidos",
+      "variant": "default",
+      "source_script": "itservice/leidos_default.py",
+      "size_bytes": 12800,
+      "sha256": "94a78ec30f793520663e74f44df81791ca61128697649ea2fa70fbe695dc0881",
+      "bbox": [
+        26,
+        200,
+        486,
+        312
+      ]
+    },
+    "ltimindtree_default.png": {
+      "icon_name": "ltimindtree",
+      "variant": "default",
+      "source_script": "itservice/ltimindtree_default.py",
+      "size_bytes": 22743,
+      "sha256": "b7ab59283a3d62a3dce7b38f74f26529deba64450cac8848bf24947c29e824cc",
+      "bbox": [
+        26,
+        127,
+        486,
+        385
+      ]
+    },
+    "manpower_default.png": {
+      "icon_name": "manpower",
+      "variant": "default",
+      "source_script": "itservice/manpower_default.py",
+      "size_bytes": 23169,
+      "sha256": "66273aeda23027816b86c28ff7e54ea3860b630db4f1879f74b9a912d6f081a9",
+      "bbox": [
+        26,
+        123,
+        486,
+        389
+      ]
+    },
+    "mckinsey_default.png": {
+      "icon_name": "mckinsey",
+      "variant": "default",
+      "source_script": "itservice/mckinsey_default.py",
+      "size_bytes": 21510,
+      "sha256": "6db363aea1c5840c843763e5725eaaf76c0b2e52d6ea585718e624d15b00949a",
+      "bbox": [
+        26,
+        184,
+        486,
+        327
+      ]
+    },
+    "nec_default.png": {
+      "icon_name": "nec",
+      "variant": "default",
+      "source_script": "itservice/nec_default.py",
+      "size_bytes": 8077,
+      "sha256": "b4b8b186b19b162eb775e297c8a47fea4cf5dfa1d566f73074fd52370eba5531",
+      "bbox": [
+        26,
+        194,
+        486,
+        317
+      ]
+    },
+    "nri_default.png": {
+      "icon_name": "nri",
+      "variant": "default",
+      "source_script": "itservice/nri_default.py",
+      "size_bytes": 13825,
+      "sha256": "ab3021d94642f1d1c64c65a569172a474ea9e1b74dafe0e7a30f55ddf32eb7c7",
+      "bbox": [
+        26,
+        139,
+        486,
+        373
+      ]
+    },
+    "ntt_data_default.png": {
+      "icon_name": "ntt_data",
+      "variant": "default",
+      "source_script": "itservice/ntt_data_default.py",
+      "size_bytes": 13584,
+      "sha256": "4cf5f8f03bd386e7aeee92bd26e8261c2309757f4faed1c1eb6b09e0dd0241bb",
+      "bbox": [
+        26,
+        135,
+        486,
+        377
+      ]
+    },
+    "pwc_default.png": {
+      "icon_name": "pwc",
+      "variant": "default",
+      "source_script": "itservice/pwc_default.py",
+      "size_bytes": 11402,
+      "sha256": "4b19999bc6115488c4224c96402fdff143d1bea61d7d48dc90d80f3dc2b5db53",
+      "bbox": [
+        26,
+        144,
+        486,
+        367
+      ]
+    },
+    "rackspace_default.png": {
+      "icon_name": "rackspace",
+      "variant": "default",
+      "source_script": "itservice/rackspace_default.py",
+      "size_bytes": 23443,
+      "sha256": "268a7322b927d7c89cdb49ec41b8b6c7fb85693b52f166cce49a69afe06d40b5",
+      "bbox": [
+        33,
+        26,
+        478,
+        486
+      ]
+    },
+    "randstad_default.png": {
+      "icon_name": "randstad",
+      "variant": "default",
+      "source_script": "itservice/randstad_default.py",
+      "size_bytes": 14896,
+      "sha256": "572057f0c9c5c727c891bc81ac27f61ebb26c664a7f1fa3af91bdd4dbd659f27",
+      "bbox": [
+        26,
+        140,
+        486,
+        372
+      ]
+    },
+    "slalom_default.png": {
+      "icon_name": "slalom",
+      "variant": "default",
+      "source_script": "itservice/slalom_default.py",
+      "size_bytes": 12255,
+      "sha256": "8464ebfc3b6fb58a8ffe2d1b87bb65be0b067e6d602c68a800fba74c0b1b472a",
+      "bbox": [
+        26,
+        196,
+        486,
+        316
+      ]
+    },
+    "sopra_steria_default.png": {
+      "icon_name": "sopra_steria",
+      "variant": "default",
+      "source_script": "itservice/sopra_steria_default.py",
+      "size_bytes": 18360,
+      "sha256": "87c3dffb09715c0fa90225010741e92e47fc3332dfc28259ae43cc0de4315f14",
+      "bbox": [
+        26,
+        168,
+        486,
+        344
+      ]
+    },
+    "t_systems_default.png": {
+      "icon_name": "t_systems",
+      "variant": "default",
+      "source_script": "itservice/t_systems_default.py",
+      "size_bytes": 17588,
+      "sha256": "d110fbbd6633e58d4c51b729f8123c3a08d5f2c2c132ac885ade3002e9e02091",
+      "bbox": [
+        26,
+        125,
+        486,
+        386
+      ]
+    },
+    "tcs_default.png": {
+      "icon_name": "tcs",
+      "variant": "default",
+      "source_script": "itservice/tcs_default.py",
+      "size_bytes": 22418,
+      "sha256": "f015617177a08a4d7a3b82504356df5caa479a933c9199015d6a5dff4ef9e601",
+      "bbox": [
+        26,
+        111,
+        486,
+        400
+      ]
+    },
+    "tech_mahindra_default.png": {
+      "icon_name": "tech_mahindra",
+      "variant": "default",
+      "source_script": "itservice/tech_mahindra_default.py",
+      "size_bytes": 6095,
+      "sha256": "3ede1b4ad25406776dd8d7a362c3d6faced7b4dc48ff30c9d015f7a322a0d955",
+      "bbox": [
+        26,
+        192,
+        486,
+        319
+      ]
+    },
+    "teksystems_default.png": {
+      "icon_name": "teksystems",
+      "variant": "default",
+      "source_script": "itservice/teksystems_default.py",
+      "size_bytes": 23503,
+      "sha256": "909e07976c2ded9725666f5515b35c370b9e41b361d7074bd2d7bac8877a11f4",
+      "bbox": [
+        26,
+        103,
+        486,
+        408
+      ]
+    },
+    "thoughtworks_default.png": {
+      "icon_name": "thoughtworks",
+      "variant": "default",
+      "source_script": "itservice/thoughtworks_default.py",
+      "size_bytes": 19099,
+      "sha256": "778370af1d44040d119fbdbbed008fb3b1b416db05068a3a8ff64dfdca4348cd",
+      "bbox": [
+        26,
+        149,
+        486,
+        362
+      ]
+    },
+    "tietoevry_default.png": {
+      "icon_name": "tietoevry",
+      "variant": "default",
+      "source_script": "itservice/tietoevry_default.py",
+      "size_bytes": 7092,
+      "sha256": "6138fd43134c94af236360065b3604fbb05f2a583d24e427a1853d1a4a255fd1",
+      "bbox": [
+        26,
+        176,
+        486,
+        335
+      ]
+    },
+    "wipro_default.png": {
+      "icon_name": "wipro",
+      "variant": "default",
+      "source_script": "itservice/wipro_default.py",
+      "size_bytes": 38612,
+      "sha256": "f7e72a061ec27012680745ccd34afc702d5e9f2a17a11d21bee7efe81f950acf",
+      "bbox": [
+        26,
+        72,
+        486,
+        440
+      ]
+    }
+  }
+}

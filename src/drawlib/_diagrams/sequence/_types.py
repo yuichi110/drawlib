@@ -32,6 +32,7 @@ from drawlib._diagrams.architecture._icons import (
     DevopsIcon,
     FacilityIcon,
     GcpIcon,
+    ItserviceIcon,
     NetworkIcon,
     OriginalAiIcon,
     OriginalBusinessIcon,
@@ -42,6 +43,7 @@ from drawlib._diagrams.architecture._icons import (
     OriginalDataIcon,
     OriginalDevopsIcon,
     OriginalFacilityIcon,
+    OriginalItserviceIcon,
     OriginalNetworkIcon,
     OriginalSecurityIcon,
     OriginalServerIcon,
@@ -86,6 +88,7 @@ IconType: TypeAlias = (
     | OriginalDataIcon
     | OriginalDevopsIcon
     | OriginalFacilityIcon
+    | OriginalItserviceIcon
     | OriginalNetworkIcon
     | OriginalSecurityIcon
     | OriginalServerIcon
@@ -102,6 +105,7 @@ IconType: TypeAlias = (
     | DevopsIcon
     | FacilityIcon
     | GcpIcon
+    | ItserviceIcon
     | NetworkIcon
     | PhosphorIcon
     | SecurityIcon

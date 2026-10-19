@@ -322,6 +322,26 @@ def gen_icon_original_business() -> None:
     console.print("[bold green]✓ Original Business icon bindings generated successfully![/bold green]")
 
 
+@app.command("icon-itservice")
+def gen_icon_itservice() -> None:
+    """Normalize native Drawlib IT Service icons and generate Python bindings."""
+    src_path = PROJECT_ROOT / "tools/icons_src/itservice"
+    dest_path = PROJECT_ROOT / "tools/release_assets/v0.3/icons/itservice"
+    manifest_file = write_provider_manifest("itservice", src_path, dest_path)
+    generate_original_provider_code("itservice", manifest_file=manifest_file)
+    console.print("[bold green]✓ IT Service icon bindings generated successfully![/bold green]")
+
+
+@app.command("icon-original-itservice")
+def gen_icon_original_itservice() -> None:
+    """Normalize native Drawlib Original IT Service icons and generate Python bindings."""
+    src_path = PROJECT_ROOT / "tools/icons_src/original_itservice"
+    dest_path = PROJECT_ROOT / "tools/release_assets/v0.3/icons/original_itservice"
+    manifest_file = write_provider_manifest("original_itservice", src_path, dest_path)
+    generate_original_provider_code("original_itservice", manifest_file=manifest_file)
+    console.print("[bold green]✓ Original IT Service icon bindings generated successfully![/bold green]")
+
+
 @app.command("icon-client")
 def gen_icon_client() -> None:
     """Normalize native Drawlib Client icons and generate Python bindings."""
