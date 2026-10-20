@@ -57,21 +57,6 @@ class TestNetworkIcons:
         assert p_default.endswith("cisco_router_default.png")
         assert p_modern.endswith("cisco_router_modern.png")
 
-    def test_network_cisco_aliases(self, tmp_path: Path) -> None:
-        """Verify Cisco shorthand aliases."""
-        clear()
-        network.cisco_isr_router(xy=(20, 60), width=12, style=Style())
-        network.cisco_access_switch(xy=(40, 60), width=12, style=Style())
-        network.cisco_multilayer_switch(xy=(60, 60), width=12, style=Style())
-        network.cisco_asa(xy=(80, 60), width=12, style=Style())
-        network.cisco_ap(xy=(20, 30), width=12, style=Style(), variant="modern")
-        network.cisco_wlc(xy=(40, 30), width=12, style=Style())
-        network.cisco_ucs_server(xy=(60, 30), width=12, style=Style())
-        network.cisco_workstation(xy=(80, 30), width=12, style=Style(), variant="modern")
-        out = tmp_path / "test_network_aliases.png"
-        save(str(out))
-        assert out.is_file()
-
     def test_network_architecture_diagram_enum(self, tmp_path: Path) -> None:
         """Verify NetworkIcon works inside ArchitectureDiagram nodes."""
         clear()
@@ -91,8 +76,8 @@ class TestNetworkIcons:
         save(str(out))
         assert out.is_file()
 
-    def test_network_vendor_icons_and_aliases(self, tmp_path: Path) -> None:
-        """Verify official vendor and OSS network logos and shorthand aliases."""
+    def test_network_vendor_icons(self, tmp_path: Path) -> None:
+        """Verify official vendor and OSS network logos."""
         clear()
         network.cloudflare(xy=(15, 80), width=12, style=Style())
         network.nginx(xy=(35, 80), width=12, style=Style())
@@ -108,12 +93,6 @@ class TestNetworkIcons:
         network.netgear(xy=(35, 40), width=12, style=Style())
         network.godaddy(xy=(55, 40), width=12, style=Style())
         network.lets_encrypt(xy=(75, 40), width=12, style=Style())
-
-        # Shorthand aliases
-        network.cf(xy=(15, 20), width=12, style=Style())
-        network.wg(xy=(35, 20), width=12, style=Style())
-        network.tplink(xy=(55, 20), width=12, style=Style())
-        network.pihole(xy=(75, 20), width=12, style=Style())
 
         out = tmp_path / "test_network_vendors.png"
         save(str(out))
@@ -150,21 +129,6 @@ class TestOriginalNetworkIcons:
         save(str(out))
         assert out.is_file()
 
-    def test_original_network_aliases(self, tmp_path: Path) -> None:
-        """Verify Original Network shorthand aliases."""
-        clear()
-        original_network.switch(xy=(20, 60), width=12, style=Style())
-        original_network.ap(xy=(40, 60), width=12, style=Style())
-        original_network.wlc(xy=(60, 60), width=12, style=Style())
-        original_network.ngfw(xy=(80, 60), width=12, style=Style())
-        original_network.vpn(xy=(20, 30), width=12, style=Style())
-        original_network.adc(xy=(40, 30), width=12, style=Style())
-        original_network.pbx(xy=(60, 30), width=12, style=Style())
-        original_network.workstation(xy=(80, 30), width=12, style=Style())
-        out = tmp_path / "test_original_network_aliases.png"
-        save(str(out))
-        assert out.is_file()
-
     def test_original_network_architecture_diagram_enum(self, tmp_path: Path) -> None:
         """Verify OriginalNetworkIcon works inside ArchitectureDiagram nodes."""
         clear()
@@ -184,8 +148,8 @@ class TestOriginalNetworkIcons:
         save(str(out))
         assert out.is_file()
 
-    def test_original_network_vendor_icons_and_aliases(self, tmp_path: Path) -> None:
-        """Verify 2D pastel vendor and OSS network logos and shorthand aliases."""
+    def test_original_network_vendor_icons(self, tmp_path: Path) -> None:
+        """Verify 2D pastel vendor and OSS network logos."""
         clear()
         original_network.cloudflare(xy=(15, 80), width=12, style=Style())
         original_network.nginx(xy=(35, 80), width=12, style=Style())
@@ -196,12 +160,6 @@ class TestOriginalNetworkIcons:
         original_network.tp_link(xy=(35, 50), width=12, style=Style())
         original_network.godaddy(xy=(55, 50), width=12, style=Style())
         original_network.lets_encrypt(xy=(75, 50), width=12, style=Style())
-
-        # Shorthand aliases
-        original_network.cf(xy=(15, 20), width=12, style=Style())
-        original_network.wg(xy=(35, 20), width=12, style=Style())
-        original_network.tplink(xy=(55, 20), width=12, style=Style())
-        original_network.pihole(xy=(75, 20), width=12, style=Style())
 
         out = tmp_path / "test_original_network_vendors.png"
         save(str(out))

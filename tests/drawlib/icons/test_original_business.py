@@ -123,25 +123,6 @@ class TestOriginalBusinessIcons:
         save(str(out))
         assert out.is_file()
 
-    def test_original_business_aliases(self, tmp_path: Path) -> None:
-        """Verify shorthand aliases resolve to canonical original_business icons."""
-        clear()
-        original_business.accounting(xy=(12, 70), width=8, style=Style())
-        original_business.payment(xy=(24, 70), width=8, style=Style())
-        original_business.contract_sign(xy=(36, 70), width=8, style=Style())
-        original_business.online_shop(xy=(48, 70), width=8, style=Style())
-        original_business.support_ticket(xy=(60, 70), width=8, style=Style())
-        original_business.human_resources(xy=(72, 70), width=8, style=Style())
-        original_business.cdp(xy=(84, 70), width=8, style=Style())
-        original_business.sfdc(xy=(12, 45), width=8, style=Style())
-        original_business.snow(xy=(24, 45), width=8, style=Style())
-        original_business.mf(xy=(36, 45), width=8, style=Style())
-        original_business.wp(xy=(48, 45), width=8, style=Style())
-
-        out = tmp_path / "test_original_business_aliases.png"
-        save(str(out))
-        assert out.is_file()
-
     def test_original_business_architecture_enum(self, tmp_path: Path) -> None:
         """Verify OriginalBusinessIcon works inside ArchitectureDiagram nodes."""
         clear()
@@ -171,14 +152,7 @@ class TestOriginalBusinessIcons:
         assert out.is_file()
 
     def test_original_business_provider_metadata(self) -> None:
-        """Verify provider package name and aliases mapping."""
+        """Verify provider package name."""
         assert ORIGINAL_BUSINESS_PROVIDER.name == "original_business"
         assert ORIGINAL_BUSINESS_PROVIDER.package_name == "icon_original_business"
         assert ORIGINAL_BUSINESS_PROVIDER.asset_subdir == "icons/original_business"
-        assert ORIGINAL_BUSINESS_PROVIDER.aliases["accounting"] == "accounting_ledger"
-        assert ORIGINAL_BUSINESS_PROVIDER.aliases["cdp"] == "customer_data_platform"
-        assert ORIGINAL_BUSINESS_PROVIDER.aliases["invoice"] == "billing_invoice"
-        assert ORIGINAL_BUSINESS_PROVIDER.aliases["mf"] == "moneyforward"
-        assert ORIGINAL_BUSINESS_PROVIDER.aliases["payment"] == "payment_gateway"
-        assert ORIGINAL_BUSINESS_PROVIDER.aliases["sfdc"] == "salesforce"
-        assert ORIGINAL_BUSINESS_PROVIDER.aliases["snow"] == "servicenow"

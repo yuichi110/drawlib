@@ -78,20 +78,6 @@ class TestWorkspaceIcons:
         save(str(out))
         assert out.is_file()
 
-    def test_workspace_aliases(self, tmp_path: Path) -> None:
-        """Verify shorthand aliases resolve to canonical workspace icons."""
-        clear()
-        workspace.m365(xy=(15, 70), width=10, style=Style())
-        workspace.teams(xy=(30, 70), width=10, style=Style())
-        workspace.gdrive(xy=(45, 70), width=10, style=Style())
-        workspace.gdocs(xy=(60, 70), width=10, style=Style())
-        workspace.powerbi(xy=(75, 70), width=10, style=Style())
-        workspace.gsuite(xy=(90, 70), width=10, style=Style())
-
-        out = tmp_path / "test_workspace_aliases.png"
-        save(str(out))
-        assert out.is_file()
-
     def test_workspace_architecture_enum(self, tmp_path: Path) -> None:
         """Verify WorkspaceIcon works inside ArchitectureDiagram nodes."""
         clear()
@@ -112,9 +98,6 @@ class TestWorkspaceIcons:
         assert out.is_file()
 
     def test_workspace_provider_metadata(self) -> None:
-        """Verify provider package name and aliases mapping."""
+        """Verify provider package name."""
         assert WORKSPACE_PROVIDER.name == "workspace"
         assert WORKSPACE_PROVIDER.package_name == "icon_workspace"
-        assert WORKSPACE_PROVIDER.aliases["m365"] == "microsoft_365"
-        assert WORKSPACE_PROVIDER.aliases["teams"] == "microsoft_teams"
-        assert WORKSPACE_PROVIDER.aliases["powerbi"] == "power_bi"

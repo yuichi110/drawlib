@@ -109,22 +109,6 @@ class TestCodeIcons:
         save(str(out))
         assert out.is_file()
 
-    def test_code_aliases(self, tmp_path: Path) -> None:
-        """Verify shorthand aliases resolve to canonical code icons."""
-        clear()
-        code.py(xy=(15, 70), width=10, style=Style())
-        code.ts(xy=(30, 70), width=10, style=Style())
-        code.js(xy=(45, 70), width=10, style=Style())
-        code.golang(xy=(60, 70), width=10, style=Style())
-        code.rs(xy=(75, 70), width=10, style=Style())
-        code.google_colab(xy=(90, 70), width=10, style=Style())
-        code.vs_code(xy=(15, 45), width=10, style=Style())
-        code.spring_boot(xy=(30, 45), width=10, style=Style())
-
-        out = tmp_path / "test_code_aliases.png"
-        save(str(out))
-        assert out.is_file()
-
     def test_code_architecture_enum(self, tmp_path: Path) -> None:
         """Verify CodeIcon works inside ArchitectureDiagram nodes."""
         clear()
@@ -145,9 +129,6 @@ class TestCodeIcons:
         assert out.is_file()
 
     def test_code_provider_metadata(self) -> None:
-        """Verify provider package name and aliases mapping."""
+        """Verify provider package name."""
         assert CODE_PROVIDER.name == "code"
         assert CODE_PROVIDER.package_name == "icon_code"
-        assert CODE_PROVIDER.aliases["py"] == "python"
-        assert CODE_PROVIDER.aliases["ts"] == "typescript"
-        assert CODE_PROVIDER.aliases["google_colab"] == "colab"

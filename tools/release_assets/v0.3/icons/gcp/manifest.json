@@ -11,18 +11,6 @@
     460
   ],
   "total_files": 295,
-  "aliases": {
-    "functions": "cloud_functions",
-    "gce": "compute_engine",
-    "gcs": "cloud_storage",
-    "gke": "google_kubernetes_engine",
-    "iam": "identity_and_access_management",
-    "kms": "key_management_service",
-    "vertexai": "vertex_ai",
-    "vpc": "virtual_private_cloud",
-    "load_balancing": "cloud_load_balancing",
-    "cloud_pubsub": "pubsub"
-  },
   "files": {
     "access_context_manager_default.png": {
       "icon_name": "access_context_manager",

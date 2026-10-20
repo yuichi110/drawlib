@@ -6,7 +6,7 @@ Drawlib provides over 250 high-resolution (`512×512`) **Google Cloud Platform (
 
 ## 1. Categorized GCP Icon Showcase
 
-Every GCP service is available as `gcp.<service_name>(xy, width, *, style, variant="default")` (with shorthand aliases `gcp.gce`, `gcp.gke`, `gcp.gcs`, `gcp.functions`, `gcp.iam`, `gcp.kms`, `gcp.vpc`, `gcp.vertexai`, `gcp.load_balancing`, and `gcp.cloud_pubsub`):
+Every GCP service is available as `gcp.<service_name>(xy, width, *, style, variant="default")`:
 
 ```drawlib code=fold align=center file=icons_gcp_categories.png caption="Google Cloud Architecture Icons Across Core Categories (Default 3-Tone Blue Palette)"
 from drawlib.canvas import save, setup
@@ -43,22 +43,22 @@ for row_idx, items in enumerate([row1, row2]):
 save()
 ```
 
-### 1.1. Major GCP Icon Categories & Shorthand Aliases
+### 1.1. Major GCP Icon Categories
 
 | Category | Representative `drawlib.icons.gcp` Functions |
 | :--- | :--- |
-| **Compute** | `compute_engine` *(alias: `gce`)*, `app_engine`, `batch`, `bare_metal_solutions`, `vmware_engine` |
-| **Containers & Serverless** | `google_kubernetes_engine` *(alias: `gke`)*, `cloud_run`, `cloud_functions` *(alias: `functions`)*, `anthos` |
-| **Storage** | `cloud_storage` *(alias: `gcs`)*, `filestore`, `persistent_disk`, `hyperdisk` |
+| **Compute** | `compute_engine`, `app_engine`, `batch`, `bare_metal_solutions`, `vmware_engine` |
+| **Containers & Serverless** | `google_kubernetes_engine`, `cloud_run`, `cloud_functions`, `anthos` |
+| **Storage** | `cloud_storage`, `filestore`, `persistent_disk`, `hyperdisk` |
 | **Databases** | `cloud_sql`, `cloud_spanner`, `alloydb`, `bigtable`, `firestore`, `memorystore` |
-| **Networking** | `virtual_private_cloud` *(alias: `vpc`)*, `cloud_load_balancing` *(alias: `load_balancing`)*, `cloud_cdn`, `cloud_dns`, `cloud_nat`, `cloud_interconnect` |
-| **Data & Analytics** | `bigquery`, `pubsub` *(alias: `cloud_pubsub`)*, `dataflow`, `dataproc`, `cloud_composer`, `looker` |
-| **AI & Machine Learning** | `vertex_ai` *(alias: `vertexai`)*, `ai_hypercomputer`, `automl`, `document_ai`, `cloud_vision_api`, `speech_to_text` |
-| **Security & Operations** | `cloud_armor`, `identity_and_access_management` *(alias: `iam`)*, `secret_manager`, `key_management_service` *(alias: `kms`)*, `security_command_center`, `cloud_monitoring`, `cloud_logging`, `cloud_build`, `artifact_registry` |
+| **Networking** | `virtual_private_cloud`, `cloud_load_balancing`, `cloud_cdn`, `cloud_dns`, `cloud_nat`, `cloud_interconnect` |
+| **Data & Analytics** | `bigquery`, `pubsub`, `dataflow`, `dataproc`, `cloud_composer`, `looker` |
+| **AI & Machine Learning** | `vertex_ai`, `ai_hypercomputer`, `automl`, `document_ai`, `cloud_vision_api`, `speech_to_text` |
+| **Security & Operations** | `cloud_armor`, `identity_and_access_management`, `secret_manager`, `key_management_service`, `security_command_center`, `cloud_monitoring`, `cloud_logging`, `cloud_build`, `artifact_registry` |
 
 ### 1.2. Color Variants: `variant="default"` (3-Tone Blue) vs. `variant="modern"` (4-Color)
 
-All 250+ GCP icons provide `variant="default"` (unified 3-tone blue `#4285F4` / `#669DF6` / `#AECBFA`), which is recommended when combining core services with networking, security, or specialized services so the entire diagram shares a consistent color language. For the 19 Core Products and 26 Category icons, you can pass `variant="modern"` to render the Google 4-color multi-color artwork:
+All 250 GCP icons provide `variant="default"` (unified 3-tone blue `#4285F4` / `#669DF6` / `#AECBFA`), which is recommended when combining core services with networking, security, or specialized services so the entire diagram shares a consistent color language. For the 19 Core Products and 26 Category icons, you can pass `variant="modern"` to render the Google 4-color multi-color artwork:
 
 ```drawlib code=show align=center file=icons_gcp_variants.png caption="Comparing variant='default' (3-Tone Blue) and variant='modern' (Google 4-Color) Across Core GCP Products"
 from drawlib.canvas import save, setup
@@ -71,7 +71,7 @@ setup(width=132, height=62)
 
 services = [
     ("Compute Engine", gcp.compute_engine),
-    ("GKE", gcp.gke),
+    ("GKE", gcp.google_kubernetes_engine),
     ("Cloud Run", gcp.cloud_run),
     ("BigQuery", gcp.bigquery),
 ]
@@ -224,7 +224,7 @@ grid.draw(xy=(8, 6), width=104, height=44, margin=2.0)
 
 # 2. Overlay GCP icons onto the grid cells
 gcp.cloud_load_balancing((26, 39.5), width=7.5, style=Styles.Primary)
-gcp.gke((25, 20.5), width=8.0, style=Styles.Primary)
+gcp.google_kubernetes_engine((25, 20.5), width=8.0, style=Styles.Primary)
 gcp.cloud_sql((60, 20.5), width=8.0, style=Styles.Primary)
 gcp.bigquery((95, 20.5), width=8.0, style=Styles.Primary)
 

@@ -18,46 +18,6 @@ from drawlib._core.l3_styles import Style
 from drawlib._icons.png_icons.workspace._base import _write
 
 
-def acrobat(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Workspace concept icon representing acrobat.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="adobe_acrobat", style=style, variant=variant)
-
-
-def adobe(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Workspace concept icon representing adobe.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="adobe_acrobat", style=style, variant=variant)
-
-
 def adobe_acrobat(
     xy: Coordinate,
     width: PosFloat,
@@ -138,26 +98,6 @@ def box(
     _write(xy=xy, width=width, name="box", style=style, variant=variant)
 
 
-def box_storage(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Workspace concept icon representing box storage.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="box", style=style, variant=variant)
-
-
 def canva(
     xy: Coordinate,
     width: PosFloat,
@@ -176,26 +116,6 @@ def canva(
 
     """
     _write(xy=xy, width=width, name="canva", style=style, variant=variant)
-
-
-def cisco_webex(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Workspace concept icon representing cisco webex.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="webex", style=style, variant=variant)
 
 
 def confluence(
@@ -298,106 +218,6 @@ def figma(
     _write(xy=xy, width=width, name="figma", style=style, variant=variant)
 
 
-def gcal(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Workspace concept icon representing gcal.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="google_calendar", style=style, variant=variant)
-
-
-def gchat(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Workspace concept icon representing gchat.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="google_chat", style=style, variant=variant)
-
-
-def gdocs(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Workspace concept icon representing gdocs.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="google_docs", style=style, variant=variant)
-
-
-def gdrive(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Workspace concept icon representing gdrive.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="google_drive", style=style, variant=variant)
-
-
-def gforms(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Workspace concept icon representing gforms.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="google_forms", style=style, variant=variant)
-
-
 def gmail(
     xy: Coordinate,
     width: PosFloat,
@@ -416,26 +236,6 @@ def gmail(
 
     """
     _write(xy=xy, width=width, name="gmail", style=style, variant=variant)
-
-
-def gmeet(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Workspace concept icon representing gmeet.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="google_meet", style=style, variant=variant)
 
 
 def google_calendar(
@@ -618,66 +418,6 @@ def google_workspace(
     _write(xy=xy, width=width, name="google_workspace", style=style, variant=variant)
 
 
-def gsheets(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Workspace concept icon representing gsheets.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="google_sheets", style=style, variant=variant)
-
-
-def gslides(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Workspace concept icon representing gslides.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="google_slides", style=style, variant=variant)
-
-
-def gsuite(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Workspace concept icon representing gsuite.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="google_workspace", style=style, variant=variant)
-
-
 def jira(
     xy: Coordinate,
     width: PosFloat,
@@ -716,26 +456,6 @@ def linear(
 
     """
     _write(xy=xy, width=width, name="linear", style=style, variant=variant)
-
-
-def m365(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Workspace concept icon representing m365.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="microsoft_365", style=style, variant=variant)
 
 
 def microsoft_365(
@@ -818,186 +538,6 @@ def monday(
     _write(xy=xy, width=width, name="monday", style=style, variant=variant)
 
 
-def monday_com(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Workspace concept icon representing monday com.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="monday", style=style, variant=variant)
-
-
-def ms_excel(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Workspace concept icon representing ms excel.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="excel", style=style, variant=variant)
-
-
-def ms_flow(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Workspace concept icon representing ms flow.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="power_automate", style=style, variant=variant)
-
-
-def ms_onedrive(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Workspace concept icon representing ms onedrive.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="onedrive", style=style, variant=variant)
-
-
-def ms_outlook(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Workspace concept icon representing ms outlook.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="outlook", style=style, variant=variant)
-
-
-def ms_powerpoint(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Workspace concept icon representing ms powerpoint.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="powerpoint", style=style, variant=variant)
-
-
-def ms_sharepoint(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Workspace concept icon representing ms sharepoint.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="sharepoint", style=style, variant=variant)
-
-
-def ms_teams(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Workspace concept icon representing ms teams.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="microsoft_teams", style=style, variant=variant)
-
-
-def ms_word(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Workspace concept icon representing ms word.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="word", style=style, variant=variant)
-
-
 def notion(
     xy: Coordinate,
     width: PosFloat,
@@ -1016,26 +556,6 @@ def notion(
 
     """
     _write(xy=xy, width=width, name="notion", style=style, variant=variant)
-
-
-def office_365(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Workspace concept icon representing office 365.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="microsoft_365", style=style, variant=variant)
 
 
 def onedrive(
@@ -1078,26 +598,6 @@ def outlook(
     _write(xy=xy, width=width, name="outlook", style=style, variant=variant)
 
 
-def power_apps(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Workspace concept icon representing power apps.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="power_automate", style=style, variant=variant)
-
-
 def power_automate(
     xy: Coordinate,
     width: PosFloat,
@@ -1138,26 +638,6 @@ def power_bi(
     _write(xy=xy, width=width, name="power_bi", style=style, variant=variant)
 
 
-def powerbi(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Workspace concept icon representing powerbi.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="power_bi", style=style, variant=variant)
-
-
 def powerpoint(
     xy: Coordinate,
     width: PosFloat,
@@ -1166,26 +646,6 @@ def powerpoint(
     variant: Literal["default"] = "default",
 ) -> None:
     """Draws an Workspace concept icon representing powerpoint.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="powerpoint", style=style, variant=variant)
-
-
-def ppt(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Workspace concept icon representing ppt.
 
     Args:
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
@@ -1256,26 +716,6 @@ def tableau(
 
     """
     _write(xy=xy, width=width, name="tableau", style=style, variant=variant)
-
-
-def teams(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Workspace concept icon representing teams.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="microsoft_teams", style=style, variant=variant)
 
 
 def trello(

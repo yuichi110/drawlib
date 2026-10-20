@@ -13,42 +13,10 @@ from __future__ import annotations
 
 from drawlib._icons.png_icons._base import PngIconProvider
 
-WORKSPACE_ALIASES: dict[str, str] = {
-    "acrobat": "adobe_acrobat",
-    "adobe": "adobe_acrobat",
-    "box_storage": "box",
-    "cisco_webex": "webex",
-    "gcal": "google_calendar",
-    "gchat": "google_chat",
-    "gdocs": "google_docs",
-    "gdrive": "google_drive",
-    "gforms": "google_forms",
-    "gmeet": "google_meet",
-    "gsheets": "google_sheets",
-    "gslides": "google_slides",
-    "gsuite": "google_workspace",
-    "m365": "microsoft_365",
-    "monday_com": "monday",
-    "ms_excel": "excel",
-    "ms_flow": "power_automate",
-    "ms_onedrive": "onedrive",
-    "ms_outlook": "outlook",
-    "ms_powerpoint": "powerpoint",
-    "ms_sharepoint": "sharepoint",
-    "ms_teams": "microsoft_teams",
-    "ms_word": "word",
-    "office_365": "microsoft_365",
-    "power_apps": "power_automate",
-    "powerbi": "power_bi",
-    "ppt": "powerpoint",
-    "teams": "microsoft_teams",
-}
-
 WORKSPACE_PROVIDER = PngIconProvider(
     name="workspace",
     package_name="icon_workspace",
     asset_subdir="icons/workspace",
-    aliases=WORKSPACE_ALIASES,
 )
 
 _write = WORKSPACE_PROVIDER.write

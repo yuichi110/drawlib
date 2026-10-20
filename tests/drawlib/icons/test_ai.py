@@ -65,22 +65,6 @@ class TestAiIcons:
         save(str(out))
         assert out.is_file()
 
-    def test_ai_aliases(self, tmp_path: Path) -> None:
-        """Verify AI shorthand aliases (anthropic, chatgpt, hf, llama, sk, sklearn, tf)."""
-        clear()
-        ai.anthropic(xy=(15, 60), width=12, style=Style())
-        ai.chatgpt(xy=(35, 60), width=12, style=Style())
-        ai.hf(xy=(55, 60), width=12, style=Style())
-        ai.llama(xy=(75, 60), width=12, style=Style())
-
-        ai.sk(xy=(20, 30), width=12, style=Style())
-        ai.sklearn(xy=(45, 30), width=12, style=Style())
-        ai.tf(xy=(70, 30), width=12, style=Style())
-
-        out = tmp_path / "test_ai_aliases.png"
-        save(str(out))
-        assert out.is_file()
-
     def test_ai_architecture_diagram_enum(self, tmp_path: Path) -> None:
         """Verify AiIcon works inside ArchitectureDiagram nodes."""
         clear()
@@ -122,18 +106,18 @@ class TestAiIcons:
         with pytest.raises(FileNotFoundError):
             AI_PROVIDER.get_icon_path("non_existent_ai_icon_xyz")
 
-    def test_original_ai_stylized_icons_and_aliases(self, tmp_path: Path) -> None:
-        """Verify Drawlib-stylized Original AI icons and aliases."""
+    def test_original_ai_stylized_icons(self, tmp_path: Path) -> None:
+        """Verify Drawlib-stylized Original AI icons."""
         clear()
         original_ai.openai(xy=(15, 75), width=12, style=Style())
         original_ai.claude(xy=(35, 75), width=12, style=Style())
         original_ai.gemini(xy=(55, 75), width=12, style=Style())
         original_ai.mcp(xy=(75, 75), width=12, style=Style())
 
-        original_ai.anthropic(xy=(15, 45), width=12, style=Style())
-        original_ai.chatgpt(xy=(35, 45), width=12, style=Style())
-        original_ai.sk(xy=(55, 45), width=12, style=Style())
-        original_ai.agent(xy=(75, 45), width=12, style=Style())
+        original_ai.ai_agent(xy=(15, 45), width=12, style=Style())
+        original_ai.langchain(xy=(35, 45), width=12, style=Style())
+        original_ai.semantic_kernel(xy=(55, 45), width=12, style=Style())
+        original_ai.llamaindex(xy=(75, 45), width=12, style=Style())
 
         diag = ArchitectureDiagram(
             node_style=Styles.Neutral,

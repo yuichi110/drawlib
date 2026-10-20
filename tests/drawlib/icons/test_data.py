@@ -70,23 +70,6 @@ class TestDataIcons:
         save(str(out))
         assert out.is_file()
 
-    def test_data_aliases(self, tmp_path: Path) -> None:
-        """Verify Data shorthand aliases (pg, postgres, mongo, es, mssql, oracle, rabbit, delta)."""
-        clear()
-        data.pg(xy=(20, 60), width=12, style=Style())
-        data.postgres(xy=(40, 60), width=12, style=Style())
-        data.mongo(xy=(60, 60), width=12, style=Style())
-        data.es(xy=(80, 60), width=12, style=Style())
-
-        data.mssql(xy=(20, 30), width=12, style=Style())
-        data.oracle(xy=(40, 30), width=12, style=Style())
-        data.rabbit(xy=(60, 30), width=12, style=Style())
-        data.delta(xy=(80, 30), width=12, style=Style())
-
-        out = tmp_path / "test_data_aliases.png"
-        save(str(out))
-        assert out.is_file()
-
     def test_data_architecture_diagram_enum(self, tmp_path: Path) -> None:
         """Verify DataIcon works inside ArchitectureDiagram nodes."""
         clear()
@@ -128,18 +111,18 @@ class TestDataIcons:
         with pytest.raises(FileNotFoundError):
             DATA_PROVIDER.get_icon_path("non_existent_data_icon_xyz")
 
-    def test_original_data_icons_and_aliases(self, tmp_path: Path) -> None:
-        """Verify Original Data 2D pastel icons and shorthand aliases."""
+    def test_original_data_icons(self, tmp_path: Path) -> None:
+        """Verify Original Data 2D pastel icons."""
         clear()
         original_data.postgresql(xy=(15, 75), width=12, style=Style(), variant="default")
         original_data.redis(xy=(35, 75), width=12, style=Style())
         original_data.kafka(xy=(55, 75), width=12, style=Style())
         original_data.duckdb(xy=(75, 75), width=12, style=Style())
 
-        original_data.pg(xy=(15, 45), width=12, style=Style())
-        original_data.mongo(xy=(35, 45), width=12, style=Style())
-        original_data.es(xy=(55, 45), width=12, style=Style())
-        original_data.delta(xy=(75, 45), width=12, style=Style())
+        original_data.snowflake(xy=(15, 45), width=12, style=Style())
+        original_data.mongodb(xy=(35, 45), width=12, style=Style())
+        original_data.elasticsearch(xy=(55, 45), width=12, style=Style())
+        original_data.delta_lake(xy=(75, 45), width=12, style=Style())
 
         out = tmp_path / "test_original_data.png"
         save(str(out))

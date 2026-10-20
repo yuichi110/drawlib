@@ -13,41 +13,10 @@ from __future__ import annotations
 
 from drawlib._icons.png_icons._base import PngIconProvider
 
-CLOUD_ALIASES: dict[str, str] = {
-    "alibaba_group": "alibaba",
-    "aliyun": "alibaba_cloud",
-    "alphabet": "google",
-    "amazon_corp": "amazon",
-    "amazon_web_services": "aws",
-    "b2": "backblaze",
-    "backblaze_b2": "backblaze",
-    "cf": "cloudflare",
-    "deno": "deno_deploy",
-    "do": "digitalocean",
-    "fjcloud": "nifcloud",
-    "flyio": "fly_io",
-    "gcp": "google_cloud",
-    "gmo_conoha": "conoha",
-    "huawei_corp": "huawei",
-    "idcf_cloud": "idcf",
-    "kagoya_cloud": "kagoya",
-    "microsoft_azure": "azure",
-    "ms_azure": "azure",
-    "oci": "oracle_cloud",
-    "oracle_corp": "oracle",
-    "ovh": "ovhcloud",
-    "railway_app": "railway",
-    "render_cloud": "render",
-    "sakura_cloud": "sakura",
-    "sakura_internet": "sakura",
-    "tencent_corp": "tencent",
-}
-
 CLOUD_PROVIDER = PngIconProvider(
     name="cloud",
     package_name="icon_cloud",
     asset_subdir="icons/cloud",
-    aliases=CLOUD_ALIASES,
 )
 
 _write = CLOUD_PROVIDER.write

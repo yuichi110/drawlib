@@ -69,21 +69,6 @@ class TestServerIcons:
         save(str(out))
         assert out.is_file()
 
-    def test_server_aliases(self, tmp_path: Path) -> None:
-        """Verify Dell EMC and VMware shorthand aliases."""
-        clear()
-        server.dell_poweredge(xy=(20, 60), width=12, style=Style())
-        server.dell_idrac(xy=(40, 60), width=12, style=Style())
-        server.dell_powerstore(xy=(60, 60), width=12, style=Style())
-        server.dell_powerscale(xy=(80, 60), width=12, style=Style())
-        server.vmware_hypervisor(xy=(20, 30), width=12, style=Style())
-        server.vmware_virtual_machine(xy=(40, 30), width=12, style=Style())
-        server.vmware_dvs(xy=(60, 30), width=12, style=Style())
-        server.vmware_vsan(xy=(80, 30), width=12, style=Style())
-        out = tmp_path / "test_server_aliases.png"
-        save(str(out))
-        assert out.is_file()
-
     def test_server_architecture_diagram_enum(self, tmp_path: Path) -> None:
         """Verify ServerIcon works inside ArchitectureDiagram nodes."""
         clear()
@@ -103,7 +88,7 @@ class TestServerIcons:
         save(str(out))
         assert out.is_file()
 
-    def test_server_vendor_and_os_icons_and_aliases(self, tmp_path: Path) -> None:
+    def test_server_vendor_and_os_icons(self, tmp_path: Path) -> None:
         """Verify official server vendor, chip, SBC, OS, virtualization, and storage icons."""
         clear()
         server.dell(xy=(15, 80), width=12, style=Style())
@@ -120,12 +105,6 @@ class TestServerIcons:
         server.kvm(xy=(35, 40), width=12, style=Style())
         server.synology(xy=(55, 40), width=12, style=Style())
         server.veeam(xy=(75, 40), width=12, style=Style())
-
-        # Shorthand aliases
-        server.rpi(xy=(15, 20), width=12, style=Style())
-        server.tux(xy=(35, 20), width=12, style=Style())
-        server.pve(xy=(55, 20), width=12, style=Style())
-        server.zfs(xy=(75, 20), width=12, style=Style())
 
         out = tmp_path / "test_server_vendors_os.png"
         save(str(out))
@@ -162,21 +141,6 @@ class TestOriginalServerIcons:
         save(str(out))
         assert out.is_file()
 
-    def test_original_server_aliases(self, tmp_path: Path) -> None:
-        """Verify Original Server shorthand aliases (including san_switch, esxi_host, vcenter, vsan)."""
-        clear()
-        original_server.san_switch(xy=(20, 60), width=12, style=Style())
-        original_server.esxi_host(xy=(40, 60), width=12, style=Style())
-        original_server.vm(xy=(60, 60), width=12, style=Style())
-        original_server.vcenter(xy=(80, 60), width=12, style=Style())
-        original_server.vmotion(xy=(20, 30), width=12, style=Style())
-        original_server.vswitch(xy=(40, 30), width=12, style=Style())
-        original_server.vsan(xy=(60, 30), width=12, style=Style())
-        original_server.block_storage(xy=(80, 30), width=12, style=Style())
-        out = tmp_path / "test_original_server_aliases.png"
-        save(str(out))
-        assert out.is_file()
-
     def test_original_server_architecture_diagram_enum(self, tmp_path: Path) -> None:
         """Verify OriginalServerIcon works inside ArchitectureDiagram nodes."""
         clear()
@@ -188,7 +152,7 @@ class TestOriginalServerIcons:
         )
         n1 = diag.add(Node("Manager", width=20, height=20, icon=OriginalServerIcon.MANAGEMENT_SERVER), (20, 50))
         n2 = diag.add(Node("Host", width=20, height=20, icon=OriginalServerIcon.HYPERVISOR_HOST), (50, 50))
-        n3 = diag.add(Node("SAN SW", width=20, height=20, icon=OriginalServerIcon.SAN_SWITCH), (80, 50))
+        n3 = diag.add(Node("SAN SW", width=20, height=20, icon=OriginalServerIcon.FC_SWITCH), (80, 50))
         diag.connect(n1, n2)
         diag.connect(n2, n3)
         diag.draw((5, 10))
@@ -196,7 +160,7 @@ class TestOriginalServerIcons:
         save(str(out))
         assert out.is_file()
 
-    def test_original_server_vendor_and_os_icons_and_aliases(self, tmp_path: Path) -> None:
+    def test_original_server_vendor_and_os_icons(self, tmp_path: Path) -> None:
         """Verify 2D pastel server vendor, chip, SBC, OS, virtualization, and storage icons."""
         clear()
         original_server.dell(xy=(15, 80), width=12, style=Style())
@@ -213,12 +177,6 @@ class TestOriginalServerIcons:
         original_server.kvm(xy=(35, 40), width=12, style=Style())
         original_server.synology(xy=(55, 40), width=12, style=Style())
         original_server.openzfs(xy=(75, 40), width=12, style=Style())
-
-        # Shorthand aliases
-        original_server.rpi(xy=(15, 20), width=12, style=Style())
-        original_server.tux(xy=(35, 20), width=12, style=Style())
-        original_server.pve(xy=(55, 20), width=12, style=Style())
-        original_server.beagleboard(xy=(75, 20), width=12, style=Style())
 
         out = tmp_path / "test_original_server_vendors_os.png"
         save(str(out))

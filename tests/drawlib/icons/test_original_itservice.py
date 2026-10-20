@@ -111,25 +111,6 @@ class TestOriginalItserviceIcons:
         save(str(out))
         assert out.is_file()
 
-    def test_original_itservice_aliases(self, tmp_path: Path) -> None:
-        """Verify shorthand aliases resolve to canonical original_itservice icons."""
-        clear()
-        original_itservice.sier(xy=(12, 70), width=8, style=Style())
-        original_itservice.ses(xy=(24, 70), width=8, style=Style())
-        original_itservice.pmo(xy=(36, 70), width=8, style=Style())
-        original_itservice.msp(xy=(48, 70), width=8, style=Style())
-        original_itservice.bpo(xy=(60, 70), width=8, style=Style())
-        original_itservice.raci(xy=(72, 70), width=8, style=Style())
-        original_itservice.sla(xy=(84, 70), width=8, style=Style())
-        original_itservice.acn(xy=(12, 45), width=8, style=Style())
-        original_itservice.nttdata(xy=(24, 45), width=8, style=Style())
-        original_itservice.hcl(xy=(36, 45), width=8, style=Style())
-        original_itservice.bah(xy=(48, 45), width=8, style=Style())
-
-        out = tmp_path / "test_original_itservice_aliases.png"
-        save(str(out))
-        assert out.is_file()
-
     def test_original_itservice_architecture_enum(self, tmp_path: Path) -> None:
         """Verify OriginalItserviceIcon works inside ArchitectureDiagram nodes."""
         clear()
@@ -159,16 +140,7 @@ class TestOriginalItserviceIcons:
         assert out.is_file()
 
     def test_original_itservice_provider_metadata(self) -> None:
-        """Verify provider package name and aliases mapping."""
+        """Verify provider package name."""
         assert ORIGINAL_ITSERVICE_PROVIDER.name == "original_itservice"
         assert ORIGINAL_ITSERVICE_PROVIDER.package_name == "icon_original_itservice"
         assert ORIGINAL_ITSERVICE_PROVIDER.asset_subdir == "icons/original_itservice"
-        assert ORIGINAL_ITSERVICE_PROVIDER.aliases["acn"] == "accenture"
-        assert ORIGINAL_ITSERVICE_PROVIDER.aliases["bpo"] == "bpo_center"
-        assert ORIGINAL_ITSERVICE_PROVIDER.aliases["msp"] == "msp_operations"
-        assert ORIGINAL_ITSERVICE_PROVIDER.aliases["nttdata"] == "ntt_data"
-        assert ORIGINAL_ITSERVICE_PROVIDER.aliases["pmo"] == "pmo_office"
-        assert ORIGINAL_ITSERVICE_PROVIDER.aliases["raci"] == "raci_matrix"
-        assert ORIGINAL_ITSERVICE_PROVIDER.aliases["ses"] == "ses_engineer"
-        assert ORIGINAL_ITSERVICE_PROVIDER.aliases["sier"] == "system_integrator"
-        assert ORIGINAL_ITSERVICE_PROVIDER.aliases["sla"] == "sla_contract"

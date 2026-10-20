@@ -91,20 +91,6 @@ class TestSocialIcons:
         save(str(out))
         assert out.is_file()
 
-    def test_social_aliases(self, tmp_path: Path) -> None:
-        """Verify shorthand aliases resolve to canonical social icons."""
-        clear()
-        social.twitter(xy=(15, 70), width=10, style=Style())
-        social.ig(xy=(30, 70), width=10, style=Style())
-        social.fb(xy=(45, 70), width=10, style=Style())
-        social.yt(xy=(60, 70), width=10, style=Style())
-        social.ga4(xy=(75, 70), width=10, style=Style())
-        social.gtm(xy=(90, 70), width=10, style=Style())
-
-        out = tmp_path / "test_social_aliases.png"
-        save(str(out))
-        assert out.is_file()
-
     def test_social_architecture_enum(self, tmp_path: Path) -> None:
         """Verify SocialIcon works inside ArchitectureDiagram nodes."""
         clear()
@@ -125,12 +111,6 @@ class TestSocialIcons:
         assert out.is_file()
 
     def test_social_provider_metadata(self) -> None:
-        """Verify provider package name and aliases mapping."""
+        """Verify provider package name."""
         assert SOCIAL_PROVIDER.name == "social"
         assert SOCIAL_PROVIDER.package_name == "icon_social"
-        assert SOCIAL_PROVIDER.aliases["twitter"] == "x"
-        assert SOCIAL_PROVIDER.aliases["ig"] == "instagram"
-        assert SOCIAL_PROVIDER.aliases["fb"] == "facebook"
-        assert SOCIAL_PROVIDER.aliases["yt"] == "youtube"
-        assert SOCIAL_PROVIDER.aliases["ga4"] == "google_analytics"
-        assert SOCIAL_PROVIDER.aliases["gtm"] == "google_tag_manager"

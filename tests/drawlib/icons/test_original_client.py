@@ -132,23 +132,6 @@ class TestOriginalClientIcons:
         save(str(out))
         assert out.is_file()
 
-    def test_original_client_aliases(self, tmp_path: Path) -> None:
-        """Verify shorthand aliases resolve to canonical original_client icons."""
-        clear()
-        original_client.pc(xy=(10, 70), width=7, style=Style())
-        original_client.macbook(xy=(20, 70), width=7, style=Style())
-        original_client.ipad(xy=(30, 70), width=7, style=Style())
-        original_client.excavator(xy=(40, 70), width=7, style=Style())
-        original_client.robot_arm(xy=(50, 70), width=7, style=Style())
-        original_client.google_chrome(xy=(60, 70), width=7, style=Style())
-        original_client.cat(xy=(70, 70), width=7, style=Style())
-        original_client.smart_glass(xy=(80, 70), width=7, style=Style())
-        original_client.oura_ring(xy=(90, 70), width=7, style=Style())
-
-        out = tmp_path / "test_original_client_aliases.png"
-        save(str(out))
-        assert out.is_file()
-
     def test_original_client_architecture_enum(self, tmp_path: Path) -> None:
         """Verify OriginalClientIcon works inside ArchitectureDiagram nodes."""
         clear()
@@ -169,9 +152,6 @@ class TestOriginalClientIcons:
         assert out.is_file()
 
     def test_original_client_provider_metadata(self) -> None:
-        """Verify provider package name and aliases mapping."""
+        """Verify provider package name."""
         assert ORIGINAL_CLIENT_PROVIDER.name == "original_client"
         assert ORIGINAL_CLIENT_PROVIDER.package_name == "icon_original_client"
-        assert ORIGINAL_CLIENT_PROVIDER.aliases["pc"] == "desktop_pc"
-        assert ORIGINAL_CLIENT_PROVIDER.aliases["excavator"] == "heavy_machinery"
-        assert ORIGINAL_CLIENT_PROVIDER.aliases["google_chrome"] == "chrome"

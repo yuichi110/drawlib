@@ -12,7 +12,6 @@
 from pathlib import Path
 
 from drawlib._icons.png_icons.original_code._base import (
-    ORIGINAL_CODE_ALIASES,
     ORIGINAL_CODE_PROVIDER,
 )
 from drawlib.canvas import clear, save
@@ -26,7 +25,7 @@ class TestOriginalCodeIcons:
     """Tests for `drawlib.icons.original_code` and `OriginalCodeIcon`."""
 
     def test_original_code_all_icons(self, tmp_path: Path) -> None:
-        """Verify all 121 canonical icons (24 concepts + 97 brands) and 99 aliases exist and render."""
+        """Verify all 121 canonical icons (24 concepts + 97 brands) exist and render."""
         clear()
         canonical_121 = [
             "source_code",
@@ -160,28 +159,7 @@ class TestOriginalCodeIcons:
             fn = getattr(original_code, name)
             fn(xy=(6 + col * 7.2, 92 - row * 9.0), width=5.5, style=Style(), variant="default")
 
-        assert len(ORIGINAL_CODE_ALIASES) == 99
-        for alias in ORIGINAL_CODE_ALIASES:
-            assert hasattr(original_code, alias), f"Missing alias function: {alias}"
-            assert hasattr(OriginalCodeIcon, alias.upper()), f"Missing alias enum: {alias.upper()}"
-
         out = tmp_path / "test_original_code_all.png"
-        save(str(out))
-        assert out.is_file()
-
-    def test_original_code_aliases(self, tmp_path: Path) -> None:
-        """Verify shorthand aliases resolve to canonical original_code icons."""
-        clear()
-        original_code.code_file(xy=(15, 70), width=10, style=Style())
-        original_code.http_api(xy=(30, 70), width=10, style=Style())
-        original_code.py(xy=(45, 70), width=10, style=Style())
-        original_code.ts(xy=(60, 70), width=10, style=Style())
-        original_code.golang(xy=(75, 70), width=10, style=Style())
-        original_code.google_colab(xy=(90, 70), width=10, style=Style())
-        original_code.vs_code(xy=(15, 45), width=10, style=Style())
-        original_code.lambda_func(xy=(30, 45), width=10, style=Style())
-
-        out = tmp_path / "test_original_code_aliases.png"
         save(str(out))
         assert out.is_file()
 
@@ -208,10 +186,7 @@ class TestOriginalCodeIcons:
         assert out.is_file()
 
     def test_original_code_provider_metadata(self) -> None:
-        """Verify provider package name and aliases mapping."""
+        """Verify provider package name."""
         assert ORIGINAL_CODE_PROVIDER.name == "original_code"
         assert ORIGINAL_CODE_PROVIDER.package_name == "icon_original_code"
         assert ORIGINAL_CODE_PROVIDER.asset_subdir == "icons/original_code"
-        assert ORIGINAL_CODE_PROVIDER.aliases["py"] == "python"
-        assert ORIGINAL_CODE_PROVIDER.aliases["http_api"] == "rest_api"
-        assert ORIGINAL_CODE_PROVIDER.aliases["google_colab"] == "colab"

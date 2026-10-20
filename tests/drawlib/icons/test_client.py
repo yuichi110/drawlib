@@ -97,23 +97,6 @@ class TestClientIcons:
         save(str(out))
         assert out.is_file()
 
-    def test_client_aliases(self, tmp_path: Path) -> None:
-        """Verify shorthand aliases resolve to canonical client icons."""
-        clear()
-        client.google_chrome(xy=(10, 70), width=7, style=Style())
-        client.google_play(xy=(20, 70), width=7, style=Style())
-        client.echo(xy=(30, 70), width=7, style=Style())
-        client.switch(xy=(40, 70), width=7, style=Style())
-        client.ps5(xy=(50, 70), width=7, style=Style())
-        client.cat(xy=(60, 70), width=7, style=Style())
-        client.deere(xy=(70, 70), width=7, style=Style())
-        client.simatic(xy=(80, 70), width=7, style=Style())
-        client.usb_c(xy=(90, 70), width=7, style=Style())
-
-        out = tmp_path / "test_client_aliases.png"
-        save(str(out))
-        assert out.is_file()
-
     def test_client_architecture_enum(self, tmp_path: Path) -> None:
         """Verify ClientIcon works inside ArchitectureDiagram nodes."""
         clear()
@@ -134,9 +117,6 @@ class TestClientIcons:
         assert out.is_file()
 
     def test_client_provider_metadata(self) -> None:
-        """Verify provider package name and aliases mapping."""
+        """Verify provider package name."""
         assert CLIENT_PROVIDER.name == "client"
         assert CLIENT_PROVIDER.package_name == "icon_client"
-        assert CLIENT_PROVIDER.aliases["google_chrome"] == "chrome"
-        assert CLIENT_PROVIDER.aliases["google_play"] == "play_store"
-        assert CLIENT_PROVIDER.aliases["echo"] == "alexa"

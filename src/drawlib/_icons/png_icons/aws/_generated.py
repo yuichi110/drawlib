@@ -18,26 +18,6 @@ from drawlib._core.l3_styles import Style
 from drawlib._icons.png_icons.aws._base import _write
 
 
-def acm(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an AWS concept icon representing acm.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="certificate_manager", style=style, variant=variant)
-
-
 def activate(
     xy: Coordinate,
     width: PosFloat,
@@ -56,26 +36,6 @@ def activate(
 
     """
     _write(xy=xy, width=width, name="activate", style=style, variant=variant)
-
-
-def alb(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an AWS concept icon representing alb.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="elastic_load_balancing", style=style, variant=variant)
 
 
 def amplify(
@@ -126,26 +86,6 @@ def api_gateway(
     variant: Literal["default"] = "default",
 ) -> None:
     """Draws an AWS concept icon representing api gateway.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="api_gateway", style=style, variant=variant)
-
-
-def apigw(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an AWS concept icon representing apigw.
 
     Args:
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
@@ -1238,26 +1178,6 @@ def category_storage(
     _write(xy=xy, width=width, name="category_storage", style=style, variant=variant)
 
 
-def cdk(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an AWS concept icon representing cdk.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="cloud_development_kit", style=style, variant=variant)
-
-
 def certificate_manager(
     xy: Coordinate,
     width: PosFloat,
@@ -1356,26 +1276,6 @@ def clean_rooms(
 
     """
     _write(xy=xy, width=width, name="clean_rooms", style=style, variant=variant)
-
-
-def cli(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an AWS concept icon representing cli.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="command_line_interface", style=style, variant=variant)
 
 
 def client_vpn(
@@ -1658,26 +1558,6 @@ def cloudwatch(
     _write(xy=xy, width=width, name="cloudwatch", style=style, variant=variant)
 
 
-def cloudwatch_logs(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an AWS concept icon representing cloudwatch logs.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="cloudwatch", style=style, variant=variant)
-
-
 def codeartifact(
     xy: Coordinate,
     width: PosFloat,
@@ -1846,26 +1726,6 @@ def cognito(
     variant: Literal["default"] = "default",
 ) -> None:
     """Draws an AWS concept icon representing cognito.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="cognito", style=style, variant=variant)
-
-
-def cognito_id(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an AWS concept icon representing cognito id.
 
     Args:
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
@@ -2458,26 +2318,6 @@ def distro_for_opentelemetry(
     _write(xy=xy, width=width, name="distro_for_opentelemetry", style=style, variant=variant)
 
 
-def dms(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an AWS concept icon representing dms.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="database_migration_service", style=style, variant=variant)
-
-
 def documentdb(
     xy: Coordinate,
     width: PosFloat,
@@ -2516,26 +2356,6 @@ def dynamodb(
 
     """
     _write(xy=xy, width=width, name="dynamodb", style=style, variant=variant)
-
-
-def ebs(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an AWS concept icon representing ebs.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="elastic_block_store", style=style, variant=variant)
 
 
 def ec2(
@@ -2598,46 +2418,6 @@ def ec2_image_builder(
     _write(xy=xy, width=width, name="ec2_image_builder", style=style, variant=variant)
 
 
-def ecr(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an AWS concept icon representing ecr.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="elastic_container_registry", style=style, variant=variant)
-
-
-def ecs(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an AWS concept icon representing ecs.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="elastic_container_service", style=style, variant=variant)
-
-
 def ecs_anywhere(
     xy: Coordinate,
     width: PosFloat,
@@ -2676,26 +2456,6 @@ def efs(
 
     """
     _write(xy=xy, width=width, name="efs", style=style, variant=variant)
-
-
-def eks(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an AWS concept icon representing eks.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="elastic_kubernetes_service", style=style, variant=variant)
 
 
 def eks_anywhere(
@@ -2858,26 +2618,6 @@ def elastic_fabric_adapter(
     _write(xy=xy, width=width, name="elastic_fabric_adapter", style=style, variant=variant)
 
 
-def elastic_file_system(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an AWS concept icon representing elastic file system.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="efs", style=style, variant=variant)
-
-
 def elastic_inference(
     xy: Coordinate,
     width: PosFloat,
@@ -2976,26 +2716,6 @@ def elasticache(
 
     """
     _write(xy=xy, width=width, name="elasticache", style=style, variant=variant)
-
-
-def elb(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an AWS concept icon representing elb.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="elastic_load_balancing", style=style, variant=variant)
 
 
 def elemental_appliances_software(
@@ -3338,26 +3058,6 @@ def eventbridge(
     _write(xy=xy, width=width, name="eventbridge", style=style, variant=variant)
 
 
-def eventbridge_bus(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an AWS concept icon representing eventbridge bus.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="eventbridge", style=style, variant=variant)
-
-
 def express_workflows(
     xy: Coordinate,
     width: PosFloat,
@@ -3496,26 +3196,6 @@ def firewall_manager(
 
     """
     _write(xy=xy, width=width, name="firewall_manager", style=style, variant=variant)
-
-
-def flink(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an AWS concept icon representing flink.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="managed_service_for_apache_flink", style=style, variant=variant)
 
 
 def forecast(
@@ -3916,26 +3596,6 @@ def healthscribe(
 
     """
     _write(xy=xy, width=width, name="healthscribe", style=style, variant=variant)
-
-
-def iam(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an AWS concept icon representing iam.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="identity_and_access_management", style=style, variant=variant)
 
 
 def iam_identity_center(
@@ -4378,26 +4038,6 @@ def kinesis_video_streams(
     _write(xy=xy, width=width, name="kinesis_video_streams", style=style, variant=variant)
 
 
-def kms(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an AWS concept icon representing kms.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="key_management_service", style=style, variant=variant)
-
-
 def lake_formation(
     xy: Coordinate,
     width: PosFloat,
@@ -4416,26 +4056,6 @@ def lake_formation(
 
     """
     _write(xy=xy, width=width, name="lake_formation", style=style, variant=variant)
-
-
-def lambda_function(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an AWS concept icon representing lambda function.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="aws_lambda", style=style, variant=variant)
 
 
 def launch_wizard(
@@ -4938,26 +4558,6 @@ def mq(
     _write(xy=xy, width=width, name="mq", style=style, variant=variant)
 
 
-def msk(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an AWS concept icon representing msk.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="managed_streaming_for_apache_kafka", style=style, variant=variant)
-
-
 def neptune(
     xy: Coordinate,
     width: PosFloat,
@@ -5038,26 +4638,6 @@ def nitro_enclaves(
     _write(xy=xy, width=width, name="nitro_enclaves", style=style, variant=variant)
 
 
-def nlb(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an AWS concept icon representing nlb.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="elastic_load_balancing", style=style, variant=variant)
-
-
 def nova(
     xy: Coordinate,
     width: PosFloat,
@@ -5096,26 +4676,6 @@ def open_3d_engine(
 
     """
     _write(xy=xy, width=width, name="open_3d_engine", style=style, variant=variant)
-
-
-def opensearch(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an AWS concept icon representing opensearch.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="opensearch_service", style=style, variant=variant)
 
 
 def opensearch_service(
@@ -5478,26 +5038,6 @@ def professional_services(
     _write(xy=xy, width=width, name="professional_services", style=style, variant=variant)
 
 
-def prometheus(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an AWS concept icon representing prometheus.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="managed_service_for_prometheus", style=style, variant=variant)
-
-
 def proton(
     xy: Coordinate,
     width: PosFloat,
@@ -5576,26 +5116,6 @@ def quick(
 
     """
     _write(xy=xy, width=width, name="quick", style=style, variant=variant)
-
-
-def ram(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an AWS concept icon representing ram.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="resource_access_manager", style=style, variant=variant)
 
 
 def rds(
@@ -5798,26 +5318,6 @@ def resource_explorer(
     _write(xy=xy, width=width, name="resource_explorer", style=style, variant=variant)
 
 
-def route53(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an AWS concept icon representing route53.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="route_53", style=style, variant=variant)
-
-
 def route_53(
     xy: Coordinate,
     width: PosFloat,
@@ -5856,46 +5356,6 @@ def rtb_fabric(
 
     """
     _write(xy=xy, width=width, name="rtb_fabric", style=style, variant=variant)
-
-
-def s3(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an AWS concept icon representing s3.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="simple_storage_service", style=style, variant=variant)
-
-
-def s3_glacier(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an AWS concept icon representing s3 glacier.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="simple_storage_service_glacier", style=style, variant=variant)
 
 
 def s3_on_outposts(
@@ -6178,26 +5638,6 @@ def service_management_connector(
     _write(xy=xy, width=width, name="service_management_connector", style=style, variant=variant)
 
 
-def ses(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an AWS concept icon representing ses.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="simple_email_service", style=style, variant=variant)
-
-
 def shield(
     xy: Coordinate,
     width: PosFloat,
@@ -6418,46 +5858,6 @@ def snowball_edge(
     _write(xy=xy, width=width, name="snowball_edge", style=style, variant=variant)
 
 
-def sns(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an AWS concept icon representing sns.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="simple_notification_service", style=style, variant=variant)
-
-
-def sqs(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an AWS concept icon representing sqs.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="simple_queue_service", style=style, variant=variant)
-
-
 def step_functions(
     xy: Coordinate,
     width: PosFloat,
@@ -6466,26 +5866,6 @@ def step_functions(
     variant: Literal["default"] = "default",
 ) -> None:
     """Draws an AWS concept icon representing step functions.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="step_functions", style=style, variant=variant)
-
-
-def step_functions_workflow(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an AWS concept icon representing step functions workflow.
 
     Args:
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
@@ -7006,26 +6386,6 @@ def virtual_private_cloud(
     variant: Literal["default"] = "default",
 ) -> None:
     """Draws an AWS concept icon representing virtual private cloud.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="virtual_private_cloud", style=style, variant=variant)
-
-
-def vpc(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an AWS concept icon representing vpc.
 
     Args:
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.

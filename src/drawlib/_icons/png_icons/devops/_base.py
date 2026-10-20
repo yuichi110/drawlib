@@ -13,37 +13,10 @@ from __future__ import annotations
 
 from drawlib._icons.png_icons._base import PngIconProvider
 
-DEVOPS_ALIASES: dict[str, str] = {
-    "actions": "github_actions",
-    "artifactory": "jfrog",
-    "bb": "bitbucket",
-    "circle": "circleci",
-    "dd": "datadog",
-    "fluentbit": "fluent_bit",
-    "gh": "github",
-    "gha": "github_actions",
-    "gl": "gitlab",
-    "grafana_mimir": "mimir",
-    "grafana_tempo": "tempo",
-    "hashicorp_consul": "consul",
-    "hashicorp_vault": "vault",
-    "nr": "new_relic",
-    "pd": "pagerduty",
-    "pw": "playwright",
-    "sonar": "sonarqube",
-    "sonatype_nexus": "nexus",
-    "tf": "terraform",
-    "tofu": "opentofu",
-    "turbo": "turborepo",
-    "victoriametrics": "victoria_metrics",
-    "vm_metrics": "victoria_metrics",
-}
-
 DEVOPS_PROVIDER = PngIconProvider(
     name="devops",
     package_name="icon_devops",
     asset_subdir="icons/devops",
-    aliases=DEVOPS_ALIASES,
 )
 
 _write = DEVOPS_PROVIDER.write

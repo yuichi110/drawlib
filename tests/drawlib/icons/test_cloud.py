@@ -78,21 +78,6 @@ class TestCloudIcons:
         save(str(out))
         assert out.is_file()
 
-    def test_cloud_aliases(self, tmp_path: Path) -> None:
-        """Verify shorthand aliases resolve to canonical cloud icons."""
-        clear()
-        cloud.gcp(xy=(12, 70), width=8, style=Style())
-        cloud.oci(xy=(24, 70), width=8, style=Style())
-        cloud.aliyun(xy=(36, 70), width=8, style=Style())
-        cloud.cf(xy=(48, 70), width=8, style=Style())
-        cloud.do(xy=(60, 70), width=8, style=Style())
-        cloud.flyio(xy=(72, 70), width=8, style=Style())
-        cloud.sakura_cloud(xy=(84, 70), width=8, style=Style())
-
-        out = tmp_path / "test_cloud_aliases.png"
-        save(str(out))
-        assert out.is_file()
-
     def test_cloud_architecture_enum(self, tmp_path: Path) -> None:
         """Verify CloudIcon and OriginalCloudIcon work inside ArchitectureDiagram nodes."""
         clear()
@@ -113,15 +98,11 @@ class TestCloudIcons:
         assert out.is_file()
 
     def test_cloud_provider_metadata(self) -> None:
-        """Verify provider package name and aliases mapping."""
+        """Verify provider package name."""
         assert CLOUD_PROVIDER.name == "cloud"
         assert CLOUD_PROVIDER.package_name == "icon_cloud"
-        assert CLOUD_PROVIDER.aliases["gcp"] == "google_cloud"
-        assert CLOUD_PROVIDER.aliases["cf"] == "cloudflare"
-        assert CLOUD_PROVIDER.aliases["sakura_cloud"] == "sakura"
-        assert ORIGINAL_CLOUD_PROVIDER.aliases["generic_cloud"] == "cloud"
-        assert ORIGINAL_CLOUD_PROVIDER.aliases["multicloud"] == "multi_cloud"
-        assert ORIGINAL_CLOUD_PROVIDER.aliases["cf"] == "cloudflare"
+        assert ORIGINAL_CLOUD_PROVIDER.name == "original_cloud"
+        assert ORIGINAL_CLOUD_PROVIDER.package_name == "icon_original_cloud"
 
     def test_original_cloud_pure_and_brand_icons(self, tmp_path: Path) -> None:
         """Verify new pure cloud concepts and brand icons in original_cloud."""

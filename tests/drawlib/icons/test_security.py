@@ -103,22 +103,6 @@ class TestSecurityIcons:
         save(str(out))
         assert out.is_file()
 
-    def test_security_aliases(self, tmp_path: Path) -> None:
-        """Verify common shorthand aliases resolve to canonical security icons."""
-        clear()
-        security.azure_ad(xy=(15, 70), width=10, style=Style())
-        security.falcon(xy=(30, 70), width=10, style=Style())
-        security.defender(xy=(45, 70), width=10, style=Style())
-        security.panw(xy=(60, 70), width=10, style=Style())
-        security.chronicle(xy=(75, 70), width=10, style=Style())
-        security.yubikey(xy=(90, 70), width=10, style=Style())
-        security.gpg(xy=(15, 45), width=10, style=Style())
-        security.burp(xy=(30, 45), width=10, style=Style())
-
-        out = tmp_path / "test_security_aliases.png"
-        save(str(out))
-        assert out.is_file()
-
     def test_security_architecture_enum(self, tmp_path: Path) -> None:
         """Verify SecurityIcon works inside ArchitectureDiagram nodes."""
         clear()
@@ -139,12 +123,9 @@ class TestSecurityIcons:
         assert out.is_file()
 
     def test_security_provider_metadata(self) -> None:
-        """Verify provider package name and aliases mapping."""
+        """Verify provider package name."""
         assert SECURITY_PROVIDER.name == "security"
         assert SECURITY_PROVIDER.package_name == "icon_security"
-        assert SECURITY_PROVIDER.aliases["azure_ad"] == "entra_id"
-        assert SECURITY_PROVIDER.aliases["falcon"] == "crowdstrike"
-        assert SECURITY_PROVIDER.aliases["gpg"] == "gnupg"
 
 
 class TestOriginalSecurityIcons:
@@ -260,28 +241,6 @@ class TestOriginalSecurityIcons:
         save(str(out))
         assert out.is_file()
 
-    def test_original_security_aliases(self, tmp_path: Path) -> None:
-        """Verify common shorthand aliases resolve to canonical security icons."""
-        clear()
-        original_security.iam(xy=(20, 70), width=12, style=Style())
-        original_security.mfa(xy=(40, 70), width=12, style=Style())
-        original_security.ztna(xy=(60, 70), width=12, style=Style())
-        original_security.edr(xy=(80, 70), width=12, style=Style())
-
-        original_security.hsm(xy=(20, 40), width=12, style=Style())
-        original_security.secrets_manager(xy=(40, 40), width=12, style=Style())
-        original_security.soc(xy=(60, 40), width=12, style=Style())
-        original_security.vuln_scanner(xy=(80, 40), width=12, style=Style())
-
-        original_security.falcon(xy=(20, 15), width=12, style=Style())
-        original_security.panw(xy=(40, 15), width=12, style=Style())
-        original_security.yubikey(xy=(60, 15), width=12, style=Style())
-        original_security.gpg(xy=(80, 15), width=12, style=Style())
-
-        out = tmp_path / "test_original_security_aliases.png"
-        save(str(out))
-        assert out.is_file()
-
     def test_original_security_architecture_enum(self, tmp_path: Path) -> None:
         """Verify OriginalSecurityIcon works inside ArchitectureDiagram nodes."""
         clear()
@@ -302,9 +261,6 @@ class TestOriginalSecurityIcons:
         assert out.is_file()
 
     def test_original_security_provider_metadata(self) -> None:
-        """Verify provider package name and aliases mapping."""
+        """Verify provider package name."""
         assert ORIGINAL_SECURITY_PROVIDER.name == "original_security"
         assert ORIGINAL_SECURITY_PROVIDER.package_name == "icon_original_security"
-        assert ORIGINAL_SECURITY_PROVIDER.aliases["ztna"] == "zero_trust"
-        assert ORIGINAL_SECURITY_PROVIDER.aliases["kms"] == "hsm_kms"
-        assert ORIGINAL_SECURITY_PROVIDER.aliases["falcon"] == "crowdstrike"

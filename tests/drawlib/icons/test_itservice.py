@@ -85,20 +85,6 @@ class TestItserviceIcons:
         save(str(out))
         assert out.is_file()
 
-    def test_itservice_aliases(self, tmp_path: Path) -> None:
-        """Verify shorthand aliases resolve to canonical itservice icons."""
-        clear()
-        itservice.acn(xy=(15, 70), width=10, style=Style())
-        itservice.nttdata(xy=(30, 70), width=10, style=Style())
-        itservice.tata_consultancy_services(xy=(45, 70), width=10, style=Style())
-        itservice.hcl(xy=(60, 70), width=10, style=Style())
-        itservice.ernst_and_young(xy=(75, 70), width=10, style=Style())
-        itservice.bah(xy=(90, 70), width=10, style=Style())
-
-        out = tmp_path / "test_itservice_aliases.png"
-        save(str(out))
-        assert out.is_file()
-
     def test_itservice_architecture_enum(self, tmp_path: Path) -> None:
         """Verify ItserviceIcon works inside ArchitectureDiagram nodes."""
         clear()
@@ -119,12 +105,6 @@ class TestItserviceIcons:
         assert out.is_file()
 
     def test_itservice_provider_metadata(self) -> None:
-        """Verify provider package name and aliases mapping."""
+        """Verify provider package name."""
         assert ITSERVICE_PROVIDER.name == "itservice"
         assert ITSERVICE_PROVIDER.package_name == "icon_itservice"
-        assert ITSERVICE_PROVIDER.aliases["acn"] == "accenture"
-        assert ITSERVICE_PROVIDER.aliases["bah"] == "booz_allen"
-        assert ITSERVICE_PROVIDER.aliases["ernst_and_young"] == "ey"
-        assert ITSERVICE_PROVIDER.aliases["hcl"] == "hcltech"
-        assert ITSERVICE_PROVIDER.aliases["nttdata"] == "ntt_data"
-        assert ITSERVICE_PROVIDER.aliases["tata_consultancy_services"] == "tcs"

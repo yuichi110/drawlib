@@ -87,27 +87,6 @@ class TestFacilityIcons:
         save(str(out))
         assert out.is_file()
 
-    def test_facility_aliases(self, tmp_path: Path) -> None:
-        """Verify shorthand aliases resolve to canonical facility icons."""
-        clear()
-        facility.eqix(xy=(15, 70), width=10, style=Style())
-        facility.dlr(xy=(30, 70), width=10, style=Style())
-        facility.ntt_datacenter(xy=(45, 70), width=10, style=Style())
-        facility.decix(xy=(60, 70), width=10, style=Style())
-        facility.at_and_t(xy=(75, 70), width=10, style=Style())
-        facility.schneider(xy=(90, 70), width=10, style=Style())
-        facility.liebert(xy=(15, 45), width=10, style=Style())
-        facility.hid(xy=(30, 45), width=10, style=Style())
-        facility.taiwan_semiconductor(xy=(45, 45), width=10, style=Style())
-        facility.gf(xy=(60, 45), width=10, style=Style())
-        facility.tel(xy=(75, 45), width=10, style=Style())
-        facility.amat(xy=(90, 45), width=10, style=Style())
-        facility.hon_hai(xy=(15, 20), width=10, style=Style())
-
-        out = tmp_path / "test_facility_aliases.png"
-        save(str(out))
-        assert out.is_file()
-
     def test_facility_architecture_enum(self, tmp_path: Path) -> None:
         """Verify FacilityIcon works inside ArchitectureDiagram nodes."""
         clear()
@@ -128,9 +107,6 @@ class TestFacilityIcons:
         assert out.is_file()
 
     def test_facility_provider_metadata(self) -> None:
-        """Verify provider package name and aliases mapping."""
+        """Verify provider package name."""
         assert FACILITY_PROVIDER.name == "facility"
         assert FACILITY_PROVIDER.package_name == "icon_facility"
-        assert FACILITY_PROVIDER.aliases["eqix"] == "equinix"
-        assert FACILITY_PROVIDER.aliases["dlr"] == "digital_realty"
-        assert FACILITY_PROVIDER.aliases["schneider"] == "schneider_electric"

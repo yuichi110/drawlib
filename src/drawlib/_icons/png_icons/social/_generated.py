@@ -38,46 +38,6 @@ def abema(
     _write(xy=xy, width=width, name="abema", style=style, variant=variant)
 
 
-def abematv(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Social concept icon representing abematv.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="abema", style=style, variant=variant)
-
-
-def adwords(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Social concept icon representing adwords.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="google_ads", style=style, variant=variant)
-
-
 def amplitude(
     xy: Coordinate,
     width: PosFloat,
@@ -138,26 +98,6 @@ def appsflyer(
     _write(xy=xy, width=width, name="appsflyer", style=style, variant=variant)
 
 
-def b_hatena(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Social concept icon representing b hatena.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="hatena", style=style, variant=variant)
-
-
 def bilibili(
     xy: Coordinate,
     width: PosFloat,
@@ -186,26 +126,6 @@ def bluesky(
     variant: Literal["default"] = "default",
 ) -> None:
     """Draws an Social concept icon representing bluesky.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="bluesky", style=style, variant=variant)
-
-
-def bsky(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Social concept icon representing bsky.
 
     Args:
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
@@ -258,26 +178,6 @@ def dev_to(
     _write(xy=xy, width=width, name="dev_to", style=style, variant=variant)
 
 
-def devto(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Social concept icon representing devto.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="dev_to", style=style, variant=variant)
-
-
 def discord(
     xy: Coordinate,
     width: PosFloat,
@@ -316,86 +216,6 @@ def facebook(
 
     """
     _write(xy=xy, width=width, name="facebook", style=style, variant=variant)
-
-
-def fb(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Social concept icon representing fb.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="facebook", style=style, variant=variant)
-
-
-def fb_messenger(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Social concept icon representing fb messenger.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="messenger", style=style, variant=variant)
-
-
-def ga(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Social concept icon representing ga.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="google_analytics", style=style, variant=variant)
-
-
-def ga4(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Social concept icon representing ga4.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="google_analytics", style=style, variant=variant)
 
 
 def google_ads(
@@ -458,26 +278,6 @@ def google_tag_manager(
     _write(xy=xy, width=width, name="google_tag_manager", style=style, variant=variant)
 
 
-def gtm(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Social concept icon representing gtm.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="google_tag_manager", style=style, variant=variant)
-
-
 def hacker_news(
     xy: Coordinate,
     width: PosFloat,
@@ -486,26 +286,6 @@ def hacker_news(
     variant: Literal["default"] = "default",
 ) -> None:
     """Draws an Social concept icon representing hacker news.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="hacker_news", style=style, variant=variant)
-
-
-def hackernews(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Social concept icon representing hackernews.
 
     Args:
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
@@ -558,106 +338,6 @@ def hatena(
     _write(xy=xy, width=width, name="hatena", style=style, variant=variant)
 
 
-def hatena_blog(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Social concept icon representing hatena blog.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="hatena", style=style, variant=variant)
-
-
-def hatena_bookmark(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Social concept icon representing hatena bookmark.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="hatena", style=style, variant=variant)
-
-
-def hn(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Social concept icon representing hn.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="hacker_news", style=style, variant=variant)
-
-
-def ig(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Social concept icon representing ig.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="instagram", style=style, variant=variant)
-
-
-def insta(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Social concept icon representing insta.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="instagram", style=style, variant=variant)
-
-
 def instagram(
     xy: Coordinate,
     width: PosFloat,
@@ -686,26 +366,6 @@ def kakao(
     variant: Literal["default"] = "default",
 ) -> None:
     """Draws an Social concept icon representing kakao.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="kakao", style=style, variant=variant)
-
-
-def kakaotalk(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Social concept icon representing kakaotalk.
 
     Args:
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
@@ -756,26 +416,6 @@ def linkedin(
 
     """
     _write(xy=xy, width=width, name="linkedin", style=style, variant=variant)
-
-
-def lycorp(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Social concept icon representing lycorp.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="yahoo_japan", style=style, variant=variant)
 
 
 def mastodon(
@@ -878,46 +518,6 @@ def mixpanel(
     _write(xy=xy, width=width, name="mixpanel", style=style, variant=variant)
 
 
-def nico(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Social concept icon representing nico.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="nicovideo", style=style, variant=variant)
-
-
-def niconico(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Social concept icon representing niconico.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="nicovideo", style=style, variant=variant)
-
-
 def nicovideo(
     xy: Coordinate,
     width: PosFloat,
@@ -976,26 +576,6 @@ def pinterest(
 
     """
     _write(xy=xy, width=width, name="pinterest", style=style, variant=variant)
-
-
-def podcasts(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Social concept icon representing podcasts.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="apple_podcasts", style=style, variant=variant)
 
 
 def qiita(
@@ -1058,26 +638,6 @@ def signal(
     _write(xy=xy, width=width, name="signal", style=style, variant=variant)
 
 
-def snap(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Social concept icon representing snap.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="snapchat", style=style, variant=variant)
-
-
 def snapchat(
     xy: Coordinate,
     width: PosFloat,
@@ -1138,26 +698,6 @@ def speaker_deck(
     _write(xy=xy, width=width, name="speaker_deck", style=style, variant=variant)
 
 
-def speakerdeck(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Social concept icon representing speakerdeck.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="speaker_deck", style=style, variant=variant)
-
-
 def spotify(
     xy: Coordinate,
     width: PosFloat,
@@ -1198,26 +738,6 @@ def stack_overflow(
     _write(xy=xy, width=width, name="stack_overflow", style=style, variant=variant)
 
 
-def stackoverflow(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Social concept icon representing stackoverflow.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="stack_overflow", style=style, variant=variant)
-
-
 def substack(
     xy: Coordinate,
     width: PosFloat,
@@ -1246,26 +766,6 @@ def telegram(
     variant: Literal["default"] = "default",
 ) -> None:
     """Draws an Social concept icon representing telegram.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="telegram", style=style, variant=variant)
-
-
-def tg(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Social concept icon representing tg.
 
     Args:
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
@@ -1358,26 +858,6 @@ def twitch(
     _write(xy=xy, width=width, name="twitch", style=style, variant=variant)
 
 
-def twitter(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Social concept icon representing twitter.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="x", style=style, variant=variant)
-
-
 def viber(
     xy: Coordinate,
     width: PosFloat,
@@ -1418,26 +898,6 @@ def vimeo(
     _write(xy=xy, width=width, name="vimeo", style=style, variant=variant)
 
 
-def wa(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Social concept icon representing wa.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="whatsapp", style=style, variant=variant)
-
-
 def wechat(
     xy: Coordinate,
     width: PosFloat,
@@ -1446,26 +906,6 @@ def wechat(
     variant: Literal["default"] = "default",
 ) -> None:
     """Draws an Social concept icon representing wechat.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="wechat", style=style, variant=variant)
-
-
-def weixin(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Social concept icon representing weixin.
 
     Args:
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
@@ -1538,46 +978,6 @@ def yahoo_japan(
     _write(xy=xy, width=width, name="yahoo_japan", style=style, variant=variant)
 
 
-def yahoo_jp(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Social concept icon representing yahoo jp.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="yahoo_japan", style=style, variant=variant)
-
-
-def ycombinator(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Social concept icon representing ycombinator.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="hacker_news", style=style, variant=variant)
-
-
 def youtube(
     xy: Coordinate,
     width: PosFloat,
@@ -1586,26 +986,6 @@ def youtube(
     variant: Literal["default"] = "default",
 ) -> None:
     """Draws an Social concept icon representing youtube.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="youtube", style=style, variant=variant)
-
-
-def yt(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Social concept icon representing yt.
 
     Args:
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.

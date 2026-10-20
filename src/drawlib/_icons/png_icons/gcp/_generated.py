@@ -2118,26 +2118,6 @@ def cloud_optimization_ai_fleet_routing_api(
     _write(xy=xy, width=width, name="cloud_optimization_ai_fleet_routing_api", style=style, variant=variant)
 
 
-def cloud_pubsub(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws a GCP icon representing cloud pubsub.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="pubsub", style=style, variant=variant)
-
-
 def cloud_router(
     xy: Coordinate,
     width: PosFloat,
@@ -3258,26 +3238,6 @@ def free_trial(
     _write(xy=xy, width=width, name="free_trial", style=style, variant=variant)
 
 
-def functions(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws a GCP icon representing functions.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="cloud_functions", style=style, variant=variant)
-
-
 def game_servers(
     xy: Coordinate,
     width: PosFloat,
@@ -3296,26 +3256,6 @@ def game_servers(
 
     """
     _write(xy=xy, width=width, name="game_servers", style=style, variant=variant)
-
-
-def gce(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default", "modern"] = "default",
-) -> None:
-    """Draws a GCP icon representing gce.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default' or 'modern'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="compute_engine", style=style, variant=variant)
 
 
 def gce_systems_management(
@@ -3338,26 +3278,6 @@ def gce_systems_management(
     _write(xy=xy, width=width, name="gce_systems_management", style=style, variant=variant)
 
 
-def gcs(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default", "modern"] = "default",
-) -> None:
-    """Draws a GCP icon representing gcs.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default' or 'modern'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="cloud_storage", style=style, variant=variant)
-
-
 def genomics(
     xy: Coordinate,
     width: PosFloat,
@@ -3376,26 +3296,6 @@ def genomics(
 
     """
     _write(xy=xy, width=width, name="genomics", style=style, variant=variant)
-
-
-def gke(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default", "modern"] = "default",
-) -> None:
-    """Draws a GCP icon representing gke.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default' or 'modern'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="google_kubernetes_engine", style=style, variant=variant)
 
 
 def gke_on_prem(
@@ -3538,26 +3438,6 @@ def hyperdisk(
     _write(xy=xy, width=width, name="hyperdisk", style=style, variant=variant)
 
 
-def iam(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws a GCP icon representing iam.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="identity_and_access_management", style=style, variant=variant)
-
-
 def identity_and_access_management(
     xy: Coordinate,
     width: PosFloat,
@@ -3698,26 +3578,6 @@ def key_management_service(
     _write(xy=xy, width=width, name="key_management_service", style=style, variant=variant)
 
 
-def kms(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws a GCP icon representing kms.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="key_management_service", style=style, variant=variant)
-
-
 def kuberun(
     xy: Coordinate,
     width: PosFloat,
@@ -3756,26 +3616,6 @@ def launcher(
 
     """
     _write(xy=xy, width=width, name="launcher", style=style, variant=variant)
-
-
-def load_balancing(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws a GCP icon representing load balancing.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="cloud_load_balancing", style=style, variant=variant)
 
 
 def local_ssd(
@@ -5018,26 +4858,6 @@ def vertex_ai(
     _write(xy=xy, width=width, name="vertex_ai", style=style, variant=variant)
 
 
-def vertexai(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default", "modern"] = "default",
-) -> None:
-    """Draws a GCP icon representing vertexai.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default' or 'modern'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="vertex_ai", style=style, variant=variant)
-
-
 def video_intelligence_api(
     xy: Coordinate,
     width: PosFloat,
@@ -5116,26 +4936,6 @@ def vmware_engine(
 
     """
     _write(xy=xy, width=width, name="vmware_engine", style=style, variant=variant)
-
-
-def vpc(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws a GCP icon representing vpc.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="virtual_private_cloud", style=style, variant=variant)
 
 
 def web_risk(

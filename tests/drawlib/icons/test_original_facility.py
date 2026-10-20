@@ -12,7 +12,6 @@
 from pathlib import Path
 
 from drawlib._icons.png_icons.original_facility._base import (
-    ORIGINAL_FACILITY_ALIASES,
     ORIGINAL_FACILITY_PROVIDER,
 )
 from drawlib.canvas import clear, save
@@ -26,7 +25,7 @@ class TestOriginalFacilityIcons:
     """Tests for `drawlib.icons.original_facility` and `OriginalFacilityIcon`."""
 
     def test_original_facility_all_icons(self, tmp_path: Path) -> None:
-        """Verify all 86 canonical icons (37 concepts + 49 brands) and 120 aliases exist and render."""
+        """Verify all 86 canonical icons (37 concepts + 49 brands) exist and render."""
         clear()
         canonical_86 = [
             "datacenter",
@@ -125,32 +124,7 @@ class TestOriginalFacilityIcons:
             fn = getattr(original_facility, name)
             fn(xy=(8 + col * 9.0, 92 - row * 10), width=6.5, style=Style(), variant="default")
 
-        assert len(ORIGINAL_FACILITY_ALIASES) == 120
-        for alias in ORIGINAL_FACILITY_ALIASES:
-            assert hasattr(original_facility, alias), f"Missing alias function: {alias}"
-            assert hasattr(OriginalFacilityIcon, alias.upper()), f"Missing alias enum: {alias.upper()}"
-
         out = tmp_path / "test_original_facility_all.png"
-        save(str(out))
-        assert out.is_file()
-
-    def test_original_facility_aliases(self, tmp_path: Path) -> None:
-        """Verify shorthand aliases resolve to canonical original_facility icons."""
-        clear()
-        original_facility.data_center(xy=(15, 70), width=10, style=Style())
-        original_facility.pylon(xy=(30, 70), width=10, style=Style())
-        original_facility.optical_fiber(xy=(45, 70), width=10, style=Style())
-        original_facility.truck(xy=(60, 70), width=10, style=Style())
-        original_facility.eqix(xy=(75, 70), width=10, style=Style())
-        original_facility.dlr(xy=(90, 70), width=10, style=Style())
-        original_facility.schneider(xy=(15, 45), width=10, style=Style())
-        original_facility.cctv(xy=(30, 45), width=10, style=Style())
-        original_facility.cleanroom(xy=(45, 45), width=10, style=Style())
-        original_facility.taiwan_semiconductor(xy=(60, 45), width=10, style=Style())
-        original_facility.tel(xy=(75, 45), width=10, style=Style())
-        original_facility.amat(xy=(90, 45), width=10, style=Style())
-
-        out = tmp_path / "test_original_facility_aliases.png"
         save(str(out))
         assert out.is_file()
 
@@ -183,10 +157,7 @@ class TestOriginalFacilityIcons:
         assert out.is_file()
 
     def test_original_facility_provider_metadata(self) -> None:
-        """Verify provider package name and aliases mapping."""
+        """Verify provider package name."""
         assert ORIGINAL_FACILITY_PROVIDER.name == "original_facility"
         assert ORIGINAL_FACILITY_PROVIDER.package_name == "icon_original_facility"
         assert ORIGINAL_FACILITY_PROVIDER.asset_subdir == "icons/original_facility"
-        assert ORIGINAL_FACILITY_PROVIDER.aliases["eqix"] == "equinix"
-        assert ORIGINAL_FACILITY_PROVIDER.aliases["pylon"] == "transmission_tower"
-        assert ORIGINAL_FACILITY_PROVIDER.aliases["truck"] == "cargo_truck"

@@ -12,7 +12,6 @@
 from pathlib import Path
 
 from drawlib._icons.png_icons.original_workspace._base import (
-    ORIGINAL_WORKSPACE_ALIASES,
     ORIGINAL_WORKSPACE_PROVIDER,
 )
 from drawlib.canvas import clear, save
@@ -26,7 +25,7 @@ class TestOriginalWorkspaceIcons:
     """Tests for `drawlib.icons.original_workspace` and `OriginalWorkspaceIcon`."""
 
     def test_original_workspace_all_icons(self, tmp_path: Path) -> None:
-        """Verify all 57 canonical icons (17 concepts + 40 brands) and 62 aliases exist and render."""
+        """Verify all 57 canonical icons (17 concepts + 40 brands) exist and render."""
         clear()
         canonical_57 = [
             "email",
@@ -96,28 +95,7 @@ class TestOriginalWorkspaceIcons:
             fn = getattr(original_workspace, name)
             fn(xy=(8 + col * 9.0, 90 - row * 13), width=6.5, style=Style(), variant="default")
 
-        assert len(ORIGINAL_WORKSPACE_ALIASES) == 62
-        for alias in ORIGINAL_WORKSPACE_ALIASES:
-            assert hasattr(original_workspace, alias), f"Missing alias function: {alias}"
-            assert hasattr(OriginalWorkspaceIcon, alias.upper()), f"Missing alias enum: {alias.upper()}"
-
         out = tmp_path / "test_original_workspace_all.png"
-        save(str(out))
-        assert out.is_file()
-
-    def test_original_workspace_aliases(self, tmp_path: Path) -> None:
-        """Verify shorthand aliases resolve to canonical original_workspace icons."""
-        clear()
-        original_workspace.mail(xy=(15, 70), width=10, style=Style())
-        original_workspace.wiki(xy=(30, 70), width=10, style=Style())
-        original_workspace.gantt(xy=(45, 70), width=10, style=Style())
-        original_workspace.agile_board(xy=(60, 70), width=10, style=Style())
-        original_workspace.m365(xy=(75, 70), width=10, style=Style())
-        original_workspace.teams(xy=(90, 70), width=10, style=Style())
-        original_workspace.gsuite(xy=(15, 45), width=10, style=Style())
-        original_workspace.powerbi(xy=(30, 45), width=10, style=Style())
-
-        out = tmp_path / "test_original_workspace_aliases.png"
         save(str(out))
         assert out.is_file()
 
@@ -150,10 +128,7 @@ class TestOriginalWorkspaceIcons:
         assert out.is_file()
 
     def test_original_workspace_provider_metadata(self) -> None:
-        """Verify provider package name and aliases mapping."""
+        """Verify provider package name."""
         assert ORIGINAL_WORKSPACE_PROVIDER.name == "original_workspace"
         assert ORIGINAL_WORKSPACE_PROVIDER.package_name == "icon_original_workspace"
         assert ORIGINAL_WORKSPACE_PROVIDER.asset_subdir == "icons/original_workspace"
-        assert ORIGINAL_WORKSPACE_PROVIDER.aliases["mail"] == "email"
-        assert ORIGINAL_WORKSPACE_PROVIDER.aliases["m365"] == "microsoft_365"
-        assert ORIGINAL_WORKSPACE_PROVIDER.aliases["powerbi"] == "power_bi"

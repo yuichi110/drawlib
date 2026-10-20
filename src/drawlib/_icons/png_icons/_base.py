@@ -29,7 +29,6 @@ class PngIconProvider:
         name: str,
         package_name: str,
         asset_subdir: str,
-        aliases: dict[str, str] | None = None,
     ) -> None:
         """Initialize PngIconProvider.
 
@@ -37,24 +36,20 @@ class PngIconProvider:
             name: Vendor/family name of the icon collection (e.g. 'gcp').
             package_name: Package identifier in RELEASE_ASSET_PACKAGES (e.g. 'icon_gcp').
             asset_subdir: Relative subdirectory path under drawlib._cached_assets (e.g. 'icons/gcp').
-            aliases: Optional mapping from shorthand alias names to canonical icon names.
         """
         self.name = name
         self.package_name = package_name
         self.asset_subdir = asset_subdir
-        self.aliases: dict[str, str] = dict(aliases) if aliases else {}
 
     def _resolve_filename(self, icon_name: str, variant: str = "default") -> str:
-        """Resolve `<canonical_name>_<variant>.png` from an icon name or alias."""
+        """Resolve `<icon_name>_<variant>.png` from a canonical icon name."""
         if icon_name.endswith(("_default", "_classic", "_modern")):
             base_name, resolved_variant = icon_name.rsplit("_", 1)
             if resolved_variant == "classic":
                 resolved_variant = "default"
-            canonical_name = self.aliases.get(base_name, base_name)
-            return f"{canonical_name}_{resolved_variant}.png"
+            return f"{base_name}_{resolved_variant}.png"
         norm_variant = "default" if variant == "classic" else variant
-        canonical_name = self.aliases.get(icon_name, icon_name)
-        return f"{canonical_name}_{norm_variant}.png"
+        return f"{icon_name}_{norm_variant}.png"
 
     def get_icon_path(self, icon_name: str, variant: str = "default") -> str:
         """Resolve local file path for an icon, ensuring it is downloaded if missing.

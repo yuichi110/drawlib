@@ -13,64 +13,10 @@ from __future__ import annotations
 
 from drawlib._icons.png_icons._base import PngIconProvider
 
-ORIGINAL_DEVOPS_ALIASES: dict[str, str] = {
-    "actions": "github_actions",
-    "alert": "alert_incident",
-    "artifactory": "jfrog",
-    "bb": "bitbucket",
-    "cicd": "cicd_pipeline",
-    "circle": "circleci",
-    "code_review": "pull_request",
-    "config": "config_management",
-    "dd": "datadog",
-    "feature_toggle": "feature_flag",
-    "fluentbit": "fluent_bit",
-    "gh": "github",
-    "gha": "github_actions",
-    "gitops": "gitops_controller",
-    "gl": "gitlab",
-    "grafana_mimir": "mimir",
-    "grafana_tempo": "tempo",
-    "hashicorp_consul": "consul",
-    "hashicorp_vault": "vault",
-    "iac": "config_management",
-    "incident": "alert_incident",
-    "k8s": "container_cluster",
-    "kubernetes": "container_cluster",
-    "kubernetes_cluster": "container_cluster",
-    "logs": "logging",
-    "metrics": "monitoring",
-    "nr": "new_relic",
-    "package": "package_dependency",
-    "pager": "on_call",
-    "pd": "pagerduty",
-    "pipeline": "cicd_pipeline",
-    "pr": "pull_request",
-    "pw": "playwright",
-    "qa": "test_automation",
-    "registry": "artifact_registry",
-    "repo": "git_repository",
-    "runner": "build_runner",
-    "sbom": "package_dependency",
-    "secret": "secret_vault",  # noqa: S105
-    "secret_manager": "secret_vault",  # noqa: S105
-    "sonar": "sonarqube",
-    "sonatype_nexus": "nexus",
-    "testing": "test_automation",
-    "tf": "terraform",
-    "tofu": "opentofu",
-    "tracing": "distributed_tracing",
-    "turbo": "turborepo",
-    "victoriametrics": "victoria_metrics",
-    "vm_metrics": "victoria_metrics",
-    "vulnerability_scan": "security_scan",
-}
-
 ORIGINAL_DEVOPS_PROVIDER = PngIconProvider(
     name="original_devops",
     package_name="icon_original_devops",
     asset_subdir="icons/original_devops",
-    aliases=ORIGINAL_DEVOPS_ALIASES,
 )
 
 _write = ORIGINAL_DEVOPS_PROVIDER.write

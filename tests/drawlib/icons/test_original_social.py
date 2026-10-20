@@ -113,24 +113,6 @@ class TestOriginalSocialIcons:
         save(str(out))
         assert out.is_file()
 
-    def test_original_social_aliases(self, tmp_path: Path) -> None:
-        """Verify shorthand aliases resolve to canonical original_social icons."""
-        clear()
-        original_social.sso_social(xy=(12, 70), width=8, style=Style())
-        original_social.feed(xy=(24, 70), width=8, style=Style())
-        original_social.creator(xy=(36, 70), width=8, style=Style())
-        original_social.reels(xy=(48, 70), width=8, style=Style())
-        original_social.funnel(xy=(60, 70), width=8, style=Style())
-        original_social.official_account(xy=(72, 70), width=8, style=Style())
-        original_social.twitter(xy=(12, 45), width=8, style=Style())
-        original_social.ig(xy=(24, 45), width=8, style=Style())
-        original_social.yt(xy=(36, 45), width=8, style=Style())
-        original_social.ga4(xy=(48, 45), width=8, style=Style())
-
-        out = tmp_path / "test_original_social_aliases.png"
-        save(str(out))
-        assert out.is_file()
-
     def test_original_social_architecture_enum(self, tmp_path: Path) -> None:
         """Verify OriginalSocialIcon works inside ArchitectureDiagram nodes."""
         clear()
@@ -160,15 +142,7 @@ class TestOriginalSocialIcons:
         assert out.is_file()
 
     def test_original_social_provider_metadata(self) -> None:
-        """Verify provider package name and aliases mapping."""
+        """Verify provider package name."""
         assert ORIGINAL_SOCIAL_PROVIDER.name == "original_social"
         assert ORIGINAL_SOCIAL_PROVIDER.package_name == "icon_original_social"
         assert ORIGINAL_SOCIAL_PROVIDER.asset_subdir == "icons/original_social"
-        assert ORIGINAL_SOCIAL_PROVIDER.aliases["creator"] == "influencer"
-        assert ORIGINAL_SOCIAL_PROVIDER.aliases["feed"] == "timeline_feed"
-        assert ORIGINAL_SOCIAL_PROVIDER.aliases["funnel"] == "conversion_funnel"
-        assert ORIGINAL_SOCIAL_PROVIDER.aliases["ga4"] == "google_analytics"
-        assert ORIGINAL_SOCIAL_PROVIDER.aliases["official_account"] == "chatbot_account"
-        assert ORIGINAL_SOCIAL_PROVIDER.aliases["reels"] == "short_video"
-        assert ORIGINAL_SOCIAL_PROVIDER.aliases["sso_social"] == "social_login"
-        assert ORIGINAL_SOCIAL_PROVIDER.aliases["twitter"] == "x"

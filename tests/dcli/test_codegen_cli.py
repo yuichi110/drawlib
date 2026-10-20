@@ -21,14 +21,12 @@ runner = CliRunner()
 
 
 def test_gcp_generate_code() -> None:
-    """Test GCP icon code generation with variants and aliases."""
+    """Test GCP icon code generation with variants."""
     code = generate_code(
         icon_variants={"compute_engine": ["default", "modern"], "app_engine": ["default"]},
-        aliases={"gce": "compute_engine"},
     )
     assert "def compute_engine(" in code
     assert 'variant: Literal["default", "modern"] = "default"' in code
-    assert "def gce(" in code
     assert 'name="compute_engine"' in code
     assert "def app_engine(" in code
     assert 'variant: Literal["default"] = "default"' in code

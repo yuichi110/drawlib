@@ -63,18 +63,17 @@ def {function_name}(
 '''
 
 
-def load_gcp_manifest(manifest_path: Path) -> tuple[dict[str, list[str]], dict[str, str]]:
-    """Load icon variants and shorthand aliases from GCP manifest file.
+def load_gcp_manifest(manifest_path: Path) -> dict[str, list[str]]:
+    """Load canonical icon variants from a provider manifest file.
 
     Args:
         manifest_path: Path to manifest.json.
 
     Returns:
-        Tuple of (icon_to_variants_map, alias_to_canonical_map).
+        Mapping of canonical icon name to sorted list of variants.
     """
     data = json.loads(manifest_path.read_text(encoding="utf-8"))
     files = data.get("files", {})
-    aliases: dict[str, str] = data.get("aliases", {})
 
     icon_variants: dict[str, set[str]] = {}
     for fname, meta in files.items():
@@ -90,42 +89,30 @@ def load_gcp_manifest(manifest_path: Path) -> tuple[dict[str, list[str]], dict[s
         order = {"default": 0, "modern": 1}
         return sorted(variants, key=lambda v: (order.get(v, 99), v))
 
-    sorted_icons = {k: _sort_variants(v) for k, v in sorted(icon_variants.items())}
-    return sorted_icons, dict(sorted(aliases.items()))
+    return {k: _sort_variants(v) for k, v in sorted(icon_variants.items())}
 
 
 def generate_code(
     icon_variants: dict[str, list[str]],
-    aliases: dict[str, str] | None = None,
 ) -> str:
-    """Generate Python source code for GCP icons and shorthand aliases.
+    """Generate Python source code for canonical GCP icons.
 
     Args:
         icon_variants: Mapping of canonical icon name to available variants.
-        aliases: Optional mapping of alias function name to canonical icon name.
 
     Returns:
         Generated Python code string.
     """
     code_parts: list[str] = [GCP_HEAD]
-    alias_map = aliases or {}
 
-    # Combine canonical icons and aliases into a single alphabetically sorted map
-    all_functions: dict[str, tuple[str, list[str]]] = {}
-    for icon_name, variants in icon_variants.items():
-        all_functions[icon_name] = (icon_name, variants)
-    for alias_name, target_name in alias_map.items():
-        if target_name in icon_variants:
-            all_functions[alias_name] = (target_name, icon_variants[target_name])
-
-    for func_name in sorted(all_functions.keys()):
-        target_name, variants = all_functions[func_name]
+    for func_name in sorted(icon_variants.keys()):
+        variants = icon_variants[func_name]
         display_name = func_name.replace("_", " ")
         variant_literal = ", ".join(f'"{v}"' for v in variants)
         variant_doc = " or ".join(f"'{v}'" for v in variants)
         code = GCP_FUNCTION_TEMPLATE.format(
             function_name=func_name,
-            target_icon_name=target_name,
+            target_icon_name=func_name,
             display_name=display_name,
             variant_literal=variant_literal,
             variant_doc=variant_doc,
@@ -161,13 +148,13 @@ def generate_gcp_code(
         raise FileNotFoundError(f"Manifest file '{manifest_file}' not found.")
 
     print(f"Reading GCP icon manifest from {manifest_file}...")
-    icon_variants, aliases = load_gcp_manifest(manifest_file)
-    total_funcs = len(set(icon_variants.keys()) | set(aliases.keys()))
-    print(f"Loaded {len(icon_variants)} canonical icons and {len(aliases)} aliases ({total_funcs} functions).")
+    icon_variants = load_gcp_manifest(manifest_file)
+    total_funcs = len(icon_variants)
+    print(f"Loaded {total_funcs} canonical icons.")
 
     print(f"Generating Python code into {output_file}...")
     output_file.parent.mkdir(parents=True, exist_ok=True)
-    generated_code = generate_code(icon_variants, aliases)
+    generated_code = generate_code(icon_variants)
     output_file.write_text(generated_code, encoding="utf-8")
 
     print(f"Formatting {output_file} with ruff...")

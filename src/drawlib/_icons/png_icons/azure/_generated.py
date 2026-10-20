@@ -18,46 +18,6 @@ from drawlib._core.l3_styles import Style
 from drawlib._icons.png_icons.azure._base import _write
 
 
-def aad(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Azure concept icon representing aad.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="entra_id", style=style, variant=variant)
-
-
-def aca(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Azure concept icon representing aca.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="worker_container_app", style=style, variant=variant)
-
-
 def access_point(
     xy: Coordinate,
     width: PosFloat,
@@ -76,66 +36,6 @@ def access_point(
 
     """
     _write(xy=xy, width=width, name="access_point", style=style, variant=variant)
-
-
-def aci(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Azure concept icon representing aci.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="container_instances", style=style, variant=variant)
-
-
-def acr(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Azure concept icon representing acr.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="container_registries", style=style, variant=variant)
-
-
-def active_directory(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Azure concept icon representing active directory.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="entra_id", style=style, variant=variant)
 
 
 def activity_log(
@@ -176,26 +76,6 @@ def ad_b2c(
 
     """
     _write(xy=xy, width=width, name="ad_b2c", style=style, variant=variant)
-
-
-def adf(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Azure concept icon representing adf.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="data_factories", style=style, variant=variant)
 
 
 def advisor(
@@ -318,26 +198,6 @@ def ai_gateway(
     _write(xy=xy, width=width, name="ai_gateway", style=style, variant=variant)
 
 
-def ai_search(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Azure concept icon representing ai search.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="cognitive_search", style=style, variant=variant)
-
-
 def ai_studio(
     xy: Coordinate,
     width: PosFloat,
@@ -356,26 +216,6 @@ def ai_studio(
 
     """
     _write(xy=xy, width=width, name="ai_studio", style=style, variant=variant)
-
-
-def aks(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Azure concept icon representing aks.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="kubernetes_services", style=style, variant=variant)
 
 
 def aks_automatic(
@@ -498,26 +338,6 @@ def api_for_fhir(
     _write(xy=xy, width=width, name="api_for_fhir", style=style, variant=variant)
 
 
-def api_management(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Azure concept icon representing api management.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="api_management_services", style=style, variant=variant)
-
-
 def api_management_services(
     xy: Coordinate,
     width: PosFloat,
@@ -558,26 +378,6 @@ def api_proxy(
     _write(xy=xy, width=width, name="api_proxy", style=style, variant=variant)
 
 
-def apim(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Azure concept icon representing apim.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="api_management_services", style=style, variant=variant)
-
-
 def app_configuration(
     xy: Coordinate,
     width: PosFloat,
@@ -596,26 +396,6 @@ def app_configuration(
 
     """
     _write(xy=xy, width=width, name="app_configuration", style=style, variant=variant)
-
-
-def app_insights(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Azure concept icon representing app insights.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="application_insights", style=style, variant=variant)
 
 
 def app_registrations(
@@ -696,46 +476,6 @@ def app_testing(
 
     """
     _write(xy=xy, width=width, name="app_testing", style=style, variant=variant)
-
-
-def appgw(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Azure concept icon representing appgw.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="application_gateways", style=style, variant=variant)
-
-
-def application_gateway(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Azure concept icon representing application gateway.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="application_gateways", style=style, variant=variant)
 
 
 def application_gateway_containers(
@@ -958,46 +698,6 @@ def availability_sets(
     _write(xy=xy, width=width, name="availability_sets", style=style, variant=variant)
 
 
-def avd(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Azure concept icon representing avd.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="virtual_desktop", style=style, variant=variant)
-
-
-def azure_files(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Azure concept icon representing azure files.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="storage_azure_files", style=style, variant=variant)
-
-
 def azureattestation(
     xy: Coordinate,
     width: PosFloat,
@@ -1058,26 +758,6 @@ def backup_vault(
     _write(xy=xy, width=width, name="backup_vault", style=style, variant=variant)
 
 
-def bastion(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Azure concept icon representing bastion.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="bastions", style=style, variant=variant)
-
-
 def bastions(
     xy: Coordinate,
     width: PosFloat,
@@ -1136,26 +816,6 @@ def batch_ai(
 
     """
     _write(xy=xy, width=width, name="batch_ai", style=style, variant=variant)
-
-
-def blob_storage(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Azure concept icon representing blob storage.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="storage_container", style=style, variant=variant)
 
 
 def blockchain_applications(
@@ -1276,26 +936,6 @@ def cache_redis(
 
     """
     _write(xy=xy, width=width, name="cache_redis", style=style, variant=variant)
-
-
-def cdn(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Azure concept icon representing cdn.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="front_door_and_cdn_profiles", style=style, variant=variant)
 
 
 def cdn_profiles(
@@ -1536,26 +1176,6 @@ def conditional_access(
 
     """
     _write(xy=xy, width=width, name="conditional_access", style=style, variant=variant)
-
-
-def container_apps(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Azure concept icon representing container apps.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="worker_container_app", style=style, variant=variant)
 
 
 def container_apps_environments(
@@ -1806,26 +1426,6 @@ def data_factories(
     variant: Literal["default"] = "default",
 ) -> None:
     """Draws an Azure concept icon representing data factories.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="data_factories", style=style, variant=variant)
-
-
-def data_factory(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Azure concept icon representing data factory.
 
     Args:
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
@@ -2678,26 +2278,6 @@ def entra_verified_id(
     _write(xy=xy, width=width, name="entra_verified_id", style=style, variant=variant)
 
 
-def event_grid(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Azure concept icon representing event grid.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="event_grid_topics", style=style, variant=variant)
-
-
 def event_grid_domains(
     xy: Coordinate,
     width: PosFloat,
@@ -2776,26 +2356,6 @@ def event_hubs(
 
     """
     _write(xy=xy, width=width, name="event_hubs", style=style, variant=variant)
-
-
-def expressroute(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Azure concept icon representing expressroute.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="expressroute_circuits", style=style, variant=variant)
 
 
 def expressroute_circuits(
@@ -3018,26 +2578,6 @@ def foundry_models(
     _write(xy=xy, width=width, name="foundry_models", style=style, variant=variant)
 
 
-def front_door(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Azure concept icon representing front door.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="front_door_and_cdn_profiles", style=style, variant=variant)
-
-
 def front_door_and_cdn_profiles(
     xy: Coordinate,
     width: PosFloat,
@@ -3066,26 +2606,6 @@ def function_apps(
     variant: Literal["default"] = "default",
 ) -> None:
     """Draws an Azure concept icon representing function apps.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="function_apps", style=style, variant=variant)
-
-
-def functions(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Azure concept icon representing functions.
 
     Args:
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
@@ -3358,26 +2878,6 @@ def ip_address_manager(
     _write(xy=xy, width=width, name="ip_address_manager", style=style, variant=variant)
 
 
-def key_vault(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Azure concept icon representing key vault.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="key_vaults", style=style, variant=variant)
-
-
 def key_vaults(
     xy: Coordinate,
     width: PosFloat,
@@ -3416,26 +2916,6 @@ def kubernetes_services(
 
     """
     _write(xy=xy, width=width, name="kubernetes_services", style=style, variant=variant)
-
-
-def kv(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Azure concept icon representing kv.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="key_vaults", style=style, variant=variant)
 
 
 def lab_services(
@@ -3516,26 +2996,6 @@ def language_understanding(
 
     """
     _write(xy=xy, width=width, name="language_understanding", style=style, variant=variant)
-
-
-def lb(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Azure concept icon representing lb.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="load_balancers", style=style, variant=variant)
 
 
 def lighthouse(
@@ -3636,26 +3096,6 @@ def local(
 
     """
     _write(xy=xy, width=width, name="local", style=style, variant=variant)
-
-
-def log_analytics(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Azure concept icon representing log analytics.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="log_analytics_workspaces", style=style, variant=variant)
 
 
 def log_analytics_workspaces(
@@ -4098,26 +3538,6 @@ def nat(
     _write(xy=xy, width=width, name="nat", style=style, variant=variant)
 
 
-def nat_gateway(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Azure concept icon representing nat gateway.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="nat", style=style, variant=variant)
-
-
 def netapp_files(
     xy: Coordinate,
     width: PosFloat,
@@ -4536,26 +3956,6 @@ def red_hat_openshift(
 
     """
     _write(xy=xy, width=width, name="red_hat_openshift", style=style, variant=variant)
-
-
-def redis(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Azure concept icon representing redis.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="cache_redis", style=style, variant=variant)
 
 
 def relays(
@@ -5218,26 +4618,6 @@ def subnet(
     _write(xy=xy, width=width, name="subnet", style=style, variant=variant)
 
 
-def synapse(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Azure concept icon representing synapse.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="synapse_analytics", style=style, variant=variant)
-
-
 def synapse_analytics(
     xy: Coordinate,
     width: PosFloat,
@@ -5418,26 +4798,6 @@ def virtual_machine(
     _write(xy=xy, width=width, name="virtual_machine", style=style, variant=variant)
 
 
-def virtual_machines(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Azure concept icon representing virtual machines.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="virtual_machine", style=style, variant=variant)
-
-
 def virtual_network_gateways(
     xy: Coordinate,
     width: PosFloat,
@@ -5538,26 +4898,6 @@ def virtual_wans(
     _write(xy=xy, width=width, name="virtual_wans", style=style, variant=variant)
 
 
-def vm(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Azure concept icon representing vm.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="virtual_machine", style=style, variant=variant)
-
-
 def vm_scale_sets(
     xy: Coordinate,
     width: PosFloat,
@@ -5566,26 +4906,6 @@ def vm_scale_sets(
     variant: Literal["default"] = "default",
 ) -> None:
     """Draws an Azure concept icon representing vm scale sets.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="vm_scale_sets", style=style, variant=variant)
-
-
-def vmss(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Azure concept icon representing vmss.
 
     Args:
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
@@ -5616,46 +4936,6 @@ def vmware_solution(
 
     """
     _write(xy=xy, width=width, name="vmware_solution", style=style, variant=variant)
-
-
-def vnet(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Azure concept icon representing vnet.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="virtual_networks", style=style, variant=variant)
-
-
-def waf(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Azure concept icon representing waf.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="web_application_firewall_policies_waf", style=style, variant=variant)
 
 
 def web_application_firewall_policies_waf(

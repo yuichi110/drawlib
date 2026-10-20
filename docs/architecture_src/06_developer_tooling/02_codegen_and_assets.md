@@ -46,7 +46,7 @@ save()
 
 A comprehensive technical diagramming library requires vast catalogs of standardized icons:
 - **Phosphor Icons**: 1,200+ icons available across multiple visual weights (regular, bold, fill, thin, light, duotone).
-- **Google Cloud Architecture Icons**: 250+ canonical product symbols (`variant="default"` 3-tone blue and `variant="modern"` 4-color) across compute, storage, networking, database, AI, and security categories, plus 10 shorthand aliases (`gce`, `gke`, `gcs`, `functions`, `iam`, `kms`, `vpc`, `vertexai`, `load_balancing`, `cloud_pubsub`).
+- **Google Cloud Architecture Icons**: 250 canonical product symbols (`variant="default"` 3-tone blue and `variant="modern"` 4-color) across compute, storage, networking, database, AI, and security categories.
 
 Manually writing Python functions and classes for thousands of icons is prone to identifier collisions, typo regressions, and immense maintenance overhead when icon sets evolve.
 
@@ -185,7 +185,7 @@ The Phosphor codegen engine (`tools/dcli/codegen/icon_phosphor.py`):
 ### 3.2. GCP Architecture Icon Generation (`./dcli codegen icon-gcp`)
 The GCP codegen engine (`tools/dcli/codegen/gcp_codegen.py` & `icons_build.py`):
 1. Builds and normalizes native Drawlib GCP icon scripts (`tools/icons_src/gcp/*_default.py` and `*_modern.py`) into `512×512` (`460×460` inner bbox) transparent PNGs in `tools/release_assets/v0.3/icons/gcp/`.
-2. Writes `tools/release_assets/v0.3/icons/gcp/manifest.json` with SHA-256 digests, bounding boxes, available variants (`default`, `modern`), and shorthand alias mappings (`gce`, `gke`, `gcs`, `functions`, `iam`, `kms`, `vpc`, `vertexai`, `load_balancing`, `cloud_pubsub`).
+2. Writes `tools/release_assets/v0.3/icons/gcp/manifest.json` with SHA-256 digests, bounding boxes, and available variants (`default`, `modern`).
 3. Generates type-safe draw functions (`variant: Literal["default", "modern"] = "default"`) in `src/drawlib/_icons/png_icons/gcp/_generated.py`.
 
 ### 3.3. GeoMap Map Data Codegen (`./dcli codegen map`)

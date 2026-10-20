@@ -56,30 +56,20 @@ class TestCanvasGcp:
             style=Style(image_tint_color=Colors.Red),
         )
         # Border
-        gcp.gke(
+        gcp.google_kubernetes_engine(
             xy=(25, 75),
             width=20,
             style=Style(image_border_color=Colors.Blue, image_border_width=2),
         )
         save(f"{OUTPUT_DIR}test_styles.png")
 
-    def test_gcp_aliases(self) -> None:
-        """Verify common short GCP alias functions."""
-        clear()
-        gcp.gce(xy=(20, 50), width=12, style=Style())
-        gcp.gke(xy=(35, 50), width=12, style=Style())
-        gcp.gcs(xy=(50, 50), width=12, style=Style())
-        gcp.load_balancing(xy=(65, 50), width=12, style=Style())
-        gcp.cloud_pubsub(xy=(80, 50), width=12, style=Style())
-        save(f"{OUTPUT_DIR}test_aliases.png")
-
     def test_gcp_variants(self) -> None:
         """Verify GCP icon drawing with default (3-tone blue) and modern (4-color) variants."""
         clear()
         gcp.compute_engine(xy=(25, 65), width=20, style=Style(), variant="default")
         gcp.compute_engine(xy=(75, 65), width=20, style=Style(), variant="modern")
-        gcp.gke(xy=(25, 30), width=20, style=Style(), variant="default")
-        gcp.gke(xy=(75, 30), width=20, style=Style(), variant="modern")
+        gcp.google_kubernetes_engine(xy=(25, 30), width=20, style=Style(), variant="default")
+        gcp.google_kubernetes_engine(xy=(75, 30), width=20, style=Style(), variant="modern")
         save(f"{OUTPUT_DIR}test_variants.png")
 
     def test_gcp_flat_import(self) -> None:

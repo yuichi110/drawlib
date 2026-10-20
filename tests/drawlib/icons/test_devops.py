@@ -68,27 +68,6 @@ class TestDevopsIcons:
         save(str(out))
         assert out.is_file()
 
-    def test_devops_aliases(self, tmp_path: Path) -> None:
-        """Verify DevOps shorthand aliases (gh, gha, gl, tf, tofu, dd, pd, pw, sonar, bb, nr)."""
-        clear()
-        devops.gh(xy=(15, 70), width=12, style=Style())
-        devops.gha(xy=(35, 70), width=12, style=Style())
-        devops.gl(xy=(55, 70), width=12, style=Style())
-        devops.bb(xy=(75, 70), width=12, style=Style())
-
-        devops.tf(xy=(15, 45), width=12, style=Style())
-        devops.tofu(xy=(35, 45), width=12, style=Style())
-        devops.dd(xy=(55, 45), width=12, style=Style())
-        devops.pd(xy=(75, 45), width=12, style=Style())
-
-        devops.pw(xy=(25, 20), width=12, style=Style())
-        devops.sonar(xy=(50, 20), width=12, style=Style())
-        devops.nr(xy=(75, 20), width=12, style=Style())
-
-        out = tmp_path / "test_devops_aliases.png"
-        save(str(out))
-        assert out.is_file()
-
     def test_devops_architecture_diagram_enum(self, tmp_path: Path) -> None:
         """Verify DevopsIcon works inside ArchitectureDiagram nodes."""
         clear()
@@ -132,8 +111,8 @@ class TestDevopsIcons:
         with pytest.raises(FileNotFoundError):
             DEVOPS_PROVIDER.get_icon_path("non_existent_devops_icon_xyz")
 
-    def test_original_devops_stylized_icons_and_aliases(self, tmp_path: Path) -> None:
-        """Verify Drawlib-stylized Original DevOps icons and aliases."""
+    def test_original_devops_stylized_icons(self, tmp_path: Path) -> None:
+        """Verify Drawlib-stylized Original DevOps icons."""
         clear()
         original_devops.jenkins(xy=(15, 75), width=12, style=Style())
         original_devops.tekton(xy=(35, 75), width=12, style=Style())
@@ -141,9 +120,9 @@ class TestDevopsIcons:
         original_devops.datadog(xy=(75, 75), width=12, style=Style())
 
         original_devops.snyk(xy=(15, 45), width=12, style=Style())
-        original_devops.gha(xy=(35, 45), width=12, style=Style())
-        original_devops.tf(xy=(55, 45), width=12, style=Style())
-        original_devops.cicd(xy=(75, 45), width=12, style=Style())
+        original_devops.github_actions(xy=(35, 45), width=12, style=Style())
+        original_devops.terraform(xy=(55, 45), width=12, style=Style())
+        original_devops.cicd_pipeline(xy=(75, 45), width=12, style=Style())
 
         diag = ArchitectureDiagram(
             node_style=Styles.Neutral,

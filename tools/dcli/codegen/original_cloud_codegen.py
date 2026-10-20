@@ -99,24 +99,15 @@ PROVIDER_LABELS: dict[str, str] = {
 
 def generate_code(
     icon_variants: dict[str, list[str]],
-    aliases: dict[str, str] | None = None,
     *,
     provider: str = "original_cloud",
 ) -> str:
-    """Generate Python source code for Original concept icons and shorthand aliases."""
+    """Generate Python source code for canonical provider icons."""
     provider_label = PROVIDER_LABELS.get(provider, provider.replace("_", " ").title())
     code_parts: list[str] = [ORIGINAL_HEAD_TEMPLATE.format(provider=provider, provider_label=provider_label)]
-    alias_map = aliases or {}
 
-    all_functions: dict[str, tuple[str, list[str]]] = {}
-    for icon_name, variants in icon_variants.items():
-        all_functions[icon_name] = (icon_name, variants)
-    for alias_name, target_name in alias_map.items():
-        if target_name in icon_variants:
-            all_functions[alias_name] = (target_name, icon_variants[target_name])
-
-    for func_name in sorted(all_functions.keys()):
-        target_name, variants = all_functions[func_name]
+    for func_name in sorted(icon_variants.keys()):
+        variants = icon_variants[func_name]
         if provider == "network" and "default" in variants and "modern" in variants and "classic" not in variants:
             idx = variants.index("default")
             variants = [*variants[: idx + 1], "classic", *variants[idx + 1 :]]
@@ -125,7 +116,7 @@ def generate_code(
         variant_doc = " or ".join(f"'{v}'" for v in variants)
         code = ORIGINAL_FUNCTION_TEMPLATE.format(
             function_name=func_name,
-            target_icon_name=target_name,
+            target_icon_name=func_name,
             display_name=display_name,
             variant_literal=variant_literal,
             variant_doc=variant_doc,
@@ -137,6 +128,7 @@ def generate_code(
 
 
 PROVIDER_ENUM_NAMES: dict[str, str] = {
+    "gcp": "GcpIcon",
     "original_cloud": "OriginalCloudIcon",
     "original_devops": "OriginalDevopsIcon",
     "original_ai": "OriginalAiIcon",
@@ -217,14 +209,14 @@ def generate_original_provider_code(
 
     provider_label = PROVIDER_LABELS.get(provider, provider)
     print(f"Reading {provider_label} icon manifest from {m_file}...")
-    icon_variants, aliases = load_gcp_manifest(m_file)
-    all_func_names = sorted(set(icon_variants.keys()) | {k for k, v in aliases.items() if v in icon_variants})
+    icon_variants = load_gcp_manifest(m_file)
+    all_func_names = sorted(icon_variants.keys())
     total_funcs = len(all_func_names)
-    print(f"Loaded {len(icon_variants)} canonical icons and {len(aliases)} aliases ({total_funcs} functions).")
+    print(f"Loaded {total_funcs} canonical icons.")
 
     print(f"Generating Python code into {o_file}...")
     o_file.parent.mkdir(parents=True, exist_ok=True)
-    generated_code = generate_code(icon_variants, aliases, provider=provider)
+    generated_code = generate_code(icon_variants, provider=provider)
     o_file.write_text(generated_code, encoding="utf-8")
 
     print(f"Formatting {o_file} with ruff...")

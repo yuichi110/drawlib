@@ -18,26 +18,6 @@ from drawlib._core.l3_styles import Style
 from drawlib._icons.png_icons.server._base import _write
 
 
-def alma(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Server concept icon representing alma.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="almalinux", style=style, variant=variant)
-
-
 def almalinux(
     xy: Coordinate,
     width: PosFloat,
@@ -56,26 +36,6 @@ def almalinux(
 
     """
     _write(xy=xy, width=width, name="almalinux", style=style, variant=variant)
-
-
-def alpine(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Server concept icon representing alpine.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="alpine_linux", style=style, variant=variant)
 
 
 def alpine_linux(
@@ -158,26 +118,6 @@ def apple(
     _write(xy=xy, width=width, name="apple", style=style, variant=variant)
 
 
-def arch(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Server concept icon representing arch.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="arch_linux", style=style, variant=variant)
-
-
 def arch_linux(
     xy: Coordinate,
     width: PosFloat,
@@ -256,26 +196,6 @@ def asus(
 
     """
     _write(xy=xy, width=width, name="asus", style=style, variant=variant)
-
-
-def beagleboard(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Server concept icon representing beagleboard.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="beaglebone", style=style, variant=variant)
 
 
 def beaglebone(
@@ -398,26 +318,6 @@ def dell(
     _write(xy=xy, width=width, name="dell", style=style, variant=variant)
 
 
-def dell_ai_server(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Server concept icon representing dell ai server.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="dell_gpu_server", style=style, variant=variant)
-
-
 def dell_backup_appliance(
     xy: Coordinate,
     width: PosFloat,
@@ -476,66 +376,6 @@ def dell_bmc_management(
 
     """
     _write(xy=xy, width=width, name="dell_bmc_management", style=style, variant=variant)
-
-
-def dell_connectrix(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Server concept icon representing dell connectrix.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="dell_fc_switch", style=style, variant=variant)
-
-
-def dell_datadomain(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Server concept icon representing dell datadomain.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="dell_backup_appliance", style=style, variant=variant)
-
-
-def dell_ecs(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Server concept icon representing dell ecs.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="dell_object_storage", style=style, variant=variant)
 
 
 def dell_fc_switch(
@@ -598,86 +438,6 @@ def dell_hci_appliance(
     _write(xy=xy, width=width, name="dell_hci_appliance", style=style, variant=variant)
 
 
-def dell_idrac(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Server concept icon representing dell idrac.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="dell_bmc_management", style=style, variant=variant)
-
-
-def dell_isilon(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Server concept icon representing dell isilon.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="dell_nas_storage", style=style, variant=variant)
-
-
-def dell_lto_tape(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Server concept icon representing dell lto tape.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="dell_tape_library", style=style, variant=variant)
-
-
-def dell_mx_chassis(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Server concept icon representing dell mx chassis.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="dell_blade_chassis", style=style, variant=variant)
-
-
 def dell_nas_storage(
     xy: Coordinate,
     width: PosFloat,
@@ -716,106 +476,6 @@ def dell_object_storage(
 
     """
     _write(xy=xy, width=width, name="dell_object_storage", style=style, variant=variant)
-
-
-def dell_openmanage(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Server concept icon representing dell openmanage.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="dell_bmc_management", style=style, variant=variant)
-
-
-def dell_poweredge(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Server concept icon representing dell poweredge.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="dell_rack_server", style=style, variant=variant)
-
-
-def dell_powermax(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Server concept icon representing dell powermax.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="dell_san_storage", style=style, variant=variant)
-
-
-def dell_powerscale(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Server concept icon representing dell powerscale.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="dell_nas_storage", style=style, variant=variant)
-
-
-def dell_powerstore(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Server concept icon representing dell powerstore.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="dell_san_storage", style=style, variant=variant)
 
 
 def dell_rack_server(
@@ -858,46 +518,6 @@ def dell_san_storage(
     _write(xy=xy, width=width, name="dell_san_storage", style=style, variant=variant)
 
 
-def dell_san_switch(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Server concept icon representing dell san switch.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="dell_fc_switch", style=style, variant=variant)
-
-
-def dell_server(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Server concept icon representing dell server.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="dell_rack_server", style=style, variant=variant)
-
-
 def dell_tape_library(
     xy: Coordinate,
     width: PosFloat,
@@ -936,46 +556,6 @@ def dell_tower_server(
 
     """
     _write(xy=xy, width=width, name="dell_tower_server", style=style, variant=variant)
-
-
-def dell_vxrail(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Server concept icon representing dell vxrail.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="dell_hci_appliance", style=style, variant=variant)
-
-
-def esxi(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Server concept icon representing esxi.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="vmware", style=style, variant=variant)
 
 
 def fedora(
@@ -1058,26 +638,6 @@ def hitachi(
     _write(xy=xy, width=width, name="hitachi", style=style, variant=variant)
 
 
-def hp_enterprise(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Server concept icon representing hp enterprise.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="hpe", style=style, variant=variant)
-
-
 def hpe(
     xy: Coordinate,
     width: PosFloat,
@@ -1118,26 +678,6 @@ def ibm(
     _write(xy=xy, width=width, name="ibm", style=style, variant=variant)
 
 
-def incus(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Server concept icon representing incus.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="lxc", style=style, variant=variant)
-
-
 def intel(
     xy: Coordinate,
     width: PosFloat,
@@ -1156,26 +696,6 @@ def intel(
 
     """
     _write(xy=xy, width=width, name="intel", style=style, variant=variant)
-
-
-def kali(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Server concept icon representing kali.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="kali_linux", style=style, variant=variant)
 
 
 def kali_linux(
@@ -1278,26 +798,6 @@ def lxc(
     _write(xy=xy, width=width, name="lxc", style=style, variant=variant)
 
 
-def lxd(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Server concept icon representing lxd.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="lxc", style=style, variant=variant)
-
-
 def mac_mini(
     xy: Coordinate,
     width: PosFloat,
@@ -1316,46 +816,6 @@ def mac_mini(
 
     """
     _write(xy=xy, width=width, name="mac_mini", style=style, variant=variant)
-
-
-def macos(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Server concept icon representing macos.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="apple", style=style, variant=variant)
-
-
-def microsoft_windows(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Server concept icon representing microsoft windows.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="windows", style=style, variant=variant)
 
 
 def nec(
@@ -1396,26 +856,6 @@ def netapp(
 
     """
     _write(xy=xy, width=width, name="netapp", style=style, variant=variant)
-
-
-def nix(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Server concept icon representing nix.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="nixos", style=style, variant=variant)
 
 
 def nixos(
@@ -1498,26 +938,6 @@ def openstack(
     _write(xy=xy, width=width, name="openstack", style=style, variant=variant)
 
 
-def opensuse(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Server concept icon representing opensuse.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="suse", style=style, variant=variant)
-
-
 def openzfs(
     xy: Coordinate,
     width: PosFloat,
@@ -1558,26 +978,6 @@ def proxmox(
     _write(xy=xy, width=width, name="proxmox", style=style, variant=variant)
 
 
-def proxmox_ve(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Server concept icon representing proxmox ve.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="proxmox", style=style, variant=variant)
-
-
 def pure_storage(
     xy: Coordinate,
     width: PosFloat,
@@ -1596,26 +996,6 @@ def pure_storage(
 
     """
     _write(xy=xy, width=width, name="pure_storage", style=style, variant=variant)
-
-
-def pve(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Server concept icon representing pve.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="proxmox", style=style, variant=variant)
 
 
 def qemu(
@@ -1678,46 +1058,6 @@ def raspberry_pi(
     _write(xy=xy, width=width, name="raspberry_pi", style=style, variant=variant)
 
 
-def raspi(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Server concept icon representing raspi.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="raspberry_pi", style=style, variant=variant)
-
-
-def red_hat(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Server concept icon representing red hat.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="redhat", style=style, variant=variant)
-
-
 def redhat(
     xy: Coordinate,
     width: PosFloat,
@@ -1726,26 +1066,6 @@ def redhat(
     variant: Literal["default"] = "default",
 ) -> None:
     """Draws an Server concept icon representing redhat.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="redhat", style=style, variant=variant)
-
-
-def rhel(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Server concept icon representing rhel.
 
     Args:
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
@@ -1778,46 +1098,6 @@ def risc_v(
     _write(xy=xy, width=width, name="risc_v", style=style, variant=variant)
 
 
-def riscv(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Server concept icon representing riscv.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="risc_v", style=style, variant=variant)
-
-
-def rocky(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Server concept icon representing rocky.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="rocky_linux", style=style, variant=variant)
-
-
 def rocky_linux(
     xy: Coordinate,
     width: PosFloat,
@@ -1836,26 +1116,6 @@ def rocky_linux(
 
     """
     _write(xy=xy, width=width, name="rocky_linux", style=style, variant=variant)
-
-
-def rpi(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Server concept icon representing rpi.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="raspberry_pi", style=style, variant=variant)
 
 
 def rubrik(
@@ -1896,26 +1156,6 @@ def seagate(
 
     """
     _write(xy=xy, width=width, name="seagate", style=style, variant=variant)
-
-
-def sles(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Server concept icon representing sles.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="suse", style=style, variant=variant)
 
 
 def supermicro(
@@ -1998,26 +1238,6 @@ def truenas(
     _write(xy=xy, width=width, name="truenas", style=style, variant=variant)
 
 
-def tux(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Server concept icon representing tux.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="linux", style=style, variant=variant)
-
-
 def ubuntu(
     xy: Coordinate,
     width: PosFloat,
@@ -2036,26 +1256,6 @@ def ubuntu(
 
     """
     _write(xy=xy, width=width, name="ubuntu", style=style, variant=variant)
-
-
-def vbox(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Server concept icon representing vbox.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="virtualbox", style=style, variant=variant)
 
 
 def veeam(
@@ -2158,46 +1358,6 @@ def vmware_datastore(
     _write(xy=xy, width=width, name="vmware_datastore", style=style, variant=variant)
 
 
-def vmware_drs_cluster(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Server concept icon representing vmware drs cluster.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="vmware_cluster", style=style, variant=variant)
-
-
-def vmware_dvs(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Server concept icon representing vmware dvs.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="vmware_vswitch", style=style, variant=variant)
-
-
 def vmware_esxi_host(
     xy: Coordinate,
     width: PosFloat,
@@ -2216,146 +1376,6 @@ def vmware_esxi_host(
 
     """
     _write(xy=xy, width=width, name="vmware_esxi_host", style=style, variant=variant)
-
-
-def vmware_ha_cluster(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Server concept icon representing vmware ha cluster.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="vmware_cluster", style=style, variant=variant)
-
-
-def vmware_hci_storage(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Server concept icon representing vmware hci storage.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="vmware_vsan", style=style, variant=variant)
-
-
-def vmware_hypervisor(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Server concept icon representing vmware hypervisor.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="vmware_esxi_host", style=style, variant=variant)
-
-
-def vmware_live_migration(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Server concept icon representing vmware live migration.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="vmware_vmotion", style=style, variant=variant)
-
-
-def vmware_management_server(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Server concept icon representing vmware management server.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="vmware_vcenter", style=style, variant=variant)
-
-
-def vmware_nsx_switch(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Server concept icon representing vmware nsx switch.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="vmware_vswitch", style=style, variant=variant)
-
-
-def vmware_physical_server(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Server concept icon representing vmware physical server.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="vmware_rack_server", style=style, variant=variant)
 
 
 def vmware_rack_server(
@@ -2396,26 +1416,6 @@ def vmware_resource_pool(
 
     """
     _write(xy=xy, width=width, name="vmware_resource_pool", style=style, variant=variant)
-
-
-def vmware_san_nas(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Server concept icon representing vmware san nas.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="vmware_storage_array", style=style, variant=variant)
 
 
 def vmware_snapshot(
@@ -2478,26 +1478,6 @@ def vmware_template(
     _write(xy=xy, width=width, name="vmware_template", style=style, variant=variant)
 
 
-def vmware_vapp(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Server concept icon representing vmware vapp.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="vmware_vm_group", style=style, variant=variant)
-
-
 def vmware_vcenter(
     xy: Coordinate,
     width: PosFloat,
@@ -2516,26 +1496,6 @@ def vmware_vcenter(
 
     """
     _write(xy=xy, width=width, name="vmware_vcenter", style=style, variant=variant)
-
-
-def vmware_virtual_machine(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Server concept icon representing vmware virtual machine.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="vmware_vm", style=style, variant=variant)
 
 
 def vmware_vm(
@@ -2576,66 +1536,6 @@ def vmware_vm_group(
 
     """
     _write(xy=xy, width=width, name="vmware_vm_group", style=style, variant=variant)
-
-
-def vmware_vm_snapshot(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Server concept icon representing vmware vm snapshot.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="vmware_snapshot", style=style, variant=variant)
-
-
-def vmware_vm_template(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Server concept icon representing vmware vm template.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="vmware_template", style=style, variant=variant)
-
-
-def vmware_vmfs(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Server concept icon representing vmware vmfs.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="vmware_datastore", style=style, variant=variant)
 
 
 def vmware_vmotion(
@@ -2698,26 +1598,6 @@ def vmware_vswitch(
     _write(xy=xy, width=width, name="vmware_vswitch", style=style, variant=variant)
 
 
-def wd(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Server concept icon representing wd.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="western_digital", style=style, variant=variant)
-
-
 def western_digital(
     xy: Coordinate,
     width: PosFloat,
@@ -2758,26 +1638,6 @@ def windows(
     _write(xy=xy, width=width, name="windows", style=style, variant=variant)
 
 
-def windows_server(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Server concept icon representing windows server.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="windows", style=style, variant=variant)
-
-
 def xen(
     xy: Coordinate,
     width: PosFloat,
@@ -2796,23 +1656,3 @@ def xen(
 
     """
     _write(xy=xy, width=width, name="xen", style=style, variant=variant)
-
-
-def zfs(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Server concept icon representing zfs.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="openzfs", style=style, variant=variant)

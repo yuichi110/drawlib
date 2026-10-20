@@ -98,26 +98,6 @@ def apollo(
     _write(xy=xy, width=width, name="apollo", style=style, variant=variant)
 
 
-def apollo_graphql(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Code concept icon representing apollo graphql.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="apollo", style=style, variant=variant)
-
-
 def appwrite(
     xy: Coordinate,
     width: PosFloat,
@@ -136,26 +116,6 @@ def appwrite(
 
     """
     _write(xy=xy, width=width, name="appwrite", style=style, variant=variant)
-
-
-def aspnet(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Code concept icon representing aspnet.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="dotnet", style=style, variant=variant)
 
 
 def astro(
@@ -298,26 +258,6 @@ def c(
     _write(xy=xy, width=width, name="c", style=style, variant=variant)
 
 
-def c_lang(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Code concept icon representing c lang.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="c", style=style, variant=variant)
-
-
 def cargo(
     xy: Coordinate,
     width: PosFloat,
@@ -398,26 +338,6 @@ def convex(
     _write(xy=xy, width=width, name="convex", style=style, variant=variant)
 
 
-def cplusplus(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Code concept icon representing cplusplus.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="cpp", style=style, variant=variant)
-
-
 def cpp(
     xy: Coordinate,
     width: PosFloat,
@@ -438,26 +358,6 @@ def cpp(
     _write(xy=xy, width=width, name="cpp", style=style, variant=variant)
 
 
-def cs(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Code concept icon representing cs.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="csharp", style=style, variant=variant)
-
-
 def csharp(
     xy: Coordinate,
     width: PosFloat,
@@ -476,26 +376,6 @@ def csharp(
 
     """
     _write(xy=xy, width=width, name="csharp", style=style, variant=variant)
-
-
-def css(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Code concept icon representing css.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="css3", style=style, variant=variant)
 
 
 def css3(
@@ -618,26 +498,6 @@ def echo(
     _write(xy=xy, width=width, name="echo", style=style, variant=variant)
 
 
-def echo_go(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Code concept icon representing echo go.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="echo", style=style, variant=variant)
-
-
 def electron(
     xy: Coordinate,
     width: PosFloat,
@@ -678,26 +538,6 @@ def elixir(
     _write(xy=xy, width=width, name="elixir", style=style, variant=variant)
 
 
-def elixir_lang(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Code concept icon representing elixir lang.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="elixir", style=style, variant=variant)
-
-
 def expo(
     xy: Coordinate,
     width: PosFloat,
@@ -726,26 +566,6 @@ def express(
     variant: Literal["default"] = "default",
 ) -> None:
     """Draws an Code concept icon representing express.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="express", style=style, variant=variant)
-
-
-def expressjs(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Code concept icon representing expressjs.
 
     Args:
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
@@ -858,26 +678,6 @@ def gin(
     _write(xy=xy, width=width, name="gin", style=style, variant=variant)
 
 
-def gin_gonic(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Code concept icon representing gin gonic.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="gin", style=style, variant=variant)
-
-
 def go(
     xy: Coordinate,
     width: PosFloat,
@@ -896,66 +696,6 @@ def go(
 
     """
     _write(xy=xy, width=width, name="go", style=style, variant=variant)
-
-
-def golang(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Code concept icon representing golang.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="go", style=style, variant=variant)
-
-
-def google_colab(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Code concept icon representing google colab.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="colab", style=style, variant=variant)
-
-
-def gql(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Code concept icon representing gql.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="graphql", style=style, variant=variant)
 
 
 def gradle(
@@ -1058,26 +798,6 @@ def hono(
     _write(xy=xy, width=width, name="hono", style=style, variant=variant)
 
 
-def html(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Code concept icon representing html.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="html5", style=style, variant=variant)
-
-
 def html5(
     xy: Coordinate,
     width: PosFloat,
@@ -1178,26 +898,6 @@ def javascript(
     _write(xy=xy, width=width, name="javascript", style=style, variant=variant)
 
 
-def jetbrains(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Code concept icon representing jetbrains.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="intellij", style=style, variant=variant)
-
-
 def jquery(
     xy: Coordinate,
     width: PosFloat,
@@ -1216,26 +916,6 @@ def jquery(
 
     """
     _write(xy=xy, width=width, name="jquery", style=style, variant=variant)
-
-
-def js(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Code concept icon representing js.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="javascript", style=style, variant=variant)
 
 
 def julia(
@@ -1258,46 +938,6 @@ def julia(
     _write(xy=xy, width=width, name="julia", style=style, variant=variant)
 
 
-def julia_lang(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Code concept icon representing julia lang.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="julia", style=style, variant=variant)
-
-
-def jvm(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Code concept icon representing jvm.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="java", style=style, variant=variant)
-
-
 def kotlin(
     xy: Coordinate,
     width: PosFloat,
@@ -1306,26 +946,6 @@ def kotlin(
     variant: Literal["default"] = "default",
 ) -> None:
     """Draws an Code concept icon representing kotlin.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="kotlin", style=style, variant=variant)
-
-
-def kt(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Code concept icon representing kt.
 
     Args:
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
@@ -1378,46 +998,6 @@ def lua(
     _write(xy=xy, width=width, name="lua", style=style, variant=variant)
 
 
-def lua_lang(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Code concept icon representing lua lang.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="lua", style=style, variant=variant)
-
-
-def nest(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Code concept icon representing nest.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="nestjs", style=style, variant=variant)
-
-
 def nestjs(
     xy: Coordinate,
     width: PosFloat,
@@ -1438,46 +1018,6 @@ def nestjs(
     _write(xy=xy, width=width, name="nestjs", style=style, variant=variant)
 
 
-def net(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Code concept icon representing net.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="dotnet", style=style, variant=variant)
-
-
-def next(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Code concept icon representing next.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="nextjs", style=style, variant=variant)
-
-
 def nextjs(
     xy: Coordinate,
     width: PosFloat,
@@ -1496,26 +1036,6 @@ def nextjs(
 
     """
     _write(xy=xy, width=width, name="nextjs", style=style, variant=variant)
-
-
-def node(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Code concept icon representing node.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="nodejs", style=style, variant=variant)
 
 
 def nodejs(
@@ -1598,26 +1118,6 @@ def nuxt(
     _write(xy=xy, width=width, name="nuxt", style=style, variant=variant)
 
 
-def nuxtjs(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Code concept icon representing nuxtjs.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="nuxt", style=style, variant=variant)
-
-
 def openapi(
     xy: Coordinate,
     width: PosFloat,
@@ -1636,26 +1136,6 @@ def openapi(
 
     """
     _write(xy=xy, width=width, name="openapi", style=style, variant=variant)
-
-
-def openjdk(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Code concept icon representing openjdk.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="java", style=style, variant=variant)
 
 
 def pandas(
@@ -1778,26 +1258,6 @@ def prisma(
     _write(xy=xy, width=width, name="prisma", style=style, variant=variant)
 
 
-def proto(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Code concept icon representing proto.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="protobuf", style=style, variant=variant)
-
-
 def protobuf(
     xy: Coordinate,
     width: PosFloat,
@@ -1816,26 +1276,6 @@ def protobuf(
 
     """
     _write(xy=xy, width=width, name="protobuf", style=style, variant=variant)
-
-
-def py(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Code concept icon representing py.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="python", style=style, variant=variant)
 
 
 def pydantic(
@@ -1958,26 +1398,6 @@ def r(
     _write(xy=xy, width=width, name="r", style=style, variant=variant)
 
 
-def r_lang(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Code concept icon representing r lang.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="r", style=style, variant=variant)
-
-
 def rails(
     xy: Coordinate,
     width: PosFloat,
@@ -1996,26 +1416,6 @@ def rails(
 
     """
     _write(xy=xy, width=width, name="rails", style=style, variant=variant)
-
-
-def rb(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Code concept icon representing rb.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="ruby", style=style, variant=variant)
 
 
 def react(
@@ -2058,26 +1458,6 @@ def react_native(
     _write(xy=xy, width=width, name="react_native", style=style, variant=variant)
 
 
-def reactjs(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Code concept icon representing reactjs.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="react", style=style, variant=variant)
-
-
 def remix(
     xy: Coordinate,
     width: PosFloat,
@@ -2098,46 +1478,6 @@ def remix(
     _write(xy=xy, width=width, name="remix", style=style, variant=variant)
 
 
-def rn(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Code concept icon representing rn.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="react_native", style=style, variant=variant)
-
-
-def rs(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Code concept icon representing rs.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="rust", style=style, variant=variant)
-
-
 def ruby(
     xy: Coordinate,
     width: PosFloat,
@@ -2156,26 +1496,6 @@ def ruby(
 
     """
     _write(xy=xy, width=width, name="ruby", style=style, variant=variant)
-
-
-def ruby_on_rails(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Code concept icon representing ruby on rails.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="rails", style=style, variant=variant)
 
 
 def rust(
@@ -2218,86 +1538,6 @@ def scala(
     _write(xy=xy, width=width, name="scala", style=style, variant=variant)
 
 
-def scala_lang(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Code concept icon representing scala lang.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="scala", style=style, variant=variant)
-
-
-def sh(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Code concept icon representing sh.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="bash", style=style, variant=variant)
-
-
-def shell(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Code concept icon representing shell.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="bash", style=style, variant=variant)
-
-
-def sol(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Code concept icon representing sol.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="solidity", style=style, variant=variant)
-
-
 def solidity(
     xy: Coordinate,
     width: PosFloat,
@@ -2326,26 +1566,6 @@ def spring(
     variant: Literal["default"] = "default",
 ) -> None:
     """Draws an Code concept icon representing spring.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="spring", style=style, variant=variant)
-
-
-def spring_boot(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Code concept icon representing spring boot.
 
     Args:
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
@@ -2438,26 +1658,6 @@ def svelte(
     _write(xy=xy, width=width, name="svelte", style=style, variant=variant)
 
 
-def swagger(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Code concept icon representing swagger.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="openapi", style=style, variant=variant)
-
-
 def swift(
     xy: Coordinate,
     width: PosFloat,
@@ -2476,26 +1676,6 @@ def swift(
 
     """
     _write(xy=xy, width=width, name="swift", style=style, variant=variant)
-
-
-def tailwind(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Code concept icon representing tailwind.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="tailwind_css", style=style, variant=variant)
 
 
 def tailwind_css(
@@ -2578,26 +1758,6 @@ def trpc(
     _write(xy=xy, width=width, name="trpc", style=style, variant=variant)
 
 
-def ts(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Code concept icon representing ts.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="typescript", style=style, variant=variant)
-
-
 def typescript(
     xy: Coordinate,
     width: PosFloat,
@@ -2678,26 +1838,6 @@ def vite(
     _write(xy=xy, width=width, name="vite", style=style, variant=variant)
 
 
-def vitejs(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Code concept icon representing vitejs.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="vite", style=style, variant=variant)
-
-
 def vitest(
     xy: Coordinate,
     width: PosFloat,
@@ -2716,26 +1856,6 @@ def vitest(
 
     """
     _write(xy=xy, width=width, name="vitest", style=style, variant=variant)
-
-
-def vs_code(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Code concept icon representing vs code.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="vscode", style=style, variant=variant)
 
 
 def vscode(
@@ -2758,26 +1878,6 @@ def vscode(
     _write(xy=xy, width=width, name="vscode", style=style, variant=variant)
 
 
-def vue(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Code concept icon representing vue.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="vuejs", style=style, variant=variant)
-
-
 def vuejs(
     xy: Coordinate,
     width: PosFloat,
@@ -2796,26 +1896,6 @@ def vuejs(
 
     """
     _write(xy=xy, width=width, name="vuejs", style=style, variant=variant)
-
-
-def wasm(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Code concept icon representing wasm.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="webassembly", style=style, variant=variant)
 
 
 def webassembly(
@@ -2866,26 +1946,6 @@ def zig(
     variant: Literal["default"] = "default",
 ) -> None:
     """Draws an Code concept icon representing zig.
-
-    Args:
-        xy: Tuple of floats (x, y) representing the coordinates of the icon's center.
-            Default alignment is center, center.
-        width: Horizontal size of the icon.
-        style: Style object (required).
-        variant: Visual variant of the icon ('default'). Defaults to "default".
-
-    """
-    _write(xy=xy, width=width, name="zig", style=style, variant=variant)
-
-
-def zig_lang(
-    xy: Coordinate,
-    width: PosFloat,
-    *,
-    style: Style,
-    variant: Literal["default"] = "default",
-) -> None:
-    """Draws an Code concept icon representing zig lang.
 
     Args:
         xy: Tuple of floats (x, y) representing the coordinates of the icon's center.

@@ -89,20 +89,6 @@ class TestBusinessIcons:
         save(str(out))
         assert out.is_file()
 
-    def test_business_aliases(self, tmp_path: Path) -> None:
-        """Verify shorthand aliases resolve to canonical business icons."""
-        clear()
-        business.dynamics(xy=(15, 70), width=10, style=Style())
-        business.sfdc(xy=(30, 70), width=10, style=Style())
-        business.snow(xy=(45, 70), width=10, style=Style())
-        business.mf(xy=(60, 70), width=10, style=Style())
-        business.wp(xy=(75, 70), width=10, style=Style())
-        business.woo(xy=(90, 70), width=10, style=Style())
-
-        out = tmp_path / "test_business_aliases.png"
-        save(str(out))
-        assert out.is_file()
-
     def test_business_architecture_enum(self, tmp_path: Path) -> None:
         """Verify BusinessIcon works inside ArchitectureDiagram nodes."""
         clear()
@@ -123,12 +109,6 @@ class TestBusinessIcons:
         assert out.is_file()
 
     def test_business_provider_metadata(self) -> None:
-        """Verify provider package name and aliases mapping."""
+        """Verify provider package name."""
         assert BUSINESS_PROVIDER.name == "business"
         assert BUSINESS_PROVIDER.package_name == "icon_business"
-        assert BUSINESS_PROVIDER.aliases["dynamics"] == "dynamics_365"
-        assert BUSINESS_PROVIDER.aliases["mf"] == "moneyforward"
-        assert BUSINESS_PROVIDER.aliases["sfdc"] == "salesforce"
-        assert BUSINESS_PROVIDER.aliases["snow"] == "servicenow"
-        assert BUSINESS_PROVIDER.aliases["woo"] == "woocommerce"
-        assert BUSINESS_PROVIDER.aliases["wp"] == "wordpress"
