@@ -244,4 +244,4 @@ save()
 ---
 
 > [!TIP]
-> For complete system prompts, rule topic catalogues, and advanced automated CI/CD integration, proceed to **[Chapter 9: AI Agents & Advanced Integration](../09_ai_agents_and_advanced/ai_agent_instructions.md)**.
+> For complete system prompts, rule topic catalogues, and advanced automated CI/CD integration, proceed to **[Chapter 9: AI Agents & Advanced Integration](../10_ai_agents_and_advanced/ai_agent_instructions.md)**.

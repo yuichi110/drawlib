@@ -1,0 +1,847 @@
+<!--
+ Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+
+ This software is licensed under the Apache License, Version 2.0.
+ For more information, please visit: https://github.com/yuichi110/drawlib
+
+ This software is provided "as is", without warranty of any kind,
+ express or implied, including but not limited to the warranties of
+ merchantability, fitness for a particular purpose and noninfringement.
+-->
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Autonomous Multimodal Visual Feedback Loop</title>
+    <script>
+        (function() {
+            const saved = localStorage.getItem('drawlib-theme');
+            if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <link rel="icon" type="image/png" href="../_assets/favicon.png">
+    
+    
+    <link rel="stylesheet" href="../style.css">
+    
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-brand" aria-label="Drawlib Documentation">
+                    
+                    <img src="../_assets/logo.png" alt="Drawlib Documentation" class="sidebar-logo sidebar-logo-light">
+                    <img src="../_assets/logo_dark.png" alt="Drawlib Documentation" class="sidebar-logo sidebar-logo-dark">
+                    
+                </a>
+                <button type="button" id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle theme">
+                    <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                    <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                </button>
+            </div>
+            <div class="sidebar-menu">
+                
+                    
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../index.html" >Welcome</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">1. Getting Started</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/overview.html" >About Drawlib</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/installation.html" >Installation Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/quick_start.html" >Quick Start Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/core_concepts.html" >Core Visual Concepts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/project_quicklook.html" >Project & Build Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/agent_quicklook.html" >AI-Driven Workflow & Agent Setup</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/release_notes.html" >Release Notes & Migration</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">2. Drawing Primitives & Styles</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/canvas.html" >Canvas & Coordinates</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_overview.html" >Shapes Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_basic.html" >Basic & Radial Shapes</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_polygon.html" >Polygons & Custom Paths</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_arrow.html" >Block Arrows & Chevrons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_container.html" >3D Containers, Flow & Grouping</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_badge.html" >Callouts, Badges & Status</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_symbol.html" >Faces, Clocks, Symbols & Operators</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/lines.html" >Lines & Connectors</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/text.html" >Text & Typography</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/fonts.html" >Fonts & Multilingual Catalog</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/font_file.html" >Custom Font Files (FontFile)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/images.html" >Images & Dimage</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/styles.html" >Styles & Theming</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/colors.html" >Color Palettes & Color Model</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/style_guide.html" >Diagram Design & Style Guide</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">3. Icons & Brand Suites</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/overview.html" >Icons Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/phosphor.html" >Phosphor Vector Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/gcp.html" >Google Cloud (GCP) Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/aws.html" >Amazon Web Services (AWS) Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/azure.html" >Microsoft Azure Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/cloud.html" >Cloud & Original Cloud Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/cnative.html" >Cloud Native (K8s) Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/devops.html" >DevOps & Observability Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/network.html" >Network & Cisco Topology Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/server.html" >Server, OS & Virtualization Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/security.html" >Security & Zero-Trust Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/facility.html" >Data Center & Facility Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/ai.html" >AI & Machine Learning Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/data.html" >Data & Database Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/code.html" >Code, Languages & Frameworks Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/business.html" >Enterprise Business & FinTech Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/itservice.html" >IT Services & Consulting Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/workspace.html" >Workspace & Collaboration Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/social.html" >Social, Media & Community Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/client.html" >Client Devices & Endpoints Icons</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">4. SmartArts</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/overview.html" >SmartArts Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/chevron_process.html" >ChevronProcess</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/cycle.html" >Cycle</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/table.html" >Table</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/tree.html" >Tree</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/mindmap.html" >MindMap</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/grid_layout.html" >GridLayout</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/pyramid.html" >Pyramid</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/box_list.html" >BoxList</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/kpi_cards.html" >KpiCards</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/card_list.html" >CardList</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/roadmap.html" >Roadmap</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/panel.html" >Panel</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/calendar.html" >Calendar</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/bullet_points.html" >BulletPoints</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/source_code.html" >SourceCode</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/geomap.html" >GeoMap</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">5. Charts</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/overview.html" >Charts Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/axes_and_legends.html" >Axes, Scales & Legends</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/bar.html" >Bar Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/line.html" >Line Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/area.html" >Area Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/pie.html" >Pie & Donut Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/radar.html" >Radar Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/scatter.html" >Scatter Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/gantt.html" >Gantt Chart</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">6. Technical Diagrams</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/overview.html" >Diagrams Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/architecture.html" >Architecture Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/flow.html" >Flow Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/sequence.html" >Sequence Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/class_diagram.html" >UML Class Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/er.html" >ER Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/state_diagram.html" >State Machine Diagrams</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">7. Auto-Layout Graphs</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/overview.html" >Graph Engine Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/architecture_graph.html" >ArchitectureGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/layer_graph.html" >LayerGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/tree_graph.html" >TreeGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/radial_graph.html" >RadialGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/grid_graph.html" >GridGraph</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">8. Animations</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/overview.html" >Animations Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/primitives.html" >Animating Primitives & Colors</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/smartarts.html" >Animating SmartArts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/charts.html" >Animating Charts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/diagrams.html" >Animating Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/graphs.html" >Animating Graphs</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">9. Document Builder & CLI</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/overview.html" >Illustrated Documentation as Code Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/code_blocks.html" >Markdown Code Block Syntax</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/cli_reference.html" >CLI Reference</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/project_doc.html" >Linear Document Project (`doc`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/project_site.html" >Doc Site Project (`site`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/project_slide.html" >Slide Deck Project (`slide`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/slide_layout_and_api.html" >Slide Stage Layout & API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/project_image.html" >Image Project (`images`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/customization.html" >Templates & CSS Customization</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/caching_and_cicd.html" >Caching Architecture & CI/CD</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">10. AI Agents & Advanced Integration</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="ai_agent_instructions.html" >AI Agent Instructions & Rules</a>
+                            </li>
+                            
+                            <li class="nav-item active">
+                                <a href="multimodal_feedback_loop.html" >Autonomous Verification Loop</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="programmatic_api.html" >Programmatic API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="math_and_layout.html" >Algorithmic Layout & Math</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="debugging.html" >Troubleshooting & Debugging</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="case_study_brand_assets.html" >Case Study: Designing Official Brand Assets</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="case_study_documentation_site.html" >Case Study: Building Documentation Sites with AI Agents</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="case_study_software_architecture.html" >Case Study: Authoring Software Architecture as Code</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="case_study_technical_slides.html" >Case Study: Creating Technical Slide Decks</a>
+                            </li>
+                            
+                        </ul>
+                    
+                
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">The Autonomous Multimodal Visual Feedback Loop</span>
+                </div>
+            </header>
+            <main class="main-content">
+                <h1>The Autonomous Multimodal Visual Feedback Loop</h1>
+<p>A key strength of modern AI coding assistants equipped with vision tools (such as Claude 3.5 Sonnet, Gemini 1.5 Pro, and GPT-4o) is the ability to visually inspect their own drawings before presenting them to the user.</p>
+<p>Drawlib is engineered specifically to empower this autonomous self-correction loop.</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="multimodal_feedback_loop_images/multimodal_feedback_cycle.png" alt="multimodal_feedback_loop_1" />
+  <figcaption class="drawlib-caption">The Autonomous Multimodal AI Visual Self-Correction Loop</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span><span class="p">,</span> <span class="n">lines</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">58</span><span class="p">)</span>
+
+<span class="c1"># Top Row: Stages 1 to 4</span>
+<span class="n">stages</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="mf">17.5</span><span class="p">,</span> <span class="s2">"1. Inspect"</span><span class="p">,</span> <span class="s2">"Code &amp; Rules"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">magnifying_glass</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">47.0</span><span class="p">,</span> <span class="s2">"2. Author"</span><span class="p">,</span> <span class="s2">"Drawlib Code"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">code</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">76.5</span><span class="p">,</span> <span class="s2">"3. Render"</span><span class="p">,</span> <span class="s2">"Grid (-g)"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">grid_four</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">108.0</span><span class="p">,</span> <span class="s2">"4. Vision Review"</span><span class="p">,</span> <span class="s2">"Multimodal Check"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">eye</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">),</span>
+<span class="p">]</span>
+<span class="k">for</span> <span class="n">sx</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">sub</span><span class="p">,</span> <span class="n">st</span><span class="p">,</span> <span class="n">tst</span><span class="p">,</span> <span class="n">sub_st</span><span class="p">,</span> <span class="n">icon_fn</span><span class="p">,</span> <span class="n">icon_st</span> <span class="ow">in</span> <span class="n">stages</span><span class="p">:</span>
+    <span class="n">w</span> <span class="o">=</span> <span class="mi">29</span> <span class="k">if</span> <span class="n">sx</span> <span class="o">&gt;</span> <span class="mi">100</span> <span class="k">else</span> <span class="mi">25</span>
+    <span class="n">rectangle</span><span class="p">((</span><span class="n">sx</span><span class="p">,</span> <span class="mf">43.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="n">w</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">21</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">st</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">))</span>
+    <span class="n">icon_fn</span><span class="p">((</span><span class="n">sx</span><span class="p">,</span> <span class="mf">48.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.6</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">icon_st</span><span class="p">)</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">sx</span><span class="p">,</span> <span class="mf">41.5</span><span class="p">),</span> <span class="n">title</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">tst</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">sx</span><span class="p">,</span> <span class="mf">36.2</span><span class="p">),</span> <span class="n">sub</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">sub_st</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+
+<span class="c1"># Forward Connectors (1 -&gt; 2 -&gt; 3 -&gt; 4)</span>
+<span class="n">line</span><span class="p">((</span><span class="mf">30.0</span><span class="p">,</span> <span class="mf">43.0</span><span class="p">),</span> <span class="p">(</span><span class="mf">34.5</span><span class="p">,</span> <span class="mf">43.0</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+<span class="n">line</span><span class="p">((</span><span class="mf">59.5</span><span class="p">,</span> <span class="mf">43.0</span><span class="p">),</span> <span class="p">(</span><span class="mf">64.0</span><span class="p">,</span> <span class="mf">43.0</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+<span class="n">line</span><span class="p">((</span><span class="mf">89.0</span><span class="p">,</span> <span class="mf">43.0</span><span class="p">),</span> <span class="p">(</span><span class="mf">93.5</span><span class="p">,</span> <span class="mf">43.0</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+
+<span class="c1"># Decision Branch A: Defects Found -&gt; Loop Back to Step 2</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mf">61.0</span><span class="p">,</span> <span class="mf">14.0</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">38</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Defects Found:</span><span class="se">\n</span><span class="s2">Adjust Coords &amp; Retry"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.2</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">lines</span><span class="p">([(</span><span class="mf">94.5</span><span class="p">,</span> <span class="mf">32.5</span><span class="p">),</span> <span class="p">(</span><span class="mf">94.5</span><span class="p">,</span> <span class="mf">14.0</span><span class="p">),</span> <span class="p">(</span><span class="mf">80.0</span><span class="p">,</span> <span class="mf">14.0</span><span class="p">)],</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+<span class="n">lines</span><span class="p">([(</span><span class="mf">42.0</span><span class="p">,</span> <span class="mf">14.0</span><span class="p">),</span> <span class="p">(</span><span class="mf">36.0</span><span class="p">,</span> <span class="mf">14.0</span><span class="p">),</span> <span class="p">(</span><span class="mf">36.0</span><span class="p">,</span> <span class="mf">32.5</span><span class="p">)],</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+
+<span class="c1"># Decision Branch B: Pass -&gt; Step 5 Final Deliverable</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">110.5</span><span class="p">,</span> <span class="mf">14.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">check_circle</span><span class="p">((</span><span class="mf">101.8</span><span class="p">,</span> <span class="mf">14.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">112.8</span><span class="p">,</span> <span class="mf">14.0</span><span class="p">),</span> <span class="s2">"5. Deliverable</span><span class="se">\n</span><span class="s2">Clean Layout"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+<span class="n">line</span><span class="p">((</span><span class="mf">114.0</span><span class="p">,</span> <span class="mf">32.5</span><span class="p">),</span> <span class="p">(</span><span class="mf">114.0</span><span class="p">,</span> <span class="mf">20.5</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">116.5</span><span class="p">,</span> <span class="mf">26.5</span><span class="p">),</span> <span class="s2">"Pass"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.2</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">))</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<hr />
+<h2>1. The Autonomous Feedback Cycle</h2>
+<h3>Stage 1: Inspect Context</h3>
+<p>Rather than imagining an architecture from thin air, the agent inspects real repository source code (<code>models.py</code>, API routes, microservice configurations).</p>
+<h3>Stage 2: Prototype in Isolated Scratch Space (<code>.drawlib/scratch/</code>)</h3>
+<p>The agent drafts the drawing prototype code in an isolated scratch file (<code>.drawlib/scratch/test_diagram.py</code>) or tests a specific block instead of altering production assets blindly. Do NOT pollute the project root; ensure <code>.drawlib/</code> is in <code>.gitignore</code>.</p>
+<h3>Stage 3: Headless Render with Coordinate Grid (<code>-g</code>)</h3>
+<p>The agent executes <code>drawlib show</code> with the <code>-g</code> flag to render the diagram overlaid with coordinate axes, tick marks, and numeric coordinate labels (targeting embedded Markdown blocks by their explicit <code>file:</code> name rather than fragile numeric index):</p>
+<pre><code class="language-bash"><span class="c1"># Render an embedded Markdown block by explicit filename with coordinate grid (Recommended):</span>
+uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>show<span class="w"> </span>docs_src/architecture.md<span class="w"> </span>service_mesh.png<span class="w"> </span>-g<span class="w"> </span>-o<span class="w"> </span>.drawlib/scratch/preview.png
+
+<span class="c1"># Or render a standalone Python script with coordinate grid:</span>
+uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>show<span class="w"> </span>.drawlib/scratch/test_diagram.py<span class="w"> </span>-g<span class="w"> </span>-o<span class="w"> </span>.drawlib/scratch/test_diagram.png
+</code></pre>
+<h3>Stage 4: Multimodal Inspection</h3>
+<p>Using vision inspection tools (such as <code>view_file</code> or an image viewer), the agent examines the rendered output for five common visual defects:</p>
+<ol>
+<li><strong>Text Overflow &amp; Clipping</strong>: Did a long service name or method label spill outside its enclosing box?</li>
+<li><strong>Line &amp; Arrow Overlaps</strong>: Are orthogonal lines colliding awkwardly, or are arrowheads obscured by shapes?</li>
+<li><strong>Canvas Margin Starvation</strong>: Are outermost elements pushed right up against the canvas boundary with zero padding?</li>
+<li><strong>Color Contrast</strong>: Is dark text placed over dark shape fills, or light text on pale backgrounds?</li>
+<li><strong>Color Overuse (Rainbow Chaos)</strong>: Are all boxes colored with saturated fills? Ground 50%+ of nodes in calm neutral or tinted-neutral styles (<code>Styles.Neutral</code>, <code>Styles.NeutralFlat</code>, <code>Styles.PrimaryNeutral</code>, <code>Styles.SecondaryNeutral</code>) and reserve saturated hero fills (<code>Styles.PrimaryFlat</code>) for 1–2 key focal points.</li>
+</ol>
+<h3>Stage 5: Iterative Refinement</h3>
+<p>Because the coordinate grid directly reveals the exact <code>(x, y)</code> location of every visual defect, the agent can adjust coordinates deterministically (e.g. &quot;Move box X from 45.0 to 52.0 to eliminate overlap&quot;) rather than guessing.</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="multimodal_feedback_loop_images/multimodal_before_after_comparison.png" alt="multimodal_feedback_loop_2" />
+  <figcaption class="drawlib-caption">Before vs. After Multimodal Self-Correction Using the Coordinate Grid (-g)</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span><span class="p">,</span> <span class="n">lines</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">58</span><span class="p">)</span>
+
+<span class="c1"># Left Panel: Draft 1 with Visual Defects</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">warning</span><span class="p">((</span><span class="mf">10.5</span><span class="p">,</span> <span class="mf">52.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.4</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">35.5</span><span class="p">,</span> <span class="mf">52.5</span><span class="p">),</span> <span class="s2">"Draft 1: Visual Defects (-g)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.8</span><span class="p">))</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">32</span><span class="p">,</span> <span class="mf">26.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">54</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">44</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">))</span>
+
+<span class="c1"># Narrow box (width=18) causing label overflow</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mf">40.5</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">9.0</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"OrderPaymentGateway"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.2</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mf">27.5</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">8.2</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Auth Cache"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.2</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mf">15.5</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">8.0</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Database"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.2</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="c1"># Colliding arrow cutting straight through intermediate node</span>
+<span class="n">line</span><span class="p">((</span><span class="mi">32</span><span class="p">,</span> <span class="mf">36.0</span><span class="p">),</span> <span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mf">19.5</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerBold</span><span class="p">)</span>
+
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mf">7.8</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">48</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">5.2</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.0</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Overflow &amp; Arrow Collision"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># Center Transition Arrow</span>
+<span class="n">line</span><span class="p">((</span><span class="mf">60.5</span><span class="p">,</span> <span class="mf">26.5</span><span class="p">),</span> <span class="p">(</span><span class="mf">67.5</span><span class="p">,</span> <span class="mf">26.5</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+
+<span class="c1"># Right Panel: Draft 2 Self-Corrected</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">check_circle</span><span class="p">((</span><span class="mf">74.5</span><span class="p">,</span> <span class="mf">52.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.4</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">99.5</span><span class="p">,</span> <span class="mf">52.5</span><span class="p">),</span> <span class="s2">"Draft 2: Self-Corrected"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.8</span><span class="p">))</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">96</span><span class="p">,</span> <span class="mf">26.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">54</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">44</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">))</span>
+
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">92</span><span class="p">,</span> <span class="mf">40.5</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">9.5</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Order Payment</span><span class="se">\n</span><span class="s2">Gateway"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.2</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">92</span><span class="p">,</span> <span class="mf">27.5</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">8.2</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Auth Cache"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.2</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">92</span><span class="p">,</span> <span class="mf">15.5</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">8.0</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Database"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.2</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># Clean step connectors &amp; orthogonal detour routing around intermediate node</span>
+<span class="n">line</span><span class="p">((</span><span class="mi">92</span><span class="p">,</span> <span class="mf">35.75</span><span class="p">),</span> <span class="p">(</span><span class="mi">92</span><span class="p">,</span> <span class="mf">31.6</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+<span class="n">line</span><span class="p">((</span><span class="mi">92</span><span class="p">,</span> <span class="mf">23.4</span><span class="p">),</span> <span class="p">(</span><span class="mi">92</span><span class="p">,</span> <span class="mf">19.5</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+<span class="n">lines</span><span class="p">([(</span><span class="mi">107</span><span class="p">,</span> <span class="mf">40.5</span><span class="p">),</span> <span class="p">(</span><span class="mi">116</span><span class="p">,</span> <span class="mf">40.5</span><span class="p">),</span> <span class="p">(</span><span class="mi">116</span><span class="p">,</span> <span class="mf">15.5</span><span class="p">),</span> <span class="p">(</span><span class="mi">107</span><span class="p">,</span> <span class="mf">15.5</span><span class="p">)],</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+
+<span class="n">text</span><span class="p">((</span><span class="mi">96</span><span class="p">,</span> <span class="mf">7.8</span><span class="p">),</span> <span class="s2">"Widened (w=30) &amp; Detour"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<h3>Stage 6: Macro-Page Browser HTML Verification (<code>1280×920</code> Viewport)</h3>
+<p>For illustrated documentation (<code>docs_src/</code> or <code>doc_src/</code>), inspecting a standalone PNG in isolation is not enough—a diagram rendered at <code>1000px</code> can still appear unreadable in HTML if capped by a narrow pixel width (<code>600px</code>) or authored with <code>text_size=8.0</code>.
+Before delivering, the agent compiles the HTML site (<code>./docs_src/build.sh</code>), validates links (<code>uv run drawlib serve docs_html/ --check</code>), and inspects a <code>1280×920</code> headless Chromium screenshot of the rendered HTML page to verify:</p>
+<ol>
+<li><strong>Above-the-Fold Top Hero (<code>Lines 5–15</code>, <code>fold-code</code>)</strong>: The <code># Title</code>, lead paragraph, and complete Top Hero diagram are visible immediately without scrolling.</li>
+<li><strong>Prose-to-Diagram Font Harmony (<code>720pt</code> Canvas Law)</strong>: Because Drawlib maps every canvas width to <code>720pt</code> ($\text{CSS px} = \text{text_size} \times \text{Width} / 720$), omitting narrow <code>px</code> width caps and keeping <code>text_size &gt;= 10.0</code> ensures diagram labels match <code>16px</code> HTML body prose.</li>
+</ol>
+<blockquote>
+<p><strong>Tip</strong>: Run <code>uv run drawlib rules show review-guide</code> for the complete 3-Stage Autonomous Review &amp; Self-Correction manual, including the <code>Center</code> vs. <code>Bottom-Left</code> coordinate anchor reference table.</p>
+</blockquote>
+<hr />
+<h2>2. Visual Self-Repair Checklist</h2>
+<p>When performing a multimodal self-review, check off each item in this matrix:</p>
+<table>
+<thead>
+<tr>
+<th>Verification Area</th>
+<th>Common Visual Flaw</th>
+<th>Deterministic Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>HTML Typography (<code>720pt</code> Law)</strong></td>
+<td>Diagram labels look tiny next to <code>16px</code> HTML prose</td>
+<td>Omit narrow pixel widths (<code>500px</code>/<code>600px</code>) on fences, set <code>text_size &gt;= 10.0</code> (standard <code>10.5</code>–<code>12.0</code>), and widen boxes by <code>20%–30%</code>.</td>
+</tr>
+<tr>
+<td><strong>Above-the-Fold Hero</strong></td>
+<td>Reader sees only a wall of text or a 50-line code block on page load</td>
+<td>Place the first diagram at <code>Lines 5–15</code> using <code>fold-code</code> and combine <code>phosphor</code>/<code>gcp</code> icons with <code>SmartArts</code>/<code>Diagrams</code>.</td>
+</tr>
+<tr>
+<td><strong>Anchor Semantics</strong></td>
+<td><code>Table</code>, <code>BarChart</code>, or <code>FlowDiagram</code> shifted off-center to the right</td>
+<td>Remember <code>shapes</code>/<code>text</code>/<code>icons</code> use <strong>Center <code>(cx, cy)</code></strong>, whereas <code>SmartArts</code>/<code>Charts</code>/<code>Diagrams</code>/<code>Graphs</code> use <strong>Bottom-Left <code>(x0, y0)</code></strong> (<code>x0 = (W - width) / 2</code>).</td>
+</tr>
+<tr>
+<td><strong>Canvas Padding</strong></td>
+<td>Outer nodes or labels touching canvas perimeter</td>
+<td>Increase canvas dimensions in <code>setup(width=..., height=...)</code> or inset outer shapes by at least <code>4–8</code> units from all edges.</td>
+</tr>
+<tr>
+<td><strong>Node Alignment</strong></td>
+<td>Jagged, slightly crooked horizontal or vertical connection lines</td>
+<td>Ensure horizontally aligned nodes share the exact same <code>y</code> coordinate and vertically stacked nodes share the exact same <code>x</code> coordinate.</td>
+</tr>
+<tr>
+<td><strong>Label Breathing Room</strong></td>
+<td>Multi-line text touching or overflowing card borders</td>
+<td>Increase box <code>width</code> / <code>height</code> or insert explicit <code>\n</code> line breaks.</td>
+</tr>
+<tr>
+<td><strong>Arrowheads &amp; Edge Labels</strong></td>
+<td>Arrowhead clipped inside target node, or parallel edge labels colliding</td>
+<td>Add <code>padding=1.5</code> or <code>2.0</code> on connectors, route return paths onto distinct sides (<code>from_side=&quot;bottom&quot;</code>, <code>to_side=&quot;bottom&quot;</code>), or use <code>label_offset=(dx, dy)</code>.</td>
+</tr>
+<tr>
+<td><strong>50%+ Neutral Baseline</strong></td>
+<td>Confusing multi-color &quot;rainbow&quot; diagram where every node competes for attention</td>
+<td>Ground 50%+ of shapes in calm neutral styles (<code>Styles.Neutral</code>, <code>Styles.PrimaryNeutral</code>, <code>Styles.SecondaryNeutral</code>), use <code>Styles.MutedDashed</code> for boundary containers, and reserve saturated hero fills (<code>Styles.PrimaryFlat</code>) for 1–2 focal components.</td>
+</tr>
+<tr>
+<td><strong>Text Luminance Contrast</strong></td>
+<td>Dark text over dark <code>Flat</code> fill or white text over light <code>Neutral</code> fill</td>
+<td>Always pair saturated <code>Flat</code> fills (<code>Styles.PrimaryFlat</code>, <code>Styles.DangerFlat</code>) with <code>text_style=Styles.WhiteBold</code>, and light <code>Neutral</code> fills with <code>Styles.DarkBold</code> or <code>Styles.Dark</code>.</td>
+</tr>
+</tbody>
+</table>
+
+            </main>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const btn = document.getElementById('theme-toggle');
+            if (!btn) return;
+            btn.addEventListener('click', function() {
+                const current = document.documentElement.getAttribute('data-theme');
+                const next = current === 'dark' ? 'light' : 'dark';
+                document.documentElement.setAttribute('data-theme', next);
+                localStorage.setItem('drawlib-theme', next);
+            });
+        });
+    </script>
+</body>
+</html>

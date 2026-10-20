@@ -124,7 +124,7 @@ save()
 > **When to Use Block Arrows vs. `drawlib.lines` vs. `ChevronProcess`**:
 > - Use **Block Arrows (`drawlib.shapes`)** when the transition itself is a visual container (e.g. a wide data bus carrying a label like `"ETL Stream"`, a prominent stage transition, or a bold cyclic arrow).
 > - Use **[Lines & Connectors (`drawlib.lines`)](./lines.md)** for thin point-to-point network/API connectors between component cards.
-> - Use **[`ChevronProcess` (`drawlib.smartarts`)](../03_smartarts/chevron_process.md)** when building a multi-stage horizontal pipeline with automatic spacing, descriptions, and theme alternation.
+> - Use **[`ChevronProcess` (`drawlib.smartarts`)](../04_smartarts/chevron_process.md)** when building a multi-stage horizontal pipeline with automatic spacing, descriptions, and theme alternation.
 
 ---
 

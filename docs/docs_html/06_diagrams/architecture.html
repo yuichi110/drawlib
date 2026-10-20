@@ -1,0 +1,1078 @@
+<!--
+ Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+
+ This software is licensed under the Apache License, Version 2.0.
+ For more information, please visit: https://github.com/yuichi110/drawlib
+
+ This software is provided "as is", without warranty of any kind,
+ express or implied, including but not limited to the warranties of
+ merchantability, fitness for a particular purpose and noninfringement.
+-->
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Architecture Diagrams: Cloud Topologies, Microservices & VPC Boundaries</title>
+    <script>
+        (function() {
+            const saved = localStorage.getItem('drawlib-theme');
+            if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <link rel="icon" type="image/png" href="../_assets/favicon.png">
+    
+    
+    <link rel="stylesheet" href="../style.css">
+    
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-brand" aria-label="Drawlib Documentation">
+                    
+                    <img src="../_assets/logo.png" alt="Drawlib Documentation" class="sidebar-logo sidebar-logo-light">
+                    <img src="../_assets/logo_dark.png" alt="Drawlib Documentation" class="sidebar-logo sidebar-logo-dark">
+                    
+                </a>
+                <button type="button" id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle theme">
+                    <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                    <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                </button>
+            </div>
+            <div class="sidebar-menu">
+                
+                    
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../index.html" >Welcome</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">1. Getting Started</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/overview.html" >About Drawlib</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/installation.html" >Installation Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/quick_start.html" >Quick Start Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/core_concepts.html" >Core Visual Concepts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/project_quicklook.html" >Project & Build Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/agent_quicklook.html" >AI-Driven Workflow & Agent Setup</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/release_notes.html" >Release Notes & Migration</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">2. Drawing Primitives & Styles</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/canvas.html" >Canvas & Coordinates</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_overview.html" >Shapes Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_basic.html" >Basic & Radial Shapes</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_polygon.html" >Polygons & Custom Paths</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_arrow.html" >Block Arrows & Chevrons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_container.html" >3D Containers, Flow & Grouping</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_badge.html" >Callouts, Badges & Status</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_symbol.html" >Faces, Clocks, Symbols & Operators</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/lines.html" >Lines & Connectors</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/text.html" >Text & Typography</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/fonts.html" >Fonts & Multilingual Catalog</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/font_file.html" >Custom Font Files (FontFile)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/images.html" >Images & Dimage</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/styles.html" >Styles & Theming</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/colors.html" >Color Palettes & Color Model</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/style_guide.html" >Diagram Design & Style Guide</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">3. Icons & Brand Suites</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/overview.html" >Icons Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/phosphor.html" >Phosphor Vector Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/gcp.html" >Google Cloud (GCP) Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/aws.html" >Amazon Web Services (AWS) Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/azure.html" >Microsoft Azure Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/cloud.html" >Cloud & Original Cloud Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/cnative.html" >Cloud Native (K8s) Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/devops.html" >DevOps & Observability Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/network.html" >Network & Cisco Topology Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/server.html" >Server, OS & Virtualization Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/security.html" >Security & Zero-Trust Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/facility.html" >Data Center & Facility Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/ai.html" >AI & Machine Learning Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/data.html" >Data & Database Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/code.html" >Code, Languages & Frameworks Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/business.html" >Enterprise Business & FinTech Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/itservice.html" >IT Services & Consulting Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/workspace.html" >Workspace & Collaboration Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/social.html" >Social, Media & Community Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/client.html" >Client Devices & Endpoints Icons</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">4. SmartArts</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/overview.html" >SmartArts Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/chevron_process.html" >ChevronProcess</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/cycle.html" >Cycle</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/table.html" >Table</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/tree.html" >Tree</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/mindmap.html" >MindMap</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/grid_layout.html" >GridLayout</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/pyramid.html" >Pyramid</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/box_list.html" >BoxList</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/kpi_cards.html" >KpiCards</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/card_list.html" >CardList</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/roadmap.html" >Roadmap</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/panel.html" >Panel</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/calendar.html" >Calendar</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/bullet_points.html" >BulletPoints</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/source_code.html" >SourceCode</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/geomap.html" >GeoMap</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">5. Charts</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/overview.html" >Charts Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/axes_and_legends.html" >Axes, Scales & Legends</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/bar.html" >Bar Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/line.html" >Line Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/area.html" >Area Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/pie.html" >Pie & Donut Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/radar.html" >Radar Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/scatter.html" >Scatter Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/gantt.html" >Gantt Chart</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">6. Technical Diagrams</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="overview.html" >Diagrams Overview</a>
+                            </li>
+                            
+                            <li class="nav-item active">
+                                <a href="architecture.html" >Architecture Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="flow.html" >Flow Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="sequence.html" >Sequence Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="class_diagram.html" >UML Class Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="er.html" >ER Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="state_diagram.html" >State Machine Diagrams</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">7. Auto-Layout Graphs</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/overview.html" >Graph Engine Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/architecture_graph.html" >ArchitectureGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/layer_graph.html" >LayerGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/tree_graph.html" >TreeGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/radial_graph.html" >RadialGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/grid_graph.html" >GridGraph</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">8. Animations</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/overview.html" >Animations Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/primitives.html" >Animating Primitives & Colors</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/smartarts.html" >Animating SmartArts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/charts.html" >Animating Charts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/diagrams.html" >Animating Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/graphs.html" >Animating Graphs</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">9. Document Builder & CLI</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/overview.html" >Illustrated Documentation as Code Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/code_blocks.html" >Markdown Code Block Syntax</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/cli_reference.html" >CLI Reference</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/project_doc.html" >Linear Document Project (`doc`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/project_site.html" >Doc Site Project (`site`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/project_slide.html" >Slide Deck Project (`slide`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/slide_layout_and_api.html" >Slide Stage Layout & API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/project_image.html" >Image Project (`images`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/customization.html" >Templates & CSS Customization</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/caching_and_cicd.html" >Caching Architecture & CI/CD</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">10. AI Agents & Advanced Integration</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/ai_agent_instructions.html" >AI Agent Instructions & Rules</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/multimodal_feedback_loop.html" >Autonomous Verification Loop</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/programmatic_api.html" >Programmatic API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/math_and_layout.html" >Algorithmic Layout & Math</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/debugging.html" >Troubleshooting & Debugging</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/case_study_brand_assets.html" >Case Study: Designing Official Brand Assets</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/case_study_documentation_site.html" >Case Study: Building Documentation Sites with AI Agents</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/case_study_software_architecture.html" >Case Study: Authoring Software Architecture as Code</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/case_study_technical_slides.html" >Case Study: Creating Technical Slide Decks</a>
+                            </li>
+                            
+                        </ul>
+                    
+                
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">Architecture Diagrams: Cloud Topologies, Microservices & VPC Boundaries</span>
+                </div>
+            </header>
+            <main class="main-content">
+                <h1>Architecture Diagrams: Cloud Topologies, Microservices &amp; VPC Boundaries</h1>
+<p><code>ArchitectureDiagram</code> visualizes distributed systems, cloud networks, microservices topologies, and infrastructure boundaries. It pairs icon-centric nodes with automatic hierarchical boundary boxes (<code>NodeGroup</code>) and multi-way branch routing.</p>
+<hr />
+<h2>1. Overview &amp; Key Concepts</h2>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="architecture_images/architecture_overview_concepts.png" alt="architecture_1" />
+  <figcaption class="drawlib-caption">Nested NodeGroups (VPC & Subnets) and Cross-Boundary Connections</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.diagrams.architecture</span><span class="w"> </span><span class="kn">import</span> <span class="n">ArchitectureDiagram</span><span class="p">,</span> <span class="n">GcpIcon</span><span class="p">,</span> <span class="n">Node</span><span class="p">,</span> <span class="n">NodeGroup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">92</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">74</span><span class="p">)</span>
+
+<span class="n">d</span> <span class="o">=</span> <span class="n">ArchitectureDiagram</span><span class="p">(</span>
+    <span class="n">node_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">,</span>
+    <span class="n">node_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="n">edge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+    <span class="n">edge_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="n">node_card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">vpc</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">NodeGroup</span><span class="p">(</span>
+        <span class="n">title</span><span class="o">=</span><span class="s2">"VPC Network (NodeGroup)"</span><span class="p">,</span>
+        <span class="n">padding</span><span class="o">=</span><span class="mf">5.5</span><span class="p">,</span>
+        <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">valign</span><span class="o">=</span><span class="s2">"top"</span><span class="p">),</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">pub_subnet</span> <span class="o">=</span> <span class="n">vpc</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">NodeGroup</span><span class="p">(</span>
+        <span class="n">title</span><span class="o">=</span><span class="s2">"Public Subnet"</span><span class="p">,</span>
+        <span class="n">padding</span><span class="o">=</span><span class="mf">4.5</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
+        <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">valign</span><span class="o">=</span><span class="s2">"top"</span><span class="p">),</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">5.5</span><span class="p">,</span> <span class="mf">5.5</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">lb</span> <span class="o">=</span> <span class="n">pub_subnet</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span><span class="s2">"Load Balancer"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">GcpIcon</span><span class="o">.</span><span class="n">CLOUD_LOAD_BALANCING</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">7.0</span><span class="p">,</span> <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">14.5</span><span class="p">,</span> <span class="mf">24.0</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">priv_subnet</span> <span class="o">=</span> <span class="n">vpc</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">NodeGroup</span><span class="p">(</span>
+        <span class="n">title</span><span class="o">=</span><span class="s2">"Private Subnet"</span><span class="p">,</span>
+        <span class="n">padding</span><span class="o">=</span><span class="mf">4.5</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
+        <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">valign</span><span class="o">=</span><span class="s2">"top"</span><span class="p">),</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">46.0</span><span class="p">,</span> <span class="mf">5.5</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">app1</span> <span class="o">=</span> <span class="n">priv_subnet</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span><span class="s2">"App 1"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">GcpIcon</span><span class="o">.</span><span class="n">GOOGLE_KUBERNETES_ENGINE</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">6.5</span><span class="p">,</span> <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">13.5</span><span class="p">,</span> <span class="mf">35.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">app2</span> <span class="o">=</span> <span class="n">priv_subnet</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span><span class="s2">"App 2"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">GcpIcon</span><span class="o">.</span><span class="n">GOOGLE_KUBERNETES_ENGINE</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">6.5</span><span class="p">,</span> <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">13.5</span><span class="p">,</span> <span class="mf">13.0</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">lb</span><span class="o">.</span><span class="n">fork</span><span class="p">([</span><span class="n">app1</span><span class="p">,</span> <span class="n">app2</span><span class="p">],</span> <span class="n">at_x</span><span class="o">=</span><span class="mf">43.0</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">1.2</span><span class="p">)</span>
+
+<span class="n">d</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">))</span>
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<ul>
+<li><strong>Card-Centric Coordinates</strong>: When placing a node via <code>d.add(node, xy=(x, y))</code>, the coordinate defines the <strong>center of the node card</strong> (<code>width</code>, <code>height</code>). When both <code>icon</code> and <code>text</code> are present, the icon is positioned in the upper middle and the text label in the lower portion (adjustable via <code>text_style=Styles.DarkBold.patch(xy_shift=...)</code>). If neither <code>node_card_style</code> nor <code>card_style</code> is provided, the card background is transparent.</li>
+<li><strong>Hierarchical Auto-Bounding (<code>NodeGroup</code>)</strong>: Groups automatically compute their outer boundary boxes to enclose all enclosed nodes and nested sub-groups with configurable padding.</li>
+<li><strong>Connectable Boundaries</strong>: You can connect edges directly to or from a group's perimeter box as well as individual nodes.</li>
+<li><strong>1-to-N Fan-Out (<code>fork</code>)</strong>: Easily split a single connection line into multiple downstream destinations using an automatic intermediate bus line.</li>
+</ul>
+<hr />
+<h2>2. Constructor &amp; Core Classes</h2>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.diagrams.architecture</span><span class="w"> </span><span class="kn">import</span> <span class="n">ArchitectureDiagram</span><span class="p">,</span> <span class="n">GcpIcon</span><span class="p">,</span> <span class="n">Node</span><span class="p">,</span> <span class="n">NodeGroup</span><span class="p">,</span> <span class="n">PhosphorIcon</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+
+<span class="n">d</span> <span class="o">=</span> <span class="n">ArchitectureDiagram</span><span class="p">(</span>
+    <span class="n">node_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">,</span>
+    <span class="n">node_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+    <span class="n">edge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+    <span class="n">edge_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="p">,</span>
+    <span class="n">node_card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">"Production Multi-Tier Cloud VPC"</span><span class="p">,</span>
+<span class="p">)</span>
+</code></pre>
+<h3>Parameter Reference</h3>
+<h4><code>ArchitectureDiagram</code> Class</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>node_style</code></td>
+<td><code>Style</code></td>
+<td><em>(Required)</em></td>
+<td>Default style for node icons and images.</td>
+</tr>
+<tr>
+<td><code>node_text_style</code></td>
+<td><code>Style</code></td>
+<td><em>(Required)</em></td>
+<td>Default style for node text labels.</td>
+</tr>
+<tr>
+<td><code>edge_style</code></td>
+<td><code>Style</code></td>
+<td><em>(Required)</em></td>
+<td>Default style for connection lines and arrowheads.</td>
+</tr>
+<tr>
+<td><code>edge_text_style</code></td>
+<td><code>Style</code></td>
+<td><em>(Required)</em></td>
+<td>Default style for connection text labels.</td>
+</tr>
+<tr>
+<td><code>node_card_style</code></td>
+<td><code>Style | None</code></td>
+<td><code>None</code></td>
+<td>Default style for node card backgrounds (transparent if <code>None</code>).</td>
+</tr>
+<tr>
+<td><code>title</code></td>
+<td><code>str</code></td>
+<td><code>&quot;&quot;</code></td>
+<td>Optional banner title for the diagram.</td>
+</tr>
+<tr>
+<td><code>title_style</code></td>
+<td><code>Style | None</code></td>
+<td><code>None</code></td>
+<td>Optional style for diagram title.</td>
+</tr>
+<tr>
+<td><code>width</code></td>
+<td><code>float | None</code></td>
+<td><code>None</code></td>
+<td>Explicit diagram canvas width, or <code>None</code> for auto-fit.</td>
+</tr>
+<tr>
+<td><code>height</code></td>
+<td><code>float | None</code></td>
+<td><code>None</code></td>
+<td>Explicit diagram canvas height, or <code>None</code> for auto-fit.</td>
+</tr>
+<tr>
+<td><code>style</code></td>
+<td><code>Style | None</code></td>
+<td><code>None</code></td>
+<td>Overall diagram background and border style.</td>
+</tr>
+</tbody>
+</table>
+<h4><code>Node</code> Class &amp; <code>CustomIcon</code></h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>text</code></td>
+<td><code>str</code></td>
+<td><code>&quot;&quot;</code></td>
+<td>Node label text (supports <code>\n</code>).</td>
+</tr>
+<tr>
+<td><code>width</code></td>
+<td><code>float</code></td>
+<td><code>20.0</code></td>
+<td>Card bounding box width in canvas units.</td>
+</tr>
+<tr>
+<td><code>height</code></td>
+<td><code>float</code></td>
+<td><code>16.0</code></td>
+<td>Card bounding box height in canvas units.</td>
+</tr>
+<tr>
+<td><code>icon</code></td>
+<td><code>IconType</code></td>
+<td><code>None</code></td>
+<td>Any of the 34 <code>*Icon</code> Enums (<code>PhosphorIcon</code>, <code>GcpIcon</code>, <code>AwsIcon</code>, <code>AzureIcon</code>, <code>AiIcon</code>..<code>OriginalWorkspaceIcon</code>), icon callable (<code>gcp.cloud_run</code>, <code>ai.claude</code>), <code>CustomIcon</code>, <code>Dimage</code>, <code>PIL.Image</code>, or path.</td>
+</tr>
+<tr>
+<td><code>icon_size</code></td>
+<td><code>float</code></td>
+<td><code>8.0</code></td>
+<td>Outer width and height of the icon/image.</td>
+</tr>
+<tr>
+<td><code>style</code></td>
+<td><code>Style | None</code></td>
+<td><code>None</code></td>
+<td>Optional style override for the icon or image.</td>
+</tr>
+<tr>
+<td><code>text_style</code></td>
+<td><code>Style | None</code></td>
+<td><code>None</code></td>
+<td>Optional style override for the label text (supports <code>xy_shift</code>, <code>angle</code>).</td>
+</tr>
+<tr>
+<td><code>card_style</code></td>
+<td><code>Style | None</code></td>
+<td><code>None</code></td>
+<td>Optional style override for the node card background/border (transparent if <code>None</code> and <code>node_card_style</code> is <code>None</code>).</td>
+</tr>
+<tr>
+<td><code>show</code></td>
+<td><code>bool</code></td>
+<td><code>True</code></td>
+<td>Visibility flag (connected edges auto-hide when <code>False</code>).</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>34 Built-In Icon Enums (<code>drawlib.diagrams.architecture</code>)</strong>: All 34 icon modules expose a 1-to-1 <code>StrEnum</code> in <code>drawlib.diagrams.architecture</code> (and <code>drawlib.diagrams.sequence</code>):
+<ul>
+<li><strong>Vector &amp; Cloud Providers</strong>: <code>PhosphorIcon</code> (1,512), <code>GcpIcon</code> (250), <code>AwsIcon</code> (329), <code>AzureIcon</code> (250)</li>
+<li><strong>15 Official Brand Enums</strong>: <code>AiIcon</code> (60), <code>BusinessIcon</code> (48), <code>ClientIcon</code> (60), <code>CloudIcon</code> (45), <code>CnativeIcon</code> (73), <code>CodeIcon</code> (97), <code>DataIcon</code> (70), <code>DevopsIcon</code> (58), <code>FacilityIcon</code> (49), <code>ItserviceIcon</code> (44), <code>NetworkIcon</code> (70), <code>SecurityIcon</code> (74), <code>ServerIcon</code> (82), <code>SocialIcon</code> (50), <code>WorkspaceIcon</code> (40)</li>
+<li><strong>15 Original 2D Pastel Enums</strong>: <code>OriginalAiIcon</code> (80), <code>OriginalBusinessIcon</code> (76), <code>OriginalClientIcon</code> (92), <code>OriginalCloudIcon</code> (147), <code>OriginalCnativeIcon</code> (73), <code>OriginalCodeIcon</code> (121), <code>OriginalDataIcon</code> (86), <code>OriginalDevopsIcon</code> (78), <code>OriginalFacilityIcon</code> (86), <code>OriginalItserviceIcon</code> (64), <code>OriginalNetworkIcon</code> (70), <code>OriginalSecurityIcon</code> (103), <code>OriginalServerIcon</code> (80), <code>OriginalSocialIcon</code> (66), <code>OriginalWorkspaceIcon</code> (57)</li>
+<li>See <strong><a href="../03_icons/overview.html">Icons Overview</a></strong> for full catalogs.</li>
+</ul>
+</li>
+<li><strong><code>CustomIcon(image: str | Path | Dimage | Image | CustomIcon)</code></strong>: Wraps a custom raster image path, <code>Dimage</code>, or <code>PIL.Image</code> for reuse across nodes (exposes <code>.dimage</code> and <code>.copy()</code>).</li>
+<li><strong>Node Geometry Queries</strong>: <code>node.xy</code>, <code>node.center</code>, <code>node.left</code>, <code>node.right</code>, <code>node.top</code>, <code>node.bottom</code>, <code>node.get_bounds() -&gt; tuple[float, float, float, float]</code>, <code>node.get_size() -&gt; tuple[float, float]</code>, and <code>node.get_absolute_xy() -&gt; tuple[float, float]</code>.</li>
+</ul>
+<h4><code>NodeGroup</code> Class</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>title</code></td>
+<td><code>str</code></td>
+<td><code>&quot;&quot;</code></td>
+<td>Group banner title (e.g. <code>&quot;VPC Network (10.0.0.0/16)&quot;</code>).</td>
+</tr>
+<tr>
+<td><code>width</code></td>
+<td><code>float | None</code></td>
+<td><code>None</code></td>
+<td>Optional fixed width. If <code>None</code>, auto-computed from enclosed items + <code>padding</code>.</td>
+</tr>
+<tr>
+<td><code>height</code></td>
+<td><code>float | None</code></td>
+<td><code>None</code></td>
+<td>Optional fixed height. If <code>None</code>, auto-computed from enclosed items + <code>padding</code>.</td>
+</tr>
+<tr>
+<td><code>padding</code></td>
+<td><code>float</code></td>
+<td><code>5.0</code></td>
+<td>Inner margin around enclosed child nodes when auto-calculating bounds.</td>
+</tr>
+<tr>
+<td><code>style</code></td>
+<td><code>Style | None</code></td>
+<td><code>None</code></td>
+<td>Style for group background fill and boundary border.</td>
+</tr>
+<tr>
+<td><code>text_style</code></td>
+<td><code>Style | None</code></td>
+<td><code>None</code></td>
+<td>Style for the group header title text.</td>
+</tr>
+<tr>
+<td><code>show</code></td>
+<td><code>bool</code></td>
+<td><code>True</code></td>
+<td>Visibility flag (hides group box, child nodes, and connected edges when <code>False</code>, while preserving outer auto-bounds).</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Boundary Properties &amp; Methods</strong>:
+<ul>
+<li><code>group.xy</code>: Local <code>(x, y)</code> bottom-left origin of the group.</li>
+<li><code>group.left</code>, <code>group.right</code>, <code>group.top</code>, <code>group.bottom</code>, <code>group.center</code>: Perimeter anchor and center <code>(x, y)</code> coordinates.</li>
+<li><code>group.get_bounds() -&gt; tuple[float, float, float, float]</code>: Returns local <code>(min_x, min_y, max_x, max_y)</code>.</li>
+<li><code>group.get_size() -&gt; tuple[float, float]</code>: Returns <code>(width, height)</code> of the group box.</li>
+<li><code>group.connect(target, label=&quot;&quot;, arrow=&quot;-&gt;&quot;, routing=&quot;orthogonal&quot;, style=None, padding=0.0, show=True) -&gt; Edge</code>: Connects the group's outer boundary directly to another <code>Node</code>, <code>NodeGroup</code>, or <code>Junction</code>.</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h3><code>Edge</code> &amp; <code>Junction</code> API Reference</h3>
+<h4><code>Edge</code> Constructor &amp; Methods</h4>
+<pre><code class="language-python"><span class="n">Edge</span><span class="p">(</span>
+    <span class="n">start</span><span class="p">:</span> <span class="n">Connectable</span><span class="p">,</span>
+    <span class="n">end</span><span class="p">:</span> <span class="n">Connectable</span><span class="p">,</span>
+    <span class="n">label</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span><span class="p">,</span>
+    <span class="n">arrow</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="s2">"&lt;-"</span><span class="p">,</span> <span class="s2">"&lt;-&gt;"</span><span class="p">,</span> <span class="s2">"-"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"-&gt;"</span><span class="p">,</span>
+    <span class="n">routing</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">"orthogonal"</span><span class="p">,</span> <span class="s2">"direct"</span><span class="p">,</span> <span class="s2">"curved"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"orthogonal"</span><span class="p">,</span>
+    <span class="n">style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">padding</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="n">show</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+</code></pre>
+<ul>
+<li><strong>Waypoint Routing Methods</strong>:
+<ul>
+<li><strong><code>edge.points(waypoints: list[tuple[float, float]]) -&gt; Edge</code></strong>: Sets explicit intermediate <code>(x, y)</code> waypoints relative to the diagram and returns <code>self</code> for chaining.</li>
+<li><strong><code>edge.via(*waypoints: tuple[float, float]) -&gt; Edge</code></strong>: Unpacked variadic shorthand for <code>.points(list(waypoints))</code> (e.g., <code>d.connect(a, b).via((40, 20), (40, 50))</code>).</li>
+<li><strong><code>edge.add_point(xy: tuple[float, float]) -&gt; Junction</code></strong>: Appends <code>xy</code> as an intermediate waypoint on <code>edge</code> and returns a registered <code>Junction</code> at <code>xy</code> for branching downstream lines.</li>
+</ul>
+</li>
+<li><strong>Label &amp; Appearance Mutators</strong>:
+<ul>
+<li><strong><code>edge.set_label(text: str, pos: float = 0.5) -&gt; Edge</code></strong>: Sets the edge label and its fractional position along the path (<code>0.0</code> = start, <code>0.5</code> = midpoint, <code>1.0</code> = end).</li>
+<li><strong><code>edge.set_arrow(arrow) -&gt; Edge</code></strong>, <strong><code>edge.set_style(style) -&gt; Edge</code></strong>, <strong><code>edge.set_text_style(text_style) -&gt; Edge</code></strong>, <strong><code>edge.set_padding(padding) -&gt; Edge</code></strong>.</li>
+</ul>
+</li>
+</ul>
+<h4>Registration, <code>Junction</code>, <code>fork()</code>, and Sizing Methods</h4>
+<ul>
+<li><strong><code>d.add(item, xy=(x, y), *, show: bool | None = None) -&gt; Node | NodeGroup | Junction</code></strong> (also <code>group.add(...)</code>): Places a <code>Node</code> at center <code>(x, y)</code> or a <code>NodeGroup</code> at bottom-left <code>(x, y)</code>.</li>
+<li><strong><code>d.junction(xy: tuple[float, float], *, show: bool = True) -&gt; Junction</code></strong>: Creates and registers a zero-size connectable <code>Junction(xy, *, show=True)</code> at <code>xy</code> (exposes <code>j.connect(...)</code>, <code>.xy</code>, <code>.center</code>, <code>.top</code>, <code>.bottom</code>, <code>.left</code>, <code>.right</code>).</li>
+<li><strong><code>d.connect(start, end, label=&quot;&quot;, arrow=&quot;-&gt;&quot;, routing=&quot;orthogonal&quot;, style=None, text_style=None, padding=0.0, show=True) -&gt; Edge</code></strong> (also <code>node.connect(...)</code>, <code>group.connect(...)</code>, <code>junction.connect(...)</code>, and <code>d.add_edge(edge, *, show=None) -&gt; Edge</code>).</li>
+<li><strong><code>node.fork(targets: list[Connectable], at_x: float | None = None, at_y: float | None = None, style: Style | None = None, padding: float | tuple[float, float] = 0.0, show: bool = True) -&gt; list[Edge]</code></strong>: Branches from <code>node</code> to multiple targets through an automatically created intermediate <code>Junction</code> at <code>(at_x, at_y)</code>.</li>
+<li><strong><code>d.get_size() -&gt; tuple[float, float]</code></strong>: Returns the overall <code>(width, height)</code> of the diagram.</li>
+<li><strong><code>d.draw(xy=(0.0, 0.0), *, scale: float = 1.0) -&gt; None</code></strong>: Renders the diagram anchored at bottom-left <code>xy</code>, scaled proportionally by <code>scale</code>.</li>
+</ul>
+<hr />
+<h2>3. Production Cloud VPC Architecture</h2>
+<p>The following complete example demonstrates public and private subnets, load balancing, GKE pods, Cloud SQL, and external users:</p>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.diagrams.architecture</span><span class="w"> </span><span class="kn">import</span> <span class="n">ArchitectureDiagram</span><span class="p">,</span> <span class="n">GcpIcon</span><span class="p">,</span> <span class="n">Node</span><span class="p">,</span> <span class="n">NodeGroup</span><span class="p">,</span> <span class="n">PhosphorIcon</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">132</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">88</span><span class="p">)</span>
+
+<span class="n">d</span> <span class="o">=</span> <span class="n">ArchitectureDiagram</span><span class="p">(</span>
+    <span class="n">node_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">,</span>
+    <span class="n">node_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">edge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+    <span class="n">edge_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">node_card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">"Production Multi-Tier Cloud VPC"</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># 1. Outer VPC Network Boundary</span>
+<span class="n">vpc</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">NodeGroup</span><span class="p">(</span>
+        <span class="n">title</span><span class="o">=</span><span class="s2">"VPC Network (10.0.0.0/16)"</span><span class="p">,</span>
+        <span class="n">padding</span><span class="o">=</span><span class="mf">5.5</span><span class="p">,</span>
+        <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">valign</span><span class="o">=</span><span class="s2">"top"</span><span class="p">),</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">28.0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># 2. Public Subnet with Load Balancer (local coordinates inside vpc)</span>
+<span class="n">public_subnet</span> <span class="o">=</span> <span class="n">vpc</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">NodeGroup</span><span class="p">(</span>
+        <span class="n">title</span><span class="o">=</span><span class="s2">"Public Subnet"</span><span class="p">,</span>
+        <span class="n">padding</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span>
+        <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">valign</span><span class="o">=</span><span class="s2">"top"</span><span class="p">),</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">4.5</span><span class="p">,</span> <span class="mf">4.5</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">lb</span> <span class="o">=</span> <span class="n">public_subnet</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span><span class="s2">"Cloud Load</span><span class="se">\n</span><span class="s2">Balancer"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">GcpIcon</span><span class="o">.</span><span class="n">CLOUD_LOAD_BALANCING</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">6.5</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">12.5</span><span class="p">,</span> <span class="mf">25.0</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># 3. Private Subnet with Application Pods (local coordinates inside vpc)</span>
+<span class="n">private_subnet</span> <span class="o">=</span> <span class="n">vpc</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">NodeGroup</span><span class="p">(</span>
+        <span class="n">title</span><span class="o">=</span><span class="s2">"Private Subnet"</span><span class="p">,</span>
+        <span class="n">padding</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span>
+        <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">valign</span><span class="o">=</span><span class="s2">"top"</span><span class="p">),</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">36.5</span><span class="p">,</span> <span class="mf">4.5</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">gke1</span> <span class="o">=</span> <span class="n">private_subnet</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span><span class="s2">"API Pod 1"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">GcpIcon</span><span class="o">.</span><span class="n">GOOGLE_KUBERNETES_ENGINE</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">6.5</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">11.5</span><span class="p">,</span> <span class="mf">37.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">gke2</span> <span class="o">=</span> <span class="n">private_subnet</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span><span class="s2">"API Pod 2"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">GcpIcon</span><span class="o">.</span><span class="n">GOOGLE_KUBERNETES_ENGINE</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">6.5</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">11.5</span><span class="p">,</span> <span class="mf">13.0</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># 4. External Actor and Managed Services (global diagram coordinates outside vpc)</span>
+<span class="n">user</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Node</span><span class="p">(</span><span class="s2">"Client User"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">USER</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">6.5</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">9.0</span><span class="p">,</span> <span class="mf">35.5</span><span class="p">))</span>
+<span class="n">db</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Node</span><span class="p">(</span><span class="s2">"Cloud SQL</span><span class="se">\n</span><span class="s2">(PostgreSQL)"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">GcpIcon</span><span class="o">.</span><span class="n">CLOUD_SQL</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">6.5</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">114.0</span><span class="p">,</span> <span class="mf">47.5</span><span class="p">))</span>
+<span class="n">storage</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Node</span><span class="p">(</span><span class="s2">"Cloud Storage</span><span class="se">\n</span><span class="s2">(Assets)"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">GcpIcon</span><span class="o">.</span><span class="n">CLOUD_STORAGE</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">6.5</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">114.0</span><span class="p">,</span> <span class="mf">23.5</span><span class="p">))</span>
+
+<span class="c1"># 5. Connections</span>
+<span class="n">d</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="n">lb</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"HTTPS"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">1.2</span><span class="p">)</span>
+<span class="n">lb</span><span class="o">.</span><span class="n">fork</span><span class="p">([</span><span class="n">gke1</span><span class="p">,</span> <span class="n">gke2</span><span class="p">],</span> <span class="n">at_x</span><span class="o">=</span><span class="mf">60.5</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">1.2</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">gke1</span><span class="p">,</span> <span class="n">db</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"SQL"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">1.2</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">gke2</span><span class="p">,</span> <span class="n">storage</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Assets"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">1.2</span><span class="p">)</span>
+
+<span class="n">d</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">))</span>
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="architecture_images/architecture_cloud_vpc_topology.png" alt="architecture_2" />
+  <figcaption class="drawlib-caption">Production Multi-Tier Cloud VPC Topology</figcaption>
+</figure>
+<hr />
+<h2>4. Event-Driven Streaming Mesh</h2>
+<p>You can also use general architecture icons from <code>PhosphorIcon</code> to model messaging queues, Kafka clusters, and analytics engines:</p>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.diagrams.architecture</span><span class="w"> </span><span class="kn">import</span> <span class="n">ArchitectureDiagram</span><span class="p">,</span> <span class="n">Node</span><span class="p">,</span> <span class="n">NodeGroup</span><span class="p">,</span> <span class="n">PhosphorIcon</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">78</span><span class="p">)</span>
+
+<span class="n">d</span> <span class="o">=</span> <span class="n">ArchitectureDiagram</span><span class="p">(</span>
+    <span class="n">node_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">,</span>
+    <span class="n">node_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="n">edge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+    <span class="n">edge_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">node_card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">"Event-Driven Message Streaming Topology"</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">cluster</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">NodeGroup</span><span class="p">(</span>
+        <span class="n">title</span><span class="o">=</span><span class="s2">"Streaming Event Mesh"</span><span class="p">,</span>
+        <span class="n">padding</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span>
+        <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">valign</span><span class="o">=</span><span class="s2">"top"</span><span class="p">),</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">29.0</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">broker1</span> <span class="o">=</span> <span class="n">cluster</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Node</span><span class="p">(</span><span class="s2">"Kafka Broker 1"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">STACK</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">6.5</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">16.0</span><span class="p">,</span> <span class="mf">36.0</span><span class="p">))</span>
+<span class="n">broker2</span> <span class="o">=</span> <span class="n">cluster</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Node</span><span class="p">(</span><span class="s2">"Kafka Broker 2"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">STACK</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">6.5</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">16.0</span><span class="p">,</span> <span class="mf">12.5</span><span class="p">))</span>
+
+<span class="n">pub</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Node</span><span class="p">(</span><span class="s2">"Event Ingest</span><span class="se">\n</span><span class="s2">Producer"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">BROADCAST</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">7.0</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">10.0</span><span class="p">,</span> <span class="mf">32.2</span><span class="p">))</span>
+<span class="n">analytics</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span><span class="s2">"Realtime Analytics</span><span class="se">\n</span><span class="s2">Consumer"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">28</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">CHART_BAR</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">7.0</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">104.0</span><span class="p">,</span> <span class="mf">44.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">archiver</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span><span class="s2">"Parquet Lakehouse</span><span class="se">\n</span><span class="s2">Archiver"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">28</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">HARD_DRIVES</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">7.0</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">104.0</span><span class="p">,</span> <span class="mf">20.5</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">pub</span><span class="o">.</span><span class="n">fork</span><span class="p">([</span><span class="n">broker1</span><span class="p">,</span> <span class="n">broker2</span><span class="p">],</span> <span class="n">at_x</span><span class="o">=</span><span class="mf">24.5</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">1.2</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">broker1</span><span class="p">,</span> <span class="n">analytics</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Group A"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">1.2</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">broker2</span><span class="p">,</span> <span class="n">archiver</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Group B"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">1.2</span><span class="p">)</span>
+
+<span class="n">d</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">))</span>
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="architecture_images/architecture_event_message_streaming.png" alt="architecture_3" />
+  <figcaption class="drawlib-caption">Event-Driven Message Streaming Topology</figcaption>
+</figure>
+<hr />
+<h2>5. Best Practices &amp; Guidelines</h2>
+<ol>
+<li><strong>Align Node Centers</strong>: When aligning multiple nodes in a row or column, give them the exact same X or Y coordinate so horizontal and vertical connections stay straight.</li>
+<li><strong>Use <code>fork</code> for Fan-Out</strong>: Avoid drawing multiple crossing lines from a single node. Use <code>node.fork([n1, n2, ...], at_x=...)</code> to create clean right-angle bus routes.</li>
+<li><strong>Padded Boundaries</strong>: Always set <code>padding</code> on <code>NodeGroup</code> (typically <code>5.0</code> to <code>7.0</code>) to give enclosed components breathing room from the border lines.</li>
+</ol>
+
+            </main>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const btn = document.getElementById('theme-toggle');
+            if (!btn) return;
+            btn.addEventListener('click', function() {
+                const current = document.documentElement.getAttribute('data-theme');
+                const next = current === 'dark' ? 'light' : 'dark';
+                document.documentElement.setAttribute('data-theme', next);
+                localStorage.setItem('drawlib-theme', next);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1148 @@
+<!--
+ Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+
+ This software is licensed under the Apache License, Version 2.0.
+ For more information, please visit: https://github.com/yuichi110/drawlib
+
+ This software is provided "as is", without warranty of any kind,
+ express or implied, including but not limited to the warranties of
+ merchantability, fitness for a particular purpose and noninfringement.
+-->
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Technical Diagrams Overview & Universal Routing Engine</title>
+    <script>
+        (function() {
+            const saved = localStorage.getItem('drawlib-theme');
+            if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <link rel="icon" type="image/png" href="../_assets/favicon.png">
+    
+    
+    <link rel="stylesheet" href="../style.css">
+    
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-brand" aria-label="Drawlib Documentation">
+                    
+                    <img src="../_assets/logo.png" alt="Drawlib Documentation" class="sidebar-logo sidebar-logo-light">
+                    <img src="../_assets/logo_dark.png" alt="Drawlib Documentation" class="sidebar-logo sidebar-logo-dark">
+                    
+                </a>
+                <button type="button" id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle theme">
+                    <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                    <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                </button>
+            </div>
+            <div class="sidebar-menu">
+                
+                    
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../index.html" >Welcome</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">1. Getting Started</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/overview.html" >About Drawlib</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/installation.html" >Installation Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/quick_start.html" >Quick Start Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/core_concepts.html" >Core Visual Concepts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/project_quicklook.html" >Project & Build Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/agent_quicklook.html" >AI-Driven Workflow & Agent Setup</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/release_notes.html" >Release Notes & Migration</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">2. Drawing Primitives & Styles</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/canvas.html" >Canvas & Coordinates</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_overview.html" >Shapes Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_basic.html" >Basic & Radial Shapes</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_polygon.html" >Polygons & Custom Paths</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_arrow.html" >Block Arrows & Chevrons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_container.html" >3D Containers, Flow & Grouping</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_badge.html" >Callouts, Badges & Status</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_symbol.html" >Faces, Clocks, Symbols & Operators</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/lines.html" >Lines & Connectors</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/text.html" >Text & Typography</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/fonts.html" >Fonts & Multilingual Catalog</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/font_file.html" >Custom Font Files (FontFile)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/images.html" >Images & Dimage</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/styles.html" >Styles & Theming</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/colors.html" >Color Palettes & Color Model</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/style_guide.html" >Diagram Design & Style Guide</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">3. Icons & Brand Suites</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/overview.html" >Icons Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/phosphor.html" >Phosphor Vector Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/gcp.html" >Google Cloud (GCP) Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/aws.html" >Amazon Web Services (AWS) Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/azure.html" >Microsoft Azure Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/cloud.html" >Cloud & Original Cloud Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/cnative.html" >Cloud Native (K8s) Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/devops.html" >DevOps & Observability Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/network.html" >Network & Cisco Topology Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/server.html" >Server, OS & Virtualization Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/security.html" >Security & Zero-Trust Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/facility.html" >Data Center & Facility Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/ai.html" >AI & Machine Learning Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/data.html" >Data & Database Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/code.html" >Code, Languages & Frameworks Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/business.html" >Enterprise Business & FinTech Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/itservice.html" >IT Services & Consulting Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/workspace.html" >Workspace & Collaboration Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/social.html" >Social, Media & Community Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/client.html" >Client Devices & Endpoints Icons</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">4. SmartArts</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/overview.html" >SmartArts Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/chevron_process.html" >ChevronProcess</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/cycle.html" >Cycle</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/table.html" >Table</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/tree.html" >Tree</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/mindmap.html" >MindMap</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/grid_layout.html" >GridLayout</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/pyramid.html" >Pyramid</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/box_list.html" >BoxList</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/kpi_cards.html" >KpiCards</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/card_list.html" >CardList</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/roadmap.html" >Roadmap</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/panel.html" >Panel</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/calendar.html" >Calendar</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/bullet_points.html" >BulletPoints</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/source_code.html" >SourceCode</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/geomap.html" >GeoMap</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">5. Charts</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/overview.html" >Charts Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/axes_and_legends.html" >Axes, Scales & Legends</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/bar.html" >Bar Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/line.html" >Line Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/area.html" >Area Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/pie.html" >Pie & Donut Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/radar.html" >Radar Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/scatter.html" >Scatter Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/gantt.html" >Gantt Chart</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">6. Technical Diagrams</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item active">
+                                <a href="overview.html" >Diagrams Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="architecture.html" >Architecture Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="flow.html" >Flow Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="sequence.html" >Sequence Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="class_diagram.html" >UML Class Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="er.html" >ER Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="state_diagram.html" >State Machine Diagrams</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">7. Auto-Layout Graphs</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/overview.html" >Graph Engine Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/architecture_graph.html" >ArchitectureGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/layer_graph.html" >LayerGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/tree_graph.html" >TreeGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/radial_graph.html" >RadialGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/grid_graph.html" >GridGraph</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">8. Animations</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/overview.html" >Animations Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/primitives.html" >Animating Primitives & Colors</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/smartarts.html" >Animating SmartArts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/charts.html" >Animating Charts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/diagrams.html" >Animating Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/graphs.html" >Animating Graphs</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">9. Document Builder & CLI</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/overview.html" >Illustrated Documentation as Code Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/code_blocks.html" >Markdown Code Block Syntax</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/cli_reference.html" >CLI Reference</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/project_doc.html" >Linear Document Project (`doc`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/project_site.html" >Doc Site Project (`site`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/project_slide.html" >Slide Deck Project (`slide`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/slide_layout_and_api.html" >Slide Stage Layout & API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/project_image.html" >Image Project (`images`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/customization.html" >Templates & CSS Customization</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/caching_and_cicd.html" >Caching Architecture & CI/CD</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">10. AI Agents & Advanced Integration</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/ai_agent_instructions.html" >AI Agent Instructions & Rules</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/multimodal_feedback_loop.html" >Autonomous Verification Loop</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/programmatic_api.html" >Programmatic API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/math_and_layout.html" >Algorithmic Layout & Math</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/debugging.html" >Troubleshooting & Debugging</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/case_study_brand_assets.html" >Case Study: Designing Official Brand Assets</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/case_study_documentation_site.html" >Case Study: Building Documentation Sites with AI Agents</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/case_study_software_architecture.html" >Case Study: Authoring Software Architecture as Code</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/case_study_technical_slides.html" >Case Study: Creating Technical Slide Decks</a>
+                            </li>
+                            
+                        </ul>
+                    
+                
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">Technical Diagrams Overview & Universal Routing Engine</span>
+                </div>
+            </header>
+            <main class="main-content">
+                <h1>Technical Diagrams Overview &amp; Universal Routing Engine</h1>
+<p>Drawlib's <code>drawlib.diagrams</code> module provides a declarative, pure-Python visualization suite for cloud architectures, workflow flowcharts, interaction sequence diagrams, UML class hierarchies, relational database schemas, and state machines.</p>
+<p>All six diagram engines pair domain-specific visual notations with deterministic <code>(x, y)</code> coordinate control and a universal <code>Connectable</code> routing engine.</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="overview_images/diagrams_six_families_hero.png" alt="overview_1" />
+  <figcaption class="drawlib-caption">The Six Coordinate-Controlled Technical Diagram Families in drawlib.diagrams</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.diagrams.architecture</span><span class="w"> </span><span class="kn">import</span> <span class="n">ArchitectureDiagram</span><span class="p">,</span> <span class="n">GcpIcon</span><span class="p">,</span> <span class="n">Node</span><span class="p">,</span> <span class="n">NodeGroup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.diagrams.class_diagram</span><span class="w"> </span><span class="kn">import</span> <span class="n">ClassDiagram</span><span class="p">,</span> <span class="n">ClassNode</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.diagrams.er</span><span class="w"> </span><span class="kn">import</span> <span class="n">ERDiagram</span><span class="p">,</span> <span class="n">Entity</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.diagrams.flow</span><span class="w"> </span><span class="kn">import</span> <span class="n">Decision</span><span class="p">,</span> <span class="n">FlowDiagram</span><span class="p">,</span> <span class="n">Process</span><span class="p">,</span> <span class="n">Start</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.diagrams.sequence</span><span class="w"> </span><span class="kn">import</span> <span class="n">Participant</span><span class="p">,</span> <span class="n">PhosphorIcon</span><span class="p">,</span> <span class="n">SequenceDiagram</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.diagrams.state</span><span class="w"> </span><span class="kn">import</span> <span class="n">InitialState</span><span class="p">,</span> <span class="n">State</span><span class="p">,</span> <span class="n">StateDiagram</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Colors</span><span class="p">,</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">130</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">66</span><span class="p">)</span>
+
+<span class="n">card_style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">shape_line_color</span><span class="o">=</span><span class="n">Colors</span><span class="o">.</span><span class="n">Gray4</span><span class="p">,</span> <span class="n">shape_fill_color</span><span class="o">=</span><span class="n">Colors</span><span class="o">.</span><span class="n">White</span><span class="p">)</span>
+<span class="n">title_style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">BlackBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">)</span>
+
+<span class="n">cards</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="mf">22.5</span><span class="p">,</span> <span class="mf">49.0</span><span class="p">,</span> <span class="s2">"1. ArchitectureDiagram"</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">65.0</span><span class="p">,</span> <span class="mf">49.0</span><span class="p">,</span> <span class="s2">"2. FlowDiagram"</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">107.5</span><span class="p">,</span> <span class="mf">49.0</span><span class="p">,</span> <span class="s2">"3. SequenceDiagram"</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">22.5</span><span class="p">,</span> <span class="mf">16.5</span><span class="p">,</span> <span class="s2">"4. ClassDiagram"</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">65.0</span><span class="p">,</span> <span class="mf">16.5</span><span class="p">,</span> <span class="s2">"5. ERDiagram"</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">107.5</span><span class="p">,</span> <span class="mf">16.5</span><span class="p">,</span> <span class="s2">"6. StateDiagram"</span><span class="p">),</span>
+<span class="p">]</span>
+<span class="k">for</span> <span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="p">,</span> <span class="n">title</span> <span class="ow">in</span> <span class="n">cards</span><span class="p">:</span>
+    <span class="n">rectangle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">40.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">29.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">card_style</span><span class="p">)</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">cx</span> <span class="o">-</span> <span class="mf">18.0</span><span class="p">,</span> <span class="n">cy</span> <span class="o">+</span> <span class="mf">12.0</span><span class="p">),</span> <span class="n">title</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">title_style</span><span class="p">)</span>
+
+<span class="c1"># 1. ArchitectureDiagram (Top-Left, scale=1.0)</span>
+<span class="n">arch</span> <span class="o">=</span> <span class="n">ArchitectureDiagram</span><span class="p">(</span>
+    <span class="n">node_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">,</span>
+    <span class="n">node_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">edge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+    <span class="n">edge_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">node_card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">grp</span> <span class="o">=</span> <span class="n">arch</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">NodeGroup</span><span class="p">(</span>
+        <span class="n">title</span><span class="o">=</span><span class="s2">"VPC"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mf">18.0</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mf">18.5</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+        <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">valign</span><span class="o">=</span><span class="s2">"top"</span><span class="p">),</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">18.5</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">n_api</span> <span class="o">=</span> <span class="n">arch</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Node</span><span class="p">(</span><span class="s2">"Gateway"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">13.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">11.5</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">GcpIcon</span><span class="o">.</span><span class="n">CLOUD_RUN</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">4.5</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">7.5</span><span class="p">,</span> <span class="mf">8.7</span><span class="p">))</span>
+<span class="n">n_db</span> <span class="o">=</span> <span class="n">grp</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span><span class="s2">"Cloud SQL"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">13.5</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">11.5</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">GcpIcon</span><span class="o">.</span><span class="n">CLOUD_SQL</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">4.5</span><span class="p">,</span> <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">9.0</span><span class="p">,</span> <span class="mf">7.2</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">arch</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">n_api</span><span class="p">,</span> <span class="n">n_db</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+<span class="n">arch</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">3.5</span><span class="p">,</span> <span class="mf">35.0</span><span class="p">),</span> <span class="n">scale</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+
+<span class="c1"># 2. FlowDiagram (Top-Center, scale=1.0)</span>
+<span class="n">flow</span> <span class="o">=</span> <span class="n">FlowDiagram</span><span class="p">(</span>
+    <span class="n">node_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">edge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+    <span class="n">edge_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">f_start</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Start</span><span class="p">(</span><span class="s2">"Start"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">7.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">)),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">5.5</span><span class="p">,</span> <span class="mf">9.5</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">f_dec</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Decision</span><span class="p">(</span><span class="s2">"Valid?"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">12.5</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">9.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">)),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">19.0</span><span class="p">,</span> <span class="mf">9.5</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">f_proc</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Process</span><span class="p">(</span><span class="s2">"Run"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">7.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">)),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">32.5</span><span class="p">,</span> <span class="mf">9.5</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">f_start</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">f_dec</span><span class="p">)</span>
+<span class="n">f_dec</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">f_proc</span><span class="p">)</span>
+<span class="n">flow</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">46.0</span><span class="p">,</span> <span class="mf">35.5</span><span class="p">),</span> <span class="n">scale</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+
+<span class="c1"># 3. SequenceDiagram (Top-Right, scale=1.0)</span>
+<span class="n">seq</span> <span class="o">=</span> <span class="n">SequenceDiagram</span><span class="p">(</span>
+    <span class="n">node_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">,</span>
+    <span class="n">node_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">edge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+    <span class="n">edge_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">node_card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
+    <span class="n">col_width</span><span class="o">=</span><span class="mf">19.5</span><span class="p">,</span>
+    <span class="n">step_y</span><span class="o">=</span><span class="mf">4.2</span><span class="p">,</span>
+    <span class="n">margin</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">p_cli</span> <span class="o">=</span> <span class="n">seq</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Participant</span><span class="p">(</span><span class="s2">"Client"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">12.5</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">7.2</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">LAPTOP</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">3.2</span><span class="p">))</span>
+<span class="n">p_srv</span> <span class="o">=</span> <span class="n">seq</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Participant</span><span class="p">(</span><span class="s2">"Server"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">12.5</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">7.2</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">CLOUD</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">3.2</span><span class="p">,</span> <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">))</span>
+<span class="n">p_cli</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="n">p_srv</span><span class="p">,</span> <span class="s2">"POST"</span><span class="p">)</span>
+<span class="n">p_srv</span><span class="o">.</span><span class="n">reply</span><span class="p">(</span><span class="n">p_cli</span><span class="p">,</span> <span class="s2">"200 OK"</span><span class="p">)</span>
+<span class="n">seq</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">91.0</span><span class="p">,</span> <span class="mf">33.6</span><span class="p">),</span> <span class="n">scale</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+
+<span class="c1"># 4. ClassDiagram (Bottom-Left, scale=1.0)</span>
+<span class="n">cd</span> <span class="o">=</span> <span class="n">ClassDiagram</span><span class="p">(</span>
+    <span class="n">node_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+    <span class="n">edge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+    <span class="n">edge_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">c_base</span> <span class="o">=</span> <span class="n">cd</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">ClassNode</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"Service"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">15.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">8.5</span><span class="p">,</span> <span class="mf">9.5</span><span class="p">))</span>
+<span class="n">c_base</span><span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"run"</span><span class="p">,</span> <span class="n">return_type</span><span class="o">=</span><span class="s2">"bool"</span><span class="p">)</span>
+<span class="n">c_impl</span> <span class="o">=</span> <span class="n">cd</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">ClassNode</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"Worker"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">15.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">29.5</span><span class="p">,</span> <span class="mf">9.5</span><span class="p">))</span>
+<span class="n">c_impl</span><span class="o">.</span><span class="n">add_attribute</span><span class="p">(</span><span class="s2">"id"</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">"int"</span><span class="p">)</span>
+<span class="n">cd</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">c_impl</span><span class="p">,</span> <span class="n">c_base</span><span class="p">,</span> <span class="n">relationship_type</span><span class="o">=</span><span class="s2">"realization"</span><span class="p">,</span> <span class="n">start_side</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">end_side</span><span class="o">=</span><span class="s2">"right"</span><span class="p">)</span>
+<span class="n">cd</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">3.5</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">),</span> <span class="n">scale</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+
+<span class="c1"># 5. ERDiagram (Bottom-Center, scale=1.0)</span>
+<span class="n">er</span> <span class="o">=</span> <span class="n">ERDiagram</span><span class="p">(</span>
+    <span class="n">node_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+    <span class="n">edge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+    <span class="n">edge_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">e_user</span> <span class="o">=</span> <span class="n">er</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Entity</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"users"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">15.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">8.2</span><span class="p">,</span> <span class="mf">9.0</span><span class="p">))</span>
+<span class="n">e_user</span><span class="o">.</span><span class="n">add_column</span><span class="p">(</span><span class="s2">"id"</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">"INT"</span><span class="p">,</span> <span class="n">pk</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">e_user</span><span class="o">.</span><span class="n">add_column</span><span class="p">(</span><span class="s2">"name"</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">"TEXT"</span><span class="p">)</span>
+<span class="n">e_ord</span> <span class="o">=</span> <span class="n">er</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Entity</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"orders"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">18.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">29.2</span><span class="p">,</span> <span class="mf">9.0</span><span class="p">))</span>
+<span class="n">e_ord</span><span class="o">.</span><span class="n">add_column</span><span class="p">(</span><span class="s2">"id"</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">"INT"</span><span class="p">,</span> <span class="n">pk</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">e_ord</span><span class="o">.</span><span class="n">add_column</span><span class="p">(</span><span class="s2">"uid"</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">"INT"</span><span class="p">,</span> <span class="n">fk</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">e_user</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">e_ord</span><span class="p">,</span> <span class="n">cardinality</span><span class="o">=</span><span class="s2">"1:*"</span><span class="p">,</span> <span class="n">start_side</span><span class="o">=</span><span class="s2">"right"</span><span class="p">,</span> <span class="n">end_side</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">start_column</span><span class="o">=</span><span class="s2">"id"</span><span class="p">,</span> <span class="n">end_column</span><span class="o">=</span><span class="s2">"uid"</span><span class="p">)</span>
+<span class="n">er</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">46.0</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">),</span> <span class="n">scale</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+
+<span class="c1"># 6. StateDiagram (Bottom-Right, scale=1.0)</span>
+<span class="n">sd</span> <span class="o">=</span> <span class="n">StateDiagram</span><span class="p">(</span>
+    <span class="n">node_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="n">edge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+    <span class="n">edge_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">s_init</span> <span class="o">=</span> <span class="n">sd</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">InitialState</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">9.0</span><span class="p">))</span>
+<span class="n">s_idle</span> <span class="o">=</span> <span class="n">sd</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">State</span><span class="p">(</span><span class="s2">"Idle"</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="s2">"box"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">11.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">7.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">)),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">13.0</span><span class="p">,</span> <span class="mf">9.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">s_run</span> <span class="o">=</span> <span class="n">sd</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">State</span><span class="p">(</span><span class="s2">"Active"</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="s2">"box"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">12.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">7.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">)),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">30.0</span><span class="p">,</span> <span class="mf">9.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">sd</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">s_init</span><span class="p">,</span> <span class="n">s_idle</span><span class="p">)</span>
+<span class="n">sd</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">s_idle</span><span class="p">,</span> <span class="n">s_run</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="s2">"start"</span><span class="p">,</span> <span class="n">bend</span><span class="o">=-</span><span class="mf">0.32</span><span class="p">,</span> <span class="n">start_side</span><span class="o">=</span><span class="s2">"top_right"</span><span class="p">,</span> <span class="n">end_side</span><span class="o">=</span><span class="s2">"top_left"</span><span class="p">)</span>
+<span class="n">sd</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+    <span class="n">s_run</span><span class="p">,</span>
+    <span class="n">s_idle</span><span class="p">,</span>
+    <span class="n">event</span><span class="o">=</span><span class="s2">"stop"</span><span class="p">,</span>
+    <span class="n">bend</span><span class="o">=-</span><span class="mf">0.32</span><span class="p">,</span>
+    <span class="n">start_side</span><span class="o">=</span><span class="s2">"bottom_left"</span><span class="p">,</span>
+    <span class="n">end_side</span><span class="o">=</span><span class="s2">"bottom_right"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">valign</span><span class="o">=</span><span class="s2">"top"</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">sd</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">89.0</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">),</span> <span class="n">scale</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<p>Unlike external diagramming tools that depend on Graphviz, PlantUML, or opaque layout heuristics that scramble diagrams when a label changes, <code>drawlib.diagrams</code> offers:</p>
+<ul>
+<li><strong>Deterministic coordinate control</strong>: You position elements with precision while Drawlib automatically handles boundary clipping, line offsets, and arrow alignments.</li>
+<li><strong>Universal <code>Connectable</code> interface</strong>: Nodes, entities, classes, boundaries, and junctions implement a common protocol for orthogonal, direct, and curved connections.</li>
+<li><strong>Rich vector and cloud icons</strong>: Built-in access to 259 official <a href="../03_icons/gcp.html">Google Cloud Platform (<code>GcpIcon</code>)</a> icons and 1,531 <a href="../03_icons/phosphor.html">Phosphor (<code>PhosphorIcon</code>)</a> icons.</li>
+<li><strong>Native theming integration</strong>: All diagrams use standard <a href="../02_drawing_primitives/styles.html"><code>Styles</code></a>, <a href="../02_drawing_primitives/colors.html"><code>Colors</code></a>, and <a href="../02_drawing_primitives/fonts.html"><code>Font</code></a> models.</li>
+</ul>
+<blockquote>
+<p><strong>Looking for Automatic Coordinate Calculation?</strong><br />
+When you want to solve <code>(x, y)</code> coordinates, container bounding boxes, and edge waypoints automatically from topological relationships (<code>node</code>, <code>edge</code>, <code>cluster</code>) via <code>g.get_layout()</code> before rendering with <code>drawlib.diagrams</code> or <code>drawlib.shapes</code>, see <strong><a href="../07_graph/overview.html">Chapter 6: Auto-Layout Graphs (<code>drawlib.graph</code>)</a></strong>.</p>
+</blockquote>
+<hr />
+<h2>1. The 6 Technical Diagram Engines (<code>drawlib.diagrams</code>)</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Diagram Category</th>
+<th style="text-align:left">Class Name</th>
+<th style="text-align:left">Module Import</th>
+<th style="text-align:left">Primary Use Case</th>
+<th style="text-align:left">Guide Link</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Cloud &amp; Architecture</strong></td>
+<td style="text-align:left"><code>ArchitectureDiagram</code></td>
+<td style="text-align:left"><code>drawlib.diagrams.architecture</code></td>
+<td style="text-align:left">Microservices, VPC boundaries, cloud icon topologies</td>
+<td style="text-align:left"><a href="./architecture.html">Architecture Diagrams</a></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Workflow &amp; Processes</strong></td>
+<td style="text-align:left"><code>FlowDiagram</code></td>
+<td style="text-align:left"><code>drawlib.diagrams.flow</code></td>
+<td style="text-align:left">ISO 5807 flowcharts, cross-functional swimlanes</td>
+<td style="text-align:left"><a href="./flow.html">Flow Diagrams</a></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>API Sequences &amp; Protocols</strong></td>
+<td style="text-align:left"><code>SequenceDiagram</code></td>
+<td style="text-align:left"><code>drawlib.diagrams.sequence</code></td>
+<td style="text-align:left">Chronological message lifelines, condition blocks</td>
+<td style="text-align:left"><a href="./sequence.html">Sequence Diagrams</a></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Object-Oriented Structure</strong></td>
+<td style="text-align:left"><code>ClassDiagram</code></td>
+<td style="text-align:left"><code>drawlib.diagrams.class_diagram</code></td>
+<td style="text-align:left">UML 2.0 3-compartment class cards, 6 UML relationships</td>
+<td style="text-align:left"><a href="./class_diagram.html">UML Class Diagrams</a></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Relational Schemas</strong></td>
+<td style="text-align:left"><code>ERDiagram</code></td>
+<td style="text-align:left"><code>drawlib.diagrams.er</code></td>
+<td style="text-align:left">Crow's Foot physical schemas, column-level PK/FK anchors</td>
+<td style="text-align:left"><a href="./er.html">ER Diagrams</a></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Statecharts &amp; Automata</strong></td>
+<td style="text-align:left"><code>StateDiagram</code></td>
+<td style="text-align:left"><code>drawlib.diagrams.state</code></td>
+<td style="text-align:left">Finite state machines, action compartments, curved arcs</td>
+<td style="text-align:left"><a href="./state_diagram.html">State Machine Diagrams</a></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>2. Universal Connection Engine (<code>Connectable</code>)</h2>
+<p>All diagram elements (nodes, entities, classes, boundaries, and junctions) implement the <code>Connectable</code> protocol:</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="overview_images/diagrams_overview_routing_modes.png" alt="overview_2" />
+  <figcaption class="drawlib-caption">Comparison of Orthogonal Z-Bend, Direct Straight, and Curved Arc Routing</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.diagrams.architecture</span><span class="w"> </span><span class="kn">import</span> <span class="n">ArchitectureDiagram</span><span class="p">,</span> <span class="n">Node</span><span class="p">,</span> <span class="n">PhosphorIcon</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.diagrams.state</span><span class="w"> </span><span class="kn">import</span> <span class="n">State</span><span class="p">,</span> <span class="n">StateDiagram</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Colors</span><span class="p">,</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">132</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">52</span><span class="p">)</span>
+
+<span class="n">panel_style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">shape_line_color</span><span class="o">=</span><span class="n">Colors</span><span class="o">.</span><span class="n">Gray4</span><span class="p">)</span>
+<span class="n">header_style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">)</span>
+<span class="n">code_style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">text_color</span><span class="o">=</span><span class="n">Colors</span><span class="o">.</span><span class="n">Primary5</span><span class="p">)</span>
+
+<span class="c1"># Panel 1: Orthogonal Z-Bend</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">22.5</span><span class="p">,</span> <span class="mi">26</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">46</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">panel_style</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">22.5</span><span class="p">,</span> <span class="mf">45.0</span><span class="p">),</span> <span class="s2">"1. Orthogonal Routing"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">header_style</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">22.5</span><span class="p">,</span> <span class="mf">40.5</span><span class="p">),</span> <span class="s1">'routing="orthogonal"'</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">code_style</span><span class="p">)</span>
+
+<span class="n">d1</span> <span class="o">=</span> <span class="n">ArchitectureDiagram</span><span class="p">(</span>
+    <span class="n">node_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">,</span>
+    <span class="n">node_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">edge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+    <span class="n">edge_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">node_card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">a1</span> <span class="o">=</span> <span class="n">d1</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Node</span><span class="p">(</span><span class="s2">"Node A"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">11</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">CUBE</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">4.2</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">9.5</span><span class="p">,</span> <span class="mf">24.0</span><span class="p">))</span>
+<span class="n">b1</span> <span class="o">=</span> <span class="n">d1</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span><span class="s2">"Node B"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">11</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">DATABASE</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">4.2</span><span class="p">,</span> <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">29.5</span><span class="p">,</span> <span class="mf">9.5</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">d1</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">a1</span><span class="p">,</span> <span class="n">b1</span><span class="p">,</span> <span class="n">routing</span><span class="o">=</span><span class="s2">"orthogonal"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+<span class="n">d1</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">))</span>
+
+<span class="c1"># Panel 2: Direct Straight</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">66.0</span><span class="p">,</span> <span class="mi">26</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">46</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">panel_style</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">66.0</span><span class="p">,</span> <span class="mf">45.0</span><span class="p">),</span> <span class="s2">"2. Direct Routing"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">header_style</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">66.0</span><span class="p">,</span> <span class="mf">40.5</span><span class="p">),</span> <span class="s1">'routing="direct"'</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">code_style</span><span class="p">)</span>
+
+<span class="n">d2</span> <span class="o">=</span> <span class="n">ArchitectureDiagram</span><span class="p">(</span>
+    <span class="n">node_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">,</span>
+    <span class="n">node_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">edge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+    <span class="n">edge_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">node_card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">a2</span> <span class="o">=</span> <span class="n">d2</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Node</span><span class="p">(</span><span class="s2">"Node A"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">11</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">CUBE</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">4.2</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">9.5</span><span class="p">,</span> <span class="mf">24.0</span><span class="p">))</span>
+<span class="n">b2</span> <span class="o">=</span> <span class="n">d2</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span><span class="s2">"Node B"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">11</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">DATABASE</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">4.2</span><span class="p">,</span> <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">29.5</span><span class="p">,</span> <span class="mf">9.5</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">d2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">a2</span><span class="p">,</span> <span class="n">b2</span><span class="p">,</span> <span class="n">routing</span><span class="o">=</span><span class="s2">"direct"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+<span class="n">d2</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">46.5</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">))</span>
+
+<span class="c1"># Panel 3: Curved Arc (bend)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">109.5</span><span class="p">,</span> <span class="mi">26</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">46</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">panel_style</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">109.5</span><span class="p">,</span> <span class="mf">45.0</span><span class="p">),</span> <span class="s2">"3. Curved Arc Routing"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">header_style</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">109.5</span><span class="p">,</span> <span class="mf">40.5</span><span class="p">),</span> <span class="s2">"bend=-0.35 / bend=0.35"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">code_style</span><span class="p">)</span>
+
+<span class="n">sd</span> <span class="o">=</span> <span class="n">StateDiagram</span><span class="p">(</span>
+    <span class="n">node_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="n">edge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+    <span class="n">edge_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">s_a</span> <span class="o">=</span> <span class="n">sd</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">State</span><span class="p">(</span><span class="s2">"State A"</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="s2">"box"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">11.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">8.5</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">7.5</span><span class="p">,</span> <span class="mf">18.0</span><span class="p">))</span>
+<span class="n">s_b</span> <span class="o">=</span> <span class="n">sd</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">State</span><span class="p">(</span><span class="s2">"State B"</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="s2">"box"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">11.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">8.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">)),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">32.5</span><span class="p">,</span> <span class="mf">18.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">sd</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+    <span class="n">s_a</span><span class="p">,</span>
+    <span class="n">s_b</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="s2">"bend=-0.35"</span><span class="p">,</span>
+    <span class="n">bend</span><span class="o">=-</span><span class="mf">0.35</span><span class="p">,</span>
+    <span class="n">start_side</span><span class="o">=</span><span class="s2">"top_right"</span><span class="p">,</span>
+    <span class="n">end_side</span><span class="o">=</span><span class="s2">"top_left"</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">sd</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+    <span class="n">s_b</span><span class="p">,</span>
+    <span class="n">s_a</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="s2">"bend=-0.35"</span><span class="p">,</span>
+    <span class="n">bend</span><span class="o">=-</span><span class="mf">0.35</span><span class="p">,</span>
+    <span class="n">start_side</span><span class="o">=</span><span class="s2">"bottom_left"</span><span class="p">,</span>
+    <span class="n">end_side</span><span class="o">=</span><span class="s2">"bottom_right"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">valign</span><span class="o">=</span><span class="s2">"top"</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">sd</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">89.5</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">))</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<h3>Connection Routing Strategies</h3>
+<ol>
+<li><strong><code>routing=&quot;orthogonal&quot;</code></strong> <em>(Default for Architecture, Flow, Class, and ER)</em>:
+Computes clean right-angled Z-bends and L-bends. Avoids overlapping node bounding boxes when possible.</li>
+<li><strong><code>routing=&quot;direct&quot;</code></strong>:
+Draws a straight Euclidean line between source and target anchor points, clipping cleanly at each entity's outer boundary.</li>
+<li><strong><code>bend=float</code></strong> <em>(Widely used in State Diagrams)</em>:
+Generates a quadratic Bezier or arc curve between nodes. A positive bend curves to the left/top, while a negative bend curves to the right/bottom, allowing elegant bidirectional transitions.</li>
+</ol>
+<h3>Attachment Sides and Edge Padding</h3>
+<ul>
+<li><strong><code>start_side</code> / <code>end_side</code></strong>: Set explicitly to <code>&quot;left&quot;</code>, <code>&quot;right&quot;</code>, <code>&quot;top&quot;</code>, <code>&quot;bottom&quot;</code>, or <code>&quot;auto&quot;</code> (resolved by nearest Euclidean distance; <code>StateDiagram</code> also supports diagonal sides <code>&quot;top_left&quot;</code>, <code>&quot;top_right&quot;</code>, <code>&quot;bottom_left&quot;</code>, <code>&quot;bottom_right&quot;</code>).</li>
+<li><strong><code>padding</code></strong>:
+<ul>
+<li><code>padding=1.5</code>: Adds a 1.5-unit gap between the edge endpoint and the node perimeter.</li>
+<li><code>padding=(1.0, 3.0)</code>: Configures asymmetric padding (1.0 at start, 3.0 at end).</li>
+</ul>
+</li>
+</ul>
+<h3>Coordinate Origin Principle (<code>center</code> vs. <code>bottom-left</code>)</h3>
+<p>Understanding how coordinates are anchored across <code>drawlib.diagrams</code> ensures crisp alignment:</p>
+<ul>
+<li><strong>Node &amp; Card Placement (<code>center</code> <code>(cx, cy)</code>)</strong>: Calling <code>d.add(item, xy=(cx, cy))</code> places the <strong>geometric center <code>(cx, cy)</code></strong> for all vertex cards and symbols: <code>Node</code> (<code>ArchitectureDiagram</code>), <code>FlowNode</code> / <code>Start</code> / <code>End</code> / <code>Process</code> / <code>Decision</code> / <code>Data</code> (<code>FlowDiagram</code>), <code>ClassNode</code> (<code>ClassDiagram</code>), <code>Entity</code> (<code>ERDiagram</code>), and <code>State</code> / <code>StateNodeBase</code> (<code>StateDiagram</code>). Giving two horizontally or vertically aligned nodes the same <code>y</code> or <code>x</code> coordinate aligns their centers on a straight line.</li>
+<li><strong>Group Origin &amp; Diagram Rendering (<code>bottom-left</code> <code>(x, y)</code>)</strong>:
+<ul>
+<li><code>d.draw(xy=(x, y), *, scale=1.0)</code> always anchors the diagram's <strong>bottom-left</strong> origin at <code>(x, y)</code> on the canvas.</li>
+<li>In <code>ArchitectureDiagram</code>, <code>d.add(group, xy=(x, y))</code> sets the <strong>bottom-left</strong> local origin for <code>NodeGroup</code> (when fixed <code>width</code> and <code>height</code> are specified on <code>NodeGroup</code>, the box spans <code>[x, x + width] × [y, y + height]</code>; when auto-sized, child coordinates passed to <code>group.add(child, xy=...)</code> are relative to <code>group.xy</code>).</li>
+</ul>
+</li>
+</ul>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="overview_images/diagrams_overview_ports_and_origins.png" alt="overview_3" />
+  <figcaption class="drawlib-caption">Attachment Port Sides (top, bottom, left, right) and Node Center vs. NodeGroup Bottom-Left Origins</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.diagrams.architecture</span><span class="w"> </span><span class="kn">import</span> <span class="n">ArchitectureDiagram</span><span class="p">,</span> <span class="n">GcpIcon</span><span class="p">,</span> <span class="n">Node</span><span class="p">,</span> <span class="n">NodeGroup</span><span class="p">,</span> <span class="n">PhosphorIcon</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">circle</span><span class="p">,</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Colors</span><span class="p">,</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">132</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">62</span><span class="p">)</span>
+
+<span class="n">panel_style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">shape_line_color</span><span class="o">=</span><span class="n">Colors</span><span class="o">.</span><span class="n">Gray4</span><span class="p">)</span>
+<span class="n">header_style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">)</span>
+<span class="n">mono_style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">text_color</span><span class="o">=</span><span class="n">Colors</span><span class="o">.</span><span class="n">Primary5</span><span class="p">)</span>
+<span class="n">anchor_dot_style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DangerFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_line_color</span><span class="o">=</span><span class="n">Colors</span><span class="o">.</span><span class="n">White</span><span class="p">,</span> <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="n">anchor_lbl_style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+    <span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span>
+    <span class="n">text_color</span><span class="o">=</span><span class="n">Colors</span><span class="o">.</span><span class="n">Danger5</span><span class="p">,</span>
+    <span class="n">text_bg_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># Left Panel: 4 Cardinal Attachment Ports &amp; Asymmetric Padding</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">32.5</span><span class="p">,</span> <span class="mi">31</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">56</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">panel_style</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">32.5</span><span class="p">,</span> <span class="mf">55.0</span><span class="p">),</span> <span class="s2">"Cardinal Ports &amp; Padding"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">header_style</span><span class="p">)</span>
+
+<span class="n">d_ports</span> <span class="o">=</span> <span class="n">ArchitectureDiagram</span><span class="p">(</span>
+    <span class="n">node_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">,</span>
+    <span class="n">node_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">edge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+    <span class="n">edge_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">node_card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">src</span> <span class="o">=</span> <span class="n">d_ports</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Node</span><span class="p">(</span><span class="s2">"Source"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">CUBE</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">4.8</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">21.0</span><span class="p">,</span> <span class="mf">29.0</span><span class="p">))</span>
+<span class="n">dst</span> <span class="o">=</span> <span class="n">d_ports</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span><span class="s2">"Target"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">DATABASE</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">4.8</span><span class="p">,</span> <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">50.5</span><span class="p">,</span> <span class="mf">29.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">d_ports</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">dst</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">))</span>
+<span class="n">d_ports</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">))</span>
+
+<span class="c1"># Port dots on Source Card (center at (21, 29), size 18x14 -&gt; top=(21,36), bottom=(21,22), left=(12,29), right=(30,29))</span>
+<span class="k">for</span> <span class="n">px</span><span class="p">,</span> <span class="n">py</span> <span class="ow">in</span> <span class="p">[(</span><span class="mi">21</span><span class="p">,</span> <span class="mi">36</span><span class="p">),</span> <span class="p">(</span><span class="mi">21</span><span class="p">,</span> <span class="mi">22</span><span class="p">),</span> <span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">29</span><span class="p">),</span> <span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">29</span><span class="p">)]:</span>
+    <span class="n">circle</span><span class="p">((</span><span class="n">px</span><span class="p">,</span> <span class="n">py</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">)</span>
+
+<span class="n">text</span><span class="p">((</span><span class="mi">21</span><span class="p">,</span> <span class="mf">39.8</span><span class="p">),</span> <span class="s1">'"top"'</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">mono_style</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">21</span><span class="p">,</span> <span class="mf">17.8</span><span class="p">),</span> <span class="s1">'"bottom"'</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">mono_style</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">7.2</span><span class="p">,</span> <span class="mf">29.0</span><span class="p">),</span> <span class="s1">'"left"'</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">mono_style</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">34.8</span><span class="p">,</span> <span class="mf">33.0</span><span class="p">),</span> <span class="s1">'"right"'</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">mono_style</span><span class="p">)</span>
+
+<span class="c1"># Highlight asymmetric padding=(1.0, 3.0)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">36.0</span><span class="p">,</span> <span class="mf">12.5</span><span class="p">),</span> <span class="s2">"padding=(1.0, 3.0)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">anchor_lbl_style</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">36.0</span><span class="p">,</span> <span class="mf">7.8</span><span class="p">),</span> <span class="s2">"1.0 start / 3.0 end gap"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+
+<span class="c1"># Right Panel: Node Center (cx, cy) vs. NodeGroup Bottom-Left (x, y)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">98.5</span><span class="p">,</span> <span class="mi">31</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">62</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">56</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">panel_style</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">98.5</span><span class="p">,</span> <span class="mf">55.0</span><span class="p">),</span> <span class="s2">"Center (cx, cy) vs. Bottom-Left (x, y)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">header_style</span><span class="p">)</span>
+
+<span class="n">d_orig</span> <span class="o">=</span> <span class="n">ArchitectureDiagram</span><span class="p">(</span>
+    <span class="n">node_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">,</span>
+    <span class="n">node_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">edge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+    <span class="n">edge_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">node_card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">grp</span> <span class="o">=</span> <span class="n">d_orig</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">NodeGroup</span><span class="p">(</span>
+        <span class="n">title</span><span class="o">=</span><span class="s2">"NodeGroup (bottom-left)"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mf">54.0</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mf">32.0</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
+        <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">valign</span><span class="o">=</span><span class="s2">"top"</span><span class="p">),</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">71.5</span><span class="p">,</span> <span class="mf">13.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">n1</span> <span class="o">=</span> <span class="n">grp</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Node</span><span class="p">(</span><span class="s2">"Service A"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">GcpIcon</span><span class="o">.</span><span class="n">CLOUD_RUN</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">4.8</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">14.0</span><span class="p">,</span> <span class="mf">14.5</span><span class="p">))</span>
+<span class="n">n2</span> <span class="o">=</span> <span class="n">grp</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Node</span><span class="p">(</span><span class="s2">"Service B"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">GcpIcon</span><span class="o">.</span><span class="n">CLOUD_SQL</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">4.8</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">40.0</span><span class="p">,</span> <span class="mf">14.5</span><span class="p">))</span>
+<span class="n">d_orig</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">n1</span><span class="p">,</span> <span class="n">n2</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="n">d_orig</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">))</span>
+
+<span class="c1"># Shared horizontal Y alignment guide line through node centers (y = 13 + 14.5 = 27.5)</span>
+<span class="n">line</span><span class="p">((</span><span class="mf">73.5</span><span class="p">,</span> <span class="mf">27.5</span><span class="p">),</span> <span class="p">(</span><span class="mf">123.5</span><span class="p">,</span> <span class="mf">27.5</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerDashed</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.2</span><span class="p">))</span>
+
+<span class="c1"># Red anchor dots for NodeGroup bottom-left (71.5, 13.0) and Node centers (85.5, 27.5), (111.5, 27.5)</span>
+<span class="n">circle</span><span class="p">((</span><span class="mf">71.5</span><span class="p">,</span> <span class="mf">13.0</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">1.3</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">anchor_dot_style</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">95.0</span><span class="p">,</span> <span class="mf">8.2</span><span class="p">),</span> <span class="s2">"Group xy=(x, y) [bottom-left]"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">anchor_lbl_style</span><span class="p">)</span>
+
+<span class="n">circle</span><span class="p">((</span><span class="mf">85.5</span><span class="p">,</span> <span class="mf">27.5</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">anchor_dot_style</span><span class="p">)</span>
+<span class="n">circle</span><span class="p">((</span><span class="mf">111.5</span><span class="p">,</span> <span class="mf">27.5</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">anchor_dot_style</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">98.5</span><span class="p">,</span> <span class="mf">48.8</span><span class="p">),</span> <span class="s2">"Node xy=(cx, cy) [aligned centers]"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">anchor_lbl_style</span><span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<hr />
+<h2>3. Waypoints &amp; Bus Lines with <code>Junction</code></h2>
+<p>A <code>Junction</code> represents a zero-dimension coordinate <code>(x, y)</code> on the canvas. It allows you to:</p>
+<ul>
+<li><strong>Fork Bus Lines</strong>: Split a single wire into multiple downstream connections (or use <code>node.fork([target1, target2], at_x=...)</code> in <code>ArchitectureDiagram</code> and <code>FlowDiagram</code>).</li>
+<li><strong>Merge Paths</strong>: Combine multiple upstream error or completion paths into a single successor node.</li>
+<li><strong>Dynamic Insertion</strong>: Calling <code>edge.add_point(xy)</code> converts an intermediate edge coordinate into a reusable <code>Junction</code>.</li>
+</ul>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.diagrams.architecture</span><span class="w"> </span><span class="kn">import</span> <span class="n">ArchitectureDiagram</span><span class="p">,</span> <span class="n">GcpIcon</span><span class="p">,</span> <span class="n">Node</span><span class="p">,</span> <span class="n">NodeGroup</span><span class="p">,</span> <span class="n">PhosphorIcon</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">74</span><span class="p">)</span>
+
+<span class="n">d</span> <span class="o">=</span> <span class="n">ArchitectureDiagram</span><span class="p">(</span>
+    <span class="n">node_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">,</span>
+    <span class="n">node_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="n">edge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+    <span class="n">edge_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="n">node_card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">"Request Routing &amp; Bus Fan-Out"</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Node</span><span class="p">(</span><span class="s2">"Client App"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">LAPTOP</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">7.0</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">13.0</span><span class="p">,</span> <span class="mf">32.0</span><span class="p">))</span>
+<span class="n">gateway</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span><span class="s2">"API Gateway"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">GcpIcon</span><span class="o">.</span><span class="n">CLOUD_RUN</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">7.0</span><span class="p">,</span> <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">49.0</span><span class="p">,</span> <span class="mf">32.0</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">cluster</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">NodeGroup</span><span class="p">(</span>
+        <span class="n">title</span><span class="o">=</span><span class="s2">"Backend Services"</span><span class="p">,</span>
+        <span class="n">padding</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span>
+        <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">valign</span><span class="o">=</span><span class="s2">"top"</span><span class="p">),</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">77.0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">svc_a</span> <span class="o">=</span> <span class="n">cluster</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span><span class="s2">"Order Service"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">GcpIcon</span><span class="o">.</span><span class="n">GOOGLE_KUBERNETES_ENGINE</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">7.0</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">17.0</span><span class="p">,</span> <span class="mf">36.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">svc_b</span> <span class="o">=</span> <span class="n">cluster</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Node</span><span class="p">(</span><span class="s2">"Audit Worker"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">GcpIcon</span><span class="o">.</span><span class="n">CLOUD_SQL</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">7.0</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">17.0</span><span class="p">,</span> <span class="mf">13.0</span><span class="p">))</span>
+
+<span class="n">d</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">client</span><span class="p">,</span> <span class="n">gateway</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"HTTPS"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
+<span class="n">gateway</span><span class="o">.</span><span class="n">fork</span><span class="p">([</span><span class="n">svc_a</span><span class="p">,</span> <span class="n">svc_b</span><span class="p">],</span> <span class="n">at_x</span><span class="o">=</span><span class="mf">69.0</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
+
+<span class="n">d</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">))</span>
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="overview_images/diagrams_overview_routing.png" alt="overview_4" />
+  <figcaption class="drawlib-caption">Universal Connection Engine: Hierarchical Groups, Orthogonal Routing, and Bus Fan-Out</figcaption>
+</figure>
+<hr />
+<h2>4. Unified Component Lifecycle (<code>show</code>, Mutable Elements, Sizing, and <code>scale</code>)</h2>
+<p>All six diagram classes (<code>ArchitectureDiagram</code>, <code>FlowDiagram</code>, <code>SequenceDiagram</code>, <code>ClassDiagram</code>, <code>ERDiagram</code>, <code>StateDiagram</code>) share a unified lifecycle for static and multi-frame rendering (see <a href="../08_animations/diagrams.html">Animating Diagrams</a>):</p>
+<ol>
+<li><strong>Visibility Control (<code>show: bool = True</code>)</strong>:
+<ul>
+<li>Every element constructor (<code>Node</code>, <code>NodeGroup</code>, <code>FlowNode</code>, <code>Lane</code>, <code>Participant</code>, <code>ParticipantGroup</code>, <code>State</code>, <code>ClassNode</code>, <code>Entity</code>) and registration method (<code>d.add(..., show=True)</code>, <code>.connect(..., show=True)</code>) accepts <code>show: bool = True</code>.</li>
+<li><strong>Fixed-Layout Guarantee</strong>: Hidden elements (<code>show=False</code>) still participate in bounding-box, group, lane, and lifeline calculations so visible elements never jump or shift when toggling <code>.show</code>.</li>
+<li><strong>Connected Edge &amp; Dangling <code>Junction</code> Auto-Hiding</strong>: If either endpoint of a connection (<code>Edge</code> in <code>ArchitectureDiagram</code>, <code>FlowEdge</code> in <code>FlowDiagram</code>, <code>Message</code> in <code>SequenceDiagram</code>, <code>ClassRelationship</code> in <code>ClassDiagram</code>, <code>Relationship</code> in <code>ERDiagram</code>, <code>StateTransition</code> in <code>StateDiagram</code>) has <code>show=False</code> (or is inside a hidden group), the connection is automatically skipped during <code>draw()</code>. Furthermore, if an intermediate <code>Junction</code> has no visible downstream path, its upstream wire segment is also automatically hidden.</li>
+</ul>
+</li>
+<li><strong>Mutable Element Instances</strong>:
+<ul>
+<li><code>d.add(...)</code> and <code>.connect(...)</code> return the registered element instance (<code>Node</code>, <code>Edge</code>, <code>FlowNode</code>, <code>FlowEdge</code>, <code>Participant</code>, <code>Message</code>, <code>Block</code>, <code>Note</code>, <code>ClassNode</code>, <code>ClassRelationship</code>, <code>Entity</code>, <code>Relationship</code>, <code>State</code>, <code>StateTransition</code>), allowing in-place mutation of <code>.show</code>, <code>.style</code>, and <code>.text_style</code> across animation frames.</li>
+</ul>
+</li>
+<li><strong>Diagram Size &amp; Bounding Box Queries (<code>get_size()</code> and <code>get_bounds()</code>)</strong>:
+<ul>
+<li><code>d.get_size() -&gt; tuple[float, float]</code>: Supported on <strong>all 6 diagram classes</strong>, returning the computed or explicit <code>(width, height)</code> of the diagram in canvas units.</li>
+<li><code>d.get_bounds() -&gt; tuple[float, float, float, float]</code>: Supported on <strong><code>ClassDiagram</code></strong> and <strong><code>StateDiagram</code></strong>, returning the tight enclosing bounding box <code>(min_x, min_y, max_x, max_y)</code> of all registered nodes (and self-transition loops in <code>StateDiagram</code>).</li>
+</ul>
+</li>
+<li><strong>Proportional Scaling &amp; Translation (<code>draw(xy=(0.0, 0.0), *, scale: float = 1.0)</code>)</strong>:
+<ul>
+<li>Every diagram's <code>draw(xy=(0.0, 0.0), *, scale: float = 1.0)</code> translates the diagram by <code>xy</code> and proportionally scales all node coordinates, widths/heights, icon sizes, line widths, and font sizes by <code>scale</code>.</li>
+</ul>
+</li>
+</ol>
+<hr />
+<h2>5. Combining <code>drawlib.diagrams</code> and <code>drawlib.graph</code></h2>
+<p>When building an architecture or workflow diagram:</p>
+<ul>
+<li>Use <strong><code>drawlib.diagrams</code></strong> (this chapter) for <strong>domain-specific visual notations</strong> (cloud icon cards, ISO flowchart swimlanes, UML sequence lifelines, 3-compartment UML classes, Crow's Foot ER tables, or UML statecharts) with <strong>deterministic coordinate control</strong>.</li>
+<li>Combine with <strong><a href="../07_graph/overview.html"><code>drawlib.graph</code></a></strong> (Chapter 6) when you want <strong>automatic topological coordinate solving</strong> (<code>ArchitectureGraph</code>, <code>LayerGraph</code>, <code>TreeGraph</code>, <code>RadialGraph</code>, <code>GridGraph</code>): call <code>layout = g.get_layout(width=..., height=...)</code> (or <code>print(layout)</code> to inspect coordinates) and pass the solved <code>c.bottom_left</code>, <code>c.local_bottom_left</code>, <code>n.xy</code>, and <code>n.local_xy</code> coordinates directly into <code>ArchitectureDiagram</code>, <code>FlowDiagram</code>, or <code>drawlib.shapes</code>.</li>
+</ul>
+<hr />
+<h2>6. Chapter Navigation</h2>
+<p>Explore each dedicated diagram guide:</p>
+<ul>
+<li><strong><a href="./architecture.html">Architecture Diagrams</a></strong>: Microservices, VPC boundaries, and cloud icon topologies (<code>GcpIcon</code>, <code>PhosphorIcon</code>).</li>
+<li><strong><a href="./flow.html">Flow Diagrams</a></strong>: ISO 5807 flowchart symbols with vertical and horizontal multi-lane workflows.</li>
+<li><strong><a href="./sequence.html">Sequence Diagrams</a></strong>: Chronological API interactions, message styles, activation bars, and <code>with</code> condition blocks.</li>
+<li><strong><a href="./class_diagram.html">UML Class Diagrams</a></strong>: 3-compartment class cards with the 6 standard UML relationships.</li>
+<li><strong><a href="./er.html">ER Diagrams</a></strong>: Relational database schemas with Information Engineering (Crow's Foot) notation and column-level anchors.</li>
+<li><strong><a href="./state_diagram.html">State Machine Diagrams</a></strong>: UML statecharts, internal action compartments, pseudo-states, and curved transitions.</li>
+</ul>
+
+            </main>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const btn = document.getElementById('theme-toggle');
+            if (!btn) return;
+            btn.addEventListener('click', function() {
+                const current = document.documentElement.getAttribute('data-theme');
+                const next = current === 'dark' ? 'light' : 'dark';
+                document.documentElement.setAttribute('data-theme', next);
+                localStorage.setItem('drawlib-theme', next);
+            });
+        });
+    </script>
+</body>
+</html>

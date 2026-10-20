@@ -603,5 +603,5 @@ save()
 ```
 
 > [!NOTE]
-> For automated orthogonal routing with automatic bounding-box clipping and label alignment, consider using high-level **[Architecture Diagrams](../05_diagrams/architecture.md)** or **[Flow Diagrams](../05_diagrams/flow.md)**.
+> For automated orthogonal routing with automatic bounding-box clipping and label alignment, consider using high-level **[Architecture Diagrams](../06_diagrams/architecture.md)** or **[Flow Diagrams](../06_diagrams/flow.md)**.
 

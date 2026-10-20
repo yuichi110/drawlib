@@ -193,7 +193,7 @@ save()
 1. **Layer 1: Core Engine (`drawlib.canvas`, `drawlib.styles`, `drawlib.types`, `drawlib.fonts`)**  
    Manages canvas lifecycle, Cartesian coordinate systems, local coordinate transforms, theme resolution, and universal font typography.
 2. **Layer 2: Drawing Primitives (`drawlib.shapes`, `drawlib.lines`, `drawlib.text`, `drawlib.icons`, `drawlib.images`)**  
-   Provides **30** vector shapes (including `cylinder`, `cube`, `document`, `cloud`, `brace`, `gear`, `math_symbol`, `face`, and `bubblespeech`), flexible line connectors with routing and arrowheads, typography, and standardized icon sets (Phosphor, FontAwesome, GCP).
+   Provides **43** vector shapes (including `cylinder`, `cube`, `document`, `cloud`, `brace`, `gear`, `math_symbol`, `face`, and `bubblespeech`), flexible line connectors with routing and arrowheads, typography, and **34 standardized icon modules** totaling **4,538 icons** (`phosphor` vector icons, `gcp` / `aws` / `azure` cloud icons, 15 official domain brand packs, and 15 Drawlib Original 2D pastel packs).
 3. **Layer 3: High-Level Visualizations & Geometry (`drawlib.graph`, `drawlib.smartarts`, `drawlib.charts`, `drawlib.diagrams`, `drawlib.math`)**  
    Ready-to-use domain components: auto-layout graphs (`LayerGraph`, `ArchitectureGraph`, `TreeGraph`, `RadialGraph`, `GridGraph`), cloud architectures, flowcharts, sequence diagrams, UML class/state diagrams, ER diagrams, data charts, process flows, geographic maps (`drawlib.smartarts.GeoMap`), and geometry & path/color interpolation utilities (`drawlib.math`).
 4. **Layer 4: Animation, Presentation & Document Builder (`drawlib.anim`, `drawlib.slide`, `drawlib.tools`)**  

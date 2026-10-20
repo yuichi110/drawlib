@@ -1,0 +1,872 @@
+<!--
+ Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+
+ This software is licensed under the Apache License, Version 2.0.
+ For more information, please visit: https://github.com/yuichi110/drawlib
+
+ This software is provided "as is", without warranty of any kind,
+ express or implied, including but not limited to the warranties of
+ merchantability, fitness for a particular purpose and noninfringement.
+-->
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Microsoft Azure Icons</title>
+    <script>
+        (function() {
+            const saved = localStorage.getItem('drawlib-theme');
+            if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <link rel="icon" type="image/png" href="../_assets/favicon.png">
+    
+    
+    <link rel="stylesheet" href="../style.css">
+    
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-brand" aria-label="Drawlib Documentation">
+                    
+                    <img src="../_assets/logo.png" alt="Drawlib Documentation" class="sidebar-logo sidebar-logo-light">
+                    <img src="../_assets/logo_dark.png" alt="Drawlib Documentation" class="sidebar-logo sidebar-logo-dark">
+                    
+                </a>
+                <button type="button" id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle theme">
+                    <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                    <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                </button>
+            </div>
+            <div class="sidebar-menu">
+                
+                    
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../index.html" >Welcome</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">1. Getting Started</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/overview.html" >About Drawlib</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/installation.html" >Installation Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/quick_start.html" >Quick Start Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/core_concepts.html" >Core Visual Concepts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/project_quicklook.html" >Project & Build Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/agent_quicklook.html" >AI-Driven Workflow & Agent Setup</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/release_notes.html" >Release Notes & Migration</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">2. Drawing Primitives & Styles</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/canvas.html" >Canvas & Coordinates</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_overview.html" >Shapes Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_basic.html" >Basic & Radial Shapes</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_polygon.html" >Polygons & Custom Paths</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_arrow.html" >Block Arrows & Chevrons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_container.html" >3D Containers, Flow & Grouping</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_badge.html" >Callouts, Badges & Status</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_symbol.html" >Faces, Clocks, Symbols & Operators</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/lines.html" >Lines & Connectors</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/text.html" >Text & Typography</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/fonts.html" >Fonts & Multilingual Catalog</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/font_file.html" >Custom Font Files (FontFile)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/images.html" >Images & Dimage</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/styles.html" >Styles & Theming</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/colors.html" >Color Palettes & Color Model</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/style_guide.html" >Diagram Design & Style Guide</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">3. Icons & Brand Suites</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="overview.html" >Icons Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="phosphor.html" >Phosphor Vector Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="gcp.html" >Google Cloud (GCP) Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="aws.html" >Amazon Web Services (AWS) Icons</a>
+                            </li>
+                            
+                            <li class="nav-item active">
+                                <a href="azure.html" >Microsoft Azure Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="cloud.html" >Cloud & Original Cloud Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="cnative.html" >Cloud Native (K8s) Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="devops.html" >DevOps & Observability Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="network.html" >Network & Cisco Topology Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="server.html" >Server, OS & Virtualization Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="security.html" >Security & Zero-Trust Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="facility.html" >Data Center & Facility Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="ai.html" >AI & Machine Learning Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="data.html" >Data & Database Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="code.html" >Code, Languages & Frameworks Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="business.html" >Enterprise Business & FinTech Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="itservice.html" >IT Services & Consulting Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="workspace.html" >Workspace & Collaboration Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="social.html" >Social, Media & Community Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="client.html" >Client Devices & Endpoints Icons</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">4. SmartArts</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/overview.html" >SmartArts Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/chevron_process.html" >ChevronProcess</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/cycle.html" >Cycle</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/table.html" >Table</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/tree.html" >Tree</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/mindmap.html" >MindMap</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/grid_layout.html" >GridLayout</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/pyramid.html" >Pyramid</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/box_list.html" >BoxList</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/kpi_cards.html" >KpiCards</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/card_list.html" >CardList</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/roadmap.html" >Roadmap</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/panel.html" >Panel</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/calendar.html" >Calendar</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/bullet_points.html" >BulletPoints</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/source_code.html" >SourceCode</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/geomap.html" >GeoMap</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">5. Charts</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/overview.html" >Charts Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/axes_and_legends.html" >Axes, Scales & Legends</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/bar.html" >Bar Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/line.html" >Line Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/area.html" >Area Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/pie.html" >Pie & Donut Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/radar.html" >Radar Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/scatter.html" >Scatter Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/gantt.html" >Gantt Chart</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">6. Technical Diagrams</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/overview.html" >Diagrams Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/architecture.html" >Architecture Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/flow.html" >Flow Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/sequence.html" >Sequence Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/class_diagram.html" >UML Class Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/er.html" >ER Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/state_diagram.html" >State Machine Diagrams</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">7. Auto-Layout Graphs</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/overview.html" >Graph Engine Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/architecture_graph.html" >ArchitectureGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/layer_graph.html" >LayerGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/tree_graph.html" >TreeGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/radial_graph.html" >RadialGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/grid_graph.html" >GridGraph</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">8. Animations</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/overview.html" >Animations Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/primitives.html" >Animating Primitives & Colors</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/smartarts.html" >Animating SmartArts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/charts.html" >Animating Charts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/diagrams.html" >Animating Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/graphs.html" >Animating Graphs</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">9. Document Builder & CLI</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/overview.html" >Illustrated Documentation as Code Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/code_blocks.html" >Markdown Code Block Syntax</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/cli_reference.html" >CLI Reference</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/project_doc.html" >Linear Document Project (`doc`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/project_site.html" >Doc Site Project (`site`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/project_slide.html" >Slide Deck Project (`slide`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/slide_layout_and_api.html" >Slide Stage Layout & API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/project_image.html" >Image Project (`images`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/customization.html" >Templates & CSS Customization</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/caching_and_cicd.html" >Caching Architecture & CI/CD</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">10. AI Agents & Advanced Integration</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/ai_agent_instructions.html" >AI Agent Instructions & Rules</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/multimodal_feedback_loop.html" >Autonomous Verification Loop</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/programmatic_api.html" >Programmatic API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/math_and_layout.html" >Algorithmic Layout & Math</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/debugging.html" >Troubleshooting & Debugging</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/case_study_brand_assets.html" >Case Study: Designing Official Brand Assets</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/case_study_documentation_site.html" >Case Study: Building Documentation Sites with AI Agents</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/case_study_software_architecture.html" >Case Study: Authoring Software Architecture as Code</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/case_study_technical_slides.html" >Case Study: Creating Technical Slide Decks</a>
+                            </li>
+                            
+                        </ul>
+                    
+                
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">Microsoft Azure Icons</span>
+                </div>
+            </header>
+            <main class="main-content">
+                <h1>Microsoft Azure Icons</h1>
+<p>Drawlib provides <strong>250 high-resolution (<code>512×512</code>) Microsoft Azure</strong> architecture service icons via <code>drawlib.icons.azure</code> and the <a href="../06_diagrams/architecture.html"><code>AzureIcon</code></a> Enum. See also <a href="./overview.html">Icons Overview</a>, <a href="./gcp.html">Google Cloud (GCP) Icons</a>, <a href="./aws.html">AWS Icons</a>, and <a href="./cloud.html">Cloud &amp; Original Cloud Icons</a>.</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="azure_images/icons_azure_hero.png" alt="azure_1" />
+  <figcaption class="drawlib-caption">Core Microsoft Azure Services Across 8 Architectural Domains (drawlib.icons.azure)</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">azure</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">136</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">66</span><span class="p">)</span>
+
+<span class="n">row1</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s2">"Virtual Machine"</span><span class="p">,</span> <span class="s2">"Compute"</span><span class="p">,</span> <span class="n">azure</span><span class="o">.</span><span class="n">virtual_machine</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"Azure AKS"</span><span class="p">,</span> <span class="s2">"Containers"</span><span class="p">,</span> <span class="n">azure</span><span class="o">.</span><span class="n">kubernetes_services</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"Function Apps"</span><span class="p">,</span> <span class="s2">"Serverless"</span><span class="p">,</span> <span class="n">azure</span><span class="o">.</span><span class="n">function_apps</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"Storage Account"</span><span class="p">,</span> <span class="s2">"Storage"</span><span class="p">,</span> <span class="n">azure</span><span class="o">.</span><span class="n">storage_accounts</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">),</span>
+<span class="p">]</span>
+
+<span class="n">row2</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s2">"Azure Cosmos DB"</span><span class="p">,</span> <span class="s2">"Databases"</span><span class="p">,</span> <span class="n">azure</span><span class="o">.</span><span class="n">cosmos_db</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"Front Door &amp; CDN"</span><span class="p">,</span> <span class="s2">"Networking"</span><span class="p">,</span> <span class="n">azure</span><span class="o">.</span><span class="n">front_door_and_cdn_profiles</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"Microsoft Entra ID"</span><span class="p">,</span> <span class="s2">"Identity"</span><span class="p">,</span> <span class="n">azure</span><span class="o">.</span><span class="n">entra_id</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"Azure OpenAI"</span><span class="p">,</span> <span class="s2">"AI / Foundry"</span><span class="p">,</span> <span class="n">azure</span><span class="o">.</span><span class="n">openai</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">),</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">row_idx</span><span class="p">,</span> <span class="n">items</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">([</span><span class="n">row1</span><span class="p">,</span> <span class="n">row2</span><span class="p">]):</span>
+    <span class="n">cy</span> <span class="o">=</span> <span class="mf">48.0</span> <span class="k">if</span> <span class="n">row_idx</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="mf">18.0</span>
+    <span class="k">for</span> <span class="n">col_idx</span><span class="p">,</span> <span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">cat</span><span class="p">,</span> <span class="n">icon_fn</span><span class="p">,</span> <span class="n">card_st</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">items</span><span class="p">):</span>
+        <span class="n">cx</span> <span class="o">=</span> <span class="mf">20.5</span> <span class="o">+</span> <span class="n">col_idx</span> <span class="o">*</span> <span class="mf">31.6</span>
+        <span class="n">rectangle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">29.2</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">26.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">card_st</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+        <span class="n">icon_fn</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span> <span class="o">+</span> <span class="mf">5.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">8.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">)</span>
+        <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span> <span class="o">-</span> <span class="mf">3.2</span><span class="p">),</span> <span class="n">title</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+        <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span> <span class="o">-</span> <span class="mf">8.5</span><span class="p">),</span> <span class="n">cat</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<hr />
+<h2>1. API Signature &amp; <code>AzureIcon</code> Enum Usage</h2>
+<p>Every Azure icon function in <code>drawlib.icons.azure</code> shares a center-anchored <code>(cx, cy)</code> call signature, while <a href="../06_diagrams/architecture.html"><code>ArchitectureDiagram</code></a> and <a href="../06_diagrams/sequence.html"><code>SequenceDiagram</code></a> accept the strongly typed <code>AzureIcon</code> Enum:</p>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.diagrams.architecture</span><span class="w"> </span><span class="kn">import</span> <span class="n">ArchitectureDiagram</span><span class="p">,</span> <span class="n">AzureIcon</span><span class="p">,</span> <span class="n">Node</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">azure</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+
+<span class="c1"># 1. Direct canvas icon rendering at center (cx, cy) with 1:1 square aspect ratio</span>
+<span class="n">azure</span><span class="o">.</span><span class="n">kubernetes_services</span><span class="p">((</span><span class="mi">40</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">,</span> <span class="n">variant</span><span class="o">=</span><span class="s2">"default"</span><span class="p">)</span>
+
+<span class="c1"># 2. High-level ArchitectureDiagram node using AzureIcon Enum</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">ArchitectureDiagram</span><span class="p">()</span>
+<span class="n">aks_node</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span><span class="s2">"AKS Cluster"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">AzureIcon</span><span class="o">.</span><span class="n">KUBERNETES_SERVICES</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">7.5</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">10.0</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">),</span>
+<span class="p">)</span>
+</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Parameter / <code>Style</code> Attribute</th>
+<th style="text-align:left">Type</th>
+<th style="text-align:left">Default</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>xy</code></td>
+<td style="text-align:left"><code>tuple[float, float]</code></td>
+<td style="text-align:left"><em>Required</em></td>
+<td style="text-align:left">Center coordinate <code>(cx, cy)</code> of the icon (<code>halign=&quot;center&quot;</code>, <code>valign=&quot;center&quot;</code>).</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>width</code></td>
+<td style="text-align:left"><code>float</code></td>
+<td style="text-align:left"><em>Required</em></td>
+<td style="text-align:left">Horizontal width in canvas units; height scales automatically (<code>1:1</code>).</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>style</code></td>
+<td style="text-align:left"><code>Style</code></td>
+<td style="text-align:left"><em>Required</em></td>
+<td style="text-align:left">Controls <code>alpha</code> (<code>0.0–1.0</code> opacity), <code>angle</code> (rotation), <code>image_tint_color</code>, and <code>image_border_*</code>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>variant</code></td>
+<td style="text-align:left"><code>Literal[&quot;default&quot;]</code></td>
+<td style="text-align:left"><code>&quot;default&quot;</code></td>
+<td style="text-align:left">Visual variant (<code>&quot;default&quot;</code> official Microsoft Azure architecture palette).</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>AzureIcon.&lt;NAME&gt;</code></td>
+<td style="text-align:left"><code>AzureIcon</code></td>
+<td style="text-align:left">—</td>
+<td style="text-align:left">Upper-case <code>StrEnum</code> member matching <code>azure.&lt;name&gt;</code> (e.g., <code>AzureIcon.COSMOS_DB</code> -&gt; <code>azure.cosmos_db</code>).</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>2. Core Azure Services Showcase (250 Canonical Icons)</h2>
+<p>The following 12-card (2×6) catalog highlights foundational Microsoft Azure web, networking, data, AI Foundry, and security services:</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="azure_images/icons_azure_catalog.png" alt="azure_2" />
+  <figcaption class="drawlib-caption">12 Foundational Microsoft Azure Infrastructure, Data, AI, and Security Icons</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">azure</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">148</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">66</span><span class="p">)</span>
+
+<span class="n">row1</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s2">"App Gateways"</span><span class="p">,</span> <span class="s2">"Ingress / WAF"</span><span class="p">,</span> <span class="n">azure</span><span class="o">.</span><span class="n">application_gateways</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"API Mgmt"</span><span class="p">,</span> <span class="s2">"API Gateway"</span><span class="p">,</span> <span class="n">azure</span><span class="o">.</span><span class="n">api_management_services</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"App Services"</span><span class="p">,</span> <span class="s2">"Web PaaS"</span><span class="p">,</span> <span class="n">azure</span><span class="o">.</span><span class="n">app_services</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"SQL Database"</span><span class="p">,</span> <span class="s2">"Relational DB"</span><span class="p">,</span> <span class="n">azure</span><span class="o">.</span><span class="n">sql_database</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"Cache Redis"</span><span class="p">,</span> <span class="s2">"In-Memory"</span><span class="p">,</span> <span class="n">azure</span><span class="o">.</span><span class="n">cache_redis</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"Event Hubs"</span><span class="p">,</span> <span class="s2">"Streaming"</span><span class="p">,</span> <span class="n">azure</span><span class="o">.</span><span class="n">event_hubs</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
+<span class="p">]</span>
+
+<span class="n">row2</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s2">"Service Bus"</span><span class="p">,</span> <span class="s2">"Messaging"</span><span class="p">,</span> <span class="n">azure</span><span class="o">.</span><span class="n">service_bus</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"Synapse"</span><span class="p">,</span> <span class="s2">"Analytics"</span><span class="p">,</span> <span class="n">azure</span><span class="o">.</span><span class="n">synapse_analytics</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"AI Foundry"</span><span class="p">,</span> <span class="s2">"GenAI Platform"</span><span class="p">,</span> <span class="n">azure</span><span class="o">.</span><span class="n">ai_foundry</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"Key Vaults"</span><span class="p">,</span> <span class="s2">"Secrets / KMS"</span><span class="p">,</span> <span class="n">azure</span><span class="o">.</span><span class="n">key_vaults</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"Sentinel"</span><span class="p">,</span> <span class="s2">"SIEM / SecOps"</span><span class="p">,</span> <span class="n">azure</span><span class="o">.</span><span class="n">sentinel</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"Azure Monitor"</span><span class="p">,</span> <span class="s2">"Observability"</span><span class="p">,</span> <span class="n">azure</span><span class="o">.</span><span class="n">monitor</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">row_idx</span><span class="p">,</span> <span class="n">items</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">([</span><span class="n">row1</span><span class="p">,</span> <span class="n">row2</span><span class="p">]):</span>
+    <span class="n">cy</span> <span class="o">=</span> <span class="mf">48.0</span> <span class="k">if</span> <span class="n">row_idx</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="mf">18.0</span>
+    <span class="k">for</span> <span class="n">col_idx</span><span class="p">,</span> <span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">sub</span><span class="p">,</span> <span class="n">icon_fn</span><span class="p">,</span> <span class="n">card_st</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">items</span><span class="p">):</span>
+        <span class="n">cx</span> <span class="o">=</span> <span class="mf">15.0</span> <span class="o">+</span> <span class="n">col_idx</span> <span class="o">*</span> <span class="mf">23.6</span>
+        <span class="n">rectangle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">21.8</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">26.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">card_st</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+        <span class="n">icon_fn</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span> <span class="o">+</span> <span class="mf">5.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">8.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">)</span>
+        <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span> <span class="o">-</span> <span class="mf">3.2</span><span class="p">),</span> <span class="n">title</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+        <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span> <span class="o">-</span> <span class="mf">8.5</span><span class="p">),</span> <span class="n">sub</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<h3>2.1. Complete Categorized Reference of All 250 Azure Icons</h3>
+<p>All 250 canonical functions in <code>drawlib.icons.azure</code> follow a strict 1-to-1 naming rule (with matching uppercase members on <code>AzureIcon</code>):</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Category</th>
+<th style="text-align:center">Count</th>
+<th style="text-align:left">Canonical <code>drawlib.icons.azure.&lt;name&gt;</code> Functions (<code>AzureIcon.&lt;NAME&gt;</code>)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Compute &amp; Hybrid</strong></td>
+<td style="text-align:center">27</td>
+<td style="text-align:left"><code>arc</code>, <code>arc_kubernetes</code>, <code>arc_machines</code>, <code>auto_scale</code>, <code>availability_sets</code>, <code>batch_accounts</code>, <code>cloud_shell</code>, <code>compute_fleet</code>, <code>compute_galleries</code>, <code>disks</code>, <code>disks_snapshots</code>, <code>images</code>, <code>linux</code>, <code>local</code>, <code>managed_service_fabric</code>, <code>migrate</code>, <code>operator_5g_core</code>, <code>operator_nexus</code>, <code>red_hat_openshift</code>, <code>service_fabric_clusters</code>, <code>sphere</code>, <code>spring_apps</code>, <code>stack_hci_premium</code>, <code>virtual_desktop</code>, <code>virtual_machine</code>, <code>vm_scale_sets</code>, <code>vmware_solution</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Containers &amp; Serverless</strong></td>
+<td style="text-align:center">13</td>
+<td style="text-align:left"><code>aks_automatic</code>, <code>app_service_environments</code>, <code>app_services</code>, <code>application_gateway_containers</code>, <code>container_apps_environments</code>, <code>container_instances</code>, <code>container_registries</code>, <code>container_storage</code>, <code>function_apps</code>, <code>kubernetes_services</code>, <code>logic_apps</code>, <code>static_apps</code>, <code>worker_container_app</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Storage &amp; Backup</strong></td>
+<td style="text-align:center">18</td>
+<td style="text-align:left"><code>backup_center</code>, <code>backup_vault</code>, <code>data_box</code>, <code>data_shares</code>, <code>data_sharing</code>, <code>data_transfer</code>, <code>databox_gateway</code>, <code>edge_storage_accelerator</code>, <code>fileshares</code>, <code>managed_file_shares</code>, <code>netapp_files</code>, <code>recovery_services_vaults</code>, <code>storage_accounts</code>, <code>storage_azure_files</code>, <code>storage_container</code>, <code>storage_mover</code>, <code>storage_queue</code>, <code>storage_sync_services</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Databases &amp; Caching</strong></td>
+<td style="text-align:center">18</td>
+<td style="text-align:left"><code>cache_redis</code>, <code>cosmos_db</code>, <code>database_mariadb_server</code>, <code>database_migration_services</code>, <code>database_mysql_server</code>, <code>database_postgresql_server</code>, <code>documentdb</code>, <code>managed_database</code>, <code>managed_redis</code>, <code>oracle_database</code>, <code>sql</code>, <code>sql_data_warehouses</code>, <code>sql_database</code>, <code>sql_edge</code>, <code>sql_elastic_pools</code>, <code>sql_managed_instance</code>, <code>sql_server</code>, <code>sql_vm</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Networking &amp; CDN</strong></td>
+<td style="text-align:center">34</td>
+<td style="text-align:left"><code>access_point</code>, <code>application_gateways</code>, <code>bastions</code>, <code>cdn_profiles</code>, <code>communications_gateway</code>, <code>ddos_custom_policy</code>, <code>ddos_protection_plans</code>, <code>dns_private_resolver</code>, <code>dns_zones</code>, <code>expressroute_circuits</code>, <code>firewall_manager</code>, <code>firewall_policy</code>, <code>firewalls</code>, <code>front_door_and_cdn_profiles</code>, <code>hybrid_connectivity_hub</code>, <code>ip_address_manager</code>, <code>load_balancers</code>, <code>nat</code>, <code>network_security_groups</code>, <code>network_watcher</code>, <code>on_premises_data_gateways</code>, <code>private_link</code>, <code>private_link_service</code>, <code>public_ip_addresses</code>, <code>relays</code>, <code>route_tables</code>, <code>subnet</code>, <code>traffic_manager_profiles</code>, <code>virtual_network_gateways</code>, <code>virtual_networks</code>, <code>virtual_router</code>, <code>virtual_wan_hub</code>, <code>virtual_wans</code>, <code>web_application_firewall_policies_waf</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Identity, Security &amp; Governance</strong></td>
+<td style="text-align:center">38</td>
+<td style="text-align:left"><code>ad_b2c</code>, <code>app_registrations</code>, <code>application_security_groups</code>, <code>azureattestation</code>, <code>blueprints</code>, <code>compliance</code>, <code>conditional_access</code>, <code>defender_easm</code>, <code>defender_for_cloud</code>, <code>defender_for_iot</code>, <code>enterprise_applications</code>, <code>entra_connect</code>, <code>entra_connect_health</code>, <code>entra_connect_sync</code>, <code>entra_domain_services</code>, <code>entra_global_secure_access</code>, <code>entra_id</code>, <code>entra_id_protection</code>, <code>entra_internet_access</code>, <code>entra_managed_identities</code>, <code>entra_private_access</code>, <code>entra_privleged_identity_management</code>, <code>entra_verified_id</code>, <code>external_id</code>, <code>external_identities</code>, <code>identity_governance</code>, <code>information_protection</code>, <code>key_vaults</code>, <code>managed_identities</code>, <code>multi_factor_authentication</code>, <code>multi_tenancy</code>, <code>multifactor_authentication</code>, <code>policy</code>, <code>security</code>, <code>sentinel</code>, <code>token_service</code>, <code>users</code>, <code>verifiable_credentials</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Analytics, Data &amp; Messaging</strong></td>
+<td style="text-align:center">26</td>
+<td style="text-align:left"><code>analysis_services</code>, <code>api_center</code>, <code>api_for_fhir</code>, <code>api_management_services</code>, <code>api_proxy</code>, <code>communication_services</code>, <code>data_catalog</code>, <code>data_explorer_clusters</code>, <code>data_factories</code>, <code>data_lake_analytics</code>, <code>databricks</code>, <code>event_grid_domains</code>, <code>event_grid_topics</code>, <code>event_hub_clusters</code>, <code>event_hubs</code>, <code>hd_insight_clusters</code>, <code>notification_hub_namespaces</code>, <code>notification_hubs</code>, <code>power_bi_embedded</code>, <code>power_platform</code>, <code>pubsub</code>, <code>sendgrid_accounts</code>, <code>service_bus</code>, <code>signalr</code>, <code>stream_analytics_jobs</code>, <code>synapse_analytics</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>AI, ML &amp; Cognitive Services</strong></td>
+<td style="text-align:center">32</td>
+<td style="text-align:left"><code>agentic_web_apps</code>, <code>ai_at_edge</code>, <code>ai_foundry</code>, <code>ai_foundry_iq</code>, <code>ai_gateway</code>, <code>ai_studio</code>, <code>anomaly_detector</code>, <code>applied_ai_services</code>, <code>batch_ai</code>, <code>bonsai</code>, <code>bot_services</code>, <code>cognitive_search</code>, <code>cognitive_services</code>, <code>computer_vision</code>, <code>content_moderators</code>, <code>content_safety</code>, <code>custom_vision</code>, <code>face_apis</code>, <code>form_recognizers</code>, <code>foundry_agent_service</code>, <code>foundry_models</code>, <code>genomics</code>, <code>immersive_readers</code>, <code>language</code>, <code>language_understanding</code>, <code>machine_learning</code>, <code>metrics_advisor</code>, <code>openai</code>, <code>personalizers</code>, <code>qna_makers</code>, <code>speech_services</code>, <code>translator_text</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>DevOps, Monitoring, IoT &amp; Management</strong></td>
+<td style="text-align:center">44</td>
+<td style="text-align:left"><code>activity_log</code>, <code>advisor</code>, <code>alerts</code>, <code>app_configuration</code>, <code>app_testing</code>, <code>application_insights</code>, <code>automation_accounts</code>, <code>blockchain_applications</code>, <code>blockchain_service</code>, <code>chaos_studio</code>, <code>cost_management_and_billing</code>, <code>deployment_environments</code>, <code>device_provisioning_services</code>, <code>devops</code>, <code>devops_starter</code>, <code>devtest_labs</code>, <code>diagnostics_settings</code>, <code>digital_twins</code>, <code>endpoint_analytics</code>, <code>industrial_iot</code>, <code>iot_central_applications</code>, <code>iot_edge</code>, <code>iot_hub</code>, <code>iot_operations</code>, <code>lab_services</code>, <code>landing_zone</code>, <code>lighthouse</code>, <code>load_testing</code>, <code>log_analytics_workspaces</code>, <code>managed_devops_pools</code>, <code>managed_grafana</code>, <code>maps_accounts</code>, <code>media_service</code>, <code>mesh_applications</code>, <code>metrics</code>, <code>monitor</code>, <code>monitor_pipeline</code>, <code>remote_rendering</code>, <code>resiliency</code>, <code>resource_graph_explorer</code>, <code>spatial_anchor_accounts</code>, <code>toolchain_orchestrator</code>, <code>workbooks</code>, <code>workload_orchestration</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>3. Azure Cloud Architecture Example (<code>ArchitectureDiagram</code> &amp; <code>AzureIcon</code>)</h2>
+<p>Use <a href="../06_diagrams/architecture.html"><code>ArchitectureDiagram</code></a> with <code>AzureIcon</code> to build connected Azure Virtual Network (<code>VNet</code>) topologies with automatic card layout and orthogonal routing:</p>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.diagrams.architecture</span><span class="w"> </span><span class="kn">import</span> <span class="n">ArchitectureDiagram</span><span class="p">,</span> <span class="n">AzureIcon</span><span class="p">,</span> <span class="n">Node</span><span class="p">,</span> <span class="n">NodeGroup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">66</span><span class="p">)</span>
+
+<span class="n">d</span> <span class="o">=</span> <span class="n">ArchitectureDiagram</span><span class="p">(</span>
+    <span class="n">node_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">,</span>
+    <span class="n">node_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">edge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+    <span class="n">edge_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">node_card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">"Enterprise Azure AKS &amp; OpenAI Microservice Topology"</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">fd</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span>
+        <span class="s2">"Azure Front</span><span class="se">\n</span><span class="s2">Door &amp; CDN"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mi">23</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span>
+        <span class="n">icon</span><span class="o">=</span><span class="n">AzureIcon</span><span class="o">.</span><span class="n">FRONT_DOOR_AND_CDN_PROFILES</span><span class="p">,</span>
+        <span class="n">icon_size</span><span class="o">=</span><span class="mf">7.5</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">14.0</span><span class="p">,</span> <span class="mf">22.0</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">vnet</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">NodeGroup</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">"Production Azure VNet (eastus2)"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">5.0</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">40.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">))</span>
+<span class="n">apim</span> <span class="o">=</span> <span class="n">vnet</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span><span class="s2">"API</span><span class="se">\n</span><span class="s2">Management"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">23</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">AzureIcon</span><span class="o">.</span><span class="n">API_MANAGEMENT_SERVICES</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">7.5</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">16.5</span><span class="p">,</span> <span class="mf">18.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">aks</span> <span class="o">=</span> <span class="n">vnet</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span>
+        <span class="s2">"Azure AKS</span><span class="se">\n</span><span class="s2">Cluster"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mi">23</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span>
+        <span class="n">icon</span><span class="o">=</span><span class="n">AzureIcon</span><span class="o">.</span><span class="n">KUBERNETES_SERVICES</span><span class="p">,</span>
+        <span class="n">icon_size</span><span class="o">=</span><span class="mf">7.5</span><span class="p">,</span>
+        <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">50.0</span><span class="p">,</span> <span class="mf">18.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">aoai</span> <span class="o">=</span> <span class="n">vnet</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span>
+        <span class="s2">"Azure OpenAI</span><span class="se">\n</span><span class="s2">Service"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mi">23</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span>
+        <span class="n">icon</span><span class="o">=</span><span class="n">AzureIcon</span><span class="o">.</span><span class="n">OPENAI</span><span class="p">,</span>
+        <span class="n">icon_size</span><span class="o">=</span><span class="mf">7.5</span><span class="p">,</span>
+        <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">85.0</span><span class="p">,</span> <span class="mf">29.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">cosmos</span> <span class="o">=</span> <span class="n">vnet</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span><span class="s2">"Azure</span><span class="se">\n</span><span class="s2">Cosmos DB"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">23</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">AzureIcon</span><span class="o">.</span><span class="n">COSMOS_DB</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">7.5</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">85.0</span><span class="p">,</span> <span class="mf">7.0</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">d</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="n">apim</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"HTTPS"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">apim</span><span class="p">,</span> <span class="n">aks</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
+<span class="n">aks</span><span class="o">.</span><span class="n">fork</span><span class="p">([</span><span class="n">aoai</span><span class="p">,</span> <span class="n">cosmos</span><span class="p">],</span> <span class="n">at_x</span><span class="o">=</span><span class="mf">107.5</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
+
+<span class="n">d</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">))</span>
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="azure_images/icons_azure_arch.png" alt="azure_3" />
+  <figcaption class="drawlib-caption">Enterprise Azure AKS & AI Microservice Topology Using ArchitectureDiagram and AzureIcon</figcaption>
+</figure>
+
+            </main>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const btn = document.getElementById('theme-toggle');
+            if (!btn) return;
+            btn.addEventListener('click', function() {
+                const current = document.documentElement.getAttribute('data-theme');
+                const next = current === 'dark' ? 'light' : 'dark';
+                document.documentElement.setAttribute('data-theme', next);
+                localStorage.setItem('drawlib-theme', next);
+            });
+        });
+    </script>
+</body>
+</html>

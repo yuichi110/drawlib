@@ -230,7 +230,7 @@ When scaffolding a new project with `drawlib init`, pass `--lang ja` (or `zh`, `
 
 ### 5.2. Offline & CI Font Asset Caching (`drawlib cache`)
 
-To keep the core `drawlib` wheel lightweight, font files are downloaded on first use and cached locally. For air-gapped environments, Docker builds, or CI pipelines, pre-download font packages using the CLI (see [Caching Architecture & CI/CD](../08_doc_builder_and_cli/caching_and_cicd.md)):
+To keep the core `drawlib` wheel lightweight, font files are downloaded on first use and cached locally. For air-gapped environments, Docker builds, or CI pipelines, pre-download font packages using the CLI (see [Caching Architecture & CI/CD](../09_doc_builder_and_cli/caching_and_cicd.md)):
 
 ```bash
 # Inspect cached font and icon packages

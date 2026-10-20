@@ -1,0 +1,865 @@
+<!--
+ Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+
+ This software is licensed under the Apache License, Version 2.0.
+ For more information, please visit: https://github.com/yuichi110/drawlib
+
+ This software is provided "as is", without warranty of any kind,
+ express or implied, including but not limited to the warranties of
+ merchantability, fitness for a particular purpose and noninfringement.
+-->
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GeoMap Component</title>
+    <script>
+        (function() {
+            const saved = localStorage.getItem('drawlib-theme');
+            if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <link rel="icon" type="image/png" href="../_assets/favicon.png">
+    
+    
+    <link rel="stylesheet" href="../style.css">
+    
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-brand" aria-label="Drawlib Documentation">
+                    
+                    <img src="../_assets/logo.png" alt="Drawlib Documentation" class="sidebar-logo sidebar-logo-light">
+                    <img src="../_assets/logo_dark.png" alt="Drawlib Documentation" class="sidebar-logo sidebar-logo-dark">
+                    
+                </a>
+                <button type="button" id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle theme">
+                    <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                    <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                </button>
+            </div>
+            <div class="sidebar-menu">
+                
+                    
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../index.html" >Welcome</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">1. Getting Started</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/overview.html" >About Drawlib</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/installation.html" >Installation Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/quick_start.html" >Quick Start Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/core_concepts.html" >Core Visual Concepts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/project_quicklook.html" >Project & Build Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/agent_quicklook.html" >AI-Driven Workflow & Agent Setup</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/release_notes.html" >Release Notes & Migration</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">2. Drawing Primitives & Styles</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/canvas.html" >Canvas & Coordinates</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_overview.html" >Shapes Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_basic.html" >Basic & Radial Shapes</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_polygon.html" >Polygons & Custom Paths</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_arrow.html" >Block Arrows & Chevrons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_container.html" >3D Containers, Flow & Grouping</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_badge.html" >Callouts, Badges & Status</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_symbol.html" >Faces, Clocks, Symbols & Operators</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/lines.html" >Lines & Connectors</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/text.html" >Text & Typography</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/fonts.html" >Fonts & Multilingual Catalog</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/font_file.html" >Custom Font Files (FontFile)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/images.html" >Images & Dimage</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/styles.html" >Styles & Theming</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/colors.html" >Color Palettes & Color Model</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/style_guide.html" >Diagram Design & Style Guide</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">3. Icons & Brand Suites</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/overview.html" >Icons Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/phosphor.html" >Phosphor Vector Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/gcp.html" >Google Cloud (GCP) Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/aws.html" >Amazon Web Services (AWS) Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/azure.html" >Microsoft Azure Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/cloud.html" >Cloud & Original Cloud Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/cnative.html" >Cloud Native (K8s) Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/devops.html" >DevOps & Observability Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/network.html" >Network & Cisco Topology Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/server.html" >Server, OS & Virtualization Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/security.html" >Security & Zero-Trust Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/facility.html" >Data Center & Facility Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/ai.html" >AI & Machine Learning Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/data.html" >Data & Database Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/code.html" >Code, Languages & Frameworks Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/business.html" >Enterprise Business & FinTech Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/itservice.html" >IT Services & Consulting Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/workspace.html" >Workspace & Collaboration Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/social.html" >Social, Media & Community Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/client.html" >Client Devices & Endpoints Icons</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">4. SmartArts</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="overview.html" >SmartArts Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="chevron_process.html" >ChevronProcess</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="cycle.html" >Cycle</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="table.html" >Table</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="tree.html" >Tree</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="mindmap.html" >MindMap</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="grid_layout.html" >GridLayout</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="pyramid.html" >Pyramid</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="box_list.html" >BoxList</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="kpi_cards.html" >KpiCards</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="card_list.html" >CardList</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="roadmap.html" >Roadmap</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="panel.html" >Panel</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="calendar.html" >Calendar</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="bullet_points.html" >BulletPoints</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="source_code.html" >SourceCode</a>
+                            </li>
+                            
+                            <li class="nav-item active">
+                                <a href="geomap.html" >GeoMap</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">5. Charts</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/overview.html" >Charts Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/axes_and_legends.html" >Axes, Scales & Legends</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/bar.html" >Bar Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/line.html" >Line Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/area.html" >Area Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/pie.html" >Pie & Donut Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/radar.html" >Radar Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/scatter.html" >Scatter Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/gantt.html" >Gantt Chart</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">6. Technical Diagrams</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/overview.html" >Diagrams Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/architecture.html" >Architecture Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/flow.html" >Flow Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/sequence.html" >Sequence Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/class_diagram.html" >UML Class Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/er.html" >ER Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/state_diagram.html" >State Machine Diagrams</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">7. Auto-Layout Graphs</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/overview.html" >Graph Engine Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/architecture_graph.html" >ArchitectureGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/layer_graph.html" >LayerGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/tree_graph.html" >TreeGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/radial_graph.html" >RadialGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/grid_graph.html" >GridGraph</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">8. Animations</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/overview.html" >Animations Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/primitives.html" >Animating Primitives & Colors</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/smartarts.html" >Animating SmartArts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/charts.html" >Animating Charts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/diagrams.html" >Animating Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/graphs.html" >Animating Graphs</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">9. Document Builder & CLI</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/overview.html" >Illustrated Documentation as Code Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/code_blocks.html" >Markdown Code Block Syntax</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/cli_reference.html" >CLI Reference</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/project_doc.html" >Linear Document Project (`doc`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/project_site.html" >Doc Site Project (`site`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/project_slide.html" >Slide Deck Project (`slide`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/slide_layout_and_api.html" >Slide Stage Layout & API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/project_image.html" >Image Project (`images`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/customization.html" >Templates & CSS Customization</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/caching_and_cicd.html" >Caching Architecture & CI/CD</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">10. AI Agents & Advanced Integration</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/ai_agent_instructions.html" >AI Agent Instructions & Rules</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/multimodal_feedback_loop.html" >Autonomous Verification Loop</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/programmatic_api.html" >Programmatic API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/math_and_layout.html" >Algorithmic Layout & Math</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/debugging.html" >Troubleshooting & Debugging</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/case_study_brand_assets.html" >Case Study: Designing Official Brand Assets</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/case_study_documentation_site.html" >Case Study: Building Documentation Sites with AI Agents</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/case_study_software_architecture.html" >Case Study: Authoring Software Architecture as Code</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/case_study_technical_slides.html" >Case Study: Creating Technical Slide Decks</a>
+                            </li>
+                            
+                        </ul>
+                    
+                
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">GeoMap Component</span>
+                </div>
+            </header>
+            <main class="main-content">
+                <h1>GeoMap Component</h1>
+<p>The <code>GeoMap</code> component renders vector geographical maps (<code>GeoMap.World.*</code>, <code>GeoMap.Countries.*</code>, <code>GeoMap.Cities.*</code>, or custom GeoJSON files) directly onto the Drawlib canvas without requiring heavy external GIS dependencies.</p>
+<p>By combining <code>GeoMap</code> with <code>get_area_xy()</code> and <code>lonlat_to_xy()</code>, you can overlay standard Drawlib shapes, icons, text labels, and curved arrows to build multi-region cloud topology diagrams, regional expansion maps, and territory highlights.</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="geomap_images/geomap_world_topology.png" alt="geomap_1" />
+  <figcaption class="drawlib-caption">Global Multi-Region Topology with World Map</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line_curved</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">circle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.smartarts</span><span class="w"> </span><span class="kn">import</span> <span class="n">GeoMap</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">130</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">70</span><span class="p">)</span>
+
+<span class="n">world</span> <span class="o">=</span> <span class="n">GeoMap</span><span class="p">(</span><span class="n">GeoMap</span><span class="o">.</span><span class="n">World</span><span class="o">.</span><span class="n">All</span><span class="p">,</span> <span class="n">area_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+<span class="c1"># Use world.get_areas() to inspect all available country/area names</span>
+<span class="n">world</span><span class="o">.</span><span class="n">set_area_styles</span><span class="p">([</span><span class="s2">"United States"</span><span class="p">,</span> <span class="s2">"Germany"</span><span class="p">,</span> <span class="s2">"Singapore"</span><span class="p">,</span> <span class="s2">"Australia"</span><span class="p">],</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
+<span class="n">world</span><span class="o">.</span><span class="n">set_area_styles</span><span class="p">([</span><span class="s2">"Japan"</span><span class="p">],</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">)</span>
+<span class="n">world</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">122</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">62</span><span class="p">)</span>
+
+<span class="n">jp_xy</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_area_xy</span><span class="p">(</span><span class="s2">"Japan"</span><span class="p">)</span>
+<span class="n">us_xy</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_area_xy</span><span class="p">(</span><span class="s2">"United States"</span><span class="p">)</span>
+<span class="n">de_xy</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_area_xy</span><span class="p">(</span><span class="s2">"Germany"</span><span class="p">)</span>
+<span class="n">sg_xy</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_area_xy</span><span class="p">(</span><span class="s2">"Singapore"</span><span class="p">)</span>
+
+<span class="n">line_curved</span><span class="p">(</span><span class="n">us_xy</span><span class="p">,</span> <span class="n">de_xy</span><span class="p">,</span> <span class="n">bend</span><span class="o">=-</span><span class="mf">0.22</span><span class="p">,</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"&lt;-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">line_curved</span><span class="p">(</span><span class="n">de_xy</span><span class="p">,</span> <span class="n">jp_xy</span><span class="p">,</span> <span class="n">bend</span><span class="o">=-</span><span class="mf">0.22</span><span class="p">,</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"&lt;-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">line_curved</span><span class="p">(</span><span class="n">jp_xy</span><span class="p">,</span> <span class="n">sg_xy</span><span class="p">,</span> <span class="n">bend</span><span class="o">=-</span><span class="mf">0.20</span><span class="p">,</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"&lt;-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">label</span><span class="p">,</span> <span class="n">pt</span><span class="p">,</span> <span class="n">dy</span> <span class="ow">in</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s2">"Tokyo (Primary)"</span><span class="p">,</span> <span class="n">jp_xy</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"US-East"</span><span class="p">,</span> <span class="n">us_xy</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.5</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"EU-Central"</span><span class="p">,</span> <span class="n">de_xy</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.5</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"AP-South"</span><span class="p">,</span> <span class="n">sg_xy</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.5</span><span class="p">),</span>
+<span class="p">]:</span>
+    <span class="n">circle</span><span class="p">(</span><span class="n">pt</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerFlat</span><span class="p">)</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">pt</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">pt</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">dy</span><span class="p">),</span> <span class="n">label</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
+</code></pre>
+</details>
+<hr />
+<h2>1. Global Multi-Region Topology (<code>GeoMap.World.All</code>)</h2>
+<p>As shown in the global topology map above, pass <code>GeoMap.World.All</code> to <code>GeoMap</code> to render a complete world map. You can inspect all available area names via <code>get_areas()</code>, highlight specific areas with <code>set_area_styles()</code> (by English name, ISO code such as <code>&quot;JP&quot;</code> / <code>&quot;USA&quot;</code>, or Japanese name such as <code>&quot;日本&quot;</code>), and use <code>get_area_xy()</code> to anchor connectors and labels:</p>
+<pre><code class="language-python"><span class="n">world</span> <span class="o">=</span> <span class="n">GeoMap</span><span class="p">(</span><span class="n">GeoMap</span><span class="o">.</span><span class="n">World</span><span class="o">.</span><span class="n">All</span><span class="p">,</span> <span class="n">area_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+<span class="n">world</span><span class="o">.</span><span class="n">set_area_styles</span><span class="p">([</span><span class="s2">"United States"</span><span class="p">,</span> <span class="s2">"Germany"</span><span class="p">,</span> <span class="s2">"Singapore"</span><span class="p">,</span> <span class="s2">"Australia"</span><span class="p">],</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
+<span class="n">world</span><span class="o">.</span><span class="n">set_area_styles</span><span class="p">([</span><span class="s2">"Japan"</span><span class="p">],</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">)</span>
+<span class="n">world</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">122</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">62</span><span class="p">)</span>
+
+<span class="n">jp_xy</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_area_xy</span><span class="p">(</span><span class="s2">"Japan"</span><span class="p">)</span>
+</code></pre>
+<hr />
+<h2>2. Regional World Presets &amp; Cropping (<code>GeoMap.World.Asia</code>, <code>EastAsia</code>, <code>Europe</code>)</h2>
+<p><code>GeoMap.World</code> provides 11 continental and regional presets (<code>All</code>, <code>Asia</code>, <code>Europe</code>, <code>NorthAmerica</code>, <code>SouthAmerica</code>, <code>Africa</code>, <code>Oceania</code>, <code>EastAsia</code>, <code>SoutheastAsia</code>, <code>APAC</code>, <code>MiddleEast</code>).</p>
+<p>You can also initialize any map with <code>area_style=Styles.Transparent</code> so unstyled areas are hidden, style only the target countries via <code>set_area_styles()</code>, and refine the viewport with <code>lon_range</code> and <code>lat_range</code>.</p>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">circle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.smartarts</span><span class="w"> </span><span class="kn">import</span> <span class="n">GeoMap</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">125</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">90</span><span class="p">)</span>
+
+<span class="c1"># Hide all unstyled areas with Styles.Transparent</span>
+<span class="n">asia</span> <span class="o">=</span> <span class="n">GeoMap</span><span class="p">(</span><span class="n">GeoMap</span><span class="o">.</span><span class="n">World</span><span class="o">.</span><span class="n">Asia</span><span class="p">,</span> <span class="n">area_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Transparent</span><span class="p">)</span>
+
+<span class="c1"># Style only the areas to display (inspect available names with asia.get_areas())</span>
+<span class="n">asia</span><span class="o">.</span><span class="n">set_area_styles</span><span class="p">([</span><span class="s2">"China"</span><span class="p">,</span> <span class="s2">"North Korea"</span><span class="p">,</span> <span class="s2">"Vietnam"</span><span class="p">],</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+<span class="n">asia</span><span class="o">.</span><span class="n">set_area_styles</span><span class="p">([</span><span class="s2">"South Korea"</span><span class="p">,</span> <span class="s2">"Taiwan"</span><span class="p">,</span> <span class="s2">"Philippines"</span><span class="p">],</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
+<span class="n">asia</span><span class="o">.</span><span class="n">set_area_styles</span><span class="p">([</span><span class="s2">"Japan"</span><span class="p">,</span> <span class="s2">"Hong Kong"</span><span class="p">],</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">)</span>
+
+<span class="c1"># Crop to East Asia (from Hong Kong to Japan)</span>
+<span class="n">asia</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">115</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">82</span><span class="p">,</span>
+    <span class="n">lon_range</span><span class="o">=</span><span class="p">(</span><span class="mi">106</span><span class="p">,</span> <span class="mi">146</span><span class="p">),</span>
+    <span class="n">lat_range</span><span class="o">=</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="mi">46</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># Place city pins using exact (longitude, latitude) coordinates</span>
+<span class="k">for</span> <span class="n">label</span><span class="p">,</span> <span class="n">lon</span><span class="p">,</span> <span class="n">lat</span><span class="p">,</span> <span class="n">dx</span><span class="p">,</span> <span class="n">dy</span> <span class="ow">in</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s2">"Tokyo"</span><span class="p">,</span> <span class="mf">139.69</span><span class="p">,</span> <span class="mf">35.69</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"Seoul"</span><span class="p">,</span> <span class="mf">126.98</span><span class="p">,</span> <span class="mf">37.57</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"Taipei"</span><span class="p">,</span> <span class="mf">121.56</span><span class="p">,</span> <span class="mf">25.03</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"Hong Kong"</span><span class="p">,</span> <span class="mf">114.17</span><span class="p">,</span> <span class="mf">22.32</span><span class="p">,</span> <span class="mf">7.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.5</span><span class="p">),</span>
+<span class="p">]:</span>
+    <span class="n">px</span><span class="p">,</span> <span class="n">py</span> <span class="o">=</span> <span class="n">asia</span><span class="o">.</span><span class="n">lonlat_to_xy</span><span class="p">(</span><span class="n">lon</span><span class="p">,</span> <span class="n">lat</span><span class="p">)</span>
+    <span class="n">circle</span><span class="p">((</span><span class="n">px</span><span class="p">,</span> <span class="n">py</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerFlat</span><span class="p">)</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">px</span> <span class="o">+</span> <span class="n">dx</span><span class="p">,</span> <span class="n">py</span> <span class="o">+</span> <span class="n">dy</span><span class="p">),</span> <span class="n">label</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="geomap_images/geomap_east_asia.png" alt="geomap_2" />
+  <figcaption class="drawlib-caption">East Asia Regional Map (GeoMap.World.Asia + Selective Visibility)</figcaption>
+</figure>
+<hr />
+<h2>3. Country &amp; City Presets (<code>GeoMap.Countries.*</code> &amp; <code>GeoMap.Cities.*</code>)</h2>
+<p>Use <code>GeoMap.Countries.&lt;Country&gt;</code> for Admin-1 state/province/prefecture maps across 215 countries (such as <code>GeoMap.Countries.Japan</code>, <code>GeoMap.Countries.UnitedStates</code>, <code>GeoMap.Countries.Germany</code>) and <code>GeoMap.Cities.&lt;Country&gt;_&lt;City&gt;</code> for flagship metropolitan ward/district maps (such as <code>GeoMap.Cities.Japan_Tokyo</code>, <code>GeoMap.Cities.UnitedStates_NewYork</code>).</p>
+<p>When <code>area_style=Styles.Transparent</code> is used and only a subset of areas is styled via <code>set_area_styles()</code> (such as Tokyo's 23 wards excluding Tama and the islands), <code>GeoMap.draw()</code> automatically zooms and fits the viewport to the visible areas even without specifying <code>lon_range</code> / <code>lat_range</code>.</p>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">circle</span><span class="p">,</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.smartarts</span><span class="w"> </span><span class="kn">import</span> <span class="n">GeoMap</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">130</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">74</span><span class="p">)</span>
+
+<span class="c1"># Left Panel: Japan (highlight Kanto prefectures, Tokyo, and Osaka)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">34</span><span class="p">,</span> <span class="mi">37</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">66</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">34</span><span class="p">,</span> <span class="mi">65</span><span class="p">),</span> <span class="s2">"GeoMap.Countries.Japan (47 Prefectures)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
+
+<span class="n">jp</span> <span class="o">=</span> <span class="n">GeoMap</span><span class="p">(</span><span class="n">GeoMap</span><span class="o">.</span><span class="n">Countries</span><span class="o">.</span><span class="n">Japan</span><span class="p">,</span> <span class="n">area_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+<span class="c1"># jp.get_areas() -&gt; ['Hokkaido', 'Aomori', ..., 'Tokyo', ..., 'Okinawa']</span>
+<span class="n">jp</span><span class="o">.</span><span class="n">set_area_styles</span><span class="p">(</span>
+    <span class="p">[</span><span class="s2">"Ibaraki"</span><span class="p">,</span> <span class="s2">"Tochigi"</span><span class="p">,</span> <span class="s2">"Gunma"</span><span class="p">,</span> <span class="s2">"Saitama"</span><span class="p">,</span> <span class="s2">"Chiba"</span><span class="p">,</span> <span class="s2">"Kanagawa"</span><span class="p">],</span>
+    <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">jp</span><span class="o">.</span><span class="n">set_area_styles</span><span class="p">([</span><span class="s2">"Tokyo"</span><span class="p">],</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">)</span>
+<span class="n">jp</span><span class="o">.</span><span class="n">set_area_styles</span><span class="p">([</span><span class="s2">"Osaka"</span><span class="p">],</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryFlat</span><span class="p">)</span>
+<span class="n">jp</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">56</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">56</span><span class="p">,</span> <span class="n">lon_range</span><span class="o">=</span><span class="p">(</span><span class="mi">129</span><span class="p">,</span> <span class="mi">146</span><span class="p">),</span> <span class="n">lat_range</span><span class="o">=</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">46</span><span class="p">))</span>
+
+<span class="c1"># Right Panel: Tokyo 23 Wards (hide Tama &amp; islands via Styles.Transparent)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">96</span><span class="p">,</span> <span class="mi">37</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">66</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">96</span><span class="p">,</span> <span class="mi">65</span><span class="p">),</span> <span class="s2">"GeoMap.Cities.Japan_Tokyo (23 Wards)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
+
+<span class="n">tokyo</span> <span class="o">=</span> <span class="n">GeoMap</span><span class="p">(</span><span class="n">GeoMap</span><span class="o">.</span><span class="n">Cities</span><span class="o">.</span><span class="n">Japan_Tokyo</span><span class="p">,</span> <span class="n">area_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Transparent</span><span class="p">)</span>
+<span class="c1"># tokyo.get_areas() -&gt; ['Chiyoda', 'Chuo', 'Minato', ..., 'Hachioji', ...]</span>
+<span class="n">wards_23</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">"Chiyoda"</span><span class="p">,</span> <span class="s2">"Chuo"</span><span class="p">,</span> <span class="s2">"Minato"</span><span class="p">,</span> <span class="s2">"Shinjuku"</span><span class="p">,</span> <span class="s2">"Bunkyo"</span><span class="p">,</span> <span class="s2">"Taito"</span><span class="p">,</span>
+    <span class="s2">"Sumida"</span><span class="p">,</span> <span class="s2">"Koto"</span><span class="p">,</span> <span class="s2">"Shinagawa"</span><span class="p">,</span> <span class="s2">"Meguro"</span><span class="p">,</span> <span class="s2">"Ota"</span><span class="p">,</span> <span class="s2">"Setagaya"</span><span class="p">,</span>
+    <span class="s2">"Shibuya"</span><span class="p">,</span> <span class="s2">"Nakano"</span><span class="p">,</span> <span class="s2">"Suginami"</span><span class="p">,</span> <span class="s2">"Toshima"</span><span class="p">,</span> <span class="s2">"Kita"</span><span class="p">,</span> <span class="s2">"Arakawa"</span><span class="p">,</span>
+    <span class="s2">"Itabashi"</span><span class="p">,</span> <span class="s2">"Nerima"</span><span class="p">,</span> <span class="s2">"Adachi"</span><span class="p">,</span> <span class="s2">"Katsushika"</span><span class="p">,</span> <span class="s2">"Edogawa"</span><span class="p">,</span>
+<span class="p">]</span>
+<span class="n">tokyo</span><span class="o">.</span><span class="n">set_area_styles</span><span class="p">(</span><span class="n">wards_23</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+<span class="n">tokyo</span><span class="o">.</span><span class="n">set_area_styles</span><span class="p">([</span><span class="s2">"Chiyoda"</span><span class="p">,</span> <span class="s2">"Chuo"</span><span class="p">,</span> <span class="s2">"Minato"</span><span class="p">],</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
+<span class="n">tokyo</span><span class="o">.</span><span class="n">set_area_styles</span><span class="p">([</span><span class="s2">"Shinjuku"</span><span class="p">,</span> <span class="s2">"Shibuya"</span><span class="p">],</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">)</span>
+<span class="n">tokyo</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">68</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">56</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">56</span><span class="p">)</span>
+
+<span class="n">shibuya_xy</span> <span class="o">=</span> <span class="n">tokyo</span><span class="o">.</span><span class="n">get_area_xy</span><span class="p">(</span><span class="s2">"Shibuya"</span><span class="p">)</span>
+<span class="n">circle</span><span class="p">(</span><span class="n">shibuya_xy</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerFlat</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="n">shibuya_xy</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mf">4.5</span><span class="p">,</span> <span class="n">shibuya_xy</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mf">2.5</span><span class="p">),</span> <span class="s2">"Shibuya"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="geomap_images/geomap_japan_and_tokyo.png" alt="geomap_3" />
+  <figcaption class="drawlib-caption">Japan Prefectures Map and Tokyo 23 Wards Map</figcaption>
+</figure>
+<hr />
+<h2>4. Custom GeoJSON Files (<code>_assets/geodata/*.geojson</code>)</h2>
+<p>In addition to built-in presets, you can pass any <code>.geojson</code> file path (or parsed GeoJSON dictionary) to <code>GeoMap</code>. The example below loads custom municipal GeoJSON files from <code>_assets/geodata/hokkaido.geojson</code> and <code>_assets/geodata/okinawa.geojson</code>.</p>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">circle</span><span class="p">,</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.smartarts</span><span class="w"> </span><span class="kn">import</span> <span class="n">GeoMap</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">130</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">74</span><span class="p">)</span>
+
+<span class="c1"># Left Panel: Hokkaido Municipalities (_assets/geodata/hokkaido.geojson)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">34</span><span class="p">,</span> <span class="mi">37</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">66</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">34</span><span class="p">,</span> <span class="mi">65</span><span class="p">),</span> <span class="s2">"Custom GeoJSON: Hokkaido (hokkaido.geojson)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+
+<span class="n">hokkaido</span> <span class="o">=</span> <span class="n">GeoMap</span><span class="p">(</span><span class="s2">"_assets/geodata/hokkaido.geojson"</span><span class="p">,</span> <span class="n">area_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+<span class="n">sapporo_wards</span> <span class="o">=</span> <span class="p">[</span><span class="n">a</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">hokkaido</span><span class="o">.</span><span class="n">get_areas</span><span class="p">()</span> <span class="k">if</span> <span class="n">a</span> <span class="ow">in</span> <span class="p">{</span>
+    <span class="s2">"Chuo"</span><span class="p">,</span> <span class="s2">"Kita"</span><span class="p">,</span> <span class="s2">"Higashi"</span><span class="p">,</span> <span class="s2">"Shiroishi"</span><span class="p">,</span> <span class="s2">"Toyohira"</span><span class="p">,</span>
+    <span class="s2">"Minami"</span><span class="p">,</span> <span class="s2">"Nishi"</span><span class="p">,</span> <span class="s2">"Atsubetsu"</span><span class="p">,</span> <span class="s2">"Teine"</span><span class="p">,</span> <span class="s2">"Kiyota"</span><span class="p">,</span>
+<span class="p">}]</span>
+<span class="n">hokkaido</span><span class="o">.</span><span class="n">set_area_styles</span><span class="p">([</span><span class="s2">"Asahikawa"</span><span class="p">,</span> <span class="s2">"Hakodate"</span><span class="p">,</span> <span class="s2">"Obihiro"</span><span class="p">,</span> <span class="s2">"Kushiro"</span><span class="p">,</span> <span class="s2">"Otaru"</span><span class="p">],</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
+<span class="n">hokkaido</span><span class="o">.</span><span class="n">set_area_styles</span><span class="p">(</span><span class="n">sapporo_wards</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">)</span>
+<span class="n">hokkaido</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">56</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">56</span><span class="p">,</span> <span class="n">lon_range</span><span class="o">=</span><span class="p">(</span><span class="mf">139.3</span><span class="p">,</span> <span class="mf">145.9</span><span class="p">),</span> <span class="n">lat_range</span><span class="o">=</span><span class="p">(</span><span class="mf">41.3</span><span class="p">,</span> <span class="mf">45.6</span><span class="p">))</span>
+
+<span class="n">sp_xy</span> <span class="o">=</span> <span class="n">hokkaido</span><span class="o">.</span><span class="n">get_area_xy</span><span class="p">(</span><span class="s2">"Chuo"</span><span class="p">)</span>
+<span class="n">circle</span><span class="p">(</span><span class="n">sp_xy</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerFlat</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="n">sp_xy</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mf">6.0</span><span class="p">,</span> <span class="n">sp_xy</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mf">2.5</span><span class="p">),</span> <span class="s2">"Sapporo"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+
+<span class="c1"># Right Panel: Okinawa Main Island (_assets/geodata/okinawa.geojson)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">96</span><span class="p">,</span> <span class="mi">37</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">66</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">96</span><span class="p">,</span> <span class="mi">65</span><span class="p">),</span> <span class="s2">"Custom GeoJSON: Okinawa (okinawa.geojson)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+
+<span class="n">okinawa</span> <span class="o">=</span> <span class="n">GeoMap</span><span class="p">(</span><span class="s2">"_assets/geodata/okinawa.geojson"</span><span class="p">,</span> <span class="n">area_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+<span class="n">okinawa</span><span class="o">.</span><span class="n">set_area_styles</span><span class="p">([</span><span class="s2">"Nago"</span><span class="p">,</span> <span class="s2">"Uruma"</span><span class="p">,</span> <span class="s2">"Okinawa"</span><span class="p">,</span> <span class="s2">"Urasoe"</span><span class="p">,</span> <span class="s2">"Ginowan"</span><span class="p">,</span> <span class="s2">"Itoman"</span><span class="p">],</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
+<span class="n">okinawa</span><span class="o">.</span><span class="n">set_area_styles</span><span class="p">([</span><span class="s2">"Naha"</span><span class="p">],</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">)</span>
+<span class="n">okinawa</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">68</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">56</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">56</span><span class="p">,</span> <span class="n">lon_range</span><span class="o">=</span><span class="p">(</span><span class="mf">127.6</span><span class="p">,</span> <span class="mf">128.35</span><span class="p">),</span> <span class="n">lat_range</span><span class="o">=</span><span class="p">(</span><span class="mf">26.05</span><span class="p">,</span> <span class="mf">26.9</span><span class="p">))</span>
+
+<span class="n">naha_xy</span> <span class="o">=</span> <span class="n">okinawa</span><span class="o">.</span><span class="n">get_area_xy</span><span class="p">(</span><span class="s2">"Naha"</span><span class="p">)</span>
+<span class="n">circle</span><span class="p">(</span><span class="n">naha_xy</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerFlat</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="n">naha_xy</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mf">5.0</span><span class="p">,</span> <span class="n">naha_xy</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mf">1.5</span><span class="p">),</span> <span class="s2">"Naha"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="geomap_images/geomap_custom_geojson.png" alt="geomap_4" />
+  <figcaption class="drawlib-caption">Loading Custom GeoJSON Files (Hokkaido & Okinawa Municipalities)</figcaption>
+</figure>
+<hr />
+<h2>5. Preset Targets &amp; Area Discovery</h2>
+<h3>Built-in Presets</h3>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.smartarts</span><span class="w"> </span><span class="kn">import</span> <span class="n">GeoMap</span>
+</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Category</th>
+<th style="text-align:left">Preset Targets</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong><code>GeoMap.World</code></strong></td>
+<td style="text-align:left"><code>All</code>, <code>Asia</code>, <code>Europe</code>, <code>NorthAmerica</code>, <code>SouthAmerica</code>, <code>Africa</code>, <code>Oceania</code>, <code>EastAsia</code>, <code>SoutheastAsia</code>, <code>APAC</code>, <code>MiddleEast</code></td>
+<td style="text-align:left">Global &amp; regional country maps</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>GeoMap.Countries</code></strong></td>
+<td style="text-align:left">All 215 countries &amp; territories (<code>Japan</code>, <code>UnitedStates</code>, <code>UnitedKingdom</code>, <code>Germany</code>, <code>France</code>, <code>China</code>, <code>India</code>, <code>Australia</code>, <code>Brazil</code>, <code>Canada</code>, ...)</td>
+<td style="text-align:left">Admin-1 states, provinces, or prefectures</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>GeoMap.Cities</code></strong></td>
+<td style="text-align:left"><code>Australia_Sydney</code>, <code>China_HongKong</code>, <code>China_Shanghai</code>, <code>France_Paris</code>, <code>Germany_Berlin</code>, <code>Italy_Rome</code>, <code>Japan_Kyoto</code>, <code>Japan_Osaka</code>, <code>Japan_Tokyo</code>, <code>Singapore_Singapore</code>, <code>SouthKorea_Seoul</code>, <code>Taiwan_Taipei</code>, <code>UnitedKingdom_London</code>, <code>UnitedStates_LosAngeles</code>, <code>UnitedStates_NewYork</code>, <code>UnitedStates_SanFrancisco</code></td>
+<td style="text-align:left">16 flagship metropolitan ward/district maps</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Custom GeoJSON</strong></td>
+<td style="text-align:left"><code>&quot;_assets/geodata/okinawa.geojson&quot;</code> (path or <code>dict</code>)</td>
+<td style="text-align:left">Any standard GeoJSON <code>FeatureCollection</code></td>
+</tr>
+</tbody>
+</table>
+<h3>Inspecting Available Area Names (<code>get_areas()</code>)</h3>
+<p>You can inspect all canonical area names in any map programmatically:</p>
+<pre><code class="language-python"><span class="n">m</span> <span class="o">=</span> <span class="n">GeoMap</span><span class="p">(</span><span class="n">GeoMap</span><span class="o">.</span><span class="n">Countries</span><span class="o">.</span><span class="n">Japan</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">get_areas</span><span class="p">())</span>  <span class="c1"># ['Hokkaido', 'Aomori', ..., 'Tokyo', ..., 'Okinawa']</span>
+</code></pre>
+<blockquote>
+<p><strong>Alias Resolution</strong>: Methods accepting area names (<code>set_area_styles()</code>, <code>get_area_xy()</code>) are case-insensitive and also accept ISO codes (<code>&quot;JP&quot;</code>, <code>&quot;JPN&quot;</code>, <code>&quot;US&quot;</code>) as well as Japanese names (<code>&quot;日本&quot;</code>, <code>&quot;東京都&quot;</code>, <code>&quot;東京&quot;</code>, <code>&quot;渋谷区&quot;</code>, <code>&quot;渋谷&quot;</code>).</p>
+</blockquote>
+<hr />
+<h2>6. API Reference</h2>
+<h3>Constructor</h3>
+<pre><code class="language-python"><span class="n">GeoMap</span><span class="p">(</span>
+    <span class="n">target</span><span class="p">:</span> <span class="n">World</span> <span class="o">|</span> <span class="nb">type</span><span class="p">[</span><span class="n">World</span><span class="p">]</span> <span class="o">|</span> <span class="n">Countries</span> <span class="o">|</span> <span class="n">Cities</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span> <span class="o">|</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">area_style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">background_style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">id_key</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">name_key</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span>
+</code></pre>
+<ul>
+<li><strong><code>target</code></strong>: Preset (<code>GeoMap.World.All</code>, <code>GeoMap.World.Asia</code>, <code>GeoMap.Countries.Japan</code>, <code>GeoMap.Cities.Japan_Tokyo</code>), path to a <code>.geojson</code> file, or a parsed GeoJSON <code>dict</code>.</li>
+<li><strong><code>area_style</code></strong>: Default <code>Style</code> applied to all areas (defaults to <code>Styles.Neutral</code>). Pass <code>Styles.Transparent</code> to hide unstyled areas.</li>
+<li><strong><code>background_style</code></strong>: Optional <code>Style</code> for the map bounding box background (defaults to <code>None</code> for transparent background).</li>
+<li><strong><code>id_key</code></strong>: Optional GeoJSON feature <code>properties</code> key to use as the canonical area identifier when loading custom GeoJSON files or dicts.</li>
+<li><strong><code>name_key</code></strong>: Optional GeoJSON feature <code>properties</code> key to use as the area display name when loading custom GeoJSON files or dicts.</li>
+</ul>
+<h3>Methods &amp; Properties</h3>
+<ul>
+<li><strong><code>geomap.data -&gt; GeoData</code></strong>: Returns the underlying normalized <code>GeoData</code> model containing the parsed map elements (<code>elements</code>), dataset name (<code>name</code>), and default viewport bounds (<code>default_lon_range</code>, <code>default_lat_range</code>).</li>
+<li><strong><code>get_areas() -&gt; list[str]</code></strong>: Return the ordered list of canonical area names in this map.</li>
+<li><strong><code>set_area_styles(areas: list[str], style: Style) -&gt; Self</code></strong>: Assign a <code>Style</code> to the specified list of areas (pass <code>Styles.Transparent</code> to hide specific areas).</li>
+<li><strong><code>draw(xy=(0.0, 0.0), width=None, height=None, *, lon_range=None, lat_range=None, scale=1.0) -&gt; Self</code></strong>:
+<ul>
+<li><strong>Bottom-Left Anchor <code>xy</code></strong>: Bottom-left <code>(x, y)</code> coordinate of the map box on the canvas.</li>
+<li><strong>Aspect-Ratio Safe Sizing (<code>width</code>, <code>height</code>)</strong>: Provide <code>width</code>, <code>height</code>, or both. The map preserves its natural geographical aspect ratio (with cosine-latitude correction) and centers itself within the box when both <code>width</code> and <code>height</code> are specified.</li>
+<li><strong>Viewport Cropping (<code>lon_range</code>, <code>lat_range</code>)</strong>: Optional <code>(min_lon, max_lon)</code> and <code>(min_lat, max_lat)</code> tuples to crop and zoom into a specific region. When omitted, <code>draw()</code> automatically fits the viewport to all visible (non-transparent) areas.</li>
+</ul>
+</li>
+<li><strong><code>get_area_xy(area: str) -&gt; tuple[float, float]</code></strong>: Returns the canvas <code>(x, y)</code> coordinate of the area's largest-polygon interior center from the most recent <code>draw()</code> call.</li>
+<li><strong><code>lonlat_to_xy(lon: float, lat: float) -&gt; tuple[float, float]</code></strong>: Converts any <code>(longitude, latitude)</code> pair into canvas <code>(x, y)</code> coordinates from the most recent <code>draw()</code> call.</li>
+</ul>
+
+            </main>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const btn = document.getElementById('theme-toggle');
+            if (!btn) return;
+            btn.addEventListener('click', function() {
+                const current = document.documentElement.getAttribute('data-theme');
+                const next = current === 'dark' ? 'light' : 'dark';
+                document.documentElement.setAttribute('data-theme', next);
+                localStorage.setItem('drawlib-theme', next);
+            });
+        });
+    </script>
+</body>
+</html>

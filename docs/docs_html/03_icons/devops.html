@@ -1,0 +1,1054 @@
+<!--
+ Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+
+ This software is licensed under the Apache License, Version 2.0.
+ For more information, please visit: https://github.com/yuichi110/drawlib
+
+ This software is provided "as is", without warranty of any kind,
+ express or implied, including but not limited to the warranties of
+ merchantability, fitness for a particular purpose and noninfringement.
+-->
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevOps & Observability Icons</title>
+    <script>
+        (function() {
+            const saved = localStorage.getItem('drawlib-theme');
+            if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <link rel="icon" type="image/png" href="../_assets/favicon.png">
+    
+    
+    <link rel="stylesheet" href="../style.css">
+    
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-brand" aria-label="Drawlib Documentation">
+                    
+                    <img src="../_assets/logo.png" alt="Drawlib Documentation" class="sidebar-logo sidebar-logo-light">
+                    <img src="../_assets/logo_dark.png" alt="Drawlib Documentation" class="sidebar-logo sidebar-logo-dark">
+                    
+                </a>
+                <button type="button" id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle theme">
+                    <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                    <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                </button>
+            </div>
+            <div class="sidebar-menu">
+                
+                    
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../index.html" >Welcome</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">1. Getting Started</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/overview.html" >About Drawlib</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/installation.html" >Installation Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/quick_start.html" >Quick Start Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/core_concepts.html" >Core Visual Concepts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/project_quicklook.html" >Project & Build Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/agent_quicklook.html" >AI-Driven Workflow & Agent Setup</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/release_notes.html" >Release Notes & Migration</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">2. Drawing Primitives & Styles</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/canvas.html" >Canvas & Coordinates</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_overview.html" >Shapes Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_basic.html" >Basic & Radial Shapes</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_polygon.html" >Polygons & Custom Paths</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_arrow.html" >Block Arrows & Chevrons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_container.html" >3D Containers, Flow & Grouping</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_badge.html" >Callouts, Badges & Status</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_symbol.html" >Faces, Clocks, Symbols & Operators</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/lines.html" >Lines & Connectors</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/text.html" >Text & Typography</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/fonts.html" >Fonts & Multilingual Catalog</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/font_file.html" >Custom Font Files (FontFile)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/images.html" >Images & Dimage</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/styles.html" >Styles & Theming</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/colors.html" >Color Palettes & Color Model</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/style_guide.html" >Diagram Design & Style Guide</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">3. Icons & Brand Suites</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="overview.html" >Icons Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="phosphor.html" >Phosphor Vector Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="gcp.html" >Google Cloud (GCP) Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="aws.html" >Amazon Web Services (AWS) Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="azure.html" >Microsoft Azure Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="cloud.html" >Cloud & Original Cloud Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="cnative.html" >Cloud Native (K8s) Icons</a>
+                            </li>
+                            
+                            <li class="nav-item active">
+                                <a href="devops.html" >DevOps & Observability Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="network.html" >Network & Cisco Topology Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="server.html" >Server, OS & Virtualization Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="security.html" >Security & Zero-Trust Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="facility.html" >Data Center & Facility Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="ai.html" >AI & Machine Learning Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="data.html" >Data & Database Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="code.html" >Code, Languages & Frameworks Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="business.html" >Enterprise Business & FinTech Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="itservice.html" >IT Services & Consulting Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="workspace.html" >Workspace & Collaboration Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="social.html" >Social, Media & Community Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="client.html" >Client Devices & Endpoints Icons</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">4. SmartArts</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/overview.html" >SmartArts Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/chevron_process.html" >ChevronProcess</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/cycle.html" >Cycle</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/table.html" >Table</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/tree.html" >Tree</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/mindmap.html" >MindMap</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/grid_layout.html" >GridLayout</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/pyramid.html" >Pyramid</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/box_list.html" >BoxList</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/kpi_cards.html" >KpiCards</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/card_list.html" >CardList</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/roadmap.html" >Roadmap</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/panel.html" >Panel</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/calendar.html" >Calendar</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/bullet_points.html" >BulletPoints</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/source_code.html" >SourceCode</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/geomap.html" >GeoMap</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">5. Charts</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/overview.html" >Charts Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/axes_and_legends.html" >Axes, Scales & Legends</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/bar.html" >Bar Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/line.html" >Line Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/area.html" >Area Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/pie.html" >Pie & Donut Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/radar.html" >Radar Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/scatter.html" >Scatter Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/gantt.html" >Gantt Chart</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">6. Technical Diagrams</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/overview.html" >Diagrams Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/architecture.html" >Architecture Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/flow.html" >Flow Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/sequence.html" >Sequence Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/class_diagram.html" >UML Class Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/er.html" >ER Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/state_diagram.html" >State Machine Diagrams</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">7. Auto-Layout Graphs</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/overview.html" >Graph Engine Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/architecture_graph.html" >ArchitectureGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/layer_graph.html" >LayerGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/tree_graph.html" >TreeGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/radial_graph.html" >RadialGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/grid_graph.html" >GridGraph</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">8. Animations</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/overview.html" >Animations Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/primitives.html" >Animating Primitives & Colors</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/smartarts.html" >Animating SmartArts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/charts.html" >Animating Charts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/diagrams.html" >Animating Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/graphs.html" >Animating Graphs</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">9. Document Builder & CLI</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/overview.html" >Illustrated Documentation as Code Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/code_blocks.html" >Markdown Code Block Syntax</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/cli_reference.html" >CLI Reference</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/project_doc.html" >Linear Document Project (`doc`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/project_site.html" >Doc Site Project (`site`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/project_slide.html" >Slide Deck Project (`slide`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/slide_layout_and_api.html" >Slide Stage Layout & API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/project_image.html" >Image Project (`images`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/customization.html" >Templates & CSS Customization</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/caching_and_cicd.html" >Caching Architecture & CI/CD</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">10. AI Agents & Advanced Integration</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/ai_agent_instructions.html" >AI Agent Instructions & Rules</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/multimodal_feedback_loop.html" >Autonomous Verification Loop</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/programmatic_api.html" >Programmatic API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/math_and_layout.html" >Algorithmic Layout & Math</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/debugging.html" >Troubleshooting & Debugging</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/case_study_brand_assets.html" >Case Study: Designing Official Brand Assets</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/case_study_documentation_site.html" >Case Study: Building Documentation Sites with AI Agents</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/case_study_software_architecture.html" >Case Study: Authoring Software Architecture as Code</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/case_study_technical_slides.html" >Case Study: Creating Technical Slide Decks</a>
+                            </li>
+                            
+                        </ul>
+                    
+                
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">DevOps & Observability Icons</span>
+                </div>
+            </header>
+            <main class="main-content">
+                <h1>DevOps &amp; Observability Icons</h1>
+<p>Drawlib provides <strong>58 official DevOps &amp; Observability brand icons</strong> in <code>drawlib.icons.devops</code> (<code>DevopsIcon</code>) and <strong>78 flat 2D pastel icons</strong> in <code>drawlib.icons.original_devops</code> (<code>OriginalDevopsIcon</code>), which combine 58 matching brand twins with <strong>20 vendor-neutral DevOps concept icons</strong>. Use these icons directly on the canvas or inside <strong><a href="../06_diagrams/architecture.html">Architecture Diagrams</a></strong> (see <strong><a href="./overview.html">Icons Overview</a></strong>).</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="devops_images/icons_devops_hero.png" alt="devops_1" />
+  <figcaption class="drawlib-caption">Comparing Official DevOps Brand Icons (drawlib.icons.devops) and Original 2D Pastel Icons (drawlib.icons.original_devops)</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">devops</span><span class="p">,</span> <span class="n">original_devops</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">146</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">64</span><span class="p">)</span>
+
+<span class="n">columns</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s2">"GitHub Actions"</span><span class="p">,</span> <span class="n">devops</span><span class="o">.</span><span class="n">github_actions</span><span class="p">,</span> <span class="n">original_devops</span><span class="o">.</span><span class="n">github_actions</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"Terraform"</span><span class="p">,</span> <span class="n">devops</span><span class="o">.</span><span class="n">terraform</span><span class="p">,</span> <span class="n">original_devops</span><span class="o">.</span><span class="n">terraform</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"Datadog APM"</span><span class="p">,</span> <span class="n">devops</span><span class="o">.</span><span class="n">datadog</span><span class="p">,</span> <span class="n">original_devops</span><span class="o">.</span><span class="n">datadog</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"PagerDuty"</span><span class="p">,</span> <span class="n">devops</span><span class="o">.</span><span class="n">pagerduty</span><span class="p">,</span> <span class="n">original_devops</span><span class="o">.</span><span class="n">pagerduty</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"HashiCorp Vault"</span><span class="p">,</span> <span class="n">devops</span><span class="o">.</span><span class="n">vault</span><span class="p">,</span> <span class="n">original_devops</span><span class="o">.</span><span class="n">vault</span><span class="p">),</span>
+<span class="p">]</span>
+
+<span class="n">rows</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="mf">40.0</span><span class="p">,</span> <span class="s2">"Official Suite"</span><span class="p">,</span> <span class="s2">"drawlib.icons.devops"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">16.0</span><span class="p">,</span> <span class="s2">"2D Pastel Suite"</span><span class="p">,</span> <span class="s2">"original_devops"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">),</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">col_idx</span><span class="p">,</span> <span class="p">(</span><span class="n">col_title</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">columns</span><span class="p">):</span>
+    <span class="n">cx</span> <span class="o">=</span> <span class="mf">46.5</span> <span class="o">+</span> <span class="n">col_idx</span> <span class="o">*</span> <span class="mf">22.0</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mf">56.5</span><span class="p">),</span> <span class="n">col_title</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">row_idx</span><span class="p">,</span> <span class="p">(</span><span class="n">cy</span><span class="p">,</span> <span class="n">row_title</span><span class="p">,</span> <span class="n">row_sub</span><span class="p">,</span> <span class="n">card_st</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">rows</span><span class="p">):</span>
+    <span class="n">rectangle</span><span class="p">((</span><span class="mf">19.0</span><span class="p">,</span> <span class="n">cy</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">28.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">21.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">card_st</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+    <span class="n">text</span><span class="p">((</span><span class="mf">19.0</span><span class="p">,</span> <span class="n">cy</span> <span class="o">+</span> <span class="mf">3.0</span><span class="p">),</span> <span class="n">row_title</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+    <span class="n">text</span><span class="p">((</span><span class="mf">19.0</span><span class="p">,</span> <span class="n">cy</span> <span class="o">-</span> <span class="mf">3.0</span><span class="p">),</span> <span class="n">row_sub</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+
+    <span class="k">for</span> <span class="n">col_idx</span><span class="p">,</span> <span class="p">(</span><span class="n">lbl</span><span class="p">,</span> <span class="n">fn_off</span><span class="p">,</span> <span class="n">fn_orig</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">columns</span><span class="p">):</span>
+        <span class="n">cx</span> <span class="o">=</span> <span class="mf">46.5</span> <span class="o">+</span> <span class="n">col_idx</span> <span class="o">*</span> <span class="mf">22.0</span>
+        <span class="n">cell_st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span> <span class="k">if</span> <span class="p">(</span><span class="n">row_idx</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">col_idx</span> <span class="o">==</span> <span class="mi">4</span><span class="p">)</span> <span class="k">else</span> <span class="n">card_st</span>
+        <span class="n">rectangle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">19.5</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">21.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">cell_st</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+        <span class="n">fn</span> <span class="o">=</span> <span class="n">fn_off</span> <span class="k">if</span> <span class="n">row_idx</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">fn_orig</span>
+        <span class="n">fn</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span> <span class="o">+</span> <span class="mf">3.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">8.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">)</span>
+        <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span> <span class="o">-</span> <span class="mf">6.0</span><span class="p">),</span> <span class="n">lbl</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<hr />
+<h2>1. API Signature &amp; Twin Module Structure</h2>
+<p>All 58 brand icons in <code>drawlib.icons.devops</code> have an exact 1-to-1 twin in <code>drawlib.icons.original_devops</code>, while <code>original_devops</code> adds 20 vendor-neutral DevOps concept icons (such as <code>cicd_pipeline</code>, <code>build_runner</code>, <code>monitoring</code>, and <code>alert_incident</code>) for trademark-free diagrams:</p>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.diagrams.architecture</span><span class="w"> </span><span class="kn">import</span> <span class="n">DevopsIcon</span><span class="p">,</span> <span class="n">Node</span><span class="p">,</span> <span class="n">OriginalDevopsIcon</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">devops</span><span class="p">,</span> <span class="n">original_devops</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+
+<span class="c1"># 1. Direct canvas rendering (anchored at center xy)</span>
+<span class="n">devops</span><span class="o">.</span><span class="n">terraform</span><span class="p">((</span><span class="mi">30</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">)</span>
+<span class="n">original_devops</span><span class="o">.</span><span class="n">terraform</span><span class="p">((</span><span class="mi">60</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">)</span>
+<span class="n">original_devops</span><span class="o">.</span><span class="n">cicd_pipeline</span><span class="p">((</span><span class="mi">90</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">)</span>
+
+<span class="c1"># 2. High-level ArchitectureDiagram Node integration via Enum</span>
+<span class="n">iac_node</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="s2">"Terraform IaC"</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">DevopsIcon</span><span class="o">.</span><span class="n">TERRAFORM</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">8.0</span><span class="p">)</span>
+<span class="n">pipe_node</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="s2">"CI/CD Pipeline"</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">OriginalDevopsIcon</span><span class="o">.</span><span class="n">CICD_PIPELINE</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">8.0</span><span class="p">)</span>
+</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Feature</th>
+<th style="text-align:left">Official Suite (<code>devops</code>)</th>
+<th style="text-align:left">Original 2D Pastel Suite (<code>original_devops</code>)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Module Import</strong></td>
+<td style="text-align:left"><code>from drawlib.icons import devops</code></td>
+<td style="text-align:left"><code>from drawlib.icons import original_devops</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Function Signature</strong></td>
+<td style="text-align:left"><code>devops.&lt;name&gt;(xy, width, *, style, variant=&quot;default&quot;)</code></td>
+<td style="text-align:left"><code>original_devops.&lt;name&gt;(xy, width, *, style, variant=&quot;default&quot;)</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Architecture Enum</strong></td>
+<td style="text-align:left"><code>DevopsIcon.&lt;NAME&gt;</code></td>
+<td style="text-align:left"><code>OriginalDevopsIcon.&lt;NAME&gt;</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Canonical Count</strong></td>
+<td style="text-align:left"><strong>58</strong> (<code>58</code> official DevOps &amp; SRE brand logos)</td>
+<td style="text-align:left"><strong>78</strong> (<code>58</code> 2D pastel brand twins + <code>20</code> DevOps concept icons)</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Asset Archive</strong></td>
+<td style="text-align:left"><code>icon_devops</code> (<code>512×512</code> RGBA PNGs)</td>
+<td style="text-align:left"><code>icon_original_devops</code> (<code>512×512</code> RGBA PNGs)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>2. DevOps &amp; Observability Brand Icons (58 Icons)</h2>
+<p>The 58 brand icons span Git platforms, CI/CD runners, Infrastructure as Code (IaC), APM &amp; log aggregation stacks, incident paging, and DevSecOps scanners:</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="devops_images/icons_devops_brands.png" alt="devops_2" />
+  <figcaption class="drawlib-caption">Representative DevOps, IaC & Observability Brand Icons (drawlib.icons.devops)</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">devops</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">144</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">64</span><span class="p">)</span>
+
+<span class="n">row1</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s2">"github"</span><span class="p">,</span> <span class="s2">"Source Control"</span><span class="p">,</span> <span class="n">devops</span><span class="o">.</span><span class="n">github</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"gitlab"</span><span class="p">,</span> <span class="s2">"DevSecOps CI"</span><span class="p">,</span> <span class="n">devops</span><span class="o">.</span><span class="n">gitlab</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"terraform"</span><span class="p">,</span> <span class="s2">"IaC Provision"</span><span class="p">,</span> <span class="n">devops</span><span class="o">.</span><span class="n">terraform</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"ansible"</span><span class="p">,</span> <span class="s2">"Config Mgmt"</span><span class="p">,</span> <span class="n">devops</span><span class="o">.</span><span class="n">ansible</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"pulumi"</span><span class="p">,</span> <span class="s2">"Cloud IaC"</span><span class="p">,</span> <span class="n">devops</span><span class="o">.</span><span class="n">pulumi</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">),</span>
+<span class="p">]</span>
+
+<span class="n">row2</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s2">"datadog"</span><span class="p">,</span> <span class="s2">"APM &amp; Logs"</span><span class="p">,</span> <span class="n">devops</span><span class="o">.</span><span class="n">datadog</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"loki"</span><span class="p">,</span> <span class="s2">"Log Aggregation"</span><span class="p">,</span> <span class="n">devops</span><span class="o">.</span><span class="n">loki</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"sentry"</span><span class="p">,</span> <span class="s2">"Error Tracking"</span><span class="p">,</span> <span class="n">devops</span><span class="o">.</span><span class="n">sentry</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"playwright"</span><span class="p">,</span> <span class="s2">"E2E Testing"</span><span class="p">,</span> <span class="n">devops</span><span class="o">.</span><span class="n">playwright</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"trivy"</span><span class="p">,</span> <span class="s2">"Image Scanner"</span><span class="p">,</span> <span class="n">devops</span><span class="o">.</span><span class="n">trivy</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">row_idx</span><span class="p">,</span> <span class="n">items</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">([</span><span class="n">row1</span><span class="p">,</span> <span class="n">row2</span><span class="p">]):</span>
+    <span class="n">cy</span> <span class="o">=</span> <span class="mf">46.5</span> <span class="k">if</span> <span class="n">row_idx</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="mf">17.5</span>
+    <span class="k">for</span> <span class="n">col_idx</span><span class="p">,</span> <span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">cat</span><span class="p">,</span> <span class="n">icon_fn</span><span class="p">,</span> <span class="n">card_st</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">items</span><span class="p">):</span>
+        <span class="n">cx</span> <span class="o">=</span> <span class="mf">18.0</span> <span class="o">+</span> <span class="n">col_idx</span> <span class="o">*</span> <span class="mf">27.0</span>
+        <span class="n">rectangle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">24.5</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">25.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">card_st</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+        <span class="n">icon_fn</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span> <span class="o">+</span> <span class="mf">4.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">8.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">)</span>
+        <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span> <span class="o">-</span> <span class="mf">3.5</span><span class="p">),</span> <span class="n">title</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+        <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span> <span class="o">-</span> <span class="mf">8.2</span><span class="p">),</span> <span class="n">cat</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<h3>2.1. Complete DevOps Brand Icons Reference (58 Canonical Names)</h3>
+<p>All 58 canonical brand names below are available in both <code>devops.&lt;name&gt;</code> (<code>DevopsIcon.&lt;NAME&gt;</code>) and <code>original_devops.&lt;name&gt;</code> (<code>OriginalDevopsIcon.&lt;NAME&gt;</code>):</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Category</th>
+<th style="text-align:center">Count</th>
+<th style="text-align:left">Canonical Icon Names (<code>devops.*</code> &amp; <code>original_devops.*</code>)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Source Control, CI/CD Pipelines &amp; Build Systems</strong></td>
+<td style="text-align:center">14</td>
+<td style="text-align:left"><code>bazel</code>, <code>bitbucket</code>, <code>buildkite</code>, <code>circleci</code>, <code>dagger</code>, <code>git</code>, <code>github</code>, <code>github_actions</code>, <code>gitlab</code>, <code>jenkins</code>, <code>nx</code>, <code>spinnaker</code>, <code>tekton</code>, <code>turborepo</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Infrastructure as Code (IaC), Configuration &amp; Containers</strong></td>
+<td style="text-align:center">9</td>
+<td style="text-align:left"><code>ansible</code>, <code>consul</code>, <code>opentofu</code>, <code>packer</code>, <code>podman</code>, <code>pulumi</code>, <code>terraform</code>, <code>vagrant</code>, <code>vault</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Observability, APM, Logging &amp; Metrics</strong></td>
+<td style="text-align:center">15</td>
+<td style="text-align:left"><code>datadog</code>, <code>dynatrace</code>, <code>fluent_bit</code>, <code>honeycomb</code>, <code>kibana</code>, <code>loki</code>, <code>mimir</code>, <code>new_relic</code>, <code>sentry</code>, <code>signoz</code>, <code>splunk</code>, <code>tempo</code>, <code>thanos</code>, <code>vector</code>, <code>victoria_metrics</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Incident Management, Feature Flags &amp; ChatOps</strong></td>
+<td style="text-align:center">7</td>
+<td style="text-align:left"><code>incident_io</code>, <code>jira</code>, <code>launchdarkly</code>, <code>opsgenie</code>, <code>pagerduty</code>, <code>slack</code>, <code>unleash</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Testing, API Clients, Artifact Registries &amp; DevSecOps</strong></td>
+<td style="text-align:center">13</td>
+<td style="text-align:left"><code>bruno</code>, <code>cypress</code>, <code>insomnia</code>, <code>jfrog</code>, <code>k6</code>, <code>keycloak</code>, <code>nexus</code>, <code>playwright</code>, <code>postman</code>, <code>selenium</code>, <code>snyk</code>, <code>sonarqube</code>, <code>trivy</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>3. Vendor-Neutral DevOps Concept Icons (<code>original_devops</code> — 20 Icons)</h2>
+<p>When designing vendor-neutral CI/CD pipelines or SRE runbooks without specific vendor logos, <code>drawlib.icons.original_devops</code> (<code>OriginalDevopsIcon</code>) provides <strong>20 general-purpose DevOps &amp; SRE concept icons</strong>:</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="devops_images/icons_devops_concepts.png" alt="devops_3" />
+  <figcaption class="drawlib-caption">All 20 Vendor-Neutral DevOps & Observability Concept Icons (drawlib.icons.original_devops)</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">original_devops</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">148</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">108</span><span class="p">)</span>
+
+<span class="n">concept_items</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s2">"git_repository"</span><span class="p">,</span> <span class="n">original_devops</span><span class="o">.</span><span class="n">git_repository</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"pull_request"</span><span class="p">,</span> <span class="n">original_devops</span><span class="o">.</span><span class="n">pull_request</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"cicd_pipeline"</span><span class="p">,</span> <span class="n">original_devops</span><span class="o">.</span><span class="n">cicd_pipeline</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"build_runner"</span><span class="p">,</span> <span class="n">original_devops</span><span class="o">.</span><span class="n">build_runner</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"test_automation"</span><span class="p">,</span> <span class="n">original_devops</span><span class="o">.</span><span class="n">test_automation</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"security_scan"</span><span class="p">,</span> <span class="n">original_devops</span><span class="o">.</span><span class="n">security_scan</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"package_dependency"</span><span class="p">,</span> <span class="n">original_devops</span><span class="o">.</span><span class="n">package_dependency</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"artifact_registry"</span><span class="p">,</span> <span class="n">original_devops</span><span class="o">.</span><span class="n">artifact_registry</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"container"</span><span class="p">,</span> <span class="n">original_devops</span><span class="o">.</span><span class="n">container</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"container_cluster"</span><span class="p">,</span> <span class="n">original_devops</span><span class="o">.</span><span class="n">container_cluster</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"gitops_controller"</span><span class="p">,</span> <span class="n">original_devops</span><span class="o">.</span><span class="n">gitops_controller</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"config_management"</span><span class="p">,</span> <span class="n">original_devops</span><span class="o">.</span><span class="n">config_management</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"secret_vault"</span><span class="p">,</span> <span class="n">original_devops</span><span class="o">.</span><span class="n">secret_vault</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"feature_flag"</span><span class="p">,</span> <span class="n">original_devops</span><span class="o">.</span><span class="n">feature_flag</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"monitoring"</span><span class="p">,</span> <span class="n">original_devops</span><span class="o">.</span><span class="n">monitoring</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"logging"</span><span class="p">,</span> <span class="n">original_devops</span><span class="o">.</span><span class="n">logging</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"distributed_tracing"</span><span class="p">,</span> <span class="n">original_devops</span><span class="o">.</span><span class="n">distributed_tracing</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"dashboard"</span><span class="p">,</span> <span class="n">original_devops</span><span class="o">.</span><span class="n">dashboard</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"alert_incident"</span><span class="p">,</span> <span class="n">original_devops</span><span class="o">.</span><span class="n">alert_incident</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"on_call"</span><span class="p">,</span> <span class="n">original_devops</span><span class="o">.</span><span class="n">on_call</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">),</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">icon_fn</span><span class="p">,</span> <span class="n">card_st</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">concept_items</span><span class="p">):</span>
+    <span class="n">row</span> <span class="o">=</span> <span class="n">idx</span> <span class="o">//</span> <span class="mi">5</span>
+    <span class="n">col</span> <span class="o">=</span> <span class="n">idx</span> <span class="o">%</span> <span class="mi">5</span>
+    <span class="n">cx</span> <span class="o">=</span> <span class="mf">18.8</span> <span class="o">+</span> <span class="n">col</span> <span class="o">*</span> <span class="mf">27.6</span>
+    <span class="n">cy</span> <span class="o">=</span> <span class="mf">91.5</span> <span class="o">-</span> <span class="n">row</span> <span class="o">*</span> <span class="mf">25.0</span>
+    <span class="n">rectangle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">25.6</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">22.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">card_st</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+    <span class="n">icon_fn</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span> <span class="o">+</span> <span class="mf">3.2</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">7.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">)</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span> <span class="o">-</span> <span class="mf">6.2</span><span class="p">),</span> <span class="n">label</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<h3>3.1. Complete DevOps Concept Icons Reference (20 Canonical Names in <code>original_devops</code>)</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Canonical Name</th>
+<th style="text-align:left"><code>original_devops</code> Call</th>
+<th style="text-align:left"><code>OriginalDevopsIcon</code> Enum</th>
+<th style="text-align:left">Architectural Role &amp; Concept Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>alert_incident</code></td>
+<td style="text-align:left"><code>original_devops.alert_incident</code></td>
+<td style="text-align:left"><code>ALERT_INCIDENT</code></td>
+<td style="text-align:left">Critical threshold breach or active production incident alert</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>artifact_registry</code></td>
+<td style="text-align:left"><code>original_devops.artifact_registry</code></td>
+<td style="text-align:left"><code>ARTIFACT_REGISTRY</code></td>
+<td style="text-align:left">Container image, Helm chart, or binary package repository</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>build_runner</code></td>
+<td style="text-align:left"><code>original_devops.build_runner</code></td>
+<td style="text-align:left"><code>BUILD_RUNNER</code></td>
+<td style="text-align:left">Ephemeral CI compilation worker or build agent</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>cicd_pipeline</code></td>
+<td style="text-align:left"><code>original_devops.cicd_pipeline</code></td>
+<td style="text-align:left"><code>CICD_PIPELINE</code></td>
+<td style="text-align:left">Automated continuous integration and delivery workflow</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>config_management</code></td>
+<td style="text-align:left"><code>original_devops.config_management</code></td>
+<td style="text-align:left"><code>CONFIG_MANAGEMENT</code></td>
+<td style="text-align:left">Declarative infrastructure state and host configuration</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>container</code></td>
+<td style="text-align:left"><code>original_devops.container</code></td>
+<td style="text-align:left"><code>CONTAINER</code></td>
+<td style="text-align:left">Standardized OCI application container image/instance</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>container_cluster</code></td>
+<td style="text-align:left"><code>original_devops.container_cluster</code></td>
+<td style="text-align:left"><code>CONTAINER_CLUSTER</code></td>
+<td style="text-align:left">Orchestrated multi-node container cluster</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>dashboard</code></td>
+<td style="text-align:left"><code>original_devops.dashboard</code></td>
+<td style="text-align:left"><code>DASHBOARD</code></td>
+<td style="text-align:left">Real-time SLI/SLO operational metrics visualization</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>distributed_tracing</code></td>
+<td style="text-align:left"><code>original_devops.distributed_tracing</code></td>
+<td style="text-align:left"><code>DISTRIBUTED_TRACING</code></td>
+<td style="text-align:left">End-to-end microservice request span &amp; latency trace</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>feature_flag</code></td>
+<td style="text-align:left"><code>original_devops.feature_flag</code></td>
+<td style="text-align:left"><code>FEATURE_FLAG</code></td>
+<td style="text-align:left">Runtime progressive delivery toggle &amp; canary release gate</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>git_repository</code></td>
+<td style="text-align:left"><code>original_devops.git_repository</code></td>
+<td style="text-align:left"><code>GIT_REPOSITORY</code></td>
+<td style="text-align:left">Version-controlled source code and IaC repository</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>gitops_controller</code></td>
+<td style="text-align:left"><code>original_devops.gitops_controller</code></td>
+<td style="text-align:left"><code>GITOPS_CONTROLLER</code></td>
+<td style="text-align:left">Continuous reconciliation loop syncing Git state to clusters</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>logging</code></td>
+<td style="text-align:left"><code>original_devops.logging</code></td>
+<td style="text-align:left"><code>LOGGING</code></td>
+<td style="text-align:left">Centralized structured log ingestion and indexing</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>monitoring</code></td>
+<td style="text-align:left"><code>original_devops.monitoring</code></td>
+<td style="text-align:left"><code>MONITORING</code></td>
+<td style="text-align:left">Time-series metric collection, health checks, and probing</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>on_call</code></td>
+<td style="text-align:left"><code>original_devops.on_call</code></td>
+<td style="text-align:left"><code>ON_CALL</code></td>
+<td style="text-align:left">SRE incident response rotation and paging escalation</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>package_dependency</code></td>
+<td style="text-align:left"><code>original_devops.package_dependency</code></td>
+<td style="text-align:left"><code>PACKAGE_DEPENDENCY</code></td>
+<td style="text-align:left">Software Bill of Materials (SBOM) &amp; library dependency tree</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>pull_request</code></td>
+<td style="text-align:left"><code>original_devops.pull_request</code></td>
+<td style="text-align:left"><code>PULL_REQUEST</code></td>
+<td style="text-align:left">Code review, branch merge gate, and automated status checks</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>secret_vault</code></td>
+<td style="text-align:left"><code>original_devops.secret_vault</code></td>
+<td style="text-align:left"><code>SECRET_VAULT</code></td>
+<td style="text-align:left">Encrypted secrets manager, KMS key store, and token broker</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>security_scan</code></td>
+<td style="text-align:left"><code>original_devops.security_scan</code></td>
+<td style="text-align:left"><code>SECURITY_SCAN</code></td>
+<td style="text-align:left">SAST/DAST vulnerability &amp; container image scanning stage</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>test_automation</code></td>
+<td style="text-align:left"><code>original_devops.test_automation</code></td>
+<td style="text-align:left"><code>TEST_AUTOMATION</code></td>
+<td style="text-align:left">Automated unit, integration, and E2E regression test suite</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>4. Practical Architecture Diagram (<code>DevopsIcon</code> &amp; <code>OriginalDevopsIcon</code>)</h2>
+<p>The following <strong><a href="../06_diagrams/architecture.html"><code>ArchitectureDiagram</code></a></strong> illustrates an automated DevSecOps delivery and observability pipeline using <code>DevopsIcon</code>:</p>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.diagrams.architecture</span><span class="w"> </span><span class="kn">import</span> <span class="n">ArchitectureDiagram</span><span class="p">,</span> <span class="n">DevopsIcon</span><span class="p">,</span> <span class="n">Node</span><span class="p">,</span> <span class="n">NodeGroup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">68</span><span class="p">)</span>
+
+<span class="n">d</span> <span class="o">=</span> <span class="n">ArchitectureDiagram</span><span class="p">(</span>
+    <span class="n">node_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">,</span>
+    <span class="n">node_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">edge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+    <span class="n">edge_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">node_card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">"Automated DevSecOps Delivery &amp; SRE Observability Pipeline"</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">gh</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span>
+        <span class="s2">"GitHub</span><span class="se">\n</span><span class="s2">Repository"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span>
+        <span class="n">icon</span><span class="o">=</span><span class="n">DevopsIcon</span><span class="o">.</span><span class="n">GITHUB</span><span class="p">,</span>
+        <span class="n">icon_size</span><span class="o">=</span><span class="mf">7.5</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">13.0</span><span class="p">,</span> <span class="mf">23.0</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">pipe</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">NodeGroup</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">"CI/CD &amp; Observability Platform"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">4.5</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">36.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">))</span>
+<span class="n">actions</span> <span class="o">=</span> <span class="n">pipe</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span>
+        <span class="s2">"GitHub Actions</span><span class="se">\n</span><span class="s2">CI Runner"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span>
+        <span class="n">icon</span><span class="o">=</span><span class="n">DevopsIcon</span><span class="o">.</span><span class="n">GITHUB_ACTIONS</span><span class="p">,</span>
+        <span class="n">icon_size</span><span class="o">=</span><span class="mf">7.5</span><span class="p">,</span>
+        <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">15.0</span><span class="p">,</span> <span class="mf">19.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">trivy</span> <span class="o">=</span> <span class="n">pipe</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span>
+        <span class="s2">"Trivy Image</span><span class="se">\n</span><span class="s2">Scanner"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mi">17</span><span class="p">,</span>
+        <span class="n">icon</span><span class="o">=</span><span class="n">DevopsIcon</span><span class="o">.</span><span class="n">TRIVY</span><span class="p">,</span>
+        <span class="n">icon_size</span><span class="o">=</span><span class="mf">7.2</span><span class="p">,</span>
+        <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">52.0</span><span class="p">,</span> <span class="mf">29.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">tf</span> <span class="o">=</span> <span class="n">pipe</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span>
+        <span class="s2">"Terraform</span><span class="se">\n</span><span class="s2">Provisioner"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mi">17</span><span class="p">,</span>
+        <span class="n">icon</span><span class="o">=</span><span class="n">DevopsIcon</span><span class="o">.</span><span class="n">TERRAFORM</span><span class="p">,</span>
+        <span class="n">icon_size</span><span class="o">=</span><span class="mf">7.2</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">52.0</span><span class="p">,</span> <span class="mf">9.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">dd</span> <span class="o">=</span> <span class="n">pipe</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span>
+        <span class="s2">"Datadog</span><span class="se">\n</span><span class="s2">APM &amp; Alerts"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span>
+        <span class="n">icon</span><span class="o">=</span><span class="n">DevopsIcon</span><span class="o">.</span><span class="n">DATADOG</span><span class="p">,</span>
+        <span class="n">icon_size</span><span class="o">=</span><span class="mf">7.5</span><span class="p">,</span>
+        <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">88.0</span><span class="p">,</span> <span class="mf">19.0</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">d</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">gh</span><span class="p">,</span> <span class="n">actions</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Push"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">actions</span><span class="p">,</span> <span class="n">trivy</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">actions</span><span class="p">,</span> <span class="n">tf</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">trivy</span><span class="p">,</span> <span class="n">dd</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">tf</span><span class="p">,</span> <span class="n">dd</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
+
+<span class="n">d</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">))</span>
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="devops_images/icons_devops_arch.png" alt="devops_4" />
+  <figcaption class="drawlib-caption">DevSecOps CI/CD & Observability Pipeline Using DevopsIcon</figcaption>
+</figure>
+<blockquote>
+<p>[!TIP]
+For Kubernetes cluster resources (<code>k8s_*</code>), Helm, Argo CD, and Istio service mesh icons, see <strong><a href="./cnative.html">Cloud Native (K8s) Icons</a></strong>. For application languages and frameworks, see <strong><a href="./code.html">Code, Languages &amp; Frameworks Icons</a></strong>.</p>
+</blockquote>
+
+            </main>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const btn = document.getElementById('theme-toggle');
+            if (!btn) return;
+            btn.addEventListener('click', function() {
+                const current = document.documentElement.getAttribute('data-theme');
+                const next = current === 'dark' ? 'light' : 'dark';
+                document.documentElement.setAttribute('data-theme', next);
+                localStorage.setItem('drawlib-theme', next);
+            });
+        });
+    </script>
+</body>
+</html>

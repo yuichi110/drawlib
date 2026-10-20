@@ -168,5 +168,5 @@ Structure drawing scripts into four clean stages:
 ### 4.3. Favor High-Level Components
 
 Before assembling dozens of raw `rectangle()` and `line()` calls by hand, check if a high-level component handles layout automatically:
-- **Structured Architecture, Flow, Sequence, Class, State & ER Diagrams**: See [Diagrams](../05_diagrams/overview.md).
-- **Auto-Layout DAGs & Topological Clusters**: See [Auto-Layout Graphs](../06_graph/overview.md).
+- **Structured Architecture, Flow, Sequence, Class, State & ER Diagrams**: See [Diagrams](../06_diagrams/overview.md).
+- **Auto-Layout DAGs & Topological Clusters**: See [Auto-Layout Graphs](../07_graph/overview.md).
