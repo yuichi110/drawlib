@@ -2,7 +2,7 @@
 
 ## Version 0.3.0
 
-*Release Date: 2026/09/21*
+*Release Date: 2026/10/21*
 
 Version 0.3.0 represents a major architectural milestone for Drawlib, transforming it from a raw vector drawing tool into a comprehensive **"Illustration & Documentation as Code"** platform engineered for both software developers and **autonomous AI coding agents**.
 
