@@ -76,6 +76,7 @@ def test_check_new_version_ok() -> None:
 
     # Valid: version jump with allow_jump
     check_new_version_ok(latest_version="0.2.0", new_version="0.4.0.dev1", allow_jump=True)
+    check_new_version_ok(latest_version="0.2.4.dev3", new_version="0.3.0", allow_jump=True)
 
 
 def test_get_new_version() -> None:

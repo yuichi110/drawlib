@@ -225,8 +225,7 @@ drawlib show docs_src/index.md service_routing.png -g -o preview_grid.png
 
 ## Links & Resources
 
-- **Official Website**: [https://www.drawlib.com/](https://www.drawlib.com/)
-- **Documentation**: [https://www.drawlib.com/docs/](https://www.drawlib.com/docs/)
+- **Official Website & Documentation**: [https://www.drawlib.com/](https://www.drawlib.com/)
 - **PyPI Package**: [https://pypi.org/project/drawlib/](https://pypi.org/project/drawlib/)
 - **GitHub Repository**: [https://github.com/yuichi110/drawlib](https://github.com/yuichi110/drawlib)
 - **License**: Apache License 2.0

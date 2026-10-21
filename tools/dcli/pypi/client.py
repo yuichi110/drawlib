@@ -163,17 +163,28 @@ def _check_new_major_version_ok(
         _handle_jump("New major version is not current +1.", latest_version, new_version, allow_jump)
 
     if new_parts[1] != 0:
-        raise ValueError("Minor version must be 0 when having new major version.")
+        _handle_jump("Minor version must be 0 when having new major version.", latest_version, new_version, allow_jump)
 
     if new_parts[2] != 0:
-        raise ValueError("Patch version must be 0 when having new major version.")
+        _handle_jump("Patch version must be 0 when having new major version.", latest_version, new_version, allow_jump)
 
     if len(new_parts) == 3:
-        raise ValueError("Requires pre-release version when having new major version.")
+        _handle_jump(
+            "Requires pre-release version when having new major version.",
+            latest_version,
+            new_version,
+            allow_jump,
+        )
+        return
 
     patch_version: str = new_parts[3]
     if patch_version not in {"dev1", "rc1"}:
-        raise ValueError('Pre-release version must be "dev1" or "rc1" when having new major version.')
+        _handle_jump(
+            'Pre-release version must be "dev1" or "rc1" when having new major version.',
+            latest_version,
+            new_version,
+            allow_jump,
+        )
 
 
 def _check_new_minor_version_ok(
@@ -184,14 +195,25 @@ def _check_new_minor_version_ok(
         _handle_jump("New minor version is not current +1.", latest_version, new_version, allow_jump)
 
     if new_parts[2] != 0:
-        raise ValueError("Patch version must be 0 when having new minor version.")
+        _handle_jump("Patch version must be 0 when having new minor version.", latest_version, new_version, allow_jump)
 
     if len(new_parts) == 3:
-        raise ValueError("Requires pre-release version when having new minor version.")
+        _handle_jump(
+            "Requires pre-release version when having new minor version.",
+            latest_version,
+            new_version,
+            allow_jump,
+        )
+        return
 
     patch_version: str = new_parts[3]
     if patch_version not in {"dev1", "rc1"}:
-        raise ValueError('Pre-release version must be "dev1" or "rc1" when having new minor version.')
+        _handle_jump(
+            'Pre-release version must be "dev1" or "rc1" when having new minor version.',
+            latest_version,
+            new_version,
+            allow_jump,
+        )
 
 
 def _check_new_patch_version_ok(

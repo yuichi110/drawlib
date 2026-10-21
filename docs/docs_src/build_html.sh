@@ -23,4 +23,8 @@ fi
 
 echo "Building HTML site..."
 $DRAWLIB_CMD build html docs_src/ -o docs_html/
+if [ -d "docs_src/pypi" ]; then
+    echo "Building PyPI README images..."
+    $DRAWLIB_CMD build image docs_src/pypi/ -o docs_html/pypi_images/
+fi
 echo "HTML site build complete: docs_html/"
