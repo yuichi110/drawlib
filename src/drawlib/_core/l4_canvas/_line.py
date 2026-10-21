@@ -324,7 +324,7 @@ class CanvasLineFeature(CanvasBase):
                     vertices.extend([p2[0], p2[1]])
                     codes.extend([Path.CURVE3] * 2)
                 else:
-                    pt = cast(Coordinate, p)
+                    pt = p
                     vertices.append(pt)
                     codes.append(Path.LINETO)
             else:

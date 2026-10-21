@@ -11,7 +11,7 @@
 
 from __future__ import annotations
 
-from typing import Any, cast
+from typing import Any
 
 from matplotlib.patches import PathPatch
 from matplotlib.path import Path
@@ -237,7 +237,7 @@ class ShapeUtils:
 
         # 1. Determine bounding box and original center using anchor points
         anchor_points = [
-            cast(Coordinate, p) if isinstance(p[0], (int, float)) else cast(Bezier2 | Bezier3, p)[0]
+            p if isinstance(p[0], (int, float)) else p[0]
             for p in path_points
         ]
         orig_center, (width, height) = get_center_and_size(anchor_points)

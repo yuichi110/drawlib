@@ -12,7 +12,6 @@
 from __future__ import annotations
 
 import math
-from typing import cast
 
 from pydantic import validate_call
 
@@ -332,10 +331,10 @@ def get_rotated_path_points(
     rotated: PathPoints = []
     for pt in path_points:
         if isinstance(pt[0], (int, float)):
-            coord = cast(Coordinate, pt)
+            coord = pt
             rotated.append(rotate_point(coord, angle=angle, center=center))
         elif len(pt) == 2:
-            b2 = cast(Bezier2, pt)
+            b2 = pt
             rotated.append(
                 (
                     rotate_point(b2[0], angle=angle, center=center),

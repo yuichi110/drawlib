@@ -12,7 +12,7 @@
 from __future__ import annotations
 
 import math
-from typing import Any, cast
+from typing import Any
 
 from matplotlib.path import Path
 
@@ -52,20 +52,20 @@ def build_matplotlib_path(path_points: PathPoints) -> Path:
     first_pt = path_points[0]
     start_coord: Coordinate
     if isinstance(first_pt[0], (int, float)):
-        start_coord = cast(Coordinate, first_pt)
+        start_coord = first_pt
     else:
-        start_coord = cast(Bezier2 | Bezier3, first_pt)[0]
+        start_coord = first_pt[0]
 
     vertices: list[Coordinate] = [start_coord]
     codes: list[Any] = [Path.MOVETO]
 
     for p in path_points[1:]:
         if isinstance(p[0], (int, float)):
-            coord = cast(Coordinate, p)
+            coord = p
             vertices.append(coord)
             codes.append(Path.LINETO)
         elif len(p) == 2:
-            b2 = cast(Bezier2, p)
+            b2 = p
             vertices.extend([b2[0], b2[1]])
             codes.extend([Path.CURVE3, Path.CURVE3])
         elif len(p) == 3:
@@ -176,9 +176,9 @@ def round_polygon_points(
 def _shift_path_point(p: PathPoint, offset: Coordinate) -> PathPoint:
     """Translate a single PathPoint by subtracting the given offset."""
     if isinstance(p[0], (int, float)):
-        return minus_2points(cast(Coordinate, p), offset)
+        return minus_2points(p, offset)
     if len(p) == 2:
-        b2 = cast(Bezier2, p)
+        b2 = p
         return (
             minus_2points(b2[0], offset),
             minus_2points(b2[1], offset),
@@ -201,11 +201,11 @@ def _rotate_and_place_path_point(
     """Rotate a single PathPoint around (0, 0) and translate to target center."""
     cx, cy = center
     if isinstance(p[0], (int, float)):
-        coord = cast(Coordinate, p)
+        coord = p
         rx, ry = rotate_point(coord, angle=angle)
         return (rx + cx, ry + cy)
     if len(p) == 2:
-        b2 = cast(Bezier2, p)
+        b2 = p
         rx1, ry1 = rotate_point(b2[0], angle=angle)
         rx2, ry2 = rotate_point(b2[1], angle=angle)
         return ((rx1 + cx, ry1 + cy), (rx2 + cx, ry2 + cy))
