@@ -138,6 +138,22 @@ def check_version(
         raise typer.Exit(code=1) from e
 
 
+def _load_env_file() -> None:
+    """Load key-value pairs from .env into os.environ if present."""
+    env_file = PROJECT_ROOT / ".env"
+    if not env_file.exists():
+        return
+    for line in env_file.read_text(encoding="utf-8").splitlines():
+        line = line.strip()
+        if not line or line.startswith("#") or "=" not in line:
+            continue
+        key, value = line.split("=", 1)
+        key = key.strip()
+        value = value.strip().strip("'\"")
+        if key and key not in os.environ:
+            os.environ[key] = value
+
+
 @app.command("publish")
 def publish(
     test_pypi: bool = typer.Option(False, "--test-pypi", help="Publish to TestPyPI instead of production PyPI."),
@@ -154,6 +170,7 @@ def publish(
     Raises:
         typer.Exit: If required publishing token is missing.
     """
+    _load_env_file()
     env_token_name = "TEST_PYPI_TOKEN" if test_pypi else "PYPI_TOKEN"
     resolved_token = token or os.environ.get(env_token_name)
     if not resolved_token:
