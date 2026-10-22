@@ -12,7 +12,7 @@
 from __future__ import annotations
 
 import math
-from typing import Any
+from typing import Any, TypeGuard
 
 from matplotlib.path import Path
 
@@ -33,6 +33,32 @@ from drawlib._core.l3_math import (
 from drawlib._core.l3_styles import Style
 
 
+def is_coordinate_point(p: PathPoint) -> TypeGuard[Coordinate]:
+    """Return True if PathPoint is a 2D Coordinate (x, y) rather than a Bezier tuple."""
+    return isinstance(p[0], (int, float))
+
+
+def is_bezier2_point(p: PathPoint) -> TypeGuard[Bezier2]:
+    """Return True if PathPoint is a quadratic Bezier2 tuple."""
+    return not isinstance(p[0], (int, float)) and len(p) == 2
+
+
+def is_bezier3_point(p: PathPoint) -> TypeGuard[Bezier3]:
+    """Return True if PathPoint is a cubic Bezier3 tuple."""
+    return not isinstance(p[0], (int, float)) and len(p) == 3
+
+
+def extract_anchor_point(p: PathPoint) -> Coordinate:
+    """Return the primary 2D Coordinate anchor of a PathPoint."""
+    if is_coordinate_point(p):
+        return p
+    if is_bezier2_point(p):
+        return p[0]
+    if is_bezier3_point(p):
+        return p[0]
+    raise ValueError(f"Invalid path point length: {len(p)}.")
+
+
 def build_matplotlib_path(path_points: PathPoints) -> Path:
     """Construct a closed Matplotlib Path from transformed path points.
 
@@ -49,28 +75,20 @@ def build_matplotlib_path(path_points: PathPoints) -> Path:
         raise ValueError("Path points cannot be empty.")
 
     # First point is always the initial MOVETO point
-    first_pt = path_points[0]
-    start_coord: Coordinate
-    if isinstance(first_pt[0], (int, float)):
-        start_coord = first_pt
-    else:
-        start_coord = first_pt[0]
+    start_coord: Coordinate = extract_anchor_point(path_points[0])
 
     vertices: list[Coordinate] = [start_coord]
     codes: list[Any] = [Path.MOVETO]
 
     for p in path_points[1:]:
-        if isinstance(p[0], (int, float)):
-            coord = p
-            vertices.append(coord)
+        if is_coordinate_point(p):
+            vertices.append(p)
             codes.append(Path.LINETO)
-        elif len(p) == 2:
-            b2 = p
-            vertices.extend([b2[0], b2[1]])
+        elif is_bezier2_point(p):
+            vertices.extend([p[0], p[1]])
             codes.extend([Path.CURVE3, Path.CURVE3])
-        elif len(p) == 3:
-            b3 = p
-            vertices.extend([b3[0], b3[1], b3[2]])
+        elif is_bezier3_point(p):
+            vertices.extend([p[0], p[1], p[2]])
             codes.extend([Path.CURVE4, Path.CURVE4, Path.CURVE4])
         else:
             raise ValueError(f"Invalid path point length: {len(p)}. Must be 2 or 3.")
@@ -175,20 +193,18 @@ def round_polygon_points(
 
 def _shift_path_point(p: PathPoint, offset: Coordinate) -> PathPoint:
     """Translate a single PathPoint by subtracting the given offset."""
-    if isinstance(p[0], (int, float)):
+    if is_coordinate_point(p):
         return minus_2points(p, offset)
-    if len(p) == 2:
-        b2 = p
+    if is_bezier2_point(p):
         return (
-            minus_2points(b2[0], offset),
-            minus_2points(b2[1], offset),
+            minus_2points(p[0], offset),
+            minus_2points(p[1], offset),
         )
-    if len(p) == 3:
-        b3 = p
+    if is_bezier3_point(p):
         return (
-            minus_2points(b3[0], offset),
-            minus_2points(b3[1], offset),
-            minus_2points(b3[2], offset),
+            minus_2points(p[0], offset),
+            minus_2points(p[1], offset),
+            minus_2points(p[2], offset),
         )
     raise ValueError(f"Invalid path point length: {len(p)}.")
 
@@ -200,20 +216,17 @@ def _rotate_and_place_path_point(
 ) -> PathPoint:
     """Rotate a single PathPoint around (0, 0) and translate to target center."""
     cx, cy = center
-    if isinstance(p[0], (int, float)):
-        coord = p
-        rx, ry = rotate_point(coord, angle=angle)
+    if is_coordinate_point(p):
+        rx, ry = rotate_point(p, angle=angle)
         return (rx + cx, ry + cy)
-    if len(p) == 2:
-        b2 = p
-        rx1, ry1 = rotate_point(b2[0], angle=angle)
-        rx2, ry2 = rotate_point(b2[1], angle=angle)
+    if is_bezier2_point(p):
+        rx1, ry1 = rotate_point(p[0], angle=angle)
+        rx2, ry2 = rotate_point(p[1], angle=angle)
         return ((rx1 + cx, ry1 + cy), (rx2 + cx, ry2 + cy))
-    if len(p) == 3:
-        b3 = p
-        rx1, ry1 = rotate_point(b3[0], angle=angle)
-        rx2, ry2 = rotate_point(b3[1], angle=angle)
-        rx3, ry3 = rotate_point(b3[2], angle=angle)
+    if is_bezier3_point(p):
+        rx1, ry1 = rotate_point(p[0], angle=angle)
+        rx2, ry2 = rotate_point(p[1], angle=angle)
+        rx3, ry3 = rotate_point(p[2], angle=angle)
         return (
             (rx1 + cx, ry1 + cy),
             (rx2 + cx, ry2 + cy),

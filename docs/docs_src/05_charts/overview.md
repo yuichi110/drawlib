@@ -130,7 +130,7 @@ Drawlib organizes charts into seven specialized submodules under `drawlib.charts
 | `drawlib.charts.radar` | **[`RadarChart`](./radar.md)** | `Series` | `GridShape`, `FormatterType`, `DrawDirection`, `LegendPosition` | Multi-attribute evaluation, skill matrices, and spiderweb plots. |
 | `drawlib.charts.scatter` | **[`ScatterChart`](./scatter.md)** | `Series`, `Point`, `Axis` | `ScaleType`, `PointShape`, `DrawDirection`, `LegendPosition` | 2D correlations, cluster distributions, and 3D bubble plots. |
 | `drawlib.charts.gantt` | **[`GanttChart`](./gantt.md)** | `Task`, `Section`, `Milestone`, `Marker`, `Dependency` | `DrawDirection` | Project roadmaps, phase tasks, milestones, and dependency arrows. |
-| `drawlib.charts.heatmap` | **[`HeatmapChart` / `HeatmapOverlay`](./heatmap.md)** | `Row`, `Cell`, `Spot` | `OverlayMode`, `BlendMode`, `DrawDirection`, `FormatterType`, `Orientation` | 2D matrix heatmaps and spatial thermal/hotspot overlays on diagrams (`ClassDiagram`, etc.). |
+| `drawlib.charts.heatmap` | **[`HeatmapChart` / `HeatmapOverlay`](./heatmap.md)** *(Upcoming in v0.3.1)* | `Row`, `Cell`, `Spot` | `OverlayMode`, `BlendMode`, `DrawDirection`, `FormatterType`, `Orientation` | 2D matrix heatmaps and spatial thermal/hotspot overlays on diagrams (`ClassDiagram`, `ArchitectureDiagram`, `GeoMap`, etc.). |
 
 ### Exported Type Literals Reference
 

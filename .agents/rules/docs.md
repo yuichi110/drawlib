@@ -67,6 +67,12 @@ uv run drawlib rules show style-guide   # Visual design rules, typography, and c
     - **Never** write local filesystem absolute paths (e.g. `/usr/...`, `/home/...`, `/Users/...`, `C:\...`) or `file:///` URLs inside documentation Markdown source files (`docs/*_src/**/*.md`). All links must use relative paths (e.g. `../08_doc_builder_and_cli/customization.md` or `../../.agents/rules/drawlib.md`) or inline code format (e.g. `` `drawlib.md` (`.agents/rules/drawlib.md`) ``).
     - **Distinction from Agent Chat**: While the AI assistant uses `file:///` links when conversing with the user in chat responses for clickable IDE navigation, repository documentation files published on the web or GitHub must **never** contain `file:///` or machine-specific absolute paths.
     - Violations are automatically caught and will fail the build (`drawlib build` / `validate_markdown_links`).
+  - **Unreleased / Upcoming Features Notice (`Note (Upcoming in vX.Y.Z)`)**:
+    - **During Development (Before Release)**: When documenting a new module, component, or feature that is currently in development (e.g. `0.3.1.dev1` in `pyproject.toml`) and not yet published in the latest stable PyPI release, add a blockquote callout at the top of the feature page (and an inline `*(Upcoming in vX.Y.Z)*` badge in overview/index tables):
+      ```markdown
+      > **Note (Upcoming in vX.Y.Z):** `<module_or_feature>` is scheduled for the upcoming **vX.Y.Z** release and is not yet included in the `vA.B.C` package on PyPI.
+      ```
+    - **At Release Time (Before Publishing `vX.Y.Z`)**: When preparing the official `vX.Y.Z` release (`pyproject.toml` bumped to `X.Y.Z`), **remove** all `> **Note (Upcoming in vX.Y.Z):**` callouts and `*(Upcoming in vX.Y.Z)*` badges across `docs/*_src/`, move the feature summary into `01_getting_started/release_notes.md`, and rebuild the documentation (`./dcli docs build --all`).
 
 ---
 

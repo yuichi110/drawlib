@@ -162,7 +162,18 @@ class HeatmapOverlay:
             coord = (float(xy[0]), float(xy[1]))
         else:
             raw_xy = xy.xy
-            coord = (float(raw_xy[0]), float(raw_xy[1]))
+            cx, cy = float(raw_xy[0]), float(raw_xy[1])
+            center_val = getattr(xy, "center", None)
+            if isinstance(center_val, tuple) and len(center_val) == 2 and hasattr(xy, "_items"):
+                cx += float(center_val[0])
+                cy += float(center_val[1])
+            parent = getattr(xy, "_parent_group", None)
+            while parent is not None:
+                p_xy = getattr(parent, "xy", (0.0, 0.0))
+                cx += float(p_xy[0])
+                cy += float(p_xy[1])
+                parent = getattr(parent, "_parent_group", None)
+            coord = (cx, cy)
 
         eff_r = float(radius) if radius is not None else self.default_radius
         spot = Spot(

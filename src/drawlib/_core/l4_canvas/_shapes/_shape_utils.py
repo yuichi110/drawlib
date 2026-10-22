@@ -41,6 +41,7 @@ from drawlib._core.l4_canvas._shapes._path_utils import (
     build_matplotlib_path,
     build_plaque_path,
     darken_rgba,
+    extract_anchor_point,
     inset_convex_polygon,
     lighten_rgba,
     orient_polygon_ring,
@@ -236,10 +237,7 @@ class ShapeUtils:
             raise ValueError("Path points cannot be empty.")
 
         # 1. Determine bounding box and original center using anchor points
-        anchor_points = [
-            p if isinstance(p[0], (int, float)) else p[0]
-            for p in path_points
-        ]
+        anchor_points: list[Coordinate] = [extract_anchor_point(p) for p in path_points]
         orig_center, (width, height) = get_center_and_size(anchor_points)
 
         # 2. Shift points relative to center (0, 0)

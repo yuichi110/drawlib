@@ -1,0 +1,1110 @@
+<!--
+ Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+
+ This software is licensed under the Apache License, Version 2.0.
+ For more information, please visit: https://github.com/yuichi110/drawlib
+
+ This software is provided "as is", without warranty of any kind,
+ express or implied, including but not limited to the warranties of
+ merchantability, fitness for a particular purpose and noninfringement.
+-->
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HeatmapChart & HeatmapOverlay: 2D Matrix Grids & Diagram Thermal Overlays</title>
+    <script>
+        (function() {
+            const saved = localStorage.getItem('drawlib-theme');
+            if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <link rel="icon" type="image/png" href="../_assets/favicon.png">
+    
+    
+    <link rel="stylesheet" href="../style.css">
+    
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-brand" aria-label="Drawlib Documentation">
+                    
+                    <img src="../_assets/logo.png" alt="Drawlib Documentation" class="sidebar-logo sidebar-logo-light">
+                    <img src="../_assets/logo_dark.png" alt="Drawlib Documentation" class="sidebar-logo sidebar-logo-dark">
+                    
+                </a>
+                <button type="button" id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle theme">
+                    <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                    <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                </button>
+            </div>
+            <div class="sidebar-menu">
+                
+                    
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../index.html" >Welcome</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">1. Getting Started</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/overview.html" >About Drawlib</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/installation.html" >Installation Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/quick_start.html" >Quick Start Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/core_concepts.html" >Core Visual Concepts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/project_quicklook.html" >Project & Build Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/agent_quicklook.html" >AI-Driven Workflow & Agent Setup</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/release_notes.html" >Release Notes & Migration</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">2. Drawing Primitives & Styles</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/canvas.html" >Canvas & Coordinates</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_overview.html" >Shapes Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_basic.html" >Basic & Radial Shapes</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_polygon.html" >Polygons & Custom Paths</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_arrow.html" >Block Arrows & Chevrons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_container.html" >3D Containers, Flow & Grouping</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_badge.html" >Callouts, Badges & Status</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_symbol.html" >Faces, Clocks, Symbols & Operators</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/lines.html" >Lines & Connectors</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/text.html" >Text & Typography</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/fonts.html" >Fonts & Multilingual Catalog</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/font_file.html" >Custom Font Files (FontFile)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/images.html" >Images & Dimage</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/styles.html" >Styles & Theming</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/colors.html" >Color Palettes & Color Model</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/style_guide.html" >Diagram Design & Style Guide</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">3. Icons & Brand Suites</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/overview.html" >Icons Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/phosphor.html" >Phosphor Vector Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/gcp.html" >Google Cloud (GCP) Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/aws.html" >Amazon Web Services (AWS) Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/azure.html" >Microsoft Azure Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/cloud.html" >Cloud & Original Cloud Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/cnative.html" >Cloud Native (K8s) Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/devops.html" >DevOps & Observability Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/network.html" >Network & Cisco Topology Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/server.html" >Server, OS & Virtualization Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/security.html" >Security & Zero-Trust Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/facility.html" >Data Center & Facility Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/ai.html" >AI & Machine Learning Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/data.html" >Data & Database Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/code.html" >Code, Languages & Frameworks Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/business.html" >Enterprise Business & FinTech Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/itservice.html" >IT Services & Consulting Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/workspace.html" >Workspace & Collaboration Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/social.html" >Social, Media & Community Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/client.html" >Client Devices & Endpoints Icons</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">4. SmartArts</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/overview.html" >SmartArts Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/chevron_process.html" >ChevronProcess</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/cycle.html" >Cycle</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/table.html" >Table</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/tree.html" >Tree</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/mindmap.html" >MindMap</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/grid_layout.html" >GridLayout</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/pyramid.html" >Pyramid</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/box_list.html" >BoxList</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/kpi_cards.html" >KpiCards</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/card_list.html" >CardList</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/roadmap.html" >Roadmap</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/panel.html" >Panel</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/calendar.html" >Calendar</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/bullet_points.html" >BulletPoints</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/source_code.html" >SourceCode</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/geomap.html" >GeoMap</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">5. Charts</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="overview.html" >Charts Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="axes_and_legends.html" >Axes, Scales & Legends</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="bar.html" >Bar Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="line.html" >Line Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="area.html" >Area Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="pie.html" >Pie & Donut Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="radar.html" >Radar Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="scatter.html" >Scatter Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="gantt.html" >Gantt Chart</a>
+                            </li>
+                            
+                            <li class="nav-item active">
+                                <a href="heatmap.html" >Heatmap & Thermal Overlay</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">6. Technical Diagrams</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/overview.html" >Diagrams Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/architecture.html" >Architecture Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/flow.html" >Flow Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/sequence.html" >Sequence Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/class_diagram.html" >UML Class Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/er.html" >ER Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/state_diagram.html" >State Machine Diagrams</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">7. Auto-Layout Graphs</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/overview.html" >Graph Engine Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/architecture_graph.html" >ArchitectureGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/layer_graph.html" >LayerGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/tree_graph.html" >TreeGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/radial_graph.html" >RadialGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/grid_graph.html" >GridGraph</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">8. Animations</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/overview.html" >Animations Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/primitives.html" >Animating Primitives & Colors</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/smartarts.html" >Animating SmartArts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/charts.html" >Animating Charts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/diagrams.html" >Animating Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/graphs.html" >Animating Graphs</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">9. Document Builder & CLI</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/overview.html" >Illustrated Documentation as Code Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/code_blocks.html" >Markdown Code Block Syntax</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/cli_reference.html" >CLI Reference</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/project_doc.html" >Linear Document Project (`doc`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/project_site.html" >Doc Site Project (`site`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/project_slide.html" >Slide Deck Project (`slide`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/slide_layout_and_api.html" >Slide Stage Layout & API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/project_image.html" >Image Project (`images`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/customization.html" >Templates & CSS Customization</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/caching_and_cicd.html" >Caching Architecture & CI/CD</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">10. AI Agents & Advanced Integration</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/ai_agent_instructions.html" >AI Agent Instructions & Rules</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/multimodal_feedback_loop.html" >Autonomous Verification Loop</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/programmatic_api.html" >Programmatic API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/math_and_layout.html" >Algorithmic Layout & Math</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/debugging.html" >Troubleshooting & Debugging</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/case_study_brand_assets.html" >Case Study: Designing Official Brand Assets</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/case_study_documentation_site.html" >Case Study: Building Documentation Sites with AI Agents</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/case_study_software_architecture.html" >Case Study: Authoring Software Architecture as Code</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/case_study_technical_slides.html" >Case Study: Creating Technical Slide Decks</a>
+                            </li>
+                            
+                        </ul>
+                    
+                
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">HeatmapChart & HeatmapOverlay: 2D Matrix Grids & Diagram Thermal Overlays</span>
+                </div>
+            </header>
+            <main class="main-content">
+                <h1>HeatmapChart &amp; HeatmapOverlay: 2D Matrix Grids &amp; Diagram Thermal Overlays</h1>
+<blockquote>
+<p><strong>Note (Upcoming in v0.3.1):</strong> <code>drawlib.charts.heatmap</code> (<code>HeatmapChart</code> and <code>HeatmapOverlay</code>) is scheduled for the upcoming <strong>v0.3.1</strong> release and is not yet included in the <code>v0.3.0</code> package on PyPI.</p>
+</blockquote>
+<p><code>drawlib.charts.heatmap</code> provides two complementary heatmap visualization classes styled via <code>Style</code> color-stop interpolation (<code>styles=[Style, ...]</code> or <code>min_style=...</code>, <code>max_style=...</code>):</p>
+<ol>
+<li><strong><code>HeatmapChart</code></strong>: A standard 2D matrix/grid heatmap across categorical <code>x_categories</code> and <code>y_categories</code> with auto-contrasting in-cell numerical labels, configurable cell gaps and corner rounding (<code>cell_gap</code>, <code>cell_r</code>), and continuous colorbar (<code>draw_colorbar</code>) or stepped legend (<code>draw_legend</code>).</li>
+<li><strong><code>HeatmapOverlay</code></strong>: A spatial thermal/hotspot overlay designed to be drawn directly on top of diagrams (such as <code>ClassDiagram</code>, <code>ArchitectureDiagram</code>, <code>ErDiagram</code>, or <code>GeoMap</code>) to highlight high-risk classes, cyclomatic complexity, bug density, or regional/service bottlenecks in either <code>&quot;smooth&quot;</code> (2D Gaussian thermal gradient) or <code>&quot;contour&quot;</code> (concentric vector isoline rings) mode.</li>
+</ol>
+<hr />
+<h2>1. Overview &amp; Topologies</h2>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="heatmap_images/heatmap_topologies_overview.png" alt="heatmap_1" />
+  <figcaption class="drawlib-caption">Heatmap Topologies: 2D Matrix HeatmapChart vs. ClassDiagram Thermal HeatmapOverlay</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.charts.heatmap</span><span class="w"> </span><span class="kn">import</span> <span class="n">HeatmapChart</span><span class="p">,</span> <span class="n">HeatmapOverlay</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.diagrams.class_diagram</span><span class="w"> </span><span class="kn">import</span> <span class="n">ClassDiagram</span><span class="p">,</span> <span class="n">ClassNode</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">136</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">62</span><span class="p">)</span>
+
+<span class="c1"># Left: 2D Matrix HeatmapChart</span>
+<span class="n">matrix</span> <span class="o">=</span> <span class="n">HeatmapChart</span><span class="p">(</span>
+    <span class="n">styles</span><span class="o">=</span><span class="p">[</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">AccentFlat</span><span class="p">],</span>
+    <span class="n">x_categories</span><span class="o">=</span><span class="p">[</span><span class="s2">"00h"</span><span class="p">,</span> <span class="s2">"06h"</span><span class="p">,</span> <span class="s2">"12h"</span><span class="p">,</span> <span class="s2">"18h"</span><span class="p">],</span>
+    <span class="n">axis_line_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="p">,</span>
+    <span class="n">axis_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">value_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">BlackBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mf">58.0</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">40.0</span><span class="p">,</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">"1. 2D Matrix HeatmapChart"</span><span class="p">,</span>
+    <span class="n">title_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">BlackBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.5</span><span class="p">),</span>
+    <span class="n">value_format</span><span class="o">=</span><span class="s2">"</span><span class="si">{:.1f}</span><span class="s2">%"</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">matrix</span><span class="o">.</span><span class="n">add_row</span><span class="p">(</span><span class="s2">"API"</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.4</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">,</span> <span class="mf">4.8</span><span class="p">,</span> <span class="mf">2.1</span><span class="p">])</span>
+<span class="n">matrix</span><span class="o">.</span><span class="n">add_row</span><span class="p">(</span><span class="s2">"Auth"</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">,</span> <span class="mf">1.4</span><span class="p">])</span>
+<span class="n">matrix</span><span class="o">.</span><span class="n">add_row</span><span class="p">(</span><span class="s2">"Billing"</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.9</span><span class="p">,</span> <span class="mf">7.6</span><span class="p">,</span> <span class="mf">3.8</span><span class="p">])</span>
+<span class="n">matrix</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">16.0</span><span class="p">))</span>
+<span class="n">matrix</span><span class="o">.</span><span class="n">draw_colorbar</span><span class="p">(</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">14.0</span><span class="p">,</span> <span class="mf">6.5</span><span class="p">),</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+    <span class="n">length</span><span class="o">=</span><span class="mf">38.0</span><span class="p">,</span>
+    <span class="n">thickness</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Right: Spatial Thermal HeatmapOverlay on ClassDiagram</span>
+<span class="n">diag</span> <span class="o">=</span> <span class="n">ClassDiagram</span><span class="p">(</span>
+    <span class="n">node_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+    <span class="n">header_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
+    <span class="n">edge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+    <span class="n">edge_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">"2. ClassDiagram + HeatmapOverlay"</span><span class="p">,</span>
+    <span class="n">title_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">BlackBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.5</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">c_api</span> <span class="o">=</span> <span class="n">diag</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">ClassNode</span><span class="p">(</span><span class="s2">"OrderService"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">26.0</span><span class="p">)</span><span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"submit"</span><span class="p">,</span> <span class="s2">"req"</span><span class="p">,</span> <span class="s2">"bool"</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">82.0</span><span class="p">,</span> <span class="mf">36.0</span><span class="p">))</span>
+<span class="n">c_god</span> <span class="o">=</span> <span class="n">diag</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">ClassNode</span><span class="p">(</span><span class="s2">"LegacyBillingGodClass"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">32.0</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">add_attribute</span><span class="p">(</span><span class="s2">"flags"</span><span class="p">,</span> <span class="s2">"dict"</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"process_all"</span><span class="p">,</span> <span class="s2">"tx"</span><span class="p">,</span> <span class="s2">"void"</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">116.0</span><span class="p">,</span> <span class="mf">36.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">diag</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">c_api</span><span class="p">,</span> <span class="n">c_god</span><span class="p">,</span> <span class="s2">"dependency"</span><span class="p">,</span> <span class="n">directed</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">diag</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">))</span>
+
+<span class="n">overlay</span> <span class="o">=</span> <span class="n">HeatmapOverlay</span><span class="p">(</span>
+    <span class="n">styles</span><span class="o">=</span><span class="p">[</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WarningFlat</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DangerFlat</span><span class="p">],</span>
+    <span class="n">mode</span><span class="o">=</span><span class="s2">"smooth"</span><span class="p">,</span>
+    <span class="n">max_alpha</span><span class="o">=</span><span class="mf">0.55</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">overlay</span><span class="o">.</span><span class="n">add_spot</span><span class="p">(</span><span class="n">c_god</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mf">0.95</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mf">19.0</span><span class="p">)</span>
+<span class="n">overlay</span><span class="o">.</span><span class="n">add_spot</span><span class="p">(</span><span class="n">c_api</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mf">0.35</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mf">14.0</span><span class="p">)</span>
+<span class="n">overlay</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">))</span>
+<span class="n">overlay</span><span class="o">.</span><span class="n">draw_colorbar</span><span class="p">(</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">82.0</span><span class="p">,</span> <span class="mf">6.5</span><span class="p">),</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+    <span class="n">length</span><span class="o">=</span><span class="mf">38.0</span><span class="p">,</span>
+    <span class="n">thickness</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<hr />
+<h2>2. Standard 2D Matrix Heatmap (<code>HeatmapChart</code>)</h2>
+<p><code>HeatmapChart</code> maps a 2D grid of values across <code>x_categories</code> and <code>y_categories</code> into interpolated <code>Style</code> colors, automatically adjusting cell label contrast (<code>auto_contrast_text=True</code>) so numbers stay legible across both light and dark cells:</p>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.charts.heatmap</span><span class="w"> </span><span class="kn">import</span> <span class="n">HeatmapChart</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">115</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">80</span><span class="p">)</span>
+
+<span class="n">chart</span> <span class="o">=</span> <span class="n">HeatmapChart</span><span class="p">(</span>
+    <span class="n">styles</span><span class="o">=</span><span class="p">[</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">AccentFlat</span><span class="p">],</span>
+    <span class="n">x_categories</span><span class="o">=</span><span class="p">[</span><span class="s2">"00:00"</span><span class="p">,</span> <span class="s2">"04:00"</span><span class="p">,</span> <span class="s2">"08:00"</span><span class="p">,</span> <span class="s2">"12:00"</span><span class="p">,</span> <span class="s2">"16:00"</span><span class="p">,</span> <span class="s2">"20:00"</span><span class="p">],</span>
+    <span class="n">axis_line_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="p">,</span>
+    <span class="n">axis_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">value_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">BlackBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mf">92.0</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">50.0</span><span class="p">,</span>
+    <span class="n">cell_gap</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span>
+    <span class="n">cell_r</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">"Production Gateway Error Rate (%) by Day &amp; Hour"</span><span class="p">,</span>
+    <span class="n">title_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">BlackBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">13.0</span><span class="p">),</span>
+    <span class="n">value_format</span><span class="o">=</span><span class="s2">"</span><span class="si">{:.1f}</span><span class="s2">%"</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">add_row</span><span class="p">(</span><span class="s2">"Monday"</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">1.4</span><span class="p">,</span> <span class="mf">3.8</span><span class="p">,</span> <span class="mf">2.9</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">])</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">add_row</span><span class="p">(</span><span class="s2">"Tuesday"</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">1.8</span><span class="p">,</span> <span class="mf">4.5</span><span class="p">,</span> <span class="mf">3.1</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">])</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">add_row</span><span class="p">(</span><span class="s2">"Wednesday"</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">2.2</span><span class="p">,</span> <span class="mf">6.4</span><span class="p">,</span> <span class="mf">4.8</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">])</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">add_row</span><span class="p">(</span><span class="s2">"Thursday"</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="mf">3.2</span><span class="p">,</span> <span class="mf">2.4</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">])</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">add_row</span><span class="p">(</span><span class="s2">"Friday"</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">2.9</span><span class="p">,</span> <span class="mf">8.5</span><span class="p">,</span> <span class="mf">5.2</span><span class="p">,</span> <span class="mf">1.9</span><span class="p">])</span>
+
+<span class="n">chart</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">12.0</span><span class="p">,</span> <span class="mf">22.0</span><span class="p">))</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">draw_colorbar</span><span class="p">(</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">36.0</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">),</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">length</span><span class="o">=</span><span class="mf">48.0</span><span class="p">,</span>
+    <span class="n">thickness</span><span class="o">=</span><span class="mf">2.4</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="s2">"Error Rate (%)"</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="heatmap_images/heatmap_matrix_latency.png" alt="heatmap_2" />
+  <figcaption class="drawlib-caption">Service Latency & Error Correlation Matrix with Continuous Colorbar</figcaption>
+</figure>
+<hr />
+<h2>3. 6-Class <code>ClassDiagram</code> Hotspot Overlay (<code>HeatmapOverlay</code>: Smooth Mode)</h2>
+<p>When analyzing codebases, architecture topologies, or UML class models, <code>HeatmapOverlay</code> lets you raise the visual temperature over fragile or complex components (<code>add_spot(class_node, value=..., radius=...)</code>). Passing a <code>ClassNode</code> directly resolves its canvas center <code>.xy</code> automatically.</p>
+<p>The following example overlays a smooth 2D Gaussian thermal field (<code>mode=&quot;smooth&quot;</code>) onto a <strong>6-class Order &amp; Payment UML <code>ClassDiagram</code></strong>, pinpointing the high-risk <code>LegacyPaymentGateway</code> God class (<code>0.96</code>) and its tightly-coupled <code>OrderOrchestrator</code> (<code>0.72</code>) and <code>FraudRuleEngine</code> (<code>0.55</code>):</p>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.charts.heatmap</span><span class="w"> </span><span class="kn">import</span> <span class="n">HeatmapOverlay</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.diagrams.class_diagram</span><span class="w"> </span><span class="kn">import</span> <span class="n">ClassDiagram</span><span class="p">,</span> <span class="n">ClassNode</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">142</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">96</span><span class="p">)</span>
+
+<span class="c1"># 1. Build 6-Class UML ClassDiagram (2 rows x 3 columns)</span>
+<span class="n">diagram</span> <span class="o">=</span> <span class="n">ClassDiagram</span><span class="p">(</span>
+    <span class="n">node_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+    <span class="n">header_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
+    <span class="n">edge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+    <span class="n">edge_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">"Order &amp; Payment Subsystem: Complexity &amp; Bug Hotspot Analysis (6 Classes)"</span><span class="p">,</span>
+    <span class="n">title_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">BlackBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">13.0</span><span class="p">),</span>
+    <span class="n">margin</span><span class="o">=</span><span class="mf">8.0</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Top Tier (Row 1: y = 68.0)</span>
+<span class="n">ctrl</span> <span class="o">=</span> <span class="n">diagram</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">ClassNode</span><span class="p">(</span><span class="s2">"OrderController"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">29.0</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"create_order"</span><span class="p">,</span> <span class="s2">"req"</span><span class="p">,</span> <span class="s2">"Order"</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"cancel_order"</span><span class="p">,</span> <span class="s2">"id"</span><span class="p">,</span> <span class="s2">"bool"</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">24.0</span><span class="p">,</span> <span class="mf">68.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">orch</span> <span class="o">=</span> <span class="n">diagram</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">ClassNode</span><span class="p">(</span><span class="s2">"OrderOrchestrator"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">31.0</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">add_attribute</span><span class="p">(</span><span class="s2">"retry_policy"</span><span class="p">,</span> <span class="s2">"dict"</span><span class="p">,</span> <span class="n">is_public</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"dispatch"</span><span class="p">,</span> <span class="s2">"order"</span><span class="p">,</span> <span class="s2">"Receipt"</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"rollback"</span><span class="p">,</span> <span class="s2">"tx_id"</span><span class="p">,</span> <span class="s2">"void"</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">71.0</span><span class="p">,</span> <span class="mf">68.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">notif</span> <span class="o">=</span> <span class="n">diagram</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">ClassNode</span><span class="p">(</span><span class="s2">"NotificationService"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">29.0</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">add_attribute</span><span class="p">(</span><span class="s2">"smtp_host"</span><span class="p">,</span> <span class="s2">"str"</span><span class="p">,</span> <span class="n">is_public</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"send_receipt"</span><span class="p">,</span> <span class="s2">"user"</span><span class="p">,</span> <span class="s2">"bool"</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"alert_ops"</span><span class="p">,</span> <span class="s2">"msg"</span><span class="p">,</span> <span class="s2">"void"</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">118.0</span><span class="p">,</span> <span class="mf">68.0</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># Bottom Tier (Row 2: y = 33.0)</span>
+<span class="n">fraud</span> <span class="o">=</span> <span class="n">diagram</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">ClassNode</span><span class="p">(</span><span class="s2">"FraudRuleEngine"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">29.0</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">add_attribute</span><span class="p">(</span><span class="s2">"rule_cache"</span><span class="p">,</span> <span class="s2">"list"</span><span class="p">,</span> <span class="n">is_public</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"evaluate"</span><span class="p">,</span> <span class="s2">"order"</span><span class="p">,</span> <span class="s2">"float"</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"reload_rules"</span><span class="p">,</span> <span class="s2">""</span><span class="p">,</span> <span class="s2">"int"</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">24.0</span><span class="p">,</span> <span class="mf">33.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">gateway</span> <span class="o">=</span> <span class="n">diagram</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">ClassNode</span><span class="p">(</span><span class="s2">"LegacyPaymentGateway"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">33.0</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">add_attribute</span><span class="p">(</span><span class="s2">"global_locks"</span><span class="p">,</span> <span class="s2">"dict"</span><span class="p">,</span> <span class="n">is_public</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">add_attribute</span><span class="p">(</span><span class="s2">"raw_socket_pool"</span><span class="p">,</span> <span class="s2">"list"</span><span class="p">,</span> <span class="n">is_public</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"charge_card"</span><span class="p">,</span> <span class="s2">"payload"</span><span class="p">,</span> <span class="s2">"str"</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"reconcile_batch"</span><span class="p">,</span> <span class="s2">"raw"</span><span class="p">,</span> <span class="s2">"void"</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"parse_iso8583"</span><span class="p">,</span> <span class="s2">"buf"</span><span class="p">,</span> <span class="s2">"dict"</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">71.0</span><span class="p">,</span> <span class="mf">33.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">ledger</span> <span class="o">=</span> <span class="n">diagram</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">ClassNode</span><span class="p">(</span><span class="s2">"LedgerRepository"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">29.0</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">add_attribute</span><span class="p">(</span><span class="s2">"db_pool"</span><span class="p">,</span> <span class="s2">"Pool"</span><span class="p">,</span> <span class="n">is_public</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"append_entry"</span><span class="p">,</span> <span class="s2">"tx"</span><span class="p">,</span> <span class="s2">"UUID"</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"query_audit"</span><span class="p">,</span> <span class="s2">"id"</span><span class="p">,</span> <span class="s2">"list"</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">118.0</span><span class="p">,</span> <span class="mf">33.0</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># Connect the 6 classes orthogonally</span>
+<span class="n">diagram</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">ctrl</span><span class="p">,</span> <span class="n">orch</span><span class="p">,</span> <span class="s2">"dependency"</span><span class="p">,</span> <span class="n">start_side</span><span class="o">=</span><span class="s2">"right"</span><span class="p">,</span> <span class="n">end_side</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"delegates"</span><span class="p">,</span> <span class="n">directed</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">diagram</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">orch</span><span class="p">,</span> <span class="n">notif</span><span class="p">,</span> <span class="s2">"dependency"</span><span class="p">,</span> <span class="n">start_side</span><span class="o">=</span><span class="s2">"right"</span><span class="p">,</span> <span class="n">end_side</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"notifies"</span><span class="p">,</span> <span class="n">directed</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">diagram</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">ctrl</span><span class="p">,</span> <span class="n">fraud</span><span class="p">,</span> <span class="s2">"dependency"</span><span class="p">,</span> <span class="n">start_side</span><span class="o">=</span><span class="s2">"bottom"</span><span class="p">,</span> <span class="n">end_side</span><span class="o">=</span><span class="s2">"top"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"validates"</span><span class="p">,</span> <span class="n">directed</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">diagram</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">orch</span><span class="p">,</span> <span class="n">gateway</span><span class="p">,</span> <span class="s2">"composition"</span><span class="p">,</span> <span class="n">start_side</span><span class="o">=</span><span class="s2">"bottom"</span><span class="p">,</span> <span class="n">end_side</span><span class="o">=</span><span class="s2">"top"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"invokes"</span><span class="p">,</span> <span class="n">directed</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">diagram</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">fraud</span><span class="p">,</span> <span class="n">gateway</span><span class="p">,</span> <span class="s2">"association"</span><span class="p">,</span> <span class="n">start_side</span><span class="o">=</span><span class="s2">"right"</span><span class="p">,</span> <span class="n">end_side</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"scores"</span><span class="p">,</span> <span class="n">directed</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">diagram</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">gateway</span><span class="p">,</span> <span class="n">ledger</span><span class="p">,</span> <span class="s2">"association"</span><span class="p">,</span> <span class="n">start_side</span><span class="o">=</span><span class="s2">"right"</span><span class="p">,</span> <span class="n">end_side</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"records"</span><span class="p">,</span> <span class="n">directed</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">diagram</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">))</span>
+
+<span class="c1"># 2. Overlay Thermal Hotspots directly onto ClassNode coordinates</span>
+<span class="n">overlay</span> <span class="o">=</span> <span class="n">HeatmapOverlay</span><span class="p">(</span>
+    <span class="n">styles</span><span class="o">=</span><span class="p">[</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WarningFlat</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DangerFlat</span><span class="p">],</span>
+    <span class="n">mode</span><span class="o">=</span><span class="s2">"smooth"</span><span class="p">,</span>
+    <span class="n">max_alpha</span><span class="o">=</span><span class="mf">0.55</span><span class="p">,</span>
+    <span class="n">blend_mode</span><span class="o">=</span><span class="s2">"max"</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">overlay</span><span class="o">.</span><span class="n">add_spot</span><span class="p">(</span><span class="n">gateway</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mf">0.96</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mf">22.0</span><span class="p">)</span>
+<span class="n">overlay</span><span class="o">.</span><span class="n">add_spot</span><span class="p">(</span><span class="n">orch</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mf">0.72</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mf">18.0</span><span class="p">)</span>
+<span class="n">overlay</span><span class="o">.</span><span class="n">add_spot</span><span class="p">(</span><span class="n">fraud</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mf">0.55</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mf">16.0</span><span class="p">)</span>
+<span class="n">overlay</span><span class="o">.</span><span class="n">add_spot</span><span class="p">(</span><span class="n">ctrl</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mf">0.30</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mf">14.0</span><span class="p">)</span>
+<span class="n">overlay</span><span class="o">.</span><span class="n">add_spot</span><span class="p">(</span><span class="n">ledger</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mf">0.15</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mf">12.0</span><span class="p">)</span>
+<span class="n">overlay</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">))</span>
+
+<span class="n">overlay</span><span class="o">.</span><span class="n">draw_colorbar</span><span class="p">(</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">47.0</span><span class="p">,</span> <span class="mf">6.5</span><span class="p">),</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">length</span><span class="o">=</span><span class="mf">48.0</span><span class="p">,</span>
+    <span class="n">thickness</span><span class="o">=</span><span class="mf">2.2</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="s2">"Complexity &amp; Bug Risk Score"</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="heatmap_images/heatmap_overlay_class_diagram.png" alt="heatmap_3" />
+  <figcaption class="drawlib-caption">6-Class UML ClassDiagram with Smooth Thermal Hotspot Overlay (mode='smooth')</figcaption>
+</figure>
+<hr />
+<h2>4. Concentric Isoline Ring Overlay (<code>mode=&quot;contour&quot;</code>)</h2>
+<p>For crisp vector diagrams or print documentation where discrete isoline rings are preferred over continuous gradients, set <code>mode=&quot;contour&quot;</code> and <code>levels=4</code> on the 6-class diagram:</p>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.charts.heatmap</span><span class="w"> </span><span class="kn">import</span> <span class="n">HeatmapOverlay</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.diagrams.class_diagram</span><span class="w"> </span><span class="kn">import</span> <span class="n">ClassDiagram</span><span class="p">,</span> <span class="n">ClassNode</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">142</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">96</span><span class="p">)</span>
+
+<span class="n">diagram</span> <span class="o">=</span> <span class="n">ClassDiagram</span><span class="p">(</span>
+    <span class="n">node_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+    <span class="n">header_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
+    <span class="n">edge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+    <span class="n">edge_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">"Change Blast Radius Analysis Across 6 Classes (mode='contour')"</span><span class="p">,</span>
+    <span class="n">title_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">BlackBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">13.0</span><span class="p">),</span>
+    <span class="n">margin</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Top Tier (Row 1: y = 66.0)</span>
+<span class="n">ctrl</span> <span class="o">=</span> <span class="n">diagram</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">ClassNode</span><span class="p">(</span><span class="s2">"OrderController"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">29.0</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"create_order"</span><span class="p">,</span> <span class="s2">"req"</span><span class="p">,</span> <span class="s2">"Order"</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"cancel_order"</span><span class="p">,</span> <span class="s2">"id"</span><span class="p">,</span> <span class="s2">"bool"</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">24.0</span><span class="p">,</span> <span class="mf">66.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">orch</span> <span class="o">=</span> <span class="n">diagram</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">ClassNode</span><span class="p">(</span><span class="s2">"OrderOrchestrator"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">31.0</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">add_attribute</span><span class="p">(</span><span class="s2">"retry_policy"</span><span class="p">,</span> <span class="s2">"dict"</span><span class="p">,</span> <span class="n">is_public</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"dispatch"</span><span class="p">,</span> <span class="s2">"order"</span><span class="p">,</span> <span class="s2">"Receipt"</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"rollback"</span><span class="p">,</span> <span class="s2">"tx_id"</span><span class="p">,</span> <span class="s2">"void"</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">71.0</span><span class="p">,</span> <span class="mf">66.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">notif</span> <span class="o">=</span> <span class="n">diagram</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">ClassNode</span><span class="p">(</span><span class="s2">"NotificationService"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">29.0</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">add_attribute</span><span class="p">(</span><span class="s2">"smtp_host"</span><span class="p">,</span> <span class="s2">"str"</span><span class="p">,</span> <span class="n">is_public</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"send_receipt"</span><span class="p">,</span> <span class="s2">"user"</span><span class="p">,</span> <span class="s2">"bool"</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"alert_ops"</span><span class="p">,</span> <span class="s2">"msg"</span><span class="p">,</span> <span class="s2">"void"</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">118.0</span><span class="p">,</span> <span class="mf">66.0</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># Bottom Tier (Row 2: y = 32.0)</span>
+<span class="n">fraud</span> <span class="o">=</span> <span class="n">diagram</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">ClassNode</span><span class="p">(</span><span class="s2">"FraudRuleEngine"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">29.0</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">add_attribute</span><span class="p">(</span><span class="s2">"rule_cache"</span><span class="p">,</span> <span class="s2">"list"</span><span class="p">,</span> <span class="n">is_public</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"evaluate"</span><span class="p">,</span> <span class="s2">"order"</span><span class="p">,</span> <span class="s2">"float"</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"reload_rules"</span><span class="p">,</span> <span class="s2">""</span><span class="p">,</span> <span class="s2">"int"</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">24.0</span><span class="p">,</span> <span class="mf">32.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">gateway</span> <span class="o">=</span> <span class="n">diagram</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">ClassNode</span><span class="p">(</span><span class="s2">"LegacyPaymentGateway"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">33.0</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">add_attribute</span><span class="p">(</span><span class="s2">"global_locks"</span><span class="p">,</span> <span class="s2">"dict"</span><span class="p">,</span> <span class="n">is_public</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">add_attribute</span><span class="p">(</span><span class="s2">"raw_socket_pool"</span><span class="p">,</span> <span class="s2">"list"</span><span class="p">,</span> <span class="n">is_public</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"charge_card"</span><span class="p">,</span> <span class="s2">"payload"</span><span class="p">,</span> <span class="s2">"str"</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"reconcile_batch"</span><span class="p">,</span> <span class="s2">"raw"</span><span class="p">,</span> <span class="s2">"void"</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"parse_iso8583"</span><span class="p">,</span> <span class="s2">"buf"</span><span class="p">,</span> <span class="s2">"dict"</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">71.0</span><span class="p">,</span> <span class="mf">32.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">ledger</span> <span class="o">=</span> <span class="n">diagram</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">ClassNode</span><span class="p">(</span><span class="s2">"LedgerRepository"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">29.0</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">add_attribute</span><span class="p">(</span><span class="s2">"db_pool"</span><span class="p">,</span> <span class="s2">"Pool"</span><span class="p">,</span> <span class="n">is_public</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"append_entry"</span><span class="p">,</span> <span class="s2">"tx"</span><span class="p">,</span> <span class="s2">"UUID"</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"query_audit"</span><span class="p">,</span> <span class="s2">"id"</span><span class="p">,</span> <span class="s2">"list"</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">118.0</span><span class="p">,</span> <span class="mf">32.0</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">diagram</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">ctrl</span><span class="p">,</span> <span class="n">orch</span><span class="p">,</span> <span class="s2">"dependency"</span><span class="p">,</span> <span class="n">start_side</span><span class="o">=</span><span class="s2">"right"</span><span class="p">,</span> <span class="n">end_side</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"delegates"</span><span class="p">,</span> <span class="n">directed</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">diagram</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">orch</span><span class="p">,</span> <span class="n">notif</span><span class="p">,</span> <span class="s2">"dependency"</span><span class="p">,</span> <span class="n">start_side</span><span class="o">=</span><span class="s2">"right"</span><span class="p">,</span> <span class="n">end_side</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"notifies"</span><span class="p">,</span> <span class="n">directed</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">diagram</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">ctrl</span><span class="p">,</span> <span class="n">fraud</span><span class="p">,</span> <span class="s2">"dependency"</span><span class="p">,</span> <span class="n">start_side</span><span class="o">=</span><span class="s2">"bottom"</span><span class="p">,</span> <span class="n">end_side</span><span class="o">=</span><span class="s2">"top"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"validates"</span><span class="p">,</span> <span class="n">directed</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">diagram</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">orch</span><span class="p">,</span> <span class="n">gateway</span><span class="p">,</span> <span class="s2">"composition"</span><span class="p">,</span> <span class="n">start_side</span><span class="o">=</span><span class="s2">"bottom"</span><span class="p">,</span> <span class="n">end_side</span><span class="o">=</span><span class="s2">"top"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"invokes"</span><span class="p">,</span> <span class="n">directed</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">diagram</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">fraud</span><span class="p">,</span> <span class="n">gateway</span><span class="p">,</span> <span class="s2">"association"</span><span class="p">,</span> <span class="n">start_side</span><span class="o">=</span><span class="s2">"right"</span><span class="p">,</span> <span class="n">end_side</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"scores"</span><span class="p">,</span> <span class="n">directed</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">diagram</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">gateway</span><span class="p">,</span> <span class="n">ledger</span><span class="p">,</span> <span class="s2">"association"</span><span class="p">,</span> <span class="n">start_side</span><span class="o">=</span><span class="s2">"right"</span><span class="p">,</span> <span class="n">end_side</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"records"</span><span class="p">,</span> <span class="n">directed</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">diagram</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">))</span>
+
+<span class="n">overlay</span> <span class="o">=</span> <span class="n">HeatmapOverlay</span><span class="p">(</span>
+    <span class="n">styles</span><span class="o">=</span><span class="p">[</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WarningFlat</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DangerFlat</span><span class="p">],</span>
+    <span class="n">mode</span><span class="o">=</span><span class="s2">"contour"</span><span class="p">,</span>
+    <span class="n">levels</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+    <span class="n">max_alpha</span><span class="o">=</span><span class="mf">0.45</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">overlay</span><span class="o">.</span><span class="n">add_spot</span><span class="p">(</span><span class="n">gateway</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mf">0.96</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mf">20.0</span><span class="p">)</span>
+<span class="n">overlay</span><span class="o">.</span><span class="n">add_spot</span><span class="p">(</span><span class="n">orch</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mf">0.72</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mf">16.0</span><span class="p">)</span>
+<span class="n">overlay</span><span class="o">.</span><span class="n">add_spot</span><span class="p">(</span><span class="n">fraud</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mf">0.55</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mf">14.0</span><span class="p">)</span>
+<span class="n">overlay</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">))</span>
+
+<span class="n">overlay</span><span class="o">.</span><span class="n">draw_legend</span><span class="p">(</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">43.0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">),</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">orientation</span><span class="o">=</span><span class="s2">"horizontal"</span><span class="p">,</span>
+    <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="s2">"Low"</span><span class="p">,</span> <span class="s2">"Moderate"</span><span class="p">,</span> <span class="s2">"High"</span><span class="p">,</span> <span class="s2">"Critical"</span><span class="p">],</span>
+<span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="heatmap_images/heatmap_overlay_contour_mode.png" alt="heatmap_4" />
+  <figcaption class="drawlib-caption">6-Class UML ClassDiagram with Concentric Vector Isoline Rings (mode='contour')</figcaption>
+</figure>
+<hr />
+<h2>5. Cloud Architecture Latency &amp; Incident Overlay (<code>ArchitectureDiagram</code> + <code>HeatmapOverlay</code>)</h2>
+<p><code>HeatmapOverlay.add_spot()</code> also accepts <code>ArchitectureDiagram</code> <code>Node</code> and <code>NodeGroup</code> instances directly—automatically resolving nested <code>NodeGroup</code> hierarchy offsets so you can highlight infrastructure bottlenecks, CPU saturation, or P99 latency spikes over cloud architecture diagrams:</p>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.charts.heatmap</span><span class="w"> </span><span class="kn">import</span> <span class="n">HeatmapOverlay</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.diagrams.architecture</span><span class="w"> </span><span class="kn">import</span> <span class="n">ArchitectureDiagram</span><span class="p">,</span> <span class="n">GcpIcon</span><span class="p">,</span> <span class="n">Node</span><span class="p">,</span> <span class="n">NodeGroup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Colors</span><span class="p">,</span> <span class="n">Styles</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">140</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">88</span><span class="p">)</span>
+
+<span class="n">arch</span> <span class="o">=</span> <span class="n">ArchitectureDiagram</span><span class="p">(</span>
+    <span class="n">node_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">,</span>
+    <span class="n">node_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+    <span class="n">edge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+    <span class="n">edge_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+    <span class="n">node_card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_fill_color</span><span class="o">=</span><span class="n">Colors</span><span class="o">.</span><span class="n">White</span><span class="p">,</span> <span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">vpc</span> <span class="o">=</span> <span class="n">arch</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">NodeGroup</span><span class="p">(</span>
+        <span class="n">title</span><span class="o">=</span><span class="s2">"Production Cloud VPC"</span><span class="p">,</span>
+        <span class="n">padding</span><span class="o">=</span><span class="mf">5.5</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+        <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">valign</span><span class="o">=</span><span class="s2">"top"</span><span class="p">),</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">8.0</span><span class="p">,</span> <span class="mf">15.0</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># Edge Ingress</span>
+<span class="n">lb</span> <span class="o">=</span> <span class="n">vpc</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span><span class="s2">"Cloud Load</span><span class="se">\n</span><span class="s2">Balancing"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">22.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">16.0</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">GcpIcon</span><span class="o">.</span><span class="n">CLOUD_LOAD_BALANCING</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">6.8</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">15.0</span><span class="p">,</span> <span class="mf">25.0</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># Compute Subnet</span>
+<span class="n">compute_grp</span> <span class="o">=</span> <span class="n">vpc</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">NodeGroup</span><span class="p">(</span>
+        <span class="n">title</span><span class="o">=</span><span class="s2">"GKE Compute Tier"</span><span class="p">,</span>
+        <span class="n">padding</span><span class="o">=</span><span class="mf">4.5</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
+        <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">valign</span><span class="o">=</span><span class="s2">"top"</span><span class="p">),</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">36.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">api_svc</span> <span class="o">=</span> <span class="n">compute_grp</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span><span class="s2">"Catalog API"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">22.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">15.0</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">GcpIcon</span><span class="o">.</span><span class="n">GOOGLE_KUBERNETES_ENGINE</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">6.5</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">14.0</span><span class="p">,</span> <span class="mf">33.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">checkout_svc</span> <span class="o">=</span> <span class="n">compute_grp</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span><span class="s2">"Checkout Worker"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">22.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">15.0</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">GcpIcon</span><span class="o">.</span><span class="n">GOOGLE_KUBERNETES_ENGINE</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">6.5</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">14.0</span><span class="p">,</span> <span class="mf">12.0</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># Data Subnet</span>
+<span class="n">data_grp</span> <span class="o">=</span> <span class="n">vpc</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">NodeGroup</span><span class="p">(</span>
+        <span class="n">title</span><span class="o">=</span><span class="s2">"Stateful Data Tier"</span><span class="p">,</span>
+        <span class="n">padding</span><span class="o">=</span><span class="mf">4.5</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
+        <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">valign</span><span class="o">=</span><span class="s2">"top"</span><span class="p">),</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">82.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">cache_node</span> <span class="o">=</span> <span class="n">data_grp</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span><span class="s2">"Memorystore</span><span class="se">\n</span><span class="s2">Redis"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">22.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">15.0</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">GcpIcon</span><span class="o">.</span><span class="n">MEMORYSTORE</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">6.5</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">14.0</span><span class="p">,</span> <span class="mf">33.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">sql_primary</span> <span class="o">=</span> <span class="n">data_grp</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span><span class="s2">"Cloud SQL</span><span class="se">\n</span><span class="s2">Primary (Lock!)"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">22.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">15.0</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">GcpIcon</span><span class="o">.</span><span class="n">CLOUD_SQL</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">6.5</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">14.0</span><span class="p">,</span> <span class="mf">12.0</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">lb</span><span class="o">.</span><span class="n">fork</span><span class="p">([</span><span class="n">api_svc</span><span class="p">,</span> <span class="n">checkout_svc</span><span class="p">],</span> <span class="n">at_x</span><span class="o">=</span><span class="mf">34.0</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="n">api_svc</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">cache_node</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"read"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="n">checkout_svc</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">sql_primary</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"tx write"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+
+<span class="n">arch</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">))</span>
+
+<span class="c1"># Overlay thermal hotspots directly on nested ArchitectureDiagram Nodes</span>
+<span class="n">overlay</span> <span class="o">=</span> <span class="n">HeatmapOverlay</span><span class="p">(</span>
+    <span class="n">styles</span><span class="o">=</span><span class="p">[</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WarningFlat</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DangerFlat</span><span class="p">],</span>
+    <span class="n">mode</span><span class="o">=</span><span class="s2">"smooth"</span><span class="p">,</span>
+    <span class="n">max_alpha</span><span class="o">=</span><span class="mf">0.58</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="mf">140.0</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">77.0</span><span class="p">,</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">"Production VPC: P99 Latency &amp; Saturation Hotspot Analysis"</span><span class="p">,</span>
+    <span class="n">title_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">BlackBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">13.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">overlay</span><span class="o">.</span><span class="n">add_spot</span><span class="p">(</span><span class="n">sql_primary</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mf">0.96</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mf">19.0</span><span class="p">)</span>
+<span class="n">overlay</span><span class="o">.</span><span class="n">add_spot</span><span class="p">(</span><span class="n">checkout_svc</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mf">0.72</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mf">17.0</span><span class="p">)</span>
+<span class="n">overlay</span><span class="o">.</span><span class="n">add_spot</span><span class="p">(</span><span class="n">lb</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mf">0.35</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mf">14.0</span><span class="p">)</span>
+<span class="n">overlay</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">))</span>
+
+<span class="n">overlay</span><span class="o">.</span><span class="n">draw_colorbar</span><span class="p">(</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">46.0</span><span class="p">,</span> <span class="mf">5.5</span><span class="p">),</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">length</span><span class="o">=</span><span class="mf">48.0</span><span class="p">,</span>
+    <span class="n">thickness</span><span class="o">=</span><span class="mf">2.2</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="s2">"P99 Latency / Saturation Score"</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="heatmap_images/heatmap_overlay_architecture.png" alt="heatmap_5" />
+  <figcaption class="drawlib-caption">Cloud VPC Architecture Diagram with Thermal Bottleneck Overlay</figcaption>
+</figure>
+<hr />
+<h2>6. Geographical Traffic &amp; Regional Heatmap (<code>GeoMap</code> + <code>HeatmapOverlay</code>)</h2>
+<p>When working with <code>GeoMap</code> (<code>drawlib.smartarts.GeoMap</code>), pass <code>gmap.get_area_xy(area)</code> (by country, prefecture, or ward name) or <code>gmap.lonlat_to_xy(lon, lat)</code> (by longitude and latitude) directly to <code>overlay.add_spot()</code> to build geographical heatmaps over world, country, or city maps:</p>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.charts.heatmap</span><span class="w"> </span><span class="kn">import</span> <span class="n">HeatmapOverlay</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.smartarts</span><span class="w"> </span><span class="kn">import</span> <span class="n">GeoMap</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Colors</span><span class="p">,</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">140</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">78</span><span class="p">)</span>
+
+<span class="n">card_style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">shape_line_color</span><span class="o">=</span><span class="n">Colors</span><span class="o">.</span><span class="n">Gray4</span><span class="p">,</span> <span class="n">shape_fill_color</span><span class="o">=</span><span class="n">Colors</span><span class="o">.</span><span class="n">White</span><span class="p">)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">36.5</span><span class="p">,</span> <span class="mf">43.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">65.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">58.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">card_style</span><span class="p">)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">103.5</span><span class="p">,</span> <span class="mf">43.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">65.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">58.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">card_style</span><span class="p">)</span>
+
+<span class="n">text</span><span class="p">((</span><span class="mf">36.5</span><span class="p">,</span> <span class="mf">68.5</span><span class="p">),</span> <span class="s2">"1. Global Edge Traffic (GeoMap.World.All)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">BlackBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">103.5</span><span class="p">,</span> <span class="mf">68.5</span><span class="p">),</span> <span class="s2">"2. Domestic Load by Prefecture (GeoMap.Countries.Japan)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">BlackBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">))</span>
+
+<span class="c1"># Left: World Map + HeatmapOverlay</span>
+<span class="n">world</span> <span class="o">=</span> <span class="n">GeoMap</span><span class="p">(</span><span class="n">GeoMap</span><span class="o">.</span><span class="n">World</span><span class="o">.</span><span class="n">All</span><span class="p">,</span> <span class="n">area_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+<span class="n">world</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">6.5</span><span class="p">,</span> <span class="mf">16.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">60.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">48.0</span><span class="p">)</span>
+
+<span class="n">world_overlay</span> <span class="o">=</span> <span class="n">HeatmapOverlay</span><span class="p">(</span>
+    <span class="n">styles</span><span class="o">=</span><span class="p">[</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WarningFlat</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DangerFlat</span><span class="p">],</span>
+    <span class="n">mode</span><span class="o">=</span><span class="s2">"smooth"</span><span class="p">,</span>
+    <span class="n">max_alpha</span><span class="o">=</span><span class="mf">0.62</span><span class="p">,</span>
+    <span class="n">min_value</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+    <span class="n">max_value</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">world_overlay</span><span class="o">.</span><span class="n">add_spot</span><span class="p">(</span><span class="n">world</span><span class="o">.</span><span class="n">get_area_xy</span><span class="p">(</span><span class="s2">"Japan"</span><span class="p">),</span> <span class="n">value</span><span class="o">=</span><span class="mf">0.95</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mf">9.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Tokyo"</span><span class="p">)</span>
+<span class="n">world_overlay</span><span class="o">.</span><span class="n">add_spot</span><span class="p">(</span><span class="n">world</span><span class="o">.</span><span class="n">get_area_xy</span><span class="p">(</span><span class="s2">"United States"</span><span class="p">),</span> <span class="n">value</span><span class="o">=</span><span class="mf">0.85</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mf">11.0</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"US-East"</span><span class="p">)</span>
+<span class="n">world_overlay</span><span class="o">.</span><span class="n">add_spot</span><span class="p">(</span><span class="n">world</span><span class="o">.</span><span class="n">get_area_xy</span><span class="p">(</span><span class="s2">"Germany"</span><span class="p">),</span> <span class="n">value</span><span class="o">=</span><span class="mf">0.72</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mf">9.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"EU-Central"</span><span class="p">)</span>
+<span class="n">world_overlay</span><span class="o">.</span><span class="n">add_spot</span><span class="p">(</span><span class="n">world</span><span class="o">.</span><span class="n">get_area_xy</span><span class="p">(</span><span class="s2">"Singapore"</span><span class="p">),</span> <span class="n">value</span><span class="o">=</span><span class="mf">0.60</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mf">8.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Singapore"</span><span class="p">)</span>
+<span class="n">world_overlay</span><span class="o">.</span><span class="n">add_spot</span><span class="p">(</span><span class="n">world</span><span class="o">.</span><span class="n">get_area_xy</span><span class="p">(</span><span class="s2">"Brazil"</span><span class="p">),</span> <span class="n">value</span><span class="o">=</span><span class="mf">0.40</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mf">8.0</span><span class="p">)</span>
+<span class="n">world_overlay</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">))</span>
+
+<span class="c1"># Right: Japan Map + HeatmapOverlay</span>
+<span class="n">jp</span> <span class="o">=</span> <span class="n">GeoMap</span><span class="p">(</span><span class="n">GeoMap</span><span class="o">.</span><span class="n">Countries</span><span class="o">.</span><span class="n">Japan</span><span class="p">,</span> <span class="n">area_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+<span class="n">jp</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">73.5</span><span class="p">,</span> <span class="mf">16.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">60.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">48.0</span><span class="p">,</span> <span class="n">lon_range</span><span class="o">=</span><span class="p">(</span><span class="mi">129</span><span class="p">,</span> <span class="mi">146</span><span class="p">),</span> <span class="n">lat_range</span><span class="o">=</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">46</span><span class="p">))</span>
+
+<span class="n">jp_overlay</span> <span class="o">=</span> <span class="n">HeatmapOverlay</span><span class="p">(</span>
+    <span class="n">styles</span><span class="o">=</span><span class="p">[</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WarningFlat</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DangerFlat</span><span class="p">],</span>
+    <span class="n">mode</span><span class="o">=</span><span class="s2">"smooth"</span><span class="p">,</span>
+    <span class="n">max_alpha</span><span class="o">=</span><span class="mf">0.65</span><span class="p">,</span>
+    <span class="n">min_value</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+    <span class="n">max_value</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">jp_overlay</span><span class="o">.</span><span class="n">add_spot</span><span class="p">(</span><span class="n">jp</span><span class="o">.</span><span class="n">get_area_xy</span><span class="p">(</span><span class="s2">"Tokyo"</span><span class="p">),</span> <span class="n">value</span><span class="o">=</span><span class="mf">0.98</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mf">10.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Tokyo"</span><span class="p">)</span>
+<span class="n">jp_overlay</span><span class="o">.</span><span class="n">add_spot</span><span class="p">(</span><span class="n">jp</span><span class="o">.</span><span class="n">get_area_xy</span><span class="p">(</span><span class="s2">"Osaka"</span><span class="p">),</span> <span class="n">value</span><span class="o">=</span><span class="mf">0.80</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mf">8.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Osaka"</span><span class="p">)</span>
+<span class="n">jp_overlay</span><span class="o">.</span><span class="n">add_spot</span><span class="p">(</span><span class="n">jp</span><span class="o">.</span><span class="n">get_area_xy</span><span class="p">(</span><span class="s2">"Aichi"</span><span class="p">),</span> <span class="n">value</span><span class="o">=</span><span class="mf">0.62</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mf">7.0</span><span class="p">)</span>
+<span class="n">jp_overlay</span><span class="o">.</span><span class="n">add_spot</span><span class="p">(</span><span class="n">jp</span><span class="o">.</span><span class="n">get_area_xy</span><span class="p">(</span><span class="s2">"Fukuoka"</span><span class="p">),</span> <span class="n">value</span><span class="o">=</span><span class="mf">0.55</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mf">7.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Fukuoka"</span><span class="p">)</span>
+<span class="n">jp_overlay</span><span class="o">.</span><span class="n">add_spot</span><span class="p">(</span><span class="n">jp</span><span class="o">.</span><span class="n">lonlat_to_xy</span><span class="p">(</span><span class="mf">141.35</span><span class="p">,</span> <span class="mf">43.06</span><span class="p">),</span> <span class="n">value</span><span class="o">=</span><span class="mf">0.45</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mf">7.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Sapporo"</span><span class="p">)</span>
+<span class="n">jp_overlay</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">))</span>
+
+<span class="n">jp_overlay</span><span class="o">.</span><span class="n">draw_colorbar</span><span class="p">(</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">46.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">),</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">length</span><span class="o">=</span><span class="mf">48.0</span><span class="p">,</span>
+    <span class="n">thickness</span><span class="o">=</span><span class="mf">2.2</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="s2">"Normalized Traffic Intensity"</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="heatmap_images/heatmap_overlay_geomap.png" alt="heatmap_6" />
+  <figcaption class="drawlib-caption">Geographical Traffic & Edge Request Heatmaps on GeoMap (World & Japan)</figcaption>
+</figure>
+
+            </main>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const btn = document.getElementById('theme-toggle');
+            if (!btn) return;
+            btn.addEventListener('click', function() {
+                const current = document.documentElement.getAttribute('data-theme');
+                const next = current === 'dark' ? 'light' : 'dark';
+                document.documentElement.setAttribute('data-theme', next);
+                localStorage.setItem('drawlib-theme', next);
+            });
+        });
+    </script>
+</body>
+</html>
