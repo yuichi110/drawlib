@@ -4,7 +4,7 @@ build-backend = "uv_build"
 
 [project]
 name = "drawlib"
-version = "0.3.0"
+version = "0.3.1.dev1"
 description = "Python drawing library. Illustration as Code."
 readme = "docs/README_PYPI.md"
 requires-python = ">=3.11"

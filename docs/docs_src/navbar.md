@@ -80,6 +80,7 @@
 - [Radar Chart](./05_charts/radar.md)
 - [Scatter Chart](./05_charts/scatter.md)
 - [Gantt Chart](./05_charts/gantt.md)
+- [Heatmap & Thermal Overlay](./05_charts/heatmap.md)
 
 ## 6. Technical Diagrams
 - [Diagrams Overview](./06_diagrams/overview.md)

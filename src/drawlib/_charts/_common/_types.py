@@ -46,9 +46,16 @@ GridShape = Literal["polygon", "circle"]
 # Spatial partial rendering direction for chart elements
 DrawDirection = Literal["bottom_to_top", "left_to_right"]
 
+# Spatial heatmap overlay rendering mode
+OverlayMode = Literal["smooth", "contour"]
+
+# Hotspot overlapping accumulation mode
+BlendMode = Literal["add", "max"]
+
 __all__ = [
     "AreaMode",
     "BarMode",
+    "BlendMode",
     "Color",
     "ColorType",
     "DrawDirection",
@@ -57,6 +64,7 @@ __all__ = [
     "LegendPosition",
     "LineStyle",
     "Orientation",
+    "OverlayMode",
     "PointShape",
     "ScaleType",
 ]

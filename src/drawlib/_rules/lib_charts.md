@@ -24,6 +24,7 @@ All public chart types, series models, configuration classes, and enums are orga
 - `drawlib.charts.radar`: `RadarChart`, `Series`, `GridShape`, `DrawDirection`
 - `drawlib.charts.scatter`: `ScatterChart`, `Series`, `Point`, `Axis`, `ScaleType`, `PointShape`, `DrawDirection`
 - `drawlib.charts.gantt`: `GanttChart`, `Task`, `Milestone`, `Section`, `Marker`, `Dependency`, `DrawDirection`
+- `drawlib.charts.heatmap`: `HeatmapChart`, `HeatmapOverlay`, `Row`, `Cell`, `Spot`, `OverlayMode`, `BlendMode`, `DrawDirection`, `FormatterType`, `Orientation`
 
 ```python
 # Import from dedicated chart submodules (or directly from drawlib.charts)
@@ -35,6 +36,7 @@ from drawlib.charts.pie import PieChart, Slice
 from drawlib.charts.radar import RadarChart, Series
 from drawlib.charts.scatter import Point, ScatterChart, Series
 from drawlib.charts.gantt import Dependency, GanttChart, Marker, Milestone, Section, Task
+from drawlib.charts.heatmap import Cell, HeatmapChart, HeatmapOverlay, Row, Spot
 ```
 
 ### 1.3 Chart Family Taxonomy
@@ -43,11 +45,11 @@ from drawlib.charts.gantt import Dependency, GanttChart, Marker, Milestone, Sect
 ┌──────────────────────────────────────────────────────────────────────────────────┐
 │                             drawlib.charts Taxonomy                              │
 ├──────────────────────────┬────────────────────────────┬──────────────────────────┤
-│ Categorical Binned       │ Continuous & Relational    │ Radial & Temporal        │
+│ Categorical & Matrix     │ Continuous & Relational    │ Radial & Temporal        │
 ├──────────────────────────┼────────────────────────────┼──────────────────────────┤
 │ • BarChart (Group/Stack) │ • LineChart (Linear/Spline)│ • PieChart (Pie/Donut)   │
-│   - Vertical bars        │ • AreaChart (Overlap/Stack)│ • RadarChart (Spiderweb) │
-│   - Horizontal bars      │ • ScatterChart (XY/Bubble) │ • GanttChart (Timelines) │
+│ • HeatmapChart (2D Grid) │ • AreaChart (Overlap/Stack)│ • RadarChart (Spiderweb) │
+│ • HeatmapOverlay (Spot)  │ • ScatterChart (XY/Bubble) │ • GanttChart (Timelines) │
 └──────────────────────────┴────────────────────────────┴──────────────────────────┘
 ```
 
@@ -948,7 +950,103 @@ chart.draw(xy=(6.0, 15.0))
 
 ---
 
-## 10. Styling, Theming, and Typography Reference
+## 10. HeatmapChart & HeatmapOverlay: 2D Matrix Grids and Diagram Thermal Overlays
+
+### 10.1 Conceptual Overview
+`drawlib.charts.heatmap` provides two complementary heatmap classes powered by `Style`-based multi-stop color interpolation (`styles=[Style, ...]` or `min_style=...`, `max_style=...`):
+1. **`HeatmapChart`**: A standard 2D matrix/grid heatmap across categorical `x_categories` and `y_categories` with auto-contrasting in-cell value labels, cell corner rounding (`cell_r`), and continuous colorbar (`draw_colorbar`) or discrete swatch legend (`draw_legend`).
+2. **`HeatmapOverlay`**: A spatial thermal/hotspot overlay designed to be drawn directly on top of diagrams (such as `ClassDiagram`, `ArchitectureDiagram`, or `FlowDiagram`) to highlight high-risk classes, bug density, or performance bottlenecks in either `"smooth"` (Gaussian thermal gradient) or `"contour"` (concentric vector isoline rings) mode.
+
+### 10.2 `HeatmapChart` Constructor & Methods
+- `HeatmapChart(*, styles=None, min_style=None, max_style=None, x_categories=None, y_categories=None, axis_line_style=None, width=80.0, height=55.0, min_value=None, max_value=None, cell_gap=0.6, cell_r=0.4, cell_line_style=None, value_format=None, auto_contrast_text=True, x_label_position="bottom", y_origin="top", axis_text_style=None, value_text_style=None, background_style=None, title="", title_style=None)`
+- `add_row(name: str, values: Sequence[float | None], *, show: bool = True, draw_ratio: float = 1.0, draw_direction: DrawDirection = "left_to_right") -> Row`
+- `set_data(values: Sequence[Sequence[float | None]], *, x_categories=None, y_categories=None) -> HeatmapChart`
+- `set_cell(x: int | str, y: int | str, value: float | None, *, label: str = "", style: Style | None = None, show: bool = True) -> Cell`
+- `draw(xy=(0.0, 0.0), *, width=None, height=None, align="bottom_left", scale=1.0) -> None`
+- `draw_colorbar(xy, text_style, *, length=30.0, thickness=2.2, orientation="horizontal", num_ticks=5, value_format=None, label="", border_style=None, scale=1.0) -> None`
+- `draw_legend(xy, text_style, orientation="vertical", swatch_width=2.4, swatch_height=1.2, item_gap=4.0, *, num_steps=5, labels=None, scale=1.0) -> None`
+
+### 10.3 `HeatmapOverlay` Constructor & Methods
+- `HeatmapOverlay(*, styles=None, min_style=None, max_style=None, width=None, height=None, mode="smooth", blend_mode="add", min_value=0.0, max_value=1.0, default_radius=15.0, max_alpha=0.55, levels=4, show_contour_lines=True, contour_line_width=1.0, resolution=240, value_format=None, value_text_style=None, border_style=None, title="", title_style=None)`
+- `add_spot(xy: tuple[float, float] | ClassNode, value: float = 1.0, radius: float | None = None, *, label: str = "", label_style: Style | None = None, style: Style | None = None, show: bool = True, draw_ratio: float = 1.0) -> Spot`
+- `draw(xy=(0.0, 0.0), *, width=None, height=None, align="bottom_left", scale=1.0) -> None`
+- `draw_colorbar(...) -> None` / `draw_legend(...) -> None`
+
+### 10.4 Production Examples
+
+#### Example 10.4.1: 2D Matrix Heatmap with Colorbar
+```drawlib code=show
+from drawlib.canvas import setup
+from drawlib.charts.heatmap import HeatmapChart
+from drawlib.styles import Styles
+
+setup(width=110, height=82)
+
+chart = HeatmapChart(
+    styles=[Styles.Neutral, Styles.PrimaryNeutral, Styles.PrimaryFlat, Styles.AccentFlat],
+    x_categories=["00:00", "04:00", "08:00", "12:00", "16:00", "20:00"],
+    axis_line_style=Styles.Primary,
+    axis_text_style=Styles.Muted.patch(text_size=9.5),
+    value_text_style=Styles.BlackBold.patch(text_size=9.0),
+    width=88.0,
+    height=50.0,
+    title="API Gateway Error Rate (%) by Day & Hour",
+    title_style=Styles.BlackBold.patch(text_size=13.0),
+    value_format="{:.1f}%",
+)
+chart.add_row("Mon", [0.2, 0.1, 1.4, 3.8, 2.9, 0.8])
+chart.add_row("Tue", [0.3, 0.2, 1.8, 4.5, 3.1, 0.9])
+chart.add_row("Wed", [0.1, 0.2, 2.2, 6.4, 4.8, 1.2])
+chart.add_row("Thu", [0.4, 0.3, 1.5, 3.2, 2.4, 0.7])
+chart.add_row("Fri", [0.5, 0.2, 2.9, 8.5, 5.2, 1.9])
+chart.draw(xy=(10.0, 22.0))
+chart.draw_colorbar(xy=(34.0, 9.0), text_style=Styles.Muted.patch(text_size=9.0), length=45.0, label="Error Rate (%)")
+```
+
+#### Example 10.4.2: ClassDiagram Thermal Hotspot Overlay
+```drawlib code=show
+from drawlib.canvas import setup
+from drawlib.charts.heatmap import HeatmapOverlay
+from drawlib.diagrams.class_diagram import ClassDiagram, ClassNode
+from drawlib.styles import Styles
+
+setup(width=130, height=80)
+
+diagram = ClassDiagram(
+    node_style=Styles.Neutral,
+    header_style=Styles.PrimaryNeutral,
+    edge_style=Styles.Primary,
+    edge_text_style=Styles.Muted.patch(text_size=9.5),
+    title="Domain Model Complexity & Incident Hotspot Overlay",
+    title_style=Styles.BlackBold.patch(text_size=13.0),
+)
+ctrl = diagram.add(ClassNode("OrderController", width=30.0).add_method("submit", "req", "Result"), xy=(25.0, 42.0))
+god = diagram.add(
+    ClassNode("LegacyBillingManager", width=34.0)
+    .add_attribute("global_state", "dict")
+    .add_method("process_invoice", "inv", "bool")
+    .add_method("reconcile_all", "tx", "void"),
+    xy=(70.0, 42.0),
+)
+repo = diagram.add(ClassNode("InvoiceRepository", width=28.0).add_method("save", "row", "void"), xy=(112.0, 42.0))
+diagram.connect(ctrl, god, "dependency", directed=True)
+diagram.connect(god, repo, "association", directed=True)
+diagram.draw(xy=(0.0, 0.0))
+
+overlay = HeatmapOverlay(
+    styles=[Styles.PrimaryNeutral, Styles.WarningFlat, Styles.DangerFlat],
+    mode="smooth",
+    max_alpha=0.55,
+)
+overlay.add_spot(god, value=0.95, radius=22.0)
+overlay.add_spot(ctrl, value=0.40, radius=15.0)
+overlay.draw(xy=(0.0, 0.0))
+overlay.draw_colorbar(xy=(45.0, 8.0), text_style=Styles.Muted.patch(text_size=9.0), length=40.0, label="Hotspot Risk")
+```
+
+---
+
+## 11. Styling, Theming, and Typography Reference
 
 ### 10.1 Typography Integration with `Font`
 Drawlib charts seamlessly inherit typographical settings from Drawlib's font modules (`FontRoboto`, `FontSansSerif`, `FontMonoSpace`, etc.).

@@ -126,6 +126,7 @@ from drawlib.charts.pie import PieChart, Slice
 from drawlib.charts.radar import RadarChart, Series
 from drawlib.charts.scatter import Point, ScatterChart, Series
 from drawlib.charts.gantt import Dependency, GanttChart, Marker, Milestone, Section, Task
+from drawlib.charts.heatmap import Cell, HeatmapChart, HeatmapOverlay, Row, Spot
 
 # 7. Icons & Media
 from drawlib.icons import (
@@ -584,6 +585,8 @@ Drawlib charts render directly into the unified vector canvas alongside architec
 | `PieChart` | `add_slice(..., show=True, draw_ratio=1.0, draw_direction="left_to_right") -> Slice` | `draw(xy, *, radius=None, width=None, height=None, align="bottom_left", scale=1.0)` |
 | `RadarChart` | `add_series(..., show=True, draw_ratio=1.0, draw_direction="bottom_to_top") -> Series` | `draw(xy, *, radius=None, width=None, height=None, align="bottom_left", scale=1.0)` |
 | `GanttChart` | `add_task(..., show=True, draw_ratio=1.0, draw_direction="left_to_right") -> Task`, `add_section`, `add_milestone`, `add_marker`, `add_dependency` | `draw(xy, *, width=None, height=None, align="bottom_left", scale=1.0)` |
+| `HeatmapChart` | `add_row(..., show=True, draw_ratio=1.0, draw_direction="left_to_right") -> Row`, `set_data(...)`, `set_cell(...) -> Cell` | `draw(xy, *, width=None, height=None, align="bottom_left", scale=1.0)` |
+| `HeatmapOverlay` | `add_spot(xy_or_node, value=1.0, radius=None, ..., show=True, draw_ratio=1.0) -> Spot` | `draw(xy, *, width=None, height=None, align="bottom_left", scale=1.0)` |
 
 ```drawlib code=show file=charts_example.png
 from drawlib.canvas import setup
