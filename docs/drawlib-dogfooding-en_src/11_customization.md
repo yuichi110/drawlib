@@ -20,25 +20,55 @@ Styles = GoogleStyles().patch_font(
 )
 ```
 
-## 11.2 Available Style Presets
+## 11.2 Available Style Presets and Neutral Card Tokens
+
+Drawlib provides three global theme presets:
 
 - **`DefaultStyles` / `DefaultColors`**: Modern developer theme inspired by Tailwind and VitePress.
 - **`GoogleStyles` / `GoogleColors`**: Clean editorial theme inspired by Material Design and Google Docs.
 - **`MonochromeStyles` / `MonochromeColors`**: Grayscale theme optimized for black-and-white printing.
 
-## 11.3 Deriving Custom Styles (`.patch()`)
+Across all theme presets, Drawlib includes built-in neutral card tokens to support the **50%+ Neutral Baseline Rule** (grounding at least 50% of diagram shapes in calm neutral fills rather than creating noisy rainbow diagrams):
 
-Derive custom styles from existing presets by overriding specific attributes:
+- **`Styles.Neutral`**: Clean white/light-gray card surface for standard nodes and containers.
+- **`Styles.PrimaryNeutral`**: Soft primary-tinted background with a subtle border for primary subsystems.
+- **`Styles.SecondaryNeutral`**: Soft secondary-tinted background with a subtle border for supporting components.
+- **`Styles.PrimaryFlat` / `Styles.AccentFlat` / `Styles.DarkFlat`**: High-contrast saturated fills reserved strictly for 1–2 primary focal points or container header bars.
+
+## 11.3 Deriving Custom Styles (`.patch()`) and Sharing `utils.py` Helpers
+
+Derive custom styles from existing presets by overriding specific attributes with `.patch()`. Furthermore, any constants or helper functions defined in your project's `utils.py` are automatically exposed to embedded ````drawlib```` blocks via `from drawlib.utils import ...`:
 
 ```python
+# Defined in utils.py
+from drawlib.shapes import rectangle
 from drawlib.styles import Styles
 
-# Derive a custom card style from PrimaryFlat
-my_card_style = Styles.PrimaryFlat.patch(
-    shape_fill_color=(235, 248, 255),
-    shape_line_color=(49, 130, 206),
-    shape_line_width=1.5,
-)
+# Derive a custom card style from PrimaryNeutral
+CARD_STYLE = Styles.PrimaryNeutral.patch(shape_r=2.0, shape_line_width=1.5)
+HEADER_STYLE = Styles.PrimaryFlat.patch(shape_r=1.5)
+
+
+def draw_titled_card(xy: tuple[float, float], width: float, height: float, title: str) -> None:
+    """Reusable helper to draw a neutral container card with a header bar."""
+    cx, cy = xy
+    rectangle((cx, cy), width=width, height=height, style=CARD_STYLE)
+    rectangle(
+        (cx, cy + height / 2 - 3.5),
+        width=width - 2.0,
+        height=5.5,
+        style=HEADER_STYLE,
+        text=title,
+        text_style=Styles.WhiteBold.patch(text_size=11.0),
+    )
+```
+
+Import and call your shared helpers inside any chapter's ````drawlib```` block:
+
+```python
+from drawlib.utils import CARD_STYLE, draw_titled_card
+
+draw_titled_card((50, 25), width=40, height=30, title="Auth Service")
 ```
 
 ## 11.4 Harmonizing with Document CSS (`style.css`)

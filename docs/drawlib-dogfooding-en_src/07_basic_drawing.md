@@ -2,44 +2,67 @@
 
 Drawlib's primitive drawing layers (`shapes`, `lines`, `text`, `icons`) give you the power to construct custom geometric layouts and specialized diagrams.
 
-## 7.1 Canvas Coordinate System
+## 7.1 Canvas Coordinate System & Anchor Rules
 
 Drawlib uses a standard **Cartesian coordinate space**:
-- **Origin `(0, 0)`**: Located at the **bottom-left** corner of the canvas.
-- **Canvas Dimensions**: Defined explicitly using `setup(width=W, height=H)`.
+- **Origin `(0, 0)`**: Located at the **bottom-left** corner of the canvas (unlike top-left screen coordinates).
+- **Canvas Dimensions**: Defined explicitly using `setup(width=W, height=H)`, and finalized by calling `save()`.
+- **Center Coordinate Anchor `(cx, cy)`**: All primitive drawing elements (`shapes`, `text`, `icons`, `images`) are anchored by their **center coordinate `(cx, cy)`** (in contrast to high-level modules `smartarts`, `charts`, and `diagrams`, which anchor at the bottom-left `(x0, y0)`).
 
 ## 7.2 Shapes, Lines, and Vector Icons
 
-Over 40 shape primitives (rectangles, circles, ellipses, wedges, shields, ribbons, pins, clocks, block arrows, stars) are built-in:
+**43 shape primitives** (`rectangle`, `circle`, `ellipse`, `polygon`, `star`, `donuts`, `fan`, `bubblespeech`, `cylinder`, `parallelogram`, `trapezoid`, `chevron`, and block arrows `arrow_polyline`, `arrow_l`, `arrow_u`, `arrow_arc`, etc.) are built-in:
 
-```drawlib width=600px align=center file=fig_basic_drawing.png caption="Figure 7.1: Service Architecture Built with Shapes, Lines, and Icons"
-from drawlib.canvas import setup
+```drawlib align=center file=fig_basic_drawing.png caption="Figure 7.1: Service Architecture Built with Shapes, Lines, and Icons"
+from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line
 from drawlib.shapes import circle, rectangle
 from drawlib.styles import Styles
 from drawlib.text import text
 
-setup(width=105, height=42)
+setup(width=105, height=44)
 
-# Client Node
-rectangle((20, 21), width=24, height=18, style=Styles.SecondaryFlat.patch(shape_r=1.5), text="Client App", text_style=Styles.WhiteBold)
+# Client Node (Neutral baseline)
+rectangle(
+    (20, 20),
+    width=24,
+    height=18,
+    style=Styles.Neutral.patch(shape_r=1.5),
+    text="Client App",
+    text_style=Styles.DarkBold.patch(text_size=10.5),
+)
 phosphor.device_mobile(xy=(20, 34), width=6, style=Styles.Secondary)
 
-# API Gateway Node
-rectangle((55, 21), width=26, height=20, style=Styles.PrimaryFlat.patch(shape_r=1.5), text="API Gateway", text_style=Styles.WhiteBold)
-phosphor.cloud(xy=(55, 35), width=6, style=Styles.Primary)
+# API Gateway Node (PrimaryFlat focal highlight)
+rectangle(
+    (54, 20),
+    width=26,
+    height=20,
+    style=Styles.PrimaryFlat.patch(shape_r=1.5),
+    text="API Gateway",
+    text_style=Styles.WhiteBold.patch(text_size=10.5),
+)
+phosphor.cloud(xy=(54, 35), width=6, style=Styles.Primary)
 
-# Database Cluster Node
-circle((88, 21), radius=9, style=Styles.AccentFlat, text="DB Cluster", text_style=Styles.WhiteBold)
-phosphor.database(xy=(88, 34), width=6, style=Styles.Accent)
+# Database Cluster Node (SecondaryNeutral baseline)
+circle(
+    (87, 20),
+    radius=10,
+    style=Styles.SecondaryNeutral,
+    text="DB Cluster",
+    text_style=Styles.DarkBold.patch(text_size=10.5),
+)
+phosphor.database(xy=(87, 35), width=6, style=Styles.Secondary)
 
 # Connections and Arrows
-line((32, 21), (42, 21), arrow_head="->", style=Styles.DarkBold)
-text((37, 24), "HTTPS", style=Styles.DarkBold.patch(text_size=9))
+line((32, 20), (41, 20), arrow_head="->", style=Styles.DarkBold)
+text((36.5, 23.5), "HTTPS", style=Styles.DarkBold.patch(text_size=10.5))
 
-line((68, 21), (79, 21), arrow_head="->", style=Styles.DarkBold)
-text((73.5, 24), "SQL", style=Styles.DarkBold.patch(text_size=9))
+line((67, 20), (77, 20), arrow_head="->", style=Styles.DarkBold)
+text((72, 23.5), "SQL", style=Styles.DarkBold.patch(text_size=10.5))
+
+save()
 ```
 
 ## 7.3 Essential Drawing Functions
@@ -49,4 +72,6 @@ text((73.5, 24), "SQL", style=Styles.DarkBold.patch(text_size=9))
 - **`line(start_xy, end_xy, arrow_head="->", style=...)`**: Straight line with arrowheads.
 - **`line_curved(start_xy, end_xy, bend=0.2, ...)`**: Smooth bezier curves.
 - **`text(xy, text="...", style=...)`**: Styled typography.
-- **`phosphor.<icon_name>(xy, width, style=...)`**: Phosphor vector icons.
+- **`phosphor.<icon_name>(xy, width, style=...)`**: Phosphor vector icons (`drawlib.icons.phosphor`).
+- **`fontawesome.<icon_name>(xy, width, style=...)`**: FontAwesome icons (`drawlib.icons.fontawesome`).
+- **`gcp.<icon_name>(xy, width, ...)`**: Official Google Cloud architecture icons (`drawlib.icons.gcp`).

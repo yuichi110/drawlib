@@ -6,10 +6,10 @@ Drawlib provides the `drawlib init` command to scaffold purpose-built documentat
 
 | Template | Use Case | Primary Artifacts |
 | :--- | :--- | :--- |
-| **`doc`** | Multi-chapter technical specs, engineering RFCs, and formal reports | `<target>.html`, `<target>.pdf`, `<target>.md` |
-| **`site`** | Multi-page documentation website with sidebar navigation | `<target>_html/` and `<target>/` |
-| **`slide`** | 16:9 presentation slide deck (web & vector PDF) | `slide/index.html` and `slide.pdf` |
-| **`images`** | Standalone Python drawing scripts | `<target>/*.png`, `*.webp` |
+| **`doc`** | Multi-chapter technical specs, engineering RFCs, and formal reports | `<target>.pdf`, `<target>_html/`, `<target>_markdown/`, `<target>_images/` |
+| **`site`** | Multi-page documentation website with sidebar navigation | `<target>_html/`, `<target>_markdown/`, `<target>_images/` |
+| **`slide`** | 16:9 presentation slide deck (web & vector PDF) | `<target>_html/index.html`, `<target>.pdf`, `<target>_images/` |
+| **`images`** | Standalone Python drawing scripts | `<target>_images/*.png` (or `<target>/*.png`, `*.webp`) |
 
 ## 5.2 Creating a Google-Style Document Project
 
@@ -19,98 +19,107 @@ Create a Google-style document project in one command:
 uv run drawlib init doc report -l en -s google
 ```
 
-```drawlib width=640px align=center file=fig_project_lifecycle.png caption="Figure 5.1: Project Lifecycle from Scaffolding to Final Artifact"
-from drawlib.canvas import setup
+```drawlib align=center file=fig_project_lifecycle.png caption="Figure 5.1: Project Lifecycle from Scaffolding to Final Artifact"
+from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line
 from drawlib.shapes import rectangle
 from drawlib.styles import Styles
 from drawlib.text import text
 
-setup(width=135, height=54)
+setup(width=132, height=52)
 
-header_ts = Styles.WhiteBold.patch(text_size=9.2)
-ts_body = Styles.Dark.patch(text_size=7.8, halign="left")
-ts_bold = Styles.DarkBold.patch(text_size=8.5)
+header_ts = Styles.WhiteBold.patch(text_size=11.0)
+ts_body = Styles.Dark.patch(text_size=10.0, halign="left")
+ts_arrow = Styles.DarkBold.patch(text_size=10.0)
 
 # 1. Scaffold: drawlib init
-rectangle((23.5, 24.0), width=35.0, height=38.0, style=Styles.MutedDashed.patch(shape_r=2.0))
-rectangle((23.5, 40.0), width=33.0, height=5.5, style=Styles.SecondaryFlat.patch(shape_r=1.5), text="1. drawlib init", text_style=header_ts)
+rectangle((22.5, 26.0), width=37.0, height=42.0, style=Styles.SecondaryNeutral.patch(shape_r=2.0))
+rectangle((22.5, 43.2), width=35.0, height=6.0, style=Styles.SecondaryFlat.patch(shape_r=1.5), text="1. drawlib init", text_style=header_ts)
 
-phosphor.terminal_window(xy=(11.0, 31.0), width=5.0, style=Styles.Secondary)
-text((16.0, 31.0), text="init doc report\nAuto-resolves report_src/", style=ts_body)
+phosphor.terminal_window(xy=(8.0, 33.5), width=4.4, style=Styles.Secondary)
+text((11.2, 33.5), text="init doc report\nProject scaffold", style=ts_body)
 
-phosphor.palette(xy=(11.0, 21.5), width=5.0, style=Styles.Secondary)
-text((16.0, 21.5), text="-s google\nUnified CSS & Python theme", style=ts_body)
+phosphor.palette(xy=(8.0, 22.5), width=4.4, style=Styles.Secondary)
+text((11.2, 22.5), text="-s google\nCSS & Python theme", style=ts_body)
 
-phosphor.translate(xy=(11.0, 12.0), width=5.0, style=Styles.Secondary)
-text((16.0, 12.0), text="-l en\nEnglish typography stack", style=ts_body)
+phosphor.translate(xy=(8.0, 11.5), width=4.4, style=Styles.Secondary)
+text((11.2, 11.5), text="-l en\nEnglish font stack", style=ts_body)
 
 # Arrow 1
-line((42.0, 24.0), (49.0, 24.0), arrow_head="->", style=Styles.DarkBold)
-text((45.5, 27.5), text="Scaffold", style=ts_bold)
+line((41.5, 26.0), (47.0, 26.0), arrow_head="->", style=Styles.DarkBold)
+text((44.25, 30.0), text="Init", style=ts_arrow)
 
 # 2. Source Directory: report_src/ (Source of Truth)
-rectangle((67.5, 24.0), width=35.0, height=38.0, style=Styles.PrimaryOutline.patch(shape_r=2.0))
-rectangle((67.5, 40.0), width=33.0, height=5.5, style=Styles.PrimaryFlat.patch(shape_r=1.5), text="2. report_src/ (Source)", text_style=header_ts)
+rectangle((66.0, 26.0), width=37.0, height=42.0, style=Styles.PrimaryNeutral.patch(shape_r=2.0))
+rectangle((66.0, 43.2), width=35.0, height=6.0, style=Styles.PrimaryFlat.patch(shape_r=1.5), text="2. report_src/ (SoT)", text_style=header_ts)
 
-phosphor.file_text(xy=(55.0, 31.0), width=5.0, style=Styles.Primary)
-text((60.0, 31.0), text="00_cover.md, 01_*.md\nMarkdown + embedded code", style=ts_body)
+phosphor.file_text(xy=(51.5, 33.5), width=4.4, style=Styles.Primary)
+text((54.7, 33.5), text="00_cover.md, *.md\nProse + drawlib code", style=ts_body)
 
-phosphor.file_code(xy=(55.0, 21.5), width=5.0, style=Styles.Primary)
-text((60.0, 21.5), text="styles.py / style.css\nDesign token definitions", style=ts_body)
+phosphor.file_code(xy=(51.5, 22.5), width=4.4, style=Styles.Primary)
+text((54.7, 22.5), text="styles.py / utils.py\nShared tokens & utils", style=ts_body)
 
-phosphor.play_circle(xy=(55.0, 12.0), width=5.0, style=Styles.Primary)
-text((60.0, 12.0), text="build.sh\nAutomated build script", style=ts_body)
+phosphor.folder_open(xy=(51.5, 11.5), width=4.4, style=Styles.Primary)
+text((54.7, 11.5), text="_assets/ & build.sh\nAssets & unified build", style=ts_body)
 
 # Arrow 2
-line((86.0, 24.0), (93.0, 24.0), arrow_head="->", style=Styles.DarkBold)
-text((89.5, 27.5), text="build.sh", style=ts_bold)
+line((85.0, 26.0), (90.5, 26.0), arrow_head="->", style=Styles.DarkBold)
+text((87.75, 30.0), text="Build", style=ts_arrow)
 
-# 3. Deliverable: report.pdf
-rectangle((111.5, 24.0), width=35.0, height=38.0, style=Styles.AccentOutline.patch(shape_r=2.0))
-rectangle((111.5, 40.0), width=33.0, height=5.5, style=Styles.AccentFlat.patch(shape_r=1.5), text="3. report.pdf (Output)", text_style=header_ts)
+# 3. Deliverable: report.pdf / report_html/
+rectangle((109.5, 26.0), width=37.0, height=42.0, style=Styles.Neutral.patch(shape_r=2.0))
+rectangle((109.5, 43.2), width=35.0, height=6.0, style=Styles.DarkFlat.patch(shape_r=1.5), text="3. Build Artifacts", text_style=header_ts)
 
-phosphor.file_pdf(xy=(99.0, 31.0), width=5.0, style=Styles.Accent)
-text((104.0, 31.0), text="A4 Print Optimization\nChromium rendering engine", style=ts_body)
+phosphor.file_pdf(xy=(95.0, 33.5), width=4.4, style=Styles.Dark)
+text((98.2, 33.5), text="report.pdf\nA4 print & auto TOC", style=ts_body)
 
-phosphor.list_numbers(xy=(99.0, 21.5), width=5.0, style=Styles.Accent)
-text((104.0, 21.5), text="Automatic TOC\nPage numbers in sync", style=ts_body)
+phosphor.globe(xy=(95.0, 22.5), width=4.4, style=Styles.Dark)
+text((98.2, 22.5), text="report_html/\nWeb view & link check", style=ts_body)
 
-phosphor.image(xy=(99.0, 12.0), width=5.0, style=Styles.Accent)
-text((104.0, 12.0), text="Vector Graphics\nHigh-res inline diagrams", style=ts_body)
+phosphor.image(xy=(95.0, 11.5), width=4.4, style=Styles.Dark)
+text((98.2, 11.5), text="report_images/\nMarkdown & diagrams", style=ts_body)
+
+save()
 ```
 
 ### Automatic Path Resolution via Target Argument
 
 Specifying `drawlib init doc report` establishes a synchronized pipeline:
-- **Source Directory**: Creates `report_src/` in current working directory.
-- **Build Output**: Generates `report.pdf`, `report_html/`, and `report_markdown/`.
+- **Source Directory**: Creates `report_src/` in the current working directory.
+- **Build Output**: Configures `report.pdf`, `report_html/`, `report_markdown/`, and `report_images/` as output targets.
 
-## 5.3 Directory Structure
+## 5.3 Directory Structure and Incremental Build Cache
 
 The scaffolded `report_src/` folder contains:
 
 ```text
 report_src/
+├── _assets/              # Static assets directory (logos, external images)
 ├── 00_cover.md           # [Required] Title page and metadata
 ├── 01_overview.md        # Chapter 1 content
 ├── 02_design.md          # Chapter 2 content
-├── style.css             # PDF stylesheet (Google Theme)
+├── style.css             # PDF / HTML stylesheet (Google Theme)
 ├── styles.py             # Drawing style definitions (GoogleStyles)
-├── template.html         # Jinja2 print layout template
-├── utils.py              # Project drawing helpers
-├── build.sh              # [Executable] One-click build script
+├── template.html         # Jinja2 print and web layout template
+├── utils.py              # Shared drawing helpers and constants
+├── build.sh              # [Executable] Master build script for all targets
+├── serve.sh              # Local preview server startup script
 └── README.md             # Project guide
 ```
 
-## 5.4 Building the Document
+During compilation, Drawlib automatically maintains a **SHA-256 incremental build cache** in `.drawlib/cache.db` (SQLite) at the workspace root. By hashing each ````drawlib```` code block alongside `styles.py`, `utils.py`, and any referenced files in `_assets/`, unchanged diagrams are served instantly from cache on subsequent builds.
 
-To compile your Markdown documents into a polished PDF, run the generated `build.sh`:
+## 5.4 Building and Verifying Link Integrity
+
+To compile your Markdown sources into PDF, HTML, Markdown, and standalone images, run the generated `build.sh` and verify link integrity with `drawlib serve --check`:
 
 ```bash
-# Execute build script
+# Execute master build script (HTML, PDF, Markdown, Images)
 ./report_src/build.sh
+
+# Automatically verify zero broken internal links or missing images
+uv run drawlib serve report_html/ --check
 ```
 
-When compilation finishes, `report.pdf` is ready for distribution.
+When compilation finishes, `report.pdf`, `report_html/`, `report_markdown/`, and `report_images/` are ready for distribution, and `drawlib serve --check` confirms that all links and image references are intact.

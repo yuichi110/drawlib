@@ -5,10 +5,12 @@
 > [!TIP]
 > **詳細なルールや機能ガイドを確認したい場合**  
 > 図面の描き方、API 仕様、推奨設計ガイドラインの詳細については、以下のコマンドを実行してください:
-> - `uv run drawlib rules show overview` : 描画マニュアル & AI 自己修正ループ
-> - `uv run drawlib rules show styles`    : 動的テーマ設定、`styles.py` および `utils.py` の詳細
-> - `uv run drawlib rules show docs_build`: 複数チャプター構成、目次生成、PDF オプション
-> - `uv run drawlib rules list`          : 利用可能な全ルールトピック一覧
+> - `uv run drawlib rules show overview`     : 描画マニュアル & キャンバス座標系
+> - `uv run drawlib rules show style-guide`  : カラー・タイポグラフィ・50%+ ニュートラルルール
+> - `uv run drawlib rules show review-guide` : 自律 3 ステージ検証ループとフォントサイズ基準
+> - `uv run drawlib rules show project-doc`  : 複数チャプター構成、目次生成、PDF オプション
+> - `uv run drawlib rules show cli`          : CLI コマンド（build, show, init, serve, cache）
+> - `uv run drawlib rules list`              : 利用可能な全ルールトピック一覧
 
 ---
 
@@ -54,10 +56,10 @@
 
 ### drawlib コマンドを直接実行する場合
 ```bash
-drawlib build html drawlib-dogfooding_src/ -o drawlib-dogfooding_html/
-drawlib build pdf drawlib-dogfooding_src/ -o drawlib-dogfooding.pdf --generate-index
-drawlib build markdown drawlib-dogfooding_src/ -o drawlib-dogfooding_markdown/
-drawlib build image drawlib-dogfooding_src/ -o drawlib-dogfooding_images/
+uv run drawlib build html drawlib-dogfooding_src/ -o drawlib-dogfooding_html/
+uv run drawlib build pdf drawlib-dogfooding_src/ -o drawlib-dogfooding.pdf --generate-index
+uv run drawlib build markdown drawlib-dogfooding_src/ -o drawlib-dogfooding_markdown/
+uv run drawlib build image drawlib-dogfooding_src/ -o drawlib-dogfooding_images/
 ```
 
 ---
@@ -83,10 +85,10 @@ from drawlib.shapes import rectangle
 from drawlib.styles import Styles
 from drawlib.text import text
 
-REPORT_VERSION = "v1.0.0"
+REPORT_VERSION = "v0.3.0"
 
 def chapter_banner(xy: tuple[float, float], title: str) -> None:
-    rectangle(xy, width=100, height=12, style=Styles.BlueFlat)
+    rectangle(xy, width=100, height=12, style=Styles.PrimaryFlat)
     text(xy, title, style=Styles.WhiteBold)
 ```
 Markdown 内の ````drawlib```` コードブロックから利用する例:
@@ -96,7 +98,7 @@ chapter_banner((60, 20), f"システム設計書 ({REPORT_VERSION})")
 ```
 
 ### 3.3. チャプター構成と改ページ
-- ファイル名順（`00_cover.md`, `01_overview.md`, `02_design.md` など）に結合されます。
+- ファイル名順（`00_cover.md`, `01_ai_challenges.md`, `02_drawlib_concepts.md` など）に結合されます。
 - チャプター間の改ページには `<div class="page-break"></div>` または CSS の `page-break-before: always;` を使用します。
 - `--generate-index` オプションにより、見出し階層から目次が自動生成されます。
 
@@ -113,9 +115,9 @@ chapter_banner((60, 20), f"システム設計書 ({REPORT_VERSION})")
 ### 3.5. 図面開発の高速検証
 特定の図面ブロックのみをグリッド付き (`-g`) で画像出力してレイアウトを確認できます:
 ```bash
-drawlib export drawlib-dogfooding_src/01_overview.md 1 -g -o preview.png
+uv run drawlib show drawlib-dogfooding_src/01_ai_challenges.md <image.png> -s drawlib-dogfooding_src/styles.py -u drawlib-dogfooding_src/utils.py -g -o .drawlib/scratch/preview.png
 ```
 キャッシュを無視して再ビルドする場合:
 ```bash
-drawlib build pdf drawlib-dogfooding_src/ -o drawlib-dogfooding.pdf --no-cache
+uv run drawlib build pdf drawlib-dogfooding_src/ -o drawlib-dogfooding.pdf --no-cache
 ```

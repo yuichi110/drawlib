@@ -5,10 +5,12 @@ This directory contains multi-chapter documents compiled into **HTML, PDF, Markd
 > [!TIP]
 > **Need Comprehensive Rules & Deep Guides?**  
 > For complete architectural guidelines, drawing syntax, and developer APIs, run:
-> - `uv run drawlib rules show overview` : Full drawing manual & workflow feedback loop
-> - `uv run drawlib rules show styles`    : Dynamic theming, `styles.py`, and `utils.py`
-> - `uv run drawlib rules show docs_build`: Document structure, PDF options & cover pages
-> - `uv run drawlib rules list`          : List all available rule topics
+> - `uv run drawlib rules show overview`     : Full drawing manual & coordinate space
+> - `uv run drawlib rules show style-guide`  : Color tokens, typography, and 50%+ neutral rule
+> - `uv run drawlib rules show review-guide` : 3-stage multimodal review loop & font sizing math
+> - `uv run drawlib rules show project-doc`  : Multi-chapter structure, TOC & PDF options
+> - `uv run drawlib rules show cli`          : CLI commands (build, show, init, serve, cache)
+> - `uv run drawlib rules list`              : List all available rule topics
 
 ---
 
@@ -54,10 +56,10 @@ Run the desired build script from the project root or inside this directory:
 
 ### Using the Drawlib CLI Directly
 ```bash
-drawlib build html drawlib-dogfooding-en_src/ -o drawlib-dogfooding-en_html/
-drawlib build pdf drawlib-dogfooding-en_src/ -o drawlib-dogfooding-en.pdf --generate-index
-drawlib build markdown drawlib-dogfooding-en_src/ -o drawlib-dogfooding-en_markdown/
-drawlib build image drawlib-dogfooding-en_src/ -o drawlib-dogfooding-en_images/
+uv run drawlib build html drawlib-dogfooding-en_src/ -o drawlib-dogfooding-en_html/
+uv run drawlib build pdf drawlib-dogfooding-en_src/ -o drawlib-dogfooding-en.pdf --generate-index
+uv run drawlib build markdown drawlib-dogfooding-en_src/ -o drawlib-dogfooding-en_markdown/
+uv run drawlib build image drawlib-dogfooding-en_src/ -o drawlib-dogfooding-en_images/
 ```
 
 ---
@@ -83,10 +85,10 @@ from drawlib.shapes import rectangle
 from drawlib.styles import Styles
 from drawlib.text import text
 
-REPORT_VERSION = "v1.0.0"
+REPORT_VERSION = "v0.3.0"
 
 def chapter_banner(xy: tuple[float, float], title: str) -> None:
-    rectangle(xy, width=100, height=12, style=Styles.BlueFlat)
+    rectangle(xy, width=100, height=12, style=Styles.PrimaryFlat)
     text(xy, title, style=Styles.WhiteBold)
 ```
 Consume inside embedded ````drawlib```` blocks:
@@ -96,7 +98,7 @@ chapter_banner((60, 20), f"System Design ({REPORT_VERSION})")
 ```
 
 ### 3.3. Document Flow & Chapters
-- Files are compiled in alphabetical order by filename (`00_cover.md`, `01_overview.md`, etc.).
+- Files are compiled in alphabetical order by filename (`00_cover.md`, `01_ai_challenges.md`, `02_drawlib_concepts.md`, etc.).
 - Use page breaks where needed via `<div class="page-break"></div>` or CSS `page-break-before: always;`.
 - The `--generate-index` option automatically injects a Table of Contents based on your Markdown headings.
 
@@ -111,11 +113,11 @@ chapter_banner((60, 20), f"System Design ({REPORT_VERSION})")
 - **`template.html`**: Customize document structure, header/footer branding, and page number displays.
 
 ### 3.5. Fast Developer Verification
-Test individual drawing blocks with alignment grid (`-g`):
+Test individual drawing blocks with the alignment grid (`-g`):
 ```bash
-drawlib show drawlib-dogfooding-en_src/01_ai_challenges.md 1 -g -o preview.png
+uv run drawlib show drawlib-dogfooding-en_src/01_ai_challenges.md <image.png> -s drawlib-dogfooding-en_src/styles.py -u drawlib-dogfooding-en_src/utils.py -g -o .drawlib/scratch/preview.png
 ```
 Rebuild without cache:
 ```bash
-drawlib build pdf drawlib-dogfooding-en_src/ -o drawlib-dogfooding-en.pdf --no-cache
+uv run drawlib build pdf drawlib-dogfooding-en_src/ -o drawlib-dogfooding-en.pdf --no-cache
 ```
