@@ -23,8 +23,6 @@ import warnings
 from collections.abc import Callable, Sequence
 from typing import Literal
 
-from pydantic import validate_call
-
 import drawlib._core.l4_canvas
 import drawlib.canvas
 from drawlib._builder._common import (
@@ -49,7 +47,7 @@ from drawlib._builder._image_ast import (
     resolve_effective_output_dir,
     resolve_static_save_target,
 )
-from drawlib._core.l1_core import drawlib_settings, get_script_relative_path, logger
+from drawlib._core.l1_core import drawlib_settings, get_script_relative_path, logger, validate_call
 from drawlib._core.l4_canvas import clear
 from drawlib._core.l4_canvas._canvas import Canvas
 

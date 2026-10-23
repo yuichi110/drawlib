@@ -14,8 +14,8 @@ from __future__ import annotations
 import math
 
 from matplotlib.path import Path
-from pydantic import validate_call
 
+from drawlib._core.l1_core import validate_call
 from drawlib._core.l2_types import (
     ClockVariant,
     Coordinate,

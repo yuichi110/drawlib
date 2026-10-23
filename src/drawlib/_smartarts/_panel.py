@@ -14,8 +14,7 @@ from __future__ import annotations
 from collections.abc import Callable  # noqa: TC003
 from typing import Any, Literal, Self
 
-from pydantic import validate_call
-
+from drawlib._core.l1_core import validate_call
 from drawlib._core.l2_types import Coordinate, PosFloat
 from drawlib._core.l3_colors import BaseColors
 from drawlib._core.l3_styles import Style

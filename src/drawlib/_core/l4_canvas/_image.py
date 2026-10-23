@@ -18,8 +18,9 @@ import numpy
 from matplotlib import offsetbox
 from numpy.typing import NDArray
 from PIL import Image
-from pydantic import ConfigDict, validate_call
+from pydantic import ConfigDict
 
+from drawlib._core.l1_core import validate_call
 from drawlib._core.l2_types import (
     Angle,
     Coordinate,

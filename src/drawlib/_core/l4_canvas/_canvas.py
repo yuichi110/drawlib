@@ -22,7 +22,6 @@ from typing import Any
 from matplotlib import pyplot
 from matplotlib.text import Text
 from PIL import Image
-from pydantic import validate_call
 
 from drawlib._core.l1_core import (
     drawlib_settings,
@@ -30,6 +29,7 @@ from drawlib._core.l1_core import (
     get_script_path,
     get_script_relative_path,
     logger,
+    validate_call,
 )
 from drawlib._core.l2_types import (
     ImageFormat,

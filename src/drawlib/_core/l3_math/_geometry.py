@@ -14,8 +14,7 @@ from __future__ import annotations
 import math
 from typing import cast
 
-from pydantic import validate_call
-
+from drawlib._core.l1_core import validate_call
 from drawlib._core.l2_types import (
     Angle,
     Bezier2,

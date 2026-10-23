@@ -578,6 +578,26 @@
             </header>
             <main class="main-content">
                 <h1>Release Notes &amp; Migration Guide</h1>
+<h2>Version 0.3.1</h2>
+<p><em>Release Date: 2026/10/23</em></p>
+<p>Version 0.3.1 introduces the <strong><code>drawlib.charts.heatmap</code></strong> visualization suite (<code>HeatmapChart</code> and <code>HeatmapOverlay</code>) alongside a comprehensive <strong>startup and import performance optimization</strong> across the library and CLI.</p>
+<hr />
+<h3>Highlights &amp; New Features</h3>
+<h4>1. 2D Matrix Heatmaps &amp; Spatial Thermal Overlays (<code>drawlib.charts.heatmap</code>)</h4>
+<ul>
+<li><strong><code>HeatmapChart</code></strong>: Declarative 2D matrix/grid heatmap across categorical <code>x_categories</code> and <code>y_categories</code>, featuring <code>Style</code>-based multi-stop color interpolation (<code>styles=[...]</code> or <code>min_style</code> / <code>max_style</code>), auto-contrasting in-cell value labels, configurable cell gaps and corner rounding (<code>cell_gap</code>, <code>cell_r</code>), continuous colorbars (<code>draw_colorbar</code>), and stepped swatch legends (<code>draw_legend</code>).</li>
+<li><strong><code>HeatmapOverlay</code></strong>: Spatial thermal and hotspot overlay engineered to render directly over existing diagrams (<code>ClassDiagram</code>, <code>ArchitectureDiagram</code>, <code>ERDiagram</code>, <code>FlowDiagram</code>, <code>GeoMap</code>, etc.) to highlight complexity, incident density, or regional hotspots in <code>&quot;smooth&quot;</code> (2D Gaussian thermal gradient) or <code>&quot;contour&quot;</code> (concentric vector isoline rings) modes with <code>&quot;add&quot;</code> and <code>&quot;max&quot;</code> accumulation (<code>Spot</code>).</li>
+</ul>
+<h4>2. Major Startup &amp; Import Performance Optimization</h4>
+<ul>
+<li><strong>PEP 562 Lazy Module &amp; Icon Suite Loading</strong>: Deferred submodule imports across <code>drawlib</code>, <code>drawlib.tools</code>, <code>drawlib.styles</code>, <code>drawlib.preset_styles</code>, <code>drawlib.preset_colors</code>, <code>drawlib.smartarts</code>, <code>drawlib.charts</code>, <code>drawlib.diagrams</code>, <code>drawlib.icons</code>, and CLI subcommands. Importing <code>drawlib</code>, calling non-rendering <code>drawlib.tools</code> utilities, or running lightweight CLI commands (<code>drawlib --version</code>, <code>drawlib init</code>, <code>drawlib serve</code>) no longer loads <code>matplotlib</code> or unused domain modules, reducing startup latency by <strong>15x–40x</strong> (and cutting <code>import drawlib</code> function calls by over <strong>99%</strong>).</li>
+<li><strong>On-Demand Preset Themes &amp; Fast <code>Style</code> Construction</strong>: Deferred preset theme instantiation (<code>DefaultStyles</code>, <code>GoogleStyles</code>, <code>MonochromeStyles</code>, etc.) until first access, adopted <code>defer_build=True</code> and <code>model_construct</code> fast paths for built-in style tokens, optimized <code>_BaseStylesMeta</code> attribute lookup, and deferred <code>@validate_call</code> schema compilation until first function call.</li>
+</ul>
+<h4>3. Bug Fixes &amp; Compatibility</h4>
+<ul>
+<li>Resolved <code>PydanticDeprecatedSince211</code> deprecation warnings triggered when accessing <code>model_fields</code> on <code>BaseStyles</code> instances in Pydantic v2.11+.</li>
+</ul>
+<hr />
 <h2>Version 0.3.0</h2>
 <p><em>Release Date: 2026/10/21</em></p>
 <p>Version 0.3.0 represents a major architectural milestone for Drawlib, transforming it from a raw vector drawing tool into a comprehensive <strong>&quot;Illustration &amp; Documentation as Code&quot;</strong> platform engineered for both software developers and <strong>autonomous AI coding agents</strong>.</p>

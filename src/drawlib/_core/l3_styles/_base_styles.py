@@ -11,14 +11,16 @@
 
 from __future__ import annotations
 
-from typing import Any, ClassVar, Final, Generator, Self
+from collections.abc import Callable
+from typing import TYPE_CHECKING, Any, ClassVar, Final, Generator, Self
 
-from pydantic import BaseModel, ConfigDict, validate_call
+from pydantic import BaseModel, ConfigDict
 
+from drawlib._core.l1_core import validate_call
 from drawlib._core.l2_types import FontBase, FontFile, PosFloat
 from drawlib._core.l3_colors import Color, ColorType
 from drawlib._core.l3_fonts import Font, FontSourceCode
-from drawlib._core.l3_styles._style import Style
+from drawlib._core.l3_styles._style import Style, _infer_supports
 
 DEFAULT_TEXT_SIZE: Final[float] = 16.0
 DEFAULT_FONT: Final[Font] = Font.SANSSERIF_REGULAR
@@ -68,9 +70,19 @@ def _resolve_style_field_name(name: str) -> str:
 
 
 class _BaseStylesMeta(type(BaseModel)):
-    """Metaclass allowing class-level attribute access for preset styles."""
+    """Metaclass allowing class-level attribute access and lazy singleton resolution for preset styles."""
 
     _default_instances: dict[type, BaseStyles] = {}
+    _default_factories: dict[type, Callable[[], BaseStyles]] = {}
+
+    def __getattribute__(cls, name: str) -> Any:  # noqa: ANN401
+        if name in {"patch_font", "patch", "copy"}:
+            val = super().__getattribute__(name)
+            inst = cls.get_default_instance()
+            if inst is not None:
+                return val.__get__(inst, cls)
+            return val
+        return super().__getattribute__(name)
 
     def register_default_instance(cls, instance: BaseStyles) -> None:
         """Register the default singleton instance for this style class.
@@ -80,40 +92,58 @@ class _BaseStylesMeta(type(BaseModel)):
         """
         _BaseStylesMeta._default_instances[cls] = instance
 
+    def register_default_factory(cls, factory: Callable[[], BaseStyles]) -> None:
+        """Register a lazy factory function producing the default singleton instance on first access.
+
+        Args:
+            factory (Callable[[], BaseStyles]): Zero-arg factory returning the preset singleton.
+        """
+        _BaseStylesMeta._default_factories[cls] = factory
+
     def get_default_instance(cls) -> BaseStyles | None:
-        """Get the registered default instance for this style class or its superclasses.
+        """Get or lazily construct the registered default instance for this style class or its superclasses.
 
         Returns:
             BaseStyles | None: The registered instance or None if not found.
         """
         if cls in _BaseStylesMeta._default_instances:
             return _BaseStylesMeta._default_instances[cls]
-        for registered_cls, inst in _BaseStylesMeta._default_instances.items():
-            if issubclass(cls, registered_cls) or issubclass(registered_cls, cls):
+        if cls in _BaseStylesMeta._default_factories:
+            inst = _BaseStylesMeta._default_factories[cls]()
+            _BaseStylesMeta._default_instances[cls] = inst
+            return inst
+        for base in cls.__mro__[1:]:
+            if base is BaseStyles or not isinstance(base, _BaseStylesMeta):
+                continue
+            if base in _BaseStylesMeta._default_instances:
+                return _BaseStylesMeta._default_instances[base]
+            if base in _BaseStylesMeta._default_factories:
+                inst = _BaseStylesMeta._default_factories[base]()
+                _BaseStylesMeta._default_instances[base] = inst
                 return inst
         return None
 
-    def __getattribute__(cls, name: str) -> Any:  # noqa: ANN401
-        val = super().__getattribute__(name)
-        if isinstance(val, property):
-            inst = cls.get_default_instance()
-            if inst is not None and val.fget is not None:
-                return val.fget(inst)
-        if name in {"patch_font", "copy"}:
-            inst = cls.get_default_instance()
-            if inst is not None:
-                return val.__get__(inst, cls)
-        return val
+    def _cls_field_names(cls) -> list[str]:
+        """Return ordered field and style token names available on this preset class."""
+        inst = cls.get_default_instance()
+        if inst is not None:
+            names = inst.field_names()
+            for f in cls.model_fields:
+                if f not in names:
+                    names.append(f)
+            return names
+        return list(cls.model_fields.keys())
 
     def __getattr__(cls, name: str) -> Any:  # noqa: ANN401
         if name.startswith("__"):
             raise AttributeError(f"type object '{cls.__name__}' has no attribute '{name}'")
         inst = cls.get_default_instance()
         if inst is not None:
-            if name in cls.model_fields:
-                return getattr(inst, name)
-            if hasattr(inst, name):
-                return getattr(inst, name)
+            if name in inst.__dict__:
+                return inst.__dict__[name]
+            extra = inst.__pydantic_extra__
+            if extra and name in extra:
+                return extra[name]
         raise AttributeError(f"type object '{cls.__name__}' has no attribute '{name}'")
 
     def __getitem__(cls, key: str) -> Style:
@@ -124,8 +154,7 @@ class _BaseStylesMeta(type(BaseModel)):
 
     def __dir__(cls) -> list[str]:
         attrs = set(super().__dir__())
-        for field in cls.model_fields:
-            attrs.add(field)
+        attrs.update(_BaseStylesMeta._cls_field_names(cls))
         return sorted(attrs)
 
 
@@ -139,8 +168,9 @@ class BaseStyles(BaseModel, metaclass=_BaseStylesMeta):
 
     model_config = ConfigDict(
         arbitrary_types_allowed=True,
-        extra="forbid",
+        extra="allow",
         frozen=True,
+        defer_build=True,
     )
 
     width: int = 140
@@ -156,12 +186,32 @@ class BaseStyles(BaseModel, metaclass=_BaseStylesMeta):
     DEFAULT_FONT_BOLD: ClassVar[Font] = DEFAULT_FONT_BOLD
     DEFAULT_FONT_THIN: ClassVar[Font] = DEFAULT_FONT_THIN
 
+    @classmethod
+    def _construct_preset(cls, data: dict[str, Any]) -> Self:
+        """Fast internal preset constructor bypassing 2,000-field Pydantic validation."""
+        known = cls.model_fields
+        extra = {k: v for k, v in data.items() if k not in known}
+        inst = cls.model_construct(_fields_set=None, **data)
+        object.__setattr__(inst, "__pydantic_extra__", extra)
+        inst.__dict__.update(extra)
+        return inst
+
     def __init__(self, **kwargs: Any) -> None:  # noqa: ANN401
         """Initialize preset styles instance.
 
         If called without arguments (or with partial overrides), missing fields are
         automatically populated from the registered default singleton instance for this class.
         """
+        cls = type(self)
+        default_inst = cls.get_default_instance()
+
+        if not kwargs and default_inst is not None and type(default_inst) is cls:
+            self.__dict__.update(default_inst.__dict__)
+            object.__setattr__(self, "__pydantic_fields_set__", set(default_inst.__pydantic_fields_set__))
+            extra = default_inst.__pydantic_extra__
+            object.__setattr__(self, "__pydantic_extra__", dict(extra) if extra else {})
+            return
+
         normalized: dict[str, Any] = {}
         for k, v in kwargs.items():
             target_key = _resolve_style_field_name(k)
@@ -170,248 +220,269 @@ class BaseStyles(BaseModel, metaclass=_BaseStylesMeta):
                     normalized[target_key] = v if isinstance(v, Color) else Color(v)
                 except Exception:
                     normalized[target_key] = v
+            elif (
+                isinstance(v, dict)
+                and default_inst is not None
+                and isinstance(getattr(default_inst, target_key, None), Style)
+            ):
+                normalized[target_key] = Style(**v)
             else:
                 normalized[target_key] = v
 
-        default_inst = self.__class__.get_default_instance()
         if default_inst is not None:
-            known_fields = self.__class__.model_fields
-            filtered_default = {k: v for k, v in default_inst.__dict__.items() if k in known_fields}
-            merged = {**filtered_default, **normalized}
+            merged: dict[str, Any] = {}
+            for name in default_inst.field_names():
+                try:
+                    merged[name] = getattr(default_inst, name)
+                except AttributeError:
+                    continue
+            merged.update(normalized)
             super().__init__(**merged)
         else:
             super().__init__(**normalized)
+        if self.__pydantic_extra__:
+            self.__dict__.update(self.__pydantic_extra__)
 
-    # 4 Universal semantic roles available across all preset catalogs including monochrome (17 variants each)
-    Primary: Style
-    PrimaryBordered: Style | None = None
-    PrimaryBold: Style | None = None
-    PrimaryThin: Style | None = None
-    PrimaryFlat: Style | None = None
-    PrimaryOutline: Style | None = None
-    PrimarySolid: Style | None = None
-    PrimaryOutlineBold: Style | None = None
-    PrimarySolidBold: Style | None = None
-    PrimaryOutlineThin: Style | None = None
-    PrimarySolidThin: Style | None = None
-    PrimaryDashed: Style | None = None
-    PrimaryDashedBold: Style | None = None
-    PrimaryDashedThin: Style | None = None
-    PrimaryDotted: Style | None = None
-    PrimaryDottedBold: Style | None = None
-    PrimaryDottedThin: Style | None = None
+    if TYPE_CHECKING:
+        # 4 Universal semantic roles available across all preset catalogs including monochrome (17 variants each)
+        Primary: Style
+        PrimaryBordered: Style | None = None
+        PrimaryBold: Style | None = None
+        PrimaryThin: Style | None = None
+        PrimaryFlat: Style | None = None
+        PrimaryOutline: Style | None = None
+        PrimarySolid: Style | None = None
+        PrimaryOutlineBold: Style | None = None
+        PrimarySolidBold: Style | None = None
+        PrimaryOutlineThin: Style | None = None
+        PrimarySolidThin: Style | None = None
+        PrimaryDashed: Style | None = None
+        PrimaryDashedBold: Style | None = None
+        PrimaryDashedThin: Style | None = None
+        PrimaryDotted: Style | None = None
+        PrimaryDottedBold: Style | None = None
+        PrimaryDottedThin: Style | None = None
 
-    Secondary: Style | None = None
-    SecondaryBordered: Style | None = None
-    SecondaryBold: Style | None = None
-    SecondaryThin: Style | None = None
-    SecondaryFlat: Style | None = None
-    SecondaryOutline: Style | None = None
-    SecondarySolid: Style | None = None
-    SecondaryOutlineBold: Style | None = None
-    SecondarySolidBold: Style | None = None
-    SecondaryOutlineThin: Style | None = None
-    SecondarySolidThin: Style | None = None
-    SecondaryDashed: Style | None = None
-    SecondaryDashedBold: Style | None = None
-    SecondaryDashedThin: Style | None = None
-    SecondaryDotted: Style | None = None
-    SecondaryDottedBold: Style | None = None
-    SecondaryDottedThin: Style | None = None
+        Secondary: Style | None = None
+        SecondaryBordered: Style | None = None
+        SecondaryBold: Style | None = None
+        SecondaryThin: Style | None = None
+        SecondaryFlat: Style | None = None
+        SecondaryOutline: Style | None = None
+        SecondarySolid: Style | None = None
+        SecondaryOutlineBold: Style | None = None
+        SecondarySolidBold: Style | None = None
+        SecondaryOutlineThin: Style | None = None
+        SecondarySolidThin: Style | None = None
+        SecondaryDashed: Style | None = None
+        SecondaryDashedBold: Style | None = None
+        SecondaryDashedThin: Style | None = None
+        SecondaryDotted: Style | None = None
+        SecondaryDottedBold: Style | None = None
+        SecondaryDottedThin: Style | None = None
 
-    Accent: Style | None = None
-    AccentBordered: Style | None = None
-    AccentBold: Style | None = None
-    AccentThin: Style | None = None
-    AccentFlat: Style | None = None
-    AccentOutline: Style | None = None
-    AccentSolid: Style | None = None
-    AccentOutlineBold: Style | None = None
-    AccentSolidBold: Style | None = None
-    AccentOutlineThin: Style | None = None
-    AccentSolidThin: Style | None = None
-    AccentDashed: Style | None = None
-    AccentDashedBold: Style | None = None
-    AccentDashedThin: Style | None = None
-    AccentDotted: Style | None = None
-    AccentDottedBold: Style | None = None
-    AccentDottedThin: Style | None = None
+        Accent: Style | None = None
+        AccentBordered: Style | None = None
+        AccentBold: Style | None = None
+        AccentThin: Style | None = None
+        AccentFlat: Style | None = None
+        AccentOutline: Style | None = None
+        AccentSolid: Style | None = None
+        AccentOutlineBold: Style | None = None
+        AccentSolidBold: Style | None = None
+        AccentOutlineThin: Style | None = None
+        AccentSolidThin: Style | None = None
+        AccentDashed: Style | None = None
+        AccentDashedBold: Style | None = None
+        AccentDashedThin: Style | None = None
+        AccentDotted: Style | None = None
+        AccentDottedBold: Style | None = None
+        AccentDottedThin: Style | None = None
 
-    Muted: Style | None = None
-    MutedBordered: Style | None = None
-    MutedBold: Style | None = None
-    MutedThin: Style | None = None
-    MutedFlat: Style | None = None
-    MutedOutline: Style | None = None
-    MutedSolid: Style | None = None
-    MutedOutlineBold: Style | None = None
-    MutedSolidBold: Style | None = None
-    MutedOutlineThin: Style | None = None
-    MutedSolidThin: Style | None = None
-    MutedDashed: Style | None = None
-    MutedDashedBold: Style | None = None
-    MutedDashedThin: Style | None = None
-    MutedDotted: Style | None = None
-    MutedDottedBold: Style | None = None
-    MutedDottedThin: Style | None = None
+        Muted: Style | None = None
+        MutedBordered: Style | None = None
+        MutedBold: Style | None = None
+        MutedThin: Style | None = None
+        MutedFlat: Style | None = None
+        MutedOutline: Style | None = None
+        MutedSolid: Style | None = None
+        MutedOutlineBold: Style | None = None
+        MutedSolidBold: Style | None = None
+        MutedOutlineThin: Style | None = None
+        MutedSolidThin: Style | None = None
+        MutedDashed: Style | None = None
+        MutedDashedBold: Style | None = None
+        MutedDashedThin: Style | None = None
+        MutedDotted: Style | None = None
+        MutedDottedBold: Style | None = None
+        MutedDottedThin: Style | None = None
 
-    # Extended semantic roles:
-    # - warning, danger & success: Provided for color presets (giving 7 action/status roles total;
-    #   excluded in monochrome)
-    # - light & dark: Surface backgrounds and high-contrast typography
-    Light: Style | None = None
-    LightBordered: Style | None = None
-    LightBold: Style | None = None
-    LightThin: Style | None = None
-    LightFlat: Style | None = None
-    LightOutline: Style | None = None
-    LightSolid: Style | None = None
-    LightOutlineBold: Style | None = None
-    LightSolidBold: Style | None = None
-    LightOutlineThin: Style | None = None
-    LightSolidThin: Style | None = None
-    LightDashed: Style | None = None
-    LightDashedBold: Style | None = None
-    LightDashedThin: Style | None = None
-    LightDotted: Style | None = None
-    LightDottedBold: Style | None = None
-    LightDottedThin: Style | None = None
+        # Extended semantic roles
+        Light: Style | None = None
+        LightBordered: Style | None = None
+        LightBold: Style | None = None
+        LightThin: Style | None = None
+        LightFlat: Style | None = None
+        LightOutline: Style | None = None
+        LightSolid: Style | None = None
+        LightOutlineBold: Style | None = None
+        LightSolidBold: Style | None = None
+        LightOutlineThin: Style | None = None
+        LightSolidThin: Style | None = None
+        LightDashed: Style | None = None
+        LightDashedBold: Style | None = None
+        LightDashedThin: Style | None = None
+        LightDotted: Style | None = None
+        LightDottedBold: Style | None = None
+        LightDottedThin: Style | None = None
 
-    Dark: Style | None = None
-    DarkBordered: Style | None = None
-    DarkBold: Style | None = None
-    DarkThin: Style | None = None
-    DarkFlat: Style | None = None
-    DarkOutline: Style | None = None
-    DarkSolid: Style | None = None
-    DarkOutlineBold: Style | None = None
-    DarkSolidBold: Style | None = None
-    DarkOutlineThin: Style | None = None
-    DarkSolidThin: Style | None = None
-    DarkDashed: Style | None = None
-    DarkDashedBold: Style | None = None
-    DarkDashedThin: Style | None = None
-    DarkDotted: Style | None = None
-    DarkDottedBold: Style | None = None
-    DarkDottedThin: Style | None = None
+        Dark: Style | None = None
+        DarkBordered: Style | None = None
+        DarkBold: Style | None = None
+        DarkThin: Style | None = None
+        DarkFlat: Style | None = None
+        DarkOutline: Style | None = None
+        DarkSolid: Style | None = None
+        DarkOutlineBold: Style | None = None
+        DarkSolidBold: Style | None = None
+        DarkOutlineThin: Style | None = None
+        DarkSolidThin: Style | None = None
+        DarkDashed: Style | None = None
+        DarkDashedBold: Style | None = None
+        DarkDashedThin: Style | None = None
+        DarkDotted: Style | None = None
+        DarkDottedBold: Style | None = None
+        DarkDottedThin: Style | None = None
 
-    Warning: Style | None = None
-    WarningBordered: Style | None = None
-    WarningBold: Style | None = None
-    WarningThin: Style | None = None
-    WarningFlat: Style | None = None
-    WarningOutline: Style | None = None
-    WarningSolid: Style | None = None
-    WarningOutlineBold: Style | None = None
-    WarningSolidBold: Style | None = None
-    WarningOutlineThin: Style | None = None
-    WarningSolidThin: Style | None = None
-    WarningDashed: Style | None = None
-    WarningDashedBold: Style | None = None
-    WarningDashedThin: Style | None = None
-    WarningDotted: Style | None = None
-    WarningDottedBold: Style | None = None
-    WarningDottedThin: Style | None = None
+        Warning: Style | None = None
+        WarningBordered: Style | None = None
+        WarningBold: Style | None = None
+        WarningThin: Style | None = None
+        WarningFlat: Style | None = None
+        WarningOutline: Style | None = None
+        WarningSolid: Style | None = None
+        WarningOutlineBold: Style | None = None
+        WarningSolidBold: Style | None = None
+        WarningOutlineThin: Style | None = None
+        WarningSolidThin: Style | None = None
+        WarningDashed: Style | None = None
+        WarningDashedBold: Style | None = None
+        WarningDashedThin: Style | None = None
+        WarningDotted: Style | None = None
+        WarningDottedBold: Style | None = None
+        WarningDottedThin: Style | None = None
 
-    Danger: Style | None = None
-    DangerBordered: Style | None = None
-    DangerBold: Style | None = None
-    DangerThin: Style | None = None
-    DangerFlat: Style | None = None
-    DangerOutline: Style | None = None
-    DangerSolid: Style | None = None
-    DangerOutlineBold: Style | None = None
-    DangerSolidBold: Style | None = None
-    DangerOutlineThin: Style | None = None
-    DangerSolidThin: Style | None = None
-    DangerDashed: Style | None = None
-    DangerDashedBold: Style | None = None
-    DangerDashedThin: Style | None = None
-    DangerDotted: Style | None = None
-    DangerDottedBold: Style | None = None
-    DangerDottedThin: Style | None = None
+        Danger: Style | None = None
+        DangerBordered: Style | None = None
+        DangerBold: Style | None = None
+        DangerThin: Style | None = None
+        DangerFlat: Style | None = None
+        DangerOutline: Style | None = None
+        DangerSolid: Style | None = None
+        DangerOutlineBold: Style | None = None
+        DangerSolidBold: Style | None = None
+        DangerOutlineThin: Style | None = None
+        DangerSolidThin: Style | None = None
+        DangerDashed: Style | None = None
+        DangerDashedBold: Style | None = None
+        DangerDashedThin: Style | None = None
+        DangerDotted: Style | None = None
+        DangerDottedBold: Style | None = None
+        DangerDottedThin: Style | None = None
 
-    Success: Style | None = None
-    SuccessBordered: Style | None = None
-    SuccessBold: Style | None = None
-    SuccessThin: Style | None = None
-    SuccessFlat: Style | None = None
-    SuccessOutline: Style | None = None
-    SuccessSolid: Style | None = None
-    SuccessOutlineBold: Style | None = None
-    SuccessSolidBold: Style | None = None
-    SuccessOutlineThin: Style | None = None
-    SuccessSolidThin: Style | None = None
-    SuccessDashed: Style | None = None
-    SuccessDashedBold: Style | None = None
-    SuccessDashedThin: Style | None = None
-    SuccessDotted: Style | None = None
-    SuccessDottedBold: Style | None = None
-    SuccessDottedThin: Style | None = None
+        Success: Style | None = None
+        SuccessBordered: Style | None = None
+        SuccessBold: Style | None = None
+        SuccessThin: Style | None = None
+        SuccessFlat: Style | None = None
+        SuccessOutline: Style | None = None
+        SuccessSolid: Style | None = None
+        SuccessOutlineBold: Style | None = None
+        SuccessSolidBold: Style | None = None
+        SuccessOutlineThin: Style | None = None
+        SuccessSolidThin: Style | None = None
+        SuccessDashed: Style | None = None
+        SuccessDashedBold: Style | None = None
+        SuccessDashedThin: Style | None = None
+        SuccessDotted: Style | None = None
+        SuccessDottedBold: Style | None = None
+        SuccessDottedThin: Style | None = None
 
-    # Neutral role
-    Neutral: Style | None = None
-    NeutralBordered: Style | None = None
-    NeutralBold: Style | None = None
-    NeutralThin: Style | None = None
-    NeutralFlat: Style | None = None
-    NeutralOutline: Style | None = None
-    NeutralSolid: Style | None = None
-    NeutralOutlineBold: Style | None = None
-    NeutralSolidBold: Style | None = None
-    NeutralOutlineThin: Style | None = None
-    NeutralSolidThin: Style | None = None
-    NeutralDashed: Style | None = None
-    NeutralDashedBold: Style | None = None
-    NeutralDashedThin: Style | None = None
-    NeutralDotted: Style | None = None
-    NeutralDottedBold: Style | None = None
-    NeutralDottedThin: Style | None = None
+        # Neutral role
+        Neutral: Style | None = None
+        NeutralBordered: Style | None = None
+        NeutralBold: Style | None = None
+        NeutralThin: Style | None = None
+        NeutralFlat: Style | None = None
+        NeutralOutline: Style | None = None
+        NeutralSolid: Style | None = None
+        NeutralOutlineBold: Style | None = None
+        NeutralSolidBold: Style | None = None
+        NeutralOutlineThin: Style | None = None
+        NeutralSolidThin: Style | None = None
+        NeutralDashed: Style | None = None
+        NeutralDashedBold: Style | None = None
+        NeutralDashedThin: Style | None = None
+        NeutralDotted: Style | None = None
+        NeutralDottedBold: Style | None = None
+        NeutralDottedThin: Style | None = None
 
-    # Semantic Neutral Cards (Bordered & Flat)
-    PrimaryNeutral: Style | None = None
-    PrimaryNeutralFlat: Style | None = None
-    SecondaryNeutral: Style | None = None
-    SecondaryNeutralFlat: Style | None = None
-    AccentNeutral: Style | None = None
-    AccentNeutralFlat: Style | None = None
-    WarningNeutral: Style | None = None
-    WarningNeutralFlat: Style | None = None
-    DangerNeutral: Style | None = None
-    DangerNeutralFlat: Style | None = None
-    SuccessNeutral: Style | None = None
-    SuccessNeutralFlat: Style | None = None
-    MutedNeutral: Style | None = None
-    MutedNeutralFlat: Style | None = None
+        # Semantic Neutral Cards (Bordered & Flat)
+        PrimaryNeutral: Style | None = None
+        PrimaryNeutralFlat: Style | None = None
+        SecondaryNeutral: Style | None = None
+        SecondaryNeutralFlat: Style | None = None
+        AccentNeutral: Style | None = None
+        AccentNeutralFlat: Style | None = None
+        WarningNeutral: Style | None = None
+        WarningNeutralFlat: Style | None = None
+        DangerNeutral: Style | None = None
+        DangerNeutralFlat: Style | None = None
+        SuccessNeutral: Style | None = None
+        SuccessNeutralFlat: Style | None = None
+        MutedNeutral: Style | None = None
+        MutedNeutralFlat: Style | None = None
 
-    # Named Color Neutral Cards (Bordered & Flat)
-    GrayNeutral: Style | None = None
-    GrayNeutralFlat: Style | None = None
-    BlueNeutral: Style | None = None
-    BlueNeutralFlat: Style | None = None
-    GreenNeutral: Style | None = None
-    GreenNeutralFlat: Style | None = None
-    RedNeutral: Style | None = None
-    RedNeutralFlat: Style | None = None
-    OrangeNeutral: Style | None = None
-    OrangeNeutralFlat: Style | None = None
-    AmberNeutral: Style | None = None
-    AmberNeutralFlat: Style | None = None
-    PurpleNeutral: Style | None = None
-    PurpleNeutralFlat: Style | None = None
-    TealNeutral: Style | None = None
-    TealNeutralFlat: Style | None = None
-    PinkNeutral: Style | None = None
-    PinkNeutralFlat: Style | None = None
-    CyanNeutral: Style | None = None
-    CyanNeutralFlat: Style | None = None
-    YellowNeutral: Style | None = None
-    YellowNeutralFlat: Style | None = None
-    MagentaNeutral: Style | None = None
-    MagentaNeutralFlat: Style | None = None
+        # Named Color Neutral Cards (Bordered & Flat)
+        GrayNeutral: Style | None = None
+        GrayNeutralFlat: Style | None = None
+        BlueNeutral: Style | None = None
+        BlueNeutralFlat: Style | None = None
+        GreenNeutral: Style | None = None
+        GreenNeutralFlat: Style | None = None
+        RedNeutral: Style | None = None
+        RedNeutralFlat: Style | None = None
+        OrangeNeutral: Style | None = None
+        OrangeNeutralFlat: Style | None = None
+        AmberNeutral: Style | None = None
+        AmberNeutralFlat: Style | None = None
+        PurpleNeutral: Style | None = None
+        PurpleNeutralFlat: Style | None = None
+        TealNeutral: Style | None = None
+        TealNeutralFlat: Style | None = None
+        PinkNeutral: Style | None = None
+        PinkNeutralFlat: Style | None = None
+        CyanNeutral: Style | None = None
+        CyanNeutralFlat: Style | None = None
+        YellowNeutral: Style | None = None
+        YellowNeutralFlat: Style | None = None
+        MagentaNeutral: Style | None = None
+        MagentaNeutralFlat: Style | None = None
 
-    Canvas: Style | None = None
-    CanvasFlat: Style | None = None
+        Canvas: Style | None = None
+        CanvasFlat: Style | None = None
+
+    def field_names(self) -> list[str]:
+        """Return ordered field and style token names populated on this preset instance."""
+        names: list[str] = list(type(self).model_fields.keys())
+        seen = set(names)
+        extra = self.__pydantic_extra__
+        if extra:
+            for k in extra:
+                if k not in seen:
+                    seen.add(k)
+                    names.append(k)
+        return names
 
     def __iter__(self) -> Generator[tuple[str, Any], None, None]:
         """Yield (field_name, field_value) pairs for all fields in the preset style model.
@@ -419,7 +490,7 @@ class BaseStyles(BaseModel, metaclass=_BaseStylesMeta):
         Returns:
             Generator[tuple[str, Any], None, None]: Generator yielding field name and value pairs.
         """
-        for field_name in self.model_fields:
+        for field_name in self.field_names():
             try:
                 val = getattr(self, field_name)
             except AttributeError:
@@ -449,14 +520,17 @@ class BaseStyles(BaseModel, metaclass=_BaseStylesMeta):
         raise KeyError(f'Style "{key}" is not found in {self.__class__.__name__}.')
 
     def __getattr__(self, name: str) -> Any:  # noqa: ANN401
-        """Raise AttributeError for missing attributes."""
+        """Resolve dynamic style attributes or raise AttributeError."""
+        if not name.startswith("_"):
+            extra = object.__getattribute__(self, "__pydantic_extra__")
+            if extra and name in extra:
+                return extra[name]
         raise AttributeError(f"'{self.__class__.__name__}' object has no attribute '{name}'")
 
     def __dir__(self) -> list[str]:
         """Include style attribute names."""
         attrs = set(super().__dir__())
-        for field in self.__class__.model_fields:
-            attrs.add(field)
+        attrs.update(self.field_names())
         return sorted(attrs)
 
     def get(self, key: str, default: Any = None) -> Any:  # noqa: ANN401
@@ -503,7 +577,9 @@ class BaseStyles(BaseModel, metaclass=_BaseStylesMeta):
                         updates[target_key] = v
                 else:
                     updates[target_key] = v
-        return self.model_copy(update=updates)
+        cp = self.model_copy(update=updates)
+        cp.__dict__.update(updates)
+        return cp
 
     @validate_call
     def patch_font(
@@ -534,7 +610,7 @@ class BaseStyles(BaseModel, metaclass=_BaseStylesMeta):
         if sourcecode is not None:
             updates["sourcecode_font"] = sourcecode
 
-        for field_name in self.model_fields:
+        for field_name in self.field_names():
             try:
                 val = getattr(self, field_name)
             except AttributeError:
@@ -550,9 +626,15 @@ class BaseStyles(BaseModel, metaclass=_BaseStylesMeta):
                 patch_kwargs["text_size"] = size
 
             if patch_kwargs:
-                updates[field_name] = val.patch(**patch_kwargs)
+                merged: dict[str, Any] = {**val.__dict__, **patch_kwargs}
+                inferred = _infer_supports(merged)
+                combined = val.supports
+                merged["supports"] = frozenset(combined & inferred) if (combined & inferred) else inferred
+                updates[field_name] = Style.model_construct(_fields_set=None, **merged)
 
-        return self.model_copy(update=updates)
+        cp = self.model_copy(update=updates)
+        cp.__dict__.update(updates)
+        return cp
 
 
 __all__ = [

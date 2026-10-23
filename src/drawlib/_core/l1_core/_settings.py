@@ -16,9 +16,8 @@ import sys
 import warnings
 from typing import Literal
 
-from pydantic import validate_call
-
 from drawlib._core.l1_core._logging import logger
+from drawlib._core.l1_core._validator import validate_call
 
 __ARG_QUIET = "--drawlib_quiet"
 __ARG_DEBUG = "--drawlib_debug"
@@ -100,7 +99,12 @@ class DrawlibSettings:
         Note:
             If an unsupported mode string is selected, the program will call ``sys.exit(1)``.
         """
-        # change debug to verbose since it is just input option.
+        self._apply_logging_mode(mode)
+
+    def _apply_logging_mode(
+        self,
+        mode: Literal["normal", "quiet", "verbose", "debug", "developer"],
+    ) -> None:
         if mode == "debug":
             mode = "verbose"
 
@@ -258,25 +262,25 @@ enabling or disabling warnings, and determining debug states.
 """
 
 # set logging mode normal first.
-drawlib_settings.set_logging_mode("normal")
+drawlib_settings._apply_logging_mode("normal")
 
 # set logging mode quiet if selected
 if __ARG_QUIET in sys.argv:
-    drawlib_settings.set_logging_mode("quiet")
+    drawlib_settings._apply_logging_mode("quiet")
 
 # set logging mode debug if selected
 if __ARG_DEBUG in sys.argv:
     if __ARG_QUIET in sys.argv:
         logger.critical(f"option {__ARG_QUIET} can not be used with option {__ARG_DEBUG}")
         sys.exit(1)
-    drawlib_settings.set_logging_mode("quiet")
+    drawlib_settings._apply_logging_mode("quiet")
 
 # set logging mode developer if selected
 if __ARG_DEVDEBUG in sys.argv:
     if __ARG_QUIET in sys.argv:
         logger.critical(f"option {__ARG_QUIET} can not be used with option {__ARG_DEVDEBUG}")
         sys.exit(1)
-    drawlib_settings.set_logging_mode("developer")
+    drawlib_settings._apply_logging_mode("developer")
 
 # set logging mode developer on pytest
 for arg in sys.argv:
@@ -285,8 +289,8 @@ for arg in sys.argv:
         if __ARG_QUIET in sys.argv:
             logger.critical(f"option {__ARG_QUIET} can not be used with option {__ARG_DEVDEBUG}")
             sys.exit(1)
-        drawlib_settings.set_logging_mode("developer")
+        drawlib_settings._apply_logging_mode("developer")
         break
 
 if __ARG_SUPPRESS_WARNING in sys.argv:
-    drawlib_settings.set_suppress_warning(True)
+    drawlib_settings._set_suppress_warning(True, no_message=False)

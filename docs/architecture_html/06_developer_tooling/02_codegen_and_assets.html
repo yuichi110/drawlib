@@ -243,7 +243,7 @@
 <p>A comprehensive technical diagramming library requires vast catalogs of standardized icons:</p>
 <ul>
 <li><strong>Phosphor Icons</strong>: 1,200+ icons available across multiple visual weights (regular, bold, fill, thin, light, duotone).</li>
-<li><strong>Google Cloud Architecture Icons</strong>: 250+ canonical product symbols (<code>variant=&quot;default&quot;</code> 3-tone blue and <code>variant=&quot;modern&quot;</code> 4-color) across compute, storage, networking, database, AI, and security categories, plus 10 shorthand aliases (<code>gce</code>, <code>gke</code>, <code>gcs</code>, <code>functions</code>, <code>iam</code>, <code>kms</code>, <code>vpc</code>, <code>vertexai</code>, <code>load_balancing</code>, <code>cloud_pubsub</code>).</li>
+<li><strong>Google Cloud Architecture Icons</strong>: 250 canonical product symbols (<code>variant=&quot;default&quot;</code> 3-tone blue and <code>variant=&quot;modern&quot;</code> 4-color) across compute, storage, networking, database, AI, and security categories.</li>
 </ul>
 <p>Manually writing Python functions and classes for thousands of icons is prone to identifier collisions, typo regressions, and immense maintenance overhead when icon sets evolve.</p>
 <p>Drawlib solves this by treating icon bindings as <strong>generated artifacts</strong>:</p>
@@ -386,7 +386,7 @@
 <p>The GCP codegen engine (<code>tools/dcli/codegen/gcp_codegen.py</code> &amp; <code>icons_build.py</code>):</p>
 <ol>
 <li>Builds and normalizes native Drawlib GCP icon scripts (<code>tools/icons_src/gcp/*_default.py</code> and <code>*_modern.py</code>) into <code>512×512</code> (<code>460×460</code> inner bbox) transparent PNGs in <code>tools/release_assets/v0.3/icons/gcp/</code>.</li>
-<li>Writes <code>tools/release_assets/v0.3/icons/gcp/manifest.json</code> with SHA-256 digests, bounding boxes, available variants (<code>default</code>, <code>modern</code>), and shorthand alias mappings (<code>gce</code>, <code>gke</code>, <code>gcs</code>, <code>functions</code>, <code>iam</code>, <code>kms</code>, <code>vpc</code>, <code>vertexai</code>, <code>load_balancing</code>, <code>cloud_pubsub</code>).</li>
+<li>Writes <code>tools/release_assets/v0.3/icons/gcp/manifest.json</code> with SHA-256 digests, bounding boxes, and available variants (<code>default</code>, <code>modern</code>).</li>
 <li>Generates type-safe draw functions (<code>variant: Literal[&quot;default&quot;, &quot;modern&quot;] = &quot;default&quot;</code>) in <code>src/drawlib/_icons/png_icons/gcp/_generated.py</code>.</li>
 </ol>
 <h3>3.3. GeoMap Map Data Codegen (<code>./dcli codegen map</code>)</h3>

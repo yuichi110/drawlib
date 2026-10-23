@@ -86,7 +86,7 @@ When tasked with creating diagrams, architectures, flowcharts, or charts, follow
    - Relational Database Schemas: `drawlib.diagrams.er.ERDiagram`
    - State Machines: `drawlib.diagrams.state.StateDiagram`
    - Pipelines, Trees & Tables: `drawlib.smartarts` (ChevronProcess, TreeNode, MindMapNode, Table)
-   - Quantitative Charts: `drawlib.charts` (BarChart, LineChart, AreaChart, PieChart, RadarChart, ScatterChart, GanttChart, GeoMapChart)
+   - Quantitative Charts: `drawlib.charts` (BarChart, LineChart, AreaChart, PieChart, RadarChart, ScatterChart, GanttChart, HeatmapChart, HeatmapOverlay)
 
 3. Coordinate System & Style Discipline:
    - `(0, 0)` is the BOTTOM-LEFT corner of the canvas (X increases rightward, Y increases upward).
@@ -226,7 +226,7 @@ uv run drawlib rules show api                  # Complete API index & symbol che
 | **`lib-math`** | `drawlib.math` | Distance, angle, bounding box, linear/polyline path interpolation, rotation, orthogonal routing. |
 | **`lib-types`** | `drawlib.types` | `Style`, `Color`, `FontBase`, alignment and line-style literal types, `.patch()` immutability. |
 | **`lib-smartarts`** | `drawlib.smartarts` | `ChevronProcess`, `Cycle`, `GridLayout`, `Pyramid`, `BoxList`, `BulletPoints`, `TreeNode`, `MindMapNode`, `Table`, `SourceCode`, `MonthCalendar`, `WeekCalendar`, `DayCalendar`. |
-| **`lib-charts`** | `drawlib.charts` | `BarChart`, `LineChart`, `AreaChart`, `PieChart`, `RadarChart`, `ScatterChart`, `GanttChart`, `GeoMapChart`. |
+| **`lib-charts`** | `drawlib.charts` | `BarChart`, `LineChart`, `AreaChart`, `PieChart`, `RadarChart`, `ScatterChart`, `GanttChart`, `HeatmapChart`, `HeatmapOverlay`. |
 | **`lib-diagrams`** | `drawlib.diagrams` | `ArchitectureDiagram`, `FlowDiagram`, `SequenceDiagram`, `ClassDiagram`, `ERDiagram`, `StateDiagram`. |
 | **`lib-graph`** | `drawlib.graph` | `ArchitectureGraph`, `LayerGraph`, `TreeGraph`, `RadialGraph`, `GridGraph`, `get_layout()`, `GraphLayout`. |
 | **`lib-tools`** | `drawlib.tools` | Programmatic Python API for `build_*`, `export_code_block`, `init_project`, `serve_docs`, `list_cache`. |

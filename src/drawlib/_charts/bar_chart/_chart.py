@@ -13,13 +13,12 @@ from __future__ import annotations
 
 from typing import Literal
 
-from pydantic import validate_call
-
 import drawlib._charts.bar_chart._renderer as _renderer_module
 from drawlib._charts._common._axis import Axis
 from drawlib._charts._common._base import AxisChartMixin, draw_with_box_overrides
 from drawlib._charts._common._types import BarMode, DrawDirection, FormatterType, Orientation
 from drawlib._charts.bar_chart._series import Series
+from drawlib._core.l1_core import validate_call
 from drawlib._core.l3_styles import Style
 
 

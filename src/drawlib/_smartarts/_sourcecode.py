@@ -20,7 +20,7 @@ import os
 from typing import Any, Literal, Self
 
 import pygments
-from pydantic import BaseModel, ConfigDict, validate_call
+from pydantic import BaseModel, ConfigDict
 from pygments.lexer import Lexer
 from pygments.lexers import (
     get_lexer_by_name,
@@ -30,7 +30,7 @@ from pygments.lexers import (
 from pygments.lexers.special import TextLexer
 from pygments.token import Token
 
-from drawlib._core.l1_core import get_script_relative_path
+from drawlib._core.l1_core import get_script_relative_path, validate_call
 from drawlib._core.l2_types import Coordinate, FilePath, FontBase, FontFile, PosFloat
 from drawlib._core.l3_fonts import FontSourceCode
 from drawlib._core.l3_styles import Style

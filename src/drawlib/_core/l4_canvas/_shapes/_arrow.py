@@ -13,8 +13,8 @@
 from __future__ import annotations
 
 from matplotlib.patches import PathPatch
-from pydantic import validate_call
 
+from drawlib._core.l1_core import validate_call
 from drawlib._core.l2_types import (
     Angle,
     Angle90,

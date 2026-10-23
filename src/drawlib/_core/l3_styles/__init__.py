@@ -20,6 +20,7 @@ from drawlib._core.l3_styles._base_styles import (
 )
 from drawlib._core.l3_styles._style import (
     Style,
+    _construct_preset_style,
 )
 
 __all__ = [
@@ -31,4 +32,5 @@ __all__ = [
     "BaseStyles",
     # _style.py
     "Style",
+    "_construct_preset_style",
 ]

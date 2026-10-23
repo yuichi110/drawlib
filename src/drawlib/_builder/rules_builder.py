@@ -20,7 +20,6 @@ import sys
 from pathlib import Path
 from typing import Final
 
-from drawlib._builder.doc_builder.processor import DrawlibBlockProcessor
 from drawlib._core.l1_core import RULES_DIR_PATH
 
 AVAILABLE_TOPICS: Final[tuple[str, ...]] = (
@@ -195,6 +194,8 @@ def build_rule(topic: str, force: bool = False, quiet: bool = False) -> str:
     if not quiet:
         sys.stderr.write(f"[drawlib] Building illustrations for rule '{canonical}' (on-demand)... ")
         sys.stderr.flush()
+
+    from drawlib._builder.doc_builder.processor import DrawlibBlockProcessor  # noqa: PLC0415
 
     target_path.parent.mkdir(parents=True, exist_ok=True)
     processor = DrawlibBlockProcessor(require_file=False, no_cache=force)

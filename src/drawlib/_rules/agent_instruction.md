@@ -58,7 +58,7 @@ Never manually assemble diagrams out of dozens of primitive rectangles and lines
 | **Data & Relational Models**| `drawlib.diagrams.er`, `smartarts.Table` | Database schemas, entity relationships, matrix comparisons |
 | **Code & State Models** | `drawlib.diagrams.class_diagram`, `diagrams.state` | OOP UML class models, state machine lifecycles |
 | **Hierarchy & Organization**| `drawlib.smartarts.TreeNode`, `smartarts.MindMapNode` | Directory trees, org charts, radial brainstorming maps |
-| **Quantitative Charts** | `drawlib.charts` | Bar, Line, Area, Pie, Radar, Scatter, and Gantt charts |
+| **Quantitative Charts** | `drawlib.charts` | Bar, Line, Area, Pie, Radar, Scatter, Gantt, and Heatmap charts |
 | **Standardized Icons** | `drawlib.icons` | Phosphor, FontAwesome, and GCP architecture vector/PNG icons |
 | **Drawing Primitives** | `drawlib.shapes`, `lines`, `text` | 43 geometric primitives, curved lines, bezier curves, styled text |
 

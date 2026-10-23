@@ -11,14 +11,42 @@
 
 from __future__ import annotations
 
-from drawlib.diagrams import (
-    architecture,
-    class_diagram,
-    er,
-    flow,
-    sequence,
-    state,
-)
+import importlib
+from typing import TYPE_CHECKING, Any, Final
+
+if TYPE_CHECKING:
+    from drawlib.diagrams import (
+        architecture,
+        class_diagram,
+        er,
+        flow,
+        sequence,
+        state,
+    )
+
+_LAZY_MODULES: Final[dict[str, str]] = {
+    "architecture": "drawlib.diagrams.architecture",
+    "class_diagram": "drawlib.diagrams.class_diagram",
+    "er": "drawlib.diagrams.er",
+    "flow": "drawlib.diagrams.flow",
+    "sequence": "drawlib.diagrams.sequence",
+    "state": "drawlib.diagrams.state",
+}
+
+
+def __getattr__(name: str) -> Any:  # noqa: ANN401
+    """Lazy-load diagram submodules on first access (PEP 562)."""
+    if name in _LAZY_MODULES:
+        module = importlib.import_module(_LAZY_MODULES[name])
+        globals()[name] = module
+        return module
+    raise AttributeError(f"module '{__name__}' has no attribute '{name}'")
+
+
+def __dir__() -> list[str]:
+    """Ensure lazy diagram submodules appear in dir() and autocompletion."""
+    return sorted(__all__)
+
 
 __all__ = [
     "architecture",

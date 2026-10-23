@@ -13,13 +13,12 @@ from __future__ import annotations
 
 from typing import Literal
 
-from pydantic import validate_call
-
 from drawlib._charts._common._axis import Axis
 from drawlib._charts._common._base import AxisChartMixin, draw_with_box_overrides
 from drawlib._charts._common._types import DrawDirection, PointShape
 from drawlib._charts.scatter_chart import _renderer as _renderer_module
 from drawlib._charts.scatter_chart._point import Point, Series
+from drawlib._core.l1_core import validate_call
 from drawlib._core.l3_styles import Style
 
 

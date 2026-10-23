@@ -19,7 +19,6 @@ import typer
 from rich.console import Console
 from rich.table import Table
 
-from drawlib._builder._common.cache_manager import clear_cache, clear_image_cache, download_cache, list_cache
 from drawlib._cli._help import HELP_EPILOG
 from drawlib._core.l1_core import drawlib_settings
 
@@ -57,6 +56,8 @@ def cmd_cache_clear(
 ) -> None:
     """Delete locally cached font, icon, and image files."""
     try:
+        from drawlib._builder._common.cache_manager import clear_cache, clear_image_cache  # noqa: PLC0415
+
         if images:
             clear_image_cache()
             print("Successfully cleared image cache.")
@@ -76,6 +77,8 @@ def cmd_cache_clear(
 def cmd_cache_list() -> None:
     """List all downloadable font and icon packages and local cache status."""
     try:
+        from drawlib._builder._common.cache_manager import list_cache  # noqa: PLC0415
+
         items = list_cache()
         table = Table(title="Drawlib Font & Icon Cache", header_style="bold cyan")
         table.add_column("Package", style="bold")
@@ -132,6 +135,8 @@ def cmd_cache_download(
 ) -> None:
     """Pre-download font, icon, and/or map packages from GitHub Releases."""
     try:
+        from drawlib._builder._common.cache_manager import download_cache  # noqa: PLC0415
+
         download_cache(all_assets=all_assets, fonts=fonts, icons=icons, maps=maps)
         print("Successfully downloaded requested cache assets.")
     except Exception as e:

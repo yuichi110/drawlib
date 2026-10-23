@@ -579,7 +579,7 @@
             <main class="main-content">
                 <h1>Charts Overview</h1>
 <p>The <code>drawlib.charts</code> module provides a declarative, pure-Python data visualization engine for comparative, statistical, relational, and project schedule charts.</p>
-<p>All seven chart families render as first-class vector canvas components that coexist on a unified coordinate plane alongside callouts, cards, and technical diagrams.</p>
+<p>All eight chart families render as first-class vector canvas components that coexist on a unified coordinate plane alongside callouts, cards, and technical diagrams.</p>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="overview_images/charts_ecosystem_hero.png" alt="overview_1" />
   <figcaption class="drawlib-caption">Drawlib Pure-Python Chart Ecosystem: Coexisting Bar, Line, Donut Pie, and Radar Charts on One Canvas</figcaption>
@@ -697,8 +697,8 @@
   <figcaption class="drawlib-caption">Declarative Multi-Series Bar Chart</figcaption>
 </figure>
 <hr />
-<h2>2. The Seven Chart Families &amp; Submodule Exports</h2>
-<p>Drawlib organizes charts into seven specialized submodules under <code>drawlib.charts</code>, built on a shared foundation for <strong><a href="./axes_and_legends.html">Axes, Scales &amp; Legends</a></strong>:</p>
+<h2>2. The Eight Chart Families &amp; Submodule Exports</h2>
+<p>Drawlib organizes charts into eight specialized submodules under <code>drawlib.charts</code>, built on a shared foundation for <strong><a href="./axes_and_legends.html">Axes, Scales &amp; Legends</a></strong>:</p>
 <table>
 <thead>
 <tr>
@@ -761,7 +761,7 @@
 </tr>
 <tr>
 <td style="text-align:left"><code>drawlib.charts.heatmap</code></td>
-<td style="text-align:left"><strong><a href="./heatmap.html"><code>HeatmapChart</code> / <code>HeatmapOverlay</code></a></strong> <em>(Upcoming in v0.3.1)</em></td>
+<td style="text-align:left"><strong><a href="./heatmap.html"><code>HeatmapChart</code> / <code>HeatmapOverlay</code></a></strong></td>
 <td style="text-align:left"><code>Row</code>, <code>Cell</code>, <code>Spot</code></td>
 <td style="text-align:left"><code>OverlayMode</code>, <code>BlendMode</code>, <code>DrawDirection</code>, <code>FormatterType</code>, <code>Orientation</code></td>
 <td style="text-align:left">2D matrix heatmaps and spatial thermal/hotspot overlays on diagrams (<code>ClassDiagram</code>, <code>ArchitectureDiagram</code>, <code>GeoMap</code>, etc.).</td>
@@ -791,7 +791,7 @@
 <tr>
 <td style="text-align:left"><strong><code>Orientation</code></strong></td>
 <td style="text-align:left"><code>Literal[&quot;vertical&quot;, &quot;horizontal&quot;]</code></td>
-<td style="text-align:left"><code>BarChart(orientation=...)</code>, <code>draw_legend(orientation=...)</code></td>
+<td style="text-align:left"><code>BarChart(orientation=...)</code>, <code>draw_legend(orientation=...)</code>, <code>draw_colorbar(orientation=...)</code></td>
 </tr>
 <tr>
 <td style="text-align:left"><strong><code>LineStyle</code></strong></td>
@@ -814,6 +814,16 @@
 <td style="text-align:left"><code>Axis(scale=...)</code> linear Nice Numbers or $\log_{10}$ scaling</td>
 </tr>
 <tr>
+<td style="text-align:left"><strong><code>OverlayMode</code></strong></td>
+<td style="text-align:left"><code>Literal[&quot;smooth&quot;, &quot;contour&quot;]</code></td>
+<td style="text-align:left"><code>HeatmapOverlay(mode=...)</code> Gaussian thermal gradient or vector isoline rings</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>BlendMode</code></strong></td>
+<td style="text-align:left"><code>Literal[&quot;add&quot;, &quot;max&quot;]</code></td>
+<td style="text-align:left"><code>HeatmapOverlay(blend_mode=...)</code> overlapping hotspot accumulation mode</td>
+</tr>
+<tr>
 <td style="text-align:left"><strong><code>FormatterType</code></strong></td>
 <td style="text-align:left"><code>str | Callable[[float], str] | None</code></td>
 <td style="text-align:left">Value/tick formatting (<code>&quot;{:.1f}%&quot;</code>, <code>lambda v: f&quot;${v:,.0f}&quot;</code>)</td>
@@ -821,7 +831,7 @@
 <tr>
 <td style="text-align:left"><strong><code>DrawDirection</code></strong></td>
 <td style="text-align:left"><code>Literal[&quot;bottom_to_top&quot;, &quot;left_to_right&quot;]</code></td>
-<td style="text-align:left">Partial spatial rendering direction on <code>Series</code>, <code>Slice</code>, and <code>Task</code> (also exported at <code>drawlib.charts.DrawDirection</code>)</td>
+<td style="text-align:left">Partial spatial rendering direction on <code>Series</code>, <code>Slice</code>, <code>Task</code>, and <code>Row</code> (also exported at <code>drawlib.charts.DrawDirection</code>)</td>
 </tr>
 </tbody>
 </table>

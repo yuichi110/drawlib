@@ -11,31 +11,16 @@
 
 from __future__ import annotations
 
-from typing import Annotated
+from typing import TYPE_CHECKING, Annotated
 
 import typer
 from rich.console import Console
 from rich.table import Table
 
 from drawlib._cli._help import HELP_EPILOG
-from drawlib._cli._visualizers.styles import (
-    export_all_pages,
-    get_styles_page_count,
-    handle_single_page_output,
-    render_styles_matrix,
-)
-from drawlib._preset_styles import (
-    BaseStyles,
-    DefaultStyles,
-    DefaultStyles1,
-    DefaultStyles2,
-    DefaultStyles3,
-    DefaultStyles4,
-    DefaultStyles5,
-    DefaultStyles6,
-    GoogleStyles,
-    MonochromeStyles,
-)
+
+if TYPE_CHECKING:
+    from drawlib._preset_styles import BaseStyles
 
 console = Console()
 _HELP_CTX = {"help_option_names": ["-h", "--help"]}
@@ -48,27 +33,30 @@ styles_app = typer.Typer(
     context_settings=_HELP_CTX,
 )
 
+_PRESET_SPECS: dict[str, tuple[str, str]] = {
+    "default": ("DefaultStyles", "DefaultStyles (Drawlib Standard Styles - Tone 4)"),
+    "def": ("DefaultStyles", "DefaultStyles (Drawlib Standard Styles - Tone 4)"),
+    "default1": ("DefaultStyles1", "DefaultStyles1 (Drawlib Tone 1 Ultra Light)"),
+    "default2": ("DefaultStyles2", "DefaultStyles2 (Drawlib Tone 2 Light)"),
+    "default3": ("DefaultStyles3", "DefaultStyles3 (Drawlib Tone 3 Medium Soft)"),
+    "default4": ("DefaultStyles4", "DefaultStyles4 (Drawlib Tone 4 Standard Base)"),
+    "default5": ("DefaultStyles5", "DefaultStyles5 (Drawlib Tone 5 Deep)"),
+    "default6": ("DefaultStyles6", "DefaultStyles6 (Drawlib Tone 6 Darkest Shade)"),
+    "monochrome": ("MonochromeStyles", "MonochromeStyles (Grayscale / B&W Styles)"),
+    "mono": ("MonochromeStyles", "MonochromeStyles (Grayscale / B&W Styles)"),
+    "google": ("GoogleStyles", "GoogleStyles (Google Sheets Palette Styles)"),
+}
 
-def _get_preset(cls: type[BaseStyles]) -> BaseStyles:
+
+def _resolve_preset(alias: str) -> tuple[BaseStyles, str]:
+    import drawlib._preset_styles as ps  # noqa: PLC0415
+
+    cls_name, desc = _PRESET_SPECS[alias]
+    cls: type[BaseStyles] = getattr(ps, cls_name)
     inst = cls.get_default_instance()
     if inst is None:
-        raise RuntimeError(f"Default instance for {cls.__name__} not registered.")
-    return inst
-
-
-_PRESET_MAP: dict[str, tuple[BaseStyles, str]] = {
-    "default": (_get_preset(DefaultStyles), "DefaultStyles (Drawlib Standard Styles - Tone 4)"),
-    "def": (_get_preset(DefaultStyles), "DefaultStyles (Drawlib Standard Styles - Tone 4)"),
-    "default1": (_get_preset(DefaultStyles1), "DefaultStyles1 (Drawlib Tone 1 Ultra Light)"),
-    "default2": (_get_preset(DefaultStyles2), "DefaultStyles2 (Drawlib Tone 2 Light)"),
-    "default3": (_get_preset(DefaultStyles3), "DefaultStyles3 (Drawlib Tone 3 Medium Soft)"),
-    "default4": (_get_preset(DefaultStyles4), "DefaultStyles4 (Drawlib Tone 4 Standard Base)"),
-    "default5": (_get_preset(DefaultStyles5), "DefaultStyles5 (Drawlib Tone 5 Deep)"),
-    "default6": (_get_preset(DefaultStyles6), "DefaultStyles6 (Drawlib Tone 6 Darkest Shade)"),
-    "monochrome": (_get_preset(MonochromeStyles), "MonochromeStyles (Grayscale / B&W Styles)"),
-    "mono": (_get_preset(MonochromeStyles), "MonochromeStyles (Grayscale / B&W Styles)"),
-    "google": (_get_preset(GoogleStyles), "GoogleStyles (Google Sheets Palette Styles)"),
-}
+        raise RuntimeError(f"Default instance for {cls_name} not registered.")
+    return inst, desc
 
 
 @styles_app.command("list", epilog=HELP_EPILOG)
@@ -81,11 +69,11 @@ def cmd_styles_list() -> None:
     table.add_column("Description")
 
     visited: set[str] = set()
-    for alias, (instance, desc) in _PRESET_MAP.items():
-        cls_name = instance.__class__.__name__
+    for alias, (cls_name, desc) in _PRESET_SPECS.items():
         if cls_name in visited:
             continue
         visited.add(cls_name)
+        instance, _ = _resolve_preset(alias)
         count = len(instance.styles())
         table.add_row(alias, cls_name, str(count), desc)
 
@@ -125,12 +113,19 @@ def cmd_styles_show(
 ) -> None:
     """Display or export a visual style matrix for a preset style catalog."""
     key = preset.strip().lower()
-    if key not in _PRESET_MAP:
-        avail = ", ".join(f"'{k}'" for k in sorted(set(_PRESET_MAP.keys())))
+    if key not in _PRESET_SPECS:
+        avail = ", ".join(f"'{k}'" for k in sorted(set(_PRESET_SPECS.keys())))
         console.print(f"[bold red]Error:[/bold red] Unknown style preset '{preset}'. Available presets: {avail}")
         raise typer.Exit(code=1)
 
-    instance, display_name = _PRESET_MAP[key]
+    from drawlib._cli._visualizers.styles import (  # noqa: PLC0415
+        export_all_pages,
+        get_styles_page_count,
+        handle_single_page_output,
+        render_styles_matrix,
+    )
+
+    instance, display_name = _resolve_preset(key)
     short_name = display_name.split()[0]
 
     try:

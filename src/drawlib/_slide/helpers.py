@@ -15,8 +15,7 @@ from collections.abc import Sequence
 from dataclasses import dataclass
 from typing import Literal
 
-from pydantic import validate_call
-
+from drawlib._core.l1_core import validate_call
 from drawlib._core.l2_types import PosInt
 from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas import (

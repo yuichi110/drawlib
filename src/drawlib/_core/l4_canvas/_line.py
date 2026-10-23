@@ -16,8 +16,8 @@ from typing import cast
 
 from matplotlib.patches import ConnectionStyle, FancyArrowPatch
 from matplotlib.path import Path
-from pydantic import validate_call
 
+from drawlib._core.l1_core import validate_call
 from drawlib._core.l2_types import (
     Angle,
     ArrowHead,

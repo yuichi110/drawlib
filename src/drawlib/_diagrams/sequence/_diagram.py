@@ -13,14 +13,13 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Literal, overload
 
-from pydantic import validate_call
-
 import drawlib._diagrams.sequence._block as _block_module
 import drawlib._diagrams.sequence._group as _group_module
 import drawlib._diagrams.sequence._message as _message_module
 import drawlib._diagrams.sequence._note as _note_module
 import drawlib._diagrams.sequence._participant as _participant_module
 import drawlib._diagrams.sequence._renderer as _renderer_module
+from drawlib._core.l1_core import validate_call
 from drawlib._core.l2_types import PosFloat
 from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas import transform

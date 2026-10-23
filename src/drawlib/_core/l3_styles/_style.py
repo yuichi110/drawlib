@@ -71,6 +71,7 @@ class Style(BaseModel):
         frozen=True,
         extra="forbid",
         validate_assignment=True,
+        defer_build=True,
     )
 
     # --- Class Constants ---
@@ -275,7 +276,24 @@ class Style(BaseModel):
             raise ValueError(f"Style cannot be used for {target}. Declared supports: {set(self.supports)}.")
 
 
-Style.Transparent = Style(
+def _construct_preset_style(**data: Any) -> Style:  # noqa: ANN401
+    """Construct a trusted preset Style bypassing Pydantic runtime validation.
+
+    Args:
+        **data: Trusted style attribute dictionary.
+
+    Returns:
+        Style: Immutable Style instance with normalized ``supports`` frozenset.
+    """
+    supports = data.get("supports")
+    if supports is None:
+        data["supports"] = _infer_supports(data)
+    elif not isinstance(supports, frozenset):
+        data["supports"] = frozenset(supports)
+    return Style.model_construct(**data)
+
+
+Style.Transparent = _construct_preset_style(
     supports=ALL_SUPPORTS,
     shape_fill_color=Color(0, 0, 0, 0.0),
     shape_line_color=Color(0, 0, 0, 0.0),
@@ -297,4 +315,5 @@ __all__ = [
     "ALL_SUPPORTS",
     "Style",
     "SupportType",
+    "_construct_preset_style",
 ]

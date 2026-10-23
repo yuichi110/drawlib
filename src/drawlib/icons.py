@@ -11,81 +11,151 @@
 
 from __future__ import annotations
 
+import importlib
+import importlib.abc
+import importlib.machinery
 import sys
+from types import ModuleType
+from typing import TYPE_CHECKING, Any, Final, Sequence
 
-from drawlib._icons import (
-    ai,
-    aws,
-    azure,
-    business,
-    client,
-    cloud,
-    cnative,
-    code,
-    data,
-    devops,
-    facility,
-    font_icon,
-    gcp,
-    itservice,
-    network,
-    original_ai,
-    original_business,
-    original_client,
-    original_cloud,
-    original_cnative,
-    original_code,
-    original_data,
-    original_devops,
-    original_facility,
-    original_itservice,
-    original_network,
-    original_security,
-    original_server,
-    original_social,
-    original_workspace,
-    phosphor,
-    security,
-    server,
-    social,
-    workspace,
-)
+if TYPE_CHECKING:
+    from drawlib._icons import (
+        ai,
+        aws,
+        azure,
+        business,
+        client,
+        cloud,
+        cnative,
+        code,
+        data,
+        devops,
+        facility,
+        font_icon,
+        gcp,
+        itservice,
+        network,
+        original_ai,
+        original_business,
+        original_client,
+        original_cloud,
+        original_cnative,
+        original_code,
+        original_data,
+        original_devops,
+        original_facility,
+        original_itservice,
+        original_network,
+        original_security,
+        original_server,
+        original_social,
+        original_workspace,
+        phosphor,
+        security,
+        server,
+        social,
+        workspace,
+    )
 
-# Allow submodule style imports: `import drawlib.icons.phosphor`, `import drawlib.icons.gcp`, etc.
-sys.modules["drawlib.icons.phosphor"] = phosphor
-sys.modules["drawlib.icons.ai"] = ai
-sys.modules["drawlib.icons.aws"] = aws
-sys.modules["drawlib.icons.azure"] = azure
-sys.modules["drawlib.icons.business"] = business
-sys.modules["drawlib.icons.client"] = client
-sys.modules["drawlib.icons.cloud"] = cloud
-sys.modules["drawlib.icons.cnative"] = cnative
-sys.modules["drawlib.icons.code"] = code
-sys.modules["drawlib.icons.data"] = data
-sys.modules["drawlib.icons.devops"] = devops
-sys.modules["drawlib.icons.facility"] = facility
-sys.modules["drawlib.icons.gcp"] = gcp
-sys.modules["drawlib.icons.itservice"] = itservice
-sys.modules["drawlib.icons.network"] = network
-sys.modules["drawlib.icons.original_ai"] = original_ai
-sys.modules["drawlib.icons.original_business"] = original_business
-sys.modules["drawlib.icons.original_client"] = original_client
-sys.modules["drawlib.icons.original_cloud"] = original_cloud
-sys.modules["drawlib.icons.original_cnative"] = original_cnative
-sys.modules["drawlib.icons.original_code"] = original_code
-sys.modules["drawlib.icons.original_data"] = original_data
-sys.modules["drawlib.icons.original_devops"] = original_devops
-sys.modules["drawlib.icons.original_facility"] = original_facility
-sys.modules["drawlib.icons.original_itservice"] = original_itservice
-sys.modules["drawlib.icons.original_network"] = original_network
-sys.modules["drawlib.icons.original_security"] = original_security
-sys.modules["drawlib.icons.original_server"] = original_server
-sys.modules["drawlib.icons.original_social"] = original_social
-sys.modules["drawlib.icons.original_workspace"] = original_workspace
-sys.modules["drawlib.icons.security"] = security
-sys.modules["drawlib.icons.server"] = server
-sys.modules["drawlib.icons.social"] = social
-sys.modules["drawlib.icons.workspace"] = workspace
+# Expose __path__ so Python's import system treats `drawlib.icons` as a package
+# for submodule imports (`import drawlib.icons.phosphor`, `from drawlib.icons.gcp import ...`).
+__path__: list[str] = []
+
+_ICON_SUBMODULE_TARGETS: Final[dict[str, str]] = {
+    "phosphor": "drawlib._icons.font_icons.phosphor",
+    "ai": "drawlib._icons.png_icons.ai",
+    "aws": "drawlib._icons.png_icons.aws",
+    "azure": "drawlib._icons.png_icons.azure",
+    "business": "drawlib._icons.png_icons.business",
+    "client": "drawlib._icons.png_icons.client",
+    "cloud": "drawlib._icons.png_icons.cloud",
+    "cnative": "drawlib._icons.png_icons.cnative",
+    "code": "drawlib._icons.png_icons.code",
+    "data": "drawlib._icons.png_icons.data",
+    "devops": "drawlib._icons.png_icons.devops",
+    "facility": "drawlib._icons.png_icons.facility",
+    "gcp": "drawlib._icons.png_icons.gcp",
+    "itservice": "drawlib._icons.png_icons.itservice",
+    "network": "drawlib._icons.png_icons.network",
+    "original_ai": "drawlib._icons.png_icons.original_ai",
+    "original_business": "drawlib._icons.png_icons.original_business",
+    "original_client": "drawlib._icons.png_icons.original_client",
+    "original_cloud": "drawlib._icons.png_icons.original_cloud",
+    "original_cnative": "drawlib._icons.png_icons.original_cnative",
+    "original_code": "drawlib._icons.png_icons.original_code",
+    "original_data": "drawlib._icons.png_icons.original_data",
+    "original_devops": "drawlib._icons.png_icons.original_devops",
+    "original_facility": "drawlib._icons.png_icons.original_facility",
+    "original_itservice": "drawlib._icons.png_icons.original_itservice",
+    "original_network": "drawlib._icons.png_icons.original_network",
+    "original_security": "drawlib._icons.png_icons.original_security",
+    "original_server": "drawlib._icons.png_icons.original_server",
+    "original_social": "drawlib._icons.png_icons.original_social",
+    "original_workspace": "drawlib._icons.png_icons.original_workspace",
+    "security": "drawlib._icons.png_icons.security",
+    "server": "drawlib._icons.png_icons.server",
+    "social": "drawlib._icons.png_icons.social",
+    "workspace": "drawlib._icons.png_icons.workspace",
+}
+
+
+def _load_icon_submodule(name: str) -> ModuleType:
+    """Import an icon suite on demand and register its `drawlib.icons.<name>` alias."""
+    module = importlib.import_module(_ICON_SUBMODULE_TARGETS[name])
+    sys.modules[f"drawlib.icons.{name}"] = module
+    globals()[name] = module
+    return module
+
+
+class _IconsSubmoduleLoader(importlib.abc.Loader):
+    """Loader returning the underlying icon suite module for `drawlib.icons.<name>`."""
+
+    def __init__(self, suite_name: str) -> None:
+        self._suite_name = suite_name
+
+    def create_module(self, spec: importlib.machinery.ModuleSpec) -> ModuleType:  # noqa: ARG002
+        return _load_icon_submodule(self._suite_name)
+
+    def exec_module(self, module: ModuleType) -> None:
+        pass
+
+
+class _IconsSubmoduleFinder(importlib.abc.MetaPathFinder):
+    """MetaPathFinder resolving `drawlib.icons.<suite>` lazily without eager imports."""
+
+    def find_spec(
+        self,
+        fullname: str,
+        path: Sequence[str] | None,  # noqa: ARG002
+        target: ModuleType | None = None,  # noqa: ARG002
+    ) -> importlib.machinery.ModuleSpec | None:
+        if fullname.startswith("drawlib.icons."):
+            suite_name = fullname.removeprefix("drawlib.icons.")
+            if suite_name in _ICON_SUBMODULE_TARGETS:
+                return importlib.machinery.ModuleSpec(fullname, _IconsSubmoduleLoader(suite_name))
+        return None
+
+
+if not any(isinstance(f, _IconsSubmoduleFinder) for f in sys.meta_path):
+    sys.meta_path.insert(0, _IconsSubmoduleFinder())
+
+
+def __getattr__(name: str) -> Any:  # noqa: ANN401
+    """Lazy-load icon suites and font_icon helper on first access (PEP 562)."""
+    if name in _ICON_SUBMODULE_TARGETS:
+        return _load_icon_submodule(name)
+    if name == "font_icon":
+        from drawlib._icons.font_icons._font_icon import font_icon  # noqa: PLC0415
+
+        globals()[name] = font_icon
+        return font_icon
+    raise AttributeError(f"module '{__name__}' has no attribute '{name}'")
+
+
+def __dir__() -> list[str]:
+    """Ensure lazy icon suites appear in dir() and autocompletion."""
+    return sorted(__all__)
+
 
 __all__ = [
     "ai",

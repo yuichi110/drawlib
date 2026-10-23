@@ -13,12 +13,11 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Literal
 
-from pydantic import validate_call
-
 import drawlib._diagrams.architecture._edge as _edge_module
 import drawlib._diagrams.architecture._group as _group_module
 import drawlib._diagrams.architecture._junction as _junction_module
 import drawlib._diagrams.architecture._renderer as _renderer_module
+from drawlib._core.l1_core import validate_call
 from drawlib._core.l2_types import PosFloat
 from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas import transform

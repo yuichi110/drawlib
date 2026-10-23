@@ -2,7 +2,7 @@
 
 The `drawlib.charts` module provides a declarative, pure-Python data visualization engine for comparative, statistical, relational, and project schedule charts.
 
-All seven chart families render as first-class vector canvas components that coexist on a unified coordinate plane alongside callouts, cards, and technical diagrams.
+All eight chart families render as first-class vector canvas components that coexist on a unified coordinate plane alongside callouts, cards, and technical diagrams.
 
 ```drawlib code=fold align=center file=charts_ecosystem_hero.png caption="Drawlib Pure-Python Chart Ecosystem: Coexisting Bar, Line, Donut Pie, and Radar Charts on One Canvas"
 from drawlib.canvas import save, setup
@@ -117,9 +117,9 @@ save()
 
 ---
 
-## 2. The Seven Chart Families & Submodule Exports
+## 2. The Eight Chart Families & Submodule Exports
 
-Drawlib organizes charts into seven specialized submodules under `drawlib.charts`, built on a shared foundation for **[Axes, Scales & Legends](./axes_and_legends.md)**:
+Drawlib organizes charts into eight specialized submodules under `drawlib.charts`, built on a shared foundation for **[Axes, Scales & Legends](./axes_and_legends.md)**:
 
 | Module | Primary Class | Companion Data Models | Exported Type Literals & Aliases | Best Suited For |
 | :--- | :--- | :--- | :--- | :--- |
@@ -130,7 +130,7 @@ Drawlib organizes charts into seven specialized submodules under `drawlib.charts
 | `drawlib.charts.radar` | **[`RadarChart`](./radar.md)** | `Series` | `GridShape`, `FormatterType`, `DrawDirection`, `LegendPosition` | Multi-attribute evaluation, skill matrices, and spiderweb plots. |
 | `drawlib.charts.scatter` | **[`ScatterChart`](./scatter.md)** | `Series`, `Point`, `Axis` | `ScaleType`, `PointShape`, `DrawDirection`, `LegendPosition` | 2D correlations, cluster distributions, and 3D bubble plots. |
 | `drawlib.charts.gantt` | **[`GanttChart`](./gantt.md)** | `Task`, `Section`, `Milestone`, `Marker`, `Dependency` | `DrawDirection` | Project roadmaps, phase tasks, milestones, and dependency arrows. |
-| `drawlib.charts.heatmap` | **[`HeatmapChart` / `HeatmapOverlay`](./heatmap.md)** *(Upcoming in v0.3.1)* | `Row`, `Cell`, `Spot` | `OverlayMode`, `BlendMode`, `DrawDirection`, `FormatterType`, `Orientation` | 2D matrix heatmaps and spatial thermal/hotspot overlays on diagrams (`ClassDiagram`, `ArchitectureDiagram`, `GeoMap`, etc.). |
+| `drawlib.charts.heatmap` | **[`HeatmapChart` / `HeatmapOverlay`](./heatmap.md)** | `Row`, `Cell`, `Spot` | `OverlayMode`, `BlendMode`, `DrawDirection`, `FormatterType`, `Orientation` | 2D matrix heatmaps and spatial thermal/hotspot overlays on diagrams (`ClassDiagram`, `ArchitectureDiagram`, `GeoMap`, etc.). |
 
 ### Exported Type Literals Reference
 
@@ -138,13 +138,15 @@ Drawlib organizes charts into seven specialized submodules under `drawlib.charts
 | :--- | :--- | :--- |
 | **`Mode`** (`bar`) | `Literal["group", "stack"]` | `BarChart(bar_mode=...)` |
 | **`Mode`** (`area`) | `Literal["overlap", "stack"]` | `AreaChart(mode=...)` |
-| **`Orientation`** | `Literal["vertical", "horizontal"]` | `BarChart(orientation=...)`, `draw_legend(orientation=...)` |
+| **`Orientation`** | `Literal["vertical", "horizontal"]` | `BarChart(orientation=...)`, `draw_legend(orientation=...)`, `draw_colorbar(orientation=...)` |
 | **`LineStyle`** | `Literal["solid", "dashed", "dotted", "dashdot"]` | `LineChart`, `AreaChart`, `RadarChart` series stroke patterns |
 | **`PointShape`** | `Literal["circle", "square", "rhombus", "triangle", "none"]` | `ScatterChart` (all 5 shapes); `LineChart`, `AreaChart`, `RadarChart` (`"circle"`, `"square"`, `"none"`) |
 | **`GridShape`** | `Literal["polygon", "circle"]` | `RadarChart(grid_shape=...)` concentric ring geometry |
 | **`ScaleType`** | `Literal["linear", "log"]` | `Axis(scale=...)` linear Nice Numbers or $\log_{10}$ scaling |
+| **`OverlayMode`** | `Literal["smooth", "contour"]` | `HeatmapOverlay(mode=...)` Gaussian thermal gradient or vector isoline rings |
+| **`BlendMode`** | `Literal["add", "max"]` | `HeatmapOverlay(blend_mode=...)` overlapping hotspot accumulation mode |
 | **`FormatterType`** | `str \| Callable[[float], str] \| None` | Value/tick formatting (`"{:.1f}%"`, `lambda v: f"${v:,.0f}"`) |
-| **`DrawDirection`** | `Literal["bottom_to_top", "left_to_right"]` | Partial spatial rendering direction on `Series`, `Slice`, and `Task` (also exported at `drawlib.charts.DrawDirection`) |
+| **`DrawDirection`** | `Literal["bottom_to_top", "left_to_right"]` | Partial spatial rendering direction on `Series`, `Slice`, `Task`, and `Row` (also exported at `drawlib.charts.DrawDirection`) |
 
 ---
 

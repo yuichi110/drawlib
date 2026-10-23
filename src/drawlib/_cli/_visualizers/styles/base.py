@@ -166,7 +166,8 @@ def extract_base_colors(styles: BaseStyles, filter_color: str | None = None) -> 
     base_colors: list[str] = []
     sorted_variants = sorted(VARIANTS, key=len, reverse=True)
     model_cls = styles if isinstance(styles, type) else type(styles)
-    for field_name in model_cls.model_fields:
+    field_iter = styles.field_names() if hasattr(styles, "field_names") else model_cls.model_fields
+    for field_name in field_iter:
         if field_name in SYSTEM_FIELDS or field_name.endswith("Neutral") or field_name.endswith("NeutralFlat"):
             continue
         base = field_name

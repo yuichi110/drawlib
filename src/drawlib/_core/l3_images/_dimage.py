@@ -24,8 +24,9 @@ from PIL import (
     ImageFilter,
     ImageOps,
 )
-from pydantic import ConfigDict, TypeAdapter, validate_call
+from pydantic import ConfigDict, TypeAdapter
 
+from drawlib._core.l1_core import validate_call
 from drawlib._core.l2_types import (
     Alpha,
     Angle,

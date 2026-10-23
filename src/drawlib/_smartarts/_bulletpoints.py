@@ -15,8 +15,9 @@ from __future__ import annotations
 from collections.abc import Callable
 from typing import Any, Self
 
-from pydantic import BaseModel, validate_call
+from pydantic import BaseModel
 
+from drawlib._core.l1_core import validate_call
 from drawlib._core.l2_types import Coordinate, PosFloat
 from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas import circle, text, transform

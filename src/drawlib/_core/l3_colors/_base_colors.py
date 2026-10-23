@@ -55,6 +55,7 @@ class BaseColors(BaseModel, metaclass=_BaseColorsMeta):
         arbitrary_types_allowed=True,
         extra="forbid",
         frozen=True,
+        defer_build=True,
     )
 
     Transparent: ClassVar[Color] = Color(0, 0, 0, 0.0)

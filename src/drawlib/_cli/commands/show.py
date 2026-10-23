@@ -18,7 +18,6 @@ from typing import Annotated
 
 import typer
 
-from drawlib._builder.doc_builder import show_code_block
 from drawlib._builder.rules_builder import _normalize_topic
 from drawlib._cli.commands.rules import cmd_rules_show
 from drawlib._core.l1_core import drawlib_settings
@@ -77,6 +76,8 @@ def cmd_show(
             pass
 
     try:
+        from drawlib._builder.doc_builder import show_code_block  # noqa: PLC0415
+
         show_code_block(
             file_path=file,
             target=target,

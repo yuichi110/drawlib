@@ -14,8 +14,6 @@ from __future__ import annotations
 from collections.abc import Sequence
 from typing import Literal, Protocol
 
-from pydantic import validate_call
-
 import drawlib._charts.heatmap_chart._overlay_renderer as _overlay_renderer_module
 from drawlib._charts._common._types import BlendMode, FormatterType, Orientation, OverlayMode
 from drawlib._charts.heatmap_chart._models import (
@@ -26,6 +24,7 @@ from drawlib._charts.heatmap_chart._models import (
     resolve_style_stops,
 )
 from drawlib._core import l4_canvas as canvas
+from drawlib._core.l1_core import validate_call
 from drawlib._core.l3_colors import Color
 from drawlib._core.l3_styles import Style
 

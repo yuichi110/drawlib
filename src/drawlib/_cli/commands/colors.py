@@ -14,28 +14,18 @@ from __future__ import annotations
 import os
 import sys
 import tempfile
-from typing import Annotated
+from typing import TYPE_CHECKING, Annotated, Literal
 
 import typer
 from rich.console import Console
 from rich.table import Table
 
 from drawlib._cli._help import HELP_EPILOG
-from drawlib._cli._visualizers._common import display_dimage
-from drawlib._cli._visualizers.colors import SortMode, render_color_chart
-from drawlib._core.l3_colors import BaseColors
-from drawlib._preset_colors import (
-    CssColors,
-    DefaultColors,
-    DefaultColors1,
-    DefaultColors2,
-    DefaultColors3,
-    DefaultColors4,
-    DefaultColors5,
-    DefaultColors6,
-    GoogleColors,
-    MonochromeColors,
-)
+
+if TYPE_CHECKING:
+    from drawlib._core.l3_colors import BaseColors
+
+SortMode = Literal["hsv", "name", "raw"]
 
 console = Console()
 _HELP_CTX = {"help_option_names": ["-h", "--help"]}
@@ -48,20 +38,28 @@ colors_app = typer.Typer(
     context_settings=_HELP_CTX,
 )
 
-_PRESET_MAP: dict[str, tuple[BaseColors | type[BaseColors], str]] = {
-    "default": (DefaultColors, "DefaultColors (Drawlib Default Palette)"),
-    "def": (DefaultColors, "DefaultColors (Drawlib Default Palette)"),
-    "default1": (DefaultColors1, "DefaultColors1 (Drawlib Tone 1 Ultra Light)"),
-    "default2": (DefaultColors2, "DefaultColors2 (Drawlib Tone 2 Light)"),
-    "default3": (DefaultColors3, "DefaultColors3 (Drawlib Tone 3 Medium Soft)"),
-    "default4": (DefaultColors4, "DefaultColors4 (Drawlib Tone 4 Standard Base)"),
-    "default5": (DefaultColors5, "DefaultColors5 (Drawlib Tone 5 Deep)"),
-    "default6": (DefaultColors6, "DefaultColors6 (Drawlib Tone 6 Darkest Shade)"),
-    "google": (GoogleColors, "GoogleColors (Official Google Palette)"),
-    "monochrome": (MonochromeColors, "MonochromeColors (Grayscale Palette)"),
-    "mono": (MonochromeColors, "MonochromeColors (Grayscale Palette)"),
-    "css": (CssColors, "CssColors (W3C CSS Named Colors)"),
+_PRESET_SPECS: dict[str, tuple[str, str]] = {
+    "default": ("DefaultColors", "DefaultColors (Drawlib Default Palette)"),
+    "def": ("DefaultColors", "DefaultColors (Drawlib Default Palette)"),
+    "default1": ("DefaultColors1", "DefaultColors1 (Drawlib Tone 1 Ultra Light)"),
+    "default2": ("DefaultColors2", "DefaultColors2 (Drawlib Tone 2 Light)"),
+    "default3": ("DefaultColors3", "DefaultColors3 (Drawlib Tone 3 Medium Soft)"),
+    "default4": ("DefaultColors4", "DefaultColors4 (Drawlib Tone 4 Standard Base)"),
+    "default5": ("DefaultColors5", "DefaultColors5 (Drawlib Tone 5 Deep)"),
+    "default6": ("DefaultColors6", "DefaultColors6 (Drawlib Tone 6 Darkest Shade)"),
+    "google": ("GoogleColors", "GoogleColors (Official Google Palette)"),
+    "monochrome": ("MonochromeColors", "MonochromeColors (Grayscale Palette)"),
+    "mono": ("MonochromeColors", "MonochromeColors (Grayscale Palette)"),
+    "css": ("CssColors", "CssColors (W3C CSS Named Colors)"),
 }
+
+
+def _resolve_preset(alias: str) -> tuple[BaseColors | type[BaseColors], str]:
+    import drawlib._preset_colors as pc  # noqa: PLC0415
+
+    cls_name, desc = _PRESET_SPECS[alias]
+    cls: type[BaseColors] = getattr(pc, cls_name)
+    return cls, desc
 
 
 @colors_app.command("list", epilog=HELP_EPILOG)
@@ -73,12 +71,12 @@ def cmd_colors_list() -> None:
     table.add_column("Colors Count", justify="right")
     table.add_column("Description")
 
-    visited = set()
-    for alias, (instance, desc) in _PRESET_MAP.items():
-        cls_name = instance.__name__ if isinstance(instance, type) else instance.__class__.__name__
+    visited: set[str] = set()
+    for alias, (cls_name, desc) in _PRESET_SPECS.items():
         if cls_name in visited:
             continue
         visited.add(cls_name)
+        instance, _ = _resolve_preset(alias)
         count = len(list(instance))
         table.add_row(alias, cls_name, str(count), desc)
 
@@ -110,12 +108,15 @@ def cmd_colors_show(
 ) -> None:
     """Display or export a visual color chart for a preset color catalog."""
     key = preset.strip().lower()
-    if key not in _PRESET_MAP:
-        avail = ", ".join(f"'{k}'" for k in sorted(set(_PRESET_MAP.keys())))
+    if key not in _PRESET_SPECS:
+        avail = ", ".join(f"'{k}'" for k in sorted(set(_PRESET_SPECS.keys())))
         console.print(f"[bold red]Error:[/bold red] Unknown color preset '{preset}'. Available presets: {avail}")
         raise typer.Exit(code=1)
 
-    instance, display_name = _PRESET_MAP[key]
+    from drawlib._cli._visualizers._common import display_dimage  # noqa: PLC0415
+    from drawlib._cli._visualizers.colors import render_color_chart  # noqa: PLC0415
+
+    instance, display_name = _resolve_preset(key)
     dimage = render_color_chart(instance, display_name, sort_mode=sort, grid=grid, no_cache=no_cache)
 
     if output:

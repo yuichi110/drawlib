@@ -13,9 +13,8 @@ from __future__ import annotations
 
 import os
 
-from pydantic import validate_call
-
 import drawlib._cached_assets
+from drawlib._core.l1_core import validate_call
 from drawlib._core.l2_types import Coordinate, IconStyle, PosFloat
 from drawlib._core.l3_external import download_if_not_exist
 from drawlib._core.l3_fonts import FontMetadata, FontResource

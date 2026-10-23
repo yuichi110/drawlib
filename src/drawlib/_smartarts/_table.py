@@ -14,8 +14,9 @@ from __future__ import annotations
 
 from typing import Any, Literal, Self
 
-from pydantic import BaseModel, validate_call
+from pydantic import BaseModel
 
+from drawlib._core.l1_core import validate_call
 from drawlib._core.l2_types import Coordinate, PosFloat, PosInt
 from drawlib._core.l3_colors import ColorType
 from drawlib._core.l3_styles import Style

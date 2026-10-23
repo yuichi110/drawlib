@@ -16,8 +16,8 @@ from typing import Any, ClassVar, Literal, Self
 
 from matplotlib.patches import PathPatch
 from matplotlib.path import Path as MplPath
-from pydantic import validate_call
 
+from drawlib._core.l1_core import validate_call
 from drawlib._core.l2_types import Coordinate, PosFloat
 from drawlib._core.l3_colors import ColorUtils
 from drawlib._core.l3_styles import Style

@@ -14,8 +14,7 @@ from __future__ import annotations
 from datetime import date, timedelta
 from typing import Literal, Self
 
-from pydantic import validate_call
-
+from drawlib._core.l1_core import validate_call
 from drawlib._core.l2_types import Coordinate, PosFloat, PosInt  # noqa: TC001
 from drawlib._core.l3_styles import Style  # noqa: TC001
 from drawlib._core.l4_canvas import line as canvas_line

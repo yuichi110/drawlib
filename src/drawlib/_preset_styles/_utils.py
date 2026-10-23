@@ -11,6 +11,8 @@
 
 from __future__ import annotations
 
+from typing import Final
+
 from drawlib._core.l2_types import IconStyle, LineStyle
 from drawlib._core.l3_colors import Color, ColorType
 from drawlib._core.l3_fonts import Font
@@ -20,10 +22,18 @@ from drawlib._core.l3_styles import (
     DEFAULT_FONT_THIN,
     DEFAULT_TEXT_SIZE,
     Style,
+    _construct_preset_style,
 )
+from drawlib._core.l3_styles._style import SupportType
 from drawlib._preset_colors import DefaultColors as Colors
 
-_DEFAULT_BORDER_COLOR: Color = Color(39, 39, 39)
+_DEFAULT_BORDER_COLOR: Final[Color] = Color(39, 39, 39)
+_TRANSPARENT_COLOR: Final[Color] = Color(0, 0, 0, 0.0)
+
+_SUPPORTS_BORDERED: Final[frozenset[SupportType]] = frozenset({"shape", "line", "text", "icon"})
+_SUPPORTS_FLAT: Final[frozenset[SupportType]] = frozenset({"shape", "icon"})
+_SUPPORTS_OUTLINE: Final[frozenset[SupportType]] = frozenset({"shape", "line"})
+_SUPPORTS_CARD_FLAT: Final[frozenset[SupportType]] = frozenset({"shape", "text", "icon"})
 
 
 def _create_style(
@@ -61,7 +71,8 @@ def _create_style(
     s_line_w = shape_line_width if shape_line_width is not None else line_width
     s_line_s = shape_line_style if shape_line_style is not None else line_style
 
-    return Style(
+    return _construct_preset_style(
+        supports=_SUPPORTS_BORDERED,
         shape_fill_color=fill_color,
         shape_line_color=line_color,
         shape_line_width=s_line_w,
@@ -110,8 +121,8 @@ def _make_variants(
     txt_col = default_text_color if default_text_color is not None else color
     actual_line_col = line_color if line_color is not None else color
 
-    bordered_regular = Style(
-        supports={"shape", "line", "text", "icon"},
+    bordered_regular = Style.model_construct(
+        supports=_SUPPORTS_BORDERED,
         shape_fill_color=color,
         shape_line_color=line_col,
         shape_line_width=1.5,
@@ -129,8 +140,8 @@ def _make_variants(
         icon_color=txt_col,
         icon_style="regular",
     )
-    bordered_bold = Style(
-        supports={"shape", "line", "text", "icon"},
+    bordered_bold = Style.model_construct(
+        supports=_SUPPORTS_BORDERED,
         shape_fill_color=color,
         shape_line_color=line_col,
         shape_line_width=2.5,
@@ -148,8 +159,8 @@ def _make_variants(
         icon_color=txt_col,
         icon_style="bold",
     )
-    bordered_thin = Style(
-        supports={"shape", "line", "text", "icon"},
+    bordered_thin = Style.model_construct(
+        supports=_SUPPORTS_BORDERED,
         shape_fill_color=color,
         shape_line_color=line_col,
         shape_line_width=0.75,
@@ -167,18 +178,18 @@ def _make_variants(
         icon_color=txt_col,
         icon_style="thin",
     )
-    flat = Style(
-        supports={"shape", "icon"},
+    flat = Style.model_construct(
+        supports=_SUPPORTS_FLAT,
         shape_fill_color=color,
-        shape_line_color=Colors.Transparent,
+        shape_line_color=_TRANSPARENT_COLOR,
         shape_line_width=0.0,
         shape_line_style="solid",
         icon_color=color,
         icon_style="regular",
     )
-    outline_regular = Style(
-        supports={"shape", "line"},
-        shape_fill_color=Colors.Transparent,
+    outline_regular = Style.model_construct(
+        supports=_SUPPORTS_OUTLINE,
+        shape_fill_color=_TRANSPARENT_COLOR,
         shape_line_color=actual_line_col,
         shape_line_width=1.5,
         shape_line_style="solid",
@@ -188,9 +199,9 @@ def _make_variants(
         line_arrow_head_scale=20.0,
         line_arrow_head_fill=False,
     )
-    outline_bold = Style(
-        supports={"shape", "line"},
-        shape_fill_color=Colors.Transparent,
+    outline_bold = Style.model_construct(
+        supports=_SUPPORTS_OUTLINE,
+        shape_fill_color=_TRANSPARENT_COLOR,
         shape_line_color=actual_line_col,
         shape_line_width=2.5,
         shape_line_style="solid",
@@ -200,9 +211,9 @@ def _make_variants(
         line_arrow_head_scale=20.0,
         line_arrow_head_fill=False,
     )
-    outline_thin = Style(
-        supports={"shape", "line"},
-        shape_fill_color=Colors.Transparent,
+    outline_thin = Style.model_construct(
+        supports=_SUPPORTS_OUTLINE,
+        shape_fill_color=_TRANSPARENT_COLOR,
         shape_line_color=actual_line_col,
         shape_line_width=0.75,
         shape_line_style="solid",
@@ -212,9 +223,9 @@ def _make_variants(
         line_arrow_head_scale=20.0,
         line_arrow_head_fill=False,
     )
-    dashed_regular = Style(
-        supports={"shape", "line"},
-        shape_fill_color=Colors.Transparent,
+    dashed_regular = Style.model_construct(
+        supports=_SUPPORTS_OUTLINE,
+        shape_fill_color=_TRANSPARENT_COLOR,
         shape_line_color=actual_line_col,
         shape_line_width=1.5,
         shape_line_style="dashed",
@@ -224,9 +235,9 @@ def _make_variants(
         line_arrow_head_scale=20.0,
         line_arrow_head_fill=False,
     )
-    dashed_bold = Style(
-        supports={"shape", "line"},
-        shape_fill_color=Colors.Transparent,
+    dashed_bold = Style.model_construct(
+        supports=_SUPPORTS_OUTLINE,
+        shape_fill_color=_TRANSPARENT_COLOR,
         shape_line_color=actual_line_col,
         shape_line_width=2.5,
         shape_line_style="dashed",
@@ -236,9 +247,9 @@ def _make_variants(
         line_arrow_head_scale=20.0,
         line_arrow_head_fill=False,
     )
-    dashed_thin = Style(
-        supports={"shape", "line"},
-        shape_fill_color=Colors.Transparent,
+    dashed_thin = Style.model_construct(
+        supports=_SUPPORTS_OUTLINE,
+        shape_fill_color=_TRANSPARENT_COLOR,
         shape_line_color=actual_line_col,
         shape_line_width=0.75,
         shape_line_style="dashed",
@@ -248,9 +259,9 @@ def _make_variants(
         line_arrow_head_scale=20.0,
         line_arrow_head_fill=False,
     )
-    dotted_regular = Style(
-        supports={"shape", "line"},
-        shape_fill_color=Colors.Transparent,
+    dotted_regular = Style.model_construct(
+        supports=_SUPPORTS_OUTLINE,
+        shape_fill_color=_TRANSPARENT_COLOR,
         shape_line_color=actual_line_col,
         shape_line_width=1.5,
         shape_line_style="dotted",
@@ -260,9 +271,9 @@ def _make_variants(
         line_arrow_head_scale=20.0,
         line_arrow_head_fill=False,
     )
-    dotted_bold = Style(
-        supports={"shape", "line"},
-        shape_fill_color=Colors.Transparent,
+    dotted_bold = Style.model_construct(
+        supports=_SUPPORTS_OUTLINE,
+        shape_fill_color=_TRANSPARENT_COLOR,
         shape_line_color=actual_line_col,
         shape_line_width=2.5,
         shape_line_style="dotted",
@@ -272,9 +283,9 @@ def _make_variants(
         line_arrow_head_scale=20.0,
         line_arrow_head_fill=False,
     )
-    dotted_thin = Style(
-        supports={"shape", "line"},
-        shape_fill_color=Colors.Transparent,
+    dotted_thin = Style.model_construct(
+        supports=_SUPPORTS_OUTLINE,
+        shape_fill_color=_TRANSPARENT_COLOR,
         shape_line_color=actual_line_col,
         shape_line_width=0.75,
         shape_line_style="dotted",
@@ -284,6 +295,9 @@ def _make_variants(
         line_arrow_head_scale=20.0,
         line_arrow_head_fill=False,
     )
+
+    # Suppress unused import warning while keeping Colors reference if needed
+    _ = Colors
 
     return {
         "normal": bordered_regular,
@@ -325,8 +339,8 @@ def _make_neutral_card(
     b_col = border_color if border_color is not None else _DEFAULT_BORDER_COLOR
     t_col = text_color if text_color is not None else b_col
 
-    bordered = Style(
-        supports={"shape", "line", "text", "icon"},
+    bordered = Style.model_construct(
+        supports=_SUPPORTS_BORDERED,
         shape_fill_color=fill_color,
         shape_line_color=b_col,
         shape_line_width=1.5,
@@ -344,10 +358,10 @@ def _make_neutral_card(
         icon_color=t_col,
         icon_style="regular",
     )
-    flat = Style(
-        supports={"shape", "text", "icon"},
+    flat = Style.model_construct(
+        supports=_SUPPORTS_CARD_FLAT,
         shape_fill_color=fill_color,
-        shape_line_color=Colors.Transparent,
+        shape_line_color=_TRANSPARENT_COLOR,
         shape_line_width=0.0,
         shape_line_style="solid",
         text_color=t_col,

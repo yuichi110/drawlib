@@ -13,8 +13,6 @@ from __future__ import annotations
 
 from typing import Literal
 
-from pydantic import validate_call
-
 from drawlib._charts._common._base import draw_with_box_overrides
 from drawlib._charts._common._types import DrawDirection
 from drawlib._charts.gantt_chart import _renderer as _renderer_module
@@ -25,6 +23,7 @@ from drawlib._charts.gantt_chart._item import (
     Section,
     Task,
 )
+from drawlib._core.l1_core import validate_call
 from drawlib._core.l3_styles import Style
 
 

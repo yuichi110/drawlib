@@ -13,9 +13,8 @@ from __future__ import annotations
 
 from typing import Literal, TypeVar
 
-from pydantic import validate_call
-
 import drawlib._diagrams.state._renderer as _renderer_module
+from drawlib._core.l1_core import validate_call
 from drawlib._core.l2_types import PosFloat
 from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas import transform

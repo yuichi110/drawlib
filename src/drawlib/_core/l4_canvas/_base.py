@@ -35,8 +35,8 @@ from matplotlib.patches import (
 )
 from matplotlib.path import Path
 from matplotlib.text import Text
-from pydantic import validate_call
 
+from drawlib._core.l1_core import validate_call
 from drawlib._core.l2_types import (
     Alpha,
     Angle,

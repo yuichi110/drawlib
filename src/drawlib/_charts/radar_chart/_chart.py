@@ -13,8 +13,6 @@ from __future__ import annotations
 
 from typing import Literal
 
-from pydantic import validate_call
-
 from drawlib._charts._common._base import RadialChartMixin
 from drawlib._charts._common._types import (
     DrawDirection,
@@ -25,6 +23,7 @@ from drawlib._charts._common._types import (
 )
 from drawlib._charts.radar_chart import _renderer as _renderer_module
 from drawlib._charts.radar_chart._series import Series
+from drawlib._core.l1_core import validate_call
 from drawlib._core.l3_styles import Style
 
 

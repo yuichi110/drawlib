@@ -19,8 +19,8 @@ import multiprocessing.connection
 from typing import Any
 
 from PIL import Image
-from pydantic import validate_call
 
+from drawlib._core.l1_core import validate_call
 from drawlib._core.l3_images import Dimage
 
 
@@ -47,7 +47,7 @@ def _worker_render_code(
 
         drawlib.canvas.save = _no_op_save  # type: ignore
         drawlib._core.l4_canvas.save = _no_op_save  # type: ignore
-        drawlib._core.l4_canvas.canvas.save = _no_op_save  # type: ignore
+        drawlib._core.l4_canvas.canvas.save = _no_op_save
 
         exec_globals: dict[str, Any] = {
             "__name__": "__main__",

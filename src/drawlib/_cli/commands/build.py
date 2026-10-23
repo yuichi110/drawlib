@@ -18,11 +18,8 @@ from typing import Annotated, Literal
 import typer
 from rich.console import Console
 
-from drawlib._builder.doc_builder import build_html, build_markdown, build_pdf
-from drawlib._builder.image_builder import build_image
 from drawlib._cli._help import HELP_EPILOG
 from drawlib._core.l1_core import drawlib_settings
-from drawlib._slide import build_slide
 
 build_app = typer.Typer(
     name="build",
@@ -90,6 +87,8 @@ def cmd_build_image(
 ) -> None:
     """Execute a Python drawing script (.py) or directory containing scripts to generate images."""
     try:
+        from drawlib._builder.image_builder import build_image  # noqa: PLC0415
+
         executed = build_image(
             input_path=input_path,
             output_path=output,
@@ -135,6 +134,8 @@ def cmd_build_markdown(
 ) -> None:
     """Compile a directory containing Markdown files with drawlib code blocks into rendered Markdown."""
     try:
+        from drawlib._builder.doc_builder import build_markdown  # noqa: PLC0415
+
         out_file = build_markdown(
             input_dir=input_dir,
             output_dir=output,
@@ -177,6 +178,8 @@ def cmd_build_html(
 ) -> None:
     """Compile a Markdown/HTML documentation directory into a static HTML site."""
     try:
+        from drawlib._builder.doc_builder import build_html  # noqa: PLC0415
+
         out_file = build_html(
             input_dir=input_dir,
             output_dir=output,
@@ -240,6 +243,8 @@ def cmd_build_pdf(
 ) -> None:
     """Compile Markdown chapters, single Markdown file, or slide deck into a print-ready vector PDF."""
     try:
+        from drawlib._builder.doc_builder import build_pdf  # noqa: PLC0415
+
         out_file = build_pdf(
             input_path=input_path,
             output_file=output,
@@ -289,6 +294,8 @@ def cmd_build_slide(
 ) -> None:
     """Compile a directory of Markdown slide files into a standalone HTML presentation deck."""
     try:
+        from drawlib._slide import build_slide  # noqa: PLC0415
+
         out_file = build_slide(
             input_dir=input_dir,
             output_dir=output,

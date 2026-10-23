@@ -14,8 +14,9 @@ from __future__ import annotations
 import math
 from typing import Literal, Self
 
-from pydantic import BaseModel, ConfigDict, validate_call
+from pydantic import BaseModel, ConfigDict
 
+from drawlib._core.l1_core import validate_call
 from drawlib._core.l2_types import Angle, Coordinate, PosFloat
 from drawlib._core.l3_colors import ColorType, ColorUtils
 from drawlib._core.l3_fonts import Font

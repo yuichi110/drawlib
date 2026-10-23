@@ -1,5 +1,28 @@
 # Release Notes & Migration Guide
 
+## Version 0.3.1
+
+*Release Date: 2026/10/23*
+
+Version 0.3.1 introduces the **`drawlib.charts.heatmap`** visualization suite (`HeatmapChart` and `HeatmapOverlay`) alongside a comprehensive **startup and import performance optimization** across the library and CLI.
+
+---
+
+### Highlights & New Features
+
+#### 1. 2D Matrix Heatmaps & Spatial Thermal Overlays (`drawlib.charts.heatmap`)
+- **`HeatmapChart`**: Declarative 2D matrix/grid heatmap across categorical `x_categories` and `y_categories`, featuring `Style`-based multi-stop color interpolation (`styles=[...]` or `min_style` / `max_style`), auto-contrasting in-cell value labels, configurable cell gaps and corner rounding (`cell_gap`, `cell_r`), continuous colorbars (`draw_colorbar`), and stepped swatch legends (`draw_legend`).
+- **`HeatmapOverlay`**: Spatial thermal and hotspot overlay engineered to render directly over existing diagrams (`ClassDiagram`, `ArchitectureDiagram`, `ERDiagram`, `FlowDiagram`, `GeoMap`, etc.) to highlight complexity, incident density, or regional hotspots in `"smooth"` (2D Gaussian thermal gradient) or `"contour"` (concentric vector isoline rings) modes with `"add"` and `"max"` accumulation (`Spot`).
+
+#### 2. Major Startup & Import Performance Optimization
+- **PEP 562 Lazy Module & Icon Suite Loading**: Deferred submodule imports across `drawlib`, `drawlib.tools`, `drawlib.styles`, `drawlib.preset_styles`, `drawlib.preset_colors`, `drawlib.smartarts`, `drawlib.charts`, `drawlib.diagrams`, `drawlib.icons`, and CLI subcommands. Importing `drawlib`, calling non-rendering `drawlib.tools` utilities, or running lightweight CLI commands (`drawlib --version`, `drawlib init`, `drawlib serve`) no longer loads `matplotlib` or unused domain modules, reducing startup latency by **15x–40x** (and cutting `import drawlib` function calls by over **99%**).
+- **On-Demand Preset Themes & Fast `Style` Construction**: Deferred preset theme instantiation (`DefaultStyles`, `GoogleStyles`, `MonochromeStyles`, etc.) until first access, adopted `defer_build=True` and `model_construct` fast paths for built-in style tokens, optimized `_BaseStylesMeta` attribute lookup, and deferred `@validate_call` schema compilation until first function call.
+
+#### 3. Bug Fixes & Compatibility
+- Resolved `PydanticDeprecatedSince211` deprecation warnings triggered when accessing `model_fields` on `BaseStyles` instances in Pydantic v2.11+.
+
+---
+
 ## Version 0.3.0
 
 *Release Date: 2026/10/21*

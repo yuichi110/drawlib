@@ -11,10 +11,9 @@
 
 from __future__ import annotations
 
-from pydantic import validate_call
-
 from drawlib._charts._common._axis import Axis
 from drawlib._charts._common._base import AxisChartMixin
+from drawlib._core.l1_core import validate_call
 from drawlib._core.l3_styles import Style
 
 

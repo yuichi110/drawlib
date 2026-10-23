@@ -29,6 +29,7 @@ from drawlib._core.l1_core._path_utils import (
     get_script_relative_path,
 )
 from drawlib._core.l1_core._settings import drawlib_settings
+from drawlib._core.l1_core._validator import validate_call
 
 __all__ = [
     # _const.py
@@ -43,6 +44,8 @@ __all__ = [
     "logger",
     # _settings.py
     "drawlib_settings",
+    # _validator.py
+    "validate_call",
     # _path_utils.py
     "CACHE_GITIGNORE_CONTENT",
     "CACHE_TAG_CONTENT",

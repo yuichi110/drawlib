@@ -1,7 +1,5 @@
 # HeatmapChart & HeatmapOverlay: 2D Matrix Grids & Diagram Thermal Overlays
 
-> **Note (Upcoming in v0.3.1):** `drawlib.charts.heatmap` (`HeatmapChart` and `HeatmapOverlay`) is scheduled for the upcoming **v0.3.1** release and is not yet included in the `v0.3.0` package on PyPI.
-
 `drawlib.charts.heatmap` provides two complementary heatmap visualization classes styled via `Style` color-stop interpolation (`styles=[Style, ...]` or `min_style=...`, `max_style=...`):
 1. **`HeatmapChart`**: A standard 2D matrix/grid heatmap across categorical `x_categories` and `y_categories` with auto-contrasting in-cell numerical labels, configurable cell gaps and corner rounding (`cell_gap`, `cell_r`), and continuous colorbar (`draw_colorbar`) or stepped legend (`draw_legend`).
 2. **`HeatmapOverlay`**: A spatial thermal/hotspot overlay designed to be drawn directly on top of diagrams (such as `ClassDiagram`, `ArchitectureDiagram`, `ErDiagram`, or `GeoMap`) to highlight high-risk classes, cyclomatic complexity, bug density, or regional/service bottlenecks in either `"smooth"` (2D Gaussian thermal gradient) or `"contour"` (concentric vector isoline rings) mode.

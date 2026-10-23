@@ -14,8 +14,6 @@ from __future__ import annotations
 from collections.abc import Sequence
 from typing import Literal
 
-from pydantic import validate_call
-
 import drawlib._charts.heatmap_chart._renderer as _renderer_module
 from drawlib._charts._common._base import draw_with_box_overrides
 from drawlib._charts._common._types import DrawDirection, FormatterType, Orientation
@@ -27,6 +25,7 @@ from drawlib._charts.heatmap_chart._models import (
     extract_heatmap_color,
     resolve_style_stops,
 )
+from drawlib._core.l1_core import validate_call
 from drawlib._core.l3_colors import Color
 from drawlib._core.l3_styles import Style
 

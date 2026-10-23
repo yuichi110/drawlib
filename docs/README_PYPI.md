@@ -36,7 +36,7 @@ Compose presentation-ready infographics (`drawlib.smartarts`) and quantitative d
 ![Charts and SmartArts Showcase](https://www.drawlib.com/pypi_images/03_showcase_charts_smartarts.png)
 
 - **SmartArts (`drawlib.smartarts`)**: `ChevronProcess`, `Cycle`, `Table`, `TreeNode`, `MindMapNode`, `Pyramid`, `BoxList`, `BulletPoints`, `GridLayout`, and syntax-highlighted `SourceCode`.
-- **Charts (`drawlib.charts`)**: Pure-Python `BarChart`, `LineChart`, `AreaChart`, `PieChart`, `RadarChart`, `ScatterChart`, and `GanttChart` styled with the same design tokens as your diagrams.
+- **Charts (`drawlib.charts`)**: Pure-Python `BarChart`, `LineChart`, `AreaChart`, `PieChart`, `RadarChart`, `ScatterChart`, `GanttChart`, and `HeatmapChart` / `HeatmapOverlay` styled with the same design tokens as your diagrams.
 
 ---
 

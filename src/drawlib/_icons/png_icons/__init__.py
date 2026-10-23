@@ -11,41 +11,60 @@
 
 from __future__ import annotations
 
-from drawlib._icons.png_icons import (
-    ai,
-    aws,
-    azure,
-    business,
-    client,
-    cloud,
-    cnative,
-    code,
-    data,
-    devops,
-    facility,
-    gcp,
-    itservice,
-    network,
-    original_ai,
-    original_business,
-    original_client,
-    original_cloud,
-    original_cnative,
-    original_code,
-    original_data,
-    original_devops,
-    original_facility,
-    original_itservice,
-    original_network,
-    original_security,
-    original_server,
-    original_social,
-    original_workspace,
-    security,
-    server,
-    social,
-    workspace,
-)
+import importlib
+from typing import TYPE_CHECKING, Any
+
+if TYPE_CHECKING:
+    from drawlib._icons.png_icons import (
+        ai,
+        aws,
+        azure,
+        business,
+        client,
+        cloud,
+        cnative,
+        code,
+        data,
+        devops,
+        facility,
+        gcp,
+        itservice,
+        network,
+        original_ai,
+        original_business,
+        original_client,
+        original_cloud,
+        original_cnative,
+        original_code,
+        original_data,
+        original_devops,
+        original_facility,
+        original_itservice,
+        original_network,
+        original_security,
+        original_server,
+        original_social,
+        original_workspace,
+        security,
+        server,
+        social,
+        workspace,
+    )
+
+
+def __getattr__(name: str) -> Any:  # noqa: ANN401
+    """Lazy-load PNG icon suites on first access (PEP 562)."""
+    if name in __all__:
+        module = importlib.import_module(f"drawlib._icons.png_icons.{name}")
+        globals()[name] = module
+        return module
+    raise AttributeError(f"module '{__name__}' has no attribute '{name}'")
+
+
+def __dir__() -> list[str]:
+    """Ensure lazy PNG icon modules appear in dir() and autocompletion."""
+    return sorted(__all__)
+
 
 __all__ = [
     "ai",

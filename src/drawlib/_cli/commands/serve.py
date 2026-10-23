@@ -18,7 +18,6 @@ from typing import Annotated
 import typer
 
 from drawlib._core.l1_core import drawlib_settings
-from drawlib._http_server import serve_docs
 
 
 def _handle_serve_error(prefix: str, exc: Exception) -> None:
@@ -59,6 +58,8 @@ def cmd_serve(
 ) -> None:
     """Start a local HTTP server to preview built HTML documentation."""
     try:
+        from drawlib._http_server import serve_docs  # noqa: PLC0415
+
         serve_docs(
             directory=directory,
             port=port,
