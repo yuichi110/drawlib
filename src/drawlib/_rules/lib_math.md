@@ -255,5 +255,5 @@ save()
 
 ## 5. Related Rules
 - Lines & Arrowhead Routing: `uv run drawlib rules show lib-lines`
-- Shapes Drawing Primitives: `uv run drawlib rules show lib-shapes`
-- SmartArts Radial Mindmap: `uv run drawlib rules show lib-smartarts`
+- Shapes Drawing Primitives: `uv run drawlib rules show lib-shapes-overview`
+- SmartArts Radial Mindmap: `uv run drawlib rules show lib-smartarts-mindmap`

@@ -87,7 +87,7 @@ phosphor.layout((60.5, 36.5), width=5.0, style=Styles.SecondaryBold)
 text((77, 36.5), "2. Page Anatomy", style=Styles.SecondaryBold.patch(text_size=11.5))
 text(
     (75, 21),
-    "• Hero at Lines 5–15\n• fold-code & 2+ figs\n• 100% container width\n• text_size >= 10.0",
+    "• Hero at Lines 5–15\n• code=fold & 2+ figs\n• 100% container width\n• text_size >= 10.0",
     style=Styles.Dark.patch(text_size=10.0),
 )
 
@@ -145,11 +145,11 @@ save()
 
 To achieve true **"Illustrated Documentation as Code"**, every page in `docs_src/` must follow these four layout laws:
 
-### 4.1. Law 1: Above-the-Fold Top Hero Diagram (`Lines 5–15` + `fold-code`)
+### 4.1. Law 1: Above-the-Fold Top Hero Diagram (`Lines 5–15` + `code=fold`)
 When a reader opens any page in `docs_html/` at a standard desktop viewport (`1280×920`), they must immediately see a rich architectural illustration—**never a wall of text or a 60-line Python code block**:
 - Place the first ```` ```drawlib ```` block at **Lines 5–15** (immediately after `# Page Title` and a 1–2 sentence executive summary).
-- Always specify **`fold-code`** on the Top Hero diagram (or `hide-code` on `index.md`) so the rendered illustration is displayed first and its Python source is tucked neatly inside a collapsible `<details><summary>Source Code</summary>` drawer.
-- **Visual Richness**: Combine official iconography (`phosphor.*`, `gcp.*`, `font_icon`) with high-level layout components (`SmartArts`, `Diagrams`, `Graphs`, `Charts`) so the Top Hero serves as a visual mental map of the entire page.
+- Always specify **`code=fold`** on the Top Hero diagram (or `code=hide` on `index.md`) so the rendered illustration is displayed first and its Python source is tucked neatly inside a collapsible `<details><summary>Source Code</summary>` drawer.
+- **Visual Richness**: Combine official iconography (`phosphor.*`, `gcp.*`, `aws.*`, `azure.*`, domain icon suites) with high-level layout components (`SmartArts`, `Diagrams`, `Graphs`, `Charts`) so the Top Hero serves as a visual mental map of the entire page.
 
 ````markdown
 # Authentication & Zero-Trust Gateway
@@ -165,9 +165,9 @@ save()
 
 ### 4.2. Law 2: Visual Density (`2+` Diagrams per Page)
 - Include **at least `2` embedded ```` ```drawlib ```` diagrams per page**:
-  1. **Top Hero Diagram (`fold-code`)**: High-level conceptual overview or architecture at `Lines 5–15`.
-  2. **Section / Deep-Dive Diagram(s) (`fold-code` or `show-code`)**: Sequence flows, state transitions, data tables, or API examples illustrating specific subsections.
-- **Always Specify `file:<name>.png` and `caption:"..."`**: Never rely on auto-numbered filenames (`0.png`, `1.png`), which shift and break caches whenever a block is inserted above them.
+  1. **Top Hero Diagram (`code=fold`)**: High-level conceptual overview or architecture at `Lines 5–15`.
+  2. **Section / Deep-Dive Diagram(s) (`code=fold` or `code=show`)**: Sequence flows, state transitions, data tables, or API examples illustrating specific subsections.
+- **Always Specify `file=<name>.png` and `caption="..."`**: Never rely on auto-numbered filenames (`0.png`, `1.png`), which shift and break caches whenever a block is inserted above them.
 
 ### 4.3. Law 3: Full Container Width & `720pt` Typography Scaling
 Drawlib maps every canvas width (`setup(width=W)`) to `720pt` (`10 inches`), meaning any in-image `text_size` renders in HTML at:
@@ -195,7 +195,7 @@ $$\text{Rendered CSS Font Size (px)} = \text{text\_size} \times \frac{\text{Disp
 Never deliver changes to `docs_src/` without executing all 3 verification stages:
 
 1. **Stage 1 — Static & Anchor Audit**:
-   Verify `>= 2` diagrams per page, Top Hero at `Lines 5–15` with `fold-code`, zero narrow `px` fence caps, `text_size >= 10.0`, zero `file://` or absolute path links, and accurate `Center` (`shapes`/`text`/`icons`) vs. `Bottom-Left` (`SmartArts`/`Charts`/`Diagrams`/`Graphs`) coordinate anchors.
+   Verify `>= 2` diagrams per page, Top Hero at `Lines 5–15` with `code=fold`, zero narrow `px` fence caps, `text_size >= 10.0`, zero `file://` or absolute path links, and accurate `Center` (`shapes`/`text`/`icons`/`images`/`MindMapNode`/`Cycle`), `Bottom-Left` (`ChevronProcess`/`GridLayout`/`Pyramid`/`BoxList`/`CardList`/`KpiCards`/`Roadmap`/`Panel`/`GeoMap`/`MonthCalendar`/`Charts`/`Diagrams`), and `Top-Left` (`Table`/`TreeNode`/`BulletPoints`/`SourceCode`) coordinate anchors.
 2. **Stage 2 — Micro-Geometry Grid Review (`drawlib show ... -g` + `view_file`)**:
    Export each modified diagram with the coordinate grid to `.drawlib/scratch/` (do not rebuild the entire site just to test one diagram):
    ```bash
@@ -219,3 +219,4 @@ Never deliver changes to `docs_src/` without executing all 3 verification stages
    - **Phase 1 (Parent)**: Scaffold `docs_src/` (`drawlib init site`) and finalize `styles.py`, `utils.py`, `_assets/`, `index.md`, and the complete `navbar.md` link tree first.
    - **Phase 2 (Parallel Subagents)**: Assign each subagent a disjoint page or section directory (e.g. `01_getting_started/*.md` to Subagent A, `02_architecture/*.md` to Subagent B). Each subagent treats `styles.py`, `utils.py`, and `navbar.md` as read-only, authors its assigned `.md` files (`2+` diagrams, Top Hero at `Lines 5–15`), and runs Stage 1 & Stage 2 using **unique scratch filenames** (`-o .drawlib/scratch/<page>_<diagram>_grid.png`).
    - **Phase 3 (Parent)**: After all subagents report back, run `./docs_src/build.sh` once, run `uv run drawlib serve docs_html/ --check`, and perform Stage 3 `1280×920` browser verification.
+

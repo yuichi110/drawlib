@@ -52,7 +52,7 @@ def line(
     xy2: tuple[float, float],
     *,
     style: Style,
-    arrow_head: Literal["", "->", "<-", "<->"] | str = "",
+    arrow_head: Literal["->", "<-", "<->", "-"] | str = "",
 ) -> None:
 ```
 
@@ -61,7 +61,7 @@ def line(
 | `xy1` | `tuple[float, float]` | *Required* | Starting coordinate `(x1, y1)` in virtual canvas units. |
 | `xy2` | `tuple[float, float]` | *Required* | Ending coordinate `(x2, y2)` in virtual canvas units. |
 | `style` | `Style` | *Required* | Active `Style` object (e.g. `Styles.PrimaryBold`, `Styles.Primary`). Keyword-only argument. |
-| `arrow_head` | `str` | `""` | Terminal arrowhead style: `""` (none), `"->"` (forward), `"<-"` (reverse), `"<->"` (both). |
+| `arrow_head` | `ArrowHead` | `""` | Terminal arrowhead style: `""` / `"-"` (none), `"->"` (forward), `"<-"` (reverse), `"<->"` (both). |
 
 > [!TIP]
 > ### Best Practice: Overriding Line Width and Pattern via `style.patch()`
@@ -159,9 +159,9 @@ def line_curved(
     xy1: tuple[float, float],
     xy2: tuple[float, float],
     *,
-    bend: float = 0.0,
     style: Style,
-    arrow_head: Literal["", "->", "<-", "<->"] | str = "",
+    bend: float = 0,
+    arrow_head: Literal["->", "<-", "<->", "-"] | str = "",
 ) -> None:
 ```
 
@@ -169,9 +169,9 @@ def line_curved(
 | :--- | :--- | :--- | :--- |
 | `xy1` | `tuple[float, float]` | *Required* | Starting coordinate `(x1, y1)`. |
 | `xy2` | `tuple[float, float]` | *Required* | Ending coordinate `(x2, y2)`. |
-| `bend` | `float` | `0.0` | Curvature factor (typically `-1.0` to `1.0`). `0.0` is completely straight. |
 | `style` | `Style` | *Required* | Line style instance (override thickness via `style.patch(line_width=...)`). |
-| `arrow_head` | `str` | `""` | Terminal arrowhead style (`""`, `"->"`, `"<-"`, `"<->"`). |
+| `bend` | `float` | `0` | Curvature factor (typically `-1.0` to `1.0`). `0` is completely straight. |
+| `arrow_head` | `ArrowHead` | `""` | Terminal arrowhead style (`""` / `"-"`, `"->"`, `"<-"`, `"<->"`). |
 
 ### 3.2. Curvature Mechanics & Direction Rules
 Internally, Drawlib configures Matplotlib's `matplotlib.patches.ConnectionStyle.Arc3(rad=bend)`:
@@ -243,7 +243,7 @@ def line_bezier1(
     cp: tuple[float, float],
     *,
     style: Style,
-    arrow_head: Literal["", "->", "<-", "<->"] | str = "",
+    arrow_head: Literal["->", "<-", "<->", "-"] | str = "",
 ) -> None:
 ```
 
@@ -257,7 +257,7 @@ def line_bezier1(
 | `xy2` | `tuple[float, float]` | *Required* | Ending coordinate `P1`. |
 | `cp` | `tuple[float, float]` | *Required* | Control point `Pc` defining the curve apex and tangency. |
 | `style` | `Style` | *Required* | Line style instance (override thickness via `style.patch(line_width=...)`). |
-| `arrow_head` | `str` | `""` | Terminal arrowhead style (`""`, `"->"`, `"<-"`, `"<->"`). |
+| `arrow_head` | `ArrowHead` | `""` | Terminal arrowhead style (`""` / `"-"`, `"->"`, `"<-"`, `"<->"`). |
 
 #### Mathematical Formulation
 For interpolation parameter $t \in [0, 1]$:
@@ -294,7 +294,7 @@ def line_bezier2(
     cp2: tuple[float, float],
     *,
     style: Style,
-    arrow_head: Literal["", "->", "<-", "<->"] | str = "",
+    arrow_head: Literal["->", "<-", "<->", "-"] | str = "",
 ) -> None:
 ```
 
@@ -308,7 +308,7 @@ def line_bezier2(
 | `cp1` | `tuple[float, float]` | *Required* | First control point controlling departure tangency. |
 | `cp2` | `tuple[float, float]` | *Required* | Second control point controlling arrival tangency. |
 | `style` | `Style` | *Required* | Line style instance (override thickness via `style.patch(line_width=...)`). |
-| `arrow_head` | `str` | `""` | Terminal arrowhead style (`""`, `"->"`, `"<-"`, `"<->"`). |
+| `arrow_head` | `ArrowHead` | `""` | Terminal arrowhead style (`""` / `"-"`, `"->"`, `"<-"`, `"<->"`). |
 
 #### Mathematical Formulation
 $$B(t) = (1-t)^3 P_0 + 3(1-t)^2 t P_{c1} + 3(1-t) t^2 P_{c2} + t^3 P_1$$
@@ -380,7 +380,7 @@ def lines(
     xys: list[tuple[float, float]],
     *,
     style: Style,
-    arrow_head: Literal["", "->", "<-", "<->"] | str = "",
+    arrow_head: Literal["->", "<-", "<->", "-"] | str = "",
 ) -> None:
 ```
 
@@ -388,7 +388,7 @@ def lines(
 | :--- | :--- | :--- | :--- |
 | `xys` | `list[tuple[float, float]]` | *Required* | Sequence of 2 or more coordinates `[(x0, y0), (x1, y1), ...]`. |
 | `style` | `Style` | *Required* | Active `Style` instance (override thickness via `style.patch(line_width=...)`). Keyword-only argument. |
-| `arrow_head` | `str` | `""` | Arrowhead placed on terminal segment(s). |
+| `arrow_head` | `ArrowHead` | `""` | Arrowhead placed on terminal segment(s). |
 
 ### 5.2. Built-in Optimizations: Sanitization & Collinear Merging
 Drawlib's `LineUtils.sanitize_xys()` runs automatically prior to rendering:
@@ -469,7 +469,7 @@ def lines_curved(
     r: float,
     *,
     style: Style,
-    arrow_head: Literal["", "->", "<-", "<->"] | str = "",
+    arrow_head: Literal["->", "<-", "<->", "-"] | str = "",
 ) -> None:
 ```
 
@@ -478,7 +478,7 @@ def lines_curved(
 | `xys` | `list[tuple[float, float]]` | *Required* | Sequence of 3 or more polyline coordinates. |
 | `r` | `float` | *Required* | Fillet curvature radius (distance from vertex to start of curve). |
 | `style` | `Style` | *Required* | Line style instance (override thickness via `style.patch(line_width=...)`). |
-| `arrow_head` | `str` | `""` | Terminal arrowhead style. |
+| `arrow_head` | `ArrowHead` | `""` | Terminal arrowhead style. |
 
 #### Corner Fillet Radius Constraint
 At each vertex $P_i$, the rounding algorithm extracts control points at distance $r$ along incoming segment $P_{i-1} P_i$ and outgoing segment $P_i P_{i+1}$.
@@ -510,7 +510,7 @@ def lines_bezier(
     ],
     *,
     style: Style,
-    arrow_head: Literal["", "->", "<-", "<->"] | str = "",
+    arrow_head: Literal["->", "<-", "<->", "-"] | str = "",
 ) -> None:
 ```
 
@@ -568,12 +568,12 @@ def line_arc(
     width: float,
     height: float,
     *,
+    style: Style,
     angle_start: float = 0,
     angle_end: float = 180,
     angle: float = 0,
+    arrow_head: Literal["->", "<-", "<->", "-"] | str = "",
     ccw: bool = True,
-    style: Style,
-    arrow_head: Literal["", "->", "<-", "<->"] | str = "",
 ) -> None:
 ```
 
@@ -582,12 +582,12 @@ def line_arc(
 | `xy` | `tuple[float, float]` | *Required* | Center coordinate `(cx, cy)` of the ellipse. |
 | `width` | `float` | *Required* | Full horizontal diameter ($2 \times R_x$) of arc ellipse geometry. |
 | `height` | `float` | *Required* | Full vertical diameter ($2 \times R_y$) of arc ellipse geometry. Circular if `width == height`. |
+| `style` | `Style` | *Required* | Line style instance (override stroke thickness via `style.patch(line_width=...)`). |
 | `angle_start` | `float` | `0` | Starting angle in degrees ($0^\circ$ = positive X-axis). |
 | `angle_end` | `float` | `180` | Ending angle in degrees. |
 | `angle` | `float` | `0` | Rotation angle of the entire ellipse frame in degrees. |
+| `arrow_head` | `ArrowHead` | `""` | Terminal arrowhead style (`""` / `"-"`, `"->"`, `"<-"`, `"<->"`). |
 | `ccw` | `bool` | `True` | Traversal direction: `True` for counter-clockwise, `False` for clockwise. |
-| `style` | `Style` | *Required* | Line style instance (override stroke thickness via `style.patch(line_width=...)`). |
-| `arrow_head` | `str` | `""` | Terminal arrowhead style (`""`, `"->"`, `"<-"`, `"<->"`). |
 
 ### 7.2. Angle Navigation Reference
 Angles in Drawlib adhere to standard Cartesian trigonometry:
@@ -745,7 +745,7 @@ custom_style = Styles.Primary.patch(
 )
 ```
 
-### 9.2. Stroke Patterns (`TypeLineStyle`)
+### 9.2. Stroke Patterns (`LineStyle`)
 The `line_style` attribute accepts four standardized patterns:
 - `"solid"` (default): Continuous uninterrupted stroke.
 - `"dashed"`: Evenly spaced dash marks.
@@ -764,7 +764,7 @@ Drawlib includes built-in preset line styles on `Styles` following the conventio
 $$\text{Styles.<Color><Type><Weight>}$$
 - **`<Color>`**: `Blue`, `Red`, `Green`, `Gray`, `Black`, `Purple`, `Primary`, etc.
 - **`<Type>`** (optional): `Solid` (default), `Dashed`.
-- **`<Weight>`** (optional): `Light` (half width), `Bold` (double width).
+- **`<Weight>`** (optional): `Thin` (half width), `Bold` (double width).
 
 Examples of valid presets:
 - `Styles.Blue`: Solid blue line of regular width.
@@ -1078,14 +1078,14 @@ save()
 ### 13.2. Common Pitfalls & Solutions
 
 #### Pitfall 1: Swapped Control Point in `line_bezier1` Positional Call
-- **Error**: Calling `line_bezier1((10, 10), (50, 50), (90, 10))` expecting `(50, 50)` to be the control point.
+- **Error**: Calling `line_bezier1((10, 10), (50, 50), (90, 10), style=Styles.DarkBold)` expecting `(50, 50)` to be the control point.
 - **Why**: The positional signature is `(xy1, xy2, cp)`. In positional calls, the second argument is `xy2`!
-- **Fix**: Always use keyword arguments: `line_bezier1(xy1=(10, 10), cp=(50, 50), xy2=(90, 10))`.
+- **Fix**: Always use keyword arguments: `line_bezier1(xy1=(10, 10), cp=(50, 50), xy2=(90, 10), style=Styles.DarkBold)`.
 
-#### Pitfall 2: Using `width` Instead of `linewidth` in `line_arc`
-- **Error**: `line_arc((50, 50), width=40, height=40, width=2.0)` throws a Python `TypeError: duplicate keyword argument 'width'`.
-- **Why**: In `line_arc()`, `width` is the horizontal diameter of the ellipse. The stroke thickness parameter is named `linewidth`.
-- **Fix**: `line_arc((50, 50), width=40, height=40, linewidth=2.0)`.
+#### Pitfall 2: Passing `width` or `linewidth` for Stroke Thickness in `line_arc`
+- **Error**: `line_arc((50, 50), width=40, height=40, linewidth=2.0, style=Styles.Dark)` throws a validation error (or `TypeError: duplicate keyword argument 'width'` if `width` is passed twice).
+- **Why**: In `line_arc()`, `width` is the horizontal diameter of the ellipse, and `line_arc()` has no `linewidth` parameter. Stroke width is configured via `style`.
+- **Fix**: `line_arc((50, 50), width=40, height=40, style=Styles.Dark.patch(line_width=2.0))`.
 
 #### Pitfall 3: Corner Radius `r` Exceeding Segment Length in `lines_curved`
 - **Error**: Distorted loopbacks or rendering artifacts at polyline corners.
@@ -1099,8 +1099,8 @@ save()
 
 #### Pitfall 5: Passing Unsupported Arrowhead Strings
 - **Error**: Passing `arrow_head="<--"` or `arrow_head="==>"` throws a validation error.
-- **Why**: `TypeArrowHead` is strictly validated to `["", "->", "<-", "<->"]`.
-- **Fix**: Use only the four supported literal strings. For filled heads, configure `Style(line_arrow_head_fill=True)`.
+- **Why**: `ArrowHead` is strictly validated to `Literal["->", "<-", "<->", "-"] | str` (including `""`).
+- **Fix**: Use only the supported literal strings (`""`, `"-"`, `"->"`, `"<-"`, `"<->"`). For filled heads, configure `Style(line_arrow_head_fill=True)`.
 
 ### 13.3. Best Practices Checklist for AI Agents & Developers
 1. **Always Set Canvas Bounds First**: Begin every drawing script with `setup(width=..., height=...)` to establish the virtual coordinate scale.

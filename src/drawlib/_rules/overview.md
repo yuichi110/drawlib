@@ -117,14 +117,14 @@ The canvas represents the virtual Cartesian drawing plane upon which all graphic
 ```
 
 ### 2.2. Coordinate Alignment (`halign` & `valign`) & Anchor Semantics
-By default, primitive shapes, icons, images, and text blocks interpret coordinate `(x, y)` as the geometric **center** (`halign="center"`, `valign="center"`), whereas high-level composite components interpret `(x, y)` as the **bottom-left corner** `(x0, y0)`:
-- **Center-Anchored `(cx, cy)`**: `shapes.*`, `text.text()`, `icons.*` (`phosphor`, `gcp`, `font_icon`), `images.image()` — span `[cx - w/2, cx + w/2]` × `[cy - h/2, cy + h/2]`.
-- **Bottom-Left-Anchored `(x0, y0)`**: `smartarts.*`, `charts.*`, `diagrams.*` — span `[x0, x0 + width]` × `[y0, y0 + height]`. To center a composite component horizontally on a canvas of width `W`, pass `x0 = (W - width) / 2`. *(Note: `drawlib.graph` is a pure coordinate calculator whose `get_layout()` exposes both `.xy` center and `.bottom_left` / `.local_xy` / `.local_bottom_left` properties.)*
-- **`halign` (Horizontal Alignment on Primitives/Text)**:
+By default, primitive shapes, icons, images, and text blocks interpret coordinate `(x, y)` as the geometric **center** (`halign="center"`, `valign="center"`), whereas high-level composite components interpret `(x, y)` as a bounding-box corner or center depending on component type:
+- **Center-Anchored `(cx, cy)`**: `shapes.*`, `text.text()`, `icons.*` (`phosphor`, `gcp`, `aws`, `azure`, domain suites, `font_icon`), `images.image()` — span `[cx - w/2, cx + w/2]` × `[cy - h/2, cy + h/2]`.
+- **Composite Component Anchors**: `charts.*`, `diagrams.*`, and most `smartarts.*` (`ChevronProcess`, `GridLayout`, `Pyramid`, `BoxList`, `CardList`, `KpiCards`, `Roadmap`, `Panel`, `GeoMap`, `MonthCalendar`, `WeekCalendar`, `DayCalendar`) default to **Bottom-Left `(x0, y0)`** — spanning `[x0, x0 + width]` × `[y0, y0 + height]`, while `Table`, `TreeNode`, `BulletPoints`, and `SourceCode` default to **Top-Left** and `MindMapNode` and `Cycle` default to **Center**. *(Note: `drawlib.graph` is a pure coordinate calculator whose `get_layout()` exposes both `.xy` center and `.bottom_left` / `.local_xy` / `.local_bottom_left` properties.)*
+- **`halign` (Horizontal Alignment on Primitives/Text via `Style`)**:
   - `"center"`: Anchor `x` is the horizontal midpoint of the element (default).
   - `"left"`: Anchor `x` is the left edge; element extends to the right (`x -> x + width`).
   - `"right"`: Anchor `x` is the right edge; element extends to the left (`x - width -> x`).
-- **`valign` (Vertical Alignment on Primitives/Text)**:
+- **`valign` (Vertical Alignment on Primitives/Text via `Style`)**:
   - `"center"`: Anchor `y` is the vertical midpoint of the element (default).
   - `"bottom"`: Anchor `y` is the bottom edge; element extends upward (`y -> y + height`).
   - `"top"`: Anchor `y` is the top edge; element extends downward (`y - height -> y`).
@@ -134,11 +134,11 @@ The `drawlib.canvas` module manages global drawing state:
 
 | Function | Signature / Options | Description |
 | :--- | :--- | :--- |
-| `setup()` | `width=100, height=100, background_color="#ffffff", dpi=100, ...` | Configures dimensions, canvas background color, rasterization resolution (default 100 DPI), and base settings. |
+| `setup()` | `width=100, height=100, dpi=100, background_color=(255, 255, 255), background_alpha=1.0, grid=False, ...` | Configures dimensions, canvas background color/alpha, rasterization resolution (default 100 DPI), and coordinate grid settings. |
 | `clear()` | *(no arguments)* | Flushes all buffered shapes and resets canvas state. Essential in multi-image batch scripts to prevent bleeding. |
-| `save()` | `file=None, format=None, ...` | Renders the display list to disk. When omitted, writes to automatic sequence paths (`1.png`, etc.). |
+| `save()` | `file=None, format=None` | Renders the display list to disk (`.png`, `.jpg`, `.webp`, `.pdf`). When `file` is omitted, saves as `<script_name>.png`. |
 | `get_dimage()` | *(no arguments)* | Returns an in-memory `Dimage` representation of the current canvas without saving to disk. |
-| `show()` | `grid=False` | Opens an interactive local GUI desktop window displaying the rendered canvas. |
+| `show()` | *(no arguments)* | Opens an interactive local GUI desktop window displaying the rendered canvas. |
 
 ### 2.4. Aspect Ratio & Dimension Heuristics
 Selecting optimal canvas dimensions depends on the visual content:
@@ -149,11 +149,12 @@ Selecting optimal canvas dimensions depends on the visual content:
 
 ### 2.5. Grid Overlay for Fast Alignment
 Estimating pixel-perfect coordinates by trial-and-error wastes developer time. Drawlib provides a built-in coordinate grid overlay:
-- Pass `grid=True` to `show()` in interactive environments:
+- Pass `grid=True` to `setup()` in scripts:
   ```python
-  from drawlib.canvas import show
+  from drawlib.canvas import setup, show
 
-  show(grid=True)
+  setup(width=100, height=60, grid=True)
+  show()
   ```
 - Or run CLI headless export with `--grid` / `-g`:
   ```bash
@@ -182,12 +183,12 @@ rectangle((70, 25), width=25, height=18, style=Styles.GreenFlat, text="Stage 2")
 save("stage2.png")
 ```
 
-### 2.7. Typography & Canvas Theming
-Canvas defaults can be globally customized via `setup()` or in `styles.py`:
-- **`background_color`**: Any hex code (`"#ffffff"`, `"#1e1e1e"`), RGB tuple, or named CSS color.
-- **`dpi`**: Output resolution. Standard web images use `150`–`200`; high-resolution print or PDF exports specify `300`.
-- **`font_family`**: Base system font family or bundled open fonts (e.g. `"sans-serif"`, `"monospace"`, `"Roboto"`).
-- **`margin`**: Outer canvas padding preventing shapes placed on boundaries from being clipped.
+### 2.7. Canvas Background, Resolution & Project Theming
+Canvas appearance and project-wide typography are configured via `setup()` and `styles.py`:
+- **`background_color`**: Any `Color`, RGB/RGBA tuple, hex code (`"#ffffff"`, `"#1e1e1e"`), or named CSS color passed to `setup()`.
+- **`background_alpha`**: Background opacity (`0.0` for transparent PNG/WebP badges, `1.0` for opaque).
+- **`dpi`**: Output rasterization resolution in `setup()` (default `100`; use `150`–`300` for high-density print exports).
+- **Project Typography (`styles.py`)**: Default font families (such as `Font.SANS_SERIF`, `FontRoboto`, or `FontJapanese`) are configured on `Styles` inside the project's `styles.py` (automatically generated when you run `drawlib init --lang <lang>`).
 
 ### 2.8. Coordinate Geometry Helpers (`drawlib.math`)
 Drawlib provides built-in geometric math utilities in `drawlib.math` so developers and agents do not need to implement manual trigonometry:
@@ -254,36 +255,40 @@ Drawlib ensures dependable cross-platform rendering by bundling standard open fo
   - `Font.SERIF`, `Font.SANS_SERIF`, `Font.MONO_SPACE`: Automatically fall back across Latin, Japanese, Simplified Chinese, Traditional Chinese, and Korean characters without square box glyph corruption (豆腐).
 - **Typography Collections**:
   - **`FontRoboto`**: Clean Google Roboto typeface with weights (`THIN`, `LIGHT`, `REGULAR`, `MEDIUM`, `BOLD`, `BLACK`).
-  - **`FontMonoSpace`**: Monospace typefaces for code listings and console output (`ROBOTO_MONO_REGULAR`, `COURIER_REGULAR`).
+  - **`FontMonoSpace`** & **`FontSourceCode`**: Monospace typefaces for code listings and console output (`ROBOTO_MONO_REGULAR`, `COURIER_REGULAR`, `SOURCE_CODE_REGULAR`).
   - **`FontSansSerif`** & **`FontSerif`**: Standard Western editorial typefaces.
-  - **`FontJapanese`**, **`FontChinese`**, **`FontArabic`**: Dedicated regional typefaces.
+  - **`FontJapanese`**, **`FontChinese`**, **`FontKorean`**, **`FontArabic`**, **`FontThai`**, **`FontBrahmic`**: Dedicated regional typefaces.
 - **Custom Fonts (`FontFile`)**:
   - Load local TTF/OTF files with automatic caching: `FontFile("assets/fonts/BrandFont.ttf")`.
 
 ### 3.3. Strongly-Typed Style Architecture (`drawlib.types`)
 Every visual element in Drawlib is governed by clean, strongly-typed style objects:
 - **`Style` Model**:
-  - Encapsulates properties: `fill_color`, `line_color`, `line_width`, `line_style`, `text_size`, `text_color`, `text_font`, `text_weight`, and `alpha`.
-  - Can be customized directly:
+  - Encapsulates properties: `shape_fill_color`, `shape_line_color`, `shape_line_width`, `shape_line_style`, `shape_r`, `line_color`, `line_width`, `line_style`, `text_size`, `text_color`, `text_font`, `halign`, `valign`, `angle`, `image_border_width`, `image_border_color`, `image_border_style`, and `image_tint_color`.
+  - Can be customized directly or derived via `.patch()`:
     ```python
     from drawlib.types import Style
 
-    my_style = Style(fill_color=(240, 248, 255), line_color=(30, 144, 255), line_width=2)
+    my_style = Style(
+        shape_fill_color=(240, 248, 255),
+        shape_line_color=(30, 144, 255),
+        shape_line_width=2,
+    )
     ```
-  - **Immutability & Safety**: Use `style.copy()` when deriving modified variants to prevent mutation side-effects.
+  - **Immutability & Safety**: Use `style.patch(...)` when deriving modified variants from preset styles (`Styles.Neutral.patch(shape_r=4)`) to prevent mutation side-effects.
 - **Extensible Base Classes**:
   - Subclass `BaseStyles` to define reusable brand style systems across a corporate team.
   - Inherit from `BaseColors` and `FontBase` to structure enterprise palette and typography definitions.
 
 ### 3.4. Image & Media Embedding (`drawlib.images`)
-Drawlib allows seamless integration of raster and vector graphic assets into diagrams:
+Drawlib allows seamless integration of raster graphic assets into diagrams:
 - **`image()` Function**:
-  - Renders external PNG, JPEG, SVG, or WebP images: `image((50, 40), width=24, image="assets/logo.png")`.
+  - Renders external raster images (PNG, JPEG, WebP, BMP, etc.): `image((50, 40), width=24, image="_assets/logo.png")`.
   - Automatic aspect ratio calculation: specifying only `width` automatically scales `height` proportionally.
-  - Tinting & Alpha: Apply color overlays and transparency directly to embedded graphics.
+  - Borders & Tinting: Apply border frames (`image_border_width`, `image_border_color`, `image_border_style`) and color tinting (`image_tint_color`) via `style`.
 - **In-Memory Diagram Nesting (`Dimage` & `get_dimage_from_code`)**:
   - `canvas.get_dimage()`: Captures the current canvas state as an in-memory `Dimage` object.
-  - `get_dimage_from_code(code_str)`: Compiles an independent Drawlib script in memory and embeds the output inside another canvas, facilitating composite multi-diagram figures.
+  - `get_dimage_from_code(code_str, timeout=None)`: Compiles an independent Drawlib script in memory and embeds the output inside another canvas, facilitating composite multi-diagram figures.
 
 ---
 
@@ -419,8 +424,8 @@ image_path = export_code_block(
 
 # Compile full HTML site programmatically
 build_html(
-    input_path="docs_src/",
-    output_path="docs_html/",
+    input_dir="docs_src/",
+    output_dir="docs_html/",
     styles_path="styles.py",
     utils_path="utils.py",
 )
@@ -428,15 +433,19 @@ build_html(
 
 | Function | Equivalent CLI Command | Primary Use Case |
 | :--- | :--- | :--- |
-| `build_html()` | `drawlib build html` | Compile static documentation sites or standalone HTML files. |
-| `build_markdown()` | `drawlib build markdown` | Render documentation for GitHub viewing with linked images. |
-| `build_pdf()` | `drawlib build pdf` | Export print-ready PDFs via headless browser. |
-| `export_code_block()` | `drawlib show -o` | Fast illustration rendering for AI self-verification and tests. |
-| `init_project()` | `drawlib init` | Programmatic repository scaffolding. |
-| `serve_docs()` | `drawlib serve` | Local preview server and link verification checks. |
-| `list_cache()` | `drawlib cache list` | Inspect local font and icon package cache status. |
-| `download_cache()` | `drawlib cache download` | Pre-download font and icon packages for offline/CI environments. |
-| `clear_cache()` | `drawlib cache clear` | Purge downloaded font and icon cache. |
+| `build_document()` | `drawlib build <html\|markdown\|pdf>` | Unified dispatcher for compiling documentation directories into HTML, Markdown, or PDF. |
+| `build_html()` | `drawlib build html` | Compile static documentation sites or merged HTML documents (`input_dir`, `output_dir`). |
+| `build_markdown()` | `drawlib build markdown` | Render documentation for GitHub viewing with linked images (`input_dir`, `output_dir`). |
+| `build_pdf()` | `drawlib build pdf` | Export print-ready PDFs via headless browser (`input_dir`, `output_file`). |
+| `build_slide()` | `drawlib build slide` | Compile 16:9 widescreen HTML presentation slide decks (`input_dir`, `output_dir`). |
+| `build_image()` | `drawlib build image` | Execute standalone Python drawing scripts in batch mode (`inputs`, `output`). |
+| `detect_document_type()` | *(auto-detection)* | Inspect a source path and return its `DocType` (`SITE`, `DOC`, `SLIDE`, `SINGLE_MD`). |
+| `export_code_block()` | `drawlib show -o` | Fast illustration rendering to disk for AI self-verification and tests. |
+| `show_code_block()` | `drawlib show` | Open an interactive desktop GUI window for a specific code block or `.py` script. |
+| `init_project()` / `list_project_types()` | `drawlib init` / `drawlib init list` | Programmatic repository scaffolding and archetype discovery. |
+| `serve_docs()` / `scan_broken_links()` | `drawlib serve` / `drawlib serve --check` | Local preview server and broken hyperlink/image scanner. |
+| `list_cache()` / `download_cache()` / `clear_cache()` | `drawlib cache <list\|download\|clear>` | Inspect, pre-download, and purge cached font, icon, and map packages. |
+| `list_css()` / `list_html_css()` / `list_pdf_css()` / `list_slide_css()` / `export_css()` / `get_css()` | `drawlib css <list\|show>` | Inspect and export built-in CSS stylesheets for HTML, PDF, and Slide targets. |
 
 ### 4.7. Cache Architecture & Management
 Drawlib maintains three distinct caching layers to accelerate incremental builds and manage external assets:
@@ -446,9 +455,9 @@ Drawlib maintains three distinct caching layers to accelerate incremental builds
    - **Hashed Inputs**: Computes a deterministic SHA-256 key from the drawing code block, `styles.py`, `utils.py`, local asset files referenced as string literals (e.g., `_assets/*`), source/target paths, output format, and slide count.
    - **Auto-Maintenance**: Automatically creates `.drawlib/.gitignore` (`*`), invalidates entries when `drawlib` or `matplotlib` versions change, and evicts the oldest 50% of entries when exceeding 1 GiB. Override location via `DRAWLIB_CACHE_DB` or `DRAWLIB_CACHE_DIR`.
    - **When to Invalidate Manually**: If your drawing code imports a custom Python module outside `styles.py` and `utils.py`, editing that external module will not alter the hash. Pass `--no-cache` to `drawlib build` / `drawlib show` or run `drawlib cache clear --images` (`-i`).
-2. **Release Asset Cache (Fonts & Icons)**:
-   - Font families (`font-roboto`, CJK fonts, etc.) and icon sets (`icon-phosphor`, `icon-fontawesome`, `icon-gcp`) are downloaded on demand from GitHub Releases into `drawlib/_cached_assets/`.
-   - Inspect status with `drawlib cache list`, pre-fetch for offline/Docker/CI builds with `drawlib cache download --all` (`--fonts` / `--icons`), and clear with `drawlib cache clear` (or `drawlib cache clear --all` to also wipe `.drawlib/cache.db`).
+2. **Release Asset Cache (Fonts, Icons & Maps)**:
+   - Font families (`font_roboto`, CJK fonts, etc.), icon suites (`icon_phosphor`, `icon_gcp`, `icon_aws`, `icon_azure`, domain suites `icon_ai`..`icon_workspace`, and `icon_original_*`), and map packages (`map_world`, country/region GeoJSONs) are downloaded on demand from GitHub Releases into `drawlib/_cached_assets/`.
+   - Inspect status with `drawlib cache list`, pre-fetch for offline/Docker/CI builds with `drawlib cache download --all` (`--fonts` / `--icons` / `--maps`), and clear with `drawlib cache clear` (or `drawlib cache clear --all` to also wipe `.drawlib/cache.db`).
 3. **Rules Illustration Cache (`drawlib rules`)**:
    - Caches rendered rule manuals and companion PNGs in `drawlib/_cached_assets/rules/`. Manage via `drawlib rules list`, `drawlib rules build`, `drawlib rules show <topic> --rebuild`, and `drawlib rules clear`.
 
@@ -491,7 +500,7 @@ drawlib rules show <topic> --rebuild
 - **Commands**:
   - `drawlib rules show project-overview` (Scaffolding with `drawlib init`, choosing among the 4 archetypes, `styles.py`/`utils.py`, and cache architecture)
   - `drawlib rules show project-images` (Standalone `.py` diagram scripts in `images_src/`, `clear()` lifecycle, and AST collision checks)
-  - `drawlib rules show project-doc` (Linear documents, whitepapers, `00_cover.md` + `--toc`, and A4 vector PDF export in `doc_src/`)
+  - `drawlib rules show project-doc` (Linear documents, whitepapers, `00_cover.md` + `--generate-index`, and A4 vector PDF export in `doc_src/`)
   - `drawlib rules show project-site` (Multi-page documentation websites, `navbar.md` sidebar rules, and Top Hero layout in `docs_src/`)
   - `drawlib rules show project-slide` (16:9 widescreen presentation decks, `1920×1080` `::: block` / `::: note` syntax, and Presenter View in `slide_src/`)
 - **Key Syntax**:
@@ -507,8 +516,8 @@ drawlib rules show <topic> --rebuild
 
 ### 5.3. Diagram Style Guide & Aesthetics (`style-guide`) & Review Guide (`review-guide`)
 - **Commands**: `drawlib rules show style-guide` and `drawlib rules show review-guide`
-- **Scope (`style-guide`)**: Visual hierarchy, the 7-color semantic design system for technical diagrams, semantic roles vs raw palette colors, standard canvas aspect ratios, coordinate grid alignment, and typography sizing scales.
-- **Scope (`review-guide`)**: The **3-Stage Autonomous Multimodal Review & Self-Correction Loop** (Stage 1: Static & Anchor Check, Stage 2: `-g` Grid Inspection, Stage 3: `1280×920` Browser HTML Verification), the **`720pt` Canvas Typography Formula** ($\text{CSS px} = \text{text\_size} \times \text{Width} / 720$), and the `Center` vs. `Bottom-Left` coordinate anchor reference table.
+- **Scope (`style-guide`)**: Visual hierarchy, the 8-role semantic design system (`Primary`, `Secondary`, `Accent`, `Warning`, `Neutral`, `Muted`, `Danger`, `Success`), `50%+` neutral-grounded architecture, standard canvas aspect ratios, coordinate grid alignment, and typography sizing scales.
+- **Scope (`review-guide`)**: The **3-Stage Autonomous Multimodal Review & Self-Correction Loop** (Stage 1: Static & Anchor Check, Stage 2: `-g` Grid Inspection, Stage 3: `1280×920` Browser HTML Verification), the **`720pt` Canvas Typography Formula** ($\text{CSS px} = \text{text\_size} \times \text{Width} / 720$), and the `Center` vs. `Bottom-Left` / `Top-Left` coordinate anchor reference table.
 - **When to read**: Read `style-guide` before authoring diagrams, and read `review-guide` when verifying diagram geometry, fixing text sizing, or auditing documentation pages in a headless browser.
 
 ---
@@ -520,24 +529,30 @@ drawlib rules show <topic> --rebuild
 
 ---
 
-### 5.5. Shapes Primitives & Styling (`lib-shapes`)
-- **Command**: `drawlib rules show lib-shapes`
-- **Scope**: Geometric and domain shape functions including `rectangle`, `circle`, `cylinder`, `cube`, `document`, `ellipse`, `face`, `cloud`, `brace`, `forbidden`, `checkmark`, `shield`, `ribbon`, `funnel`, `pin`, `heart`, `sun`, `moon`, `clock`, `wedge`, `fan`, `arc`, `parallelogram`, `rhombus`, `trapezoid`, `triangle`, `regularpolygon`, `polygon`, `star`, `gear`, `math_symbol`, `lightning`, `explosion`, `tag`, `plaque`, `arrow`, `arrow_l`, `arrow_u`, `arrow_arc`, `arrow_polyline`, `chevron`, and `bubblespeech`.
+### 5.5. Shapes Primitives & Styling (`lib-shapes-overview` & `lib-shapes-*`)
+- **Commands**:
+  - `drawlib rules show lib-shapes-overview` (Index of all 43 shapes, center anchoring, and styling)
+  - `drawlib rules show lib-shapes-basic` (`rectangle`, `circle`, `ellipse`, `wedge`, `fan`, `arc`)
+  - `drawlib rules show lib-shapes-polygon` (`triangle`, `parallelogram`, `trapezoid`, `rhombus`, `regularpolygon`, `star`, `plaque`, `polygon`, `shape`)
+  - `drawlib rules show lib-shapes-arrow` (`arrow`, `arrow_l`, `arrow_u`, `arrow_arc`, `arrow_polyline`, `chevron`)
+  - `drawlib rules show lib-shapes-container` (`cylinder`, `cube`, `document`, `funnel`, `cloud`, `brace`)
+  - `drawlib rules show lib-shapes-badge` (`bubblespeech`, `pin`, `tag`, `ribbon`, `shield`, `forbidden`, `checkmark`, `explosion`)
+  - `drawlib rules show lib-shapes-symbol` (`face`, `clock`, `sun`, `moon`, `heart`, `lightning`, `gear`, `math_symbol`)
 - **Key Syntax**:
   ```python
   from drawlib.styles import Styles
   from drawlib.shapes import circle, rectangle
 
-  rectangle((30, 25), width=20, height=15, style=Styles.BlueFlat, text="Box")
+  rectangle((30, 25), width=20, height=15, style=Styles.BlueFlat, text="Box", text_style=Styles.WhiteBold)
   circle((70, 25), radius=8, style=Styles.GreenOutline)
   ```
-- **When to read**: Refer to this rule when selecting the right geometric primitive, styling shape borders and fills, rounding corners, rotating shapes, or embedding centered text inside containers.
+- **When to read**: Refer to these rules when selecting the right geometric primitive, styling shape borders and fills, rounding corners (`shape_r`), cutting interior holes (`hole_ratio`), rotating shapes, or embedding centered text inside containers.
 
 ---
 
 ### 5.6. Lines, Curves, & Arrowheads (`lib-lines`)
 - **Command**: `drawlib rules show lib-lines`
-- **Scope**: Straight lines (`line`), curved splines (`line_curved`), Bezier paths (`line_bezier1`, `line_bezier2`), multi-point chained lines (`lines`, `lines_curved`), and circular arcs (`line_arc`).
+- **Scope**: Straight lines (`line`), curved splines (`line_curved`), Bezier paths (`line_bezier1`, `line_bezier2`, `lines_bezier`), multi-point chained lines (`lines`, `lines_curved`), and circular/elliptical arcs (`line_arc`).
 - **Key Syntax**:
   ```python
   from drawlib.styles import Styles
@@ -552,72 +567,82 @@ drawlib rules show <topic> --rebuild
 
 ### 5.7. Text Rendering & Typography (`lib-text`)
 - **Command**: `drawlib rules show lib-text`
-- **Scope**: Standalone labels, multi-line paragraphs, text alignment (`halign`, `valign`), rotation angles, typography options (`TextStyle`), custom fonts, and background text boxes.
+- **Scope**: Standalone horizontal labels (`text`), vertically stacked labels (`text_vertical`), multi-line paragraphs (`text_line_spacing`), text alignment (`halign`, `valign`), rotation angles (`angle`), custom fonts, and background text boxes (`text_fill_color`, `text_line_color`).
 - **Key Syntax**:
   ```python
   from drawlib.styles import Styles
   from drawlib.text import text
 
-  text((50, 80), "Architecture Diagram", style=Styles.PrimaryBold, halign="center")
-  text((10, 50), "Line 1\nLine 2", fontsize=12, color="#555555", halign="left")
+  text((50, 80), "Architecture Diagram", style=Styles.PrimaryBold.patch(halign="center"))
+  text((10, 50), "Line 1\nLine 2", style=Styles.Dark.patch(text_size=12, text_color="#555555", halign="left"))
   ```
 - **When to read**: Refer to this rule when fine-tuning title typography, aligning table headers, formatting multiline captions, or rotating vertical axis labels.
 
 ---
 
-### 5.8. Icons Library (`lib-icons`)
-- **Command**: `drawlib rules show lib-icons`
-- **Scope**: Vector and PNG icons from Phosphor, FontAwesome, and Google Cloud Platform (GCP) official architecture libraries.
+### 5.8. Icons Library (`lib-icons-overview` & `lib-icons-*`)
+- **Commands**:
+  - `drawlib rules show lib-icons-overview` (Index of all 34 icon suites, styling, and `font_icon`)
+  - `drawlib rules show lib-icons-phosphor` (Phosphor vector icons with 5 weights: `thin`, `light`, `regular`, `bold`, `fill`)
+  - `drawlib rules show lib-icons-gcp`, `lib-icons-aws`, `lib-icons-azure` (Cloud provider architecture icons)
+  - `drawlib rules show lib-icons-<domain>` (`ai`, `business`, `client`, `cloud`, `cnative`, `code`, `data`, `devops`, `facility`, `itservice`, `network`, `security`, `server`, `social`, `workspace` — each covering both official brand icons and `original_<domain>` 2D flat pastel icons)
 - **Key Syntax**:
   ```python
   from drawlib.styles import Styles
-  from drawlib.icons import font_icon, gcp, phosphor
+  from drawlib.icons import aws, data, gcp, phosphor
 
   phosphor.desktop((20, 30), width=10, style=Styles.BlueFlat)
   gcp.compute_engine((50, 30), width=12)
-  font_icon((80, 30), "fa-database", width=10)
+  aws.compute_lambda((80, 30), width=12)
+  data.postgresql((110, 30), width=12)
   ```
-- **When to read**: Refer to this rule when enriching cloud architecture diagrams, UI mockups, server schemas, or process flows with standardized industry iconography.
+- **When to read**: Refer to these rules when enriching cloud architecture diagrams, UI mockups, server schemas, or process flows with standardized industry iconography.
 
 ---
 
 ### 5.9. Preset Styles & Color Palettes (`lib-preset-styles`)
 - **Command**: `drawlib rules show lib-preset-styles`
-- **Scope**: Systematic style naming rules (`Styles.<Color><Variant>`), built-in palettes (`DefaultColors`, `MonochromeColors`, `GoogleColors`), pre-defined styles for shapes, lines, and text, and custom style registration.
+- **Scope**: Systematic style naming rules (`Styles.<Color><Variant>`), built-in style catalogs (`DefaultStyles`, `DefaultStyles1..6`, `GoogleStyles`, `MonochromeStyles`), pre-defined styles for shapes, lines, and text, and custom style registration.
 - **Key Syntax**:
   ```python
-  # Common preset styles: Styles.PrimaryFlat, Styles.GreenOutline, Styles.Red, Styles.PrimaryBold, Styles.WhiteBold
-  # Tip: Prefer importing styles from drawlib.styles if themes might be customized via --styles
+  # Common preset styles: Styles.PrimaryFlat, Styles.Neutral, Styles.PrimaryNeutral, Styles.PrimaryBold, Styles.WhiteBold
+  # Tip: Prefer importing Styles and Colors from drawlib.styles so project themes (--styles) apply automatically
   from drawlib.styles import Styles
 
-  rectangle((30, 30), width=20, height=10, style=Styles.PurpleFlat, text_style=Styles.WhiteBold)
+  rectangle((30, 30), width=20, height=10, style=Styles.PrimaryFlat, text="Hero", text_style=Styles.WhiteBold)
   ```
 - **When to read**: Refer to this rule to maintain visual consistency, pick matching foreground/background colors, or define reusable corporate themes across a team.
 
 ---
 
-### 5.10. Structured SmartArts Elements (`lib-smartarts`)
-- **Command**: `drawlib rules show lib-smartarts`
-- **Scope**: High-level visual abstractions including `Table`, `TreeNode`, `MindMapNode`, `BoxList`, `BulletPoints`, `ChevronProcess`, `Cycle`, `GridLayout`, `Pyramid`, `SourceCode`, and `bubble_speech`.
+### 5.10. Structured SmartArts Elements (`lib-smartarts-overview` & `lib-smartarts-*`)
+- **Commands**:
+  - `drawlib rules show lib-smartarts-overview` (Index of all 18 SmartArt components, anchor alignments, and `show` / `scale`)
+  - `drawlib rules show lib-smartarts-<component>` (`table`, `tree`, `mindmap`, `box-list`, `bullet-points`, `chevron-process`, `cycle`, `grid-layout`, `pyramid`, `source-code`, `geomap`, `kpi-cards`, `card-list`, `roadmap`, `panel`, `calendar`)
+- **Scope**: High-level visual abstractions including `Table`, `TreeNode`, `MindMapNode`, `BoxList`, `BulletPoints`, `ChevronProcess`, `Cycle`, `GridLayout`, `Pyramid`, `SourceCode`, `GeoMap`, `KpiCards`, `CardList`, `Roadmap`, `Panel`, and `MonthCalendar`/`WeekCalendar`/`DayCalendar`.
 - **Key Syntax**:
   ```python
   from drawlib.smartarts import ChevronProcess, Table
   from drawlib.styles import Styles
 
-  cp = ChevronProcess(style=Styles.PrimaryFlat, text_style=Styles.WhiteBold, description_style=Styles.White)
+  cp = ChevronProcess(style=Styles.Neutral, text_style=Styles.DarkBold, description_style=Styles.Muted)
   cp.add("Plan")
-  cp.add("Build")
+  cp.add("Build", style=Styles.PrimaryFlat, text_style=Styles.WhiteBold)
   cp.add("Deploy")
   cp.draw((10, 20), width=80, height=15)
-  Table((10, 50), data=[["Header A", "Header B"], ["Val 1", "Val 2"]]).draw()
+
+  table = Table()
+  table.draw((10, 55), width=80, height=20, data=[["Header A", "Header B"], ["Val 1", "Val 2"]])
   ```
-- **When to read**: Refer to this rule when presenting structured data, comparison tables, step-by-step lifecycles, organizational trees, or formatted code snippets without manual geometry math.
+- **When to read**: Refer to these rules when presenting structured data, comparison tables, step-by-step lifecycles, organizational trees, geographic maps, calendars, KPI cards, or formatted code snippets without manual geometry math.
 
 ---
 
-### 5.11. Data Charts & Visualizations (`lib-charts`)
-- **Command**: `drawlib rules show lib-charts`
-- **Scope**: Statistical and planning charts: `BarChart` (grouped, stacked, horizontal), `LineChart`, `AreaChart`, `PieChart` / donut, `RadarChart`, `ScatterChart`, and `GanttChart`.
+### 5.11. Data Charts & Visualizations (`lib-charts-overview` & `lib-charts-*`)
+- **Commands**:
+  - `drawlib rules show lib-charts-overview` (Index of all 9 chart classes, `.show`, `.draw_ratio`, `align`, and `scale`)
+  - `drawlib rules show lib-charts-<type>` (`bar`, `line`, `area`, `pie`, `radar`, `scatter`, `gantt`, `heatmap`)
+- **Scope**: Statistical, spatial, and planning charts: `BarChart` (grouped, stacked, horizontal), `LineChart`, `AreaChart`, `PieChart` / donut, `RadarChart`, `ScatterChart`, `GanttChart`, `HeatmapChart`, and `HeatmapOverlay`.
 - **Key Syntax**:
   ```python
   from drawlib.charts.bar import BarChart
@@ -627,31 +652,33 @@ drawlib rules show <topic> --rebuild
   chart.add_series("Revenue", [100, 140, 180], style=Styles.PrimaryFlat)
   chart.draw((10, 10))
   ```
-- **When to read**: Refer to this rule when plotting quantitative metrics, project management schedules, comparison radars, or trend analyses.
+- **When to read**: Refer to these rules when plotting quantitative metrics, project management schedules, comparison radars, heatmaps, or trend analyses.
 
 ---
 
-### 5.12. Domain Diagrams (`lib-diagrams`)
-- **Command**: `drawlib rules show lib-diagrams`
+### 5.12. Domain Diagrams (`lib-diagrams-overview` & `lib-diagrams-*`)
+- **Commands**:
+  - `drawlib rules show lib-diagrams-overview` (Index of all 6 domain diagrams, boundary-clipping connectors, `.show`, `align`, and `scale`)
+  - `drawlib rules show lib-diagrams-<type>` (`architecture`, `flow`, `sequence`, `state`, `class`, `er`)
 - **Scope**: Specialized software engineering diagrams: `ArchitectureDiagram`, `FlowDiagram`, `SequenceDiagram`, `StateDiagram`, `ClassDiagram`, and `ERDiagram`.
 - **Key Syntax**:
   ```python
-  from drawlib.diagrams.flow import FlowDiagram
+  from drawlib.diagrams.flow import End, FlowDiagram, Process, Start
   from drawlib.styles import Styles
 
   flow = FlowDiagram(
-      node_style=Styles.PrimaryFlat,
-      edge_style=Styles.Primary,
-      edge_text_style=Styles.Black,
-      width=80,
-      height=60,
+      node_style=Styles.Neutral,
+      edge_style=Styles.DarkBold,
+      edge_text_style=Styles.Dark,
   )
-  start = flow.node("Start", shape="circle")
-  step = flow.node("Process", shape="rectangle")
-  flow.edge(start, step, label="execute")
-  flow.draw((10, 10))
+  start = flow.add(Start("Start"), (25, 30))
+  step = flow.add(Process("Execute", style=Styles.PrimaryFlat, text_style=Styles.WhiteBold), (65, 30))
+  end = flow.add(End("Done"), (105, 30))
+  flow.connect(start, step, label="run")
+  flow.connect(step, end)
+  flow.draw()
   ```
-- **When to read**: Refer to this rule when modeling UML designs, entity relationships, protocol handshakes, state machines, or distributed system microservices.
+- **When to read**: Refer to these rules when modeling UML designs, entity relationships, protocol handshakes, state machines, or distributed system microservices.
 
 ---
 
@@ -671,21 +698,22 @@ drawlib rules show <topic> --rebuild
 
 ### 5.14. Color Models, Catalogs & Palettes (`lib-preset-colors`)
 - **Command**: `drawlib rules show lib-preset-colors`
-- **Scope**: `Color` model with `.patch()`, RGB/RGBA formats, 140 CSS colors (`CssColors`), and curated theme palettes (`DefaultColors`, `MonochromeColors`, `GoogleColors`).
+- **Scope**: `Color` model with `.patch()`, `get_intermediate_color` / `get_intermediate_colors`, RGB/RGBA formats, 140 CSS colors (`CssColors`), and curated theme palettes (`DefaultColors`, `DefaultColors1..6`, `MonochromeColors`, `GoogleColors`).
 - **Key Syntax**:
   ```python
-  from drawlib.preset_colors import Color, DefaultColors
+  from drawlib.preset_colors import Color, DefaultColors, get_intermediate_colors
 
   c1 = Color.from_hex("#3498db", alpha=0.8)
   c2 = DefaultColors.Blue.patch(alpha=0.2)
+  ramp = get_intermediate_colors(DefaultColors.Blue1, DefaultColors.Blue6, num=4, include_ends=True)
   ```
-- **When to read**: Refer to this rule when choosing accessible color schemes, parsing brand hex values, adjusting transparency, or creating custom palette classes.
+- **When to read**: Refer to this rule when choosing accessible color schemes, parsing brand hex values, interpolating color ramps, adjusting transparency, or creating custom palette classes.
 
 ---
 
 ### 5.15. Typography, Fonts & Cache (`lib-fonts`)
 - **Command**: `drawlib rules show lib-fonts`
-- **Scope**: Universal CJK + Latin font (`Font`), Western typography (`FontRoboto`, `FontSansSerif`, `FontMonoSpace`), non-Latin regional scripts (`FontJapanese`, `FontChinese`, `FontArabic`), custom font loading (`FontFile`), and cache management.
+- **Scope**: Universal CJK + Latin font (`Font`), Western typography (`FontRoboto`, `FontSansSerif`, `FontSerif`, `FontMonoSpace`, `FontSourceCode`), non-Latin regional scripts (`FontJapanese`, `FontChinese`, `FontKorean`, `FontArabic`, `FontThai`, `FontBrahmic`), custom font loading (`FontFile`), and cache management.
 - **Key Syntax**:
   ```python
   from drawlib.fonts import Font, FontFile, FontRoboto
@@ -698,12 +726,12 @@ drawlib rules show <topic> --rebuild
 
 ### 5.16. Image & Graphic Embedding (`lib-images`)
 - **Command**: `drawlib rules show lib-images`
-- **Scope**: Embedding raster and vector images (`image`), aspect ratio handling, image transformation model (`Dimage`), color tinting, and dynamic in-memory diagram embedding (`get_dimage_from_code`).
+- **Scope**: Embedding raster images (`image`), aspect ratio handling, image transformation model (`Dimage` with 19 chainable effects), border/tint styling (`image_border_*`, `image_tint_color`), and dynamic in-memory diagram embedding (`get_dimage_from_code`).
 - **Key Syntax**:
   ```python
   from drawlib.images import Dimage, get_dimage_from_code, image
 
-  image((50, 30), width=20, image="logo.png")
+  image((50, 30), width=20, image="_assets/logo.png")
   ```
 - **When to read**: Refer to this rule when incorporating company logos, external architecture badges, screenshots, or composing nested diagrams dynamically.
 
@@ -711,21 +739,22 @@ drawlib rules show <topic> --rebuild
 
 ### 5.17. Geometry & Coordinate Math (`lib-math`)
 - **Command**: `drawlib rules show lib-math`
-- **Scope**: Geometric derivations: counter-clockwise angle between two points (`get_angle`), Euclidean distance (`get_distance`), and automated bounding box calculation (`get_center_and_size`).
+- **Scope**: Geometric derivations: counter-clockwise angle between two points (`get_angle`), Euclidean distance (`get_distance`), automated bounding box calculation (`get_center_and_size`), linear/polyline interpolation (`get_intermediate_point`, `get_intermediate_points`, `get_intermediate_path_point`, `get_intermediate_path_points`, `get_intermediate_paths`), ellipse/rotation helpers (`get_point_on_ellipse`, `rotate_point`, `get_rotated_points`, `get_rotated_path_points`, `plus_2points`, `minus_2points`), and orthogonal path routing (`compute_orthogonal_path`, `RoutingType`, `Side`).
 - **Key Syntax**:
   ```python
-  from drawlib.math import get_angle, get_center_and_size, get_distance
+  from drawlib.math import get_angle, get_center_and_size, get_distance, get_intermediate_points
 
   angle = get_angle(p1, p2)
   (cx, cy), (w, h) = get_center_and_size([(10, 20), (40, 50), (30, 10)])
+  pts = get_intermediate_points((10, 20), (90, 20), num=5, include_ends=True)
   ```
-- **When to read**: Refer to this rule when aligning text along slanted lines, distributing nodes radially along circular paths, or automatically bounding clusters of nodes.
+- **When to read**: Refer to this rule when aligning text along slanted lines, distributing nodes radially along circular paths, interpolating motion trajectories, or automatically bounding clusters of nodes.
 
 ---
 
 ### 5.18. Style Models, Base Classes & Types (`lib-types`)
 - **Command**: `drawlib rules show lib-types`
-- **Scope**: Strongly-typed `Style` model attributes (fill, line, typography, alignments), theme inheritance (`BaseStyles`), palette extension (`BaseColors`), and Drawlib type alias conventions.
+- **Scope**: Strongly-typed `Style` model attributes (fill, line, typography, alignments, image borders/tint), theme inheritance (`BaseStyles`), palette extension (`BaseColors`), and Drawlib type alias conventions (`ArrowHead`, `LineStyle`, `HAlign`, `VAlign`, ` Coordinate`).
 - **Key Syntax**:
   ```python
   from drawlib.types import BaseStyles, Style
@@ -738,13 +767,13 @@ drawlib rules show <topic> --rebuild
 
 ### 5.19. Developer Tools API (`lib-tools`)
 - **Command**: `drawlib rules show lib-tools`
-- **Scope**: Programmatic Python developer API for document compilation (`build_html`, `build_markdown`, `build_pdf`), single illustration extraction (`export_code_block`), project scaffolding (`init_project`), local server (`serve_docs`), and cache management.
+- **Scope**: Programmatic Python developer API for document compilation (`build_document`, `build_html`, `build_markdown`, `build_pdf`, `build_slide`, `build_image`), single illustration extraction (`export_code_block`, `show_code_block`), project scaffolding (`init_project`, `list_project_types`), local server (`serve_docs`, `scan_broken_links`), CSS preset inspection (`list_css`, `export_css`, `get_css`), and cache management (`list_cache`, `download_cache`, `clear_cache`).
 - **Key Syntax**:
   ```python
   from drawlib.tools import build_html, export_code_block
 
-  build_html("docs_src/", "docs_html/")
-  export_code_block("docs_src/arch.md", "1", "output.png")
+  build_html(input_dir="docs_src/", output_dir="docs_html/")
+  export_code_block("docs_src/arch.md", "system_arch.png", ".drawlib/scratch/output.png")
   ```
 - **When to read**: Refer to this rule when automating build scripts in Python, writing test assertions with pytest, or triggering on-demand diagram exports from custom automation sidecars.
 
@@ -764,9 +793,9 @@ drawlib rules show <topic> --rebuild
 
 ---
 
-### 5.21. Multi-Frame Animations (`lib-anim`)
-- **Command**: `drawlib rules show lib-anim`
-- **Scope**: Multi-frame animations in APNG and Animated WebP, frame context manager (`with anim.frame()`), duration and loop controls, independent vs. cumulative frame modes, and static poster frame best practices.
+### 5.21. Multi-Frame Animations (`lib-anim` & `anim-guide`)
+- **Commands**: `drawlib rules show lib-anim` (API) and `drawlib rules show anim-guide` (Cross-component animation idioms)
+- **Scope**: Multi-frame animations in APNG and Animated WebP, frame context manager (`with anim.frame()`), duration and loop controls, independent vs. cumulative frame modes, and cross-component animation patterns (`.show`, `.draw_ratio`, `scale`, `get_intermediate_*`).
 - **Key Syntax**:
   ```python
   from drawlib.anim import Animation
@@ -775,26 +804,32 @@ drawlib rules show <topic> --rebuild
   with anim.frame():
       circle((50, 50), radius=10, style=Styles.Primary)
   ```
-- **When to read**: Refer to this rule when generating step-by-step technical animations, state transition diagrams, or animated workflow illustrations.
+- **When to read**: Refer to these rules when generating step-by-step technical animations, state transition diagrams, or animated workflow illustrations.
 
 ---
 
-### 5.22. Presentation Slides & Stage (`lib-slide` & `project-slide`)
-- **Commands**: `drawlib rules show project-slide` (Markdown block syntax & stage layouts) and `drawlib rules show lib-slide` (Python API)
-- **Scope**: Universal 16:9 widescreen presentation stage (1920x1080), container layout blocks (`::: block`, `::: note`), dynamic `current_slide` runtime proxy, `SlideContext`, `BoundingBox`, `build_slide()`, interactive `<canvas>` animations, Presenter View (`?presenter=1`), and vector PDF presentation export.
+### 5.22. Presentation Slides & Stage (`lib-slide`, `project-slide`, & `slide-guide`)
+- **Commands**: `drawlib rules show project-slide` (Markdown block syntax & stage layouts), `drawlib rules show slide-guide` (Story arc & Dual-Layer design), and `drawlib rules show lib-slide` (Python API)
+- **Scope**: Universal 16:9 widescreen presentation stage (1920×1080), container layout blocks (`::: block`, `::: note`), dynamic `current_slide` runtime proxy, `draw_page_number()`, `draw_section_header()`, `SlideContext`, `BoundingBox`, `build_slide()`, interactive `<canvas>` animations, Presenter View (`?presenter=1`), and vector PDF presentation export.
 - **Key Syntax**:
   ```python
-  from drawlib.slide import BoundingBox, current_slide
+  from drawlib.slide import draw_page_number, draw_section_header
 
-  text((7, 1.5), current_slide.text, style=Styles.MutedSmall)
+  draw_page_number()
   ```
-- **When to read**: Refer to `project-slide` when authoring presentation slide decks, placing `::: block` containers, or adding speaker notes, and `lib-slide` when using the `drawlib.slide` Python API.
+- **When to read**: Refer to `project-slide` and `slide-guide` when authoring presentation slide decks, placing `::: block` containers, or adding speaker notes, and `lib-slide` when using the `drawlib.slide` Python API.
 
 ---
 
-### 5.23. Graph Layout Engine (`lib-graph`)
-- **Command**: `drawlib rules show lib-graph`
-- **Scope**: Pure coordinate & layout calculators (`ArchitectureGraph`, `LayerGraph`, `TreeGraph`, `RadialGraph`, `GridGraph`), nested container bounds, compass zone positioning, post-layout coordinate tweaking (`get_layout()` + `offset()`), and the 2-Step Workflow with `drawlib.diagrams` and `drawlib.shapes`.
+### 5.23. Graph Layout Engine (`lib-graph-overview` & `lib-graph-*`)
+- **Commands**:
+  - `drawlib rules show lib-graph-overview` (2-Step Workflow, `GraphLayout`, `NodeLayout`, `ClusterLayout`, `EdgeLayout`, `.offset()`)
+  - `drawlib rules show lib-graph-architecture` (`ArchitectureGraph`: 5-zone compass & 2-level container packing)
+  - `drawlib rules show lib-graph-layer` (`LayerGraph`: Sugiyama hierarchical DAG & `.tier()` stage pinning)
+  - `drawlib rules show lib-graph-tree` (`TreeGraph`: Reingold-Tilford compact trees & `.child()`)
+  - `drawlib rules show lib-graph-radial` (`RadialGraph`: Concentric hub-and-spoke rings & `.spoke()`)
+  - `drawlib rules show lib-graph-grid` (`GridGraph`: 2D row/column matrix & `.cell()`)
+- **Scope**: Pure coordinate & layout calculators (`get_layout()`), nested container bounds, compass zone positioning, post-layout coordinate tweaking (`offset()`), and the 2-Step Workflow with `drawlib.diagrams` and `drawlib.shapes`.
 - **Key Syntax**:
   ```python
   from drawlib.graph import ArchitectureGraph
@@ -806,7 +841,7 @@ drawlib rules show <topic> --rebuild
   layout = g.get_layout(width=140, height=60)
   # Pass layout["api"].xy, layout["db"].xy, or layout.edges into ArchitectureDiagram or shapes/lines
   ```
-- **When to read**: Refer to this rule when solving coordinates for complex node-and-edge topologies, cloud VPC clusters, layered DAG pipelines, trees, concentric rings, or matrices before rendering with `drawlib.diagrams` or `drawlib.shapes`.
+- **When to read**: Refer to these rules when solving coordinates for complex node-and-edge topologies, cloud VPC clusters, layered DAG pipelines, trees, concentric rings, or matrices before rendering with `drawlib.diagrams` or `drawlib.shapes`.
 
 ---
 
@@ -829,8 +864,8 @@ Never deliver unverified drawing code or documentation pages to the user. Always
      - **Diagram image(s) only** -> `uv run drawlib init images [-l ja] [-s google]` (remove starter `sample1.py`, `sample2.py`).
      - **Illustrated document / website / slide deck** -> `uv run drawlib init <doc|site|slide> [-l ja] [-s google]`.
 2. **Step 2: Author Rich Declarative Code (`Stage 1 — Static & Anchor Check`)**:
-   - In documentation (`docs_src/` / `doc_src/`), place a **Top Hero diagram at Lines 5–15** with `fold-code`, include **`2+` diagrams per page**, omit narrow `px` width caps on fences, and keep **`text_size >= 10.0`** (standard `10.5`–`12.0`, headers `12.0`–`14.0`).
-   - Combine standardized icons (`phosphor`, `gcp`) with high-level components (`SmartArts`, `Diagrams`, `Graphs`, `Charts`), respecting **Center `(cx, cy)`** anchors for primitives vs. **Bottom-Left `(x0, y0)`** anchors for composite components.
+   - In documentation (`docs_src/` / `doc_src/`), place a **Top Hero diagram at Lines 5–15** with `code=fold`, include **`2+` diagrams per page**, omit narrow `px` width caps on fences, and keep **`text_size >= 10.0`** (standard `10.5`–`12.0`, headers `12.0`–`14.0`).
+   - Combine standardized icons (`phosphor`, `gcp`) with high-level components (`SmartArts`, `Diagrams`, `Graphs`, `Charts`), respecting **Center `(cx, cy)`** anchors for primitives vs. **Bottom-Left `(x0, y0)`** (or component-default `Top-Left` / `Center`) anchors for composite components.
 3. **Step 3: Micro-Geometry Grid Review (`Stage 2 — drawlib show -g` + `view_file`)**:
    - Render each diagram with the 10-unit/5-unit coordinate grid to `.drawlib/scratch/preview.png`:
      ```bash
@@ -863,11 +898,11 @@ Never deliver unverified drawing code or documentation pages to the user. Always
 Avoid manually placing dozens of low-level `rectangle`, `circle`, and `line` primitives whenever a higher-level abstraction exists.
 
 1. **Evaluate SmartArts & Domain Diagrams First**:
-   - **Pipelines & Lifecycles**: Use `ChevronProcess` or `Cycle` instead of manual chevrons and arrow lines.
+   - **Pipelines & Lifecycles**: Use `ChevronProcess`, `Roadmap`, or `Cycle` instead of manual chevrons and arrow lines.
    - **Hierarchies & Organizations**: Use `TreeNode` or `MindMapNode` instead of calculating recursive tree node coordinates.
    - **Tabular Data & Comparisons**: Use `Table` instead of manually drawing grids of lines and text cells.
-   - **Status Cards & Matrices**: Use `BoxList` or `GridLayout` instead of looping through offset formulas.
-   - **Software Architecture & Flows**: Use `ArchitectureDiagram`, `FlowDiagram`, `SequenceDiagram`, or `ERDiagram`.
+   - **Status Cards, KPIs & Matrices**: Use `BoxList`, `CardList`, `KpiCards`, `Panel`, or `GridLayout` instead of looping through offset formulas.
+   - **Software Architecture & Flows**: Use `ArchitectureDiagram`, `FlowDiagram`, `SequenceDiagram`, `StateDiagram`, `ClassDiagram`, or `ERDiagram` (paired with `drawlib.graph` auto-layout solvers when needed).
 2. **Proactively Suggest High-Level Alternatives**:
    - If a user's prompt asks for a diagram that could be expressed as a structured SmartArt or Domain Diagram, proactively propose using the high-level module:
      > *"We can assemble this workflow using `ChevronProcess` from `drawlib.smartarts`, which automatically handles chevron geometry, arrow padding, and responsive spacing without manual coordinate math."*
@@ -879,7 +914,8 @@ Avoid manually placing dozens of low-level `rectangle`, `circle`, and `line` pri
 ### 6.4. Implementation Checklist
 
 - [ ] **Project Initialized (`drawlib init`)**: Scaffolded `images` (for standalone images) or `doc`/`site`/`slide` (for illustrated documents) with appropriate `--lang` and `--style`, and removed starter sample files.
-- [ ] **Top Hero & `720pt` Typography (`Stage 1`)**: `2+` diagrams per page, Top Hero at `Lines 5–15` with `fold-code`, no narrow `px` width caps on fences, and `text_size >= 10.0`.
+- [ ] **Top Hero & `720pt` Typography (`Stage 1`)**: `2+` diagrams per page, Top Hero at `Lines 5–15` with `code=fold`, no narrow `px` width caps on fences, and `text_size >= 10.0`.
 - [ ] **Palette & Neutral Baseline**: `from drawlib.styles import Colors, Styles` with `50%+` neutral cards (`Styles.Neutral`, `Styles.PrimaryNeutral`, `Styles.SecondaryNeutral`) and `1–2` focal hero nodes (`Styles.PrimaryFlat`).
 - [ ] **Grid Overlay Validation (`Stage 2`)**: Exported with `-g` to `.drawlib/scratch/` and inspected via `view_file` for anchor accuracy, margins (`>= 4–6` units), and zero text collisions.
 - [ ] **Browser HTML Verification (`Stage 3`)**: Verified zero broken links (`drawlib serve --check`) and inspected a `1280×920` browser screenshot via `view_file` to confirm above-the-fold Hero visibility and prose-to-diagram font balance.
+

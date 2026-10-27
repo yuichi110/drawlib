@@ -133,7 +133,7 @@ save()
   ```
 
 ### 3.2. Pre-Execution AST Duplicate Output Detection
-Before running any script in `images_src/`, `drawlib build image` parses all `.py` files via Python's `ast` module (ignoring `styles.py` and `utils.py`) to determine every target output filename.
+Building `images_src/` via `drawlib build image` parses all `.py` files via Python's `ast` module (ignoring `styles.py` and `utils.py`) to determine every target output filename before executing any code.
 - If two scripts would overwrite the same output path (e.g. `a.py` calls `save("out.png")` and `b.py` also calls `save("out.png")` in the same folder), the build **aborts immediately before executing any code**.
 - Keep filenames unique or rely on bare `save()` so each `<name>.py` maps 1-to-1 to `<name>.png`.
 
@@ -145,12 +145,12 @@ Never duplicate boilerplate helper functions or hardcoded colors across multiple
 ### 3.4. Typography, Aspect Ratios & Neutral Balance
 - **Typography (`text_size >= 10.0`)**: Keep body labels at `text_size = 10.5`–`12.0` and diagram titles at `12.5`–`15.0` so exported PNGs remain legible when embedded in external docs or slides.
 - **50%+ Neutral Baseline**: Ground at least 50% of nodes in calm neutral cards (`Styles.Neutral`, `Styles.PrimaryNeutral`, `Styles.SecondaryNeutral`) and reserve `Styles.PrimaryFlat` / `Styles.AccentFlat` for 1–2 focal nodes.
-- **Anchor Awareness**: Remember that `shapes.*`, `text.text()`, and `icons.*` use **Center `(cx, cy)`** anchors, whereas `smartarts.*`, `charts.*`, `diagrams.*`, and `graph.*` use **Bottom-Left `(x0, y0)`** anchors (`x0 = (W - width) / 2` to center horizontally).
+- **Anchor Awareness**: Remember that `shapes.*`, `text.text()`, `icons.*`, `images.image()`, `MindMapNode`, and `Cycle` use **Center `(cx, cy)`** anchors; `BoxList`, `CardList`, `ChevronProcess`, `GridLayout`, `Pyramid`, `KpiCards`, `Roadmap`, `Panel`, `GeoMap`, `MonthCalendar`/`WeekCalendar`/`DayCalendar`, `charts.*`, and `diagrams.*` `draw()` use **Bottom-Left `(x0, y0)`** anchors (`x0 = (W - width) / 2` to center horizontally); `Table`, `TreeNode`, `BulletPoints`, and `SourceCode` default to **Top-Left**; and `graph.*` `get_layout()` provides `.xy`/`.local_xy` centers and `.bottom_left`/`.local_bottom_left` corners.
 
 ### 3.5. Relative Asset Paths (No Absolute Paths or file:// URLs)
 When loading external logos, icons, or custom fonts in illustration scripts:
 - Store static assets under `images_src/_assets/` (e.g. `images_src/_assets/logo.png`).
-- Reference them using relative paths (e.g. `image=image("_assets/logo.png")` or `Dimage("_assets/logo.png")`).
+- Reference them using relative paths (e.g. `image((cx, cy), width=20, image="_assets/logo.png")` or `Dimage("_assets/logo.png")`).
 - Never hardcode machine-specific absolute paths (`/usr/...`, `/home/...`, `C:\...`) or `file://` URLs, which break portability across developer machines and automated build environments.
 
 ---
@@ -169,7 +169,7 @@ Never run `./images_src/build.sh` blindly without inspecting your diagrams with 
    Inspect `.drawlib/scratch/preview.png` via `view_file`. Verify:
    - Zero overlapping labels or clipped text borders.
    - Clean `4–6` unit margins on all four canvas edges (`x=0`, `x=W`, `y=0`, `y=H`).
-   - Proper `Center` vs. `Bottom-Left` component centering and `50%+` neutral color balance.
+   - Proper `Center` / `Bottom-Left` / `Top-Left` component anchoring and `50%+` neutral color balance.
 3. **Step 3 — Batch Compilation & Final Inspection**:
    ```bash
    ./images_src/build.sh
@@ -178,3 +178,4 @@ Never run `./images_src/build.sh` blindly without inspecting your diagrams with 
    Inspect the final grid-free output in `images/*.png` via `view_file` before delivering to the user.
 4. **Parallel Multi-Agent Delegation (When Generating Multiple Scripts)**:
    When producing multiple standalone scripts in `images_src/*.py`, first configure `images_src/styles.py` and `images_src/utils.py` in the parent agent, then **delegate individual `.py` scripts (or disjoint groups of scripts) to parallel subagents**. Each subagent writes its assigned `images_src/<name>.py` file and runs Step 1 & Step 2 using a **unique scratch path** (`-o .drawlib/scratch/<name>_grid.png` so concurrent subagents never overwrite each other's preview images). Once all subagents finish, the parent agent runs `./images_src/build.sh` once in Step 3.
+

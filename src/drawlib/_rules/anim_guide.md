@@ -172,7 +172,7 @@ For `TreeNode` and `MindMapNode`, you can instantiate the node hierarchy once ou
 
 ## 5. Statistical & Project Charts (`drawlib.charts`) Animation Patterns
 
-All 7 chart classes (`BarChart`, `LineChart`, `AreaChart`, `PieChart`, `RadarChart`, `ScatterChart`, `GanttChart`) return mutable element objects (`Series`, `Slice`, `Task`, `Point`) from their registration methods (`add_series`, `add_slice`, `add_task`, `add`).
+All 9 chart classes (`BarChart`, `LineChart`, `AreaChart`, `PieChart`, `RadarChart`, `ScatterChart`, `GanttChart`, `HeatmapChart`, `HeatmapOverlay`) return mutable element objects (`Series`, `Slice`, `Task`, `Point`, `Row`, `Spot`) from their registration methods (`add_series`, `add_slice`, `add_task`, `add`, `add_row`, `add_spot`).
 
 ### 5.1. Progressive Series Reveal (`s.show`)
 Build the chart once outside the loop and toggle `s.show = (i <= step)` across frames. Because Drawlib calculates automatic `min_value` / `max_value`, pie proportions, and Gantt row heights across **all registered elements regardless of `show=False`**, the chart axes and gridlines remain 100% locked across frames.
@@ -181,6 +181,7 @@ Build the chart once outside the loop and toggle `s.show = (i <= step)` across f
 Every `Series`, `Slice`, and `Task` supports `draw_ratio: float` (`0.0` to `1.0`) and `draw_direction: DrawDirection` (`"bottom_to_top"` or `"left_to_right"`):
 - **`BarChart` / `RadarChart`**: Default `"bottom_to_top"` grows bars vertically from the baseline (or expands the radar polygon radially outward).
 - **`LineChart` / `AreaChart` / `PieChart` / `GanttChart`**: Default `"left_to_right"` sweeps curves, wedges, or task bars progressively along the axis/angle.
+- **`HeatmapChart` / `HeatmapOverlay`**: Reveal rows, cells, or density hotspots progressively across frames via `row.show` / `spot.show` or by mutating cell/spot values.
 
 ```python
 from drawlib.anim import Animation
@@ -319,7 +320,7 @@ save("graph_layer_steps.png")
 
 ---
 
-## 7. Slide Presentation Playback Controls (`anim-trigger`, `anim-loop`, `anim-pause`)
+## 7. Slide Presentation Playback Controls (`anim_trigger`, `anim_loop`, `anim_pause`)
 
 When embedding animated `.png` (APNG) or `.webp` blocks inside a `slide` presentation project (`drawlib build slide`), use code-fence options to control interactive `<canvas>` playback in `slide.js`:
 
@@ -328,7 +329,7 @@ When embedding animated `.png` (APNG) or `.webp` blocks inside a `slide` present
 ```
 ````
 
-- **`anim-trigger: auto | click`**: `click` holds on Frame 0 (`READY`) until the presenter clicks the diagram; `auto` starts playback on slide entry.
-- **`anim-loop: once | infinite`**: `once` stops on the final frame (`ENDED`, click to replay from Frame 0); `infinite` loops continuously.
-- **`anim-pause: <frame_indices>`**: Comma-separated 0-based frame indices (e.g. `anim-pause:2,4`) where playback pauses (`PAUSED`) until the next click.
+- **`anim_trigger=auto | click`**: `click` holds on Frame 0 (`READY`) until the presenter clicks the diagram or presses `A`; `auto` starts playback on slide entry.
+- **`anim_loop=once | infinite`**: `once` stops on the final frame (`ENDED`, click to replay from Frame 0); `infinite` loops continuously.
+- **`anim_pause=<frame_indices>`**: Tuple of 0-based frame indices (e.g. `anim_pause=(2, 4)`) where playback pauses (`PAUSED`) until the next click or `A` keypress.
 

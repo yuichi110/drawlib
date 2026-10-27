@@ -157,12 +157,12 @@ Each project scaffolds focused shell scripts alongside the master `build.sh`:
   uv run drawlib cache clear --images
   ```
 
-### 4.2. Font & Icon Release Asset Cache (`drawlib cache`)
-Font families and icon packs (`icon-phosphor`, `icon-fontawesome`, `icon-gcp`) are downloaded on demand into `drawlib/_cached_assets/`:
+### 4.2. Font, Icon & Map Release Asset Cache (`drawlib cache`)
+Font families, icon packs (`icon_phosphor`, `icon_gcp`, `icon_aws`, `icon_azure`, `icon_ai`..`icon_workspace`), and GeoJSON maps (`map_world`) are downloaded on demand into `drawlib/_cached_assets/`:
 ```bash
 uv run drawlib cache list              # Inspect cached packages and disk size
-uv run drawlib cache download --all    # Pre-download all fonts & icons for offline/CI builds
-uv run drawlib cache clear --all       # Purge all font, icon, and SQLite image caches
+uv run drawlib cache download --all    # Pre-download all fonts, icons & maps for offline/CI builds
+uv run drawlib cache clear --all       # Purge all font, icon, map, and SQLite image caches
 ```
 
 ---
@@ -202,11 +202,13 @@ Drawlib projects are intentionally structured as **modular collections of indepe
 
 ---
 
-## 6. Dedicated Project Rule Guides
+## 6. Dedicated Project & Module Rule Guides
 
-Query the specific project manual matching your target deliverable:
+Query the specific project or module manual matching your target deliverable:
 - **`uv run drawlib rules show project-images`**: Standalone `.py` illustration scripts (`images_src/`).
 - **`uv run drawlib rules show project-doc`**: Linear technical documents, whitepapers & A4 vector PDFs (`doc_src/`).
 - **`uv run drawlib rules show project-site`**: Multi-page documentation websites & `navbar.md` (`docs_src/`).
 - **`uv run drawlib rules show project-slide`**: 16:9 widescreen presentation decks & `::: block` stage layouts (`slide_src/`).
 - **`uv run drawlib rules show review-guide`**: 3-Stage Autonomous Multimodal Review & Self-Correction Loop.
+- **Component Overviews**: `uv run drawlib rules show lib-shapes-overview`, `lib-icons-overview`, `lib-smartarts-overview`, `lib-charts-overview`, `lib-diagrams-overview`, `lib-graph-overview`.
+

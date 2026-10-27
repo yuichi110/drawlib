@@ -192,7 +192,7 @@ save()
 - **Strict Rules**:
   - **Never start body bullet points, problem explanations, or multi-box diagrams on Slide 1.**
   - **No Header Chrome or Page Counter**: Do not place a `(80, 40)` top slide header or `(1700, 1010)` page number (`1 / N`) on the cover slide.
-  - Pair the title and metadata block (`(160, 240) (1160, 600)`) with a clean hero emblem, logo, or minimal conceptual visual on the right (`(1360, 260) (400, 480)`), or use a full-bleed cover canvas (`(0, 0) (1920, 1080)`).
+  - Pair the title and metadata block (`xy=(160, 240) width=1160 height=600`) with a clean hero emblem, logo, or minimal conceptual visual on the right (`xy=(1360, 260) width=400 height=480`), or use a full-bleed cover canvas (`xy=(0, 0) width=1920 height=1080`).
 
 ### 2.2. Agenda / Roadmap Slide (`02_agenda.md` or `00_opening/02_agenda.md`)
 - **Purpose**: Give the audience a clear mental map of the presentation's chapters before diving into details.
@@ -239,10 +239,10 @@ Always select the appropriate high-level Drawlib component or `drawlib.slide` he
 | **Step-by-Step Process / Playbook** | `smartarts.ChevronProcess`, `diagrams.FlowDiagram`, `smartarts.Cycle` | Row of manual `rectangle()` + `line()` |
 | **Cloud / Network / System Topology** | `diagrams.ArchitectureDiagram`, `graph.ArchitectureGraph`, `utils.service_card()` + `utils.connect()` | Bare boxes without icons or tier containers |
 | **Attack / API / Protocol Timeline** | `diagrams.SequenceDiagram`, `diagrams.StateDiagram`, `charts.GanttChart` | Manual horizontal lines with text labels |
-| **Quantitative Trends & Comparisons** | `charts.LineChart`, `AreaChart`, `BarChart`, `PieChart`, `RadarChart` | Writing numbers only in prose bullets |
+| **Quantitative Trends & Comparisons** | `charts.LineChart`, `AreaChart`, `BarChart`, `PieChart`, `RadarChart`, `HeatmapChart` | Writing numbers only in prose bullets |
 | **Feature Matrix / Trade-off Analysis**| `smartarts.Table`, `smartarts.GridLayout`, `smartarts.Panel` | Cramped Markdown tables with tiny fonts |
 | **Layered / Defense-in-Depth Stack** | `smartarts.Pyramid`, `smartarts.TreeNode`, `graph.LayerGraph` | Stacked plain rectangles |
-| **Visual Anchors on Every Node** | `icons.phosphor`, `icons.gcp`, `icons.fontawesome` | Text-only shapes with zero iconography |
+| **Visual Anchors on Every Node** | `icons.phosphor`, `icons.gcp`, `icons.aws`, `icons.azure`, domain icon suites (`ai`..`workspace`) | Text-only shapes with zero iconography |
 
 ---
 
@@ -250,13 +250,13 @@ Always select the appropriate high-level Drawlib component or `drawlib.slide` he
 
 Repeating the exact same `Left Text (740px) + Right Diagram (980px)` split across 10+ consecutive slides creates visual fatigue. Rotate among these **5 standard stage layouts** to match the geometry of each slide's content:
 
-| Layout Pattern | `::: block` Stage Coordinates `(x, y) (w, h)` | Best Used For |
+| Layout Pattern | `::: block` Stage Coordinates `xy=(x, y) width=w height=h` | Best Used For |
 | :--- | :--- | :--- |
-| **1. Two-Column Split**<br>*(Narrative Left + Diagram Right)* | Left: `(80, 140) (720, 820)`<br>Right: `(840, 140) (1000, 820)` → `setup(100, 82)` | Architecture topologies, vertical flows, radar/pie charts, 2x2 grids |
-| **2. Top-Bottom Wide Split**<br>*(Summary Top + Wide Diagram Bottom)* | Top: `(80, 130) (1760, 190)`<br>Bottom: `(80, 340) (1760, 620)` → `setup(176, 62)` | Multi-stage horizontal pipelines (`ChevronProcess`), wide `SequenceDiagram`, `GanttChart`, timelines |
-| **3. Full-Stage Visual Diagram**<br>*(100% Visual + `::: note` Narrative)* | Main: `(80, 140) (1760, 820)` → `setup(176, 82)` | Comprehensive end-to-end `ArchitectureDiagram`, `Table` comparison matrices, multi-cluster `ArchitectureGraph` |
-| **4. KPI Cards + Chart Split**<br>*(Metrics Left + Trend Chart Right)* | Left: `(80, 140) (760, 820)` (`KpiCards`)<br>Right: `(880, 140) (960, 820)` (`LineChart` / `BarChart`) | Executive impact summaries, before/after benchmark comparisons, incident scale metrics |
-| **5. Full-Bleed Hero / Divider**<br>*(1920×1080 Canvas)* | Stage: `(0, 0) (1920, 1080)` → `draw_section_header(...)` / `setup(192, 108)` | Cover slides (`01_title.md`), Chapter Section Headers (`01_section.md`), high-impact closing slides |
+| **1. Two-Column Split**<br>*(Narrative Left + Diagram Right)* | Left: `xy=(80, 140) width=720 height=820`<br>Right: `xy=(840, 140) width=1000 height=820` → `setup(100, 82)` | Architecture topologies, vertical flows, radar/pie charts, 2x2 grids |
+| **2. Top-Bottom Wide Split**<br>*(Summary Top + Wide Diagram Bottom)* | Top: `xy=(80, 130) width=1760 height=190`<br>Bottom: `xy=(80, 340) width=1760 height=620` → `setup(176, 62)` | Multi-stage horizontal pipelines (`ChevronProcess`), wide `SequenceDiagram`, `GanttChart`, timelines |
+| **3. Full-Stage Visual Diagram**<br>*(100% Visual + `::: note` Narrative)* | Main: `xy=(80, 140) width=1760 height=820` → `setup(176, 82)` | Comprehensive end-to-end `ArchitectureDiagram`, `Table` comparison matrices, multi-cluster `ArchitectureGraph` |
+| **4. KPI Cards + Chart Split**<br>*(Metrics Left + Trend Chart Right)* | Left: `xy=(80, 140) width=760 height=820` (`KpiCards`)<br>Right: `xy=(880, 140) width=960 height=820` (`LineChart` / `BarChart`) | Executive impact summaries, before/after benchmark comparisons, incident scale metrics |
+| **5. Full-Bleed Hero / Divider**<br>*(1920×1080 Canvas)* | Stage: `xy=(0, 0) width=1920 height=1080` → `draw_section_header(...)` / `setup(192, 108)` | Cover slides (`01_title.md`), Chapter Section Headers (`01_section.md`), high-impact closing slides |
 
 ---
 

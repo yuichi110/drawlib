@@ -24,7 +24,7 @@ When authoring **"Illustration as Code"** and **"Illustrated Documentation as Co
 ```text
 ┌────────────────────────────────────────────────────────────────────────────┐
 │ Stage 1: Quantitative & Static Pre-Check (Markdown & Code Audit)           │
-│   • 2+ diagrams per page; Top Hero at Lines 5–15 with `fold-code`          │
+│   • 2+ diagrams per page; Top Hero at Lines 5–15 with `code=fold`          │
 │   • Zero narrow pixel caps (no `500px`/`600px` on fences); `text_size>=10` │
 │   • Rich components (`phosphor`/`gcp` icons + `SmartArts`/`Diagrams`)      │
 └────────────────────────────────────┬───────────────────────────────────────┘
@@ -73,7 +73,7 @@ phosphor.list_checks((11.5, 36.5), width=5.0, style=Styles.PrimaryBold)
 text((28, 36.5), "1. Static Audit", style=Styles.PrimaryBold.patch(text_size=11.5))
 text(
     (26, 21),
-    "• Hero at Lines 5–15\n• fold-code & 2+ figs\n• No narrow px width\n• text_size >= 10.0",
+    "• Hero at Lines 5–15\n• code=fold & 2+ figs\n• No narrow px width\n• text_size >= 10.0",
     style=Styles.Dark.patch(text_size=10.2),
 )
 
@@ -116,10 +116,10 @@ Before or immediately after authoring `.md` files in `docs_src/` (or `doc_src/`)
 | :--- | :--- | :--- |
 | **Diagrams per Page** | **`>= 2` embedded ```` ```drawlib ```` blocks** | Single-diagram or text-only pages that fail "Illustrated Documentation as Code". |
 | **Top Hero Placement** | **Lines `5–15`** (immediately after `# Title` and 1–2 lead sentences) | Burying the first diagram below 40+ lines of prose or installation tables. |
-| **Top Hero Visibility** | **`fold-code`** (or `hide-code` on index/landing pages) | Using `show-code` on the Top Hero, which pushes the illustration below the fold. |
+| **Top Hero Visibility** | **`code=fold`** (or `code=hide` on index/landing pages) | Using `code=show` on the Top Hero, which pushes the illustration below the fold. |
 | **Fence Width Attribute** | **Omit pixel widths** (let CSS fill `100%` of `.drawlib-image`) | Hardcoding `500px`, `600px`, or `680px` on fences, which shrinks the entire image and its text. |
 | **In-Image `text_size`** | **`>= 10.0`** (standard `10.5`–`12.0`, titles `12.0`–`14.0`, floor `9.5` for dense code) | Using `text_size=7.5`–`8.5`, which renders at `~9px`–`10px` in HTML. |
-| **Visual Richness** | Combine **`phosphor` / `gcp` / `font_icon`** with **`SmartArts` / `Diagrams` / `Graphs` / `Charts`** | Drawing barren boxes and straight lines with raw primitives only. |
+| **Visual Richness** | Combine **`phosphor` / `gcp` / `aws` / `azure` / domain icons** with **`SmartArts` / `Diagrams` / `Graphs` / `Charts`** | Drawing barren boxes and straight lines with raw primitives only. |
 | **Link & Path Hygiene** | **Strictly relative links (zero `file://` or absolute local paths)** | Writing machine-specific `file:///...` or `/home/...` links, which break on the web and trigger build errors. |
 
 #### Automated Static Audit Snippet
@@ -250,22 +250,23 @@ Scale `text_size` inversely with the enclosing `::: block xy=(x, y) width=W_bloc
 Every documentation page must hook the reader visually at first glance:
 1. **Top Hero Position (`Lines 5–15`)**: Place the first ```` ```drawlib ```` block immediately after `# Page Title` and a concise 1–2 sentence executive summary.
 2. **Collapsed Source Code (`code=fold`)**: Always use `code=fold` on the Top Hero diagram (or `code=hide` on landing pages). Putting a 50-line `code=show` block at the top of a page pushes the rendered diagram completely off-screen.
-3. **High-Level Component + Icon Synergy**: Top Hero diagrams should combine official iconography (`phosphor.*`, `gcp.*`, `font_icon`) with high-level layout components (`SmartArts`, `ArchitectureDiagram`, `FlowDiagram`, `SequenceDiagram`, `ArchitectureGraph`, `BarChart`, etc.) rather than plain geometric boxes.
+3. **High-Level Component + Icon Synergy**: Top Hero diagrams should combine official iconography (`phosphor.*`, `gcp.*`, `aws.*`, `azure.*`, domain icon suites) with high-level layout components (`SmartArts`, `ArchitectureDiagram`, `FlowDiagram`, `SequenceDiagram`, `ArchitectureGraph`, `BarChart`, etc.) rather than plain geometric boxes.
 
 ---
 
-### Criterion 3: Coordinate Anchor Semantics (`Center` vs. `Bottom-Left`)
+### Criterion 3: Coordinate Anchor Semantics (`Center`, `Bottom-Left`, `Top-Left`)
 
-One of the most frequent sources of off-by-half layout bugs is confusing **center-anchored primitives** with **bottom-left-anchored composite components**. Always verify which anchor convention a component uses:
+One of the most frequent sources of off-by-half layout bugs is confusing **center-anchored primitives** with **bottom-left** or **top-left** composite components. Always verify which anchor convention a component uses:
 
 | Anchor Type | Drawlib Modules & Functions | How `(x, y)` Is Interpreted | Bounding Box Span |
 | :--- | :--- | :--- | :--- |
-| **Center `(cx, cy)`** | `shapes.*` (`rectangle`, `circle`, `cylinder`, `chevron`, ...)<br>`text.text()` *(default `halign="center"`, `valign="center"`)*<br>`icons.*` (`phosphor.*`, `gcp.*`, `font_icon`)<br>`images.image()`<br>`diagrams.*` nodes (`d.add(Node(...), xy=(cx, cy))`) | Geometric **center** of the element | Horizontal: `[cx - w/2, cx + w/2]`<br>Vertical: `[cy - h/2, cy + h/2]` |
-| **Bottom-Left `(x0, y0)`** | `smartarts.*` (`BoxList`, `Table`, `ChevronProcess`, `CardGrid`, `SourceCode`, `BulletPoints`, `TreeNode`, ...)<br>`charts.*` (`BarChart`, `LineChart`, `PieChart`, `RadarChart`, `GanttChart`, ...)<br>`diagrams.*` `draw(xy=(x0, y0))` & `NodeGroup(..., xy=(x0, y0))` | **Bottom-left corner** of the component's bounding area | Horizontal: `[x0, x0 + width]`<br>Vertical: `[y0, y0 + height]` |
+| **Center `(cx, cy)`** | `shapes.*` (`rectangle`, `circle`, `cylinder`, `chevron`, ...)<br>`text.text()` *(default `halign="center"`, `valign="center"`)*<br>`icons.*` (`phosphor.*`, `gcp.*`, `aws.*`, `azure.*`, ...)<br>`images.image()`<br>`smartarts.*` (`MindMapNode`, `Cycle` — default `center`/`center`)<br>`diagrams.*` nodes (`d.add(Node(...), xy=(cx, cy))`) | Geometric **center** of the element | Horizontal: `[cx - w/2, cx + w/2]`<br>Vertical: `[cy - h/2, cy + h/2]` |
+| **Bottom-Left `(x0, y0)`** | `smartarts.*` (`BoxList`, `CardList`, `ChevronProcess`, `GridLayout`, `Pyramid`, `KpiCards`, `Roadmap`, `Panel`, `GeoMap`, `MonthCalendar`/`WeekCalendar`/`DayCalendar`)<br>`charts.*` (`BarChart`, `LineChart`, `AreaChart`, `PieChart`, `RadarChart`, `ScatterChart`, `GanttChart`, `HeatmapChart`, `HeatmapOverlay`)<br>`diagrams.*` `draw(xy=(x0, y0))` & `NodeGroup(..., xy=(x0, y0))` | **Bottom-left corner** of the component's bounding area | Horizontal: `[x0, x0 + width]`<br>Vertical: `[y0, y0 + height]` |
+| **Top-Left `(x0, y1)`** | `smartarts.*` (`Table`, `TreeNode`, `BulletPoints`, `SourceCode` — default `halign="left"`, `valign="top"`, configurable via `halign`/`valign`) | **Top-left corner** of the component (`y` grows downward) | Horizontal: `[x0, x0 + width]`<br>Vertical: `[y1 - height, y1]` |
 | **Dual Properties (`get_layout()`)** | `graph.*` (`ArchitectureGraph`, `LayerGraph`, `TreeGraph`, `RadialGraph`, `GridGraph`) | Pure coordinate calculator (`layout = g.get_layout()`) | `NodeLayout`: `.xy` / `.local_xy` (center), `.bottom_left`<br>`ClusterLayout`: `.bottom_left` / `.local_bottom_left` (for `NodeGroup`), `.xy` (center for `rectangle`) |
 
 > **Centering a Bottom-Left Component on a Canvas of Width `W`**:
-> Set `x0 = (W - component_width) / 2`. Never pass `x0 = W / 2` to `chart.draw((x0, y0))` or `table.draw((x0, y0))`, or the component will extend from the middle of the canvas off the right edge!
+> Set `x0 = (W - component_width) / 2`. Never pass `x0 = W / 2` to `chart.draw((x0, y0))` or `proc.draw((x0, y0), width=...)`, or the component will extend from the middle of the canvas off the right edge!
 
 ---
 
@@ -295,8 +296,9 @@ When authoring or reviewing multiple scripts, chapters, pages, or slides, **dist
 
 ### 4.2. Final Pre-Delivery Checklist
 - [ ] **Stage 1 (Static Check)**:
-  - For **`site` / `doc`**: `>= 2` diagrams/page, Top Hero at `Lines 5–15` with `fold-code`, no narrow `px` width caps, and `text_size >= 10.0`.
+  - For **`site` / `doc`**: `>= 2` diagrams/page, Top Hero at `Lines 5–15` with `code=fold`, no narrow `px` width caps, and `text_size >= 10.0`.
   - For **`slide`**: Dual-Layer split (`::: block` 3–4 short phrases + `::: note` full script), Cover/Agenda/Section Dividers/Takeaways arc, and block-width-calibrated `text_size` (`11.0–13.0` full-width, `13.5–15.5` 2-column, `14.0–17.0` narrow column; no `scale < 1.0` in 2-column blocks).
-- [ ] **Stage 2 (Grid Check `-g`)**: Did you (or the assigned subagent) export each new/modified diagram with `drawlib show ... -g -o .drawlib/scratch/<unique_name>_grid.png` and inspect it via `view_file` to verify zero overlapping labels, accurate `Center` vs. `Bottom-Left` anchors, and `50%+` neutral color balance?
+- [ ] **Stage 2 (Grid Check `-g`)**: Did you (or the assigned subagent) export each new/modified diagram with `drawlib show ... -g -o .drawlib/scratch/<unique_name>_grid.png` and inspect it via `view_file` to verify zero overlapping labels, accurate `Center` / `Bottom-Left` / `Top-Left` anchors, and `50%+` neutral color balance?
 - [ ] **Stage 3 (Macro-Page HTML / Slide PDF Check)**: Did the parent agent build (`./build.sh`) and inspect the rendered HTML page (`1280×920` Playwright screenshot) or compiled Slide PDF (`view_file`) to confirm prose-to-diagram font size parity (`~14px–16px` in docs; `>= 18px–24px` vs `26px` prose on `1920×1080` slides)?
 - [ ] **Cleanup**: Did you remove temporary files in `.drawlib/scratch/` before finishing?
+

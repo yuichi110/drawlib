@@ -12,7 +12,8 @@ This document serves as an exhaustive reference and operational manual for softw
 # Compile documentation and illustrations
 drawlib build html docs_src/ -o docs_html/                  # Multi-page responsive HTML site
 drawlib build markdown docs_src/ -o docs/                  # Rendered Markdown for GitHub browsing
-drawlib build pdf docs_src/ -o manual.pdf --toc             # Merged vector PDF via headless Chromium
+drawlib build pdf docs_src/ -o manual.pdf --generate-index  # Merged vector PDF via headless Chromium
+drawlib build slide slide_src/ -o slide_html/               # 16:9 HTML presentation slide deck
 drawlib build image scripts/ -o assets/ -g                 # Batch Python illustration rendering
 
 # Project scaffolding
@@ -42,11 +43,11 @@ drawlib styles list                                        # List available styl
 drawlib styles show default -o styles.png                  # Export style matrix to image
 
 # Cache and stylesheet preset management
-drawlib cache list                                         # Inspect cached font and icon assets
-drawlib cache clear                                        # Purge downloaded font, icon, and CLI image cache
+drawlib cache list                                         # Inspect cached font, icon, and map assets
+drawlib cache clear                                        # Purge downloaded font, icon, map, and CLI image cache
 drawlib cache clear --images                               # Clear SQLite build image cache (.drawlib/cache.db)
-drawlib cache clear --all                                  # Clear all caches (fonts, icons, and SQLite image cache)
-drawlib cache download --all                               # Pre-download all font/icon release assets
+drawlib cache clear --all                                  # Clear all caches (fonts, icons, maps, and SQLite image cache)
+drawlib cache download --all                               # Pre-download all font/icon/map release assets
 drawlib css list                                           # List built-in HTML and PDF stylesheets
 drawlib css show html google -o style.css                  # Export Google styling preset
 
@@ -55,7 +56,7 @@ drawlib rules list                                         # List available arch
 drawlib rules show agent-instruction                       # Display AI agent bootstrap and workflow loop
 drawlib rules show overview                                # Display canvas overview drawing guidelines
 drawlib rules show style-guide                             # Display design principles and color rules
-drawlib rules show project                                 # Display project scaffolding and build conventions
+drawlib rules show project-overview                        # Display project scaffolding and build conventions
 drawlib rules show cli                                     # Display this CLI reference guide
 drawlib rules clear                                        # Delete all cached rule illustrations and docs
 ```
@@ -84,13 +85,14 @@ drawlib [GLOBAL_OPTIONS] COMMAND [SUBCOMMAND] [ARGS...]
 
 ## 1. Document & Illustration Compiler (`drawlib build`)
 
-The `drawlib build` subsystem compiles Markdown documents, HTML pages, and standalone Python illustration scripts into production-ready publishing targets.
+The `drawlib build` subsystem compiles Markdown documentation directories, slide decks, and standalone Python illustration scripts into production-ready publishing targets.
 
 ```text
 drawlib build
-├── html       Compile Markdown/HTML documents into static HTML sites or single pages
-├── markdown   Compile Markdown files with embedded drawlib blocks into GitHub-ready Markdown
-├── pdf        Merge Markdown/HTML files into a cohesive vector PDF via headless Chromium
+├── html       Compile a documentation source directory into a static HTML site or linear page
+├── markdown   Compile a directory of Markdown files with drawlib blocks into GitHub-ready Markdown
+├── pdf        Compile Markdown chapters, a single Markdown file, or a slide deck into a vector PDF
+├── slide      Compile a directory of Markdown slide files into a 16:9 HTML presentation deck
 └── image      Batch execute standalone Python scripts to generate image files
 ```
 
@@ -101,37 +103,36 @@ Common build behavior:
 
 ---
 
-### 1.1 `drawlib build html` (Static Site & Single Page HTML)
+### 1.1 `drawlib build html` (Static Site & Linear HTML)
 
-Compiles a single Markdown/HTML document or an entire directory into responsive HTML with modern styling, sidebar navigation, dark/light theme support, and syntax highlighting.
+Compiles a documentation source directory (`docs_src/` or `doc_src/`) into responsive HTML with modern styling, sidebar navigation (when `navbar.md` is present), dark/light theme support, and syntax highlighting.
 
 #### Syntax:
 ```bash
-drawlib build html <INPUT> [OPTIONS]
+drawlib build html <DIR> [OPTIONS]
 ```
 
 #### Arguments:
-- `<INPUT>`: Path to input Markdown (`.md`), HTML (`.html`), or directory containing documentation.
+- `<DIR>`: Path to input directory containing documentation source files (`docs_src/` or `doc_src/`).
 
 #### Options:
 | Option | Shorthand | Type | Default | Description |
 | :--- | :--- | :--- | :--- | :--- |
-| `--output` | `-o` | `<path>` | `<input_dir>` or `<name>.html` | Destination HTML file path or output directory path. |
+| `--output` | `-o` | `<path>` | `<dir>_html` | Output HTML directory path. |
 | `--format` | `-f` | `png \| webp` | `png` | Image output format for embedded `drawlib` blocks. |
 | `--styles` | `-s` | `<path>` | `None` | Path to Python styles script (e.g. `styles.py`). |
 | `--utils` | `-u` | `<path>` | `None` | Path to Python utils script (e.g. `utils.py`). |
 | `--no-cache` | | flag | `False` | Disable reading and writing the SQLite image build cache (forces clean re-rendering). |
 
-> **Mandatory Files**: `template.html` and `style.css` must exist in the target directory (or parent directory of a single file). Run `drawlib init` to scaffold them.
+> **Mandatory Files**: `template.html` and `style.css` must exist in the input directory. Run `drawlib init` to scaffold them.
 
 #### Directory Compilation Rules:
-When `<INPUT>` is a directory, `drawlib build html` compiles a complete multi-page documentation website:
-1. **Mandatory Root Files**:
-   - `index.md`: The root landing page of the documentation site.
-   - `navbar.md`: The sidebar navigation structure defining categories and links.
-   - `template.html` & `style.css`: The HTML page structure and stylesheet.
+When `<DIR>` is compiled by `drawlib build html`:
+1. **Multi-Page Site (`site` — `navbar.md` present)** vs. **Merged Linear Document (`doc` — no `navbar.md`)**:
+   - When `index.md` and `navbar.md` exist at the root of `<DIR>`, `drawlib build html` compiles a multi-page documentation website with a persistent sidebar.
+   - When `navbar.md` is absent (as in `doc_src/`), it merges all numbered chapters into `index.html`.
 2. **Navigation Construction**: The builder parses `navbar.md`, generates hierarchical categories and links, computes relative paths for nested directories, and highlights the current page (`.active`).
-3. **Static Asset Synchronization**: Non-markdown files (images, custom stylesheets, font files, data archives) located anywhere within `<INPUT>` are recursively mirrored to `--output` preserving folder hierarchy.
+3. **Static Asset Synchronization**: Non-markdown files (`_assets/`, images, custom stylesheets, font files) located within `<DIR>` are recursively mirrored to `--output` preserving folder hierarchy.
 4. **Shared Stylesheet**: An external `style.css` is generated in the root of the output directory and referenced by all pages via relative paths.
 
 #### Examples:
@@ -139,11 +140,8 @@ When `<INPUT>` is a directory, `drawlib build html` compiles a complete multi-pa
 # Compile entire documentation directory to HTML site:
 drawlib build html docs_src/ -o docs_html/
 
-# Compile single Markdown document to standalone HTML:
-drawlib build html docs_src/overview.md -o docs_html/overview.html
-
-# Compile with custom Python styles script:
-drawlib build html docs_src/ -o docs_html/ -s styles.py
+# Compile with custom Python styles and utils scripts:
+drawlib build html docs_src/ -o docs_html/ -s docs_src/styles.py -u docs_src/utils.py
 
 # Force complete re-rendering ignoring cached images:
 drawlib build html docs_src/ -o docs_html/ --no-cache
@@ -153,40 +151,40 @@ drawlib build html docs_src/ -o docs_html/ --no-cache
 
 ### 1.2 `drawlib build markdown` (Rendered Markdown for GitHub)
 
-Compiles Markdown source files containing embedded ````drawlib```` blocks into standard GitHub-Flavored Markdown (`.md`). Rendered illustration images are written to a dedicated companion folder (e.g. `<doc_name>_images/`), and code blocks are replaced with syntax-highlighted Python code followed by relative image links.
+Compiles a directory of Markdown source files containing embedded ````drawlib```` blocks into standard GitHub-Flavored Markdown (`.md`). Rendered illustration images are written to companion folders (e.g. `<doc_name>_images/`), and code blocks are replaced according to their `code=` visibility setting.
 
 #### Syntax:
 ```bash
-drawlib build markdown <INPUT> [OPTIONS]
+drawlib build markdown <DIR> [OPTIONS]
 ```
 
 #### Arguments:
-- `<INPUT>`: Path to input Markdown file (`.md`) or directory containing Markdown files.
+- `<DIR>`: Path to input directory containing Markdown (`.md`) source files.
 
 #### Options:
 | Option | Shorthand | Type | Default | Description |
 | :--- | :--- | :--- | :--- | :--- |
-| `--output` | `-o` | `<path>` | `<stem>.rendered.md` or directory | Output destination file or directory path. |
+| `--output` | `-o` | `<path>` | `<dir>_markdown` | Output Markdown directory path. |
 | `--format` | `-f` | `png \| webp` | `png` | Image output format for rendered blocks. |
 | `--styles` | `-s` | `<path>` | `None` | Path to Python styles script (e.g. `styles.py`). |
 | `--utils` | `-u` | `<path>` | `None` | Path to Python utils script (e.g. `utils.py`). |
 | `--no-cache` | | flag | `False` | Disable reading and writing the SQLite image build cache. |
 
 #### Overwrite Protection:
-To safeguard author source files, `drawlib build markdown` strictly refuses to overwrite source Markdown files in-place (`src_abs == dest_abs`). When compiling a directory, you must specify a separate destination directory (e.g. `-o docs/`). For single files without `-o`, the compiler appends `.rendered.md` by default.
+To safeguard author source files, `drawlib build markdown` strictly refuses to overwrite source Markdown directories in-place (`src_abs == dest_abs`). Always specify a separate destination directory (e.g. `-o docs/` or `-o docs_markdown/`).
 
 #### Code Visibility in Rendered Markdown:
-- `hide-code` *(default)*: Embedded code block is replaced strictly by the relative image reference: `![alt](https://example.com/1.png)`.
-- `show-code`: Embedded code block becomes a syntax-highlighted ````python```` block followed by the image reference.
-- `fold-code`: The image reference is displayed first, followed by a collapsed `<details><summary>Source Code</summary>...</details>` block containing the Python source.
+- `code=hide` *(default)*: Embedded code block is replaced strictly by the relative image reference: `![alt](<page>_images/<file>.png)`.
+- `code=show`: Embedded code block becomes a syntax-highlighted ````python```` block followed by the image reference.
+- `code=fold`: The image reference is displayed first, followed by a collapsed `<details><summary>Source Code</summary>...</details>` block containing the Python source.
 
 #### Examples:
 ```bash
 # Compile author source directory to GitHub-ready docs/ directory:
 drawlib build markdown docs_src/ -o docs/
 
-# Compile single file using custom styles script:
-drawlib build markdown docs_src/architecture.md -o docs/architecture.md -s styles.py
+# Compile directory using custom styles script:
+drawlib build markdown docs_src/ -o docs/ -s docs_src/styles.py
 
 # Export images as modern WebP format:
 drawlib build markdown docs_src/ -o docs/ -f webp
@@ -196,7 +194,7 @@ drawlib build markdown docs_src/ -o docs/ -f webp
 
 ### 1.3 `drawlib build pdf` (Headless Vector PDF Compilation)
 
-Merges one or more Markdown or HTML documents into a single document and compiles it directly into a high-fidelity vector PDF using local headless Chromium-based browsers.
+Merges Markdown chapters, a single Markdown document, or a slide presentation directory and compiles it directly into a high-fidelity vector PDF using headless Chromium.
 
 #### Syntax:
 ```bash
@@ -204,21 +202,21 @@ drawlib build pdf <INPUT> [OPTIONS]
 ```
 
 #### Arguments:
-- `<INPUT>`: Markdown (`.md`) file, HTML (`.html`) file, or directory path to export to PDF.
+- `<INPUT>`: Directory containing Markdown chapters (`doc_src/`), single Markdown file (`.md`), or slide presentation directory (`slide_src/`).
 
 #### Options:
 | Option | Shorthand | Type | Default | Description |
 | :--- | :--- | :--- | :--- | :--- |
-| `--output` | `-o` | `<path>` | `<first_stem>.pdf` | Destination PDF output file path. |
-| `--title` | | `<str>` | Extracted from H1 | Overall document title displayed on cover and running headers. |
-| `--generate-index` | `--toc` | flag | `False` | Generate a Table of Contents (ToC) and insert it between chapters. |
-| `--page-break` | `--no-page-break` | flag | `True` | Insert CSS page breaks (`page-break-before: always`) between chapters. |
+| `--output` | `-o` | `<path>` | `<stem>.pdf` | Destination PDF output file path. |
+| `--title` | | `<str>` | Extracted from H1 | Overall document title override for the merged PDF. |
+| `--generate-index / --no-generate-index` | | flag | `False` | Generate an index (Table of Contents) and insert it between the 1st and 2nd documents. |
+| `--page-break / --no-page-break` | | flag | `True` | Insert CSS page breaks (`page-break-before: always`) between merged chapters. |
 | `--styles` | `-s` | `<path>` | `None` | Path to Python styles script (e.g. `styles.py`). |
 | `--utils` | `-u` | `<path>` | `None` | Path to Python utils script (e.g. `utils.py`). |
 | `--no-cache` | | flag | `False` | Force clean diagram generation ignoring SQLite cache. |
 | `--timestamp` | | flag | `False` | Include current build timestamp in PDF metadata instead of normalizing for deterministic builds. |
 
-> **Mandatory Files**: `template.html` and `style.css` must exist in the target directory (or parent directory of the input file). Run `drawlib init` to scaffold them.
+> **Mandatory Files**: `template.html` and `style.css` must exist in the target directory (or parent directory of the input file) for document PDF builds. Run `drawlib init` to scaffold them.
 
 #### Headless PDF Engine Mechanics:
 Drawlib renders PDFs using Playwright and a headless Chromium browser instance (`page.pdf()`). This guarantees identical layout across all operating systems, accurate web font loading, and background CSS rendering.
@@ -233,12 +231,45 @@ Prerequisites:
 drawlib build pdf doc.md -o output.pdf
 
 # Merge an entire directory of chapters into a single PDF with Table of Contents:
-drawlib build pdf docs_src/ -o comprehensive_guide.pdf --page-break --toc
+drawlib build pdf doc_src/ -o comprehensive_guide.pdf --page-break --generate-index
 ```
 
 ---
 
-### 1.4 `drawlib build image` (Batch Python Script Execution)
+### 1.4 `drawlib build slide` (16:9 HTML Presentation Deck)
+
+Compiles a directory of Markdown slide files (`slide_src/`) into an interactive 16:9 HTML presentation deck (`index.html`) with dual-window Presenter View (`?presenter=1`), automatic SVG font bundling, and `<canvas>` animation playback.
+
+#### Syntax:
+```bash
+drawlib build slide <DIR> [OPTIONS]
+```
+
+#### Arguments:
+- `<DIR>`: Directory containing Markdown (`.md`) slide files (`slide_src/`).
+
+#### Options:
+| Option | Shorthand | Type | Default | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `--output` | `-o` | `<path>` | `<dir>_html` | Output directory path for the presentation deck. |
+| `--theme` | `-t` | `<str>` | `None` | CSS theme preset override (`google`, `default`, `google-dark`, `default-dark`). |
+| `--format` | `-f` | `svg \| webp \| png` | `svg` | Default image format for embedded diagrams. |
+| `--styles` | `-s` | `<path>` | `None` | Path to Python styles script (e.g. `styles.py`). |
+| `--utils` | `-u` | `<path>` | `None` | Path to Python utils script (e.g. `utils.py`). |
+| `--no-cache` | | flag | `False` | Disable reading and writing the SQLite build image cache. |
+
+#### Examples:
+```bash
+# Compile slide deck directory to HTML presentation:
+drawlib build slide slide_src/ -o slide_html/ -s slide_src/styles.py -u slide_src/utils.py
+
+# Export companion 16:9 vector PDF:
+drawlib build pdf slide_src/ -o slide.pdf -s slide_src/styles.py -u slide_src/utils.py
+```
+
+---
+
+### 1.5 `drawlib build image` (Batch Python Script Execution)
 
 Executes one or more standalone Python drawing scripts (`.py`) or directories containing Python scripts to generate image assets.
 
@@ -253,7 +284,7 @@ drawlib build image <INPUT> [OPTIONS]
 #### Options:
 | Option | Shorthand | Type | Default | Description |
 | :--- | :--- | :--- | :--- | :--- |
-| `--output`, `--output-dir` | `-o` | `<path>` | `None` | Output file path (for single script) or destination directory path. |
+| `--output` | `-o` | `<path>` | `None` | Output file path (for single script) or destination directory path. |
 | `--format` | `-f` | `png \| webp \| jpg \| pdf` | `None` (uses script setting) | Global output image format override. |
 | `--styles` | `-s` | `<path>` | `None` | Path to Python styles script (e.g. `styles.py`). |
 | `--utils` | `-u` | `<path>` | `None` | Path to Python utils script (e.g. `utils.py`). |
@@ -440,7 +471,7 @@ drawlib show <FILE> [TARGET] [OPTIONS]
 
 > [!TIP]
 > **Best Practice for AI & Automation (Name over Index)**:
-> Always target blocks by filename (e.g. `db.png` matching `file:db.png`) rather than by numeric index (`1`, `2`). Numeric indices shift whenever blocks are added, removed, or reordered in the Markdown file, whereas named targets provide immutable, self-describing references.
+> Always target blocks by filename (e.g. `db.png` matching `file=db.png`) rather than by numeric index (`1`, `2`). Numeric indices shift whenever blocks are added, removed, or reordered in the Markdown file, whereas named targets provide immutable, self-describing references.
 
 ### Options:
 | Option | Shorthand | Type | Default | Description |
@@ -465,9 +496,9 @@ Example Output:
 Available drawlib code blocks in 'docs_src/architecture.md':
 Index   Line    File Target                  Header Options
 -----------------------------------------------------------------
-1       L34     architecture_images/overview.png  600px center file:overview.png caption:"System Overview"
-2       L88     architecture_images/db.png        caption:"Database Schema" file:db.png
-3       L145    architecture_images/api.png       show-code file:api.png
+1       L34     architecture_images/overview.png  align=center code=fold file=overview.png caption="System Overview"
+2       L88     architecture_images/db.png        caption="Database Schema" file=db.png
+3       L145    architecture_images/api.png       code=show file=api.png
 ```
 
 ---
@@ -570,22 +601,22 @@ drawlib serve docs_html/ --skip-check
 ## 5. Cache Management (`drawlib cache`)
 
 Drawlib manages three caching layers to maximize performance and minimize redundant network transfers and image rendering:
-1. **Release Asset Cache**: Locally cached font families and icon sets downloaded from official GitHub Releases into `drawlib/_cached_assets/`.
+1. **Release Asset Cache**: Locally cached font families, icon sets, and GeoJSON map datasets downloaded from official GitHub Releases into `drawlib/_cached_assets/`.
 2. **SQLite Diagram & CLI Image Cache**: A local SQLite database (`.drawlib/cache.db`) storing hashes of illustration code and rendered image binaries (`image_cache` and `cli_image_cache`).
 3. **Rules Illustration Cache**: Cached rule documents and companion PNG illustrations in `drawlib/_cached_assets/rules/` (managed via `drawlib rules build` and `drawlib rules clear`).
 
 ### Subcommands:
 ```text
 drawlib cache
-├── list        List all downloadable font and icon packages and their local cache status
-├── clear       Delete locally cached font, icon, and/or SQLite image cache entries
-└── download    Pre-download font and/or icon packages from GitHub Releases
+├── list        List all downloadable font, icon, and map packages and their local cache status
+├── clear       Delete locally cached font, icon, map, and/or SQLite image cache entries
+└── download    Pre-download font, icon, and/or map packages from GitHub Releases
 ```
 
 ---
 
 ### 5.1 `drawlib cache list`
-Inspects all available font and icon packages and prints an overview of cached status, file count, and disk space utilization:
+Inspects all available font, icon, and map packages and prints an overview of cached status, file count, and disk space utilization:
 
 ```bash
 drawlib cache list
@@ -597,50 +628,51 @@ Example Output:
 ┏━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━━━┓
 ┃ Package                  ┃ Category ┃ Cached ┃    Files ┃  Size (KB) ┃
 ┡━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━╇━━━━━━━━━━━━┩
-│ font-roboto              │ font     │  Yes   │      4/4 │     1240.2 │
-│ font-source-code-pro     │ font     │  Yes   │      4/4 │      980.5 │
-│ icon-phosphor            │ icon     │  Yes   │  124/124 │     3420.1 │
-│ icon-fontawesome         │ icon     │  No    │    0/250 │          - │
-│ icon-gcp                 │ icon     │  No    │    0/180 │          - │
-└──────────────────────────┴━━━━━━━━━━┴━━━━━━━━┴━━━━━━━━━━┴────────────┘
-Cached packages: 3/5 (Total local size: 5.64 MB)
+│ font_roboto              │ font     │  Yes   │      3/3 │      480.2 │
+│ font_mono_source_code_pro│ font     │  Yes   │      3/3 │      390.5 │
+│ icon_phosphor            │ icon     │  Yes   │      6/6 │     3420.1 │
+│ icon_gcp                 │ icon     │  No    │    0/226 │          - │
+│ map_world                │ map      │  Yes   │      1/1 │      256.4 │
+└──────────────────────────┴──────────┴────────┴──────────┴────────────┘
 ```
 
 ---
 
 ### 5.2 `drawlib cache clear`
-Deletes locally cached font packages, icon packages, and/or SQLite image cache entries:
+Deletes locally cached font packages, icon packages, map packages, and/or SQLite image cache entries:
 
 #### Options:
 | Option | Shorthand | Type | Default | Description |
 | :--- | :--- | :--- | :--- | :--- |
 | `--images` | `-i` | flag | `False` | Clear only the SQLite image cache (`.drawlib/cache.db`). |
-| `--all` | `-a` | flag | `False` | Clear all caches including fonts, icons, and the SQLite image cache. |
+| `--all` | `-a` | flag | `False` | Clear all caches including fonts, icons, maps, and the SQLite image cache. |
 
-*(When run without options, `drawlib cache clear` clears downloaded font/icon packages and the CLI catalog image cache.)*
+*(When run without options, `drawlib cache clear` clears downloaded font/icon/map packages and the CLI catalog image cache.)*
 
 ```bash
-drawlib cache clear                # Clear font, icon, and CLI catalog image caches
+drawlib cache clear                # Clear font, icon, map, and CLI catalog image caches
 drawlib cache clear --images       # Clear SQLite build & CLI image cache (.drawlib/cache.db)
-drawlib cache clear --all          # Clear all caches (fonts, icons, and SQLite image cache)
+drawlib cache clear --all          # Clear all caches (fonts, icons, maps, and SQLite image cache)
 ```
 
 ---
 
 ### 5.3 `drawlib cache download`
-Pre-fetches font and icon asset archives from GitHub Releases. Ideal for provisioning CI/CD build runners, Docker images, or offline development environments:
+Pre-fetches font, icon, and map asset archives from GitHub Releases. Ideal for provisioning CI/CD build runners, Docker images, or offline development environments:
 
 #### Options:
 | Option | Type | Default | Description |
 | :--- | :--- | :--- | :--- |
-| `--all` | flag | `True` | Download all font and icon packages (default). |
+| `--all` | flag | `True` | Download all font, icon, and map packages (default). |
 | `--fonts` | flag | `False` | Download font packages only. |
 | `--icons` | flag | `False` | Download icon packages only. |
+| `--maps` | flag | `False` | Download map packages only. |
 
 ```bash
-drawlib cache download --all       # Pre-download all font and icon packages
+drawlib cache download --all       # Pre-download all font, icon, and map packages
 drawlib cache download --fonts     # Download font packages only
 drawlib cache download --icons     # Download icon packages only
+drawlib cache download --maps      # Download GeoJSON map packages only
 ```
 
 ---
@@ -685,6 +717,9 @@ Drawlib includes professionally designed CSS presets for HTML documentation and 
 drawlib css
 ├── list [TARGET]                  # List available built-in CSS presets (html, pdf, or both)
 └── show [TARGET] <PRESET> [OPTS]  # Display in terminal or export (-o) a built-in CSS preset
+    ├── -o, --output <path>        # Destination CSS file path
+    ├── -f, --force                # Overwrite destination file if it already exists
+    └── -l, --lang <lang>          # Language code for typography font stack (en, ja, zh-cn, etc.)
 ```
 
 ---
@@ -719,8 +754,8 @@ drawlib css list pdf
 # Display Google HTML CSS preset in terminal with syntax highlighting:
 drawlib css show html google
 
-# Export Google preset to local style.css:
-drawlib css show html google -o style.css --force
+# Export Google preset with Japanese typography font stack to local style.css:
+drawlib css show html google -l ja -o style.css --force
 
 # Export PDF preset to local docs_src/style.css:
 drawlib css show pdf default -o docs_src/style.css --force
@@ -827,7 +862,7 @@ Available Style Presets:
 ---
 
 ### 8.2 `drawlib styles show`
-Renders a 2D style matrix displaying 10 orthogonal variants (`bordered`, `bold`, `light`, `flat`, `outline`, `outline_bold`, `outline_light`, `dashed`, `dashed_bold`, `dashed_light`) across colors and semantic roles:
+Renders a 2D style matrix displaying 17 orthogonal variants (`<Color>`, `Thin`, `Bold`, `Flat`, `Bordered`, `BorderedThin`, `BorderedBold`, `Neutral`, `NeutralThin`, `NeutralBold`, `NeutralFlat`, `Outline`, `OutlineThin`, `OutlineBold`, `Solid`, `Dashed`, `Dotted`) across colors and semantic roles:
 
 ```bash
 drawlib styles show <PRESET> [PAGE] [OPTIONS]
@@ -870,13 +905,13 @@ Drawlib features a built-in knowledge subsystem (`drawlib rules`) that delivers 
 AI pair-programming assistants and developers can query these rules at any time during development to ensure API consistency.
 
 ### Default Execution Behavior:
-Like all other command groups in Drawlib, executing `drawlib rules` without arguments displays contextual help and lists all available subcommands (`no_args_is_help=True`). To display a specific rule guide, pass the required topic to `drawlib rules show <TOPIC>` (e.g. `drawlib rules show overview` or `drawlib rules show lib-shapes`).
+Like all other command groups in Drawlib, executing `drawlib rules` without arguments displays contextual help and lists all available subcommands (`no_args_is_help=True`). To display a specific rule guide, pass the required topic to `drawlib rules show <TOPIC>` (e.g. `drawlib rules show overview` or `drawlib rules show lib-shapes-overview`).
 
 ### Subcommands:
 ```text
 drawlib rules
 ├── list                    List all available rule topics and cache status
-├── show <TOPIC>            Display rules and examples for a topic (e.g. lib-shapes, overview)
+├── show <TOPIC>            Display rules and examples for a topic (e.g. lib-shapes-overview, overview)
 │   ├── --rebuild, -r       Force regenerate illustrations even if cached
 │   └── --raw               Display raw Markdown without building or checking cache
 ├── build [TOPIC]           Pre-build illustrations into _cached_assets/rules/
@@ -894,40 +929,44 @@ drawlib rules
 | :--- | :--- |
 | `agent-instruction` | AI agent bootstrap instructions, workflow loop, and capabilities. |
 | `overview` | Canvas lifecycle, coordinate system, core imports, and workflow. |
-| `style-guide` | Diagram design principles, visual hierarchy, 6-color semantic system, and layout best practices. |
+| `style-guide` | Diagram design principles, visual hierarchy, 8-role semantic system, and layout best practices. |
 | `review-guide` | Autonomous 3-stage multimodal review loop, 720pt typography scaling, and quality criteria. |
 | `anim-guide` | Animation design principles, loop idioms, and component animation patterns across all modules. |
 | `slide-guide` | Slide deck storytelling, Dual-Layer (`::: block` vs. `::: note`) rule, layout variety, and visual best practices. |
 | `project-overview` | Project scaffolding (`init`), choosing among the 4 project archetypes, and cache architecture. |
 | `project-images` | Standalone Python diagram scripts (`images_src/*.py`), `clear()` lifecycle, and batch image build. |
-| `project-doc` | Linear technical documents, whitepapers, `00_cover.md` / `--toc`, and A4 vector PDF export (`doc_src/`). |
+| `project-doc` | Linear technical documents, whitepapers, `00_cover.md` / `--generate-index`, and A4 vector PDF export (`doc_src/`). |
 | `project-site` | Multi-page documentation websites, `navbar.md` sidebar rules, and Top Hero layout (`docs_src/`). |
 | `project-slide` | 16:9 presentation slide decks, `1920×1080` `::: block` / `::: note` syntax, and Presenter View (`slide_src/`). |
 | `cli` | Document compilation, export, preview, and cache CLI commands. |
 | `api` | Comprehensive API index and quick reference cheat sheet for all Drawlib modules. |
 
-#### Library Modules (`drawlib.*`):
+#### Core Library Modules (`drawlib.*`):
 | Topic Name | Description |
 | :--- | :--- |
 | `lib-canvas` | Canvas configuration, coordinate space, clear/save lifecycle, and background. |
 | `lib-anim` | Animation configuration, formats (APNG, Animated WebP), and multi-step diagram flows. |
-| `lib-shapes` | Rectangles, circles, ellipses, wedges, and polygons. |
-| `lib-lines` | Straight, curved, and chained lines with arrowheads. |
+| `lib-lines` | Straight, curved, bezier, arc, and chained lines with arrowheads. |
 | `lib-text` | Text rendering, formatting, alignment, and fonts. |
 | `lib-preset-colors` | Color models, RGB/RGBA tuples, hex conversion, and palette classes. |
 | `lib-styles` | Styles and utils architecture, active preset styles, colors palette, and dynamic custom scripts. |
 | `lib-preset-styles` | Pre-defined style naming rules and color palette classes. |
 | `lib-fonts` | Font configuration, system/file fonts, CJK/multilingual typography, and cache. |
-| `lib-images` | Embedding bitmap and vector images, scaling, rotation, and Dimage. |
-| `lib-icons` | Phosphor, FontAwesome, and GCP cloud architecture icons. |
+| `lib-images` | Embedding raster images via PIL (`Dimage`), scaling, rotation, borders, and filters. |
 | `lib-math` | Geometry helpers, coordinate calculations, angles, distance, and bounding box. |
 | `lib-types` | Type models, Style class, base classes, and Drawlib type conventions. |
-| `lib-smartarts` | Tables, trees, mindmaps, and structured visual elements. |
-| `lib-charts` | Bar, line, pie, scatter, radar, area, and Gantt charts. |
-| `lib-diagrams` | Flowcharts, sequence, state, class, ER, and architecture diagrams. |
-| `lib-graph` | Declarative graph layout solvers (Architecture, Layer, Tree, Radial, Grid) and code export. |
 | `lib-tools` | Python developer API for document building, diagram export, and cache management. |
 | `lib-slide` | Python API for presentation slides (`current_slide`, `SlideContext`, `BoundingBox`, `build_slide`). |
+
+#### Hierarchical Component Families (`lib-<family>-*`):
+| Family Overview | Granular Sub-Topics |
+| :--- | :--- |
+| `lib-shapes-overview` | `lib-shapes-basic`, `lib-shapes-polygons`, `lib-shapes-arrows`, `lib-shapes-callouts`, `lib-shapes-flowchart`, `lib-shapes-radial` |
+| `lib-icons-overview` | `lib-icons-phosphor`, `lib-icons-gcp`, `lib-icons-aws`, `lib-icons-azure`, `lib-icons-tech-logos`, `lib-icons-network`, `lib-icons-security`, `lib-icons-cicd`, `lib-icons-k8s`, `lib-icons-server`, `lib-icons-database`, `lib-icons-ai`, `lib-icons-computing`, `lib-icons-iot`, `lib-icons-device`, `lib-icons-os`, `lib-icons-programming`, `lib-icons-container`, `lib-icons-doc` |
+| `lib-smartarts-overview` | `lib-smartarts-box`, `lib-smartarts-callout`, `lib-smartarts-card`, `lib-smartarts-chevron`, `lib-smartarts-comparison`, `lib-smartarts-cycle`, `lib-smartarts-funnel`, `lib-smartarts-gauge`, `lib-smartarts-grid`, `lib-smartarts-list`, `lib-smartarts-matrix`, `lib-smartarts-mindmap`, `lib-smartarts-pyramid`, `lib-smartarts-roadmap`, `lib-smartarts-sourcecode`, `lib-smartarts-table`, `lib-smartarts-tree`, `lib-smartarts-venn` |
+| `lib-charts-overview` | `lib-charts-bar`, `lib-charts-line`, `lib-charts-pie`, `lib-charts-scatter`, `lib-charts-area`, `lib-charts-radar`, `lib-charts-gantt`, `lib-charts-heatmap` |
+| `lib-diagrams-overview` | `lib-diagrams-architecture`, `lib-diagrams-flow`, `lib-diagrams-sequence`, `lib-diagrams-er`, `lib-diagrams-class`, `lib-diagrams-state` |
+| `lib-graph-overview` | `lib-graph-architecture`, `lib-graph-layer`, `lib-graph-tree`, `lib-graph-radial`, `lib-graph-grid` |
 
 ---
 
@@ -940,15 +979,15 @@ When an AI agent or developer runs `drawlib rules show <topic>`, Drawlib automat
 
 ### 9.3 Usage Examples:
 ```bash
-drawlib rules                             # Display help and available subcommands
-drawlib rules list                        # List all topics and cache status
-drawlib rules show overview               # Display canvas overview rules
-drawlib rules show lib-shapes             # Display shapes API rules (builds on-demand)
-drawlib rules show lib-shapes --rebuild   # Force regenerate illustrations for shapes
-drawlib rules show lib-shapes --raw       # Output raw Markdown source without cache
-drawlib rules build lib-shapes            # Pre-build illustrations for a single topic
-drawlib rules build --all                 # Pre-build illustrations for all topics
-drawlib rules clear                       # Delete all cached illustrations and docs
+drawlib rules                                      # Display help and available subcommands
+drawlib rules list                                 # List all topics and cache status
+drawlib rules show overview                        # Display canvas overview rules
+drawlib rules show lib-shapes-overview             # Display shapes overview rules (builds on-demand)
+drawlib rules show lib-shapes-overview --rebuild   # Force regenerate illustrations for shapes overview
+drawlib rules show lib-shapes-overview --raw       # Output raw Markdown source without cache
+drawlib rules build lib-shapes-overview            # Pre-build illustrations for a single topic
+drawlib rules build --all                          # Pre-build illustrations for all topics
+drawlib rules clear                                # Delete all cached illustrations and docs
 ```
 
 ---
@@ -1090,7 +1129,7 @@ repos:
 
 #### 2. `Directory build requires "navbar.md" at the root of the input directory`
 - **Cause**: Multi-page website builds require `navbar.md` in the root of the input directory to construct sidebar navigation.
-- **Fix**: Add `docs_src/navbar.md` defining categories and links. Refer to `drawlib rules show project` for navbar syntax.
+- **Fix**: Add `docs_src/navbar.md` defining categories and links. Refer to `drawlib rules show project-site` for navbar syntax.
 
 #### 3. `Refusing to overwrite input source file "..."`
 - **Cause**: The output path `-o` points to the exact same file or directory as the input source.
@@ -1106,7 +1145,7 @@ repos:
 
 #### 6. Duplicate Image Output Collision
 - **Cause**: Two standalone Python scripts in batch mode or two embedded Markdown blocks write to the exact same output image filename.
-- **Fix**: Specify explicit unique filenames in block headers (e.g. `file:auth_flow.png`) or rename target scripts.
+- **Fix**: Specify explicit unique filenames in block headers (e.g. `file=auth_flow.png`) or rename target scripts.
 
 ---
 

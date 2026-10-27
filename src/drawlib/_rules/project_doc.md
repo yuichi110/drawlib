@@ -87,7 +87,7 @@ phosphor.list_numbers((60.5, 36.5), width=5.0, style=Styles.SecondaryBold)
 text((77, 36.5), "2. Merge & ToC", style=Styles.SecondaryBold.patch(text_size=11.5))
 text(
     (75, 21),
-    "• Sorted path merge\n• --toc after 00_cover\n• --page-break chapters\n• 720pt font scaling",
+    "• Sorted path merge\n• --generate-index ToC\n• --page-break chapters\n• 720pt font scaling",
     style=Styles.Dark.patch(text_size=10.0),
 )
 
@@ -113,24 +113,24 @@ save()
 ### 3.1. Deterministic Chapter Numbering (`00_cover.md`, `01_...`, `02_...`)
 When `drawlib build html` or `drawlib build pdf` compiles `doc_src/`, it discovers all `.md` files (excluding `README.md`) and merges them in **sorted lexicographical order**:
 1. **`00_cover.md` (Cover Page)**:
-   - Place the overall document `# Title`, subtitle, executive abstract, a rich cover Hero diagram (`hide-code`), and author/date metadata in `00_cover.md`.
-   - When `--toc` (`--generate-index`) is passed to `drawlib build pdf` (or `build_pdf.sh`), Drawlib automatically injects the generated **Table of Contents** immediately after the first chapter (`00_cover.md`) and before `01_*.md`.
+   - Place the overall document `# Title`, subtitle, executive abstract, a rich cover Hero diagram (`code=hide`), and author/date metadata in `00_cover.md`.
+   - When `--generate-index` is passed to `drawlib build pdf` (or `build_pdf.sh`), Drawlib automatically injects the generated **Table of Contents** immediately after the first chapter (`00_cover.md`) and before `01_*.md`.
 2. **Numbered Chapters (`01_overview.md`, `02_architecture.md`, ...)**:
    - Start each chapter file with a top-level `# 1. Chapter Title` heading.
    - When `--page-break` (default `True`) is enabled, Drawlib inserts a CSS page break (`page-break-before: always`) before each chapter file so every chapter starts cleanly at the top of a new A4 PDF page.
 
-### 3.2. Code Visibility Strategy (`hide-code` vs. `fold-code` vs. `show-code`)
+### 3.2. Code Visibility Strategy (`code=hide` vs. `code=fold` vs. `code=show`)
 Choose the ```` ```drawlib ```` visibility attribute based on the document's purpose and target medium:
-- **Whitepapers, RFCs & Architecture Specs (`hide-code` Recommended)**:
-  In narrative whitepapers (`drawlib-dogfooding`) or design specifications where readers care about the architecture rather than the Python drawing code, use `hide-code` (the default) so both the web preview and printed PDF read like a polished book.
-- **Tutorials & Quickstart Guides (`fold-code` + `show-code`)**:
-  In developer guides (`quickstart`), use **`fold-code`** on the chapter's opening Hero diagram (so the illustration appears immediately above the fold) and `show-code` on instructional code examples where the reader is learning Drawlib syntax.
+- **Whitepapers, RFCs & Architecture Specs (`code=hide` Recommended)**:
+  In narrative whitepapers (`drawlib-dogfooding`) or design specifications where readers care about the architecture rather than the Python drawing code, use `code=hide` (the default) so both the web preview and printed PDF read like a polished book.
+- **Tutorials & Quickstart Guides (`code=fold` + `code=show`)**:
+  In developer guides (`quickstart`), use **`code=fold`** on the chapter's opening Hero diagram (so the illustration appears immediately above the fold) and `code=show` on instructional code examples where the reader is learning Drawlib syntax.
 
 ### 3.3. Page Composition, Visual Density & A4 Print Discipline
 1. **Chapter Hero Diagram at `Lines 5–15`**:
    Begin every chapter (`01_*.md`, `02_*.md`, ...) with `# Chapter Title`, a 1–2 sentence lead paragraph, and an immediate **Chapter Hero diagram at Lines 5–15** combining `phosphor`/`gcp` icons with high-level components (`SmartArts`, `Diagrams`, `Graphs`, `Charts`).
 2. **`2+` Diagrams per Chapter**:
-   Break up long prose sections with at least `2` diagrams per chapter (`file:<name>.png` and `caption:"..."` mandatory on every block).
+   Break up long prose sections with at least `2` diagrams per chapter (`file=<name>.png` and `caption="..."` mandatory on every block).
 3. **Full Column Width & `720pt` Typography Scaling**:
    - **Never pass narrow pixel widths** (`500px`, `600px`) on code fences. Omit pixel width tokens so figures fill `100%` of the document column in both HTML and A4 PDF.
    - Keep **`text_size >= 10.0`** (standard `10.5`–`12.0`, titles `12.0`–`14.0`, floor `9.5`) so rendered text ($\text{text\_size} \times \text{Width} / 720$) matches the document body font.
@@ -148,7 +148,7 @@ Choose the ```` ```drawlib ```` visibility attribute based on the document's pur
 Always verify linear documents across all three stages before finishing:
 
 1. **Stage 1 — Static & Anchor Check**:
-   Verify that every chapter has `>= 2` diagrams, a Chapter Hero at `Lines 5–15`, explicit `file:<name>.png` and `caption:"..."`, zero narrow `px` width caps, `text_size >= 10.0`, zero `file://` or absolute path links, and accurate `Center` (`shapes`/`text`/`icons`) vs. `Bottom-Left` (`SmartArts`/`Charts`/`Diagrams`/`Graphs`) coordinate anchors.
+   Verify that every chapter has `>= 2` diagrams, a Chapter Hero at `Lines 5–15`, explicit `file=<name>.png` and `caption="..."`, zero narrow `px` width caps, `text_size >= 10.0`, zero `file://` or absolute path links, and accurate `Center` (`shapes`/`text`/`icons`/`images`/`MindMapNode`/`Cycle`), `Bottom-Left` (`ChevronProcess`/`GridLayout`/`Pyramid`/`BoxList`/`CardList`/`KpiCards`/`Roadmap`/`Panel`/`GeoMap`/`MonthCalendar`/`Charts`/`Diagrams`), and `Top-Left` (`Table`/`TreeNode`/`BulletPoints`/`SourceCode`) coordinate anchors.
 2. **Stage 2 — Micro-Geometry Grid Review (`drawlib show ... -g` + `view_file`)**:
    Test each new or modified diagram quickly with the coordinate grid without rebuilding the entire PDF:
    ```bash
@@ -163,7 +163,7 @@ Always verify linear documents across all three stages before finishing:
    uv run drawlib serve doc_html/ --check
    ```
    Inspect `doc.pdf` (or a `1280×920` headless Chromium screenshot of `doc_html/index.html`) via `view_file` to confirm that:
-   - The cover page (`00_cover.md`) and Table of Contents (`--toc`) render cleanly without overflowing onto extra blank pages.
+   - The cover page (`00_cover.md`) and Table of Contents (`--generate-index`) render cleanly without overflowing onto extra blank pages.
    - Diagram labels are crisp and proportional to the surrounding body prose.
    - Clean up `.drawlib/scratch/` when done.
 4. **Parallel Multi-Agent Chapter Delegation (For Multi-Chapter Documents)**:
@@ -171,3 +171,4 @@ Always verify linear documents across all three stages before finishing:
    - **Phase 1 (Parent)**: Scaffold `doc_src/`, configure `styles.py`, `utils.py`, and `00_cover.md`, and define the numbered chapter filenames.
    - **Phase 2 (Parallel Subagents)**: Assign each subagent its own `doc_src/0N_<chapter>.md` file(s). Each subagent writes the chapter (`2+` diagrams, Chapter Hero at `Lines 5–15`) and executes Stage 1 & Stage 2 using a **unique scratch filename** (`-o .drawlib/scratch/0N_<diagram>_grid.png`).
    - **Phase 3 (Parent)**: Run `./doc_src/build.sh` once after all subagents finish, verify links (`drawlib serve doc_html/ --check`), and perform Stage 3 inspection of `doc.pdf` and `doc_html/index.html`.
+

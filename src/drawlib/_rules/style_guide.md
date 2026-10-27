@@ -19,9 +19,9 @@ Every visual element in a technical diagram should convey information. Avoid clu
 
 ---
 
-## 2. The 7-Color Semantic Design System
+## 2. The 8-Role Semantic Design System
 
-Drawlib structures diagram color schemes around **7 fundamental semantic roles**, anchoring the illustration around `primary` while allowing rich, expressive use of the remaining roles:
+Drawlib structures diagram color schemes around **8 fundamental semantic roles**, anchoring the illustration around `Primary` while grounding supporting elements in `Neutral` and `Muted`:
 
 ```text
 ┌────────────────────────────────────────────────────────────────────────┐
@@ -29,11 +29,11 @@ Drawlib structures diagram color schemes around **7 fundamental semantic roles**
 │ Canvas background, group boundaries, subnets, clusters                 │
 │ (Styles.Muted, Styles.MutedDashed, Styles.MutedFlat)                 │
 │                                                                        │
-│  ┌───────────────────────┐   ┌──────────────────────┐                  │
-│  │ Primary (Visual Core) │──>│ Secondary / Accent   │                  │
-│  │ Core services & flows │   │ Auxiliary, events, DB│                  │
-│  │ (Styles.Primary)      │   │ (secondary, accent)  │                  │
-│  └───────────┬───────────┘   └──────────────────────┘                  │
+│  ┌───────────────────────┐   ┌──────────────────────┐   ┌────────────┐ │
+│  │ Primary (Visual Core) │──>│ Secondary / Accent   │   │ Neutral    │ │
+│  │ Core services & flows │   │ Auxiliary, events, DB│   │ Calm cards │ │
+│  │ (Styles.Primary)      │   │ (Secondary, Accent)  │   │ (Neutral)  │ │
+│  └───────────┬───────────┘   └──────────────────────┘   └────────────┘ │
 │              │                                                         │
 │              ▼                                                         │
 │  ┌───────────────────────┐   ┌──────────────────────┐   ┌────────────┐ │
@@ -62,7 +62,7 @@ Drawlib structures diagram color schemes around **7 fundamental semantic roles**
 
 ## 3. Semantic Roles & Visual Intent
 
-Drawlib presets organize styles into semantic roles with 13 orthogonal visual variants:
+Drawlib presets organize styles into semantic roles across **17 orthogonal visual variants**:
 - **Color Presets (`DefaultStyles`, `GoogleStyles`)**: **8 Semantic Roles** (`Primary`, `Secondary`, `Accent`, `Warning`, `Neutral`, `Muted`, `Danger`, `Success`).
 - **Monochrome Preset (`MonochromeStyles`)**: **5 Semantic Roles** (`Primary`, `Secondary`, `Accent`, `Neutral`, `Muted`) — Grayscale excludes Warning/Danger/Success.
 
@@ -90,8 +90,8 @@ Drawlib presets organize styles into semantic roles with 13 orthogonal visual va
 The following embedded Markdown block illustrates the 50%+ neutral-grounded semantic system (anchoring the hero service in `Styles.PrimaryFlat` while grounding supporting nodes in calm neutral/tinted-neutral cards):
 
 ````markdown
-```drawlib align=center caption="Architecture Flow with 50%+ Neutral-Grounded Semantic Roles"
-from drawlib.canvas import setup
+```drawlib align=center file=style_semantic_roles.png caption="Architecture Flow with 50%+ Neutral-Grounded Semantic Roles"
+from drawlib.canvas import save, setup
 from drawlib.shapes import rectangle
 from drawlib.lines import line
 from drawlib.styles import Styles
@@ -117,6 +117,8 @@ rectangle((96, 25), width=24, height=14, style=Styles.SuccessNeutral, text="Audi
 line((36, 35), (47, 35), arrow_head="->", style=Styles.DarkBold)
 line((73, 40), (84, 45), arrow_head="->", style=Styles.DarkBold)
 line((73, 30), (84, 25), arrow_head="->", style=Styles.DarkBold)
+
+save()
 ```
 ````
 
@@ -368,3 +370,4 @@ Before assembling dozens of raw `rectangle` and `line` primitives, choose the ma
 - Preset Styles Matrix: `uv run drawlib rules show lib-preset-styles`
 - Dynamic Theming & Scripts: `uv run drawlib rules show lib-styles`
 - Color Palettes: `uv run drawlib rules show lib-preset-colors`
+- Component Overviews: `uv run drawlib rules show lib-shapes-overview`, `lib-icons-overview`, `lib-smartarts-overview`, `lib-charts-overview`, `lib-diagrams-overview`, `lib-graph-overview`

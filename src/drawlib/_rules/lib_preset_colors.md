@@ -17,17 +17,25 @@ All public color classes and conversion utilities are imported from `drawlib.pre
 
 ```python
 from drawlib.preset_colors import (
-    # First-class Color model
+    # First-class Color model & Interpolation Helpers
     Color,
+    get_intermediate_color,
+    get_intermediate_colors,
     # Standard Color Constant Classes
     CssColors,  # Full CSS / W3C 140 standard named colors
     DefaultColors,  # Palette class used by preset style 'default'
+    DefaultColors1,  # Tone-1 (lightest) palette view
+    DefaultColors2,  # Tone-2 palette view
+    DefaultColors3,  # Tone-3 palette view
+    DefaultColors4,  # Tone-4 palette view
+    DefaultColors5,  # Tone-5 palette view
+    DefaultColors6,  # Tone-6 (darkest) palette view
     MonochromeColors,  # Grayscale palette class used by 'monochrome'
     GoogleColors,  # Palette class used by 'google' theme
 )
 
 # Or access active theme colors dynamically as PascalCase tokens:
-from drawlib.styles import Colors
+from drawlib.styles import Colors, get_intermediate_color, get_intermediate_colors
 ```
 
 ---
@@ -56,14 +64,15 @@ Drawlib accepts colors in multiple convenient formats:
 
 ## 3. Color Catalogs
 
-### 3.1. `Colors` / `DefaultColors`
+### 3.1. `Colors` / `DefaultColors` (`DefaultColors1`..`DefaultColors6`)
 The standard set for rapid prototyping, architecture diagrams, and geometric styling:
 
 - **6-Tone Chromatic Scales (Levels 1 to 6)**: `Blue1..6`, `Green1..6`, `Red1..6`, `Orange1..6`, `Amber1..6`, `Purple1..6`, `Teal1..6`, `Pink1..6`
 - **Neutrals (Light to Dark)**: `White`, `Gray1` through `Gray8`, `Black`
 - **Classic Primaries**: `Red`, `Green`, `Blue`, `Yellow`, `Orange`, `Purple`, `Pink`, `Cyan`, `Magenta`, `Lime`, `Teal`, `Navy`, `Olive`, `Brown`, `Gold`, `Aqua`, `GreenYellow`, `Ivory`, `Steel`
-- **Semantic Roles**: `Primary`, `Secondary`, `Accent`, `Neutral`, `Muted`, `Light`, `Dark`, `Danger`, `Success`, `Canvas`, and numbered `Primary1..6`, `Secondary1..6`, `Accent1..6`, `Muted1..6`, `Danger1..6`, `Success1..6`
+- **Semantic Roles**: `Primary`, `Secondary`, `Accent`, `Warning`, `Neutral`, `Muted`, `Light`, `Dark`, `Danger`, `Success`, `Canvas`, and numbered `Primary1..6`, `Secondary1..6`, `Accent1..6`, `Warning1..6`, `Neutral1..6`, `Muted1..6`, `Danger1..6`, `Success1..6`
 - **Card Neutral Tokens (Fill tones matching Styles.*Neutral)**: `Neutral`, `GrayNeutral`, `PrimaryNeutral`, `SecondaryNeutral`, `AccentNeutral`, `WarningNeutral`, `DangerNeutral`, `SuccessNeutral`, `MutedNeutral`, `BlueNeutral`, `GreenNeutral`, `RedNeutral`, `OrangeNeutral`, `AmberNeutral`, `PurpleNeutral`, `TealNeutral`, `PinkNeutral`, `CyanNeutral`, `YellowNeutral`, `MagentaNeutral`
+- **Tone-Specific Palette Views (`DefaultColors1`..`DefaultColors6`)**: Provide direct attribute access (`Blue`, `Green`, `Primary`, `Warning`, etc.) fixed to tone level `1` through `6`.
 
 ### 3.2. `CssColors` (W3C CSS Named Colors Catalog)
 Contains all 140 standardized CSS color definitions for precise styling:
@@ -89,7 +98,7 @@ Curated color schemes designed to work harmoniously across complex architectures
 
 ---
 
-## 4. Color Manipulation & Derivation
+## 4. Color Manipulation, Derivation & Interpolation
 
 All preset colors (`Colors`, `DefaultColors`, `MonochromeColors`, `CssColors`, `GoogleColors`) are `Color` instances.
 
@@ -141,6 +150,19 @@ print(c.alpha)  # 0.5 (alias: c.a)
 print(c.rgb)  # (31, 31, 255)
 print(c.rgba)  # (31, 31, 255, 0.5)
 print(c.hex)  # '#1f1fff80'
+```
+
+### 4.4. Color Interpolation (`get_intermediate_color` & `get_intermediate_colors`)
+Interpolate smoothly between any two colors (RGB/RGBA tuples, hex strings, or `Color` instances) for heatmaps, gradients, or multi-frame animations:
+
+```python
+from drawlib.preset_colors import Colors, get_intermediate_color, get_intermediate_colors
+
+# 50% midpoint Color between two colors
+mid = get_intermediate_color(Colors.Blue1, Colors.Blue6)
+
+# Evenly spaced color ramp (include_ends=True returns num + 2 colors including endpoints)
+ramp = get_intermediate_colors(Colors.Neutral, Colors.Primary, num=5, include_ends=True)
 ```
 
 ---
@@ -208,5 +230,6 @@ save()
 
 ## 6. Related Rules
 - Preset Styles & Naming: `uv run drawlib rules show lib-preset-styles`
-- Shapes Drawing Primitives: `uv run drawlib rules show lib-shapes`
+- Shapes Drawing Primitives: `uv run drawlib rules show lib-shapes-overview`
 - Text Formatting & Fonts: `uv run drawlib rules show lib-text`
+

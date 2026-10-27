@@ -97,10 +97,10 @@ uv run drawlib rules show project-images
 
 # 全 API シンボル一覧と各モジュールの詳細仕様
 uv run drawlib rules show api
-uv run drawlib rules show lib-smartarts
-uv run drawlib rules show lib-diagrams
-uv run drawlib rules show lib-graph
-uv run drawlib rules show lib-charts
+uv run drawlib rules show lib-smartarts-overview
+uv run drawlib rules show lib-diagrams-overview
+uv run drawlib rules show lib-graph-overview
+uv run drawlib rules show lib-charts-overview
 ```
 
 ## 6.2 プロジェクトルールファイルへの設定

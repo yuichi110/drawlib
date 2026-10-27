@@ -162,7 +162,7 @@ You can embed animations directly inside Markdown documents using the ````drawli
 
 ```drawlib align=center file=packet_pipeline.png caption="Live Packet Flow"
 from drawlib.anim import Animation
-from drawlib.canvas import setup
+from drawlib.canvas import save, setup
 from drawlib.lines import line
 from drawlib.shapes import circle, rectangle
 from drawlib.styles import Styles
@@ -176,10 +176,12 @@ for x in range(30, 75, 5):
         rectangle((80, 20), width=18, height=16, style=Styles.AccentFlat, text="Queue")
         line((29, 20), (71, 20), style=Styles.MutedDashed)
         circle((x, 20), radius=3, style=Styles.Secondary)
+
+save()
 ```
 ````
 
-To output WebP animations in Markdown, simply name the target file with `.webp` (e.g. `file:packet_pipeline.webp`) or specify `--format webp` in `drawlib build`.
+To output WebP animations in Markdown, simply name the target file with `.webp` (e.g. `file=packet_pipeline.webp`) or specify `--format webp` in `drawlib build`.
 
 ---
 

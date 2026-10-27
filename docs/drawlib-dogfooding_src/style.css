@@ -133,6 +133,18 @@ hr {
         max-width: 100%;
         font-size: 0.76rem;
         line-height: 1.45;
+        overflow: visible;
+        break-inside: auto;
+        page-break-inside: auto;
+    }
+
+    thead {
+        display: table-header-group;
+    }
+
+    tr {
+        break-inside: avoid;
+        page-break-inside: avoid;
     }
 
     th, td {
@@ -157,6 +169,8 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: 500;
     letter-spacing: -0.015em;
     line-height: 1.3;
+    break-inside: avoid;
+    page-break-inside: avoid;
     break-after: avoid;
     page-break-after: avoid;
 }
@@ -267,8 +281,8 @@ table {
     border: 1px solid var(--rtd-border-color);
     border-radius: 8px;
     overflow: hidden;
-    break-inside: avoid;
-    page-break-inside: avoid;
+    break-inside: auto;
+    page-break-inside: auto;
 }
 
 th, td {

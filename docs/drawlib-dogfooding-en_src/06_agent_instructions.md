@@ -97,10 +97,10 @@ uv run drawlib rules show project-images
 
 # Check complete API index and specific domain module specifications
 uv run drawlib rules show api
-uv run drawlib rules show lib-smartarts
-uv run drawlib rules show lib-diagrams
-uv run drawlib rules show lib-graph
-uv run drawlib rules show lib-charts
+uv run drawlib rules show lib-smartarts-overview
+uv run drawlib rules show lib-diagrams-overview
+uv run drawlib rules show lib-graph-overview
+uv run drawlib rules show lib-charts-overview
 ```
 
 ## 6.2 Setting Project Rule Files

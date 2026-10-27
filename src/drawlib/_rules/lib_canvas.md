@@ -224,7 +224,7 @@ save("output_stage2.png")
 ---
 
 ## 5. Related Rules
-- Shapes Primitives: `uv run drawlib rules show lib-shapes`
+- Shapes Primitives: `uv run drawlib rules show lib-shapes-overview`
 - Lines & Arrowhead Routing: `uv run drawlib rules show lib-lines`
 - Visual Styles & Palettes: `uv run drawlib rules show lib-preset-styles`
 - CLI & Fast Verification: `uv run drawlib rules show cli`

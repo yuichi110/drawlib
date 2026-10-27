@@ -293,8 +293,8 @@ save()
 In slide projects, ````drawlib```` blocks default to **inline SVG** (`file=<name>.svg`):
 - The compiled `<svg>` is embedded directly into `<div class="slide-svg-container">`, giving crisp vector scaling at any screen resolution and making all diagram labels searchable with `Ctrl+F`.
 - **Automatic SVG Font & Font-Icon Bundling**:
-   - Whenever a slide SVG diagram uses Drawlib fonts (`Font`, `FontRoboto`, `FontSourceCode`, CJK fonts, etc.) or font icons (`phosphor`, `fontawesome`), Drawlib automatically embeds font metadata, copies the required `.ttf` / `.otf` files into `_assets/fonts/`, and injects `@font-face` rules into the compiled `style.css`.
-   - Both browser viewing (`index.html`) and headless Chromium PDF export (`build_pdf.sh`) render custom fonts and Phosphor/FontAwesome icons identically without requiring system-installed fonts.
+   - Whenever a slide SVG diagram uses Drawlib fonts (`Font`, `FontRoboto`, `FontSourceCode`, CJK fonts, etc.) or font icons (`phosphor`, `font_icon`), Drawlib automatically embeds font metadata, copies the required `.ttf` / `.otf` files into `_assets/fonts/`, and injects `@font-face` rules into the compiled `style.css`.
+   - Both browser viewing (`index.html`) and headless Chromium PDF export (`build_pdf.sh`) render custom fonts and Phosphor icons identically without requiring system-installed fonts.
 
 ### 5.2. Interactive `<canvas>` Animations (`anim_trigger`, `anim_loop`, `anim_pause`)
 When a ````drawlib```` block outputs an animated image (**`.png` APNG recommended and default**, or `.apng` / `.webp`), Drawlib embeds its Base64 payload (`data-base64`) into an interactive `<canvas class="drawlib-anim-canvas">` player so it works seamlessly both over HTTP and when opened directly via `file://`. Control playback directly from the code fence attributes:
@@ -379,7 +379,7 @@ Use `from drawlib.slide import draw_page_number, draw_section_header` for standa
 ./slide_src/build.sh
 
 # Or run individual CLI commands:
-uv run drawlib build html slide_src/ -o slide_html/ -s slide_src/styles.py -u slide_src/utils.py
+uv run drawlib build slide slide_src/ -o slide_html/ -s slide_src/styles.py -u slide_src/utils.py
 uv run drawlib build pdf slide_src/ -o slide.pdf -s slide_src/styles.py -u slide_src/utils.py
 uv run drawlib serve slide_html/
 ```

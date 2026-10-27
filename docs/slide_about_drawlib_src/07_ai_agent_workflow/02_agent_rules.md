@@ -15,7 +15,7 @@ utils.draw_page_number()
 Why do AI coding agents struggle with niche libraries? Because their training data is outdated or incomplete. Drawlib solves this by **shipping its complete AI agent manual inside the Python package**:
 
 ```bash
-# 1. List all 31 embedded rule manuals
+# 1. List all 92 embedded rule manuals
 uv run drawlib rules list
 
 # 2. Core orientation & design discipline
@@ -28,8 +28,8 @@ uv run drawlib rules show api
 uv run drawlib rules show project-overview
 uv run drawlib rules show project-slide
 uv run drawlib rules show anim-guide
-uv run drawlib rules show lib-diagrams
-uv run drawlib rules show lib-charts
+uv run drawlib rules show lib-diagrams-overview
+uv run drawlib rules show lib-charts-overview
 ```
 
 ### Progressive Context Loading
@@ -90,7 +90,7 @@ grid.add(
     width=1,
     height=1,
     style=Styles.SecondaryNeutral,
-    text="3. Slides & Animations\n• project-slide (1920x1080)\n• anim-guide & lib-anim",
+    text="3. Slides & Animations\n• slide-guide & project-slide\n• anim-guide & lib-anim",
     text_style=Styles.DarkBold.patch(text_size=8.2),
 )
 grid.add(
@@ -98,7 +98,7 @@ grid.add(
     width=1,
     height=1,
     style=Styles.SecondaryNeutral,
-    text="4. High-Level Engines\n• lib-diagrams (6 Engines)\n• lib-graph (5 Auto-Solvers)",
+    text="4. High-Level Engines\n• lib-diagrams-* (6 Engines)\n• lib-graph-* (5 Auto-Solvers)",
     text_style=Styles.DarkBold.patch(text_size=8.2),
 )
 grid.add(
@@ -106,7 +106,7 @@ grid.add(
     width=1,
     height=1,
     style=Styles.BlueNeutral,
-    text="5. SmartArts & Charts\n• lib-smartarts (10 Builders)\n• lib-charts (7 Chart Types)",
+    text="5. SmartArts & Charts\n• lib-smartarts-* (18 Builders)\n• lib-charts-* (9 Chart Types)",
     text_style=Styles.DarkBold.patch(text_size=8.2),
 )
 grid.add(
@@ -114,7 +114,7 @@ grid.add(
     width=1,
     height=1,
     style=Styles.TealNeutral,
-    text="6. Primitives & Assets\n• lib-shapes, lib-lines, lib-text\n• lib-icons, lib-fonts, lib-styles",
+    text="6. Primitives & Assets\n• lib-shapes-*, lib-lines, lib-text\n• lib-icons-*, lib-fonts, lib-styles",
     text_style=Styles.DarkBold.patch(text_size=8.2),
 )
 

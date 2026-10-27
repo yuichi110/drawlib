@@ -161,3 +161,6 @@ def test_all_css_presets_have_syntax_highlighting_styles() -> None:
     assert "font-size: 0.76rem;" in doc_css
     assert "font-size: 0.75rem !important;" in doc_css
     assert "th code, td code" in doc_css
+    assert "display: table-header-group;" in doc_css
+    assert "h1, h2, h3, h4, h5, h6" in doc_css
+    assert "break-inside: auto;" in doc_css

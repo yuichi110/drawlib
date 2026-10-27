@@ -13,8 +13,34 @@ from drawlib.canvas import canvas, clear, get_dimage, save, setup, show
 
 # 2. Design Tokens & Styling (Always PascalCase!)
 from drawlib.styles import Colors, Styles, get_intermediate_color, get_intermediate_colors
-from drawlib.types import Color, Style
-from drawlib.preset_colors import CssColors, DefaultColors, GoogleColors, MonochromeColors
+from drawlib.types import BaseColors, BaseStyles, Color, Style
+from drawlib.preset_colors import (
+    Color,
+    CssColors,
+    DefaultColors,
+    DefaultColors1,
+    DefaultColors2,
+    DefaultColors3,
+    DefaultColors4,
+    DefaultColors5,
+    DefaultColors6,
+    GoogleColors,
+    MonochromeColors,
+    get_intermediate_color,
+    get_intermediate_colors,
+)
+from drawlib.preset_styles import (
+    DefaultStyles,
+    DefaultStyles1,
+    DefaultStyles2,
+    DefaultStyles3,
+    DefaultStyles4,
+    DefaultStyles5,
+    DefaultStyles6,
+    GoogleStyles,
+    MonochromeStyles,
+    Style,
+)
 
 # 3. Drawing Primitives
 from drawlib.shapes import (
@@ -77,45 +103,62 @@ from drawlib.text import text, text_vertical
 # 4. High-Level Diagrams & Auto-Layout Graphs
 from drawlib.graph import (
     ArchitectureGraph,
+    BaseGraph,
     Cluster,
+    ClusterLayout,
     Edge,
+    EdgeLayout,
     GraphLayout,
     GridGraph,
     LayerGraph,
     Node,
+    NodeLayout,
     RadialGraph,
     TreeGraph,
 )
+from drawlib.diagrams import architecture, class_diagram, er, flow, sequence, state
 from drawlib.diagrams.architecture import ArchitectureDiagram, Edge, Junction, Node, NodeGroup
-from drawlib.diagrams.flow import FlowDiagram
-from drawlib.diagrams.sequence import SequenceDiagram
-from drawlib.diagrams.state import StateDiagram
-from drawlib.diagrams.class_diagram import ClassDiagram
-from drawlib.diagrams.er import ERDiagram
+from drawlib.diagrams.flow import Decision, End, FlowDiagram, InputOutput, Process, Start
+from drawlib.diagrams.sequence import Actor, Database, Participant, Queue, SequenceDiagram
+from drawlib.diagrams.state import Choice, CompositeState, FinalState, ForkJoin, History, InitialState, State, StateDiagram
+from drawlib.diagrams.class_diagram import ClassDiagram, ClassNode, Package
+from drawlib.diagrams.er import ERDiagram, TableNode
 
 # 5. SmartArts Structured Components
 from drawlib.smartarts import (
     BoxList,
+    BoxListItem,
+    BulletPointItem,
     BulletPoints,
     CalendarItem,
     CardList,
+    CardListItem,
+    ChevronItem,
     ChevronProcess,
     Cycle,
+    CycleCenter,
+    CycleItem,
     DayCalendar,
     GeoMap,
+    GridItem,
     GridLayout,
     KpiCard,
+    KpiCardItem,
     KpiCards,
     MindMapNode,
     MonthCalendar,
     Panel,
     Pyramid,
+    PyramidItem,
     Roadmap,
+    RoadmapItem,
     SourceCode,
     SourceCodeStyles,
     Table,
     TreeNode,
     WeekCalendar,
+    get_source_code_styles,
+    sourcecode,
 )
 
 # 6. Statistical & Project Charts
@@ -167,10 +210,28 @@ from drawlib.icons import (
     workspace,
 )
 from drawlib.images import Dimage, get_dimage_from_code, image
-from drawlib.fonts import Font, FontFile, get_font, list_fonts, list_system_fonts
+from drawlib.fonts import (
+    Font,
+    FontArabic,
+    FontBase,
+    FontBrahmic,
+    FontChinese,
+    FontFile,
+    FontJapanese,
+    FontKorean,
+    FontMonoSpace,
+    FontRoboto,
+    FontSansSerif,
+    FontSerif,
+    FontSourceCode,
+    FontThai,
+)
 
 # 8. Geometry & Math
 from drawlib.math import (
+    RoutingType,
+    Side,
+    compute_orthogonal_path,
     get_angle,
     get_center_and_size,
     get_distance,
@@ -179,6 +240,12 @@ from drawlib.math import (
     get_intermediate_paths,
     get_intermediate_point,
     get_intermediate_points,
+    get_point_on_ellipse,
+    get_rotated_path_points,
+    get_rotated_points,
+    minus_2points,
+    plus_2points,
+    rotate_point,
 )
 
 # 9. Animations (APNG & Animated WebP)
@@ -188,7 +255,30 @@ from drawlib.anim import Animation
 from drawlib.slide import BoundingBox, SlideContext, build_slide, current_slide, draw_page_number, draw_section_header
 
 # 11. Developer Tools
-from drawlib.tools import clear_cache, init_project, list_cache, scan_broken_links, serve_docs
+from drawlib.tools import (
+    build_document,
+    build_html,
+    build_image,
+    build_markdown,
+    build_pdf,
+    build_slide,
+    clear_cache,
+    detect_document_type,
+    download_cache,
+    export_code_block,
+    export_css,
+    get_css,
+    init_project,
+    list_cache,
+    list_css,
+    list_html_css,
+    list_pdf_css,
+    list_project_types,
+    list_slide_css,
+    scan_broken_links,
+    serve_docs,
+    show_code_block,
+)
 ```
 
 ---
@@ -199,10 +289,10 @@ The canvas operates in a Cartesian coordinate space with the origin `(0, 0)` loc
 
 | Function | Parameters | Description |
 | :--- | :--- | :--- |
-| `setup(...)` | `width: float = 100`, `height: float = 100`, `style: Style \| None = None`, `background: Color \| None = None`, `grid: bool = False`, `grid_interval: float = 10` | Initializes canvas dimensions, background color, and optional coordinate grid. |
-| `save(...)` | `file_path: str = ...` | Exports the drawn canvas to an image file (`.png`, `.jpg`, `.svg`, `.pdf`). |
+| `setup(...)` | `width: int \| None = None`, `height: int \| None = None`, `dpi: int \| None = None`, `background_color: Color \| tuple \| str \| None = None`, `background_alpha: float \| None = None`, `grid: bool \| None = None`, `grid_only: bool \| None = None`, `grid_style: Style \| None = None`, `grid_centerstyle: Style \| None = None`, `grid_xpitch: int \| None = None`, `grid_ypitch: int \| None = None` | Initializes canvas dimensions (default `100×100`), DPI (`100`), background color/alpha, and optional coordinate grid. |
+| `save(...)` | `file: str \| Path \| None = None`, `format: Literal["jpg", "png", "webp", "pdf"] \| None = None` | Exports the drawn canvas to an image file (`.png`, `.jpg`, `.webp`, `.pdf`). |
 | `clear()` | None | Clears the active canvas and resets state for the next diagram. |
-| `show(...)` | None | Displays the interactive GUI preview window (avoid in headless CI / agents). |
+| `show()` | None | Displays the interactive GUI preview window (avoid in headless CI / agents). |
 | `get_dimage()` | None | Returns the current canvas as an in-memory `Dimage` object. |
 | `canvas` | Singleton | Global canvas context object. |
 
@@ -293,13 +383,13 @@ Lines connect coordinates and support arrowheads: `"-"` (none), `"->"` (forward)
 | Function | Signature | Description |
 | :--- | :--- | :--- |
 | `line(xy1, xy2, ...)` | `(xy1, xy2, *, style, arrow_head="")` | Straight line between two points. |
-| `lines(points, ...)` | `(points, *, style, arrow_head="")` | Multi-segment chained polyline (orthogonal routing). |
+| `lines(xys, ...)` | `(xys, *, style, arrow_head="")` | Multi-segment chained polyline (orthogonal routing). |
 | `line_curved(xy1, xy2, ...)` | `(xy1, xy2, *, style, bend=0.0, arrow_head="")` | Smooth circular arc curve between two points (`bend` controls curvature). |
-| `lines_curved(points, r, ...)` | `(points, r, *, style, arrow_head="")` | Continuous curve passing smoothly through points with corner radius `r`. |
+| `lines_curved(xys, r, ...)` | `(xys, r, *, style, arrow_head="")` | Continuous curve passing smoothly through `xys` with corner fillet radius `r`. |
 | `line_bezier1(xy1, xy2, cp, ...)` | `(xy1, xy2, cp, *, style, arrow_head="")` | Quadratic Bezier curve with 1 control point `cp`. |
 | `line_bezier2(xy1, xy2, cp1, cp2, ...)`| `(xy1, xy2, cp1, cp2, *, style, arrow_head="")` | Cubic Bezier curve with 2 control points `cp1, cp2`. |
 | `lines_bezier(xy, path_points, ...)`| `(xy, path_points, *, style, arrow_head="")` | Chained multi-segment Bezier spline. |
-| `line_arc(xy, width, height, ...)`| `(xy, width, height, *, style, angle_start=0, angle_end=180, ...)` | Elliptical arc segment line. |
+| `line_arc(xy, width, height, ...)`| `(xy, width, height, *, style, angle_start=0, angle_end=180, angle=0, arrow_head="", ccw=True)` | Elliptical arc segment line. |
 
 ```drawlib code=show file=lines_connectors.png
 from drawlib.canvas import setup
@@ -359,24 +449,24 @@ text_vertical((60, 16), "STATUS", style=Styles.MutedBold)
 - **Always import**: `from drawlib.styles import Colors, Styles`
 - **Never lowercase** to `styles` or `colors` (prevents shadowing module `drawlib.styles`).
 
-### 6.2 Preset Style Families (`Styles.<color>_<variant>`)
-Styles are systematically constructed as `<color>_<variant>`:
+### 6.2 Preset Style Families (`Styles.<Color><Variant>`)
+Styles are systematically constructed in PascalCase as `<Color><Variant>`:
 
-- **Semantic Roles**: `Primary`, `Secondary`, `Accent`, `Warning`, `Neutral`, `Muted`, `Light`, `Dark`, `Danger`, `Success`  
-  *(Plus utility shades: `White`, `Black`, `Gray1`..`Gray8`, `Blue`, `Green`, `Red`, `Purple`, etc.)*
+- **8 Semantic Roles**: `Primary`, `Secondary`, `Accent`, `Warning`, `Neutral`, `Muted`, `Danger`, `Success`  
+  *(Plus `Light`, `Dark`, `White`, `Black`, `Gray1`..`Gray8`, and chromatic families `Blue`, `Green`, `Red`, `Orange`, `Amber`, `Purple`, `Teal`, `Pink`, etc.)*
 - **Card Neutral Tokens (50%+ Neutral Grounding)**:
   - Base: `Styles.Neutral`, `Styles.NeutralFlat`, `Styles.GrayNeutral`, `Styles.GrayNeutralFlat`
-  - Semantic cards: `Styles.PrimaryNeutral`, `Styles.SecondaryNeutral`, `Styles.AccentNeutral`, `Styles.WarningNeutral`, ...
-  - Named hue cards: `Styles.BlueNeutral`, `Styles.TealNeutral`, `Styles.PurpleNeutral`, `Styles.GreenNeutral`, `Styles.AmberNeutral`, `Styles.RedNeutral`, ...
-- **13 Orthogonal Structural Variants**:
-  - `Bordered` (default): Solid border (1.5) with soft fill, high-contrast text.
-  - `Flat`: Borderless shape (`shape_line_width=0.0`).
-  - `Bold`: Thick stroke (2.5) with bold font.
-  - `Thin`: Thin stroke (0.75) with thin font.
-  - `Outline` / `Solid`: Transparent background with colored border.
-  - `Dashed`, `DashedBold`, `DashedThin`: Dashed stroke for boundaries or groupings.
-  - `Dotted`, `DottedBold`, `DottedThin`: Dotted stroke for ephemeral objects.
-- **Typography Styles**: `Styles.WhiteBold`, `Styles.PrimaryBold`, `Styles.MutedThin`, etc.
+  - Semantic cards: `Styles.PrimaryNeutral`, `Styles.SecondaryNeutral`, `Styles.AccentNeutral`, `Styles.WarningNeutral`, `Styles.DangerNeutral`, `Styles.SuccessNeutral`, `Styles.MutedNeutral`
+  - Named hue cards: `Styles.BlueNeutral`, `Styles.TealNeutral`, `Styles.PurpleNeutral`, `Styles.GreenNeutral`, `Styles.AmberNeutral`, `Styles.RedNeutral`, `Styles.OrangeNeutral`, `Styles.PinkNeutral`, `Styles.CyanNeutral`, `Styles.YellowNeutral`, `Styles.MagentaNeutral`
+- **17 Orthogonal Variants per Color Family**:
+  - `Bordered` (or bare `<Color>` default): Soft tinted fill (`15%` alpha) with solid colored border (`1.5`) and high-contrast text.
+  - `Flat`, `FlatBold`, `FlatThin`: Solid saturated fill (`100%` alpha), borderless (`shape_line_width=0.0`).
+  - `Bold`, `Thin`: Thick stroke (`2.5`) with bold font, or thin stroke (`0.75`) with thin font.
+  - `Outline` / `Solid`: Transparent background (`alpha=0.0`) with colored border (`1.5`).
+  - `Dashed`, `DashedBold`, `DashedThin`, `DashedOutline`: Dashed stroke for boundaries or groupings.
+  - `Dotted`, `DottedBold`, `DottedThin`, `DottedOutline`: Dotted stroke for ephemeral objects.
+  - `Neutral`, `NeutralFlat`: Calm neutral surface fill with colored or zero border.
+- **Typography Styles**: `Styles.WhiteBold`, `Styles.DarkBold`, `Styles.PrimaryBold`, `Styles.MutedThin`, etc.
 
 ### 6.3 Custom Style, Color Construction & Color Interpolation
 
@@ -637,8 +727,18 @@ gcp.compute_engine((52, 20), width=15, style=Styles.PrimaryFlat, variant="defaul
 gcp.compute_engine((82, 20), width=15, style=Styles.PrimaryFlat, variant="modern")
 ```
 
-### 10.2 Images & Dimage
-Embed bitmap/vector images from `_assets/` or manipulate them in memory with `Dimage`:
+### 10.2 Images & `Dimage` (`drawlib.images`)
+Embed raster images (PNG, JPEG, WebP, BMP, etc.) from `_assets/`, manipulate them in memory with `Dimage`, or compile nested diagrams with `get_dimage_from_code(code, timeout=None)`:
+
+| Symbol / Method | Signature | Description |
+| :--- | :--- | :--- |
+| `image(...)` | `(xy, width, image, height=None, style=None)` | Renders a file path, `PIL.Image.Image`, or `Dimage` centered at `xy` (styles border via `image_border_*` and tint via `image_tint_color`). |
+| `Dimage(image, copy=False)` | `(str \| Path \| PIL.Image.Image, copy=False)` | Immutable RGBA image wrapper providing 19 chainable transformation methods + 2 inspection methods. |
+| `get_dimage_from_code(...)` | `(code: str, timeout: float \| None = None) -> Dimage` | Executes a standalone Drawlib script in an isolated subprocess and returns its rendered `Dimage`. |
+| **Geometry & Crop** | `.resize(w, h)`, `.crop(x, y, w, h)`, `.trim(fuzz=0.0)`, `.pad(w, h, color=...)`, `.rotate(angle, expand=True)`, `.flip()`, `.mirror()` | Resizing, pixel cropping, auto-trimming borders, padding, rotation, and vertical/horizontal flipping. |
+| **Color & Tone** | `.fill(color)` (fills `alpha == 0` pixels), `.grayscale()`, `.sepia()`, `.invert()`, `.colorize(from_black_to, from_white_to, from_mid_to=None)` | Transparent background fill, grayscale, sepia, channel inversion, and 2-point/3-point duotone mapping. |
+| **Adjustments & Filters** | `.brightness(factor)`, `.contrast(factor)`, `.color_balance(factor)`, `.sharpness(factor)`, `.blur(radius=2.0)`, `.mosaic(block_size=8)`, `.opacity(alpha)` | Brightness/contrast/saturation/sharpness multipliers, Gaussian blur, pixelation mosaic, and alpha scaling. |
+| **Inspection** | `.get_image_size() -> (int, int)`, `.get_pil_image() -> Image` | Returns pixel `(width, height)` or a copy of the underlying `PIL.Image.Image`. |
 
 ```drawlib code=show file=images_example.png
 from drawlib.canvas import setup
@@ -659,7 +759,7 @@ image((68, 22), width=24, image=Dimage("_assets/linux.png").grayscale())
 ```
 
 ### 10.3 Custom Typography & Fonts (`drawlib.fonts`)
-Embed custom local TTF/OTF font files with `FontFile` or use universal typography presets:
+Embed custom local TTF/OTF font files with `FontFile` or use universal typography presets (`Font`, `FontRoboto`, `FontSansSerif`, `FontSerif`, `FontMonoSpace`, `FontSourceCode`, `FontJapanese`, `FontChinese`, `FontKorean`, `FontArabic`, `FontThai`, `FontBrahmic`):
 
 ```drawlib code=show file=fonts_example.png
 from drawlib.canvas import setup
@@ -714,24 +814,24 @@ save("motion.png")  # Automatically writes APNG or WebP based on extension
 
 ## 12. Presentation Slides & Stage (`drawlib.slide`)
 
-Drawlib presentation slides operate on a universal **16:9 widescreen stage (1920x1080)** with origin `(0, 0)` at the bottom-left corner.
+Drawlib presentation slides operate on a universal **16:9 widescreen stage (`1920×1080` pixels)** where `::: block xy=(x, y)` container coordinates have origin `(0, 0)` at the **top-left** corner, while each embedded ````drawlib```` canvas block inside a slide uses standard Cartesian coordinates with `(0, 0)` at the **bottom-left** corner.
 
 | Symbol / Model | Description | Example Usage |
 | :--- | :--- | :--- |
-| `current_slide` | Dynamic slide counter runtime proxy (`index`, `total`, `text`, `format()`). | `text((1800, 50), current_slide.text, style=Styles.Muted)` |
+| `current_slide` | Dynamic slide counter runtime proxy (`index`, `total`, `text`, `format()`). | `text((7, 1.5), current_slide.text, style=Styles.Muted)` |
 | `draw_page_number(...)` | Renders a standardized slide page counter badge (`14×3`, `alpha=0.0`). | `draw_page_number()` |
 | `draw_section_header(...)` | Renders a full-bleed 16:9 section header slide (`192×108`) with 4 variants (`"split"`, `"centered"`, `"banner"`, `"minimal"`). | `draw_section_header(1, "Intro", "Overview", ["A", "B"], total_sections=4)` |
-| `BoundingBox` | Dataclass representing rectangular layout bounds `(x, y, width, height)`. | `box = BoundingBox(x=100, y=200, width=800, height=600)` |
-| `SlideContext` | Slide execution state container. | Internal slide runtime context |
+| `BoundingBox` | Dataclass representing rectangular stage bounds `(x, y, width, height)` in `1920×1080` pixels. | `box = BoundingBox(x=100, y=200, width=800, height=600)` |
+| `SlideContext` | Slide execution state container (`index`, `total`). | Internal slide runtime context |
 | `build_slide(...)` | Programmatic slide deck compiler (`input_dir`, `output_dir`, `image_format`). | `build_slide("slide_src/", "slide_html/")` |
 
 ```python
 from drawlib.slide import draw_page_number, draw_section_header
 
-# Bottom-right page counter badge (14x3 transparent canvas)
+# Bottom-right page counter badge (14x3 transparent canvas inside ::: block xy=(1700, 1010) width=140 height=30)
 draw_page_number()
 
-# Full-bleed 16:9 section header slide (192x108 canvas)
+# Full-bleed 16:9 section header slide (192x108 canvas inside ::: block xy=(0, 0) width=1920 height=1080)
 draw_section_header(2, "Core Engine", "Geometry & Primitives", ["Shapes", "Lines"], total_sections=5, variant="split")
 ```
 
@@ -739,37 +839,39 @@ draw_section_header(2, "Core Engine", "Geometry & Primitives", ["Shapes", "Lines
 
 ## 13. Geometry & Coordinate Math (`drawlib.math`)
 
-Helper functions to eliminate manual trigonometry:
+Helper functions and routing solvers to eliminate manual trigonometry:
 
-| Function | Signature | Returns | Description |
+| Function / Type | Signature | Returns | Description |
 | :--- | :--- | :--- | :--- |
 | `get_distance(xy1, xy2)` | `(xy1, xy2) -> float` | Distance `d` | Euclidean distance between two points. |
-| `get_angle(xy1, xy2)` | `(xy1, xy2) -> float` | Degrees `0.0 - 360.0` | Direction angle from `xy1` to `xy2`. |
-| `get_center_and_size(points)`| `(points) -> tuple[center, size]` | `((cx, cy), (w, h))` | Bounding box center and dimensions from point list. |
+| `get_angle(xy1, xy2)` | `(xy1, xy2) -> float` | Degrees `0.0 - 360.0` | Counter-clockwise direction angle from `xy1` to `xy2`. |
+| `get_center_and_size(xys)`| `(xys) -> tuple[center, size]` | `((cx, cy), (w, h))` | Bounding box center and dimensions from point list. |
 | `get_intermediate_point(xy1, xy2)` | `(xy1, xy2) -> tuple[float, float]` | `(mx, my)` | Exact 50% midpoint between `xy1` and `xy2`. |
 | `get_intermediate_points(xy1, xy2, ...)` | `(xy1, xy2, num=1, *, include_ends=False) -> list[tuple[float, float]]` | `[(x, y), ...]` | `num` evenly spaced points between `xy1` and `xy2` (or `num + 2` when `include_ends=True`). |
 | `get_intermediate_path_point(xys)` | `(xys) -> tuple[float, float]` | `(mx, my)` | 50% arc-length midpoint along a multi-point polyline trajectory `xys`. |
 | `get_intermediate_path_points(xys, ...)` | `(xys, num=1, *, include_ends=False) -> list[tuple[float, float]]` | `[(x, y), ...]` | `num` evenly spaced points along the arc length of `xys` (or `num + 2` with endpoints). |
 | `get_intermediate_paths(xys, ...)` | `(xys, num=1, *, include_ends=False) -> list[list[tuple[float, float]]]` | `[[p0, ..., pt], ...]` | Progressive prefix sub-paths along `xys` (with full `xys` appended when `include_ends=True`). |
+| `get_point_on_ellipse(xy, w, h, angle, ...)` | `(xy, width, height, target_angle, angle=0) -> tuple[float, float]` | `(px, py)` | Perimeter coordinate on an ellipse (optionally rotated by `angle`) at `target_angle`. |
+| `rotate_point(xy, center, angle)` | `(xy, center_xy, angle) -> tuple[float, float]` | `(rx, ry)` | Rotates `xy` counter-clockwise by `angle` degrees around `center_xy`. |
+| `get_rotated_points(xys, center, angle)` | `(xys, center_xy, angle) -> list[tuple[float, float]]` | `[(rx, ry), ...]` | Rotates a list of coordinates around `center_xy`. |
+| `get_rotated_path_points(path, center, angle)` | `(path_points, center_xy, angle) -> list[...]` | `[...]` | Rotates straight/Bezier `path_points` around `center_xy`. |
+| `plus_2points(xy1, xy2)` / `minus_2points(xy1, xy2)` | `(xy1, xy2) -> tuple[float, float]` | `(x1±x2, y1±y2)` | Component-wise 2D vector addition or subtraction. |
+| `compute_orthogonal_path(...)` | `(src_xy, dst_xy, routing="auto", ...) -> list[tuple[float, float]]` | `[(x, y), ...]` | Computes orthogonal polyline waypoints (`RoutingType`, `Side`). |
 
 ---
 
 ## 14. Developer Tools (`drawlib.tools`)
 
-Programmatic Python tools for compilation and documentation management:
+Programmatic Python tools for compilation, diagram extraction, project scaffolding, preview server, CSS presets, and cache management:
 
-```python
-from drawlib.tools import clear_cache, init_project, scan_broken_links, serve_docs
-
-# Initialize a project scaffold ('site', 'doc', 'slide', 'images')
-init_project("site", target="docs")
-
-# Run headless verification or local documentation preview
-serve_docs("docs_html", port=8000)
-
-# Validate hyperlinks and assets
-broken = scan_broken_links("docs_html")
-```
+| Category | Functions | Primary Usage |
+| :--- | :--- | :--- |
+| **Compilation** | `build_document`, `build_html`, `build_markdown`, `build_pdf`, `build_slide`, `build_image`, `detect_document_type` | `build_html(input_dir="docs_src/", output_dir="docs_html/")`, `build_slide("slide_src/", "slide_html/")` |
+| **Diagram Export** | `export_code_block`, `show_code_block` | `export_code_block("docs_src/arch.md", "arch.png", ".drawlib/scratch/preview.png", grid=True)` |
+| **Scaffolding** | `init_project`, `list_project_types` | `init_project("site", target="docs", style="google")` |
+| **Server & Links** | `serve_docs`, `scan_broken_links` | `serve_docs("docs_html", port=8000)`, `scan_broken_links("docs_html")` |
+| **Cache** | `list_cache`, `download_cache`, `clear_cache` | `download_cache(all_packages=True)`, `clear_cache(images=True)` |
+| **CSS Presets** | `list_css`, `list_html_css`, `list_pdf_css`, `list_slide_css`, `export_css`, `get_css` | `export_css("google", "style.css", target="html", force=True)` |
 
 ---
 
@@ -790,3 +892,4 @@ broken = scan_broken_links("docs_html")
    ```bash
    uv run drawlib show docs_src/doc.md file_name.png -g -o .drawlib/scratch/preview.png
    ```
+

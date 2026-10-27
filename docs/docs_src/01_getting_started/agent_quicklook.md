@@ -142,10 +142,10 @@ Ensure your agent knows how to query on-demand rule topics and preview drawings 
 | **Project Guides (`images`, `doc`, `site`, `slide`)** | `uv run drawlib rules show project-<images\|doc\|site\|slide>` |
 | **CLI Reference (`build`, `show`, `cache`)** | `uv run drawlib rules show cli` |
 | **Unified API Cheat Sheet** | `uv run drawlib rules show api` |
-| **Auto-Layout Graphs (`drawlib.graph`)** | `uv run drawlib rules show lib-graph` |
-| **Domain Diagrams (`drawlib.diagrams`)** | `uv run drawlib rules show lib-diagrams` |
-| **SmartArts & GeoMap (`drawlib.smartarts`)** | `uv run drawlib rules show lib-smartarts` |
-| **Quantitative Charts (`drawlib.charts`)** | `uv run drawlib rules show lib-charts` |
+| **Auto-Layout Graphs (`drawlib.graph`)** | `uv run drawlib rules show lib-graph-overview` |
+| **Domain Diagrams (`drawlib.diagrams`)** | `uv run drawlib rules show lib-diagrams-overview` |
+| **SmartArts & GeoMap (`drawlib.smartarts`)** | `uv run drawlib rules show lib-smartarts-overview` |
+| **Quantitative Charts (`drawlib.charts`)** | `uv run drawlib rules show lib-charts-overview` |
 | **Render Named Markdown Block Preview** | `uv run drawlib show <md_path> <diagram.png> -g -o .drawlib/scratch/preview.png` |
 | **Render Standalone Script Preview** | `uv run drawlib show <script.py> -g -o .drawlib/scratch/preview.png` |
 | **Build Full Project** | `./<target>_src/build.sh` or `uv run drawlib build html docs_src/ -o docs_html/` |

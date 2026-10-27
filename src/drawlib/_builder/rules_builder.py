@@ -22,40 +22,110 @@ from typing import Final
 
 from drawlib._core.l1_core import RULES_DIR_PATH
 
-AVAILABLE_TOPICS: Final[tuple[str, ...]] = (
-    "agent-instruction",
-    "overview",
-    "style-guide",
-    "review-guide",
-    "anim-guide",
-    "slide-guide",
-    "project-overview",
-    "project-images",
-    "project-doc",
-    "project-site",
-    "project-slide",
-    "cli",
-    "api",
-    "lib-canvas",
-    "lib-anim",
-    "lib-shapes",
-    "lib-lines",
-    "lib-text",
-    "lib-preset-colors",
-    "lib-styles",
-    "lib-preset-styles",
-    "lib-fonts",
-    "lib-images",
-    "lib-icons",
-    "lib-math",
-    "lib-types",
-    "lib-smartarts",
-    "lib-charts",
-    "lib-diagrams",
-    "lib-graph",
-    "lib-tools",
-    "lib-slide",
-)
+TOPIC_SOURCE_MAP: Final[dict[str, tuple[str, ...]]] = {
+    # General & Project Guidelines
+    "agent-instruction": ("agent_instruction.md",),
+    "overview": ("overview.md",),
+    "style-guide": ("style_guide.md",),
+    "review-guide": ("review_guide.md",),
+    "anim-guide": ("anim_guide.md",),
+    "slide-guide": ("slide_guide.md",),
+    "project-overview": ("project_overview.md",),
+    "project-images": ("project_images.md",),
+    "project-doc": ("project_doc.md",),
+    "project-site": ("project_site.md",),
+    "project-slide": ("project_slide.md",),
+    "cli": ("cli.md",),
+    "api": ("api.md",),
+    # Core Library Modules
+    "lib-canvas": ("lib_canvas.md",),
+    "lib-anim": ("lib_anim.md",),
+    "lib-lines": ("lib_lines.md",),
+    "lib-text": ("lib_text.md",),
+    "lib-preset-colors": ("lib_preset_colors.md",),
+    "lib-styles": ("lib_styles.md",),
+    "lib-preset-styles": ("lib_preset_styles.md",),
+    "lib-fonts": ("lib_fonts.md",),
+    "lib-images": ("lib_images.md",),
+    "lib-math": ("lib_math.md",),
+    "lib-types": ("lib_types.md",),
+    "lib-tools": ("lib_tools.md",),
+    "lib-slide": ("lib_slide.md",),
+    # Shapes (drawlib.shapes)
+    "lib-shapes-overview": ("shapes", "overview.md"),
+    "lib-shapes-basic": ("shapes", "basic.md"),
+    "lib-shapes-polygon": ("shapes", "polygon.md"),
+    "lib-shapes-arrow": ("shapes", "arrow.md"),
+    "lib-shapes-badge": ("shapes", "badge.md"),
+    "lib-shapes-container": ("shapes", "container.md"),
+    "lib-shapes-symbol": ("shapes", "symbol.md"),
+    # Icons (drawlib.icons)
+    "lib-icons-overview": ("icons", "overview.md"),
+    "lib-icons-phosphor": ("icons", "phosphor.md"),
+    "lib-icons-gcp": ("icons", "gcp.md"),
+    "lib-icons-aws": ("icons", "aws.md"),
+    "lib-icons-azure": ("icons", "azure.md"),
+    "lib-icons-ai": ("icons", "ai.md"),
+    "lib-icons-business": ("icons", "business.md"),
+    "lib-icons-client": ("icons", "client.md"),
+    "lib-icons-cloud": ("icons", "cloud.md"),
+    "lib-icons-cnative": ("icons", "cnative.md"),
+    "lib-icons-code": ("icons", "code.md"),
+    "lib-icons-data": ("icons", "data.md"),
+    "lib-icons-devops": ("icons", "devops.md"),
+    "lib-icons-facility": ("icons", "facility.md"),
+    "lib-icons-itservice": ("icons", "itservice.md"),
+    "lib-icons-network": ("icons", "network.md"),
+    "lib-icons-security": ("icons", "security.md"),
+    "lib-icons-server": ("icons", "server.md"),
+    "lib-icons-social": ("icons", "social.md"),
+    "lib-icons-workspace": ("icons", "workspace.md"),
+    # SmartArts (drawlib.smartarts)
+    "lib-smartarts-overview": ("smartarts", "overview.md"),
+    "lib-smartarts-table": ("smartarts", "table.md"),
+    "lib-smartarts-tree": ("smartarts", "tree.md"),
+    "lib-smartarts-mindmap": ("smartarts", "mindmap.md"),
+    "lib-smartarts-box-list": ("smartarts", "box_list.md"),
+    "lib-smartarts-bullet-points": ("smartarts", "bullet_points.md"),
+    "lib-smartarts-chevron-process": ("smartarts", "chevron_process.md"),
+    "lib-smartarts-cycle": ("smartarts", "cycle.md"),
+    "lib-smartarts-grid-layout": ("smartarts", "grid_layout.md"),
+    "lib-smartarts-pyramid": ("smartarts", "pyramid.md"),
+    "lib-smartarts-source-code": ("smartarts", "source_code.md"),
+    "lib-smartarts-geomap": ("smartarts", "geomap.md"),
+    "lib-smartarts-kpi-cards": ("smartarts", "kpi_cards.md"),
+    "lib-smartarts-card-list": ("smartarts", "card_list.md"),
+    "lib-smartarts-roadmap": ("smartarts", "roadmap.md"),
+    "lib-smartarts-panel": ("smartarts", "panel.md"),
+    "lib-smartarts-calendar": ("smartarts", "calendar.md"),
+    # Charts (drawlib.charts)
+    "lib-charts-overview": ("charts", "overview.md"),
+    "lib-charts-bar": ("charts", "bar.md"),
+    "lib-charts-line": ("charts", "line.md"),
+    "lib-charts-area": ("charts", "area.md"),
+    "lib-charts-pie": ("charts", "pie.md"),
+    "lib-charts-radar": ("charts", "radar.md"),
+    "lib-charts-scatter": ("charts", "scatter.md"),
+    "lib-charts-gantt": ("charts", "gantt.md"),
+    "lib-charts-heatmap": ("charts", "heatmap.md"),
+    # Diagrams (drawlib.diagrams)
+    "lib-diagrams-overview": ("diagrams", "overview.md"),
+    "lib-diagrams-architecture": ("diagrams", "architecture.md"),
+    "lib-diagrams-flow": ("diagrams", "flow.md"),
+    "lib-diagrams-sequence": ("diagrams", "sequence.md"),
+    "lib-diagrams-state": ("diagrams", "state.md"),
+    "lib-diagrams-class": ("diagrams", "class_diagram.md"),
+    "lib-diagrams-er": ("diagrams", "er.md"),
+    # Graph Layout Solvers (drawlib.graph)
+    "lib-graph-overview": ("graph", "overview.md"),
+    "lib-graph-architecture": ("graph", "architecture.md"),
+    "lib-graph-layer": ("graph", "layer.md"),
+    "lib-graph-tree": ("graph", "tree.md"),
+    "lib-graph-radial": ("graph", "radial.md"),
+    "lib-graph-grid": ("graph", "grid.md"),
+}
+
+AVAILABLE_TOPICS: Final[tuple[str, ...]] = tuple(TOPIC_SOURCE_MAP.keys())
 
 
 def _normalize_topic(topic: str) -> str:
@@ -72,7 +142,7 @@ def _normalize_topic(topic: str) -> str:
     """
     clean = topic.strip().lower().replace("_", "-")
 
-    if clean not in AVAILABLE_TOPICS:
+    if clean not in TOPIC_SOURCE_MAP:
         raise ValueError(f"Unknown rule topic '{topic}'. Available topics: {', '.join(AVAILABLE_TOPICS)}")
     return clean
 
@@ -87,8 +157,8 @@ def get_rule_source_path(topic: str) -> Path:
         Path: Filesystem path to the source rule Markdown file.
     """
     canonical = _normalize_topic(topic)
-    file_name = canonical.replace("-", "_") + ".md"
-    res = importlib.resources.files("drawlib._rules").joinpath(file_name)
+    subpath = TOPIC_SOURCE_MAP[canonical]
+    res = importlib.resources.files("drawlib._rules").joinpath(*subpath)
     return Path(str(res))
 
 
@@ -146,7 +216,7 @@ def _rewrite_image_paths_to_runtime(content: str, topic: str) -> str:
 
     Args:
         content: Markdown content with relative image links.
-        topic: Rule topic name (e.g. 'overview', 'lib-shapes').
+        topic: Rule topic name (e.g. 'overview', 'lib-shapes-overview').
 
     Returns:
         str: Markdown content with image links rewritten to PYTHON_RUNTIME/site-packages/...
@@ -197,28 +267,34 @@ def build_rule(topic: str, force: bool = False, quiet: bool = False) -> str:
 
     from drawlib._builder.doc_builder.processor import DrawlibBlockProcessor  # noqa: PLC0415
 
+    rules_root = str(importlib.resources.files("drawlib._rules"))
     target_path.parent.mkdir(parents=True, exist_ok=True)
-    processor = DrawlibBlockProcessor(require_file=False, no_cache=force)
+    processor = DrawlibBlockProcessor(
+        require_file=False,
+        no_cache=force,
+        project_root=rules_root,
+    )
     source_content = source_path.read_text(encoding="utf-8")
 
-    if quiet:
-        with open(os.devnull, "w", encoding="utf-8") as devnull, contextlib.redirect_stdout(devnull):
-            rendered_text = processor.process_markdown(
-                source_content,
-                doc_base_name=canonical,
-                output_dir=str(target_path.parent),
-                use_markdown_syntax=True,
-                source_filename=str(source_path),
-            )
-    else:
-        with contextlib.redirect_stdout(sys.stderr):
-            rendered_text = processor.process_markdown(
-                source_content,
-                doc_base_name=canonical,
-                output_dir=str(target_path.parent),
-                use_markdown_syntax=True,
-                source_filename=str(source_path),
-            )
+    with contextlib.chdir(rules_root):
+        if quiet:
+            with open(os.devnull, "w", encoding="utf-8") as devnull, contextlib.redirect_stdout(devnull):
+                rendered_text = processor.process_markdown(
+                    source_content,
+                    doc_base_name=canonical,
+                    output_dir=str(target_path.parent),
+                    use_markdown_syntax=True,
+                    source_filename=str(source_path),
+                )
+        else:
+            with contextlib.redirect_stdout(sys.stderr):
+                rendered_text = processor.process_markdown(
+                    source_content,
+                    doc_base_name=canonical,
+                    output_dir=str(target_path.parent),
+                    use_markdown_syntax=True,
+                    source_filename=str(source_path),
+                )
 
     rewritten_text = _rewrite_image_paths_to_runtime(rendered_text, topic=canonical)
     target_path.write_text(rewritten_text, encoding="utf-8")

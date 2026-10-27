@@ -135,6 +135,18 @@ body {
         max-width: 100%;
         font-size: 0.76rem;
         line-height: 1.45;
+        overflow: visible;
+        break-inside: auto;
+        page-break-inside: auto;
+    }
+
+    thead {
+        display: table-header-group;
+    }
+
+    tr {
+        break-inside: avoid;
+        page-break-inside: avoid;
     }
 
     th, td {
@@ -150,12 +162,14 @@ body {
         word-break: normal;
     }
 
-    pre, .drawlib-image, table, blockquote {
+    pre, .drawlib-image, blockquote {
         break-inside: avoid;
         page-break-inside: avoid;
     }
 
-    h1, h2, h3 {
+    h1, h2, h3, h4, h5, h6 {
+        break-inside: avoid;
+        page-break-inside: avoid;
         break-after: avoid;
         page-break-after: avoid;
     }

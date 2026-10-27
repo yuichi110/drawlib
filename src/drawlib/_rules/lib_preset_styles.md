@@ -16,13 +16,13 @@ Drawlib provides a comprehensive, centralized preset style system in `drawlib.pr
 In complex technical diagrams and architectural illustrations, manually specifying colors, line widths, borders, and fonts for every individual element leads to verbose, brittle, and visually inconsistent code. Drawlib addresses this through three core design principles:
 
 1. **Systematic Semantic Roles**:
-   Rather than hardcoding arbitrary colors, Drawlib organizes styles around 7 semantic roles (`primary`, `secondary`, `accent`, `warning`, `muted`, `danger`, `success`) across 13 orthogonal variants (`flat`, `bold`, `light`, `outline`, `dashed`, `dotted`, etc.).
+   Rather than hardcoding arbitrary colors, Drawlib organizes styles around 8 semantic roles (`Primary`, `Secondary`, `Accent`, `Warning`, `Neutral`, `Muted`, `Danger`, `Success`) across 17 orthogonal variants (`""` / `Bordered`, `Bold`, `Thin`, `Flat`, `Outline`, `OutlineBold`, `OutlineThin`, `Solid`, `SolidBold`, `SolidThin`, `Dashed`, `DashedBold`, `DashedThin`, `Dotted`, `DottedBold`, `DottedThin`).
 
 2. **First-Class Object Referencing**:
    Styles are passed as strongly-typed `Style` instances directly from `drawlib.styles.Styles` (or `Styles`), e.g., `style=Styles.PrimaryFlat` or `style=Styles.AccentBold`. Passing arbitrary strings to `style` is rejected by Pydantic validation to ensure compile-time safety.
 
 3. **Layered Object Models**:
-   At the core of the preset style system is `BaseStyles` (a Pydantic `BaseModel` with dynamic metaclass resolution), which exposes standard role-based styles (`primary`, `secondary`, `accent`, `muted`), default canvas background colors, and font definitions. Users can inspect, copy, patch, or subclass these models to define enterprise brand guidelines.
+   At the core of the preset style system is `BaseStyles` (a Pydantic `BaseModel` with dynamic metaclass resolution), which exposes standard role-based styles (`Primary`, `Secondary`, `Accent`, `Warning`, `Neutral`, `Muted`, `Danger`, `Success`), default canvas background colors, and font definitions. Users can inspect, copy, patch, or subclass these models to define enterprise brand guidelines.
 
 ### 1.1. High-Level Architecture Overview
 
@@ -38,7 +38,7 @@ In complex technical diagrams and architectural illustrations, manually specifyi
                     ▼                                         ▼
    ┌─────────────────────────────────┐       ┌─────────────────────────────────┐
    │       Color Collections         │       │     Official Style Catalogs     │
-   │  - DefaultColors                │       │  - DefaultStyles                │
+   │  - DefaultColors (1..6)         │       │  - DefaultStyles (1..6)         │
    │  - MonochromeColors             │       │  - MonochromeStyles             │
    │  - GoogleColors                 │       │  - GoogleStyles                 │
    │  - CssColors (140 CSS colors)   │       │  - Styles (Active Facade)       │
@@ -50,7 +50,7 @@ In complex technical diagrams and architectural illustrations, manually specifyi
                                          ▼
                     ┌─────────────────────────────────────────┐
                     │      Style Resolution                   │
-                    │  Token parsing: <color>_<type>_<weight> │
+                    │  Token parsing: <Color><Type><Weight>   │
                     └────────────────────┬────────────────────┘
                                          │
        ┌───────────────────┬─────────────┴─────┬───────────────────┐
@@ -110,7 +110,7 @@ from drawlib.types import BaseColors, BaseStyles
 | :--- | :--- | :--- |
 | `Styles` | Active Facade | Active style catalog singleton imported from `drawlib.styles`. |
 | `Colors` | Active Facade | Active color palette singleton imported from `drawlib.styles`. |
-| `DefaultStyles` | Model Class | Default design system style catalog (Level 4 primary centered). |
+| `DefaultStyles` | Model Class | Default design system style catalog (Level 4 primary centered; `DefaultStyles1`..`DefaultStyles6` available). |
 | `GoogleStyles` | Model Class | Google Slides & Workspace brand style catalog. |
 | `MonochromeStyles` | Model Class | Grayscale style catalog for print, papers, and e-ink. |
 | `Style` | Data Model | Core style model representing visual attributes. |
@@ -120,9 +120,7 @@ from drawlib.types import BaseColors, BaseStyles
 
 ## 3. Official Palette Catalogs
 
-Drawlib ships with three pre-built, production-ready style catalogs. Each catalog organizes styles into semantic roles (with 13 orthogonal variants each) alongside default canvas background colors and typographical defaults:
-- **Color Catalogs (`DefaultStyles`, `GoogleStyles`)**: **7 Semantic Roles** (`primary`, `secondary`, `accent`, `warning`, `muted`, `danger`, `success`).
-- **Monochrome Catalog (`MonochromeStyles`)**: **4 Semantic Roles** (`primary`, `secondary`, `accent`, `muted`) — Grayscale excludes warning/danger/success.
+Drawlib ships with three pre-built, production-ready style catalogs (`DefaultStyles`, `GoogleStyles`, and `MonochromeStyles`). Each catalog organizes styles into **8 semantic roles** (`Primary`, `Secondary`, `Accent`, `Warning`, `Neutral`, `Muted`, `Danger`, `Success`) across **17 orthogonal variants** alongside default canvas background colors, chart palettes (`Chart1`..`Chart6`), and typographical defaults:
 
 ```text
 ┌───────────────────────────────────────────────────────────────────────────────────────┐
@@ -131,17 +129,17 @@ Drawlib ships with three pre-built, production-ready style catalogs. Each catalo
 │ + background_color: ColorType = (255, 255, 255, 1.0)                                  │
 │ + sourcecode_font: FontSourceCode = FontSourceCode.SOURCECODEPRO                      │
 ├───────────────────────────────────────────────────────────────────────────────────────┤
-│ Semantic Roles (17 orthogonal variants each: Bordered, Bold, Thin, Flat, Outline,    │
-│                 OutlineBold, OutlineThin, Solid, SolidBold, SolidThin, Dashed,        │
-│                 DashedBold, DashedThin, Dotted, DottedBold, DottedThin):              │
+│ 8 Semantic Roles (17 orthogonal variants each: "", Bordered, Bold, Thin, Flat,        │
+│                   Outline, OutlineBold, OutlineThin, Solid, SolidBold, SolidThin,     │
+│                   Dashed, DashedBold, DashedThin, Dotted, DottedBold, DottedThin):    │
 │   - Primary: Core application logic, main components                                  │
 │   - Secondary: Databases, message queues, auxiliary services                          │
 │   - Accent: Gateways, clients, focal points                                           │
-│   - Warning: Alerts, transient states, review gates (Color catalogs only)             │
+│   - Warning: Alerts, transient states, review gates                                   │
 │   - Neutral: Calm card surfaces, worker nodes, base containers                        │
 │   - Muted: Boundaries, VPCs, subnets, containers                                      │
-│   - Danger: Errors, alerts, security risks (Color catalogs only)                      │
-│   - Success: Completed milestones, healthy status (Color catalogs only)               │
+│   - Danger: Errors, alerts, security risks                                            │
+│   - Success: Completed milestones, healthy status                                     │
 ├───────────────────────────────────────────────────────────────────────────────────────┤
 │ Tinted Neutral Cards (Bordered and Flat variants):                                    │
 │   - Semantic: PrimaryNeutral, SecondaryNeutral, AccentNeutral, WarningNeutral, ...    │
@@ -152,39 +150,56 @@ Drawlib ships with three pre-built, production-ready style catalogs. Each catalo
 
 ### 3.1. DefaultStyles (`"default"`)
 
-The standard catalog optimized for technical documentation, flowcharts, and software architecture diagrams. It uses a calming, clean light blue (`DefaultStyleColors.Blue`) as the primary fill and black (`DefaultStyleColors.Black`) for crisp border definition.
+The standard catalog optimized for technical documentation, flowcharts, and software architecture diagrams. It features systematic 6-tone chromatic scales (`DefaultStyles1` through `DefaultStyles6`, where `DefaultStyles` aliases `DefaultStyles4`), neutral grays, and 8 semantic roles.
 
-- **Primary Colors**: Blue (`#6F6FEF`), Black (`#000000`), White (`#FFFFFF`), Green (`#4FBF4F`), Red (`#EF5F5F`).
+- **Primary Colors**: 8 chromatic hues across 6 tone levels (`Blue1..6`, `Green1..6`, `Red1..6`, `Orange1..6`, `Amber1..6`, `Purple1..6`, `Teal1..6`, `Pink1..6`), 8 gray levels (`Gray1` to `Gray8`), `Black`, `White`, and standard primaries.
 - **Visual Design**:
-  - `Primary`: Blue fill, black border (width 1.5), sans-serif regular font.
-  - `PrimaryThin`: Blue fill, black border (width 0.75), sans-serif light font, thin icons.
-  - `PrimaryBold`: Blue fill, black border (width 2.5), sans-serif bold font, regular icons.
-  - `PrimaryFlat`: Blue fill, blue border with `line_width=0` (borderless), fill-style icons.
-  - `PrimarySolid`: Transparent fill, blue border (width 1.5), regular icons.
-  - `PrimaryDashed`: Transparent fill, blue dashed border (width 1.5), regular icons.
+  - `Primary` / `PrimaryBordered`: `Blue4` fill, `Blue6` border (width `1.5`), sans-serif regular font.
+  - `PrimaryThin`: `Blue4` fill, `Blue6` border (width `0.75`), sans-serif thin font, thin icons.
+  - `PrimaryBold`: `Blue4` fill, `Blue6` border (width `2.5`), sans-serif bold font, bold icons.
+  - `PrimaryFlat`: `Blue4` fill, borderless (`shape_line_width=0`), fill-style icons.
+  - `PrimaryOutline` / `PrimarySolid`: Transparent fill, `Blue4` border (width `1.5`), regular icons.
+  - `PrimaryDashed`: Transparent fill, `Blue4` dashed border (width `1.5`), regular icons.
+  - `PrimaryDotted`: Transparent fill, `Blue4` dotted border (width `1.5`), regular icons.
 
 ```python
+from drawlib.preset_styles import DefaultStyles
 from drawlib.styles import Styles
 
-default_catalog = Styles
+default_catalog = Styles  # Defaults to DefaultStyles
 
 print("Default Primary Fill:", default_catalog.Primary.shape_fill_color)
 print("Default Primary Line:", default_catalog.Primary.shape_line_color)
 print("Default Line Width:", default_catalog.Primary.shape_line_width)
+print("Default Background:", DefaultStyles.background_color)
 ```
 
-### 3.2. MonochromeStyles (`"monochrome"`)
+### 3.2. GoogleStyles (`"google"`)
 
-Specially designed for printed engineering manuals, formal academic papers, patents, and grayscale e-ink displays. It uses pure black, white, and balanced intermediate gray tones to maintain razor-sharp contrast without color dependencies.
+Designed around Google Workspace, Material Design, and Google Cloud presentation aesthetics. It pairs Google Blue, Teal/Green, Yellow/Amber, and Red with clean Slate neutrals.
 
-- **Primary Colors**: Black (`#000000`), Gray1 (`#F5F5F5`) to Gray8 (`#191919`), White (`#FFFFFF`).
+- **Primary Colors**: Google Blue (`#1A73E8`), Google Green (`#1E8E3E`), Google Yellow/Amber (`#F9AB00`), Google Red (`#D93025`), and Slate grays (`Gray1` to `Gray8`).
+- **Visual Design**: Exposes the exact same 8 semantic roles, 17 orthogonal variants, and `*Neutral` card tokens as `DefaultStyles`, allowing zero-code-change theme switching via `drawlib init -s google`.
+
+```python
+from drawlib.preset_styles import GoogleStyles
+
+print("Google Primary Fill:", GoogleStyles.Primary.shape_fill_color)
+print("Google PrimaryNeutral Fill:", GoogleStyles.PrimaryNeutral.shape_fill_color)
+```
+
+### 3.3. MonochromeStyles (`"monochrome"`)
+
+Specially designed for printed engineering manuals, formal academic papers, patents, and grayscale e-ink displays. It uses pure black, white, and balanced intermediate gray tones (`Gray1` to `Gray8`) to maintain razor-sharp contrast without color dependencies.
+
+- **Primary Colors**: `Black` (`#000000`), `Gray1` (`#F5F5F5`) to `Gray8` (`#191919`), `White` (`#FFFFFF`).
 - **Visual Design**:
-  - `Primary`: White fill, black border (width 1.5), black text, sans-serif regular font.
-  - `PrimaryThin`: White fill, black border (width 0.75), sans-serif light font.
-  - `PrimaryBold`: White fill, black border (width 2.5), sans-serif bold font.
-  - `PrimaryFlat`: Solid black fill, black border with `line_width=0`.
-  - `PrimarySolid`: Transparent fill, black border (width 1.5).
-  - `PrimaryDashed`: Transparent fill, black dashed border (width 1.5).
+  - `Primary`: White fill, black border (width `1.5`), black text, sans-serif regular font.
+  - `PrimaryThin`: White fill, black border (width `0.75`), sans-serif light font.
+  - `PrimaryBold`: White fill, black border (width `2.5`), sans-serif bold font.
+  - `PrimaryFlat`: Solid black fill, borderless (`shape_line_width=0`).
+  - `PrimaryOutline` / `PrimarySolid`: Transparent fill, black border (width `1.5`).
+  - `PrimaryDashed`: Transparent fill, black dashed border (width `1.5`).
 
 ```drawlib code=show
 from drawlib.canvas import save, setup
@@ -204,29 +219,6 @@ rectangle((80, 20), width=35, height=20, style=mono.PrimaryFlat)
 text((80, 20), "Flat (Filled)", style=mono.WhiteBold)
 
 save()
-```
-
-### 3.3. DefaultStyles (`"essentials"`)
-
-An expressive, modern palette featuring systematic 6-tone chromatic scales, neutral grays, and semantic roles. It is the recommended base for complex multi-tier system designs, data visualization dashboards, and cloud infrastructure diagrams where distinct subsystems require dedicated semantic colors.
-
-- **Primary Colors**: 8 chromatic hues across 6 tone levels (Blue, Green, Red, Orange, Amber, Purple, Teal, Pink), 8 gray levels (Gray1 to Gray8), Black, White, and standard primaries.
-- **Visual Design**:
-  - `Primary`: Blue4 fill, Blue6 border (width 1.5), white text.
-  - `PrimaryThin`: Blue1 fill, Blue5 border (width 0.75), sans-serif light font.
-  - `PrimaryBold`: Blue4 fill, Blue6 border (width 2.5), sans-serif bold font.
-  - `PrimaryFlat`: Blue4 fill, borderless (`line_width=0`).
-  - `PrimarySolid`: Transparent fill, Blue4 border (width 1.5).
-  - `PrimaryDashed`: Transparent fill, Blue4 dashed border (width 1.5).
-
-```python
-from drawlib.preset_styles import DefaultStyles
-
-# Access class attributes directly
-essentials = DefaultStyles
-
-print("Default Primary Text Color:", essentials.Primary.text_color)
-print("Default Background:", essentials.background_color)
 ```
 
 ---
@@ -313,38 +305,39 @@ Every preset style follows a deterministic, composable PascalCase naming structu
 ### 5.1. Grammar Token Breakdown
 
 1. **`<Color>` (Color Token)**:
-   - Any color name available in `DefaultColors`, `GoogleColors`, `MonochromeColors`, or semantic roles (`Primary`, `Secondary`, `Accent`, `Warning`, `Muted`, `Light`, `Dark`, `Danger`, `Success`).
+   - Any color name available in `DefaultColors`, `GoogleColors`, `MonochromeColors`, or semantic roles (`Primary`, `Secondary`, `Accent`, `Warning`, `Neutral`, `Muted`, `Light`, `Dark`, `Danger`, `Success`).
    - If omitted or using base role, the semantic anchor (e.g. `Primary`) is used.
 
 2. **`<Type>` (Structural / Fill Type)**:
-   - **`(omitted / default)`**: Both fill and border outline are active. Line is solid.
+   - **`(omitted / default)` or `Bordered`**: Both fill and border outline are active. Line is solid.
    - **`Flat`**: Solid fill color with **no border outline** (`shape_line_width=0`). Ideal for modern cards and badges.
-   - **`Solid`**: Transparent fill (`shape_fill_color=Colors.Transparent`) with a **solid border outline**. Ideal for wireframes and subnets.
+   - **`Outline` or `Solid`**: Transparent fill (`shape_fill_color=Colors.Transparent`) with a **solid border outline**. Ideal for wireframes and subnets.
    - **`Dashed`**: Transparent fill with a **dashed border outline** (`shape_line_style="dashed"`). Ideal for boundaries, regions, and future states.
    - **`Dotted`**: Transparent fill with a **dotted border outline** (`shape_line_style="dotted"`). Ideal for dependency links, soft boundaries, and degraded flows.
 
 3. **`<Weight>` (Stroke Width & Font Weight)**:
-   - **`Thin`**: Line border width is halved (0.75 px). Font weight is thin (`Font.SANSSERIF_THIN`). Icons render in thin style.
-   - **`(omitted / default)`**: Standard line border width (1.5 px). Font weight is regular (`Font.SANSSERIF_REGULAR`).
-   - **`Bold`**: Line border width is increased to 2.5 px. Font weight is bold (`Font.SANSSERIF_BOLD`).
+   - **`Thin`**: Line border width is halved (`0.75` px). Font weight is thin (`Font.SANSSERIF_THIN`). Icons render in thin style.
+   - **`(omitted / default)`**: Standard line border width (`1.5` px). Font weight is regular (`Font.SANSSERIF_REGULAR`).
+   - **`Bold`**: Line border width is increased to `2.5` px. Font weight is bold (`Font.SANSSERIF_BOLD`).
 
 ### 5.2. Combinations and Preset Examples
 
 | Style Token | Resolved Fill | Resolved Line | Line Style | Line Width | Font Weight |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| `Styles.Primary` | Blue | Black | Solid | 1.5 | Regular |
-| `Styles.PrimaryThin` | Blue | Black | Solid | 0.75 | Thin |
-| `Styles.PrimaryBold` | Blue | Black | Solid | 2.5 | Bold |
+| `Styles.Primary` (`PrimaryBordered`) | Blue | Black/Blue6 | Solid | 1.5 | Regular |
+| `Styles.PrimaryThin` | Blue | Black/Blue6 | Solid | 0.75 | Thin |
+| `Styles.PrimaryBold` | Blue | Black/Blue6 | Solid | 2.5 | Bold |
 | `Styles.PrimaryFlat` | Blue | None | None | 0.0 | Regular |
-| `Styles.PrimarySolid` | Transparent | Blue | Solid | 1.5 | Regular |
+| `Styles.PrimaryOutline` (`PrimarySolid`) | Transparent | Blue | Solid | 1.5 | Regular |
 | `Styles.PrimaryDashed` | Transparent | Blue | Dashed | 1.5 | Regular |
 | `Styles.PrimaryDotted` | Transparent | Blue | Dotted | 1.5 | Regular |
-| `Styles.PrimarySolidThin` | Transparent | Blue | Solid | 0.75 | Thin |
-| `Styles.PrimarySolidBold` | Transparent | Blue | Solid | 2.5 | Bold |
+| `Styles.PrimarySolidThin` (`PrimaryOutlineThin`) | Transparent | Blue | Solid | 0.75 | Thin |
+| `Styles.PrimarySolidBold` (`PrimaryOutlineBold`) | Transparent | Blue | Solid | 2.5 | Bold |
 | `Styles.PrimaryDashedThin` | Transparent | Blue | Dashed | 0.75 | Thin |
 | `Styles.PrimaryDashedBold` | Transparent | Blue | Dashed | 2.5 | Bold |
 | `Styles.PrimaryDottedThin` | Transparent | Blue | Dotted | 0.75 | Thin |
 | `Styles.PrimaryDottedBold` | Transparent | Blue | Dotted | 2.5 | Bold |
+| `Styles.Neutral` | Neutral | Gray | Solid | 1.5 | Regular |
 | `Styles.Warning` | Amber/Yellow | Black/Gray | Solid | 1.5 | Regular |
 | `Styles.WarningDotted` | Transparent | Amber/Yellow | Dotted | 1.5 | Regular |
 | `Styles.Red` | Red | Red | Solid | 1.5 | Regular |
@@ -415,7 +408,7 @@ Not every visual property applies to every drawing element. For example, lines d
 ```text
 ┌─────────────────┬───────────┬──────────────┬─────────────┬─────────────┬──────────────┬─────────────┐
 │  Drawing Item   │  Default  │ Thin / Bold  │    Flat     │    Solid    │  Solid Thin/ │ Dashed All  │
-│                 │ (<color>) │ (<color>_*)  │ (<color>_*) │ (<color>_*) │  Solid Bold  │ (<color>_*) │
+│                 │ (<Color>) │ (<Color>*)   │ (<Color>*)  │ (<Color>*)  │  Solid Bold  │ (<Color>*)  │
 ├─────────────────┼───────────┼──────────────┼─────────────┼─────────────┼──────────────┼─────────────┤
 │ Shapes          │     ✓     │      ✓       │      ✓      │      ✓      │      ✓       │      ✓      │
 │ Lines & Connect │     ✓     │      ✓       │     N/A     │      ✓      │      ✓       │      ✓      │
@@ -429,37 +422,36 @@ Not every visual property applies to every drawing element. For example, lines d
 
 ### 6.2. Element-Specific Resolution Rules
 
-1. **Shapes (`rectangle`, `circle`, `polygon`, `wedge`, `donut`, `star`, etc.)**:
+1. **Shapes (`rectangle`, `circle(..., hole_ratio=...)`, `polygon`, `wedge`, `star`, etc.)**:
    - Supports 100% of preset variations.
-   - `flat` strips border outline by setting `line_width=0`.
-   - `solid` removes background fill by setting `fill_color=Colors.Transparent`.
-   - `dashed` sets `fill_color=Colors.Transparent` and `line_style="dashed"`.
-   - `light` and `bold` scale `line_width` to 0.75 and 2.25 respectively.
+   - `Flat` strips border outline by setting `shape_line_width=0`.
+   - `Outline` / `Solid` removes background fill by setting `shape_fill_color=Colors.Transparent`.
+   - `Dashed` sets `shape_fill_color=Colors.Transparent` and `shape_line_style="dashed"`.
+   - `Dotted` sets `shape_fill_color=Colors.Transparent` and `shape_line_style="dotted"`.
+   - `Thin` and `Bold` scale `shape_line_width` to `0.75` and `2.5` respectively.
 
-2. **Lines & Connectors (`line`, `lines`, `bezier`, `arrow`, `line_curved`)**:
+2. **Lines & Connectors (`line`, `lines`, `line_bezier1`, `line_bezier2`, `lines_bezier`, `line_curved`, `lines_curved`, `line_arc`)**:
    - Lines do not have an interior fill; they only have stroke properties (`line_color`, `line_width`, `line_style`).
-   - Suffixes `solid`, `dashed`, `thin`, `bold` work seamlessly.
-   - Applying `flat` to a line is an anti-pattern because `flat` sets `line_width=0`, making the line invisible.
+   - Suffixes `Solid`, `Dashed`, `Dotted`, `Thin`, `Bold` work seamlessly (`Thin` = `0.75`, default = `1.5`, `Bold` = `2.5`).
+   - Applying `Flat` to a line is an anti-pattern because `Flat` sets `line_width=0` (or `shape_line_width=0`), which is intended for borderless filled shapes.
 
 3. **Text (`text`, `text_vertical`, shape `text_style`)**:
    - Text elements only extract `text_color`, `text_size`, and `text_font`.
-   - The `<color>` token controls `text_color`.
-   - Weight tokens `thin` and `bold` automatically select corresponding typography fonts:
-     - `thin` -> `Font.SANSSERIF_THIN`
+   - The `<Color>` token controls `text_color`.
+   - Weight tokens `Thin` and `Bold` automatically select corresponding typography fonts:
+     - `Thin` -> `Font.SANSSERIF_THIN`
      - `default` -> `Font.SANSSERIF_REGULAR`
-     - `bold` -> `Font.SANSSERIF_BOLD`
-   - Outline tokens (`flat`, `solid`, `dashed`) have no effect on text glyphs.
+     - `Bold` -> `Font.SANSSERIF_BOLD`
+   - Outline tokens (`Flat`, `Solid`, `Dashed`, `Dotted`) have no effect on text glyphs.
 
-4. **Icons (`drawlib.icons.phosphor`, `drawlib.icons.gcp`)**:
+4. **Icons (`drawlib.icons.phosphor`, `drawlib.icons.gcp`, `drawlib.icons.aws`, `drawlib.icons.azure`, etc.)**:
    - **Phosphor Vector Font Icons**:
-     - `<color>` maps to `text_color` (glyph color).
-     - `flat` triggers `icon_style="fill"` (solid silhouette icon).
-     - `light` maps to `icon_style="thin"` or `icon_style="light"`.
-     - `bold` maps to `icon_style="bold"`.
-   - **GCP Architecture Icons**:
-     - Render multi-color graphics by default.
-     - `solid`, `dashed`, and weight modifiers apply to the surrounding rectangular icon boundary frame.
-     - `flat` ensures the boundary frame has zero border outline.
+     - `<Color>` maps to `text_color` (glyph color).
+     - `Flat` triggers `icon_style="fill"` (solid silhouette icon).
+     - `Thin` maps to `icon_style="thin"` or `icon_style="light"`.
+     - `Bold` maps to `icon_style="bold"`.
+   - **Raster / Cloud Architecture Icons**:
+     - Render multi-color or monochrome graphics according to suite.
 
 ---
 
@@ -540,40 +532,45 @@ def get_cloud_styles() -> CloudPlatformStyles:
     c_gray = Color.from_hex("#5f6368")
 
     return CloudPlatformStyles(
-        Primary=Style(fill_color=c_blue, line_color=c_gray, line_width=1.5),
-        PrimaryThin=Style(fill_color=c_blue, line_color=c_gray, line_width=0.75),
-        PrimaryBold=Style(fill_color=c_blue, line_color=c_gray, line_width=2.5),
-        PrimaryFlat=Style(fill_color=c_blue, line_width=0),
-        PrimarySolid=Style(fill_color=Colors.Transparent, line_color=c_blue, line_width=1.5),
-        PrimaryDashed=Style(fill_color=Colors.Transparent, line_color=c_blue, line_width=1.5, line_style="dashed"),
+        Primary=Style(shape_fill_color=c_blue, shape_line_color=c_gray, shape_line_width=1.5),
+        PrimaryThin=Style(shape_fill_color=c_blue, shape_line_color=c_gray, shape_line_width=0.75),
+        PrimaryBold=Style(shape_fill_color=c_blue, shape_line_color=c_gray, shape_line_width=2.5),
+        PrimaryFlat=Style(shape_fill_color=c_blue, shape_line_width=0.0),
+        PrimarySolid=Style(shape_fill_color=Colors.Transparent, shape_line_color=c_blue, shape_line_width=1.5),
+        PrimaryDashed=Style(
+            shape_fill_color=Colors.Transparent,
+            shape_line_color=c_blue,
+            shape_line_width=1.5,
+            shape_line_style="dashed",
+        ),
         # Domain roles
         VpcBoundary=Style(
-            fill_color=Colors.Transparent,
-            line_color=c_blue,
-            line_width=2.0,
-            line_style="dashed",
+            shape_fill_color=Colors.Transparent,
+            shape_line_color=c_blue,
+            shape_line_width=2.0,
+            shape_line_style="dashed",
         ),
         PublicSubnet=Style(
-            fill_color=(235, 248, 255, 0.6),
-            line_color=c_blue,
-            line_width=1.0,
-            line_style="dotted",
+            shape_fill_color=(235, 248, 255, 0.6),
+            shape_line_color=c_blue,
+            shape_line_width=1.0,
+            shape_line_style="dotted",
         ),
         PrivateSubnet=Style(
-            fill_color=(240, 240, 240, 0.6),
-            line_color=c_gray,
-            line_width=1.0,
-            line_style="dotted",
+            shape_fill_color=(240, 240, 240, 0.6),
+            shape_line_color=c_gray,
+            shape_line_width=1.0,
+            shape_line_style="dotted",
         ),
         FirewallBlock=Style(
-            fill_color=c_red,
-            line_color=Colors.Black,
-            line_width=1.5,
+            shape_fill_color=c_red,
+            shape_line_color=Colors.Black,
+            shape_line_width=1.5,
         ),
         ActiveWorker=Style(
-            fill_color=c_green,
-            line_color=Colors.Black,
-            line_width=1.5,
+            shape_fill_color=c_green,
+            shape_line_color=Colors.Black,
+            shape_line_width=1.5,
         ),
     )
 ```
@@ -594,7 +591,7 @@ custom_metric = cloud_styles.get("LatencyAlert", cloud_styles.Primary)
 # 3. Iterating all defined fields
 for field_name, style_obj in cloud_styles:
     if isinstance(style_obj, Style):
-        print(f"Role: {field_name}, Line Width: {style_obj.line_width}")
+        print(f"Role: {field_name}, Line Width: {style_obj.shape_line_width}")
 
 # 4. Extracting only Style objects as a dictionary
 style_dict = cloud_styles.styles()
@@ -789,7 +786,7 @@ from drawlib.types import Style
 
 # 1. Dynamic retrieval via string key (PascalCase)
 s_alert = Styles["RedSolidBold"]
-assert s_alert.line_width == 2.25
+assert s_alert.line_width == 2.5
 assert s_alert.shape_fill_color == (0, 0, 0, 0.0)  # Transparent fill
 
 
@@ -841,18 +838,18 @@ custom_styles = Styles.patch(Primary=Styles.PrimaryBold)
 custom_style = Styles.Primary.patch(line_width=10.0)
 ```
 
-### Pitfall 3: Applying `flat` to Line Elements
+### Pitfall 3: Applying `Flat` to Line Elements
 
-The `flat` modifier explicitly strips border lines by configuring `line_width=0`. Because `line()` objects possess no interior fill, applying a `Flat` style renders the line completely invisible.
+The `Flat` modifier explicitly strips border lines by configuring `line_width=0`. Because `line()` objects possess no interior fill, applying a `Flat` style renders the line completely invisible.
 
-- For lines, always use `""`, `Solid`, or `Dashed` along with `Thin` or `Bold` (e.g. `Styles.Blue`, `Styles.GreenDashed`, `Styles.RedBold`).
+- For lines, always use `""`, `Solid`, `Dashed`, or `Dotted` along with `Thin` or `Bold` (e.g. `Styles.Blue`, `Styles.GreenDashed`, `Styles.RedBold`).
 
-### Pitfall 4: Misinterpreting `flat` vs `solid`
+### Pitfall 4: Misinterpreting `Flat` vs `Solid` (`Outline`)
 
-A common source of confusion for newcomers is the distinction between `flat` and `solid`:
+A common source of confusion for newcomers is the distinction between `Flat` and `Solid` (`Outline`):
 
-- **`flat`**: Solid fill color, **zero border outline**. Think of a borderless flat UI badge or solid card.
-- **`solid`**: **Solid continuous line border**, with a **transparent interior fill**. Think of a hollow wireframe container.
+- **`Flat`**: Solid fill color, **zero border outline**. Think of a borderless flat UI badge or solid card.
+- **`Solid` / `Outline`**: **Solid continuous line border**, with a **transparent interior fill**. Think of a hollow wireframe container.
 
 ---
 
@@ -862,36 +859,36 @@ A common source of confusion for newcomers is the distinction between `flat` and
 
 ```text
 Default Colors:
-  red           RGB(255, 23, 23)     green         RGB(15, 127, 15)
-  blue          RGB(31, 31, 255)     black         RGB(0, 0, 0)
-  white         RGB(255, 255, 255)
+  Red           RGB(255, 23, 23)     Green         RGB(15, 127, 15)
+  Blue          RGB(31, 31, 255)     Black         RGB(0, 0, 0)
+  White         RGB(255, 255, 255)
 
 Popular Default Colors:
-  teal          RGB(15, 127, 127)    orange        RGB(255, 120, 0)
-  navy          RGB(15, 25, 110)     purple        RGB(130, 20, 160)
-  gray          RGB(140, 152, 170)   amber         RGB(215, 134, 20)
-  aqua          RGB(47, 239, 239)    olive         RGB(127, 127, 31)
-  brown         RGB(145, 45, 25)     pink          RGB(255, 50, 150)
-  steel         RGB(96, 96, 143)     yellow        RGB(255, 230, 0)
+  Teal          RGB(15, 127, 127)    Orange        RGB(255, 120, 0)
+  Navy          RGB(15, 25, 110)     Purple        RGB(130, 20, 160)
+  Gray          RGB(140, 152, 170)   Amber         RGB(215, 134, 20)
+  Aqua          RGB(47, 239, 239)    Olive         RGB(127, 127, 31)
+  Brown         RGB(145, 45, 25)     Pink          RGB(255, 50, 150)
+  Steel         RGB(96, 96, 143)     Yellow        RGB(255, 230, 0)
 ```
 
-### 11.2. Structure & Weight Matrix
+### 11.2. Structure & Weight Matrix (17 Orthogonal Variants)
 
-| Suffix | Fill Behavior | Outline Behavior | Border Line Style | Border Width | Font Weight |
+| PascalCase Suffix | Fill Behavior | Outline Behavior | Border Line Style | Border Width | Font Weight |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| `""` | Color Fill | Black/Color Border | Solid | 1.5 px | Regular |
-| `_thin` | Color Fill | Black/Color Border | Solid | 0.75 px | Thin |
-| `_bold` | Color Fill | Black/Color Border | Solid | 2.5 px | Bold |
-| `_flat` | Color Fill | No Border | None | 0.0 px | Regular |
-| `_solid` | Transparent | Color Border | Solid | 1.5 px | Regular |
-| `_solid_thin` | Transparent | Color Border | Solid | 0.75 px | Thin |
-| `_solid_bold` | Transparent | Color Border | Solid | 2.5 px | Bold |
-| `_dashed` | Transparent | Color Border | Dashed | 1.5 px | Regular |
-| `_dashed_thin`| Transparent | Color Border | Dashed | 0.75 px | Thin |
-| `_dashed_bold` | Transparent | Color Border | Dashed | 2.5 px | Bold |
-| `_dotted` | Transparent | Color Border | Dotted | 1.5 px | Regular |
-| `_dotted_thin`| Transparent | Color Border | Dotted | 0.75 px | Thin |
-| `_dotted_bold` | Transparent | Color Border | Dotted | 2.5 px | Bold |
+| `""` / `Bordered` | Color Fill | Black/Color Border | Solid | 1.5 px | Regular |
+| `Thin` | Color Fill | Black/Color Border | Solid | 0.75 px | Thin |
+| `Bold` | Color Fill | Black/Color Border | Solid | 2.5 px | Bold |
+| `Flat` | Color Fill | No Border | None | 0.0 px | Regular |
+| `Outline` / `Solid` | Transparent | Color Border | Solid | 1.5 px | Regular |
+| `OutlineThin` / `SolidThin` | Transparent | Color Border | Solid | 0.75 px | Thin |
+| `OutlineBold` / `SolidBold` | Transparent | Color Border | Solid | 2.5 px | Bold |
+| `Dashed` | Transparent | Color Border | Dashed | 1.5 px | Regular |
+| `DashedThin` | Transparent | Color Border | Dashed | 0.75 px | Thin |
+| `DashedBold` | Transparent | Color Border | Dashed | 2.5 px | Bold |
+| `Dotted` | Transparent | Color Border | Dotted | 1.5 px | Regular |
+| `DottedThin` | Transparent | Color Border | Dotted | 0.75 px | Thin |
+| `DottedBold` | Transparent | Color Border | Dotted | 2.5 px | Bold |
 
 ### 11.3. Essential Code Snippets
 

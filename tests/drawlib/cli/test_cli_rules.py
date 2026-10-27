@@ -58,7 +58,13 @@ def test_cli_rules_list() -> None:
         "api",
         "lib-canvas",
         "lib-anim",
-        "lib-shapes",
+        "lib-shapes-overview",
+        "lib-shapes-basic",
+        "lib-shapes-polygon",
+        "lib-shapes-arrow",
+        "lib-shapes-badge",
+        "lib-shapes-container",
+        "lib-shapes-symbol",
         "lib-lines",
         "lib-text",
         "lib-preset-colors",
@@ -66,13 +72,29 @@ def test_cli_rules_list() -> None:
         "lib-preset-styles",
         "lib-fonts",
         "lib-images",
-        "lib-icons",
+        "lib-icons-overview",
+        "lib-icons-phosphor",
+        "lib-icons-gcp",
+        "lib-icons-aws",
+        "lib-icons-azure",
         "lib-math",
         "lib-types",
-        "lib-smartarts",
-        "lib-charts",
-        "lib-diagrams",
-        "lib-graph",
+        "lib-smartarts-overview",
+        "lib-smartarts-table",
+        "lib-smartarts-geomap",
+        "lib-smartarts-kpi-cards",
+        "lib-charts-overview",
+        "lib-charts-bar",
+        "lib-charts-heatmap",
+        "lib-diagrams-overview",
+        "lib-diagrams-architecture",
+        "lib-diagrams-flow",
+        "lib-diagrams-sequence",
+        "lib-diagrams-state",
+        "lib-diagrams-class",
+        "lib-diagrams-er",
+        "lib-graph-overview",
+        "lib-graph-architecture",
         "lib-tools",
         "lib-slide",
     ]:
@@ -97,7 +119,9 @@ def test_cli_rules_list() -> None:
         ("api", "# Drawlib API Reference & Cheat Sheet"),
         ("lib-canvas", "# Drawlib Canvas Guidelines"),
         ("lib-anim", "# Drawlib Animation Guidelines"),
-        ("lib-shapes", "# Drawlib Shapes Guidelines"),
+        ("lib-shapes-overview", "# Drawlib Shapes Overview Guidelines (`lib-shapes-overview`)"),
+        ("lib-shapes-basic", "# Drawlib Basic Shapes Guidelines (`lib-shapes-basic`)"),
+        ("lib-shapes-polygon", "# Drawlib Polygon Shapes Guidelines (`lib-shapes-polygon`)"),
         ("lib-lines", "# Drawlib Lines Guidelines"),
         ("lib-text", "# Drawlib Text Guidelines"),
         ("lib-preset-colors", "# Drawlib Preset Colors Guidelines"),
@@ -105,13 +129,22 @@ def test_cli_rules_list() -> None:
         ("lib-preset-styles", "# Drawlib Preset Styles Guidelines"),
         ("lib-fonts", "# Drawlib Fonts Guidelines"),
         ("lib-images", "# Drawlib Images Guidelines"),
-        ("lib-icons", "# Drawlib Icons Guidelines"),
+        ("lib-icons-overview", "# Drawlib Icons Overview Guidelines (`lib-icons-overview`)"),
+        ("lib-icons-phosphor", "# Drawlib Phosphor Icons Guidelines (`lib-icons-phosphor`)"),
+        ("lib-icons-gcp", "# Drawlib GCP Icons Guidelines (`lib-icons-gcp`)"),
         ("lib-math", "# Drawlib Math Guidelines"),
         ("lib-types", "# Drawlib Types & Style Models Guidelines"),
-        ("lib-smartarts", "# Drawlib SmartArts Guidelines"),
-        ("lib-charts", "# Drawlib Charts Guidelines"),
-        ("lib-diagrams", "# Drawlib Diagrams Guidelines"),
-        ("lib-graph", "# Drawlib Graph Guidelines"),
+        ("lib-smartarts-overview", "# Drawlib SmartArts Overview Guidelines (`lib-smartarts-overview`)"),
+        ("lib-smartarts-table", "# Drawlib Table SmartArt Guidelines (`lib-smartarts-table`)"),
+        ("lib-smartarts-geomap", "# Drawlib GeoMap SmartArt Guidelines (`lib-smartarts-geomap`)"),
+        ("lib-charts-overview", "# Drawlib Charts Overview Guidelines (`lib-charts-overview`)"),
+        ("lib-charts-bar", "# Drawlib BarChart Guidelines (`lib-charts-bar`)"),
+        ("lib-charts-heatmap", "# Drawlib HeatmapChart & HeatmapOverlay Guidelines (`lib-charts-heatmap`)"),
+        ("lib-diagrams-overview", "# Drawlib Diagrams Overview Guidelines (`lib-diagrams-overview`)"),
+        ("lib-diagrams-architecture", "# Drawlib ArchitectureDiagram Guidelines (`lib-diagrams-architecture`)"),
+        ("lib-diagrams-flow", "# Drawlib FlowDiagram Guidelines (`lib-diagrams-flow`)"),
+        ("lib-graph-overview", "# Drawlib Graph Overview Guidelines (`lib-graph-overview`)"),
+        ("lib-graph-architecture", "# Drawlib ArchitectureGraph Guidelines (`lib-graph-architecture`)"),
         ("lib-tools", "# Drawlib Tools Guidelines"),
         ("lib-slide", "# Drawlib Slide Presentation & Stage Guidelines"),
     ],
@@ -125,9 +158,9 @@ def test_cli_rules_show_topics(topic: str, expected_heading: str) -> None:
 
 def test_cli_rules_show_underscore_normalization() -> None:
     """Test `drawlib rules show` transparently accepts underscore-style topic names."""
-    res = run_drawlib_cli(["rules", "show", "lib_shapes"])
+    res = run_drawlib_cli(["rules", "show", "lib_shapes_overview"])
     assert res.returncode == 0
-    assert "# Drawlib Shapes Guidelines" in res.stdout
+    assert "# Drawlib Shapes Overview Guidelines (`lib-shapes-overview`)" in res.stdout
 
     res_agent = run_drawlib_cli(["rules", "show", "agent_instruction"])
     assert res_agent.returncode == 0
@@ -174,6 +207,12 @@ def test_cli_rules_show_underscore_normalization() -> None:
         "overview_min",
         "docs-build",
         "docs_build",
+        "lib-shapes",
+        "lib-icons",
+        "lib-smartarts",
+        "lib-charts",
+        "lib-diagrams",
+        "lib-graph",
     ],
 )
 def test_cli_rules_show_deprecated_topics_rejected(deprecated_topic: str) -> None:
@@ -220,9 +259,9 @@ def test_cli_rules_show_rebuild_and_clear() -> None:
 
 def test_cli_rules_build_specific_topic() -> None:
     """Test `drawlib rules build <topic>` pre-builds illustrations."""
-    res_build = run_drawlib_cli(["rules", "build", "lib-shapes", "--force"])
+    res_build = run_drawlib_cli(["rules", "build", "lib-shapes-overview", "--force"])
     assert res_build.returncode == 0
-    assert "Successfully compiled rule topic 'lib-shapes'" in res_build.stdout
+    assert "Successfully compiled rule topic 'lib-shapes-overview'" in res_build.stdout
 
     # Clear cache after test
     res_clear = run_drawlib_cli(["rules", "clear"])
