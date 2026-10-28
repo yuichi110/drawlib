@@ -2,11 +2,6 @@
 
 Drawlib is a pure-Python drawing library and documentation compiler crafted for **"Illustration as Code"** and **"Illustrated Documentation as Code"**.
 
-Designed from the ground up for modern software engineering and **autonomous AI coding agents**, Drawlib eliminates manual GUI drawing tools and brittle image files. Developers and LLM agents can create, version-control, and publish publication-grade architectural diagrams, flowcharts, data charts, and complete multi-page documentation sites entirely from declarative Python code.
-
-> **Note — Built Autonomously with Drawlib & Gemini:**
-> Every page of prose and every illustration in this documentation was authored directly inside this Git repository using **Drawlib** and the **Gemini Coding Agent** (running in the **Antigravity IDE**). Human involvement was limited to high-level prompts—all document structure, technical explanations, and diagram designs were planned, coded, and visually verified autonomously by Gemini.
-
 
 
 <figure class="drawlib-image" style="text-align: center;">
@@ -1822,6 +1817,11 @@ save()
 </details>
 
 
+
+Designed from the ground up for modern software engineering and **autonomous AI coding agents**, Drawlib eliminates manual GUI drawing tools and brittle image files. Developers and LLM agents can create, version-control, and publish publication-grade architectural diagrams, flowcharts, data charts, and complete multi-page documentation sites entirely from declarative Python code.
+
+> **Note — Built Autonomously with Drawlib & Gemini:**
+> Every page of prose and every illustration in this documentation was authored directly inside this Git repository using **Drawlib** and the **Gemini Coding Agent** (running in the **Antigravity IDE**). Human involvement was limited to high-level prompts—all document structure, technical explanations, and diagram designs were planned, coded, and visually verified autonomously by Gemini.
 
 ---
 

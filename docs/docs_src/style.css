@@ -433,6 +433,62 @@ html[data-theme="light"] .theme-toggle-btn .icon-moon { display: block !importan
 html[data-theme="dark"] .theme-toggle-btn .icon-sun { display: block !important; }
 html[data-theme="dark"] .theme-toggle-btn .icon-moon { display: none !important; }
 
+/* Sidebar Header & Action buttons */
+.sidebar-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Mobile Hamburger Menu Toggle Button */
+.menu-toggle-btn {
+    display: none;
+    background: transparent;
+    border: 1px solid var(--rtd-border-color);
+    border-radius: 8px;
+    width: 36px;
+    height: 36px;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--rtd-muted-color);
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+    padding: 0;
+}
+
+.menu-toggle-btn:hover {
+    background-color: var(--rtd-sidebar-hover);
+    color: var(--rtd-brand-color);
+    border-color: var(--rtd-brand-color);
+}
+
+.menu-toggle-btn svg {
+    width: 20px;
+    height: 20px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.menu-toggle-btn .icon-close {
+    display: none;
+}
+
+.menu-toggle-btn .icon-hamburger {
+    display: block;
+}
+
+.sidebar.is-open .menu-toggle-btn .icon-hamburger {
+    display: none;
+}
+
+.sidebar.is-open .menu-toggle-btn .icon-close {
+    display: block;
+}
+
 /* Base default: Light logo visible, Dark logo hidden */
 .sidebar-logo-light {
     display: block;
@@ -584,24 +640,98 @@ html[data-theme="dark"] .sidebar-logo-dark,
 @media (max-width: 768px) {
     .doc-layout {
         flex-direction: column;
+        min-height: 100vh;
     }
 
     .sidebar {
         width: 100%;
-        height: auto;
-        position: static;
+        height: 60px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
         border-right: none;
         border-bottom: 1px solid var(--rtd-border-color);
+        background-color: var(--rtd-sidebar-bg);
+        overflow: visible;
+    }
+
+    .content-wrapper {
+        margin-top: 60px;
+    }
+
+    .sidebar-header {
+        height: 60px;
+        padding: 0 1.25rem;
+        border-bottom: none;
+    }
+
+    .sidebar-logo {
+        height: 32px;
+    }
+
+    .menu-toggle-btn {
+        display: flex;
+    }
+
+    .sidebar-menu {
+        display: none;
+        position: fixed;
+        top: 60px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100vw;
+        height: calc(100vh - 60px);
+        height: calc(100dvh - 60px);
+        background-color: var(--rtd-sidebar-bg);
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        padding: 1rem 0.75rem 4rem 0.75rem;
+        border-top: 1px solid var(--rtd-border-color);
+        box-shadow: 0 16px 32px rgba(0, 0, 0, 0.18);
+        z-index: 999;
+    }
+
+    .sidebar.is-open .sidebar-menu {
+        display: block !important;
+        animation: menuFadeIn 0.2s ease-out;
+    }
+
+    .nav-item a {
+        padding: 0.65rem 1rem;
+        font-size: 0.95rem;
+    }
+
+    body.menu-open {
+        overflow: hidden;
+    }
+
+    .top-bar {
+        padding: 0.75rem 1.25rem;
     }
 
     .main-content {
-        padding: 1.5rem;
+        padding: 1.5rem 1.25rem 3rem 1.25rem;
+    }
+}
+
+@keyframes menuFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-6px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
 
 /* Print & PDF Export Immunity: Ensure clean Light Mode in printed / PDF documents */
 @media print {
-    #theme-toggle {
+    #theme-toggle,
+    #menu-toggle {
         display: none !important;
     }
 
