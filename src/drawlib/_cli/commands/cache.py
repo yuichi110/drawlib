@@ -118,7 +118,7 @@ def cmd_cache_list() -> None:
 def cmd_cache_download(
     all_assets: Annotated[
         bool,
-        typer.Option("--all", help="Download all font, icon, and map packages (default)."),
+        typer.Option("--all", help="Download all font, icon, map, and headless browser assets (default)."),
     ] = True,
     fonts: Annotated[
         bool,
@@ -132,12 +132,16 @@ def cmd_cache_download(
         bool,
         typer.Option("--maps", help="Download map packages only."),
     ] = False,
+    browser: Annotated[
+        bool,
+        typer.Option("--browser", help="Download headless Chromium browser only."),
+    ] = False,
 ) -> None:
-    """Pre-download font, icon, and/or map packages from GitHub Releases."""
+    """Pre-download font, icon, map, and/or headless Chromium browser assets."""
     try:
         from drawlib._builder._common.cache_manager import download_cache  # noqa: PLC0415
 
-        download_cache(all_assets=all_assets, fonts=fonts, icons=icons, maps=maps)
+        download_cache(all_assets=all_assets, fonts=fonts, icons=icons, maps=maps, browser=browser)
         print("Successfully downloaded requested cache assets.")
     except Exception as e:
         _handle_cache_error("Cache Error", e)

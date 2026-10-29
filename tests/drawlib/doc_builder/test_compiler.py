@@ -438,32 +438,34 @@ def test_export_html_to_pdf_missing_playwright(monkeypatch, tmp_path) -> None:
         export_html_to_pdf("<h1>Test</h1>", str(out_pdf))
 
     err_msg = str(exc_info.value)
-    assert "PDF export requires the 'playwright' package" in err_msg
-    assert 'uv add "drawlib[pdf]"' in err_msg
-    assert 'pip install "drawlib[pdf]"' in err_msg
-    assert "uv run playwright install chromium" in err_msg
-    assert "playwright install chromium" in err_msg
+    assert "PDF Export requires the 'playwright' package" in err_msg
+    assert "uv sync" in err_msg
+    assert "pip install drawlib" in err_msg
 
 
 def test_export_html_to_pdf_missing_chromium(monkeypatch, tmp_path) -> None:
-    """Test friendly error message is raised when Chromium browser is not downloaded."""
+    """Test auto-install is attempted when Chromium is missing and friendly error is raised if still missing."""
     mock_playwright = MagicMock()
     mock_p = MagicMock()
     mock_playwright.return_value.__enter__.return_value = mock_p
     mock_p.chromium.launch.side_effect = Exception(
         "Executable doesn't exist at /path/to/chromium. Run playwright install"
     )
+    mock_install = MagicMock()
 
     monkeypatch.setattr("playwright.sync_api.sync_playwright", mock_playwright)
+    monkeypatch.setattr("drawlib._builder._common.browser.install_headless_chromium", mock_install)
 
     out_pdf = tmp_path / "out.pdf"
     with pytest.raises(RuntimeError) as exc_info:
         export_html_to_pdf("<h1>Test</h1>", str(out_pdf))
 
+    mock_install.assert_called_once_with(context_label="PDF Export")
+    assert mock_p.chromium.launch.call_count == 2
     err_msg = str(exc_info.value)
-    assert "Playwright is installed, but the headless Chromium browser is missing." in err_msg
-    assert "uv run playwright install chromium" in err_msg
-    assert "playwright install chromium" in err_msg
+    assert "Headless Chromium browser is not installed" in err_msg
+    assert "drawlib cache download --browser" in err_msg
+    assert "playwright install --only-shell chromium" in err_msg
 
 
 def test_build_document_missing_image_warning(tmp_path, capsys) -> None:

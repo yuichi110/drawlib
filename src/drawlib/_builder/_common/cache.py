@@ -12,12 +12,11 @@
 from __future__ import annotations
 
 import hashlib
+import importlib.metadata
 import os
 import re
 import sqlite3
 import time
-
-import matplotlib
 
 from drawlib._core.l1_core import (
     LIB_VERSION,
@@ -29,6 +28,14 @@ DEFAULT_MAX_CACHE_BYTES = 1024 * 1024 * 1024  # 1 GiB
 SCHEMA_VERSION = "1"
 
 _STRING_LITERAL_RE = re.compile(r"""['"]([^'"\n]{1,128}\.[a-zA-Z0-9]{1,8})['"]""")
+
+
+def _get_matplotlib_version() -> str:
+    """Return installed matplotlib package version without eagerly importing matplotlib."""
+    try:
+        return importlib.metadata.version("matplotlib")
+    except importlib.metadata.PackageNotFoundError:
+        return ""
 
 
 def hash_text(text: str) -> str:
@@ -148,7 +155,7 @@ class BuildImageCache:
         self._max_size_bytes = max_size_bytes
         self._lib_version = lib_version or LIB_VERSION
         self._matplotlib_version = (
-            matplotlib_version if matplotlib_version is not None else getattr(matplotlib, "__version__", "")
+            matplotlib_version if matplotlib_version is not None else _get_matplotlib_version()
         )
         resolved_path = db_path or DEFAULT_CACHE_REL_PATH
         self._db_path = os.path.abspath(resolved_path)
@@ -528,7 +535,7 @@ class CliImageCache:
         self._enabled = enabled
         self._lib_version = lib_version or LIB_VERSION
         self._matplotlib_version = (
-            matplotlib_version if matplotlib_version is not None else getattr(matplotlib, "__version__", "")
+            matplotlib_version if matplotlib_version is not None else _get_matplotlib_version()
         )
         resolved_path = db_path or get_default_cache_db_path()
         self._db_path = os.path.abspath(resolved_path)

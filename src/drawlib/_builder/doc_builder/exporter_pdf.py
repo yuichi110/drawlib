@@ -15,6 +15,15 @@ import contextlib
 import datetime
 import os
 import re
+from typing import TYPE_CHECKING
+
+from drawlib._builder._common.browser import (
+    import_sync_playwright,
+    launch_headless_chromium,
+)
+
+if TYPE_CHECKING:
+    from playwright.sync_api import Page
 
 
 def _get_fixed_pdf_date_bytes(target_len: int) -> bytes:
@@ -69,6 +78,28 @@ def normalize_pdf_timestamps(pdf_path: str) -> None:
             f.write(new_content)
 
 
+def _write_page_pdf(page: Page, abs_output: str, *, prefer_css_page_size: bool) -> None:
+    """Render an active Playwright page to PDF with CSS @page or A4 default margins."""
+    if prefer_css_page_size:
+        page.pdf(
+            path=abs_output,
+            print_background=True,
+            prefer_css_page_size=True,
+        )
+    else:
+        page.pdf(
+            path=abs_output,
+            format="A4",
+            print_background=True,
+            margin={
+                "top": "15mm",
+                "bottom": "15mm",
+                "left": "15mm",
+                "right": "15mm",
+            },
+        )
+
+
 def export_html_to_pdf(
     html_content: str,
     output_path: str,
@@ -85,28 +116,9 @@ def export_html_to_pdf(
         prefer_css_page_size (bool): If True, respect CSS @page size declarations. Defaults to False.
 
     Raises:
-        RuntimeError: If Playwright or Chromium is not installed, or if PDF generation fails.
+        RuntimeError: If Playwright or Chromium cannot be launched, or if PDF generation fails.
     """
-    try:
-        from playwright.sync_api import sync_playwright
-    except ImportError as err:
-        msg = (
-            "\n[PDF Export Error]\n"
-            "PDF export requires the 'playwright' package and a headless Chromium browser.\n\n"
-            "1. Install Playwright:\n"
-            "   - For uv users:\n"
-            '       uv add "drawlib[pdf]"\n'
-            "     (or: uv add playwright)\n\n"
-            "   - For pip users:\n"
-            '       pip install "drawlib[pdf]"\n'
-            "     (or: pip install playwright)\n\n"
-            "2. Download the headless Chromium browser:\n"
-            "   - For uv users:\n"
-            "       uv run playwright install chromium\n\n"
-            "   - For pip users:\n"
-            "       playwright install chromium\n"
-        )
-        raise RuntimeError(msg) from err
+    sync_playwright = import_sync_playwright(context_label="PDF Export")
 
     abs_output = os.path.abspath(output_path)
     output_dir = os.path.dirname(abs_output)
@@ -115,56 +127,16 @@ def export_html_to_pdf(
 
     try:
         with sync_playwright() as p:
-            try:
-                browser = p.chromium.launch(
-                    headless=True,
-                    args=[
-                        "--font-render-hinting=medium",
-                        "--enable-font-antialiasing",
-                    ],
-                )
-            except Exception as err:
-                err_str = str(err)
-                if "Executable doesn't exist" in err_str or "playwright install" in err_str:
-                    msg = (
-                        "\n[PDF Export Error]\n"
-                        "Playwright is installed, but the headless Chromium browser is missing.\n\n"
-                        "To download Chromium, run:\n"
-                        "  - For uv users:\n"
-                        "      uv run playwright install chromium\n\n"
-                        "  - For pip users:\n"
-                        "      playwright install chromium\n"
-                    )
-                    raise RuntimeError(msg) from err
-                raise RuntimeError(f"Failed to launch Chromium browser: {err}") from err
-
+            browser = launch_headless_chromium(p, context_label="PDF Export")
             try:
                 page = browser.new_page()
                 page.set_content(html_content, wait_until="networkidle")
                 # Wait for all WebFonts (e.g. Noto Sans JP) to be fully loaded and decoded before rendering PDF
                 with contextlib.suppress(Exception):
                     page.evaluate("() => document.fonts.ready")
-                if prefer_css_page_size:
-                    page.pdf(
-                        path=abs_output,
-                        print_background=True,
-                        prefer_css_page_size=True,
-                    )
-                else:
-                    page.pdf(
-                        path=abs_output,
-                        format="A4",
-                        print_background=True,
-                        margin={
-                            "top": "15mm",
-                            "bottom": "15mm",
-                            "left": "15mm",
-                            "right": "15mm",
-                        },
-                    )
+                _write_page_pdf(page, abs_output, prefer_css_page_size=prefer_css_page_size)
             finally:
                 browser.close()
-
     except Exception as err:
         if isinstance(err, RuntimeError):
             raise
@@ -194,28 +166,10 @@ def export_html_file_to_pdf(
         prefer_css_page_size (bool): If True, respect CSS @page size declarations. Defaults to True.
 
     Raises:
-        RuntimeError: If Playwright or Chromium is not installed, or if PDF generation fails.
+        FileNotFoundError: If input HTML file does not exist.
+        RuntimeError: If Playwright or Chromium cannot be launched, or if PDF generation fails.
     """
-    try:
-        from playwright.sync_api import sync_playwright
-    except ImportError as err:
-        msg = (
-            "\n[PDF Export Error]\n"
-            "PDF export requires the 'playwright' package and a headless Chromium browser.\n\n"
-            "1. Install Playwright:\n"
-            "   - For uv users:\n"
-            '       uv add "drawlib[pdf]"\n'
-            "     (or: uv add playwright)\n\n"
-            "   - For pip users:\n"
-            '       pip install "drawlib[pdf]"\n'
-            "     (or: pip install playwright)\n\n"
-            "2. Download the headless Chromium browser:\n"
-            "   - For uv users:\n"
-            "       uv run playwright install chromium\n\n"
-            "   - For pip users:\n"
-            "       playwright install chromium\n"
-        )
-        raise RuntimeError(msg) from err
+    sync_playwright = import_sync_playwright(context_label="PDF Export")
 
     abs_input = os.path.abspath(html_file_path)
     if not os.path.isfile(abs_input):
@@ -228,29 +182,7 @@ def export_html_file_to_pdf(
 
     try:
         with sync_playwright() as p:
-            try:
-                browser = p.chromium.launch(
-                    headless=True,
-                    args=[
-                        "--font-render-hinting=medium",
-                        "--enable-font-antialiasing",
-                    ],
-                )
-            except Exception as err:
-                err_str = str(err)
-                if "Executable doesn't exist" in err_str or "playwright install" in err_str:
-                    msg = (
-                        "\n[PDF Export Error]\n"
-                        "Playwright is installed, but the headless Chromium browser is missing.\n\n"
-                        "To download Chromium, run:\n"
-                        "  - For uv users:\n"
-                        "      uv run playwright install chromium\n\n"
-                        "  - For pip users:\n"
-                        "      playwright install chromium\n"
-                    )
-                    raise RuntimeError(msg) from err
-                raise RuntimeError(f"Failed to launch Chromium browser: {err}") from err
-
+            browser = launch_headless_chromium(p, context_label="PDF Export")
             try:
                 page = browser.new_page()
                 page.goto(f"file://{abs_input}", wait_until="networkidle")
@@ -258,27 +190,9 @@ def export_html_file_to_pdf(
                     page.evaluate("() => document.fonts.ready")
                 with contextlib.suppress(Exception):
                     page.evaluate("() => window.__drawlibAnimReady")
-                if prefer_css_page_size:
-                    page.pdf(
-                        path=abs_output,
-                        print_background=True,
-                        prefer_css_page_size=True,
-                    )
-                else:
-                    page.pdf(
-                        path=abs_output,
-                        format="A4",
-                        print_background=True,
-                        margin={
-                            "top": "15mm",
-                            "bottom": "15mm",
-                            "left": "15mm",
-                            "right": "15mm",
-                        },
-                    )
+                _write_page_pdf(page, abs_output, prefer_css_page_size=prefer_css_page_size)
             finally:
                 browser.close()
-
     except Exception as err:
         if isinstance(err, RuntimeError):
             raise

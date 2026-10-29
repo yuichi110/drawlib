@@ -36,9 +36,9 @@ RUN mkdir -p docs && touch docs/README_PYPI.md && \
         fi; \
     fi && rm -rf /tmp/drawlib_build
 
-# Optional: Install Playwright Chromium and OS dependencies for PDF generation
+# Optional: Install Playwright headless Chromium and OS dependencies for PDF generation
 RUN if [ "${WITH_PDF}" = "true" ]; then \
-        playwright install --with-deps chromium && \
+        playwright install --with-deps --only-shell chromium && \
         rm -rf /var/lib/apt/lists/*; \
     fi
 

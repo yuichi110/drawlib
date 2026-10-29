@@ -11,6 +11,11 @@
 
 from __future__ import annotations
 
+from drawlib._builder._common.browser import (
+    import_sync_playwright,
+    install_headless_chromium,
+    launch_headless_chromium,
+)
 from drawlib._builder._common.cache import (
     BuildImageCache,
     CliImageCache,
@@ -48,6 +53,9 @@ __all__ = [
     "format_progress_line",
     "hash_file",
     "hash_text",
+    "import_sync_playwright",
+    "install_headless_chromium",
+    "launch_headless_chromium",
     "list_cache",
     "load_styles",
     "load_styles_and_utils",

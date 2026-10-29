@@ -13,6 +13,7 @@ from __future__ import annotations
 
 from typing import Any
 
+from drawlib._builder._common.browser import install_headless_chromium
 from drawlib._builder._common.cache import BuildImageCache, CliImageCache
 from drawlib._core.l3_external import (
     download_all_assets,
@@ -78,23 +79,29 @@ def download_cache(
     fonts: bool = False,
     icons: bool = False,
     maps: bool = False,
+    browser: bool = False,
 ) -> None:
-    """Pre-download font, icon, and/or map packages into the local drawlib cache.
+    """Pre-download font, icon, map, and/or headless browser assets into local cache.
 
     Args:
         all_assets (bool): Download all assets (default True if no specific category is set).
         fonts (bool): Download font packages only.
         icons (bool): Download icon packages only.
         maps (bool): Download map packages only.
+        browser (bool): Download headless Chromium browser (`chromium-headless-shell`) only.
     """
-    if fonts or icons or maps:
+    if fonts or icons or maps or browser:
         if fonts:
             download_all_fonts()
         if icons:
             download_all_icons()
         if maps:
             download_all_maps()
+        if browser:
+            install_headless_chromium(context_label="Cache Download")
     elif all_assets:
         download_all_assets()
+        install_headless_chromium(context_label="Cache Download")
     else:
         download_all_assets()
+        install_headless_chromium(context_label="Cache Download")
