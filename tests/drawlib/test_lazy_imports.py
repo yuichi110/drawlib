@@ -26,7 +26,7 @@ def _run_isolated_python(code: str) -> subprocess.CompletedProcess[str]:
 
 
 def test_top_level_import_is_lazy() -> None:
-    """Verify `import drawlib` does not eagerly load matplotlib, pydantic, playwright, icons, or preset styles."""
+    """Verify `import drawlib` does not eagerly load matplotlib, pydantic, playwright, docx, pptx, or presets."""
     res = _run_isolated_python(
         """
 import sys
@@ -36,6 +36,8 @@ assert isinstance(drawlib.__version__, str)
 assert "matplotlib" not in sys.modules
 assert "pydantic" not in sys.modules
 assert "playwright" not in sys.modules
+assert "docx" not in sys.modules
+assert "pptx" not in sys.modules
 assert "drawlib._preset_styles" not in sys.modules
 assert "drawlib._icons" not in sys.modules
 assert "drawlib.canvas" not in sys.modules
@@ -49,7 +51,7 @@ assert dmath is drawlib.math
 
 
 def test_tools_import_does_not_load_matplotlib() -> None:
-    """Verify `drawlib.tools` helpers do not import matplotlib, playwright, or preset styles."""
+    """Verify `drawlib.tools` helpers do not import matplotlib, playwright, docx, pptx, or preset styles."""
     res = _run_isolated_python(
         """
 import sys
@@ -60,6 +62,8 @@ assert callable(list_css)
 assert callable(scan_broken_links)
 assert "matplotlib" not in sys.modules
 assert "playwright" not in sys.modules
+assert "docx" not in sys.modules
+assert "pptx" not in sys.modules
 assert "drawlib._preset_styles" not in sys.modules
 """
     )
@@ -77,6 +81,8 @@ assert Styles.Primary is not None
 assert Colors.Primary is not None
 assert "matplotlib" not in sys.modules
 assert "playwright" not in sys.modules
+assert "docx" not in sys.modules
+assert "pptx" not in sys.modules
 assert "drawlib._preset_styles._style_google" not in sys.modules
 assert "drawlib._preset_styles._style_monochrome" not in sys.modules
 
@@ -110,17 +116,22 @@ assert "drawlib._icons.png_icons.phosphor_fill" not in sys.modules
 
 
 def test_cli_app_import_does_not_load_matplotlib_or_presets() -> None:
-    """Verify loading the CLI root app and browser helper does not import matplotlib, playwright, or presets."""
+    """Verify loading the CLI root app and helpers does not import matplotlib, playwright, docx, pptx, or presets."""
     res = _run_isolated_python(
         """
 import sys
 from drawlib._cli._drawlib import app
 import drawlib._builder._common.browser as browser_mod
+import drawlib._builder._common.office as office_mod
 
 assert app is not None
 assert browser_mod is not None
+assert office_mod is not None
 assert "matplotlib" not in sys.modules
 assert "playwright" not in sys.modules
+assert "docx" not in sys.modules
+assert "pptx" not in sys.modules
+assert "PIL" not in sys.modules
 assert "drawlib._preset_styles._style_default" not in sys.modules
 assert "drawlib._preset_styles._style_google" not in sys.modules
 """

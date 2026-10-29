@@ -261,6 +261,79 @@ def cmd_build_pdf(
         _handle_build_error("Build PDF Error", e)
 
 
+@build_app.command("docx", epilog=HELP_EPILOG)
+def cmd_build_docx(
+    input_path: Annotated[
+        str,
+        typer.Argument(
+            metavar="INPUT",
+            help="Directory containing Markdown chapters or a single Markdown file (.md).",
+        ),
+    ],
+    output: Annotated[
+        str | None,
+        typer.Option("-o", "--output", help="Output MS Word (.docx) file path."),
+    ] = None,
+    page_break: Annotated[
+        bool,
+        typer.Option("--page-break/--no-page-break", help="Insert page breaks between merged chapters."),
+    ] = True,
+    generate_index: Annotated[
+        bool,
+        typer.Option(
+            "--generate-index/--no-generate-index",
+            help="Generate an index (Table of Contents) and insert it between the 1st and 2nd documents.",
+        ),
+    ] = False,
+    title: Annotated[
+        str | None,
+        typer.Option("--title", help="Document title override for the merged Word document."),
+    ] = None,
+    dpi: Annotated[
+        int,
+        typer.Option("--dpi", help="Rasterization DPI for embedded drawlib diagrams."),
+    ] = 200,
+    styles: Annotated[
+        str | None,
+        typer.Option("-s", "--styles", help="Path to Python styles script (e.g. styles.py)."),
+    ] = None,
+    utils: Annotated[
+        str | None,
+        typer.Option("-u", "--utils", help="Path to Python utils script (e.g. utils.py)."),
+    ] = None,
+    no_cache: Annotated[
+        bool,
+        typer.Option("--no-cache", help="Disable reading and writing the SQLite build image cache."),
+    ] = False,
+    timestamp: Annotated[
+        bool,
+        typer.Option(
+            "--timestamp",
+            help="Include current build timestamp in Word metadata instead of normalizing it.",
+        ),
+    ] = False,
+) -> None:
+    """Compile Markdown chapters or a single Markdown file into an editable MS Word (.docx) document."""
+    try:
+        from drawlib._builder.doc_builder import build_docx  # noqa: PLC0415
+
+        out_file = build_docx(
+            input_path=input_path,
+            output_file=output,
+            page_break=page_break,
+            generate_index=generate_index,
+            title=title,
+            dpi=dpi,
+            styles_path=styles,
+            utils_path=utils,
+            no_cache=no_cache,
+            timestamp=timestamp,
+        )
+        print(f"Successfully compiled Word document: {out_file}")
+    except Exception as e:
+        _handle_build_error("Build Word Error", e)
+
+
 @build_app.command("slide", epilog=HELP_EPILOG)
 def cmd_build_slide(
     input_dir: Annotated[
@@ -308,3 +381,70 @@ def cmd_build_slide(
         print(f"Successfully compiled presentation deck: {out_file}")
     except Exception as e:
         _handle_build_error("Build Slide Error", e)
+
+
+@build_app.command("pptx", epilog=HELP_EPILOG)
+def cmd_build_pptx(
+    input_dir: Annotated[
+        str,
+        typer.Argument(metavar="DIR", help="Directory containing Markdown (.md) slide files."),
+    ],
+    output: Annotated[
+        str | None,
+        typer.Option("-o", "--output", help="Output MS PowerPoint (.pptx) file path."),
+    ] = None,
+    theme: Annotated[
+        str | None,
+        typer.Option("-t", "--theme", help="CSS theme preset (google, default, google-dark, default-dark)."),
+    ] = None,
+    title: Annotated[
+        str | None,
+        typer.Option("--title", help="Presentation title override for PowerPoint metadata."),
+    ] = None,
+    dpi: Annotated[
+        int,
+        typer.Option("--dpi", help="Rasterization DPI for embedded drawlib diagrams."),
+    ] = 240,
+    anim_frame: Annotated[
+        Literal["first", "last"],
+        typer.Option("--anim-frame", help="Frame ('first' or 'last') extracted from animated diagrams."),
+    ] = "last",
+    styles: Annotated[
+        str | None,
+        typer.Option("-s", "--styles", help="Path to Python styles script (e.g. styles.py)."),
+    ] = None,
+    utils: Annotated[
+        str | None,
+        typer.Option("-u", "--utils", help="Path to Python utils script (e.g. utils.py)."),
+    ] = None,
+    no_cache: Annotated[
+        bool,
+        typer.Option("--no-cache", help="Disable reading and writing the SQLite build image cache."),
+    ] = False,
+    timestamp: Annotated[
+        bool,
+        typer.Option(
+            "--timestamp",
+            help="Include current build timestamp in PowerPoint metadata instead of normalizing it.",
+        ),
+    ] = False,
+) -> None:
+    """Compile a directory of Markdown slide files into an editable MS PowerPoint (.pptx) deck."""
+    try:
+        from drawlib._slide import build_pptx  # noqa: PLC0415
+
+        out_file = build_pptx(
+            input_dir=input_dir,
+            output_file=output,
+            title=title,
+            theme=theme,
+            dpi=dpi,
+            anim_frame=anim_frame,
+            styles_path=styles,
+            utils_path=utils,
+            no_cache=no_cache,
+            timestamp=timestamp,
+        )
+        print(f"Successfully compiled PowerPoint presentation: {out_file}")
+    except Exception as e:
+        _handle_build_error("Build PowerPoint Error", e)

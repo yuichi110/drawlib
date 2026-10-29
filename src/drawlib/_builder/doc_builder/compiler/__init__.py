@@ -7,15 +7,17 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Document compilers for HTML, Markdown, and PDF."""
+"""Document compilers for HTML, Markdown, PDF, and MS Word (.docx)."""
 
 from __future__ import annotations
 
+from drawlib._builder.doc_builder.compiler.docx import build_docx
 from drawlib._builder.doc_builder.compiler.html import build_html
 from drawlib._builder.doc_builder.compiler.markdown import build_markdown
 from drawlib._builder.doc_builder.compiler.pdf import build_pdf
 
 __all__ = [
+    "build_docx",
     "build_html",
     "build_markdown",
     "build_pdf",

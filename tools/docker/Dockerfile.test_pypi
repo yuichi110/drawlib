@@ -34,7 +34,7 @@ RUN pip index versions drawlib \
 RUN pip install --no-cache-dir \
     --index-url ${PYPI_URL} \
     --extra-index-url https://pypi.org/simple/ \
-    "drawlib[pdf]==${DRAWLIB_VERSION}"
+    "drawlib==${DRAWLIB_VERSION}"
 
 # Copy pytest configuration, test suite, and assets
 COPY pyproject.toml ./

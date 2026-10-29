@@ -75,6 +75,7 @@ class TestSlideFoundation:
         assert hasattr(slide_module, "SlideContext")
         assert hasattr(slide_module, "current_slide")
         assert hasattr(slide_module, "build_slide")
+        assert hasattr(slide_module, "build_pptx")
         assert hasattr(slide_module, "draw_page_number")
         assert hasattr(slide_module, "draw_section_header")
         assert slide_module.BoundingBox is BoundingBox

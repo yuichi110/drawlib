@@ -28,6 +28,11 @@ from drawlib._builder._common.cache_manager import (
     download_cache,
     list_cache,
 )
+from drawlib._builder._common.office import (
+    ensure_static_office_image,
+    normalize_opc_zip_timestamps,
+    resolve_office_datetime,
+)
 from drawlib._builder._common.progress import (
     BAR_WIDTH,
     FileBuildProgress,
@@ -49,6 +54,7 @@ __all__ = [
     "clear_cache",
     "clear_image_cache",
     "download_cache",
+    "ensure_static_office_image",
     "format_duplicate_output_error",
     "format_progress_line",
     "hash_file",
@@ -60,5 +66,7 @@ __all__ = [
     "load_styles",
     "load_styles_and_utils",
     "load_utils",
+    "normalize_opc_zip_timestamps",
+    "resolve_office_datetime",
     "resolve_styles_and_utils",
 ]

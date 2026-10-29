@@ -16,10 +16,12 @@ from drawlib.preset_colors import Color
 from drawlib.styles import Colors
 from drawlib.tools import (
     build_document,
+    build_docx,
     build_html,
     build_image,
     build_markdown,
     build_pdf,
+    build_pptx,
 )
 
 
@@ -48,9 +50,11 @@ class TestDomainUtilities:
     def test_tools_exports(self) -> None:
         """Verify drawlib.tools exports public build functions."""
         assert callable(build_document)
+        assert callable(build_docx)
         assert callable(build_html)
         assert callable(build_markdown)
         assert callable(build_pdf)
+        assert callable(build_pptx)
         assert callable(build_image)
 
     def test_css_presets(self) -> None:

@@ -15,7 +15,7 @@ import os
 import re
 import shutil
 from pathlib import Path
-from typing import Final
+from typing import TYPE_CHECKING, Final, Literal
 
 from drawlib._builder._common import resolve_styles_and_utils
 from drawlib._builder.doc_builder.processor import DrawlibBlockProcessor
@@ -28,10 +28,63 @@ from drawlib._slide._blocks import (
 )
 from drawlib._slide.base import reset_slide_context, set_slide_context
 
+if TYPE_CHECKING:
+    from drawlib._builder.doc_builder.processor.options import DrawlibBlockOptions
+
 _PATTERN_DRAWLIB: Final[re.Pattern[str]] = re.compile(
     r"(?<=\n)[ \t]*```drawlib([^\n]*)\n(.*?)\n[ \t]*```",
     re.DOTALL,
 )
+_KNOWN_DIAGRAM_EXTS: Final[tuple[str, ...]] = (".svg", ".png", ".apng", ".webp", ".jpg", ".jpeg")
+
+
+def _resolve_drawlib_filename(
+    options: DrawlibBlockOptions,
+    idx: int,
+    counter: int,
+    default_format: str,
+    *,
+    has_anim: bool,
+    force_image_format: bool,
+) -> str:
+    """Resolve output filename for a single drawlib block."""
+    if force_image_format:
+        eff_fmt = default_format or "png"
+    else:
+        eff_fmt = options.format or default_format or "svg"
+        if has_anim and eff_fmt == "svg":
+            eff_fmt = "png"
+
+    if not options.file:
+        return f"drawlib_{idx}_{counter}.{eff_fmt}"
+
+    dl_file = options.file
+    if force_image_format:
+        stem, ext = os.path.splitext(dl_file)
+        if ext.lower() in _KNOWN_DIAGRAM_EXTS:
+            return f"{stem}.{eff_fmt}"
+        return f"{dl_file}.{eff_fmt}"
+
+    if not dl_file.lower().endswith(_KNOWN_DIAGRAM_EXTS):
+        return f"{dl_file}.{eff_fmt}"
+    return dl_file
+
+
+def _flatten_slide_animation_in_place(
+    target_path: str,
+    anim_frame: Literal["first", "last"],
+) -> None:
+    """Convert multi-frame animated images in-place into a single static PNG frame."""
+    from drawlib._builder._common.office import ensure_static_office_image  # noqa: PLC0415
+
+    parent_dir = os.path.dirname(target_path) or "."
+    static_path, _, _ = ensure_static_office_image(
+        target_path,
+        parent_dir,
+        anim_frame=anim_frame,
+    )
+    if os.path.abspath(static_path) != os.path.abspath(target_path):
+        os.replace(static_path, target_path)
 
 
 def _resolve_output_dir(input_abs: str, output_dir: str | None) -> str:
@@ -125,6 +178,10 @@ def _process_drawlib_blocks(
     idx: int,
     default_format: str,
     input_abs: str | None = None,
+    *,
+    dpi: int | None = None,
+    force_image_format: bool = False,
+    static_anim_frame: Literal["first", "last"] | None = None,
 ) -> str:
     """Execute and replace ```drawlib blocks.
 
@@ -136,6 +193,9 @@ def _process_drawlib_blocks(
         idx: Slide index.
         default_format: Default image format.
         input_abs: Optional source root directory for computing relative image subdirectories.
+        dpi: Optional explicit rasterization DPI override.
+        force_image_format: If True, force all diagram filenames/extensions to default_format.
+        static_anim_frame: If set ('first' or 'last'), flatten multi-frame animations into a static PNG.
 
     Returns:
         str: Transformed markdown text.
@@ -163,15 +223,14 @@ def _process_drawlib_blocks(
             or bool(options.anim_pause)
             or "Animation(" in code
         )
-        eff_fmt = options.format or default_format or "svg"
-        if has_anim and eff_fmt == "svg":
-            eff_fmt = "png"
-        if options.file:
-            dl_file = options.file
-            if not dl_file.endswith((".svg", ".png", ".apng", ".webp")):
-                dl_file = f"{dl_file}.{eff_fmt}"
-        else:
-            dl_file = f"drawlib_{idx}_{counter}.{eff_fmt}"
+        dl_file = _resolve_drawlib_filename(
+            options,
+            idx,
+            counter,
+            default_format,
+            has_anim=has_anim,
+            force_image_format=force_image_format,
+        )
 
         if "/" in dl_file or "\\" in dl_file:
             rel_asset_path = dl_file.replace("\\", "/")
@@ -185,8 +244,12 @@ def _process_drawlib_blocks(
             target_path,
             source_filename=file_path,
             no_cache=options.no_cache,
+            dpi=dpi,
         )
-        return format_asset_markup(rel_asset_path, "Illustration", output_abs=output_abs, options=options)
+        if static_anim_frame is not None:
+            _flatten_slide_animation_in_place(target_path, static_anim_frame)
+        markup_opts = None if static_anim_frame is not None else options
+        return format_asset_markup(rel_asset_path, "Illustration", output_abs=output_abs, options=markup_opts)
 
     return _PATTERN_DRAWLIB.sub(replacer, text)
 
@@ -227,6 +290,9 @@ def build_slide(
     title: str | None = None,
     theme: str | None = None,
     image_format: str = "svg",
+    dpi: int | None = None,
+    force_image_format: bool = False,
+    static_anim_frame: Literal["first", "last"] | None = None,
     styles_path: str | None = None,
     utils_path: str | None = None,
     no_cache: bool = False,
@@ -239,6 +305,9 @@ def build_slide(
         title: Optional presentation HTML title (defaults to 'Drawlib Presentation').
         theme: CSS theme preset name ('google', 'default', 'google-dark', etc.).
         image_format: Default image format for embedded diagrams ('svg', 'webp', or 'png').
+        dpi: Optional rasterization DPI override when generating raster diagrams.
+        force_image_format: If True, rewrite explicit block filenames (e.g. .svg) to image_format.
+        static_anim_frame: If set ('first' or 'last'), flatten multi-frame animations into static PNGs.
         styles_path: Optional path to custom styles.py script.
         utils_path: Optional path to custom utils.py script.
         no_cache: If True, disable reading/writing build cache.
@@ -304,6 +373,9 @@ def build_slide(
                     idx,
                     image_format,
                     input_abs=input_abs,
+                    dpi=dpi,
+                    force_image_format=force_image_format,
+                    static_anim_frame=static_anim_frame,
                 )
                 t_containers = process_container_blocks(t_drawlib)
                 rendered_body = t_containers.strip()

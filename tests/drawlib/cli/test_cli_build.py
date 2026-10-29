@@ -444,3 +444,55 @@ def test_cli_build_slide_favicon(tmp_path) -> None:
 
     index_html = (out_dir / "index.html").read_text(encoding="utf-8")
     assert '<link rel="icon" type="image/png" href="_assets/favicon.png">' in index_html
+
+
+def test_cli_build_docx_directory_and_single_file(tmp_path) -> None:
+    """Test CLI build docx compiles chapters directory and single file."""
+    doc_dir = tmp_path / "report_src"
+    doc_dir.mkdir()
+    (doc_dir / "00_cover.md").write_text("# Annual Report\n\nExecutive summary.", encoding="utf-8")
+    (doc_dir / "01_metrics.md").write_text("# Key Metrics\n\n- Availability: 99.99%", encoding="utf-8")
+
+    res_dir = run_drawlib_cli(
+        ["build", "docx", str(doc_dir), "--generate-index", "--dpi", "150"],
+        cwd=str(tmp_path),
+    )
+    assert res_dir.returncode == 0, res_dir.stderr
+    assert "Successfully compiled Word document" in res_dir.stdout
+    default_docx = tmp_path / "report.docx"
+    assert default_docx.is_file()
+    assert default_docx.stat().st_size > 0
+
+    single_md = tmp_path / "note.md"
+    single_md.write_text("# Quick Note\n\nStandalone markdown file.", encoding="utf-8")
+    out_note = tmp_path / "custom_note.docx"
+    res_single = run_drawlib_cli(
+        ["build", "docx", str(single_md), "-o", str(out_note)],
+        cwd=str(tmp_path),
+    )
+    assert res_single.returncode == 0, res_single.stderr
+    assert out_note.is_file()
+
+
+def test_cli_build_pptx(tmp_path) -> None:
+    """Test CLI build pptx compiles a slide source directory into a .pptx deck."""
+    slide_dir = tmp_path / "talk_src"
+    slide_dir.mkdir()
+    (slide_dir / "01_title.md").write_text("# Tech Talk\n\nOpening slide.", encoding="utf-8")
+    (slide_dir / "02_agenda.md").write_text(
+        "::: block xy=(80, 80) width=1760 height=800\n"
+        "# Agenda\n\n- Topic A\n- Topic B\n:::\n\n"
+        "::: note\nSpeaker cue.\n:::\n",
+        encoding="utf-8",
+    )
+
+    res = run_drawlib_cli(
+        ["build", "pptx", str(slide_dir), "--dpi", "120", "--anim-frame", "last"],
+        cwd=str(tmp_path),
+    )
+    assert res.returncode == 0, res.stderr
+    assert "Successfully compiled PowerPoint presentation" in res.stdout
+    default_pptx = tmp_path / "talk.pptx"
+    assert default_pptx.is_file()
+    assert default_pptx.stat().st_size > 0
+

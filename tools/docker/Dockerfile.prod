@@ -20,20 +20,12 @@ WORKDIR /tmp/drawlib_build
 COPY pyproject.toml ./
 COPY src/ ./src/
 
-# Install drawlib (from local source or PyPI, with optional [pdf] extras)
+# Install drawlib (from local source or PyPI)
 RUN mkdir -p docs && touch docs/README_PYPI.md && \
     if [ "${INSTALL_SOURCE}" = "pypi" ]; then \
-        if [ "${WITH_PDF}" = "true" ]; then \
-            pip install --no-cache-dir "drawlib[pdf]==${DRAWLIB_VERSION}"; \
-        else \
-            pip install --no-cache-dir "drawlib==${DRAWLIB_VERSION}"; \
-        fi; \
+        pip install --no-cache-dir "drawlib==${DRAWLIB_VERSION}"; \
     else \
-        if [ "${WITH_PDF}" = "true" ]; then \
-            pip install --no-cache-dir ".[pdf]"; \
-        else \
-            pip install --no-cache-dir "."; \
-        fi; \
+        pip install --no-cache-dir "."; \
     fi && rm -rf /tmp/drawlib_build
 
 # Optional: Install Playwright headless Chromium and OS dependencies for PDF generation

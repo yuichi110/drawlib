@@ -21,6 +21,7 @@ from drawlib._slide.base import (
     set_slide_context,
 )
 from drawlib._slide.compiler import build_slide
+from drawlib._slide.compiler_pptx import build_pptx
 from drawlib._slide.helpers import (
     draw_page_number,
     draw_section_header,
@@ -29,6 +30,7 @@ from drawlib._slide.helpers import (
 __all__ = [
     "BoundingBox",
     "SlideContext",
+    "build_pptx",
     "build_slide",
     "current_slide",
     "draw_page_number",

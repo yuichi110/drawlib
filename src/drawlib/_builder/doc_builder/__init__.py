@@ -18,6 +18,7 @@ from drawlib._builder._common import (
     resolve_styles_and_utils,
 )
 from drawlib._builder.doc_builder.compiler import (
+    build_docx,
     build_html,
     build_markdown,
     build_pdf,
@@ -71,18 +72,18 @@ def build_document(
     no_cache: bool = False,
     timestamp: bool = False,
 ) -> str:
-    """Compile input documentation directory into HTML, PDF, or Markdown.
+    """Compile input documentation directory into HTML, PDF, Word (.docx), or Markdown.
 
     Args:
         input_dir (str): Directory containing documentation source files.
         output_path (Optional[str]): Output directory or destination file.
-        output_format (Optional[str]): 'html', 'pdf', or 'markdown'. Defaults to 'html'.
+        output_format (Optional[str]): 'html', 'pdf', 'docx', or 'markdown'. Defaults to 'html'.
         image_format (str): 'png' or 'webp'. Defaults to 'png'.
         css_mode (str): CSS mode for HTML ('external' or 'embed').
         styles_path (Optional[str]): Path to custom styles.py script.
         utils_path (Optional[str]): Path to custom utils.py script.
         no_cache (bool): If True, disable image build caching.
-        timestamp (bool): Include build timestamp in PDF if output_format is 'pdf'.
+        timestamp (bool): Include build timestamp in PDF or Word metadata.
 
     Returns:
         str: Absolute path of generated output directory or file.
@@ -91,6 +92,8 @@ def build_document(
     if not fmt:
         if output_path and output_path.endswith(".pdf"):
             fmt = "pdf"
+        elif output_path and output_path.endswith(".docx"):
+            fmt = "docx"
         elif output_path and output_path.endswith(".md"):
             fmt = "markdown"
         else:
@@ -107,6 +110,15 @@ def build_document(
         )
     if fmt == "pdf":
         return build_pdf(
+            input_dir=input_dir,
+            output_file=output_path,
+            styles_path=styles_path,
+            utils_path=utils_path,
+            no_cache=no_cache,
+            timestamp=timestamp,
+        )
+    if fmt in {"docx", "word"}:
+        return build_docx(
             input_dir=input_dir,
             output_file=output_path,
             styles_path=styles_path,
@@ -134,6 +146,7 @@ __all__ = [
     "NavbarItem",
     "NavbarSection",
     "build_document",
+    "build_docx",
     "build_html",
     "build_markdown",
     "build_merged_html",

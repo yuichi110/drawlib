@@ -22,6 +22,7 @@ if TYPE_CHECKING:
     from drawlib._builder._common.cache_manager import clear_cache, download_cache, list_cache
     from drawlib._builder.doc_builder import (
         build_document,
+        build_docx,
         build_html,
         build_markdown,
         build_pdf,
@@ -31,7 +32,7 @@ if TYPE_CHECKING:
     )
     from drawlib._builder.image_builder import build_image
     from drawlib._http_server import scan_broken_links, serve_docs
-    from drawlib._slide import build_slide
+    from drawlib._slide import build_pptx, build_slide
     from drawlib._templates import (
         export_css,
         get_css,
@@ -48,6 +49,7 @@ _LAZY_ATTRS: Final[dict[str, str]] = {
     "download_cache": "drawlib._builder._common.cache_manager",
     "list_cache": "drawlib._builder._common.cache_manager",
     "build_document": "drawlib._builder.doc_builder",
+    "build_docx": "drawlib._builder.doc_builder",
     "build_html": "drawlib._builder.doc_builder",
     "build_markdown": "drawlib._builder.doc_builder",
     "build_pdf": "drawlib._builder.doc_builder",
@@ -57,6 +59,7 @@ _LAZY_ATTRS: Final[dict[str, str]] = {
     "build_image": "drawlib._builder.image_builder",
     "scan_broken_links": "drawlib._http_server",
     "serve_docs": "drawlib._http_server",
+    "build_pptx": "drawlib._slide",
     "build_slide": "drawlib._slide",
     "export_css": "drawlib._templates",
     "get_css": "drawlib._templates",
@@ -86,10 +89,12 @@ def __dir__() -> list[str]:
 
 __all__ = [
     "build_document",
+    "build_docx",
     "build_html",
     "build_image",
     "build_markdown",
     "build_pdf",
+    "build_pptx",
     "build_slide",
     "clear_cache",
     "detect_document_type",

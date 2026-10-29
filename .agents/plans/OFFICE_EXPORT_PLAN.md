@@ -6,11 +6,11 @@
   - **Phase 1**: `doc` プロジェクト向け MS Word (`.docx`) 出力機能 (`drawlib build docx`)
   - **Phase 2**: `slide` プロジェクト向け MS PowerPoint (`.pptx`) 出力機能 (`drawlib build pptx`)
 - **位置づけ・基本方針**:
-  - PDF 出力はほぼ全ユーザーが利用するため、`playwright>=1.49.0` をデフォルトの標準依存（`dependencies`）へ昇格させ、初回ビルド時に軽量な `chromium-headless-shell` を自動取得する仕組み（事前コマンド不要）に刷新する。
-  - Word / PowerPoint 出力は HTML / PDF（メイン出力）に対する **オプション（おまけ）のエクスポート機能** として位置づける。
+  - PDF / Word / PowerPoint の全出力が `uv add drawlib` 一発で利用できるよう、`playwright>=1.49.0`・`python-docx>=1.2.0`・`python-pptx>=1.0.2` をすべて標準依存（`dependencies`）に含め、`[project.optional-dependencies]` は完全に廃止する。
+  - Headless Chromium については初回ビルド時に軽量な `chromium-headless-shell` を自動取得する仕組み（事前コマンド不要）に刷新する。
+  - Word / PowerPoint 出力は HTML / PDF（メイン出力）に対する **補助（おまけ）のエクスポート機能** として位置づけ、既存の標準 `./build.sh` には強制組み込みしない（ビルド時間増大を避けるため）。
   - 本文・見出し・箇条書き・Markdown テーブル・コードブロック・スピーカーノート（`::: note`）は **Word / PowerPoint 上で編集可能なネイティブ要素** として出力する。
   - ```` ```drawlib ```` コードブロックで描画される図版は、閲覧者環境でのフォント・アイコン（Phosphor 等）の文字化けやパス崩れを確実に防ぐため、**高解像度 PNG 画像** として配置する。
-  - 高速な起動時間（遅延ロード）を維持するため、Office 系ライブラリは `pyproject.toml` の `[project.optional-dependencies]` に分離し、既存の標準 `./build.sh` には強制組み込みしない（未導入環境でのビルド失敗を防ぐ）。
 
 ---
 
@@ -18,15 +18,15 @@
 
 | フェーズ | 対象 | 主な変更・追加コマンド | 使用ライブラリ | 変換・動作アーキテクチャ | 難易度・リスク |
 | :--- | :--- | :--- | :--- | :--- | :---: |
-| **Phase 0: Playwright 標準化 & 自動取得基盤** | PDF / PPTX 共通基盤 (`exporter_pdf.py`, `cache.py`) | `drawlib cache download --browser`（`build pdf` 初回自動取得） | `playwright>=1.49.0`（標準 `dependencies` へ移行） | 初回ブラウザ未導入検知時に内部ドライバ経由で `--only-shell chromium` を自動取得（最小 Linux コンテナの共有ライブラリ不足時のみ手順案内） | 低 |
-| **Phase 1: MS Word (`.docx`) 出力** | `doc` プロジェクト（および単一 `.md`） | `drawlib build docx` | `python-docx>=1.2.0` (`[docx]` / `[office]`) | `DrawlibBlockProcessor` (高解像度 PNG) + `markdown-it-py` トークン走査 + `pygments` → `python-docx`（ブラウザ不要） | 低 |
-| **Phase 2: MS PowerPoint (`.pptx`) 出力** | `slide` プロジェクト | `drawlib build pptx` | `python-pptx>=1.0.2` (`[pptx]` / `[office]`) + 標準 `playwright` | `build_slide` (高解像度 PNG モード) → Headless Chromium `1920×1080` DOM 計測 → `python-pptx` (`0.5` 倍座標変換) | 中 |
+| **Phase 0: Playwright 標準化 & 自動取得基盤** | PDF / PPTX 共通基盤 (`exporter_pdf.py`, `cache.py`) | `drawlib cache download --browser`（`build pdf` 初回自動取得） | `playwright>=1.49.0`（標準 `dependencies`） | 初回ブラウザ未導入検知時に内部ドライバ経由で `--only-shell chromium` を自動取得（最小 Linux コンテナの共有ライブラリ不足時のみ手順案内） | 低 |
+| **Phase 1: MS Word (`.docx`) 出力** | `doc` プロジェクト（および単一 `.md`） | `drawlib build docx` | `python-docx>=1.2.0`（標準 `dependencies`） | `DrawlibBlockProcessor` (高解像度 PNG) + `markdown-it-py` トークン走査 + `pygments` → `python-docx`（ブラウザ不要） | 低 |
+| **Phase 2: MS PowerPoint (`.pptx`) 出力** | `slide` プロジェクト | `drawlib build pptx` | `python-pptx>=1.0.2` + `playwright`（標準 `dependencies`） | `build_slide` (高解像度 PNG モード) → Headless Chromium `1920×1080` DOM 計測 → `python-pptx` (`0.5` 倍座標変換) | 中 |
 
 ---
 
 ## 2. 依存関係・Playwright 自動セットアップ設計 (`pyproject.toml`)
 
-※ 実装時に新規依存を追加・変更する際は、事前にライセンス（`python-docx` / `python-pptx` は MIT、`playwright` は Apache-2.0）・脆弱性・Python 3.11〜3.13 互換性監査（`./dcli pypi deps` 等）を実施する。
+※ 新規依存のライセンス（`python-docx` / `python-pptx` は MIT、`playwright` は Apache-2.0）・脆弱性・Python 3.11〜3.13 互換性を確認済み。
 
 ```toml
 dependencies = [
@@ -38,28 +38,16 @@ dependencies = [
     "typer>=0.12.0",
     "rich>=13.0.0",
     "playwright>=1.49.0",
-]
-
-[project.optional-dependencies]
-pdf = []  # 既存スクリプト・Dockerfile 向け後方互換エイリアス（空リスト）
-docx = [
-    "python-docx>=1.2.0",
-]
-pptx = [
-    "python-pptx>=1.0.2",
-]
-office = [
     "python-docx>=1.2.0",
     "python-pptx>=1.0.2",
 ]
 ```
 
 ### 2.1. パッケージ構成と遅延ロード
-- **`playwright` 標準依存化と互換維持**:
-  - `uv add drawlib` だけで PDF 生成（`./build.sh`）が一発で通るように `playwright>=1.49.0` を標準 `dependencies` に入れる。既存の `pip install "drawlib[pdf]"` が警告を出さないよう `pdf = []` を互換エイリアスとして残す。
-  - Word / PowerPoint の追加依存はそれぞれ `docx = ["python-docx>=1.2.0"]`、`pptx = ["python-pptx>=1.0.2"]`、一括導入用 `office` と非常にシンプルな 1 対 1 構成になる（`[dependency-groups] dev` にも両者を追加）。
+- **全エクスポート依存の標準統合**:
+  - `uv add drawlib` だけで PDF・Word・PowerPoint 生成が一発で通るように `playwright>=1.49.0`・`python-docx>=1.2.0`・`python-pptx>=1.0.2` をすべて標準 `dependencies` に統合し、`[project.optional-dependencies]` は廃止する。
 - **遅延ロード（Lazy Import）の徹底**:
-  - 標準依存に入った `playwright` も含め、`playwright` / `docx` / `pptx` はすべてエクスポータ関数内部でのみ遅延 import し、`import drawlib` や通常の画像・HTML ビルド時のオーバーヘッドを **0ms** に保つ（`tests/drawlib/test_lazy_imports.py` で検証）。
+  - 標準依存に入った `playwright` / `docx` / `pptx` はすべてエクスポータ関数内部でのみ遅延 import し、`import drawlib` や通常の画像・HTML ビルド時のオーバーヘッドを **0ms** に保つ（`tests/drawlib/test_lazy_imports.py` で検証）。
 
 ### 2.2. Headless Chromium オンデマンド自動取得 (`_builder/_common/browser.py` 新設)
 ユーザーに手動で `uv run playwright install chromium` コマンドを叩かせる手間をなくし、フォント・アイコンキャッシュ（`l3_external`）と同じオンデマンド体験に統一する：
@@ -216,8 +204,8 @@ uv run drawlib build pptx <DIR> \
 Phase 1・Phase 2 の実装にあわせて以下を更新・検証する：
 
 1. **テンプレート・スクリプト方針**:
-   - オプション機能であるため、既存の `init doc` / `init slide` が生成する標準 `build.sh` は変更しない（`drawlib[office]` 未インストール環境でも `./build.sh` がそのまま成功することを保証する）。
-   - `src/drawlib/_rules/cli.md`, `project_doc.md`, `project_slide.md`、および公式ドキュメント（`docs/docs_src/01_getting_started/installation.md`, `09_doc_builder_and_cli/`）にオプションの MS Office エクスポート手順（`drawlib[docx]`, `drawlib[pptx]`, `drawlib[office]`）を追記する。
+   - 補助機能であるため、既存の `init doc` / `init slide` が生成する標準 `build.sh` は変更しない（不要なビルド時間増大を避けるため）。
+   - `src/drawlib/_rules/cli.md`, `project_doc.md`, `project_slide.md`、および公式ドキュメント（`docs/docs_src/01_getting_started/installation.md`, `09_doc_builder_and_cli/`）に MS Office エクスポート手順（`drawlib build docx`, `drawlib build pptx`）および `[pdf]` extra 廃止（全機能標準同梱）を反映する。
 2. **完了チェックリスト**:
    - `./dcli code-check all`（Ruff lint/format、Ty 型チェック、Docstring チェック）がエラーゼロでパスすること。
    - `./dcli test all`（新規単体テストおよび `test_lazy_imports.py` を含む全テスト）がパスすること。

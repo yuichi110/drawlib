@@ -19,6 +19,8 @@ dependencies = [
     "typer>=0.12.0",
     "rich>=13.0.0",
     "playwright>=1.49.0",
+    "python-docx>=1.2.0",
+    "python-pptx>=1.0.2",
 ]
 
 [project.urls]
@@ -27,9 +29,6 @@ Repository = "https://github.com/yuichi110/drawlib"
 
 [project.scripts]
 drawlib = "drawlib._cli.main:main"
-
-[project.optional-dependencies]
-pdf = []
 
 [dependency-groups]
 dev = [
@@ -43,7 +42,6 @@ dev = [
     "typer>=0.12.0",
     "rich>=13.0.0",
     "pytest-xdist>=3.8.0",
-    "playwright>=1.49.0",
 ]
 
 [tool.ruff]

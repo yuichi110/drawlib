@@ -131,6 +131,7 @@ class DrawlibBlockProcessor:
         cache_target_file: str | None = None,
         extra_cache_salt: str = "",
         no_cache: bool = False,
+        dpi: int | None = None,
     ) -> None:
         """Execute a single drawlib code block and save output image to target file path."""
         target_abs_path = os.path.abspath(target_file_path)
@@ -157,6 +158,8 @@ class DrawlibBlockProcessor:
             )
             eff_target = cache_target_file or target_abs_path
             eff_salt = f"{extra_cache_salt}:svg-fonts-v1" if fmt == "svg" else extra_cache_salt
+            if dpi is not None and dpi != 100:
+                eff_salt = f"{eff_salt}:dpi={dpi}" if eff_salt else f"dpi={dpi}"
             cache_key, code_hash = self._cache.compute_keys(
                 code=code,
                 config_hash=self.config_hash,
@@ -184,7 +187,16 @@ class DrawlibBlockProcessor:
                 shared_globals=self.shared_globals,
             )
 
-        self._exec_code_block(code, source_filename=source_filename, shared_globals=self.shared_globals)
+        from drawlib._core.l4_canvas._base import CanvasBase
+
+        orig_default_dpi = CanvasBase.DEFAULT_DPI
+        if dpi is not None:
+            setattr(CanvasBase, "DEFAULT_DPI", int(dpi))
+        try:
+            self._exec_code_block(code, source_filename=source_filename, shared_globals=self.shared_globals)
+        finally:
+            if dpi is not None:
+                setattr(CanvasBase, "DEFAULT_DPI", orig_default_dpi)
 
         os.makedirs(os.path.dirname(target_abs_path), exist_ok=True)
         if grid is True:
@@ -217,6 +229,7 @@ class DrawlibBlockProcessor:
         source_filename: str = "<drawlib_block>",
         target_file_path: str | None = None,
         no_cache: bool = False,
+        dpi: int | None = None,
     ) -> str:
         """Execute a single drawlib code block and return a base64 Data URL string."""
         if image_format == "svg":
@@ -237,6 +250,7 @@ class DrawlibBlockProcessor:
                 source_filename=source_filename,
                 cache_target_file=target_file_path,
                 no_cache=no_cache,
+                dpi=dpi,
             )
             with open(tmp_file, "rb") as f:
                 b64_str = base64.b64encode(f.read()).decode("utf-8")

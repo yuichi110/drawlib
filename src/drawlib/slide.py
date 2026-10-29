@@ -14,6 +14,7 @@ from __future__ import annotations
 from drawlib._slide import (
     BoundingBox,
     SlideContext,
+    build_pptx,
     build_slide,
     current_slide,
     draw_page_number,
@@ -23,6 +24,7 @@ from drawlib._slide import (
 __all__ = [
     "BoundingBox",
     "SlideContext",
+    "build_pptx",
     "build_slide",
     "current_slide",
     "draw_page_number",

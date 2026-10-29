@@ -21,10 +21,10 @@ RUN pip install --no-cache-dir \
     matplotlib==3.10.9 \
     pillow==12.2.0
 
-# Copy and install local drawlib package (including [pdf] extras for unit test mocks)
+# Copy and install local drawlib package
 COPY pyproject.toml ./
 COPY src/ ./src/
-RUN mkdir -p docs && touch docs/README_PYPI.md && pip install --no-cache-dir ".[pdf]" && rm -rf ./src ./docs
+RUN mkdir -p docs && touch docs/README_PYPI.md && pip install --no-cache-dir "." && rm -rf ./src ./docs
 
 # Copy test suite and assets
 COPY tests/ ./tests/
