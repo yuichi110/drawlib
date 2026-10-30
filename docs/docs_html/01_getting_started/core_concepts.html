@@ -593,46 +593,277 @@
             </header>
             <main class="main-content">
                 <h1>Core Visual Concepts</h1>
-<p>To create clean, professional illustrations with Drawlib, it is important to understand its underlying geometry and visual design principles.</p>
-<hr />
-<h2>1. The Cartesian Coordinate System</h2>
-<p>Drawlib uses a standard <strong>mathematical Cartesian coordinate system</strong> where the origin <code>(0, 0)</code> is fixed at the bottom-left corner of the canvas:</p>
+<p>To create clean, professional illustrations with Drawlib, it is important to understand its underlying <strong>Cartesian coordinate space</strong>, <strong>anchor alignments</strong>, and <strong>endpoint connectors</strong>:</p>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="core_concepts_images/cartesian_coordinate_system.png" alt="core_concepts_1" />
-  <figcaption class="drawlib-caption">Drawlib Cartesian Coordinate System</figcaption>
+  <figcaption class="drawlib-caption">Core Coordinate Geometry: Axes, Anchor Alignment, and Point-to-Point Lines (APNG Animation)</figcaption>
 </figure>
 <details class="drawlib-code-details">
 <summary>Source Code</summary>
-<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.anim</span><span class="w"> </span><span class="kn">import</span> <span class="n">Animation</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">circle</span><span class="p">,</span> <span class="n">rectangle</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">54</span><span class="p">,</span> <span class="n">grid</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">74</span><span class="p">)</span>
+<span class="n">anim</span> <span class="o">=</span> <span class="n">Animation</span><span class="p">(</span><span class="n">fps</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">loop</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
-<span class="c1"># Canvas boundary frame</span>
-<span class="n">rectangle</span><span class="p">((</span><span class="mi">50</span><span class="p">,</span> <span class="mi">27</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">96</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
+<span class="c1"># Map a true 1:1 square (0..100 x 0..100) coordinate space onto canvas</span>
+<span class="n">PLANE_X0</span><span class="p">,</span> <span class="n">PLANE_Y0</span> <span class="o">=</span> <span class="mf">16.0</span><span class="p">,</span> <span class="mf">11.0</span>
+<span class="n">PLANE_SIZE</span> <span class="o">=</span> <span class="mf">54.0</span>
+<span class="n">SCALE</span> <span class="o">=</span> <span class="n">PLANE_SIZE</span> <span class="o">/</span> <span class="mf">100.0</span>
 
-<span class="c1"># Origin marker</span>
-<span class="n">circle</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">1.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerFlat</span><span class="p">)</span>
-<span class="n">text</span><span class="p">((</span><span class="mi">8</span><span class="p">,</span> <span class="mf">10.5</span><span class="p">),</span> <span class="s2">"(0, 0) Bottom-Left Origin"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">))</span>
 
-<span class="c1"># Center-based element</span>
-<span class="n">rectangle</span><span class="p">((</span><span class="mi">62</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">44</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
-<span class="n">circle</span><span class="p">((</span><span class="mi">62</span><span class="p">,</span> <span class="mf">27.5</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">1.6</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WarningFlat</span><span class="p">)</span>
-<span class="n">text</span><span class="p">((</span><span class="mi">62</span><span class="p">,</span> <span class="mf">33.5</span><span class="p">),</span> <span class="s2">"Centered at (62, 30)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.5</span><span class="p">))</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">pt</span><span class="p">(</span><span class="n">vx</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">vy</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""Map virtual (0..100, 0..100) coordinates to canvas coordinates."""</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">PLANE_X0</span> <span class="o">+</span> <span class="n">vx</span> <span class="o">*</span> <span class="n">SCALE</span><span class="p">,</span> <span class="n">PLANE_Y0</span> <span class="o">+</span> <span class="n">vy</span> <span class="o">*</span> <span class="n">SCALE</span><span class="p">)</span>
 
-<span class="c1"># Y-axis</span>
-<span class="n">line</span><span class="p">((</span><span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">48</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
-<span class="n">text</span><span class="p">((</span><span class="mi">9</span><span class="p">,</span> <span class="mi">45</span><span class="p">),</span> <span class="s2">"+Y (Upwards)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">))</span>
 
-<span class="c1"># X-axis</span>
-<span class="n">line</span><span class="p">((</span><span class="mi">8</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="mi">48</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
-<span class="n">text</span><span class="p">((</span><span class="mi">51</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="s2">"+X (Rightwards)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">))</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">draw_plane_and_axes</span><span class="p">(</span><span class="n">axis_progress</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span> <span class="n">show_endpoints</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Draw 100x100 canvas frame, subtle grid, origin (0,0), and X/Y axes."""</span>
+    <span class="c1"># Subtle 100x100 canvas sheet</span>
+    <span class="n">cx</span><span class="p">,</span> <span class="n">cy</span> <span class="o">=</span> <span class="n">pt</span><span class="p">(</span><span class="mf">50.0</span><span class="p">,</span> <span class="mf">50.0</span><span class="p">)</span>
+    <span class="n">rectangle</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="p">),</span>
+        <span class="n">width</span><span class="o">=</span><span class="n">PLANE_SIZE</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="n">PLANE_SIZE</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+            <span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">250</span><span class="p">,</span> <span class="mi">252</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span>
+            <span class="n">shape_line_color</span><span class="o">=</span><span class="p">(</span><span class="mi">203</span><span class="p">,</span> <span class="mi">213</span><span class="p">,</span> <span class="mi">225</span><span class="p">),</span>
+            <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.1</span><span class="p">,</span>
+            <span class="n">shape_line_style</span><span class="o">=</span><span class="s2">"dashed"</span><span class="p">,</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Subtle internal 25/50/75 grid lines</span>
+    <span class="n">grid_st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">MutedThin</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_color</span><span class="o">=</span><span class="p">(</span><span class="mi">232</span><span class="p">,</span> <span class="mi">238</span><span class="p">,</span> <span class="mi">246</span><span class="p">),</span> <span class="n">line_width</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="p">(</span><span class="mf">25.0</span><span class="p">,</span> <span class="mf">50.0</span><span class="p">,</span> <span class="mf">75.0</span><span class="p">):</span>
+        <span class="n">line</span><span class="p">(</span><span class="n">pt</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">),</span> <span class="n">pt</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="n">grid_st</span><span class="p">)</span>
+        <span class="n">line</span><span class="p">(</span><span class="n">pt</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">g</span><span class="p">),</span> <span class="n">pt</span><span class="p">(</span><span class="mf">100.0</span><span class="p">,</span> <span class="n">g</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="n">grid_st</span><span class="p">)</span>
+
+    <span class="c1"># Growing X and Y axes from (0, 0)</span>
+    <span class="k">if</span> <span class="n">axis_progress</span> <span class="o">&gt;</span> <span class="mf">0.0</span><span class="p">:</span>
+        <span class="n">end_v</span> <span class="o">=</span> <span class="mf">100.0</span> <span class="o">*</span> <span class="n">axis_progress</span>
+        <span class="n">line</span><span class="p">(</span><span class="n">pt</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">),</span> <span class="n">pt</span><span class="p">(</span><span class="n">end_v</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">1.8</span><span class="p">))</span>
+        <span class="n">line</span><span class="p">(</span><span class="n">pt</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">),</span> <span class="n">pt</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">end_v</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">1.8</span><span class="p">))</span>
+
+    <span class="c1"># Origin (0, 0) dot &amp; label</span>
+    <span class="n">ox</span><span class="p">,</span> <span class="n">oy</span> <span class="o">=</span> <span class="n">pt</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+    <span class="n">circle</span><span class="p">((</span><span class="n">ox</span><span class="p">,</span> <span class="n">oy</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">1.45</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerFlat</span><span class="p">)</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">ox</span> <span class="o">-</span> <span class="mf">1.2</span><span class="p">,</span> <span class="n">oy</span> <span class="o">-</span> <span class="mf">3.6</span><span class="p">),</span> <span class="s2">"(0, 0)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"center"</span><span class="p">))</span>
+
+    <span class="c1"># Endpoint labels (100, 0) and (0, 100)</span>
+    <span class="k">if</span> <span class="n">show_endpoints</span><span class="p">:</span>
+        <span class="n">x_tip</span> <span class="o">=</span> <span class="n">pt</span><span class="p">(</span><span class="mf">100.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+        <span class="n">y_tip</span> <span class="o">=</span> <span class="n">pt</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">)</span>
+        <span class="n">text</span><span class="p">((</span><span class="n">x_tip</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x_tip</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mf">3.8</span><span class="p">),</span> <span class="s2">"(100, 0)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.8</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"center"</span><span class="p">))</span>
+        <span class="n">text</span><span class="p">((</span><span class="n">y_tip</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">y_tip</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mf">3.6</span><span class="p">),</span> <span class="s2">"(0, 100)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.8</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"center"</span><span class="p">))</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">draw_info_card</span><span class="p">(</span><span class="n">step_badge</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">title</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">lines_info</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">bool</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Draw right-side status card explaining the active coordinate concept."""</span>
+    <span class="n">cx</span><span class="p">,</span> <span class="n">cy</span> <span class="o">=</span> <span class="mf">102.0</span><span class="p">,</span> <span class="mf">38.0</span>
+    <span class="n">w</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="mf">42.0</span><span class="p">,</span> <span class="mf">34.0</span>
+    <span class="n">rectangle</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="p">),</span>
+        <span class="n">width</span><span class="o">=</span><span class="n">w</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="n">h</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+            <span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">248</span><span class="p">,</span> <span class="mi">250</span><span class="p">,</span> <span class="mi">254</span><span class="p">),</span>
+            <span class="n">shape_line_color</span><span class="o">=</span><span class="p">(</span><span class="mi">195</span><span class="p">,</span> <span class="mi">208</span><span class="p">,</span> <span class="mi">226</span><span class="p">),</span>
+            <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span>
+            <span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">rectangle</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span> <span class="o">+</span> <span class="n">h</span> <span class="o">/</span> <span class="mf">2.0</span> <span class="o">-</span> <span class="mf">4.2</span><span class="p">),</span>
+        <span class="n">width</span><span class="o">=</span><span class="n">w</span> <span class="o">-</span> <span class="mf">5.0</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mf">5.2</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span> <span class="n">shape_line_width</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
+        <span class="n">text</span><span class="o">=</span><span class="n">step_badge</span><span class="p">,</span>
+        <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.2</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span> <span class="o">+</span> <span class="mf">5.8</span><span class="p">),</span> <span class="n">title</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.5</span><span class="p">))</span>
+
+    <span class="n">start_y</span> <span class="o">=</span> <span class="n">cy</span> <span class="o">+</span> <span class="mf">0.2</span>
+    <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="p">(</span><span class="n">txt</span><span class="p">,</span> <span class="n">is_accent</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">lines_info</span><span class="p">):</span>
+        <span class="n">st</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">is_accent</span>
+            <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.2</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">start_y</span> <span class="o">-</span> <span class="n">idx</span> <span class="o">*</span> <span class="mf">4.4</span><span class="p">),</span> <span class="n">txt</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">st</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">draw_circle_alignment_scene</span><span class="p">(</span><span class="n">halign</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">valign</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">show_ghost_center</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Draw circle anchored at (50, 50) with specified halign and valign."""</span>
+    <span class="n">draw_plane_and_axes</span><span class="p">(</span><span class="n">axis_progress</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">show_endpoints</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">c50</span> <span class="o">=</span> <span class="n">pt</span><span class="p">(</span><span class="mf">50.0</span><span class="p">,</span> <span class="mf">50.0</span><span class="p">)</span>
+    <span class="n">rad</span> <span class="o">=</span> <span class="mf">20.0</span> <span class="o">*</span> <span class="n">SCALE</span>
+    <span class="n">is_shifted</span> <span class="o">=</span> <span class="p">(</span><span class="n">halign</span><span class="p">,</span> <span class="n">valign</span><span class="p">)</span> <span class="o">!=</span> <span class="p">(</span><span class="s2">"center"</span><span class="p">,</span> <span class="s2">"center"</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">show_ghost_center</span><span class="p">:</span>
+        <span class="n">circle</span><span class="p">(</span>
+            <span class="n">c50</span><span class="p">,</span>
+            <span class="n">radius</span><span class="o">=</span><span class="n">rad</span><span class="p">,</span>
+            <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+                <span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+                <span class="n">shape_line_color</span><span class="o">=</span><span class="p">(</span><span class="mi">190</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">215</span><span class="p">),</span>
+                <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+
+    <span class="c1"># Subtle bounding box on shifted states so corner-to-(50, 50) anchor is crystal clear</span>
+    <span class="k">if</span> <span class="n">is_shifted</span><span class="p">:</span>
+        <span class="n">rectangle</span><span class="p">(</span>
+            <span class="n">c50</span><span class="p">,</span>
+            <span class="n">width</span><span class="o">=</span><span class="n">rad</span> <span class="o">*</span> <span class="mf">2.0</span><span class="p">,</span>
+            <span class="n">height</span><span class="o">=</span><span class="n">rad</span> <span class="o">*</span> <span class="mf">2.0</span><span class="p">,</span>
+            <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryDashed</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+                <span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+                <span class="n">shape_line_color</span><span class="o">=</span><span class="p">(</span><span class="mi">135</span><span class="p">,</span> <span class="mi">162</span><span class="p">,</span> <span class="mi">228</span><span class="p">),</span>
+                <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+                <span class="n">halign</span><span class="o">=</span><span class="n">halign</span><span class="p">,</span>
+                <span class="n">valign</span><span class="o">=</span><span class="n">valign</span><span class="p">,</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+
+    <span class="c1"># Shifted or centered circle using Drawlib's native halign / valign</span>
+    <span class="n">circle</span><span class="p">(</span>
+        <span class="n">c50</span><span class="p">,</span>
+        <span class="n">radius</span><span class="o">=</span><span class="n">rad</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+            <span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">59</span><span class="p">,</span> <span class="mi">102</span><span class="p">,</span> <span class="mi">212</span><span class="p">,</span> <span class="mf">0.22</span><span class="p">),</span>
+            <span class="n">shape_line_color</span><span class="o">=</span><span class="p">(</span><span class="mi">59</span><span class="p">,</span> <span class="mi">102</span><span class="p">,</span> <span class="mi">212</span><span class="p">),</span>
+            <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.8</span><span class="p">,</span>
+            <span class="n">halign</span><span class="o">=</span><span class="n">halign</span><span class="p">,</span>
+            <span class="n">valign</span><span class="o">=</span><span class="n">valign</span><span class="p">,</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Fixed (50, 50) anchor pin drawn on top so shift relative to (50, 50) is unmistakable</span>
+    <span class="n">circle</span><span class="p">(</span><span class="n">c50</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mf">1.45</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerFlat</span><span class="p">)</span>
+    <span class="n">label_y</span> <span class="o">=</span> <span class="n">c50</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mf">3.6</span> <span class="k">if</span> <span class="n">valign</span> <span class="o">!=</span> <span class="s2">"top"</span> <span class="k">else</span> <span class="n">c50</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mf">3.6</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">c50</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">label_y</span><span class="p">),</span> <span class="s2">"(50, 50)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
+
+    <span class="n">draw_info_card</span><span class="p">(</span>
+        <span class="s2">"2 / 3  Anchor &amp; Align"</span><span class="p">,</span>
+        <span class="s2">"circle((50, 50), ...)"</span><span class="p">,</span>
+        <span class="p">[</span>
+            <span class="p">(</span><span class="sa">f</span><span class="s1">'halign = "</span><span class="si">{</span><span class="n">halign</span><span class="si">}</span><span class="s1">"'</span><span class="p">,</span> <span class="n">is_shifted</span><span class="p">),</span>
+            <span class="p">(</span><span class="sa">f</span><span class="s1">'valign = "</span><span class="si">{</span><span class="n">valign</span><span class="si">}</span><span class="s1">"'</span><span class="p">,</span> <span class="n">is_shifted</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">"Default: center"</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">is_shifted</span> <span class="k">else</span> <span class="s2">"Shifted around (50, 50)"</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
+        <span class="p">],</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">draw_line_ab_scene</span><span class="p">(</span><span class="n">line_progress</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Draw point-to-point connector from A to B after clearing the circle."""</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
+
+    <span class="n">draw_plane_and_axes</span><span class="p">(</span><span class="n">axis_progress</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">show_endpoints</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">ax</span><span class="p">,</span> <span class="n">ay</span> <span class="o">=</span> <span class="n">pt</span><span class="p">(</span><span class="mf">25.0</span><span class="p">,</span> <span class="mf">25.0</span><span class="p">)</span>
+    <span class="n">bx</span><span class="p">,</span> <span class="n">by</span> <span class="o">=</span> <span class="n">pt</span><span class="p">(</span><span class="mf">75.0</span><span class="p">,</span> <span class="mf">75.0</span><span class="p">)</span>
+    <span class="n">dot_r</span> <span class="o">=</span> <span class="mf">1.55</span>
+
+    <span class="n">dx</span><span class="p">,</span> <span class="n">dy</span> <span class="o">=</span> <span class="n">bx</span> <span class="o">-</span> <span class="n">ax</span><span class="p">,</span> <span class="n">by</span> <span class="o">-</span> <span class="n">ay</span>
+    <span class="n">dist</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">hypot</span><span class="p">(</span><span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">)</span>
+    <span class="n">ux</span><span class="p">,</span> <span class="n">uy</span> <span class="o">=</span> <span class="n">dx</span> <span class="o">/</span> <span class="n">dist</span><span class="p">,</span> <span class="n">dy</span> <span class="o">/</span> <span class="n">dist</span>
+
+    <span class="k">if</span> <span class="n">line_progress</span> <span class="o">&gt;</span> <span class="mf">0.0</span><span class="p">:</span>
+        <span class="n">start_pt</span> <span class="o">=</span> <span class="p">(</span><span class="n">ax</span> <span class="o">+</span> <span class="n">ux</span> <span class="o">*</span> <span class="p">(</span><span class="n">dot_r</span> <span class="o">+</span> <span class="mf">0.2</span><span class="p">),</span> <span class="n">ay</span> <span class="o">+</span> <span class="n">uy</span> <span class="o">*</span> <span class="p">(</span><span class="n">dot_r</span> <span class="o">+</span> <span class="mf">0.2</span><span class="p">))</span>
+        <span class="n">end_full</span> <span class="o">=</span> <span class="p">(</span><span class="n">bx</span> <span class="o">-</span> <span class="n">ux</span> <span class="o">*</span> <span class="p">(</span><span class="n">dot_r</span> <span class="o">+</span> <span class="mf">0.3</span><span class="p">),</span> <span class="n">by</span> <span class="o">-</span> <span class="n">uy</span> <span class="o">*</span> <span class="p">(</span><span class="n">dot_r</span> <span class="o">+</span> <span class="mf">0.3</span><span class="p">))</span>
+        <span class="n">cur_pt</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">start_pt</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">end_full</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">start_pt</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">*</span> <span class="n">line_progress</span><span class="p">,</span>
+            <span class="n">start_pt</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">end_full</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">start_pt</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">*</span> <span class="n">line_progress</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">line</span><span class="p">(</span>
+            <span class="n">start_pt</span><span class="p">,</span>
+            <span class="n">cur_pt</span><span class="p">,</span>
+            <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span> <span class="k">if</span> <span class="n">line_progress</span> <span class="o">&gt;=</span> <span class="mf">0.99</span> <span class="k">else</span> <span class="s2">""</span><span class="p">,</span>
+            <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">2.2</span><span class="p">),</span>
+        <span class="p">)</span>
+
+    <span class="n">circle</span><span class="p">((</span><span class="n">ax</span><span class="p">,</span> <span class="n">ay</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="n">dot_r</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkFlat</span><span class="p">)</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">ax</span> <span class="o">+</span> <span class="mf">2.2</span><span class="p">,</span> <span class="n">ay</span> <span class="o">-</span> <span class="mf">3.4</span><span class="p">),</span> <span class="s2">"A (25, 25)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">))</span>
+
+    <span class="n">circle</span><span class="p">((</span><span class="n">bx</span><span class="p">,</span> <span class="n">by</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="n">dot_r</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">)</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">bx</span> <span class="o">-</span> <span class="mf">2.2</span><span class="p">,</span> <span class="n">by</span> <span class="o">+</span> <span class="mf">3.4</span><span class="p">),</span> <span class="s2">"B (75, 75)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"right"</span><span class="p">))</span>
+
+    <span class="n">draw_info_card</span><span class="p">(</span>
+        <span class="s2">"3 / 3  Point-to-Point"</span><span class="p">,</span>
+        <span class="s2">"line(A, B)"</span><span class="p">,</span>
+        <span class="p">[</span>
+            <span class="p">(</span><span class="s2">"A = (25, 25)"</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">"B = (75, 75)"</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
+            <span class="p">(</span><span class="s1">'arrow_head = "-&gt;"'</span><span class="p">,</span> <span class="n">line_progress</span> <span class="o">&gt;=</span> <span class="mf">0.99</span><span class="p">),</span>
+        <span class="p">],</span>
+    <span class="p">)</span>
+
+
+<span class="c1"># -------------------------------------------------------------------------</span>
+<span class="c1"># Act 1: Origin (0, 0) -&gt; Extend X &amp; Y axes -&gt; Show (100, 0) &amp; (0, 100)</span>
+<span class="c1"># -------------------------------------------------------------------------</span>
+<span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="mf">1.50</span><span class="p">):</span>
+    <span class="n">draw_plane_and_axes</span><span class="p">(</span><span class="n">axis_progress</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">show_endpoints</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">draw_info_card</span><span class="p">(</span>
+        <span class="s2">"1 / 3  Cartesian Axes"</span><span class="p">,</span>
+        <span class="s2">"Bottom-Left Origin"</span><span class="p">,</span>
+        <span class="p">[(</span><span class="s2">"Origin = (0, 0)"</span><span class="p">,</span> <span class="kc">True</span><span class="p">),</span> <span class="p">(</span><span class="s2">""</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span> <span class="p">(</span><span class="s2">""</span><span class="p">,</span> <span class="kc">False</span><span class="p">)],</span>
+    <span class="p">)</span>
+
+<span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="mf">0.90</span><span class="p">):</span>
+    <span class="n">draw_plane_and_axes</span><span class="p">(</span><span class="n">axis_progress</span><span class="o">=</span><span class="mf">0.55</span><span class="p">,</span> <span class="n">show_endpoints</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">draw_info_card</span><span class="p">(</span>
+        <span class="s2">"1 / 3  Cartesian Axes"</span><span class="p">,</span>
+        <span class="s2">"Extending +X &amp; +Y"</span><span class="p">,</span>
+        <span class="p">[(</span><span class="s2">"Origin = (0, 0)"</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span> <span class="p">(</span><span class="s2">"+X Right / +Y Up"</span><span class="p">,</span> <span class="kc">True</span><span class="p">),</span> <span class="p">(</span><span class="s2">""</span><span class="p">,</span> <span class="kc">False</span><span class="p">)],</span>
+    <span class="p">)</span>
+
+<span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="mf">2.70</span><span class="p">):</span>
+    <span class="n">draw_plane_and_axes</span><span class="p">(</span><span class="n">axis_progress</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">show_endpoints</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">draw_info_card</span><span class="p">(</span>
+        <span class="s2">"1 / 3  Cartesian Axes"</span><span class="p">,</span>
+        <span class="s2">"setup(100, 100)"</span><span class="p">,</span>
+        <span class="p">[(</span><span class="s2">"Origin = (0, 0)"</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span> <span class="p">(</span><span class="s2">"X-end = (100, 0)"</span><span class="p">,</span> <span class="kc">True</span><span class="p">),</span> <span class="p">(</span><span class="s2">"Y-end = (0, 100)"</span><span class="p">,</span> <span class="kc">True</span><span class="p">)],</span>
+    <span class="p">)</span>
+
+<span class="c1"># -------------------------------------------------------------------------</span>
+<span class="c1"># Act 2: Circle at (50, 50) -&gt; Shift halign / valign around (50, 50)</span>
+<span class="c1"># -------------------------------------------------------------------------</span>
+<span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="mf">2.70</span><span class="p">):</span>
+    <span class="n">draw_circle_alignment_scene</span><span class="p">(</span><span class="s2">"center"</span><span class="p">,</span> <span class="s2">"center"</span><span class="p">,</span> <span class="n">show_ghost_center</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="mf">2.70</span><span class="p">):</span>
+    <span class="n">draw_circle_alignment_scene</span><span class="p">(</span><span class="s2">"left"</span><span class="p">,</span> <span class="s2">"bottom"</span><span class="p">,</span> <span class="n">show_ghost_center</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="mf">2.70</span><span class="p">):</span>
+    <span class="n">draw_circle_alignment_scene</span><span class="p">(</span><span class="s2">"right"</span><span class="p">,</span> <span class="s2">"top"</span><span class="p">,</span> <span class="n">show_ghost_center</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># -------------------------------------------------------------------------</span>
+<span class="c1"># Act 3: Clear circle -&gt; Draw line from A to B</span>
+<span class="c1"># -------------------------------------------------------------------------</span>
+<span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="mf">1.30</span><span class="p">):</span>
+    <span class="n">draw_line_ab_scene</span><span class="p">(</span><span class="mf">0.0</span><span class="p">)</span>
+
+<span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="mf">0.80</span><span class="p">):</span>
+    <span class="n">draw_line_ab_scene</span><span class="p">(</span><span class="mf">0.55</span><span class="p">)</span>
+
+<span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="mf">4.40</span><span class="p">):</span>
+    <span class="n">draw_line_ab_scene</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
+
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 </details>
+<hr />
+<h2>1. The Cartesian Coordinate System</h2>
+<p>Drawlib uses a standard <strong>mathematical Cartesian coordinate system</strong> where the origin <code>(0, 0)</code> is fixed at the bottom-left corner of the canvas:</p>
 <ul>
 <li><strong>Origin <code>(0, 0)</code> is at the Bottom-Left</strong>:
 <ul>
