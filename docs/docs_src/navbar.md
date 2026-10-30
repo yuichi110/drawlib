@@ -3,7 +3,7 @@
 - [Welcome](./index.md)
 
 ## 1. Getting Started
-- [About Drawlib](./01_getting_started/overview.md)
+- [Why Drawlib](./01_getting_started/overview.md)
 - [Installation Guide](./01_getting_started/installation.md)
 - [Quick Start Guide](./01_getting_started/quick_start.md)
 - [Core Visual Concepts](./01_getting_started/core_concepts.md)

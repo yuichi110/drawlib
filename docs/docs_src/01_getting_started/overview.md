@@ -1,66 +1,250 @@
-# About Drawlib
+# Why Drawlib
 
-Drawlib is a pure-Python library engineered around the dual paradigms of **"Illustration as Code"** and **"Illustrated Documentation as Code"**.
+Traditional technical documentation fragments **source code** (Git), **diagrams** (external GUI tools), and **prose** (external wikis)—causing architecture diagrams to inevitably fall out of sync as code evolves.
 
-It empowers human developers, system architects, and **autonomous AI coding agents** to design, version-control, and publish clean architectural schemas, workflow charts, and entire multi-page technical documentation websites directly from declarative Python code.
+Drawlib eliminates this fragmentation through **"Illustration as Code"** and **"Illustrated Documentation as Code"**, keeping Python code, diagrams, and multi-format publications synchronized inside a single Git repository.
 
-```drawlib code=fold align=center file=overview_paradigm_shift.png caption="Legacy Diagramming Approaches vs. Drawlib Illustration as Code"
+```drawlib code=fold align=center file=overview_paradigm_shift.png caption="Traditional Workflow vs. Drawlib Workflow (APNG Animation)"
+from __future__ import annotations
+
+import os
+from drawlib.anim import Animation
 from drawlib.canvas import save, setup
-from drawlib.icons import phosphor
+from drawlib.icons import ai, code, devops, phosphor, workspace
+from drawlib.images import image
 from drawlib.lines import line
-from drawlib.shapes import rectangle
+from drawlib.shapes import circle, rectangle
 from drawlib.styles import Styles
 from drawlib.text import text
 
-setup(width=126, height=48)
+# 16:9 widescreen canvas matching index.md (128 x 72)
+setup(width=128, height=72)
+anim = Animation(fps=10.0, loop=0)
 
-hdr_dark = Styles.DarkBold.patch(text_size=11.5)
-hdr_white = Styles.WhiteBold.patch(text_size=11.5)
-ts_title = Styles.DarkBold.patch(text_size=10.5, halign="left")
-ts_sub = Styles.Dark.patch(text_size=10.0, halign="left")
+FAVICON_PATH = (
+    "_assets/favicon.png"
+    if os.path.exists("_assets/favicon.png")
+    else "../_assets/favicon.png"
+)
 
-# Left container: Legacy Approaches (Fragmented & Fragile)
-rectangle((29.5, 24.0), width=53.0, height=42.0, style=Styles.SecondaryNeutral.patch(shape_r=2.0))
-rectangle((29.5, 40.5), width=50.0, height=5.5, style=Styles.Neutral.patch(shape_r=1.2), text="Legacy Approaches (Fragile)", text_style=hdr_dark)
+TITLE_TRAD = Styles.DarkBold.patch(text_size=15.5, halign="left")
+TITLE_DRAWLIB = Styles.PrimaryBold.patch(text_size=15.5, halign="left")
+SUB_MUTED = Styles.MutedBold.patch(text_size=10.5, halign="right")
+SUB_PRIMARY = Styles.PrimaryBold.patch(text_size=10.5, halign="right")
 
-rectangle((29.5, 31.5), width=50.0, height=9.2, style=Styles.Neutral.patch(shape_r=1.2))
-phosphor.x_circle((8.2, 31.5), width=4.6, style=Styles.Danger)
-text((12.0, 33.4), "GUI Drag-and-Drop Tools", style=ts_title)
-text((12.0, 29.5), "No Git diffs • Binary PNG rot", style=ts_sub)
+TOOL_TEXT = Styles.DarkBold.patch(text_size=11.0, halign="left")
+STEP_TEXT = Styles.DarkBold.patch(text_size=11.5, halign="left")
+STEP_TEXT_WHITE = Styles.WhiteBold.patch(text_size=11.5, halign="left")
 
-rectangle((29.5, 20.5), width=50.0, height=9.2, style=Styles.Neutral.patch(shape_r=1.2))
-phosphor.warning((8.2, 20.5), width=4.6, style=Styles.Danger)
-text((12.0, 22.4), "Raw SVG XML Generation", style=ts_title)
-text((12.0, 18.5), "Text overflows • Manual path math", style=ts_sub)
+TOOL_CARD = Styles.Neutral.patch(
+    shape_fill_color=(246, 248, 252),
+    shape_line_color=(200, 212, 228),
+    shape_line_width=1.2,
+    shape_r=1.6,
+)
+STEP_CARD = Styles.Neutral.patch(
+    shape_fill_color=(255, 255, 255),
+    shape_line_color=(208, 218, 232),
+    shape_line_width=1.2,
+    shape_r=1.6,
+)
+STEP_CARD_HERO = Styles.PrimaryFlat.patch(shape_r=1.6)
 
-rectangle((29.5, 9.5), width=50.0, height=9.2, style=Styles.Neutral.patch(shape_r=1.2))
-phosphor.x_circle((8.2, 9.5), width=4.6, style=Styles.Danger)
-text((12.0, 11.4), "Low-Level Matplotlib", style=ts_title)
-text((12.0, 7.5), "Academic API • Heavy boilerplate", style=ts_sub)
 
-# Right container: The Drawlib Solution ("Illustration as Code")
-rectangle((96.5, 24.0), width=53.0, height=42.0, style=Styles.Neutral.patch(shape_r=2.0))
-rectangle((96.5, 40.5), width=50.0, height=5.5, style=Styles.PrimaryFlat.patch(shape_r=1.2), text="Drawlib: Illustration as Code", text_style=hdr_white)
+def draw_drawio_badge(xy: tuple[float, float], size: float = 5.0) -> None:
+    """Draw a clean Draw.io-style orange diagram app icon."""
+    cx, cy = xy
+    rectangle(
+        xy,
+        width=size,
+        height=size,
+        style=Styles.Neutral.patch(
+            shape_fill_color=(240, 135, 5),
+            shape_line_width=0,
+            shape_r=0.9,
+        ),
+    )
+    top_pt = (cx, cy + size * 0.23)
+    bl_pt = (cx - size * 0.24, cy - size * 0.23)
+    br_pt = (cx + size * 0.24, cy - size * 0.23)
+    wire = Styles.White.patch(line_width=1.1)
+    line(top_pt, bl_pt, style=wire)
+    line(top_pt, br_pt, style=wire)
+    node_st = Styles.Neutral.patch(shape_fill_color=(255, 255, 255), shape_line_width=0, shape_r=0.2)
+    for pt in (top_pt, bl_pt, br_pt):
+        rectangle(pt, width=size * 0.30, height=size * 0.22, style=node_st)
 
-rectangle((96.5, 31.5), width=50.0, height=9.2, style=Styles.PrimaryNeutral.patch(shape_r=1.2))
-phosphor.shapes((75.2, 31.5), width=4.6, style=Styles.Primary)
-text((79.0, 33.4), "Declarative Domain APIs", style=ts_title)
-text((79.0, 29.5), "Graphs, Diagrams, SmartArts, Charts", style=ts_sub)
 
-rectangle((96.5, 20.5), width=50.0, height=9.2, style=Styles.PrimaryNeutral.patch(shape_r=1.2))
-phosphor.git_branch((75.2, 20.5), width=4.6, style=Styles.Primary)
-text((79.0, 22.4), "Git & PR Friendly", style=ts_title)
-text((79.0, 18.5), "Clean diffs + SQLite build cache", style=ts_sub)
+def draw_step_badge(xy: tuple[float, float], num: str, *, inverted: bool = False) -> None:
+    """Draw numbered circular step badge."""
+    if inverted:
+        circle(
+            xy,
+            radius=2.6,
+            style=Styles.Neutral.patch(
+                shape_fill_color=(255, 255, 255),
+                shape_line_width=0,
+            ),
+        )
+        text(xy, num, style=Styles.PrimaryBold.patch(text_size=10.5))
+    else:
+        circle(
+            xy,
+            radius=2.6,
+            style=Styles.Neutral.patch(
+                shape_fill_color=(238, 244, 255),
+                shape_line_color=(180, 198, 228),
+                shape_line_width=1.1,
+            ),
+        )
+        text(xy, num, style=Styles.PrimaryBold.patch(text_size=10.5))
 
-rectangle((96.5, 9.5), width=50.0, height=9.2, style=Styles.PrimaryNeutral.patch(shape_r=1.2))
-phosphor.robot((75.2, 9.5), width=4.6, style=Styles.Primary)
-text((79.0, 11.4), "AI-Native Self-Correction", style=ts_title)
-text((79.0, 7.5), "CLI rules + grid (-g) verification", style=ts_sub)
 
-# Transition arrows from Legacy pain points to Drawlib solutions
-line((56.8, 31.5), (69.2, 31.5), arrow_head="->", style=Styles.DarkBold)
-line((56.8, 20.5), (69.2, 20.5), arrow_head="->", style=Styles.DarkBold)
-line((56.8, 9.5), (69.2, 9.5), arrow_head="->", style=Styles.DarkBold)
+def draw_traditional_scene(visible_steps: int) -> None:
+    """Scene 1: Traditional 4-step workflow across Word, VS Code, and Draw.io."""
+    # Header
+    phosphor.arrows_left_right((10.5, 64.0), width=4.8, style=Styles.Danger)
+    text((14.8, 64.0), "Traditional Workflow", style=TITLE_TRAD)
+    text((120.0, 64.0), "Switching Across 3 Disconnected Tools", style=SUB_MUTED)
+    line((8.0, 58.2), (120.0, 58.2), style=Styles.MutedThin)
+
+    steps = [
+        ("1", "word", "Word", "Write initial design spec in Word", 49.5),
+        ("2", "vscode", "VS Code", "Write application code in VS Code", 37.0),
+        ("3", "drawio", "Draw.io", "Read code & manually draw diagrams in Draw.io", 24.5),
+        ("4", "word", "Word", "Read code, write Word spec & paste diagrams", 12.0),
+    ]
+
+    for idx in range(visible_steps):
+        num, tool_key, tool_label, desc, y = steps[idx]
+
+        # Context-switch connector between different tools
+        if idx > 0:
+            prev_y = steps[idx - 1][4]
+            line(
+                (20.5, prev_y - 4.7),
+                (20.5, y + 4.7),
+                arrow_head="->",
+                style=Styles.DangerDashed.patch(line_width=1.3),
+            )
+
+        # Left tool pill (x = 8.0 .. 33.0, cx = 20.5)
+        rectangle((20.5, y), width=25.0, height=9.2, style=TOOL_CARD)
+        if tool_key == "word":
+            workspace.word((14.2, y), width=5.0, style=Styles.Neutral)
+        elif tool_key == "vscode":
+            code.vscode((14.2, y), width=4.8, style=Styles.Neutral)
+        else:
+            draw_drawio_badge((14.2, y), size=4.8)
+        text((18.4, y), tool_label, style=TOOL_TEXT)
+
+        # Right action card (x = 35.5 .. 120.0, cx = 77.75)
+        rectangle((77.75, y), width=84.5, height=9.2, style=STEP_CARD)
+        draw_step_badge((40.5, y), num)
+        text((45.0, y), desc, style=STEP_TEXT)
+
+
+def draw_drawlib_scene(visible_steps: int) -> None:
+    """Scene 2: Drawlib 3-step workflow unified inside VS Code + GitHub Repo + AI Agent."""
+    # Header
+    image((10.5, 64.0), width=5.4, image=FAVICON_PATH)
+    text((15.0, 64.0), "Drawlib Workflow", style=TITLE_DRAWLIB)
+    text((120.0, 64.0), "Unified in VS Code + GitHub Repository", style=SUB_PRIMARY)
+    line((8.0, 58.2), (120.0, 58.2), style=Styles.MutedThin)
+
+    # Unified GitHub / Git Repository container (x = 7.0 .. 121.0, y = 6.0 .. 55.0)
+    rectangle(
+        (64.0, 30.5),
+        width=114.0,
+        height=49.0,
+        style=Styles.PrimaryNeutral.patch(
+            shape_fill_color=(245, 248, 255),
+            shape_line_color=(165, 185, 232),
+            shape_line_width=1.4,
+            shape_r=2.2,
+        ),
+    )
+    devops.github((11.8, 51.0), width=4.2, style=Styles.Neutral)
+    text(
+        (15.4, 51.0),
+        "GitHub / Git Repository (Specs, Source Code & Illustrated Docs Together)",
+        style=Styles.DarkBold.patch(text_size=10.5, halign="left"),
+    )
+
+    steps = [
+        ("1", True, "Design specs in Git Repo with AI Agent & Drawlib", 40.2, False),
+        ("2", False, "Develop application code", 26.8, False),
+        ("3", True, "AI Agent reads repo code & auto-writes illustrated docs", 13.4, True),
+    ]
+
+    for idx in range(visible_steps):
+        num, with_agent, desc, y, is_hero = steps[idx]
+
+        if idx > 0:
+            prev_y = steps[idx - 1][3]
+            line(
+                (23.5, prev_y - 4.9),
+                (23.5, y + 4.9),
+                arrow_head="->",
+                style=Styles.PrimaryBold.patch(line_width=1.4),
+            )
+
+        # Left tool pill: Always VS Code (+ AI Agent badge on Steps 1 & 3)
+        rectangle(
+            (23.5, y),
+            width=27.0,
+            height=9.6,
+            style=STEP_CARD.patch(shape_line_color=(175, 192, 230)),
+        )
+        if with_agent:
+            code.vscode((14.4, y), width=4.4, style=Styles.Neutral)
+            ai.gemini((19.3, y), width=4.3, style=Styles.Neutral)
+            text((23.2, y), "VS Code", style=TOOL_TEXT)
+        else:
+            code.vscode((17.0, y), width=4.5, style=Styles.Neutral)
+            text((21.2, y), "VS Code", style=TOOL_TEXT)
+
+        # Right action card (x = 39.5 .. 118.0, cx = 78.75, width = 78.5)
+        rectangle(
+            (78.75, y),
+            width=78.5,
+            height=9.6,
+            style=STEP_CARD_HERO if is_hero else STEP_CARD,
+        )
+        draw_step_badge((44.2, y), num, inverted=is_hero)
+        text(
+            (48.6, y),
+            desc,
+            style=STEP_TEXT_WHITE if is_hero else STEP_TEXT,
+        )
+
+
+# -------------------------------------------------------------------------
+# Scene 1: Traditional Workflow (4 progressive steps + read hold)
+# -------------------------------------------------------------------------
+with anim.frame(duration=0.95):
+    draw_traditional_scene(1)
+
+with anim.frame(duration=0.95):
+    draw_traditional_scene(2)
+
+with anim.frame(duration=0.95):
+    draw_traditional_scene(3)
+
+with anim.frame(duration=2.70):
+    draw_traditional_scene(4)
+
+# -------------------------------------------------------------------------
+# Scene 2: Drawlib Workflow (3 progressive steps + read hold)
+# -------------------------------------------------------------------------
+with anim.frame(duration=1.05):
+    draw_drawlib_scene(1)
+
+with anim.frame(duration=1.00):
+    draw_drawlib_scene(2)
+
+with anim.frame(duration=3.20):
+    draw_drawlib_scene(3)
 
 save()
 ```
@@ -73,8 +257,9 @@ In modern software development accelerated by AI coding assistants, code refacto
 
 ### The Limits of GUI Tools in Modern Workflows
 
-Traditional technical diagramming relies on drag-and-drop GUI tools (such as Draw.io, Visio, Lucidchart, or Figma). While convenient for quick whiteboard sketches, managing illustrations as exported binary files (PNG, JPEG) introduces critical flaws:
+Traditional technical diagramming relies on drag-and-drop GUI tools (such as Draw.io, Visio, Lucidchart, or Figma). While convenient for quick whiteboard sketches, managing illustrations as exported binary files (PNG, JPEG) across disconnected wikis introduces critical flaws:
 
+- **Severe Tool Fragmentation**: Updating a single microservice route requires editing code in Git, manually opening an external GUI canvas to redraw boxes, exporting a PNG, and re-uploading it to an external document or wiki.
 - **No Meaningful Version Control**: Binary images cannot produce meaningful Git diffs in pull requests. Reviewers cannot inspect what architectural components changed.
 - **AI Agents Cannot Edit Binary Assets**: While AI coding agents can read and edit codebases seamlessly, they cannot manipulate pixels or drag-and-drop canvas elements in GUI software.
 - **Visual & Branding Drift**: Colors, stroke widths, paddings, and font sizes drift unpredictably across team members, diluting corporate design standards.
@@ -94,12 +279,12 @@ When engineers attempt to automate diagramming via code, they often ask AI agent
 
 ### The Drawlib Solution: "Illustration as Code"
 
-Drawlib treats architectural illustrations as first-class software artifacts governed by standard engineering practices:
+Drawlib treats architectural illustrations and technical documents as first-class software artifacts governed by standard engineering practices:
 
-1. **Deterministic & Reproducible**: Geometry, spacing, palette shades, and typography are mathematically defined in code. Re-running the build guarantees bit-for-bit identical visual output.
-2. **Pull-Request Friendly**: Modifying an architecture (such as adding a microservice or updating an API gateway route) appears as clean, human-readable code diffs in Git.
+1. **Single Source of Truth in Git**: Code, Markdown prose, and declarative Python diagrams live side by side in the same repository and update atomically in a single commit.
+2. **Deterministic & Reproducible**: Geometry, spacing, palette shades, and typography are mathematically defined in code. Re-running the build guarantees bit-for-bit identical visual output.
 3. **High-Level Domain Primitives**: Declarative abstractions (`ArchitectureDiagram`, `ChevronProcess`, `Table`, `ArchitectureGraph`) eliminate layout boilerplate while preserving pixel-perfect control.
-4. **Algorithmic Geometry**: Leverage loops, list comprehensions, and trigonometric functions to generate grids, circular cycles, and trees without manual drag-and-drop positioning.
+4. **Multi-Format Compilation**: Compile a single Markdown source into static HTML websites, GitHub Markdown, vector-crisp PDFs, MS Word (`.docx`) documents, and 16:9 HTML/PDF/PowerPoint (`.pptx`) slide decks.
 5. **Centralized Style Governance**: Theme tokens (`DefaultStyles`, `GoogleStyles`, `MonochromeStyles`) ensure that shapes, connectors, text, and icons adhere to a cohesive visual hierarchy.
 
 ---
@@ -151,7 +336,7 @@ text((15.5, 30.8), "drawlib.graph • diagrams • smartarts • charts • math
 rectangle((60.0, 21.0), width=112.0, height=10.0, style=Styles.SecondaryNeutral.patch(shape_r=1.5))
 phosphor.paint_brush((10.5, 21.0), width=5.2, style=Styles.Primary)
 text((15.5, 23.0), "Layer 2: Drawing Primitives & Assets", style=title_dark)
-text((15.5, 18.8), "drawlib.shapes (30 shapes) • lines • text • icons • images", style=sub_dark)
+text((15.5, 18.8), "drawlib.shapes (43 shapes) • lines • text • icons • images", style=sub_dark)
 
 # Layer 1: Core Engine (Hero anchor)
 rectangle((60.0, 9.0), width=112.0, height=10.0, style=Styles.PrimaryFlat.patch(shape_r=1.5))
@@ -169,4 +354,4 @@ save()
 3. **Layer 3: High-Level Visualizations & Geometry (`drawlib.graph`, `drawlib.smartarts`, `drawlib.charts`, `drawlib.diagrams`, `drawlib.math`)**  
    Ready-to-use domain components: auto-layout graphs (`LayerGraph`, `ArchitectureGraph`, `TreeGraph`, `RadialGraph`, `GridGraph`), cloud architectures, flowcharts, sequence diagrams, UML class/state diagrams, ER diagrams, data charts, process flows, geographic maps (`drawlib.smartarts.GeoMap`), and geometry & path/color interpolation utilities (`drawlib.math`).
 4. **Layer 4: Animation, Presentation & Document Builder (`drawlib.anim`, `drawlib.slide`, `drawlib.tools`)**  
-   Provides multi-frame animation (`drawlib.anim` for APNG & Animated WebP), a 16:9 widescreen slide stage & compiler (`drawlib.slide`), and a programmatic build, preview server, and cache API (`drawlib.tools`) that compiles Markdown files with embedded `drawlib` blocks into responsive static HTML sites, GitHub-ready Markdown, slide decks, and standalone PDF publications.
+   Provides multi-frame animation (`drawlib.anim` for APNG & Animated WebP), a 16:9 widescreen slide stage & compiler (`drawlib.slide`), and a programmatic build, preview server, and cache API (`drawlib.tools`) that compiles Markdown files with embedded `drawlib` blocks into responsive static HTML sites, GitHub-ready Markdown, standalone PDF & MS Word (`.docx`) documents, and 16:9 HTML/PDF/PowerPoint (`.pptx`) slide decks.
