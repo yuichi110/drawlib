@@ -120,7 +120,7 @@ def draw_traditional_scene(visible_steps: int) -> None:
 
     steps = [
         ("1", "word", "Word", "Write initial design spec in Word", 49.5),
-        ("2", "vscode", "VS Code", "Write application code in VS Code", 37.0),
+        ("2", "vscode_ai", "VS Code", "Develop application code", 37.0),
         ("3", "drawio", "Draw.io", "Read code & manually draw diagrams in Draw.io", 24.5),
         ("4", "word", "Word", "Read code, write Word spec & paste diagrams", 12.0),
     ]
@@ -132,26 +132,29 @@ def draw_traditional_scene(visible_steps: int) -> None:
         if idx > 0:
             prev_y = steps[idx - 1][4]
             line(
-                (20.5, prev_y - 4.7),
-                (20.5, y + 4.7),
+                (21.5, prev_y - 4.7),
+                (21.5, y + 4.7),
                 arrow_head="->",
                 style=Styles.DangerDashed.patch(line_width=1.3),
             )
 
-        # Left tool pill (x = 8.0 .. 33.0, cx = 20.5)
-        rectangle((20.5, y), width=25.0, height=9.2, style=TOOL_CARD)
+        # Left tool pill (x = 8.0 .. 35.0, cx = 21.5, width = 27.0)
+        rectangle((21.5, y), width=27.0, height=9.2, style=TOOL_CARD)
         if tool_key == "word":
-            workspace.word((14.2, y), width=5.0, style=Styles.Neutral)
-        elif tool_key == "vscode":
-            code.vscode((14.2, y), width=4.8, style=Styles.Neutral)
+            workspace.word((15.0, y), width=5.0, style=Styles.Neutral)
+            text((19.2, y), tool_label, style=TOOL_TEXT)
+        elif tool_key == "vscode_ai":
+            code.vscode((12.4, y), width=4.4, style=Styles.Neutral)
+            ai.gemini((17.3, y), width=4.3, style=Styles.Neutral)
+            text((21.2, y), tool_label, style=TOOL_TEXT)
         else:
-            draw_drawio_badge((14.2, y), size=4.8)
-        text((18.4, y), tool_label, style=TOOL_TEXT)
+            draw_drawio_badge((15.0, y), size=4.8)
+            text((19.2, y), tool_label, style=TOOL_TEXT)
 
-        # Right action card (x = 35.5 .. 120.0, cx = 77.75)
-        rectangle((77.75, y), width=84.5, height=9.2, style=STEP_CARD)
-        draw_step_badge((40.5, y), num)
-        text((45.0, y), desc, style=STEP_TEXT)
+        # Right action card (x = 37.5 .. 120.0, cx = 78.75, width = 82.5)
+        rectangle((78.75, y), width=82.5, height=9.2, style=STEP_CARD)
+        draw_step_badge((42.5, y), num)
+        text((47.0, y), desc, style=STEP_TEXT)
 
 
 def draw_drawlib_scene(visible_steps: int) -> None:
@@ -182,16 +185,16 @@ def draw_drawlib_scene(visible_steps: int) -> None:
     )
 
     steps = [
-        ("1", True, "Design specs in Git Repo with AI Agent & Drawlib", 40.2, False),
-        ("2", False, "Develop application code", 26.8, False),
-        ("3", True, "AI Agent reads repo code & auto-writes illustrated docs", 13.4, True),
+        ("1", "Design specs in Git Repo with AI Agent & Drawlib", 40.2, False),
+        ("2", "Develop application code", 26.8, False),
+        ("3", "AI Agent reads repo code & auto-writes illustrated docs", 13.4, True),
     ]
 
     for idx in range(visible_steps):
-        num, with_agent, desc, y, is_hero = steps[idx]
+        num, desc, y, is_hero = steps[idx]
 
         if idx > 0:
-            prev_y = steps[idx - 1][3]
+            prev_y = steps[idx - 1][2]
             line(
                 (23.5, prev_y - 4.9),
                 (23.5, y + 4.9),
@@ -199,20 +202,16 @@ def draw_drawlib_scene(visible_steps: int) -> None:
                 style=Styles.PrimaryBold.patch(line_width=1.4),
             )
 
-        # Left tool pill: Always VS Code (+ AI Agent badge on Steps 1 & 3)
+        # Left tool pill: Always VS Code + Gemini AI Agent across all 3 steps
         rectangle(
             (23.5, y),
             width=27.0,
             height=9.6,
             style=STEP_CARD.patch(shape_line_color=(175, 192, 230)),
         )
-        if with_agent:
-            code.vscode((14.4, y), width=4.4, style=Styles.Neutral)
-            ai.gemini((19.3, y), width=4.3, style=Styles.Neutral)
-            text((23.2, y), "VS Code", style=TOOL_TEXT)
-        else:
-            code.vscode((17.0, y), width=4.5, style=Styles.Neutral)
-            text((21.2, y), "VS Code", style=TOOL_TEXT)
+        code.vscode((14.4, y), width=4.4, style=Styles.Neutral)
+        ai.gemini((19.3, y), width=4.3, style=Styles.Neutral)
+        text((23.2, y), "VS Code", style=TOOL_TEXT)
 
         # Right action card (x = 39.5 .. 118.0, cx = 78.75, width = 78.5)
         rectangle(
