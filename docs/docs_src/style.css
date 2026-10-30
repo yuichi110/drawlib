@@ -351,12 +351,81 @@ details.drawlib-code-details pre {
 
 .sidebar-header {
     background-color: var(--rtd-sidebar-header);
-    border-bottom: 1px solid var(--rtd-border-color);
-    padding: 1.1rem 1.25rem;
+    padding: 1.1rem 1.25rem 0.35rem 1.25rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 0.75rem;
+    flex-shrink: 0;
+}
+
+.sidebar-subbar {
+    background-color: var(--rtd-sidebar-header);
+    border-bottom: 1px solid var(--rtd-border-color);
+    padding: 0.2rem 1.25rem 0.85rem 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    flex-shrink: 0;
+}
+
+.sidebar-version-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: var(--rtd-mono-font);
+    font-size: 0.78rem;
+    font-weight: 600;
+    line-height: 1;
+    padding: 0.34rem 0.65rem;
+    border-radius: 9999px;
+    background-color: var(--rtd-sidebar-active);
+    color: var(--rtd-sidebar-active-text);
+    border: 1px solid rgba(99, 102, 241, 0.24);
+    text-decoration: none;
+    transition: all 0.15s ease;
+}
+
+.sidebar-version-badge:hover {
+    border-color: var(--rtd-brand-color);
+    color: var(--rtd-brand-color);
+    text-decoration: none;
+}
+
+.sidebar-version-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: var(--rtd-brand-color);
+    flex-shrink: 0;
+}
+
+.sidebar-github-link {
+    width: 36px;
+    height: 30px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    color: var(--rtd-muted-color);
+    text-decoration: none;
+    transition: all 0.15s ease;
+    flex-shrink: 0;
+}
+
+.sidebar-github-link:hover {
+    background-color: var(--rtd-sidebar-hover);
+    color: var(--rtd-heading-color);
+    border-color: var(--rtd-border-color);
+    text-decoration: none;
+}
+
+.sidebar-github-link svg {
+    width: 19px;
+    height: 19px;
+    display: block;
 }
 
 .site-title,
@@ -657,6 +726,10 @@ html[data-theme="dark"] .sidebar-logo-dark,
         overflow: visible;
     }
 
+    .sidebar.is-open {
+        border-bottom: none;
+    }
+
     .content-wrapper {
         margin-top: 60px;
     }
@@ -665,6 +738,24 @@ html[data-theme="dark"] .sidebar-logo-dark,
         height: 60px;
         padding: 0 1.25rem;
         border-bottom: none;
+    }
+
+    .sidebar-subbar {
+        display: none;
+    }
+
+    .sidebar.is-open .sidebar-subbar {
+        display: flex;
+        position: fixed;
+        top: 60px;
+        left: 0;
+        right: 0;
+        height: 44px;
+        padding: 0 1.25rem 0.4rem 1.25rem;
+        background-color: var(--rtd-sidebar-bg);
+        border-top: none;
+        border-bottom: 1px solid var(--rtd-border-color);
+        z-index: 1000;
     }
 
     .sidebar-logo {
@@ -678,18 +769,18 @@ html[data-theme="dark"] .sidebar-logo-dark,
     .sidebar-menu {
         display: none;
         position: fixed;
-        top: 60px;
+        top: 104px;
         left: 0;
         right: 0;
         bottom: 0;
         width: 100vw;
-        height: calc(100vh - 60px);
-        height: calc(100dvh - 60px);
+        height: calc(100vh - 104px);
+        height: calc(100dvh - 104px);
         background-color: var(--rtd-sidebar-bg);
         overflow-y: auto;
         -webkit-overflow-scrolling: touch;
         padding: 1rem 0.75rem 4rem 0.75rem;
-        border-top: 1px solid var(--rtd-border-color);
+        border-top: none;
         box-shadow: 0 16px 32px rgba(0, 0, 0, 0.18);
         z-index: 999;
     }

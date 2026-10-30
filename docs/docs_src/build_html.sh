@@ -22,6 +22,17 @@ if [ -z "${DRAWLIB_CMD:-}" ]; then
 fi
 
 echo "Building HTML site..."
+if [ -f "../pyproject.toml" ] && [ -f "docs_src/template.html" ]; then
+    python3 -c '
+import pathlib, re, tomllib
+ver = tomllib.loads(pathlib.Path("../pyproject.toml").read_text("utf-8"))["project"]["version"]
+p = pathlib.Path("docs_src/template.html")
+s = p.read_text("utf-8")
+s2 = re.sub(r"(<span class=\"sidebar-version-text\">)v[^<]+(</span>)", rf"\g<1>v{ver}\g<2>", s)
+if s2 != s:
+    p.write_text(s2, "utf-8")
+'
+fi
 $DRAWLIB_CMD build html docs_src/ -o docs_html/
 if [ -d "docs_src/pypi" ]; then
     echo "Building PyPI README images..."
