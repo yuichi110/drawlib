@@ -112,7 +112,7 @@ def test_cli_rules_list() -> None:
         ("slide-guide", "# Drawlib Slide Deck Design & Best Practices Guide (`slide-guide`)"),
         ("project-overview", "# Drawlib Project Architecture & Overview Guidelines"),
         ("project-images", "# Drawlib Standalone Images Project Guidelines (`project-images`)"),
-        ("project-doc", "# Drawlib Linear Document & PDF Project Guidelines (`project-doc`)"),
+        ("project-doc", "# Drawlib Linear Document, PDF & MS Word Project Guidelines (`project-doc`)"),
         ("project-site", "# Drawlib Multi-Page Documentation Website Guidelines (`project-site`)"),
         ("project-slide", "# Drawlib Presentation Slide Deck Guidelines (`project-slide`)"),
         ("cli", "# Drawlib CLI Guidelines"),

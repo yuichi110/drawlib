@@ -71,17 +71,17 @@ rectangle(
     text_style=Styles.DarkBold.patch(text_size=10.5),
 )
 
-# Right: 4 Publishing Targets
+# Right: Publishing Targets
 targets = [
-    (47.5, "docs_html/ (Web)", Styles.PrimaryNeutral, phosphor.globe),
-    (35.2, "docs_markdown/", Styles.Neutral, phosphor.file_code),
-    (22.8, "docs.pdf (PDF)", Styles.SecondaryNeutral, phosphor.file_pdf),
-    (10.5, "docs_images/", Styles.Neutral, phosphor.images),
+    (47.5, "HTML & Slide Deck", Styles.PrimaryNeutral, phosphor.globe),
+    (35.2, "GitHub Markdown", Styles.Neutral, phosphor.file_code),
+    (22.8, "PDF / DOCX / PPTX", Styles.SecondaryNeutral, phosphor.file_pdf),
+    (10.5, "Standalone Images", Styles.Neutral, phosphor.images),
 ]
 for ty, label, st, icon_fn in targets:
     rectangle((106, ty), width=32, height=9.5, style=st.patch(shape_r=1.5))
-    icon_fn((94.5, ty), width=4.6, style=Styles.PrimaryBold)
-    text((109.5, ty), label, style=Styles.DarkBold.patch(text_size=10.2))
+    icon_fn((93.5, ty), width=4.4, style=Styles.PrimaryBold)
+    text((109.0, ty), label, style=Styles.DarkBold.patch(text_size=10.0))
 
 # Connectors: Source -> Pipeline -> 4 Publishing Targets
 line((34, 29), (44, 29), arrow_head="->", style=Styles.DarkBold)
@@ -105,9 +105,10 @@ save()
 2. **Deterministic Build Cache**: Drawlib computes a SHA-256 hash of each embedded code block (`styles.py`, `utils.py`, and referenced local assets included). Unaltered diagrams are restored instantly from `.drawlib/cache.db`, enabling sub-second incremental builds across massive multi-page sites.
 3. **Execution Sandbox & Isolation**: The canvas lifecycle automatically clears between separate code blocks, ensuring zero visual side effects between adjacent diagrams.
 4. **Target Portability**: The same Markdown source document can compile simultaneously to:
-   - A responsive static HTML documentation site (`drawlib build html`).
+   - A responsive static HTML documentation site (`drawlib build html`) or interactive 16:9 web slide deck (`drawlib build slide`).
    - GitHub-flavored Markdown with companion images (`drawlib build markdown`).
    - A publication-grade vector PDF with table of contents and cover page (`drawlib build pdf`).
+   - Native editable MS Word documents (`drawlib build docx`) and 16:9 MS PowerPoint decks (`drawlib build pptx`).
    - Extracted standalone diagram images (`drawlib build image`).
 
 ---
@@ -118,9 +119,9 @@ Never construct documentation directories manually. Scaffolding them with `drawl
 
 | Template | Source Directory | Primary Output | Typical Use Case |
 |---|---|---|---|
-| **`doc`** | `doc_src/` | `doc_html/`, `doc.pdf`, `doc_markdown/`, `doc_images/` | Linear technical documents, RFCs, specifications, whitepapers, and formal reports. |
+| **`doc`** | `doc_src/` | `doc_html/`, `doc.pdf`, `doc.docx`, `doc_markdown/`, `doc_images/` | Linear technical documents, RFCs, specifications, whitepapers, and formal reports. |
 | **`site`** | `docs_src/` | `docs_html/`, `docs_markdown/` (or `docs/`), `docs_images/` | Multi-page documentation websites with sidebar navigation (`navbar.md`). |
-| **`slide`** | `slide_src/` | `slide_html/`, `slide.pdf`, `slide_images/` | 16:9 presentation slide decks (interactive web deck + printable vector PDF). |
+| **`slide`** | `slide_src/` | `slide_html/`, `slide.pdf`, `slide.pptx`, `slide_images/` | 16:9 presentation slide decks (interactive web deck, printable vector PDF, and editable PowerPoint). |
 | **`images`** *(alias: `image`)* | `images_src/` | `images/*.png` (or `.webp`) | Batch rendering standalone Python drawing scripts to image assets. |
 
 
@@ -153,7 +154,7 @@ cards = [
         phosphor.file_pdf,
         Styles.PrimaryBold,
         "doc_src/*.md",
-        "doc.pdf & HTML\ndoc_markdown/",
+        "doc.pdf / .docx\n& doc_html/",
     ),
     (
         93,
@@ -175,7 +176,7 @@ cards = [
         phosphor.presentation_chart,
         Styles.PrimaryBold,
         "slide_src/*.md",
-        "slide_html/\nslide.pdf",
+        "slide_html/\n.pdf & .pptx",
     ),
     (
         93,
@@ -229,9 +230,9 @@ Because every Drawlib project separates **shared configuration** (`styles.py`, `
 
 | Project Template | Parallel Subagent Unit | Phase 1: Parent Orchestrator Setup | Phase 2: Parallel Subagent Execution | Phase 3: Parent Finalization |
 | :--- | :--- | :--- | :--- | :--- |
-| **`doc`** | Numbered chapter file (`doc_src/01_*.md`, `02_*.md`, ...) | `drawlib init doc`, `styles.py`, `utils.py`, `00_cover.md`, chapter outline | Author assigned chapter(s) & run `drawlib show ... -g -o .drawlib/scratch/0N_<fig>_grid.png` | Run `./doc_src/build.sh` & inspect `doc.pdf` / `doc_html/` |
+| **`doc`** | Numbered chapter file (`doc_src/01_*.md`, `02_*.md`, ...) | `drawlib init doc`, `styles.py`, `utils.py`, `00_cover.md`, chapter outline | Author assigned chapter(s) & run `drawlib show ... -g -o .drawlib/scratch/0N_<fig>_grid.png` | Run `./doc_src/build.sh` (or `build docx`) & inspect `doc.pdf` / `doc_html/` |
 | **`site`** | Topic page or section folder (`docs_src/01_arch/*.md`, ...) | `drawlib init site`, `styles.py`, `utils.py`, `navbar.md`, `index.md` | Author assigned page(s) & run Stage 1 + Stage 2 grid review with unique scratch filenames | Run `./docs_src/build.sh`, `serve --check`, & browser check |
-| **`slide`** | Slide file (`slide_src/02_*.md`, ...) or section directory | `drawlib init slide`, `styles.py`, `utils.py`, deck story arc & slide numbering | Author assigned slide(s) (`::: block` + `::: note`) & run Stage 1 + Stage 2 grid review | Run `./slide_src/build.sh` & inspect `slide.pdf` / `1920x1080` stage |
+| **`slide`** | Slide file (`slide_src/02_*.md`, ...) or section directory | `drawlib init slide`, `styles.py`, `utils.py`, deck story arc & slide numbering | Author assigned slide(s) (`::: block` + `::: note`) & run Stage 1 + Stage 2 grid review | Run `./slide_src/build.sh` (or `build pptx`) & inspect `slide.pdf` / `1920x1080` stage |
 | **`images`** | Standalone Python script (`images_src/<name>.py`) | `drawlib init images`, `styles.py`, `utils.py`, `_assets/` | Author assigned `.py` script(s) & run `drawlib show ... -g -o .drawlib/scratch/<script>_grid.png` | Run `./images_src/build.sh` & inspect `images/*.png` |
 
 ### Concurrency Guardrails for Subagents:
@@ -244,11 +245,11 @@ Because every Drawlib project separates **shared configuration** (`styles.py`, `
 ## 4. Chapter Structure
 
 Dive deeper into each builder subsystem:
-- [Embedded Code Blocks](./code_blocks.md): Code fence syntax, display modes (`show-code`, `fold-code`), alignment, and captions.
-- [CLI Reference](./cli_reference.md): Complete guide to `build`, `serve`, `show`, `init`, `cache`, `css`, `colors`, `styles`, and `rules`.
-- [Linear Document Project Guide](./project_doc.md): Linear document RFCs, specifications, whitepapers, and dual HTML/PDF publishing.
+- [Embedded Code Blocks](./code_blocks.md): Code fence syntax, display modes (`code=show`, `code=fold`), alignment, and captions.
+- [CLI Reference](./cli_reference.md): Complete guide to `build` (`html`, `markdown`, `pdf`, `docx`, `slide`, `pptx`, `image`), `serve`, `show`, `init`, `cache`, `css`, `colors`, `styles`, and `rules`.
+- [Linear Document Project Guide](./project_doc.md): Linear document RFCs, specifications, whitepapers, and HTML / PDF / Word (`.docx`) publishing.
 - [Doc Site Project Guide](./project_site.md): Multi-page website authoring, sidebar categories, and link validation.
-- [Slide Deck Project Guide](./project_slide.md): 16:9 presentation slide decks with interactive web deck and vector PDF export.
+- [Slide Deck Project Guide](./project_slide.md): 16:9 presentation slide decks with interactive web deck, vector PDF, and PowerPoint (`.pptx`) export.
 - [Slide Stage Layout & API](./slide_layout_and_api.md): `1920x1080` virtual stage coordinates, `::: block` / `::: note` syntax, templates, and `drawlib.slide` Python API.
 - [Image Project Guide](./project_image.md): Standalone script automation (`images_src/` ➔ `images/`).
 - [Customization & Theming](./customization.md): Customizing `template.html`, `style.css`, and injecting project `styles.py` and `utils.py`.

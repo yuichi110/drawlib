@@ -1,6 +1,6 @@
-# Drawlib Linear Document & PDF Project Guidelines (`project-doc`)
+# Drawlib Linear Document, PDF & MS Word Project Guidelines (`project-doc`)
 
-A **`doc` project** (`drawlib init doc`) compiles a sequential series of Markdown chapter files (`doc_src/*.md`) containing embedded ````drawlib```` blocks into a **single unified HTML document (`doc_html/index.html`)**, a **print-ready A4 vector PDF (`doc.pdf`)**, **GitHub-Flavored Markdown (`doc_markdown/`)**, and **extracted diagram images (`doc_images/`)**.
+A **`doc` project** (`drawlib init doc`) compiles a sequential series of Markdown chapter files (`doc_src/*.md`) containing embedded ````drawlib```` blocks into a **single unified HTML document (`doc_html/index.html`)**, a **print-ready A4 vector PDF (`doc.pdf`)**, **GitHub-Flavored Markdown (`doc_markdown/`)**, and **extracted diagram images (`doc_images/`)**, with optional on-demand export to a **native editable Microsoft Word document (`doc.docx`)** via `drawlib build docx`.
 
 *(For general project scaffolding, see `uv run drawlib rules show project-overview`. For multi-page websites with a sidebar, see `uv run drawlib rules show project-site`. For the 3-stage review loop, see `uv run drawlib rules show review-guide`.)*
 
@@ -8,10 +8,10 @@ A **`doc` project** (`drawlib init doc`) compiles a sequential series of Markdow
 
 ## 1. When to Choose a `doc` Project
 
-Choose `drawlib init doc` when the user wants a **linear, end-to-end technical document or printable PDF report**:
+Choose `drawlib init doc` when the user wants a **linear, end-to-end technical document, printable PDF report, or editable MS Word (`.docx`) deliverable**:
 - Architecture whitepapers, technical reports, and case studies (e.g., `drawlib-dogfooding`).
-- Engineering RFCs, design specifications, and security threat models.
-- Step-by-step quickstart manuals (`quickstart`) intended to be read linearly or exported as a single PDF book.
+- Engineering RFCs, design specifications, and security threat models (including `.docx` exports for stakeholder redlining).
+- Step-by-step quickstart manuals (`quickstart`) intended to be read linearly or exported as a single PDF or Word book.
 
 ```bash
 # Scaffold a linear document project (default target 'doc', or custom name e.g. 'spec'):
@@ -52,7 +52,34 @@ uv run drawlib init doc rbac_spec -s default
 
 > **CRITICAL (`No navbar.md` in `doc` Projects & Excluding Planning Files)**: Never create a `navbar.md` file inside `doc_src/`. Drawlib's HTML builder uses the presence of `navbar.md` to distinguish between a multi-page website (`site`) and a merged single-page linear document (`doc`). Any non-chapter files or subdirectories starting with `_` (e.g., `_outline.md`, `_drafts/`) as well as `README.md` are automatically excluded from document compilation.
 
-```drawlib align=center code=fold file=project_doc_pipeline.png caption="Linear Document (doc_src/) Chapter Merging, ToC Injection & PDF Compilation"
+### 2.1. Zero-Config PDF Compilation & On-Demand MS Word (`.docx`) Export
+- **Standard Out-of-the-Box Dependencies**: `playwright` and `python-docx` are standard dependencies of `drawlib` (no optional extras required). Headless Chromium (`chromium-headless-shell`) downloads automatically on your first `drawlib build pdf` run (or pre-download offline via `uv run drawlib cache download --browser` / `--all`; in minimal Linux containers such as `python:3.12-slim` lacking OS shared libraries, run `playwright install-deps chromium`).
+- **On-Demand MS Word Export (`drawlib build docx` / `drawlib.tools.build_docx`)**:
+  While scaffolded `build.sh` continues to build HTML, PDF, Markdown, and Images, you can compile `doc_src/` (or any single `.md` file) into a native editable `.docx` document with headings, prose, lists, tables, blockquotes, syntax-highlighted code blocks, and high-DPI static PNG diagrams (`dpi=200` default):
+  ```bash
+  # CLI export (directory or single .md):
+  uv run drawlib build docx doc_src/ -o doc.docx --page-break --generate-index \
+      --dpi 200 -s doc_src/styles.py -u doc_src/utils.py
+  ```
+  ```python
+  # Python API (drawlib.tools.build_docx):
+  from drawlib.tools import build_docx
+
+  build_docx(
+      input_path="doc_src/",
+      output_file="doc.docx",
+      title=None,
+      page_break=True,
+      generate_index=True,
+      dpi=200,
+      styles_path="doc_src/styles.py",
+      utils_path="doc_src/utils.py",
+      no_cache=False,
+      timestamp=False,
+  )
+  ```
+
+```drawlib align=center code=fold file=project_doc_pipeline.png caption="Linear Document (doc_src/) Chapter Merging, ToC Injection & PDF / Word Compilation"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line
@@ -65,7 +92,7 @@ setup(width=150, height=58, dpi=150)
 rectangle((75, 29), width=144, height=52, style=Styles.MutedDashed.patch(shape_r=2.5))
 text(
     (75, 50.5),
-    "Linear Document & Vector PDF Pipeline (doc_src/*.md -> doc.pdf)",
+    "Linear Document Pipeline (doc_src/*.md -> doc.pdf / doc.docx)",
     style=Styles.DarkBold.patch(text_size=12.5),
 )
 
@@ -99,7 +126,7 @@ phosphor.file_pdf((110, 36.5), width=5.0, style=Styles.WhiteBold)
 text((126, 36.5), "3. Deliverables", style=Styles.WhiteBold.patch(text_size=11.5))
 text(
     (124, 21),
-    "• doc.pdf (Vector A4)\n• doc_html/index.html\n• doc_markdown/*.md\n• doc_images/*.png",
+    "• doc.pdf (Vector A4)\n• doc.docx (MS Word)\n• doc_html/index.html\n• doc_markdown/*.md",
     style=Styles.White.patch(text_size=10.0),
 )
 
@@ -111,13 +138,13 @@ save()
 ## 3. Authoring Best Practices for Linear Documents & Whitepapers
 
 ### 3.1. Deterministic Chapter Numbering (`00_cover.md`, `01_...`, `02_...`)
-When `drawlib build html` or `drawlib build pdf` compiles `doc_src/`, it discovers all `.md` files (excluding `README.md`) and merges them in **sorted lexicographical order**:
+When `drawlib build html`, `drawlib build pdf`, or `drawlib build docx` compiles `doc_src/`, it discovers all `.md` files (excluding `README.md`) and merges them in **sorted lexicographical order**:
 1. **`00_cover.md` (Cover Page)**:
    - Place the overall document `# Title`, subtitle, executive abstract, a rich cover Hero diagram (`code=hide`), and author/date metadata in `00_cover.md`.
-   - When `--generate-index` is passed to `drawlib build pdf` (or `build_pdf.sh`), Drawlib automatically injects the generated **Table of Contents** immediately after the first chapter (`00_cover.md`) and before `01_*.md`.
+   - When `--generate-index` is passed to `drawlib build pdf` or `drawlib build docx` (or `build_pdf.sh`), Drawlib automatically injects the generated **Table of Contents** immediately after the first chapter (`00_cover.md`) and before `01_*.md`.
 2. **Numbered Chapters (`01_overview.md`, `02_architecture.md`, ...)**:
    - Start each chapter file with a top-level `# 1. Chapter Title` heading.
-   - When `--page-break` (default `True`) is enabled, Drawlib inserts a CSS page break (`page-break-before: always`) before each chapter file so every chapter starts cleanly at the top of a new A4 PDF page.
+   - When `--page-break` (default `True`) is enabled, Drawlib inserts a page break before each chapter file so every chapter starts cleanly at the top of a new page in both A4 PDF and MS Word (`.docx`).
 
 ### 3.2. Code Visibility Strategy (`code=hide` vs. `code=fold` vs. `code=show`)
 Choose the ```` ```drawlib ```` visibility attribute based on the document's purpose and target medium:

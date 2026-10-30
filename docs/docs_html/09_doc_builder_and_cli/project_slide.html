@@ -585,7 +585,7 @@
             <main class="main-content">
                 <h1>Slide Deck Project Guide (<code>drawlib init slide</code>)</h1>
 <p>The <code>slide</code> starter template creates 16:9 presentation slide decks with rich architectural diagrams, metrics cards, badges, and structured layouts.</p>
-<p>Drawlib compiles your slide deck into both an <strong>interactive HTML web presentation</strong> and a <strong>1-slide-per-page vector PDF</strong>, perfectly sized for conferences, client briefings, and team reviews.</p>
+<p>Drawlib compiles your slide deck into an <strong>interactive HTML web presentation</strong>, a <strong>1-slide-per-page vector PDF</strong>, and a <strong>native editable 16:9 MS PowerPoint (<code>.pptx</code>) deck</strong>, perfectly sized for conferences, client briefings, and team reviews.</p>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="project_slide_images/slide_presenter_view_layout.png" alt="project_slide_1" />
   <figcaption class="drawlib-caption">Presenter View (?presenter=1) 4-Pane Workspace and BroadcastChannel Synchronization</figcaption>
@@ -773,7 +773,7 @@ drawlib<span class="w"> </span>init<span class="w"> </span>slide<span class="w">
     <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
 <span class="p">)</span><span class="o">.</span><span class="n">set_drawing_item</span><span class="p">(</span><span class="s2">"folder_out"</span><span class="p">)</span>
 <span class="n">root</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
-    <span class="s2">"slide.pdf  — [GENERATED] High-quality 16:9 vector PDF"</span><span class="p">,</span>
+    <span class="s2">"slide.pdf &amp; slide.pptx  — [GENERATED] 16:9 PDF &amp; PowerPoint"</span><span class="p">,</span>
     <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
 <span class="p">)</span><span class="o">.</span><span class="n">set_drawing_item</span><span class="p">(</span><span class="s2">"md"</span><span class="p">)</span>
 <span class="n">root</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
@@ -794,27 +794,33 @@ drawlib<span class="w"> </span>init<span class="w"> </span>slide<span class="w">
 <th style="text-align:left">Output</th>
 <th style="text-align:left">Audience &amp; Environment</th>
 <th style="text-align:left">Key Features</th>
-<th style="text-align:left">Build Script</th>
+<th style="text-align:left">Build Script / Command</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td style="text-align:left"><strong><code>slide_html/index.html</code></strong></td>
 <td style="text-align:left">Interactive Presenting</td>
-<td style="text-align:left">1920x1080 fixed stage, auto-scaling viewport, keyboard navigation (<code>Space</code>, <code>Arrows</code>, <code>F</code>), overview grid</td>
-<td style="text-align:left"><code>build_html.sh</code></td>
+<td style="text-align:left">1920x1080 fixed stage, auto-scaling viewport, keyboard navigation (<code>Space</code>, <code>Arrows</code>, <code>F</code>), Presenter View (<code>?presenter=1</code>), overview grid</td>
+<td style="text-align:left"><code>build_html.sh</code> (<code>drawlib build slide</code>)</td>
 </tr>
 <tr>
 <td style="text-align:left"><strong><code>slide.pdf</code></strong></td>
-<td style="text-align:left">Offline Distribution</td>
+<td style="text-align:left">Print &amp; Read-Only Distribution</td>
 <td style="text-align:left">1 slide per page, vector-sharp graphics, exact 16:9 aspect ratio (<code>@page { size: 1920px 1080px; margin: 0; }</code>)</td>
-<td style="text-align:left"><code>build_pdf.sh</code></td>
+<td style="text-align:left"><code>build_pdf.sh</code> (<code>drawlib build pdf</code>)</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>slide.pptx</code></strong></td>
+<td style="text-align:left">Collaborative Editing &amp; Executive Decks</td>
+<td style="text-align:left">Native editable 16:9 (<code>960×540 pt</code>) MS PowerPoint deck (<code>::: block</code> cards with <code>rgba</code> alpha, text boxes, lists, tables, <code>::: note</code> speaker notes, high-DPI diagram PNGs)</td>
+<td style="text-align:left"><code>drawlib build pptx</code></td>
 </tr>
 <tr>
 <td style="text-align:left"><strong><code>slide_images/</code></strong></td>
 <td style="text-align:left">Slides &amp; Social Media</td>
 <td style="text-align:left">Extracted standalone slide illustrations for external decks and sharing</td>
-<td style="text-align:left"><code>build_image.sh</code></td>
+<td style="text-align:left"><code>build_image.sh</code> (<code>drawlib build image</code>)</td>
 </tr>
 </tbody>
 </table>
@@ -849,16 +855,20 @@ drawlib<span class="w"> </span>init<span class="w"> </span>slide<span class="w">
 :::
 </code></pre>
 <hr />
-<h2>5. Modular Build Scripts Architecture</h2>
+<h2>5. Modular Build Scripts &amp; MS PowerPoint (<code>.pptx</code>) Export</h2>
 <ul>
 <li><strong><code>build_html.sh</code></strong>:
-Compiles slides into the web presentation deck in <code>slide_html/index.html</code>.</li>
+Compiles slides into the web presentation deck in <code>slide_html/index.html</code> (<code>drawlib build slide</code>).</li>
 <li><strong><code>build_pdf.sh</code></strong>:
 Uses headless Chromium to capture each slide into a multi-page vector PDF (<code>slide.pdf</code>).</li>
 <li><strong><code>build_image.sh</code></strong>:
 Extracts embedded <code>drawlib</code> blocks into standalone diagram images in <code>slide_images/</code>.</li>
 <li><strong><code>build.sh</code> (Master Script)</strong>:
 Runs HTML, PDF, and Image builds in sequence.</li>
+<li><strong>Editable MS PowerPoint Export (<code>drawlib build pptx</code>)</strong>:
+Measures the <code>1920x1080</code> slide DOM and computed CSS styles via headless Chromium and exports a native editable 16:9 (<code>960x540 pt</code>) <code>.pptx</code> file:<pre><code class="language-bash">uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>build<span class="w"> </span>pptx<span class="w"> </span>slide_src/<span class="w"> </span>-o<span class="w"> </span>slide.pptx<span class="w"> </span>--dpi<span class="w"> </span><span class="m">240</span><span class="w"> </span>--anim-frame<span class="w"> </span>last
+</code></pre>
+</li>
 </ul>
 <hr />
 <h2>6. Local Preview &amp; Presenting</h2>
@@ -880,7 +890,7 @@ Runs HTML, PDF, and Image builds in sequence.</li>
 <li><strong>Direct Presenter URL (<code>?presenter=1</code>)</strong>: Appending <code>?presenter=1#1</code> launches the window directly in Presenter View mode, synchronizing slide changes and animation playback across windows via <code>BroadcastChannel</code> / <code>localStorage</code>.</li>
 </ul>
 <h3>Speaker Notes (<code>::: note</code>) &amp; Presenter View:</h3>
-<p>Add speaker notes to any slide using <code>::: note</code> blocks. If a slide contains multiple <code>::: note</code> blocks, they are automatically joined with a blank line (<code>\n\n</code>) and rendered as Markdown in <strong>Presenter View</strong> (while remaining completely hidden on the main presentation screen and in PDF exports):</p>
+<p>Add speaker notes to any slide using <code>::: note</code> blocks. If a slide contains multiple <code>::: note</code> blocks, they are automatically joined with a blank line (<code>\n\n</code>), rendered as Markdown in <strong>Presenter View</strong>, and exported into <strong>native PowerPoint speaker notes</strong> during <code>drawlib build pptx</code> (while remaining completely hidden on the main presentation screen and in PDF exports):</p>
 <pre><code class="language-markdown">::: note
 <span class="gs">**Key Talking Points**</span>:
 <span class="k">-</span><span class="w"> </span>Emphasize single source of truth in Git.
@@ -904,6 +914,7 @@ Runs HTML, PDF, and Image builds in sequence.</li>
 <li><strong><code>anim_loop=once</code></strong> (<code>once</code> | <code>infinite</code>): Stops on the final frame (<code>ENDED</code>); clicking again replays from Frame 0.</li>
 <li><strong><code>anim_pause=(2, 4)</code></strong>: Pauses at 0-based frame indices <code>2</code> and <code>4</code> (<code>PAUSED</code>); clicking resumes to the next step.</li>
 <li><strong>Vector PDF Export (<code>build_pdf.sh</code>)</strong>: Automatically renders Frame 0 onto the slide without the interactive play badge.</li>
+<li><strong>MS PowerPoint Export (<code>drawlib build pptx</code>)</strong>: Extracts a crisp static PNG at <code>--dpi 240</code> using the final frame by default (<code>--anim-frame last</code>), or the initial frame when <code>--anim-frame first</code> is specified.</li>
 </ul>
 <hr />
 <h2>7. Parallel Multi-Agent Slide Deck Authoring</h2>
@@ -911,7 +922,7 @@ Runs HTML, PDF, and Image builds in sequence.</li>
 <ol>
 <li><strong>Phase 1 (Parent Setup)</strong>: Scaffold <code>slide_src/</code> (<code>drawlib init slide</code>), configure <code>styles.py</code> and <code>utils.py</code>, and define the slide deck story arc and numbered filenames first.</li>
 <li><strong>Phase 2 (Parallel Subagents)</strong>: Delegate disjoint slide files (or section directories) to parallel subagents. Each subagent authors its assigned slides (<code>::: block</code> stage layout + <code>::: note</code> speaker script) and runs <code>-g</code> grid previews using unique scratch paths (<code>-o .drawlib/scratch/&lt;slide&gt;_&lt;block&gt;_grid.png</code>).</li>
-<li><strong>Phase 3 (Unified Deck Build &amp; PDF Review)</strong>: After all subagents complete their slides, the parent agent runs <code>./slide_src/build.sh</code> once and inspects the compiled <code>slide.pdf</code> and <code>slide_html/index.html</code>.</li>
+<li><strong>Phase 3 (Unified Deck Build &amp; Review)</strong>: After all subagents complete their slides, the parent agent runs <code>./slide_src/build.sh</code> (and <code>drawlib build pptx</code> if needed) once and inspects the compiled <code>slide.pdf</code> and <code>slide_html/index.html</code>.</li>
 </ol>
 
             </main>

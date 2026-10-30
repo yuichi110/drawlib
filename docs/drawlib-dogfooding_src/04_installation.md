@@ -1,6 +1,6 @@
 # 第4章: インストールと環境構築
 
-Drawlib（`v0.3.0`）は公式 PyPI パッケージとして公開されており、モダンな Python パッケージマネージャー `uv` または `pip` を用いて数秒でセットアップできます。
+Drawlib（`v0.3.2`）は公式 PyPI パッケージとして公開されており、モダンな Python パッケージマネージャー `uv` または `pip` を用いて数秒でセットアップできます。
 
 ## 4.1 前提環境
 
@@ -10,7 +10,7 @@ Drawlib（`v0.3.0`）は公式 PyPI パッケージとして公開されてお�
 
 ## 4.2 PyPI からのインストール (`uv` / `pip` / `uvx`)
 
-通常の作図・HTML ドキュメント・スライド・Markdown ビルドを行う場合は、PyPI から `drawlib` パッケージをインストールします:
+標準の `drawlib` パッケージをインストールするだけで、作図・HTML ドキュメント・16:9 Web スライド・Markdown に加え、**ベクター PDF（`drawlib build pdf`）**、**編集可能な MS Word（`drawlib build docx`）**、**編集可能な 16:9 MS PowerPoint（`drawlib build pptx`）** のすべてのエクスポート機能が追加オプションなしでそのまま利用できます:
 
 ```bash
 # uv を使用する場合（推奨）
@@ -25,43 +25,37 @@ uvx drawlib init site
 pip install drawlib
 ```
 
-## 4.3 PDF エクスポート機能の有効化（オプション）
+## 4.3 PDF・Office（Word / PowerPoint）出力とヘッドレスブラウザ自動取得
 
-`doc` プロジェクト（A4 技術仕様書・ホワイトペーパー）や `slide` プロジェクト（16:9 スライドデッキ）でベクター PDF エクスポート機能（`playwright` 連携）を使用する場合は、`[pdf]` オプション付きでインストールし、ヘッドレス Chromium を導入します:
+Drawlib は標準インストールだけでドキュメントおよびスライドの各種オフィス・印刷フォーマット出力を完結させます:
 
-```bash
-# 1. PDF エクストラ付きで drawlib をインストール
-uv add "drawlib[pdf]"
+- **ベクター PDF / 16:9 PowerPoint 出力 (`drawlib build pdf`, `drawlib build pptx`)**:
+  初回の PDF または PPTX ビルド実行時に、Playwright 経由で管理対象の **ヘッドレス Chromium バイナリが自動的にダウンロード・キャッシュ** されます。手動でブラウザをセットアップする必要はありません。
+- **編集可能な MS Word 出力 (`drawlib build docx`)**:
+  ピュア Python（`python-docx`）のみで動作し、ヘッドレスブラウザ不要で `doc` プロジェクトから編集可能な `.docx` 仕様書（`--generate-index` による目次生成対応）を直接出力できます。
 
-# 2. PDF 生成に必要な headless Chromium ブラウザをダウンロード
-uv run playwright install chromium
-```
-
-> **Note (`pip` を使用する場合)**:  
-> `pip install "drawlib[pdf]"` を実行した後、`playwright install chromium` を実行してください。
-
-> **Note (Linux ヘッドレスサーバー・CI 環境)**:  
-> Ubuntu 等のサーバーやコンテナ環境で OS 共有ライブラリが不足している場合は、以下のように `--with-deps` を付与して実行してください:  
-> `uv run playwright install --with-deps chromium`
+> **Note (最小構成の Linux Docker コンテナ環境)**:  
+> Ubuntu / Debian 等の最小コンテナイメージで、ヘッドレス Chromium の起動に必要な OS 共有ライブラリが不足している場合は、以下のコマンドでシステム依存パッケージを一括導入できます:  
+> `uv run playwright install-deps chromium`
 
 ## 4.4 アセット・ビルドキャッシュ管理 (`drawlib cache`)
 
 PyPI パッケージ本体を軽量に保つため、以下の 2 種類のキャッシュ機構が備わっています:
 
-1. **外部アセットキャッシュ (`drawlib/_cached_assets/`)**:
-   多言語フォント（Roboto, Noto Sans JP 等）、ベクターアイコン（Phosphor, FontAwesome, 公式 GCP アイコン）、およびオフライン地図データ（`GeoMap`）は、初回描画時に GitHub Releases からオンデマンドで自動取得され、ローカルにキャッシュされます。
+1. **外部アセット & ヘッドレスブラウザキャッシュ**:
+   多言語フォント（Roboto, Noto Sans JP 等）、ベクターアイコン（Phosphor, FontAwesome, 公式 GCP アイコン）、オフライン地図データ（`GeoMap`）、および PDF / PPTX 出力用のヘッドレス Chromium は、初回利用時にオンデマンドで自動取得され、ローカルにキャッシュされます。
 2. **図版差分ビルドキャッシュ (`.drawlib/cache.db`)**:
    `drawlib build` や `drawlib show` の実行時、コードブロック・`styles.py`・`utils.py`・参照アセットのハッシュ値を SQLite データベースに記録し、変更のない図版の再レンダリングをスキップしてビルドを高速化します。
 
-オフライン環境や CI/CD コンテナ向けに全アセットを事前取得したい場合や、キャッシュをクリアしたい場合は `drawlib cache` コマンドを使用します:
+オフライン環境や CI/CD コンテナ向けに全アセット・ブラウザを事前取得したい場合や、キャッシュをクリアしたい場合は `drawlib cache` コマンドを使用します:
 
 ```bash
 # キャッシュ状態の一覧表示
 uv run drawlib cache list
 
-# オフライン・CI 環境向けに全アセット（フォント・アイコン・地図）を一括事前ダウンロード
+# オフライン・CI 環境向けに全アセット（フォント・アイコン・地図・ヘッドレス Chromium）を一括事前取得
 uv run drawlib cache download --all
-# カテゴリ別に取得する場合: --fonts / --icons / --maps
+# カテゴリ別に取得する場合: --fonts / --icons / --maps / --browser
 
 # 差分ビルドキャッシュ（.drawlib/cache.db）のみをクリアして全図版を強制再描画
 uv run drawlib cache clear --images
@@ -75,7 +69,7 @@ uv run drawlib cache clear --all
 インストールが完了したら、以下のコマンドで CLI が利用可能であることを確認します:
 
 ```bash
-# バージョンの確認 (drawlib 0.3.0)
+# バージョンの確認 (0.3.2)
 uv run drawlib --version
 
 # 利用可能なプロジェクトテンプレート一覧の表示

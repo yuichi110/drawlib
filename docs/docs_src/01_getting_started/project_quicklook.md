@@ -39,8 +39,8 @@ text((92.0, 28.2), "Web Site & Search", style=Styles.Dark.patch(text_size=10.0, 
 
 rectangle((100.5, 11.5), width=37.0, height=14.0, style=Styles.SecondaryNeutral.patch(shape_r=1.5))
 phosphor.file_pdf((87.5, 11.5), width=5.0, style=Styles.Primary)
-text((92.0, 13.5), "docs/ & *.pdf", style=Styles.DarkBold.patch(text_size=11.0, halign="left"))
-text((92.0, 9.2), "GitHub MD & PDF", style=Styles.Dark.patch(text_size=10.0, halign="left"))
+text((92.0, 13.5), "PDF, DOCX & PPTX", style=Styles.DarkBold.patch(text_size=10.5, halign="left"))
+text((92.0, 9.2), "GitHub MD & Office", style=Styles.Dark.patch(text_size=10.0, halign="left"))
 
 # Connectors
 line((38.5, 21.0), (45.5, 21.0), arrow_head="->", style=Styles.DarkBold)
@@ -51,7 +51,7 @@ save()
 
 ### The Golden Rule: `<name>_src/` is the Single Source of Truth
 - Always edit Markdown files and Python code inside the source directory (e.g. `docs_src/`).
-- Never edit the output directories (`docs/`, `docs_html/`, `docs.pdf`) directly; they are build artifacts completely overwritten during compilation.
+- Never edit the output directories (`docs/`, `docs_html/`, `docs.pdf`, `doc.docx`, `slide.pptx`) directly; they are build artifacts completely overwritten during compilation.
 
 ---
 
@@ -74,9 +74,9 @@ $ uv run drawlib init doc rbac -s google --lang ja
 ```
 
 Drawlib supports four starter project types:
-- **`doc`**: Linear technical document / spec / RFC / report compiled to HTML (`doc_html/`), PDF (`doc.pdf`), Markdown (`doc_markdown/`), and diagrams (`doc_images/`).
+- **`doc`**: Linear technical document / spec / RFC / report compiled to HTML (`doc_html/`), PDF (`doc.pdf`), editable MS Word (`doc.docx`), Markdown (`doc_markdown/`), and diagrams (`doc_images/`).
 - **`site`**: Multi-page documentation website (`docs_html/`), Markdown site (`docs_markdown/` or `docs/`), and diagrams (`docs_images/`).
-- **`slide`**: 16:9 presentation slide deck compiled to web deck (`slide_html/`), vector PDF (`slide.pdf`), and diagrams (`slide_images/`).
+- **`slide`**: 16:9 presentation slide deck compiled to web deck (`slide_html/`), vector PDF (`slide.pdf`), editable MS PowerPoint (`slide.pptx`), and diagrams (`slide_images/`).
 - **`images`**: Standalone Python illustration scripts (`images_src/*.py`) batch-compiled to image files (`images/*.png`).
 
 ```drawlib code=fold align=center file=project_scaffolding_types.png caption="The Four Drawlib Project Scaffolding Archetypes (drawlib init)"
@@ -102,17 +102,17 @@ text((14.0, 29.8), "Output: docs_html/ + docs_markdown/", style=body_sub)
 
 # 2. Top-Right: drawlib init doc
 rectangle((94.0, 35.5), width=58.0, height=19.0, style=Styles.Neutral.patch(shape_r=2.0))
-rectangle((94.0, 41.0), width=55.0, height=5.5, style=Styles.SecondaryNeutral.patch(shape_r=1.2), text="2. drawlib init doc (Linear Spec & PDF)", text_style=hdr_dark)
+rectangle((94.0, 41.0), width=55.0, height=5.5, style=Styles.SecondaryNeutral.patch(shape_r=1.2), text="2. drawlib init doc (Linear Spec & PDF/Word)", text_style=hdr_dark)
 phosphor.file_pdf((71.5, 32.0), width=5.2, style=Styles.Primary)
 text((76.0, 34.0), "Source: doc_src/00_cover.md, 01_*.md", style=body_bold)
-text((76.0, 29.8), "Output: doc.pdf + doc_html/ + doc_md/", style=body_sub)
+text((76.0, 29.8), "Output: doc.pdf + doc.docx + doc_html/", style=body_sub)
 
 # 3. Bottom-Left: drawlib init slide
 rectangle((32.0, 12.5), width=58.0, height=19.0, style=Styles.Neutral.patch(shape_r=2.0))
 rectangle((32.0, 18.0), width=55.0, height=5.5, style=Styles.SecondaryNeutral.patch(shape_r=1.2), text="3. drawlib init slide (16:9 Slide Deck)", text_style=hdr_dark)
 phosphor.presentation_chart((9.5, 9.0), width=5.2, style=Styles.Primary)
 text((14.0, 11.0), "Source: slide_src/*.md (1920x1080 Stage)", style=body_bold)
-text((14.0, 6.8), "Output: slide_html/ (Presenter) + slide.pdf", style=body_sub)
+text((14.0, 6.8), "Output: slide_html/ + slide.pdf + slide.pptx", style=body_sub)
 
 # 4. Bottom-Right: drawlib init images
 rectangle((94.0, 12.5), width=58.0, height=19.0, style=Styles.Neutral.patch(shape_r=2.0))
@@ -137,8 +137,10 @@ $ ./docs_src/build.sh
 # Or compile using the CLI subcommands directly:
 $ uv run drawlib build html docs_src/ -o docs_html/
 $ uv run drawlib build markdown docs_src/ -o docs/
-$ uv run drawlib build pdf doc_src/ -o doc.pdf
+$ uv run drawlib build pdf doc_src/ -o doc.pdf --toc
+$ uv run drawlib build docx doc_src/ -o doc.docx --generate-index
 $ uv run drawlib build slide slide_src/ -o slide_html/
+$ uv run drawlib build pptx slide_src/ -o slide.pptx
 $ uv run drawlib build image images_src/ -o images/
 
 # Force a clean re-render bypassing the SQLite build cache (.drawlib/cache.db):
@@ -149,7 +151,7 @@ During the build process:
 1. Drawlib detects all ````drawlib```` code blocks across your Markdown documents (or `.py` scripts in `images_src/`).
 2. The code blocks are executed in isolated memory spaces to render vector/raster diagrams.
 3. Rendered images are cached deterministically in `.drawlib/cache.db` (only modified code blocks or styles re-render; pass `--no-cache` or run `uv run drawlib cache clear --images` to force re-rendering).
-4. The final HTML website, slide deck, PDF, or rendered Markdown documents are generated with verified image links.
+4. The final HTML website, slide deck, vector PDF, editable MS Word (`.docx`), MS PowerPoint (`.pptx`), or rendered Markdown documents are generated with verified image links.
 
 ---
 
@@ -170,4 +172,4 @@ Open `http://localhost:8000` in your browser to inspect the full documentation s
 ---
 
 > [!NOTE]
-> For in-depth guides on code block attributes (`show-code`, `fold-code`, `caption:`), custom HTML templates, CSS theming, caching, and Chromium PDF exports, see **[Chapter 8: Document Builder & CLI](../09_doc_builder_and_cli/overview.md)**.
+> For in-depth guides on code block attributes (`code=show`, `code=fold`, `caption="..."`), custom HTML templates, CSS theming, caching, and PDF / MS Word (`.docx`) / MS PowerPoint (`.pptx`) exports, see **[Chapter 8: Document Builder & CLI](../09_doc_builder_and_cli/overview.md)**.

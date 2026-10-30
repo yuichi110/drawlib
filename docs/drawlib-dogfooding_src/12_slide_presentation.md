@@ -4,7 +4,7 @@ Drawlib は、技術文書（`doc`）やWebサイト（`site`）だけでなく�
 
 PowerPoint や Google Slides などの GUI ツールを使わずに、Markdown と Python 作図コードだけで、学会発表・カンファレンス・社内勉強会向けの美しいスライドデッキをコード管理できます。
 
-```drawlib align=center file=fig_slide_layout.png caption="図 12.1: Drawlib スライド生成アーキテクチャとデュアル出力"
+```drawlib align=center file=fig_slide_layout.png caption="図 12.1: Drawlib スライド生成アーキテクチャとマルチ出力"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line
@@ -42,17 +42,17 @@ phosphor.database(xy=(54.3, 23.5), width=4.4, style=Styles.Accent)
 text((57.3, 23.5), text=".drawlib/cache.db\n差分のみ高速再描画", style=ts_body)
 
 phosphor.arrows_split(xy=(54.3, 12.0), width=4.4, style=Styles.Accent)
-text((57.3, 12.0), text="HTML & PDF 出力\nデュアル生成基盤", style=ts_body)
+text((57.3, 12.0), text="HTML / PDF / PPTX\nマルチ出力基盤", style=ts_body)
 
 # 3. Deliverables
 rectangle((114.5, 27.0), width=35.0, height=44.0, style=Styles.SecondaryNeutral.patch(shape_r=2.0))
-rectangle((114.5, 45.0), width=33.0, height=6.0, style=Styles.DarkFlat.patch(shape_r=1.5), text="3. デュアル成果物", text_style=header_ts)
+rectangle((114.5, 45.0), width=33.0, height=6.0, style=Styles.DarkFlat.patch(shape_r=1.5), text="3. マルチ成果物", text_style=header_ts)
 
 phosphor.desktop(xy=(100.8, 35.0), width=4.4, style=Styles.Dark)
 text((103.8, 35.0), text="Web スライド\n発表者ビュー (P)", style=ts_body)
 
 phosphor.file_pdf(xy=(100.8, 23.5), width=4.4, style=Styles.Dark)
-text((103.8, 23.5), text="ベクター PDF\n1スライド1ページ", style=ts_body)
+text((103.8, 23.5), text="PDF & PPTX\n配布・編集用スライド", style=ts_body)
 
 phosphor.image(xy=(100.8, 12.0), width=4.4, style=Styles.Dark)
 text((103.8, 12.0), text="*_images/\n高解像度図版の抽出", style=ts_body)
@@ -151,9 +151,9 @@ save()
 :::
 ````
 
-## 12.3 デュアル出力と発表者ビュー (Presenter View)
+## 12.3 マルチ出力（Web / PDF / PowerPoint）と発表者ビュー
 
-スライドプロジェクトをビルドすると、利用シーンに応じた 2 つの形式が同時に生成されます:
+スライドプロジェクトからは、標準ビルドの Web・PDF に加え、オプションで編集可能な MS PowerPoint ファイルも出力できます:
 
 1. **インタラクティブ Web プレゼンテーション (`my_presentation_html/index.html`)**:
    - 会場での登壇やオンライン勉強会向けの HTML5 プレゼンテーション。
@@ -165,4 +165,9 @@ save()
      - `O` / `Esc`: スライド全体をグリッド一覧表示するオーバービューモード
 2. **1 スライド 1 ページのベクター PDF (`my_presentation.pdf`)**:
    - 参加者への事前配布、SpeakerDeck / DocSend へのアップロード、印刷向けの PDF。
-   - Playwright によるヘッドレスレンダリングにより、各スライドが 1 ページずつ欠けのない 16:9 ベクター PDF として忠実に焼き込まれます。
+   - 初回実行時に自動取得されるヘッドレス Chromium（Playwright）により、各スライドが 1 ページずつ欠けのない 16:9 ベクター PDF として忠実に焼き込まれます。
+3. **編集可能な 16:9 MS PowerPoint エクスポート (`drawlib build pptx`・オプション)**:
+   - カンファレンス事務局への `.pptx` 提出やチーム内での共同編集が必要な場合は、CLI から 16:9 MS PowerPoint デッキ（`::: note` のスピーカーノート付き）を直接生成できます（なお、技術文書 `doc` プロジェクト向けには `uv run drawlib build docx <src> -o <out.docx> --generate-index` による編集可能な MS Word 出力も用意されています）:
+   ```bash
+   uv run drawlib build pptx my_presentation_src/ -o my_presentation.pptx
+   ```

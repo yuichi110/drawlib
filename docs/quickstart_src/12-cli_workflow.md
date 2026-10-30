@@ -7,45 +7,51 @@ Drawlib provides a unified command-line interface (`drawlib`) that automates rap
 | Command | Usage & Flags | Description |
 | :--- | :--- | :--- |
 | **`build html`** | `drawlib build html <src> -o <out> [--css google]` | Compiles Markdown documents and embedded diagrams into a responsive static website. |
-| **`build pdf`** | `drawlib build pdf <src> -o <out.pdf> [--generate-index]` | Merges chapters in alphabetical order into a publication-ready PDF book with auto-generated table of contents. |
+| **`build pdf`** | `drawlib build pdf <src> -o <out.pdf> [--generate-index]` | Merges chapters into a publication-ready vector PDF (auto-downloads headless Chromium on first run). |
+| **`build docx`** | `drawlib build docx <src> -o <out.docx> [--generate-index]` | Exports `doc` Markdown chapters and diagrams into an editable MS Word (`.docx`) document. |
+| **`build slide`** | `drawlib build slide <src> -o <out>` | Compiles slide Markdown files into an interactive 16:9 HTML presentation deck with Presenter View. |
+| **`build pptx`** | `drawlib build pptx <src> -o <out.pptx>` | Exports `slide` Markdown files into an editable 16:9 MS PowerPoint (`.pptx`) deck with speaker notes. |
 | **`build markdown`** | `drawlib build markdown <src> -o <out>` | Pre-renders embedded diagrams into standalone PNGs for GitHub repository browsing. |
-| **`build image`** | `drawlib build image <src> -o <out>` | Batch-executes standalone Python scripts (`images_src/*.py`) into an image directory. |
+| **`build image`** | `drawlib build image <src> -o <out>` | Batch-executes standalone Python scripts (`images_src/*.py`) or extracts embedded diagrams. |
 | **`show`** | `drawlib show <file> [target] [-g] [-o <out.png>]` | Previews an individual script or embedded Markdown block instantly with optional coordinate grid overlay. |
 | **`serve`** | `drawlib serve <dir> [-p 8000] [--check]` | Launches a local HTTP preview server and verifies internal links and assets. |
-| **`cache`** | `drawlib cache list / clear [--images]` | Inspects or clears the SQLite build cache. |
+| **`cache`** | `drawlib cache list / download [--all\|--browser] / clear` | Pre-downloads fonts, icons, maps, and headless Chromium, or clears the SQLite build cache. |
 
-```drawlib width=640px align=center file=cli_pipeline.png caption="Figure 12.1: Unified Drawlib CLI Build & Preview Pipeline"
-from drawlib.canvas import setup
+```drawlib align=center file=cli_pipeline.png caption="Figure 12.1: Unified Drawlib CLI Build & Preview Pipeline"
+from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line
 from drawlib.shapes import rectangle
 from drawlib.styles import Styles
 from drawlib.text import text
 
-setup(width=120, height=48)
+setup(width=136, height=58)
 
 # Input
-rectangle(xy=(18, 24), width=24, height=34, style=Styles.PrimaryOutline.patch(shape_r=2))
-phosphor.file_text(xy=(18, 30), width=8, style=Styles.Primary)
-text(xy=(18, 16), text="Source Docs\n(docs_src/)", style=Styles.DarkBold.patch(text_size=9))
+rectangle(xy=(19, 29), width=26, height=42, style=Styles.Neutral.patch(shape_r=2.0))
+phosphor.file_text(xy=(19, 37), width=7, style=Styles.Primary)
+text(xy=(19, 20), text="Source Docs\n(*_src/)", style=Styles.DarkBold.patch(text_size=10.5))
 
 # CLI Engine
-rectangle(xy=(56, 24), width=26, height=34, style=Styles.SecondaryOutline.patch(shape_r=2))
-phosphor.terminal_window(xy=(56, 30), width=8, style=Styles.Secondary)
-text(xy=(56, 16), text="drawlib CLI\n& SQLite Cache", style=Styles.DarkBold.patch(text_size=9))
+rectangle(xy=(57, 29), width=28, height=42, style=Styles.PrimaryNeutral.patch(shape_r=2.0))
+phosphor.terminal_window(xy=(57, 37), width=7, style=Styles.Primary)
+text(xy=(57, 20), text="drawlib CLI\n& SQLite Cache", style=Styles.DarkBold.patch(text_size=10.5))
 
-line((30, 24), (43, 24), arrow_head="->", style=Styles.DarkBold)
+line((32, 29), (43, 29), arrow_head="->", style=Styles.DarkBold)
 
 # Output Targets
 targets = [
-    (38, "build html -> docs_html/", Styles.AccentFlat),
-    (24, "build pdf -> book.pdf", Styles.PrimaryFlat),
-    (10, "build markdown -> docs/", Styles.SuccessFlat),
+    (49.0, "build html / slide -> Web", Styles.Neutral, Styles.DarkBold.patch(text_size=10.0)),
+    (35.7, "build pdf -> Vector PDF", Styles.PrimaryFlat, Styles.WhiteBold.patch(text_size=10.0)),
+    (22.3, "build docx / pptx -> Office", Styles.SecondaryNeutral, Styles.DarkBold.patch(text_size=10.0)),
+    (9.0, "build md / image -> MD & PNG", Styles.Neutral, Styles.DarkBold.patch(text_size=10.0)),
 ]
 
-for y_pos, label, st in targets:
-    line((69, 24), (82, y_pos), arrow_head="->", style=Styles.DarkBold)
-    rectangle(xy=(101, y_pos), width=36, height=10, style=st.patch(shape_r=1.5), text=label, text_style=Styles.WhiteBold)
+for y_pos, label, st, txt_st in targets:
+    line((71, 29), (85, y_pos), arrow_head="->", style=Styles.DarkBold)
+    rectangle(xy=(107.5, y_pos), width=45, height=10, style=st.patch(shape_r=1.8), text=label, text_style=txt_st)
+
+save()
 ```
 
 ## High-Performance Incremental Build Cache

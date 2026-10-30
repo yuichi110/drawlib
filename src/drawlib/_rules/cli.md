@@ -13,7 +13,9 @@ This document serves as an exhaustive reference and operational manual for softw
 drawlib build html docs_src/ -o docs_html/                  # Multi-page responsive HTML site
 drawlib build markdown docs_src/ -o docs/                  # Rendered Markdown for GitHub browsing
 drawlib build pdf docs_src/ -o manual.pdf --generate-index  # Merged vector PDF via headless Chromium
+drawlib build docx doc_src/ -o manual.docx --generate-index # Editable MS Word (.docx) document
 drawlib build slide slide_src/ -o slide_html/               # 16:9 HTML presentation slide deck
+drawlib build pptx slide_src/ -o slide.pptx                 # Editable 16:9 MS PowerPoint (.pptx) deck
 drawlib build image scripts/ -o assets/ -g                 # Batch Python illustration rendering
 
 # Project scaffolding
@@ -47,7 +49,8 @@ drawlib cache list                                         # Inspect cached font
 drawlib cache clear                                        # Purge downloaded font, icon, map, and CLI image cache
 drawlib cache clear --images                               # Clear SQLite build image cache (.drawlib/cache.db)
 drawlib cache clear --all                                  # Clear all caches (fonts, icons, maps, and SQLite image cache)
-drawlib cache download --all                               # Pre-download all font/icon/map release assets
+drawlib cache download --all                               # Pre-download all font/icon/map assets & headless Chromium
+drawlib cache download --browser                           # Pre-download headless Chromium only
 drawlib css list                                           # List built-in HTML and PDF stylesheets
 drawlib css show html google -o style.css                  # Export Google styling preset
 
@@ -85,14 +88,16 @@ drawlib [GLOBAL_OPTIONS] COMMAND [SUBCOMMAND] [ARGS...]
 
 ## 1. Document & Illustration Compiler (`drawlib build`)
 
-The `drawlib build` subsystem compiles Markdown documentation directories, slide decks, and standalone Python illustration scripts into production-ready publishing targets.
+The `drawlib build` subsystem compiles Markdown documentation directories, slide decks, MS Office deliverables (`.docx`, `.pptx`), and standalone Python illustration scripts into production-ready publishing targets.
 
 ```text
 drawlib build
 ├── html       Compile a documentation source directory into a static HTML site or linear page
 ├── markdown   Compile a directory of Markdown files with drawlib blocks into GitHub-ready Markdown
 ├── pdf        Compile Markdown chapters, a single Markdown file, or a slide deck into a vector PDF
+├── docx       Compile Markdown chapters or a single Markdown file into an editable MS Word (.docx) document
 ├── slide      Compile a directory of Markdown slide files into a 16:9 HTML presentation deck
+├── pptx       Compile a directory of Markdown slide files into an editable 16:9 MS PowerPoint (.pptx) deck
 └── image      Batch execute standalone Python scripts to generate image files
 ```
 
@@ -218,12 +223,11 @@ drawlib build pdf <INPUT> [OPTIONS]
 
 > **Mandatory Files**: `template.html` and `style.css` must exist in the target directory (or parent directory of the input file) for document PDF builds. Run `drawlib init` to scaffold them.
 
-#### Headless PDF Engine Mechanics:
-Drawlib renders PDFs using Playwright and a headless Chromium browser instance (`page.pdf()`). This guarantees identical layout across all operating systems, accurate web font loading, and background CSS rendering.
-
-Prerequisites:
-- Install Playwright: `uv add "drawlib[pdf]"` or `pip install "drawlib[pdf]"`
-- Download Chromium: `uv run playwright install chromium` or `playwright install chromium`
+#### Zero-Config Headless Chromium Engine:
+Drawlib renders PDFs using Playwright (installed automatically as a standard dependency of `drawlib`) and a headless Chromium browser instance (`chromium-headless-shell`, `page.pdf()`). This guarantees identical layout across all operating systems, accurate web font loading, and background CSS rendering:
+- **Automatic First-Run Download**: Headless Chromium (`chromium-headless-shell`) is downloaded automatically on your first `drawlib build pdf` or `drawlib build pptx` execution.
+- **Offline / Air-Gapped / CI Environments**: Pre-download headless Chromium ahead of time via `drawlib cache download --browser` (or pre-download all fonts, icons, maps, and headless Chromium via `drawlib cache download --all`).
+- **Minimal Linux Containers**: In minimal container images (e.g. `python:3.12-slim`) lacking OS shared libraries (`libnss3`, `libgbm1`, etc.), install system dependencies once via `playwright install-deps chromium` (or `playwright install --with-deps --only-shell chromium`).
 
 #### Examples:
 ```bash
@@ -236,7 +240,45 @@ drawlib build pdf doc_src/ -o comprehensive_guide.pdf --page-break --generate-in
 
 ---
 
-### 1.4 `drawlib build slide` (16:9 HTML Presentation Deck)
+### 1.4 `drawlib build docx` (Editable MS Word `.docx` Export)
+
+Compiles a linear document directory (`doc_src/`) or a single Markdown file (`.md`) into a native editable Microsoft Word (`.docx`) document using `python-docx` (installed automatically as a standard dependency). Outputs native editable Word headings, prose, lists, tables, blockquotes, and syntax-highlighted code blocks, with ````drawlib```` diagrams embedded as high-DPI static PNGs (default `dpi=200`).
+
+*(Note: Scaffolded `build.sh` in `drawlib init doc` continues to build HTML, PDF, Markdown, and Images; `drawlib build docx` is an on-demand optional export command.)*
+
+#### Syntax:
+```bash
+drawlib build docx <INPUT> [OPTIONS]
+```
+
+#### Arguments:
+- `<INPUT>`: Directory containing Markdown chapters (`doc_src/`) or single Markdown file (`.md`).
+
+#### Options:
+| Option | Shorthand | Type | Default | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `--output` | `-o` | `<path>` | `<stem>.docx` | Destination `.docx` output file path. |
+| `--page-break / --no-page-break` | | flag | `True` | Insert Word page breaks between merged chapters. |
+| `--generate-index / --no-generate-index` | | flag | `False` | Generate an index (Table of Contents) and insert it between the 1st and 2nd documents. |
+| `--title` | | `<str>` | Extracted from H1 | Overall document title override for the merged `.docx` file. |
+| `--dpi` | | `<int>` | `200` | Rasterization DPI for embedded ````drawlib```` static PNG diagrams. |
+| `--styles` | `-s` | `<path>` | `None` | Path to Python styles script (e.g. `styles.py`). |
+| `--utils` | `-u` | `<path>` | `None` | Path to Python utils script (e.g. `utils.py`). |
+| `--no-cache` | | flag | `False` | Force clean diagram generation ignoring SQLite cache. |
+| `--timestamp` | | flag | `False` | Include current build timestamp in `.docx` metadata instead of normalizing for deterministic builds. |
+
+#### Examples:
+```bash
+# Compile a single Markdown specification to editable MS Word:
+drawlib build docx spec.md -o spec.docx
+
+# Merge an entire doc_src/ directory into a Word document with Table of Contents:
+drawlib build docx doc_src/ -o manual.docx --page-break --generate-index -s doc_src/styles.py -u doc_src/utils.py
+```
+
+---
+
+### 1.5 `drawlib build slide` (16:9 HTML Presentation Deck)
 
 Compiles a directory of Markdown slide files (`slide_src/`) into an interactive 16:9 HTML presentation deck (`index.html`) with dual-window Presenter View (`?presenter=1`), automatic SVG font bundling, and `<canvas>` animation playback.
 
@@ -263,13 +305,52 @@ drawlib build slide <DIR> [OPTIONS]
 # Compile slide deck directory to HTML presentation:
 drawlib build slide slide_src/ -o slide_html/ -s slide_src/styles.py -u slide_src/utils.py
 
-# Export companion 16:9 vector PDF:
+# Export companion 16:9 vector PDF or editable PowerPoint (.pptx):
 drawlib build pdf slide_src/ -o slide.pdf -s slide_src/styles.py -u slide_src/utils.py
+drawlib build pptx slide_src/ -o slide.pptx -s slide_src/styles.py -u slide_src/utils.py
 ```
 
 ---
 
-### 1.5 `drawlib build image` (Batch Python Script Execution)
+### 1.6 `drawlib build pptx` (Editable 16:9 MS PowerPoint `.pptx` Export)
+
+Measures the `1920x1080` slide DOM via headless Chromium and writes native editable 16:9 (`960x540 pt`) Microsoft PowerPoint (`.pptx`) slides using `python-pptx` (installed automatically as a standard dependency). Converts `::: block` cards (including `rgba` alpha backgrounds/borders), text boxes, bullet/numbered lists, tables, code blocks, and `::: note` speaker notes into native PowerPoint shapes, with ````drawlib```` diagrams embedded as high-DPI static PNGs (default `dpi=240`, `anim_frame="last"`).
+
+*(Note: Headless Chromium auto-downloads on first `drawlib build pdf` or `drawlib build pptx` run. Scaffolded `build.sh` in `drawlib init slide` remains unchanged; `drawlib build pptx` is an on-demand optional export command.)*
+
+#### Syntax:
+```bash
+drawlib build pptx <DIR> [OPTIONS]
+```
+
+#### Arguments:
+- `<DIR>`: Directory containing Markdown (`.md`) slide files (`slide_src/`).
+
+#### Options:
+| Option | Shorthand | Type | Default | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `--output` | `-o` | `<path>` | `<stem>.pptx` | Destination `.pptx` output file path. |
+| `--theme` | `-t` | `<str>` | `None` | CSS theme preset override (`google`, `default`, `google-dark`, `default-dark`, etc.). |
+| `--title` | | `<str>` | Extracted from H1 | Presentation title override in `.pptx` metadata. |
+| `--dpi` | | `<int>` | `240` | Rasterization DPI for embedded ````drawlib```` static PNG diagrams. |
+| `--anim-frame` | | `first \| last` | `last` | Frame to render as a static PNG when a slide block uses `Animation()`. |
+| `--styles` | `-s` | `<path>` | `None` | Path to Python styles script (e.g. `styles.py`). |
+| `--utils` | `-u` | `<path>` | `None` | Path to Python utils script (e.g. `utils.py`). |
+| `--no-cache` | | flag | `False` | Disable reading and writing the SQLite build image cache. |
+| `--timestamp` | | flag | `False` | Include current build timestamp in `.pptx` metadata instead of normalizing for deterministic builds. |
+
+#### Examples:
+```bash
+# Export slide deck directory to native editable 16:9 PowerPoint (.pptx):
+drawlib build pptx slide_src/ -o slide.pptx -s slide_src/styles.py -u slide_src/utils.py
+
+# Export with higher diagram DPI and first animation frame:
+drawlib build pptx slide_src/ -o slide.pptx --dpi 300 --anim-frame first
+```
+
+---
+
+### 1.7 `drawlib build image` (Batch Python Script Execution)
 
 Executes one or more standalone Python drawing scripts (`.py`) or directories containing Python scripts to generate image assets.
 
@@ -348,8 +429,8 @@ drawlib init list
 
 ### Project Types & Generated Directory Structures
 
-#### 1. `doc`: Linear Document Project (HTML, PDF, Markdown, Images)
-Designed for technical specifications, RFCs, design docs, whitepapers, formal reports, and thesis papers.
+#### 1. `doc`: Linear Document Project (HTML, PDF, Markdown, Images + Optional `.docx`)
+Designed for technical specifications, RFCs, design docs, whitepapers, formal reports, and thesis papers. *(Scaffolded `build.sh` compiles HTML, PDF, Markdown, and Images; run `drawlib build docx doc_src/ -o doc.docx` on demand for editable MS Word export.)*
 ```text
 .
 ├── doc_src/                   # [SOURCE OF TRUTH] Edit ONLY files here!
@@ -397,8 +478,8 @@ Designed for technical documentation, library user guides, and architecture wiki
 └── docs_images/               # [GENERATED] Extracted diagram images
 ```
 
-#### 3. `slide`: 16:9 Presentation Slide Deck (HTML & Vector PDF)
-Designed for technical presentations, conference talks, and pitch decks with embedded diagrams.
+#### 3. `slide`: 16:9 Presentation Slide Deck (HTML & Vector PDF + Optional `.pptx`)
+Designed for technical presentations, conference talks, and pitch decks with embedded diagrams. *(Scaffolded `build.sh` compiles HTML, PDF, and Images; run `drawlib build pptx slide_src/ -o slide.pptx` on demand for editable 16:9 MS PowerPoint export.)*
 ```text
 .
 ├── slide_src/
@@ -601,7 +682,7 @@ drawlib serve docs_html/ --skip-check
 ## 5. Cache Management (`drawlib cache`)
 
 Drawlib manages three caching layers to maximize performance and minimize redundant network transfers and image rendering:
-1. **Release Asset Cache**: Locally cached font families, icon sets, and GeoJSON map datasets downloaded from official GitHub Releases into `drawlib/_cached_assets/`.
+1. **Release Asset & Headless Browser Cache**: Locally cached font families, icon sets, and GeoJSON map datasets downloaded from official GitHub Releases into `drawlib/_cached_assets/`, plus Playwright's headless Chromium (`chromium-headless-shell`) used for PDF and `.pptx` compilation.
 2. **SQLite Diagram & CLI Image Cache**: A local SQLite database (`.drawlib/cache.db`) storing hashes of illustration code and rendered image binaries (`image_cache` and `cli_image_cache`).
 3. **Rules Illustration Cache**: Cached rule documents and companion PNG illustrations in `drawlib/_cached_assets/rules/` (managed via `drawlib rules build` and `drawlib rules clear`).
 
@@ -610,7 +691,7 @@ Drawlib manages three caching layers to maximize performance and minimize redund
 drawlib cache
 ├── list        List all downloadable font, icon, and map packages and their local cache status
 ├── clear       Delete locally cached font, icon, map, and/or SQLite image cache entries
-└── download    Pre-download font, icon, and/or map packages from GitHub Releases
+└── download    Pre-download font, icon, map packages, and/or headless Chromium
 ```
 
 ---
@@ -658,21 +739,23 @@ drawlib cache clear --all          # Clear all caches (fonts, icons, maps, and S
 ---
 
 ### 5.3 `drawlib cache download`
-Pre-fetches font, icon, and map asset archives from GitHub Releases. Ideal for provisioning CI/CD build runners, Docker images, or offline development environments:
+Pre-fetches font, icon, and map asset archives from GitHub Releases as well as headless Chromium (`chromium-headless-shell`) via Playwright. Ideal for provisioning CI/CD build runners, Docker images, or offline/air-gapped development environments:
 
 #### Options:
 | Option | Type | Default | Description |
 | :--- | :--- | :--- | :--- |
-| `--all` | flag | `True` | Download all font, icon, and map packages (default). |
+| `--all` | flag | `True` | Download all font, icon, map packages, and headless Chromium (default). |
 | `--fonts` | flag | `False` | Download font packages only. |
 | `--icons` | flag | `False` | Download icon packages only. |
 | `--maps` | flag | `False` | Download map packages only. |
+| `--browser` | flag | `False` | Download headless Chromium (`chromium-headless-shell`) only. |
 
 ```bash
-drawlib cache download --all       # Pre-download all font, icon, and map packages
+drawlib cache download --all       # Pre-download all fonts, icons, maps, and headless Chromium
 drawlib cache download --fonts     # Download font packages only
 drawlib cache download --icons     # Download icon packages only
 drawlib cache download --maps      # Download GeoJSON map packages only
+drawlib cache download --browser   # Download headless Chromium only
 ```
 
 ---
@@ -935,9 +1018,9 @@ drawlib rules
 | `slide-guide` | Slide deck storytelling, Dual-Layer (`::: block` vs. `::: note`) rule, layout variety, and visual best practices. |
 | `project-overview` | Project scaffolding (`init`), choosing among the 4 project archetypes, and cache architecture. |
 | `project-images` | Standalone Python diagram scripts (`images_src/*.py`), `clear()` lifecycle, and batch image build. |
-| `project-doc` | Linear technical documents, whitepapers, `00_cover.md` / `--generate-index`, and A4 vector PDF export (`doc_src/`). |
+| `project-doc` | Linear technical documents, whitepapers, `00_cover.md` / `--generate-index`, A4 vector PDF, and MS Word (`.docx`) export (`doc_src/`). |
 | `project-site` | Multi-page documentation websites, `navbar.md` sidebar rules, and Top Hero layout (`docs_src/`). |
-| `project-slide` | 16:9 presentation slide decks, `1920×1080` `::: block` / `::: note` syntax, and Presenter View (`slide_src/`). |
+| `project-slide` | 16:9 presentation slide decks, `1920×1080` `::: block` / `::: note` syntax, Presenter View, vector PDF, and MS PowerPoint (`.pptx`) export (`slide_src/`). |
 | `cli` | Document compilation, export, preview, and cache CLI commands. |
 | `api` | Comprehensive API index and quick reference cheat sheet for all Drawlib modules. |
 
@@ -955,8 +1038,8 @@ drawlib rules
 | `lib-images` | Embedding raster images via PIL (`Dimage`), scaling, rotation, borders, and filters. |
 | `lib-math` | Geometry helpers, coordinate calculations, angles, distance, and bounding box. |
 | `lib-types` | Type models, Style class, base classes, and Drawlib type conventions. |
-| `lib-tools` | Python developer API for document building, diagram export, and cache management. |
-| `lib-slide` | Python API for presentation slides (`current_slide`, `SlideContext`, `BoundingBox`, `build_slide`). |
+| `lib-tools` | Python developer API for document building (HTML, Markdown, PDF, MS Word, HTML Slide, MS PowerPoint), diagram export, and cache management. |
+| `lib-slide` | Python API for presentation slides (`current_slide`, `SlideContext`, `BoundingBox`, `build_slide`, `build_pptx`). |
 
 #### Hierarchical Component Families (`lib-<family>-*`):
 | Family Overview | Granular Sub-Topics |
@@ -1038,7 +1121,7 @@ jobs:
       - name: Install dependencies
         run: uv sync --frozen
 
-      - name: Pre-download font and icon assets
+      - name: Pre-download font, icon, map, and browser assets
         run: uv run python -m drawlib cache download --all
 
       - name: Build documentation site
@@ -1139,9 +1222,9 @@ repos:
 - **Cause**: `drawlib build` detected prohibited absolute paths (`/usr/...`, `/home/...`, `C:\...`) or `file://` URLs in Markdown source files, or `drawlib serve --check` detected `<a href="...">` or `<img src="...">` paths that do not exist on disk or point to local filesystem schemes.
 - **Fix**: Review the terminal error log for the exact file and line number. Ensure all Markdown links and asset paths use relative paths, and verify filename spelling.
 
-#### 5. Playwright or Chromium Not Found for PDF Build
-- **Cause**: `drawlib build pdf` requires Playwright and a downloaded headless Chromium binary.
-- **Fix**: Install `drawlib[pdf]` (`uv add "drawlib[pdf]"` or `pip install "drawlib[pdf]"`) and download Chromium (`uv run playwright install chromium` or `playwright install chromium`).
+#### 5. Headless Chromium Download Failure or Missing Linux Shared Libraries (`pdf` / `pptx` Build)
+- **Cause**: `drawlib build pdf` and `drawlib build pptx` include `playwright` as a standard dependency and automatically download `chromium-headless-shell` on first run. This can fail in strict air-gapped/offline environments without a pre-warmed browser cache, or inside minimal Linux container images (such as `python:3.12-slim`) lacking OS shared libraries (`libnss3`, `libgbm1`, etc.).
+- **Fix**: For offline or CI environments, pre-download headless Chromium ahead of time via `uv run drawlib cache download --browser` (or `--all`). On minimal Linux containers lacking OS shared libraries, run `uv run playwright install-deps chromium` (or `uv run playwright install --with-deps --only-shell chromium`).
 
 #### 6. Duplicate Image Output Collision
 - **Cause**: Two standalone Python scripts in batch mode or two embedded Markdown blocks write to the exact same output image filename.

@@ -1,6 +1,6 @@
 # Drawlib Slide Presentation Project
 
-This directory contains slide Markdown files and drawing code compiled into an interactive HTML presentation deck and print-ready PDF using Drawlib.
+This directory contains slide Markdown files and drawing code compiled into an interactive HTML presentation deck and print-ready PDF (plus optional editable 16:9 MS PowerPoint `.pptx` export) using Drawlib.
 
 ---
 
@@ -37,4 +37,14 @@ This directory contains slide Markdown files and drawing code compiled into an i
 ### Previewing
 ```bash
 ./serve.sh        # Start local live preview server
+```
+
+### Using the Drawlib CLI Directly
+```bash
+uv run drawlib build slide docs/slide_ddos_incident_response_src/ -o docs/slide_ddos_incident_response_html/
+uv run drawlib build pdf docs/slide_ddos_incident_response_src/ -o docs/slide_ddos_incident_response.pdf
+uv run drawlib build image docs/slide_ddos_incident_response_src/ -o docs/slide_ddos_incident_response_images/
+
+# Optional: Export an editable 16:9 MS PowerPoint (.pptx) presentation
+uv run drawlib build pptx docs/slide_ddos_incident_response_src/ -o docs/slide_ddos_incident_response.pptx
 ```

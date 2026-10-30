@@ -584,6 +584,26 @@
             </header>
             <main class="main-content">
                 <h1>Release Notes &amp; Migration Guide</h1>
+<h2>Version 0.3.2</h2>
+<p><em>Release Date: 2026/10/30</em></p>
+<p>Version 0.3.2 introduces native editable <strong>MS Word (<code>.docx</code>)</strong> and <strong>MS PowerPoint (<code>.pptx</code>)</strong> exporters, promotes <strong>headless Chromium, <code>python-docx</code>, and <code>python-pptx</code></strong> into unified zero-config standard dependencies, and reorganizes embedded AI agent rules into modular category directories.</p>
+<hr />
+<h3>Highlights &amp; New Features</h3>
+<h4>1. MS Word (<code>.docx</code>) &amp; MS PowerPoint (<code>.pptx</code>) Export (<code>drawlib build docx</code>, <code>drawlib build pptx</code>)</h4>
+<ul>
+<li><strong><code>drawlib build docx</code> &amp; <code>drawlib.tools.build_docx()</code></strong>: Compiles linear <code>doc</code> projects or single <code>.md</code> files into native editable MS Word (<code>.docx</code>) documents—complete with styled headings, prose, bullet/numbered lists, tables, blockquotes, syntax-highlighted code blocks, optional cover page, and automated Table of Contents (<code>--generate-index</code>)—rendering <code>drawlib</code> blocks (including SVG, WebP, and animated blocks) as crisp high-DPI static PNGs (<code>--dpi 200</code> default).</li>
+<li><strong><code>drawlib build pptx</code> &amp; <code>drawlib.slide.build_pptx()</code> / <code>drawlib.tools.build_pptx()</code></strong>: Measures <code>1920x1080</code> slide layouts and computed CSS styles via headless Chromium and exports native editable 16:9 (<code>960x540 pt</code>) MS PowerPoint (<code>.pptx</code>) decks—preserving <code>::: block</code> cards with <code>rgba</code> alpha fills/borders, text boxes, bullet/numbered lists, tables, inline code, and <code>::: note</code> speaker notes—while embedding <code>drawlib</code> diagrams as high-DPI static PNGs (<code>--dpi 240</code> default, <code>--anim-frame first|last</code> defaulting to <code>last</code>).</li>
+</ul>
+<h4>2. Zero-Config Headless Chromium &amp; Unified Standard Dependencies</h4>
+<ul>
+<li><strong>Unified Standard Dependencies</strong>: Promoted <code>playwright&gt;=1.49.0</code>, <code>python-docx&gt;=1.2.0</code>, and <code>python-pptx&gt;=1.0.2</code> to standard <code>dependencies</code> and removed <code>[project.optional-dependencies]</code>. Installing <code>drawlib</code> via <code>uv add drawlib</code> or <code>pip install drawlib</code> now works out of the box for PDF, MS Word, and MS PowerPoint exports without extra flags.</li>
+<li><strong>Automatic Headless Browser Provisioning</strong>: Running <code>drawlib build pdf</code> or <code>drawlib build pptx</code> automatically installs <code>chromium-headless-shell</code> on first run via Playwright's bundled driver. Added explicit offline pre-download support via <code>drawlib cache download --browser</code> (also included in <code>drawlib cache download --all</code>) and actionable shared-library diagnostics (<code>playwright install-deps chromium</code>) for minimal Linux containers.</li>
+</ul>
+<h4>3. Modular Category-Based AI Agent Rules (<code>drawlib rules</code>)</h4>
+<ul>
+<li><strong>Modular <code>_rules/</code> Organization</strong>: Reorganized embedded rule manuals (<code>src/drawlib/_rules/</code>) into modular category directories (<code>charts/</code>, <code>diagrams/</code>, <code>graph/</code>, <code>icons/</code>, <code>shapes/</code>, <code>smartarts/</code>) for cleaner maintainability and fast topic lookup.</li>
+</ul>
+<hr />
 <h2>Version 0.3.1</h2>
 <p><em>Release Date: 2026/10/23</em></p>
 <p>Version 0.3.1 introduces the <strong><code>drawlib.charts.heatmap</code></strong> visualization suite (<code>HeatmapChart</code> and <code>HeatmapOverlay</code>) alongside a comprehensive <strong>startup and import performance optimization</strong> across the library and CLI.</p>

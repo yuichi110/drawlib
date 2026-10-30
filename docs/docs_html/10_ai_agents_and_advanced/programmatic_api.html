@@ -623,7 +623,7 @@
 
 <span class="c1"># Row 1 of 3x2 Grid</span>
 <span class="n">grid_items</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="p">(</span><span class="mf">58.0</span><span class="p">,</span> <span class="mf">35.5</span><span class="p">,</span> <span class="s2">"1. Compilers"</span><span class="p">,</span> <span class="s2">"build_html / pdf"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">globe</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">58.0</span><span class="p">,</span> <span class="mf">35.5</span><span class="p">,</span> <span class="s2">"1. Compilers"</span><span class="p">,</span> <span class="s2">"HTML, PDF &amp; Office"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">globe</span><span class="p">),</span>
     <span class="p">(</span><span class="mf">83.0</span><span class="p">,</span> <span class="mf">35.5</span><span class="p">,</span> <span class="s2">"2. Extraction"</span><span class="p">,</span> <span class="s2">"export_code_block"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">file_pdf</span><span class="p">),</span>
     <span class="p">(</span><span class="mf">108.0</span><span class="p">,</span> <span class="mf">35.5</span><span class="p">,</span> <span class="s2">"3. In-Memory"</span><span class="p">,</span> <span class="s2">"get_dimage"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">image</span><span class="p">),</span>
     <span class="p">(</span><span class="mf">58.0</span><span class="p">,</span> <span class="mf">16.0</span><span class="p">,</span> <span class="s2">"4. Scaffold"</span><span class="p">,</span> <span class="s2">"init_project"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">presentation_chart</span><span class="p">),</span>
@@ -647,12 +647,14 @@
 <hr />
 <h2>1. Module Overview &amp; Complete Exports (<code>drawlib.tools</code>)</h2>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.tools</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
-    <span class="c1"># Document, Slide, &amp; Image Compilation</span>
+    <span class="c1"># Document, Slide, Office &amp; Image Compilation</span>
     <span class="n">build_document</span><span class="p">,</span>
     <span class="n">build_html</span><span class="p">,</span>
     <span class="n">build_markdown</span><span class="p">,</span>
     <span class="n">build_pdf</span><span class="p">,</span>
+    <span class="n">build_docx</span><span class="p">,</span>
     <span class="n">build_slide</span><span class="p">,</span>
+    <span class="n">build_pptx</span><span class="p">,</span>
     <span class="n">build_image</span><span class="p">,</span>
     <span class="n">detect_document_type</span><span class="p">,</span>
     <span class="c1"># Single Diagram Extraction &amp; Desktop Preview</span>
@@ -703,8 +705,18 @@
 </tr>
 <tr>
 <td style="text-align:left"><strong>Compilation</strong></td>
+<td style="text-align:left"><code>build_docx(input_path=None, output_file=None, *, input_dir=None, title=None, page_break=True, generate_index=False, dpi=200, styles_path=None, utils_path=None, no_cache=False, timestamp=False)</code></td>
+<td style="text-align:left">Compile Markdown chapters or a single <code>.md</code> file into an editable MS Word (<code>.docx</code>) document with high-DPI static PNG diagrams.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Compilation</strong></td>
 <td style="text-align:left"><code>build_slide(input_dir, output_dir=None, *, title=None, theme=None, image_format=&quot;svg&quot;, styles_path=None, utils_path=None, no_cache=False)</code></td>
 <td style="text-align:left">Compile a <code>slide_src/</code> directory into an interactive 16:9 HTML slide deck (<code>index.html</code>).</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Compilation</strong></td>
+<td style="text-align:left"><code>build_pptx(input_dir, output_file=None, *, title=None, theme=None, dpi=240, anim_frame=&quot;last&quot;, styles_path=None, utils_path=None, no_cache=False, timestamp=False)</code></td>
+<td style="text-align:left">Compile a <code>slide_src/</code> directory into an editable 16:9 (<code>960×540 pt</code>) MS PowerPoint (<code>.pptx</code>) deck via headless Chromium layout measurement.</td>
 </tr>
 <tr>
 <td style="text-align:left"><strong>Compilation</strong></td>
@@ -714,7 +726,7 @@
 <tr>
 <td style="text-align:left"><strong>Compilation</strong></td>
 <td style="text-align:left"><code>build_document(input_dir, output_path=None, output_format=None, ...)</code></td>
-<td style="text-align:left">Unified dispatcher for <code>&quot;html&quot;</code>, <code>&quot;markdown&quot;</code>, or <code>&quot;pdf&quot;</code> compilation.</td>
+<td style="text-align:left">Unified dispatcher for <code>&quot;html&quot;</code>, <code>&quot;markdown&quot;</code>, <code>&quot;pdf&quot;</code>, or <code>&quot;docx&quot;</code> compilation.</td>
 </tr>
 <tr>
 <td style="text-align:left"><strong>Inspection</strong></td>
@@ -753,8 +765,8 @@
 </tr>
 <tr>
 <td style="text-align:left"><strong>Cache</strong></td>
-<td style="text-align:left"><code>list_cache()</code>, <code>download_cache(all_assets=True, fonts=False, icons=False, maps=False)</code>, <code>clear_cache()</code></td>
-<td style="text-align:left">Inspect, pre-download, or purge cached font, icon, and map packages.</td>
+<td style="text-align:left"><code>list_cache()</code>, <code>download_cache(all_assets=True, fonts=False, icons=False, maps=False, browser=False)</code>, <code>clear_cache()</code></td>
+<td style="text-align:left">Inspect, pre-download (fonts, icons, maps, and headless Chromium browser), or purge cached packages.</td>
 </tr>
 <tr>
 <td style="text-align:left"><strong>CSS Themes</strong></td>
@@ -764,7 +776,7 @@
 </tbody>
 </table>
 <hr />
-<h2>2. Document, Slide &amp; Image Compilation API</h2>
+<h2>2. Document, Slide, Office &amp; Image Compilation API</h2>
 <h3>2.1 <code>build_html()</code> &amp; <code>build_markdown()</code></h3>
 <p>Compiles a documentation source directory (<code>docs_src/</code>) into a static HTML website and GitHub-Flavored Markdown:</p>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.tools</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_html</span><span class="p">,</span> <span class="n">build_markdown</span>
@@ -803,9 +815,34 @@
     <span class="n">image_format</span><span class="o">=</span><span class="s2">"svg"</span><span class="p">,</span>
 <span class="p">)</span>
 </code></pre>
-<h3>2.3 <code>build_image()</code></h3>
-<p>Batch executes standalone Python scripts in <code>images_src/</code> or extracts embedded diagrams from Markdown files:</p>
-<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.tools</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_image</span>
+<h3>2.3 <code>build_docx()</code> &amp; <code>build_pptx()</code></h3>
+<p>Compiles linear Markdown specs into native editable MS Word (<code>.docx</code>) documents and 16:9 slide decks into editable MS PowerPoint (<code>.pptx</code>) presentations:</p>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.tools</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_docx</span><span class="p">,</span> <span class="n">build_pptx</span>
+
+<span class="c1"># Compile linear document chapters into an editable MS Word (.docx) document:</span>
+<span class="n">build_docx</span><span class="p">(</span>
+    <span class="n">input_path</span><span class="o">=</span><span class="s2">"doc_src/"</span><span class="p">,</span>
+    <span class="n">output_file</span><span class="o">=</span><span class="s2">"doc.docx"</span><span class="p">,</span>
+    <span class="n">generate_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>               <span class="c1"># Insert Table of Contents between Ch 1 &amp; Ch 2</span>
+    <span class="n">page_break</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>                   <span class="c1"># Insert page breaks between merged chapters</span>
+    <span class="n">dpi</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span>                           <span class="c1"># High-DPI static PNG rasterization for diagrams</span>
+<span class="p">)</span>
+
+<span class="c1"># Compile 16:9 slide deck into an editable MS PowerPoint (.pptx) presentation:</span>
+<span class="n">build_pptx</span><span class="p">(</span>
+    <span class="n">input_dir</span><span class="o">=</span><span class="s2">"slide_src/"</span><span class="p">,</span>
+    <span class="n">output_file</span><span class="o">=</span><span class="s2">"slide.pptx"</span><span class="p">,</span>
+    <span class="n">theme</span><span class="o">=</span><span class="s2">"google"</span><span class="p">,</span>
+    <span class="n">dpi</span><span class="o">=</span><span class="mi">240</span><span class="p">,</span>                           <span class="c1"># High-DPI static PNG rasterization for diagrams</span>
+    <span class="n">anim_frame</span><span class="o">=</span><span class="s2">"last"</span><span class="p">,</span>                 <span class="c1"># Extract "first" or "last" frame from animations</span>
+<span class="p">)</span>
+</code></pre>
+<h3>2.4 <code>build_image()</code> &amp; <code>download_cache()</code></h3>
+<p>Batch executes standalone Python scripts in <code>images_src/</code> or pre-warms font, icon, map, and headless Chromium caches programmatically:</p>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.tools</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_image</span><span class="p">,</span> <span class="n">download_cache</span>
+
+<span class="c1"># Pre-warm headless Chromium only (or pass all_assets=True for fonts + icons + maps + browser):</span>
+<span class="n">download_cache</span><span class="p">(</span><span class="n">all_assets</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">browser</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="n">build_image</span><span class="p">(</span>
     <span class="n">input_path</span><span class="o">=</span><span class="s2">"images_src/"</span><span class="p">,</span>

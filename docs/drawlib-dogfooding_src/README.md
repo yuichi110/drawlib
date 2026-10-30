@@ -1,6 +1,6 @@
 # Drawlib ドキュメントプロジェクト (`doc`)
 
-このディレクトリには、Drawlib を使用して **HTML, PDF, Markdown, スタンドアロン画像** へ一括コンパイルされるドキュメントが含まれています。
+このディレクトリには、Drawlib を使用して **HTML, PDF, Markdown, スタンドアロン画像**（およびオプションで編集可能な **MS Word `.docx`**）へコンパイルされるドキュメントが含まれています。
 
 > [!TIP]
 > **詳細なルールや機能ガイドを確認したい場合**  
@@ -60,6 +60,9 @@ uv run drawlib build html drawlib-dogfooding_src/ -o drawlib-dogfooding_html/
 uv run drawlib build pdf drawlib-dogfooding_src/ -o drawlib-dogfooding.pdf --generate-index
 uv run drawlib build markdown drawlib-dogfooding_src/ -o drawlib-dogfooding_markdown/
 uv run drawlib build image drawlib-dogfooding_src/ -o drawlib-dogfooding_images/
+
+# オプション: 編集可能な MS Word (.docx) ドキュメントのエクスポート
+uv run drawlib build docx drawlib-dogfooding_src/ -o drawlib-dogfooding.docx --generate-index
 ```
 
 ---
@@ -85,7 +88,7 @@ from drawlib.shapes import rectangle
 from drawlib.styles import Styles
 from drawlib.text import text
 
-REPORT_VERSION = "v0.3.0"
+REPORT_VERSION = "v0.3.2"
 
 def chapter_banner(xy: tuple[float, float], title: str) -> None:
     rectangle(xy, width=100, height=12, style=Styles.PrimaryFlat)

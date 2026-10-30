@@ -585,10 +585,10 @@
             <main class="main-content">
                 <h1>Linear Document Project Guide (<code>drawlib init doc</code>)</h1>
 <p>The <code>doc</code> starter template is designed for authoring linear technical documents — such as specifications, Request for Comments (RFCs), system architecture proposals, whitepapers, thesis papers, and formal engineering reports.</p>
-<p>By unifying single-page specs and multi-chapter reports into a single archetype, Drawlib allows you to compile <strong>HTML, PDF, Markdown, and standalone images</strong> from the same Markdown source files.</p>
+<p>By unifying single-page specs and multi-chapter reports into a single archetype, Drawlib allows you to compile <strong>HTML, vector PDF, editable MS Word (<code>.docx</code>), Markdown, and standalone images</strong> from the same Markdown source files.</p>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="project_doc_images/project_doc_chapter_merge_and_toc.png" alt="project_doc_1" />
-  <figcaption class="drawlib-caption">Lexicographical Chapter Merging and Automatic Table of Contents (--toc) Injection</figcaption>
+  <figcaption class="drawlib-caption">Lexicographical Chapter Merging and Automatic Table of Contents (--toc / --generate-index) Injection</figcaption>
 </figure>
 <details class="drawlib-code-details">
 <summary>Source Code</summary>
@@ -639,8 +639,8 @@
     <span class="n">width</span><span class="o">=</span><span class="mi">37</span><span class="p">,</span>
     <span class="n">height</span><span class="o">=</span><span class="mf">8.5</span><span class="p">,</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">),</span>
-    <span class="n">text</span><span class="o">=</span><span class="s2">"Auto TOC (--toc)</span><span class="se">\n</span><span class="s2">Between Ch 1 &amp; Ch 2"</span><span class="p">,</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.2</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Auto TOC (Ch 1 -&gt; Ch 2)</span><span class="se">\n</span><span class="s2">--toc / --generate-index"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
 <span class="p">)</span>
 <span class="n">rectangle</span><span class="p">(</span>
     <span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mf">21.8</span><span class="p">),</span>
@@ -665,19 +665,24 @@
 <span class="n">line</span><span class="p">((</span><span class="mi">32</span><span class="p">,</span> <span class="mf">14.0</span><span class="p">),</span> <span class="p">(</span><span class="mf">45.5</span><span class="p">,</span> <span class="mf">12.0</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
 
 <span class="c1"># Right: Exported Linear Deliverables</span>
-<span class="n">rectangle</span><span class="p">((</span><span class="mi">109</span><span class="p">,</span> <span class="mf">39.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
-<span class="n">phosphor</span><span class="o">.</span><span class="n">file_pdf</span><span class="p">((</span><span class="mf">99.0</span><span class="p">,</span> <span class="mf">39.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
-<span class="n">text</span><span class="p">((</span><span class="mf">112.5</span><span class="p">,</span> <span class="mf">39.0</span><span class="p">),</span> <span class="s2">"doc.pdf</span><span class="se">\n</span><span class="s2">Vector PDF</span><span class="se">\n</span><span class="s2">+ TOC"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.2</span><span class="p">))</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">109</span><span class="p">,</span> <span class="mf">44.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">13.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">file_pdf</span><span class="p">((</span><span class="mf">99.0</span><span class="p">,</span> <span class="mf">44.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.6</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">112.5</span><span class="p">,</span> <span class="mf">44.5</span><span class="p">),</span> <span class="s2">"doc.pdf</span><span class="se">\n</span><span class="s2">Vector PDF"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
 
-<span class="n">rectangle</span><span class="p">((</span><span class="mi">109</span><span class="p">,</span> <span class="mf">19.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
-<span class="n">phosphor</span><span class="o">.</span><span class="n">globe</span><span class="p">((</span><span class="mf">99.0</span><span class="p">,</span> <span class="mf">19.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
-<span class="n">text</span><span class="p">((</span><span class="mf">112.5</span><span class="p">,</span> <span class="mf">19.0</span><span class="p">),</span> <span class="s2">"doc_html/</span><span class="se">\n</span><span class="s2">Single-Page</span><span class="se">\n</span><span class="s2">Web Spec"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.2</span><span class="p">))</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">109</span><span class="p">,</span> <span class="mf">29.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">13.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">file_doc</span><span class="p">((</span><span class="mf">99.0</span><span class="p">,</span> <span class="mf">29.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.6</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">112.5</span><span class="p">,</span> <span class="mf">29.0</span><span class="p">),</span> <span class="s2">"doc.docx</span><span class="se">\n</span><span class="s2">MS Word"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">109</span><span class="p">,</span> <span class="mf">13.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">13.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">globe</span><span class="p">((</span><span class="mf">99.0</span><span class="p">,</span> <span class="mf">13.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.6</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">112.5</span><span class="p">,</span> <span class="mf">13.5</span><span class="p">),</span> <span class="s2">"doc_html/</span><span class="se">\n</span><span class="s2">Web Spec"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
 
 <span class="c1"># Connectors: Merged Stream -&gt; Deliverables</span>
 <span class="n">line</span><span class="p">((</span><span class="mi">85</span><span class="p">,</span> <span class="mf">29.0</span><span class="p">),</span> <span class="p">(</span><span class="mf">89.5</span><span class="p">,</span> <span class="mf">29.0</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
-<span class="n">line</span><span class="p">((</span><span class="mf">89.5</span><span class="p">,</span> <span class="mf">19.0</span><span class="p">),</span> <span class="p">(</span><span class="mf">89.5</span><span class="p">,</span> <span class="mf">39.0</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
-<span class="n">line</span><span class="p">((</span><span class="mf">89.5</span><span class="p">,</span> <span class="mf">39.0</span><span class="p">),</span> <span class="p">(</span><span class="mf">94.0</span><span class="p">,</span> <span class="mf">39.0</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
-<span class="n">line</span><span class="p">((</span><span class="mf">89.5</span><span class="p">,</span> <span class="mf">19.0</span><span class="p">),</span> <span class="p">(</span><span class="mf">94.0</span><span class="p">,</span> <span class="mf">19.0</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+<span class="n">line</span><span class="p">((</span><span class="mf">89.5</span><span class="p">,</span> <span class="mf">13.5</span><span class="p">),</span> <span class="p">(</span><span class="mf">89.5</span><span class="p">,</span> <span class="mf">44.5</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+<span class="n">line</span><span class="p">((</span><span class="mf">89.5</span><span class="p">,</span> <span class="mf">44.5</span><span class="p">),</span> <span class="p">(</span><span class="mf">94.0</span><span class="p">,</span> <span class="mf">44.5</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+<span class="n">line</span><span class="p">((</span><span class="mf">89.5</span><span class="p">,</span> <span class="mf">29.0</span><span class="p">),</span> <span class="p">(</span><span class="mf">94.0</span><span class="p">,</span> <span class="mf">29.0</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+<span class="n">line</span><span class="p">((</span><span class="mf">89.5</span><span class="p">,</span> <span class="mf">13.5</span><span class="p">),</span> <span class="p">(</span><span class="mf">94.0</span><span class="p">,</span> <span class="mf">13.5</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
 
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
@@ -786,7 +791,7 @@ drawlib<span class="w"> </span>init<span class="w"> </span>doc<span class="w"> <
     <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
 <span class="p">)</span><span class="o">.</span><span class="n">set_drawing_item</span><span class="p">(</span><span class="s2">"folder_out"</span><span class="p">)</span>
 <span class="n">root</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
-    <span class="s2">"doc.pdf  — [GENERATED] High-quality vector PDF with TOC"</span><span class="p">,</span>
+    <span class="s2">"doc.pdf &amp; doc.docx  — [GENERATED] Vector PDF &amp; editable Word"</span><span class="p">,</span>
     <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
 <span class="p">)</span><span class="o">.</span><span class="n">set_drawing_item</span><span class="p">(</span><span class="s2">"md"</span><span class="p">)</span>
 <span class="n">root</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
@@ -803,15 +808,15 @@ drawlib<span class="w"> </span>init<span class="w"> </span>doc<span class="w"> <
 </code></pre>
 </details>
 <hr />
-<h2>3. Four Target Outputs from One Source</h2>
-<p>A <code>doc</code> project compiles into 4 distinct target artifacts:</p>
+<h2>3. Five Target Outputs from One Source</h2>
+<p>A <code>doc</code> project compiles into 5 distinct target artifacts:</p>
 <table>
 <thead>
 <tr>
 <th style="text-align:left">Output Target</th>
 <th style="text-align:left">Target Audience</th>
 <th style="text-align:left">Primary Use Case</th>
-<th style="text-align:left">Build Script</th>
+<th style="text-align:left">Build Script / Command</th>
 </tr>
 </thead>
 <tbody>
@@ -826,6 +831,12 @@ drawlib<span class="w"> </span>init<span class="w"> </span>doc<span class="w"> <
 <td style="text-align:left">Print &amp; Distribution</td>
 <td style="text-align:left">Formal whitepapers, client deliverables, printable reports with Table of Contents</td>
 <td style="text-align:left"><code>build_pdf.sh</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>doc.docx</code></strong></td>
+<td style="text-align:left">Collaborative Editing &amp; Review</td>
+<td style="text-align:left">Native editable MS Word documents (headings, lists, tables, syntax-highlighted code blocks, cover + TOC, high-DPI PNG diagrams)</td>
+<td style="text-align:left"><code>drawlib build docx</code></td>
 </tr>
 <tr>
 <td style="text-align:left"><strong><code>doc_markdown/</code></strong></td>
@@ -843,11 +854,11 @@ drawlib<span class="w"> </span>init<span class="w"> </span>doc<span class="w"> <
 </table>
 <hr />
 <h2>4. Chapter Ordering, Cover Page &amp; Table of Contents Mechanics</h2>
-<p>Because a <code>doc</code> project does not use a <code>navbar.md</code> sidebar file, Drawlib merges all <code>.md</code> files in <code>doc_src/</code> (excluding <code>README.md</code>) into a single linear document for both <code>doc_html/index.html</code> and <code>doc.pdf</code>:</p>
+<p>Because a <code>doc</code> project does not use a <code>navbar.md</code> sidebar file, Drawlib merges all <code>.md</code> files in <code>doc_src/</code> (excluding <code>README.md</code> and <code>_</code>-prefixed files) into a single linear document for <code>doc_html/index.html</code>, <code>doc.pdf</code>, and <code>doc.docx</code>:</p>
 <ol>
 <li><strong>Lexicographical Chapter Sorting</strong>: Name your chapter files with numeric prefixes (<code>00_cover.md</code>, <code>01_overview.md</code>, <code>02_design.md</code>, <code>03_benchmarks.md</code>) so they are merged in deterministic reading order.</li>
-<li><strong>Cover Page Convention (<code>00_cover.md</code>)</strong>: The first file in sorted order acts as the document cover page. When <code>--toc</code> (<code>--generate-index</code>) is passed to <code>drawlib build pdf</code>, the automated Table of Contents is inserted cleanly <strong>between the 1st document (<code>00_cover.md</code>) and the 2nd document (<code>01_overview.md</code>)</strong>.</li>
-<li><strong>Chapter Page Breaks (<code>--page-break</code>)</strong>: By default in PDF compilation (<code>--page-break</code>), each merged <code>.md</code> file begins on a new A4 page (<code>page-break-before: always</code>). Pass <code>--no-page-break</code> if you prefer continuous flow without forced page breaks between files.</li>
+<li><strong>Cover Page Convention (<code>00_cover.md</code>)</strong>: The first file in sorted order acts as the document cover page. When <code>--toc</code> (<code>--generate-index</code>) is passed to <code>drawlib build pdf</code> or <code>--generate-index</code> is passed to <code>drawlib build docx</code>, the automated Table of Contents is inserted cleanly <strong>between the 1st document (<code>00_cover.md</code>) and the 2nd document (<code>01_overview.md</code>)</strong>.</li>
+<li><strong>Chapter Page Breaks (<code>--page-break</code>)</strong>: By default in both PDF and Word (<code>.docx</code>) compilation (<code>--page-break</code>), each merged <code>.md</code> file begins on a new page. Pass <code>--no-page-break</code> if you prefer continuous flow without forced page breaks between files.</li>
 </ol>
 <hr />
 <h2>5. Modular Build Scripts Architecture</h2>
@@ -865,18 +876,21 @@ Scans all Markdown files, extracts embedded <code>drawlib</code> blocks, and ren
 Runs all of the above target builds in sequence to produce a complete set of release artifacts.</li>
 </ol>
 <hr />
-<h2>6. Direct CLI Commands</h2>
-<p>You can also run the build commands directly from the terminal:</p>
+<h2>6. Direct CLI Commands (Including MS Word <code>.docx</code>)</h2>
+<p>You can run any build target—including native MS Word (<code>.docx</code>) export—directly from the terminal:</p>
 <pre><code class="language-bash"><span class="c1"># 1. Compile to HTML:</span>
 drawlib<span class="w"> </span>build<span class="w"> </span>html<span class="w"> </span>doc_src/<span class="w"> </span>-o<span class="w"> </span>doc_html/
 
 <span class="c1"># 2. Compile to PDF with Cover and Table of Contents:</span>
 drawlib<span class="w"> </span>build<span class="w"> </span>pdf<span class="w"> </span>doc_src/<span class="w"> </span>-o<span class="w"> </span>doc.pdf<span class="w"> </span>--toc<span class="w"> </span>--page-break
 
-<span class="c1"># 3. Compile to GitHub-ready Markdown:</span>
+<span class="c1"># 3. Compile to editable MS Word (.docx) with Cover, TOC, and 200 DPI diagram PNGs:</span>
+drawlib<span class="w"> </span>build<span class="w"> </span>docx<span class="w"> </span>doc_src/<span class="w"> </span>-o<span class="w"> </span>doc.docx<span class="w"> </span>--generate-index<span class="w"> </span>--page-break<span class="w"> </span>--dpi<span class="w"> </span><span class="m">200</span>
+
+<span class="c1"># 4. Compile to GitHub-ready Markdown:</span>
 drawlib<span class="w"> </span>build<span class="w"> </span>markdown<span class="w"> </span>doc_src/<span class="w"> </span>-o<span class="w"> </span>doc_markdown/
 
-<span class="c1"># 4. Extract diagram images from Markdown:</span>
+<span class="c1"># 5. Extract diagram images from Markdown:</span>
 drawlib<span class="w"> </span>build<span class="w"> </span>image<span class="w"> </span>doc_src/<span class="w"> </span>-o<span class="w"> </span>doc_images/
 </code></pre>
 <hr />
@@ -885,7 +899,7 @@ drawlib<span class="w"> </span>build<span class="w"> </span>image<span class="w"
 <ol>
 <li><strong>Phase 1 (Parent Setup)</strong>: Scaffold <code>doc_src/</code> (<code>drawlib init doc</code>), finalize <code>styles.py</code>, <code>utils.py</code>, and <code>00_cover.md</code>, and establish the numbered chapter filenames.</li>
 <li><strong>Phase 2 (Parallel Subagents)</strong>: Delegate individual chapters (<code>doc_src/0N_&lt;topic&gt;.md</code>) to parallel subagents. Each subagent authors its assigned chapter (<code>2+</code> diagrams, Chapter Hero at <code>Lines 5–15</code>) and verifies its diagrams with unique grid preview paths (<code>-o .drawlib/scratch/0N_&lt;diagram&gt;_grid.png</code>).</li>
-<li><strong>Phase 3 (Unified Compilation)</strong>: After all subagents complete their chapters, the parent agent runs <code>./doc_src/build.sh</code> once to merge all chapters into <code>doc_html/index.html</code> and <code>doc.pdf</code>.</li>
+<li><strong>Phase 3 (Unified Compilation)</strong>: After all subagents complete their chapters, the parent agent runs <code>./doc_src/build.sh</code> (and <code>drawlib build docx</code> when needed) once to merge all chapters into <code>doc_html/index.html</code>, <code>doc.pdf</code>, and <code>doc.docx</code>.</li>
 </ol>
 
             </main>

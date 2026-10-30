@@ -26,6 +26,9 @@ COPY pyproject.toml ./
 COPY src/ ./src/
 RUN mkdir -p docs && touch docs/README_PYPI.md && pip install --no-cache-dir "." && rm -rf ./src ./docs
 
+# Install OS shared libraries required by headless Chromium for PDF/PPTX tests
+RUN playwright install-deps chromium && rm -rf /var/lib/apt/lists/*
+
 # Copy test suite and assets
 COPY tests/ ./tests/
 RUN mkdir -p output_tests

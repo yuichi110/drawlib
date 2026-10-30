@@ -1,12 +1,12 @@
 # Drawlib Project Architecture & Overview Guidelines
 
-Drawlib provides a complete project scaffolding and multi-target build engine. It compiles Python drawing scripts and Markdown documents containing embedded ````drawlib```` blocks into publication-ready static HTML websites, linear vector PDFs, 16:9 presentation slide decks, GitHub-Flavored Markdown, and standalone image assets.
+Drawlib provides a complete project scaffolding and multi-target build engine. It compiles Python drawing scripts and Markdown documents containing embedded ````drawlib```` blocks into publication-ready static HTML websites, linear vector PDFs, editable MS Word (`.docx`) documents, 16:9 presentation slide decks, editable MS PowerPoint (`.pptx`) decks, GitHub-Flavored Markdown, and standalone image assets.
 
 This document covers the **universal project architecture, template selection, shared configuration files (`styles.py`, `utils.py`), and caching system**. For deep authoring best practices on a specific project type, consult its dedicated rule guide:
 - **Standalone Images (`images`)**: `uv run drawlib rules show project-images`
-- **Linear Document & PDF (`doc`)**: `uv run drawlib rules show project-doc`
+- **Linear Document, PDF & Word (`doc`)**: `uv run drawlib rules show project-doc`
 - **Multi-Page Website (`site`)**: `uv run drawlib rules show project-site`
-- **16:9 Slide Deck (`slide`)**: `uv run drawlib rules show project-slide`
+- **16:9 Slide Deck & PowerPoint (`slide`)**: `uv run drawlib rules show project-slide`
 - **3-Stage Review & Self-Correction Loop**: `uv run drawlib rules show review-guide`
 
 ---
@@ -16,9 +16,9 @@ This document covers the **universal project architecture, template selection, s
 > **CRITICAL for AI Agents & Developers**: Never create standalone `.py` drawing scripts directly in an uninitialized directory, and never construct project folders from scratch manually.  
 > Before writing any drawing code, check if a Drawlib project (`*_src/`) already exists in the workspace. If not, **always scaffold a project first using `drawlib init`** (or guide the user to choose one) so that `styles.py` (theme & language fonts), `utils.py`, `_assets/`, and `build.sh` are properly configured:
 > - **Diagram image(s) only** -> Scaffold an **`images`** project (`uv run drawlib init images [-l <lang>] [-s <style>]`).
-> - **Linear technical spec / whitepaper / PDF** -> Scaffold a **`doc`** project (`uv run drawlib init doc [-l <lang>] [-s <style>]`).
+> - **Linear technical spec / whitepaper / PDF / Word (`.docx`)** -> Scaffold a **`doc`** project (`uv run drawlib init doc [-l <lang>] [-s <style>]`).
 > - **Multi-page documentation website** -> Scaffold a **`site`** project (`uv run drawlib init site [-l <lang>] [-s <style>]`).
-> - **16:9 presentation slide deck** -> Scaffold a **`slide`** project (`uv run drawlib init slide [-l <lang>] [-s <style>]`).
+> - **16:9 presentation slide deck / PowerPoint (`.pptx`)** -> Scaffold a **`slide`** project (`uv run drawlib init slide [-l <lang>] [-s <style>]`).
 > - **Pass `--lang` for Non-English Labels**: When the user prompts in Japanese (or requires CJK/multilingual typography), pass `--lang ja` (or target language code) to `drawlib init` so `styles.py` automatically configures CJK-safe fonts.
 > - **Clean Up Starter Samples**: After scaffolding, replace or delete the generated starter sample files (`sample1.py`, `sample2.py`, etc.) so only the user's requested diagrams are built.
 
@@ -54,9 +54,9 @@ Drawlib features 4 project starter templates tailored to distinct authoring and 
 | Project Type | Source Folder | Generated Deliverables | When AI Agents Should Choose This | Dedicated Guide |
 | :--- | :--- | :--- | :--- | :--- |
 | **`images`** | `images_src/*.py` | `images/*.png` (or `.webp`) | User wants **diagram image(s) only** (architecture figures, README illustrations, standalone assets). | `project-images` |
-| **`doc`** | `doc_src/*.md` | `doc_html/` (Web preview)<br>`doc.pdf` (A4 vector PDF)<br>`doc_markdown/` (GitHub MD)<br>`doc_images/` (Extracted PNGs) | User wants a **single linear technical document** (RFCs, design specs, whitepapers, quickstarts, printable PDF reports). | `project-doc` |
+| **`doc`** | `doc_src/*.md` | `doc_html/` (Web preview)<br>`doc.pdf` (A4 vector PDF)<br>`doc_markdown/` (GitHub MD)<br>`doc_images/` (Extracted PNGs)<br>*(+ on-demand `doc.docx` via `build docx`)* | User wants a **single linear technical document** (RFCs, design specs, whitepapers, quickstarts, printable PDFs, or editable MS Word `.docx`). | `project-doc` |
 | **`site`** | `docs_src/**/*.md`<br>+ `navbar.md` | `docs_html/` (Multi-page site)<br>`docs_markdown/` (GitHub MD)<br>`docs_images/` (Extracted PNGs) | User wants a **multi-page documentation website** with a persistent navigation sidebar (portals, guides, wikis). | `project-site` |
-| **`slide`** | `slide_src/*.md` | `slide_html/index.html` (Deck)<br>`slide.pdf` (16:9 vector PDF)<br>`slide_images/` (Extracted SVGs) | User wants a **16:9 widescreen presentation deck** with `1920×1080` stage blocks, speaker notes, and Presenter View. | `project-slide` |
+| **`slide`** | `slide_src/*.md` | `slide_html/index.html` (Deck)<br>`slide.pdf` (16:9 vector PDF)<br>`slide_images/` (Extracted SVGs)<br>*(+ on-demand `slide.pptx` via `build pptx`)* | User wants a **16:9 widescreen presentation deck** with `1920×1080` stage blocks, speaker notes, Presenter View, or editable MS PowerPoint `.pptx`. | `project-slide` |
 
 ```drawlib align=center code=fold file=project_archetypes_overview.png caption="Drawlib's Four Project Archetypes & Compilation Deliverables"
 from drawlib.canvas import save, setup
@@ -77,9 +77,9 @@ text(
 
 cards = [
     (22.5, "images", "images_src/*.py", "• Batch Python scripts\n• Standalone PNG/WebP\n• Rule: project-images", Styles.Neutral, Styles.PrimaryBold, phosphor.image),
-    (58.2, "doc", "doc_src/*.md", "• Linear chapters + ToC\n• A4 Vector PDF & HTML\n• Rule: project-doc", Styles.PrimaryNeutral, Styles.PrimaryBold, phosphor.file_pdf),
+    (58.2, "doc", "doc_src/*.md", "• Linear chapters + ToC\n• A4 PDF, HTML & .docx\n• Rule: project-doc", Styles.PrimaryNeutral, Styles.PrimaryBold, phosphor.file_pdf),
     (93.8, "site", "docs_src/**/*.md", "• Multi-page + navbar.md\n• Static Website & Search\n• Rule: project-site", Styles.PrimaryFlat, Styles.WhiteBold, phosphor.globe),
-    (129.5, "slide", "slide_src/*.md", "• 1920x1080 ::: block\n• Web Deck & 16:9 PDF\n• Rule: project-slide", Styles.SecondaryNeutral, Styles.SecondaryBold, phosphor.presentation_chart),
+    (129.5, "slide", "slide_src/*.md", "• 1920x1080 ::: block\n• Web, 16:9 PDF & .pptx\n• Rule: project-slide", Styles.SecondaryNeutral, Styles.SecondaryBold, phosphor.presentation_chart),
 ]
 
 for cx, title, sub, body, card_st, hdr_st, icon_fn in cards:
@@ -103,7 +103,7 @@ Every scaffolded `<target>_src/` directory shares four foundational mechanisms:
 
 ### 3.1. Golden Rule: `<target>_src/` Is the Single Source of Truth
 - **Author & Edit Strictly Inside `<target>_src/`**: All Markdown documents, Python scripts, stylesheets, and assets live inside `images_src/`, `doc_src/`, `docs_src/`, or `slide_src/`.
-- **Never Manually Edit Output Directories**: Generated folders (`images/`, `doc_html/`, `docs_html/`, `docs_markdown/`, `slide_html/`, `*.pdf`) are overwritten on every build.
+- **Never Manually Edit Output Directories**: Generated folders and artifacts (`images/`, `doc_html/`, `docs_html/`, `docs_markdown/`, `slide_html/`, `*.pdf`, `*.docx`, `*.pptx`) are overwritten on build.
 - **Overwrite Protection**: `drawlib build` strictly refuses to execute if the source and destination paths resolve to the same directory (`src_abs == dest_abs`).
 
 ### 3.2. Global Theme & Font Configuration (`styles.py`)
@@ -131,14 +131,15 @@ Place static logos, custom `.ttf`/`.otf` font files, or reference screenshots in
 - **Relative Links Only**: All internal page links, cross-chapter references, and asset links in Markdown source files (`*_src/**/*.md`) must be written as relative paths (e.g. `../architecture/overview.md`) or inline code format.
 - **Prohibition of `file://` and Local Absolute Paths**: Never write `file:///` URIs or local filesystem roots (`/usr/...`, `/home/...`, `/Users/...`, `C:\...`) into documentation files. While AI assistants use `file:///` links for chat UI navigation, committed documentation files must remain 100% portable.
 
-### 3.6. Modular Build Scripts (`build_*.sh`)
+### 3.6. Modular Build Scripts (`build_*.sh`) & On-Demand Office Exports
 Each project scaffolds focused shell scripts alongside the master `build.sh`:
 - **`build_html.sh`**: Fast HTML compilation for rapid browser verification.
 - **`build_pdf.sh`**: Headless Chromium print to vector PDF (`doc` and `slide`).
 - **`build_markdown.sh`**: GitHub-Flavored Markdown compilation (`doc` and `site`).
 - **`build_image.sh`**: Standalone diagram image compilation/extraction.
-- **`build.sh`**: Master script that runs all target builds for the project sequentially.
+- **`build.sh`**: Master script that runs the standard target builds for the project sequentially (HTML, PDF, Markdown, Images).
 - **`serve.sh`**: Local preview HTTP server (`drawlib serve`).
+- **On-Demand Office Exports (`docx` & `pptx`)**: Editable MS Word (`uv run drawlib build docx doc_src/ -o doc.docx`) and editable 16:9 MS PowerPoint (`uv run drawlib build pptx slide_src/ -o slide.pptx`) are available as optional on-demand CLI commands without changing scaffolded `build.sh` pipelines.
 
 ---
 
@@ -157,13 +158,15 @@ Each project scaffolds focused shell scripts alongside the master `build.sh`:
   uv run drawlib cache clear --images
   ```
 
-### 4.2. Font, Icon & Map Release Asset Cache (`drawlib cache`)
-Font families, icon packs (`icon_phosphor`, `icon_gcp`, `icon_aws`, `icon_azure`, `icon_ai`..`icon_workspace`), and GeoJSON maps (`map_world`) are downloaded on demand into `drawlib/_cached_assets/`:
+### 4.2. Font, Icon, Map & Headless Browser Cache (`drawlib cache`)
+`playwright`, `python-docx`, and `python-pptx` are standard dependencies of `drawlib` (no optional extras needed). Font families, icon packs (`icon_phosphor`, `icon_gcp`, `icon_aws`, `icon_azure`, `icon_ai`..`icon_workspace`), and GeoJSON maps (`map_world`) download on demand into `drawlib/_cached_assets/`, while headless Chromium (`chromium-headless-shell`) downloads automatically on first `drawlib build pdf` or `drawlib build pptx` execution:
 ```bash
 uv run drawlib cache list              # Inspect cached packages and disk size
-uv run drawlib cache download --all    # Pre-download all fonts, icons & maps for offline/CI builds
+uv run drawlib cache download --all    # Pre-download all fonts, icons, maps & headless Chromium for offline/CI builds
+uv run drawlib cache download --browser # Pre-download headless Chromium only
 uv run drawlib cache clear --all       # Purge all font, icon, map, and SQLite image caches
 ```
+*(In minimal Linux containers such as `python:3.12-slim` lacking OS shared libraries like `libnss3` or `libgbm1`, run `playwright install-deps chromium` or `playwright install --with-deps --only-shell chromium`.)*
 
 ---
 
@@ -206,9 +209,9 @@ Drawlib projects are intentionally structured as **modular collections of indepe
 
 Query the specific project or module manual matching your target deliverable:
 - **`uv run drawlib rules show project-images`**: Standalone `.py` illustration scripts (`images_src/`).
-- **`uv run drawlib rules show project-doc`**: Linear technical documents, whitepapers & A4 vector PDFs (`doc_src/`).
+- **`uv run drawlib rules show project-doc`**: Linear technical documents, whitepapers, A4 vector PDFs & editable `.docx` (`doc_src/`).
 - **`uv run drawlib rules show project-site`**: Multi-page documentation websites & `navbar.md` (`docs_src/`).
-- **`uv run drawlib rules show project-slide`**: 16:9 widescreen presentation decks & `::: block` stage layouts (`slide_src/`).
+- **`uv run drawlib rules show project-slide`**: 16:9 widescreen presentation decks, `::: block` stage layouts & editable `.pptx` (`slide_src/`).
 - **`uv run drawlib rules show review-guide`**: 3-Stage Autonomous Multimodal Review & Self-Correction Loop.
 - **Component Overviews**: `uv run drawlib rules show lib-shapes-overview`, `lib-icons-overview`, `lib-smartarts-overview`, `lib-charts-overview`, `lib-diagrams-overview`, `lib-graph-overview`.
 

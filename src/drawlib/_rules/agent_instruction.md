@@ -22,9 +22,9 @@ Traditional technical documentation suffers from severe tool fragmentation:
 2. **Project-First Rule: Always Start with `drawlib init` (No Bare `.py` Files)**:
    Never create standalone `.py` drawing files directly in an uninitialized directory, and never construct project folders from scratch. Even if the user only asks for a single diagram image, check if a Drawlib project (`*_src/`) exists in the workspace; if not, **always scaffold a project first using `drawlib init`** (or guide the user to choose one) so `styles.py` (theme & language fonts), `utils.py`, `_assets/`, and `build.sh` are properly configured:
    - **Diagram image(s) only** -> **`images`** project: `uv run drawlib init images [target] [-l <lang>] [-s <style>]` (see `project-images`)
-   - **Linear document / spec / RFC / PDF** -> **`doc`** project: `uv run drawlib init doc [target] [-l <lang>] [-s <style>]` (see `project-doc`)
+   - **Linear document / spec / RFC / PDF / Word (`.docx`)** -> **`doc`** project: `uv run drawlib init doc [target] [-l <lang>] [-s <style>]` (see `project-doc`; optional on-demand MS Word export via `uv run drawlib build docx <dir>`)
    - **Multi-page documentation website** -> **`site`** project: `uv run drawlib init site [target] [-l <lang>] [-s <style>]` (see `project-site`)
-   - **16:9 presentation slide deck** -> **`slide`** project: `uv run drawlib init slide [target] [-l <lang>] [-s <style>]` (see `project-slide`)
+   - **16:9 presentation slide deck / PowerPoint (`.pptx`)** -> **`slide`** project: `uv run drawlib init slide [target] [-l <lang>] [-s <style>]` (see `project-slide`; optional on-demand MS PowerPoint export via `uv run drawlib build pptx <dir>`)
    - **Pass `--lang` for Non-English Diagrams**: When the user prompts in Japanese (or needs CJK/multilingual labels), pass `--lang ja` (e.g. `uv run drawlib init images --lang ja`) so `styles.py` automatically configures CJK-safe fonts.
    - **Clean Up Starter Samples**: After scaffolding, replace or delete the generated starter sample files (`sample1.py`, `sample2.py`, etc.) so only the user's requested diagrams are built.
 3. **Start with Overview**:
@@ -86,7 +86,7 @@ save()
 - **Source of Truth**: Always edit `<base>_src/` (e.g. `docs_src/`). Never manually edit generated output directories (`docs/`, `docs_html/`).
 - **No Absolute Paths or file:// URLs (Relative Links Only)**: Never write local filesystem absolute paths (`/usr/...`, `/home/...`, `/Users/...`, `C:\...`) or `file:///` URLs inside documentation Markdown source files (`docs/*_src/**/*.md`). All links must use relative paths (e.g. `../foo.md`) or inline code format. While the AI assistant uses `file:///` links when conversing with the user in chat responses for clickable IDE navigation, repository documentation files published on the web or GitHub must never contain `file:///` or machine-specific absolute paths.
 - **Incremental Build Cache (`.drawlib/cache.db`)**: `drawlib build` and `drawlib show` cache rendered images by hashing the code block, `styles.py`, `utils.py`, and referenced local assets (`_assets/`). If you edit an external imported Python module outside `styles.py`/`utils.py`, pass `--no-cache` or run `uv run drawlib cache clear --images` to force re-rendering.
-- **Font & Icon Asset Cache**: Pre-download font, icon, and map packages for offline or CI builds via `uv run drawlib cache download --all` (inspect with `uv run drawlib cache list`, clear all with `uv run drawlib cache clear --all`).
+- **Font, Icon, Map & Headless Browser Cache**: `playwright`, `python-docx`, and `python-pptx` are standard dependencies (no optional extras required), and headless Chromium (`chromium-headless-shell`) auto-downloads on first `drawlib build pdf` or `drawlib build pptx` run. Pre-download all font, icon, map packages, and headless Chromium for offline or CI builds via `uv run drawlib cache download --all` (or Chromium only via `uv run drawlib cache download --browser`; inspect with `uv run drawlib cache list`, clear all with `uv run drawlib cache clear --all`; in minimal Linux containers lacking OS shared libraries, run `playwright install-deps chromium`).
 
 ---
 
@@ -111,9 +111,9 @@ uv run drawlib rules show anim-guide             # Animation loop idioms and com
 uv run drawlib rules show slide-guide            # Slide deck story arc, Dual-Layer (::: block vs. ::: note) & visual best practices
 uv run drawlib rules show project-overview       # Project scaffolding (init), 4 archetypes, shared config & cache
 uv run drawlib rules show project-images         # Standalone Python scripts (images_src/*.py) best practices
-uv run drawlib rules show project-doc            # Linear documents, whitepapers & A4 vector PDFs (doc_src/)
+uv run drawlib rules show project-doc            # Linear documents, whitepapers, A4 PDFs & .docx (doc_src/)
 uv run drawlib rules show project-site           # Multi-page websites, navbar.md & Top Hero layout (docs_src/)
-uv run drawlib rules show project-slide          # 16:9 slide decks, 1920x1080 ::: block/note & Presenter View
+uv run drawlib rules show project-slide          # 16:9 slide decks, ::: block/note, Presenter View & .pptx
 uv run drawlib rules show cli                    # CLI commands (build, show, init, serve, cache)
 uv run drawlib rules show api                    # Complete API index & symbol cheat sheet
 uv run drawlib rules show lib-<module>           # Core modules (lib-canvas, lib-lines, lib-text, lib-styles, lib-preset-styles, lib-preset-colors, lib-fonts, lib-images, lib-math, lib-types, lib-tools, lib-anim, lib-slide)

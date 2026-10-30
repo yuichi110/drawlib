@@ -4,7 +4,7 @@ In addition to technical documents (`doc`) and multi-page documentation websites
 
 Without relying on drag-and-drop GUI software like PowerPoint or Google Slides, you can author, version-control, and publish conference-ready slide decks directly using Markdown and declarative Python drawing code.
 
-```drawlib align=center file=fig_slide_layout.png caption="Figure 12.1: Drawlib Slide Generation Architecture and Dual Outputs"
+```drawlib align=center file=fig_slide_layout.png caption="Figure 12.1: Drawlib Slide Generation Architecture and Multi-Format Outputs"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line
@@ -42,17 +42,17 @@ phosphor.database(xy=(54.3, 23.5), width=4.4, style=Styles.Accent)
 text((57.3, 23.5), text=".drawlib/cache.db\nIncremental render", style=ts_body)
 
 phosphor.arrows_split(xy=(54.3, 12.0), width=4.4, style=Styles.Accent)
-text((57.3, 12.0), text="HTML & PDF Output\nDual build pipeline", style=ts_body)
+text((57.3, 12.0), text="HTML / PDF / PPTX\nMulti-target engine", style=ts_body)
 
 # 3. Deliverables
 rectangle((114.5, 27.0), width=35.0, height=44.0, style=Styles.SecondaryNeutral.patch(shape_r=2.0))
-rectangle((114.5, 45.0), width=33.0, height=6.0, style=Styles.DarkFlat.patch(shape_r=1.5), text="3. Dual Outputs", text_style=header_ts)
+rectangle((114.5, 45.0), width=33.0, height=6.0, style=Styles.DarkFlat.patch(shape_r=1.5), text="3. Slide Outputs", text_style=header_ts)
 
 phosphor.desktop(xy=(100.8, 35.0), width=4.4, style=Styles.Dark)
 text((103.8, 35.0), text="Web Presentation\nPresenter View (P)", style=ts_body)
 
 phosphor.file_pdf(xy=(100.8, 23.5), width=4.4, style=Styles.Dark)
-text((103.8, 23.5), text="Vector PDF Deck\n1-Slide-1-Page PDF", style=ts_body)
+text((103.8, 23.5), text="PDF & PPTX Decks\nPrint & editable slides", style=ts_body)
 
 phosphor.image(xy=(100.8, 12.0), width=4.4, style=Styles.Dark)
 text((103.8, 12.0), text="*_images/\nExtracted diagrams", style=ts_body)
@@ -151,9 +151,9 @@ Highlight how horizontal scaling on the Order Worker eliminates checkout latency
 :::
 ````
 
-## 12.3 Dual Outputs & Presenter View
+## 12.3 Multi-Format Outputs (Web, PDF & PowerPoint) and Presenter View
 
-Compiling a `slide` project produces two presentation artifacts optimized for different contexts:
+In addition to the standard HTML and vector PDF builds, `slide` projects can also export editable MS PowerPoint decks on demand:
 
 1. **Interactive Web Presentation (`my_presentation_html/index.html`)**:
    - Designed for live presenting on projectors, external displays, or browser screen-shares.
@@ -165,4 +165,9 @@ Compiling a `slide` project produces two presentation artifacts optimized for di
      - `O` / `Esc`: Toggle slide overview grid
 2. **1-Slide-1-Page Vector PDF (`my_presentation.pdf`)**:
    - Designed for attendee distribution, printing, or uploading to slide hosting platforms (SpeakerDeck, DocSend).
-   - Captured via headless Chromium (Playwright), ensuring every slide is rendered with vector sharpness at true 16:9 dimensions (`@page { size: 1920px 1080px; margin: 0; }`).
+   - Captured via automatically managed headless Chromium (Playwright), ensuring every slide is rendered with vector sharpness at true 16:9 dimensions (`@page { size: 1920px 1080px; margin: 0; }`).
+3. **Optional Editable 16:9 MS PowerPoint Export (`drawlib build pptx`)**:
+   - When conference organizers or stakeholders require an editable `.pptx` deck, export a 16:9 MS PowerPoint file (with `::: note` content mapped directly to PowerPoint speaker notes) via the CLI (similarly, `doc` projects support editable MS Word export via `uv run drawlib build docx <src> -o <out.docx> --generate-index`):
+   ```bash
+   uv run drawlib build pptx my_presentation_src/ -o my_presentation.pptx
+   ```

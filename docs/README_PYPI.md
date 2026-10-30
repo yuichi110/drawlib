@@ -63,8 +63,8 @@ Write Markdown files with embedded ```` ```drawlib ```` code blocks. A single `d
 
 - **4 Project Scaffolds (`drawlib init <type>`)**:
   - `drawlib init site`: Multi-page documentation website (`docs_html/`), GitHub Markdown (`docs/`), and PDF.
-  - `drawlib init doc`: Linear technical specification / whitepaper (`*_html/`, `*_markdown/`, `*.pdf`).
-  - `drawlib init slide`: 16:9 presentation slide deck with native SVG text and keyboard navigation (`slide_html/`, `slide.pdf`).
+  - `drawlib init doc`: Linear technical specification / whitepaper (`*_html/`, `*_markdown/`, `*.pdf`, plus on-demand editable MS Word `*.docx` via `drawlib build docx`).
+  - `drawlib init slide`: 16:9 presentation slide deck with native SVG text, Presenter View, and keyboard navigation (`slide_html/`, `slide.pdf`, plus on-demand editable MS PowerPoint `slide.pptx` via `drawlib build pptx`).
   - `drawlib init images`: Standalone batch Python illustration scripts (`images_src/` -> `images/`).
 
 ---
@@ -79,7 +79,7 @@ Drawlib is engineered from the ground up for **AI-native documentation and diagr
   2. **Code Synthesis & Grid Preview (`drawlib show -g`)**: The agent writes Python drawing blocks and Markdown prose, then renders a headless preview with a coordinate grid overlay.
   3. **Multimodal Inspection & Self-Repair**: The agent visually inspects the rendered PNG for text clipping, overlapping labels, or style imbalances, repairing coordinates and styles autonomously until the diagram passes inspection.
 - **Human Outer Loop (Intent & Review)**:
-  - The developer stays focused on high-level architecture and intent—providing initial goals, reviewing the compiled **Published Docs** (HTML / PDF / GitHub MD / Slide), and iterating on direction without ever nudging pixels in a GUI tool.
+  - The developer stays focused on high-level architecture and intent—providing initial goals, reviewing the compiled **Published Docs** (HTML / PDF / MS Word / GitHub MD / Slide / MS PowerPoint), and iterating on direction without ever nudging pixels in a GUI tool.
 
 ---
 
@@ -89,14 +89,13 @@ Install `drawlib` from PyPI using `pip` or `uv`:
 
 ```bash
 pip install drawlib
+# or: uv add drawlib
 ```
 
-To enable headless PDF export for documentation sites, linear documents, and slide decks, install the `[pdf]` extra and Chromium:
+PDF, MS Word (`.docx`), and MS PowerPoint (`.pptx`) export work out of the box—`playwright`, `python-docx`, and `python-pptx` are standard dependencies, and headless Chromium (`chromium-headless-shell`) is downloaded automatically on your first `drawlib build pdf` or `drawlib build pptx` run.
 
-```bash
-pip install "drawlib[pdf]"
-playwright install chromium
-```
+- **Offline / Air-Gapped / CI Environments**: Pre-download all fonts, icons, maps, and headless Chromium ahead of time with `drawlib cache download --all` (or headless Chromium only with `drawlib cache download --browser`).
+- **Minimal Linux Containers** (e.g., `python:3.12-slim` lacking OS shared libraries such as `libnss3` or `libgbm1`): Install OS browser dependencies once via `playwright install-deps chromium` (or `playwright install --with-deps --only-shell chromium`).
 
 Verify the installation:
 
@@ -201,6 +200,10 @@ Compile or preview with the `drawlib` CLI:
 # Build HTML site, GitHub Markdown, or PDF
 ./docs_src/build.sh
 
+# Optional on-demand export to editable MS Word (.docx) or MS PowerPoint (.pptx)
+drawlib build docx doc_src/ -o spec.docx --generate-index
+drawlib build pptx slide_src/ -o deck.pptx
+
 # Launch local HTTP server with broken-link check at http://localhost:8000
 drawlib serve docs_html/
 
@@ -215,11 +218,11 @@ drawlib show docs_src/index.md service_routing.png -g -o preview_grid.png
 | Command | Description |
 | :--- | :--- |
 | `drawlib init <site\|doc\|slide\|images>` | Scaffold a new documentation, slide deck, or image project |
-| `drawlib build <html\|markdown\|pdf\|image>` | Compile source files into HTML, Markdown, PDF, or PNG/WebP images |
+| `drawlib build <html\|markdown\|pdf\|docx\|slide\|pptx\|image>` | Compile source files into HTML, Markdown, PDF, MS Word (`.docx`), HTML Slides, MS PowerPoint (`.pptx`), or PNG/WebP images |
 | `drawlib serve <html_dir> [--check]` | Start a local HTTP server for built HTML docs/slides with pre-flight link checks |
 | `drawlib show <file> [target] [-g]` | Render and inspect a single script or embedded Markdown diagram (with optional grid) |
 | `drawlib rules show [topic]` | On-demand CLI reference for AI agents to look up detailed API specs & best practices (`overview`, `style-guide`, `api`, `lib-*`) |
-| `drawlib cache <list\|download\|clear>` | Manage local font and icon asset caches (supports offline pre-caching via `--all`) |
+| `drawlib cache <list\|download\|clear>` | Manage local font, icon, map, and headless Chromium caches (supports offline pre-caching via `--all` or `--browser`) |
 
 ---
 

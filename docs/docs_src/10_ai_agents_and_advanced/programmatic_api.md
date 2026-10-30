@@ -36,7 +36,7 @@ text((86.0, 50.0), "drawlib.tools — Python Automation API", style=Styles.White
 
 # Row 1 of 3x2 Grid
 grid_items = [
-    (58.0, 35.5, "1. Compilers", "build_html / pdf", Styles.Neutral, phosphor.globe),
+    (58.0, 35.5, "1. Compilers", "HTML, PDF & Office", Styles.Neutral, phosphor.globe),
     (83.0, 35.5, "2. Extraction", "export_code_block", Styles.PrimaryNeutral, phosphor.file_pdf),
     (108.0, 35.5, "3. In-Memory", "get_dimage", Styles.SecondaryNeutral, phosphor.image),
     (58.0, 16.0, "4. Scaffold", "init_project", Styles.SecondaryNeutral, phosphor.presentation_chart),
@@ -63,12 +63,14 @@ save()
 
 ```python
 from drawlib.tools import (
-    # Document, Slide, & Image Compilation
+    # Document, Slide, Office & Image Compilation
     build_document,
     build_html,
     build_markdown,
     build_pdf,
+    build_docx,
     build_slide,
+    build_pptx,
     build_image,
     detect_document_type,
     # Single Diagram Extraction & Desktop Preview
@@ -99,9 +101,11 @@ from drawlib.tools import (
 | **Compilation** | `build_html(input_dir, output_dir=None, *, image_format="png", styles_path=None, utils_path=None, no_cache=False, css_mode="external")` | Compile Markdown directory (`site` or `doc`) into static HTML. |
 | **Compilation** | `build_markdown(input_dir, output_dir=None, *, image_format="png", styles_path=None, utils_path=None, no_cache=False)` | Compile source Markdown into GitHub-Flavored Markdown + companion images. |
 | **Compilation** | `build_pdf(input_path=None, output_file=None, *, title=None, page_break=True, generate_index=False, styles_path=None, utils_path=None, no_cache=False, timestamp=False)` | Merge Markdown chapters or slide deck into a vector PDF via headless Chromium. |
+| **Compilation** | `build_docx(input_path=None, output_file=None, *, input_dir=None, title=None, page_break=True, generate_index=False, dpi=200, styles_path=None, utils_path=None, no_cache=False, timestamp=False)` | Compile Markdown chapters or a single `.md` file into an editable MS Word (`.docx`) document with high-DPI static PNG diagrams. |
 | **Compilation** | `build_slide(input_dir, output_dir=None, *, title=None, theme=None, image_format="svg", styles_path=None, utils_path=None, no_cache=False)` | Compile a `slide_src/` directory into an interactive 16:9 HTML slide deck (`index.html`). |
+| **Compilation** | `build_pptx(input_dir, output_file=None, *, title=None, theme=None, dpi=240, anim_frame="last", styles_path=None, utils_path=None, no_cache=False, timestamp=False)` | Compile a `slide_src/` directory into an editable 16:9 (`960×540 pt`) MS PowerPoint (`.pptx`) deck via headless Chromium layout measurement. |
 | **Compilation** | `build_image(input_path, output_path=None, *, format=None, styles_path=None, utils_path=None, grid=False, disable_auto_clear=False, enable_auto_initialize=False, no_cache=False)` | Batch execute standalone `.py` scripts or extract `.md` blocks to image files. |
-| **Compilation** | `build_document(input_dir, output_path=None, output_format=None, ...)` | Unified dispatcher for `"html"`, `"markdown"`, or `"pdf"` compilation. |
+| **Compilation** | `build_document(input_dir, output_path=None, output_format=None, ...)` | Unified dispatcher for `"html"`, `"markdown"`, `"pdf"`, or `"docx"` compilation. |
 | **Inspection** | `detect_document_type(file_path, content=None)` | Detect whether a file/directory is Markdown or HTML (`DocumentInputInfo`). |
 | **Extraction** | `export_code_block(file_path, target=None, output_path=None, styles_path=None, utils_path=None, grid=False, no_cache=False)` | Headlessly render a single ````drawlib```` block or `.py` script to disk (or list blocks when `target=None`). |
 | **Extraction** | `show_code_block(file_path, target=None, styles_path=None, utils_path=None, grid=False, no_cache=False)` | Preview a single ````drawlib```` block or `.py` script in a desktop GUI window. |
@@ -109,12 +113,12 @@ from drawlib.tools import (
 | **Scaffolding** | `list_project_types()` | Return `dict[str, str]` mapping starter template names (`doc`, `site`, `slide`, `images`) to descriptions. |
 | **Server & Audit** | `serve_docs(directory, port=8000, open_browser=True, skip_check=False, check_only=False)` | Run local HTTP preview server (`Cache-Control: no-store`) with pre-flight link checking. |
 | **Server & Audit** | `scan_broken_links(directory)` | Scan compiled HTML directory and return `(html_count, link_count, broken_links)`. |
-| **Cache** | `list_cache()`, `download_cache(all_assets=True, fonts=False, icons=False, maps=False)`, `clear_cache()` | Inspect, pre-download, or purge cached font, icon, and map packages. |
+| **Cache** | `list_cache()`, `download_cache(all_assets=True, fonts=False, icons=False, maps=False, browser=False)`, `clear_cache()` | Inspect, pre-download (fonts, icons, maps, and headless Chromium browser), or purge cached packages. |
 | **CSS Themes** | `list_css(target="html")`, `list_html_css()`, `list_pdf_css()`, `list_slide_css()`, `get_css(name, target="html", lang="en")`, `export_css(name, output_path=None, target="html", force=False, lang="en")` | Inspect, synthesize, or export built-in 3-layer CSS theme stylesheets. |
 
 ---
 
-## 2. Document, Slide & Image Compilation API
+## 2. Document, Slide, Office & Image Compilation API
 
 ### 2.1 `build_html()` & `build_markdown()`
 Compiles a documentation source directory (`docs_src/`) into a static HTML website and GitHub-Flavored Markdown:
@@ -160,11 +164,39 @@ build_slide(
 )
 ```
 
-### 2.3 `build_image()`
-Batch executes standalone Python scripts in `images_src/` or extracts embedded diagrams from Markdown files:
+### 2.3 `build_docx()` & `build_pptx()`
+Compiles linear Markdown specs into native editable MS Word (`.docx`) documents and 16:9 slide decks into editable MS PowerPoint (`.pptx`) presentations:
 
 ```python
-from drawlib.tools import build_image
+from drawlib.tools import build_docx, build_pptx
+
+# Compile linear document chapters into an editable MS Word (.docx) document:
+build_docx(
+    input_path="doc_src/",
+    output_file="doc.docx",
+    generate_index=True,               # Insert Table of Contents between Ch 1 & Ch 2
+    page_break=True,                   # Insert page breaks between merged chapters
+    dpi=200,                           # High-DPI static PNG rasterization for diagrams
+)
+
+# Compile 16:9 slide deck into an editable MS PowerPoint (.pptx) presentation:
+build_pptx(
+    input_dir="slide_src/",
+    output_file="slide.pptx",
+    theme="google",
+    dpi=240,                           # High-DPI static PNG rasterization for diagrams
+    anim_frame="last",                 # Extract "first" or "last" frame from animations
+)
+```
+
+### 2.4 `build_image()` & `download_cache()`
+Batch executes standalone Python scripts in `images_src/` or pre-warms font, icon, map, and headless Chromium caches programmatically:
+
+```python
+from drawlib.tools import build_image, download_cache
+
+# Pre-warm headless Chromium only (or pass all_assets=True for fonts + icons + maps + browser):
+download_cache(all_assets=False, browser=True)
 
 build_image(
     input_path="images_src/",

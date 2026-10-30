@@ -1,6 +1,6 @@
 # Drawlib Quickstart Document Project
 
-This directory contains multi-chapter specification and tutorial documents compiled into static HTML, vector PDF, Markdown, and exported images using Drawlib.
+This directory contains multi-chapter specification and tutorial documents compiled into static HTML, vector PDF, Markdown, and exported images using Drawlib (with optional editable MS Word `.docx` export).
 
 ---
 
@@ -35,6 +35,11 @@ This directory contains multi-chapter specification and tutorial documents compi
 ./build_markdown.sh   # Compile Markdown (quickstart_markdown/)
 ./build_image.sh      # Export diagram images (quickstart_images/)
 ./build.sh            # Run all builds sequentially
+```
+
+### Optional Editable MS Word (`.docx`) Export
+```bash
+uv run drawlib build docx quickstart_src/ -o quickstart.docx --generate-index
 ```
 
 ### Previewing

@@ -1,6 +1,6 @@
 # Drawlib Slide Presentation & Stage Guidelines
 
-This document covers the **`drawlib.slide` Python module API** (`current_slide`, `draw_page_number()`, `draw_section_header()`, `SlideContext`, `BoundingBox`, and `build_slide()`).
+This document covers the **`drawlib.slide` Python module API** (`current_slide`, `draw_page_number()`, `draw_section_header()`, `SlideContext`, `BoundingBox`, `build_slide()`, and `build_pptx()`).
 
 *(For Markdown slide authoring, 1920×1080 stage coordinates, `::: block` and `::: note` syntax, layout templates, interactive animations, and Presenter View, run `uv run drawlib rules show project-slide`.)*
 
@@ -14,6 +14,7 @@ All slide runtime helpers, stage/page helpers, data models, and compilation func
 from drawlib.slide import (
     BoundingBox,
     SlideContext,
+    build_pptx,
     build_slide,
     current_slide,
     draw_page_number,
@@ -29,6 +30,7 @@ from drawlib.slide import (
 | `SlideContext` | Frozen Dataclass | Immutable context model (`index: int = 1`, `total: int = 1`) holding slide numbering state. |
 | `BoundingBox` | Frozen Dataclass | Immutable stage geometry model (`x: float`, `y: float`, `width: float`, `height: float`) in 1920×1080 stage pixels. |
 | `build_slide` | Compiler Function | Programmatically compiles a `slide_src/` Markdown directory into a standalone HTML presentation deck. |
+| `build_pptx` | Compiler Function | Programmatically compiles a `slide_src/` Markdown directory into a native editable 16:9 MS PowerPoint (`.pptx`) presentation deck. |
 
 ---
 
@@ -207,13 +209,55 @@ When `build_slide()` runs, it performs the following steps automatically:
 
 ---
 
-## 7. Slide Design Best Practices (`slide-guide`) & Project System Guide (`project-slide`)
+## 7. Programmatic MS PowerPoint Export API (`build_pptx`)
+
+`build_pptx()` (also re-exported from `drawlib.tools`) measures the `1920x1080` slide DOM via headless Chromium and writes native editable 16:9 (`960x540 pt`) Microsoft PowerPoint (`.pptx`) slides (`::: block` cards including `rgba` alpha, text boxes, bullet/numbered lists, tables, code blocks, and `::: note` speaker notes), with ````drawlib```` diagrams embedded as high-DPI static PNGs (default `dpi=240`, `anim_frame="last"`):
+
+```python
+from drawlib.slide import build_pptx
+
+output_pptx = build_pptx(
+    input_dir="docs/slide_about_drawlib_src",
+    output_file="docs/slide_about_drawlib.pptx",
+    title="Drawlib Presentation",
+    theme="default",
+    dpi=240,
+    anim_frame="last",
+    styles_path=None,
+    utils_path=None,
+    no_cache=False,
+    timestamp=False,
+)
+```
+
+### 7.1. Parameter Reference
+
+| Parameter | Type | Default | Description |
+| :--- | :--- | :--- | :--- |
+| `input_dir` | `str` | *(required)* | Source directory containing slide `.md` files, `_assets/`, `style.css`, `styles.py`, and `utils.py`. |
+| `output_file` | `str \| None` | `None` | Target `.pptx` file path. If `None`, resolves to `<stem>.pptx` alongside `input_dir`. |
+| `title` | `str \| None` | `None` | Optional presentation title override in `.pptx` core properties (extracted from first `# Heading` if `None`). |
+| `theme` | `str \| None` | `None` | Optional CSS theme preset override (`data-theme` / built-in slide stylesheet). |
+| `dpi` | `int` | `240` | Rasterization DPI for embedded ````drawlib```` static PNG diagrams. |
+| `anim_frame` | `Literal["first", "last"]` | `"last"` | Frame extracted as a static PNG when a slide block uses `Animation()`. |
+| `styles_path` | `str \| None` | `None` | Optional path to a custom `styles.py` file (defaults to `<input_dir>/styles.py` if present). |
+| `utils_path` | `str \| None` | `None` | Optional path to a custom `utils.py` file (defaults to `<input_dir>/utils.py` if present). |
+| `no_cache` | `bool` | `False` | When `True`, bypasses the SQLite diagram build cache and forces re-execution of all ````drawlib```` blocks. |
+| `timestamp` | `bool` | `False` | When `True`, writes the current build timestamp into `.pptx` metadata instead of deterministic normalization. |
+
+**Returns**: `str` — Filesystem path to the generated `.pptx` file.
+
+*(Note: `playwright` and `python-pptx` are standard dependencies of `drawlib`. Headless Chromium (`chromium-headless-shell`) downloads automatically on first `build_pdf` or `build_pptx` run, or can be pre-cached offline via `drawlib cache download --browser` / `--all`. In minimal Linux containers such as `python:3.12-slim` lacking OS shared libraries, run `playwright install-deps chromium`.)*
+
+---
+
+## 8. Slide Design Best Practices (`slide-guide`) & Project System Guide (`project-slide`)
 
 - **Slide Design & Storytelling Best Practices (`slide-guide`)**: For the **Dual-Layer (`::: block` simple visual stage + `::: note` deep explanation) rule**, mandatory Cover / Agenda / Section Divider arc, layout variety, and high-level component selection, run:
   ```bash
   uv run drawlib rules show slide-guide
   ```
-- **Slide Project System & Stage Syntax (`project-slide`)**: For `slide_src/` file discovery (`_` prefix and `README.md` exclusion), `1920×1080` stage coordinates, `::: block` / `::: note` syntax, interactive animations (`anim_trigger`, `anim_loop`, `anim_pause`), and Presenter View (`?presenter=1`), run:
+- **Slide Project System & Stage Syntax (`project-slide`)**: For `slide_src/` file discovery (`_` prefix and `README.md` exclusion), `1920×1080` stage coordinates, `::: block` / `::: note` syntax, interactive animations (`anim_trigger`, `anim_loop`, `anim_pause`), Presenter View (`?presenter=1`), and `.pdf` / `.pptx` export, run:
   ```bash
   uv run drawlib rules show project-slide
   ```

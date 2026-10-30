@@ -585,7 +585,7 @@
             <main class="main-content">
                 <h1>Installation Guide</h1>
 <p>Drawlib is published on PyPI and can be installed using <code>uv</code> (recommended) or standard <code>pip</code>.
-This guide covers core package installation, optional headless PDF export dependencies, and offline asset caching.</p>
+A single <code>drawlib</code> installation includes built-in HTML, Markdown, vector PDF, MS Word (<code>.docx</code>), and MS PowerPoint (<code>.pptx</code>) exporters, automatic headless Chromium provisioning, and offline asset caching.</p>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="installation_images/installation_setup_workflow.png" alt="installation_1" />
   <figcaption class="drawlib-caption">Three-Step Drawlib Environment Setup Workflow</figcaption>
@@ -609,15 +609,15 @@ This guide covers core package installation, optional headless PDF export depend
     <span class="n">flat_left_end</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="n">workflow</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
-    <span class="s2">"1. Core Package"</span><span class="p">,</span>
+    <span class="s2">"1. Install Drawlib"</span><span class="p">,</span>
     <span class="n">description</span><span class="o">=</span><span class="s2">"uv add drawlib</span><span class="se">\n</span><span class="s2">pip install drawlib"</span><span class="p">,</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
     <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.5</span><span class="p">),</span>
     <span class="n">description_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
 <span class="p">)</span>
 <span class="n">workflow</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
-    <span class="s2">"2. PDF Engine"</span><span class="p">,</span>
-    <span class="n">description</span><span class="o">=</span><span class="s1">'uv add "drawlib[pdf]"</span><span class="se">\n</span><span class="s1">playwright chromium'</span><span class="p">,</span>
+    <span class="s2">"2. Zero-Config Export"</span><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="s2">"PDF, .docx &amp; .pptx</span><span class="se">\n</span><span class="s2">Auto Headless Chrome"</span><span class="p">,</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="n">workflow</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
@@ -649,7 +649,7 @@ This guide covers core package installation, optional headless PDF export depend
 <hr />
 <h2>1. Using <code>uv</code> (Recommended)</h2>
 <p>Add Drawlib to your current project dependencies:</p>
-<pre><code class="language-bash"><span class="c1"># Add to active project</span>
+<pre><code class="language-bash"><span class="c1"># Add to active project (includes PDF, .docx, and .pptx export out of the box)</span>
 $<span class="w"> </span>uv<span class="w"> </span>add<span class="w"> </span>drawlib
 
 <span class="c1"># Verify installation and CLI version</span>
@@ -669,20 +669,21 @@ $<span class="w"> </span>uvx<span class="w"> </span>drawlib<span class="w"> </sp
 $<span class="w"> </span>drawlib<span class="w"> </span>--version
 </code></pre>
 <hr />
-<h2>3. Optional PDF Export Support</h2>
-<p>Drawlib includes built-in support for compiling Markdown documents into standalone PDF publications via headless Chromium.</p>
-<p>To enable PDF generation (<code>drawlib build pdf</code>):</p>
-<pre><code class="language-bash"><span class="c1"># When using uv:</span>
-$<span class="w"> </span>uv<span class="w"> </span>add<span class="w"> </span><span class="s2">"drawlib[pdf]"</span>
-$<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>playwright<span class="w"> </span>install<span class="w"> </span>chromium
-
-<span class="c1"># When using pip:</span>
-$<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">"drawlib[pdf]"</span>
-$<span class="w"> </span>playwright<span class="w"> </span>install<span class="w"> </span>chromium
+<h2>3. Built-In PDF, Word (<code>.docx</code>) &amp; PowerPoint (<code>.pptx</code>) Export</h2>
+<p>Drawlib includes <code>playwright</code>, <code>python-docx</code>, and <code>python-pptx</code> as standard dependencies—no optional package extras or manual browser installation steps are required:</p>
+<ul>
+<li><strong>MS Word (<code>drawlib build docx</code>)</strong>: Runs in pure Python with zero browser dependencies.</li>
+<li><strong>Vector PDF (<code>drawlib build pdf</code>) &amp; MS PowerPoint (<code>drawlib build pptx</code>)</strong>: Automatically downloads Playwright's lightweight <code>chromium-headless-shell</code> on first run (or pre-fetches it ahead of time via <code>drawlib cache download --browser</code>).</li>
+</ul>
+<blockquote>
+<p>[!NOTE]
+<strong>Minimal Linux Containers &amp; Slim CI Runners</strong>: Standard desktop macOS, Windows, and Ubuntu/Debian environments work with zero setup. In minimal Linux container images (such as <code>python:3.12-slim</code>) that omit system GUI shared libraries (<code>libnss3</code>, <code>libgbm1</code>, <code>libasound2</code>), install the OS-level shared libraries once:</p>
+<pre><code class="language-bash">$<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>playwright<span class="w"> </span>install-deps<span class="w"> </span>chromium
 </code></pre>
+</blockquote>
 <hr />
 <h2>4. Asset &amp; Build Cache Management (<code>drawlib cache</code>)</h2>
-<p>To maintain a minimal PyPI package size, high-resolution icon sets (Phosphor, FontAwesome, and official Google Cloud icons), multilingual fonts, and geographic map datasets are downloaded on demand upon first use and cached inside <code>drawlib/_cached_assets/</code> (managed via <code>drawlib cache</code>). Meanwhile, project-local incremental diagram builds are cached separately in <code>.drawlib/cache.db</code>.</p>
+<p>To maintain a minimal PyPI package size, high-resolution icon sets (Phosphor, FontAwesome, and official cloud/domain icons), multilingual fonts, geographic map datasets, and headless Chromium are downloaded on demand upon first use (or pre-fetched via <code>drawlib cache download</code>). Meanwhile, project-local incremental diagram builds are cached separately in <code>.drawlib/cache.db</code>.</p>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="installation_images/installation_two_tier_cache.png" alt="installation_2" />
   <figcaption class="drawlib-caption">Two-Tier Asset and Incremental Build Cache Architecture</figcaption>
@@ -704,15 +705,15 @@ $<span class="w"> </span>playwright<span class="w"> </span>install<span class="w
 
 <span class="c1"># Left container: Tier 1 Global Asset Cache</span>
 <span class="n">rectangle</span><span class="p">((</span><span class="mf">32.0</span><span class="p">,</span> <span class="mf">27.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">58.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">48.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">))</span>
-<span class="n">rectangle</span><span class="p">((</span><span class="mf">32.0</span><span class="p">,</span> <span class="mf">46.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">54.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">5.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">),</span> <span class="n">text</span><span class="o">=</span><span class="s2">"Tier 1: Global Asset Cache"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">hdr_ts</span><span class="p">)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">32.0</span><span class="p">,</span> <span class="mf">46.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">54.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">5.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">),</span> <span class="n">text</span><span class="o">=</span><span class="s2">"Tier 1: Global Asset &amp; Browser Cache"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">hdr_ts</span><span class="p">)</span>
 
 <span class="n">phosphor</span><span class="o">.</span><span class="n">folder_user</span><span class="p">((</span><span class="mf">9.5</span><span class="p">,</span> <span class="mf">39.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">)</span>
-<span class="n">text</span><span class="p">((</span><span class="mf">13.5</span><span class="p">,</span> <span class="mf">39.5</span><span class="p">),</span> <span class="s2">"drawlib/_cached_assets/"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">path_ts</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">13.5</span><span class="p">,</span> <span class="mf">39.5</span><span class="p">),</span> <span class="s2">"drawlib/_cached_assets/ &amp; Playwright"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">path_ts</span><span class="p">)</span>
 
 <span class="n">rectangle</span><span class="p">((</span><span class="mf">32.0</span><span class="p">,</span> <span class="mf">32.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">54.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">5.6</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.0</span><span class="p">),</span> <span class="n">text</span><span class="o">=</span><span class="s2">"Fonts (Roboto, Noto CJK, Source Code)"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">row_ts</span><span class="p">)</span>
-<span class="n">rectangle</span><span class="p">((</span><span class="mf">32.0</span><span class="p">,</span> <span class="mf">25.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">54.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">5.6</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.0</span><span class="p">),</span> <span class="n">text</span><span class="o">=</span><span class="s2">"Icons (Phosphor, FontAwesome, GCP)"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">row_ts</span><span class="p">)</span>
-<span class="n">rectangle</span><span class="p">((</span><span class="mf">32.0</span><span class="p">,</span> <span class="mf">18.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">54.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">5.6</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.0</span><span class="p">),</span> <span class="n">text</span><span class="o">=</span><span class="s2">"GeoMap Vector Datasets (World &amp; Regions)"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">row_ts</span><span class="p">)</span>
-<span class="n">rectangle</span><span class="p">((</span><span class="mf">32.0</span><span class="p">,</span> <span class="mf">9.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">54.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">7.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.0</span><span class="p">),</span> <span class="n">text</span><span class="o">=</span><span class="s2">"drawlib cache download --all</span><span class="se">\n</span><span class="s2">clear --fonts | --icons | --maps"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">cmd_ts</span><span class="p">)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">32.0</span><span class="p">,</span> <span class="mf">25.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">54.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">5.6</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.0</span><span class="p">),</span> <span class="n">text</span><span class="o">=</span><span class="s2">"Icons (Phosphor, Cloud, Domain Suites)"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">row_ts</span><span class="p">)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">32.0</span><span class="p">,</span> <span class="mf">18.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">54.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">5.6</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.0</span><span class="p">),</span> <span class="n">text</span><span class="o">=</span><span class="s2">"GeoMaps &amp; Headless Chromium (--browser)"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">row_ts</span><span class="p">)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">32.0</span><span class="p">,</span> <span class="mf">9.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">54.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">7.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.0</span><span class="p">),</span> <span class="n">text</span><span class="o">=</span><span class="s2">"drawlib cache download --all | --browser</span><span class="se">\n</span><span class="s2">drawlib cache clear [--all]"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">cmd_ts</span><span class="p">)</span>
 
 <span class="c1"># Right container: Tier 2 Project Incremental Build Cache</span>
 <span class="n">rectangle</span><span class="p">((</span><span class="mf">94.0</span><span class="p">,</span> <span class="mf">27.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">58.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">48.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">))</span>
@@ -733,13 +734,14 @@ $<span class="w"> </span>playwright<span class="w"> </span>install<span class="w
 <pre><code class="language-bash"><span class="c1"># Inspect cached font, icon, and map packages</span>
 $<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>cache<span class="w"> </span>list
 
-<span class="c1"># Pre-download all font, icon, and map packages</span>
+<span class="c1"># Pre-download all font, icon, map, and headless Chromium assets</span>
 $<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>cache<span class="w"> </span>download<span class="w"> </span>--all
 
 <span class="c1"># Or pre-download specific asset categories selectively</span>
 $<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>cache<span class="w"> </span>download<span class="w"> </span>--fonts
 $<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>cache<span class="w"> </span>download<span class="w"> </span>--icons
 $<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>cache<span class="w"> </span>download<span class="w"> </span>--maps
+$<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>cache<span class="w"> </span>download<span class="w"> </span>--browser
 
 <span class="c1"># Clear project-local incremental diagram build cache (.drawlib/cache.db)</span>
 $<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>cache<span class="w"> </span>clear<span class="w"> </span>--images

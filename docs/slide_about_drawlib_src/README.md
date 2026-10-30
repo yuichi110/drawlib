@@ -1,6 +1,6 @@
 # Drawlib Slide Presentation Project
 
-This directory contains slide Markdown files and drawing code compiled into an interactive HTML presentation deck and print-ready vector PDF using Drawlib.
+This directory contains slide Markdown files and drawing code compiled into an interactive HTML presentation deck and print-ready vector PDF (plus optional editable 16:9 MS PowerPoint `.pptx` export) using Drawlib.
 
 ---
 
@@ -40,7 +40,10 @@ This directory contains slide Markdown files and drawing code compiled into an i
 
 ### Using the Drawlib CLI Directly
 ```bash
-drawlib build slide slide_about_drawlib_src/ -o slide_about_drawlib_html/
-drawlib build pdf slide_about_drawlib_src/ -o slide_about_drawlib.pdf
-drawlib build image slide_about_drawlib_src/ -o slide_about_drawlib_images/
+uv run drawlib build slide slide_about_drawlib_src/ -o slide_about_drawlib_html/
+uv run drawlib build pdf slide_about_drawlib_src/ -o slide_about_drawlib.pdf
+uv run drawlib build image slide_about_drawlib_src/ -o slide_about_drawlib_images/
+
+# Optional: Export an editable 16:9 MS PowerPoint (.pptx) presentation
+uv run drawlib build pptx slide_about_drawlib_src/ -o slide_about_drawlib.pptx
 ```

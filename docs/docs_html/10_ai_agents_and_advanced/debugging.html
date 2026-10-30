@@ -834,9 +834,9 @@ uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </s
 <td style="text-align:left">Assign a unique <code>file=&lt;name&gt;.png</code> to each block or script.</td>
 </tr>
 <tr>
-<td style="text-align:left"><strong><code>Playwright or Chromium not found</code></strong></td>
-<td style="text-align:left">Running <code>drawlib build pdf</code> without Playwright or the headless Chromium binary installed.</td>
-<td style="text-align:left">Run <code>uv add &quot;drawlib[pdf]&quot;</code> (or <code>pip install &quot;drawlib[pdf]&quot;</code>) followed by <code>uv run playwright install chromium</code>.</td>
+<td style="text-align:left"><strong><code>Chromium launch failed / error while loading shared libraries</code></strong></td>
+<td style="text-align:left">Running <code>drawlib build pdf</code> or <code>drawlib build pptx</code> in an offline air-gapped environment or a minimal Linux container (<code>python:3.12-slim</code>) missing OS shared libraries (<code>libnss3</code>, <code>libgbm1</code>, <code>libasound2</code>).</td>
+<td style="text-align:left">Headless Chromium (<code>chromium-headless-shell</code>) auto-installs on first run with network access; pre-download offline via <code>uv run drawlib cache download --browser</code>, and in minimal Linux containers install OS shared libraries via <code>uv run playwright install-deps chromium</code>.</td>
 </tr>
 </tbody>
 </table>

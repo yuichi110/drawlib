@@ -26,7 +26,7 @@ setup(width=128, height=58)
 stages = [
     (18.5, "1. init", "doc / site / slide", Styles.Neutral, Styles.DarkBold, Styles.Dark, phosphor.rocket_launch, Styles.PrimaryBold),
     (48.8, "2. show", "-g grid / -o export", Styles.PrimaryNeutral, Styles.DarkBold, Styles.Dark, phosphor.grid_four, Styles.PrimaryBold),
-    (79.2, "3. build", "html / pdf / md", Styles.PrimaryFlat, Styles.WhiteBold, Styles.White, phosphor.hammer, Styles.WhiteBold),
+    (79.2, "3. build", "html / pdf / office", Styles.PrimaryFlat, Styles.WhiteBold, Styles.White, phosphor.hammer, Styles.WhiteBold),
     (109.5, "4. serve", "--check link audit", Styles.SecondaryNeutral, Styles.DarkBold, Styles.Dark, phosphor.eye, Styles.PrimaryBold),
 ]
 for sx, title, sub, st, tst, sub_st, icon_fn, icon_st in stages:
@@ -45,8 +45,8 @@ text((64, 22.8), "Cross-Cutting Design, Asset Cache & AI Knowledge", style=Style
 
 bottom_cards = [
     (25.5, "colors | styles | css", "Design Palettes", Styles.Neutral, phosphor.palette),
-    (64.0, "drawlib cache", "Fonts & Icons", Styles.PrimaryNeutral, phosphor.database),
-    (102.5, "drawlib rules", "27 AI Manuals", Styles.SecondaryNeutral, phosphor.book_open),
+    (64.0, "drawlib cache", "Assets & Browser", Styles.PrimaryNeutral, phosphor.database),
+    (102.5, "drawlib rules", "92 AI Manuals", Styles.SecondaryNeutral, phosphor.book_open),
 ]
 for bx, btitle, bsub, bst, bicon in bottom_cards:
     rectangle((bx, 11.8), width=35, height=11.5, style=bst.patch(shape_r=1.5))
@@ -69,12 +69,15 @@ save()
 # Compilation
 drawlib build html docs_src/ -o docs_html/                  # Responsive static HTML website
 drawlib build markdown docs_src/ -o docs/                  # GitHub-ready Markdown
-drawlib build pdf docs_src/ -o manual.pdf --toc             # High-fidelity vector PDF
-drawlib build image scripts/ -o assets/ -g                 # Batch Python image rendering
+drawlib build pdf doc_src/ -o manual.pdf --toc              # High-fidelity vector PDF
+drawlib build docx doc_src/ -o manual.docx --generate-index # Editable MS Word (.docx) document
+drawlib build slide slide_src/ -o slide_html/               # Interactive 16:9 HTML slide deck
+drawlib build pptx slide_src/ -o deck.pptx                  # Editable 16:9 MS PowerPoint (.pptx) deck
+drawlib build image scripts/ -o assets/ -g                  # Batch Python image rendering
 
 # Scaffolding
 drawlib init list                                          # List starter project templates (site, doc, slide, images)
-drawlib init doc my_doc                                    # Scaffold linear document project (HTML, PDF, MD, images)
+drawlib init doc my_doc                                    # Scaffold linear document project (HTML, PDF, DOCX, MD, images)
 drawlib init site my_site                                  # Scaffold documentation site
 drawlib init slide my_deck -s google                       # Scaffold 16:9 presentation slide deck
 drawlib init images my_images                              # Scaffold standalone images project (alias: image)
@@ -94,7 +97,8 @@ drawlib colors list                                        # List color catalogs
 drawlib styles list                                        # List style catalogs (default, google, monochrome)
 drawlib css list                                           # List CSS presets for HTML and PDF
 drawlib cache list                                         # Inspect cached fonts, icons, and maps
-drawlib rules list                                         # List 27 AI rule instruction manuals
+drawlib cache download --all                               # Pre-download fonts, icons, maps, and headless Chromium
+drawlib rules list                                         # List 92 AI rule instruction manuals
 ```
 
 ---
@@ -185,10 +189,10 @@ build_flow = ChevronProcess(
 build_flow.add("1. Project + Cache", description="docs_src/ & cache.db")
 build_flow.add(
     "2. drawlib build",
-    description="html | pdf | md",
+    description="html | pdf | docx | pptx",
     style=Styles.SecondaryNeutral,
 )
-build_flow.add("3. Deliverables", description="HTML, PDF, Assets", style=Styles.PrimaryNeutral)
+build_flow.add("3. Deliverables", description="Web, PDF & Office", style=Styles.PrimaryNeutral)
 build_flow.draw(xy=(8, 5.5), width=110, height=13.5)
 
 save()
@@ -224,10 +228,10 @@ drawlib build markdown docs_src/ -o docs/ [OPTIONS]
 - **Overwrite Protection**: Refuses to overwrite source files in-place (`src_abs == dest_abs`). Always compile to a distinct output directory (e.g. `docs/` or `docs_markdown/`).
 
 ### 3.3 `drawlib build pdf`
-Merges Markdown chapters or slide decks into a high-fidelity vector PDF using headless Chromium via Playwright (`pip install "drawlib[pdf]"` and `playwright install chromium`).
+Merges Markdown chapters, single Markdown files, or 16:9 slide decks into a high-fidelity vector PDF using headless Chromium via Playwright (`chromium-headless-shell` is automatically installed on first run, or pre-downloaded via `drawlib cache download --browser`).
 
 ```bash
-drawlib build pdf docs_src/ -o report.pdf --toc --page-break
+drawlib build pdf doc_src/ -o report.pdf --toc --page-break
 ```
 
 | Option | Shorthand | Default | Description |
@@ -240,7 +244,58 @@ drawlib build pdf docs_src/ -o report.pdf --toc --page-break
 | `--no-cache` | | `False` | Bypass `.drawlib/cache.db` and re-render all diagrams. |
 | `--timestamp` | | `False` | Include current build timestamp in PDF metadata (omitted by default for deterministic builds). |
 
-### 3.4 `drawlib build image`
+### 3.4 `drawlib build docx`
+Compiles a directory of Markdown chapters (`doc` project) or a single `.md` file into a native editable MS Word (`.docx`) document (headings, prose, bullet/numbered lists, tables, blockquotes, syntax-highlighted code blocks, optional cover page, and Table of Contents), rendering ````drawlib```` blocks (including SVG, WebP, and animated blocks) as crisp high-DPI static PNGs.
+
+```bash
+drawlib build docx doc_src/ -o report.docx --generate-index --page-break
+```
+
+| Option | Shorthand | Default | Description |
+|---|---|---|---|
+| `--output` | `-o` | `<first_stem>.docx` | Output MS Word (`.docx`) file path. |
+| `--page-break` / `--no-page-break` | | `True` | Insert page breaks between merged chapters. |
+| `--generate-index` / `--no-generate-index` | | `False` | Generate an index (Table of Contents) and insert it between the 1st (`00_cover.md`) and 2nd documents. |
+| `--title` | | Extracted from H1 | Document title override for the merged Word document. |
+| `--dpi` | | `200` | Rasterization DPI for embedded `drawlib` diagrams. |
+| `--styles` / `--utils` | `-s` / `-u` | Auto-resolved | Path to `styles.py` and `utils.py`. |
+| `--no-cache` | | `False` | Disable reading and writing `.drawlib/cache.db`. |
+| `--timestamp` | | `False` | Include current build timestamp in Word metadata instead of normalizing it. |
+
+### 3.5 `drawlib build slide`
+Compiles a directory of Markdown slide files (`slide_src/`) into a standalone 16:9 HTML presentation deck (`index.html`) with dual-window Presenter View (`?presenter=1`).
+
+```bash
+drawlib build slide slide_src/ -o slide_html/ [OPTIONS]
+```
+
+| Option | Shorthand | Default | Description |
+|---|---|---|---|
+| `--output` | `-o` | `<dir>_html/` | Output directory path for the presentation deck. |
+| `--theme` | `-t` | Auto / `default` | CSS theme preset (`google`, `default`, `google-dark`, `default-dark`). |
+| `--format` | `-f` | `svg` | Default image format for embedded diagrams (`svg`, `webp`, or `png`). |
+| `--styles` / `--utils` | `-s` / `-u` | Auto-resolved | Path to `styles.py` and `utils.py`. |
+| `--no-cache` | | `False` | Disable reading and writing `.drawlib/cache.db`. |
+
+### 3.6 `drawlib build pptx`
+Compiles a directory of Markdown slide files (`slide_src/`) into a native editable 16:9 (`960×540 pt`) MS PowerPoint (`.pptx`) deck by measuring the `1920×1080` slide layout and computed CSS styles via headless Chromium (`::: block` cards with `rgba` alpha, text boxes, bullet/numbered lists, tables, inline code, and `::: note` speaker notes), embedding ````drawlib```` diagrams as high-DPI static PNGs.
+
+```bash
+drawlib build pptx slide_src/ -o deck.pptx --dpi 240 --anim-frame last
+```
+
+| Option | Shorthand | Default | Description |
+|---|---|---|---|
+| `--output` | `-o` | `<dir_name>.pptx` | Output MS PowerPoint (`.pptx`) file path. |
+| `--theme` | `-t` | Auto / `default` | CSS theme preset (`google`, `default`, `google-dark`, `default-dark`). |
+| `--title` | | Extracted from deck | Presentation title override for PowerPoint metadata. |
+| `--dpi` | | `240` | Rasterization DPI for embedded `drawlib` diagrams. |
+| `--anim-frame` | | `last` | Frame (`first` or `last`) extracted from animated diagrams. |
+| `--styles` / `--utils` | `-s` / `-u` | Auto-resolved | Path to `styles.py` and `utils.py`. |
+| `--no-cache` | | `False` | Disable reading and writing `.drawlib/cache.db`. |
+| `--timestamp` | | `False` | Include current build timestamp in PowerPoint metadata instead of normalizing it. |
+
+### 3.7 `drawlib build image`
 Batch executes standalone Python illustration scripts (`.py`) or extracts embedded drawing blocks from Markdown files (`.md`) to generate image assets.
 
 ```bash
@@ -347,9 +402,11 @@ drawlib styles show default -c blue -o .drawlib/scratch/styles_blue.png
 ### 7.3 Cache Management (`drawlib cache`)
 ```bash
 drawlib cache list                  # Inspect font, icon, and map packages and local cache size
-drawlib cache download --all        # Pre-download all font, icon, and map packages for offline/CI use
+drawlib cache download --all        # Pre-download all font, icon, map, and headless Chromium assets
 drawlib cache download --fonts      # Pre-download font packages only
 drawlib cache download --icons      # Pre-download icon packages only
+drawlib cache download --maps       # Pre-download GeoMap packages only
+drawlib cache download --browser    # Pre-download headless Chromium browser only
 drawlib cache clear --images        # Clear SQLite build & CLI image cache (.drawlib/cache.db)
 drawlib cache clear --all           # Clear all caches (fonts, icons, maps, and .drawlib/cache.db)
 ```

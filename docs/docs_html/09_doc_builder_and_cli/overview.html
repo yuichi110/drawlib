@@ -649,17 +649,17 @@
     <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
 <span class="p">)</span>
 
-<span class="c1"># Right: 4 Publishing Targets</span>
+<span class="c1"># Right: Publishing Targets</span>
 <span class="n">targets</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="p">(</span><span class="mf">47.5</span><span class="p">,</span> <span class="s2">"docs_html/ (Web)"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">globe</span><span class="p">),</span>
-    <span class="p">(</span><span class="mf">35.2</span><span class="p">,</span> <span class="s2">"docs_markdown/"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">file_code</span><span class="p">),</span>
-    <span class="p">(</span><span class="mf">22.8</span><span class="p">,</span> <span class="s2">"docs.pdf (PDF)"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">file_pdf</span><span class="p">),</span>
-    <span class="p">(</span><span class="mf">10.5</span><span class="p">,</span> <span class="s2">"docs_images/"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">images</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">47.5</span><span class="p">,</span> <span class="s2">"HTML &amp; Slide Deck"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">globe</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">35.2</span><span class="p">,</span> <span class="s2">"GitHub Markdown"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">file_code</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">22.8</span><span class="p">,</span> <span class="s2">"PDF / DOCX / PPTX"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">file_pdf</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">10.5</span><span class="p">,</span> <span class="s2">"Standalone Images"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">images</span><span class="p">),</span>
 <span class="p">]</span>
 <span class="k">for</span> <span class="n">ty</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">st</span><span class="p">,</span> <span class="n">icon_fn</span> <span class="ow">in</span> <span class="n">targets</span><span class="p">:</span>
     <span class="n">rectangle</span><span class="p">((</span><span class="mi">106</span><span class="p">,</span> <span class="n">ty</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">9.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">st</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
-    <span class="n">icon_fn</span><span class="p">((</span><span class="mf">94.5</span><span class="p">,</span> <span class="n">ty</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.6</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
-    <span class="n">text</span><span class="p">((</span><span class="mf">109.5</span><span class="p">,</span> <span class="n">ty</span><span class="p">),</span> <span class="n">label</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.2</span><span class="p">))</span>
+    <span class="n">icon_fn</span><span class="p">((</span><span class="mf">93.5</span><span class="p">,</span> <span class="n">ty</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.4</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+    <span class="n">text</span><span class="p">((</span><span class="mf">109.0</span><span class="p">,</span> <span class="n">ty</span><span class="p">),</span> <span class="n">label</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
 
 <span class="c1"># Connectors: Source -&gt; Pipeline -&gt; 4 Publishing Targets</span>
 <span class="n">line</span><span class="p">((</span><span class="mi">34</span><span class="p">,</span> <span class="mi">29</span><span class="p">),</span> <span class="p">(</span><span class="mi">44</span><span class="p">,</span> <span class="mi">29</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
@@ -679,9 +679,10 @@
 <li><strong>Execution Sandbox &amp; Isolation</strong>: The canvas lifecycle automatically clears between separate code blocks, ensuring zero visual side effects between adjacent diagrams.</li>
 <li><strong>Target Portability</strong>: The same Markdown source document can compile simultaneously to:
 <ul>
-<li>A responsive static HTML documentation site (<code>drawlib build html</code>).</li>
+<li>A responsive static HTML documentation site (<code>drawlib build html</code>) or interactive 16:9 web slide deck (<code>drawlib build slide</code>).</li>
 <li>GitHub-flavored Markdown with companion images (<code>drawlib build markdown</code>).</li>
 <li>A publication-grade vector PDF with table of contents and cover page (<code>drawlib build pdf</code>).</li>
+<li>Native editable MS Word documents (<code>drawlib build docx</code>) and 16:9 MS PowerPoint decks (<code>drawlib build pptx</code>).</li>
 <li>Extracted standalone diagram images (<code>drawlib build image</code>).</li>
 </ul>
 </li>
@@ -702,7 +703,7 @@
 <tr>
 <td><strong><code>doc</code></strong></td>
 <td><code>doc_src/</code></td>
-<td><code>doc_html/</code>, <code>doc.pdf</code>, <code>doc_markdown/</code>, <code>doc_images/</code></td>
+<td><code>doc_html/</code>, <code>doc.pdf</code>, <code>doc.docx</code>, <code>doc_markdown/</code>, <code>doc_images/</code></td>
 <td>Linear technical documents, RFCs, specifications, whitepapers, and formal reports.</td>
 </tr>
 <tr>
@@ -714,8 +715,8 @@
 <tr>
 <td><strong><code>slide</code></strong></td>
 <td><code>slide_src/</code></td>
-<td><code>slide_html/</code>, <code>slide.pdf</code>, <code>slide_images/</code></td>
-<td>16:9 presentation slide decks (interactive web deck + printable vector PDF).</td>
+<td><code>slide_html/</code>, <code>slide.pdf</code>, <code>slide.pptx</code>, <code>slide_images/</code></td>
+<td>16:9 presentation slide decks (interactive web deck, printable vector PDF, and editable PowerPoint).</td>
 </tr>
 <tr>
 <td><strong><code>images</code></strong> <em>(alias: <code>image</code>)</em></td>
@@ -750,7 +751,7 @@
         <span class="n">phosphor</span><span class="o">.</span><span class="n">file_pdf</span><span class="p">,</span>
         <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">,</span>
         <span class="s2">"doc_src/*.md"</span><span class="p">,</span>
-        <span class="s2">"doc.pdf &amp; HTML</span><span class="se">\n</span><span class="s2">doc_markdown/"</span><span class="p">,</span>
+        <span class="s2">"doc.pdf / .docx</span><span class="se">\n</span><span class="s2">&amp; doc_html/"</span><span class="p">,</span>
     <span class="p">),</span>
     <span class="p">(</span>
         <span class="mi">93</span><span class="p">,</span>
@@ -772,7 +773,7 @@
         <span class="n">phosphor</span><span class="o">.</span><span class="n">presentation_chart</span><span class="p">,</span>
         <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">,</span>
         <span class="s2">"slide_src/*.md"</span><span class="p">,</span>
-        <span class="s2">"slide_html/</span><span class="se">\n</span><span class="s2">slide.pdf"</span><span class="p">,</span>
+        <span class="s2">"slide_html/</span><span class="se">\n</span><span class="s2">.pdf &amp; .pptx"</span><span class="p">,</span>
     <span class="p">),</span>
     <span class="p">(</span>
         <span class="mi">93</span><span class="p">,</span>
@@ -833,7 +834,7 @@
 <td style="text-align:left">Numbered chapter file (<code>doc_src/01_*.md</code>, <code>02_*.md</code>, ...)</td>
 <td style="text-align:left"><code>drawlib init doc</code>, <code>styles.py</code>, <code>utils.py</code>, <code>00_cover.md</code>, chapter outline</td>
 <td style="text-align:left">Author assigned chapter(s) &amp; run <code>drawlib show ... -g -o .drawlib/scratch/0N_&lt;fig&gt;_grid.png</code></td>
-<td style="text-align:left">Run <code>./doc_src/build.sh</code> &amp; inspect <code>doc.pdf</code> / <code>doc_html/</code></td>
+<td style="text-align:left">Run <code>./doc_src/build.sh</code> (or <code>build docx</code>) &amp; inspect <code>doc.pdf</code> / <code>doc_html/</code></td>
 </tr>
 <tr>
 <td style="text-align:left"><strong><code>site</code></strong></td>
@@ -847,7 +848,7 @@
 <td style="text-align:left">Slide file (<code>slide_src/02_*.md</code>, ...) or section directory</td>
 <td style="text-align:left"><code>drawlib init slide</code>, <code>styles.py</code>, <code>utils.py</code>, deck story arc &amp; slide numbering</td>
 <td style="text-align:left">Author assigned slide(s) (<code>::: block</code> + <code>::: note</code>) &amp; run Stage 1 + Stage 2 grid review</td>
-<td style="text-align:left">Run <code>./slide_src/build.sh</code> &amp; inspect <code>slide.pdf</code> / <code>1920x1080</code> stage</td>
+<td style="text-align:left">Run <code>./slide_src/build.sh</code> (or <code>build pptx</code>) &amp; inspect <code>slide.pdf</code> / <code>1920x1080</code> stage</td>
 </tr>
 <tr>
 <td style="text-align:left"><strong><code>images</code></strong></td>
@@ -868,11 +869,11 @@
 <h2>4. Chapter Structure</h2>
 <p>Dive deeper into each builder subsystem:</p>
 <ul>
-<li><a href="./code_blocks.html">Embedded Code Blocks</a>: Code fence syntax, display modes (<code>show-code</code>, <code>fold-code</code>), alignment, and captions.</li>
-<li><a href="./cli_reference.html">CLI Reference</a>: Complete guide to <code>build</code>, <code>serve</code>, <code>show</code>, <code>init</code>, <code>cache</code>, <code>css</code>, <code>colors</code>, <code>styles</code>, and <code>rules</code>.</li>
-<li><a href="./project_doc.html">Linear Document Project Guide</a>: Linear document RFCs, specifications, whitepapers, and dual HTML/PDF publishing.</li>
+<li><a href="./code_blocks.html">Embedded Code Blocks</a>: Code fence syntax, display modes (<code>code=show</code>, <code>code=fold</code>), alignment, and captions.</li>
+<li><a href="./cli_reference.html">CLI Reference</a>: Complete guide to <code>build</code> (<code>html</code>, <code>markdown</code>, <code>pdf</code>, <code>docx</code>, <code>slide</code>, <code>pptx</code>, <code>image</code>), <code>serve</code>, <code>show</code>, <code>init</code>, <code>cache</code>, <code>css</code>, <code>colors</code>, <code>styles</code>, and <code>rules</code>.</li>
+<li><a href="./project_doc.html">Linear Document Project Guide</a>: Linear document RFCs, specifications, whitepapers, and HTML / PDF / Word (<code>.docx</code>) publishing.</li>
 <li><a href="./project_site.html">Doc Site Project Guide</a>: Multi-page website authoring, sidebar categories, and link validation.</li>
-<li><a href="./project_slide.html">Slide Deck Project Guide</a>: 16:9 presentation slide decks with interactive web deck and vector PDF export.</li>
+<li><a href="./project_slide.html">Slide Deck Project Guide</a>: 16:9 presentation slide decks with interactive web deck, vector PDF, and PowerPoint (<code>.pptx</code>) export.</li>
 <li><a href="./slide_layout_and_api.html">Slide Stage Layout &amp; API</a>: <code>1920x1080</code> virtual stage coordinates, <code>::: block</code> / <code>::: note</code> syntax, templates, and <code>drawlib.slide</code> Python API.</li>
 <li><a href="./project_image.html">Image Project Guide</a>: Standalone script automation (<code>images_src/</code> ➔ <code>images/</code>).</li>
 <li><a href="./customization.html">Customization &amp; Theming</a>: Customizing <code>template.html</code>, <code>style.css</code>, and injecting project <code>styles.py</code> and <code>utils.py</code>.</li>

@@ -2,7 +2,7 @@
 
 The `slide` starter template creates 16:9 presentation slide decks with rich architectural diagrams, metrics cards, badges, and structured layouts.
 
-Drawlib compiles your slide deck into both an **interactive HTML web presentation** and a **1-slide-per-page vector PDF**, perfectly sized for conferences, client briefings, and team reviews.
+Drawlib compiles your slide deck into an **interactive HTML web presentation**, a **1-slide-per-page vector PDF**, and a **native editable 16:9 MS PowerPoint (`.pptx`) deck**, perfectly sized for conferences, client briefings, and team reviews.
 
 ```drawlib code=fold align=center file=slide_presenter_view_layout.png caption="Presenter View (?presenter=1) 4-Pane Workspace and BroadcastChannel Synchronization"
 from drawlib.canvas import save, setup
@@ -188,7 +188,7 @@ root.add(
     text_style=Styles.Dark.patch(text_size=10.5),
 ).set_drawing_item("folder_out")
 root.add(
-    "slide.pdf  — [GENERATED] High-quality 16:9 vector PDF",
+    "slide.pdf & slide.pptx  — [GENERATED] 16:9 PDF & PowerPoint",
     text_style=Styles.Dark.patch(text_size=10.5),
 ).set_drawing_item("md")
 root.add(
@@ -206,11 +206,12 @@ save()
 
 A `slide` project produces presentation artifacts tailored for every scenario:
 
-| Output | Audience & Environment | Key Features | Build Script |
+| Output | Audience & Environment | Key Features | Build Script / Command |
 | :--- | :--- | :--- | :--- |
-| **`slide_html/index.html`** | Interactive Presenting | 1920x1080 fixed stage, auto-scaling viewport, keyboard navigation (`Space`, `Arrows`, `F`), overview grid | `build_html.sh` |
-| **`slide.pdf`** | Offline Distribution | 1 slide per page, vector-sharp graphics, exact 16:9 aspect ratio (`@page { size: 1920px 1080px; margin: 0; }`) | `build_pdf.sh` |
-| **`slide_images/`** | Slides & Social Media | Extracted standalone slide illustrations for external decks and sharing | `build_image.sh` |
+| **`slide_html/index.html`** | Interactive Presenting | 1920x1080 fixed stage, auto-scaling viewport, keyboard navigation (`Space`, `Arrows`, `F`), Presenter View (`?presenter=1`), overview grid | `build_html.sh` (`drawlib build slide`) |
+| **`slide.pdf`** | Print & Read-Only Distribution | 1 slide per page, vector-sharp graphics, exact 16:9 aspect ratio (`@page { size: 1920px 1080px; margin: 0; }`) | `build_pdf.sh` (`drawlib build pdf`) |
+| **`slide.pptx`** | Collaborative Editing & Executive Decks | Native editable 16:9 (`960×540 pt`) MS PowerPoint deck (`::: block` cards with `rgba` alpha, text boxes, lists, tables, `::: note` speaker notes, high-DPI diagram PNGs) | `drawlib build pptx` |
+| **`slide_images/`** | Slides & Social Media | Extracted standalone slide illustrations for external decks and sharing | `build_image.sh` (`drawlib build image`) |
 
 ---
 
@@ -248,16 +249,21 @@ save()
 
 ---
 
-## 5. Modular Build Scripts Architecture
+## 5. Modular Build Scripts & MS PowerPoint (`.pptx`) Export
 
 - **`build_html.sh`**:
-  Compiles slides into the web presentation deck in `slide_html/index.html`.
+  Compiles slides into the web presentation deck in `slide_html/index.html` (`drawlib build slide`).
 - **`build_pdf.sh`**:
   Uses headless Chromium to capture each slide into a multi-page vector PDF (`slide.pdf`).
 - **`build_image.sh`**:
   Extracts embedded ````drawlib```` blocks into standalone diagram images in `slide_images/`.
 - **`build.sh` (Master Script)**:
   Runs HTML, PDF, and Image builds in sequence.
+- **Editable MS PowerPoint Export (`drawlib build pptx`)**:
+  Measures the `1920x1080` slide DOM and computed CSS styles via headless Chromium and exports a native editable 16:9 (`960x540 pt`) `.pptx` file:
+  ```bash
+  uv run drawlib build pptx slide_src/ -o slide.pptx --dpi 240 --anim-frame last
+  ```
 
 ---
 
@@ -286,7 +292,7 @@ uv run drawlib serve slide_html/
 - **Direct Presenter URL (`?presenter=1`)**: Appending `?presenter=1#1` launches the window directly in Presenter View mode, synchronizing slide changes and animation playback across windows via `BroadcastChannel` / `localStorage`.
 
 ### Speaker Notes (`::: note`) & Presenter View:
-Add speaker notes to any slide using `::: note` blocks. If a slide contains multiple `::: note` blocks, they are automatically joined with a blank line (`\n\n`) and rendered as Markdown in **Presenter View** (while remaining completely hidden on the main presentation screen and in PDF exports):
+Add speaker notes to any slide using `::: note` blocks. If a slide contains multiple `::: note` blocks, they are automatically joined with a blank line (`\n\n`), rendered as Markdown in **Presenter View**, and exported into **native PowerPoint speaker notes** during `drawlib build pptx` (while remaining completely hidden on the main presentation screen and in PDF exports):
 
 ```markdown
 ::: note
@@ -314,6 +320,7 @@ When embedding APNG (`.png` / `.apng`) or Animated WebP (`.webp`) diagrams insid
 - **`anim_loop=once`** (`once` | `infinite`): Stops on the final frame (`ENDED`); clicking again replays from Frame 0.
 - **`anim_pause=(2, 4)`**: Pauses at 0-based frame indices `2` and `4` (`PAUSED`); clicking resumes to the next step.
 - **Vector PDF Export (`build_pdf.sh`)**: Automatically renders Frame 0 onto the slide without the interactive play badge.
+- **MS PowerPoint Export (`drawlib build pptx`)**: Extracts a crisp static PNG at `--dpi 240` using the final frame by default (`--anim-frame last`), or the initial frame when `--anim-frame first` is specified.
 
 ---
 
@@ -322,5 +329,5 @@ When embedding APNG (`.png` / `.apng`) or Animated WebP (`.webp`) diagrams insid
 Because each slide in `slide_src/` is an isolated Markdown file (`01_title.md`, `02_agenda.md`, `03_arch.md`, or organized in section folders), AI coding agents can construct or overhaul multi-slide presentations in parallel:
 1. **Phase 1 (Parent Setup)**: Scaffold `slide_src/` (`drawlib init slide`), configure `styles.py` and `utils.py`, and define the slide deck story arc and numbered filenames first.
 2. **Phase 2 (Parallel Subagents)**: Delegate disjoint slide files (or section directories) to parallel subagents. Each subagent authors its assigned slides (`::: block` stage layout + `::: note` speaker script) and runs `-g` grid previews using unique scratch paths (`-o .drawlib/scratch/<slide>_<block>_grid.png`).
-3. **Phase 3 (Unified Deck Build & PDF Review)**: After all subagents complete their slides, the parent agent runs `./slide_src/build.sh` once and inspects the compiled `slide.pdf` and `slide_html/index.html`.
+3. **Phase 3 (Unified Deck Build & Review)**: After all subagents complete their slides, the parent agent runs `./slide_src/build.sh` (and `drawlib build pptx` if needed) once and inspects the compiled `slide.pdf` and `slide_html/index.html`.
 

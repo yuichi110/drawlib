@@ -192,9 +192,12 @@ def publish(
     publish_cmd = ["uv", "publish"]
     if test_pypi:
         publish_cmd.extend(["--publish-url", "https://test.pypi.org/legacy/"])
-    publish_cmd.extend(["--token", resolved_token])
 
-    run_command(publish_cmd, desc=f"Uploading distribution to {target_name}...")
+    run_command(
+        publish_cmd,
+        env={"UV_PUBLISH_TOKEN": resolved_token},
+        desc=f"Uploading distribution to {target_name}...",
+    )
     console.print(f"[bold green]★ Successfully published to {target_name}![/bold green]")
 
 

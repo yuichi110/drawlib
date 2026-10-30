@@ -1,6 +1,6 @@
 # Drawlib Presentation Slide Deck Guidelines (`project-slide`)
 
-A **`slide` project** (`drawlib init slide`) compiles Markdown slide files (`slide_src/*.md`) into an **interactive 16:9 widescreen web presentation deck (`slide_html/index.html`)** with dual-window Presenter View (`?presenter=1`), a **high-resolution 1920×1080 vector PDF (`slide.pdf`)**, and **standalone vector/animated slide assets (`slide_images/`)**.
+A **`slide` project** (`drawlib init slide`) compiles Markdown slide files (`slide_src/*.md`) into an **interactive 16:9 widescreen web presentation deck (`slide_html/index.html`)** with dual-window Presenter View (`?presenter=1`), a **high-resolution 1920×1080 vector PDF (`slide.pdf`)**, and **standalone vector/animated slide assets (`slide_images/`)**, with optional on-demand export to a **native editable 16:9 Microsoft PowerPoint deck (`slide.pptx`)** via `drawlib build pptx`.
 
 *(For slide storytelling, the Dual-Layer (`::: block` vs. `::: note`) authoring standard, mandatory Cover/Agenda/Section Divider slides, and visual best practices, **always read `uv run drawlib rules show slide-guide`**. For general project scaffolding, see `uv run drawlib rules show project-overview`. For the Python runtime API in `drawlib.slide`, run `uv run drawlib rules show lib-slide`.)*
 
@@ -368,12 +368,14 @@ Press `P` or `S` (or click the `🗒` button in the bottom-right slide controls)
 
 ---
 
-## 7. Reusable Deck Helpers (`utils.py`) & Vector PDF Export
+## 7. Reusable Deck Helpers (`utils.py`), Vector PDF & MS PowerPoint Export
 
 ### 7.1. Built-In Slide Helpers (`drawlib.slide`) & Custom Macros (`utils.py`)
 Use `from drawlib.slide import draw_page_number, draw_section_header` for standard slide page numbers and full-bleed chapter covers (`01_section.md`). In addition, `slide_src/` is automatically added to Python's import path so any ````drawlib```` block can `import utils` (or `from drawlib.utils import ...`) for deck-specific helper functions (such as `service_card()`, `connect()`, or custom layouts).
 
-### 7.2. Building HTML & Exporting 1920×1080 Vector PDF
+### 7.2. Building HTML & Zero-Config 1920×1080 Vector PDF
+`playwright` is included as a standard dependency of Drawlib, and `chromium-headless-shell` downloads automatically on the first `drawlib build pdf` or `drawlib build pptx` run—no optional extra or manual browser installation is required:
+
 ```bash
 # Run full slide build (HTML + PDF + Images):
 ./slide_src/build.sh
@@ -382,6 +384,41 @@ Use `from drawlib.slide import draw_page_number, draw_section_header` for standa
 uv run drawlib build slide slide_src/ -o slide_html/ -s slide_src/styles.py -u slide_src/utils.py
 uv run drawlib build pdf slide_src/ -o slide.pdf -s slide_src/styles.py -u slide_src/utils.py
 uv run drawlib serve slide_html/
+```
+
+- **Offline / Air-Gapped / CI Environments**: Pre-download headless Chromium ahead of time via `uv run drawlib cache download --browser` (or `--all` to cache all fonts, icons, maps, and headless Chromium together).
+- **Minimal Linux Containers**: On minimal container images (such as `python:3.12-slim`) lacking OS shared libraries (`libnss3`, `libgbm1`, etc.), install system dependencies once via `uv run playwright install-deps chromium` (or `uv run playwright install --with-deps --only-shell chromium`).
+
+### 7.3. On-Demand Editable 16:9 MS PowerPoint (`.pptx`) Export
+While the scaffolded `slide_src/build.sh` compiles HTML, PDF, and standalone images by default, `python-pptx` is installed out of the box so any `slide` project can be exported on demand to a native editable 16:9 (`960×540 pt`) PowerPoint presentation via CLI or Python.
+
+Drawlib renders and measures the `1920×1080` slide DOM via headless Chromium and translates it into native editable PowerPoint shapes (`::: block` cards including `rgba` alpha fills/borders, text boxes, bullet/numbered lists, tables, syntax-highlighted code blocks, and `::: note` speaker notes), while ````drawlib```` diagrams are embedded as crisp high-DPI static PNGs (`dpi=240`, `anim_frame="last"` by default):
+
+```bash
+# Export an editable 16:9 PowerPoint deck on demand:
+uv run drawlib build pptx slide_src/ -o slide.pptx -s slide_src/styles.py -u slide_src/utils.py
+
+# Customize theme preset, deck title, raster DPI, or animation frame ("first" | "last"):
+uv run drawlib build pptx slide_src/ -o slide.pptx \
+  -t dark --title "Architecture Review" --dpi 240 --anim-frame last \
+  -s slide_src/styles.py -u slide_src/utils.py --timestamp
+```
+
+Or programmatically from Python (`drawlib.slide.build_pptx` or `drawlib.tools.build_pptx`):
+
+```python
+from drawlib.slide import build_pptx
+
+pptx_path = build_pptx(
+    "slide_src/",
+    "slide.pptx",
+    title="Architecture Review",
+    theme=None,
+    dpi=240,
+    anim_frame="last",
+    styles_path="slide_src/styles.py",
+    utils_path="slide_src/utils.py",
+)
 ```
 
 ---

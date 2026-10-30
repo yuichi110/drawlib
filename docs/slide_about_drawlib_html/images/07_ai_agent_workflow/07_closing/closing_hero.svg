@@ -80,7 +80,7 @@ z
    </g>
    <g id="text_4">
     <g clip-path="url(#pecbf88852a)">
-     <text style="font-size: 7.8px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="145.301116" y="294.212126" transform="rotate(-0 145.301116 294.212126)">pip install drawlib</text>
+     <text style="font-size: 7.8px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="145.301116" y="294.637469" transform="rotate(-0 145.301116 294.637469)">uv add drawlib</text>
     </g>
    </g>
    <g id="patch_5">
@@ -138,10 +138,10 @@ z
    </g>
    <g id="text_9">
     <g clip-path="url(#pecbf88852a)">
-     <text style="font-size: 8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #4862da" transform="translate(95.420115 406.795102)">23 Primitives</text>
+     <text style="font-size: 8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #4862da" transform="translate(95.420115 406.795102)">43 Primitives</text>
     </g>
     <g clip-path="url(#pecbf88852a)">
-     <text style="font-size: 8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #4862da" transform="translate(91.661365 414.795102)">&amp; 10 SmartArts</text>
+     <text style="font-size: 8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #4862da" transform="translate(91.661365 414.795102)">&amp; 18 SmartArts</text>
     </g>
    </g>
    <g id="text_10">
@@ -196,7 +196,7 @@ z
    </g>
    <g id="text_13">
     <g clip-path="url(#pecbf88852a)">
-     <text style="font-size: 8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #4862da" transform="translate(412.639439 406.378852)">7 Chart Types</text>
+     <text style="font-size: 8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #4862da" transform="translate(412.639439 406.378852)">9 Chart Types</text>
     </g>
     <g clip-path="url(#pecbf88852a)">
      <text style="font-size: 8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #4862da" transform="translate(401.039439 415.211352)">&amp; APNG Animations</text>
@@ -225,18 +225,18 @@ z
    </g>
    <g id="text_15">
     <g clip-path="url(#pecbf88852a)">
-     <text style="font-size: 8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #4862da" transform="translate(569.812385 405.811352)">4 Build Targets</text>
+     <text style="font-size: 8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #4862da" transform="translate(568.363635 405.923227)">Built-in Exports</text>
     </g>
     <g clip-path="url(#pecbf88852a)">
-     <text style="font-size: 8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #4862da" transform="translate(566.92051 414.795102)">&amp; AI Agent Rules</text>
+     <text style="font-size: 8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #4862da" transform="translate(566.92051 414.683227)">&amp; AI Agent Rules</text>
     </g>
    </g>
    <g id="text_16">
     <g clip-path="url(#pecbf88852a)">
-     <text style="font-size: 7.4px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; fill: #5f6b7d" transform="translate(574.11501 472.730551)">Site, Doc, PDF,</text>
+     <text style="font-size: 7.4px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; fill: #5f6b7d" transform="translate(567.721526 472.471551)">HTML, PDF, DOCX,</text>
     </g>
     <g clip-path="url(#pecbf88852a)">
-     <text style="font-size: 7.4px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; fill: #5f6b7d" transform="translate(572.785901 480.648551)">16:9 Slide Deck</text>
+     <text style="font-size: 7.4px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; fill: #5f6b7d" transform="translate(570.788479 480.389551)">PPTX, MD &amp; PNG</text>
     </g>
    </g>
    <g id="patch_11">

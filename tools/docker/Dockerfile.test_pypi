@@ -36,6 +36,9 @@ RUN pip install --no-cache-dir \
     --extra-index-url https://pypi.org/simple/ \
     "drawlib==${DRAWLIB_VERSION}"
 
+# Install OS shared libraries required by headless Chromium for PDF/PPTX tests
+RUN playwright install-deps chromium && rm -rf /var/lib/apt/lists/*
+
 # Copy pytest configuration, test suite, and assets
 COPY pyproject.toml ./
 COPY tests/ ./tests/

@@ -1,6 +1,6 @@
 # Slide Stage Layout & API
 
-When authoring 16:9 widescreen presentation decks (`drawlib init slide`), Drawlib provides a precision **1920 × 1080 pixel virtual stage** (`::: block`, `::: note`), built-in layout patterns, inline vector SVG font bundling, and the programmatic [`drawlib.slide`](../10_ai_agents_and_advanced/programmatic_api.md) Python runtime API (`current_slide`, `SlideContext`, `BoundingBox`, `build_slide`). *(For initializing and building a slide deck project, see [Slide Deck Project Guide](./project_slide.md).)*
+When authoring 16:9 widescreen presentation decks (`drawlib init slide`), Drawlib provides a precision **1920 × 1080 pixel virtual stage** (`::: block`, `::: note`), built-in layout patterns, inline vector SVG font bundling, and the programmatic [`drawlib.slide`](../10_ai_agents_and_advanced/programmatic_api.md) Python runtime API (`current_slide`, `SlideContext`, `BoundingBox`, `build_slide`, `build_pptx`). *(For initializing and building a slide deck project, see [Slide Deck Project Guide](./project_slide.md).)*
 
 
 
@@ -133,7 +133,7 @@ If a slide file contains no `::: block` tags at all, Drawlib automatically wraps
 
 ### 2.2. Speaker Notes (`::: note`)
 
-Add presenter notes anywhere inside a slide Markdown file using `::: note`. Speaker notes are stripped from the visible slide stage and compiled into `<aside class="slide-notes" hidden>` for the synchronized dual-window **Presenter View** (`P` or `S` key):
+Add presenter notes anywhere inside a slide Markdown file using `::: note`. Speaker notes are stripped from the visible slide stage, compiled into `<aside class="slide-notes" hidden>` for the synchronized dual-window **Presenter View** (`P` or `S` key), and exported into **native PowerPoint speaker notes** during `drawlib build pptx` / `build_pptx()`:
 
 ````markdown
 ::: note
@@ -342,10 +342,10 @@ Use a single `xy=(0, 0) width=1920 height=1080` block with `setup(width=192, hei
 
 ## 4. Inline Vector `.svg` vs. Animated `.png` / `.webp` in Slides
 
-| Output Format | Fence Syntax | How It Renders in `slide_html/` and `slide.pdf` |
+| Output Format | Fence Syntax | How It Renders in `slide_html/`, `slide.pdf`, and `slide.pptx` |
 | :--- | :--- | :--- |
-| **Inline Vector SVG** *(default for static diagrams)* | ```` ```drawlib file=diagram.svg ```` | Inlined directly as `<div class="slide-svg-container"><svg>...</svg></div>`. Provides infinite vector sharpness at any zoom level and full `Ctrl+F` text searchability. Automatically bundles any referenced Drawlib `.ttf`/`.otf` text and icon fonts into `_assets/fonts/` with `@font-face` rules injected into `style.css`. |
-| **Interactive `<canvas>` Animation** *(default when `Animation()` is used)* | ```` ```drawlib file=flow.png anim_trigger=click anim_loop=once anim_pause=(2, 4) ```` | Encodes the APNG (`.png`) or Animated WebP (`.webp`) payload as Base64 inside an interactive `<canvas class="drawlib-anim-canvas">` player so playback works seamlessly over both `http://` and `file://`. In PDF export (`build_pdf.sh`), Frame 0 is rendered cleanly as a static poster image. |
+| **Inline Vector SVG** *(default for static diagrams)* | ```` ```drawlib file=diagram.svg ```` | Inlined directly as `<div class="slide-svg-container"><svg>...</svg></div>` in HTML and PDF (with bundled `.ttf`/`.otf` `@font-face` rules for infinite sharpness and `Ctrl+F` searchability). In `drawlib build pptx`, rendered as a crisp high-DPI static PNG (`--dpi 240` default). |
+| **Interactive `<canvas>` Animation** *(default when `Animation()` is used)* | ```` ```drawlib file=flow.png anim_trigger=click anim_loop=once anim_pause=(2, 4) ```` | Encodes the APNG (`.png`) or Animated WebP (`.webp`) payload as Base64 inside an interactive `<canvas class="drawlib-anim-canvas">` player over both `http://` servers and local HTML files. In PDF export (`build_pdf.sh`), Frame 0 is rendered as a static poster image; in PowerPoint export (`drawlib build pptx`), `--anim-frame last` (default) or `first` is embedded at `--dpi 240`. |
 
 ---
 
@@ -357,6 +357,7 @@ All slide runtime helpers, stage/page helpers, geometry models, and compilation 
 from drawlib.slide import (
     BoundingBox,
     SlideContext,
+    build_pptx,
     build_slide,
     current_slide,
     draw_page_number,
@@ -372,6 +373,7 @@ from drawlib.slide import (
 | **`SlideContext`** | Frozen Dataclass | Immutable context model (`index: int = 1`, `total: int = 1`, `.text`, `.format()`) holding slide numbering state. |
 | **`BoundingBox`** | Frozen Dataclass | Immutable stage geometry model (`x: float`, `y: float`, `width: float`, `height: float`) in 1920×1080 stage pixels. |
 | **`build_slide`** | Compiler Function | Programmatically compiles a `slide_src/` Markdown directory into a standalone HTML presentation deck (`index.html`). |
+| **`build_pptx`** | Compiler Function | Programmatically compiles a `slide_src/` Markdown directory into a native editable 16:9 (`960×540 pt`) MS PowerPoint (`.pptx`) deck via headless Chromium CSS layout measurement. |
 
 ### 5.1. `current_slide`, `SlideContext`, and `BoundingBox` Reference
 
@@ -383,7 +385,7 @@ from drawlib.slide import (
 | **`current_slide`** / **`SlideContext`** | `.format(template="{index} / {total}")` | `str` | Custom formatted counter string using `{index}` and `{total}` placeholders (e.g. `current_slide.format("Slide {index} of {total}")`). |
 | **`BoundingBox`** | `.x`, `.y`, `.width`, `.height` | `float` | Top-left stage coordinates (`x`, `y`) and dimensions (`width`, `height`) in 1920×1080 stage pixels. |
 
-During `build_slide()`, Drawlib binds `SlideContext(index=idx, total=N)` before executing each slide's ````drawlib```` blocks (defaulting safely to `1 / 1` when run standalone):
+During `build_slide()` and `build_pptx()`, Drawlib binds `SlideContext(index=idx, total=N)` before executing each slide's ````drawlib```` blocks (defaulting safely to `1 / 1` when run standalone):
 
 ```python
 from drawlib.slide import draw_page_number, draw_section_header
@@ -402,10 +404,10 @@ draw_section_header(
 )
 ```
 
-### 5.2. Compiling Slides Programmatically (`build_slide`)
+### 5.2. Compiling Slides Programmatically (`build_slide` & `build_pptx`)
 
 ```python
-from drawlib.slide import build_slide
+from drawlib.slide import build_pptx, build_slide
 
 index_html_path = build_slide(
     input_dir="slide_src",
@@ -413,6 +415,18 @@ index_html_path = build_slide(
     title="System Architecture Deck",
     theme="google",
     image_format="svg",
+    styles_path="slide_src/styles.py",
+    utils_path="slide_src/utils.py",
+    no_cache=False,
+)
+
+pptx_path = build_pptx(
+    input_dir="slide_src",
+    output_file="slide.pptx",
+    title="System Architecture Deck",
+    theme="google",
+    dpi=240,
+    anim_frame="last",
     styles_path="slide_src/styles.py",
     utils_path="slide_src/utils.py",
     no_cache=False,

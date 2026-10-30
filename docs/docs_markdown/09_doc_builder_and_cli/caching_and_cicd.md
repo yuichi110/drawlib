@@ -45,7 +45,7 @@ text((49.5, 12.2), ".drawlib/cache.db\n(Image Blobs)", style=Styles.Dark.patch(t
 rectangle((78.5, 16.0), width=27, height=16.5, style=Styles.SecondaryNeutral.patch(shape_r=1.5))
 phosphor.cloud_arrow_down((69.0, 20.5), width=4.2, style=Styles.PrimaryBold)
 text((81.5, 20.5), "Layer 2 Cache", style=Styles.DarkBold.patch(text_size=10.2))
-text((78.5, 12.2), "Fonts, Icons, Maps\n(drawlib cache)", style=Styles.Dark.patch(text_size=10.0))
+text((78.5, 12.2), "Assets & Browser\n(drawlib cache)", style=Styles.Dark.patch(text_size=10.0))
 
 # Right: Published Artifacts
 rectangle(
@@ -53,7 +53,7 @@ rectangle(
     width=26,
     height=40,
     style=Styles.Neutral.patch(shape_r=1.8),
-    text="Build Outputs\n\n• docs_html/\n• docs_markdown/\n• docs.pdf\n• images/",
+    text="Build Outputs\n\n• HTML / Slide\n• PDF / Markdown\n• DOCX / PPTX\n• Images",
     text_style=Styles.DarkBold.patch(text_size=10.0),
 )
 
@@ -71,7 +71,7 @@ save()
 
 
 1. **Layer 1 — Incremental Build Cache (`.drawlib/cache.db`)**: A project-local SQLite database that caches rendered diagram binaries by SHA-256 content hash, restoring unchanged diagrams in sub-millisecond time.
-2. **Layer 2 — Release Asset Cache (`drawlib cache`)**: A package cache for external font families, vector/PNG icon packs, and Natural Earth map datasets downloaded from official GitHub Releases.
+2. **Layer 2 — Global Asset & Browser Cache (`drawlib cache`)**: A package cache for external font families, vector/PNG icon packs, Natural Earth map datasets, and Playwright's headless Chromium binary (`chromium-headless-shell`).
 
 ---
 
@@ -182,26 +182,29 @@ uv run drawlib cache clear --images
 
 ---
 
-## 2. Layer 2: Global Asset Cache (`drawlib cache`) & Rules Cache
+## 2. Layer 2: Global Asset & Browser Cache (`drawlib cache`) & Rules Cache
 
-To keep the core `drawlib` PyPI wheel lightweight, external binary assets are packaged as deterministic archives in official GitHub Releases and cached locally inside `drawlib/_cached_assets/`:
+To keep the core `drawlib` PyPI wheel lightweight, external binary assets are packaged as deterministic archives in official GitHub Releases and cached locally inside `drawlib/_cached_assets/`, alongside Playwright's headless browser binary:
 - **Font Packages (`font_*`)**: Western & technical families (`font_roboto`, `font_roboto_condensed`, `font_roboto_mono`, `font_roboto_serif`, `font_roboto_slab`, `font_mono_source_code_pro`, `font_mono_courier`, `font_sans_*`, `font_serif_*`) and multilingual CJK/regional families (`font_cjk_japanese_noto_sans`, `font_japanese_noto_sans`, `font_japanese_mplus_1p`, `font_chinese_simplified_noto_sans`, `font_chinese_traditional_noto_sans`, `font_korean_noto_sans`, `font_arabic_noto_sans`, `font_thai_noto_sans`, `font_brahmic_*`).
 - **Icon Packages (`icon_*` — 34 packages)**: Vector font icons (`icon_phosphor`), official cloud provider icons (`icon_gcp`, `icon_aws`, `icon_azure`), 15 official domain brand packs (`icon_ai`, `icon_business`, `icon_client`, `icon_cloud`, `icon_cnative`, `icon_code`, `icon_data`, `icon_devops`, `icon_facility`, `icon_itservice`, `icon_network`, `icon_security`, `icon_server`, `icon_social`, `icon_workspace`), and 15 Drawlib Original 2D pastel packs (`icon_original_ai`..`icon_original_workspace`).
 - **GeoMap Packages (`map_*`)**: Natural Earth vector boundaries and populated places (`map_world`, `map_countries`, `map_cities`).
+- **Headless Chromium (`--browser`)**: Playwright's `chromium-headless-shell` used by `drawlib build pdf` and `drawlib build pptx` (automatically provisioned on first run, or pre-downloaded explicitly via `drawlib cache download --browser` / `--all`).
 - **AI Rules Illustration Cache (`_cached_assets/rules/`)**: Companion PNG diagrams generated on-demand by `drawlib rules show <topic>` or pre-built via `drawlib rules build --all` (cleared via `drawlib rules clear`).
 
 ### 2.1. Asset Cache CLI Commands
 
 ```bash
-# Inspect all 83 font, icon, and map packages and their local cache status:
+# Inspect all font, icon, and map packages and their local cache status:
 uv run drawlib cache list
 
-# Pre-download all font, icon, and map packages (recommended for CI & offline use):
+# Pre-download all font, icon, map, and headless Chromium assets (recommended for CI & offline use):
 uv run drawlib cache download --all
 
-# Pre-download only font packages or only icon packages:
+# Pre-download specific asset categories selectively:
 uv run drawlib cache download --fonts
 uv run drawlib cache download --icons
+uv run drawlib cache download --maps
+uv run drawlib cache download --browser
 
 # Clear downloaded font/icon/map packages, or clear everything including SQLite image cache:
 uv run drawlib cache clear
@@ -213,7 +216,7 @@ uv run drawlib cache clear --all
 ## 3. Running Drawlib in CI/CD Pipelines & Headless Containers
 
 ### 3.1. GitHub Actions Workflow Example
-In GitHub Actions or GitLab CI, persist both the asset cache and `.drawlib/cache.db` across workflow runs, pre-download assets once, and run `drawlib serve --check` as a broken-link quality gate:
+In GitHub Actions or GitLab CI, persist the asset/browser caches and `.drawlib/cache.db` across workflow runs, pre-download assets once via `drawlib cache download --all` (which includes headless Chromium), and run `drawlib serve --check` as a broken-link quality gate:
 
 ```yaml
 name: Build Documentation & Verify Links
@@ -234,41 +237,43 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Install dependencies (with optional PDF export support)
+      - name: Sync dependencies and OS browser shared libraries
         run: |
           uv sync
-          uv run playwright install --with-deps chromium
+          uv run playwright install-deps chromium
 
-      - name: Restore Drawlib Caches
+      - name: Restore Drawlib & Playwright Caches
         uses: actions/cache@v4
         with:
           path: |
             .drawlib/
             ~/.cache/drawlib/
+            ~/.cache/ms-playwright/
           key: drawlib-cache-${{ runner.os }}-${{ hashFiles('uv.lock') }}
           restore-keys: |
             drawlib-cache-${{ runner.os }}-
 
-      - name: Warm Font & Icon Asset Cache
+      - name: Warm Font, Icon, Map & Headless Browser Cache
         run: uv run drawlib cache download --all
 
-      - name: Build HTML Site, Vector PDF, and Audit Links
+      - name: Build HTML Site, Vector PDF, MS Word, and Audit Links
         run: |
           uv run drawlib build html docs_src/ -o docs_html/
-          uv run drawlib build pdf docs_src/ -o docs.pdf --toc
+          uv run drawlib build pdf doc_src/ -o doc.pdf --toc
+          uv run drawlib build docx doc_src/ -o doc.docx --generate-index
           uv run drawlib serve docs_html/ --check
 ```
 
 ### 3.2. Offline & Air-Gapped Docker Containers
-For air-gapped environments or production container images where outbound network requests are disabled at runtime, bake the asset cache and Chromium binary directly into the Docker image during `docker build`:
+For air-gapped environments or slim Linux container images (`python:3.12-slim`) where outbound network requests are disabled at runtime, install OS-level shared libraries (`playwright install-deps chromium`) and bake all fonts, icons, maps, and headless Chromium into the image via `drawlib cache download --all` (or install OS libraries + headless shell together via `playwright install --with-deps --only-shell chromium`):
 
 ```dockerfile
 FROM python:3.12-slim
 
 WORKDIR /workspace
-RUN pip install --no-cache-dir "drawlib[pdf]" \
-    && playwright install --with-deps chromium \
+RUN pip install --no-cache-dir drawlib \
+    && playwright install-deps chromium \
     && drawlib cache download --all
 ```
 
-With `drawlib cache download --all` and `playwright install --with-deps chromium` executed at image build time, every font family, Phosphor/GCP icon set, GeoMap shapefile, and headless PDF renderer runs 100% offline.
+With `playwright install-deps chromium` and `drawlib cache download --all` executed at image build time, every font family, Phosphor/cloud/domain icon set, GeoMap shapefile, headless PDF/PPTX Chromium renderer, and pure-Python DOCX compiler runs 100% offline.

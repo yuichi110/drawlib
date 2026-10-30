@@ -13,11 +13,13 @@ All public developer and build tools are imported directly from `drawlib.tools`:
 from drawlib.tools import (
     # Document, Slide, & Image Compilation
     build_document,
+    build_docx,
     build_html,
+    build_image,
     build_markdown,
     build_pdf,
+    build_pptx,
     build_slide,
-    build_image,
     detect_document_type,
     export_code_block,
     show_code_block,
@@ -37,9 +39,9 @@ from drawlib.tools import (
 
 ---
 
-## 2. Document & Image Compilation
+## 2. Document, Slide & Image Compilation
 
-The compilation tools compile Markdown documents, multi-page document sites, presentation slides, and standalone Python illustration scripts into production outputs.
+The compilation tools compile Markdown documents, multi-page document sites, presentation slides, MS Word/PowerPoint Office files, and standalone Python illustration scripts into production outputs.
 
 ### 2.1. HTML Build (`build_html`)
 Compiles a single Markdown file or a documentation source directory (`docs_src/`) into responsive HTML pages with navigation and styling:
@@ -74,7 +76,7 @@ build_markdown(
 ```
 
 ### 2.3. PDF Build (`build_pdf`)
-Compiles documents directly to print-ready vector PDF using headless Chromium via Playwright:
+Compiles documents or slide decks directly to print-ready vector PDF using headless Chromium via Playwright (`playwright` is a standard dependency, and `chromium-headless-shell` downloads automatically on first `build_pdf` or `build_pptx` run):
 
 ```python
 from drawlib.tools import build_pdf
@@ -87,7 +89,56 @@ build_pdf(
 )
 ```
 
-### 2.4. Python Image Batch Build (`build_image`)
+*(Note: In minimal Linux containers such as `python:3.12-slim` lacking OS shared libraries like `libnss3` or `libgbm1`, run `playwright install-deps chromium` or `playwright install --with-deps --only-shell chromium`.)*
+
+### 2.4. MS Word Build (`build_docx`)
+Compiles a linear document directory (`doc_src/`) or a single Markdown file (`.md`) into a native editable Microsoft Word (`.docx`) document (`python-docx`). Outputs native editable Word headings, prose, lists, tables, blockquotes, and syntax-highlighted code blocks, with ````drawlib```` diagrams embedded as high-DPI static PNGs (default `dpi=200`):
+
+```python
+from drawlib.tools import build_docx
+
+output_docx = build_docx(
+    input_path="doc_src/",       # Or pass keyword input_dir="doc_src/"
+    output_file="manual.docx",
+    title=None,
+    page_break=True,
+    generate_index=False,
+    dpi=200,
+    styles_path="doc_src/styles.py",
+    utils_path="doc_src/utils.py",
+    no_cache=False,
+    timestamp=False,
+)
+```
+
+### 2.5. HTML Slide Deck & MS PowerPoint Build (`build_slide` & `build_pptx`)
+Compiles a slide deck directory (`slide_src/`) into an interactive 16:9 HTML presentation (`build_slide`) or measures the `1920x1080` slide DOM via headless Chromium to write native editable 16:9 (`960x540 pt`) Microsoft PowerPoint slides (`build_pptx`, embedding `::: block` cards with `rgba` alpha, text boxes, bullet/numbered lists, tables, code blocks, `::: note` speaker notes, and high-DPI static PNG diagrams):
+
+```python
+from drawlib.tools import build_pptx, build_slide
+
+build_slide(
+    input_dir="slide_src/",
+    output_dir="slide_html/",
+    styles_path="slide_src/styles.py",
+    utils_path="slide_src/utils.py",
+)
+
+output_pptx = build_pptx(
+    input_dir="slide_src/",
+    output_file="deck.pptx",
+    title=None,
+    theme=None,
+    dpi=240,
+    anim_frame="last",  # "first" or "last" for animated blocks
+    styles_path="slide_src/styles.py",
+    utils_path="slide_src/utils.py",
+    no_cache=False,
+    timestamp=False,
+)
+```
+
+### 2.6. Python Image Batch Build (`build_image`)
 Executes standalone Python drawing scripts in batch mode:
 
 ```python
@@ -188,16 +239,19 @@ serve_docs(
 ```
 
 ### 5.2. Cache Management
-Inspect and manage cached font and icon assets:
+Inspect and manage cached font, icon, map, and headless Chromium assets (`download_cache(all_assets=True, fonts=False, icons=False, maps=False, browser=False)`):
 
 ```python
 from drawlib.tools import clear_cache, download_cache, list_cache
 
-# List cached font families and icons:
+# List cached font families, icons, and maps:
 cached_items = list_cache()
 
-# Download all default font packs for offline use:
-download_cache()
+# Pre-download all fonts, icons, maps, and headless Chromium for offline/CI use:
+download_cache(all_assets=True)
+
+# Pre-download headless Chromium only:
+download_cache(all_assets=False, browser=True)
 
 # Purge cache to reclaim disk space:
 clear_cache()

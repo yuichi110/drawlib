@@ -1,6 +1,6 @@
 # Chapter 4: Installation and Environment Setup
 
-Drawlib (`v0.3.0`) is published on the official Python Package Index (PyPI) and can be installed in seconds using `uv` or `pip`.
+Drawlib (`v0.3.2`) is published on the official Python Package Index (PyPI) and can be installed in seconds using `uv` or `pip`.
 
 ## 4.1 Prerequisites
 
@@ -10,7 +10,7 @@ Drawlib (`v0.3.0`) is published on the official Python Package Index (PyPI) and 
 
 ## 4.2 Installing from PyPI (`uv` / `pip` / `uvx`)
 
-For standard diagram rendering, multi-page HTML sites, slide decks, and Markdown builds, install `drawlib` directly from PyPI:
+A standard `drawlib` installation includes every output target out of the box—standalone diagrams, multi-page HTML sites, 16:9 HTML slide decks, GitHub Markdown, **vector PDF (`drawlib build pdf`)**, **editable MS Word (`drawlib build docx`)**, and **editable 16:9 MS PowerPoint (`drawlib build pptx`)**—with no optional package extras required:
 
 ```bash
 # Using uv (recommended)
@@ -25,43 +25,37 @@ uvx drawlib init site
 pip install drawlib
 ```
 
-## 4.3 Enabling PDF Export (Optional)
+## 4.3 Built-in PDF & Office (Word / PowerPoint) Export
 
-To export vector A4 PDFs in `doc` projects (technical specifications and whitepapers) or 16:9 PDFs in `slide` projects via headless Chromium (`playwright`), install the `[pdf]` extra and download the Chromium browser binary:
+Drawlib handles document and presentation compilation without manual browser installation steps:
 
-```bash
-# 1. Install drawlib with the PDF extra
-uv add "drawlib[pdf]"
+- **Vector PDF & 16:9 PowerPoint (`drawlib build pdf`, `drawlib build pptx`)**:
+  On the first `drawlib build pdf` or `drawlib build pptx` execution, Drawlib **automatically downloads and caches** a managed headless Chromium binary via Playwright—no manual browser setup is needed.
+- **Editable MS Word (`drawlib build docx`)**:
+  Runs in pure Python (`python-docx`) without requiring a browser, compiling `doc` projects directly into editable `.docx` documents (including `--generate-index` Table of Contents support).
 
-# 2. Download the headless Chromium binary required for PDF rendering
-uv run playwright install chromium
-```
-
-> **Note (Using `pip`)**:  
-> Run `pip install "drawlib[pdf]"` followed by `playwright install chromium`.
-
-> **Note (Linux Headless Servers & CI Containers)**:  
-> On Ubuntu/Debian server environments where OS shared libraries may be missing, pass `--with-deps` when installing Chromium:  
-> `uv run playwright install --with-deps chromium`
+> **Note (Minimal Linux Docker Containers)**:  
+> On minimal Ubuntu or Debian container images where OS shared libraries required by Chromium are not pre-installed, install system dependencies once via:  
+> `uv run playwright install-deps chromium`
 
 ## 4.4 Managing Asset & Build Caches (`drawlib cache`)
 
 To keep the core PyPI package lightweight and builds fast, Drawlib uses a two-tier caching architecture:
 
-1. **External Asset Cache (`drawlib/_cached_assets/`)**:
-   Multilingual fonts (Roboto, Noto Sans JP, etc.), vector icon packs (Phosphor, FontAwesome, official GCP icons), and offline map geometry (`GeoMap`) are automatically downloaded on demand from GitHub Releases upon first use and cached locally.
+1. **External Asset & Headless Browser Cache**:
+   Multilingual fonts (Roboto, Noto Sans JP, etc.), vector icon packs (Phosphor, FontAwesome, official GCP icons), offline map geometry (`GeoMap`), and the headless Chromium browser for PDF / PPTX builds are automatically downloaded on demand upon first use and cached locally.
 2. **Incremental Build Cache (`.drawlib/cache.db`)**:
    During `drawlib build` and `drawlib show`, Drawlib hashes each code block along with `styles.py`, `utils.py`, and referenced local assets in a SQLite database, skipping unchanged diagrams to make incremental rebuilds near-instantaneous.
 
-Use the `drawlib cache` CLI to pre-download assets for offline/air-gapped CI environments or clear cached artifacts:
+Use the `drawlib cache` CLI to pre-download assets and headless Chromium for offline/air-gapped CI environments or clear cached artifacts:
 
 ```bash
 # Inspect cached asset packages and status
 uv run drawlib cache list
 
-# Pre-download all assets (fonts, icons, maps) for offline or CI builds
+# Pre-download all assets (fonts, icons, maps, and headless Chromium) for offline or CI builds
 uv run drawlib cache download --all
-# Or download specific categories: --fonts / --icons / --maps
+# Or download specific categories: --fonts / --icons / --maps / --browser
 
 # Clear only the incremental image build cache (.drawlib/cache.db) to force re-rendering
 uv run drawlib cache clear --images
@@ -75,7 +69,7 @@ uv run drawlib cache clear --all
 Once installed, verify that the CLI and project templates are available:
 
 ```bash
-# Check installed version (drawlib 0.3.0)
+# Check installed version (0.3.2)
 uv run drawlib --version
 
 # List available project templates

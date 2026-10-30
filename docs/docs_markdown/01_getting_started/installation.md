@@ -1,7 +1,7 @@
 # Installation Guide
 
 Drawlib is published on PyPI and can be installed using `uv` (recommended) or standard `pip`.
-This guide covers core package installation, optional headless PDF export dependencies, and offline asset caching.
+A single `drawlib` installation includes built-in HTML, Markdown, vector PDF, MS Word (`.docx`), and MS PowerPoint (`.pptx`) exporters, automatic headless Chromium provisioning, and offline asset caching.
 
 
 
@@ -31,15 +31,15 @@ workflow = ChevronProcess(
     flat_left_end=True,
 )
 workflow.add(
-    "1. Core Package",
+    "1. Install Drawlib",
     description="uv add drawlib\npip install drawlib",
     style=Styles.PrimaryFlat,
     text_style=Styles.WhiteBold.patch(text_size=11.5),
     description_style=Styles.White.patch(text_size=10.5),
 )
 workflow.add(
-    "2. PDF Engine",
-    description='uv add "drawlib[pdf]"\nplaywright chromium',
+    "2. Zero-Config Export",
+    description="PDF, .docx & .pptx\nAuto Headless Chrome",
     style=Styles.Neutral,
 )
 workflow.add(
@@ -80,7 +80,7 @@ save()
 Add Drawlib to your current project dependencies:
 
 ```bash
-# Add to active project
+# Add to active project (includes PDF, .docx, and .pptx export out of the box)
 $ uv add drawlib
 
 # Verify installation and CLI version
@@ -110,27 +110,24 @@ $ drawlib --version
 
 ---
 
-## 3. Optional PDF Export Support
+## 3. Built-In PDF, Word (`.docx`) & PowerPoint (`.pptx`) Export
 
-Drawlib includes built-in support for compiling Markdown documents into standalone PDF publications via headless Chromium.
+Drawlib includes `playwright`, `python-docx`, and `python-pptx` as standard dependencies—no optional package extras or manual browser installation steps are required:
 
-To enable PDF generation (`drawlib build pdf`):
+- **MS Word (`drawlib build docx`)**: Runs in pure Python with zero browser dependencies.
+- **Vector PDF (`drawlib build pdf`) & MS PowerPoint (`drawlib build pptx`)**: Automatically downloads Playwright's lightweight `chromium-headless-shell` on first run (or pre-fetches it ahead of time via `drawlib cache download --browser`).
 
-```bash
-# When using uv:
-$ uv add "drawlib[pdf]"
-$ uv run playwright install chromium
-
-# When using pip:
-$ pip install "drawlib[pdf]"
-$ playwright install chromium
-```
+> [!NOTE]
+> **Minimal Linux Containers & Slim CI Runners**: Standard desktop macOS, Windows, and Ubuntu/Debian environments work with zero setup. In minimal Linux container images (such as `python:3.12-slim`) that omit system GUI shared libraries (`libnss3`, `libgbm1`, `libasound2`), install the OS-level shared libraries once:
+> ```bash
+> $ uv run playwright install-deps chromium
+> ```
 
 ---
 
 ## 4. Asset & Build Cache Management (`drawlib cache`)
 
-To maintain a minimal PyPI package size, high-resolution icon sets (Phosphor, FontAwesome, and official Google Cloud icons), multilingual fonts, and geographic map datasets are downloaded on demand upon first use and cached inside `drawlib/_cached_assets/` (managed via `drawlib cache`). Meanwhile, project-local incremental diagram builds are cached separately in `.drawlib/cache.db`.
+To maintain a minimal PyPI package size, high-resolution icon sets (Phosphor, FontAwesome, and official cloud/domain icons), multilingual fonts, geographic map datasets, and headless Chromium are downloaded on demand upon first use (or pre-fetched via `drawlib cache download`). Meanwhile, project-local incremental diagram builds are cached separately in `.drawlib/cache.db`.
 
 
 
@@ -158,15 +155,15 @@ cmd_ts = Styles.DarkBold.patch(text_size=10.0)
 
 # Left container: Tier 1 Global Asset Cache
 rectangle((32.0, 27.0), width=58.0, height=48.0, style=Styles.SecondaryNeutral.patch(shape_r=2.0))
-rectangle((32.0, 46.5), width=54.0, height=5.8, style=Styles.PrimaryFlat.patch(shape_r=1.2), text="Tier 1: Global Asset Cache", text_style=hdr_ts)
+rectangle((32.0, 46.5), width=54.0, height=5.8, style=Styles.PrimaryFlat.patch(shape_r=1.2), text="Tier 1: Global Asset & Browser Cache", text_style=hdr_ts)
 
 phosphor.folder_user((9.5, 39.5), width=4.8, style=Styles.Primary)
-text((13.5, 39.5), "drawlib/_cached_assets/", style=path_ts)
+text((13.5, 39.5), "drawlib/_cached_assets/ & Playwright", style=path_ts)
 
 rectangle((32.0, 32.5), width=54.0, height=5.6, style=Styles.Neutral.patch(shape_r=1.0), text="Fonts (Roboto, Noto CJK, Source Code)", text_style=row_ts)
-rectangle((32.0, 25.5), width=54.0, height=5.6, style=Styles.Neutral.patch(shape_r=1.0), text="Icons (Phosphor, FontAwesome, GCP)", text_style=row_ts)
-rectangle((32.0, 18.5), width=54.0, height=5.6, style=Styles.Neutral.patch(shape_r=1.0), text="GeoMap Vector Datasets (World & Regions)", text_style=row_ts)
-rectangle((32.0, 9.5), width=54.0, height=7.8, style=Styles.PrimaryNeutral.patch(shape_r=1.0), text="drawlib cache download --all\nclear --fonts | --icons | --maps", text_style=cmd_ts)
+rectangle((32.0, 25.5), width=54.0, height=5.6, style=Styles.Neutral.patch(shape_r=1.0), text="Icons (Phosphor, Cloud, Domain Suites)", text_style=row_ts)
+rectangle((32.0, 18.5), width=54.0, height=5.6, style=Styles.Neutral.patch(shape_r=1.0), text="GeoMaps & Headless Chromium (--browser)", text_style=row_ts)
+rectangle((32.0, 9.5), width=54.0, height=7.8, style=Styles.PrimaryNeutral.patch(shape_r=1.0), text="drawlib cache download --all | --browser\ndrawlib cache clear [--all]", text_style=cmd_ts)
 
 # Right container: Tier 2 Project Incremental Build Cache
 rectangle((94.0, 27.0), width=58.0, height=48.0, style=Styles.Neutral.patch(shape_r=2.0))
@@ -193,13 +190,14 @@ You can inspect, pre-fetch (e.g. for offline builds, Docker images, or CI/CD pip
 # Inspect cached font, icon, and map packages
 $ uv run drawlib cache list
 
-# Pre-download all font, icon, and map packages
+# Pre-download all font, icon, map, and headless Chromium assets
 $ uv run drawlib cache download --all
 
 # Or pre-download specific asset categories selectively
 $ uv run drawlib cache download --fonts
 $ uv run drawlib cache download --icons
 $ uv run drawlib cache download --maps
+$ uv run drawlib cache download --browser
 
 # Clear project-local incremental diagram build cache (.drawlib/cache.db)
 $ uv run drawlib cache clear --images

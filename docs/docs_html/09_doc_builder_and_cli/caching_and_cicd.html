@@ -623,7 +623,7 @@
 <span class="n">rectangle</span><span class="p">((</span><span class="mf">78.5</span><span class="p">,</span> <span class="mf">16.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">27</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">16.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
 <span class="n">phosphor</span><span class="o">.</span><span class="n">cloud_arrow_down</span><span class="p">((</span><span class="mf">69.0</span><span class="p">,</span> <span class="mf">20.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
 <span class="n">text</span><span class="p">((</span><span class="mf">81.5</span><span class="p">,</span> <span class="mf">20.5</span><span class="p">),</span> <span class="s2">"Layer 2 Cache"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.2</span><span class="p">))</span>
-<span class="n">text</span><span class="p">((</span><span class="mf">78.5</span><span class="p">,</span> <span class="mf">12.2</span><span class="p">),</span> <span class="s2">"Fonts, Icons, Maps</span><span class="se">\n</span><span class="s2">(drawlib cache)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">78.5</span><span class="p">,</span> <span class="mf">12.2</span><span class="p">),</span> <span class="s2">"Assets &amp; Browser</span><span class="se">\n</span><span class="s2">(drawlib cache)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
 
 <span class="c1"># Right: Published Artifacts</span>
 <span class="n">rectangle</span><span class="p">(</span>
@@ -631,7 +631,7 @@
     <span class="n">width</span><span class="o">=</span><span class="mi">26</span><span class="p">,</span>
     <span class="n">height</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.8</span><span class="p">),</span>
-    <span class="n">text</span><span class="o">=</span><span class="s2">"Build Outputs</span><span class="se">\n\n</span><span class="s2">• docs_html/</span><span class="se">\n</span><span class="s2">• docs_markdown/</span><span class="se">\n</span><span class="s2">• docs.pdf</span><span class="se">\n</span><span class="s2">• images/"</span><span class="p">,</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Build Outputs</span><span class="se">\n\n</span><span class="s2">• HTML / Slide</span><span class="se">\n</span><span class="s2">• PDF / Markdown</span><span class="se">\n</span><span class="s2">• DOCX / PPTX</span><span class="se">\n</span><span class="s2">• Images"</span><span class="p">,</span>
     <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
 <span class="p">)</span>
 
@@ -646,7 +646,7 @@
 </details>
 <ol>
 <li><strong>Layer 1 — Incremental Build Cache (<code>.drawlib/cache.db</code>)</strong>: A project-local SQLite database that caches rendered diagram binaries by SHA-256 content hash, restoring unchanged diagrams in sub-millisecond time.</li>
-<li><strong>Layer 2 — Release Asset Cache (<code>drawlib cache</code>)</strong>: A package cache for external font families, vector/PNG icon packs, and Natural Earth map datasets downloaded from official GitHub Releases.</li>
+<li><strong>Layer 2 — Global Asset &amp; Browser Cache (<code>drawlib cache</code>)</strong>: A package cache for external font families, vector/PNG icon packs, Natural Earth map datasets, and Playwright's headless Chromium binary (<code>chromium-headless-shell</code>).</li>
 </ol>
 <hr />
 <h2>1. Layer 1: SQLite Incremental Build Cache (<code>.drawlib/cache.db</code>)</h2>
@@ -742,24 +742,27 @@ uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </s
 uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>cache<span class="w"> </span>clear<span class="w"> </span>--images
 </code></pre>
 <hr />
-<h2>2. Layer 2: Global Asset Cache (<code>drawlib cache</code>) &amp; Rules Cache</h2>
-<p>To keep the core <code>drawlib</code> PyPI wheel lightweight, external binary assets are packaged as deterministic archives in official GitHub Releases and cached locally inside <code>drawlib/_cached_assets/</code>:</p>
+<h2>2. Layer 2: Global Asset &amp; Browser Cache (<code>drawlib cache</code>) &amp; Rules Cache</h2>
+<p>To keep the core <code>drawlib</code> PyPI wheel lightweight, external binary assets are packaged as deterministic archives in official GitHub Releases and cached locally inside <code>drawlib/_cached_assets/</code>, alongside Playwright's headless browser binary:</p>
 <ul>
 <li><strong>Font Packages (<code>font_*</code>)</strong>: Western &amp; technical families (<code>font_roboto</code>, <code>font_roboto_condensed</code>, <code>font_roboto_mono</code>, <code>font_roboto_serif</code>, <code>font_roboto_slab</code>, <code>font_mono_source_code_pro</code>, <code>font_mono_courier</code>, <code>font_sans_*</code>, <code>font_serif_*</code>) and multilingual CJK/regional families (<code>font_cjk_japanese_noto_sans</code>, <code>font_japanese_noto_sans</code>, <code>font_japanese_mplus_1p</code>, <code>font_chinese_simplified_noto_sans</code>, <code>font_chinese_traditional_noto_sans</code>, <code>font_korean_noto_sans</code>, <code>font_arabic_noto_sans</code>, <code>font_thai_noto_sans</code>, <code>font_brahmic_*</code>).</li>
 <li><strong>Icon Packages (<code>icon_*</code> — 34 packages)</strong>: Vector font icons (<code>icon_phosphor</code>), official cloud provider icons (<code>icon_gcp</code>, <code>icon_aws</code>, <code>icon_azure</code>), 15 official domain brand packs (<code>icon_ai</code>, <code>icon_business</code>, <code>icon_client</code>, <code>icon_cloud</code>, <code>icon_cnative</code>, <code>icon_code</code>, <code>icon_data</code>, <code>icon_devops</code>, <code>icon_facility</code>, <code>icon_itservice</code>, <code>icon_network</code>, <code>icon_security</code>, <code>icon_server</code>, <code>icon_social</code>, <code>icon_workspace</code>), and 15 Drawlib Original 2D pastel packs (<code>icon_original_ai</code>..<code>icon_original_workspace</code>).</li>
 <li><strong>GeoMap Packages (<code>map_*</code>)</strong>: Natural Earth vector boundaries and populated places (<code>map_world</code>, <code>map_countries</code>, <code>map_cities</code>).</li>
+<li><strong>Headless Chromium (<code>--browser</code>)</strong>: Playwright's <code>chromium-headless-shell</code> used by <code>drawlib build pdf</code> and <code>drawlib build pptx</code> (automatically provisioned on first run, or pre-downloaded explicitly via <code>drawlib cache download --browser</code> / <code>--all</code>).</li>
 <li><strong>AI Rules Illustration Cache (<code>_cached_assets/rules/</code>)</strong>: Companion PNG diagrams generated on-demand by <code>drawlib rules show &lt;topic&gt;</code> or pre-built via <code>drawlib rules build --all</code> (cleared via <code>drawlib rules clear</code>).</li>
 </ul>
 <h3>2.1. Asset Cache CLI Commands</h3>
-<pre><code class="language-bash"><span class="c1"># Inspect all 83 font, icon, and map packages and their local cache status:</span>
+<pre><code class="language-bash"><span class="c1"># Inspect all font, icon, and map packages and their local cache status:</span>
 uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>cache<span class="w"> </span>list
 
-<span class="c1"># Pre-download all font, icon, and map packages (recommended for CI &amp; offline use):</span>
+<span class="c1"># Pre-download all font, icon, map, and headless Chromium assets (recommended for CI &amp; offline use):</span>
 uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>cache<span class="w"> </span>download<span class="w"> </span>--all
 
-<span class="c1"># Pre-download only font packages or only icon packages:</span>
+<span class="c1"># Pre-download specific asset categories selectively:</span>
 uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>cache<span class="w"> </span>download<span class="w"> </span>--fonts
 uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>cache<span class="w"> </span>download<span class="w"> </span>--icons
+uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>cache<span class="w"> </span>download<span class="w"> </span>--maps
+uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>cache<span class="w"> </span>download<span class="w"> </span>--browser
 
 <span class="c1"># Clear downloaded font/icon/map packages, or clear everything including SQLite image cache:</span>
 uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>cache<span class="w"> </span>clear
@@ -768,7 +771,7 @@ uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </s
 <hr />
 <h2>3. Running Drawlib in CI/CD Pipelines &amp; Headless Containers</h2>
 <h3>3.1. GitHub Actions Workflow Example</h3>
-<p>In GitHub Actions or GitLab CI, persist both the asset cache and <code>.drawlib/cache.db</code> across workflow runs, pre-download assets once, and run <code>drawlib serve --check</code> as a broken-link quality gate:</p>
+<p>In GitHub Actions or GitLab CI, persist the asset/browser caches and <code>.drawlib/cache.db</code> across workflow runs, pre-download assets once via <code>drawlib cache download --all</code> (which includes headless Chromium), and run <code>drawlib serve --check</code> as a broken-link quality gate:</p>
 <pre><code class="language-yaml"><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Build Documentation &amp; Verify Links</span>
 
 <span class="nt">on</span><span class="p">:</span>
@@ -787,40 +790,42 @@ uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </s
 <span class="w">        </span><span class="nt">with</span><span class="p">:</span>
 <span class="w">          </span><span class="nt">python-version</span><span class="p">:</span><span class="w"> </span><span class="s">"3.12"</span>
 
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Install dependencies (with optional PDF export support)</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Sync dependencies and OS browser shared libraries</span>
 <span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
 <span class="w">          </span><span class="no">uv sync</span>
-<span class="w">          </span><span class="no">uv run playwright install --with-deps chromium</span>
+<span class="w">          </span><span class="no">uv run playwright install-deps chromium</span>
 
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Restore Drawlib Caches</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Restore Drawlib &amp; Playwright Caches</span>
 <span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/cache@v4</span>
 <span class="w">        </span><span class="nt">with</span><span class="p">:</span>
 <span class="w">          </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
 <span class="w">            </span><span class="no">.drawlib/</span>
 <span class="w">            </span><span class="no">~/.cache/drawlib/</span>
+<span class="w">            </span><span class="no">~/.cache/ms-playwright/</span>
 <span class="w">          </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">drawlib-cache-${{ runner.os }}-${{ hashFiles('uv.lock') }}</span>
 <span class="w">          </span><span class="nt">restore-keys</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
 <span class="w">            </span><span class="no">drawlib-cache-${{ runner.os }}-</span>
 
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Warm Font &amp; Icon Asset Cache</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Warm Font, Icon, Map &amp; Headless Browser Cache</span>
 <span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">uv run drawlib cache download --all</span>
 
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Build HTML Site, Vector PDF, and Audit Links</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Build HTML Site, Vector PDF, MS Word, and Audit Links</span>
 <span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
 <span class="w">          </span><span class="no">uv run drawlib build html docs_src/ -o docs_html/</span>
-<span class="w">          </span><span class="no">uv run drawlib build pdf docs_src/ -o docs.pdf --toc</span>
+<span class="w">          </span><span class="no">uv run drawlib build pdf doc_src/ -o doc.pdf --toc</span>
+<span class="w">          </span><span class="no">uv run drawlib build docx doc_src/ -o doc.docx --generate-index</span>
 <span class="w">          </span><span class="no">uv run drawlib serve docs_html/ --check</span>
 </code></pre>
 <h3>3.2. Offline &amp; Air-Gapped Docker Containers</h3>
-<p>For air-gapped environments or production container images where outbound network requests are disabled at runtime, bake the asset cache and Chromium binary directly into the Docker image during <code>docker build</code>:</p>
+<p>For air-gapped environments or slim Linux container images (<code>python:3.12-slim</code>) where outbound network requests are disabled at runtime, install OS-level shared libraries (<code>playwright install-deps chromium</code>) and bake all fonts, icons, maps, and headless Chromium into the image via <code>drawlib cache download --all</code> (or install OS libraries + headless shell together via <code>playwright install --with-deps --only-shell chromium</code>):</p>
 <pre><code class="language-dockerfile"><span class="k">FROM</span><span class="w"> </span><span class="s">python:3.12-slim</span>
 
 <span class="k">WORKDIR</span><span class="w"> </span><span class="s">/workspace</span>
-<span class="k">RUN</span><span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--no-cache-dir<span class="w"> </span><span class="s2">"drawlib[pdf]"</span><span class="w"> </span><span class="se">\</span>
-<span class="w">    </span><span class="o">&amp;&amp;</span><span class="w"> </span>playwright<span class="w"> </span>install<span class="w"> </span>--with-deps<span class="w"> </span>chromium<span class="w"> </span><span class="se">\</span>
+<span class="k">RUN</span><span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--no-cache-dir<span class="w"> </span>drawlib<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="o">&amp;&amp;</span><span class="w"> </span>playwright<span class="w"> </span>install-deps<span class="w"> </span>chromium<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span><span class="o">&amp;&amp;</span><span class="w"> </span>drawlib<span class="w"> </span>cache<span class="w"> </span>download<span class="w"> </span>--all
 </code></pre>
-<p>With <code>drawlib cache download --all</code> and <code>playwright install --with-deps chromium</code> executed at image build time, every font family, Phosphor/GCP icon set, GeoMap shapefile, and headless PDF renderer runs 100% offline.</p>
+<p>With <code>playwright install-deps chromium</code> and <code>drawlib cache download --all</code> executed at image build time, every font family, Phosphor/cloud/domain icon set, GeoMap shapefile, headless PDF/PPTX Chromium renderer, and pure-Python DOCX compiler runs 100% offline.</p>
 
             </main>
         </div>

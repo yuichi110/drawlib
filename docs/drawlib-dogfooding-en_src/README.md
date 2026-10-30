@@ -1,6 +1,6 @@
 # Drawlib Document Project (doc)
 
-This directory contains multi-chapter documents compiled into **HTML, PDF, Markdown, and standalone images** using Drawlib.
+This directory contains multi-chapter documents compiled into **HTML, PDF, Markdown, and standalone images** (plus optional editable **MS Word `.docx`** export) using Drawlib.
 
 > [!TIP]
 > **Need Comprehensive Rules & Deep Guides?**  
@@ -60,6 +60,9 @@ uv run drawlib build html drawlib-dogfooding-en_src/ -o drawlib-dogfooding-en_ht
 uv run drawlib build pdf drawlib-dogfooding-en_src/ -o drawlib-dogfooding-en.pdf --generate-index
 uv run drawlib build markdown drawlib-dogfooding-en_src/ -o drawlib-dogfooding-en_markdown/
 uv run drawlib build image drawlib-dogfooding-en_src/ -o drawlib-dogfooding-en_images/
+
+# Optional: Export an editable MS Word (.docx) document
+uv run drawlib build docx drawlib-dogfooding-en_src/ -o drawlib-dogfooding-en.docx --generate-index
 ```
 
 ---
@@ -85,7 +88,7 @@ from drawlib.shapes import rectangle
 from drawlib.styles import Styles
 from drawlib.text import text
 
-REPORT_VERSION = "v0.3.0"
+REPORT_VERSION = "v0.3.2"
 
 def chapter_banner(xy: tuple[float, float], title: str) -> None:
     rectangle(xy, width=100, height=12, style=Styles.PrimaryFlat)

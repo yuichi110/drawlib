@@ -1,5 +1,28 @@
 # Release Notes & Migration Guide
 
+## Version 0.3.2
+
+*Release Date: 2026/10/30*
+
+Version 0.3.2 introduces native editable **MS Word (`.docx`)** and **MS PowerPoint (`.pptx`)** exporters, promotes **headless Chromium, `python-docx`, and `python-pptx`** into unified zero-config standard dependencies, and reorganizes embedded AI agent rules into modular category directories.
+
+---
+
+### Highlights & New Features
+
+#### 1. MS Word (`.docx`) & MS PowerPoint (`.pptx`) Export (`drawlib build docx`, `drawlib build pptx`)
+- **`drawlib build docx` & `drawlib.tools.build_docx()`**: Compiles linear `doc` projects or single `.md` files into native editable MS Word (`.docx`) documents—complete with styled headings, prose, bullet/numbered lists, tables, blockquotes, syntax-highlighted code blocks, optional cover page, and automated Table of Contents (`--generate-index`)—rendering ````drawlib```` blocks (including SVG, WebP, and animated blocks) as crisp high-DPI static PNGs (`--dpi 200` default).
+- **`drawlib build pptx` & `drawlib.slide.build_pptx()` / `drawlib.tools.build_pptx()`**: Measures `1920x1080` slide layouts and computed CSS styles via headless Chromium and exports native editable 16:9 (`960x540 pt`) MS PowerPoint (`.pptx`) decks—preserving `::: block` cards with `rgba` alpha fills/borders, text boxes, bullet/numbered lists, tables, inline code, and `::: note` speaker notes—while embedding ````drawlib```` diagrams as high-DPI static PNGs (`--dpi 240` default, `--anim-frame first|last` defaulting to `last`).
+
+#### 2. Zero-Config Headless Chromium & Unified Standard Dependencies
+- **Unified Standard Dependencies**: Promoted `playwright>=1.49.0`, `python-docx>=1.2.0`, and `python-pptx>=1.0.2` to standard `dependencies` and removed `[project.optional-dependencies]`. Installing `drawlib` via `uv add drawlib` or `pip install drawlib` now works out of the box for PDF, MS Word, and MS PowerPoint exports without extra flags.
+- **Automatic Headless Browser Provisioning**: Running `drawlib build pdf` or `drawlib build pptx` automatically installs `chromium-headless-shell` on first run via Playwright's bundled driver. Added explicit offline pre-download support via `drawlib cache download --browser` (also included in `drawlib cache download --all`) and actionable shared-library diagnostics (`playwright install-deps chromium`) for minimal Linux containers.
+
+#### 3. Modular Category-Based AI Agent Rules (`drawlib rules`)
+- **Modular `_rules/` Organization**: Reorganized embedded rule manuals (`src/drawlib/_rules/`) into modular category directories (`charts/`, `diagrams/`, `graph/`, `icons/`, `shapes/`, `smartarts/`) for cleaner maintainability and fast topic lookup.
+
+---
+
 ## Version 0.3.1
 
 *Release Date: 2026/10/23*

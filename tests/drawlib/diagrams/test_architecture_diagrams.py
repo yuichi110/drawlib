@@ -239,11 +239,15 @@ class TestArchitectureJunctionAndEdge:
 
         # Symmetric float padding on horizontal line
         padded = _apply_edge_padding([(0.0, 0.0), (10.0, 0.0)], 2.0)
-        assert padded == pytest.approx([(2.0, 0.0), (8.0, 0.0)])
+        assert len(padded) == 2
+        assert padded[0] == pytest.approx((2.0, 0.0))
+        assert padded[1] == pytest.approx((8.0, 0.0))
 
         # Asymmetric tuple padding
         padded_asym = _apply_edge_padding([(0.0, 0.0), (10.0, 0.0)], (1.0, 3.0))
-        assert padded_asym == pytest.approx([(1.0, 0.0), (7.0, 0.0)])
+        assert len(padded_asym) == 2
+        assert padded_asym[0] == pytest.approx((1.0, 0.0))
+        assert padded_asym[1] == pytest.approx((7.0, 0.0))
 
         # Polyline (3 points)
         pts3 = [(0.0, 0.0), (10.0, 0.0), (10.0, 10.0)]

@@ -294,7 +294,7 @@ Drawlib allows seamless integration of raster graphic assets into diagrams:
 
 ## 4. Core Concept: Documentation Creation (Docs as Code & tools)
 
-Drawlib integrates a complete, standalone documentation compilation pipeline (`drawlib.tools`). It compiles Markdown documents containing embedded ````drawlib```` code blocks into publication-ready static websites, GitHub-flavored Markdown, and headless vector PDFs without requiring external site generators.
+Drawlib integrates a complete, standalone documentation compilation pipeline (`drawlib.tools`). It compiles Markdown documents containing embedded ````drawlib```` code blocks into publication-ready static websites, GitHub-flavored Markdown, headless vector PDFs, editable Microsoft Word (`.docx`) documents, and editable 16:9 Microsoft PowerPoint (`.pptx`) slide decks (`playwright`, `python-docx`, and `python-pptx` are standard dependencies, and headless Chromium auto-downloads on first `pdf` or `pptx` build).
 
 ### 4.1. Project-First Rule (`drawlib init`)
 > **CRITICAL (No Bare `.py` Files)**: Never create standalone `.py` drawing files directly in an uninitialized directory, and never create project directories by hand from scratch.  
@@ -314,11 +314,11 @@ drawlib init images --lang ja -s google
 # If the user wants a multi-page documentation website:
 drawlib init site
 
-# If the user wants a linear document (HTML, PDF, MD, images):
+# If the user wants a linear document (HTML, PDF, MD, images + optional .docx):
 drawlib init doc
 drawlib init doc rbac -s google
 
-# If the user wants a 16:9 presentation slide deck:
+# If the user wants a 16:9 presentation slide deck (HTML, PDF, images + optional .pptx):
 drawlib init slide -s google
 ```
 
@@ -393,13 +393,16 @@ drawlib show docs_src/index.md system_architecture.png -g -o .drawlib/scratch/te
 drawlib build html docs_src/ -o docs_html/ -s styles.py -u utils.py
 drawlib build markdown docs_src/ -o docs/ -s styles.py -u utils.py
 drawlib build pdf docs_src/index.md -o output.pdf -s styles.py -u utils.py
+drawlib build docx doc_src/ -o output.docx -s styles.py -u utils.py
+drawlib build pptx slide_src/ -o deck.pptx -s styles.py -u utils.py
 
 # Bypass SQLite build cache to force clean re-rendering:
 drawlib build html docs_src/ -o docs_html/ --no-cache
 drawlib cache clear --images
 
-# Pre-download font and icon packages for offline / CI environments:
+# Pre-download font, icon, map, and headless Chromium assets for offline / CI environments:
 drawlib cache download --all
+drawlib cache download --browser   # Headless Chromium only
 
 # Preview static HTML site locally with automatic link checking:
 drawlib serve docs_html/
@@ -436,15 +439,17 @@ build_html(
 | `build_document()` | `drawlib build <html\|markdown\|pdf>` | Unified dispatcher for compiling documentation directories into HTML, Markdown, or PDF. |
 | `build_html()` | `drawlib build html` | Compile static documentation sites or merged HTML documents (`input_dir`, `output_dir`). |
 | `build_markdown()` | `drawlib build markdown` | Render documentation for GitHub viewing with linked images (`input_dir`, `output_dir`). |
-| `build_pdf()` | `drawlib build pdf` | Export print-ready PDFs via headless browser (`input_dir`, `output_file`). |
+| `build_pdf()` | `drawlib build pdf` | Export print-ready PDFs via headless Chromium (`input_dir`, `output_file`). |
+| `build_docx()` | `drawlib build docx` | Export native editable MS Word (`.docx`) documents with high-DPI PNG diagrams (`input_path`, `output_file`, `dpi=200`). |
 | `build_slide()` | `drawlib build slide` | Compile 16:9 widescreen HTML presentation slide decks (`input_dir`, `output_dir`). |
+| `build_pptx()` | `drawlib build pptx` | Export native editable 16:9 MS PowerPoint (`.pptx`) decks via headless Chromium DOM measurement (`input_dir`, `output_file`, `dpi=240`). |
 | `build_image()` | `drawlib build image` | Execute standalone Python drawing scripts in batch mode (`inputs`, `output`). |
 | `detect_document_type()` | *(auto-detection)* | Inspect a source path and return its `DocType` (`SITE`, `DOC`, `SLIDE`, `SINGLE_MD`). |
 | `export_code_block()` | `drawlib show -o` | Fast illustration rendering to disk for AI self-verification and tests. |
 | `show_code_block()` | `drawlib show` | Open an interactive desktop GUI window for a specific code block or `.py` script. |
 | `init_project()` / `list_project_types()` | `drawlib init` / `drawlib init list` | Programmatic repository scaffolding and archetype discovery. |
 | `serve_docs()` / `scan_broken_links()` | `drawlib serve` / `drawlib serve --check` | Local preview server and broken hyperlink/image scanner. |
-| `list_cache()` / `download_cache()` / `clear_cache()` | `drawlib cache <list\|download\|clear>` | Inspect, pre-download, and purge cached font, icon, and map packages. |
+| `list_cache()` / `download_cache()` / `clear_cache()` | `drawlib cache <list\|download\|clear>` | Inspect, pre-download, and purge cached font, icon, map, and headless Chromium assets (`--all` / `--browser`). |
 | `list_css()` / `list_html_css()` / `list_pdf_css()` / `list_slide_css()` / `export_css()` / `get_css()` | `drawlib css <list\|show>` | Inspect and export built-in CSS stylesheets for HTML, PDF, and Slide targets. |
 
 ### 4.7. Cache Architecture & Management
@@ -455,9 +460,9 @@ Drawlib maintains three distinct caching layers to accelerate incremental builds
    - **Hashed Inputs**: Computes a deterministic SHA-256 key from the drawing code block, `styles.py`, `utils.py`, local asset files referenced as string literals (e.g., `_assets/*`), source/target paths, output format, and slide count.
    - **Auto-Maintenance**: Automatically creates `.drawlib/.gitignore` (`*`), invalidates entries when `drawlib` or `matplotlib` versions change, and evicts the oldest 50% of entries when exceeding 1 GiB. Override location via `DRAWLIB_CACHE_DB` or `DRAWLIB_CACHE_DIR`.
    - **When to Invalidate Manually**: If your drawing code imports a custom Python module outside `styles.py` and `utils.py`, editing that external module will not alter the hash. Pass `--no-cache` to `drawlib build` / `drawlib show` or run `drawlib cache clear --images` (`-i`).
-2. **Release Asset Cache (Fonts, Icons & Maps)**:
-   - Font families (`font_roboto`, CJK fonts, etc.), icon suites (`icon_phosphor`, `icon_gcp`, `icon_aws`, `icon_azure`, domain suites `icon_ai`..`icon_workspace`, and `icon_original_*`), and map packages (`map_world`, country/region GeoJSONs) are downloaded on demand from GitHub Releases into `drawlib/_cached_assets/`.
-   - Inspect status with `drawlib cache list`, pre-fetch for offline/Docker/CI builds with `drawlib cache download --all` (`--fonts` / `--icons` / `--maps`), and clear with `drawlib cache clear` (or `drawlib cache clear --all` to also wipe `.drawlib/cache.db`).
+2. **Release Asset & Headless Browser Cache (Fonts, Icons, Maps & Chromium)**:
+   - Font families (`font_roboto`, CJK fonts, etc.), icon suites (`icon_phosphor`, `icon_gcp`, `icon_aws`, `icon_azure`, domain suites `icon_ai`..`icon_workspace`, and `icon_original_*`), and map packages (`map_world`, country/region GeoJSONs) are downloaded on demand from GitHub Releases into `drawlib/_cached_assets/`, while headless Chromium (`chromium-headless-shell`) is downloaded automatically on first `drawlib build pdf` or `drawlib build pptx` execution.
+   - Inspect status with `drawlib cache list`, pre-fetch all fonts, icons, maps, and headless Chromium for offline/Docker/CI builds with `drawlib cache download --all` (`--fonts` / `--icons` / `--maps` / `--browser`), and clear with `drawlib cache clear` (or `drawlib cache clear --all` to also wipe `.drawlib/cache.db`). *(In minimal Linux containers such as `python:3.12-slim` lacking OS shared libraries, run `playwright install-deps chromium`.)*
 3. **Rules Illustration Cache (`drawlib rules`)**:
    - Caches rendered rule manuals and companion PNGs in `drawlib/_cached_assets/rules/`. Manage via `drawlib rules list`, `drawlib rules build`, `drawlib rules show <topic> --rebuild`, and `drawlib rules clear`.
 
@@ -500,9 +505,9 @@ drawlib rules show <topic> --rebuild
 - **Commands**:
   - `drawlib rules show project-overview` (Scaffolding with `drawlib init`, choosing among the 4 archetypes, `styles.py`/`utils.py`, and cache architecture)
   - `drawlib rules show project-images` (Standalone `.py` diagram scripts in `images_src/`, `clear()` lifecycle, and AST collision checks)
-  - `drawlib rules show project-doc` (Linear documents, whitepapers, `00_cover.md` + `--generate-index`, and A4 vector PDF export in `doc_src/`)
+  - `drawlib rules show project-doc` (Linear documents, whitepapers, `00_cover.md` + `--generate-index`, A4 vector PDF, and editable MS Word `.docx` export in `doc_src/`)
   - `drawlib rules show project-site` (Multi-page documentation websites, `navbar.md` sidebar rules, and Top Hero layout in `docs_src/`)
-  - `drawlib rules show project-slide` (16:9 widescreen presentation decks, `1920×1080` `::: block` / `::: note` syntax, and Presenter View in `slide_src/`)
+  - `drawlib rules show project-slide` (16:9 widescreen presentation decks, `1920×1080` `::: block` / `::: note` syntax, Presenter View, and `.pdf` / `.pptx` export in `slide_src/`)
 - **Key Syntax**:
   ```bash
   drawlib init site
@@ -767,7 +772,7 @@ drawlib rules show <topic> --rebuild
 
 ### 5.19. Developer Tools API (`lib-tools`)
 - **Command**: `drawlib rules show lib-tools`
-- **Scope**: Programmatic Python developer API for document compilation (`build_document`, `build_html`, `build_markdown`, `build_pdf`, `build_slide`, `build_image`), single illustration extraction (`export_code_block`, `show_code_block`), project scaffolding (`init_project`, `list_project_types`), local server (`serve_docs`, `scan_broken_links`), CSS preset inspection (`list_css`, `export_css`, `get_css`), and cache management (`list_cache`, `download_cache`, `clear_cache`).
+- **Scope**: Programmatic Python developer API for document compilation (`build_document`, `build_html`, `build_markdown`, `build_pdf`, `build_docx`, `build_slide`, `build_pptx`, `build_image`), single illustration extraction (`export_code_block`, `show_code_block`), project scaffolding (`init_project`, `list_project_types`), local server (`serve_docs`, `scan_broken_links`), CSS preset inspection (`list_css`, `export_css`, `get_css`), and cache management (`list_cache`, `download_cache`, `clear_cache`).
 - **Key Syntax**:
   ```python
   from drawlib.tools import build_html, export_code_block
@@ -810,7 +815,7 @@ drawlib rules show <topic> --rebuild
 
 ### 5.22. Presentation Slides & Stage (`lib-slide`, `project-slide`, & `slide-guide`)
 - **Commands**: `drawlib rules show project-slide` (Markdown block syntax & stage layouts), `drawlib rules show slide-guide` (Story arc & Dual-Layer design), and `drawlib rules show lib-slide` (Python API)
-- **Scope**: Universal 16:9 widescreen presentation stage (1920×1080), container layout blocks (`::: block`, `::: note`), dynamic `current_slide` runtime proxy, `draw_page_number()`, `draw_section_header()`, `SlideContext`, `BoundingBox`, `build_slide()`, interactive `<canvas>` animations, Presenter View (`?presenter=1`), and vector PDF presentation export.
+- **Scope**: Universal 16:9 widescreen presentation stage (1920×1080), container layout blocks (`::: block`, `::: note`), dynamic `current_slide` runtime proxy, `draw_page_number()`, `draw_section_header()`, `SlideContext`, `BoundingBox`, `build_slide()`, `build_pptx()`, interactive `<canvas>` animations, Presenter View (`?presenter=1`), vector PDF presentation export, and editable 16:9 MS PowerPoint (`.pptx`) export.
 - **Key Syntax**:
   ```python
   from drawlib.slide import draw_page_number, draw_section_header

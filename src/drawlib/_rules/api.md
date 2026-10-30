@@ -252,15 +252,25 @@ from drawlib.math import (
 from drawlib.anim import Animation
 
 # 10. Presentation Slides
-from drawlib.slide import BoundingBox, SlideContext, build_slide, current_slide, draw_page_number, draw_section_header
+from drawlib.slide import (
+    BoundingBox,
+    SlideContext,
+    build_pptx,
+    build_slide,
+    current_slide,
+    draw_page_number,
+    draw_section_header,
+)
 
 # 11. Developer Tools
 from drawlib.tools import (
     build_document,
+    build_docx,
     build_html,
     build_image,
     build_markdown,
     build_pdf,
+    build_pptx,
     build_slide,
     clear_cache,
     detect_document_type,
@@ -824,6 +834,7 @@ Drawlib presentation slides operate on a universal **16:9 widescreen stage (`192
 | `BoundingBox` | Dataclass representing rectangular stage bounds `(x, y, width, height)` in `1920×1080` pixels. | `box = BoundingBox(x=100, y=200, width=800, height=600)` |
 | `SlideContext` | Slide execution state container (`index`, `total`). | Internal slide runtime context |
 | `build_slide(...)` | Programmatic slide deck compiler (`input_dir`, `output_dir`, `image_format`). | `build_slide("slide_src/", "slide_html/")` |
+| `build_pptx(...)` | Programmatic 16:9 editable MS PowerPoint (`.pptx`) exporter (`input_dir`, `output_file`, `dpi=240`, `anim_frame="last"`). | `build_pptx("slide_src/", "slide.pptx")` |
 
 ```python
 from drawlib.slide import draw_page_number, draw_section_header
@@ -866,11 +877,11 @@ Programmatic Python tools for compilation, diagram extraction, project scaffoldi
 
 | Category | Functions | Primary Usage |
 | :--- | :--- | :--- |
-| **Compilation** | `build_document`, `build_html`, `build_markdown`, `build_pdf`, `build_slide`, `build_image`, `detect_document_type` | `build_html(input_dir="docs_src/", output_dir="docs_html/")`, `build_slide("slide_src/", "slide_html/")` |
+| **Compilation** | `build_document`, `build_html`, `build_markdown`, `build_pdf`, `build_docx`, `build_slide`, `build_pptx`, `build_image`, `detect_document_type` | `build_html(input_dir="docs_src/", output_dir="docs_html/")`, `build_docx("doc_src/", "doc.docx")`, `build_slide("slide_src/", "slide_html/")`, `build_pptx("slide_src/", "slide.pptx")` |
 | **Diagram Export** | `export_code_block`, `show_code_block` | `export_code_block("docs_src/arch.md", "arch.png", ".drawlib/scratch/preview.png", grid=True)` |
 | **Scaffolding** | `init_project`, `list_project_types` | `init_project("site", target="docs", style="google")` |
 | **Server & Links** | `serve_docs`, `scan_broken_links` | `serve_docs("docs_html", port=8000)`, `scan_broken_links("docs_html")` |
-| **Cache** | `list_cache`, `download_cache`, `clear_cache` | `download_cache(all_packages=True)`, `clear_cache(images=True)` |
+| **Cache** | `list_cache`, `download_cache`, `clear_cache` | `download_cache(all_assets=True)`, `download_cache(all_assets=False, browser=True)`, `clear_cache(images=True)` |
 | **CSS Presets** | `list_css`, `list_html_css`, `list_pdf_css`, `list_slide_css`, `export_css`, `get_css` | `export_css("google", "style.css", target="html", force=True)` |
 
 ---

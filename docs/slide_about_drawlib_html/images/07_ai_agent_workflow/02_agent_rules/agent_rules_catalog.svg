@@ -112,13 +112,13 @@ z
    </g>
    <g id="text_5">
     <g clip-path="url(#pecbf88852a)">
-     <text style="font-size: 8.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(157.685491 335.597325)">3. Slides &amp; Animations</text>
+     <text style="font-size: 8.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(157.685491 335.540309)">3. Slides &amp; Animations</text>
     </g>
     <g clip-path="url(#pecbf88852a)">
-     <text style="font-size: 8.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(148.871132 343.797325)">• project-slide (1920x1080)</text>
+     <text style="font-size: 8.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(147.176679 343.740309)">• slide-guide &amp; project-slide</text>
     </g>
     <g clip-path="url(#pecbf88852a)">
-     <text style="font-size: 8.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(154.97821 352.891637)">• anim-guide &amp; lib-anim</text>
+     <text style="font-size: 8.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(154.97821 352.948653)">• anim-guide &amp; lib-anim</text>
     </g>
    </g>
    <g id="patch_7">
@@ -134,10 +134,10 @@ z
      <text style="font-size: 8.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(474.480977 335.036137)">4. High-Level Engines</text>
     </g>
     <g clip-path="url(#pecbf88852a)">
-     <text style="font-size: 8.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(466.316852 344.244481)">• lib-diagrams (6 Engines)</text>
+     <text style="font-size: 8.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(462.671696 344.244481)">• lib-diagrams-* (6 Engines)</text>
     </g>
     <g clip-path="url(#pecbf88852a)">
-     <text style="font-size: 8.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(463.460305 353.452825)">• lib-graph (5 Auto-Solvers)</text>
+     <text style="font-size: 8.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(459.864477 353.452825)">• lib-graph-* (5 Auto-Solvers)</text>
     </g>
    </g>
    <g id="patch_8">
@@ -153,10 +153,10 @@ z
      <text style="font-size: 8.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(159.032085 445.499954)">5. SmartArts &amp; Charts</text>
     </g>
     <g clip-path="url(#pecbf88852a)">
-     <text style="font-size: 8.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(146.93196 453.699954)">• lib-smartarts (10 Builders)</text>
+     <text style="font-size: 8.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(143.286804 453.699954)">• lib-smartarts-* (18 Builders)</text>
     </g>
     <g clip-path="url(#pecbf88852a)">
-     <text style="font-size: 8.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(149.113288 462.572611)">• lib-charts (7 Chart Types)</text>
+     <text style="font-size: 8.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(145.468132 462.572611)">• lib-charts-* (9 Chart Types)</text>
     </g>
    </g>
    <g id="patch_9">
@@ -172,10 +172,10 @@ z
      <text style="font-size: 8.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(474.529665 445.446783)">6. Primitives &amp; Assets</text>
     </g>
     <g clip-path="url(#pecbf88852a)">
-     <text style="font-size: 8.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(458.993868 453.646783)">• lib-shapes, lib-lines, lib-text</text>
+     <text style="font-size: 8.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(455.348712 453.646783)">• lib-shapes-*, lib-lines, lib-text</text>
     </g>
     <g clip-path="url(#pecbf88852a)">
-     <text style="font-size: 8.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(457.85868 462.625783)">• lib-icons, lib-fonts, lib-styles</text>
+     <text style="font-size: 8.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(454.213524 462.625783)">• lib-icons-*, lib-fonts, lib-styles</text>
     </g>
    </g>
    <g id="patch_10">

@@ -584,7 +584,7 @@
             </header>
             <main class="main-content">
                 <h1>Slide Stage Layout &amp; API</h1>
-<p>When authoring 16:9 widescreen presentation decks (<code>drawlib init slide</code>), Drawlib provides a precision <strong>1920 × 1080 pixel virtual stage</strong> (<code>::: block</code>, <code>::: note</code>), built-in layout patterns, inline vector SVG font bundling, and the programmatic <a href="../10_ai_agents_and_advanced/programmatic_api.html"><code>drawlib.slide</code></a> Python runtime API (<code>current_slide</code>, <code>SlideContext</code>, <code>BoundingBox</code>, <code>build_slide</code>). <em>(For initializing and building a slide deck project, see <a href="./project_slide.html">Slide Deck Project Guide</a>.)</em></p>
+<p>When authoring 16:9 widescreen presentation decks (<code>drawlib init slide</code>), Drawlib provides a precision <strong>1920 × 1080 pixel virtual stage</strong> (<code>::: block</code>, <code>::: note</code>), built-in layout patterns, inline vector SVG font bundling, and the programmatic <a href="../10_ai_agents_and_advanced/programmatic_api.html"><code>drawlib.slide</code></a> Python runtime API (<code>current_slide</code>, <code>SlideContext</code>, <code>BoundingBox</code>, <code>build_slide</code>, <code>build_pptx</code>). <em>(For initializing and building a slide deck project, see <a href="./project_slide.html">Slide Deck Project Guide</a>.)</em></p>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="slide_layout_and_api_images/slide_stage_layout_zones.png" alt="slide_layout_and_api_1" />
   <figcaption class="drawlib-caption">1920x1080 Virtual Slide Stage Zones and ::: block xy=(x, y) width=W height=H Layout Grid</figcaption>
@@ -776,7 +776,7 @@
 </tbody>
 </table>
 <h3>2.2. Speaker Notes (<code>::: note</code>)</h3>
-<p>Add presenter notes anywhere inside a slide Markdown file using <code>::: note</code>. Speaker notes are stripped from the visible slide stage and compiled into <code>&lt;aside class=&quot;slide-notes&quot; hidden&gt;</code> for the synchronized dual-window <strong>Presenter View</strong> (<code>P</code> or <code>S</code> key):</p>
+<p>Add presenter notes anywhere inside a slide Markdown file using <code>::: note</code>. Speaker notes are stripped from the visible slide stage, compiled into <code>&lt;aside class=&quot;slide-notes&quot; hidden&gt;</code> for the synchronized dual-window <strong>Presenter View</strong> (<code>P</code> or <code>S</code> key), and exported into <strong>native PowerPoint speaker notes</strong> during <code>drawlib build pptx</code> / <code>build_pptx()</code>:</p>
 <pre><code class="language-markdown">::: note
 <span class="k">-</span><span class="w"> </span>Emphasize that <span class="gs">**SQLite hash caching**</span> restores unchanged diagrams in <span class="gs">**&lt; 1ms**</span>.
 <span class="k">-</span><span class="w"> </span>Press <span class="sb">`A`</span> or click <span class="gs">**Play Animation**</span> to step through the pipeline animation.
@@ -964,19 +964,19 @@ Brief one-line summary of the presentation topic
 <tr>
 <th style="text-align:left">Output Format</th>
 <th style="text-align:left">Fence Syntax</th>
-<th style="text-align:left">How It Renders in <code>slide_html/</code> and <code>slide.pdf</code></th>
+<th style="text-align:left">How It Renders in <code>slide_html/</code>, <code>slide.pdf</code>, and <code>slide.pptx</code></th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td style="text-align:left"><strong>Inline Vector SVG</strong> <em>(default for static diagrams)</em></td>
 <td style="text-align:left"><code>```drawlib file=diagram.svg</code></td>
-<td style="text-align:left">Inlined directly as <code>&lt;div class=&quot;slide-svg-container&quot;&gt;&lt;svg&gt;...&lt;/svg&gt;&lt;/div&gt;</code>. Provides infinite vector sharpness at any zoom level and full <code>Ctrl+F</code> text searchability. Automatically bundles any referenced Drawlib <code>.ttf</code>/<code>.otf</code> text and icon fonts into <code>_assets/fonts/</code> with <code>@font-face</code> rules injected into <code>style.css</code>.</td>
+<td style="text-align:left">Inlined directly as <code>&lt;div class=&quot;slide-svg-container&quot;&gt;&lt;svg&gt;...&lt;/svg&gt;&lt;/div&gt;</code> in HTML and PDF (with bundled <code>.ttf</code>/<code>.otf</code> <code>@font-face</code> rules for infinite sharpness and <code>Ctrl+F</code> searchability). In <code>drawlib build pptx</code>, rendered as a crisp high-DPI static PNG (<code>--dpi 240</code> default).</td>
 </tr>
 <tr>
 <td style="text-align:left"><strong>Interactive <code>&lt;canvas&gt;</code> Animation</strong> <em>(default when <code>Animation()</code> is used)</em></td>
 <td style="text-align:left"><code>```drawlib file=flow.png anim_trigger=click anim_loop=once anim_pause=(2, 4)</code></td>
-<td style="text-align:left">Encodes the APNG (<code>.png</code>) or Animated WebP (<code>.webp</code>) payload as Base64 inside an interactive <code>&lt;canvas class=&quot;drawlib-anim-canvas&quot;&gt;</code> player so playback works seamlessly over both <code>http://</code> and <code>file://</code>. In PDF export (<code>build_pdf.sh</code>), Frame 0 is rendered cleanly as a static poster image.</td>
+<td style="text-align:left">Encodes the APNG (<code>.png</code>) or Animated WebP (<code>.webp</code>) payload as Base64 inside an interactive <code>&lt;canvas class=&quot;drawlib-anim-canvas&quot;&gt;</code> player over both <code>http://</code> servers and local HTML files. In PDF export (<code>build_pdf.sh</code>), Frame 0 is rendered as a static poster image; in PowerPoint export (<code>drawlib build pptx</code>), <code>--anim-frame last</code> (default) or <code>first</code> is embedded at <code>--dpi 240</code>.</td>
 </tr>
 </tbody>
 </table>
@@ -986,6 +986,7 @@ Brief one-line summary of the presentation topic
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.slide</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">BoundingBox</span><span class="p">,</span>
     <span class="n">SlideContext</span><span class="p">,</span>
+    <span class="n">build_pptx</span><span class="p">,</span>
     <span class="n">build_slide</span><span class="p">,</span>
     <span class="n">current_slide</span><span class="p">,</span>
     <span class="n">draw_page_number</span><span class="p">,</span>
@@ -1030,6 +1031,11 @@ Brief one-line summary of the presentation topic
 <td style="text-align:left"><strong><code>build_slide</code></strong></td>
 <td style="text-align:left">Compiler Function</td>
 <td style="text-align:left">Programmatically compiles a <code>slide_src/</code> Markdown directory into a standalone HTML presentation deck (<code>index.html</code>).</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>build_pptx</code></strong></td>
+<td style="text-align:left">Compiler Function</td>
+<td style="text-align:left">Programmatically compiles a <code>slide_src/</code> Markdown directory into a native editable 16:9 (<code>960×540 pt</code>) MS PowerPoint (<code>.pptx</code>) deck via headless Chromium CSS layout measurement.</td>
 </tr>
 </tbody>
 </table>
@@ -1076,7 +1082,7 @@ Brief one-line summary of the presentation topic
 </tr>
 </tbody>
 </table>
-<p>During <code>build_slide()</code>, Drawlib binds <code>SlideContext(index=idx, total=N)</code> before executing each slide's <code>drawlib</code> blocks (defaulting safely to <code>1 / 1</code> when run standalone):</p>
+<p>During <code>build_slide()</code> and <code>build_pptx()</code>, Drawlib binds <code>SlideContext(index=idx, total=N)</code> before executing each slide's <code>drawlib</code> blocks (defaulting safely to <code>1 / 1</code> when run standalone):</p>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.slide</span><span class="w"> </span><span class="kn">import</span> <span class="n">draw_page_number</span><span class="p">,</span> <span class="n">draw_section_header</span>
 
 <span class="c1"># 1. Bottom-right page counter badge (::: block xy=(1700, 1010) width=140 height=30)</span>
@@ -1092,8 +1098,8 @@ Brief one-line summary of the presentation topic
     <span class="n">variant</span><span class="o">=</span><span class="s2">"split"</span><span class="p">,</span>  <span class="c1"># "split" | "centered" | "banner" | "minimal"</span>
 <span class="p">)</span>
 </code></pre>
-<h3>5.2. Compiling Slides Programmatically (<code>build_slide</code>)</h3>
-<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.slide</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_slide</span>
+<h3>5.2. Compiling Slides Programmatically (<code>build_slide</code> &amp; <code>build_pptx</code>)</h3>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.slide</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_pptx</span><span class="p">,</span> <span class="n">build_slide</span>
 
 <span class="n">index_html_path</span> <span class="o">=</span> <span class="n">build_slide</span><span class="p">(</span>
     <span class="n">input_dir</span><span class="o">=</span><span class="s2">"slide_src"</span><span class="p">,</span>
@@ -1101,6 +1107,18 @@ Brief one-line summary of the presentation topic
     <span class="n">title</span><span class="o">=</span><span class="s2">"System Architecture Deck"</span><span class="p">,</span>
     <span class="n">theme</span><span class="o">=</span><span class="s2">"google"</span><span class="p">,</span>
     <span class="n">image_format</span><span class="o">=</span><span class="s2">"svg"</span><span class="p">,</span>
+    <span class="n">styles_path</span><span class="o">=</span><span class="s2">"slide_src/styles.py"</span><span class="p">,</span>
+    <span class="n">utils_path</span><span class="o">=</span><span class="s2">"slide_src/utils.py"</span><span class="p">,</span>
+    <span class="n">no_cache</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">pptx_path</span> <span class="o">=</span> <span class="n">build_pptx</span><span class="p">(</span>
+    <span class="n">input_dir</span><span class="o">=</span><span class="s2">"slide_src"</span><span class="p">,</span>
+    <span class="n">output_file</span><span class="o">=</span><span class="s2">"slide.pptx"</span><span class="p">,</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">"System Architecture Deck"</span><span class="p">,</span>
+    <span class="n">theme</span><span class="o">=</span><span class="s2">"google"</span><span class="p">,</span>
+    <span class="n">dpi</span><span class="o">=</span><span class="mi">240</span><span class="p">,</span>
+    <span class="n">anim_frame</span><span class="o">=</span><span class="s2">"last"</span><span class="p">,</span>
     <span class="n">styles_path</span><span class="o">=</span><span class="s2">"slide_src/styles.py"</span><span class="p">,</span>
     <span class="n">utils_path</span><span class="o">=</span><span class="s2">"slide_src/utils.py"</span><span class="p">,</span>
     <span class="n">no_cache</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>

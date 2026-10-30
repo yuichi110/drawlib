@@ -9,35 +9,34 @@ utils.draw_page_number()
 # Start Drawing & Presenting as Code
 :::
 
-::: block xy=(80, 140) width=740 height=840 font_size=20px
+::: block xy=(80, 140) width=740 height=840 font_size=19px
 ## Unify Your Code, Diagrams, Docs & Slides
 
 Stop context-switching between Git, GUI drawing tools, wikis, and slide editors. Bring your entire visual communication stack into version-controlled Python and Markdown.
 
 ### 3-Step Quickstart
 ```bash
-# 1. Install Drawlib (with PDF export support)
-pip install "drawlib[pdf]"
+# 1. Install Drawlib (PDF, DOCX & PPTX built in)
+uv add drawlib   # or: pip install drawlib
 
 # 2. Scaffold a 16:9 slide deck, doc, or site
-drawlib init slide my_deck -s default
+uv run drawlib init slide my_deck -s default
 
-# 3. Build HTML + PDF & launch live preview
+# 3. Build HTML + PDF (auto Chromium) & preview
 ./my_deck_src/build.sh
 ./my_deck_src/serve.sh
 ```
 
 ### Core Takeaways
-- **Single Source of Truth**: Architecture diagrams, quantitative charts, animations, docs, and 16:9 slides live together in Git.
-- **AI-Native by Design**: Built-in `drawlib rules` + headless grid rendering (`drawlib show -g`) enable autonomous visual self-healing.
+- **Batteries Included**: PDF (`build pdf`), MS Word (`build docx`), and 16:9 PowerPoint (`build pptx`) work out of the box—headless Chromium auto-downloads on first build (`cache download --all` / `--browser` for CI; `playwright install-deps chromium` on minimal Linux containers).
+- **AI-Native Source of Truth**: Diagrams, docs, and slides live in Git with `drawlib rules` + headless grid review (`drawlib show -g`).
 - **Explore & Contribute**: `https://github.com/yuichi110/drawlib`
 :::
 
 ::: block xy=(860, 140) width=980 height=840
 ```drawlib file=closing_hero.svg
 from drawlib.canvas import clear, save, setup
-from drawlib.lines import line
-from drawlib.shapes import circle, rectangle
+from drawlib.shapes import rectangle
 from drawlib.smartarts import ChevronProcess
 from drawlib.styles import Styles
 from drawlib.text import text
@@ -77,7 +76,7 @@ proc = ChevronProcess(
 )
 proc.add(
     "1. Install",
-    description="pip install drawlib",
+    description="uv add drawlib",
     style=Styles.PrimaryNeutral,
 )
 proc.add(
@@ -96,10 +95,10 @@ proc.draw(xy=(6.0, 39.5), width=86.0, height=15.0)
 
 # Bottom 4 Pillar Summary Cards
 pillars = [
-    (16.5, "23 Primitives\n& 10 SmartArts", "Exact Cartesian\nGeometry"),
+    (16.5, "43 Primitives\n& 18 SmartArts", "Exact Cartesian\nGeometry"),
     (38.2, "6 Diagram Engines\n& 5 Graph Solvers", "Cloud, Flow, Seq,\nState, Class, ER"),
-    (59.8, "7 Chart Types\n& APNG Animations", "Bar, Line, Area,\nPie, Radar, Gantt"),
-    (81.5, "4 Build Targets\n& AI Agent Rules", "Site, Doc, PDF,\n16:9 Slide Deck"),
+    (59.8, "9 Chart Types\n& APNG Animations", "Bar, Line, Area,\nPie, Radar, Gantt"),
+    (81.5, "Built-in Exports\n& AI Agent Rules", "HTML, PDF, DOCX,\nPPTX, MD & PNG"),
 ]
 for px, p_title, p_sub in pillars:
     rectangle((px, 24.5), width=19.8, height=18.0, style=Styles.White.patch(shape_r=1.5))
@@ -126,5 +125,5 @@ save()
 
 ::: note
 - Thank you for exploring Drawlib!
-- With `pip install "drawlib[pdf]"` and `drawlib init slide`, you and your AI coding agents can start creating version-controlled architectural diagrams, multi-page documentation sites, vector PDFs, and interactive 16:9 presentations today.
+- Standard `uv add drawlib` / `pip install drawlib` includes HTML, vector PDF (`drawlib build pdf`), editable MS Word (`drawlib build docx`), and editable 16:9 MS PowerPoint (`drawlib build pptx`) export out of the box—automatically downloading headless Chromium on your first PDF or PPTX build (with `drawlib cache download --all` / `--browser` available for offline/CI pre-fetching and `playwright install-deps chromium` for minimal Linux Docker containers).
 :::
