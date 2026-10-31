@@ -681,7 +681,801 @@
 </code></pre>
 </details>
 <hr />
-<h2>1. Core Principles</h2>
+<h2>1. End-to-End Compilation Lifecycle</h2>
+<p>Every build command executes a deterministic four-stage pipeline: resolving Markdown prose, shared <code>styles.py</code> / <code>utils.py</code> helpers, and <code>_assets/</code> media from <code>*_src/</code>, computing a content-addressed SHA-256 digest against <code>.drawlib/cache.db</code>, executing cache misses inside an isolated <code>canvas.clear()</code> Python sandbox (while restoring cache hits in under a millisecond), and emitting web, GitHub Markdown, vector PDF, and editable MS Office artifacts from the exact same source:</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="overview_images/doc_builder_compilation_tour.png" alt="overview_2" />
+  <figcaption class="drawlib-caption">Illustrated Documentation as Code Lifecycle: Source Extraction, SHA-256 Cache Lookup, Python Sandbox Execution, and Multi-Target Publishing (APNG Animation)</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.anim</span><span class="w"> </span><span class="kn">import</span> <span class="n">Animation</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">code</span> <span class="k">as</span> <span class="n">code_icons</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">data</span><span class="p">,</span> <span class="n">phosphor</span><span class="p">,</span> <span class="n">workspace</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">circle</span><span class="p">,</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.smartarts</span><span class="w"> </span><span class="kn">import</span> <span class="n">SourceCode</span><span class="p">,</span> <span class="n">SourceCodeStyles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">W</span><span class="p">,</span> <span class="n">H</span> <span class="o">=</span> <span class="mf">138.0</span><span class="p">,</span> <span class="mf">82.0</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="n">W</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">H</span><span class="p">)</span>
+<span class="n">anim</span> <span class="o">=</span> <span class="n">Animation</span><span class="p">(</span><span class="n">fps</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">loop</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">BT</span> <span class="o">=</span> <span class="s2">"`"</span> <span class="o">*</span> <span class="mi">3</span>
+<span class="n">CODE_TEXT_SIZE</span> <span class="o">=</span> <span class="mf">10.0</span>
+<span class="n">PT_TO_CANVAS</span> <span class="o">=</span> <span class="n">W</span> <span class="o">/</span> <span class="mf">720.0</span>
+<span class="n">FONT_CANVAS</span> <span class="o">=</span> <span class="n">CODE_TEXT_SIZE</span> <span class="o">*</span> <span class="n">PT_TO_CANVAS</span>
+<span class="n">LINE_H</span> <span class="o">=</span> <span class="n">FONT_CANVAS</span> <span class="o">*</span> <span class="mf">1.8</span>
+<span class="n">PAD_Y</span> <span class="o">=</span> <span class="n">FONT_CANVAS</span> <span class="o">*</span> <span class="mf">1.2</span>
+
+<span class="n">CODE_STYLES</span> <span class="o">=</span> <span class="n">SourceCodeStyles</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"default"</span><span class="p">,</span> <span class="n">font_lang</span><span class="o">=</span><span class="s2">"en"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="n">CODE_TEXT_SIZE</span><span class="p">)</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+    <span class="n">box_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">shape_line_width</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">PANE_HEADER</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+    <span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">238</span><span class="p">,</span> <span class="mi">243</span><span class="p">,</span> <span class="mi">250</span><span class="p">),</span>
+    <span class="n">shape_line_color</span><span class="o">=</span><span class="p">(</span><span class="mi">203</span><span class="p">,</span> <span class="mi">213</span><span class="p">,</span> <span class="mi">225</span><span class="p">),</span>
+    <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span>
+    <span class="n">shape_r</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">EDITOR_BODY</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+    <span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">250</span><span class="p">,</span> <span class="mi">252</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span>
+    <span class="n">shape_line_color</span><span class="o">=</span><span class="p">(</span><span class="mi">203</span><span class="p">,</span> <span class="mi">213</span><span class="p">,</span> <span class="mi">225</span><span class="p">),</span>
+    <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span>
+    <span class="n">shape_r</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">TAKEAWAY_BODY</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+    <span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">242</span><span class="p">,</span> <span class="mi">246</span><span class="p">,</span> <span class="mi">253</span><span class="p">),</span>
+    <span class="n">shape_line_color</span><span class="o">=</span><span class="p">(</span><span class="mi">203</span><span class="p">,</span> <span class="mi">213</span><span class="p">,</span> <span class="mi">225</span><span class="p">),</span>
+    <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span>
+    <span class="n">shape_r</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">STUDIO_BODY</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+    <span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">239</span><span class="p">,</span> <span class="mi">243</span><span class="p">,</span> <span class="mi">249</span><span class="p">),</span>
+    <span class="n">shape_line_color</span><span class="o">=</span><span class="p">(</span><span class="mi">203</span><span class="p">,</span> <span class="mi">213</span><span class="p">,</span> <span class="mi">225</span><span class="p">),</span>
+    <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span>
+    <span class="n">shape_r</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">PART_ITEMS</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s2">"1. Source of Truth"</span><span class="p">,</span> <span class="s2">"MD + styles + _assets"</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"2. Parse &amp; Hash"</span><span class="p">,</span> <span class="s2">"AST &amp; SHA-256 index"</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"3. Sandbox &amp; Cache"</span><span class="p">,</span> <span class="s2">"Py exec vs &lt;1ms HIT"</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"4. Multi-Target Out"</span><span class="p">,</span> <span class="s2">"Web, MD, PDF &amp; Office"</span><span class="p">),</span>
+<span class="p">]</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">draw_step_bar</span><span class="p">(</span><span class="n">active_part</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Draw top 4-part progress bar (active_part is 1..4)."""</span>
+    <span class="n">pill_w</span> <span class="o">=</span> <span class="mf">31.0</span>
+    <span class="n">pill_h</span> <span class="o">=</span> <span class="mf">7.4</span>
+    <span class="n">gap</span> <span class="o">=</span> <span class="mf">2.0</span>
+    <span class="n">start_x</span> <span class="o">=</span> <span class="mf">4.0</span> <span class="o">+</span> <span class="n">pill_w</span> <span class="o">/</span> <span class="mf">2.0</span>
+    <span class="n">cy</span> <span class="o">=</span> <span class="mf">75.2</span>
+
+    <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">sublabel</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">PART_ITEMS</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">cx</span> <span class="o">=</span> <span class="n">start_x</span> <span class="o">+</span> <span class="p">(</span><span class="n">idx</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">pill_w</span> <span class="o">+</span> <span class="n">gap</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">idx</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">prev_cx</span> <span class="o">=</span> <span class="n">cx</span> <span class="o">-</span> <span class="p">(</span><span class="n">pill_w</span> <span class="o">+</span> <span class="n">gap</span><span class="p">)</span>
+            <span class="n">line</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">prev_cx</span> <span class="o">+</span> <span class="n">pill_w</span> <span class="o">/</span> <span class="mf">2.0</span> <span class="o">+</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">cy</span><span class="p">),</span>
+                <span class="p">(</span><span class="n">cx</span> <span class="o">-</span> <span class="n">pill_w</span> <span class="o">/</span> <span class="mf">2.0</span> <span class="o">-</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">cy</span><span class="p">),</span>
+                <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span> <span class="k">if</span> <span class="n">idx</span> <span class="o">&lt;=</span> <span class="n">active_part</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">MutedThin</span><span class="p">,</span>
+            <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">idx</span> <span class="o">==</span> <span class="n">active_part</span><span class="p">:</span>
+            <span class="n">st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.4</span><span class="p">)</span>
+            <span class="n">tst</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.3</span><span class="p">)</span>
+            <span class="n">sub_tst</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">idx</span> <span class="o">&lt;</span> <span class="n">active_part</span><span class="p">:</span>
+            <span class="n">st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.4</span><span class="p">,</span> <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.1</span><span class="p">)</span>
+            <span class="n">tst</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.3</span><span class="p">)</span>
+            <span class="n">sub_tst</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.4</span><span class="p">,</span> <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.1</span><span class="p">)</span>
+            <span class="n">tst</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">MutedBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.3</span><span class="p">)</span>
+            <span class="n">sub_tst</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">)</span>
+
+        <span class="n">rectangle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="n">pill_w</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">pill_h</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">st</span><span class="p">)</span>
+        <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span> <span class="o">+</span> <span class="mf">1.35</span><span class="p">),</span> <span class="n">label</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">tst</span><span class="p">)</span>
+        <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span> <span class="o">-</span> <span class="mf">1.55</span><span class="p">),</span> <span class="n">sublabel</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">sub_tst</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">draw_left_pane</span><span class="p">(</span>
+    <span class="n">active_part</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">code_lines</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+    <span class="n">hl_range</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span>
+    <span class="n">icon_fn</span><span class="p">:</span> <span class="nb">object</span><span class="p">,</span>
+    <span class="n">summary_title</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">summary_line1</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">summary_line2</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">code_lang</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"python"</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Draw left source editor + bottom concept takeaway card."""</span>
+    <span class="n">x0</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">63.5</span>
+    <span class="n">cx</span> <span class="o">=</span> <span class="n">x0</span> <span class="o">+</span> <span class="n">w</span> <span class="o">/</span> <span class="mf">2.0</span>
+    <span class="n">top_y</span> <span class="o">=</span> <span class="mf">63.2</span>
+    <span class="n">header_h</span> <span class="o">=</span> <span class="mf">5.4</span>
+    <span class="n">editor_h</span> <span class="o">=</span> <span class="mf">43.8</span>
+    <span class="n">takeaway_h</span> <span class="o">=</span> <span class="mf">15.8</span>
+
+    <span class="n">rectangle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">top_y</span> <span class="o">+</span> <span class="n">header_h</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="n">w</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">header_h</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">PANE_HEADER</span><span class="p">)</span>
+    <span class="n">phosphor</span><span class="o">.</span><span class="n">file_code</span><span class="p">((</span><span class="n">x0</span> <span class="o">+</span> <span class="mf">3.6</span><span class="p">,</span> <span class="n">top_y</span> <span class="o">+</span> <span class="n">header_h</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.4</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+    <span class="n">text</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">x0</span> <span class="o">+</span> <span class="mf">6.5</span><span class="p">,</span> <span class="n">top_y</span> <span class="o">+</span> <span class="n">header_h</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">),</span>
+        <span class="s2">"01_arch.md + styles.py"</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">text</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">x0</span> <span class="o">+</span> <span class="n">w</span> <span class="o">-</span> <span class="mf">2.6</span><span class="p">,</span> <span class="n">top_y</span> <span class="o">+</span> <span class="n">header_h</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">),</span>
+        <span class="sa">f</span><span class="s2">"Part </span><span class="si">{</span><span class="n">active_part</span><span class="si">}</span><span class="s2"> / 4"</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.8</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"right"</span><span class="p">),</span>
+    <span class="p">)</span>
+
+    <span class="n">rectangle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">top_y</span> <span class="o">-</span> <span class="n">editor_h</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="n">w</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">editor_h</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">EDITOR_BODY</span><span class="p">)</span>
+
+    <span class="n">hl_start</span><span class="p">,</span> <span class="n">hl_end</span> <span class="o">=</span> <span class="n">hl_range</span>
+    <span class="n">hl_top</span> <span class="o">=</span> <span class="n">top_y</span> <span class="o">-</span> <span class="n">PAD_Y</span> <span class="o">-</span> <span class="n">hl_start</span> <span class="o">*</span> <span class="n">LINE_H</span>
+    <span class="n">hl_bot</span> <span class="o">=</span> <span class="n">top_y</span> <span class="o">-</span> <span class="n">PAD_Y</span> <span class="o">-</span> <span class="p">(</span><span class="n">hl_end</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">LINE_H</span>
+    <span class="n">hl_cy</span> <span class="o">=</span> <span class="p">(</span><span class="n">hl_top</span> <span class="o">+</span> <span class="n">hl_bot</span><span class="p">)</span> <span class="o">/</span> <span class="mf">2.0</span>
+    <span class="n">hl_h</span> <span class="o">=</span> <span class="n">hl_top</span> <span class="o">-</span> <span class="n">hl_bot</span>
+    <span class="n">rectangle</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">cx</span><span class="p">,</span> <span class="n">hl_cy</span><span class="p">),</span>
+        <span class="n">width</span><span class="o">=</span><span class="n">w</span> <span class="o">-</span> <span class="mf">0.6</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="n">hl_h</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">229</span><span class="p">,</span> <span class="mi">239</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span> <span class="n">shape_line_width</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">rectangle</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">x0</span> <span class="o">+</span> <span class="mf">0.55</span><span class="p">,</span> <span class="n">hl_cy</span><span class="p">),</span>
+        <span class="n">width</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="n">hl_h</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_line_width</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
+    <span class="p">)</span>
+
+    <span class="n">SourceCode</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span>
+        <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span> <span class="n">top_y</span><span class="p">),</span>
+        <span class="n">width</span><span class="o">=</span><span class="n">w</span><span class="p">,</span>
+        <span class="n">code</span><span class="o">=</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">code_lines</span><span class="p">),</span>
+        <span class="n">styles</span><span class="o">=</span><span class="n">CODE_STYLES</span><span class="p">,</span>
+        <span class="n">code_lang</span><span class="o">=</span><span class="n">code_lang</span><span class="p">,</span>
+        <span class="n">show_linenum</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">align</span><span class="o">=</span><span class="s2">"top_left"</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">take_cy</span> <span class="o">=</span> <span class="mf">3.6</span> <span class="o">+</span> <span class="n">takeaway_h</span> <span class="o">/</span> <span class="mf">2.0</span>
+    <span class="n">rectangle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">take_cy</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="n">w</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">takeaway_h</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">TAKEAWAY_BODY</span><span class="p">)</span>
+    <span class="n">circle</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">x0</span> <span class="o">+</span> <span class="mf">6.4</span><span class="p">,</span> <span class="n">take_cy</span><span class="p">),</span>
+        <span class="n">radius</span><span class="o">=</span><span class="mf">3.3</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.2</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">icon_fn</span><span class="p">((</span><span class="n">x0</span> <span class="o">+</span> <span class="mf">6.4</span><span class="p">,</span> <span class="n">take_cy</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>  <span class="c1"># type: ignore[operator]</span>
+    <span class="n">text</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">x0</span> <span class="o">+</span> <span class="mf">11.4</span><span class="p">,</span> <span class="n">take_cy</span> <span class="o">+</span> <span class="mf">3.6</span><span class="p">),</span>
+        <span class="n">summary_title</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.4</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">text</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">x0</span> <span class="o">+</span> <span class="mf">11.4</span><span class="p">,</span> <span class="n">take_cy</span> <span class="o">-</span> <span class="mf">0.2</span><span class="p">),</span>
+        <span class="n">summary_line1</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.7</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">text</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">x0</span> <span class="o">+</span> <span class="mf">11.4</span><span class="p">,</span> <span class="n">take_cy</span> <span class="o">-</span> <span class="mf">3.8</span><span class="p">),</span>
+        <span class="n">summary_line2</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.6</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">),</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">draw_compiler_studio</span><span class="p">(</span><span class="n">param_badge</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">footer_caption</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""Draw right compiler pipeline shell, inner white stage sheet, and footer."""</span>
+    <span class="n">x0</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="mf">70.0</span><span class="p">,</span> <span class="mf">64.0</span>
+    <span class="n">cx</span> <span class="o">=</span> <span class="n">x0</span> <span class="o">+</span> <span class="n">w</span> <span class="o">/</span> <span class="mf">2.0</span>
+    <span class="n">top_y</span> <span class="o">=</span> <span class="mf">63.2</span>
+    <span class="n">header_h</span> <span class="o">=</span> <span class="mf">5.4</span>
+    <span class="n">body_h</span> <span class="o">=</span> <span class="mf">59.6</span>
+
+    <span class="n">rectangle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">top_y</span> <span class="o">+</span> <span class="n">header_h</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="n">w</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">header_h</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">PANE_HEADER</span><span class="p">)</span>
+    <span class="n">phosphor</span><span class="o">.</span><span class="n">cpu</span><span class="p">((</span><span class="n">x0</span> <span class="o">+</span> <span class="mf">3.6</span><span class="p">,</span> <span class="n">top_y</span> <span class="o">+</span> <span class="n">header_h</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.4</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+    <span class="n">text</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">x0</span> <span class="o">+</span> <span class="mf">6.5</span><span class="p">,</span> <span class="n">top_y</span> <span class="o">+</span> <span class="n">header_h</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">),</span>
+        <span class="s2">"Compiler Pipeline"</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.2</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">text</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">x0</span> <span class="o">+</span> <span class="n">w</span> <span class="o">-</span> <span class="mf">2.6</span><span class="p">,</span> <span class="n">top_y</span> <span class="o">+</span> <span class="n">header_h</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">),</span>
+        <span class="n">param_badge</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.6</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"right"</span><span class="p">),</span>
+    <span class="p">)</span>
+
+    <span class="n">rectangle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mf">3.6</span> <span class="o">+</span> <span class="n">body_h</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="n">w</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">body_h</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">STUDIO_BODY</span><span class="p">)</span>
+
+    <span class="n">sheet_cx</span><span class="p">,</span> <span class="n">sheet_cy</span> <span class="o">=</span> <span class="n">cx</span><span class="p">,</span> <span class="mf">33.9</span>
+    <span class="n">sheet_w</span><span class="p">,</span> <span class="n">sheet_h</span> <span class="o">=</span> <span class="mf">58.8</span><span class="p">,</span> <span class="mf">41.8</span>
+    <span class="n">sx0</span><span class="p">,</span> <span class="n">sy0</span> <span class="o">=</span> <span class="n">sheet_cx</span> <span class="o">-</span> <span class="n">sheet_w</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">,</span> <span class="n">sheet_cy</span> <span class="o">-</span> <span class="n">sheet_h</span> <span class="o">/</span> <span class="mf">2.0</span>
+    <span class="n">rectangle</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">sheet_cx</span><span class="p">,</span> <span class="n">sheet_cy</span><span class="p">),</span>
+        <span class="n">width</span><span class="o">=</span><span class="n">sheet_w</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="n">sheet_h</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+            <span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span>
+            <span class="n">shape_line_color</span><span class="o">=</span><span class="p">(</span><span class="mi">180</span><span class="p">,</span> <span class="mi">194</span><span class="p">,</span> <span class="mi">214</span><span class="p">),</span>
+            <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">g_st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">MutedThin</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_color</span><span class="o">=</span><span class="p">(</span><span class="mi">236</span><span class="p">,</span> <span class="mi">241</span><span class="p">,</span> <span class="mi">248</span><span class="p">),</span> <span class="n">line_width</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">gx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">):</span>
+        <span class="n">vx</span> <span class="o">=</span> <span class="n">sx0</span> <span class="o">+</span> <span class="n">gx</span> <span class="o">*</span> <span class="p">(</span><span class="n">sheet_w</span> <span class="o">/</span> <span class="mf">6.0</span><span class="p">)</span>
+        <span class="n">line</span><span class="p">((</span><span class="n">vx</span><span class="p">,</span> <span class="n">sy0</span><span class="p">),</span> <span class="p">(</span><span class="n">vx</span><span class="p">,</span> <span class="n">sy0</span> <span class="o">+</span> <span class="n">sheet_h</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="n">g_st</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">gy</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">):</span>
+        <span class="n">vy</span> <span class="o">=</span> <span class="n">sy0</span> <span class="o">+</span> <span class="n">gy</span> <span class="o">*</span> <span class="p">(</span><span class="n">sheet_h</span> <span class="o">/</span> <span class="mf">5.0</span><span class="p">)</span>
+        <span class="n">line</span><span class="p">((</span><span class="n">sx0</span><span class="p">,</span> <span class="n">vy</span><span class="p">),</span> <span class="p">(</span><span class="n">sx0</span> <span class="o">+</span> <span class="n">sheet_w</span><span class="p">,</span> <span class="n">vy</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="n">g_st</span><span class="p">)</span>
+
+    <span class="n">rectangle</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">cx</span><span class="p">,</span> <span class="mf">8.3</span><span class="p">),</span>
+        <span class="n">width</span><span class="o">=</span><span class="mf">58.8</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+            <span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span>
+            <span class="n">shape_line_color</span><span class="o">=</span><span class="p">(</span><span class="mi">203</span><span class="p">,</span> <span class="mi">213</span><span class="p">,</span> <span class="mi">225</span><span class="p">),</span>
+            <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.1</span><span class="p">,</span>
+            <span class="n">shape_r</span><span class="o">=</span><span class="mf">2.2</span><span class="p">,</span>
+        <span class="p">),</span>
+        <span class="n">text</span><span class="o">=</span><span class="n">footer_caption</span><span class="p">,</span>
+        <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.7</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">sheet_cx</span><span class="p">,</span> <span class="n">sheet_cy</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">draw_sub_pills</span><span class="p">(</span><span class="n">scx</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">labels</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">active_idx</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Draw 3-step tracker pills above the white compiler sheet."""</span>
+    <span class="n">pw</span><span class="p">,</span> <span class="n">ph</span><span class="p">,</span> <span class="n">pgap</span> <span class="o">=</span> <span class="mf">18.8</span><span class="p">,</span> <span class="mf">4.2</span><span class="p">,</span> <span class="mf">1.2</span>
+    <span class="n">p_start</span> <span class="o">=</span> <span class="n">scx</span> <span class="o">-</span> <span class="p">(</span><span class="mi">3</span> <span class="o">*</span> <span class="n">pw</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">pgap</span><span class="p">)</span> <span class="o">/</span> <span class="mf">2.0</span> <span class="o">+</span> <span class="n">pw</span> <span class="o">/</span> <span class="mf">2.0</span>
+    <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">lbl</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">labels</span><span class="p">):</span>
+        <span class="n">px</span> <span class="o">=</span> <span class="n">p_start</span> <span class="o">+</span> <span class="n">idx</span> <span class="o">*</span> <span class="p">(</span><span class="n">pw</span> <span class="o">+</span> <span class="n">pgap</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">idx</span> <span class="o">==</span> <span class="n">active_idx</span><span class="p">:</span>
+            <span class="n">pst</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">)</span>
+            <span class="n">ptst</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">idx</span> <span class="o">&lt;</span> <span class="n">active_idx</span><span class="p">:</span>
+            <span class="n">pst</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span> <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+            <span class="n">ptst</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">pst</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span> <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+            <span class="n">ptst</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">)</span>
+        <span class="n">rectangle</span><span class="p">((</span><span class="n">px</span><span class="p">,</span> <span class="mf">58.8</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="n">pw</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">ph</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">pst</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="n">lbl</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">ptst</span><span class="p">)</span>
+
+
+<span class="c1"># =========================================================================</span>
+<span class="c1"># Part 1: 1. Source of Truth (MD + styles.py/utils.py + _assets/)</span>
+<span class="c1"># =========================================================================</span>
+<span class="n">SRC_P1</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">"# System Architecture"</span><span class="p">,</span>
+    <span class="s2">"Traffic enters via Gateway:"</span><span class="p">,</span>
+    <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">BT</span><span class="si">}</span><span class="s2">drawlib file=arch.png"</span><span class="p">,</span>
+    <span class="s2">"# Auto-injected project config:"</span><span class="p">,</span>
+    <span class="s2">"from drawlib.styles import Styles"</span><span class="p">,</span>
+    <span class="s2">"from drawlib.utils import card"</span><span class="p">,</span>
+    <span class="s2">"from drawlib.images import image"</span><span class="p">,</span>
+    <span class="s2">"setup(width=100, height=42)"</span><span class="p">,</span>
+    <span class="s1">'card((28, 21), "API Gateway")'</span><span class="p">,</span>
+    <span class="s1">'image((74, 21), 16, "logo.png")'</span><span class="p">,</span>
+    <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">BT</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
+<span class="p">]</span>
+
+<span class="n">PART1_STATES</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span>
+        <span class="mi">0</span><span class="p">,</span>
+        <span class="mf">3.3</span><span class="p">,</span>
+        <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+        <span class="s2">"01_arch.md"</span><span class="p">,</span>
+        <span class="s2">"1a: Markdown Prose &amp; drawlib Fence in *_src/"</span><span class="p">,</span>
+        <span class="s2">"1a. Markdown + Drawlib Fence"</span><span class="p">,</span>
+        <span class="s2">"Prose &amp; Python live in *_src/01_arch.md"</span><span class="p">,</span>
+        <span class="s2">"Single Git-tracked Source of Truth"</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="p">(</span>
+        <span class="mi">1</span><span class="p">,</span>
+        <span class="mf">3.3</span><span class="p">,</span>
+        <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
+        <span class="s2">"styles &amp; utils"</span><span class="p">,</span>
+        <span class="s2">"1b: Shared styles.py &amp; utils.py Auto-Injected"</span><span class="p">,</span>
+        <span class="s2">"1b. Shared styles.py &amp; utils.py"</span><span class="p">,</span>
+        <span class="s2">"Theme tokens &amp; helpers auto-injected"</span><span class="p">,</span>
+        <span class="s2">"Zero boilerplate across project pages"</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="p">(</span>
+        <span class="mi">2</span><span class="p">,</span>
+        <span class="mf">3.5</span><span class="p">,</span>
+        <span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span>
+        <span class="s2">"_assets/ Media"</span><span class="p">,</span>
+        <span class="s2">"1c: Local _assets/ &amp; Icons Resolved Cleanly"</span><span class="p">,</span>
+        <span class="s2">"1c. Deterministic _assets/ Paths"</span><span class="p">,</span>
+        <span class="s2">"Relative paths resolve from *_src/"</span><span class="p">,</span>
+        <span class="s2">"Identical in build and drawlib show"</span><span class="p">,</span>
+    <span class="p">),</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">active_idx</span><span class="p">,</span> <span class="n">dur</span><span class="p">,</span> <span class="n">hl_rng</span><span class="p">,</span> <span class="n">badge_txt</span><span class="p">,</span> <span class="n">foot_txt</span><span class="p">,</span> <span class="n">s_t</span><span class="p">,</span> <span class="n">s_1</span><span class="p">,</span> <span class="n">s_2</span> <span class="ow">in</span> <span class="n">PART1_STATES</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="n">dur</span><span class="p">):</span>
+        <span class="n">draw_step_bar</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">draw_left_pane</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">SRC_P1</span><span class="p">,</span> <span class="n">hl_rng</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">folder_open</span><span class="p">,</span> <span class="n">s_t</span><span class="p">,</span> <span class="n">s_1</span><span class="p">,</span> <span class="n">s_2</span><span class="p">)</span>
+        <span class="n">scx</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">draw_compiler_studio</span><span class="p">(</span><span class="n">badge_txt</span><span class="p">,</span> <span class="n">foot_txt</span><span class="p">)</span>
+        <span class="n">draw_sub_pills</span><span class="p">(</span><span class="n">scx</span><span class="p">,</span> <span class="p">[</span><span class="s2">"1a. MD + Fence"</span><span class="p">,</span> <span class="s2">"1b. styles/utils"</span><span class="p">,</span> <span class="s2">"1c. _assets/"</span><span class="p">],</span> <span class="n">active_idx</span><span class="p">)</span>
+
+        <span class="n">src_rows</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="p">(</span><span class="mf">46.8</span><span class="p">,</span> <span class="s2">"01_arch.md"</span><span class="p">,</span> <span class="s2">"Prose + drawlib block"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">file_text</span><span class="p">),</span>
+            <span class="p">(</span><span class="mf">33.9</span><span class="p">,</span> <span class="s2">"styles &amp; utils"</span><span class="p">,</span> <span class="s2">"Theme &amp; macro helpers"</span><span class="p">,</span> <span class="n">code_icons</span><span class="o">.</span><span class="n">python</span><span class="p">),</span>
+            <span class="p">(</span><span class="mf">21.0</span><span class="p">,</span> <span class="s2">"_assets/ &amp; Icons"</span><span class="p">,</span> <span class="s2">"logo.png + 34 suites"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">images</span><span class="p">),</span>
+        <span class="p">]</span>
+        <span class="k">for</span> <span class="n">r_idx</span><span class="p">,</span> <span class="p">(</span><span class="n">ry</span><span class="p">,</span> <span class="n">r_title</span><span class="p">,</span> <span class="n">r_sub</span><span class="p">,</span> <span class="n">r_icon</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">src_rows</span><span class="p">):</span>
+            <span class="n">is_act</span> <span class="o">=</span> <span class="n">r_idx</span> <span class="o">==</span> <span class="n">active_idx</span>
+            <span class="n">is_done</span> <span class="o">=</span> <span class="n">r_idx</span> <span class="o">&lt;</span> <span class="n">active_idx</span>
+            <span class="k">if</span> <span class="n">is_act</span><span class="p">:</span>
+                <span class="n">rst</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+                    <span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">232</span><span class="p">,</span> <span class="mi">242</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span>
+                    <span class="n">shape_line_color</span><span class="o">=</span><span class="p">(</span><span class="mi">37</span><span class="p">,</span> <span class="mi">99</span><span class="p">,</span> <span class="mi">235</span><span class="p">),</span>
+                    <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.6</span><span class="p">,</span>
+                    <span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span>
+                <span class="p">)</span>
+                <span class="n">t_st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.1</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">)</span>
+                <span class="n">sub_st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">)</span>
+                <span class="n">arr_st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">1.8</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">is_done</span><span class="p">:</span>
+                <span class="n">rst</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.1</span><span class="p">)</span>
+                <span class="n">t_st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">)</span>
+                <span class="n">sub_st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">)</span>
+                <span class="n">arr_st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">1.3</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">rst</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+                <span class="n">t_st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">MutedBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">)</span>
+                <span class="n">sub_st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">)</span>
+                <span class="n">arr_st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">MutedThin</span>
+
+            <span class="n">rectangle</span><span class="p">((</span><span class="mf">88.8</span><span class="p">,</span> <span class="n">ry</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">28.8</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">10.4</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">rst</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">r_idx</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">r_icon</span><span class="p">((</span><span class="mf">78.0</span><span class="p">,</span> <span class="n">ry</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">r_icon</span><span class="p">((</span><span class="mf">78.0</span><span class="p">,</span> <span class="n">ry</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span> <span class="k">if</span> <span class="n">r_idx</span> <span class="o">&lt;=</span> <span class="n">active_idx</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="p">)</span>
+            <span class="n">text</span><span class="p">((</span><span class="mf">81.2</span><span class="p">,</span> <span class="n">ry</span> <span class="o">+</span> <span class="mf">1.8</span><span class="p">),</span> <span class="n">r_title</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">t_st</span><span class="p">)</span>
+            <span class="n">text</span><span class="p">((</span><span class="mf">81.2</span><span class="p">,</span> <span class="n">ry</span> <span class="o">-</span> <span class="mf">2.1</span><span class="p">),</span> <span class="n">r_sub</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">sub_st</span><span class="p">)</span>
+            <span class="n">line</span><span class="p">((</span><span class="mf">103.4</span><span class="p">,</span> <span class="n">ry</span><span class="p">),</span> <span class="p">(</span><span class="mf">108.0</span><span class="p">,</span> <span class="n">ry</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">arr_st</span><span class="p">)</span>
+
+        <span class="c1"># Right Compiler Intake Hub</span>
+        <span class="n">rectangle</span><span class="p">(</span>
+            <span class="p">(</span><span class="mf">118.8</span><span class="p">,</span> <span class="mf">33.9</span><span class="p">),</span>
+            <span class="n">width</span><span class="o">=</span><span class="mf">21.2</span><span class="p">,</span>
+            <span class="n">height</span><span class="o">=</span><span class="mf">36.2</span><span class="p">,</span>
+            <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+                <span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">246</span><span class="p">,</span> <span class="mi">249</span><span class="p">,</span> <span class="mi">254</span><span class="p">),</span>
+                <span class="n">shape_line_color</span><span class="o">=</span><span class="p">(</span><span class="mi">148</span><span class="p">,</span> <span class="mi">163</span><span class="p">,</span> <span class="mi">184</span><span class="p">),</span>
+                <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.3</span><span class="p">,</span>
+                <span class="n">shape_r</span><span class="o">=</span><span class="mf">1.8</span><span class="p">,</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+        <span class="n">phosphor</span><span class="o">.</span><span class="n">package</span><span class="p">((</span><span class="mf">118.8</span><span class="p">,</span> <span class="mf">45.2</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">5.2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+        <span class="n">text</span><span class="p">((</span><span class="mf">118.8</span><span class="p">,</span> <span class="mf">38.2</span><span class="p">),</span> <span class="s2">"Source"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
+        <span class="n">text</span><span class="p">((</span><span class="mf">118.8</span><span class="p">,</span> <span class="mf">34.2</span><span class="p">),</span> <span class="s2">"Context"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
+        <span class="n">status_lbl</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"Fence #1"</span><span class="p">,</span> <span class="s2">"+ Theme"</span><span class="p">,</span> <span class="s2">"+ Assets"</span><span class="p">][</span><span class="n">active_idx</span><span class="p">]</span>
+        <span class="n">rectangle</span><span class="p">(</span>
+            <span class="p">(</span><span class="mf">118.8</span><span class="p">,</span> <span class="mf">22.8</span><span class="p">),</span>
+            <span class="n">width</span><span class="o">=</span><span class="mf">17.6</span><span class="p">,</span>
+            <span class="n">height</span><span class="o">=</span><span class="mf">5.6</span><span class="p">,</span>
+            <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">),</span>
+            <span class="n">text</span><span class="o">=</span><span class="n">status_lbl</span><span class="p">,</span>
+            <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.6</span><span class="p">),</span>
+        <span class="p">)</span>
+
+<span class="c1"># =========================================================================</span>
+<span class="c1"># Part 2: 2. Parse &amp; Hash (Fence Options, SHA-256 &amp; SQLite Lookup)</span>
+<span class="c1"># =========================================================================</span>
+<span class="n">SRC_P2</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">BT</span><span class="si">}</span><span class="s2">drawlib code=fold align=center"</span><span class="p">,</span>
+    <span class="s1">'#   file=arch.png caption="Arch"'</span><span class="p">,</span>
+    <span class="s2">"from drawlib.styles import Styles"</span><span class="p">,</span>
+    <span class="s2">"setup(width=100, height=42)"</span><span class="p">,</span>
+    <span class="s1">'card((28, 21), "API Gateway")'</span><span class="p">,</span>
+    <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">BT</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
+    <span class="s2">""</span><span class="p">,</span>
+    <span class="s2">"# Content-Addressed Digest:"</span><span class="p">,</span>
+    <span class="s2">"# sha256(code + styles + utils"</span><span class="p">,</span>
+    <span class="s2">"#        + _assets/logo.png)"</span><span class="p">,</span>
+    <span class="s2">"# -&gt; Query .drawlib/cache.db"</span><span class="p">,</span>
+<span class="p">]</span>
+
+<span class="n">PART2_STATES</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span>
+        <span class="mi">0</span><span class="p">,</span>
+        <span class="mf">3.3</span><span class="p">,</span>
+        <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
+        <span class="s2">"Fence + AST"</span><span class="p">,</span>
+        <span class="s2">"2a: Extract Fence Attributes &amp; Python AST"</span><span class="p">,</span>
+        <span class="s2">"2a. Fence Option &amp; AST Parser"</span><span class="p">,</span>
+        <span class="s2">"Parses file=, code=, caption= &amp; AST"</span><span class="p">,</span>
+        <span class="s2">"Scans referenced local _assets/ files"</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="p">(</span>
+        <span class="mi">1</span><span class="p">,</span>
+        <span class="mf">3.3</span><span class="p">,</span>
+        <span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span>
+        <span class="s2">"SHA-256 Digest"</span><span class="p">,</span>
+        <span class="s2">"2b: SHA-256 Over Code + styles + utils + Assets"</span><span class="p">,</span>
+        <span class="s2">"2b. Content-Addressed SHA-256"</span><span class="p">,</span>
+        <span class="s2">"Hashes block + styles + utils + media"</span><span class="p">,</span>
+        <span class="s2">"Any config or image edit invalidates"</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="p">(</span>
+        <span class="mi">2</span><span class="p">,</span>
+        <span class="mf">3.5</span><span class="p">,</span>
+        <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
+        <span class="s2">"SQLite Lookup"</span><span class="p">,</span>
+        <span class="s2">"2c: Query .drawlib/cache.db -&gt; HIT or MISS"</span><span class="p">,</span>
+        <span class="s2">"2c. SQLite Cache Index Lookup"</span><span class="p">,</span>
+        <span class="s2">"Queries .drawlib/cache.db by digest"</span><span class="p">,</span>
+        <span class="s2">"Branches cleanly into HIT or MISS"</span><span class="p">,</span>
+    <span class="p">),</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">active_idx</span><span class="p">,</span> <span class="n">dur</span><span class="p">,</span> <span class="n">hl_rng</span><span class="p">,</span> <span class="n">badge_txt</span><span class="p">,</span> <span class="n">foot_txt</span><span class="p">,</span> <span class="n">s_t</span><span class="p">,</span> <span class="n">s_1</span><span class="p">,</span> <span class="n">s_2</span> <span class="ow">in</span> <span class="n">PART2_STATES</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="n">dur</span><span class="p">):</span>
+        <span class="n">draw_step_bar</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">draw_left_pane</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">SRC_P2</span><span class="p">,</span> <span class="n">hl_rng</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">fingerprint</span><span class="p">,</span> <span class="n">s_t</span><span class="p">,</span> <span class="n">s_1</span><span class="p">,</span> <span class="n">s_2</span><span class="p">)</span>
+        <span class="n">scx</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">draw_compiler_studio</span><span class="p">(</span><span class="n">badge_txt</span><span class="p">,</span> <span class="n">foot_txt</span><span class="p">)</span>
+        <span class="n">draw_sub_pills</span><span class="p">(</span><span class="n">scx</span><span class="p">,</span> <span class="p">[</span><span class="s2">"2a. Parse AST"</span><span class="p">,</span> <span class="s2">"2b. SHA-256"</span><span class="p">,</span> <span class="s2">"2c. cache.db"</span><span class="p">],</span> <span class="n">active_idx</span><span class="p">)</span>
+
+        <span class="c1"># Stage 2a box</span>
+        <span class="n">st_2a</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_line_color</span><span class="o">=</span><span class="p">(</span><span class="mi">37</span><span class="p">,</span> <span class="mi">99</span><span class="p">,</span> <span class="mi">235</span><span class="p">),</span> <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.6</span><span class="p">,</span> <span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">active_idx</span> <span class="o">==</span> <span class="mi">0</span>
+            <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">rectangle</span><span class="p">((</span><span class="n">scx</span><span class="p">,</span> <span class="mf">46.8</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">53.6</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">9.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">st_2a</span><span class="p">)</span>
+        <span class="n">phosphor</span><span class="o">.</span><span class="n">code</span><span class="p">((</span><span class="mf">79.2</span><span class="p">,</span> <span class="mf">46.8</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+        <span class="n">text</span><span class="p">(</span>
+            <span class="p">(</span><span class="mf">82.8</span><span class="p">,</span> <span class="mf">48.6</span><span class="p">),</span>
+            <span class="s2">"1. Fence Option &amp; AST Extractor"</span><span class="p">,</span>
+            <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.1</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="n">text</span><span class="p">(</span>
+            <span class="p">(</span><span class="mf">82.8</span><span class="p">,</span> <span class="mf">44.8</span><span class="p">),</span>
+            <span class="s2">"file=arch.png  •  code=fold  •  AST"</span><span class="p">,</span>
+            <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">),</span>
+        <span class="p">)</span>
+
+        <span class="n">line</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">scx</span><span class="p">,</span> <span class="mf">41.9</span><span class="p">),</span>
+            <span class="p">(</span><span class="n">scx</span><span class="p">,</span> <span class="mf">38.6</span><span class="p">),</span>
+            <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span>
+            <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span> <span class="k">if</span> <span class="n">active_idx</span> <span class="o">&gt;=</span> <span class="mi">1</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">MutedThin</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Stage 2b box</span>
+        <span class="n">st_2b</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_line_color</span><span class="o">=</span><span class="p">(</span><span class="mi">37</span><span class="p">,</span> <span class="mi">99</span><span class="p">,</span> <span class="mi">235</span><span class="p">),</span> <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.6</span><span class="p">,</span> <span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">active_idx</span> <span class="o">==</span> <span class="mi">1</span>
+            <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">rectangle</span><span class="p">((</span><span class="n">scx</span><span class="p">,</span> <span class="mf">33.7</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">53.6</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">9.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">st_2b</span><span class="p">)</span>
+        <span class="n">phosphor</span><span class="o">.</span><span class="n">fingerprint</span><span class="p">((</span><span class="mf">79.2</span><span class="p">,</span> <span class="mf">33.7</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span> <span class="k">if</span> <span class="n">active_idx</span> <span class="o">&gt;=</span> <span class="mi">1</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="p">)</span>
+        <span class="n">text</span><span class="p">(</span>
+            <span class="p">(</span><span class="mf">82.8</span><span class="p">,</span> <span class="mf">35.5</span><span class="p">),</span>
+            <span class="s2">"2. SHA-256 Digest Calculator"</span><span class="p">,</span>
+            <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.1</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="n">text</span><span class="p">(</span>
+            <span class="p">(</span><span class="mf">82.8</span><span class="p">,</span> <span class="mf">31.7</span><span class="p">),</span>
+            <span class="s2">"code + styles + utils + logo.png"</span><span class="p">,</span>
+            <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">active_idx</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">rectangle</span><span class="p">(</span>
+                <span class="p">(</span><span class="mf">121.6</span><span class="p">,</span> <span class="mf">35.5</span><span class="p">),</span>
+                <span class="n">width</span><span class="o">=</span><span class="mf">12.4</span><span class="p">,</span>
+                <span class="n">height</span><span class="o">=</span><span class="mf">3.8</span><span class="p">,</span>
+                <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.0</span><span class="p">),</span>
+                <span class="n">text</span><span class="o">=</span><span class="s2">"7f9c..4a"</span><span class="p">,</span>
+                <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+            <span class="p">)</span>
+
+        <span class="n">line</span><span class="p">(</span>
+            <span class="p">(</span><span class="mf">89.5</span><span class="p">,</span> <span class="mf">28.8</span><span class="p">),</span>
+            <span class="p">(</span><span class="mf">89.5</span><span class="p">,</span> <span class="mf">25.4</span><span class="p">),</span>
+            <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span>
+            <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span> <span class="k">if</span> <span class="n">active_idx</span> <span class="o">&gt;=</span> <span class="mi">2</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">MutedThin</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Stage 2c SQLite lookup + HIT / MISS pills</span>
+        <span class="n">st_2c</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_line_color</span><span class="o">=</span><span class="p">(</span><span class="mi">37</span><span class="p">,</span> <span class="mi">99</span><span class="p">,</span> <span class="mi">235</span><span class="p">),</span> <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.6</span><span class="p">,</span> <span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">active_idx</span> <span class="o">==</span> <span class="mi">2</span>
+            <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">rectangle</span><span class="p">((</span><span class="mf">89.5</span><span class="p">,</span> <span class="mf">20.3</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">28.6</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">st_2c</span><span class="p">)</span>
+        <span class="n">data</span><span class="o">.</span><span class="n">sqlite</span><span class="p">((</span><span class="mf">79.0</span><span class="p">,</span> <span class="mf">20.3</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+        <span class="n">text</span><span class="p">((</span><span class="mf">82.2</span><span class="p">,</span> <span class="mf">22.1</span><span class="p">),</span> <span class="s2">".drawlib/cache.db"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.9</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">))</span>
+        <span class="n">text</span><span class="p">((</span><span class="mf">82.2</span><span class="p">,</span> <span class="mf">18.3</span><span class="p">),</span> <span class="s2">"SQLite Blob Index"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">))</span>
+
+        <span class="n">arr_branch</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span> <span class="k">if</span> <span class="n">active_idx</span> <span class="o">==</span> <span class="mi">2</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">MutedThin</span>
+        <span class="n">line</span><span class="p">((</span><span class="mf">103.8</span><span class="p">,</span> <span class="mf">22.8</span><span class="p">),</span> <span class="p">(</span><span class="mf">109.2</span><span class="p">,</span> <span class="mf">22.8</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">arr_branch</span><span class="p">)</span>
+        <span class="n">line</span><span class="p">((</span><span class="mf">103.8</span><span class="p">,</span> <span class="mf">17.8</span><span class="p">),</span> <span class="p">(</span><span class="mf">109.2</span><span class="p">,</span> <span class="mf">17.8</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">arr_branch</span><span class="p">)</span>
+
+        <span class="n">rectangle</span><span class="p">(</span>
+            <span class="p">(</span><span class="mf">119.0</span><span class="p">,</span> <span class="mf">22.8</span><span class="p">),</span>
+            <span class="n">width</span><span class="o">=</span><span class="mf">19.2</span><span class="p">,</span>
+            <span class="n">height</span><span class="o">=</span><span class="mf">4.5</span><span class="p">,</span>
+            <span class="n">style</span><span class="o">=</span><span class="p">(</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryFlat</span> <span class="k">if</span> <span class="n">active_idx</span> <span class="o">==</span> <span class="mi">2</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">)</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.1</span><span class="p">),</span>
+            <span class="n">text</span><span class="o">=</span><span class="s2">"HIT (&lt;1 ms)"</span><span class="p">,</span>
+            <span class="n">text_style</span><span class="o">=</span><span class="p">(</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span> <span class="k">if</span> <span class="n">active_idx</span> <span class="o">==</span> <span class="mi">2</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="n">rectangle</span><span class="p">(</span>
+            <span class="p">(</span><span class="mf">119.0</span><span class="p">,</span> <span class="mf">17.8</span><span class="p">),</span>
+            <span class="n">width</span><span class="o">=</span><span class="mf">19.2</span><span class="p">,</span>
+            <span class="n">height</span><span class="o">=</span><span class="mf">4.5</span><span class="p">,</span>
+            <span class="n">style</span><span class="o">=</span><span class="p">(</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span> <span class="k">if</span> <span class="n">active_idx</span> <span class="o">==</span> <span class="mi">2</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.1</span><span class="p">),</span>
+            <span class="n">text</span><span class="o">=</span><span class="s2">"MISS (Exec)"</span><span class="p">,</span>
+            <span class="n">text_style</span><span class="o">=</span><span class="p">(</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span> <span class="k">if</span> <span class="n">active_idx</span> <span class="o">==</span> <span class="mi">2</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+        <span class="p">)</span>
+
+<span class="c1"># =========================================================================</span>
+<span class="c1"># Part 3: 3. Sandbox &amp; Cache (Isolated Python Exec vs &lt;1ms SQLite HIT)</span>
+<span class="c1"># =========================================================================</span>
+<span class="n">SRC_P3</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">"# --- Engine Sandbox Lifecycle ---"</span><span class="p">,</span>
+    <span class="s2">"canvas.clear()  # clean state pre"</span><span class="p">,</span>
+    <span class="s2">"setup(width=100, height=42)"</span><span class="p">,</span>
+    <span class="s1">'card((28, 21), "API Gateway")'</span><span class="p">,</span>
+    <span class="s2">"save()  # intercepted -&gt; memory"</span><span class="p">,</span>
+    <span class="s2">"canvas.clear()  # zero bleed post"</span><span class="p">,</span>
+    <span class="s2">""</span><span class="p">,</span>
+    <span class="s2">"# --- Incremental Cache Path ---"</span><span class="p">,</span>
+    <span class="s2">"# MISS -&gt; Matplotlib -&gt; cache.db"</span><span class="p">,</span>
+    <span class="s2">"# HIT  -&gt; SQLite blob (&lt; 1 ms!)"</span><span class="p">,</span>
+<span class="p">]</span>
+
+<span class="n">PART3_STATES</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span>
+        <span class="mi">0</span><span class="p">,</span>
+        <span class="mf">3.3</span><span class="p">,</span>
+        <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
+        <span class="s2">"canvas.clear()"</span><span class="p">,</span>
+        <span class="s2">"3a: Cache MISS -&gt; Isolated Python Sandbox"</span><span class="p">,</span>
+        <span class="s2">"3a. Isolated Python Sandbox"</span><span class="p">,</span>
+        <span class="s2">"canvas.clear() runs before &amp; after"</span><span class="p">,</span>
+        <span class="s2">"Blocks never leak styles or shapes"</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="p">(</span>
+        <span class="mi">1</span><span class="p">,</span>
+        <span class="mf">3.3</span><span class="p">,</span>
+        <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span>
+        <span class="s2">"Render &amp; Cache"</span><span class="p">,</span>
+        <span class="s2">"3b: Headless Matplotlib Renders &amp; Stores Blob"</span><span class="p">,</span>
+        <span class="s2">"3b. Headless Render &amp; Store"</span><span class="p">,</span>
+        <span class="s2">"Renders PNG / SVG / APNG / WebP"</span><span class="p">,</span>
+        <span class="s2">"Persists binary blob into cache.db"</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="p">(</span>
+        <span class="mi">2</span><span class="p">,</span>
+        <span class="mf">3.5</span><span class="p">,</span>
+        <span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span>
+        <span class="s2">"Cache HIT &lt;1ms"</span><span class="p">,</span>
+        <span class="s2">"3c: Cache HIT Skips Python &amp; Matplotlib (&lt;1 ms!)"</span><span class="p">,</span>
+        <span class="s2">"3c. Sub-Millisecond Cache HIT"</span><span class="p">,</span>
+        <span class="s2">"Restores image bytes in &lt; 1 ms"</span><span class="p">,</span>
+        <span class="s2">"Skips Python &amp; Matplotlib completely"</span><span class="p">,</span>
+    <span class="p">),</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">active_idx</span><span class="p">,</span> <span class="n">dur</span><span class="p">,</span> <span class="n">hl_rng</span><span class="p">,</span> <span class="n">badge_txt</span><span class="p">,</span> <span class="n">foot_txt</span><span class="p">,</span> <span class="n">s_t</span><span class="p">,</span> <span class="n">s_1</span><span class="p">,</span> <span class="n">s_2</span> <span class="ow">in</span> <span class="n">PART3_STATES</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="n">dur</span><span class="p">):</span>
+        <span class="n">draw_step_bar</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+        <span class="n">draw_left_pane</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">SRC_P3</span><span class="p">,</span> <span class="n">hl_rng</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">lightning</span><span class="p">,</span> <span class="n">s_t</span><span class="p">,</span> <span class="n">s_1</span><span class="p">,</span> <span class="n">s_2</span><span class="p">)</span>
+        <span class="n">scx</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">draw_compiler_studio</span><span class="p">(</span><span class="n">badge_txt</span><span class="p">,</span> <span class="n">foot_txt</span><span class="p">)</span>
+        <span class="n">draw_sub_pills</span><span class="p">(</span><span class="n">scx</span><span class="p">,</span> <span class="p">[</span><span class="s2">"3a. Py Sandbox"</span><span class="p">,</span> <span class="s2">"3b. Render Blob"</span><span class="p">,</span> <span class="s2">"3c. &lt;1ms HIT"</span><span class="p">],</span> <span class="n">active_idx</span><span class="p">)</span>
+
+        <span class="c1"># Top Lane: Cache MISS Sandbox Container</span>
+        <span class="n">miss_border</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryDashed</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">247</span><span class="p">,</span> <span class="mi">250</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span> <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.4</span><span class="p">,</span> <span class="n">shape_r</span><span class="o">=</span><span class="mf">1.8</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">active_idx</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">250</span><span class="p">,</span> <span class="mi">251</span><span class="p">,</span> <span class="mi">253</span><span class="p">),</span> <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">shape_r</span><span class="o">=</span><span class="mf">1.8</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">rectangle</span><span class="p">((</span><span class="n">scx</span><span class="p">,</span> <span class="mf">40.7</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">54.4</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">23.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">miss_border</span><span class="p">)</span>
+        <span class="n">text</span><span class="p">(</span>
+            <span class="p">(</span><span class="mf">76.6</span><span class="p">,</span> <span class="mf">49.6</span><span class="p">),</span>
+            <span class="s2">"Cache MISS: Isolated Execution"</span><span class="p">,</span>
+            <span class="n">style</span><span class="o">=</span><span class="p">(</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span> <span class="k">if</span> <span class="n">active_idx</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">MutedBold</span><span class="p">)</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+                <span class="n">text_size</span><span class="o">=</span><span class="mf">9.7</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Box 3a: Python Sandbox</span>
+        <span class="n">st_3a</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_line_color</span><span class="o">=</span><span class="p">(</span><span class="mi">37</span><span class="p">,</span> <span class="mi">99</span><span class="p">,</span> <span class="mi">235</span><span class="p">),</span> <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.7</span><span class="p">,</span> <span class="n">shape_r</span><span class="o">=</span><span class="mf">1.4</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">active_idx</span> <span class="o">==</span> <span class="mi">0</span>
+            <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.4</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">rectangle</span><span class="p">((</span><span class="mf">88.4</span><span class="p">,</span> <span class="mf">38.2</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">24.6</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">14.4</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">st_3a</span><span class="p">)</span>
+        <span class="n">code_icons</span><span class="o">.</span><span class="n">python</span><span class="p">((</span><span class="mf">80.2</span><span class="p">,</span> <span class="mf">42.2</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.6</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+        <span class="n">text</span><span class="p">((</span><span class="mf">83.0</span><span class="p">,</span> <span class="mf">42.2</span><span class="p">),</span> <span class="s2">"Py Sandbox"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.9</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">))</span>
+        <span class="n">text</span><span class="p">((</span><span class="mf">88.4</span><span class="p">,</span> <span class="mf">37.4</span><span class="p">),</span> <span class="s2">"canvas.clear()"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
+        <span class="n">text</span><span class="p">((</span><span class="mf">88.4</span><span class="p">,</span> <span class="mf">33.6</span><span class="p">),</span> <span class="s2">"Zero state bleed"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
+
+        <span class="n">line</span><span class="p">(</span>
+            <span class="p">(</span><span class="mf">100.7</span><span class="p">,</span> <span class="mf">38.2</span><span class="p">),</span>
+            <span class="p">(</span><span class="mf">104.3</span><span class="p">,</span> <span class="mf">38.2</span><span class="p">),</span>
+            <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span>
+            <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span> <span class="k">if</span> <span class="n">active_idx</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">MutedThin</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Box 3b: Headless Matplotlib -&gt; cache.db</span>
+        <span class="n">st_3b</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_line_color</span><span class="o">=</span><span class="p">(</span><span class="mi">37</span><span class="p">,</span> <span class="mi">99</span><span class="p">,</span> <span class="mi">235</span><span class="p">),</span> <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.7</span><span class="p">,</span> <span class="n">shape_r</span><span class="o">=</span><span class="mf">1.4</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">active_idx</span> <span class="o">==</span> <span class="mi">1</span>
+            <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.4</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">rectangle</span><span class="p">((</span><span class="mf">116.2</span><span class="p">,</span> <span class="mf">38.2</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">23.8</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">14.4</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">st_3b</span><span class="p">)</span>
+        <span class="n">phosphor</span><span class="o">.</span><span class="n">images</span><span class="p">((</span><span class="mf">108.4</span><span class="p">,</span> <span class="mf">42.2</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.6</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span> <span class="k">if</span> <span class="n">active_idx</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="p">)</span>
+        <span class="n">text</span><span class="p">((</span><span class="mf">111.2</span><span class="p">,</span> <span class="mf">42.2</span><span class="p">),</span> <span class="s2">"Matplotlib"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.9</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">))</span>
+        <span class="n">text</span><span class="p">((</span><span class="mf">116.2</span><span class="p">,</span> <span class="mf">37.4</span><span class="p">),</span> <span class="s2">"PNG / SVG / APNG"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
+        <span class="n">text</span><span class="p">((</span><span class="mf">116.2</span><span class="p">,</span> <span class="mf">33.6</span><span class="p">),</span> <span class="s2">"Store -&gt; cache.db"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
+
+        <span class="c1"># Bottom Lane: Cache HIT Fast Path</span>
+        <span class="n">is_hit</span> <span class="o">=</span> <span class="n">active_idx</span> <span class="o">==</span> <span class="mi">2</span>
+        <span class="n">hit_st</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+                <span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">235</span><span class="p">,</span> <span class="mi">251</span><span class="p">,</span> <span class="mi">243</span><span class="p">),</span>
+                <span class="n">shape_line_color</span><span class="o">=</span><span class="p">(</span><span class="mi">22</span><span class="p">,</span> <span class="mi">163</span><span class="p">,</span> <span class="mi">74</span><span class="p">),</span>
+                <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.8</span><span class="p">,</span>
+                <span class="n">shape_r</span><span class="o">=</span><span class="mf">1.6</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="n">is_hit</span>
+            <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.6</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">rectangle</span><span class="p">((</span><span class="n">scx</span><span class="p">,</span> <span class="mf">20.6</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">54.4</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">10.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">hit_st</span><span class="p">)</span>
+        <span class="n">data</span><span class="o">.</span><span class="n">sqlite</span><span class="p">((</span><span class="mf">79.2</span><span class="p">,</span> <span class="mf">20.6</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+        <span class="n">text</span><span class="p">(</span>
+            <span class="p">(</span><span class="mf">82.6</span><span class="p">,</span> <span class="mf">22.5</span><span class="p">),</span>
+            <span class="s2">"Cache HIT: Instant Blob Restore"</span><span class="p">,</span>
+            <span class="n">style</span><span class="o">=</span><span class="p">(</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span> <span class="k">if</span> <span class="n">is_hit</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="n">text</span><span class="p">(</span>
+            <span class="p">(</span><span class="mf">82.6</span><span class="p">,</span> <span class="mf">18.5</span><span class="p">),</span>
+            <span class="s2">"Bypasses Python &amp; Matplotlib"</span><span class="p">,</span>
+            <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="n">rectangle</span><span class="p">(</span>
+            <span class="p">(</span><span class="mf">121.8</span><span class="p">,</span> <span class="mf">22.4</span><span class="p">),</span>
+            <span class="n">width</span><span class="o">=</span><span class="mf">12.4</span><span class="p">,</span>
+            <span class="n">height</span><span class="o">=</span><span class="mf">4.2</span><span class="p">,</span>
+            <span class="n">style</span><span class="o">=</span><span class="p">(</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryFlat</span> <span class="k">if</span> <span class="n">is_hit</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">)</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.0</span><span class="p">),</span>
+            <span class="n">text</span><span class="o">=</span><span class="s2">"&lt; 1 ms"</span><span class="p">,</span>
+            <span class="n">text_style</span><span class="o">=</span><span class="p">(</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span> <span class="k">if</span> <span class="n">is_hit</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+        <span class="p">)</span>
+
+<span class="c1"># =========================================================================</span>
+<span class="c1"># Part 4: 4. Multi-Target Out (HTML/Slide, MD/PDF, DOCX/PPTX)</span>
+<span class="c1"># =========================================================================</span>
+<span class="n">SRC_P4</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">"# Single Source -&gt; 6 Build Targets"</span><span class="p">,</span>
+    <span class="s2">"# 1. Interactive Web &amp; Slides:"</span><span class="p">,</span>
+    <span class="s2">"drawlib build html  docs_src/"</span><span class="p">,</span>
+    <span class="s2">"drawlib build slide slide_src/"</span><span class="p">,</span>
+    <span class="s2">"# 2. GitHub MD &amp; Vector PDF:"</span><span class="p">,</span>
+    <span class="s2">"drawlib build markdown docs_src/"</span><span class="p">,</span>
+    <span class="s2">"drawlib build pdf doc_src/ --toc"</span><span class="p">,</span>
+    <span class="s2">"# 3. Editable MS Office Docs:"</span><span class="p">,</span>
+    <span class="s2">"drawlib build docx doc_src/"</span><span class="p">,</span>
+    <span class="s2">"drawlib build pptx slide_src/"</span><span class="p">,</span>
+<span class="p">]</span>
+
+<span class="n">PART4_STATES</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span>
+        <span class="mi">0</span><span class="p">,</span>
+        <span class="mf">3.3</span><span class="p">,</span>
+        <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+        <span class="s2">"HTML &amp; Slide"</span><span class="p">,</span>
+        <span class="s2">"4a: Emit Responsive HTML Site &amp; 16:9 Slide Deck"</span><span class="p">,</span>
+        <span class="s2">"4a. Web Site &amp; 16:9 Slide Deck"</span><span class="p">,</span>
+        <span class="s2">"HTML site with code fold &amp; lightbox"</span><span class="p">,</span>
+        <span class="s2">"16:9 web deck with Presenter View"</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="p">(</span>
+        <span class="mi">1</span><span class="p">,</span>
+        <span class="mf">3.3</span><span class="p">,</span>
+        <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span>
+        <span class="s2">"MD &amp; Vector PDF"</span><span class="p">,</span>
+        <span class="s2">"4b: Emit GitHub Markdown &amp; Vector PDF (--toc)"</span><span class="p">,</span>
+        <span class="s2">"4b. GitHub Markdown &amp; Vector PDF"</span><span class="p">,</span>
+        <span class="s2">"Rewrites *_images/ links for GitHub"</span><span class="p">,</span>
+        <span class="s2">"Headless Chromium prints --toc PDF"</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="p">(</span>
+        <span class="mi">2</span><span class="p">,</span>
+        <span class="mf">3.5</span><span class="p">,</span>
+        <span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span>
+        <span class="s2">"DOCX &amp; PPTX"</span><span class="p">,</span>
+        <span class="s2">"4c: Emit Native MS Word (.docx) &amp; PowerPoint (.pptx)"</span><span class="p">,</span>
+        <span class="s2">"4c. Native MS Word &amp; PowerPoint"</span><span class="p">,</span>
+        <span class="s2">"Generates .docx &amp; 16:9 .pptx decks"</span><span class="p">,</span>
+        <span class="s2">"100</span><span class="si">% s</span><span class="s2">ingle-source multi-publishing"</span><span class="p">,</span>
+    <span class="p">),</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">active_idx</span><span class="p">,</span> <span class="n">dur</span><span class="p">,</span> <span class="n">hl_rng</span><span class="p">,</span> <span class="n">badge_txt</span><span class="p">,</span> <span class="n">foot_txt</span><span class="p">,</span> <span class="n">s_t</span><span class="p">,</span> <span class="n">s_1</span><span class="p">,</span> <span class="n">s_2</span> <span class="ow">in</span> <span class="n">PART4_STATES</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="n">dur</span><span class="p">):</span>
+        <span class="n">draw_step_bar</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+        <span class="n">draw_left_pane</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">SRC_P4</span><span class="p">,</span> <span class="n">hl_rng</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">globe</span><span class="p">,</span> <span class="n">s_t</span><span class="p">,</span> <span class="n">s_1</span><span class="p">,</span> <span class="n">s_2</span><span class="p">,</span> <span class="n">code_lang</span><span class="o">=</span><span class="s2">"bash"</span><span class="p">)</span>
+        <span class="n">scx</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">draw_compiler_studio</span><span class="p">(</span><span class="n">badge_txt</span><span class="p">,</span> <span class="n">foot_txt</span><span class="p">)</span>
+        <span class="n">draw_sub_pills</span><span class="p">(</span><span class="n">scx</span><span class="p">,</span> <span class="p">[</span><span class="s2">"4a. HTML / Slide"</span><span class="p">,</span> <span class="s2">"4b. MD / PDF"</span><span class="p">,</span> <span class="s2">"4c. DOCX / PPTX"</span><span class="p">],</span> <span class="n">active_idx</span><span class="p">)</span>
+
+        <span class="c1"># Top Source Banner</span>
+        <span class="n">rectangle</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">scx</span><span class="p">,</span> <span class="mf">49.6</span><span class="p">),</span>
+            <span class="n">width</span><span class="o">=</span><span class="mf">53.4</span><span class="p">,</span>
+            <span class="n">height</span><span class="o">=</span><span class="mf">6.0</span><span class="p">,</span>
+            <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.3</span><span class="p">),</span>
+            <span class="n">text</span><span class="o">=</span><span class="s2">"Compiled AST + Cached Image Assets"</span><span class="p">,</span>
+            <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.8</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="n">line</span><span class="p">((</span><span class="mf">88.2</span><span class="p">,</span> <span class="mf">46.6</span><span class="p">),</span> <span class="p">(</span><span class="mf">88.2</span><span class="p">,</span> <span class="mf">43.5</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+        <span class="n">line</span><span class="p">((</span><span class="mf">115.8</span><span class="p">,</span> <span class="mf">46.6</span><span class="p">),</span> <span class="p">(</span><span class="mf">115.8</span><span class="p">,</span> <span class="mf">43.5</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+
+        <span class="n">target_rows</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="p">(</span>
+                <span class="mf">39.2</span><span class="p">,</span>
+                <span class="p">(</span><span class="s2">"HTML Site"</span><span class="p">,</span> <span class="s2">"Fold &amp; Lightbox"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">globe</span><span class="p">,</span> <span class="s2">"phosphor"</span><span class="p">),</span>
+                <span class="p">(</span><span class="s2">"16:9 Slide"</span><span class="p">,</span> <span class="s2">"Presenter View"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">presentation_chart</span><span class="p">,</span> <span class="s2">"phosphor"</span><span class="p">),</span>
+            <span class="p">),</span>
+            <span class="p">(</span>
+                <span class="mf">29.2</span><span class="p">,</span>
+                <span class="p">(</span><span class="s2">"GitHub MD"</span><span class="p">,</span> <span class="s2">"*_images/ links"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">file_code</span><span class="p">,</span> <span class="s2">"phosphor"</span><span class="p">),</span>
+                <span class="p">(</span><span class="s2">"Vector PDF"</span><span class="p">,</span> <span class="s2">"Chromium --toc"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">file_pdf</span><span class="p">,</span> <span class="s2">"pdf"</span><span class="p">),</span>
+            <span class="p">),</span>
+            <span class="p">(</span>
+                <span class="mf">19.2</span><span class="p">,</span>
+                <span class="p">(</span><span class="s2">"MS Word"</span><span class="p">,</span> <span class="s2">"Editable .docx"</span><span class="p">,</span> <span class="n">workspace</span><span class="o">.</span><span class="n">word</span><span class="p">,</span> <span class="s2">"brand"</span><span class="p">),</span>
+                <span class="p">(</span><span class="s2">"PowerPoint"</span><span class="p">,</span> <span class="s2">"Editable .pptx"</span><span class="p">,</span> <span class="n">workspace</span><span class="o">.</span><span class="n">powerpoint</span><span class="p">,</span> <span class="s2">"brand"</span><span class="p">),</span>
+            <span class="p">),</span>
+        <span class="p">]</span>
+
+        <span class="k">for</span> <span class="n">r_idx</span><span class="p">,</span> <span class="p">(</span><span class="n">ry</span><span class="p">,</span> <span class="n">left_item</span><span class="p">,</span> <span class="n">right_item</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">target_rows</span><span class="p">):</span>
+            <span class="n">is_act</span> <span class="o">=</span> <span class="n">r_idx</span> <span class="o">==</span> <span class="n">active_idx</span>
+            <span class="k">for</span> <span class="n">cx_card</span><span class="p">,</span> <span class="p">(</span><span class="n">t_main</span><span class="p">,</span> <span class="n">t_sub</span><span class="p">,</span> <span class="n">ic_fn</span><span class="p">,</span> <span class="n">ic_kind</span><span class="p">)</span> <span class="ow">in</span> <span class="p">((</span><span class="mf">88.2</span><span class="p">,</span> <span class="n">left_item</span><span class="p">),</span> <span class="p">(</span><span class="mf">115.8</span><span class="p">,</span> <span class="n">right_item</span><span class="p">)):</span>
+                <span class="k">if</span> <span class="n">is_act</span><span class="p">:</span>
+                    <span class="n">cst</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+                        <span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">232</span><span class="p">,</span> <span class="mi">242</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span>
+                        <span class="n">shape_line_color</span><span class="o">=</span><span class="p">(</span><span class="mi">37</span><span class="p">,</span> <span class="mi">99</span><span class="p">,</span> <span class="mi">235</span><span class="p">),</span>
+                        <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.7</span><span class="p">,</span>
+                        <span class="n">shape_r</span><span class="o">=</span><span class="mf">1.4</span><span class="p">,</span>
+                    <span class="p">)</span>
+                    <span class="n">m_st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">)</span>
+                    <span class="n">s_st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">r_idx</span> <span class="o">&lt;</span> <span class="n">active_idx</span><span class="p">:</span>
+                    <span class="n">cst</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.4</span><span class="p">,</span> <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.1</span><span class="p">)</span>
+                    <span class="n">m_st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.9</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">)</span>
+                    <span class="n">s_st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">cst</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.4</span><span class="p">,</span> <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+                    <span class="n">m_st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.9</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">)</span>
+                    <span class="n">s_st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">)</span>
+
+                <span class="n">rectangle</span><span class="p">((</span><span class="n">cx_card</span><span class="p">,</span> <span class="n">ry</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">25.8</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">8.4</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">cst</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">ic_kind</span> <span class="o">==</span> <span class="s2">"brand"</span><span class="p">:</span>
+                    <span class="n">ic_fn</span><span class="p">((</span><span class="n">cx_card</span> <span class="o">-</span> <span class="mf">9.4</span><span class="p">,</span> <span class="n">ry</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.7</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">ic_kind</span> <span class="o">==</span> <span class="s2">"pdf"</span><span class="p">:</span>
+                    <span class="n">ic_fn</span><span class="p">((</span><span class="n">cx_card</span> <span class="o">-</span> <span class="mf">9.4</span><span class="p">,</span> <span class="n">ry</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.7</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Danger</span> <span class="k">if</span> <span class="n">is_act</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">ic_fn</span><span class="p">((</span><span class="n">cx_card</span> <span class="o">-</span> <span class="mf">9.4</span><span class="p">,</span> <span class="n">ry</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.7</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+                <span class="n">text</span><span class="p">((</span><span class="n">cx_card</span> <span class="o">-</span> <span class="mf">6.2</span><span class="p">,</span> <span class="n">ry</span> <span class="o">+</span> <span class="mf">1.55</span><span class="p">),</span> <span class="n">t_main</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">m_st</span><span class="p">)</span>
+                <span class="n">text</span><span class="p">((</span><span class="n">cx_card</span> <span class="o">-</span> <span class="mf">6.2</span><span class="p">,</span> <span class="n">ry</span> <span class="o">-</span> <span class="mf">1.75</span><span class="p">),</span> <span class="n">t_sub</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">s_st</span><span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<hr />
+<h2>2. Core Principles</h2>
 <ol>
 <li><strong>Source of Truth (<code>&lt;name&gt;_src/</code>)</strong>: You author content exclusively in source directories (e.g. <code>docs_src/</code>, <code>doc_src/</code>, <code>slide_src/</code>, or <code>images_src/</code>). Output folders (<code>docs_html/</code>, <code>docs_markdown/</code>, <code>docs_images/</code>, <code>images/</code>, etc.) are build artifacts and should never be manually modified.</li>
 <li><strong>Deterministic Build Cache</strong>: Drawlib computes a SHA-256 hash of each embedded code block (<code>styles.py</code>, <code>utils.py</code>, and referenced local assets included). Unaltered diagrams are restored instantly from <code>.drawlib/cache.db</code>, enabling sub-second incremental builds across massive multi-page sites.</li>
@@ -697,7 +1491,7 @@
 </li>
 </ol>
 <hr />
-<h2>2. Project Starter Templates</h2>
+<h2>3. Project Starter Templates</h2>
 <p>Never construct documentation directories manually. Scaffolding them with <code>drawlib init</code> guarantees the correct directory layout and configuration scripts:</p>
 <table>
 <thead>
@@ -736,7 +1530,7 @@
 </tbody>
 </table>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="overview_images/doc_builder_four_templates_matrix.png" alt="overview_2" />
+  <img src="overview_images/doc_builder_four_templates_matrix.png" alt="overview_3" />
   <figcaption class="drawlib-caption">Overview of the Four Drawlib Project Starter Templates and Their Outputs</figcaption>
 </figure>
 <details class="drawlib-code-details">
@@ -825,7 +1619,7 @@
 </code></pre>
 </details>
 <hr />
-<h2>3. Parallel Multi-Agent Authoring Across Project Templates</h2>
+<h2>4. Parallel Multi-Agent Authoring Across Project Templates</h2>
 <p>Because every Drawlib project separates <strong>shared configuration</strong> (<code>styles.py</code>, <code>utils.py</code>, <code>_assets/</code>, <code>navbar.md</code>) from <strong>modular content files</strong> (<code>*.py</code> or <code>*.md</code>), AI coding agents can accelerate large documentation and illustration tasks by distributing work across <strong>parallel subagents</strong>:</p>
 <table>
 <thead>
@@ -875,7 +1669,7 @@
 <li><strong>Single Unified Build</strong>: Subagents only run <code>drawlib show ... -g</code> for their assigned diagrams; the parent agent runs <code>./build.sh</code> once after all subagents finish, avoiding concurrent SQLite writes to <code>.drawlib/cache.db</code>.</li>
 </ol>
 <hr />
-<h2>4. Chapter Structure</h2>
+<h2>5. Chapter Structure</h2>
 <p>Dive deeper into each builder subsystem:</p>
 <ul>
 <li><a href="./code_blocks.html">Embedded Code Blocks</a>: Code fence syntax, display modes (<code>code=show</code>, <code>code=fold</code>), alignment, and captions.</li>
