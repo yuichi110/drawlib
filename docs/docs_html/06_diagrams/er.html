@@ -594,8 +594,6 @@
             <main class="main-content">
                 <h1>ERDiagram: Relational Schemas &amp; Crow's Foot Notations</h1>
 <p><code>ERDiagram</code> visualizes relational database architectures adhering strictly to <strong>Information Engineering (IE) / Crow's Foot notation</strong>—the industry standard for physical database schema modeling.</p>
-<hr />
-<h2>1. Overview &amp; Crow's Foot Notation</h2>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="er_images/er_overview_anatomy.png" alt="er_1" />
   <figcaption class="drawlib-caption">Entity-Relationship Tables with Row-Anchored Crow's Foot Notation</figcaption>
@@ -638,10 +636,964 @@
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 </details>
+<hr />
+<h2>1. Core Concepts &amp; Basic Usage</h2>
+<p><code>ERDiagram</code> places relational <code>Entity</code> tables by their <strong>Center <code>(cx, cy)</code></strong> via <code>er.add(entity, xy=(cx, cy))</code>, rendering typed schema rows with automatic <code>PK</code> and <code>FK</code> key badges as <code>effective_height</code> expands to fit every column. Relationships draw industry-standard Information Engineering (IE) Crow's Foot <code>cardinality</code> markers, snap directly to primary and foreign key rows via <code>start_column</code> and <code>end_column</code>, and support custom <code>header_style</code> bands, <code>show=False</code> hiding, and <code>align=&quot;center&quot;</code> placement:</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="er_images/er_parameter_tour.png" alt="er_2" />
+  <figcaption class="drawlib-caption">Basic Usage & Parameter Tour: Entity Tables & Key Badges, Crow's Foot Cardinalities, Row-Level Column Anchoring, and Header Styles & Reveal (APNG Animation)</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.anim</span><span class="w"> </span><span class="kn">import</span> <span class="n">Animation</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.diagrams.er</span><span class="w"> </span><span class="kn">import</span> <span class="n">Entity</span><span class="p">,</span> <span class="n">ERDiagram</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">code</span> <span class="k">as</span> <span class="n">code_icons</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">circle</span><span class="p">,</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.smartarts</span><span class="w"> </span><span class="kn">import</span> <span class="n">SourceCode</span><span class="p">,</span> <span class="n">SourceCodeStyles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Colors</span><span class="p">,</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">W</span><span class="p">,</span> <span class="n">H</span> <span class="o">=</span> <span class="mf">138.0</span><span class="p">,</span> <span class="mf">82.0</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="n">W</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">H</span><span class="p">)</span>
+<span class="n">anim</span> <span class="o">=</span> <span class="n">Animation</span><span class="p">(</span><span class="n">fps</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">loop</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">CODE_TEXT_SIZE</span> <span class="o">=</span> <span class="mf">10.0</span>
+<span class="n">PT_TO_CANVAS</span> <span class="o">=</span> <span class="n">W</span> <span class="o">/</span> <span class="mf">720.0</span>
+<span class="n">FONT_CANVAS</span> <span class="o">=</span> <span class="n">CODE_TEXT_SIZE</span> <span class="o">*</span> <span class="n">PT_TO_CANVAS</span>
+<span class="n">LINE_H</span> <span class="o">=</span> <span class="n">FONT_CANVAS</span> <span class="o">*</span> <span class="mf">1.8</span>
+<span class="n">PAD_Y</span> <span class="o">=</span> <span class="n">FONT_CANVAS</span> <span class="o">*</span> <span class="mf">1.2</span>
+
+<span class="n">CODE_STYLES</span> <span class="o">=</span> <span class="n">SourceCodeStyles</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"default"</span><span class="p">,</span> <span class="n">font_lang</span><span class="o">=</span><span class="s2">"en"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="n">CODE_TEXT_SIZE</span><span class="p">)</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+    <span class="n">box_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">shape_line_width</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">PANE_HEADER</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+    <span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">238</span><span class="p">,</span> <span class="mi">243</span><span class="p">,</span> <span class="mi">250</span><span class="p">),</span>
+    <span class="n">shape_line_color</span><span class="o">=</span><span class="p">(</span><span class="mi">203</span><span class="p">,</span> <span class="mi">213</span><span class="p">,</span> <span class="mi">225</span><span class="p">),</span>
+    <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span>
+    <span class="n">shape_r</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">EDITOR_BODY</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+    <span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">250</span><span class="p">,</span> <span class="mi">252</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span>
+    <span class="n">shape_line_color</span><span class="o">=</span><span class="p">(</span><span class="mi">203</span><span class="p">,</span> <span class="mi">213</span><span class="p">,</span> <span class="mi">225</span><span class="p">),</span>
+    <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span>
+    <span class="n">shape_r</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">TAKEAWAY_BODY</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+    <span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">242</span><span class="p">,</span> <span class="mi">246</span><span class="p">,</span> <span class="mi">253</span><span class="p">),</span>
+    <span class="n">shape_line_color</span><span class="o">=</span><span class="p">(</span><span class="mi">203</span><span class="p">,</span> <span class="mi">213</span><span class="p">,</span> <span class="mi">225</span><span class="p">),</span>
+    <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span>
+    <span class="n">shape_r</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">STUDIO_BODY</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+    <span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">239</span><span class="p">,</span> <span class="mi">243</span><span class="p">,</span> <span class="mi">249</span><span class="p">),</span>
+    <span class="n">shape_line_color</span><span class="o">=</span><span class="p">(</span><span class="mi">203</span><span class="p">,</span> <span class="mi">213</span><span class="p">,</span> <span class="mi">225</span><span class="p">),</span>
+    <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span>
+    <span class="n">shape_r</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">PART_ITEMS</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s2">"1. Entity &amp; Keys"</span><span class="p">,</span> <span class="s2">"Center xy &amp; PK/FK badges"</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"2. Cardinalities"</span><span class="p">,</span> <span class="s2">"IE Crow's Foot markers"</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"3. Row Anchoring"</span><span class="p">,</span> <span class="s2">"start_column &amp; end_column"</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"4. Style &amp; Reveal"</span><span class="p">,</span> <span class="s2">"header_style, show &amp; center"</span><span class="p">),</span>
+<span class="p">]</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">draw_step_bar</span><span class="p">(</span><span class="n">active_part</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Draw top 4-part progress bar (active_part is 1..4)."""</span>
+    <span class="n">pill_w</span> <span class="o">=</span> <span class="mf">31.0</span>
+    <span class="n">pill_h</span> <span class="o">=</span> <span class="mf">7.4</span>
+    <span class="n">gap</span> <span class="o">=</span> <span class="mf">2.0</span>
+    <span class="n">start_x</span> <span class="o">=</span> <span class="mf">4.0</span> <span class="o">+</span> <span class="n">pill_w</span> <span class="o">/</span> <span class="mf">2.0</span>
+    <span class="n">cy</span> <span class="o">=</span> <span class="mf">75.2</span>
+
+    <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">sublabel</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">PART_ITEMS</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">cx</span> <span class="o">=</span> <span class="n">start_x</span> <span class="o">+</span> <span class="p">(</span><span class="n">idx</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">pill_w</span> <span class="o">+</span> <span class="n">gap</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">idx</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">prev_cx</span> <span class="o">=</span> <span class="n">cx</span> <span class="o">-</span> <span class="p">(</span><span class="n">pill_w</span> <span class="o">+</span> <span class="n">gap</span><span class="p">)</span>
+            <span class="n">line</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">prev_cx</span> <span class="o">+</span> <span class="n">pill_w</span> <span class="o">/</span> <span class="mf">2.0</span> <span class="o">+</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">cy</span><span class="p">),</span>
+                <span class="p">(</span><span class="n">cx</span> <span class="o">-</span> <span class="n">pill_w</span> <span class="o">/</span> <span class="mf">2.0</span> <span class="o">-</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">cy</span><span class="p">),</span>
+                <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span> <span class="k">if</span> <span class="n">idx</span> <span class="o">&lt;=</span> <span class="n">active_part</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">MutedThin</span><span class="p">,</span>
+            <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">idx</span> <span class="o">==</span> <span class="n">active_part</span><span class="p">:</span>
+            <span class="n">st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.4</span><span class="p">)</span>
+            <span class="n">tst</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.3</span><span class="p">)</span>
+            <span class="n">sub_tst</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">idx</span> <span class="o">&lt;</span> <span class="n">active_part</span><span class="p">:</span>
+            <span class="n">st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.4</span><span class="p">,</span> <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.1</span><span class="p">)</span>
+            <span class="n">tst</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.3</span><span class="p">)</span>
+            <span class="n">sub_tst</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.4</span><span class="p">,</span> <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.1</span><span class="p">)</span>
+            <span class="n">tst</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">MutedBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.3</span><span class="p">)</span>
+            <span class="n">sub_tst</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">)</span>
+
+        <span class="n">rectangle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="n">pill_w</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">pill_h</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">st</span><span class="p">)</span>
+        <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span> <span class="o">+</span> <span class="mf">1.35</span><span class="p">),</span> <span class="n">label</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">tst</span><span class="p">)</span>
+        <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span> <span class="o">-</span> <span class="mf">1.55</span><span class="p">),</span> <span class="n">sublabel</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">sub_tst</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">draw_left_pane</span><span class="p">(</span>
+    <span class="n">active_part</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">code_lines</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+    <span class="n">hl_range</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span>
+    <span class="n">icon_fn</span><span class="p">:</span> <span class="nb">object</span><span class="p">,</span>
+    <span class="n">summary_title</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">summary_line1</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">summary_line2</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Draw left Python code editor + bottom concept takeaway card."""</span>
+    <span class="n">x0</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">63.5</span>
+    <span class="n">cx</span> <span class="o">=</span> <span class="n">x0</span> <span class="o">+</span> <span class="n">w</span> <span class="o">/</span> <span class="mf">2.0</span>
+    <span class="n">top_y</span> <span class="o">=</span> <span class="mf">63.2</span>
+    <span class="n">header_h</span> <span class="o">=</span> <span class="mf">5.4</span>
+    <span class="n">editor_h</span> <span class="o">=</span> <span class="mf">43.8</span>
+    <span class="n">takeaway_h</span> <span class="o">=</span> <span class="mf">15.8</span>
+
+    <span class="n">rectangle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">top_y</span> <span class="o">+</span> <span class="n">header_h</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="n">w</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">header_h</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">PANE_HEADER</span><span class="p">)</span>
+    <span class="n">code_icons</span><span class="o">.</span><span class="n">python</span><span class="p">((</span><span class="n">x0</span> <span class="o">+</span> <span class="mf">3.6</span><span class="p">,</span> <span class="n">top_y</span> <span class="o">+</span> <span class="n">header_h</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.4</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+    <span class="n">text</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">x0</span> <span class="o">+</span> <span class="mf">6.5</span><span class="p">,</span> <span class="n">top_y</span> <span class="o">+</span> <span class="n">header_h</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">),</span>
+        <span class="s2">"er_tour.py"</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.2</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">text</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">x0</span> <span class="o">+</span> <span class="n">w</span> <span class="o">-</span> <span class="mf">2.6</span><span class="p">,</span> <span class="n">top_y</span> <span class="o">+</span> <span class="n">header_h</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">),</span>
+        <span class="sa">f</span><span class="s2">"Part </span><span class="si">{</span><span class="n">active_part</span><span class="si">}</span><span class="s2"> / 4"</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.8</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"right"</span><span class="p">),</span>
+    <span class="p">)</span>
+
+    <span class="n">rectangle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">top_y</span> <span class="o">-</span> <span class="n">editor_h</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="n">w</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">editor_h</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">EDITOR_BODY</span><span class="p">)</span>
+
+    <span class="n">hl_start</span><span class="p">,</span> <span class="n">hl_end</span> <span class="o">=</span> <span class="n">hl_range</span>
+    <span class="n">hl_top</span> <span class="o">=</span> <span class="n">top_y</span> <span class="o">-</span> <span class="n">PAD_Y</span> <span class="o">-</span> <span class="n">hl_start</span> <span class="o">*</span> <span class="n">LINE_H</span>
+    <span class="n">hl_bot</span> <span class="o">=</span> <span class="n">top_y</span> <span class="o">-</span> <span class="n">PAD_Y</span> <span class="o">-</span> <span class="p">(</span><span class="n">hl_end</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">LINE_H</span>
+    <span class="n">hl_cy</span> <span class="o">=</span> <span class="p">(</span><span class="n">hl_top</span> <span class="o">+</span> <span class="n">hl_bot</span><span class="p">)</span> <span class="o">/</span> <span class="mf">2.0</span>
+    <span class="n">hl_h</span> <span class="o">=</span> <span class="n">hl_top</span> <span class="o">-</span> <span class="n">hl_bot</span>
+    <span class="n">rectangle</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">cx</span><span class="p">,</span> <span class="n">hl_cy</span><span class="p">),</span>
+        <span class="n">width</span><span class="o">=</span><span class="n">w</span> <span class="o">-</span> <span class="mf">0.6</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="n">hl_h</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">229</span><span class="p">,</span> <span class="mi">239</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span> <span class="n">shape_line_width</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">rectangle</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">x0</span> <span class="o">+</span> <span class="mf">0.55</span><span class="p">,</span> <span class="n">hl_cy</span><span class="p">),</span>
+        <span class="n">width</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="n">hl_h</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_line_width</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
+    <span class="p">)</span>
+
+    <span class="n">SourceCode</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span>
+        <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span> <span class="n">top_y</span><span class="p">),</span>
+        <span class="n">width</span><span class="o">=</span><span class="n">w</span><span class="p">,</span>
+        <span class="n">code</span><span class="o">=</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">code_lines</span><span class="p">),</span>
+        <span class="n">styles</span><span class="o">=</span><span class="n">CODE_STYLES</span><span class="p">,</span>
+        <span class="n">code_lang</span><span class="o">=</span><span class="s2">"python"</span><span class="p">,</span>
+        <span class="n">show_linenum</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">align</span><span class="o">=</span><span class="s2">"top_left"</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">take_cy</span> <span class="o">=</span> <span class="mf">3.6</span> <span class="o">+</span> <span class="n">takeaway_h</span> <span class="o">/</span> <span class="mf">2.0</span>
+    <span class="n">rectangle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">take_cy</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="n">w</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">takeaway_h</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">TAKEAWAY_BODY</span><span class="p">)</span>
+    <span class="n">circle</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">x0</span> <span class="o">+</span> <span class="mf">6.4</span><span class="p">,</span> <span class="n">take_cy</span><span class="p">),</span>
+        <span class="n">radius</span><span class="o">=</span><span class="mf">3.3</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.2</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">icon_fn</span><span class="p">((</span><span class="n">x0</span> <span class="o">+</span> <span class="mf">6.4</span><span class="p">,</span> <span class="n">take_cy</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>  <span class="c1"># type: ignore[operator]</span>
+    <span class="n">text</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">x0</span> <span class="o">+</span> <span class="mf">11.4</span><span class="p">,</span> <span class="n">take_cy</span> <span class="o">+</span> <span class="mf">3.6</span><span class="p">),</span>
+        <span class="n">summary_title</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.4</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">text</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">x0</span> <span class="o">+</span> <span class="mf">11.4</span><span class="p">,</span> <span class="n">take_cy</span> <span class="o">-</span> <span class="mf">0.2</span><span class="p">),</span>
+        <span class="n">summary_line1</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.7</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">text</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">x0</span> <span class="o">+</span> <span class="mf">11.4</span><span class="p">,</span> <span class="n">take_cy</span> <span class="o">-</span> <span class="mf">3.8</span><span class="p">),</span>
+        <span class="n">summary_line2</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.6</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">),</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">draw_geometry_studio</span><span class="p">(</span><span class="n">param_badge</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">footer_caption</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""Draw right geometry lab shell, inner coordinate sheet with subtle grid, and footer."""</span>
+    <span class="n">x0</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="mf">70.0</span><span class="p">,</span> <span class="mf">64.0</span>
+    <span class="n">cx</span> <span class="o">=</span> <span class="n">x0</span> <span class="o">+</span> <span class="n">w</span> <span class="o">/</span> <span class="mf">2.0</span>
+    <span class="n">top_y</span> <span class="o">=</span> <span class="mf">63.2</span>
+    <span class="n">header_h</span> <span class="o">=</span> <span class="mf">5.4</span>
+    <span class="n">body_h</span> <span class="o">=</span> <span class="mf">59.6</span>
+
+    <span class="n">rectangle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">top_y</span> <span class="o">+</span> <span class="n">header_h</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="n">w</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">header_h</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">PANE_HEADER</span><span class="p">)</span>
+    <span class="n">phosphor</span><span class="o">.</span><span class="n">ruler</span><span class="p">((</span><span class="n">x0</span> <span class="o">+</span> <span class="mf">3.6</span><span class="p">,</span> <span class="n">top_y</span> <span class="o">+</span> <span class="n">header_h</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.4</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">)</span>
+    <span class="n">text</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">x0</span> <span class="o">+</span> <span class="mf">6.5</span><span class="p">,</span> <span class="n">top_y</span> <span class="o">+</span> <span class="n">header_h</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">),</span>
+        <span class="s2">"Live Geometry &amp; Guides"</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.2</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">text</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">x0</span> <span class="o">+</span> <span class="n">w</span> <span class="o">-</span> <span class="mf">2.6</span><span class="p">,</span> <span class="n">top_y</span> <span class="o">+</span> <span class="n">header_h</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">),</span>
+        <span class="n">param_badge</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.6</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"right"</span><span class="p">),</span>
+    <span class="p">)</span>
+
+    <span class="n">rectangle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mf">3.6</span> <span class="o">+</span> <span class="n">body_h</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="n">w</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">body_h</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">STUDIO_BODY</span><span class="p">)</span>
+
+    <span class="n">sheet_cx</span><span class="p">,</span> <span class="n">sheet_cy</span> <span class="o">=</span> <span class="n">cx</span><span class="p">,</span> <span class="mf">36.2</span>
+    <span class="n">sheet_w</span><span class="p">,</span> <span class="n">sheet_h</span> <span class="o">=</span> <span class="mf">54.0</span><span class="p">,</span> <span class="mf">40.0</span>
+    <span class="n">sx0</span><span class="p">,</span> <span class="n">sy0</span> <span class="o">=</span> <span class="n">sheet_cx</span> <span class="o">-</span> <span class="n">sheet_w</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">,</span> <span class="n">sheet_cy</span> <span class="o">-</span> <span class="n">sheet_h</span> <span class="o">/</span> <span class="mf">2.0</span>
+    <span class="n">rectangle</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">sheet_cx</span><span class="p">,</span> <span class="n">sheet_cy</span><span class="p">),</span>
+        <span class="n">width</span><span class="o">=</span><span class="n">sheet_w</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="n">sheet_h</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+            <span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span>
+            <span class="n">shape_line_color</span><span class="o">=</span><span class="p">(</span><span class="mi">180</span><span class="p">,</span> <span class="mi">194</span><span class="p">,</span> <span class="mi">214</span><span class="p">),</span>
+            <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">g_st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">MutedThin</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_color</span><span class="o">=</span><span class="p">(</span><span class="mi">232</span><span class="p">,</span> <span class="mi">238</span><span class="p">,</span> <span class="mi">246</span><span class="p">),</span> <span class="n">line_width</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">gx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">):</span>
+        <span class="n">vx</span> <span class="o">=</span> <span class="n">sx0</span> <span class="o">+</span> <span class="n">gx</span> <span class="o">*</span> <span class="p">(</span><span class="n">sheet_w</span> <span class="o">/</span> <span class="mf">6.0</span><span class="p">)</span>
+        <span class="n">line</span><span class="p">((</span><span class="n">vx</span><span class="p">,</span> <span class="n">sy0</span><span class="p">),</span> <span class="p">(</span><span class="n">vx</span><span class="p">,</span> <span class="n">sy0</span> <span class="o">+</span> <span class="n">sheet_h</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="n">g_st</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">gy</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">):</span>
+        <span class="n">vy</span> <span class="o">=</span> <span class="n">sy0</span> <span class="o">+</span> <span class="n">gy</span> <span class="o">*</span> <span class="p">(</span><span class="n">sheet_h</span> <span class="o">/</span> <span class="mf">5.0</span><span class="p">)</span>
+        <span class="n">line</span><span class="p">((</span><span class="n">sx0</span><span class="p">,</span> <span class="n">vy</span><span class="p">),</span> <span class="p">(</span><span class="n">sx0</span> <span class="o">+</span> <span class="n">sheet_w</span><span class="p">,</span> <span class="n">vy</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="n">g_st</span><span class="p">)</span>
+
+    <span class="n">rectangle</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">cx</span><span class="p">,</span> <span class="mf">8.4</span><span class="p">),</span>
+        <span class="n">width</span><span class="o">=</span><span class="mf">59.2</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mf">5.2</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+            <span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span>
+            <span class="n">shape_line_color</span><span class="o">=</span><span class="p">(</span><span class="mi">203</span><span class="p">,</span> <span class="mi">213</span><span class="p">,</span> <span class="mi">225</span><span class="p">),</span>
+            <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.1</span><span class="p">,</span>
+            <span class="n">shape_r</span><span class="o">=</span><span class="mf">2.4</span><span class="p">,</span>
+        <span class="p">),</span>
+        <span class="n">text</span><span class="o">=</span><span class="n">footer_caption</span><span class="p">,</span>
+        <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.8</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">sheet_cx</span><span class="p">,</span> <span class="n">sheet_cy</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">draw_sub_pills</span><span class="p">(</span><span class="n">scx</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">labels</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">active_idx</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Draw 3-step tracker pills near the top of the studio sheet."""</span>
+    <span class="n">pw</span><span class="p">,</span> <span class="n">ph</span><span class="p">,</span> <span class="n">pgap</span> <span class="o">=</span> <span class="mf">16.2</span><span class="p">,</span> <span class="mf">4.2</span><span class="p">,</span> <span class="mf">0.9</span>
+    <span class="n">p_start</span> <span class="o">=</span> <span class="n">scx</span> <span class="o">-</span> <span class="p">(</span><span class="mi">3</span> <span class="o">*</span> <span class="n">pw</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">pgap</span><span class="p">)</span> <span class="o">/</span> <span class="mf">2.0</span> <span class="o">+</span> <span class="n">pw</span> <span class="o">/</span> <span class="mf">2.0</span>
+    <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">lbl</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">labels</span><span class="p">):</span>
+        <span class="n">px</span> <span class="o">=</span> <span class="n">p_start</span> <span class="o">+</span> <span class="n">idx</span> <span class="o">*</span> <span class="p">(</span><span class="n">pw</span> <span class="o">+</span> <span class="n">pgap</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">idx</span> <span class="o">==</span> <span class="n">active_idx</span><span class="p">:</span>
+            <span class="n">pst</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">)</span>
+            <span class="n">ptst</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">idx</span> <span class="o">&lt;</span> <span class="n">active_idx</span><span class="p">:</span>
+            <span class="n">pst</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span> <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+            <span class="n">ptst</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">pst</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span> <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+            <span class="n">ptst</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">)</span>
+        <span class="n">rectangle</span><span class="p">((</span><span class="n">px</span><span class="p">,</span> <span class="mf">52.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="n">pw</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">ph</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">pst</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="n">lbl</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">ptst</span><span class="p">)</span>
+
+
+<span class="n">EDGE_TXT</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">)</span>
+
+<span class="c1"># =========================================================================</span>
+<span class="c1"># Part 1: Entity &amp; Keys — Center xy, PK/FK badges &amp; auto height</span>
+<span class="c1"># =========================================================================</span>
+<span class="n">PART1_STATES</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span>
+        <span class="mi">1</span><span class="p">,</span>
+        <span class="mf">3.3</span><span class="p">,</span>
+        <span class="p">[</span>
+            <span class="s2">"er = ERDiagram("</span><span class="p">,</span>
+            <span class="s2">"    node_style=Styles.Neutral,"</span><span class="p">,</span>
+            <span class="s2">"    edge_style=Styles.DarkBold,"</span><span class="p">,</span>
+            <span class="s2">"    edge_text_style=Styles.Dark)"</span><span class="p">,</span>
+            <span class="s2">"users = er.add("</span><span class="p">,</span>
+            <span class="s1">'    Entity("users", width=26),'</span><span class="p">,</span>
+            <span class="s2">"    xy=(22, 13.5))  # card center"</span><span class="p">,</span>
+            <span class="s2">""</span><span class="p">,</span>
+            <span class="s2">"# Base bottom-left diagram origin"</span><span class="p">,</span>
+            <span class="s2">"er.draw(xy=(6, 6))"</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span>
+        <span class="s2">"Entity + xy"</span><span class="p">,</span>
+        <span class="s2">"Step 1: Place Entity at Center xy=(22, 13.5), Draw at (6, 6)"</span><span class="p">,</span>
+        <span class="s2">"1. Center-Placed Entity &amp; Base Origin"</span><span class="p">,</span>
+        <span class="s2">"er.add(entity, xy) anchors each table by center (cx, cy)"</span><span class="p">,</span>
+        <span class="s2">"er.draw(xy) shifts all entities from bottom-left (x0, y0)"</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="p">(</span>
+        <span class="mi">2</span><span class="p">,</span>
+        <span class="mf">3.3</span><span class="p">,</span>
+        <span class="p">[</span>
+            <span class="s2">"er = ERDiagram(...)"</span><span class="p">,</span>
+            <span class="s2">"users = er.add("</span><span class="p">,</span>
+            <span class="s1">'    Entity("users", width=26),'</span><span class="p">,</span>
+            <span class="s2">"    xy=(22, 13.5))"</span><span class="p">,</span>
+            <span class="s2">"users.add_column("</span><span class="p">,</span>
+            <span class="s1">'    "id", type="INT", pk=True)'</span><span class="p">,</span>
+            <span class="s2">"users.add_column("</span><span class="p">,</span>
+            <span class="s1">'    "email", type="VARCHAR",'</span><span class="p">,</span>
+            <span class="s2">"    nullable=False)"</span><span class="p">,</span>
+            <span class="s2">"er.draw(xy=(6, 6))"</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span>
+        <span class="s2">"PK &amp; Columns"</span><span class="p">,</span>
+        <span class="s2">"Step 2: add_column() Adds PK Badge &amp; Expands Table Height"</span><span class="p">,</span>
+        <span class="s2">"2. Primary Key Badge &amp; Column Rows"</span><span class="p">,</span>
+        <span class="s2">"pk=True highlights the amber PK tag + bold column name"</span><span class="p">,</span>
+        <span class="s2">"effective_height auto-expands per row (7.2 -&gt; 10.4)"</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="p">(</span>
+        <span class="mi">3</span><span class="p">,</span>
+        <span class="mf">3.5</span><span class="p">,</span>
+        <span class="p">[</span>
+            <span class="s1">'users = er.add(Entity("users"),'</span><span class="p">,</span>
+            <span class="s2">"    xy=(12, 13.5))"</span><span class="p">,</span>
+            <span class="s2">"users.add_column("</span><span class="p">,</span>
+            <span class="s1">'    "id", type="INT", pk=True)'</span><span class="p">,</span>
+            <span class="s1">'orders = er.add(Entity("orders"),'</span><span class="p">,</span>
+            <span class="s2">"    xy=(38, 13.5))"</span><span class="p">,</span>
+            <span class="s2">"orders.add_column("</span><span class="p">,</span>
+            <span class="s1">'    "id", type="INT", pk=True)'</span><span class="p">,</span>
+            <span class="s2">"orders.add_column("</span><span class="p">,</span>
+            <span class="s1">'    "user_id", "INT", fk=True)'</span><span class="p">,</span>
+            <span class="s2">"er.draw(xy=(6, 6))"</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span>
+        <span class="s2">"FK Badge"</span><span class="p">,</span>
+        <span class="s2">"Step 3: Second Entity Table With Blue FK Key Badge"</span><span class="p">,</span>
+        <span class="s2">"3. Foreign Key (fk=True) Sibling Table"</span><span class="p">,</span>
+        <span class="s2">"fk=True renders the blue FK badge next to user_id"</span><span class="p">,</span>
+        <span class="s2">"Prepares primary &amp; foreign key rows for Crow's Foot links"</span><span class="p">,</span>
+    <span class="p">),</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">p1_idx</span><span class="p">,</span> <span class="p">(</span><span class="n">step_n</span><span class="p">,</span> <span class="n">dur</span><span class="p">,</span> <span class="n">code_1</span><span class="p">,</span> <span class="n">hl_rng</span><span class="p">,</span> <span class="n">badge_txt</span><span class="p">,</span> <span class="n">foot_txt</span><span class="p">,</span> <span class="n">s_t</span><span class="p">,</span> <span class="n">s_1</span><span class="p">,</span> <span class="n">s_2</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">PART1_STATES</span><span class="p">):</span>
+    <span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="n">dur</span><span class="p">):</span>
+        <span class="n">draw_step_bar</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">draw_left_pane</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">code_1</span><span class="p">,</span> <span class="n">hl_rng</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">table</span><span class="p">,</span> <span class="n">s_t</span><span class="p">,</span> <span class="n">s_1</span><span class="p">,</span> <span class="n">s_2</span><span class="p">)</span>
+        <span class="n">scx</span><span class="p">,</span> <span class="n">scy</span> <span class="o">=</span> <span class="n">draw_geometry_studio</span><span class="p">(</span><span class="n">badge_txt</span><span class="p">,</span> <span class="n">foot_txt</span><span class="p">)</span>
+        <span class="n">draw_sub_pills</span><span class="p">(</span><span class="n">scx</span><span class="p">,</span> <span class="p">[</span><span class="s2">"1. Entity xy"</span><span class="p">,</span> <span class="s2">"2. PK &amp; Columns"</span><span class="p">,</span> <span class="s2">"3. FK Sibling"</span><span class="p">],</span> <span class="n">p1_idx</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">step_n</span> <span class="o">&lt;=</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">bx</span><span class="p">,</span> <span class="n">by</span> <span class="o">=</span> <span class="mf">80.0</span><span class="p">,</span> <span class="mf">21.0</span>
+            <span class="n">er</span> <span class="o">=</span> <span class="n">ERDiagram</span><span class="p">(</span>
+                <span class="n">node_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+                <span class="n">edge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+                <span class="n">edge_text_style</span><span class="o">=</span><span class="n">EDGE_TXT</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">users</span> <span class="o">=</span> <span class="n">er</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Entity</span><span class="p">(</span><span class="s2">"users"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">26.0</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">22.0</span><span class="p">,</span> <span class="mf">14.0</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">step_n</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="n">users</span><span class="o">.</span><span class="n">add_column</span><span class="p">(</span><span class="s2">"id"</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">"INT"</span><span class="p">,</span> <span class="n">pk</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                <span class="n">users</span><span class="o">.</span><span class="n">add_column</span><span class="p">(</span><span class="s2">"email"</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">"VARCHAR"</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="n">er</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">bx</span><span class="p">,</span> <span class="n">by</span><span class="p">))</span>
+
+            <span class="n">ecx</span><span class="p">,</span> <span class="n">ecy</span> <span class="o">=</span> <span class="n">bx</span> <span class="o">+</span> <span class="mf">22.0</span><span class="p">,</span> <span class="n">by</span> <span class="o">+</span> <span class="mf">14.0</span>
+            <span class="n">eff_h</span> <span class="o">=</span> <span class="n">users</span><span class="o">.</span><span class="n">effective_height</span>
+            <span class="n">dim_x</span> <span class="o">=</span> <span class="n">ecx</span> <span class="o">+</span> <span class="mf">15.0</span>
+            <span class="n">line</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">dim_x</span><span class="p">,</span> <span class="n">ecy</span> <span class="o">-</span> <span class="n">eff_h</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">),</span>
+                <span class="p">(</span><span class="n">dim_x</span><span class="p">,</span> <span class="n">ecy</span> <span class="o">+</span> <span class="n">eff_h</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">),</span>
+                <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"&lt;-&gt;"</span><span class="p">,</span>
+                <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">1.2</span><span class="p">),</span>
+            <span class="p">)</span>
+            <span class="n">text</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">dim_x</span> <span class="o">+</span> <span class="mf">1.1</span><span class="p">,</span> <span class="n">ecy</span><span class="p">),</span>
+                <span class="sa">f</span><span class="s2">"h=</span><span class="si">{</span><span class="n">eff_h</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
+                <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">),</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="n">step_n</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">circle</span><span class="p">((</span><span class="n">ecx</span><span class="p">,</span> <span class="n">ecy</span> <span class="o">-</span> <span class="mf">1.6</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">0.95</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">)</span>
+                <span class="n">text</span><span class="p">(</span>
+                    <span class="p">(</span><span class="n">ecx</span><span class="p">,</span> <span class="n">ecy</span> <span class="o">+</span> <span class="mf">5.8</span><span class="p">),</span>
+                    <span class="s2">"entity center xy = (22, 13.5)"</span><span class="p">,</span>
+                    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+                <span class="p">)</span>
+            <span class="n">y_arrow_h</span> <span class="o">=</span> <span class="mf">10.0</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">bx</span><span class="p">,</span> <span class="n">by</span> <span class="o">=</span> <span class="mf">77.2</span><span class="p">,</span> <span class="mf">21.0</span>
+            <span class="n">er</span> <span class="o">=</span> <span class="n">ERDiagram</span><span class="p">(</span>
+                <span class="n">node_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+                <span class="n">edge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+                <span class="n">edge_text_style</span><span class="o">=</span><span class="n">EDGE_TXT</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">users</span> <span class="o">=</span> <span class="n">er</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Entity</span><span class="p">(</span><span class="s2">"users"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">21.0</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">11.8</span><span class="p">,</span> <span class="mf">14.8</span><span class="p">))</span>
+            <span class="n">users</span><span class="o">.</span><span class="n">add_column</span><span class="p">(</span><span class="s2">"id"</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">"INT"</span><span class="p">,</span> <span class="n">pk</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">users</span><span class="o">.</span><span class="n">add_column</span><span class="p">(</span><span class="s2">"email"</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">"VARCHAR"</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+            <span class="n">orders</span> <span class="o">=</span> <span class="n">er</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Entity</span><span class="p">(</span><span class="s2">"orders"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">21.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">37.2</span><span class="p">,</span> <span class="mf">14.8</span><span class="p">))</span>
+            <span class="n">orders</span><span class="o">.</span><span class="n">add_column</span><span class="p">(</span><span class="s2">"id"</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">"INT"</span><span class="p">,</span> <span class="n">pk</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">orders</span><span class="o">.</span><span class="n">add_column</span><span class="p">(</span><span class="s2">"user_id"</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">"INT"</span><span class="p">,</span> <span class="n">fk</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">er</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">bx</span><span class="p">,</span> <span class="n">by</span><span class="p">))</span>
+            <span class="n">text</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">bx</span> <span class="o">+</span> <span class="mf">37.2</span><span class="p">,</span> <span class="mf">43.2</span><span class="p">),</span>
+                <span class="s2">"PK + FK badges"</span><span class="p">,</span>
+                <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+            <span class="p">)</span>
+            <span class="n">y_arrow_h</span> <span class="o">=</span> <span class="mf">6.2</span>
+
+        <span class="c1"># Red base origin xy=(x0, y0) + +X / +Y axes</span>
+        <span class="n">line</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">bx</span><span class="p">,</span> <span class="n">by</span><span class="p">),</span>
+            <span class="p">(</span><span class="n">bx</span><span class="p">,</span> <span class="n">by</span> <span class="o">+</span> <span class="n">y_arrow_h</span><span class="p">),</span>
+            <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span>
+            <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">1.3</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="n">text</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">bx</span><span class="p">,</span> <span class="n">by</span> <span class="o">+</span> <span class="n">y_arrow_h</span> <span class="o">+</span> <span class="mf">1.3</span><span class="p">),</span>
+            <span class="s2">"+Y"</span><span class="p">,</span>
+            <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="n">line</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">bx</span><span class="p">,</span> <span class="n">by</span><span class="p">),</span>
+            <span class="p">(</span><span class="n">bx</span> <span class="o">+</span> <span class="mf">10.5</span><span class="p">,</span> <span class="n">by</span><span class="p">),</span>
+            <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span>
+            <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">1.3</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="n">text</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">bx</span> <span class="o">+</span> <span class="mf">11.3</span><span class="p">,</span> <span class="n">by</span><span class="p">),</span>
+            <span class="s2">"+X"</span><span class="p">,</span>
+            <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="n">circle</span><span class="p">((</span><span class="n">bx</span><span class="p">,</span> <span class="n">by</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">1.1</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerFlat</span><span class="p">)</span>
+        <span class="n">text</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">bx</span> <span class="o">+</span> <span class="mf">1.8</span><span class="p">,</span> <span class="mf">18.2</span><span class="p">),</span>
+            <span class="s2">"er.draw(xy=(6, 6))  (base origin)"</span><span class="p">,</span>
+            <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">),</span>
+        <span class="p">)</span>
+
+<span class="c1"># =========================================================================</span>
+<span class="c1"># Part 2: Cardinalities — IE Crow's Foot markers</span>
+<span class="c1"># =========================================================================</span>
+<span class="n">PART2_STATES</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span>
+        <span class="s2">"one_to_many"</span><span class="p">,</span>
+        <span class="mf">3.3</span><span class="p">,</span>
+        <span class="p">[</span>
+            <span class="s2">"# IE Crow's Foot One-to-Many"</span><span class="p">,</span>
+            <span class="s2">"users.connect("</span><span class="p">,</span>
+            <span class="s2">"    orders,"</span><span class="p">,</span>
+            <span class="s1">'    cardinality="1:*",'</span><span class="p">,</span>
+            <span class="s1">'    start_side="right",'</span><span class="p">,</span>
+            <span class="s1">'    end_side="left",'</span><span class="p">,</span>
+            <span class="s1">'    label="owns")'</span><span class="p">,</span>
+            <span class="s2">"er.draw(xy=(6, 6))"</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span>
+        <span class="s1">'cardinality="1:*"'</span><span class="p">,</span>
+        <span class="s1">'cardinality="1:*": Double Bar (1) to Crow</span><span class="se">\'</span><span class="s1">s Foot (0..N)'</span><span class="p">,</span>
+        <span class="s1">'1. One-to-Many ("1:*" Default)'</span><span class="p">,</span>
+        <span class="s2">"Left '1' renders double vertical bar (exactly one)"</span><span class="p">,</span>
+        <span class="s2">"Right '*' renders circle + 3-prong crow's foot (0..N)"</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="p">(</span>
+        <span class="s2">"optional_links"</span><span class="p">,</span>
+        <span class="mf">3.3</span><span class="p">,</span>
+        <span class="p">[</span>
+            <span class="s2">"# Optional child (|| to o|)"</span><span class="p">,</span>
+            <span class="s2">"users.connect("</span><span class="p">,</span>
+            <span class="s2">"    profile,"</span><span class="p">,</span>
+            <span class="s1">'    cardinality="1:0..1",'</span><span class="p">,</span>
+            <span class="s1">'    label="has")'</span><span class="p">,</span>
+            <span class="s2">"# Optional parent (o| to o&lt;)"</span><span class="p">,</span>
+            <span class="s2">"coupon.connect("</span><span class="p">,</span>
+            <span class="s2">"    orders,"</span><span class="p">,</span>
+            <span class="s1">'    cardinality="0..1:*",'</span><span class="p">,</span>
+            <span class="s1">'    label="applies")'</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span>
+        <span class="s1">'"1:0..1" / "0..1:*"'</span><span class="p">,</span>
+        <span class="s1">'Optional Zero-or-One ("1:0..1") &amp; Optional Parent ("0..1:*")'</span><span class="p">,</span>
+        <span class="s1">'2. Optional Zero-or-One ("0..1") Markers'</span><span class="p">,</span>
+        <span class="s1">'"1:0..1" pairs double bar with circle+bar (optional 1:1)'</span><span class="p">,</span>
+        <span class="s1">'"0..1:*" marks an optional parent foreign key (0..1 to N)'</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="p">(</span>
+        <span class="s2">"mandatory_m2m"</span><span class="p">,</span>
+        <span class="mf">3.5</span><span class="p">,</span>
+        <span class="p">[</span>
+            <span class="s2">"# Mandatory child (|| to |&lt;)"</span><span class="p">,</span>
+            <span class="s2">"orders.connect("</span><span class="p">,</span>
+            <span class="s2">"    items,"</span><span class="p">,</span>
+            <span class="s1">'    cardinality="1:1..*",'</span><span class="p">,</span>
+            <span class="s1">'    label="owns")'</span><span class="p">,</span>
+            <span class="s2">"# Many-to-Many (o&lt; to o&lt;)"</span><span class="p">,</span>
+            <span class="s2">"posts.connect("</span><span class="p">,</span>
+            <span class="s2">"    tags,"</span><span class="p">,</span>
+            <span class="s1">'    cardinality="*:*",'</span><span class="p">,</span>
+            <span class="s1">'    label="tagged")'</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span>
+        <span class="s1">'"1:1..*" &amp; "*:*"'</span><span class="p">,</span>
+        <span class="s1">'Mandatory Child ("1:1..*") &amp; Many-to-Many ("*:*")'</span><span class="p">,</span>
+        <span class="s1">'3. Mandatory One-or-Many &amp; Many-to-Many'</span><span class="p">,</span>
+        <span class="s1">'"1:1..*" draws bar + crow</span><span class="se">\'</span><span class="s1">s foot (at least one child)'</span><span class="p">,</span>
+        <span class="s1">'"*:*" places symmetric crow</span><span class="se">\'</span><span class="s1">s foot forks on both ends'</span><span class="p">,</span>
+    <span class="p">),</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">p2_idx</span><span class="p">,</span> <span class="p">(</span><span class="n">c_mode</span><span class="p">,</span> <span class="n">dur</span><span class="p">,</span> <span class="n">code_2</span><span class="p">,</span> <span class="n">hl_rng</span><span class="p">,</span> <span class="n">badge_txt</span><span class="p">,</span> <span class="n">foot_txt</span><span class="p">,</span> <span class="n">s_t</span><span class="p">,</span> <span class="n">s_1</span><span class="p">,</span> <span class="n">s_2</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">PART2_STATES</span><span class="p">):</span>
+    <span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="n">dur</span><span class="p">):</span>
+        <span class="n">draw_step_bar</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">draw_left_pane</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">code_2</span><span class="p">,</span> <span class="n">hl_rng</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">flow_arrow</span><span class="p">,</span> <span class="n">s_t</span><span class="p">,</span> <span class="n">s_1</span><span class="p">,</span> <span class="n">s_2</span><span class="p">)</span>
+        <span class="n">scx</span><span class="p">,</span> <span class="n">scy</span> <span class="o">=</span> <span class="n">draw_geometry_studio</span><span class="p">(</span><span class="n">badge_txt</span><span class="p">,</span> <span class="n">foot_txt</span><span class="p">)</span>
+        <span class="n">draw_sub_pills</span><span class="p">(</span><span class="n">scx</span><span class="p">,</span> <span class="p">[</span><span class="s1">'"1:*" (1-to-N)'</span><span class="p">,</span> <span class="s1">'"1:0..1" &amp; "0..1:*"'</span><span class="p">,</span> <span class="s1">'"1:1..*" &amp; "*:*"'</span><span class="p">],</span> <span class="n">p2_idx</span><span class="p">)</span>
+
+        <span class="n">er</span> <span class="o">=</span> <span class="n">ERDiagram</span><span class="p">(</span>
+            <span class="n">node_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+            <span class="n">edge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+            <span class="n">edge_text_style</span><span class="o">=</span><span class="n">EDGE_TXT</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">c_mode</span> <span class="o">==</span> <span class="s2">"one_to_many"</span><span class="p">:</span>
+            <span class="n">u</span> <span class="o">=</span> <span class="n">er</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Entity</span><span class="p">(</span><span class="s2">"users"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">19.8</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">86.4</span><span class="p">,</span> <span class="mf">34.0</span><span class="p">))</span>
+            <span class="n">u</span><span class="o">.</span><span class="n">add_column</span><span class="p">(</span><span class="s2">"id"</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">"INT"</span><span class="p">,</span> <span class="n">pk</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">u</span><span class="o">.</span><span class="n">add_column</span><span class="p">(</span><span class="s2">"email"</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">"TEXT"</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+            <span class="n">o</span> <span class="o">=</span> <span class="n">er</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Entity</span><span class="p">(</span><span class="s2">"orders"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">19.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">117.6</span><span class="p">,</span> <span class="mf">34.0</span><span class="p">))</span>
+            <span class="n">o</span><span class="o">.</span><span class="n">add_column</span><span class="p">(</span><span class="s2">"id"</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">"INT"</span><span class="p">,</span> <span class="n">pk</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">o</span><span class="o">.</span><span class="n">add_column</span><span class="p">(</span><span class="s2">"user_id"</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">"INT"</span><span class="p">,</span> <span class="n">fk</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+            <span class="n">u</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">cardinality</span><span class="o">=</span><span class="s2">"1:*"</span><span class="p">,</span> <span class="n">start_side</span><span class="o">=</span><span class="s2">"right"</span><span class="p">,</span> <span class="n">end_side</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"owns"</span><span class="p">)</span>
+            <span class="n">er</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">))</span>
+
+            <span class="n">text</span><span class="p">((</span><span class="mf">97.8</span><span class="p">,</span> <span class="mf">41.8</span><span class="p">),</span> <span class="s2">"|| (1)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
+            <span class="n">text</span><span class="p">((</span><span class="mf">106.2</span><span class="p">,</span> <span class="mf">41.8</span><span class="p">),</span> <span class="s2">"o&lt; (*)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
+            <span class="n">text</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">scx</span><span class="p">,</span> <span class="mf">19.0</span><span class="p">),</span>
+                <span class="s1">'cardinality="1:*"  •  1 parent row -&gt; 0..N child rows'</span><span class="p">,</span>
+                <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+            <span class="p">)</span>
+        <span class="k">elif</span> <span class="n">c_mode</span> <span class="o">==</span> <span class="s2">"optional_links"</span><span class="p">:</span>
+            <span class="n">xl</span><span class="p">,</span> <span class="n">xr</span> <span class="o">=</span> <span class="mf">85.0</span><span class="p">,</span> <span class="mf">119.0</span>
+            <span class="n">yt</span><span class="p">,</span> <span class="n">yb</span> <span class="o">=</span> <span class="mf">40.8</span><span class="p">,</span> <span class="mf">25.0</span>
+            <span class="n">e1</span> <span class="o">=</span> <span class="n">er</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Entity</span><span class="p">(</span><span class="s2">"users"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">15.5</span><span class="p">,</span> <span class="n">header_height</span><span class="o">=</span><span class="mf">3.6</span><span class="p">,</span> <span class="n">row_height</span><span class="o">=</span><span class="mf">3.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">xl</span><span class="p">,</span> <span class="n">yt</span><span class="p">))</span>
+            <span class="n">e1</span><span class="o">.</span><span class="n">add_column</span><span class="p">(</span><span class="s2">"id"</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">"INT"</span><span class="p">)</span>
+            <span class="n">e2</span> <span class="o">=</span> <span class="n">er</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Entity</span><span class="p">(</span><span class="s2">"profile"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">15.5</span><span class="p">,</span> <span class="n">header_height</span><span class="o">=</span><span class="mf">3.6</span><span class="p">,</span> <span class="n">row_height</span><span class="o">=</span><span class="mf">3.0</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">xr</span><span class="p">,</span> <span class="n">yt</span><span class="p">))</span>
+            <span class="n">e2</span><span class="o">.</span><span class="n">add_column</span><span class="p">(</span><span class="s2">"uid"</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">"INT"</span><span class="p">)</span>
+            <span class="n">e1</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">e2</span><span class="p">,</span> <span class="n">cardinality</span><span class="o">=</span><span class="s2">"1:0..1"</span><span class="p">,</span> <span class="n">start_side</span><span class="o">=</span><span class="s2">"right"</span><span class="p">,</span> <span class="n">end_side</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"has"</span><span class="p">)</span>
+
+            <span class="n">e3</span> <span class="o">=</span> <span class="n">er</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Entity</span><span class="p">(</span><span class="s2">"coupon"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">15.5</span><span class="p">,</span> <span class="n">header_height</span><span class="o">=</span><span class="mf">3.6</span><span class="p">,</span> <span class="n">row_height</span><span class="o">=</span><span class="mf">3.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">xl</span><span class="p">,</span> <span class="n">yb</span><span class="p">))</span>
+            <span class="n">e3</span><span class="o">.</span><span class="n">add_column</span><span class="p">(</span><span class="s2">"id"</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">"INT"</span><span class="p">)</span>
+            <span class="n">e4</span> <span class="o">=</span> <span class="n">er</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Entity</span><span class="p">(</span><span class="s2">"orders"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">15.5</span><span class="p">,</span> <span class="n">header_height</span><span class="o">=</span><span class="mf">3.6</span><span class="p">,</span> <span class="n">row_height</span><span class="o">=</span><span class="mf">3.0</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">xr</span><span class="p">,</span> <span class="n">yb</span><span class="p">))</span>
+            <span class="n">e4</span><span class="o">.</span><span class="n">add_column</span><span class="p">(</span><span class="s2">"cid"</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">"INT"</span><span class="p">)</span>
+            <span class="n">e3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">e4</span><span class="p">,</span> <span class="n">cardinality</span><span class="o">=</span><span class="s2">"0..1:*"</span><span class="p">,</span> <span class="n">start_side</span><span class="o">=</span><span class="s2">"right"</span><span class="p">,</span> <span class="n">end_side</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"applies"</span><span class="p">)</span>
+            <span class="n">er</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">))</span>
+
+            <span class="n">text</span><span class="p">((</span><span class="n">scx</span><span class="p">,</span> <span class="mf">46.5</span><span class="p">),</span> <span class="s1">'"1:0..1"  (One to Zero-or-One)'</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
+            <span class="n">text</span><span class="p">((</span><span class="n">scx</span><span class="p">,</span> <span class="mf">18.6</span><span class="p">),</span> <span class="s1">'"0..1:*"  (Zero-or-One to Zero-or-Many)'</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">xl</span><span class="p">,</span> <span class="n">xr</span> <span class="o">=</span> <span class="mf">85.0</span><span class="p">,</span> <span class="mf">119.0</span>
+            <span class="n">yt</span><span class="p">,</span> <span class="n">yb</span> <span class="o">=</span> <span class="mf">40.8</span><span class="p">,</span> <span class="mf">25.0</span>
+            <span class="n">e1</span> <span class="o">=</span> <span class="n">er</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Entity</span><span class="p">(</span><span class="s2">"orders"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">15.5</span><span class="p">,</span> <span class="n">header_height</span><span class="o">=</span><span class="mf">3.6</span><span class="p">,</span> <span class="n">row_height</span><span class="o">=</span><span class="mf">3.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">xl</span><span class="p">,</span> <span class="n">yt</span><span class="p">))</span>
+            <span class="n">e1</span><span class="o">.</span><span class="n">add_column</span><span class="p">(</span><span class="s2">"id"</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">"INT"</span><span class="p">)</span>
+            <span class="n">e2</span> <span class="o">=</span> <span class="n">er</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Entity</span><span class="p">(</span><span class="s2">"items"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">15.5</span><span class="p">,</span> <span class="n">header_height</span><span class="o">=</span><span class="mf">3.6</span><span class="p">,</span> <span class="n">row_height</span><span class="o">=</span><span class="mf">3.0</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">xr</span><span class="p">,</span> <span class="n">yt</span><span class="p">))</span>
+            <span class="n">e2</span><span class="o">.</span><span class="n">add_column</span><span class="p">(</span><span class="s2">"oid"</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">"INT"</span><span class="p">)</span>
+            <span class="n">e1</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">e2</span><span class="p">,</span> <span class="n">cardinality</span><span class="o">=</span><span class="s2">"1:1..*"</span><span class="p">,</span> <span class="n">start_side</span><span class="o">=</span><span class="s2">"right"</span><span class="p">,</span> <span class="n">end_side</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"owns"</span><span class="p">)</span>
+
+            <span class="n">e3</span> <span class="o">=</span> <span class="n">er</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Entity</span><span class="p">(</span><span class="s2">"posts"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">15.5</span><span class="p">,</span> <span class="n">header_height</span><span class="o">=</span><span class="mf">3.6</span><span class="p">,</span> <span class="n">row_height</span><span class="o">=</span><span class="mf">3.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">xl</span><span class="p">,</span> <span class="n">yb</span><span class="p">))</span>
+            <span class="n">e3</span><span class="o">.</span><span class="n">add_column</span><span class="p">(</span><span class="s2">"id"</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">"INT"</span><span class="p">)</span>
+            <span class="n">e4</span> <span class="o">=</span> <span class="n">er</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Entity</span><span class="p">(</span><span class="s2">"tags"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">15.5</span><span class="p">,</span> <span class="n">header_height</span><span class="o">=</span><span class="mf">3.6</span><span class="p">,</span> <span class="n">row_height</span><span class="o">=</span><span class="mf">3.0</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">xr</span><span class="p">,</span> <span class="n">yb</span><span class="p">))</span>
+            <span class="n">e4</span><span class="o">.</span><span class="n">add_column</span><span class="p">(</span><span class="s2">"id"</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">"INT"</span><span class="p">)</span>
+            <span class="n">e3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">e4</span><span class="p">,</span> <span class="n">cardinality</span><span class="o">=</span><span class="s2">"*:*"</span><span class="p">,</span> <span class="n">start_side</span><span class="o">=</span><span class="s2">"right"</span><span class="p">,</span> <span class="n">end_side</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"tagged"</span><span class="p">)</span>
+            <span class="n">er</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">))</span>
+
+            <span class="n">text</span><span class="p">((</span><span class="n">scx</span><span class="p">,</span> <span class="mf">46.5</span><span class="p">),</span> <span class="s1">'"1:1..*"  (Mandatory One-or-Many)'</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
+            <span class="n">text</span><span class="p">((</span><span class="n">scx</span><span class="p">,</span> <span class="mf">18.6</span><span class="p">),</span> <span class="s1">'"*:*"  (Symmetric Many-to-Many)'</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
+
+<span class="c1"># =========================================================================</span>
+<span class="c1"># Part 3: Row Anchoring — Perimeter midpoint vs start_column &amp; end_column</span>
+<span class="c1"># =========================================================================</span>
+<span class="n">PART3_STATES</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span>
+        <span class="s2">"midpoint"</span><span class="p">,</span>
+        <span class="mf">3.3</span><span class="p">,</span>
+        <span class="p">[</span>
+            <span class="s2">"# Default: card side midpoint"</span><span class="p">,</span>
+            <span class="s2">"users.connect("</span><span class="p">,</span>
+            <span class="s2">"    orders,"</span><span class="p">,</span>
+            <span class="s1">'    cardinality="1:*",'</span><span class="p">,</span>
+            <span class="s1">'    start_side="right",'</span><span class="p">,</span>
+            <span class="s1">'    end_side="left")'</span><span class="p">,</span>
+            <span class="s2">"# start_column / end_column"</span><span class="p">,</span>
+            <span class="s2">"# omitted -&gt; attaches at cy"</span><span class="p">,</span>
+            <span class="s2">"er.draw(xy=(6, 6))"</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
+        <span class="s2">"Side Midpoint"</span><span class="p">,</span>
+        <span class="s2">"No Column Names: Attaches at Card Vertical Midpoint (cy)"</span><span class="p">,</span>
+        <span class="s2">"1. Entity-Perimeter Midpoint Anchor"</span><span class="p">,</span>
+        <span class="s2">"Omitting start_column / end_column attaches at cy"</span><span class="p">,</span>
+        <span class="s2">"Clean for high-level conceptual ER overviews"</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="p">(</span>
+        <span class="s2">"row_anchor"</span><span class="p">,</span>
+        <span class="mf">3.3</span><span class="p">,</span>
+        <span class="p">[</span>
+            <span class="s2">"# Pin directly to PK &amp; FK rows!"</span><span class="p">,</span>
+            <span class="s2">"users.connect("</span><span class="p">,</span>
+            <span class="s2">"    orders,"</span><span class="p">,</span>
+            <span class="s1">'    cardinality="1:*",'</span><span class="p">,</span>
+            <span class="s1">'    start_side="right",'</span><span class="p">,</span>
+            <span class="s1">'    end_side="left",'</span><span class="p">,</span>
+            <span class="s1">'    start_column="id",'</span><span class="p">,</span>
+            <span class="s1">'    end_column="user_id")'</span><span class="p">,</span>
+            <span class="s2">"er.draw(xy=(6, 6))"</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span>
+        <span class="s2">"PK -&gt; FK Rows"</span><span class="p">,</span>
+        <span class="s1">'start_column="id" -&gt; end_column="user_id" Row Snapping'</span><span class="p">,</span>
+        <span class="s2">"2. Exact Row-Level PK -&gt; FK Anchoring"</span><span class="p">,</span>
+        <span class="s2">"Snaps wire directly from users.id [PK] to user_id [FK]"</span><span class="p">,</span>
+        <span class="s2">"Orthogonal Z-bend routes cleanly between exact rows"</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="p">(</span>
+        <span class="s2">"multi_fk"</span><span class="p">,</span>
+        <span class="mf">3.5</span><span class="p">,</span>
+        <span class="p">[</span>
+            <span class="s2">"users.connect("</span><span class="p">,</span>
+            <span class="s1">'    orders, cardinality="1:*",'</span><span class="p">,</span>
+            <span class="s1">'    start_column="id",'</span><span class="p">,</span>
+            <span class="s1">'    end_column="user_id")'</span><span class="p">,</span>
+            <span class="s2">"orders.connect("</span><span class="p">,</span>
+            <span class="s1">'    items, cardinality="1:*",'</span><span class="p">,</span>
+            <span class="s1">'    start_side="left",'</span><span class="p">,</span>
+            <span class="s1">'    end_side="right",'</span><span class="p">,</span>
+            <span class="s1">'    start_column="id",'</span><span class="p">,</span>
+            <span class="s1">'    end_column="ord_id")'</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span>
+        <span class="s2">"Multi-FK Schema"</span><span class="p">,</span>
+        <span class="s2">"Multi-Table Row Anchoring: users.id &amp; orders.id -&gt; FKs"</span><span class="p">,</span>
+        <span class="s2">"3. Multi-Table Relational FK Wiring"</span><span class="p">,</span>
+        <span class="s2">"Each foreign key links unambiguously to its target PK"</span><span class="p">,</span>
+        <span class="s2">"Zero crossing when row order matches vertical layout"</span><span class="p">,</span>
+    <span class="p">),</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">p3_idx</span><span class="p">,</span> <span class="p">(</span><span class="n">a_mode</span><span class="p">,</span> <span class="n">dur</span><span class="p">,</span> <span class="n">code_3</span><span class="p">,</span> <span class="n">hl_rng</span><span class="p">,</span> <span class="n">badge_txt</span><span class="p">,</span> <span class="n">foot_txt</span><span class="p">,</span> <span class="n">s_t</span><span class="p">,</span> <span class="n">s_1</span><span class="p">,</span> <span class="n">s_2</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">PART3_STATES</span><span class="p">):</span>
+    <span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="n">dur</span><span class="p">):</span>
+        <span class="n">draw_step_bar</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+        <span class="n">draw_left_pane</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">code_3</span><span class="p">,</span> <span class="n">hl_rng</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">link</span><span class="p">,</span> <span class="n">s_t</span><span class="p">,</span> <span class="n">s_1</span><span class="p">,</span> <span class="n">s_2</span><span class="p">)</span>
+        <span class="n">scx</span><span class="p">,</span> <span class="n">scy</span> <span class="o">=</span> <span class="n">draw_geometry_studio</span><span class="p">(</span><span class="n">badge_txt</span><span class="p">,</span> <span class="n">foot_txt</span><span class="p">)</span>
+        <span class="n">draw_sub_pills</span><span class="p">(</span><span class="n">scx</span><span class="p">,</span> <span class="p">[</span><span class="s2">"Card Midpoint"</span><span class="p">,</span> <span class="s2">"PK -&gt; FK Rows"</span><span class="p">,</span> <span class="s2">"Multi-FK Schema"</span><span class="p">],</span> <span class="n">p3_idx</span><span class="p">)</span>
+
+        <span class="n">er</span> <span class="o">=</span> <span class="n">ERDiagram</span><span class="p">(</span>
+            <span class="n">node_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+            <span class="n">edge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+            <span class="n">edge_text_style</span><span class="o">=</span><span class="n">EDGE_TXT</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">a_mode</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">"midpoint"</span><span class="p">,</span> <span class="s2">"row_anchor"</span><span class="p">}:</span>
+            <span class="n">u</span> <span class="o">=</span> <span class="n">er</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Entity</span><span class="p">(</span><span class="s2">"users"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">20.4</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">86.7</span><span class="p">,</span> <span class="mf">34.2</span><span class="p">))</span>
+            <span class="n">u</span><span class="o">.</span><span class="n">add_column</span><span class="p">(</span><span class="s2">"id"</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">"INT"</span><span class="p">,</span> <span class="n">pk</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">u</span><span class="o">.</span><span class="n">add_column</span><span class="p">(</span><span class="s2">"email"</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">"TEXT"</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="n">u</span><span class="o">.</span><span class="n">add_column</span><span class="p">(</span><span class="s2">"name"</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">"TEXT"</span><span class="p">)</span>
+
+            <span class="n">o</span> <span class="o">=</span> <span class="n">er</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Entity</span><span class="p">(</span><span class="s2">"orders"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">20.4</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">117.3</span><span class="p">,</span> <span class="mf">34.2</span><span class="p">))</span>
+            <span class="n">o</span><span class="o">.</span><span class="n">add_column</span><span class="p">(</span><span class="s2">"id"</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">"INT"</span><span class="p">,</span> <span class="n">pk</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">o</span><span class="o">.</span><span class="n">add_column</span><span class="p">(</span><span class="s2">"total"</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">"DEC"</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="n">o</span><span class="o">.</span><span class="n">add_column</span><span class="p">(</span><span class="s2">"user_id"</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">"INT"</span><span class="p">,</span> <span class="n">fk</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">a_mode</span> <span class="o">==</span> <span class="s2">"midpoint"</span><span class="p">:</span>
+                <span class="n">u</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">cardinality</span><span class="o">=</span><span class="s2">"1:*"</span><span class="p">,</span> <span class="n">start_side</span><span class="o">=</span><span class="s2">"right"</span><span class="p">,</span> <span class="n">end_side</span><span class="o">=</span><span class="s2">"left"</span><span class="p">)</span>
+                <span class="n">er</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">))</span>
+                <span class="n">circle</span><span class="p">((</span><span class="mf">96.9</span><span class="p">,</span> <span class="mf">34.2</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">0.85</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerFlat</span><span class="p">)</span>
+                <span class="n">circle</span><span class="p">((</span><span class="mf">107.1</span><span class="p">,</span> <span class="mf">34.2</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">0.85</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerFlat</span><span class="p">)</span>
+                <span class="n">text</span><span class="p">(</span>
+                    <span class="p">(</span><span class="n">scx</span><span class="p">,</span> <span class="mf">43.2</span><span class="p">),</span>
+                    <span class="s2">"attaches to vertical midpoint (cy)"</span><span class="p">,</span>
+                    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+                <span class="p">)</span>
+                <span class="n">text</span><span class="p">(</span>
+                    <span class="p">(</span><span class="n">scx</span><span class="p">,</span> <span class="mf">18.8</span><span class="p">),</span>
+                    <span class="s2">"card-center ports (not tied to specific PK / FK rows)"</span><span class="p">,</span>
+                    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+                <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">u</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+                    <span class="n">o</span><span class="p">,</span>
+                    <span class="n">cardinality</span><span class="o">=</span><span class="s2">"1:*"</span><span class="p">,</span>
+                    <span class="n">start_side</span><span class="o">=</span><span class="s2">"right"</span><span class="p">,</span>
+                    <span class="n">end_side</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span>
+                    <span class="n">start_column</span><span class="o">=</span><span class="s2">"id"</span><span class="p">,</span>
+                    <span class="n">end_column</span><span class="o">=</span><span class="s2">"user_id"</span><span class="p">,</span>
+                <span class="p">)</span>
+                <span class="n">er</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">))</span>
+                <span class="c1"># Exact row anchor coordinates: users.id (row 0 -&gt; 35.4), orders.user_id (row 2 -&gt; 29.0)</span>
+                <span class="n">circle</span><span class="p">((</span><span class="mf">96.9</span><span class="p">,</span> <span class="mf">35.4</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerFlat</span><span class="p">)</span>
+                <span class="n">circle</span><span class="p">((</span><span class="mf">107.1</span><span class="p">,</span> <span class="mf">29.0</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerFlat</span><span class="p">)</span>
+                <span class="n">text</span><span class="p">(</span>
+                    <span class="p">(</span><span class="n">scx</span><span class="p">,</span> <span class="mf">43.2</span><span class="p">),</span>
+                    <span class="s2">"users.id [PK]  -&gt;  orders.user_id [FK]"</span><span class="p">,</span>
+                    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+                <span class="p">)</span>
+                <span class="n">text</span><span class="p">(</span>
+                    <span class="p">(</span><span class="n">scx</span><span class="p">,</span> <span class="mf">18.8</span><span class="p">),</span>
+                    <span class="s2">"red dots mark exact row-level attachment ports!"</span><span class="p">,</span>
+                    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+                <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">items</span> <span class="o">=</span> <span class="n">er</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+                <span class="n">Entity</span><span class="p">(</span><span class="s2">"items"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">20.2</span><span class="p">,</span> <span class="n">header_height</span><span class="o">=</span><span class="mf">3.6</span><span class="p">,</span> <span class="n">row_height</span><span class="o">=</span><span class="mf">2.9</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">),</span>
+                <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">86.9</span><span class="p">,</span> <span class="mf">43.1</span><span class="p">),</span>
+            <span class="p">)</span>
+            <span class="n">items</span><span class="o">.</span><span class="n">add_column</span><span class="p">(</span><span class="s2">"id"</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">"INT"</span><span class="p">,</span> <span class="n">pk</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">items</span><span class="o">.</span><span class="n">add_column</span><span class="p">(</span><span class="s2">"ord_id"</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">"INT"</span><span class="p">,</span> <span class="n">fk</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+            <span class="n">users</span> <span class="o">=</span> <span class="n">er</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+                <span class="n">Entity</span><span class="p">(</span><span class="s2">"users"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">20.2</span><span class="p">,</span> <span class="n">header_height</span><span class="o">=</span><span class="mf">3.6</span><span class="p">,</span> <span class="n">row_height</span><span class="o">=</span><span class="mf">2.9</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
+                <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">86.9</span><span class="p">,</span> <span class="mf">24.9</span><span class="p">),</span>
+            <span class="p">)</span>
+            <span class="n">users</span><span class="o">.</span><span class="n">add_column</span><span class="p">(</span><span class="s2">"id"</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">"INT"</span><span class="p">,</span> <span class="n">pk</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">users</span><span class="o">.</span><span class="n">add_column</span><span class="p">(</span><span class="s2">"email"</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">"TEXT"</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+            <span class="n">orders</span> <span class="o">=</span> <span class="n">er</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+                <span class="n">Entity</span><span class="p">(</span><span class="s2">"orders"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">20.2</span><span class="p">,</span> <span class="n">header_height</span><span class="o">=</span><span class="mf">3.8</span><span class="p">,</span> <span class="n">row_height</span><span class="o">=</span><span class="mf">3.1</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">),</span>
+                <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">117.1</span><span class="p">,</span> <span class="mf">34.0</span><span class="p">),</span>
+            <span class="p">)</span>
+            <span class="n">orders</span><span class="o">.</span><span class="n">add_column</span><span class="p">(</span><span class="s2">"id"</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">"INT"</span><span class="p">,</span> <span class="n">pk</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">orders</span><span class="o">.</span><span class="n">add_column</span><span class="p">(</span><span class="s2">"user_id"</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">"INT"</span><span class="p">,</span> <span class="n">fk</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">orders</span><span class="o">.</span><span class="n">add_column</span><span class="p">(</span><span class="s2">"total"</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">"DEC"</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+            <span class="n">orders</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+                <span class="n">items</span><span class="p">,</span>
+                <span class="n">cardinality</span><span class="o">=</span><span class="s2">"1:*"</span><span class="p">,</span>
+                <span class="n">start_side</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span>
+                <span class="n">end_side</span><span class="o">=</span><span class="s2">"right"</span><span class="p">,</span>
+                <span class="n">start_column</span><span class="o">=</span><span class="s2">"id"</span><span class="p">,</span>
+                <span class="n">end_column</span><span class="o">=</span><span class="s2">"ord_id"</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">users</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+                <span class="n">orders</span><span class="p">,</span>
+                <span class="n">cardinality</span><span class="o">=</span><span class="s2">"1:*"</span><span class="p">,</span>
+                <span class="n">start_side</span><span class="o">=</span><span class="s2">"right"</span><span class="p">,</span>
+                <span class="n">end_side</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span>
+                <span class="n">start_column</span><span class="o">=</span><span class="s2">"id"</span><span class="p">,</span>
+                <span class="n">end_column</span><span class="o">=</span><span class="s2">"user_id"</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">er</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">))</span>
+
+            <span class="k">for</span> <span class="n">rx</span><span class="p">,</span> <span class="n">ry</span> <span class="ow">in</span> <span class="p">((</span><span class="mf">97.0</span><span class="p">,</span> <span class="mf">39.85</span><span class="p">),</span> <span class="p">(</span><span class="mf">107.0</span><span class="p">,</span> <span class="mf">35.2</span><span class="p">),</span> <span class="p">(</span><span class="mf">97.0</span><span class="p">,</span> <span class="mf">24.55</span><span class="p">),</span> <span class="p">(</span><span class="mf">107.0</span><span class="p">,</span> <span class="mf">32.1</span><span class="p">)):</span>
+                <span class="n">circle</span><span class="p">((</span><span class="n">rx</span><span class="p">,</span> <span class="n">ry</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">0.75</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerFlat</span><span class="p">)</span>
+            <span class="n">text</span><span class="p">(</span>
+                <span class="p">(</span><span class="mf">117.1</span><span class="p">,</span> <span class="mf">18.5</span><span class="p">),</span>
+                <span class="s2">"2 non-crossing PK-&gt;FK wires"</span><span class="p">,</span>
+                <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+            <span class="p">)</span>
+
+<span class="c1"># =========================================================================</span>
+<span class="c1"># Part 4: Style &amp; Reveal — header_style, show=False &amp; align="center"</span>
+<span class="c1"># =========================================================================</span>
+<span class="n">PART4_STATES</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span>
+        <span class="s2">"header_style"</span><span class="p">,</span>
+        <span class="mf">3.3</span><span class="p">,</span>
+        <span class="p">[</span>
+            <span class="s2">"HDR = Styles.PrimaryFlat.patch("</span><span class="p">,</span>
+            <span class="s2">"    text_color=Colors.White)"</span><span class="p">,</span>
+            <span class="s2">"orders = er.add("</span><span class="p">,</span>
+            <span class="s2">"    Entity("</span><span class="p">,</span>
+            <span class="s1">'        "orders", width=20.2,'</span><span class="p">,</span>
+            <span class="s2">"        header_style=HDR),"</span><span class="p">,</span>
+            <span class="s2">"    xy=(40, 13.8))"</span><span class="p">,</span>
+            <span class="s2">"# Keep sibling tables Neutral!"</span><span class="p">,</span>
+            <span class="s1">'users = er.add(Entity("users"),'</span><span class="p">,</span>
+            <span class="s2">"    xy=(10, 4.7))"</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span>
+        <span class="s2">"header_style"</span><span class="p">,</span>
+        <span class="s2">"header_style: Hero PrimaryFlat Header on Focal Table"</span><span class="p">,</span>
+        <span class="s2">"1. Focal Entity Header Styling"</span><span class="p">,</span>
+        <span class="s2">"Highlight core fact/order table via header_style"</span><span class="p">,</span>
+        <span class="s2">"Keep 50</span><span class="si">%+ s</span><span class="s2">ibling tables grounded in Neutral styles"</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="p">(</span>
+        <span class="s2">"hide_entity"</span><span class="p">,</span>
+        <span class="mf">3.3</span><span class="p">,</span>
+        <span class="p">[</span>
+            <span class="s1">'items = er.add(Entity("items"),'</span><span class="p">,</span>
+            <span class="s2">"    xy=(10, 22.9))"</span><span class="p">,</span>
+            <span class="s2">"orders.connect("</span><span class="p">,</span>
+            <span class="s1">'    items, cardinality="1:*",'</span><span class="p">,</span>
+            <span class="s1">'    start_column="id",'</span><span class="p">,</span>
+            <span class="s1">'    end_column="ord_id")'</span><span class="p">,</span>
+            <span class="s2">""</span><span class="p">,</span>
+            <span class="s2">"# Hide table + incident FK wire!"</span><span class="p">,</span>
+            <span class="s2">"items.show = False"</span><span class="p">,</span>
+            <span class="s2">"er.draw(xy=(6, 6))"</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span>
+        <span class="s2">"show = False"</span><span class="p">,</span>
+        <span class="s2">"items.show=False: Hides Entity &amp; Incident FK Relationship"</span><span class="p">,</span>
+        <span class="s2">"2. Schema-Stable Visibility (show = False)"</span><span class="p">,</span>
+        <span class="s2">"Hides items table and its orders-&gt;items Crow's Foot wire"</span><span class="p">,</span>
+        <span class="s2">"users and orders stay locked in place for step builds"</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="p">(</span>
+        <span class="s2">"center_align"</span><span class="p">,</span>
+        <span class="mf">3.5</span><span class="p">,</span>
+        <span class="p">[</span>
+            <span class="s2">"er = ERDiagram("</span><span class="p">,</span>
+            <span class="s2">"    ..., width=50.4, height=27.6)"</span><span class="p">,</span>
+            <span class="s1">'users = er.add(Entity("users"),'</span><span class="p">,</span>
+            <span class="s2">"    xy=(10, 4.7))"</span><span class="p">,</span>
+            <span class="s1">'items = er.add(Entity("items"),'</span><span class="p">,</span>
+            <span class="s2">"    xy=(10, 22.9))"</span><span class="p">,</span>
+            <span class="s1">'orders = er.add(Entity("orders"),'</span><span class="p">,</span>
+            <span class="s2">"    xy=(40, 13.8))"</span><span class="p">,</span>
+            <span class="s2">"er.draw("</span><span class="p">,</span>
+            <span class="s2">"    xy=(34, 20),"</span><span class="p">,</span>
+            <span class="s1">'    align="center")'</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
+        <span class="s1">'align="center"'</span><span class="p">,</span>
+        <span class="s1">'align="center": Centers (width, height) Schema Box on xy'</span><span class="p">,</span>
+        <span class="s1">'3. Centered Placement (align="center")'</span><span class="p">,</span>
+        <span class="s2">"Centers total (width, height) diagram bounds on xy"</span><span class="p">,</span>
+        <span class="s2">"Great for multi-panel architecture &amp; database views"</span><span class="p">,</span>
+    <span class="p">),</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">p4_idx</span><span class="p">,</span> <span class="p">(</span><span class="n">p4_mode</span><span class="p">,</span> <span class="n">dur</span><span class="p">,</span> <span class="n">code_4</span><span class="p">,</span> <span class="n">hl_rng</span><span class="p">,</span> <span class="n">badge_txt</span><span class="p">,</span> <span class="n">foot_txt</span><span class="p">,</span> <span class="n">s_t</span><span class="p">,</span> <span class="n">s_1</span><span class="p">,</span> <span class="n">s_2</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">PART4_STATES</span><span class="p">):</span>
+    <span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="n">dur</span><span class="p">):</span>
+        <span class="n">draw_step_bar</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+        <span class="n">draw_left_pane</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">code_4</span><span class="p">,</span> <span class="n">hl_rng</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">crosshair</span><span class="p">,</span> <span class="n">s_t</span><span class="p">,</span> <span class="n">s_1</span><span class="p">,</span> <span class="n">s_2</span><span class="p">)</span>
+        <span class="n">scx</span><span class="p">,</span> <span class="n">scy</span> <span class="o">=</span> <span class="n">draw_geometry_studio</span><span class="p">(</span><span class="n">badge_txt</span><span class="p">,</span> <span class="n">foot_txt</span><span class="p">)</span>
+        <span class="n">draw_sub_pills</span><span class="p">(</span><span class="n">scx</span><span class="p">,</span> <span class="p">[</span><span class="s2">"header_style"</span><span class="p">,</span> <span class="s2">"show = False"</span><span class="p">,</span> <span class="s1">'align="center"'</span><span class="p">],</span> <span class="n">p4_idx</span><span class="p">)</span>
+
+        <span class="n">dw</span><span class="p">,</span> <span class="n">dh</span> <span class="o">=</span> <span class="mf">50.4</span><span class="p">,</span> <span class="mf">27.6</span>
+        <span class="n">er</span> <span class="o">=</span> <span class="n">ERDiagram</span><span class="p">(</span>
+            <span class="n">node_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+            <span class="n">edge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+            <span class="n">edge_text_style</span><span class="o">=</span><span class="n">EDGE_TXT</span><span class="p">,</span>
+            <span class="n">width</span><span class="o">=</span><span class="n">dw</span><span class="p">,</span>
+            <span class="n">height</span><span class="o">=</span><span class="n">dh</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">hdr_hero</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_color</span><span class="o">=</span><span class="n">Colors</span><span class="o">.</span><span class="n">White</span><span class="p">)</span>
+
+        <span class="n">items</span> <span class="o">=</span> <span class="n">er</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+            <span class="n">Entity</span><span class="p">(</span><span class="s2">"items"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">20.2</span><span class="p">,</span> <span class="n">header_height</span><span class="o">=</span><span class="mf">3.6</span><span class="p">,</span> <span class="n">row_height</span><span class="o">=</span><span class="mf">2.9</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">),</span>
+            <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">10.1</span><span class="p">,</span> <span class="mf">22.9</span><span class="p">),</span>
+            <span class="n">show</span><span class="o">=</span><span class="p">(</span><span class="n">p4_mode</span> <span class="o">!=</span> <span class="s2">"hide_entity"</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="n">items</span><span class="o">.</span><span class="n">add_column</span><span class="p">(</span><span class="s2">"id"</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">"INT"</span><span class="p">,</span> <span class="n">pk</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">items</span><span class="o">.</span><span class="n">add_column</span><span class="p">(</span><span class="s2">"ord_id"</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">"INT"</span><span class="p">,</span> <span class="n">fk</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="n">users</span> <span class="o">=</span> <span class="n">er</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+            <span class="n">Entity</span><span class="p">(</span><span class="s2">"users"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">20.2</span><span class="p">,</span> <span class="n">header_height</span><span class="o">=</span><span class="mf">3.6</span><span class="p">,</span> <span class="n">row_height</span><span class="o">=</span><span class="mf">2.9</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
+            <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">10.1</span><span class="p">,</span> <span class="mf">4.7</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="n">users</span><span class="o">.</span><span class="n">add_column</span><span class="p">(</span><span class="s2">"id"</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">"INT"</span><span class="p">,</span> <span class="n">pk</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">users</span><span class="o">.</span><span class="n">add_column</span><span class="p">(</span><span class="s2">"email"</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">"TEXT"</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="n">orders</span> <span class="o">=</span> <span class="n">er</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+            <span class="n">Entity</span><span class="p">(</span>
+                <span class="s2">"orders"</span><span class="p">,</span>
+                <span class="n">width</span><span class="o">=</span><span class="mf">20.2</span><span class="p">,</span>
+                <span class="n">header_height</span><span class="o">=</span><span class="mf">3.8</span><span class="p">,</span>
+                <span class="n">row_height</span><span class="o">=</span><span class="mf">3.1</span><span class="p">,</span>
+                <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
+                <span class="n">header_style</span><span class="o">=</span><span class="n">hdr_hero</span> <span class="k">if</span> <span class="n">p4_mode</span> <span class="o">==</span> <span class="s2">"header_style"</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">40.3</span><span class="p">,</span> <span class="mf">13.8</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="n">orders</span><span class="o">.</span><span class="n">add_column</span><span class="p">(</span><span class="s2">"id"</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">"INT"</span><span class="p">,</span> <span class="n">pk</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">orders</span><span class="o">.</span><span class="n">add_column</span><span class="p">(</span><span class="s2">"user_id"</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">"INT"</span><span class="p">,</span> <span class="n">fk</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">orders</span><span class="o">.</span><span class="n">add_column</span><span class="p">(</span><span class="s2">"total"</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">"DEC"</span><span class="p">,</span> <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="n">orders</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+            <span class="n">items</span><span class="p">,</span>
+            <span class="n">cardinality</span><span class="o">=</span><span class="s2">"1:*"</span><span class="p">,</span>
+            <span class="n">start_side</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span>
+            <span class="n">end_side</span><span class="o">=</span><span class="s2">"right"</span><span class="p">,</span>
+            <span class="n">start_column</span><span class="o">=</span><span class="s2">"id"</span><span class="p">,</span>
+            <span class="n">end_column</span><span class="o">=</span><span class="s2">"ord_id"</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">users</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+            <span class="n">orders</span><span class="p">,</span>
+            <span class="n">cardinality</span><span class="o">=</span><span class="s2">"1:*"</span><span class="p">,</span>
+            <span class="n">start_side</span><span class="o">=</span><span class="s2">"right"</span><span class="p">,</span>
+            <span class="n">end_side</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span>
+            <span class="n">start_column</span><span class="o">=</span><span class="s2">"id"</span><span class="p">,</span>
+            <span class="n">end_column</span><span class="o">=</span><span class="s2">"user_id"</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">p4_mode</span> <span class="o">==</span> <span class="s2">"header_style"</span><span class="p">:</span>
+            <span class="n">er</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">76.8</span><span class="p">,</span> <span class="mf">20.2</span><span class="p">))</span>
+            <span class="n">text</span><span class="p">(</span>
+                <span class="p">(</span><span class="mf">117.1</span><span class="p">,</span> <span class="mf">42.4</span><span class="p">),</span>
+                <span class="s2">"PrimaryFlat header"</span><span class="p">,</span>
+                <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+            <span class="p">)</span>
+            <span class="n">text</span><span class="p">(</span>
+                <span class="p">(</span><span class="mf">117.1</span><span class="p">,</span> <span class="mf">18.5</span><span class="p">),</span>
+                <span class="s2">"focal orders + 2 Neutral siblings"</span><span class="p">,</span>
+                <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+            <span class="p">)</span>
+        <span class="k">elif</span> <span class="n">p4_mode</span> <span class="o">==</span> <span class="s2">"hide_entity"</span><span class="p">:</span>
+            <span class="n">bx</span><span class="p">,</span> <span class="n">by</span> <span class="o">=</span> <span class="mf">76.8</span><span class="p">,</span> <span class="mf">20.2</span>
+            <span class="n">er</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">bx</span><span class="p">,</span> <span class="n">by</span><span class="p">))</span>
+            <span class="n">rectangle</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">bx</span> <span class="o">+</span> <span class="mf">10.1</span><span class="p">,</span> <span class="n">by</span> <span class="o">+</span> <span class="mf">22.9</span><span class="p">),</span>
+                <span class="n">width</span><span class="o">=</span><span class="mf">20.2</span><span class="p">,</span>
+                <span class="n">height</span><span class="o">=</span><span class="mf">9.4</span><span class="p">,</span>
+                <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.1</span><span class="p">),</span>
+            <span class="p">)</span>
+            <span class="n">text</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">bx</span> <span class="o">+</span> <span class="mf">10.1</span><span class="p">,</span> <span class="n">by</span> <span class="o">+</span> <span class="mf">22.9</span><span class="p">),</span>
+                <span class="s2">"show=False"</span><span class="p">,</span>
+                <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+            <span class="p">)</span>
+            <span class="n">text</span><span class="p">(</span>
+                <span class="p">(</span><span class="mf">117.1</span><span class="p">,</span> <span class="mf">18.5</span><span class="p">),</span>
+                <span class="s2">"items + FK wire hidden in place"</span><span class="p">,</span>
+                <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">cx_a</span><span class="p">,</span> <span class="n">cy_a</span> <span class="o">=</span> <span class="n">scx</span><span class="p">,</span> <span class="mf">34.0</span>
+            <span class="n">er</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">cx_a</span><span class="p">,</span> <span class="n">cy_a</span><span class="p">),</span> <span class="n">align</span><span class="o">=</span><span class="s2">"center"</span><span class="p">)</span>
+            <span class="n">rectangle</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">cx_a</span><span class="p">,</span> <span class="n">cy_a</span><span class="p">),</span>
+                <span class="n">width</span><span class="o">=</span><span class="n">dw</span><span class="p">,</span>
+                <span class="n">height</span><span class="o">=</span><span class="n">dh</span><span class="p">,</span>
+                <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryDashed</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.2</span><span class="p">),</span>
+            <span class="p">)</span>
+            <span class="n">line</span><span class="p">((</span><span class="n">cx_a</span> <span class="o">-</span> <span class="n">dw</span> <span class="o">/</span> <span class="mf">2.0</span> <span class="o">-</span> <span class="mf">1.3</span><span class="p">,</span> <span class="n">cy_a</span><span class="p">),</span> <span class="p">(</span><span class="n">cx_a</span> <span class="o">-</span> <span class="n">dw</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">,</span> <span class="n">cy_a</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
+            <span class="n">line</span><span class="p">((</span><span class="n">cx_a</span> <span class="o">+</span> <span class="n">dw</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">,</span> <span class="n">cy_a</span><span class="p">),</span> <span class="p">(</span><span class="n">cx_a</span> <span class="o">+</span> <span class="n">dw</span> <span class="o">/</span> <span class="mf">2.0</span> <span class="o">+</span> <span class="mf">1.3</span><span class="p">,</span> <span class="n">cy_a</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
+            <span class="n">line</span><span class="p">((</span><span class="n">cx_a</span><span class="p">,</span> <span class="n">cy_a</span> <span class="o">+</span> <span class="n">dh</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">),</span> <span class="p">(</span><span class="n">cx_a</span><span class="p">,</span> <span class="n">cy_a</span> <span class="o">+</span> <span class="n">dh</span> <span class="o">/</span> <span class="mf">2.0</span> <span class="o">+</span> <span class="mf">1.4</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
+            <span class="n">line</span><span class="p">((</span><span class="n">cx_a</span><span class="p">,</span> <span class="n">cy_a</span> <span class="o">-</span> <span class="n">dh</span> <span class="o">/</span> <span class="mf">2.0</span> <span class="o">-</span> <span class="mf">1.4</span><span class="p">),</span> <span class="p">(</span><span class="n">cx_a</span><span class="p">,</span> <span class="n">cy_a</span> <span class="o">-</span> <span class="n">dh</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
+            <span class="n">circle</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">cx_a</span><span class="p">,</span> <span class="n">cy_a</span><span class="p">),</span>
+                <span class="n">radius</span><span class="o">=</span><span class="mf">1.25</span><span class="p">,</span>
+                <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span> <span class="n">shape_line_width</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
+            <span class="p">)</span>
+            <span class="n">circle</span><span class="p">((</span><span class="n">cx_a</span><span class="p">,</span> <span class="n">cy_a</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">0.95</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerFlat</span><span class="p">)</span>
+            <span class="n">text</span><span class="p">(</span>
+                <span class="p">(</span><span class="mf">117.1</span><span class="p">,</span> <span class="mf">18.5</span><span class="p">),</span>
+                <span class="s1">'xy=(cx, cy) • align="center"'</span><span class="p">,</span>
+                <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+            <span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
 <ul>
-<li><strong>Information Engineering (IE) Standard</strong>: Uses standard Crow's Foot vector markers (double vertical bar for exactly one, circle + crow's foot for zero or many, bar + crow's foot for one or many, and circle + bar for zero or one).</li>
-<li><strong>Column-Level Anchoring</strong>: Rather than connecting to arbitrary points on the table perimeter, Drawlib allows you to anchor lines directly to the specific primary key and foreign key table rows (<code>start_column=&quot;id&quot;</code>, <code>end_column=&quot;user_id&quot;</code>).</li>
-<li><strong>Key Badges</strong>: Automatically renders <code>[PK]</code> and <code>[FK]</code> tags next to column definitions with syntax highlighting.</li>
+<li><strong>Center-Anchored <code>Entity</code> Cards &amp; Key Badges (<code>xy</code>, <code>pk</code>, <code>fk</code>, <code>nullable</code>)</strong>: <code>er.add(entity, xy=(cx, cy))</code> places each table by its center while <code>.add_column(...)</code> adds amber <code>PK</code> and blue <code>FK</code> tags and expands <code>effective_height</code> automatically.</li>
+<li><strong>IE Crow's Foot Cardinalities (<code>cardinality</code>)</strong>: <code>entity.connect(...)</code> and <code>er.connect(...)</code> draw Information Engineering vector markers across all 7 multiplicities (<code>&quot;1:*&quot;</code>, <code>&quot;1:1&quot;</code>, <code>&quot;1:1..*&quot;</code>, <code>&quot;1:0..1&quot;</code>, <code>&quot;0..1:1&quot;</code>, <code>&quot;0..1:*&quot;</code>, <code>&quot;*:*&quot;</code>).</li>
+<li><strong>Row-Level Column Anchoring (<code>start_column</code>, <code>end_column</code>)</strong>: Pin relationship wires directly to specific primary and foreign key rows on <code>&quot;left&quot;</code> / <code>&quot;right&quot;</code> sides instead of generic card midpoints.</li>
+<li><strong>Header Styling, Visibility &amp; Centering (<code>header_style</code>, <code>show=False</code>, <code>align=&quot;center&quot;</code>)</strong>: Accentuate focal tables with <code>header_style</code>, hide entities and incident Crow's Foot wires in place via <code>show=False</code>, or center the schema on <code>xy</code> via <code>align=&quot;center&quot;</code>.</li>
 </ul>
 <hr />
 <h2>2. Constructor &amp; Entity Definition</h2>
@@ -671,7 +1623,7 @@
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="er_images/er_basic_entity.png" alt="er_2" />
+  <img src="er_images/er_basic_entity.png" alt="er_3" />
   <figcaption class="drawlib-caption">Basic Entity Table</figcaption>
 </figure>
 <h3>Parameter Reference Tables</h3>
@@ -1050,7 +2002,7 @@
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="er_images/er_cardinality_notations.png" alt="er_3" />
+  <img src="er_images/er_cardinality_notations.png" alt="er_4" />
   <figcaption class="drawlib-caption">All Seven Crow's Foot Cardinality Notations in ERDiagram</figcaption>
 </figure>
 <hr />
@@ -1127,7 +2079,7 @@
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="er_images/er_ecommerce_schema.png" alt="er_4" />
+  <img src="er_images/er_ecommerce_schema.png" alt="er_5" />
   <figcaption class="drawlib-caption">E-Commerce Relational Database Schema</figcaption>
 </figure>
 <hr />
