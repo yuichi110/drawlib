@@ -85,7 +85,650 @@ save()
 
 ---
 
-## 1. Quick Comparison of 3D Container, Flow & Grouping Primitives
+## 1. Core Geometric Concepts
+
+All 6 primitives in this category anchor at their bounding-box center `xy` and normalize their 3D projections, waves, lobes, and bracket spines strictly inside `(width, height)`. Watch how multi-platter `disks` and `angle=-90` rotation, 3-face `depth_ratio` shading, `document` variants and sheet stacking, `funnel` neck ratios, normalized `cloud` lobes, and sliding `brace` tips reshape each component:
+
+```drawlib code=fold align=center file=shapes_container_parameter_tour.png caption="Parameter & Geometry Tour: Live Morphing of cylinder, cube, document, funnel, cloud, and brace (APNG Animation)"
+from __future__ import annotations
+
+from drawlib.anim import Animation
+from drawlib.canvas import save, setup
+from drawlib.icons import code as code_icons
+from drawlib.icons import phosphor
+from drawlib.lines import line
+from drawlib.shapes import brace, circle, cloud, cube, cylinder, document, funnel, rectangle
+from drawlib.smartarts import SourceCode, SourceCodeStyles
+from drawlib.styles import Styles
+from drawlib.text import text
+
+W, H = 138.0, 82.0
+setup(width=W, height=H)
+anim = Animation(fps=10.0, loop=0)
+
+CODE_TEXT_SIZE = 10.0
+PT_TO_CANVAS = W / 720.0
+FONT_CANVAS = CODE_TEXT_SIZE * PT_TO_CANVAS
+LINE_H = FONT_CANVAS * 1.8
+PAD_Y = FONT_CANVAS * 1.2
+
+CODE_STYLES = SourceCodeStyles.get("default", font_lang="en", text_size=CODE_TEXT_SIZE).patch(
+    box_style=Styles.Neutral.patch(shape_fill_color=(0, 0, 0, 0), shape_line_width=0),
+)
+
+PANE_HEADER = Styles.Neutral.patch(
+    shape_fill_color=(238, 243, 250),
+    shape_line_color=(203, 213, 225),
+    shape_line_width=1.2,
+    shape_r=0.0,
+)
+EDITOR_BODY = Styles.Neutral.patch(
+    shape_fill_color=(250, 252, 255),
+    shape_line_color=(203, 213, 225),
+    shape_line_width=1.2,
+    shape_r=0.0,
+)
+TAKEAWAY_BODY = Styles.Neutral.patch(
+    shape_fill_color=(242, 246, 253),
+    shape_line_color=(203, 213, 225),
+    shape_line_width=1.2,
+    shape_r=0.0,
+)
+STUDIO_BODY = Styles.Neutral.patch(
+    shape_fill_color=(239, 243, 249),
+    shape_line_color=(203, 213, 225),
+    shape_line_width=1.2,
+    shape_r=0.0,
+)
+
+PART_ITEMS = [
+    ("1. cylinder & cube", "disks & depth_ratio"),
+    ("2. document()", "variants & stacked"),
+    ("3. funnel & cloud", "neck & lobe styles"),
+    ("4. brace()", "symbol & tip pos"),
+]
+
+
+def draw_step_bar(active_part: int) -> None:
+    """Draw top 4-part progress bar (active_part is 1..4)."""
+    pill_w = 31.0
+    pill_h = 7.4
+    gap = 2.0
+    start_x = 4.0 + pill_w / 2.0
+    cy = 75.2
+
+    for idx, (label, sublabel) in enumerate(PART_ITEMS, start=1):
+        cx = start_x + (idx - 1) * (pill_w + gap)
+        if idx > 1:
+            prev_cx = cx - (pill_w + gap)
+            line(
+                (prev_cx + pill_w / 2.0 + 0.2, cy),
+                (cx - pill_w / 2.0 - 0.2, cy),
+                style=Styles.PrimaryBold if idx <= active_part else Styles.MutedThin,
+            )
+
+        if idx == active_part:
+            st = Styles.PrimaryFlat.patch(shape_r=1.4)
+            tst = Styles.WhiteBold.patch(text_size=10.3)
+            sub_tst = Styles.White.patch(text_size=9.5)
+        elif idx < active_part:
+            st = Styles.PrimaryNeutral.patch(shape_r=1.4, shape_line_width=1.1)
+            tst = Styles.PrimaryBold.patch(text_size=10.3)
+            sub_tst = Styles.Primary.patch(text_size=9.5)
+        else:
+            st = Styles.Neutral.patch(shape_r=1.4, shape_line_width=1.1)
+            tst = Styles.MutedBold.patch(text_size=10.3)
+            sub_tst = Styles.Muted.patch(text_size=9.5)
+
+        rectangle((cx, cy), width=pill_w, height=pill_h, style=st)
+        text((cx, cy + 1.35), label, style=tst)
+        text((cx, cy - 1.55), sublabel, style=sub_tst)
+
+
+def draw_left_pane(
+    active_part: int,
+    code_lines: list[str],
+    hl_range: tuple[int, int],
+    icon_fn: object,
+    summary_title: str,
+    summary_line1: str,
+    summary_line2: str,
+) -> None:
+    """Draw left Python code editor + bottom geometric concept note."""
+    x0, w = 4.0, 63.5
+    cx = x0 + w / 2.0
+    top_y = 63.2
+    header_h = 5.4
+    editor_h = 43.8
+    takeaway_h = 15.8
+
+    rectangle((cx, top_y + header_h / 2.0), width=w, height=header_h, style=PANE_HEADER)
+    code_icons.python((x0 + 3.6, top_y + header_h / 2.0), width=3.4, style=Styles.Neutral)
+    text(
+        (x0 + 6.5, top_y + header_h / 2.0),
+        "containers_3d.py",
+        style=Styles.DarkBold.patch(text_size=10.2, halign="left"),
+    )
+    text(
+        (x0 + w - 2.6, top_y + header_h / 2.0),
+        f"Part {active_part} / 4",
+        style=Styles.PrimaryBold.patch(text_size=9.8, halign="right"),
+    )
+
+    rectangle((cx, top_y - editor_h / 2.0), width=w, height=editor_h, style=EDITOR_BODY)
+
+    hl_start, hl_end = hl_range
+    hl_top = top_y - PAD_Y - hl_start * LINE_H
+    hl_bot = top_y - PAD_Y - (hl_end + 1) * LINE_H
+    hl_cy = (hl_top + hl_bot) / 2.0
+    hl_h = hl_top - hl_bot
+    rectangle(
+        (cx, hl_cy),
+        width=w - 0.6,
+        height=hl_h,
+        style=Styles.Neutral.patch(shape_fill_color=(229, 239, 255), shape_line_width=0),
+    )
+    rectangle(
+        (x0 + 0.55, hl_cy),
+        width=0.9,
+        height=hl_h,
+        style=Styles.PrimaryFlat.patch(shape_line_width=0),
+    )
+
+    SourceCode.draw(
+        xy=(x0, top_y),
+        width=w,
+        code="\n".join(code_lines),
+        styles=CODE_STYLES,
+        code_lang="python",
+        show_linenum=True,
+        align="top_left",
+    )
+
+    take_cy = 3.6 + takeaway_h / 2.0
+    rectangle((cx, take_cy), width=w, height=takeaway_h, style=TAKEAWAY_BODY)
+    circle(
+        (x0 + 6.4, take_cy),
+        radius=3.3,
+        style=Styles.PrimaryNeutral.patch(shape_line_width=1.2),
+    )
+    icon_fn((x0 + 6.4, take_cy), width=3.8, style=Styles.PrimaryBold)  # type: ignore[operator]
+    text(
+        (x0 + 11.4, take_cy + 3.6),
+        summary_title,
+        style=Styles.DarkBold.patch(text_size=10.4, halign="left"),
+    )
+    text(
+        (x0 + 11.4, take_cy - 0.2),
+        summary_line1,
+        style=Styles.Dark.patch(text_size=9.7, halign="left"),
+    )
+    text(
+        (x0 + 11.4, take_cy - 3.8),
+        summary_line2,
+        style=Styles.PrimaryBold.patch(text_size=9.6, halign="left"),
+    )
+
+
+def draw_geometry_studio(param_badge: str, footer_caption: str) -> tuple[float, float]:
+    """Draw right geometry lab shell, inner coordinate sheet with subtle grid, and footer."""
+    x0, w = 70.0, 64.0
+    cx = x0 + w / 2.0
+    top_y = 63.2
+    header_h = 5.4
+    body_h = 59.6
+
+    rectangle((cx, top_y + header_h / 2.0), width=w, height=header_h, style=PANE_HEADER)
+    phosphor.ruler((x0 + 3.6, top_y + header_h / 2.0), width=3.4, style=Styles.Primary)
+    text(
+        (x0 + 6.5, top_y + header_h / 2.0),
+        "Live Geometry & Guides",
+        style=Styles.DarkBold.patch(text_size=10.2, halign="left"),
+    )
+    text(
+        (x0 + w - 2.6, top_y + header_h / 2.0),
+        param_badge,
+        style=Styles.PrimaryBold.patch(text_size=9.6, halign="right"),
+    )
+
+    rectangle((cx, 3.6 + body_h / 2.0), width=w, height=body_h, style=STUDIO_BODY)
+
+    # Inner coordinate sheet (54 x 40) with subtle grid lines
+    sheet_cx, sheet_cy = cx, 36.2
+    sheet_w, sheet_h = 54.0, 40.0
+    sx0, sy0 = sheet_cx - sheet_w / 2.0, sheet_cy - sheet_h / 2.0
+    rectangle(
+        (sheet_cx, sheet_cy),
+        width=sheet_w,
+        height=sheet_h,
+        style=Styles.Neutral.patch(
+            shape_fill_color=(255, 255, 255),
+            shape_line_color=(180, 194, 214),
+            shape_line_width=1.2,
+        ),
+    )
+    g_st = Styles.MutedThin.patch(line_color=(232, 238, 246), line_width=0.8)
+    for gx in range(1, 6):
+        vx = sx0 + gx * (sheet_w / 6.0)
+        line((vx, sy0), (vx, sy0 + sheet_h), style=g_st)
+    for gy in range(1, 5):
+        vy = sy0 + gy * (sheet_h / 5.0)
+        line((sx0, vy), (sx0 + sheet_w, vy), style=g_st)
+
+    rectangle(
+        (cx, 8.4),
+        width=59.2,
+        height=5.2,
+        style=Styles.Neutral.patch(
+            shape_fill_color=(255, 255, 255),
+            shape_line_color=(203, 213, 225),
+            shape_line_width=1.1,
+            shape_r=2.4,
+        ),
+        text=footer_caption,
+        text_style=Styles.DarkBold.patch(text_size=9.8),
+    )
+    return sheet_cx, sheet_cy
+
+
+GHOST_BOX = Styles.MutedDashed.patch(
+    shape_fill_color=(0, 0, 0, 0),
+    shape_line_color=(176, 192, 214),
+    shape_line_width=1.1,
+)
+
+# =========================================================================
+# Part 1: cylinder (disks & angle=-90 FIFO queue) and cube (depth_ratio)
+# =========================================================================
+for d_cnt, ang, dur in ((1, 0, 0.50), (2, -45, 0.50), (3, -90, 3.3)):
+    code_cyl = [
+        "from drawlib.shapes import cylinder",
+        "from drawlib.styles import Styles",
+        "",
+        "cylinder(  # 1..3 storage platter seams",
+        f"    (36, 30), 18, 25, disks={d_cnt},",
+        "    style=Styles.PrimaryNeutral,",
+        ")",
+        "q_st = Styles.SecondaryNeutral.patch(",
+        f"    angle={ang},  # Horizontal FIFO queue",
+        ")",
+        "cylinder((74, 30), 15, 22, style=q_st)",
+    ]
+    with anim.frame(duration=dur):
+        draw_step_bar(1)
+        draw_left_pane(
+            1,
+            code_cyl,
+            (4, 8),
+            phosphor.database,
+            "Storage Stacks & Queues (cylinder)",
+            "disks=1..3 adds curved platter divider seams",
+            "angle=-90 rotates into a horizontal FIFO pipe",
+        )
+        scx, scy = draw_geometry_studio(
+            f"disks={d_cnt} | {ang}°",
+            f"disks={d_cnt} Platter Seams  •  angle={ang}° FIFO Queue",
+        )
+        cy_c = scy - 0.6
+        lx, rx = scx - 13.8, scx + 12.2
+
+        cylinder(
+            (lx, cy_c),
+            width=18.0,
+            height=25.0,
+            disks=d_cnt,
+            style=Styles.PrimaryNeutral,
+        )
+        text((lx, cy_c + 15.6), f"disks = {d_cnt}", style=Styles.PrimaryBold.patch(text_size=9.6))
+        text((lx, cy_c - 15.4), "Multi-Platter DB", style=Styles.MutedBold.patch(text_size=9.5))
+
+        cylinder(
+            (rx, cy_c),
+            width=15.0,
+            height=22.0,
+            style=Styles.SecondaryNeutral.patch(angle=ang),
+        )
+        text((rx, cy_c + 15.6), f"angle = {ang}°", style=Styles.DarkBold.patch(text_size=9.6))
+        if ang == -90:
+            line(
+                (rx - 9.0, cy_c - 11.6),
+                (rx + 9.0, cy_c - 11.6),
+                arrow_head="->",
+                style=Styles.PrimaryBold.patch(line_width=1.5),
+            )
+            text((rx, cy_c - 15.4), "Left → Right FIFO", style=Styles.PrimaryBold.patch(text_size=9.5))
+
+for dr, dur in ((0.15, 0.50), (0.28, 0.50), (0.40, 3.3)):
+    code_cube = [
+        "from drawlib.shapes import cube",
+        "from drawlib.styles import Styles",
+        "",
+        "# Auto 3-face isometric shading",
+        "cube(",
+        "    (50, 30), width=28, height=24,",
+        f"    depth_ratio={dr:.2f},",
+        "    style=Styles.PrimaryFlat,",
+        '    text="Worker",',
+        ")",
+    ]
+    with anim.frame(duration=dur):
+        draw_step_bar(1)
+        draw_left_pane(
+            1,
+            code_cube,
+            (6, 6),
+            phosphor.cube,
+            "3-Face Shaded Block (cube)",
+            "Fits full 3D projection inside width × height",
+            "Auto-shades front, +light top, and -dark side",
+        )
+        scx, scy = draw_geometry_studio(
+            f"depth_ratio = {dr:.2f}",
+            f"cube(depth_ratio={dr:.2f})  •  Auto 3-Face Shading",
+        )
+        cy_b = scy - 0.8
+        rectangle((scx, cy_b), width=28.0, height=24.0, style=GHOST_BOX)
+        cube(
+            (scx, cy_b),
+            width=28.0,
+            height=24.0,
+            depth_ratio=dr,
+            style=Styles.PrimaryFlat,
+            text="Worker",
+            text_style=Styles.WhiteBold.patch(text_size=10.5),
+        )
+        if dr >= 0.40:
+            text((scx, cy_b + 15.2), "Top Face (+28% Light)", style=Styles.PrimaryBold.patch(text_size=9.6))
+            text(
+                (scx + 15.6, cy_b + 1.0),
+                "Right\n(×0.82)",
+                style=Styles.DarkBold.patch(text_size=9.5, halign="left"),
+            )
+            text((scx, cy_b - 15.2), "Dashed = Exact 28 × 24 Box", style=Styles.MutedBold.patch(text_size=9.5))
+
+# =========================================================================
+# Part 2: document — variant ("wave" -> "folded" -> "folded_wave") & stacked
+# =========================================================================
+DOC_STATES = [
+    ("wave", 1, "PrimaryNeutral", "Invoice", 3.2),
+    ("folded", 2, "PrimaryNeutral", "Configs", 0.50),
+    ("folded_wave", 3, "SecondaryNeutral", "Reports", 3.3),
+]
+for d_var, stk, st_name, d_lbl, dur in DOC_STATES:
+    code_doc = [
+        "from drawlib.shapes import document",
+        "from drawlib.styles import Styles",
+        "",
+        "document(",
+        "    (50, 30), width=25, height=27,",
+        f'    variant="{d_var}",',
+        f"    stacked={stk},",
+        f"    style=Styles.{st_name},",
+        f'    text="{d_lbl}",',
+        ")",
+    ]
+    with anim.frame(duration=dur):
+        draw_step_bar(2)
+        draw_left_pane(
+            2,
+            code_doc,
+            (5, 6),
+            phosphor.files if stk > 1 else phosphor.file_text,
+            "Silhouettes & Stacks (document)",
+            "Variants mix bottom S-waves & dog-ear folds",
+            "stacked=1..3 cascades lightened back sheets",
+        )
+        scx, scy = draw_geometry_studio(
+            f'"{d_var}", ×{stk}',
+            f'variant="{d_var}", stacked={stk}  •  Bounded Stack',
+        )
+        cy_d = scy - 0.6
+        rectangle((scx, cy_d), width=25.0, height=27.0, style=GHOST_BOX)
+        document(
+            (scx, cy_d),
+            width=25.0,
+            height=27.0,
+            variant=d_var,
+            stacked=stk,
+            style=getattr(Styles, st_name),
+            text=d_lbl,
+            text_style=Styles.DarkBold.patch(text_size=10.2),
+        )
+        if d_var == "wave":
+            text((scx, cy_d + 16.0), "Straight Top Edge", style=Styles.MutedBold.patch(text_size=9.5))
+            text((scx, cy_d - 16.2), "Cubic-Bézier S-Wave Base", style=Styles.PrimaryBold.patch(text_size=9.6))
+        elif stk == 3:
+            text((scx, cy_d + 16.0), "3 Cascading Sheets + Dog-Ear Flap", style=Styles.PrimaryBold.patch(text_size=9.6))
+            text((scx, cy_d - 16.2), "All 3 Sheets Fit Exact 25 × 27 Box", style=Styles.DarkBold.patch(text_size=9.5))
+
+# =========================================================================
+# Part 3: funnel (neck ratios) & cloud (normalized lobe variants)
+# =========================================================================
+for nw_r, nh_r, dur in ((0.45, 0.25, 0.50), (0.22, 0.42, 3.3)):
+    code_fun = [
+        "from drawlib.shapes import funnel",
+        "from drawlib.styles import Styles",
+        "",
+        "funnel(",
+        "    (50, 30), width=30, height=25,",
+        '    variant="3d",',
+        f"    neck_width_ratio={nw_r:.2f},",
+        f"    neck_height_ratio={nh_r:.2f},",
+        "    style=Styles.PrimaryNeutral,",
+        '    text="Ingest",',
+        ")",
+    ]
+    with anim.frame(duration=dur):
+        draw_step_bar(3)
+        draw_left_pane(
+            3,
+            code_fun,
+            (6, 7),
+            phosphor.funnel,
+            "3D Rim & Spout Ratios (funnel)",
+            'variant="3d" adds a shaded elliptical top rim',
+            "neck_width/height_ratio tune the lower spout",
+        )
+        scx, scy = draw_geometry_studio(
+            f"neck_w = {nw_r:.2f}",
+            f'funnel("3d")  •  neck_w={nw_r:.2f}, neck_h={nh_r:.2f}',
+        )
+        cy_f = scy + 0.8
+        fw, fh = 30.0, 25.0
+        funnel(
+            (scx, cy_f),
+            width=fw,
+            height=fh,
+            variant="3d",
+            neck_width_ratio=nw_r,
+            neck_height_ratio=nh_r,
+            style=Styles.PrimaryNeutral,
+            text="Ingest",
+            text_style=Styles.DarkBold.patch(text_size=10.0, xy_shift=(0, -1.8)),
+        )
+        nw_half = 0.5 * fw * nw_r
+        y_bot = cy_f - fh / 2.0
+        y_neck = y_bot + fh * nh_r
+        line(
+            (scx - nw_half, y_bot - 2.4),
+            (scx + nw_half, y_bot - 2.4),
+            arrow_head="<->",
+            style=Styles.DangerBold.patch(line_width=1.5),
+        )
+        text(
+            (scx, y_bot - 5.4),
+            f"neck_width_ratio = {nw_r:.2f}",
+            style=Styles.DangerBold.patch(text_size=9.6),
+        )
+        line(
+            (scx + nw_half + 2.8, y_bot),
+            (scx + nw_half + 2.8, y_neck),
+            arrow_head="<->",
+            style=Styles.PrimaryBold.patch(line_width=1.5),
+        )
+        text(
+            (scx + nw_half + 4.4, 0.5 * (y_bot + y_neck)),
+            f"h×{nh_r:.2f}",
+            style=Styles.PrimaryBold.patch(text_size=9.5, halign="left"),
+        )
+
+for c_var, dur in (("standard", 0.50), ("flat", 3.2), ("fluffy", 3.3)):
+    code_cld = [
+        "from drawlib.shapes import cloud",
+        "from drawlib.styles import Styles",
+        "",
+        "# Normalized strictly to width × height",
+        "cloud(",
+        "    (50, 30), width=38, height=22,",
+        f'    variant="{c_var}",',
+        "    style=Styles.SecondaryNeutral,",
+        f'    text="{c_var}",',
+        ")",
+    ]
+    with anim.frame(duration=dur):
+        draw_step_bar(3)
+        draw_left_pane(
+            3,
+            code_cld,
+            (6, 6),
+            phosphor.cloud,
+            "Normalized Bézier Lobes (cloud)",
+            "standard (8), flat (grounded), fluffy (12)",
+            "Every variant normalizes to exact width×height",
+        )
+        scx, scy = draw_geometry_studio(
+            f'variant="{c_var}"',
+            f'cloud(variant="{c_var}")  •  Normalized to 38 × 22',
+        )
+        cy_cl = scy - 0.8
+        rectangle((scx, cy_cl), width=38.0, height=22.0, style=GHOST_BOX)
+        cloud(
+            (scx, cy_cl),
+            width=38.0,
+            height=22.0,
+            variant=c_var,
+            style=Styles.SecondaryNeutral,
+            text=c_var,
+            text_style=Styles.DarkBold.patch(text_size=10.5),
+        )
+        line(
+            (scx - 19.0, cy_cl + 13.0),
+            (scx + 19.0, cy_cl + 13.0),
+            arrow_head="<->",
+            style=Styles.PrimaryBold.patch(line_width=1.4),
+        )
+        text((scx, cy_cl + 16.0), "width = 38 (Exact Span)", style=Styles.PrimaryBold.patch(text_size=9.6))
+        text((scx, cy_cl - 15.0), "Dashed = 38 × 22 Bounding Box", style=Styles.MutedBold.patch(text_size=9.5))
+
+# =========================================================================
+# Part 4: brace — symbol ("}" -> "]" -> ")") & tip_position_ratio
+# =========================================================================
+BRACE_STATES: list[tuple[str, float | None, float, tuple[int, int]]] = [
+    ("}", 0.50, 3.2, (6, 6)),
+    ("]", None, 0.50, (6, 6)),
+    (")", None, 3.2, (6, 6)),
+    ("}", 0.25, 3.2, (6, 7)),
+    ("}", 0.75, 3.3, (6, 7)),
+]
+for sym, tpr, dur, hl in BRACE_STATES:
+    tpr_line = f"    tip_position_ratio={tpr:.2f}," if tpr is not None else "    tip_position_ratio=None,"
+    code_brc = [
+        "from drawlib.shapes import brace",
+        "from drawlib.styles import Styles",
+        "",
+        "# Wraps left stack; tip points right",
+        "brace(",
+        "    (50, 30), width=4.8, height=26.4,",
+        f'    symbol="{sym}",',
+        tpr_line,
+        "    style=Styles.PrimaryBold,",
+        ")",
+    ]
+    is_sliding = hl == (6, 7)
+    with anim.frame(duration=dur):
+        draw_step_bar(4)
+        draw_left_pane(
+            4,
+            code_brc,
+            hl,
+            phosphor.brackets_curly,
+            "Sliding Tip Position (brace)" if is_sliding else "Grouping Brackets (brace)",
+            "tip_position_ratio moves tip bottom→top (0..1)"
+            if is_sliding
+            else '"}" curly, "]" square, and ")" round families',
+            "0.25 targets bottom node; 0.75 targets top"
+            if is_sliding
+            else "Stroke uses style.line_color & style.line_width",
+        )
+        badge = f"tip_pos = {tpr:.2f}" if is_sliding and tpr is not None else f'symbol = "{sym}"'
+        foot = (
+            f'brace("}}", tip_position_ratio={tpr:.2f})  •  Aimed Tip'
+            if tpr is not None
+            else f'brace(symbol="{sym}")  •  Wraps Stacked Node Cards'
+        )
+        scx, scy = draw_geometry_studio(badge, foot)
+        cy_br = scy - 0.8
+        bh = 26.4
+
+        # 3 stacked source node cards on the left
+        for idx_c, c_lbl in enumerate(("Pod 1", "Pod 2", "Pod 3")):
+            yc = cy_br + (1 - idx_c) * 7.6
+            rectangle(
+                (scx - 14.0, yc),
+                width=14.8,
+                height=5.8,
+                style=Styles.Neutral.patch(shape_r=1.3),
+                text=c_lbl,
+                text_style=Styles.DarkBold.patch(text_size=9.6),
+            )
+
+        # Central grouping brace
+        bx = scx - 1.5
+        brace(
+            (bx, cy_br),
+            width=4.8,
+            height=bh,
+            symbol=sym,  # type: ignore[arg-type]
+            tip_position_ratio=tpr,
+            style=Styles.PrimaryBold,
+        )
+
+        # 3 target route nodes on the right (at +6.6, 0.0, -6.6 = exact 0.75, 0.50, 0.25 tip positions)
+        targets = (("Node A", 0.75, 6.6), ("Node B", 0.50, 0.0), ("Node C", 0.25, -6.6))
+        for t_lbl, t_ratio, dy in targets:
+            yt = cy_br + dy
+            is_hit = sym == "}" and tpr == t_ratio
+            t_st = Styles.PrimaryFlat.patch(shape_r=1.3) if is_hit else Styles.PrimaryNeutral.patch(shape_r=1.3)
+            t_tst = Styles.WhiteBold.patch(text_size=9.6) if is_hit else Styles.DarkBold.patch(text_size=9.6)
+            rectangle((scx + 14.2, yt), width=15.4, height=5.2, style=t_st, text=t_lbl, text_style=t_tst)
+            if is_hit:
+                line(
+                    (bx + 2.9, yt),
+                    (scx + 6.0, yt),
+                    arrow_head="->",
+                    style=Styles.PrimaryBold.patch(line_width=1.8),
+                )
+
+        top_note = (
+            f"tip_position_ratio = {tpr:.2f}"
+            if tpr is not None
+            else ('Square Bracket "]"' if sym == "]" else 'Round Parenthesis ")"')
+        )
+        text((scx, cy_br + 16.0), top_note, style=Styles.PrimaryBold.patch(text_size=9.6))
+
+save()
+```
+
+- **3D Depth & Platter Tiers (`cylinder`, `cube`)**: `cylinder` adds curved platter seams via `disks` (and rotates into a horizontal queue via `angle=-90`), while `cube` auto-shades 3 faces across `depth_ratio`.
+- **Document Variants & Sheet Cascading (`document`)**: Combines wavy bases and darkened top-right dog-ear flaps (`"wave"`, `"folded"`, `"folded_wave"`), cascading lightened background sheets when `stacked > 1`.
+- **Spout Ratios & Normalized Cloud Lobes (`funnel`, `cloud`)**: `funnel` tunes lower spout dimensions via `neck_width_ratio` and `neck_height_ratio`, while every `cloud` variant normalizes its cubic-Bézier lobes strictly inside `(width, height)`.
+- **Grouping Brackets & Sliding Tips (`brace`)**: Supports curly (`"{}"`), square (`"[]"` with `shape_r` `90°` corner rounding), and round (`"()"`) strokes, plus `tip_position_ratio` (`0.0`..`1.0`) to aim curly tips at a specific target node.
+
+---
+
+## 2. Quick Comparison of 3D Container, Flow & Grouping Primitives
+
+Use the summary matrix below to compare anchoring, architectural roles, geometry arguments, and automatic shading across all 6 functions:
 
 | Function | Default Anchor | Primary Architectural Role | Variants & Key Geometry Arguments | Shading & Text Placement |
 | :--- | :--- | :--- | :--- | :--- |
@@ -98,7 +741,7 @@ save()
 
 ---
 
-## 2. 3D Cylinders & Database Stacks (`cylinder`)
+## 3. 3D Cylinders & Database Stacks (`cylinder`)
 
 For relational databases, object storage buckets, disk arrays, and message queues, `cylinder` renders a 3D cylindrical container with an automatically lightened elliptical top cap:
 
@@ -169,7 +812,7 @@ save()
 
 ---
 
-## 3. 3D Cubes & Rectangular Blocks (`cube`)
+## 4. 3D Cubes & Rectangular Blocks (`cube`)
 
 Complementing `cylinder`, `cube` renders an oblique 3D cube or rectangular box strictly fitted within the `(width, height)` bounding box centered at `xy`:
 
@@ -264,7 +907,7 @@ save()
 
 ---
 
-## 4. Documents, Files & Multi-Sheet Stacks (`document`)
+## 5. Documents, Files & Multi-Sheet Stacks (`document`)
 
 For flowchart output steps, configuration/source files, log stream snippets, and multi-page report stacks, `document` provides four `variant` silhouettes and multi-sheet cascading (`stacked >= 1`):
 
@@ -385,7 +1028,7 @@ save()
 
 ---
 
-## 5. Data Filtering & Conversion Funnels (`funnel`)
+## 6. Data Filtering & Conversion Funnels (`funnel`)
 
 For ETL data filtering pipelines, event deduplication stages, rate limiters, and conversion funnels, `funnel` renders a wide upper cone tapering into a narrow lower spout:
 
@@ -491,7 +1134,7 @@ save()
 
 ---
 
-## 6. Cloud Nodes & Boundaries (`cloud`)
+## 7. Cloud Nodes & Boundaries (`cloud`)
 
 `cloud` renders a smooth cubic-Bézier cloud silhouette normalized to fit its exact `(width, height)` bounding box centered at `xy`:
 
@@ -590,7 +1233,7 @@ save()
 
 ---
 
-## 7. Grouping Braces & Brackets (`brace`)
+## 8. Grouping Braces & Brackets (`brace`)
 
 `brace` renders a curly (`{`, `}`), square (`[`, `]`), or round (`(`, `)`) grouping bracket in any of four directions (`"left"`, `"right"`, `"top"`, `"bottom"`), with stroke thickness controlled via `style.line_width`:
 
@@ -625,7 +1268,7 @@ brace(
 | `direction` | `BraceDirection \| None` | `None` | Which side of a grouped region the bracket is placed on (the direction the outer spine/tip points toward): `"left"`, `"right"`, `"top"`, or `"bottom"` (see **`direction` Variants** below). |
 | `tip_ratio` | `float \| None` | `None` | **Curly brace (`{}`) only**: Fraction of the bracket depth occupied by the central outward tip in `(0.0, 1.0)`. Defaults to `0.50`. Higher values (`0.70`) create a sharp protruding tip; lower values (`0.25`) create a subtle tip. |
 | `tip_position_ratio` | `float \| None` | `None` | **Curly brace (`{}`) only**: Position of the central tip along the span axis in `(0.0, 1.0)` (measured bottom-to-top for `"left"`/`"right"`, or left-to-right for `"top"`/`"bottom"`). Defaults to `0.50` (symmetric center). |
-| `style` | `Style` | *Required* | Stroke thickness is controlled via `style.line_width` (or `style.shape_line_width`), color via `style.line_color` (or `style.shape_line_color`), line pattern via `style.line_style`, and rotation via `style.angle`. On `"square"` brackets (`[`, `]`), `style.shape_r` rounds the two $90^\circ$ corners. |
+| `style` | `Style` | *Required* | Stroke thickness is controlled via `style.line_width` (or `style.shape_line_width`), color via `style.line_color` (or `style.shape_line_color`), line pattern via `style.line_style`, and rotation via `style.angle`. On `"square"` brackets (`[`, `]`), `style.shape_r` rounds the two `90°` corners. |
 | `text` / `text_style` | `str` / `Style \| None` | `""` / `None` | Optional text label centered at `xy` and typography override. |
 
 ### `symbol` & `direction` Variants
@@ -641,10 +1284,10 @@ brace(
 
 | `direction` Value | Orientation | Spine / Tip Points Toward | Open Ends Point Toward |
 | :--- | :--- | :--- | :--- |
-| **`"left"`** | Vertical (`span = height`) | Left ($-X$) | Right ($+X$, wrapping items to its right) |
-| **`"right"`** | Vertical (`span = height`) | Right ($+X$) | Left ($-X$, wrapping items to its left) |
-| **`"top"`** | Horizontal (`span = width`) | Top ($+Y$) | Bottom ($-Y$, wrapping items below it) |
-| **`"bottom"`** | Horizontal (`span = width`) | Bottom ($-Y$) | Top ($+Y$, wrapping items above it) |
+| **`"left"`** | Vertical (`span = height`) | Left (`-X`) | Right (`+X`, wrapping items to its right) |
+| **`"right"`** | Vertical (`span = height`) | Right (`+X`) | Left (`-X`, wrapping items to its left) |
+| **`"top"`** | Horizontal (`span = width`) | Top (`+Y`) | Bottom (`-Y`, wrapping items below it) |
+| **`"bottom"`** | Horizontal (`span = width`) | Bottom (`-Y`) | Top (`+Y`, wrapping items above it) |
 
 ```drawlib code=show align=center file=shapes_domain_brace.png caption="Bracket Families ({}, [], ()), All 4 Directions (left, right, top, bottom), and Curly Tip Ratios"
 from drawlib.canvas import save, setup
