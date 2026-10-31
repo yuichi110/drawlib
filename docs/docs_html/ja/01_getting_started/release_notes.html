@@ -1,0 +1,910 @@
+<!--
+ Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+
+ This software is licensed under the Apache License, Version 2.0.
+ For more information, please visit: https://github.com/yuichi110/drawlib
+
+ This software is provided "as is", without warranty of any kind,
+ express or implied, including but not limited to the warranties of
+ merchantability, fitness for a particular purpose and noninfringement.
+-->
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>リリースノートと移行ガイド</title>
+    <script>
+        (function() {
+            const saved = localStorage.getItem('drawlib-theme');
+            if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    
+    
+    <link rel="alternate" hreflang="en" href="../../en/01_getting_started/release_notes.html">
+    
+    <link rel="alternate" hreflang="ja" href="release_notes.html">
+    
+    <link rel="alternate" hreflang="x-default" href="../../en/01_getting_started/release_notes.html">
+    
+    
+    
+    <link rel="icon" type="image/png" href="../../_assets/favicon.png">
+    
+    
+    <link rel="stylesheet" href="../style.css">
+    
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-brand" aria-label="Drawlib ドキュメント">
+                    
+                    <img src="../../_assets/logo.png" alt="Drawlib ドキュメント" class="sidebar-logo sidebar-logo-light">
+                    <img src="../../_assets/logo_dark.png" alt="Drawlib ドキュメント" class="sidebar-logo sidebar-logo-dark">
+                    
+                </a>
+                <div class="sidebar-header-actions">
+                    <button type="button" id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle theme">
+                        <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                        <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                    </button>
+                    <button type="button" id="menu-toggle" class="menu-toggle-btn" aria-label="Toggle navigation" aria-expanded="false">
+                        <svg class="icon-hamburger" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                        <svg class="icon-close" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                    </button>
+                </div>
+            </div>
+            <div class="sidebar-subbar">
+                
+                <a href="../01_getting_started/release_notes.html" class="sidebar-version-badge" title="View Release Notes">
+                    <span class="sidebar-version-dot" aria-hidden="true"></span>
+                    <span class="sidebar-version-text">v0.3.2</span>
+                </a>
+                <a href="https://github.com/yuichi110/drawlib" target="_blank" rel="noopener noreferrer" class="sidebar-github-link" aria-label="GitHub Repository" title="GitHub Repository">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+                </a>
+            </div>
+            <div class="sidebar-menu">
+                
+                    
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../index.html" >ようこそ</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">1. はじめに</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="overview.html" >Drawlib とは</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="installation.html" >インストールガイド</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="quick_start.html" >クイックスタートガイド</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="core_concepts.html" >基本ビジュアル概念</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="project_quicklook.html" >プロジェクト構成とビルド</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="agent_quicklook.html" >AI 駆動ワークフローとエージェント設定</a>
+                            </li>
+                            
+                            <li class="nav-item active">
+                                <a href="release_notes.html" >リリースノートと移行ガイド</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">2. 描画プリミティブとスタイル</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/canvas.html" >キャンバスと座標系</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_overview.html" >図形プリミティブ概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_basic.html" >基本図形・放射状図形</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_polygon.html" >多角形とカスタムパス</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_arrow.html" >ブロック矢印・シェブロン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_container.html" >3D コンテナ・フロー・グルーピング</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_badge.html" >吹き出し・バッジ・ステータス</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_symbol.html" >フェイス・時計・記号・演算子</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/lines.html" >線とコネクタ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/text.html" >テキストとタイポグラフィ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/fonts.html" >フォントと多言語カタログ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/font_file.html" >カスタムフォントファイル (FontFile)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/images.html" >画像と Dimage</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/styles.html" >スタイルとテーマ設定</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/colors.html" >カラーパレットと色モデル</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/style_guide.html" >図解デザインとスタイルガイド</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">3. アイコンとブランドスイート</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/overview.html" >アイコン概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/phosphor.html" >Phosphor ベクターアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/gcp.html" >Google Cloud (GCP) アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/aws.html" >Amazon Web Services (AWS) アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/azure.html" >Microsoft Azure アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/cloud.html" >クラウド・オリジナルクラウドアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/cnative.html" >クラウドネイティブ (K8s) アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/devops.html" >DevOps・オブザーバビリティアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/network.html" >ネットワーク・Cisco トポロジアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/server.html" >サーバー・OS・仮想化アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/security.html" >セキュリティ・ゼロトラストアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/facility.html" >データセンター・ファシリティアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/ai.html" >AI・機械学習アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/data.html" >データ・データベースアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/code.html" >コード・言語・フレームワークアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/business.html" >エンタープライズ・FinTech アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/itservice.html" >IT サービス・コンサルティングアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/workspace.html" >ワークスペース・コラボレーションアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/social.html" >ソーシャル・メディア・コミュニティアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/client.html" >クライアント端末・エンドポイントアイコン</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">4. SmartArts（スマートアート）</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/overview.html" >SmartArts 概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/chevron_process.html" >ChevronProcess（シェブロン工程図）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/cycle.html" >Cycle（サイクル図）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/table.html" >Table（テーブル）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/tree.html" >Tree（ツリー図）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/mindmap.html" >MindMap（マインドマップ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/grid_layout.html" >GridLayout（グリッドレイアウト）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/pyramid.html" >Pyramid（ピラミッド図）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/box_list.html" >BoxList（ボックスリスト）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/kpi_cards.html" >KpiCards（KPI カード）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/card_list.html" >CardList（カードリスト）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/roadmap.html" >Roadmap（ロードマップ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/panel.html" >Panel（パネル）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/calendar.html" >Calendar（カレンダー）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/bullet_points.html" >BulletPoints（箇条書きボード）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/source_code.html" >SourceCode（ソースコードカード）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/geomap.html" >GeoMap（地理マップ）</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">5. Charts（定量チャート）</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/overview.html" >Charts 概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/axes_and_legends.html" >軸・スケール・凡例</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/bar.html" >Bar Chart（棒グラフ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/line.html" >Line Chart（折れ線グラフ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/area.html" >Area Chart（面グラフ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/pie.html" >Pie & Donut Chart（円・ドーナツグラフ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/radar.html" >Radar Chart（レーダーチャート）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/scatter.html" >Scatter Chart（散布図）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/gantt.html" >Gantt Chart（ガントチャート）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/heatmap.html" >Heatmap & Thermal Overlay（ヒートマップ）</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">6. テクニカルダイアグラム</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/overview.html" >ダイアグラム概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/architecture.html" >アーキテクチャ図</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/flow.html" >フロー図</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/sequence.html" >シーケンス図</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/class_diagram.html" >UML クラス図</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/er.html" >ER 図</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/state_diagram.html" >ステートマシン図</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">7. 自動レイアウトグラフ</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/overview.html" >グラフエンジン概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/architecture_graph.html" >ArchitectureGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/layer_graph.html" >LayerGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/tree_graph.html" >TreeGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/radial_graph.html" >RadialGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/grid_graph.html" >GridGraph</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">8. アニメーション</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/overview.html" >アニメーション概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/primitives.html" >プリミティブと色のアニメーション</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/smartarts.html" >SmartArts のアニメーション</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/charts.html" >Charts のアニメーション</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/diagrams.html" >ダイアグラムのアニメーション</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/graphs.html" >グラフのアニメーション</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">9. ドキュメントビルダと CLI</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/overview.html" >コードとしての図解ドキュメント概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/code_blocks.html" >Markdown コードブロック構文</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/cli_reference.html" >CLI リファレンス</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/project_doc.html" >リニアドキュメントプロジェクト (`doc`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/project_site.html" >ドキュメントサイトプロジェクト (`site`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/project_slide.html" >スライドデッキプロジェクト (`slide`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/slide_layout_and_api.html" >スライドステージレイアウトと API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/project_image.html" >画像プロジェクト (`images`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/customization.html" >テンプレートと CSS カスタマイズ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/caching_and_cicd.html" >キャッシュ機構と CI/CD</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">10. AI エージェントと高度な統合</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/ai_agent_instructions.html" >AI エージェント指示とルール体系</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/multimodal_feedback_loop.html" >自律検証フィードバックループ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/programmatic_api.html" >プログラマティック API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/math_and_layout.html" >アルゴリズムレイアウトと幾何計算</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/debugging.html" >トラブルシューティングとデバッグ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/case_study_brand_assets.html" >事例紹介: 公式ブランドアセットの設計</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/case_study_documentation_site.html" >事例紹介: AI エージェントによるドキュメントサイト構築</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/case_study_software_architecture.html" >事例紹介: コードとしてのソフトウェアアーキテクチャ設計書</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/case_study_technical_slides.html" >事例紹介: 技術プレゼンテーションスライドの作成</a>
+                            </li>
+                            
+                        </ul>
+                    
+                
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">リリースノートと移行ガイド</span>
+                </div>
+                
+                <div class="lang-switcher">
+                    <details class="lang-dropdown">
+                        <summary class="lang-dropdown-btn" aria-label="Select language">
+                            <svg class="lang-globe-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                            <span class="lang-current-label">日本語</span>
+                            <svg class="lang-caret-icon" viewBox="0 0 24 24" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </summary>
+                        <div class="lang-dropdown-menu" role="menu">
+                            
+                            <a href="../../en/01_getting_started/release_notes.html" class="lang-option" lang="en" hreflang="en" >
+                                <span>English</span>
+                                
+                            </a>
+                            
+                            <a href="release_notes.html" class="lang-option active" lang="ja" hreflang="ja" aria-current="page">
+                                <span>日本語</span>
+                                
+                                <svg class="lang-check-icon" viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                
+                            </a>
+                            
+                        </div>
+                    </details>
+                </div>
+                
+            </header>
+            <main class="main-content">
+                <h1>リリースノートと移行ガイド</h1>
+<h2>バージョン 0.3.2</h2>
+<p><em>リリース日: 2026/10/30</em></p>
+<p>バージョン 0.3.2 では、ネイティブで編集可能な <strong>MS Word（<code>.docx</code>）</strong> および <strong>MS PowerPoint（<code>.pptx</code>）</strong> エクスポーターを新搭載し、<strong>ヘッドレス Chromium・<code>python-docx</code>・<code>python-pptx</code></strong> を追加設定不要の標準依存パッケージへと統合したほか、組み込みの AI エージェントルールをカテゴリ別のモジュールディレクトリ構成へ再編成しました。</p>
+<hr />
+<h3>ハイライトと新機能</h3>
+<h4>1. MS Word（<code>.docx</code>）・MS PowerPoint（<code>.pptx</code>）エクスポート（<code>drawlib build docx</code>, <code>drawlib build pptx</code>）</h4>
+<ul>
+<li><strong><code>drawlib build docx</code> と <code>drawlib.tools.build_docx()</code></strong>: 単一構成の <code>doc</code> プロジェクトまたは個別の <code>.md</code> ファイルを、スタイル付き見出し、本文、箇条書き・番号付きリスト、テーブル、引用ブロック、シンタックスハイライト付きコードブロック、任意の表紙ページ、自動目次（<code>--generate-index</code>）を備えたネイティブ編集可能な MS Word（<code>.docx</code>）文書へコンパイルします。<code>drawlib</code> コードブロック（SVG、WebP、アニメーションを含む）は鮮明な高 DPI 静止画 PNG（デフォルト <code>--dpi 200</code>）として埋め込まれます。</li>
+<li><strong><code>drawlib build pptx</code> と <code>drawlib.slide.build_pptx()</code> / <code>drawlib.tools.build_pptx()</code></strong>: ヘッドレス Chromium を用いて <code>1920x1080</code> スライドのレイアウト座標と計算済み CSS スタイルを計測し、ネイティブ編集可能な 16:9（<code>960x540 pt</code>）MS PowerPoint（<code>.pptx</code>）デッキを出力します。<code>rgba</code> アルファ塗りつぶし・枠線を持つ <code>::: block</code> カード、テキストボックス、箇条書き・番号付きリスト、テーブル、インラインコード、<code>::: note</code> スピーカーノートを保持しつつ、<code>drawlib</code> 図解を高 DPI 静止画 PNG（デフォルト <code>--dpi 240</code>、<code>--anim-frame first|last</code> はデフォルト <code>last</code>）として埋め込みます。</li>
+</ul>
+<h4>2. ゼロ設定のヘッドレス Chromium と標準依存パッケージの統合</h4>
+<ul>
+<li><strong>標準依存パッケージへの統合</strong>: <code>playwright&gt;=1.49.0</code>、<code>python-docx&gt;=1.2.0</code>、<code>python-pptx&gt;=1.0.2</code> を標準の <code>dependencies</code> に昇格させ、<code>[project.optional-dependencies]</code> を廃止しました。<code>uv add drawlib</code> や <code>pip install drawlib</code> を実行するだけで、追加フラグなしで PDF、MS Word、MS PowerPoint エクスポートがそのまま利用できます。</li>
+<li><strong>ヘッドレスブラウザの自動プロビジョニング</strong>: <code>drawlib build pdf</code> または <code>drawlib build pptx</code> の初回実行時に、Playwright 同梱ドライバ経由で <code>chromium-headless-shell</code> が自動インストールされます。オフライン環境向けの明示的な事前ダウンロード（<code>drawlib cache download --browser</code>、および <code>drawlib cache download --all</code> に統合）と、最小構成の Linux コンテナ向け共有ライブラリ診断ガイド（<code>playwright install-deps chromium</code>）も追加されました。</li>
+</ul>
+<h4>3. カテゴリ別モジュール構造の AI エージェントルール（<code>drawlib rules</code>）</h4>
+<ul>
+<li><strong>モジュール化された <code>_rules/</code> 構成</strong>: 保守性の向上と高速なトピック検索のため、組み込みルールマニュアル（<code>src/drawlib/_rules/</code>）をカテゴリ別ディレクトリ（<code>charts/</code>, <code>diagrams/</code>, <code>graph/</code>, <code>icons/</code>, <code>shapes/</code>, <code>smartarts/</code>）へ再編成しました。</li>
+</ul>
+<hr />
+<h2>バージョン 0.3.1</h2>
+<p><em>リリース日: 2026/10/23</em></p>
+<p>バージョン 0.3.1 では、<strong><code>drawlib.charts.heatmap</code></strong> 可視化スイート（<code>HeatmapChart</code> および <code>HeatmapOverlay</code>）を新たに追加するとともに、ライブラリ全体および CLI の <strong>起動・インポート性能の大幅な最適化</strong> を実施しました。</p>
+<hr />
+<h3>ハイライトと新機能</h3>
+<h4>1. 2D マトリクスヒートマップと空間サーマルオーバーレイ（<code>drawlib.charts.heatmap</code>）</h4>
+<ul>
+<li><strong><code>HeatmapChart</code></strong>: カテゴリ軸 <code>x_categories</code>・<code>y_categories</code> 上の宣言的 2D マトリクス／グリッドヒートマップです。<code>Style</code> ベースの多段階カラー補間（<code>styles=[...]</code> または <code>min_style</code> / <code>max_style</code>）、自動コントラスト調整付きのセル内数値ラベル、セル間隔・角丸の調整（<code>cell_gap</code>, <code>cell_r</code>）、連続カラーバー（<code>draw_colorbar</code>）、段階スウォッチ凡例（<code>draw_legend</code>）を備えています。</li>
+<li><strong><code>HeatmapOverlay</code></strong>: 既存のダイアグラム（<code>ClassDiagram</code>, <code>ArchitectureDiagram</code>, <code>ERDiagram</code>, <code>FlowDiagram</code>, <code>GeoMap</code> など）の上に直接重ねて描画できる空間サーマル・ホットスポットオーバーレイです。<code>&quot;smooth&quot;</code>（2D ガウス熱分布グラデーション）または <code>&quot;contour&quot;</code>（同心ベクター等高線リング）モードと、<code>&quot;add&quot;</code> / <code>&quot;max&quot;</code> 集約（<code>Spot</code>）により、複雑度やインシデント密度、地域別ホットスポットを視覚的に強調できます。</li>
+</ul>
+<h4>2. 起動・インポート性能の大幅な最適化</h4>
+<ul>
+<li><strong>PEP 562 によるモジュールおよびアイコンスイートの遅延ロード</strong>: <code>drawlib</code>、<code>drawlib.tools</code>、<code>drawlib.styles</code>、<code>drawlib.preset_styles</code>、<code>drawlib.preset_colors</code>、<code>drawlib.smartarts</code>、<code>drawlib.charts</code>、<code>drawlib.diagrams</code>、<code>drawlib.icons</code>、および各 CLI サブコマンドにサブモジュール遅延インポートを導入しました。<code>drawlib</code> のインポート、描画を伴わない <code>drawlib.tools</code> ユーティリティの呼び出し、軽量な CLI コマンド（<code>drawlib --version</code>, <code>drawlib init</code>, <code>drawlib serve</code>）の実行時に <code>matplotlib</code> や未使用のドメインモジュールが読み込まれなくなり、起動レイテンシを <strong>15〜40 倍高速化</strong>（<code>import drawlib</code> 時の関数呼び出し回数を <strong>99% 以上削減</strong>）しました。</li>
+<li><strong>プリセットテーマのオンデマンド生成と高速な <code>Style</code> 構築</strong>: プリセットテーマ（<code>DefaultStyles</code>, <code>GoogleStyles</code>, <code>MonochromeStyles</code> など）のインスタンス化を初回アクセス時まで遅延させ、組み込みスタイルトークンへの <code>defer_build=True</code> と <code>model_construct</code> 高速パスの採用、<code>_BaseStylesMeta</code> の属性探索最適化、および <code>@validate_call</code> スキーマコンパイルの初回呼び出し時への遅延を実現しました。</li>
+</ul>
+<h4>3. バグ修正と互換性向上</h4>
+<ul>
+<li>Pydantic v2.11 以降で <code>BaseStyles</code> インスタンスの <code>model_fields</code> にアクセスした際に発生していた <code>PydanticDeprecatedSince211</code> 非推奨警告を解消しました。</li>
+</ul>
+<hr />
+<h2>バージョン 0.3.0</h2>
+<p><em>リリース日: 2026/10/21</em></p>
+<p>バージョン 0.3.0 は Drawlib にとって大きなアーキテクチャ上のマイルストーンであり、単なるベクター描画ツールから、ソフトウェア開発者と <strong>自律型 AI コーディングエージェント</strong> の双方に向けて設計された包括的な <strong>「Illustration &amp; Documentation as Code（コードとしての図解とドキュメント）」</strong> プラットフォームへと進化しました。</p>
+<hr />
+<h3>ハイライトと新機能</h3>
+<h4>1. モダンなフラットパッケージ構成</h4>
+<ul>
+<li>従来のバージョン名前空間付きパッケージを、標準的でモダンなフラットパッケージ構造（<code>drawlib</code>）へ統合しました。</li>
+<li>各ドメインモジュールから直感的かつ簡潔にパブリック API をインポートできます。
+<ul>
+<li><code>drawlib.canvas</code>, <code>drawlib.math</code>, <code>drawlib.types</code>, <code>drawlib.fonts</code></li>
+<li><code>drawlib.shapes</code>, <code>drawlib.lines</code>, <code>drawlib.text</code>, <code>drawlib.icons</code>, <code>drawlib.images</code></li>
+<li><code>drawlib.graph</code>, <code>drawlib.smartarts</code>, <code>drawlib.charts</code>, <code>drawlib.diagrams</code></li>
+<li><code>drawlib.anim</code>, <code>drawlib.slide</code>, <code>drawlib.tools</code></li>
+<li><code>drawlib.styles</code>, <code>drawlib.preset_colors</code>, <code>drawlib.preset_styles</code>, <code>drawlib.utils</code></li>
+</ul>
+</li>
+</ul>
+<h4>2. 統合ドキュメントビルダ・スライドコンパイラ・開発者ツール（<code>drawlib.tools</code>）</h4>
+<ul>
+<li>ネイティブの Markdown・HTML・スライド・PDF コンパイラ（<code>drawlib build html</code>, <code>drawlib build markdown</code>, <code>drawlib build pdf</code>, <code>drawlib build slide</code>, <code>drawlib build image</code>）を搭載しました。</li>
+<li><code>drawlib</code> コードブロックを含む Markdown ドキュメントから以下の成果物をコンパイルできます。
+<ul>
+<li>レスポンシブなマルチページ静的 HTML ドキュメントサイト（<code>docs_html/</code>）。</li>
+<li>画像リンクが埋め込まれた GitHub 最適化 Markdown ドキュメント（<code>docs/</code>）。</li>
+<li>印刷品質のベクター PDF ドキュメント（<code>doc.pdf</code> / <code>slide.pdf</code>）。</li>
+<li>インタラクティブな 16:9 ワイドスクリーン HTML プレゼンテーションデッキ（<code>slide_html/</code>）。</li>
+</ul>
+</li>
+<li><strong>SQLite 差分ビルドキャッシュ（<code>.drawlib/cache.db</code>）</strong>: コードブロック、<code>styles.py</code>、<code>utils.py</code>、およびローカルアセットの決定論的な SHA-256 コンテンツハッシュにより、未変更の図解の不要な再レンダリングを防止します。</li>
+<li><strong>プログラマティック開発者 API（<code>drawlib.tools</code>）</strong>: CI/CD やカスタム自動化向けに完全な Python API（<code>build_html</code>, <code>build_markdown</code>, <code>build_pdf</code>, <code>build_slide</code>, <code>build_image</code>, <code>export_code_block</code>, <code>init_project</code>, <code>serve_docs</code>, <code>list_cache</code>, <code>download_cache</code>, <code>clear_cache</code>）を提供します。</li>
+</ul>
+<h4>3. 自動レイアウトグラフエンジン（<code>drawlib.graph</code>）</h4>
+<ul>
+<li>手作業の座標計算を不要にし、ネストされた <code>Cluster</code> コンテナもサポートする 5 種類の専用自動レイアウトソルバーを搭載しました。
+<ul>
+<li><strong><code>LayerGraph</code></strong>: 杉山法ベースの階層型 DAG レイアウト。</li>
+<li><strong><code>ArchitectureGraph</code></strong>: セマンティックなティア整列を備えたクラウド・システムトポロジソルバー。</li>
+<li><strong><code>TreeGraph</code></strong>: バランスの取れた親子階層ツリーレイアウト。</li>
+<li><strong><code>RadialGraph</code></strong>: 同心円状の放射リングレイアウト。</li>
+<li><strong><code>GridGraph</code></strong>: 構造化されたマトリクス配置ソルバー。</li>
+</ul>
+</li>
+<li><strong>2 ステップのレイアウト確認とダイアグラム描画（<code>get_layout()</code>）</strong>: 構造化された <code>GraphLayout</code> 座標（<code>xy</code>, <code>bottom_left</code>, <code>local_xy</code>, <code>local_bottom_left</code>, <code>points</code>）を算出し、人間にも AI にも読みやすい <code>print(layout)</code> 出力による確認と <code>offset()</code> による微調整が可能です。</li>
+</ul>
+<h4>4. 高水準テクニカルダイアグラム（<code>drawlib.diagrams</code>）</h4>
+<ul>
+<li><strong>アーキテクチャ図（<code>drawlib.diagrams.architecture.ArchitectureDiagram</code>）</strong>: クラウドトポロジ、ネストされたクラスタグループ、Phosphor アイコンおよび公式 GCP ベクターアイコンに対応。</li>
+<li><strong>フロー図（<code>drawlib.diagrams.flow.FlowDiagram</code>）</strong>: 標準フローチャート記号（ISO 5807 / JIS X 0121）、条件分岐、T 字合流、スイムレーン（<code>Lane</code>）に対応。</li>
+<li><strong>シーケンス図（<code>drawlib.diagrams.sequence.SequenceDiagram</code>）</strong>: クライアント／サーバーのライフライン、実行仕様バー（アクティベーション）、同期／非同期メッセージ矢印、自己呼び出し、複合フラグメント（<code>alt</code>, <code>opt</code>, <code>loop</code>, <code>par</code>）に対応。</li>
+<li><strong>ER 図（<code>drawlib.diagrams.er.ERDiagram</code>）</strong>: IE 記法（鳥の足記法 / Crow's Foot）のフルサポート、テーブルエンティティ区画、自動直交ルーティングに対応。</li>
+<li><strong>UML クラス図（<code>drawlib.diagrams.class_diagram.ClassDiagram</code>）</strong>: 3 区画のクラスカード、ステレオタイプ（<code>«interface»</code>）、可視性記号、各種関連メソッド（<code>inherit()</code>, <code>realize()</code>, <code>composite()</code>, <code>aggregate()</code>, <code>associate()</code>, <code>depend()</code>）に対応。</li>
+<li><strong>ステートマシン図（<code>drawlib.diagrams.state.StateDiagram</code>）</strong>: 開始／終了擬似状態、内部アクティビティ区画（<code>entry</code>, <code>do</code>, <code>exit</code>）、曲率制御付きの曲線遷移、自己遷移ループを備えた宣言的ステートチャート。</li>
+</ul>
+<h4>5. Pure Python の宣言的チャート（<code>drawlib.charts</code>）</h4>
+<ul>
+<li>外部プロット専用ツールへの依存なしで以下の定量チャートを描画できます。
+<ul>
+<li><strong>BarChart</strong>: 縦棒／横棒、集合（グループ）、積み上げ棒グラフ。</li>
+<li><strong>LineChart</strong>: 直線セグメント、滑らかなスプライン曲線、カスタムマーカー付き折れ線グラフ。</li>
+<li><strong>AreaChart</strong>: 重ね合わせおよび累積積み上げの面グラフ。</li>
+<li><strong>PieChart</strong>: 中央 KPI バッジに対応した円グラフおよびドーナツグラフ。</li>
+<li><strong>RadarChart</strong>: 多軸スパイダーウェブおよび同心円リングのレーダーチャート。</li>
+<li><strong>ScatterChart</strong>: カスタムマーカー形状に対応した 2D 散布図およびバブルチャート。</li>
+<li><strong>GanttChart</strong>: プロジェクト工程表、進捗バー、マイルストーン、タスク間依存矢印を備えたガントチャート。</li>
+</ul>
+</li>
+</ul>
+<h4>6. 拡張された SmartArts と地理マップ（<code>drawlib.smartarts</code>）</h4>
+<ul>
+<li><strong><code>GeoMap</code></strong>: 国・都道府県のハイライト、ピン、接続アーク、コロプレス（階級区分）色分けに対応したオフラインベクター地図（<code>World</code>, <code>Asia</code>, <code>Europe</code>, <code>USA</code>, <code>Japan</code> など）。</li>
+<li><strong><code>TreeNode</code> と <code>MindMapNode</code></strong>: 階層型ノードツリーと放射状のブレインストーミング用マインドマップ。</li>
+<li><strong><code>SourceCode</code></strong>: 行番号、ウィンドウフレーム、ダーク／ライトテーマを備えたシンタックスハイライト付きソースコードカード。</li>
+<li><strong><code>ChevronProcess</code> と <code>Cycle</code></strong>: 順次シェブロン工程パイプラインと、中央ハブ付きの放射状サイクル図。</li>
+<li><strong><code>Table</code>, <code>GridLayout</code>, <code>Pyramid</code>, <code>BoxList</code>, <code>BulletPoints</code></strong>: 構造化された表形式およびカードベースのビジュアルコンポーネント群。</li>
+</ul>
+<h4>7. マルチフレームアニメーション（<code>drawlib.anim</code>）と 16:9 プレゼンテーションステージ（<code>drawlib.slide</code>）</h4>
+<ul>
+<li><strong><code>drawlib.anim.Animation</code></strong>: フレームコンテキストマネージャ（<code>with anim.frame():</code>）、FPS 設定、<code>drawlib.math</code> の補間ヘルパーを備え、ロスレス <strong>APNG</strong> および <strong>アニメーション WebP</strong> を出力する宣言的マルチフレームアニメーションビルダ。</li>
+<li><strong><code>drawlib.slide</code></strong>: Markdown レイアウトコンテナ（<code>::: block</code>, <code>::: note</code>）、発表者ビュー（<code>?presenter=1</code>）、<code>current_slide</code> ランタイムプロキシ（<code>SlideContext</code>, <code>BoundingBox</code>）を備えた共通 <code>1920x1080</code>（16:9 ワイドスクリーン）プレゼンテーション座標ステージ。</li>
+</ul>
+<h4>8. AI エージェントガイドラインとルールシステム（<code>drawlib rules</code>）</h4>
+<ul>
+<li>CLI からオンデマンドで参照できる組み込みマニュアルを提供。
+<ul>
+<li><code>drawlib rules show &lt;topic&gt;</code>: 簡潔な構文マニュアルをエージェントのコンテキストウィンドウへ直接注入。</li>
+<li><code>drawlib rules list</code>: 利用可能なすべての描画ルールトピックを一覧表示。</li>
+</ul>
+</li>
+<li>座標グリッドオーバーレイ（<code>drawlib show -g</code>）による自律的な視覚的自己修正ループをサポート。</li>
+</ul>
+<h4>9. プロジェクトスキャフォールディング（<code>drawlib init</code>）</h4>
+<ul>
+<li>主要な 4 つのユースケースに対応する完全なスタータープロジェクトを即座に生成。
+<ul>
+<li><code>drawlib init doc</code>: 単一構成の技術ドキュメント（HTML、PDF、Markdown、画像）。</li>
+<li><code>drawlib init site</code>: マルチページのドキュメント Web サイト。</li>
+<li><code>drawlib init slide</code>: 16:9 プレゼンテーションスライドデッキ（Web およびベクター PDF）。</li>
+<li><code>drawlib init images</code>: スタンドアロン Python 図解の一括生成プロジェクト。</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h3>破壊的変更と v0.2 からの移行ガイド</h3>
+<p>Drawlib v0.2 からアップグレードする場合は、以下の必須変更点を確認してください。</p>
+<ol>
+<li><strong>Python 3.11 以降が必須</strong>: Python 3.10 以前のサポートは終了しました。</li>
+<li><strong>トップレベル CLI <code>drawlib export</code> の廃止</strong>:
+<ul>
+<li>代わりに <code>drawlib show input.py -o output.png</code> を使用してください。</li>
+</ul>
+</li>
+<li><strong>旧 <code>dsart</code> 名前空間の廃止と <code>Tree</code> から <code>TreeNode</code> への改名</strong>:
+<ul>
+<li><code>from drawlib.apis import dsart</code> を以下のように変更してください。<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.smartarts</span><span class="w"> </span><span class="kn">import</span> <span class="n">Table</span><span class="p">,</span> <span class="n">TreeNode</span><span class="p">,</span> <span class="n">MindMapNode</span><span class="p">,</span> <span class="n">ChevronProcess</span><span class="p">,</span> <span class="n">Cycle</span><span class="p">,</span> <span class="n">GeoMap</span><span class="p">,</span> <span class="n">SourceCode</span>
+</code></pre>
+</li>
+</ul>
+</li>
+<li><strong>セマンティックスタイル名の正規化</strong>:
+<ul>
+<li>スタイルトークンは PascalCase（<code>Styles.PrimaryFlat</code>, <code>Styles.AccentBold</code>）に統一されました。従来の snake_case スタイル属性は完全に廃止されています。</li>
+</ul>
+</li>
+<li><strong>ダイアグラムクラス名の統一</strong>:
+<ul>
+<li>すべてのダイアグラムコンテナは <code>Diagram</code> サフィックス付きの PascalCase に統一されました。
+<ul>
+<li><code>ArchitectureDiagram</code></li>
+<li><code>ERDiagram</code></li>
+<li><code>FlowDiagram</code></li>
+<li><code>SequenceDiagram</code></li>
+<li><code>ClassDiagram</code></li>
+<li><code>StateDiagram</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<hr />
+<h2>バージョン 0.2.x アーカイブ</h2>
+<ul>
+<li><strong>v0.2.3</strong>（2024/09/08）: ブロック矢印関数（<code>arrow_polyline</code>, <code>arrow_l</code>, <code>arrow_u</code>, <code>arrow_arc</code>）および初期 SmartArts（<code>Table</code>, <code>Tree</code>, <code>GridLayout</code>, <code>Pyramid</code>, <code>BoxList</code>, <code>BulletPoints</code>）を追加。</li>
+<li><strong>v0.2.2</strong>（2024/07/02）: Drawlib 0.2 の初回パブリックリリース。</li>
+</ul>
+
+            </main>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Theme toggle
+            const themeBtn = document.getElementById('theme-toggle');
+            if (themeBtn) {
+                themeBtn.addEventListener('click', function() {
+                    const current = document.documentElement.getAttribute('data-theme');
+                    const next = current === 'dark' ? 'light' : 'dark';
+                    document.documentElement.setAttribute('data-theme', next);
+                    localStorage.setItem('drawlib-theme', next);
+                });
+            }
+
+            // Language dropdown outside-click & Escape close
+            const langDropdowns = document.querySelectorAll('.lang-dropdown');
+            if (langDropdowns.length > 0) {
+                document.addEventListener('click', function(e) {
+                    langDropdowns.forEach(function(dd) {
+                        if (dd.hasAttribute('open') && !dd.contains(e.target)) {
+                            dd.removeAttribute('open');
+                        }
+                    });
+                });
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape') {
+                        langDropdowns.forEach(function(dd) {
+                            dd.removeAttribute('open');
+                        });
+                    }
+                });
+            }
+
+            // Mobile menu toggle
+            const menuBtn = document.getElementById('menu-toggle');
+            const sidebar = document.querySelector('.sidebar');
+            if (menuBtn && sidebar) {
+                function setMenuOpen(open) {
+                    sidebar.classList.toggle('is-open', open);
+                    menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+                    document.body.classList.toggle('menu-open', open);
+                    if (open) {
+                        const menu = sidebar.querySelector('.sidebar-menu');
+                        if (menu) {
+                            menu.scrollTop = 0;
+                        }
+                    }
+                }
+
+                menuBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const willOpen = !sidebar.classList.contains('is-open');
+                    setMenuOpen(willOpen);
+                });
+
+                // Close menu when clicking outside sidebar
+                document.addEventListener('click', function(e) {
+                    if (sidebar.classList.contains('is-open') && !sidebar.contains(e.target)) {
+                        setMenuOpen(false);
+                    }
+                });
+
+                // Close menu when a navigation link is clicked
+                const navLinks = sidebar.querySelectorAll('.nav-item a');
+                navLinks.forEach(function(link) {
+                    link.addEventListener('click', function() {
+                        setMenuOpen(false);
+                    });
+                });
+
+                // Close on Escape key
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape' && sidebar.classList.contains('is-open')) {
+                        setMenuOpen(false);
+                    }
+                });
+
+                // Reset menu state when resized above mobile breakpoint
+                window.addEventListener('resize', function() {
+                    if (window.innerWidth > 768 && sidebar.classList.contains('is-open')) {
+                        setMenuOpen(false);
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

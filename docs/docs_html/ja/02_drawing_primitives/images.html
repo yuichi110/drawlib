@@ -1,0 +1,1223 @@
+<!--
+ Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+
+ This software is licensed under the Apache License, Version 2.0.
+ For more information, please visit: https://github.com/yuichi110/drawlib
+
+ This software is provided "as is", without warranty of any kind,
+ express or implied, including but not limited to the warranties of
+ merchantability, fitness for a particular purpose and noninfringement.
+-->
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>画像と Dimage</title>
+    <script>
+        (function() {
+            const saved = localStorage.getItem('drawlib-theme');
+            if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    
+    
+    <link rel="alternate" hreflang="en" href="../../en/02_drawing_primitives/images.html">
+    
+    <link rel="alternate" hreflang="ja" href="images.html">
+    
+    <link rel="alternate" hreflang="x-default" href="../../en/02_drawing_primitives/images.html">
+    
+    
+    
+    <link rel="icon" type="image/png" href="../../_assets/favicon.png">
+    
+    
+    <link rel="stylesheet" href="../style.css">
+    
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-brand" aria-label="Drawlib ドキュメント">
+                    
+                    <img src="../../_assets/logo.png" alt="Drawlib ドキュメント" class="sidebar-logo sidebar-logo-light">
+                    <img src="../../_assets/logo_dark.png" alt="Drawlib ドキュメント" class="sidebar-logo sidebar-logo-dark">
+                    
+                </a>
+                <div class="sidebar-header-actions">
+                    <button type="button" id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle theme">
+                        <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                        <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                    </button>
+                    <button type="button" id="menu-toggle" class="menu-toggle-btn" aria-label="Toggle navigation" aria-expanded="false">
+                        <svg class="icon-hamburger" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                        <svg class="icon-close" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                    </button>
+                </div>
+            </div>
+            <div class="sidebar-subbar">
+                
+                <a href="../01_getting_started/release_notes.html" class="sidebar-version-badge" title="View Release Notes">
+                    <span class="sidebar-version-dot" aria-hidden="true"></span>
+                    <span class="sidebar-version-text">v0.3.2</span>
+                </a>
+                <a href="https://github.com/yuichi110/drawlib" target="_blank" rel="noopener noreferrer" class="sidebar-github-link" aria-label="GitHub Repository" title="GitHub Repository">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+                </a>
+            </div>
+            <div class="sidebar-menu">
+                
+                    
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../index.html" >ようこそ</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">1. はじめに</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/overview.html" >Drawlib とは</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/installation.html" >インストールガイド</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/quick_start.html" >クイックスタートガイド</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/core_concepts.html" >基本ビジュアル概念</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/project_quicklook.html" >プロジェクト構成とビルド</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/agent_quicklook.html" >AI 駆動ワークフローとエージェント設定</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/release_notes.html" >リリースノートと移行ガイド</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">2. 描画プリミティブとスタイル</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="canvas.html" >キャンバスと座標系</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="shapes_overview.html" >図形プリミティブ概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="shapes_basic.html" >基本図形・放射状図形</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="shapes_polygon.html" >多角形とカスタムパス</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="shapes_arrow.html" >ブロック矢印・シェブロン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="shapes_container.html" >3D コンテナ・フロー・グルーピング</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="shapes_badge.html" >吹き出し・バッジ・ステータス</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="shapes_symbol.html" >フェイス・時計・記号・演算子</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="lines.html" >線とコネクタ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="text.html" >テキストとタイポグラフィ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="fonts.html" >フォントと多言語カタログ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="font_file.html" >カスタムフォントファイル (FontFile)</a>
+                            </li>
+                            
+                            <li class="nav-item active">
+                                <a href="images.html" >画像と Dimage</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="styles.html" >スタイルとテーマ設定</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="colors.html" >カラーパレットと色モデル</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="style_guide.html" >図解デザインとスタイルガイド</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">3. アイコンとブランドスイート</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/overview.html" >アイコン概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/phosphor.html" >Phosphor ベクターアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/gcp.html" >Google Cloud (GCP) アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/aws.html" >Amazon Web Services (AWS) アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/azure.html" >Microsoft Azure アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/cloud.html" >クラウド・オリジナルクラウドアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/cnative.html" >クラウドネイティブ (K8s) アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/devops.html" >DevOps・オブザーバビリティアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/network.html" >ネットワーク・Cisco トポロジアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/server.html" >サーバー・OS・仮想化アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/security.html" >セキュリティ・ゼロトラストアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/facility.html" >データセンター・ファシリティアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/ai.html" >AI・機械学習アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/data.html" >データ・データベースアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/code.html" >コード・言語・フレームワークアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/business.html" >エンタープライズ・FinTech アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/itservice.html" >IT サービス・コンサルティングアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/workspace.html" >ワークスペース・コラボレーションアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/social.html" >ソーシャル・メディア・コミュニティアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/client.html" >クライアント端末・エンドポイントアイコン</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">4. SmartArts（スマートアート）</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/overview.html" >SmartArts 概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/chevron_process.html" >ChevronProcess（シェブロン工程図）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/cycle.html" >Cycle（サイクル図）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/table.html" >Table（テーブル）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/tree.html" >Tree（ツリー図）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/mindmap.html" >MindMap（マインドマップ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/grid_layout.html" >GridLayout（グリッドレイアウト）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/pyramid.html" >Pyramid（ピラミッド図）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/box_list.html" >BoxList（ボックスリスト）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/kpi_cards.html" >KpiCards（KPI カード）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/card_list.html" >CardList（カードリスト）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/roadmap.html" >Roadmap（ロードマップ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/panel.html" >Panel（パネル）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/calendar.html" >Calendar（カレンダー）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/bullet_points.html" >BulletPoints（箇条書きボード）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/source_code.html" >SourceCode（ソースコードカード）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/geomap.html" >GeoMap（地理マップ）</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">5. Charts（定量チャート）</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/overview.html" >Charts 概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/axes_and_legends.html" >軸・スケール・凡例</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/bar.html" >Bar Chart（棒グラフ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/line.html" >Line Chart（折れ線グラフ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/area.html" >Area Chart（面グラフ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/pie.html" >Pie & Donut Chart（円・ドーナツグラフ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/radar.html" >Radar Chart（レーダーチャート）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/scatter.html" >Scatter Chart（散布図）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/gantt.html" >Gantt Chart（ガントチャート）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/heatmap.html" >Heatmap & Thermal Overlay（ヒートマップ）</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">6. テクニカルダイアグラム</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/overview.html" >ダイアグラム概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/architecture.html" >アーキテクチャ図</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/flow.html" >フロー図</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/sequence.html" >シーケンス図</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/class_diagram.html" >UML クラス図</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/er.html" >ER 図</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/state_diagram.html" >ステートマシン図</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">7. 自動レイアウトグラフ</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/overview.html" >グラフエンジン概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/architecture_graph.html" >ArchitectureGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/layer_graph.html" >LayerGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/tree_graph.html" >TreeGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/radial_graph.html" >RadialGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/grid_graph.html" >GridGraph</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">8. アニメーション</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/overview.html" >アニメーション概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/primitives.html" >プリミティブと色のアニメーション</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/smartarts.html" >SmartArts のアニメーション</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/charts.html" >Charts のアニメーション</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/diagrams.html" >ダイアグラムのアニメーション</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/graphs.html" >グラフのアニメーション</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">9. ドキュメントビルダと CLI</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/overview.html" >コードとしての図解ドキュメント概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/code_blocks.html" >Markdown コードブロック構文</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/cli_reference.html" >CLI リファレンス</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/project_doc.html" >リニアドキュメントプロジェクト (`doc`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/project_site.html" >ドキュメントサイトプロジェクト (`site`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/project_slide.html" >スライドデッキプロジェクト (`slide`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/slide_layout_and_api.html" >スライドステージレイアウトと API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/project_image.html" >画像プロジェクト (`images`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/customization.html" >テンプレートと CSS カスタマイズ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/caching_and_cicd.html" >キャッシュ機構と CI/CD</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">10. AI エージェントと高度な統合</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/ai_agent_instructions.html" >AI エージェント指示とルール体系</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/multimodal_feedback_loop.html" >自律検証フィードバックループ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/programmatic_api.html" >プログラマティック API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/math_and_layout.html" >アルゴリズムレイアウトと幾何計算</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/debugging.html" >トラブルシューティングとデバッグ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/case_study_brand_assets.html" >事例紹介: 公式ブランドアセットの設計</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/case_study_documentation_site.html" >事例紹介: AI エージェントによるドキュメントサイト構築</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/case_study_software_architecture.html" >事例紹介: コードとしてのソフトウェアアーキテクチャ設計書</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/case_study_technical_slides.html" >事例紹介: 技術プレゼンテーションスライドの作成</a>
+                            </li>
+                            
+                        </ul>
+                    
+                
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">画像と Dimage</span>
+                </div>
+                
+                <div class="lang-switcher">
+                    <details class="lang-dropdown">
+                        <summary class="lang-dropdown-btn" aria-label="Select language">
+                            <svg class="lang-globe-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                            <span class="lang-current-label">日本語</span>
+                            <svg class="lang-caret-icon" viewBox="0 0 24 24" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </summary>
+                        <div class="lang-dropdown-menu" role="menu">
+                            
+                            <a href="../../en/02_drawing_primitives/images.html" class="lang-option" lang="en" hreflang="en" >
+                                <span>English</span>
+                                
+                            </a>
+                            
+                            <a href="images.html" class="lang-option active" lang="ja" hreflang="ja" aria-current="page">
+                                <span>日本語</span>
+                                
+                                <svg class="lang-check-icon" viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                
+                            </a>
+                            
+                        </div>
+                    </details>
+                </div>
+                
+            </header>
+            <main class="main-content">
+                <h1>画像と Dimage</h1>
+<p>Drawlib では、外部のビットマップ画像やベクター画像を図解内に直接埋め込むことができます。
+ラスター画像（企業ロゴ、クラウドサービスアイコン、アプリケーションのスクリーンショットなど）をベクター図形や注釈と組み合わせたり、イミュータブルなインメモリ画像モデル <strong><code>Dimage</code></strong> を使ってプログラマティックに画像を加工したりできます。</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="../../images/02_drawing_primitives/images/images_overview.png" alt="images_1" />
+  <figcaption class="drawlib-caption">外部画像アセットとインメモリ Dimage の埋め込み</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.images</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dimage</span><span class="p">,</span> <span class="n">image</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">116</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">46</span><span class="p">)</span>
+
+<span class="c1"># Card 1: Local image file</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">33</span><span class="p">,</span> <span class="mi">23</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">44</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">36</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mi">3</span><span class="p">))</span>
+<span class="n">image</span><span class="p">((</span><span class="mi">33</span><span class="p">,</span> <span class="mf">26.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">image</span><span class="o">=</span><span class="s2">"../_assets/linux.png"</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">33</span><span class="p">,</span> <span class="mf">10.5</span><span class="p">),</span> <span class="s2">"Linux Logo"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">))</span>
+
+<span class="c1"># Card 2: Memory Dimage</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">83</span><span class="p">,</span> <span class="mi">23</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">44</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">36</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mi">3</span><span class="p">))</span>
+<span class="n">dimg</span> <span class="o">=</span> <span class="n">Dimage</span><span class="p">(</span><span class="s2">"../_assets/python.png"</span><span class="p">)</span>
+<span class="n">image</span><span class="p">((</span><span class="mi">83</span><span class="p">,</span> <span class="mf">26.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">image</span><span class="o">=</span><span class="n">dimg</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">83</span><span class="p">,</span> <span class="mf">10.5</span><span class="p">),</span> <span class="s2">"Python Dimage"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">))</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<hr />
+<h2>1. 概要とインポート</h2>
+<p>画像の配置関数およびインメモリ加工クラスは <code>drawlib.images</code> からインポートします。</p>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.images</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">Dimage</span><span class="p">,</span>                <span class="c1"># Immutable PIL Image wrapper with 20+ geometric &amp; artistic transforms</span>
+    <span class="n">get_dimage_from_code</span><span class="p">,</span>  <span class="c1"># Render a Drawlib Python snippet in an isolated subprocess to a Dimage</span>
+    <span class="n">image</span><span class="p">,</span>                 <span class="c1"># Draw a file path, PIL Image, or Dimage onto the canvas</span>
+<span class="p">)</span>
+</code></pre>
+<hr />
+<h2>2. 画像の配置とスタイル設定 (<code>image</code>)</h2>
+<p><code>image()</code> 関数は、元のアスペクト比を自動的に維持しながらキャンバスの座標 <code>xy</code> に画像を配置します。</p>
+<pre><code class="language-python"><span class="n">image</span><span class="p">(</span>
+    <span class="n">xy</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
+    <span class="n">width</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">image</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">os</span><span class="o">.</span><span class="n">PathLike</span> <span class="o">|</span> <span class="n">Image</span><span class="o">.</span><span class="n">Image</span> <span class="o">|</span> <span class="n">Dimage</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">パラメータ</th>
+<th style="text-align:left">型</th>
+<th style="text-align:left">デフォルト</th>
+<th style="text-align:left">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>xy</code></td>
+<td style="text-align:left"><code>tuple[float, float]</code></td>
+<td style="text-align:left"><em>必須</em></td>
+<td style="text-align:left">キャンバス単位でのアンカー座標 <code>(x, y)</code>（デフォルトは中央基準）。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>width</code></td>
+<td style="text-align:left"><code>float</code></td>
+<td style="text-align:left"><em>必須</em></td>
+<td style="text-align:left">キャンバス単位での水平幅。高さは画像のアスペクト比から自動計算されます。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>image</code></td>
+<td style="text-align:left"><code>str | Image.Image | Dimage</code></td>
+<td style="text-align:left"><em>必須</em></td>
+<td style="text-align:left">ファイルパス（<code>.png</code>、<code>.jpg</code>、<code>.webp</code>、呼び出し元スクリプト基準で相対解決）、PIL <code>Image.Image</code>、または <code>Dimage</code>。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>style</code></td>
+<td style="text-align:left"><code>Style | None</code></td>
+<td style="text-align:left"><code>None</code></td>
+<td style="text-align:left">外枠フレーム、背景色塗り、配置揃え、回転、不透明度を制御する任意の <code>Style</code>。</td>
+</tr>
+</tbody>
+</table>
+<h3>2.1. <code>Style</code> の画像・座標変換属性</h3>
+<p><code>image()</code> に <code>style=</code> を渡す際、<code>.patch()</code> を使って画像専用の <code>image_*</code> 属性と共通の空間変換属性を設定できます。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><code>Style</code> 属性</th>
+<th style="text-align:left">型</th>
+<th style="text-align:left">デフォルト</th>
+<th style="text-align:left">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>image_tint_color</code></td>
+<td style="text-align:left"><code>Color | tuple | str | None</code></td>
+<td style="text-align:left"><code>None</code></td>
+<td style="text-align:left"><code>Dimage.fill(color)</code> により、画像の透過背景ピクセルを単色で塗りつぶします。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>image_border_color</code></td>
+<td style="text-align:left"><code>Color | tuple | str | None</code></td>
+<td style="text-align:left"><code>(0, 0, 0)</code></td>
+<td style="text-align:left">画像の外周に沿って描画する矩形枠線の色。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>image_border_width</code></td>
+<td style="text-align:left"><code>float | None</code></td>
+<td style="text-align:left"><code>0</code></td>
+<td style="text-align:left">ポイント単位の枠線の太さ（<code>0</code> または <code>None</code> で枠線なし）。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>image_border_style</code></td>
+<td style="text-align:left"><code>&quot;solid&quot; | &quot;dashed&quot; | &quot;dotted&quot; | &quot;dashdot&quot;</code></td>
+<td style="text-align:left"><code>&quot;solid&quot;</code></td>
+<td style="text-align:left">画像外枠の破線パターン。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>halign</code></td>
+<td style="text-align:left"><code>&quot;left&quot; | &quot;center&quot; | &quot;right&quot;</code></td>
+<td style="text-align:left"><code>&quot;center&quot;</code></td>
+<td style="text-align:left"><code>xy[0]</code> に対する水平方向のアンカー配置揃え。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>valign</code></td>
+<td style="text-align:left"><code>&quot;bottom&quot; | &quot;center&quot; | &quot;top&quot;</code></td>
+<td style="text-align:left"><code>&quot;center&quot;</code></td>
+<td style="text-align:left"><code>xy[1]</code> に対する垂直方向のアンカー配置揃え。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>xy_shift</code></td>
+<td style="text-align:left"><code>tuple[float, float] | None</code></td>
+<td style="text-align:left"><code>None</code></td>
+<td style="text-align:left"><code>angle</code> の回転に追従する相対 <code>(dx, dy)</code> 座標シフト。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>xy_abs_shift</code></td>
+<td style="text-align:left"><code>tuple[float, float] | None</code></td>
+<td style="text-align:left"><code>None</code></td>
+<td style="text-align:left"><code>angle</code> に依存しない絶対 <code>(dx, dy)</code> 座標シフト。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>angle</code></td>
+<td style="text-align:left"><code>float | None</code></td>
+<td style="text-align:left"><code>0.0</code></td>
+<td style="text-align:left">画像中心を基準とした反時計回りの回転角（度）。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>alpha</code></td>
+<td style="text-align:left"><code>float | None</code></td>
+<td style="text-align:left"><code>1.0</code></td>
+<td style="text-align:left">画像および外枠全体の不透明度（<code>0.0</code> の完全透明から <code>1.0</code> の完全不透明まで）。</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>[!IMPORTANT]
+<strong>回転時は中央揃えが必須 (<code>angle != 0</code>)</strong>: <code>style.angle</code> に <code>0</code> 以外の値を指定する場合、<code>image()</code> は中央アンカー（<code>halign=&quot;center&quot;</code>, <code>valign=&quot;center&quot;</code>）を必要とします。<code>angle != 0</code> と同時に中央以外の <code>halign</code> や <code>valign</code> が渡された場合、Drawlib は警告を出力して自動的に <code>&quot;center&quot;</code> にリセットします。</p>
+</blockquote>
+<h3>2.2. アンカー配置揃えと回転の例</h3>
+<p>デフォルトでは、<code>(x, y)</code> は画像の幾何中心をアンカーとします。<code>style.patch(halign=&quot;left&quot;, valign=&quot;bottom&quot;)</code> で左下隅アンカーに切り替えたり、<code>style.patch(angle=...)</code> で中央基準のまま画像を回転させたりできます。</p>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.images</span><span class="w"> </span><span class="kn">import</span> <span class="n">image</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">circle</span><span class="p">,</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Colors</span><span class="p">,</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">48</span><span class="p">,</span> <span class="n">grid</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">img_path</span> <span class="o">=</span> <span class="s2">"../_assets/python.png"</span>
+<span class="n">framed</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">image_border_width</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">image_border_color</span><span class="o">=</span><span class="n">Colors</span><span class="o">.</span><span class="n">Gray4</span><span class="p">)</span>
+<span class="n">lbl_st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">)</span>
+
+<span class="c1"># 1. Default center anchor at xy=(23, 25)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">23</span><span class="p">,</span> <span class="mi">23</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">35</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">38</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">image</span><span class="p">((</span><span class="mi">23</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">17</span><span class="p">,</span> <span class="n">image</span><span class="o">=</span><span class="n">img_path</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">framed</span><span class="p">)</span>
+<span class="n">circle</span><span class="p">((</span><span class="mi">23</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerFlat</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">23</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">),</span> <span class="s2">"1. Center (23, 25)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">lbl_st</span><span class="p">)</span>
+
+<span class="c1"># 2. Bottom-left anchor at xy=(55.5, 16.5)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">64</span><span class="p">,</span> <span class="mi">23</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">35</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">38</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">bl_style</span> <span class="o">=</span> <span class="n">framed</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">valign</span><span class="o">=</span><span class="s2">"bottom"</span><span class="p">)</span>
+<span class="n">image</span><span class="p">((</span><span class="mf">55.5</span><span class="p">,</span> <span class="mf">16.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">17</span><span class="p">,</span> <span class="n">image</span><span class="o">=</span><span class="n">img_path</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">bl_style</span><span class="p">)</span>
+<span class="n">circle</span><span class="p">((</span><span class="mf">55.5</span><span class="p">,</span> <span class="mf">16.5</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerFlat</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">64</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">),</span> <span class="s2">"2. Bottom-Left"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">lbl_st</span><span class="p">)</span>
+
+<span class="c1"># 3. Rotated center placement at xy=(105, 25)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">105</span><span class="p">,</span> <span class="mi">23</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">35</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">38</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">rot_style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">angle</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">image</span><span class="p">((</span><span class="mi">105</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">17</span><span class="p">,</span> <span class="n">image</span><span class="o">=</span><span class="n">img_path</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">rot_style</span><span class="p">)</span>
+<span class="n">circle</span><span class="p">((</span><span class="mi">105</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerFlat</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">105</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">),</span> <span class="s2">"3. Rotated (20°)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">lbl_st</span><span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="../../images/02_drawing_primitives/images/images_anchor_and_rotation.png" alt="images_2" />
+  <figcaption class="drawlib-caption">中央アンカーと左下アンカーの比較および画像の回転</figcaption>
+</figure>
+<hr />
+<h2>3. インメモリ画像加工 (<code>Dimage</code>)</h2>
+<p><code>Dimage</code> は <code>PIL.Image.Image</code> オブジェクトをイミュータブルかつメソッドチェーン可能な API でラップしたクラスです。すべての変換メソッドは元の <code>Dimage</code> を変更せず、常に<strong>新しい <code>Dimage</code> インスタンス</strong>を返します。</p>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.images</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dimage</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Colors</span>
+
+<span class="c1"># 1. Load from file (or wrap an existing PIL Image / Dimage)</span>
+<span class="n">dimg</span> <span class="o">=</span> <span class="n">Dimage</span><span class="p">(</span><span class="s2">"../_assets/python.png"</span><span class="p">)</span>
+
+<span class="c1"># 2. Inspect pixel dimensions</span>
+<span class="n">width_px</span><span class="p">,</span> <span class="n">height_px</span> <span class="o">=</span> <span class="n">dimg</span><span class="o">.</span><span class="n">get_image_size</span><span class="p">()</span>
+
+<span class="c1"># 3. Fill transparent background pixels with a solid color (keeps opaque foreground intact)</span>
+<span class="n">filled_bg</span> <span class="o">=</span> <span class="n">dimg</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">Colors</span><span class="o">.</span><span class="n">Primary1</span><span class="p">)</span>
+
+<span class="c1"># 4. Chain geometric and artistic filters immutably</span>
+<span class="n">processed</span> <span class="o">=</span> <span class="n">dimg</span><span class="o">.</span><span class="n">mirror</span><span class="p">()</span><span class="o">.</span><span class="n">grayscale</span><span class="p">()</span><span class="o">.</span><span class="n">brightness</span><span class="p">(</span><span class="mf">1.1</span><span class="p">)</span>
+</code></pre>
+<blockquote>
+<p>[!NOTE]
+<strong><code>dimg.fill(color)</code> の仕様</strong>: <code>dimg.fill(color)</code> は<strong>透過背景ピクセルを <code>color</code> で塗りつぶします</strong>（半透明のエッジ部分は <code>color</code> の上にアルファ合成しつつ、不透明な前景ピクセルはそのまま保持します）。前景の色調自体を染め替えたい場合は、<code>dimg.colorize(from_black_to=..., from_white_to=...)</code> を使用してください。</p>
+</blockquote>
+<h3>3.1. 入出力・複製・情報取得メソッド</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">コンストラクタ／メソッド</th>
+<th style="text-align:left">シグネチャ</th>
+<th style="text-align:left">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong><code>Dimage()</code></strong></td>
+<td style="text-align:left"><code>Dimage(image: str | PathLike | Dimage | Image.Image, copy: bool = False)</code></td>
+<td style="text-align:left">ファイルパス（呼び出し元スクリプト基準で相対解決）、PIL <code>Image.Image</code>、または別の <code>Dimage</code> から <code>Dimage</code> を初期化します。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>get_image_size()</code></strong></td>
+<td style="text-align:left"><code>get_image_size() -&gt; tuple[int, int]</code></td>
+<td style="text-align:left">ピクセル寸法 <code>(width, height)</code> を返します。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>get_pil_image()</code></strong></td>
+<td style="text-align:left"><code>get_pil_image() -&gt; Image.Image</code></td>
+<td style="text-align:left">内部の <code>PIL.Image.Image</code> の防御的コピーを返します。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>copy()</code></strong></td>
+<td style="text-align:left"><code>copy() -&gt; Dimage</code></td>
+<td style="text-align:left">ディープコピーした <code>Dimage</code> インスタンスを返します。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>save()</code></strong></td>
+<td style="text-align:left"><code>save(file: str, quality: int = 95) -&gt; None</code></td>
+<td style="text-align:left">画像を <code>file</code> に書き出します（必要に応じて親ディレクトリを自動作成。<code>quality</code> は <code>0..100</code>、デフォルト <code>95</code>）。</td>
+</tr>
+</tbody>
+</table>
+<h3>3.2. 幾何変換・クロップメソッド（5 メソッド）</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">メソッド</th>
+<th style="text-align:left">シグネチャ</th>
+<th style="text-align:left">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong><code>resize()</code></strong></td>
+<td style="text-align:left"><code>resize(width: int, height: int, resample: str = &quot;lanczos&quot;) -&gt; Dimage</code></td>
+<td style="text-align:left"><code>&quot;nearest&quot;</code>、<code>&quot;box&quot;</code>、<code>&quot;bilinear&quot;</code>、<code>&quot;hamming&quot;</code>、<code>&quot;bicubic&quot;</code>、または <code>&quot;lanczos&quot;</code> を用いて <code>(width, height)</code> ピクセルにリサイズします。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>crop()</code></strong></td>
+<td style="text-align:left"><code>crop(x: int, y: int, width: int, height: int) -&gt; Dimage</code></td>
+<td style="text-align:left">Drawlib のデカルト座標系に合わせて<strong>左下隅を原点 <code>(0, 0)</code> とした</strong> <code>(width, height)</code> ピクセル領域を切り抜きます。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>trim()</code></strong></td>
+<td style="text-align:left"><code>trim(color: str | Color | tuple | None = &quot;auto&quot;, tolerance: int = 0) -&gt; Dimage</code></td>
+<td style="text-align:left">周囲の均一な余白を自動トリミングします（<code>&quot;auto&quot;</code> は四隅から背景色または透過を自動検出、<code>None</code> は透明アルファ余白を除去、<code>tolerance</code> は <code>0..255</code>）。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>flip()</code></strong></td>
+<td style="text-align:left"><code>flip() -&gt; Dimage</code></td>
+<td style="text-align:left">画像を上下（垂直方向）に反転します。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>mirror()</code></strong></td>
+<td style="text-align:left"><code>mirror() -&gt; Dimage</code></td>
+<td style="text-align:left">画像を左右（水平方向）に鏡像反転します。</td>
+</tr>
+</tbody>
+</table>
+<h3>3.3. 透過・背景処理メソッド（3 メソッド）</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">メソッド</th>
+<th style="text-align:left">シグネチャ</th>
+<th style="text-align:left">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong><code>fill()</code></strong></td>
+<td style="text-align:left"><code>fill(color: Color | tuple[int, int, int]) -&gt; Dimage</code></td>
+<td style="text-align:left">透過背景ピクセルを <code>color</code> で塗りつぶします（半透明エッジを <code>color</code> 上にアルファ合成し、不透明な前景ピクセルは維持します）。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>make_transparent()</code></strong></td>
+<td style="text-align:left"><code>make_transparent(color: str | Color | tuple | Literal[&quot;auto&quot;] = &quot;auto&quot;, tolerance: int = 0) -&gt; Dimage</code></td>
+<td style="text-align:left">単色の背景色（<code>&quot;auto&quot;</code> 時は四隅から自動検出、または許容差 <code>tolerance</code> <code>0..255</code> 内の指定色）を透明アルファ（<code>RGBA</code>）に変換します。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>alpha()</code></strong></td>
+<td style="text-align:left"><code>alpha(alpha: float) -&gt; Dimage</code></td>
+<td style="text-align:left">ピクセルの不透明度の上限を <code>alpha</code>（<code>0.0</code>〜<code>1.0</code>）に制限します（もともと <code>alpha</code> より低い透過度を持つピクセルはそのまま維持されます）。</td>
+</tr>
+</tbody>
+</table>
+<h3>3.4. 色調・アートフィルタメソッド（9 メソッド）</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">メソッド</th>
+<th style="text-align:left">シグネチャ</th>
+<th style="text-align:left">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong><code>grayscale()</code></strong></td>
+<td style="text-align:left"><code>grayscale() -&gt; Dimage</code></td>
+<td style="text-align:left">アルファチャンネルを保持したままグレースケール（<code>LA</code> モード）に変換します。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>sepia()</code></strong></td>
+<td style="text-align:left"><code>sepia() -&gt; Dimage</code></td>
+<td style="text-align:left">アルファマスクを保持したまま温かみのあるセピア調を適用します。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>invert()</code></strong></td>
+<td style="text-align:left"><code>invert() -&gt; Dimage</code></td>
+<td style="text-align:left">アルファチャンネルを保持したまま RGB 各チャンネルを階調反転（<code>255 - c</code>）します。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>brightness()</code></strong></td>
+<td style="text-align:left"><code>brightness(brightness: float = 0.5) -&gt; Dimage</code></td>
+<td style="text-align:left">画像の明度をスケーリングします（<code>1.0</code> = 変化なし、<code>&lt; 1.0</code> = 暗くする、<code>&gt; 1.0</code> = 明るくする。デフォルト <code>0.5</code>）。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>colorize()</code></strong></td>
+<td style="text-align:left"><code>colorize(from_black_to: ColorType, from_white_to: ColorType, from_mid_to: ColorType | None = None) -&gt; Dimage</code></td>
+<td style="text-align:left">アルファを保持したまま、グレースケール輝度の黒を <code>from_black_to</code>、白を <code>from_white_to</code>、任意の中間調を <code>from_mid_to</code> にマッピングします。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>posterize()</code></strong></td>
+<td style="text-align:left"><code>posterize(num_colors: int = 4) -&gt; Dimage</code></td>
+<td style="text-align:left">アルファを保持したまま RGB 各チャンネルの色深度ビット数を削減します（<code>num_colors</code> ビット、デフォルト <code>4</code>）。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>mosaic()</code></strong></td>
+<td style="text-align:left"><code>mosaic(block_size: int = 8) -&gt; Dimage</code></td>
+<td style="text-align:left">画像を <code>block_size × block_size</code> の平均色ブロックにモザイク化します（デフォルト <code>8</code>）。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>blur()</code></strong></td>
+<td style="text-align:left"><code>blur() -&gt; Dimage</code></td>
+<td style="text-align:left">平滑化ぼかしフィルタ（<code>PIL.ImageFilter.BLUR</code>）を適用します。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>line_extraction()</code></strong></td>
+<td style="text-align:left"><code>line_extraction() -&gt; Dimage</code></td>
+<td style="text-align:left">高コントラストな形態学的輪郭線を抽出します（線画スケッチ風エフェクト）。</td>
+</tr>
+</tbody>
+</table>
+<h3>3.5. ビジュアルショーケース: <code>Dimage</code> の幾何変換・フィルタ・枠線スタイル</h3>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.images</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dimage</span><span class="p">,</span> <span class="n">image</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Colors</span><span class="p">,</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">132</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">66</span><span class="p">)</span>
+
+<span class="n">base</span> <span class="o">=</span> <span class="n">Dimage</span><span class="p">(</span><span class="s2">"../_assets/python.png"</span><span class="p">)</span>
+<span class="n">w_px</span><span class="p">,</span> <span class="n">h_px</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">get_image_size</span><span class="p">()</span>
+
+<span class="c1"># Row 1: Geometry, Background Fill &amp; Image Border Styling</span>
+<span class="n">row1</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s2">"Original + Border"</span><span class="p">,</span> <span class="n">base</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">image_border_width</span><span class="o">=</span><span class="mf">1.8</span><span class="p">,</span> <span class="n">image_border_color</span><span class="o">=</span><span class="n">Colors</span><span class="o">.</span><span class="n">Primary</span><span class="p">)),</span>
+    <span class="p">(</span><span class="s2">"crop()"</span><span class="p">,</span> <span class="n">base</span><span class="o">.</span><span class="n">crop</span><span class="p">(</span><span class="n">w_px</span> <span class="o">//</span> <span class="mi">4</span><span class="p">,</span> <span class="n">h_px</span> <span class="o">//</span> <span class="mi">4</span><span class="p">,</span> <span class="n">w_px</span> <span class="o">*</span> <span class="mi">3</span> <span class="o">//</span> <span class="mi">4</span><span class="p">,</span> <span class="n">h_px</span> <span class="o">*</span> <span class="mi">3</span> <span class="o">//</span> <span class="mi">4</span><span class="p">),</span> <span class="kc">None</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"mirror() + flip()"</span><span class="p">,</span> <span class="n">base</span><span class="o">.</span><span class="n">mirror</span><span class="p">()</span><span class="o">.</span><span class="n">flip</span><span class="p">(),</span> <span class="kc">None</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"fill(Primary1)"</span><span class="p">,</span> <span class="n">base</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">Colors</span><span class="o">.</span><span class="n">Primary1</span><span class="p">),</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">image_border_width</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span> <span class="n">image_border_style</span><span class="o">=</span><span class="s2">"dashed"</span><span class="p">,</span> <span class="n">image_border_color</span><span class="o">=</span><span class="n">Colors</span><span class="o">.</span><span class="n">Primary4</span><span class="p">)),</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">dimg_item</span><span class="p">,</span> <span class="n">img_st</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">row1</span><span class="p">):</span>
+    <span class="n">cx</span> <span class="o">=</span> <span class="mf">19.5</span> <span class="o">+</span> <span class="n">idx</span> <span class="o">*</span> <span class="mi">31</span>
+    <span class="n">rectangle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mi">48</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">28.5</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">27</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+    <span class="n">image</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mf">51.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">13.5</span><span class="p">,</span> <span class="n">image</span><span class="o">=</span><span class="n">dimg_item</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">img_st</span><span class="p">)</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mf">38.5</span><span class="p">),</span> <span class="n">label</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+
+<span class="c1"># Row 2: Color &amp; Artistic Filter Pipelines</span>
+<span class="n">row2</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s2">"grayscale()"</span><span class="p">,</span> <span class="n">base</span><span class="o">.</span><span class="n">grayscale</span><span class="p">()),</span>
+    <span class="p">(</span><span class="s2">"sepia()"</span><span class="p">,</span> <span class="n">base</span><span class="o">.</span><span class="n">sepia</span><span class="p">()),</span>
+    <span class="p">(</span><span class="s2">"colorize()"</span><span class="p">,</span> <span class="n">base</span><span class="o">.</span><span class="n">colorize</span><span class="p">(</span><span class="n">Colors</span><span class="o">.</span><span class="n">Primary6</span><span class="p">,</span> <span class="n">Colors</span><span class="o">.</span><span class="n">Primary1</span><span class="p">,</span> <span class="n">Colors</span><span class="o">.</span><span class="n">Primary3</span><span class="p">)),</span>
+    <span class="p">(</span><span class="s2">"mosaic() + blur()"</span><span class="p">,</span> <span class="n">base</span><span class="o">.</span><span class="n">mosaic</span><span class="p">(</span><span class="n">block_size</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span><span class="o">.</span><span class="n">blur</span><span class="p">()),</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">dimg_item</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">row2</span><span class="p">):</span>
+    <span class="n">cx</span> <span class="o">=</span> <span class="mf">19.5</span> <span class="o">+</span> <span class="n">idx</span> <span class="o">*</span> <span class="mi">31</span>
+    <span class="n">rectangle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mi">18</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">28.5</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">27</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+    <span class="n">image</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mf">21.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">13.5</span><span class="p">,</span> <span class="n">image</span><span class="o">=</span><span class="n">dimg_item</span><span class="p">)</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mf">8.5</span><span class="p">),</span> <span class="n">label</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="../../images/02_drawing_primitives/images/images_dimage_pipeline.png" alt="images_3" />
+  <figcaption class="drawlib-caption">Dimage の幾何変換（crop, mirror, flip）、フィルタパイプライン、および Style.patch(image_border_*)</figcaption>
+</figure>
+<hr />
+<h2>4. コードからの動的インメモリ描画 (<code>get_dimage_from_code</code>)</h2>
+<p>Drawlib は、Drawlib の Python コードスニペットを動的に実行し、描画されたキャンバスをそのままインメモリの <code>Dimage</code> として返すことができます。これにより、図解の再帰的な合成、拡大インセット図の差し込み、再利用可能なサブダイアグラムのテンプレート化が可能になります。</p>
+<pre><code class="language-python"><span class="n">get_dimage_from_code</span><span class="p">(</span>
+    <span class="n">code</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dimage</span>
+</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">パラメータ</th>
+<th style="text-align:left">型</th>
+<th style="text-align:left">デフォルト</th>
+<th style="text-align:left">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>code</code></td>
+<td style="text-align:left"><code>str</code></td>
+<td style="text-align:left"><em>必須</em></td>
+<td style="text-align:left">実行する完全な Drawlib Python コードスニペット。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>timeout</code></td>
+<td style="text-align:left"><code>float | None</code></td>
+<td style="text-align:left"><code>None</code></td>
+<td style="text-align:left">秒単位の最大許容実行時間（<code>None</code> = タイムアウトなし）。超過時は <code>TimeoutError</code> が送出されます。</td>
+</tr>
+</tbody>
+</table>
+<h3>サブプロセス分離による安全性の保証</h3>
+<ul>
+<li><strong>クリーンなプロセス境界</strong>: <code>get_dimage_from_code()</code> は分離された <code>multiprocessing.Process</code> ワーカー内で <code>code</code> を実行するため、親スクリプト側の有効なキャンバスサイズ、描画オブジェクト、<code>Styles</code>、および Matplotlib のグローバル状態には一切影響を与えません。</li>
+<li><strong><code>save()</code> の自動インターセプト</strong>: <code>code</code> 内の <code>save()</code> 呼び出しはワーカープロセス内で自動的に no-op として捕捉されるため、不要なファイルがディスクに書き出されることなく、レンダリング結果が IPC パイプ経由で <code>Dimage</code> として返されます。</li>
+</ul>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.images</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_dimage_from_code</span><span class="p">,</span> <span class="n">image</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="c1"># 1. Render a sub-component in an isolated subprocess with a 10s safety timeout</span>
+<span class="n">sub_code</span> <span class="o">=</span> <span class="s2">"""</span>
+<span class="s2">from drawlib.canvas import save, setup</span>
+<span class="s2">from drawlib.shapes import circle</span>
+<span class="s2">from drawlib.styles import Styles</span>
+
+<span class="s2">setup(width=40, height=40)</span>
+<span class="s2">circle((20, 20), radius=15, style=Styles.PrimaryFlat, text="Pod", text_style=Styles.WhiteBold.patch(text_size=36))</span>
+<span class="s2">save()</span>
+<span class="s2">"""</span>
+
+<span class="n">sub_diagram</span> <span class="o">=</span> <span class="n">get_dimage_from_code</span><span class="p">(</span><span class="n">sub_code</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mf">10.0</span><span class="p">)</span>
+
+<span class="c1"># 2. Embed the sub-diagram onto the primary canvas</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">48</span><span class="p">)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">50</span><span class="p">,</span> <span class="mi">24</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">74</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">38</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="p">)</span>
+<span class="n">image</span><span class="p">((</span><span class="mi">50</span><span class="p">,</span> <span class="mi">27</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">26</span><span class="p">,</span> <span class="n">image</span><span class="o">=</span><span class="n">sub_diagram</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">50</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="s2">"Host Canvas with Embedded Sub-Diagram"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">))</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="../../images/02_drawing_primitives/images/image_get_dimage_from_code.png" alt="images_4" />
+  <figcaption class="drawlib-caption">get_dimage_from_code によるサブダイアグラムの動的レンダリング</figcaption>
+</figure>
+
+            </main>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Theme toggle
+            const themeBtn = document.getElementById('theme-toggle');
+            if (themeBtn) {
+                themeBtn.addEventListener('click', function() {
+                    const current = document.documentElement.getAttribute('data-theme');
+                    const next = current === 'dark' ? 'light' : 'dark';
+                    document.documentElement.setAttribute('data-theme', next);
+                    localStorage.setItem('drawlib-theme', next);
+                });
+            }
+
+            // Language dropdown outside-click & Escape close
+            const langDropdowns = document.querySelectorAll('.lang-dropdown');
+            if (langDropdowns.length > 0) {
+                document.addEventListener('click', function(e) {
+                    langDropdowns.forEach(function(dd) {
+                        if (dd.hasAttribute('open') && !dd.contains(e.target)) {
+                            dd.removeAttribute('open');
+                        }
+                    });
+                });
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape') {
+                        langDropdowns.forEach(function(dd) {
+                            dd.removeAttribute('open');
+                        });
+                    }
+                });
+            }
+
+            // Mobile menu toggle
+            const menuBtn = document.getElementById('menu-toggle');
+            const sidebar = document.querySelector('.sidebar');
+            if (menuBtn && sidebar) {
+                function setMenuOpen(open) {
+                    sidebar.classList.toggle('is-open', open);
+                    menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+                    document.body.classList.toggle('menu-open', open);
+                    if (open) {
+                        const menu = sidebar.querySelector('.sidebar-menu');
+                        if (menu) {
+                            menu.scrollTop = 0;
+                        }
+                    }
+                }
+
+                menuBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const willOpen = !sidebar.classList.contains('is-open');
+                    setMenuOpen(willOpen);
+                });
+
+                // Close menu when clicking outside sidebar
+                document.addEventListener('click', function(e) {
+                    if (sidebar.classList.contains('is-open') && !sidebar.contains(e.target)) {
+                        setMenuOpen(false);
+                    }
+                });
+
+                // Close menu when a navigation link is clicked
+                const navLinks = sidebar.querySelectorAll('.nav-item a');
+                navLinks.forEach(function(link) {
+                    link.addEventListener('click', function() {
+                        setMenuOpen(false);
+                    });
+                });
+
+                // Close on Escape key
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape' && sidebar.classList.contains('is-open')) {
+                        setMenuOpen(false);
+                    }
+                });
+
+                // Reset menu state when resized above mobile breakpoint
+                window.addEventListener('resize', function() {
+                    if (window.innerWidth > 768 && sidebar.classList.contains('is-open')) {
+                        setMenuOpen(false);
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1082 @@
+<!--
+ Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+
+ This software is licensed under the Apache License, Version 2.0.
+ For more information, please visit: https://github.com/yuichi110/drawlib
+
+ This software is provided "as is", without warranty of any kind,
+ express or implied, including but not limited to the warranties of
+ merchantability, fitness for a particular purpose and noninfringement.
+-->
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>事例紹介: AI エージェントによるドキュメントサイト構築</title>
+    <script>
+        (function() {
+            const saved = localStorage.getItem('drawlib-theme');
+            if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    
+    
+    <link rel="alternate" hreflang="en" href="../../en/10_ai_agents_and_advanced/case_study_documentation_site.html">
+    
+    <link rel="alternate" hreflang="ja" href="case_study_documentation_site.html">
+    
+    <link rel="alternate" hreflang="x-default" href="../../en/10_ai_agents_and_advanced/case_study_documentation_site.html">
+    
+    
+    
+    <link rel="icon" type="image/png" href="../../_assets/favicon.png">
+    
+    
+    <link rel="stylesheet" href="../style.css">
+    
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-brand" aria-label="Drawlib ドキュメント">
+                    
+                    <img src="../../_assets/logo.png" alt="Drawlib ドキュメント" class="sidebar-logo sidebar-logo-light">
+                    <img src="../../_assets/logo_dark.png" alt="Drawlib ドキュメント" class="sidebar-logo sidebar-logo-dark">
+                    
+                </a>
+                <div class="sidebar-header-actions">
+                    <button type="button" id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle theme">
+                        <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                        <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                    </button>
+                    <button type="button" id="menu-toggle" class="menu-toggle-btn" aria-label="Toggle navigation" aria-expanded="false">
+                        <svg class="icon-hamburger" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                        <svg class="icon-close" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                    </button>
+                </div>
+            </div>
+            <div class="sidebar-subbar">
+                
+                <a href="../01_getting_started/release_notes.html" class="sidebar-version-badge" title="View Release Notes">
+                    <span class="sidebar-version-dot" aria-hidden="true"></span>
+                    <span class="sidebar-version-text">v0.3.2</span>
+                </a>
+                <a href="https://github.com/yuichi110/drawlib" target="_blank" rel="noopener noreferrer" class="sidebar-github-link" aria-label="GitHub Repository" title="GitHub Repository">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+                </a>
+            </div>
+            <div class="sidebar-menu">
+                
+                    
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../index.html" >ようこそ</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">1. はじめに</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/overview.html" >Drawlib とは</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/installation.html" >インストールガイド</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/quick_start.html" >クイックスタートガイド</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/core_concepts.html" >基本ビジュアル概念</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/project_quicklook.html" >プロジェクト構成とビルド</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/agent_quicklook.html" >AI 駆動ワークフローとエージェント設定</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/release_notes.html" >リリースノートと移行ガイド</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">2. 描画プリミティブとスタイル</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/canvas.html" >キャンバスと座標系</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_overview.html" >図形プリミティブ概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_basic.html" >基本図形・放射状図形</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_polygon.html" >多角形とカスタムパス</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_arrow.html" >ブロック矢印・シェブロン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_container.html" >3D コンテナ・フロー・グルーピング</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_badge.html" >吹き出し・バッジ・ステータス</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_symbol.html" >フェイス・時計・記号・演算子</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/lines.html" >線とコネクタ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/text.html" >テキストとタイポグラフィ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/fonts.html" >フォントと多言語カタログ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/font_file.html" >カスタムフォントファイル (FontFile)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/images.html" >画像と Dimage</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/styles.html" >スタイルとテーマ設定</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/colors.html" >カラーパレットと色モデル</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/style_guide.html" >図解デザインとスタイルガイド</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">3. アイコンとブランドスイート</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/overview.html" >アイコン概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/phosphor.html" >Phosphor ベクターアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/gcp.html" >Google Cloud (GCP) アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/aws.html" >Amazon Web Services (AWS) アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/azure.html" >Microsoft Azure アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/cloud.html" >クラウド・オリジナルクラウドアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/cnative.html" >クラウドネイティブ (K8s) アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/devops.html" >DevOps・オブザーバビリティアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/network.html" >ネットワーク・Cisco トポロジアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/server.html" >サーバー・OS・仮想化アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/security.html" >セキュリティ・ゼロトラストアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/facility.html" >データセンター・ファシリティアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/ai.html" >AI・機械学習アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/data.html" >データ・データベースアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/code.html" >コード・言語・フレームワークアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/business.html" >エンタープライズ・FinTech アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/itservice.html" >IT サービス・コンサルティングアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/workspace.html" >ワークスペース・コラボレーションアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/social.html" >ソーシャル・メディア・コミュニティアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/client.html" >クライアント端末・エンドポイントアイコン</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">4. SmartArts（スマートアート）</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/overview.html" >SmartArts 概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/chevron_process.html" >ChevronProcess（シェブロン工程図）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/cycle.html" >Cycle（サイクル図）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/table.html" >Table（テーブル）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/tree.html" >Tree（ツリー図）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/mindmap.html" >MindMap（マインドマップ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/grid_layout.html" >GridLayout（グリッドレイアウト）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/pyramid.html" >Pyramid（ピラミッド図）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/box_list.html" >BoxList（ボックスリスト）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/kpi_cards.html" >KpiCards（KPI カード）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/card_list.html" >CardList（カードリスト）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/roadmap.html" >Roadmap（ロードマップ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/panel.html" >Panel（パネル）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/calendar.html" >Calendar（カレンダー）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/bullet_points.html" >BulletPoints（箇条書きボード）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/source_code.html" >SourceCode（ソースコードカード）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/geomap.html" >GeoMap（地理マップ）</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">5. Charts（定量チャート）</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/overview.html" >Charts 概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/axes_and_legends.html" >軸・スケール・凡例</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/bar.html" >Bar Chart（棒グラフ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/line.html" >Line Chart（折れ線グラフ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/area.html" >Area Chart（面グラフ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/pie.html" >Pie & Donut Chart（円・ドーナツグラフ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/radar.html" >Radar Chart（レーダーチャート）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/scatter.html" >Scatter Chart（散布図）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/gantt.html" >Gantt Chart（ガントチャート）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/heatmap.html" >Heatmap & Thermal Overlay（ヒートマップ）</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">6. テクニカルダイアグラム</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/overview.html" >ダイアグラム概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/architecture.html" >アーキテクチャ図</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/flow.html" >フロー図</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/sequence.html" >シーケンス図</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/class_diagram.html" >UML クラス図</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/er.html" >ER 図</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/state_diagram.html" >ステートマシン図</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">7. 自動レイアウトグラフ</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/overview.html" >グラフエンジン概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/architecture_graph.html" >ArchitectureGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/layer_graph.html" >LayerGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/tree_graph.html" >TreeGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/radial_graph.html" >RadialGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/grid_graph.html" >GridGraph</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">8. アニメーション</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/overview.html" >アニメーション概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/primitives.html" >プリミティブと色のアニメーション</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/smartarts.html" >SmartArts のアニメーション</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/charts.html" >Charts のアニメーション</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/diagrams.html" >ダイアグラムのアニメーション</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/graphs.html" >グラフのアニメーション</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">9. ドキュメントビルダと CLI</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/overview.html" >コードとしての図解ドキュメント概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/code_blocks.html" >Markdown コードブロック構文</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/cli_reference.html" >CLI リファレンス</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/project_doc.html" >リニアドキュメントプロジェクト (`doc`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/project_site.html" >ドキュメントサイトプロジェクト (`site`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/project_slide.html" >スライドデッキプロジェクト (`slide`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/slide_layout_and_api.html" >スライドステージレイアウトと API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/project_image.html" >画像プロジェクト (`images`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/customization.html" >テンプレートと CSS カスタマイズ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/caching_and_cicd.html" >キャッシュ機構と CI/CD</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">10. AI エージェントと高度な統合</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="ai_agent_instructions.html" >AI エージェント指示とルール体系</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="multimodal_feedback_loop.html" >自律検証フィードバックループ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="programmatic_api.html" >プログラマティック API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="math_and_layout.html" >アルゴリズムレイアウトと幾何計算</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="debugging.html" >トラブルシューティングとデバッグ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="case_study_brand_assets.html" >事例紹介: 公式ブランドアセットの設計</a>
+                            </li>
+                            
+                            <li class="nav-item active">
+                                <a href="case_study_documentation_site.html" >事例紹介: AI エージェントによるドキュメントサイト構築</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="case_study_software_architecture.html" >事例紹介: コードとしてのソフトウェアアーキテクチャ設計書</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="case_study_technical_slides.html" >事例紹介: 技術プレゼンテーションスライドの作成</a>
+                            </li>
+                            
+                        </ul>
+                    
+                
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">事例紹介: AI エージェントによるドキュメントサイト構築</span>
+                </div>
+                
+                <div class="lang-switcher">
+                    <details class="lang-dropdown">
+                        <summary class="lang-dropdown-btn" aria-label="Select language">
+                            <svg class="lang-globe-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                            <span class="lang-current-label">日本語</span>
+                            <svg class="lang-caret-icon" viewBox="0 0 24 24" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </summary>
+                        <div class="lang-dropdown-menu" role="menu">
+                            
+                            <a href="../../en/10_ai_agents_and_advanced/case_study_documentation_site.html" class="lang-option" lang="en" hreflang="en" >
+                                <span>English</span>
+                                
+                            </a>
+                            
+                            <a href="case_study_documentation_site.html" class="lang-option active" lang="ja" hreflang="ja" aria-current="page">
+                                <span>日本語</span>
+                                
+                                <svg class="lang-check-icon" viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                
+                            </a>
+                            
+                        </div>
+                    </details>
+                </div>
+                
+            </header>
+            <main class="main-content">
+                <h1>事例紹介: AI エージェントによるドキュメントサイト構築</h1>
+<p>現代のソフトウェアライブラリには、アーキテクチャや API の機能、設計パターンを分かりやすく伝えるための充実したビジュアルドキュメントが不可欠です。しかし、従来の技術ドキュメントはすぐに**ドキュメントの形骸化・陳腐化（Doc Rot）**という罠に陥ります。外部の作図ツールで描かれた図はコードベースと乖離し、スクリーンショットは古くなり、数十ページにわたる手動メンテナンスは維持不能になります。</p>
+<p><strong>79ページの HTML、6,900件以上の相互参照リンク、400点を超える純粋な Python ダイアグラム</strong>で構成される Drawlib 自身の公式ドキュメントサイトは、人間と AI エージェントの協働によって構築され、現在も自律的に進化し続けています。</p>
+<p>本事例では、**「コードとしての図解ドキュメント（Illustrated Documentation as Code）」**と <strong>AI ドッグフーディング</strong>を活用し、この大規模ドキュメントサイトを設計・執筆・洗練・継続保守するために実践した5フェーズの手法を解説します。</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="../../images/10_ai_agents_and_advanced/case_study_documentation_site/doc_site_lifecycle.png" alt="case_study_documentation_site_1" />
+  <figcaption class="drawlib-caption">人間と AI の協働による5フェーズのドキュメント構築・保守ライフサイクル</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Colors</span><span class="p">,</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">135</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">56</span><span class="p">)</span>
+
+<span class="c1"># Title &amp; background card</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">67.5</span><span class="p">,</span> <span class="mf">28.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">131</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">52</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.5</span><span class="p">))</span>
+<span class="n">text</span><span class="p">(</span>
+    <span class="p">(</span><span class="mf">67.5</span><span class="p">,</span> <span class="mf">49.5</span><span class="p">),</span>
+    <span class="s2">"The 5-Phase Human-AI Documentation Architecture &amp; Lifecycle"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">12.2</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># 5 Phase Cards</span>
+<span class="n">phases</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="mf">15.5</span><span class="p">,</span> <span class="s2">"1. Scaffolding"</span><span class="p">,</span> <span class="s2">"IA &amp; Draft Prose</span><span class="se">\n</span><span class="s2">No Micro-Tuning"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">git_branch</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Colors</span><span class="o">.</span><span class="n">Primary</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">41.5</span><span class="p">,</span> <span class="s2">"2. Visual Polish"</span><span class="p">,</span> <span class="s2">"High-Level Comps</span><span class="se">\n</span><span class="s2">Top Hero Banners"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">sparkle</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">Colors</span><span class="o">.</span><span class="n">Secondary</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">67.5</span><span class="p">,</span> <span class="s2">"3. Rule Codifying"</span><span class="p">,</span> <span class="s2">"System Instructions</span><span class="se">\n</span><span class="s2">3-Stage Review Loop"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">shield_check</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">Colors</span><span class="o">.</span><span class="n">Dark</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">93.5</span><span class="p">,</span> <span class="s2">"4. Dogfood Sync"</span><span class="p">,</span> <span class="s2">"Auto-Doc Followup</span><span class="se">\n</span><span class="s2">Zero Code Drift"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">arrows_clockwise</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Colors</span><span class="o">.</span><span class="n">Primary</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">119.5</span><span class="p">,</span> <span class="s2">"5. Brand &amp; UX"</span><span class="p">,</span> <span class="s2">"Logo, Dark Mode</span><span class="se">\n</span><span class="s2">Template Upstream"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">palette</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">Colors</span><span class="o">.</span><span class="n">White</span><span class="p">),</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">cx</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">desc</span><span class="p">,</span> <span class="n">icon_fn</span><span class="p">,</span> <span class="n">card_st</span><span class="p">,</span> <span class="n">icon_col</span> <span class="ow">in</span> <span class="n">phases</span><span class="p">:</span>
+    <span class="n">is_accent</span> <span class="o">=</span> <span class="p">(</span><span class="n">cx</span> <span class="o">&gt;</span> <span class="mi">110</span><span class="p">)</span>
+    <span class="n">rectangle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mf">26.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">23.5</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">33</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">card_st</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">))</span>
+    <span class="n">icon_st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span> <span class="k">if</span> <span class="n">is_accent</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">icon_color</span><span class="o">=</span><span class="n">icon_col</span><span class="p">)</span>
+    <span class="n">icon_fn</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mf">37.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">icon_st</span><span class="p">)</span>
+
+    <span class="n">t_st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span> <span class="k">if</span> <span class="n">is_accent</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span>
+    <span class="n">d_st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">White</span> <span class="k">if</span> <span class="n">is_accent</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span>
+
+    <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mf">30.5</span><span class="p">),</span> <span class="n">title</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">t_st</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mf">20.0</span><span class="p">),</span> <span class="n">desc</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">d_st</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.6</span><span class="p">))</span>
+
+<span class="c1"># Arrows between cards</span>
+<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">[</span><span class="mf">27.25</span><span class="p">,</span> <span class="mf">53.25</span><span class="p">,</span> <span class="mf">79.25</span><span class="p">,</span> <span class="mf">105.25</span><span class="p">]:</span>
+    <span class="n">line</span><span class="p">((</span><span class="n">x</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">26.0</span><span class="p">),</span> <span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="mf">4.5</span><span class="p">,</span> <span class="mf">26.0</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<hr />
+<h2>1. 根本的な課題: ツールの分断とドキュメントの陳腐化</h2>
+<p>従来のソフトウェア開発において、技術ドキュメントは深刻なワークフローの分断を抱えています。</p>
+<ol>
+<li><strong>分断されたツールチェーン</strong>: 開発者はコードを Git で管理し、文章を別システム（Wiki、Notion、Google ドキュメント）で執筆し、図をサードパーティ製の GUI ツール（draw.io、Figma、OmniGraffle）で作成します。</li>
+<li><strong>非同期な乖離（ドリフト）</strong>: API の引数変更やコンポーネントのリファクタリングが行われた際、外部の作図ファイルを開いて修正し、静的 PNG を書き出して再アップロードする作業は大きな負担となります。その結果、図解は必然的に実装の現実から乖離していきます。</li>
+<li><strong>レビュー時の高い認知負荷</strong>: 読み手は古いスクリーンショットや図と最新のコードを頭の中で照合しなければならず、混乱やドキュメント全体への信頼低下を招きます。</li>
+</ol>
+<h3>Drawlib の解決策: 「コードとしての図解ドキュメント」</h3>
+<p>Drawlib は、技術図解と解説文の双方をバージョン管理されたコードとして扱うことで、この分断を解消します。</p>
+<ul>
+<li><strong>信頼できる唯一の情報源（Single Source of Truth: SoT）</strong>: Markdown の本文と実行可能な Python 描画ブロックが、同じリポジトリ内（<code>docs_src/</code>）に並んで共存します。</li>
+<li><strong>ヘッドレスな一括ビルドパイプライン</strong>: <code>./dcli docs build site</code> を実行するだけで、ドキュメント本文のコンパイルと数百枚の図解のレンダリングが同時に完了します。</li>
+<li><strong>ドッグフーディングによる品質保証</strong>: ドキュメントのビルド処理が開発中のライブラリ本体（<code>src/drawlib/</code>）を直接実行します。API の破壊的変更や無効なスタイルトークンがあれば即座にドキュメントビルドが失敗するため、マージ前にリグレッションを確実に検知できます。</li>
+</ul>
+<hr />
+<h2>2. フェーズ 1: 情報アーキテクチャ設計と高速ドラフティング</h2>
+<p>包括的なドキュメントサイトを立ち上げる際、初日からピクセル単位で完璧に整列した美しい図を描こうとしてしまうのは典型的な失敗パターンです。実際には、<strong>全体構造を模索している初期段階での時期尚早なビジュアル調整は大きな手戻りを生みます</strong>。</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="../../images/10_ai_agents_and_advanced/case_study_documentation_site/draft_vs_refined_evolution.png" alt="case_study_documentation_site_2" />
+  <figcaption class="drawlib-caption">段階的構築アプローチ: 構造と本文を先に固め、ビジュアルの磨き込みを後で行う</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Colors</span><span class="p">,</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">135</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">62</span><span class="p">)</span>
+
+<span class="c1"># Outer container card</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">67.5</span><span class="p">,</span> <span class="mf">31.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">131</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">58</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.5</span><span class="p">))</span>
+<span class="n">text</span><span class="p">(</span>
+    <span class="p">(</span><span class="mf">67.5</span><span class="p">,</span> <span class="mf">55.5</span><span class="p">),</span>
+    <span class="s2">"Evolutionary Strategy: Structure &amp; Text First, Visual Polish Second"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">12.0</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># Left Column: Phase 1 Rapid Draft</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">35.0</span><span class="p">,</span> <span class="mf">26.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">58</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">44</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">file_text</span><span class="p">((</span><span class="mf">15.0</span><span class="p">,</span> <span class="mf">43.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">37.0</span><span class="p">,</span> <span class="mf">43.5</span><span class="p">),</span> <span class="s2">"Phase 1: Rapid Drafting (Fast Feedback)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
+
+<span class="c1"># Draft placeholder simulation</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">35.0</span><span class="p">,</span> <span class="mf">31.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">48</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_style</span><span class="o">=</span><span class="s2">"dashed"</span><span class="p">,</span> <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.0</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">35.0</span><span class="p">,</span> <span class="mf">31.0</span><span class="p">),</span> <span class="s2">"[ Draft Diagram Placeholder ]</span><span class="se">\n</span><span class="s2">rectangle((50, 20), text=</span><span class="se">\"</span><span class="s2">Service A -&gt; Service B</span><span class="se">\"</span><span class="s2">)</span><span class="se">\n</span><span class="s2">No fine coordinates or color tuning yet"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.8</span><span class="p">))</span>
+
+<span class="c1"># Draft principles list</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">35.0</span><span class="p">,</span> <span class="mf">14.5</span><span class="p">),</span> <span class="s2">"• Focus 100</span><span class="si">% o</span><span class="s2">n site IA, prose accuracy, and heading flow</span><span class="se">\n</span><span class="s2">• Fast iteration with zero sunk cost if structure changes</span><span class="se">\n</span><span class="s2">• Avoid premature pixel-perfection during discovery"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.2</span><span class="p">))</span>
+
+<span class="c1"># Right Column: Phase 2 Visual Refinement</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">100.0</span><span class="p">,</span> <span class="mf">26.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">58</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">44</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">sparkle</span><span class="p">((</span><span class="mf">80.0</span><span class="p">,</span> <span class="mf">43.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">102.0</span><span class="p">,</span> <span class="mf">43.5</span><span class="p">),</span> <span class="s2">"Phase 2: High-Level Visual Polish"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
+
+<span class="c1"># Refined components simulation</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">86.0</span><span class="p">,</span> <span class="mf">31.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">hard_drives</span><span class="p">((</span><span class="mf">86.0</span><span class="p">,</span> <span class="mf">34.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">86.0</span><span class="p">,</span> <span class="mf">27.5</span><span class="p">),</span> <span class="s2">"Data Ingestion"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.8</span><span class="p">))</span>
+
+<span class="n">line</span><span class="p">((</span><span class="mf">97.5</span><span class="p">,</span> <span class="mf">31.0</span><span class="p">),</span> <span class="p">(</span><span class="mf">102.5</span><span class="p">,</span> <span class="mf">31.0</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">114.0</span><span class="p">,</span> <span class="mf">31.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">cpu</span><span class="p">((</span><span class="mf">114.0</span><span class="p">,</span> <span class="mf">34.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">114.0</span><span class="p">,</span> <span class="mf">27.5</span><span class="p">),</span> <span class="s2">"Pipeline Core"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.8</span><span class="p">))</span>
+
+<span class="c1"># Refined principles list</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">100.0</span><span class="p">,</span> <span class="mf">14.5</span><span class="p">),</span> <span class="s2">"• Upgrade placeholders to High-Level Drawlib components</span><span class="se">\n</span><span class="s2">• Enforce 50%+ neutral rule &amp; semantic color discipline</span><span class="se">\n</span><span class="s2">• Integrate Top Hero eye-catchers with fold-code"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.2</span><span class="p">))</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<h3>2.1. AI エージェントとの対話による情報アーキテクチャ設計</h3>
+<p>最初のステップは、AI コーディングアシスタントとの対話的な設計ディスカッションでした。</p>
+<ol>
+<li><strong>想定読者と学習ステップの設計</strong>: ドキュメント全体を9つのテーマ別セクション（<code>01_getting_started</code>、<code>02_drawing_primitives</code>、<code>04_smartarts</code>、<code>05_charts</code>、<code>06_diagrams</code>、<code>07_graph</code>、<code>08_animations</code>、<code>09_doc_builder_and_cli</code>、<code>10_ai_agents_and_advanced</code>）に分割しました。</li>
+<li><strong>ナビゲーションの単一情報源化</strong>: 階層構造を <code>navbar.md</code> に定義し、各ページが重複なく明確な責務を持つようにマッピングしました。</li>
+</ol>
+<h3>2.2. 「構造と本文ファースト」のドラフティング原則</h3>
+<p>初期ページの作成段階では、図の細かな座標調整に時間をかけないようエージェントに明確に指示しました。</p>
+<ul>
+<li>まず Markdown の解説本文、コード例、仕様説明を網羅的に執筆します。</li>
+<li>図解が必要な箇所には、シンプルな基本図形だけを使った軽量なプレースホルダブロックを出力します。<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">50</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">80</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"Architecture Overview (Draft)"</span><span class="p">)</span>
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</li>
+<li><strong>メリット</strong>: 人間のレビュアーは数分でサイト全体のストーリー展開や技術的正確性を検証して章構成を自在に組み替えることができ、何時間もかけて調整した図の座標を無駄に捨てる手戻りが一切発生しません。</li>
+</ul>
+<hr />
+<h2>3. フェーズ 2: ビジュアルの洗練とトップヒーロー図の導入</h2>
+<p>サイト全体の構造と各ページのアウトラインが固まった段階で、ビジュアルアセットの体系的なアップグレードを開始しました。</p>
+<h3>3.1. 基本図形から高水準コンポーネントへの刷新</h3>
+<p>プレースホルダの矩形を、用途に最適化された Drawlib の高水準コンポーネントへと置き換えました。</p>
+<ul>
+<li><strong>クラウド・マイクロサービス構成</strong>: 手動配置の矩形を <code>drawlib.diagrams.architecture</code> と公式 Phosphor / GCP アイコンバッジへ刷新。</li>
+<li><strong>パイプライン・処理シーケンス</strong>: 手書きの線を <code>drawlib.smartarts.ChevronProcess</code> や <code>drawlib.diagrams.sequence</code> へ刷新。</li>
+<li><strong>リレーショナルモデル・状態遷移</strong>: <code>drawlib.diagrams.er</code> および <code>drawlib.diagrams.state</code> で構造化。</li>
+<li><strong>トポロジ・DAG</strong>: <code>drawlib.graph</code> を用いて自動レイアウト化。</li>
+</ul>
+<h3>3.2. 「トップヒーロー（Top Hero）」アイキャッチ基準</h3>
+<p>読者の関心を引きつけ視覚的な理解を助けるため、ドキュメント全体で<strong>トップヒーロー原則</strong>を確立しました。</p>
+<ol>
+<li><strong>5〜15行目への配置</strong>: すべてのドキュメントページにおいて、<code># タイトル</code> と導入リード文の直下に象徴的なトップヒーロー図を配置します。</li>
+<li><strong><code>code=fold</code> フェンス指定</strong>: コードフェンスに <code>drawlib code=fold align=center file=&lt;name&gt;.png caption=&quot;...&quot;</code> を指定することで、ファーストビューに完成画像を大きく表示しつつ、Python の描画ソースコードはデフォルトで折りたたまれた <code>&lt;details&gt;</code> ブロック内に格納します。</li>
+<li><strong>視覚密度の確保</strong>: 各ページに最低 <strong>2点以上</strong>のダイアグラムを含め、複雑な概念を文章と図解の両面から解説しています。</li>
+</ol>
+<h3>3.3. 720pt タイポグラフィ計算則</h3>
+<p>図内の文字サイズをドキュメントサイトの本文（16px）と自然に調和させるため、Drawlib の <code>720pt</code> 基準座標ルールに基づいてラベルサイズを設計しています。</p>
+<p>$$\text{Rendered Label Size} = \text{text_size} \times \frac{\text{Canvas Width}}{720}$$</p>
+<p><code>text_size &gt;= 10.0</code>（標準ラベル <code>10.5</code>〜<code>12.0</code>、見出し <code>12.0</code>〜<code>14.0</code>、下限 <code>9.5</code>）を維持することで、図内のラベルが通常の本文テキストと同等の視覚的ウェイトで描画され、目の負担なく読み進めることができます。</p>
+<hr />
+<h2>4. フェーズ 3: レビュー基準のエージェント指示ルール化</h2>
+<p>ページ数が数十ページ規模に拡大すると、その場限りのチャットプロンプトだけで全ページの一貫性を保つことは困難になります。そこで決定的なブレークスルーとなったのが、<strong>人間のレビュー基準を機械可読なルールファイルとして明文化したこと</strong>でした。</p>
+<h3>4.1. 暗黙知からリポジトリ常駐ルールへ</h3>
+<p>設計・品質基準を <code>.agents/rules/</code> ディレクトリ配下に整理し、AI エージェントの実行コンテキストへ常時アタッチしました。</p>
+<ul>
+<li><code>drawlib.md</code> (<code>.agents/rules/drawlib.md</code>): ライブラリの基本原則、50%以上のニュートラルカード比率、PascalCase スタイルトークンのインポート規約、およびプロジェクトアーキタイプ。</li>
+<li><code>workflow.md</code> (<code>.agents/rules/workflow.md</code>): 必須の6ステップ・ドッグフーディング開発サイクル（実装 $\rightarrow$ 単体テスト $\rightarrow$ 静的解析 $\rightarrow$ ドキュメント同期 $\rightarrow$ 描画ビルド $\rightarrow$ マルチモーダル視覚レビュー）。</li>
+<li><code>docs.md</code> (<code>.agents/rules/docs.md</code>): ドキュメント執筆ガイドライン、ナビゲーション規約、およびビルドコマンド。</li>
+</ul>
+<h3>4.2. 自律的な3段階検証ループ</h3>
+<p>未検証のコードをそのまま提出するのではなく、エージェントに自律的な自己修復ループの実行を義務付けました。</p>
+<ol>
+<li><strong>ステージ 1（静的チェック）</strong>: 5〜15行目のトップヒーロー配置、<code>fold-code</code> 指定、1ページあたり <code>2点以上</code>の図解数、および <code>text_size &gt;= 10.0</code> を検証します。</li>
+<li><strong>ステージ 2（<code>-g</code> によるミクロ幾何レビュー）</strong>: 座標グリッド重ね合わせ（<code>uv run drawlib show &lt;file&gt; [diagram.png] -g -o preview.png</code>）で図を出力し、視覚認識ツール（<code>view_file</code>）でラベル見切れ、矢印のずれ、余白不足を1ショットで修正します。</li>
+<li><strong>ステージ 3（HTML ページ全体レビュー）</strong>: <code>./dcli docs build site</code> を実行し、リンク切れがゼロであること（<code>./dcli docs serve site --check</code>）を検証したうえで、ヘッドレスブラウザのスクリーンショットでページ全体のリズムと表示品質を確認します。</li>
+</ol>
+<hr />
+<h2>5. フェーズ 4: ドキュメントの自動追従進化（ドッグフーディング）</h2>
+<p>このアーキテクチャの最大の成果は、機能開発とドキュメント更新がシームレスに一体化している点です。</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="../../images/10_ai_agents_and_advanced/case_study_documentation_site/dogfooding_development_cycle.png" alt="case_study_documentation_site_3" />
+  <figcaption class="drawlib-caption">継続的ドッグフーディングループ: コード・ルール・生きたドキュメントの同期</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span><span class="p">,</span> <span class="n">lines</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Colors</span><span class="p">,</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">135</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">66</span><span class="p">)</span>
+
+<span class="c1"># Outer container card</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">67.5</span><span class="p">,</span> <span class="mf">33.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">131</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">62</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.5</span><span class="p">))</span>
+<span class="n">text</span><span class="p">(</span>
+    <span class="p">(</span><span class="mf">67.5</span><span class="p">,</span> <span class="mf">59.5</span><span class="p">),</span>
+    <span class="s2">"The Continuous Dogfooding Loop: Code, Rules &amp; Living Documentation"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">12.0</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># 4 Loop Cards</span>
+<span class="n">nodes</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="mf">22.0</span><span class="p">,</span> <span class="mf">41.5</span><span class="p">,</span> <span class="s2">"1. Code &amp; Tests"</span><span class="p">,</span> <span class="s2">"src/drawlib/ &amp; tests/</span><span class="se">\n</span><span class="s2">Implement features"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">code_block</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Colors</span><span class="o">.</span><span class="n">Primary</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">52.0</span><span class="p">,</span> <span class="mf">41.5</span><span class="p">,</span> <span class="s2">"2. Codify Rules"</span><span class="p">,</span> <span class="s2">".agents/rules/ &amp; _rules/</span><span class="se">\n</span><span class="s2">Update constraints"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">shield_check</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">Colors</span><span class="o">.</span><span class="n">Secondary</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">82.0</span><span class="p">,</span> <span class="mf">41.5</span><span class="p">,</span> <span class="s2">"3. Sync Living Docs"</span><span class="p">,</span> <span class="s2">"docs_src/ &amp; examples</span><span class="se">\n</span><span class="s2">Add runnable blocks"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">book_open</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Colors</span><span class="o">.</span><span class="n">Primary</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">112.0</span><span class="p">,</span> <span class="mf">41.5</span><span class="p">,</span> <span class="s2">"4. Build &amp; Review"</span><span class="p">,</span> <span class="s2">"./dcli docs build site</span><span class="se">\n</span><span class="s2">Multimodal visual check"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">eye</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">Colors</span><span class="o">.</span><span class="n">White</span><span class="p">),</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">desc</span><span class="p">,</span> <span class="n">icon_fn</span><span class="p">,</span> <span class="n">card_st</span><span class="p">,</span> <span class="n">icon_col</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">:</span>
+    <span class="n">is_accent</span> <span class="o">=</span> <span class="p">(</span><span class="n">cx</span> <span class="o">&gt;</span> <span class="mi">100</span><span class="p">)</span>
+    <span class="n">rectangle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">27</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">card_st</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">))</span>
+    <span class="n">icon_st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span> <span class="k">if</span> <span class="n">is_accent</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">icon_color</span><span class="o">=</span><span class="n">icon_col</span><span class="p">)</span>
+    <span class="n">icon_fn</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span> <span class="o">+</span> <span class="mf">6.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">icon_st</span><span class="p">)</span>
+
+    <span class="n">t_st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span> <span class="k">if</span> <span class="n">is_accent</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span>
+    <span class="n">d_st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">White</span> <span class="k">if</span> <span class="n">is_accent</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span>
+
+    <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span> <span class="o">+</span> <span class="mf">1.5</span><span class="p">),</span> <span class="n">title</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">t_st</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span> <span class="o">-</span> <span class="mf">6.0</span><span class="p">),</span> <span class="n">desc</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">d_st</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">))</span>
+
+<span class="c1"># Top Forward Arrows (1 -&gt; 2 -&gt; 3 -&gt; 4)</span>
+<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">[</span><span class="mf">35.5</span><span class="p">,</span> <span class="mf">65.5</span><span class="p">,</span> <span class="mf">95.5</span><span class="p">]:</span>
+    <span class="n">line</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="mf">41.5</span><span class="p">),</span> <span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">41.5</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+
+<span class="c1"># Bottom Integration Card: "Living Documentation as Ultimate Integration Test"</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">67.5</span><span class="p">,</span> <span class="mf">14.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">117</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">17</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">check_circle</span><span class="p">((</span><span class="mf">16.0</span><span class="p">,</span> <span class="mf">14.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">23.0</span><span class="p">,</span> <span class="mf">18.0</span><span class="p">),</span> <span class="s2">"Zero Documentation Rot: Documentation is the Ultimate Integration Test"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">23.0</span><span class="p">,</span> <span class="mf">11.5</span><span class="p">),</span> <span class="s2">"Drawlib compiles directly from the live source: breaking API changes trigger instant build failures."</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.8</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">))</span>
+
+<span class="c1"># Down arrow from Node 4 to Bottom card</span>
+<span class="n">line</span><span class="p">((</span><span class="mf">112.0</span><span class="p">,</span> <span class="mf">29.5</span><span class="p">),</span> <span class="p">(</span><span class="mf">112.0</span><span class="p">,</span> <span class="mf">23.0</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+
+<span class="c1"># Return arrow from Bottom card back to Node 1</span>
+<span class="n">lines</span><span class="p">([(</span><span class="mf">22.0</span><span class="p">,</span> <span class="mf">23.0</span><span class="p">),</span> <span class="p">(</span><span class="mf">22.0</span><span class="p">,</span> <span class="mf">26.0</span><span class="p">)],</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<h3>5.1. すべての機能追加に伴う自動同期サイクル</h3>
+<p><code>src/drawlib/</code> に新機能（新しいチャート種別、多角形プリミティブ、アイコンスイートなど）が追加されるたびに、AI エージェントは以下の連動アップデートを一貫して実行します。</p>
+<ol>
+<li><strong>実装と単体テスト</strong>: <code>src/drawlib/</code> に機能を実装し、<code>tests/</code> に網羅的な単体テストを追加します。</li>
+<li><strong>組み込みルールの更新</strong>: <code>src/drawlib/_rules/</code> 内のルールファイルを更新し、以降のエージェントセッションが新しい API シグネチャを即座に参照できるようにします。</li>
+<li><strong>ドキュメントページの更新</strong>: 該当する <code>docs/docs_src/</code> の章に実行可能なサンプルコードと実践的なユースケースを追加します。</li>
+<li><strong>サイト再ビルドと視覚検証</strong>: ドキュメントサイトをビルド（<code>./dcli docs build site</code>）して新規ダイアグラムを描画し、視覚的なリグレッションがないことを確認します。</li>
+</ol>
+<h3>5.2. 究極の結合テストとしてのドキュメント</h3>
+<p>Drawlib のドキュメントは開発中の Python ソースコードから直接コンパイルされるため、サイト内の400点を超えるダイアグラム群そのものが<strong>大規模かつ実践的なエンドツーエンド結合テストスイート</strong>として機能します。内部リファクタリングによって意図しない破壊的変更が混入した場合、単体テストをすり抜けたとしてもドキュメントビルドが即座に失敗してバグを捕捉します。</p>
+<hr />
+<h2>6. フェーズ 5: ブランドアイデンティティ・UI カスタマイズとコアテンプレートへの還元</h2>
+<p>サイト洗練の最終フェーズでは、エンタープライズ品質のブランドアイデンティティ、アクセシビリティ、および UI カスタマイズに注力しました。</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="../../images/10_ai_agents_and_advanced/case_study_documentation_site/ui_customization_and_template_feedback.png" alt="case_study_documentation_site_4" />
+  <figcaption class="drawlib-caption">アップストリーム還元: 本番サイトの UI カスタマイズからコアスキャフォールディングテンプレートへの統合</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Colors</span><span class="p">,</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">135</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">64</span><span class="p">)</span>
+
+<span class="c1"># Outer container card</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">67.5</span><span class="p">,</span> <span class="mf">32.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">131</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.5</span><span class="p">))</span>
+<span class="n">text</span><span class="p">(</span>
+    <span class="p">(</span><span class="mf">67.5</span><span class="p">,</span> <span class="mf">57.5</span><span class="p">),</span>
+    <span class="s2">"Upstream Feedback: From Site Customization to Core Scaffolding Templates"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.8</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># Left Column: Production Site Customization</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">34.0</span><span class="p">,</span> <span class="mf">27.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">56</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">45</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">browser</span><span class="p">((</span><span class="mf">34.0</span><span class="p">,</span> <span class="mf">43.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">34.0</span><span class="p">,</span> <span class="mf">38.0</span><span class="p">),</span> <span class="s2">"Production UI Tuning"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">34.0</span><span class="p">,</span> <span class="mf">34.0</span><span class="p">),</span> <span class="s2">"docs/docs_src/"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">))</span>
+
+<span class="n">bullets_left</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">"• Dual vector/raster logos with auto light/dark switching"</span><span class="p">,</span>
+    <span class="s2">"• Instant theme toggle button (Sun/Moon) with memory"</span><span class="p">,</span>
+    <span class="s2">"• Zero-flicker FOUC prevention via inline head script"</span><span class="p">,</span>
+    <span class="s2">"• Tuned Slate-700 (#334155) borders for dark contrast"</span><span class="p">,</span>
+    <span class="s2">"• @media print immunity: PDF locked to white paper"</span><span class="p">,</span>
+<span class="p">]</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">11.0</span><span class="p">,</span> <span class="mf">20.0</span><span class="p">),</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">bullets_left</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">))</span>
+
+<span class="c1"># Center Upstream Feedback Arrow</span>
+<span class="n">line</span><span class="p">((</span><span class="mf">64.0</span><span class="p">,</span> <span class="mf">27.5</span><span class="p">),</span> <span class="p">(</span><span class="mf">71.0</span><span class="p">,</span> <span class="mf">27.5</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">67.5</span><span class="p">,</span> <span class="mf">31.5</span><span class="p">),</span> <span class="s2">"Upstream</span><span class="se">\n</span><span class="s2">Sync"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.0</span><span class="p">))</span>
+
+<span class="c1"># Right Column: Core Template Library</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">101.0</span><span class="p">,</span> <span class="mf">27.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">56</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">45</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">package</span><span class="p">((</span><span class="mf">101.0</span><span class="p">,</span> <span class="mf">43.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">101.0</span><span class="p">,</span> <span class="mf">38.0</span><span class="p">),</span> <span class="s2">"Core Template Feedback"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">101.0</span><span class="p">,</span> <span class="mf">34.0</span><span class="p">),</span> <span class="s2">"src/drawlib/_templates/"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">))</span>
+
+<span class="n">bullets_right</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">"• template.html.template: Injected toggle UI &amp; script"</span><span class="p">,</span>
+    <span class="s2">"• site.css &amp; pdf.css: Dual logo &amp; print protection rules"</span><span class="p">,</span>
+    <span class="s2">"• default*.css.template: Standardized #334155 dark border"</span><span class="p">,</span>
+    <span class="s2">"• _assets/: Bundled 500px transparent light &amp; dark logos"</span><span class="p">,</span>
+    <span class="s2">"• drawlib init site: Enterprise UX out-of-the-box!"</span><span class="p">,</span>
+<span class="p">]</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">78.0</span><span class="p">,</span> <span class="mf">20.0</span><span class="p">),</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">bullets_right</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">))</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<h3>6.1. 本番サイトの UI 改善</h3>
+<p>汎用テンプレートの初期設定に甘んじるのではなく、本番ドキュメントサイトに対して的を絞った UI 改善を実施しました。</p>
+<ol>
+<li><strong>自動切り替え対応のデュアルブランドロゴ</strong>: サイドバーヘッダーに 500px の公式透過ロゴ（ライト用 <code>logo.png</code> とダーク用 <code>logo_dark.png</code>）を組み込み、CSS 属性とメディアクエリによって自動切り替えを実現しました。</li>
+<li><strong>即座に反映されるテーマ切り替えボタン</strong>: サイドバーヘッダーに <code>localStorage</code> 永続化を備えた太陽／月アイコンの切り替えボタンを配置し、ページリロードなしで好みのテーマへ瞬時に切り替えられるようにしました。</li>
+<li><strong>FOUC（スタイル未適用状態のちらつき）の防止</strong>: HTML テンプレートの <code>&lt;head&gt;</code> 内に同期実行のインライン <code>&lt;script&gt;</code> を注入し、DOM 描画前に <code>data-theme</code> を判定・適用することで、ダークモードでのリロード時に生じる白画面のちらつきを完全に排除しました。</li>
+<li><strong>繊細な Slate-700 ボーダー輝度</strong>: ダークモードの区切り線やカード枠線を <code>#334155</code>（Slate-700 / <code>rgb(51, 65, 85)</code>）に微調整し、<code>#0f172a</code>（Slate-900）の暗色背景に対して視覚的なきつさを与えない絶妙な 5.2% のコントラスト比を確保しました。</li>
+<li><strong>印刷・PDF 出力時のダークモード干渉防止</strong>: <code>@media print { ... }</code> による上書きルールを徹底し、ユーザーのテーマ設定にかかわらず PDF エクスポートや紙面印刷では常に清潔な白背景と濃色テキストに固定されるようにしました。</li>
+</ol>
+<h3>6.2. コアプロジェクトテンプレートへのフィードバック</h3>
+<p>重要なのは、こうした改善を <code>docs/docs_src/</code> 固有の一時的なカスタマイズで終わらせなかった点です。本番サイトで磨き上げた成果は、<strong>Drawlib 本体のスキャフォールディングエンジン（<code>src/drawlib/_templates/</code>）へ直接フィードバック</strong>されました。</p>
+<ul>
+<li><code>project/site/template.html.template</code>: テーマ切り替えボタン、デュアルロゴ、FOUC 防止スクリプトを標準搭載。</li>
+<li><code>css/targets/site.css</code> / <code>css/targets/pdf.css</code>: 本番で検証済みのレスポンシブルールと印刷保護スタイルを反映。</li>
+<li><code>css/themes/default*.css.template</code>: Slate-700 のダークモード枠線を標準化。</li>
+<li><code>_assets/</code>: 500px の透過ライト／ダークロゴを初期状態で同梱。</li>
+</ul>
+<p>その結果、<code>uv run drawlib init site</code> を実行するすべての開発者が、最初からダークモード完備の実戦的なドキュメントポータルを手に入れられるようになりました。</p>
+<hr />
+<h2>7. まとめとベストプラクティス</h2>
+<p>AI コーディングアシスタントと共に大規模な技術ドキュメントを構築・運用するなかで得られた、4つの重要なベストプラクティスをまとめます。</p>
+<ol>
+<li><strong>まず構造を固め、見た目の作り込みは後にする</strong>:
+初期設計の段階から図解の座標調整に何時間も費やしてはいけません。まずは軽量なプレースホルダー矩形を使って、情報アーキテクチャと本文の構成を先に確定させましょう。</li>
+<li><strong>ファーストビューにおけるトップヒーロー原則</strong>:
+5〜15行目に <code>fold-code</code>（<code>code=fold</code>）指定のトップヒーロー図を配置します。明確な視覚的アンカーを最初に提示することで読者の関心を引きつけ、詳細な本文に入る前に共通のメンタルモデルを築くことができます。</li>
+<li><strong>場当たり的なプロンプトより機械可読なルールファイル</strong>:
+チャット上での場当たり的な指示は、セッションが長引くにつれて薄れていきます。フォーマット規約、カラートークン、マルチモーダル検証ループは、リポジトリ内の永続的なルールファイル（<code>.agents/rules/</code>）として明文化しましょう。</li>
+<li><strong>継続的品質保証としてのドッグフーディング</strong>:
+ドキュメントとコードが同じリポジトリに同居し一緒にビルドされる環境では、ドキュメントそのものが究極の結合テストになります。機能実装とドキュメントの同期が、単一の統合された開発サイクルへと昇華されます。</li>
+</ol>
+
+            </main>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Theme toggle
+            const themeBtn = document.getElementById('theme-toggle');
+            if (themeBtn) {
+                themeBtn.addEventListener('click', function() {
+                    const current = document.documentElement.getAttribute('data-theme');
+                    const next = current === 'dark' ? 'light' : 'dark';
+                    document.documentElement.setAttribute('data-theme', next);
+                    localStorage.setItem('drawlib-theme', next);
+                });
+            }
+
+            // Language dropdown outside-click & Escape close
+            const langDropdowns = document.querySelectorAll('.lang-dropdown');
+            if (langDropdowns.length > 0) {
+                document.addEventListener('click', function(e) {
+                    langDropdowns.forEach(function(dd) {
+                        if (dd.hasAttribute('open') && !dd.contains(e.target)) {
+                            dd.removeAttribute('open');
+                        }
+                    });
+                });
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape') {
+                        langDropdowns.forEach(function(dd) {
+                            dd.removeAttribute('open');
+                        });
+                    }
+                });
+            }
+
+            // Mobile menu toggle
+            const menuBtn = document.getElementById('menu-toggle');
+            const sidebar = document.querySelector('.sidebar');
+            if (menuBtn && sidebar) {
+                function setMenuOpen(open) {
+                    sidebar.classList.toggle('is-open', open);
+                    menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+                    document.body.classList.toggle('menu-open', open);
+                    if (open) {
+                        const menu = sidebar.querySelector('.sidebar-menu');
+                        if (menu) {
+                            menu.scrollTop = 0;
+                        }
+                    }
+                }
+
+                menuBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const willOpen = !sidebar.classList.contains('is-open');
+                    setMenuOpen(willOpen);
+                });
+
+                // Close menu when clicking outside sidebar
+                document.addEventListener('click', function(e) {
+                    if (sidebar.classList.contains('is-open') && !sidebar.contains(e.target)) {
+                        setMenuOpen(false);
+                    }
+                });
+
+                // Close menu when a navigation link is clicked
+                const navLinks = sidebar.querySelectorAll('.nav-item a');
+                navLinks.forEach(function(link) {
+                    link.addEventListener('click', function() {
+                        setMenuOpen(false);
+                    });
+                });
+
+                // Close on Escape key
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape' && sidebar.classList.contains('is-open')) {
+                        setMenuOpen(false);
+                    }
+                });
+
+                // Reset menu state when resized above mobile breakpoint
+                window.addEventListener('resize', function() {
+                    if (window.innerWidth > 768 && sidebar.classList.contains('is-open')) {
+                        setMenuOpen(false);
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

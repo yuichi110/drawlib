@@ -15,21 +15,21 @@ This directory contains the source Markdown files, drawing code, and configurati
 ## 1. Directory Structure
 
 - `docs_src/`: Source documents and drawing code (**Source of Truth**).
+  - `i18n.toml`: Multi-language site manifest (`default_lang = "en"`, `langs = ["en", "ja"]`).
+  - `en/`: English documentation pages (`navbar.md`, `index.md`, `01_getting_started/`..`10_ai_agents_and_advanced/`).
+  - `ja/`: Japanese documentation pages (`navbar.md`, `index.md`, `01_getting_started/`..`10_ai_agents_and_advanced/`).
+  - `_assets/`: Shared logos, favicons, GeoJSON, and custom fonts across all locales.
   - `build.sh`: Master build script (runs HTML, Markdown, and Image builds).
-  - `build_html.sh`: Static HTML website build script.
-  - `build_markdown.sh`: Rendered Markdown build script (outputs to `docs/`).
+  - `build_html.sh`: Static HTML website build script (outputs to `docs_html/`).
+  - `build_markdown.sh`: Rendered Markdown build script (outputs to `docs_markdown/`).
   - `build_image.sh`: Batch diagram image extraction script (outputs to `docs_images/`).
   - `serve.sh`: Local preview server script.
   - `styles.py`: Global drawing themes, style palettes, and font presets.
   - `utils.py`: Reusable drawing helper functions, macros, and project constants.
-  - `style.css`: Custom CSS stylesheet for HTML pages.
-  - `template.html`: Jinja2 HTML layout template.
-  - `navbar.md`: Navigation sidebar hierarchy definition.
+  - `style.css`: Base CSS stylesheet localized per language (`en/style.css`, `ja/style.css`).
+  - `template.html`: Jinja2 HTML layout template with top-right language switcher.
   - `README.md`: This customization guide.
-  - `index.md`: Root landing page.
-  - `architecture/index.md`: Architecture chapter page.
-  - `workflow/index.md`: Workflow chapter page.
-- `docs/`: Generated Markdown site for GitHub browsing (**Do not edit directly**).
+- `docs_markdown/`: Generated Markdown site for GitHub browsing (**Do not edit directly**).
 - `docs_html/`: Generated static HTML website (**Do not edit directly**).
 - `docs_images/`: Generated standalone diagram images (**Do not edit directly**).
 

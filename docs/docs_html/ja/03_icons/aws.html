@@ -1,0 +1,1001 @@
+<!--
+ Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+
+ This software is licensed under the Apache License, Version 2.0.
+ For more information, please visit: https://github.com/yuichi110/drawlib
+
+ This software is provided "as is", without warranty of any kind,
+ express or implied, including but not limited to the warranties of
+ merchantability, fitness for a particular purpose and noninfringement.
+-->
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazon Web Services (AWS) アイコン</title>
+    <script>
+        (function() {
+            const saved = localStorage.getItem('drawlib-theme');
+            if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    
+    
+    <link rel="alternate" hreflang="en" href="../../en/03_icons/aws.html">
+    
+    <link rel="alternate" hreflang="ja" href="aws.html">
+    
+    <link rel="alternate" hreflang="x-default" href="../../en/03_icons/aws.html">
+    
+    
+    
+    <link rel="icon" type="image/png" href="../../_assets/favicon.png">
+    
+    
+    <link rel="stylesheet" href="../style.css">
+    
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-brand" aria-label="Drawlib ドキュメント">
+                    
+                    <img src="../../_assets/logo.png" alt="Drawlib ドキュメント" class="sidebar-logo sidebar-logo-light">
+                    <img src="../../_assets/logo_dark.png" alt="Drawlib ドキュメント" class="sidebar-logo sidebar-logo-dark">
+                    
+                </a>
+                <div class="sidebar-header-actions">
+                    <button type="button" id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle theme">
+                        <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                        <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                    </button>
+                    <button type="button" id="menu-toggle" class="menu-toggle-btn" aria-label="Toggle navigation" aria-expanded="false">
+                        <svg class="icon-hamburger" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                        <svg class="icon-close" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                    </button>
+                </div>
+            </div>
+            <div class="sidebar-subbar">
+                
+                <a href="../01_getting_started/release_notes.html" class="sidebar-version-badge" title="View Release Notes">
+                    <span class="sidebar-version-dot" aria-hidden="true"></span>
+                    <span class="sidebar-version-text">v0.3.2</span>
+                </a>
+                <a href="https://github.com/yuichi110/drawlib" target="_blank" rel="noopener noreferrer" class="sidebar-github-link" aria-label="GitHub Repository" title="GitHub Repository">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+                </a>
+            </div>
+            <div class="sidebar-menu">
+                
+                    
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../index.html" >ようこそ</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">1. はじめに</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/overview.html" >Drawlib とは</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/installation.html" >インストールガイド</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/quick_start.html" >クイックスタートガイド</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/core_concepts.html" >基本ビジュアル概念</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/project_quicklook.html" >プロジェクト構成とビルド</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/agent_quicklook.html" >AI 駆動ワークフローとエージェント設定</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/release_notes.html" >リリースノートと移行ガイド</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">2. 描画プリミティブとスタイル</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/canvas.html" >キャンバスと座標系</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_overview.html" >図形プリミティブ概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_basic.html" >基本図形・放射状図形</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_polygon.html" >多角形とカスタムパス</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_arrow.html" >ブロック矢印・シェブロン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_container.html" >3D コンテナ・フロー・グルーピング</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_badge.html" >吹き出し・バッジ・ステータス</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_symbol.html" >フェイス・時計・記号・演算子</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/lines.html" >線とコネクタ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/text.html" >テキストとタイポグラフィ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/fonts.html" >フォントと多言語カタログ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/font_file.html" >カスタムフォントファイル (FontFile)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/images.html" >画像と Dimage</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/styles.html" >スタイルとテーマ設定</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/colors.html" >カラーパレットと色モデル</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/style_guide.html" >図解デザインとスタイルガイド</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">3. アイコンとブランドスイート</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="overview.html" >アイコン概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="phosphor.html" >Phosphor ベクターアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="gcp.html" >Google Cloud (GCP) アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item active">
+                                <a href="aws.html" >Amazon Web Services (AWS) アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="azure.html" >Microsoft Azure アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="cloud.html" >クラウド・オリジナルクラウドアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="cnative.html" >クラウドネイティブ (K8s) アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="devops.html" >DevOps・オブザーバビリティアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="network.html" >ネットワーク・Cisco トポロジアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="server.html" >サーバー・OS・仮想化アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="security.html" >セキュリティ・ゼロトラストアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="facility.html" >データセンター・ファシリティアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="ai.html" >AI・機械学習アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="data.html" >データ・データベースアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="code.html" >コード・言語・フレームワークアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="business.html" >エンタープライズ・FinTech アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="itservice.html" >IT サービス・コンサルティングアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="workspace.html" >ワークスペース・コラボレーションアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="social.html" >ソーシャル・メディア・コミュニティアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="client.html" >クライアント端末・エンドポイントアイコン</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">4. SmartArts（スマートアート）</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/overview.html" >SmartArts 概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/chevron_process.html" >ChevronProcess（シェブロン工程図）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/cycle.html" >Cycle（サイクル図）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/table.html" >Table（テーブル）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/tree.html" >Tree（ツリー図）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/mindmap.html" >MindMap（マインドマップ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/grid_layout.html" >GridLayout（グリッドレイアウト）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/pyramid.html" >Pyramid（ピラミッド図）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/box_list.html" >BoxList（ボックスリスト）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/kpi_cards.html" >KpiCards（KPI カード）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/card_list.html" >CardList（カードリスト）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/roadmap.html" >Roadmap（ロードマップ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/panel.html" >Panel（パネル）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/calendar.html" >Calendar（カレンダー）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/bullet_points.html" >BulletPoints（箇条書きボード）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/source_code.html" >SourceCode（ソースコードカード）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/geomap.html" >GeoMap（地理マップ）</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">5. Charts（定量チャート）</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/overview.html" >Charts 概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/axes_and_legends.html" >軸・スケール・凡例</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/bar.html" >Bar Chart（棒グラフ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/line.html" >Line Chart（折れ線グラフ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/area.html" >Area Chart（面グラフ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/pie.html" >Pie & Donut Chart（円・ドーナツグラフ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/radar.html" >Radar Chart（レーダーチャート）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/scatter.html" >Scatter Chart（散布図）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/gantt.html" >Gantt Chart（ガントチャート）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/heatmap.html" >Heatmap & Thermal Overlay（ヒートマップ）</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">6. テクニカルダイアグラム</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/overview.html" >ダイアグラム概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/architecture.html" >アーキテクチャ図</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/flow.html" >フロー図</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/sequence.html" >シーケンス図</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/class_diagram.html" >UML クラス図</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/er.html" >ER 図</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/state_diagram.html" >ステートマシン図</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">7. 自動レイアウトグラフ</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/overview.html" >グラフエンジン概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/architecture_graph.html" >ArchitectureGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/layer_graph.html" >LayerGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/tree_graph.html" >TreeGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/radial_graph.html" >RadialGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/grid_graph.html" >GridGraph</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">8. アニメーション</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/overview.html" >アニメーション概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/primitives.html" >プリミティブと色のアニメーション</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/smartarts.html" >SmartArts のアニメーション</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/charts.html" >Charts のアニメーション</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/diagrams.html" >ダイアグラムのアニメーション</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/graphs.html" >グラフのアニメーション</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">9. ドキュメントビルダと CLI</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/overview.html" >コードとしての図解ドキュメント概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/code_blocks.html" >Markdown コードブロック構文</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/cli_reference.html" >CLI リファレンス</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/project_doc.html" >リニアドキュメントプロジェクト (`doc`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/project_site.html" >ドキュメントサイトプロジェクト (`site`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/project_slide.html" >スライドデッキプロジェクト (`slide`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/slide_layout_and_api.html" >スライドステージレイアウトと API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/project_image.html" >画像プロジェクト (`images`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/customization.html" >テンプレートと CSS カスタマイズ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/caching_and_cicd.html" >キャッシュ機構と CI/CD</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">10. AI エージェントと高度な統合</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/ai_agent_instructions.html" >AI エージェント指示とルール体系</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/multimodal_feedback_loop.html" >自律検証フィードバックループ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/programmatic_api.html" >プログラマティック API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/math_and_layout.html" >アルゴリズムレイアウトと幾何計算</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/debugging.html" >トラブルシューティングとデバッグ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/case_study_brand_assets.html" >事例紹介: 公式ブランドアセットの設計</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/case_study_documentation_site.html" >事例紹介: AI エージェントによるドキュメントサイト構築</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/case_study_software_architecture.html" >事例紹介: コードとしてのソフトウェアアーキテクチャ設計書</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/case_study_technical_slides.html" >事例紹介: 技術プレゼンテーションスライドの作成</a>
+                            </li>
+                            
+                        </ul>
+                    
+                
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">Amazon Web Services (AWS) アイコン</span>
+                </div>
+                
+                <div class="lang-switcher">
+                    <details class="lang-dropdown">
+                        <summary class="lang-dropdown-btn" aria-label="Select language">
+                            <svg class="lang-globe-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                            <span class="lang-current-label">日本語</span>
+                            <svg class="lang-caret-icon" viewBox="0 0 24 24" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </summary>
+                        <div class="lang-dropdown-menu" role="menu">
+                            
+                            <a href="../../en/03_icons/aws.html" class="lang-option" lang="en" hreflang="en" >
+                                <span>English</span>
+                                
+                            </a>
+                            
+                            <a href="aws.html" class="lang-option active" lang="ja" hreflang="ja" aria-current="page">
+                                <span>日本語</span>
+                                
+                                <svg class="lang-check-icon" viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                
+                            </a>
+                            
+                        </div>
+                    </details>
+                </div>
+                
+            </header>
+            <main class="main-content">
+                <h1>Amazon Web Services (AWS) アイコン</h1>
+<p>Drawlib は、<code>drawlib.icons.aws</code> および <a href="../06_diagrams/architecture.html"><code>AwsIcon</code></a> Enum を通じて、<strong>329 個の高解像度（<code>512×512</code>）な Amazon Web Services (AWS)</strong> アーキテクチャアイコンおよびカテゴリアイコンを提供します。あわせて <a href="./overview.html">アイコン概要</a>、<a href="./gcp.html">Google Cloud (GCP) アイコン</a>、<a href="./azure.html">Microsoft Azure アイコン</a>、<a href="./cloud.html">クラウド・オリジナルクラウドアイコン</a> も参照してください。</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="../../images/03_icons/aws/icons_aws_hero.png" alt="aws_1" />
+  <figcaption class="drawlib-caption">8 つのアーキテクチャ領域にわたる主要な AWS サービス（drawlib.icons.aws）</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">aws</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">136</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">66</span><span class="p">)</span>
+
+<span class="n">row1</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s2">"Amazon EC2"</span><span class="p">,</span> <span class="s2">"Compute"</span><span class="p">,</span> <span class="n">aws</span><span class="o">.</span><span class="n">ec2</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"Amazon EKS"</span><span class="p">,</span> <span class="s2">"Containers"</span><span class="p">,</span> <span class="n">aws</span><span class="o">.</span><span class="n">elastic_kubernetes_service</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"AWS Lambda"</span><span class="p">,</span> <span class="s2">"Serverless"</span><span class="p">,</span> <span class="n">aws</span><span class="o">.</span><span class="n">aws_lambda</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"Amazon S3"</span><span class="p">,</span> <span class="s2">"Storage"</span><span class="p">,</span> <span class="n">aws</span><span class="o">.</span><span class="n">simple_storage_service</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">),</span>
+<span class="p">]</span>
+
+<span class="n">row2</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s2">"Amazon Aurora"</span><span class="p">,</span> <span class="s2">"Databases"</span><span class="p">,</span> <span class="n">aws</span><span class="o">.</span><span class="n">aurora</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"CloudFront"</span><span class="p">,</span> <span class="s2">"Networking"</span><span class="p">,</span> <span class="n">aws</span><span class="o">.</span><span class="n">cloudfront</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"AWS IAM"</span><span class="p">,</span> <span class="s2">"Security"</span><span class="p">,</span> <span class="n">aws</span><span class="o">.</span><span class="n">identity_and_access_management</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"Amazon Bedrock"</span><span class="p">,</span> <span class="s2">"AI / ML"</span><span class="p">,</span> <span class="n">aws</span><span class="o">.</span><span class="n">bedrock</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">),</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">row_idx</span><span class="p">,</span> <span class="n">items</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">([</span><span class="n">row1</span><span class="p">,</span> <span class="n">row2</span><span class="p">]):</span>
+    <span class="n">cy</span> <span class="o">=</span> <span class="mf">48.0</span> <span class="k">if</span> <span class="n">row_idx</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="mf">18.0</span>
+    <span class="k">for</span> <span class="n">col_idx</span><span class="p">,</span> <span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">cat</span><span class="p">,</span> <span class="n">icon_fn</span><span class="p">,</span> <span class="n">card_st</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">items</span><span class="p">):</span>
+        <span class="n">cx</span> <span class="o">=</span> <span class="mf">20.5</span> <span class="o">+</span> <span class="n">col_idx</span> <span class="o">*</span> <span class="mf">31.6</span>
+        <span class="n">rectangle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">29.2</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">26.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">card_st</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+        <span class="n">icon_fn</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span> <span class="o">+</span> <span class="mf">5.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">8.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">)</span>
+        <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span> <span class="o">-</span> <span class="mf">3.2</span><span class="p">),</span> <span class="n">title</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+        <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span> <span class="o">-</span> <span class="mf">8.5</span><span class="p">),</span> <span class="n">cat</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<hr />
+<h2>1. API シグネチャと <code>AwsIcon</code> Enum の使い方</h2>
+<p><code>drawlib.icons.aws</code> のすべての AWS アイコン関数は中心アンカー <code>(cx, cy)</code> の呼び出しシグネチャを共有しており、<a href="../06_diagrams/architecture.html"><code>ArchitectureDiagram</code></a> および <a href="../06_diagrams/sequence.html"><code>SequenceDiagram</code></a> では強く型付けされた <code>AwsIcon</code> Enum をそのまま指定できます。</p>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.diagrams.architecture</span><span class="w"> </span><span class="kn">import</span> <span class="n">ArchitectureDiagram</span><span class="p">,</span> <span class="n">AwsIcon</span><span class="p">,</span> <span class="n">Node</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">aws</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+
+<span class="c1"># 1. Direct canvas icon rendering at center (cx, cy) with 1:1 square aspect ratio</span>
+<span class="n">aws</span><span class="o">.</span><span class="n">aws_lambda</span><span class="p">((</span><span class="mi">40</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">,</span> <span class="n">variant</span><span class="o">=</span><span class="s2">"default"</span><span class="p">)</span>
+
+<span class="c1"># 2. High-level ArchitectureDiagram node using AwsIcon Enum</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">ArchitectureDiagram</span><span class="p">()</span>
+<span class="n">api_node</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span><span class="s2">"API Gateway"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">AwsIcon</span><span class="o">.</span><span class="n">API_GATEWAY</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">7.5</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">10.0</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">),</span>
+<span class="p">)</span>
+</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">パラメータ / <code>Style</code> 属性</th>
+<th style="text-align:left">型</th>
+<th style="text-align:left">デフォルト</th>
+<th style="text-align:left">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>xy</code></td>
+<td style="text-align:left"><code>tuple[float, float]</code></td>
+<td style="text-align:left"><em>必須</em></td>
+<td style="text-align:left">アイコンの中心座標 <code>(cx, cy)</code>（<code>halign=&quot;center&quot;</code>、<code>valign=&quot;center&quot;</code>）。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>width</code></td>
+<td style="text-align:left"><code>float</code></td>
+<td style="text-align:left"><em>必須</em></td>
+<td style="text-align:left">キャンバス単位での水平幅。高さは自動スケーリングされます（<code>1:1</code>）。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>style</code></td>
+<td style="text-align:left"><code>Style</code></td>
+<td style="text-align:left"><em>必須</em></td>
+<td style="text-align:left"><code>alpha</code>（<code>0.0–1.0</code> の不透明度）、<code>angle</code>（回転）、<code>image_tint_color</code>、<code>image_border_*</code> を制御します。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>variant</code></td>
+<td style="text-align:left"><code>Literal[&quot;default&quot;]</code></td>
+<td style="text-align:left"><code>&quot;default&quot;</code></td>
+<td style="text-align:left">ビジュアルバリアント（<code>&quot;default&quot;</code> は公式 AWS アーキテクチャパレット）。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>AwsIcon.&lt;NAME&gt;</code></td>
+<td style="text-align:left"><code>AwsIcon</code></td>
+<td style="text-align:left">—</td>
+<td style="text-align:left"><code>aws.&lt;name&gt;</code> に対応する大文字の <code>StrEnum</code> メンバー（例: <code>AwsIcon.AWS_LAMBDA</code> -&gt; <code>aws.aws_lambda</code>）。</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>2. 主要インフラ・データサービスショーケース（全 329 正規アイコン）</h2>
+<p>以下の 12 カード（2×6）カタログでは、AWS の基盤となるインフラストラクチャ、データ分析、統合、オブザーバビリティの主要サービスを紹介しています。</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="../../images/03_icons/aws/icons_aws_catalog.png" alt="aws_2" />
+  <figcaption class="drawlib-caption">AWS の基盤インフラ・データ・統合・管理サービスを代表する 12 アイコン</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">aws</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">148</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">66</span><span class="p">)</span>
+
+<span class="n">row1</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s2">"API Gateway"</span><span class="p">,</span> <span class="s2">"Ingress"</span><span class="p">,</span> <span class="n">aws</span><span class="o">.</span><span class="n">api_gateway</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"ALB / ELB"</span><span class="p">,</span> <span class="s2">"Load Balancing"</span><span class="p">,</span> <span class="n">aws</span><span class="o">.</span><span class="n">elastic_load_balancing</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"AWS Fargate"</span><span class="p">,</span> <span class="s2">"Containers"</span><span class="p">,</span> <span class="n">aws</span><span class="o">.</span><span class="n">fargate</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"DynamoDB"</span><span class="p">,</span> <span class="s2">"NoSQL DB"</span><span class="p">,</span> <span class="n">aws</span><span class="o">.</span><span class="n">dynamodb</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"ElastiCache"</span><span class="p">,</span> <span class="s2">"In-Memory"</span><span class="p">,</span> <span class="n">aws</span><span class="o">.</span><span class="n">elasticache</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"EventBridge"</span><span class="p">,</span> <span class="s2">"Event Bus"</span><span class="p">,</span> <span class="n">aws</span><span class="o">.</span><span class="n">eventbridge</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
+<span class="p">]</span>
+
+<span class="n">row2</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s2">"Amazon SQS"</span><span class="p">,</span> <span class="s2">"Queue"</span><span class="p">,</span> <span class="n">aws</span><span class="o">.</span><span class="n">simple_queue_service</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"Step Functions"</span><span class="p">,</span> <span class="s2">"Workflows"</span><span class="p">,</span> <span class="n">aws</span><span class="o">.</span><span class="n">step_functions</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"Kinesis"</span><span class="p">,</span> <span class="s2">"Streaming"</span><span class="p">,</span> <span class="n">aws</span><span class="o">.</span><span class="n">kinesis_data_streams</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"Redshift"</span><span class="p">,</span> <span class="s2">"Warehouse"</span><span class="p">,</span> <span class="n">aws</span><span class="o">.</span><span class="n">redshift</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"SageMaker"</span><span class="p">,</span> <span class="s2">"ML Platform"</span><span class="p">,</span> <span class="n">aws</span><span class="o">.</span><span class="n">sagemaker</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"CloudWatch"</span><span class="p">,</span> <span class="s2">"Observability"</span><span class="p">,</span> <span class="n">aws</span><span class="o">.</span><span class="n">cloudwatch</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">row_idx</span><span class="p">,</span> <span class="n">items</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">([</span><span class="n">row1</span><span class="p">,</span> <span class="n">row2</span><span class="p">]):</span>
+    <span class="n">cy</span> <span class="o">=</span> <span class="mf">48.0</span> <span class="k">if</span> <span class="n">row_idx</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="mf">18.0</span>
+    <span class="k">for</span> <span class="n">col_idx</span><span class="p">,</span> <span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">sub</span><span class="p">,</span> <span class="n">icon_fn</span><span class="p">,</span> <span class="n">card_st</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">items</span><span class="p">):</span>
+        <span class="n">cx</span> <span class="o">=</span> <span class="mf">15.0</span> <span class="o">+</span> <span class="n">col_idx</span> <span class="o">*</span> <span class="mf">23.6</span>
+        <span class="n">rectangle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">21.8</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">26.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">card_st</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+        <span class="n">icon_fn</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span> <span class="o">+</span> <span class="mf">5.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">8.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">)</span>
+        <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span> <span class="o">-</span> <span class="mf">3.2</span><span class="p">),</span> <span class="n">title</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+        <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span> <span class="o">-</span> <span class="mf">8.5</span><span class="p">),</span> <span class="n">sub</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<h3>2.1. 全 329 種類の AWS アイコン カテゴリ別リファレンス一覧</h3>
+<p><code>drawlib.icons.aws</code> の全 329 個の正規関数は厳密な 1 対 1 の命名規則に従っています（<code>AwsIcon</code> には対応する大文字メンバーが存在します）。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">カテゴリ</th>
+<th style="text-align:center">個数</th>
+<th style="text-align:left">正規関数 <code>drawlib.icons.aws.&lt;name&gt;</code>（<code>AwsIcon.&lt;NAME&gt;</code>）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>コンピューティング</strong></td>
+<td style="text-align:center">28</td>
+<td style="text-align:left"><code>auto_scaling</code>, <code>batch</code>, <code>braket</code>, <code>compute_optimizer</code>, <code>ec2</code>, <code>ec2_auto_scaling</code>, <code>ec2_image_builder</code>, <code>elastic_beanstalk</code>, <code>elastic_fabric_adapter</code>, <code>elastic_vmware_service</code>, <code>gamelift_servers</code>, <code>gamelift_streams</code>, <code>lightsail</code>, <code>lightsail_for_research</code>, <code>local_zones</code>, <code>nitro_enclaves</code>, <code>outposts_family</code>, <code>outposts_rack</code>, <code>outposts_servers</code>, <code>parallel_cluster</code>, <code>parallel_computing_service</code>, <code>simspace_weaver</code>, <code>thinkbox_deadline</code>, <code>thinkbox_frost</code>, <code>thinkbox_krakatoa</code>, <code>thinkbox_stoke</code>, <code>thinkbox_xmesh</code>, <code>wavelength</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>コンテナ・サーバーレス</strong></td>
+<td style="text-align:center">15</td>
+<td style="text-align:left"><code>app_mesh</code>, <code>app_runner</code>, <code>aws_lambda</code>, <code>bottlerocket</code>, <code>ecs_anywhere</code>, <code>eks_anywhere</code>, <code>eks_distro</code>, <code>elastic_container_registry</code>, <code>elastic_container_service</code>, <code>elastic_kubernetes_service</code>, <code>express_workflows</code>, <code>fargate</code>, <code>red_hat_openshift_service_on_aws</code>, <code>serverless_application_repository</code>, <code>step_functions</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>ストレージ</strong></td>
+<td style="text-align:center">19</td>
+<td style="text-align:left"><code>backint_agent</code>, <code>backup</code>, <code>datasync</code>, <code>efs</code>, <code>elastic_block_store</code>, <code>elastic_disaster_recovery</code>, <code>file_cache</code>, <code>fsx</code>, <code>fsx_for_lustre</code>, <code>fsx_for_netapp_ontap</code>, <code>fsx_for_openzfs</code>, <code>fsx_for_wfs</code>, <code>s3_on_outposts</code>, <code>simple_storage_service</code>, <code>simple_storage_service_glacier</code>, <code>snowball</code>, <code>snowball_edge</code>, <code>storage_gateway</code>, <code>transfer_family</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>データベース</strong></td>
+<td style="text-align:center">11</td>
+<td style="text-align:left"><code>aurora</code>, <code>database_migration_service</code>, <code>documentdb</code>, <code>dynamodb</code>, <code>elasticache</code>, <code>keyspaces</code>, <code>memorydb</code>, <code>neptune</code>, <code>oracle_database_at_aws</code>, <code>rds</code>, <code>timestream</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>ネットワーキング・CDN</strong></td>
+<td style="text-align:center">20</td>
+<td style="text-align:left"><code>api_gateway</code>, <code>appsync</code>, <code>client_vpn</code>, <code>cloud_map</code>, <code>cloud_wan</code>, <code>cloudfront</code>, <code>direct_connect</code>, <code>elastic_load_balancing</code>, <code>global_accelerator</code>, <code>ground_station</code>, <code>interconnect</code>, <code>location_service</code>, <code>privatelink</code>, <code>route_53</code>, <code>site_to_site_vpn</code>, <code>telco_network_builder</code>, <code>transit_gateway</code>, <code>verified_access</code>, <code>virtual_private_cloud</code>, <code>vpc_lattice</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>セキュリティ・アイデンティティ</strong></td>
+<td style="text-align:center">28</td>
+<td style="text-align:left"><code>artifact</code>, <code>audit_manager</code>, <code>certificate_manager</code>, <code>cloud_directory</code>, <code>cloudhsm</code>, <code>cognito</code>, <code>detective</code>, <code>directory_service</code>, <code>firewall_manager</code>, <code>guardduty</code>, <code>iam_identity_center</code>, <code>identity_and_access_management</code>, <code>inspector</code>, <code>key_management_service</code>, <code>macie</code>, <code>network_firewall</code>, <code>payment_cryptography</code>, <code>private_certificate_authority</code>, <code>resource_access_manager</code>, <code>secrets_manager</code>, <code>security_agent</code>, <code>security_hub</code>, <code>security_incident_response</code>, <code>security_lake</code>, <code>shield</code>, <code>signer</code>, <code>verified_permissions</code>, <code>waf</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>分析・統合</strong></td>
+<td style="text-align:center">50</td>
+<td style="text-align:left"><code>appfabric</code>, <code>appflow</code>, <code>athena</code>, <code>b2b_data_interchange</code>, <code>clean_rooms</code>, <code>cloudsearch</code>, <code>data_exchange</code>, <code>data_firehose</code>, <code>data_transfer_terminal</code>, <code>datazone</code>, <code>elemental_appliances_software</code>, <code>elemental_conductor</code>, <code>elemental_delta</code>, <code>elemental_inference</code>, <code>elemental_link</code>, <code>elemental_live</code>, <code>elemental_mediaconnect</code>, <code>elemental_mediaconvert</code>, <code>elemental_medialive</code>, <code>elemental_mediapackage</code>, <code>elemental_mediastore</code>, <code>elemental_mediatailor</code>, <code>elemental_server</code>, <code>emr</code>, <code>end_user_messaging</code>, <code>entity_resolution</code>, <code>eventbridge</code>, <code>finspace</code>, <code>glue</code>, <code>glue_databrew</code>, <code>interactive_video_service</code>, <code>kinesis</code>, <code>kinesis_data_streams</code>, <code>kinesis_video_streams</code>, <code>lake_formation</code>, <code>managed_blockchain</code>, <code>managed_service_for_apache_flink</code>, <code>managed_streaming_for_apache_kafka</code>, <code>managed_workflows_for_apache_airflow</code>, <code>mq</code>, <code>opensearch_service</code>, <code>pinpoint</code>, <code>pinpoint_apis</code>, <code>quick</code>, <code>redshift</code>, <code>rtb_fabric</code>, <code>simple_email_service</code>, <code>simple_notification_service</code>, <code>simple_queue_service</code>, <code>supply_chain</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>AI・機械学習</strong></td>
+<td style="text-align:center">41</td>
+<td style="text-align:left"><code>apache_mxnet_on_aws</code>, <code>augmented_ai_a2i</code>, <code>bedrock</code>, <code>bedrock_agentcore</code>, <code>codeguru</code>, <code>codewhisperer</code>, <code>comprehend</code>, <code>comprehend_medical</code>, <code>deep_learning_amis</code>, <code>deep_learning_containers</code>, <code>deepracer</code>, <code>devops_agent</code>, <code>devops_guru</code>, <code>elastic_inference</code>, <code>forecast</code>, <code>fraud_detector</code>, <code>healthimaging</code>, <code>healthlake</code>, <code>healthomics</code>, <code>healthscribe</code>, <code>kendra</code>, <code>lex</code>, <code>lookout_for_equipment</code>, <code>lookout_for_vision</code>, <code>monitron</code>, <code>neuron</code>, <code>nova</code>, <code>panorama</code>, <code>personalize</code>, <code>polly</code>, <code>pytorch_on_aws</code>, <code>q</code>, <code>rekognition</code>, <code>sagemaker</code>, <code>sagemaker_ai</code>, <code>sagemaker_ground_truth</code>, <code>sagemaker_studio_lab</code>, <code>tensorflow_on_aws</code>, <code>textract</code>, <code>transcribe</code>, <code>translate</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>開発者ツール・管理</strong></td>
+<td style="text-align:center">91</td>
+<td style="text-align:left"><code>activate</code>, <code>amplify</code>, <code>app_studio</code>, <code>appconfig</code>, <code>application_auto_scaling</code>, <code>application_discovery_service</code>, <code>application_migration_service</code>, <code>application_recovery_controller</code>, <code>billing_conductor</code>, <code>budgets</code>, <code>chatbot</code>, <code>chime</code>, <code>chime_sdk</code>, <code>cloud9</code>, <code>cloud_control_api</code>, <code>cloud_development_kit</code>, <code>cloudformation</code>, <code>cloudshell</code>, <code>cloudtrail</code>, <code>cloudwatch</code>, <code>codeartifact</code>, <code>codebuild</code>, <code>codecatalyst</code>, <code>codecommit</code>, <code>codedeploy</code>, <code>codepipeline</code>, <code>command_line_interface</code>, <code>config</code>, <code>connect</code>, <code>console_mobile_application</code>, <code>control_tower</code>, <code>corretto</code>, <code>cost_and_usage_report</code>, <code>cost_explorer</code>, <code>dcv</code>, <code>deadline_cloud</code>, <code>device_farm</code>, <code>distro_for_opentelemetry</code>, <code>fault_injection_service</code>, <code>finops_agent</code>, <code>freertos</code>, <code>health_dashboard</code>, <code>infrastructure_composer</code>, <code>iot_core</code>, <code>iot_device_defender</code>, <code>iot_device_management</code>, <code>iot_events</code>, <code>iot_expresslink</code>, <code>iot_fleetwise</code>, <code>iot_greengrass</code>, <code>iot_sitewise</code>, <code>iot_twinmaker</code>, <code>iq</code>, <code>launch_wizard</code>, <code>license_manager</code>, <code>mainframe_modernization</code>, <code>managed_grafana</code>, <code>managed_service_for_prometheus</code>, <code>managed_services</code>, <code>management_console</code>, <code>marketplace_dark</code>, <code>marketplace_light</code>, <code>migration_evaluator</code>, <code>open_3d_engine</code>, <code>organizations</code>, <code>partner_central</code>, <code>professional_services</code>, <code>proton</code>, <code>repost</code>, <code>repost_private</code>, <code>reserved_instance_reporting</code>, <code>resilience_hub</code>, <code>resource_explorer</code>, <code>savings_plans</code>, <code>service_catalog</code>, <code>service_management_connector</code>, <code>support</code>, <code>sustainability</code>, <code>systems_manager</code>, <code>tools_and_sdks</code>, <code>training_certification</code>, <code>transform</code>, <code>trusted_advisor</code>, <code>user_notifications</code>, <code>well_architected_tool</code>, <code>wickr</code>, <code>workdocs</code>, <code>workdocs_sdk</code>, <code>workmail</code>, <code>workspaces</code>, <code>x_ray</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>カテゴリバッジ</strong></td>
+<td style="text-align:center">26</td>
+<td style="text-align:left"><code>category_analytics</code>, <code>category_application_integration</code>, <code>category_artificial_intelligence</code>, <code>category_blockchain</code>, <code>category_business_applications</code>, <code>category_cloud_financial_management</code>, <code>category_compute</code>, <code>category_containers</code>, <code>category_customer_enablement</code>, <code>category_customer_experience</code>, <code>category_databases</code>, <code>category_developer_tools</code>, <code>category_end_user_computing</code>, <code>category_front_end_web_mobile</code>, <code>category_games</code>, <code>category_internet_of_things</code>, <code>category_management_tools</code>, <code>category_media_services</code>, <code>category_migration_modernization</code>, <code>category_multicloud_and_hybrid</code>, <code>category_networking_content_delivery</code>, <code>category_quantum_technologies</code>, <code>category_satellite</code>, <code>category_security_identity</code>, <code>category_serverless</code>, <code>category_storage</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>3. AWS クラウドアーキテクチャ構成例（<code>ArchitectureDiagram</code> と <code>AwsIcon</code>）</h2>
+<p><a href="../06_diagrams/architecture.html"><code>ArchitectureDiagram</code></a> と <code>AwsIcon</code> を組み合わせることで、ノードカードの自動レイアウトと直交コネクタの自動ルーティングを備えた VPC トポロジを構築できます。</p>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.diagrams.architecture</span><span class="w"> </span><span class="kn">import</span> <span class="n">ArchitectureDiagram</span><span class="p">,</span> <span class="n">AwsIcon</span><span class="p">,</span> <span class="n">Node</span><span class="p">,</span> <span class="n">NodeGroup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">66</span><span class="p">)</span>
+
+<span class="n">d</span> <span class="o">=</span> <span class="n">ArchitectureDiagram</span><span class="p">(</span>
+    <span class="n">node_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">,</span>
+    <span class="n">node_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">edge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+    <span class="n">edge_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">node_card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">"Serverless AWS API &amp; Event-Driven Persistence Topology"</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">cf</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span><span class="s2">"Amazon</span><span class="se">\n</span><span class="s2">CloudFront"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">23</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">AwsIcon</span><span class="o">.</span><span class="n">CLOUDFRONT</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">7.5</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">14.0</span><span class="p">,</span> <span class="mf">22.0</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">vpc</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">NodeGroup</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">"Production AWS Region (us-east-1)"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">5.0</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">40.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">))</span>
+<span class="n">apigw</span> <span class="o">=</span> <span class="n">vpc</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span><span class="s2">"API Gateway"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">23</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">AwsIcon</span><span class="o">.</span><span class="n">API_GATEWAY</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">7.5</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">16.5</span><span class="p">,</span> <span class="mf">18.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">fn</span> <span class="o">=</span> <span class="n">vpc</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span>
+        <span class="s2">"AWS Lambda</span><span class="se">\n</span><span class="s2">Handler"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mi">23</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span>
+        <span class="n">icon</span><span class="o">=</span><span class="n">AwsIcon</span><span class="o">.</span><span class="n">AWS_LAMBDA</span><span class="p">,</span>
+        <span class="n">icon_size</span><span class="o">=</span><span class="mf">7.5</span><span class="p">,</span>
+        <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">50.0</span><span class="p">,</span> <span class="mf">18.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">ddb</span> <span class="o">=</span> <span class="n">vpc</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span>
+        <span class="s2">"Amazon</span><span class="se">\n</span><span class="s2">DynamoDB"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mi">23</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span>
+        <span class="n">icon</span><span class="o">=</span><span class="n">AwsIcon</span><span class="o">.</span><span class="n">DYNAMODB</span><span class="p">,</span>
+        <span class="n">icon_size</span><span class="o">=</span><span class="mf">7.5</span><span class="p">,</span>
+        <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">85.0</span><span class="p">,</span> <span class="mf">29.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">s3</span> <span class="o">=</span> <span class="n">vpc</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span><span class="s2">"Amazon S3"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">23</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">AwsIcon</span><span class="o">.</span><span class="n">SIMPLE_STORAGE_SERVICE</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">7.5</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">85.0</span><span class="p">,</span> <span class="mf">7.0</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">d</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">cf</span><span class="p">,</span> <span class="n">apigw</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"HTTPS"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">apigw</span><span class="p">,</span> <span class="n">fn</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
+<span class="n">fn</span><span class="o">.</span><span class="n">fork</span><span class="p">([</span><span class="n">ddb</span><span class="p">,</span> <span class="n">s3</span><span class="p">],</span> <span class="n">at_x</span><span class="o">=</span><span class="mf">107.5</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
+
+<span class="n">d</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">))</span>
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="../../images/03_icons/aws/icons_aws_arch.png" alt="aws_3" />
+  <figcaption class="drawlib-caption">ArchitectureDiagram と AwsIcon を用いたサーバーレス AWS イベント駆動マイクロサービス構成図</figcaption>
+</figure>
+
+            </main>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Theme toggle
+            const themeBtn = document.getElementById('theme-toggle');
+            if (themeBtn) {
+                themeBtn.addEventListener('click', function() {
+                    const current = document.documentElement.getAttribute('data-theme');
+                    const next = current === 'dark' ? 'light' : 'dark';
+                    document.documentElement.setAttribute('data-theme', next);
+                    localStorage.setItem('drawlib-theme', next);
+                });
+            }
+
+            // Language dropdown outside-click & Escape close
+            const langDropdowns = document.querySelectorAll('.lang-dropdown');
+            if (langDropdowns.length > 0) {
+                document.addEventListener('click', function(e) {
+                    langDropdowns.forEach(function(dd) {
+                        if (dd.hasAttribute('open') && !dd.contains(e.target)) {
+                            dd.removeAttribute('open');
+                        }
+                    });
+                });
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape') {
+                        langDropdowns.forEach(function(dd) {
+                            dd.removeAttribute('open');
+                        });
+                    }
+                });
+            }
+
+            // Mobile menu toggle
+            const menuBtn = document.getElementById('menu-toggle');
+            const sidebar = document.querySelector('.sidebar');
+            if (menuBtn && sidebar) {
+                function setMenuOpen(open) {
+                    sidebar.classList.toggle('is-open', open);
+                    menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+                    document.body.classList.toggle('menu-open', open);
+                    if (open) {
+                        const menu = sidebar.querySelector('.sidebar-menu');
+                        if (menu) {
+                            menu.scrollTop = 0;
+                        }
+                    }
+                }
+
+                menuBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const willOpen = !sidebar.classList.contains('is-open');
+                    setMenuOpen(willOpen);
+                });
+
+                // Close menu when clicking outside sidebar
+                document.addEventListener('click', function(e) {
+                    if (sidebar.classList.contains('is-open') && !sidebar.contains(e.target)) {
+                        setMenuOpen(false);
+                    }
+                });
+
+                // Close menu when a navigation link is clicked
+                const navLinks = sidebar.querySelectorAll('.nav-item a');
+                navLinks.forEach(function(link) {
+                    link.addEventListener('click', function() {
+                        setMenuOpen(false);
+                    });
+                });
+
+                // Close on Escape key
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape' && sidebar.classList.contains('is-open')) {
+                        setMenuOpen(false);
+                    }
+                });
+
+                // Reset menu state when resized above mobile breakpoint
+                window.addEventListener('resize', function() {
+                    if (window.innerWidth > 768 && sidebar.classList.contains('is-open')) {
+                        setMenuOpen(false);
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

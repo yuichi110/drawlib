@@ -1,0 +1,1636 @@
+<!--
+ Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+
+ This software is licensed under the Apache License, Version 2.0.
+ For more information, please visit: https://github.com/yuichi110/drawlib
+
+ This software is provided "as is", without warranty of any kind,
+ express or implied, including but not limited to the warranties of
+ merchantability, fitness for a particular purpose and noninfringement.
+-->
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>線とコネクタ</title>
+    <script>
+        (function() {
+            const saved = localStorage.getItem('drawlib-theme');
+            if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    
+    
+    <link rel="alternate" hreflang="en" href="../../en/02_drawing_primitives/lines.html">
+    
+    <link rel="alternate" hreflang="ja" href="lines.html">
+    
+    <link rel="alternate" hreflang="x-default" href="../../en/02_drawing_primitives/lines.html">
+    
+    
+    
+    <link rel="icon" type="image/png" href="../../_assets/favicon.png">
+    
+    
+    <link rel="stylesheet" href="../style.css">
+    
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-brand" aria-label="Drawlib ドキュメント">
+                    
+                    <img src="../../_assets/logo.png" alt="Drawlib ドキュメント" class="sidebar-logo sidebar-logo-light">
+                    <img src="../../_assets/logo_dark.png" alt="Drawlib ドキュメント" class="sidebar-logo sidebar-logo-dark">
+                    
+                </a>
+                <div class="sidebar-header-actions">
+                    <button type="button" id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle theme">
+                        <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                        <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                    </button>
+                    <button type="button" id="menu-toggle" class="menu-toggle-btn" aria-label="Toggle navigation" aria-expanded="false">
+                        <svg class="icon-hamburger" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                        <svg class="icon-close" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                    </button>
+                </div>
+            </div>
+            <div class="sidebar-subbar">
+                
+                <a href="../01_getting_started/release_notes.html" class="sidebar-version-badge" title="View Release Notes">
+                    <span class="sidebar-version-dot" aria-hidden="true"></span>
+                    <span class="sidebar-version-text">v0.3.2</span>
+                </a>
+                <a href="https://github.com/yuichi110/drawlib" target="_blank" rel="noopener noreferrer" class="sidebar-github-link" aria-label="GitHub Repository" title="GitHub Repository">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+                </a>
+            </div>
+            <div class="sidebar-menu">
+                
+                    
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../index.html" >ようこそ</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">1. はじめに</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/overview.html" >Drawlib とは</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/installation.html" >インストールガイド</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/quick_start.html" >クイックスタートガイド</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/core_concepts.html" >基本ビジュアル概念</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/project_quicklook.html" >プロジェクト構成とビルド</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/agent_quicklook.html" >AI 駆動ワークフローとエージェント設定</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/release_notes.html" >リリースノートと移行ガイド</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">2. 描画プリミティブとスタイル</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="canvas.html" >キャンバスと座標系</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="shapes_overview.html" >図形プリミティブ概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="shapes_basic.html" >基本図形・放射状図形</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="shapes_polygon.html" >多角形とカスタムパス</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="shapes_arrow.html" >ブロック矢印・シェブロン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="shapes_container.html" >3D コンテナ・フロー・グルーピング</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="shapes_badge.html" >吹き出し・バッジ・ステータス</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="shapes_symbol.html" >フェイス・時計・記号・演算子</a>
+                            </li>
+                            
+                            <li class="nav-item active">
+                                <a href="lines.html" >線とコネクタ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="text.html" >テキストとタイポグラフィ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="fonts.html" >フォントと多言語カタログ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="font_file.html" >カスタムフォントファイル (FontFile)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="images.html" >画像と Dimage</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="styles.html" >スタイルとテーマ設定</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="colors.html" >カラーパレットと色モデル</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="style_guide.html" >図解デザインとスタイルガイド</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">3. アイコンとブランドスイート</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/overview.html" >アイコン概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/phosphor.html" >Phosphor ベクターアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/gcp.html" >Google Cloud (GCP) アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/aws.html" >Amazon Web Services (AWS) アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/azure.html" >Microsoft Azure アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/cloud.html" >クラウド・オリジナルクラウドアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/cnative.html" >クラウドネイティブ (K8s) アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/devops.html" >DevOps・オブザーバビリティアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/network.html" >ネットワーク・Cisco トポロジアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/server.html" >サーバー・OS・仮想化アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/security.html" >セキュリティ・ゼロトラストアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/facility.html" >データセンター・ファシリティアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/ai.html" >AI・機械学習アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/data.html" >データ・データベースアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/code.html" >コード・言語・フレームワークアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/business.html" >エンタープライズ・FinTech アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/itservice.html" >IT サービス・コンサルティングアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/workspace.html" >ワークスペース・コラボレーションアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/social.html" >ソーシャル・メディア・コミュニティアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/client.html" >クライアント端末・エンドポイントアイコン</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">4. SmartArts（スマートアート）</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/overview.html" >SmartArts 概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/chevron_process.html" >ChevronProcess（シェブロン工程図）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/cycle.html" >Cycle（サイクル図）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/table.html" >Table（テーブル）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/tree.html" >Tree（ツリー図）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/mindmap.html" >MindMap（マインドマップ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/grid_layout.html" >GridLayout（グリッドレイアウト）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/pyramid.html" >Pyramid（ピラミッド図）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/box_list.html" >BoxList（ボックスリスト）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/kpi_cards.html" >KpiCards（KPI カード）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/card_list.html" >CardList（カードリスト）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/roadmap.html" >Roadmap（ロードマップ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/panel.html" >Panel（パネル）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/calendar.html" >Calendar（カレンダー）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/bullet_points.html" >BulletPoints（箇条書きボード）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/source_code.html" >SourceCode（ソースコードカード）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/geomap.html" >GeoMap（地理マップ）</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">5. Charts（定量チャート）</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/overview.html" >Charts 概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/axes_and_legends.html" >軸・スケール・凡例</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/bar.html" >Bar Chart（棒グラフ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/line.html" >Line Chart（折れ線グラフ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/area.html" >Area Chart（面グラフ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/pie.html" >Pie & Donut Chart（円・ドーナツグラフ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/radar.html" >Radar Chart（レーダーチャート）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/scatter.html" >Scatter Chart（散布図）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/gantt.html" >Gantt Chart（ガントチャート）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/heatmap.html" >Heatmap & Thermal Overlay（ヒートマップ）</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">6. テクニカルダイアグラム</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/overview.html" >ダイアグラム概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/architecture.html" >アーキテクチャ図</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/flow.html" >フロー図</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/sequence.html" >シーケンス図</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/class_diagram.html" >UML クラス図</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/er.html" >ER 図</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/state_diagram.html" >ステートマシン図</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">7. 自動レイアウトグラフ</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/overview.html" >グラフエンジン概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/architecture_graph.html" >ArchitectureGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/layer_graph.html" >LayerGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/tree_graph.html" >TreeGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/radial_graph.html" >RadialGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/grid_graph.html" >GridGraph</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">8. アニメーション</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/overview.html" >アニメーション概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/primitives.html" >プリミティブと色のアニメーション</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/smartarts.html" >SmartArts のアニメーション</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/charts.html" >Charts のアニメーション</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/diagrams.html" >ダイアグラムのアニメーション</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/graphs.html" >グラフのアニメーション</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">9. ドキュメントビルダと CLI</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/overview.html" >コードとしての図解ドキュメント概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/code_blocks.html" >Markdown コードブロック構文</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/cli_reference.html" >CLI リファレンス</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/project_doc.html" >リニアドキュメントプロジェクト (`doc`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/project_site.html" >ドキュメントサイトプロジェクト (`site`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/project_slide.html" >スライドデッキプロジェクト (`slide`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/slide_layout_and_api.html" >スライドステージレイアウトと API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/project_image.html" >画像プロジェクト (`images`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/customization.html" >テンプレートと CSS カスタマイズ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/caching_and_cicd.html" >キャッシュ機構と CI/CD</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">10. AI エージェントと高度な統合</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/ai_agent_instructions.html" >AI エージェント指示とルール体系</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/multimodal_feedback_loop.html" >自律検証フィードバックループ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/programmatic_api.html" >プログラマティック API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/math_and_layout.html" >アルゴリズムレイアウトと幾何計算</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/debugging.html" >トラブルシューティングとデバッグ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/case_study_brand_assets.html" >事例紹介: 公式ブランドアセットの設計</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/case_study_documentation_site.html" >事例紹介: AI エージェントによるドキュメントサイト構築</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/case_study_software_architecture.html" >事例紹介: コードとしてのソフトウェアアーキテクチャ設計書</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/case_study_technical_slides.html" >事例紹介: 技術プレゼンテーションスライドの作成</a>
+                            </li>
+                            
+                        </ul>
+                    
+                
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">線とコネクタ</span>
+                </div>
+                
+                <div class="lang-switcher">
+                    <details class="lang-dropdown">
+                        <summary class="lang-dropdown-btn" aria-label="Select language">
+                            <svg class="lang-globe-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                            <span class="lang-current-label">日本語</span>
+                            <svg class="lang-caret-icon" viewBox="0 0 24 24" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </summary>
+                        <div class="lang-dropdown-menu" role="menu">
+                            
+                            <a href="../../en/02_drawing_primitives/lines.html" class="lang-option" lang="en" hreflang="en" >
+                                <span>English</span>
+                                
+                            </a>
+                            
+                            <a href="lines.html" class="lang-option active" lang="ja" hreflang="ja" aria-current="page">
+                                <span>日本語</span>
+                                
+                                <svg class="lang-check-icon" viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                
+                            </a>
+                            
+                        </div>
+                    </details>
+                </div>
+                
+            </header>
+            <main class="main-content">
+                <h1>線とコネクタ</h1>
+<p>コネクタは、図中の要素間の通信経路、データフローの向き、および構造的な関係性を表現します。
+<code>drawlib.lines</code> モジュールは、直線、滑らかな円弧、2 次および 3 次ベジェ曲線、多点の直交（マンハッタン）折れ線、角丸（フィレット）付き折れ線、複合パス、楕円弧コネクタを網羅する <strong>8 つのベクターコネクタ関数</strong>を提供します。</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="../../images/02_drawing_primitives/lines/lines_overview.png" alt="lines_1" />
+  <figcaption class="drawlib-caption">Drawlib の全 8 種類の線・曲線コネクタの概要</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">line</span><span class="p">,</span>
+    <span class="n">line_arc</span><span class="p">,</span>
+    <span class="n">line_bezier1</span><span class="p">,</span>
+    <span class="n">line_bezier2</span><span class="p">,</span>
+    <span class="n">line_curved</span><span class="p">,</span>
+    <span class="n">lines</span><span class="p">,</span>
+    <span class="n">lines_bezier</span><span class="p">,</span>
+    <span class="n">lines_curved</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">132</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">62</span><span class="p">)</span>
+
+<span class="c1"># Background cards for the 4x2 showcase grid</span>
+<span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="mi">19</span><span class="p">,</span> <span class="mf">50.3</span><span class="p">,</span> <span class="mf">81.7</span><span class="p">,</span> <span class="mi">113</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">c_idx</span><span class="p">,</span> <span class="n">cx</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">cols</span><span class="p">):</span>
+    <span class="n">r1_st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span> <span class="k">if</span> <span class="n">c_idx</span> <span class="o">==</span> <span class="mi">3</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span>
+    <span class="n">r2_st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span> <span class="k">if</span> <span class="n">c_idx</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="p">(</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span> <span class="k">if</span> <span class="n">c_idx</span> <span class="o">==</span> <span class="mi">3</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+    <span class="n">rectangle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mi">46</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">29.5</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">r1_st</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+    <span class="n">rectangle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mi">17</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">29.5</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">r2_st</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+
+<span class="n">lbl</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">)</span>
+
+<span class="c1"># Row 1: Straight line, circular arc spline, polyline, and filleted polyline</span>
+<span class="n">line</span><span class="p">((</span><span class="mi">9</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span> <span class="p">(</span><span class="mi">29</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">19</span><span class="p">,</span> <span class="mf">37.5</span><span class="p">),</span> <span class="s2">"line()"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">lbl</span><span class="p">)</span>
+
+<span class="n">line_curved</span><span class="p">((</span><span class="mi">40</span><span class="p">,</span> <span class="mi">47</span><span class="p">),</span> <span class="p">(</span><span class="mf">60.5</span><span class="p">,</span> <span class="mi">47</span><span class="p">),</span> <span class="n">bend</span><span class="o">=-</span><span class="mf">0.35</span><span class="p">,</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">50.3</span><span class="p">,</span> <span class="mf">37.5</span><span class="p">),</span> <span class="s2">"line_curved()"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">lbl</span><span class="p">)</span>
+
+<span class="n">lines</span><span class="p">([(</span><span class="mi">72</span><span class="p">,</span> <span class="mi">45</span><span class="p">),</span> <span class="p">(</span><span class="mf">81.7</span><span class="p">,</span> <span class="mi">45</span><span class="p">),</span> <span class="p">(</span><span class="mf">81.7</span><span class="p">,</span> <span class="mi">54</span><span class="p">),</span> <span class="p">(</span><span class="mf">91.5</span><span class="p">,</span> <span class="mi">54</span><span class="p">)],</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">81.7</span><span class="p">,</span> <span class="mf">37.5</span><span class="p">),</span> <span class="s2">"lines()"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">lbl</span><span class="p">)</span>
+
+<span class="n">lines_curved</span><span class="p">([(</span><span class="mi">103</span><span class="p">,</span> <span class="mi">45</span><span class="p">),</span> <span class="p">(</span><span class="mi">113</span><span class="p">,</span> <span class="mi">45</span><span class="p">),</span> <span class="p">(</span><span class="mi">113</span><span class="p">,</span> <span class="mi">54</span><span class="p">),</span> <span class="p">(</span><span class="mi">123</span><span class="p">,</span> <span class="mi">54</span><span class="p">)],</span> <span class="n">r</span><span class="o">=</span><span class="mf">3.8</span><span class="p">,</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">113</span><span class="p">,</span> <span class="mf">37.5</span><span class="p">),</span> <span class="s2">"lines_curved()"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">lbl</span><span class="p">)</span>
+
+<span class="c1"># Row 2: Quadratic Bézier, cubic Bézier, compound Bézier path, and elliptical arc</span>
+<span class="n">line_bezier1</span><span class="p">((</span><span class="mi">9</span><span class="p">,</span> <span class="mi">16</span><span class="p">),</span> <span class="p">(</span><span class="mi">29</span><span class="p">,</span> <span class="mi">16</span><span class="p">),</span> <span class="n">cp</span><span class="o">=</span><span class="p">(</span><span class="mi">19</span><span class="p">,</span> <span class="mi">27</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">19</span><span class="p">,</span> <span class="mf">8.5</span><span class="p">),</span> <span class="s2">"line_bezier1()"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">lbl</span><span class="p">)</span>
+
+<span class="n">line_bezier2</span><span class="p">((</span><span class="mi">40</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span> <span class="p">(</span><span class="mf">60.5</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span> <span class="n">cp1</span><span class="o">=</span><span class="p">(</span><span class="mi">47</span><span class="p">,</span> <span class="mi">29</span><span class="p">),</span> <span class="n">cp2</span><span class="o">=</span><span class="p">(</span><span class="mi">54</span><span class="p">,</span> <span class="mi">11</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">50.3</span><span class="p">,</span> <span class="mf">8.5</span><span class="p">),</span> <span class="s2">"line_bezier2()"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">lbl</span><span class="p">)</span>
+
+<span class="n">lines_bezier</span><span class="p">((</span><span class="mi">72</span><span class="p">,</span> <span class="mi">16</span><span class="p">),</span> <span class="p">[(</span><span class="mf">78.5</span><span class="p">,</span> <span class="mi">16</span><span class="p">),</span> <span class="p">((</span><span class="mi">85</span><span class="p">,</span> <span class="mi">27</span><span class="p">),</span> <span class="p">(</span><span class="mf">91.5</span><span class="p">,</span> <span class="mi">20</span><span class="p">))],</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">81.7</span><span class="p">,</span> <span class="mf">8.5</span><span class="p">),</span> <span class="s2">"lines_bezier()"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">lbl</span><span class="p">)</span>
+
+<span class="n">line_arc</span><span class="p">((</span><span class="mi">113</span><span class="p">,</span> <span class="mi">17</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">19</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">11</span><span class="p">,</span> <span class="n">angle_start</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">angle_end</span><span class="o">=</span><span class="mi">165</span><span class="p">,</span> <span class="n">ccw</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"&lt;-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">113</span><span class="p">,</span> <span class="mf">8.5</span><span class="p">),</span> <span class="s2">"line_arc()"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">lbl</span><span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<hr />
+<h2>1. インポートと概要</h2>
+<p>すべての直線・曲線関数は <code>drawlib.lines</code> からインポートします。</p>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">line</span><span class="p">,</span>          <span class="c1"># Straight line segment between xy1 and xy2</span>
+    <span class="n">line_curved</span><span class="p">,</span>   <span class="c1"># Circular arc spline between xy1 and xy2 with scalar bend</span>
+    <span class="n">line_bezier1</span><span class="p">,</span>  <span class="c1"># Quadratic Bézier curve with 1 control point (cp)</span>
+    <span class="n">line_bezier2</span><span class="p">,</span>  <span class="c1"># Cubic Bézier curve with 2 control points (cp1, cp2)</span>
+    <span class="n">lines</span><span class="p">,</span>         <span class="c1"># Multi-point polyline through a sequence of coordinates</span>
+    <span class="n">lines_curved</span><span class="p">,</span>  <span class="c1"># Multi-point polyline with automatic corner fillet radius r</span>
+    <span class="n">lines_bezier</span><span class="p">,</span>  <span class="c1"># Multi-segment path mixing straight, quadratic, and cubic Béziers</span>
+    <span class="n">line_arc</span><span class="p">,</span>      <span class="c1"># Open circular or elliptical arc connector</span>
+<span class="p">)</span>
+</code></pre>
+<hr />
+<h2>2. 先端の矢印と線のスタイル設定 (<code>Style</code>)</h2>
+<h3>2.1. <code>arrow_head</code> パラメータ</h3>
+<p><code>drawlib.lines</code> の全 8 関数は、キーワード引数 <strong><code>arrow_head</code></strong> を受け取ります。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><code>arrow_head</code> の値</th>
+<th style="text-align:left">端点マーカーの挙動</th>
+<th style="text-align:left">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>&quot;&quot;</code> または <code>&quot;-&quot;</code></td>
+<td style="text-align:left">矢印なし（通常の線）</td>
+<td style="text-align:left">端点マーカーを持たない無向の線 <em>（デフォルト）</em>。</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>&quot;-&gt;&quot;</code></td>
+<td style="text-align:left">終点に順方向の矢印</td>
+<td style="text-align:left">終点側（<code>xy2</code> または最終頂点）に順方向の矢印を描画します。</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>&quot;&lt;-&quot;</code></td>
+<td style="text-align:left">始点に逆方向の矢印</td>
+<td style="text-align:left">始点側（<code>xy1</code> または最初の頂点）に逆方向の矢印を描画します。</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>&quot;&lt;-&gt;&quot;</code></td>
+<td style="text-align:left">両端に双方向の矢印</td>
+<td style="text-align:left">始点と終点の両方に双方向の矢印を描画します。</td>
+</tr>
+</tbody>
+</table>
+<h3>2.2. <code>Style</code> の矢印・破線パターン属性</h3>
+<p>線のストローク外観や矢印の形状は、<code>Style</code> の各属性（<code>.patch()</code> でカスタマイズ可能）によって制御します。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><code>Style</code> 属性</th>
+<th style="text-align:left">型</th>
+<th style="text-align:left">デフォルト</th>
+<th style="text-align:left">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>line_color</code></td>
+<td style="text-align:left"><code>Color | tuple | str</code></td>
+<td style="text-align:left">テーマ色</td>
+<td style="text-align:left">線のストローク色（および矢印の色）。例: <code>Colors.Dark</code>、<code>Colors.Primary</code>。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>line_width</code></td>
+<td style="text-align:left"><code>float</code></td>
+<td style="text-align:left"><code>1.5</code>（Bold は <code>2.5</code>、Thin は <code>0.75</code>）</td>
+<td style="text-align:left">ポイント単位の線の太さ。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>line_style</code></td>
+<td style="text-align:left"><code>&quot;solid&quot; | &quot;dashed&quot; | &quot;dotted&quot; | &quot;dashdot&quot;</code></td>
+<td style="text-align:left"><code>&quot;solid&quot;</code></td>
+<td style="text-align:left">線の破線パターン。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>line_arrow_head_fill</code></td>
+<td style="text-align:left"><code>bool</code></td>
+<td style="text-align:left"><code>False</code></td>
+<td style="text-align:left"><code>False</code> は開いた V 字型の線矢印（<code>-&gt;</code>）、<code>True</code> は塗りつぶされた三角形の矢印（<code>-|&gt;</code>）を描画します。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>line_arrow_head_scale</code></td>
+<td style="text-align:left"><code>float</code></td>
+<td style="text-align:left"><code>20.0</code></td>
+<td style="text-align:left">端点の矢印に対する物理サイズの倍率。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>alpha</code></td>
+<td style="text-align:left"><code>float</code></td>
+<td style="text-align:left"><code>1.0</code></td>
+<td style="text-align:left">線と矢印全体の不透明度（<code>0.0</code> の完全透明から <code>1.0</code> の完全不透明まで）。</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Colors</span><span class="p">,</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">62</span><span class="p">)</span>
+
+<span class="c1"># Left Panel: 4 Stroke Dash Patterns (style.line_style)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">32</span><span class="p">,</span> <span class="mi">31</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">56</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">54</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">32</span><span class="p">,</span> <span class="mi">51</span><span class="p">),</span> <span class="s2">"Dash Patterns (line_style)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">))</span>
+
+<span class="n">dash_specs</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="mi">41</span><span class="p">,</span> <span class="s2">"solid"</span><span class="p">,</span> <span class="s1">'"solid"'</span><span class="p">,</span> <span class="n">Colors</span><span class="o">.</span><span class="n">Dark</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">31</span><span class="p">,</span> <span class="s2">"dashed"</span><span class="p">,</span> <span class="s1">'"dashed"'</span><span class="p">,</span> <span class="n">Colors</span><span class="o">.</span><span class="n">Primary</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">21</span><span class="p">,</span> <span class="s2">"dotted"</span><span class="p">,</span> <span class="s1">'"dotted"'</span><span class="p">,</span> <span class="n">Colors</span><span class="o">.</span><span class="n">Secondary</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="s2">"dashdot"</span><span class="p">,</span> <span class="s1">'"dashdot"'</span><span class="p">,</span> <span class="n">Colors</span><span class="o">.</span><span class="n">Danger</span><span class="p">),</span>
+<span class="p">]</span>
+<span class="k">for</span> <span class="n">y</span><span class="p">,</span> <span class="n">pattern</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">dash_specs</span><span class="p">:</span>
+    <span class="n">text</span><span class="p">((</span><span class="mi">8</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">label</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">))</span>
+    <span class="n">line</span><span class="p">(</span>
+        <span class="p">(</span><span class="mi">29</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span>
+        <span class="p">(</span><span class="mi">56</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span>
+        <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_style</span><span class="o">=</span><span class="n">pattern</span><span class="p">,</span> <span class="n">line_color</span><span class="o">=</span><span class="n">col</span><span class="p">,</span> <span class="n">line_width</span><span class="o">=</span><span class="mf">2.0</span><span class="p">),</span>
+    <span class="p">)</span>
+
+<span class="c1"># Right Panel: Arrowhead Fill &amp; Scale (line_arrow_head_fill / line_arrow_head_scale)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">94</span><span class="p">,</span> <span class="mi">31</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">54</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">94</span><span class="p">,</span> <span class="mi">51</span><span class="p">),</span> <span class="s2">"Arrowhead Fill &amp; Scale"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">))</span>
+
+<span class="n">arrow_specs</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="mi">41</span><span class="p">,</span> <span class="s2">"Stick (fill=False)"</span><span class="p">,</span> <span class="s2">"-&gt;"</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="mf">20.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">31</span><span class="p">,</span> <span class="s2">"Filled (fill=True)"</span><span class="p">,</span> <span class="s2">"-&gt;"</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="mf">20.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">21</span><span class="p">,</span> <span class="s2">"Two-Way (&lt;-&gt;)"</span><span class="p">,</span> <span class="s2">"&lt;-&gt;"</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="mf">20.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="s2">"Large (scale=32)"</span><span class="p">,</span> <span class="s2">"-&gt;"</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="mf">32.0</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">),</span>
+<span class="p">]</span>
+<span class="k">for</span> <span class="n">y</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">head</span><span class="p">,</span> <span class="n">fill_flag</span><span class="p">,</span> <span class="n">scale_val</span><span class="p">,</span> <span class="n">width_val</span> <span class="ow">in</span> <span class="n">arrow_specs</span><span class="p">:</span>
+    <span class="n">text</span><span class="p">((</span><span class="mi">67</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">label</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">))</span>
+    <span class="n">line</span><span class="p">(</span>
+        <span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span>
+        <span class="p">(</span><span class="mi">120</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span>
+        <span class="n">arrow_head</span><span class="o">=</span><span class="n">head</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+            <span class="n">line_arrow_head_fill</span><span class="o">=</span><span class="n">fill_flag</span><span class="p">,</span>
+            <span class="n">line_arrow_head_scale</span><span class="o">=</span><span class="n">scale_val</span><span class="p">,</span>
+            <span class="n">line_width</span><span class="o">=</span><span class="n">width_val</span><span class="p">,</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="../../images/02_drawing_primitives/lines/lines_styling_and_arrowheads.png" alt="lines_2" />
+  <figcaption class="drawlib-caption">破線パターン (line_style)、塗りつぶし三角形の矢印 (line_arrow_head_fill)、およびスケール (line_arrow_head_scale)</figcaption>
+</figure>
+<hr />
+<h2>3. 2 点間の直線と曲線</h2>
+<h3>3.1. 直線 (<code>line</code>)</h3>
+<p>2 つの座標 <code>xy1</code> と <code>xy2</code> を真っ直ぐな線分で結びます。</p>
+<pre><code class="language-python"><span class="n">line</span><span class="p">(</span>
+    <span class="n">xy1</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
+    <span class="n">xy2</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">style</span><span class="p">:</span> <span class="n">Style</span><span class="p">,</span>
+    <span class="n">arrow_head</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">""</span><span class="p">,</span> <span class="s2">"-"</span><span class="p">,</span> <span class="s2">"-&gt;"</span><span class="p">,</span> <span class="s2">"&lt;-"</span><span class="p">,</span> <span class="s2">"&lt;-&gt;"</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">パラメータ</th>
+<th style="text-align:left">型</th>
+<th style="text-align:left">デフォルト</th>
+<th style="text-align:left">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>xy1</code></td>
+<td style="text-align:left"><code>tuple[float, float]</code></td>
+<td style="text-align:left"><em>必須</em></td>
+<td style="text-align:left">キャンバス座標における始点 <code>(x1, y1)</code>。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>xy2</code></td>
+<td style="text-align:left"><code>tuple[float, float]</code></td>
+<td style="text-align:left"><em>必須</em></td>
+<td style="text-align:left">キャンバス座標における終点 <code>(x2, y2)</code>。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>style</code></td>
+<td style="text-align:left"><code>Style</code></td>
+<td style="text-align:left"><em>必須</em></td>
+<td style="text-align:left">線スタイルトークン（例: <code>Styles.DarkBold</code>、<code>Styles.PrimaryBold</code>）。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>arrow_head</code></td>
+<td style="text-align:left"><code>str</code></td>
+<td style="text-align:left"><code>&quot;&quot;</code></td>
+<td style="text-align:left">任意の矢印マーカー（<code>&quot;&quot;</code>、<code>&quot;-&quot;</code>、<code>&quot;-&gt;&quot;</code>、<code>&quot;&lt;-&quot;</code>、<code>&quot;&lt;-&gt;&quot;</code>）。</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">120</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">54</span><span class="p">)</span>
+
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">60</span><span class="p">,</span> <span class="mi">27</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">112</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">46</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+
+<span class="n">rows</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="mi">42</span><span class="p">,</span> <span class="s1">'arrow_head="" (Styles.DarkBold)'</span><span class="p">,</span> <span class="s2">""</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="s1">'arrow_head="-&gt;" (Styles.DarkBold)'</span><span class="p">,</span> <span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">22</span><span class="p">,</span> <span class="s1">'arrow_head="&lt;-" (Styles.PrimaryDashed)'</span><span class="p">,</span> <span class="s2">"&lt;-"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryDashed</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">2.0</span><span class="p">)),</span>
+    <span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="s1">'arrow_head="&lt;-&gt;" (Styles.DangerDotted)'</span><span class="p">,</span> <span class="s2">"&lt;-&gt;"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DangerDotted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">2.0</span><span class="p">)),</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">y</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">head</span><span class="p">,</span> <span class="n">st</span> <span class="ow">in</span> <span class="n">rows</span><span class="p">:</span>
+    <span class="n">text</span><span class="p">((</span><span class="mi">8</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">label</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">))</span>
+    <span class="n">line</span><span class="p">((</span><span class="mi">76</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="p">(</span><span class="mi">111</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="n">head</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">st</span><span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="../../images/02_drawing_primitives/lines/lines_straight.png" alt="lines_3" />
+  <figcaption class="drawlib-caption">4 種類の arrow_head モードと線スタイルによる直線</figcaption>
+</figure>
+<h3>3.2. 滑らかな円弧スプライン (<code>line_curved</code>)</h3>
+<p>単一の曲率スカラー係数 <code>bend</code> で制御される円弧スプラインを <code>xy1</code> と <code>xy2</code> の間に描画します。</p>
+<pre><code class="language-python"><span class="n">line_curved</span><span class="p">(</span>
+    <span class="n">xy1</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
+    <span class="n">xy2</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">style</span><span class="p">:</span> <span class="n">Style</span><span class="p">,</span>
+    <span class="n">bend</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="n">arrow_head</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">""</span><span class="p">,</span> <span class="s2">"-"</span><span class="p">,</span> <span class="s2">"-&gt;"</span><span class="p">,</span> <span class="s2">"&lt;-"</span><span class="p">,</span> <span class="s2">"&lt;-&gt;"</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">パラメータ</th>
+<th style="text-align:left">型</th>
+<th style="text-align:left">デフォルト</th>
+<th style="text-align:left">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>xy1</code></td>
+<td style="text-align:left"><code>tuple[float, float]</code></td>
+<td style="text-align:left"><em>必須</em></td>
+<td style="text-align:left">始点座標 <code>(x1, y1)</code>。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>xy2</code></td>
+<td style="text-align:left"><code>tuple[float, float]</code></td>
+<td style="text-align:left"><em>必須</em></td>
+<td style="text-align:left">終点座標 <code>(x2, y2)</code>。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>style</code></td>
+<td style="text-align:left"><code>Style</code></td>
+<td style="text-align:left"><em>必須</em></td>
+<td style="text-align:left">線スタイルトークン（必須キーワード引数）。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bend</code></td>
+<td style="text-align:left"><code>float</code></td>
+<td style="text-align:left"><code>0</code></td>
+<td style="text-align:left">進行方向 <code>xy1 -&gt; xy2</code> に対する曲率ラジアン係数（<code>0</code> = 直線）。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>arrow_head</code></td>
+<td style="text-align:left"><code>str</code></td>
+<td style="text-align:left"><code>&quot;&quot;</code></td>
+<td style="text-align:left">任意の矢印マーカー（<code>&quot;&quot;</code>、<code>&quot;-&quot;</code>、<code>&quot;-&gt;&quot;</code>、<code>&quot;&lt;-&quot;</code>、<code>&quot;&lt;-&gt;&quot;</code>）。</td>
+</tr>
+</tbody>
+</table>
+<h4>曲率方向のルール（進行方向 <code>xy1 -&gt; xy2</code> 基準の <code>bend</code>）</h4>
+<p>内部的に <code>line_curved()</code> は <code>ConnectionStyle.Arc3(rad=bend)</code> を使用しており、曲率は <code>xy1</code> から <code>xy2</code> へ向かう観測者の進行方向を基準に決まります。</p>
+<ul>
+<li><strong><code>bend = 0</code></strong> <em>（デフォルト）</em>: 完全な直線セグメントになります。</li>
+<li><strong><code>bend &lt; 0</code></strong>: 進行ベクトル <code>xy1 -&gt; xy2</code> に対して<strong>右側</strong>へ膨らむように湾曲します（<code>(15, 22)</code> から <code>(85, 22)</code> へ左から右に引く場合は<strong>上向き</strong>に弧を描きます）。</li>
+<li><strong><code>bend &gt; 0</code></strong>: 進行ベクトル <code>xy1 -&gt; xy2</code> に対して<strong>左側</strong>へ膨らむように湾曲します（<code>(15, 22)</code> から <code>(85, 22)</code> へ左から右に引く場合は<strong>下向き</strong>に弧を描きます）。</li>
+<li><strong>リクエスト／レスポンス対称化のヒント</strong>: <code>A -&gt; B</code> へのリクエストと <code>B -&gt; A</code> へのレスポンスに<em>同じ</em>符号の <code>bend</code> 値を指定すると、進行方向が反転することで 2 本の曲線が自動的に反対側へ膨らみ、美しい往復ループを形成できます。</li>
+</ul>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line_curved</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">110</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">44</span><span class="p">)</span>
+<span class="c1"># Left-to-right with negative bend curves upward</span>
+<span class="n">line_curved</span><span class="p">((</span><span class="mi">15</span><span class="p">,</span> <span class="mi">22</span><span class="p">),</span> <span class="p">(</span><span class="mi">95</span><span class="p">,</span> <span class="mi">22</span><span class="p">),</span> <span class="n">bend</span><span class="o">=-</span><span class="mf">0.32</span><span class="p">,</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">55</span><span class="p">,</span> <span class="mi">39</span><span class="p">),</span> <span class="s2">"bend=-0.32 (left -&gt; right: upward)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
+
+<span class="c1"># Left-to-right with positive bend curves downward</span>
+<span class="n">line_curved</span><span class="p">((</span><span class="mi">15</span><span class="p">,</span> <span class="mi">22</span><span class="p">),</span> <span class="p">(</span><span class="mi">95</span><span class="p">,</span> <span class="mi">22</span><span class="p">),</span> <span class="n">bend</span><span class="o">=</span><span class="mf">0.32</span><span class="p">,</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">55</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="s2">"bend=+0.32 (left -&gt; right: downward)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="../../images/02_drawing_primitives/lines/lines_curved.png" alt="lines_4" />
+  <figcaption class="drawlib-caption">進行方向 xy1 -> xy2 を基準とした円弧曲線</figcaption>
+</figure>
+<h3>3.3. 2 次ベジェ曲線 (<code>line_bezier1</code>)</h3>
+<p>単一の制御点 <code>cp</code> に引き寄せられる滑らかな曲線で <code>xy1</code> と <code>xy2</code> を結びます。</p>
+<pre><code class="language-python"><span class="n">line_bezier1</span><span class="p">(</span>
+    <span class="n">xy1</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
+    <span class="n">xy2</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
+    <span class="n">cp</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">style</span><span class="p">:</span> <span class="n">Style</span><span class="p">,</span>
+    <span class="n">arrow_head</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">""</span><span class="p">,</span> <span class="s2">"-"</span><span class="p">,</span> <span class="s2">"-&gt;"</span><span class="p">,</span> <span class="s2">"&lt;-"</span><span class="p">,</span> <span class="s2">"&lt;-&gt;"</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">パラメータ</th>
+<th style="text-align:left">型</th>
+<th style="text-align:left">デフォルト</th>
+<th style="text-align:left">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>xy1</code></td>
+<td style="text-align:left"><code>tuple[float, float]</code></td>
+<td style="text-align:left"><em>必須</em></td>
+<td style="text-align:left">始点 $P_0$。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>xy2</code></td>
+<td style="text-align:left"><code>tuple[float, float]</code></td>
+<td style="text-align:left"><em>必須</em></td>
+<td style="text-align:left">終点 $P_1$。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>cp</code></td>
+<td style="text-align:left"><code>tuple[float, float]</code></td>
+<td style="text-align:left"><em>必須</em></td>
+<td style="text-align:left">出発時および到達時の接線方向を決定する 2 次制御点 $P_c$。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>style</code></td>
+<td style="text-align:left"><code>Style</code></td>
+<td style="text-align:left"><em>必須</em></td>
+<td style="text-align:left">線スタイルトークン。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>arrow_head</code></td>
+<td style="text-align:left"><code>str</code></td>
+<td style="text-align:left"><code>&quot;&quot;</code></td>
+<td style="text-align:left">任意の矢印マーカー（<code>&quot;&quot;</code>、<code>&quot;-&quot;</code>、<code>&quot;-&gt;&quot;</code>、<code>&quot;&lt;-&quot;</code>、<code>&quot;&lt;-&gt;&quot;</code>）。</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span><span class="p">,</span> <span class="n">line_bezier1</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">circle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">106</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">46</span><span class="p">)</span>
+<span class="n">p1</span><span class="p">,</span> <span class="n">p2</span> <span class="o">=</span> <span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span> <span class="p">(</span><span class="mi">92</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span>
+<span class="n">cp</span> <span class="o">=</span> <span class="p">(</span><span class="mi">53</span><span class="p">,</span> <span class="mi">37</span><span class="p">)</span>
+
+<span class="c1"># Control point tangent guides</span>
+<span class="n">line</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">cp</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="p">)</span>
+<span class="n">line</span><span class="p">(</span><span class="n">cp</span><span class="p">,</span> <span class="n">p2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="p">)</span>
+<span class="n">circle</span><span class="p">(</span><span class="n">cp</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mf">1.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerFlat</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">53</span><span class="p">,</span> <span class="mi">42</span><span class="p">),</span> <span class="s2">"Control Point (cp)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">))</span>
+
+<span class="c1"># Quadratic Bézier curve</span>
+<span class="n">line_bezier1</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">,</span> <span class="n">cp</span><span class="o">=</span><span class="n">cp</span><span class="p">,</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">)</span>
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="../../images/02_drawing_primitives/lines/lines_bezier1.png" alt="lines_5" />
+  <figcaption class="drawlib-caption">制御点を用いた 2 次ベジェ曲線</figcaption>
+</figure>
+<h3>3.4. 3 次ベジェ曲線 (<code>line_bezier2</code>)</h3>
+<p>2 つの独立した制御点 <code>cp1</code> と <code>cp2</code> を用いて <code>xy1</code> と <code>xy2</code> を結び、平行なポート間を繋ぐ滑らかな変曲 S 字カーブを表現できます。</p>
+<pre><code class="language-python"><span class="n">line_bezier2</span><span class="p">(</span>
+    <span class="n">xy1</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
+    <span class="n">xy2</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
+    <span class="n">cp1</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
+    <span class="n">cp2</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">style</span><span class="p">:</span> <span class="n">Style</span><span class="p">,</span>
+    <span class="n">arrow_head</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">""</span><span class="p">,</span> <span class="s2">"-"</span><span class="p">,</span> <span class="s2">"-&gt;"</span><span class="p">,</span> <span class="s2">"&lt;-"</span><span class="p">,</span> <span class="s2">"&lt;-&gt;"</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">パラメータ</th>
+<th style="text-align:left">型</th>
+<th style="text-align:left">デフォルト</th>
+<th style="text-align:left">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>xy1</code></td>
+<td style="text-align:left"><code>tuple[float, float]</code></td>
+<td style="text-align:left"><em>必須</em></td>
+<td style="text-align:left">始点 $P_0$。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>xy2</code></td>
+<td style="text-align:left"><code>tuple[float, float]</code></td>
+<td style="text-align:left"><em>必須</em></td>
+<td style="text-align:left">終点 $P_1$。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>cp1</code></td>
+<td style="text-align:left"><code>tuple[float, float]</code></td>
+<td style="text-align:left"><em>必須</em></td>
+<td style="text-align:left"><code>xy1</code> からの出発接線を制御する第 1 制御点。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>cp2</code></td>
+<td style="text-align:left"><code>tuple[float, float]</code></td>
+<td style="text-align:left"><em>必須</em></td>
+<td style="text-align:left"><code>xy2</code> への進入接線を制御する第 2 制御点。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>style</code></td>
+<td style="text-align:left"><code>Style</code></td>
+<td style="text-align:left"><em>必須</em></td>
+<td style="text-align:left">線スタイルトークン。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>arrow_head</code></td>
+<td style="text-align:left"><code>str</code></td>
+<td style="text-align:left"><code>&quot;&quot;</code></td>
+<td style="text-align:left">任意の矢印マーカー（<code>&quot;&quot;</code>、<code>&quot;-&quot;</code>、<code>&quot;-&gt;&quot;</code>、<code>&quot;&lt;-&quot;</code>、<code>&quot;&lt;-&gt;&quot;</code>）。</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span><span class="p">,</span> <span class="n">line_bezier2</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">circle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">106</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">48</span><span class="p">)</span>
+<span class="n">p1</span><span class="p">,</span> <span class="n">p2</span> <span class="o">=</span> <span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">24</span><span class="p">),</span> <span class="p">(</span><span class="mi">92</span><span class="p">,</span> <span class="mi">24</span><span class="p">)</span>
+<span class="n">cp1</span><span class="p">,</span> <span class="n">cp2</span> <span class="o">=</span> <span class="p">(</span><span class="mi">37</span><span class="p">,</span> <span class="mi">40</span><span class="p">),</span> <span class="p">(</span><span class="mi">69</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+
+<span class="c1"># Tangent guides for both control points</span>
+<span class="n">line</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">cp1</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="p">)</span>
+<span class="n">line</span><span class="p">(</span><span class="n">p2</span><span class="p">,</span> <span class="n">cp2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="p">)</span>
+<span class="n">circle</span><span class="p">(</span><span class="n">cp1</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mf">1.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerFlat</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">37</span><span class="p">,</span> <span class="mf">44.5</span><span class="p">),</span> <span class="s2">"cp1"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">))</span>
+<span class="n">circle</span><span class="p">(</span><span class="n">cp2</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mf">1.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerFlat</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">69</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">),</span> <span class="s2">"cp2"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">))</span>
+
+<span class="c1"># Cubic Bézier S-curve</span>
+<span class="n">line_bezier2</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">,</span> <span class="n">cp1</span><span class="o">=</span><span class="n">cp1</span><span class="p">,</span> <span class="n">cp2</span><span class="o">=</span><span class="n">cp2</span><span class="p">,</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="../../images/02_drawing_primitives/lines/lines_bezier2.png" alt="lines_6" />
+  <figcaption class="drawlib-caption">2 つの制御点を用いた 3 次ベジェ S 字カーブ</figcaption>
+</figure>
+<hr />
+<h2>4. 多点折れ線と直交ルーティング (<code>lines</code>)</h2>
+<p><code>lines()</code> 関数は、2 点以上の順序付き座標列 <code>[(x0, y0), (x1, y1), ...]</code> を直線セグメントで順に結びます（連続する重複座標は自動的に除去されます）。</p>
+<pre><code class="language-python"><span class="n">lines</span><span class="p">(</span>
+    <span class="n">xys</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]],</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">style</span><span class="p">:</span> <span class="n">Style</span><span class="p">,</span>
+    <span class="n">arrow_head</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">""</span><span class="p">,</span> <span class="s2">"-"</span><span class="p">,</span> <span class="s2">"-&gt;"</span><span class="p">,</span> <span class="s2">"&lt;-"</span><span class="p">,</span> <span class="s2">"&lt;-&gt;"</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">パラメータ</th>
+<th style="text-align:left">型</th>
+<th style="text-align:left">デフォルト</th>
+<th style="text-align:left">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>xys</code></td>
+<td style="text-align:left"><code>list[tuple[float, float]]</code></td>
+<td style="text-align:left"><em>必須</em></td>
+<td style="text-align:left">2 点以上の順序付き頂点リスト <code>[(x0, y0), (x1, y1), ...]</code>。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>style</code></td>
+<td style="text-align:left"><code>Style</code></td>
+<td style="text-align:left"><em>必須</em></td>
+<td style="text-align:left">線スタイルトークン。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>arrow_head</code></td>
+<td style="text-align:left"><code>str</code></td>
+<td style="text-align:left"><code>&quot;&quot;</code></td>
+<td style="text-align:left">折れ線の始点／終点に配置する矢印マーカー。</td>
+</tr>
+</tbody>
+</table>
+<p>ソフトウェアアーキテクチャ図や回路図では、重なりのない整然としたバス配線を実現するために<strong>直交（マンハッタン）ルーティング</strong>が標準的に用いられます。</p>
+<h3>4.1. L 字ルーティング（90° 折れ 1 回）</h3>
+<p>まず水平方向に伸ばし、次に垂直方向に折れて 2 つの要素を接続します。</p>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">lines</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">106</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">22</span><span class="p">,</span> <span class="mi">29</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">26</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"Client"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">))</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">84</span><span class="p">,</span> <span class="mi">13</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">26</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"Worker"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">))</span>
+
+<span class="c1"># L-shaped connection: horizontal from Client, then downward to Worker</span>
+<span class="n">lines</span><span class="p">([(</span><span class="mi">35</span><span class="p">,</span> <span class="mi">29</span><span class="p">),</span> <span class="p">(</span><span class="mi">84</span><span class="p">,</span> <span class="mi">29</span><span class="p">),</span> <span class="p">(</span><span class="mi">84</span><span class="p">,</span> <span class="mi">20</span><span class="p">)],</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="../../images/02_drawing_primitives/lines/lines_l_routing.png" alt="lines_7" />
+  <figcaption class="drawlib-caption">2 つのサービス間を結ぶ直交 L 字ルーティング</figcaption>
+</figure>
+<h3>4.2. Z 字ルーティング／ドッグレッグ（90° 折れ 2 回）</h3>
+<p>中間チャネル $x_{\text{mid}}$ を経由して、段違いに配置された 2 つのコンポーネントを接続します。</p>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">lines</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">106</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">22</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">26</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"Service A"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">))</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">84</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">26</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"Service B"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">))</span>
+
+<span class="c1"># Z-shaped dogleg connection across midpoint x_mid = 53</span>
+<span class="n">x_mid</span> <span class="o">=</span> <span class="mi">53</span>
+<span class="n">lines</span><span class="p">([(</span><span class="mi">35</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span> <span class="p">(</span><span class="n">x_mid</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span> <span class="p">(</span><span class="n">x_mid</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span> <span class="p">(</span><span class="mi">71</span><span class="p">,</span> <span class="mi">12</span><span class="p">)],</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="../../images/02_drawing_primitives/lines/lines_z_routing.png" alt="lines_8" />
+  <figcaption class="drawlib-caption">中間点を経由する直交 Z 字ルーティング（ドッグレッグ）</figcaption>
+</figure>
+<hr />
+<h2>5. 高度な複合セグメント曲線と円弧コネクタ</h2>
+<h3>5.1. 角丸（フィレット）付き多点折れ線 (<code>lines_curved</code>)</h3>
+<p><code>lines_curved()</code> は <code>lines()</code> と同じ頂点リスト <code>xys</code> に加えて、角丸フィレット半径 <code>r</code> を受け取ります。内部の各屈曲頂点 $P_i$ が、半径 <code>r</code> の滑らかな 2 次ベジェ曲線ターンに自動的に置き換えられます。</p>
+<pre><code class="language-python"><span class="n">lines_curved</span><span class="p">(</span>
+    <span class="n">xys</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]],</span>
+    <span class="n">r</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">style</span><span class="p">:</span> <span class="n">Style</span><span class="p">,</span>
+    <span class="n">arrow_head</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">""</span><span class="p">,</span> <span class="s2">"-"</span><span class="p">,</span> <span class="s2">"-&gt;"</span><span class="p">,</span> <span class="s2">"&lt;-"</span><span class="p">,</span> <span class="s2">"&lt;-&gt;"</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">パラメータ</th>
+<th style="text-align:left">型</th>
+<th style="text-align:left">デフォルト</th>
+<th style="text-align:left">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>xys</code></td>
+<td style="text-align:left"><code>list[tuple[float, float]]</code></td>
+<td style="text-align:left"><em>必須</em></td>
+<td style="text-align:left">折れ線の頂点列 <code>[(x0, y0), (x1, y1), ...]</code>。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>r</code></td>
+<td style="text-align:left"><code>float</code></td>
+<td style="text-align:left"><em>必須</em></td>
+<td style="text-align:left">キャンバス単位での角丸フィレット半径（$r &gt; 0$）。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>style</code></td>
+<td style="text-align:left"><code>Style</code></td>
+<td style="text-align:left"><em>必須</em></td>
+<td style="text-align:left">線スタイルトークン。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>arrow_head</code></td>
+<td style="text-align:left"><code>str</code></td>
+<td style="text-align:left"><code>&quot;&quot;</code></td>
+<td style="text-align:left">端点の矢印マーカー（<code>&quot;&quot;</code>、<code>&quot;-&quot;</code>、<code>&quot;-&gt;&quot;</code>、<code>&quot;&lt;-&quot;</code>、<code>&quot;&lt;-&gt;&quot;</code>）。</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>[!TIP]
+<strong>フィレット半径の制約</strong>: 隣接する角丸同士の間に直線区間が残るよう、フィレット半径は最短セグメント長の半分未満（$r &lt; 0.5 \min_i |P_{i+1} - P_i|$）に収めてください（内部的にも Drawlib は各セグメント長の <code>0.5</code> 倍までにフィレット比率をクランプします）。</p>
+</blockquote>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">lines_curved</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">120</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">52</span><span class="p">)</span>
+
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">20</span><span class="p">,</span> <span class="mi">38</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">26</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span> <span class="n">text</span><span class="o">=</span><span class="s2">"API Ingress"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">60</span><span class="p">,</span> <span class="mi">26</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span> <span class="n">text</span><span class="o">=</span><span class="s2">"Firewall"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">100</span><span class="p">,</span> <span class="mi">14</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">26</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span> <span class="n">text</span><span class="o">=</span><span class="s2">"Core DB"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
+
+<span class="c1"># Route around the central Firewall box with r=6.0 rounded corners</span>
+<span class="n">waypoints</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">33</span><span class="p">,</span> <span class="mi">38</span><span class="p">),</span> <span class="p">(</span><span class="mi">60</span><span class="p">,</span> <span class="mi">38</span><span class="p">),</span> <span class="p">(</span><span class="mi">60</span><span class="p">,</span> <span class="mi">44</span><span class="p">),</span> <span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">44</span><span class="p">),</span> <span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">21</span><span class="p">)]</span>
+<span class="n">lines_curved</span><span class="p">(</span><span class="n">waypoints</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="mf">6.0</span><span class="p">,</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">80</span><span class="p">,</span> <span class="mi">48</span><span class="p">),</span> <span class="s2">"lines_curved(..., r=6.0)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
+
+<span class="c1"># Bottom return path with smaller fillet radius r=4.0</span>
+<span class="n">return_pts</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">87</span><span class="p">,</span> <span class="mi">14</span><span class="p">),</span> <span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">14</span><span class="p">),</span> <span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">31</span><span class="p">)]</span>
+<span class="n">lines_curved</span><span class="p">(</span><span class="n">return_pts</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">53</span><span class="p">,</span> <span class="mf">8.5</span><span class="p">),</span> <span class="s2">"Async Audit Trail (r=4.0)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="../../images/02_drawing_primitives/lines/lines_curved_fillet.png" alt="lines_9" />
+  <figcaption class="drawlib-caption">lines_curved(xys, r) による角丸マンハッタンルーティング</figcaption>
+</figure>
+<h3>5.2. 複合マルチセグメント・ベジェパス (<code>lines_bezier</code>)</h3>
+<p><code>lines_bezier()</code> は、始点 <code>xy</code> から始まり、<code>path_points</code> に定義された直線セグメント、2 次ベジェ曲線、3 次ベジェ曲線の任意の組み合わせを単一の連続ベクターパスとして連結描画します。</p>
+<pre><code class="language-python"><span class="n">lines_bezier</span><span class="p">(</span>
+    <span class="n">xy</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
+    <span class="n">path_points</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span>
+        <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span>
+        <span class="o">|</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]</span>
+        <span class="o">|</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]</span>
+    <span class="p">],</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">style</span><span class="p">:</span> <span class="n">Style</span><span class="p">,</span>
+    <span class="n">arrow_head</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">""</span><span class="p">,</span> <span class="s2">"-"</span><span class="p">,</span> <span class="s2">"-&gt;"</span><span class="p">,</span> <span class="s2">"&lt;-"</span><span class="p">,</span> <span class="s2">"&lt;-&gt;"</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">パラメータ／<code>path_points</code> の要素</th>
+<th style="text-align:left">タプル構造</th>
+<th style="text-align:left">パスセグメントの挙動</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong><code>xy</code></strong></td>
+<td style="text-align:left"><code>(x0, y0)</code></td>
+<td style="text-align:left">パスの開始座標（<code>Path.MOVETO</code>）。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>直線セグメント</strong></td>
+<td style="text-align:left"><code>(x, y)</code></td>
+<td style="text-align:left"><code>(x, y)</code> までの直線（<code>Path.LINETO</code>）。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>2 次ベジェセグメント</strong></td>
+<td style="text-align:left"><code>((cp_x, cp_y), (x, y))</code></td>
+<td style="text-align:left">制御点 <code>cp</code> を経由して <code>(x, y)</code> に至る 1 制御点曲線（<code>Path.CURVE3</code>）。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>3 次ベジェセグメント</strong></td>
+<td style="text-align:left"><code>((cp1_x, cp1_y), (cp2_x, cp2_y), (x, y))</code></td>
+<td style="text-align:left"><code>cp1</code>・<code>cp2</code> を経由して <code>(x, y)</code> に至る 2 制御点曲線（<code>Path.CURVE4</code>）。</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">lines_bezier</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">circle</span><span class="p">,</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">124</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">52</span><span class="p">)</span>
+
+<span class="n">circle</span><span class="p">((</span><span class="mi">16</span><span class="p">,</span> <span class="mi">16</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">8.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"Source"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">106</span><span class="p">,</span> <span class="mi">36</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span> <span class="n">text</span><span class="o">=</span><span class="s2">"Sink"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">))</span>
+
+<span class="c1"># Compound path: straight run -&gt; cubic S-curve -&gt; straight run -&gt; quadratic turn</span>
+<span class="n">compound_points</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="mi">16</span><span class="p">),</span>                                  <span class="c1"># 1. Straight segment to (40, 16)</span>
+    <span class="p">((</span><span class="mi">53</span><span class="p">,</span> <span class="mi">16</span><span class="p">),</span> <span class="p">(</span><span class="mi">53</span><span class="p">,</span> <span class="mi">36</span><span class="p">),</span> <span class="p">(</span><span class="mi">66</span><span class="p">,</span> <span class="mi">36</span><span class="p">)),</span>            <span class="c1"># 2. Cubic S-curve to (66, 36)</span>
+    <span class="p">(</span><span class="mi">82</span><span class="p">,</span> <span class="mi">36</span><span class="p">),</span>                                  <span class="c1"># 3. Straight segment to (82, 36)</span>
+    <span class="p">((</span><span class="mi">88</span><span class="p">,</span> <span class="mi">44</span><span class="p">),</span> <span class="p">(</span><span class="mi">94</span><span class="p">,</span> <span class="mi">36</span><span class="p">)),</span>                      <span class="c1"># 4. Quadratic hop into Sink port</span>
+<span class="p">]</span>
+
+<span class="n">lines_bezier</span><span class="p">(</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">24.5</span><span class="p">,</span> <span class="mi">16</span><span class="p">),</span>
+    <span class="n">path_points</span><span class="o">=</span><span class="n">compound_points</span><span class="p">,</span>
+    <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_arrow_head_fill</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">text</span><span class="p">((</span><span class="mi">33</span><span class="p">,</span> <span class="mf">10.5</span><span class="p">),</span> <span class="s2">"1. Straight"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">42</span><span class="p">,</span> <span class="mi">31</span><span class="p">),</span> <span class="s2">"2. Cubic S-Curve"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">74</span><span class="p">,</span> <span class="mf">30.5</span><span class="p">),</span> <span class="s2">"3. Straight"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">88</span><span class="p">,</span> <span class="mf">45.5</span><span class="p">),</span> <span class="s2">"4. Quadratic"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="../../images/02_drawing_primitives/lines/lines_bezier_compound.png" alt="lines_10" />
+  <figcaption class="drawlib-caption">lines_bezier() による直線・3 次 S 字カーブ・2 次曲線を組み合わせた複合パス</figcaption>
+</figure>
+<h3>5.3. 楕円弧・円弧コネクタ (<code>line_arc</code>)</h3>
+<p><code>line_arc()</code> は、<code>xy</code> を中心とする楕円または円の外周に沿った開いたベクター円弧ストロークを描画します。ステートマシンの自己遷移（セルフループ）、リトライ表示、循環フィードバック矢印に最適です。</p>
+<pre><code class="language-python"><span class="n">line_arc</span><span class="p">(</span>
+    <span class="n">xy</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
+    <span class="n">width</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">height</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">style</span><span class="p">:</span> <span class="n">Style</span><span class="p">,</span>
+    <span class="n">angle_start</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="n">angle_end</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">180</span><span class="p">,</span>
+    <span class="n">angle</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="n">arrow_head</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">""</span><span class="p">,</span> <span class="s2">"-"</span><span class="p">,</span> <span class="s2">"-&gt;"</span><span class="p">,</span> <span class="s2">"&lt;-"</span><span class="p">,</span> <span class="s2">"&lt;-&gt;"</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span><span class="p">,</span>
+    <span class="n">ccw</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">パラメータ</th>
+<th style="text-align:left">型</th>
+<th style="text-align:left">デフォルト</th>
+<th style="text-align:left">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>xy</code></td>
+<td style="text-align:left"><code>tuple[float, float]</code></td>
+<td style="text-align:left"><em>必須</em></td>
+<td style="text-align:left">仮想楕円の中心座標 <code>(cx, cy)</code>。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>width</code></td>
+<td style="text-align:left"><code>float</code></td>
+<td style="text-align:left"><em>必須</em></td>
+<td style="text-align:left">楕円の水平方向の全直径 $2 R_x$（真円の場合は <code>width == height</code>）。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>height</code></td>
+<td style="text-align:left"><code>float</code></td>
+<td style="text-align:left"><em>必須</em></td>
+<td style="text-align:left">楕円の垂直方向の全直径 $2 R_y$。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>style</code></td>
+<td style="text-align:left"><code>Style</code></td>
+<td style="text-align:left"><em>必須</em></td>
+<td style="text-align:left">線スタイルトークン。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>angle_start</code></td>
+<td style="text-align:left"><code>float</code></td>
+<td style="text-align:left"><code>0</code></td>
+<td style="text-align:left">度数法による開始角度（$0^\circ$ = 3 時方向、$90^\circ$ = 12 時方向、$180^\circ$ = 9 時方向、$270^\circ$ = 6 時方向）。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>angle_end</code></td>
+<td style="text-align:left"><code>float</code></td>
+<td style="text-align:left"><code>180</code></td>
+<td style="text-align:left">度数法による終了角度。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>angle</code></td>
+<td style="text-align:left"><code>float</code></td>
+<td style="text-align:left"><code>0</code></td>
+<td style="text-align:left"><code>xy</code> を中心とする楕円フレーム全体の反時計回り回転角（度）。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>arrow_head</code></td>
+<td style="text-align:left"><code>str</code></td>
+<td style="text-align:left"><code>&quot;&quot;</code></td>
+<td style="text-align:left">端点の矢印マーカー（<code>&quot;&quot;</code>、<code>&quot;-&quot;</code>、<code>&quot;-&gt;&quot;</code>、<code>&quot;&lt;-&quot;</code>、<code>&quot;&lt;-&gt;&quot;</code>）。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>ccw</code></td>
+<td style="text-align:left"><code>bool</code></td>
+<td style="text-align:left"><code>True</code></td>
+<td style="text-align:left"><code>angle_start</code> から <code>angle_end</code> への描画回転方向（<code>True</code> = 反時計回り、<code>False</code> = 時計回り）。</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span><span class="p">,</span> <span class="n">line_arc</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">120</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">58</span><span class="p">)</span>
+
+<span class="c1"># Nodes</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">32</span><span class="p">,</span> <span class="mi">26</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">28</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span> <span class="n">text</span><span class="o">=</span><span class="s2">"Queue Worker"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">88</span><span class="p">,</span> <span class="mi">26</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">28</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span> <span class="n">text</span><span class="o">=</span><span class="s2">"Payment API"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
+
+<span class="c1"># Forward request</span>
+<span class="n">line</span><span class="p">((</span><span class="mi">46</span><span class="p">,</span> <span class="mi">26</span><span class="p">),</span> <span class="p">(</span><span class="mi">74</span><span class="p">,</span> <span class="mi">26</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+
+<span class="c1"># 1. Clockwise self-loop retry arc above Queue Worker (ccw=False)</span>
+<span class="n">line_arc</span><span class="p">(</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">33</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span>
+    <span class="n">angle_start</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span>
+    <span class="n">angle_end</span><span class="o">=</span><span class="mi">340</span><span class="p">,</span>
+    <span class="n">ccw</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">32</span><span class="p">,</span> <span class="mf">45.5</span><span class="p">),</span> <span class="s2">"Self-Loop Retry (ccw=False)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
+
+<span class="c1"># 2. Clockwise elliptical feedback loop underneath (0° -&gt; 180°, ccw=False)</span>
+<span class="n">line_arc</span><span class="p">(</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">60</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">56</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span>
+    <span class="n">angle_start</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="n">angle_end</span><span class="o">=</span><span class="mi">180</span><span class="p">,</span>
+    <span class="n">ccw</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">1.8</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">60</span><span class="p">,</span> <span class="mf">5.5</span><span class="p">),</span> <span class="s2">"Backpressure / Rate-Limit Feedback"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="../../images/02_drawing_primitives/lines/lines_arc_feedback.png" alt="lines_11" />
+  <figcaption class="drawlib-caption">line_arc() によるセルフループ・リトライと楕円フィードバック円弧</figcaption>
+</figure>
+<blockquote>
+<p>[!NOTE]
+バウンディングボックスでの自動クリッピングやラベル配置を備えた自動直交ルーティングを行いたい場合は、高レベルコンポーネントである <strong><a href="../06_diagrams/architecture.html">アーキテクチャ図</a></strong> または <strong><a href="../06_diagrams/flow.html">フロー図</a></strong> の利用を検討してください。</p>
+</blockquote>
+
+            </main>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Theme toggle
+            const themeBtn = document.getElementById('theme-toggle');
+            if (themeBtn) {
+                themeBtn.addEventListener('click', function() {
+                    const current = document.documentElement.getAttribute('data-theme');
+                    const next = current === 'dark' ? 'light' : 'dark';
+                    document.documentElement.setAttribute('data-theme', next);
+                    localStorage.setItem('drawlib-theme', next);
+                });
+            }
+
+            // Language dropdown outside-click & Escape close
+            const langDropdowns = document.querySelectorAll('.lang-dropdown');
+            if (langDropdowns.length > 0) {
+                document.addEventListener('click', function(e) {
+                    langDropdowns.forEach(function(dd) {
+                        if (dd.hasAttribute('open') && !dd.contains(e.target)) {
+                            dd.removeAttribute('open');
+                        }
+                    });
+                });
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape') {
+                        langDropdowns.forEach(function(dd) {
+                            dd.removeAttribute('open');
+                        });
+                    }
+                });
+            }
+
+            // Mobile menu toggle
+            const menuBtn = document.getElementById('menu-toggle');
+            const sidebar = document.querySelector('.sidebar');
+            if (menuBtn && sidebar) {
+                function setMenuOpen(open) {
+                    sidebar.classList.toggle('is-open', open);
+                    menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+                    document.body.classList.toggle('menu-open', open);
+                    if (open) {
+                        const menu = sidebar.querySelector('.sidebar-menu');
+                        if (menu) {
+                            menu.scrollTop = 0;
+                        }
+                    }
+                }
+
+                menuBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const willOpen = !sidebar.classList.contains('is-open');
+                    setMenuOpen(willOpen);
+                });
+
+                // Close menu when clicking outside sidebar
+                document.addEventListener('click', function(e) {
+                    if (sidebar.classList.contains('is-open') && !sidebar.contains(e.target)) {
+                        setMenuOpen(false);
+                    }
+                });
+
+                // Close menu when a navigation link is clicked
+                const navLinks = sidebar.querySelectorAll('.nav-item a');
+                navLinks.forEach(function(link) {
+                    link.addEventListener('click', function() {
+                        setMenuOpen(false);
+                    });
+                });
+
+                // Close on Escape key
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape' && sidebar.classList.contains('is-open')) {
+                        setMenuOpen(false);
+                    }
+                });
+
+                // Reset menu state when resized above mobile breakpoint
+                window.addEventListener('resize', function() {
+                    if (window.innerWidth > 768 && sidebar.classList.contains('is-open')) {
+                        setMenuOpen(false);
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

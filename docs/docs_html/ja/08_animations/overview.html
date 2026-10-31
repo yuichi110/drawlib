@@ -1,0 +1,1197 @@
+<!--
+ Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+
+ This software is licensed under the Apache License, Version 2.0.
+ For more information, please visit: https://github.com/yuichi110/drawlib
+
+ This software is provided "as is", without warranty of any kind,
+ express or implied, including but not limited to the warranties of
+ merchantability, fitness for a particular purpose and noninfringement.
+-->
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>アニメーション概要 (APNG & WebP)</title>
+    <script>
+        (function() {
+            const saved = localStorage.getItem('drawlib-theme');
+            if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    
+    
+    <link rel="alternate" hreflang="en" href="../../en/08_animations/overview.html">
+    
+    <link rel="alternate" hreflang="ja" href="overview.html">
+    
+    <link rel="alternate" hreflang="x-default" href="../../en/08_animations/overview.html">
+    
+    
+    
+    <link rel="icon" type="image/png" href="../../_assets/favicon.png">
+    
+    
+    <link rel="stylesheet" href="../style.css">
+    
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-brand" aria-label="Drawlib ドキュメント">
+                    
+                    <img src="../../_assets/logo.png" alt="Drawlib ドキュメント" class="sidebar-logo sidebar-logo-light">
+                    <img src="../../_assets/logo_dark.png" alt="Drawlib ドキュメント" class="sidebar-logo sidebar-logo-dark">
+                    
+                </a>
+                <div class="sidebar-header-actions">
+                    <button type="button" id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle theme">
+                        <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                        <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                    </button>
+                    <button type="button" id="menu-toggle" class="menu-toggle-btn" aria-label="Toggle navigation" aria-expanded="false">
+                        <svg class="icon-hamburger" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                        <svg class="icon-close" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                    </button>
+                </div>
+            </div>
+            <div class="sidebar-subbar">
+                
+                <a href="../01_getting_started/release_notes.html" class="sidebar-version-badge" title="View Release Notes">
+                    <span class="sidebar-version-dot" aria-hidden="true"></span>
+                    <span class="sidebar-version-text">v0.3.2</span>
+                </a>
+                <a href="https://github.com/yuichi110/drawlib" target="_blank" rel="noopener noreferrer" class="sidebar-github-link" aria-label="GitHub Repository" title="GitHub Repository">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+                </a>
+            </div>
+            <div class="sidebar-menu">
+                
+                    
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../index.html" >ようこそ</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">1. はじめに</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/overview.html" >Drawlib とは</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/installation.html" >インストールガイド</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/quick_start.html" >クイックスタートガイド</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/core_concepts.html" >基本ビジュアル概念</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/project_quicklook.html" >プロジェクト構成とビルド</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/agent_quicklook.html" >AI 駆動ワークフローとエージェント設定</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/release_notes.html" >リリースノートと移行ガイド</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">2. 描画プリミティブとスタイル</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/canvas.html" >キャンバスと座標系</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_overview.html" >図形プリミティブ概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_basic.html" >基本図形・放射状図形</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_polygon.html" >多角形とカスタムパス</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_arrow.html" >ブロック矢印・シェブロン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_container.html" >3D コンテナ・フロー・グルーピング</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_badge.html" >吹き出し・バッジ・ステータス</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_symbol.html" >フェイス・時計・記号・演算子</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/lines.html" >線とコネクタ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/text.html" >テキストとタイポグラフィ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/fonts.html" >フォントと多言語カタログ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/font_file.html" >カスタムフォントファイル (FontFile)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/images.html" >画像と Dimage</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/styles.html" >スタイルとテーマ設定</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/colors.html" >カラーパレットと色モデル</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/style_guide.html" >図解デザインとスタイルガイド</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">3. アイコンとブランドスイート</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/overview.html" >アイコン概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/phosphor.html" >Phosphor ベクターアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/gcp.html" >Google Cloud (GCP) アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/aws.html" >Amazon Web Services (AWS) アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/azure.html" >Microsoft Azure アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/cloud.html" >クラウド・オリジナルクラウドアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/cnative.html" >クラウドネイティブ (K8s) アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/devops.html" >DevOps・オブザーバビリティアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/network.html" >ネットワーク・Cisco トポロジアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/server.html" >サーバー・OS・仮想化アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/security.html" >セキュリティ・ゼロトラストアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/facility.html" >データセンター・ファシリティアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/ai.html" >AI・機械学習アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/data.html" >データ・データベースアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/code.html" >コード・言語・フレームワークアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/business.html" >エンタープライズ・FinTech アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/itservice.html" >IT サービス・コンサルティングアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/workspace.html" >ワークスペース・コラボレーションアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/social.html" >ソーシャル・メディア・コミュニティアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/client.html" >クライアント端末・エンドポイントアイコン</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">4. SmartArts（スマートアート）</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/overview.html" >SmartArts 概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/chevron_process.html" >ChevronProcess（シェブロン工程図）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/cycle.html" >Cycle（サイクル図）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/table.html" >Table（テーブル）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/tree.html" >Tree（ツリー図）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/mindmap.html" >MindMap（マインドマップ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/grid_layout.html" >GridLayout（グリッドレイアウト）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/pyramid.html" >Pyramid（ピラミッド図）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/box_list.html" >BoxList（ボックスリスト）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/kpi_cards.html" >KpiCards（KPI カード）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/card_list.html" >CardList（カードリスト）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/roadmap.html" >Roadmap（ロードマップ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/panel.html" >Panel（パネル）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/calendar.html" >Calendar（カレンダー）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/bullet_points.html" >BulletPoints（箇条書きボード）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/source_code.html" >SourceCode（ソースコードカード）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/geomap.html" >GeoMap（地理マップ）</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">5. Charts（定量チャート）</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/overview.html" >Charts 概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/axes_and_legends.html" >軸・スケール・凡例</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/bar.html" >Bar Chart（棒グラフ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/line.html" >Line Chart（折れ線グラフ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/area.html" >Area Chart（面グラフ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/pie.html" >Pie & Donut Chart（円・ドーナツグラフ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/radar.html" >Radar Chart（レーダーチャート）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/scatter.html" >Scatter Chart（散布図）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/gantt.html" >Gantt Chart（ガントチャート）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/heatmap.html" >Heatmap & Thermal Overlay（ヒートマップ）</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">6. テクニカルダイアグラム</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/overview.html" >ダイアグラム概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/architecture.html" >アーキテクチャ図</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/flow.html" >フロー図</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/sequence.html" >シーケンス図</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/class_diagram.html" >UML クラス図</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/er.html" >ER 図</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/state_diagram.html" >ステートマシン図</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">7. 自動レイアウトグラフ</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/overview.html" >グラフエンジン概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/architecture_graph.html" >ArchitectureGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/layer_graph.html" >LayerGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/tree_graph.html" >TreeGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/radial_graph.html" >RadialGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/grid_graph.html" >GridGraph</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">8. アニメーション</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item active">
+                                <a href="overview.html" >アニメーション概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="primitives.html" >プリミティブと色のアニメーション</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="smartarts.html" >SmartArts のアニメーション</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="charts.html" >Charts のアニメーション</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="diagrams.html" >ダイアグラムのアニメーション</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="graphs.html" >グラフのアニメーション</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">9. ドキュメントビルダと CLI</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/overview.html" >コードとしての図解ドキュメント概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/code_blocks.html" >Markdown コードブロック構文</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/cli_reference.html" >CLI リファレンス</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/project_doc.html" >リニアドキュメントプロジェクト (`doc`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/project_site.html" >ドキュメントサイトプロジェクト (`site`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/project_slide.html" >スライドデッキプロジェクト (`slide`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/slide_layout_and_api.html" >スライドステージレイアウトと API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/project_image.html" >画像プロジェクト (`images`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/customization.html" >テンプレートと CSS カスタマイズ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/caching_and_cicd.html" >キャッシュ機構と CI/CD</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">10. AI エージェントと高度な統合</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/ai_agent_instructions.html" >AI エージェント指示とルール体系</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/multimodal_feedback_loop.html" >自律検証フィードバックループ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/programmatic_api.html" >プログラマティック API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/math_and_layout.html" >アルゴリズムレイアウトと幾何計算</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/debugging.html" >トラブルシューティングとデバッグ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/case_study_brand_assets.html" >事例紹介: 公式ブランドアセットの設計</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/case_study_documentation_site.html" >事例紹介: AI エージェントによるドキュメントサイト構築</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/case_study_software_architecture.html" >事例紹介: コードとしてのソフトウェアアーキテクチャ設計書</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/case_study_technical_slides.html" >事例紹介: 技術プレゼンテーションスライドの作成</a>
+                            </li>
+                            
+                        </ul>
+                    
+                
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">アニメーション概要 (APNG & WebP)</span>
+                </div>
+                
+                <div class="lang-switcher">
+                    <details class="lang-dropdown">
+                        <summary class="lang-dropdown-btn" aria-label="Select language">
+                            <svg class="lang-globe-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                            <span class="lang-current-label">日本語</span>
+                            <svg class="lang-caret-icon" viewBox="0 0 24 24" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </summary>
+                        <div class="lang-dropdown-menu" role="menu">
+                            
+                            <a href="../../en/08_animations/overview.html" class="lang-option" lang="en" hreflang="en" >
+                                <span>English</span>
+                                
+                            </a>
+                            
+                            <a href="overview.html" class="lang-option active" lang="ja" hreflang="ja" aria-current="page">
+                                <span>日本語</span>
+                                
+                                <svg class="lang-check-icon" viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                
+                            </a>
+                            
+                        </div>
+                    </details>
+                </div>
+                
+            </header>
+            <main class="main-content">
+                <h1>アニメーション概要 (APNG &amp; WebP)</h1>
+<p>Drawlib は、<strong>APNG (Animated Portable Network Graphics)</strong> と <strong>Animated WebP</strong> の両フォーマットによるマルチフレームアニメーション生成をネイティブにサポートしています。<br />
+宣言的な Python コードを用いることで、開発者や AI コーディングエージェントは、高フレームレートで明快なステップバイステップのアーキテクチャ図解、データビジュアライゼーション、インタラクティブなウォークスルーを作成できます。</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="../../images/08_animations/overview/animation_step_architecture.png" alt="overview_1" />
+  <figcaption class="drawlib-caption">ステップバイステップのアーキテクチャ段階表示</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.anim</span><span class="w"> </span><span class="kn">import</span> <span class="n">Animation</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">116</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">36</span><span class="p">)</span>
+<span class="n">anim</span> <span class="o">=</span> <span class="n">Animation</span><span class="p">(</span><span class="n">fps</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">loop</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># Step 1: Base Client</span>
+<span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">clear</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">duration</span><span class="o">=</span><span class="mf">0.9</span><span class="p">):</span>
+    <span class="n">rectangle</span><span class="p">((</span><span class="mi">58</span><span class="p">,</span> <span class="mf">22.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">110</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">23</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">))</span>
+    <span class="n">rectangle</span><span class="p">(</span>
+        <span class="p">(</span><span class="mf">17.5</span><span class="p">,</span> <span class="mf">22.0</span><span class="p">),</span>
+        <span class="n">width</span><span class="o">=</span><span class="mi">21</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mf">16.5</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.8</span><span class="p">),</span>
+        <span class="n">text</span><span class="o">=</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Client"</span><span class="p">,</span>
+        <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">phosphor</span><span class="o">.</span><span class="n">globe</span><span class="p">((</span><span class="mf">17.5</span><span class="p">,</span> <span class="mf">25.3</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.6</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="p">)</span>
+
+<span class="c1"># Step 2: Gateway appears (Hero focal node)</span>
+<span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">clear</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">duration</span><span class="o">=</span><span class="mf">0.9</span><span class="p">):</span>
+    <span class="n">rectangle</span><span class="p">(</span>
+        <span class="p">(</span><span class="mf">44.5</span><span class="p">,</span> <span class="mf">22.0</span><span class="p">),</span>
+        <span class="n">width</span><span class="o">=</span><span class="mi">21</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mf">16.5</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.8</span><span class="p">),</span>
+        <span class="n">text</span><span class="o">=</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Gateway"</span><span class="p">,</span>
+        <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">phosphor</span><span class="o">.</span><span class="n">shield_check</span><span class="p">((</span><span class="mf">44.5</span><span class="p">,</span> <span class="mf">25.3</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.6</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="p">)</span>
+    <span class="n">line</span><span class="p">((</span><span class="mf">28.0</span><span class="p">,</span> <span class="mf">22.0</span><span class="p">),</span> <span class="p">(</span><span class="mf">34.0</span><span class="p">,</span> <span class="mf">22.0</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+
+<span class="c1"># Step 3: Compute Service appears</span>
+<span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">clear</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">duration</span><span class="o">=</span><span class="mf">0.9</span><span class="p">):</span>
+    <span class="n">rectangle</span><span class="p">(</span>
+        <span class="p">(</span><span class="mf">71.5</span><span class="p">,</span> <span class="mf">22.0</span><span class="p">),</span>
+        <span class="n">width</span><span class="o">=</span><span class="mi">21</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mf">16.5</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.8</span><span class="p">),</span>
+        <span class="n">text</span><span class="o">=</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Compute"</span><span class="p">,</span>
+        <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">phosphor</span><span class="o">.</span><span class="n">cpu</span><span class="p">((</span><span class="mf">71.5</span><span class="p">,</span> <span class="mf">25.3</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.6</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">)</span>
+    <span class="n">line</span><span class="p">((</span><span class="mf">55.0</span><span class="p">,</span> <span class="mf">22.0</span><span class="p">),</span> <span class="p">(</span><span class="mf">61.0</span><span class="p">,</span> <span class="mf">22.0</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+
+<span class="c1"># Step 4: Database &amp; Completed State (Held for 2.5 seconds before looping)</span>
+<span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">clear</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">duration</span><span class="o">=</span><span class="mf">2.5</span><span class="p">):</span>
+    <span class="n">rectangle</span><span class="p">(</span>
+        <span class="p">(</span><span class="mf">98.5</span><span class="p">,</span> <span class="mf">22.0</span><span class="p">),</span>
+        <span class="n">width</span><span class="o">=</span><span class="mi">21</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mf">16.5</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.8</span><span class="p">),</span>
+        <span class="n">text</span><span class="o">=</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Database"</span><span class="p">,</span>
+        <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">phosphor</span><span class="o">.</span><span class="n">database</span><span class="p">((</span><span class="mf">98.5</span><span class="p">,</span> <span class="mf">25.3</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.6</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Secondary</span><span class="p">)</span>
+    <span class="n">line</span><span class="p">((</span><span class="mf">82.0</span><span class="p">,</span> <span class="mf">22.0</span><span class="p">),</span> <span class="p">(</span><span class="mf">88.0</span><span class="p">,</span> <span class="mf">22.0</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+    <span class="n">rectangle</span><span class="p">(</span>
+        <span class="p">(</span><span class="mi">58</span><span class="p">,</span> <span class="mf">5.2</span><span class="p">),</span>
+        <span class="n">width</span><span class="o">=</span><span class="mi">58</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mf">6.0</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">),</span>
+        <span class="n">text</span><span class="o">=</span><span class="s2">"Architecture Completed"</span><span class="p">,</span>
+        <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">),</span>
+    <span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<hr />
+<h2>1. サポートされるアニメーションフォーマット</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">フォーマット</th>
+<th style="text-align:left">拡張子</th>
+<th style="text-align:left">主な利点</th>
+<th style="text-align:left">最適なユースケース</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>APNG</strong></td>
+<td style="text-align:left"><code>.png</code>, <code>.apng</code></td>
+<td style="text-align:left"><strong>高い互換性</strong>: すべてのモダン Web ブラウザや GitHub の Markdown プレビューでネイティブに再生されます。PDF コンパイラやレガシービューアでは、第 1 フレームへ安全に静止画フォールバックします。</td>
+<td style="text-align:left">GitHub README、Markdown ドキュメント、印刷対応の技術文書。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Animated WebP</strong></td>
+<td style="text-align:left"><code>.webp</code></td>
+<td style="text-align:left"><strong>極めてコンパクトなファイルサイズ</strong>: ロスレス品質を保ちながら、通常 APNG より約 50% 小さなサイズになります。</td>
+<td style="text-align:left">Web ホスティング型のドキュメントサイト、高パフォーマンス Web アプリケーション、モバイル環境。</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>2. インポートとキャンバスのライフサイクル</h2>
+<p>アニメーション機能はすべて <code>drawlib.anim</code> の <code>Animation</code> クラスを中心に構成されています。</p>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.anim</span><span class="w"> </span><span class="kn">import</span> <span class="n">Animation</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">circle</span><span class="p">,</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+</code></pre>
+<h3>キャンバスとの自動連携と保存 (<code>save()</code>)</h3>
+<p><code>Animation</code> インスタンスを初期化すると、アクティブな Drawlib キャンバス（<code>canvas._active_animation</code>）へ自動的に登録されます。標準の <code>save()</code> を呼び出すだけで、個別のエクスポート用メソッドを使わずに蓄積された全フレームをアニメーションファイルとして出力できます。</p>
+<pre><code class="language-python"><span class="n">anim</span> <span class="o">=</span> <span class="n">Animation</span><span class="p">(</span><span class="n">fps</span><span class="o">=</span><span class="mf">10.0</span><span class="p">)</span>
+
+<span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">():</span>
+    <span class="n">circle</span><span class="p">((</span><span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">)</span>
+
+<span class="c1"># Saves as APNG (.png or .apng):</span>
+<span class="n">save</span><span class="p">(</span><span class="s2">"animation.png"</span><span class="p">)</span>
+<span class="n">save</span><span class="p">(</span><span class="s2">"animation.apng"</span><span class="p">)</span>
+
+<span class="c1"># Saves as Animated WebP (.webp):</span>
+<span class="n">save</span><span class="p">(</span><span class="s2">"animation.webp"</span><span class="p">)</span>
+
+<span class="c1"># Or specify format explicitly ("webp", "png", or "apng"):</span>
+<span class="n">save</span><span class="p">(</span><span class="s2">"pipeline"</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">"webp"</span><span class="p">)</span>
+</code></pre>
+<blockquote>
+<p><strong>注記</strong>: アニメーションはラスター画像のフレーム列であるため、SVG としてエクスポートすることはできません。<code>Animation</code> が有効な状態で <code>save(&quot;out.svg&quot;)</code> や <code>save(&quot;out&quot;, format=&quot;svg&quot;)</code> を呼び出すと <code>ValueError</code> が送出されます。また、フレームが 1 つも記録されていない状態で <code>save()</code> を呼び出した場合も <code>ValueError</code> が送出されます。</p>
+</blockquote>
+<hr />
+<h2>3. <code>Animation</code> クラス API</h2>
+<h3>3.1. 初期化と読み取り専用プロパティ</h3>
+<pre><code class="language-python"><span class="n">anim</span> <span class="o">=</span> <span class="n">Animation</span><span class="p">(</span>
+    <span class="n">fps</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">frame_rate</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">loop</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+<span class="p">)</span>
+</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">パラメータ / プロパティ</th>
+<th style="text-align:left">型</th>
+<th style="text-align:left">デフォルト</th>
+<th style="text-align:left">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>fps</code></td>
+<td style="text-align:left"><code>float | None</code></td>
+<td style="text-align:left"><code>10.0</code></td>
+<td style="text-align:left">1 秒あたりの再生フレームレート（例: <code>10.0</code> は 10 fps）。<code>&gt; 0</code> である必要があります。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>frame_rate</code></td>
+<td style="text-align:left"><code>float | None</code></td>
+<td style="text-align:left"><code>10.0</code></td>
+<td style="text-align:left"><code>fps</code> のエイリアス。両方指定された場合は <code>fps</code> が優先されます。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>loop</code></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left"><code>0</code></td>
+<td style="text-align:left">アニメーションのループ回数（<code>&gt;= 0</code>）。<code>0</code> は無限ループ再生を意味します。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>anim.fps</code></td>
+<td style="text-align:left"><code>float</code> <em>（読み取り専用）</em></td>
+<td style="text-align:left">—</td>
+<td style="text-align:left">現在有効な再生フレームレート（フレーム/秒）を返します。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>anim.frame_rate</code></td>
+<td style="text-align:left"><code>float</code> <em>（読み取り専用）</em></td>
+<td style="text-align:left">—</td>
+<td style="text-align:left"><code>anim.fps</code> の読み取り専用エイリアスです。</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>4. フレームの定義</h2>
+<h3>4.1. コンテキストマネージャ: <code>with anim.frame()</code>（推奨）</h3>
+<p><code>with anim.frame()</code> コンテキストマネージャは、ブロック開始時にキャンバスをクリアし（<code>clear=True</code> の場合）、ブロック終了時に描画結果のフレームをキャプチャします。</p>
+<pre><code class="language-python"><span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span>
+    <span class="n">duration</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">clear</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+<span class="p">):</span>
+    <span class="c1"># Standard Drawlib drawing calls</span>
+    <span class="n">circle</span><span class="p">((</span><span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">)</span>
+</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">パラメータ</th>
+<th style="text-align:left">型</th>
+<th style="text-align:left">デフォルト</th>
+<th style="text-align:left">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>duration</code></td>
+<td style="text-align:left"><code>float | None</code></td>
+<td style="text-align:left"><code>None</code></td>
+<td style="text-align:left">このフレームの表示時間（<strong>秒単位</strong>。例: <code>1.5</code> は 1.5 秒）。<code>None</code> の場合は <code>1 / fps</code> がデフォルトになります（例: 10 fps なら 0.1 秒）。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>clear</code></td>
+<td style="text-align:left"><code>bool</code></td>
+<td style="text-align:left"><code>True</code></td>
+<td style="text-align:left">このフレームを描画する前にキャンバス上の既存図形をクリアするかどうか。デフォルトは <code>True</code> です。</td>
+</tr>
+</tbody>
+</table>
+<h3>4.2. 命令型メソッド: <code>anim.add_frame()</code></h3>
+<p>コンテキストマネージャよりも手続き的に記述したい場合は、<code>anim.add_frame()</code> を使用できます。</p>
+<pre><code class="language-python"><span class="n">circle</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">)</span>
+<span class="n">anim</span><span class="o">.</span><span class="n">add_frame</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">clear</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</code></pre>
+<hr />
+<h2>5. 2 つの標準アニメーションループ・イディオム</h2>
+<p>技術図解をアニメーション化する際、要素の移動・スタイルの変化・ハイライトの切り替えを伴う場面では、<code>clear=False</code> よりも<strong>デフォルトの <code>clear=True</code>（フレームごとの再描画）を優先</strong>してください。Drawlib の統一コンポーネントライフサイクル（<code>add()</code> -&gt; <code>draw()</code>）は、対象モジュールに応じて次の 2 つの明快なループパターンを提供します。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">対象モジュール</th>
+<th style="text-align:left">推奨ループパターン</th>
+<th style="text-align:left">ガイド</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>プリミティブ</strong> (<code>shapes</code>, <code>lines</code>, <code>text</code>, <code>icons</code>, <code>styles</code>)</td>
+<td style="text-align:left"><strong>パターン A: フレーム内構築 (In-Frame Build)</strong><br>フレームごとの座標（<code>get_intermediate_points</code>、<code>get_intermediate_paths</code>）や補間色（<code>get_intermediate_colors</code>）を計算し、<code>with anim.frame():</code> 内で描画します。</td>
+<td style="text-align:left"><a href="./primitives.html">プリミティブと色のアニメーション</a></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>SmartArts</strong> (<code>ChevronProcess</code>, <code>Table</code>, <code>TreeNode</code> など)</td>
+<td style="text-align:left"><strong>パターン B: 事前構築・変更 (Pre-Build &amp; Mutate)</strong>（またはパターン A）<br><code>item = comp.add(...)</code> で一度だけアイテムを登録し、<code>draw(..., scale=1.0)</code> の前に <code>item.show</code>、<code>item.style</code>、<code>item.text_style</code>、<code>item.text</code> を変更します。非表示のアイテムもレイアウト枠を維持します。</td>
+<td style="text-align:left"><a href="./smartarts.html">SmartArts のアニメーション</a></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Charts</strong> (<code>BarChart</code>, <code>LineChart</code>, <code>PieChart</code>, <code>GanttChart</code> など)</td>
+<td style="text-align:left"><strong>パターン B: 事前構築・変更 (Pre-Build &amp; Mutate)</strong><br>ループの外側で系列・スライス・タスクを一度だけ登録し（<code>s = chart.add_series(...)</code>）、<code>with anim.frame():</code> 内で <code>chart.draw()</code> の前に <code>s.show</code>、<code>s.draw_ratio</code>、<code>s.draw_direction</code>、<code>s.style</code> を変更します。自動スケールは 100% 固定されます。</td>
+<td style="text-align:left"><a href="./charts.html">Charts のアニメーション</a></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>テクニカルダイアグラム</strong> (<code>FlowDiagram</code>, <code>ArchitectureDiagram</code>, <code>SequenceDiagram</code> など)</td>
+<td style="text-align:left"><strong>パターン B: 事前構築・変更 (Pre-Build &amp; Mutate)</strong><br>ループの外側でトポロジを一度だけ構築し、各フレームで <code>.show</code>（接続エッジや未接続の <code>Junction</code> 配線を自動非表示化）、<code>.style</code>、<code>.text_style</code>、<code>.set_label()</code> を変更して <code>draw(xy, scale)</code> を呼び出します。</td>
+<td style="text-align:left"><a href="./diagrams.html">ダイアグラムのアニメーション</a></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>自動レイアウトグラフ</strong> (<code>ArchitectureGraph</code>, <code>LayerGraph</code>, <code>TreeGraph</code> など)</td>
+<td style="text-align:left"><strong>パターン B: 一度だけ座標解決 (<code>get_layout()</code>) して変更・アニメーション描画</strong><br>ループの外側で <code>layout = g.get_layout()</code> を一度だけ呼び出して全座標を 100% 固定し、<code>layout</code> 座標に配置した <code>ArchitectureDiagram</code> / <code>FlowDiagram</code> 要素の <code>.show</code> / <code>.style</code> を変更するか、<code>shapes</code> / <code>lines</code> の描画と <code>edge_layout.points</code> に沿ったパケット移動を行います。</td>
+<td style="text-align:left"><a href="./graphs.html">グラフのアニメーション</a></td>
+</tr>
+</tbody>
+</table>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="../../images/08_animations/overview/anim_overview_patterns_workflow.png" alt="overview_2" />
+  <figcaption class="drawlib-caption">パターン A（フレーム内構築）とパターン B（ループ外での事前構築・フレーム内変更）の比較</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">126</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">68</span><span class="p">)</span>
+
+<span class="c1"># Left Panel: Pattern A (In-Frame Build)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">32.5</span><span class="p">,</span> <span class="mf">34.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">57</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.5</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">play_circle</span><span class="p">((</span><span class="mf">9.5</span><span class="p">,</span> <span class="mf">58.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.6</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">34.5</span><span class="p">,</span> <span class="mf">58.5</span><span class="p">),</span> <span class="s2">"Pattern A: In-Frame"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">32.5</span><span class="p">,</span> <span class="mf">53.0</span><span class="p">),</span> <span class="s2">"Primitives (shapes, lines)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">32.5</span><span class="p">,</span> <span class="mf">43.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">51</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">11.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.8</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">32.5</span><span class="p">,</span> <span class="mf">43.0</span><span class="p">),</span> <span class="s2">"1. Pre-compute points</span><span class="se">\n</span><span class="s2">&amp; interpolated colors"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+
+<span class="n">line</span><span class="p">((</span><span class="mf">32.5</span><span class="p">,</span> <span class="mf">37.5</span><span class="p">),</span> <span class="p">(</span><span class="mf">32.5</span><span class="p">,</span> <span class="mf">33.5</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">32.5</span><span class="p">,</span> <span class="mf">24.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">51</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">17.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.8</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">32.5</span><span class="p">,</span> <span class="mf">29.8</span><span class="p">),</span> <span class="s2">"2. with anim.frame():"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">32.5</span><span class="p">,</span> <span class="mf">21.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">46</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">8.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">32.5</span><span class="p">,</span> <span class="mf">21.0</span><span class="p">),</span> <span class="s2">"Draw shapes at xy_i"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+
+<span class="n">line</span><span class="p">((</span><span class="mf">32.5</span><span class="p">,</span> <span class="mf">15.7</span><span class="p">),</span> <span class="p">(</span><span class="mf">32.5</span><span class="p">,</span> <span class="mf">12.2</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">32.5</span><span class="p">,</span> <span class="mf">8.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">7.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">32.5</span><span class="p">,</span> <span class="mf">8.5</span><span class="p">),</span> <span class="s2">"3. save() -&gt; APNG/WebP"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+
+<span class="c1"># Right Panel: Pattern B (Pre-Build &amp; Mutate)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">93.5</span><span class="p">,</span> <span class="mf">34.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">57</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.5</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">tree_structure</span><span class="p">((</span><span class="mf">70.0</span><span class="p">,</span> <span class="mf">58.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.6</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">95.5</span><span class="p">,</span> <span class="mf">58.5</span><span class="p">),</span> <span class="s2">"Pattern B: Pre-Build"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">93.5</span><span class="p">,</span> <span class="mf">53.0</span><span class="p">),</span> <span class="s2">"SmartArts, Charts, Graphs"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">93.5</span><span class="p">,</span> <span class="mf">43.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">51</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">11.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.8</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">93.5</span><span class="p">,</span> <span class="mf">43.0</span><span class="p">),</span> <span class="s2">"1. Build topology once</span><span class="se">\n</span><span class="s2">outside loop (locks layout)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+
+<span class="n">line</span><span class="p">((</span><span class="mf">93.5</span><span class="p">,</span> <span class="mf">37.5</span><span class="p">),</span> <span class="p">(</span><span class="mf">93.5</span><span class="p">,</span> <span class="mf">33.5</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">93.5</span><span class="p">,</span> <span class="mf">24.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">51</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">17.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.8</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">93.5</span><span class="p">,</span> <span class="mf">29.8</span><span class="p">),</span> <span class="s2">"2. with anim.frame():"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">93.5</span><span class="p">,</span> <span class="mf">21.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">46</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">8.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">93.5</span><span class="p">,</span> <span class="mf">21.0</span><span class="p">),</span> <span class="s2">"Mutate .show / .style -&gt; draw()"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+
+<span class="n">line</span><span class="p">((</span><span class="mf">93.5</span><span class="p">,</span> <span class="mf">15.7</span><span class="p">),</span> <span class="p">(</span><span class="mf">93.5</span><span class="p">,</span> <span class="mf">12.2</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">93.5</span><span class="p">,</span> <span class="mf">8.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">7.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">93.5</span><span class="p">,</span> <span class="mf">8.5</span><span class="p">),</span> <span class="s2">"3. save() -&gt; APNG/WebP"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<hr />
+<h2>6. 設計原則と推奨される <code>fps</code> / フレーム <code>duration</code> 戦略</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">アニメーションの種類</th>
+<th style="text-align:left">推奨 <code>fps</code></th>
+<th style="text-align:left">フレーム <code>duration</code> 戦略</th>
+<th style="text-align:left">最終フレーム保持 <code>duration</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>連続モーション / トランジション</strong>（移動パケット、<code>draw_ratio</code> によるチャート系列の伸長、カラーフェード、カメラのパン・ズーム）</td>
+<td style="text-align:left"><code>fps=8.0</code> – <code>12.0</code></td>
+<td style="text-align:left">モーションフレームあたり <code>0.08s</code> – <code>0.14s</code>（またはデフォルトの <code>1 / fps</code>）</td>
+<td style="text-align:left"><code>duration=2.0</code> – <code>3.0</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>ステップバイステップのアーキテクチャウォークスルー</strong>（パイプライン段階、チャート系列、ダイアグラム / グラフのノードを 1 つずつ表示）</td>
+<td style="text-align:left"><code>fps=1.0</code> – <code>2.0</code></td>
+<td style="text-align:left">各ステップあたり <code>0.6s</code> – <code>1.0s</code></td>
+<td style="text-align:left"><code>duration=2.5</code> – <code>3.0</code></td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li><strong>ポスターフレームの原則（静止画・PDF との互換性）</strong>:
+標準の画像ビューアやベクター PDF エクスポートでは、<strong>第 1 フレーム</strong>が静止画フォールバックとして描画されます。第 1 フレームを完全に空白のままにせず、必ずベースラインとなる外枠コンテナや初期ノードを表示してください。</li>
+<li><strong>完成した最終フレームの保持（ホールド）</strong>:
+ループが再開する前に読み手が完成図を十分に把握できるよう、最終フレームには長めの <code>duration</code>（<code>2.0</code>〜<code>3.0</code> 秒）を設定してください。</li>
+<li><strong>埋め込み Markdown ブロックとの統合</strong>:
+<code>Animation()</code> を初期化する <code>drawlib</code> ブロックは、<code>drawlib build</code> の実行時に自動的にアニメーション <code>.png</code>（APNG）または <code>.webp</code> ファイルを出力します。</li>
+<li><strong>組み込みのロスレス圧縮</strong>:
+<ul>
+<li><strong>APNG (<code>.png</code> / <code>.apng</code>)</strong>: サブフレームの差分境界ボックスを自動で切り出し、最大の Zlib 圧縮（<code>compress_level=9</code>）とハフマン最適化（<code>optimize=True</code>）を適用します。</li>
+<li><strong>Animated WebP (<code>.webp</code>)</strong>: ロスレスのサブフレーム最小化（<code>lossless=True</code>, <code>minimize_size=True</code>）でエンコードし、通常 APNG より約 50% 小さなファイルサイズを実現します。</li>
+</ul>
+</li>
+</ol>
+<hr />
+<h2>7. プレゼンテーションスライド (<code>slide</code>) におけるインタラクティブ再生制御</h2>
+<p>16:9 プレゼンテーションスライドデッキ（<code>drawlib init slide</code>）では、<code>drawlib</code> フェンスの <code>&lt;canvas&gt;</code> 再生オプションを指定することで、アニメーション <code>.png</code>（APNG）や <code>.webp</code> ブロックをインタラクティブに制御できます。</p>
+<pre><code class="language-markdown"><span class="sb">```drawlib</span><span class="w"> </span>file=pipeline.webp anim_trigger=click anim_loop=once anim_pause=(2, 4)
+<span class="s">from drawlib.anim import Animation</span>
+<span class="s">...</span>
+<span class="sb">```</span>
+</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">オプション</th>
+<th style="text-align:left">指定可能な値</th>
+<th style="text-align:left">デフォルト</th>
+<th style="text-align:left">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong><code>anim-trigger</code></strong></td>
+<td style="text-align:left"><code>auto</code> | <code>click</code></td>
+<td style="text-align:left"><code>auto</code></td>
+<td style="text-align:left"><code>auto</code> はスライド表示と同時に再生を開始し、<code>click</code> は発表者が図をクリックするまでフレーム 0（<code>READY</code>）で待機します。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>anim-loop</code></strong></td>
+<td style="text-align:left"><code>once</code> | <code>infinite</code></td>
+<td style="text-align:left"><code>infinite</code>（<code>anim-pause</code> 指定時は <code>once</code>）</td>
+<td style="text-align:left"><code>once</code> は最終フレームで停止し（<code>ENDED</code>、クリックするとフレーム 0 から再生）、<code>infinite</code> は連続ループ再生します。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>anim-pause</code></strong></td>
+<td style="text-align:left">カンマ区切りの 0 始まりフレーム番号（例: <code>2,4</code>）</td>
+<td style="text-align:left"><code>None</code></td>
+<td style="text-align:left">指定された各フレーム番号の描画直後に再生を一時停止（<code>PAUSED</code>）します。図をクリックすると <code>frame + 1</code> から次の一時停止位置または末尾まで再生を再開します。</td>
+</tr>
+</tbody>
+</table>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="../../images/08_animations/overview/anim_overview_slide_playback_states.png" alt="overview_3" />
+  <figcaption class="drawlib-caption">インタラクティブなスライドアニメーション再生ステートマシン (READY, PLAYING, PAUSED, ENDED)</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.diagrams.state</span><span class="w"> </span><span class="kn">import</span> <span class="n">InitialState</span><span class="p">,</span> <span class="n">State</span><span class="p">,</span> <span class="n">StateDiagram</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">126</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">62</span><span class="p">)</span>
+
+<span class="n">sd</span> <span class="o">=</span> <span class="n">StateDiagram</span><span class="p">(</span>
+    <span class="n">node_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="n">edge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+    <span class="n">edge_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">init</span> <span class="o">=</span> <span class="n">sd</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">InitialState</span><span class="p">(),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">6.0</span><span class="p">,</span> <span class="mf">39.0</span><span class="p">))</span>
+<span class="n">ready</span> <span class="o">=</span> <span class="n">sd</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">State</span><span class="p">(</span><span class="s2">"READY"</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="s2">"box"</span><span class="p">,</span> <span class="n">entry</span><span class="o">=</span><span class="s2">"Frame 0"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">23.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">)),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">28.0</span><span class="p">,</span> <span class="mf">39.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">playing</span> <span class="o">=</span> <span class="n">sd</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">State</span><span class="p">(</span><span class="s2">"PLAYING"</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="s2">"box"</span><span class="p">,</span> <span class="n">do</span><span class="o">=</span><span class="s2">"render"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">26.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">)),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">69.0</span><span class="p">,</span> <span class="mf">39.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">paused</span> <span class="o">=</span> <span class="n">sd</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">State</span><span class="p">(</span><span class="s2">"PAUSED"</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="s2">"box"</span><span class="p">,</span> <span class="n">entry</span><span class="o">=</span><span class="s2">"pause:2,4"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">26.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">)),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">69.0</span><span class="p">,</span> <span class="mf">11.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">ended</span> <span class="o">=</span> <span class="n">sd</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">State</span><span class="p">(</span><span class="s2">"ENDED"</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="s2">"box"</span><span class="p">,</span> <span class="n">entry</span><span class="o">=</span><span class="s2">"Final"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">23.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">)),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">110.0</span><span class="p">,</span> <span class="mf">39.0</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">sd</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">init</span><span class="p">,</span> <span class="n">ready</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"init"</span><span class="p">)</span>
+<span class="n">sd</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">ready</span><span class="p">,</span> <span class="n">playing</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"click"</span><span class="p">)</span>
+<span class="n">sd</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+    <span class="n">playing</span><span class="p">,</span>
+    <span class="n">paused</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="s2">"pause"</span><span class="p">,</span>
+    <span class="n">bend</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+    <span class="n">start_side</span><span class="o">=</span><span class="s2">"bottom_left"</span><span class="p">,</span>
+    <span class="n">end_side</span><span class="o">=</span><span class="s2">"top_left"</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">sd</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+    <span class="n">paused</span><span class="p">,</span>
+    <span class="n">playing</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="s2">"resume"</span><span class="p">,</span>
+    <span class="n">bend</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+    <span class="n">start_side</span><span class="o">=</span><span class="s2">"top_right"</span><span class="p">,</span>
+    <span class="n">end_side</span><span class="o">=</span><span class="s2">"bottom_right"</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">sd</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">playing</span><span class="p">,</span> <span class="n">ended</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"end"</span><span class="p">)</span>
+<span class="n">sd</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+    <span class="n">ended</span><span class="p">,</span>
+    <span class="n">playing</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="s2">"replay"</span><span class="p">,</span>
+    <span class="n">bend</span><span class="o">=</span><span class="mf">0.35</span><span class="p">,</span>
+    <span class="n">start_side</span><span class="o">=</span><span class="s2">"top"</span><span class="p">,</span>
+    <span class="n">end_side</span><span class="o">=</span><span class="s2">"top"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">sd</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+
+            </main>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Theme toggle
+            const themeBtn = document.getElementById('theme-toggle');
+            if (themeBtn) {
+                themeBtn.addEventListener('click', function() {
+                    const current = document.documentElement.getAttribute('data-theme');
+                    const next = current === 'dark' ? 'light' : 'dark';
+                    document.documentElement.setAttribute('data-theme', next);
+                    localStorage.setItem('drawlib-theme', next);
+                });
+            }
+
+            // Language dropdown outside-click & Escape close
+            const langDropdowns = document.querySelectorAll('.lang-dropdown');
+            if (langDropdowns.length > 0) {
+                document.addEventListener('click', function(e) {
+                    langDropdowns.forEach(function(dd) {
+                        if (dd.hasAttribute('open') && !dd.contains(e.target)) {
+                            dd.removeAttribute('open');
+                        }
+                    });
+                });
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape') {
+                        langDropdowns.forEach(function(dd) {
+                            dd.removeAttribute('open');
+                        });
+                    }
+                });
+            }
+
+            // Mobile menu toggle
+            const menuBtn = document.getElementById('menu-toggle');
+            const sidebar = document.querySelector('.sidebar');
+            if (menuBtn && sidebar) {
+                function setMenuOpen(open) {
+                    sidebar.classList.toggle('is-open', open);
+                    menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+                    document.body.classList.toggle('menu-open', open);
+                    if (open) {
+                        const menu = sidebar.querySelector('.sidebar-menu');
+                        if (menu) {
+                            menu.scrollTop = 0;
+                        }
+                    }
+                }
+
+                menuBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const willOpen = !sidebar.classList.contains('is-open');
+                    setMenuOpen(willOpen);
+                });
+
+                // Close menu when clicking outside sidebar
+                document.addEventListener('click', function(e) {
+                    if (sidebar.classList.contains('is-open') && !sidebar.contains(e.target)) {
+                        setMenuOpen(false);
+                    }
+                });
+
+                // Close menu when a navigation link is clicked
+                const navLinks = sidebar.querySelectorAll('.nav-item a');
+                navLinks.forEach(function(link) {
+                    link.addEventListener('click', function() {
+                        setMenuOpen(false);
+                    });
+                });
+
+                // Close on Escape key
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape' && sidebar.classList.contains('is-open')) {
+                        setMenuOpen(false);
+                    }
+                });
+
+                // Reset menu state when resized above mobile breakpoint
+                window.addEventListener('resize', function() {
+                    if (window.innerWidth > 768 && sidebar.classList.contains('is-open')) {
+                        setMenuOpen(false);
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

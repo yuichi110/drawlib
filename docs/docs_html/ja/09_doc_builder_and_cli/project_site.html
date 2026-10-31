@@ -1,0 +1,1659 @@
+<!--
+ Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+
+ This software is licensed under the Apache License, Version 2.0.
+ For more information, please visit: https://github.com/yuichi110/drawlib
+
+ This software is provided "as is", without warranty of any kind,
+ express or implied, including but not limited to the warranties of
+ merchantability, fitness for a particular purpose and noninfringement.
+-->
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ドキュメントサイトプロジェクトガイド (`drawlib init site`)</title>
+    <script>
+        (function() {
+            const saved = localStorage.getItem('drawlib-theme');
+            if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    
+    
+    <link rel="alternate" hreflang="en" href="../../en/09_doc_builder_and_cli/project_site.html">
+    
+    <link rel="alternate" hreflang="ja" href="project_site.html">
+    
+    <link rel="alternate" hreflang="x-default" href="../../en/09_doc_builder_and_cli/project_site.html">
+    
+    
+    
+    <link rel="icon" type="image/png" href="../../_assets/favicon.png">
+    
+    
+    <link rel="stylesheet" href="../style.css">
+    
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-brand" aria-label="Drawlib ドキュメント">
+                    
+                    <img src="../../_assets/logo.png" alt="Drawlib ドキュメント" class="sidebar-logo sidebar-logo-light">
+                    <img src="../../_assets/logo_dark.png" alt="Drawlib ドキュメント" class="sidebar-logo sidebar-logo-dark">
+                    
+                </a>
+                <div class="sidebar-header-actions">
+                    <button type="button" id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle theme">
+                        <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                        <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                    </button>
+                    <button type="button" id="menu-toggle" class="menu-toggle-btn" aria-label="Toggle navigation" aria-expanded="false">
+                        <svg class="icon-hamburger" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                        <svg class="icon-close" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                    </button>
+                </div>
+            </div>
+            <div class="sidebar-subbar">
+                
+                <a href="../01_getting_started/release_notes.html" class="sidebar-version-badge" title="View Release Notes">
+                    <span class="sidebar-version-dot" aria-hidden="true"></span>
+                    <span class="sidebar-version-text">v0.3.2</span>
+                </a>
+                <a href="https://github.com/yuichi110/drawlib" target="_blank" rel="noopener noreferrer" class="sidebar-github-link" aria-label="GitHub Repository" title="GitHub Repository">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+                </a>
+            </div>
+            <div class="sidebar-menu">
+                
+                    
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../index.html" >ようこそ</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">1. はじめに</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/overview.html" >Drawlib とは</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/installation.html" >インストールガイド</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/quick_start.html" >クイックスタートガイド</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/core_concepts.html" >基本ビジュアル概念</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/project_quicklook.html" >プロジェクト構成とビルド</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/agent_quicklook.html" >AI 駆動ワークフローとエージェント設定</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/release_notes.html" >リリースノートと移行ガイド</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">2. 描画プリミティブとスタイル</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/canvas.html" >キャンバスと座標系</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_overview.html" >図形プリミティブ概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_basic.html" >基本図形・放射状図形</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_polygon.html" >多角形とカスタムパス</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_arrow.html" >ブロック矢印・シェブロン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_container.html" >3D コンテナ・フロー・グルーピング</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_badge.html" >吹き出し・バッジ・ステータス</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_symbol.html" >フェイス・時計・記号・演算子</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/lines.html" >線とコネクタ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/text.html" >テキストとタイポグラフィ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/fonts.html" >フォントと多言語カタログ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/font_file.html" >カスタムフォントファイル (FontFile)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/images.html" >画像と Dimage</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/styles.html" >スタイルとテーマ設定</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/colors.html" >カラーパレットと色モデル</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/style_guide.html" >図解デザインとスタイルガイド</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">3. アイコンとブランドスイート</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/overview.html" >アイコン概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/phosphor.html" >Phosphor ベクターアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/gcp.html" >Google Cloud (GCP) アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/aws.html" >Amazon Web Services (AWS) アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/azure.html" >Microsoft Azure アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/cloud.html" >クラウド・オリジナルクラウドアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/cnative.html" >クラウドネイティブ (K8s) アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/devops.html" >DevOps・オブザーバビリティアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/network.html" >ネットワーク・Cisco トポロジアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/server.html" >サーバー・OS・仮想化アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/security.html" >セキュリティ・ゼロトラストアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/facility.html" >データセンター・ファシリティアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/ai.html" >AI・機械学習アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/data.html" >データ・データベースアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/code.html" >コード・言語・フレームワークアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/business.html" >エンタープライズ・FinTech アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/itservice.html" >IT サービス・コンサルティングアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/workspace.html" >ワークスペース・コラボレーションアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/social.html" >ソーシャル・メディア・コミュニティアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/client.html" >クライアント端末・エンドポイントアイコン</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">4. SmartArts（スマートアート）</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/overview.html" >SmartArts 概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/chevron_process.html" >ChevronProcess（シェブロン工程図）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/cycle.html" >Cycle（サイクル図）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/table.html" >Table（テーブル）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/tree.html" >Tree（ツリー図）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/mindmap.html" >MindMap（マインドマップ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/grid_layout.html" >GridLayout（グリッドレイアウト）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/pyramid.html" >Pyramid（ピラミッド図）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/box_list.html" >BoxList（ボックスリスト）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/kpi_cards.html" >KpiCards（KPI カード）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/card_list.html" >CardList（カードリスト）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/roadmap.html" >Roadmap（ロードマップ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/panel.html" >Panel（パネル）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/calendar.html" >Calendar（カレンダー）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/bullet_points.html" >BulletPoints（箇条書きボード）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/source_code.html" >SourceCode（ソースコードカード）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/geomap.html" >GeoMap（地理マップ）</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">5. Charts（定量チャート）</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/overview.html" >Charts 概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/axes_and_legends.html" >軸・スケール・凡例</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/bar.html" >Bar Chart（棒グラフ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/line.html" >Line Chart（折れ線グラフ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/area.html" >Area Chart（面グラフ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/pie.html" >Pie & Donut Chart（円・ドーナツグラフ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/radar.html" >Radar Chart（レーダーチャート）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/scatter.html" >Scatter Chart（散布図）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/gantt.html" >Gantt Chart（ガントチャート）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/heatmap.html" >Heatmap & Thermal Overlay（ヒートマップ）</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">6. テクニカルダイアグラム</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/overview.html" >ダイアグラム概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/architecture.html" >アーキテクチャ図</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/flow.html" >フロー図</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/sequence.html" >シーケンス図</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/class_diagram.html" >UML クラス図</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/er.html" >ER 図</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/state_diagram.html" >ステートマシン図</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">7. 自動レイアウトグラフ</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/overview.html" >グラフエンジン概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/architecture_graph.html" >ArchitectureGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/layer_graph.html" >LayerGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/tree_graph.html" >TreeGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/radial_graph.html" >RadialGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/grid_graph.html" >GridGraph</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">8. アニメーション</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/overview.html" >アニメーション概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/primitives.html" >プリミティブと色のアニメーション</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/smartarts.html" >SmartArts のアニメーション</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/charts.html" >Charts のアニメーション</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/diagrams.html" >ダイアグラムのアニメーション</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/graphs.html" >グラフのアニメーション</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">9. ドキュメントビルダと CLI</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="overview.html" >コードとしての図解ドキュメント概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="code_blocks.html" >Markdown コードブロック構文</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="cli_reference.html" >CLI リファレンス</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="project_doc.html" >リニアドキュメントプロジェクト (`doc`)</a>
+                            </li>
+                            
+                            <li class="nav-item active">
+                                <a href="project_site.html" >ドキュメントサイトプロジェクト (`site`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="project_slide.html" >スライドデッキプロジェクト (`slide`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="slide_layout_and_api.html" >スライドステージレイアウトと API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="project_image.html" >画像プロジェクト (`images`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="customization.html" >テンプレートと CSS カスタマイズ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="caching_and_cicd.html" >キャッシュ機構と CI/CD</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">10. AI エージェントと高度な統合</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/ai_agent_instructions.html" >AI エージェント指示とルール体系</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/multimodal_feedback_loop.html" >自律検証フィードバックループ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/programmatic_api.html" >プログラマティック API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/math_and_layout.html" >アルゴリズムレイアウトと幾何計算</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/debugging.html" >トラブルシューティングとデバッグ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/case_study_brand_assets.html" >事例紹介: 公式ブランドアセットの設計</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/case_study_documentation_site.html" >事例紹介: AI エージェントによるドキュメントサイト構築</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/case_study_software_architecture.html" >事例紹介: コードとしてのソフトウェアアーキテクチャ設計書</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/case_study_technical_slides.html" >事例紹介: 技術プレゼンテーションスライドの作成</a>
+                            </li>
+                            
+                        </ul>
+                    
+                
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">ドキュメントサイトプロジェクトガイド (`drawlib init site`)</span>
+                </div>
+                
+                <div class="lang-switcher">
+                    <details class="lang-dropdown">
+                        <summary class="lang-dropdown-btn" aria-label="Select language">
+                            <svg class="lang-globe-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                            <span class="lang-current-label">日本語</span>
+                            <svg class="lang-caret-icon" viewBox="0 0 24 24" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </summary>
+                        <div class="lang-dropdown-menu" role="menu">
+                            
+                            <a href="../../en/09_doc_builder_and_cli/project_site.html" class="lang-option" lang="en" hreflang="en" >
+                                <span>English</span>
+                                
+                            </a>
+                            
+                            <a href="project_site.html" class="lang-option active" lang="ja" hreflang="ja" aria-current="page">
+                                <span>日本語</span>
+                                
+                                <svg class="lang-check-icon" viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                
+                            </a>
+                            
+                        </div>
+                    </details>
+                </div>
+                
+            </header>
+            <main class="main-content">
+                <h1>ドキュメントサイトプロジェクトガイド (<code>drawlib init site</code>)</h1>
+<p><code>site</code> スターターテンプレートは、階層型のサイドバーナビゲーション、モバイル対応のレスポンシブレイアウト、シンタックスハイライト、および静的 HTML と GitHub 対応 Markdown へのデュアル出力を備えた、マルチページ構成の技術ドキュメントサイトを構築します。</p>
+<p>Drawlib は <code>docs_src/navbar.md</code> と各 Markdown ページを、ビルド時の厳格なリンク検証を備えた 2 カラム構成のドキュメントポータルへコンパイルします。</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="../../images/09_doc_builder_and_cli/project_site/project_site_navbar_architecture.png" alt="project_site_1" />
+  <figcaption class="drawlib-caption">navbar.md と Markdown ページから 2 カラム構成のドキュメントサイト UI が生成される仕組み</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">62</span><span class="p">)</span>
+
+<span class="c1"># Left: Source directory container</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">21</span><span class="p">,</span> <span class="mi">31</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">34</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">54</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">21</span><span class="p">,</span> <span class="mf">54.2</span><span class="p">),</span> <span class="s2">"Source (docs_src/)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.8</span><span class="p">))</span>
+
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">21</span><span class="p">,</span> <span class="mf">39.2</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">list_bullets</span><span class="p">((</span><span class="mf">10.5</span><span class="p">,</span> <span class="mf">45.8</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.4</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">23.5</span><span class="p">,</span> <span class="mf">45.8</span><span class="p">),</span> <span class="s2">"navbar.md"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">21</span><span class="p">,</span> <span class="mf">35.2</span><span class="p">),</span> <span class="s2">"# Brand Header</span><span class="se">\n</span><span class="s2">## Categories</span><span class="se">\n</span><span class="s2">- [Page](path.md)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">21</span><span class="p">,</span> <span class="mf">15.2</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">19</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">file_text</span><span class="p">((</span><span class="mf">10.5</span><span class="p">,</span> <span class="mf">20.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.4</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">23.5</span><span class="p">,</span> <span class="mf">20.5</span><span class="p">),</span> <span class="s2">"*.md Pages"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">21</span><span class="p">,</span> <span class="mf">11.8</span><span class="p">),</span> <span class="s2">"index.md &amp; Chapters</span><span class="se">\n</span><span class="s2">```drawlib Blocks"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+
+<span class="c1"># Middle: Compiler step</span>
+<span class="n">line</span><span class="p">((</span><span class="mi">38</span><span class="p">,</span> <span class="mi">31</span><span class="p">),</span> <span class="p">(</span><span class="mi">53</span><span class="p">,</span> <span class="mi">31</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">45.5</span><span class="p">,</span> <span class="mf">36.2</span><span class="p">),</span> <span class="s2">"build html"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">45.5</span><span class="p">,</span> <span class="mf">25.5</span><span class="p">),</span> <span class="s2">"Link Audit"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+
+<span class="c1"># Right: Compiled Two-Column Site UI (docs_html/)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">88</span><span class="p">,</span> <span class="mi">31</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">70</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">54</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">browsers</span><span class="p">((</span><span class="mf">60.5</span><span class="p">,</span> <span class="mf">54.2</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.6</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">91.0</span><span class="p">,</span> <span class="mf">54.2</span><span class="p">),</span> <span class="s2">"Compiled Two-Column Site UI (docs_html/)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.8</span><span class="p">))</span>
+
+<span class="c1"># Left Sticky Sidebar</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">69.5</span><span class="p">,</span> <span class="mf">28.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">27</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">44</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">69.5</span><span class="p">,</span> <span class="mf">46.5</span><span class="p">),</span> <span class="s2">"Left Sidebar"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mf">69.5</span><span class="p">,</span> <span class="mf">39.2</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mf">23.5</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">6.5</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.0</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Brand Title"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mf">69.5</span><span class="p">,</span> <span class="mf">29.5</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mf">23.5</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">7.5</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.0</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"• Active Page"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mf">69.5</span><span class="p">,</span> <span class="mf">19.8</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mf">23.5</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">7.5</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.0</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"• Next Page"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">69.5</span><span class="p">,</span> <span class="mf">11.2</span><span class="p">),</span> <span class="s2">"GitHub Repo ↗"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+
+<span class="c1"># Right Main Content Pane</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">103.5</span><span class="p">,</span> <span class="mf">28.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">35</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">44</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">103.5</span><span class="p">,</span> <span class="mf">46.5</span><span class="p">),</span> <span class="s2">"Main Content Pane"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mf">103.5</span><span class="p">,</span> <span class="mf">36.8</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">31</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">12.5</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Markdown Prose</span><span class="se">\n</span><span class="s2">Tables &amp; Code UI"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mf">103.5</span><span class="p">,</span> <span class="mf">18.5</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">31</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">18.5</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Diagram Figure</span><span class="se">\n</span><span class="s2">(&lt;figure&gt; + PNG</span><span class="se">\n</span><span class="s2">+ Source Code)"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<hr />
+<h2>1. エンドツーエンドのプロジェクトワークフロー</h2>
+<p><code>drawlib init site</code> による初期スキャフォールディングと <code>navbar.md</code> サイドバーの構築から、<code>-g</code> グリッド検証、ヘッドレスのリンク検証（<code>drawlib serve --check</code>）、そして <code>.drawlib/cache.db</code> を活用した Day-2 の差分ページ追加までの流れを確認しましょう。</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="../../images/09_doc_builder_and_cli/project_site/project_site_workflow_tour.png" alt="project_site_2" />
+  <figcaption class="drawlib-caption">マルチページ Web サイトプロジェクトのライフサイクル: スキャフォールディング、ナビゲーションとページ作成、リンク監査、Day-2 ページ追加 (APNG アニメーション)</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.anim</span><span class="w"> </span><span class="kn">import</span> <span class="n">Animation</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">ai</span><span class="p">,</span> <span class="n">code</span><span class="p">,</span> <span class="n">devops</span><span class="p">,</span> <span class="n">phosphor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">circle</span><span class="p">,</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">W</span><span class="p">,</span> <span class="n">H</span> <span class="o">=</span> <span class="mf">138.0</span><span class="p">,</span> <span class="mf">82.0</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="n">W</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">H</span><span class="p">)</span>
+<span class="n">anim</span> <span class="o">=</span> <span class="n">Animation</span><span class="p">(</span><span class="n">fps</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">loop</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">PANE_BG</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+    <span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">250</span><span class="p">,</span> <span class="mi">252</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span>
+    <span class="n">shape_line_width</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="n">shape_r</span><span class="o">=</span><span class="mf">1.8</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">PANE_HEADER_TOP</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+    <span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">238</span><span class="p">,</span> <span class="mi">243</span><span class="p">,</span> <span class="mi">250</span><span class="p">),</span>
+    <span class="n">shape_line_width</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="n">shape_r</span><span class="o">=</span><span class="mf">1.8</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">PANE_HEADER_FLAT</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+    <span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">238</span><span class="p">,</span> <span class="mi">243</span><span class="p">,</span> <span class="mi">250</span><span class="p">),</span>
+    <span class="n">shape_line_width</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="n">shape_r</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">PANE_BORDER</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+    <span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+    <span class="n">shape_line_color</span><span class="o">=</span><span class="p">(</span><span class="mi">203</span><span class="p">,</span> <span class="mi">213</span><span class="p">,</span> <span class="mi">225</span><span class="p">),</span>
+    <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span>
+    <span class="n">shape_r</span><span class="o">=</span><span class="mf">1.8</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">SUBPANEL_BG</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+    <span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">243</span><span class="p">,</span> <span class="mi">246</span><span class="p">,</span> <span class="mi">252</span><span class="p">),</span>
+    <span class="n">shape_line_color</span><span class="o">=</span><span class="p">(</span><span class="mi">214</span><span class="p">,</span> <span class="mi">223</span><span class="p">,</span> <span class="mi">236</span><span class="p">),</span>
+    <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+    <span class="n">shape_r</span><span class="o">=</span><span class="mf">1.4</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">ROW_ACTIVE</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+    <span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">232</span><span class="p">,</span> <span class="mi">242</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span>
+    <span class="n">shape_line_color</span><span class="o">=</span><span class="p">(</span><span class="mi">59</span><span class="p">,</span> <span class="mi">130</span><span class="p">,</span> <span class="mi">246</span><span class="p">),</span>
+    <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.3</span><span class="p">,</span>
+    <span class="n">shape_r</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">ROW_USER</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+    <span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">241</span><span class="p">,</span> <span class="mi">245</span><span class="p">,</span> <span class="mi">251</span><span class="p">),</span>
+    <span class="n">shape_line_color</span><span class="o">=</span><span class="p">(</span><span class="mi">51</span><span class="p">,</span> <span class="mi">65</span><span class="p">,</span> <span class="mi">85</span><span class="p">),</span>
+    <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.4</span><span class="p">,</span>
+    <span class="n">shape_r</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">ROW_CACHED</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+    <span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">242</span><span class="p">,</span> <span class="mi">247</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span>
+    <span class="n">shape_line_color</span><span class="o">=</span><span class="p">(</span><span class="mi">147</span><span class="p">,</span> <span class="mi">197</span><span class="p">,</span> <span class="mi">253</span><span class="p">),</span>
+    <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+    <span class="n">shape_r</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">ROW_OUTPUT</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+    <span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">236</span><span class="p">,</span> <span class="mi">250</span><span class="p">,</span> <span class="mi">244</span><span class="p">),</span>
+    <span class="n">shape_line_color</span><span class="o">=</span><span class="p">(</span><span class="mi">34</span><span class="p">,</span> <span class="mi">160</span><span class="p">,</span> <span class="mi">107</span><span class="p">),</span>
+    <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span>
+    <span class="n">shape_r</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">ROW_DONE</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+    <span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span>
+    <span class="n">shape_line_color</span><span class="o">=</span><span class="p">(</span><span class="mi">218</span><span class="p">,</span> <span class="mi">226</span><span class="p">,</span> <span class="mi">238</span><span class="p">),</span>
+    <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+    <span class="n">shape_r</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">PART_ITEMS</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s2">"1. Init &amp; Navbar"</span><span class="p">,</span> <span class="s2">"Scaffold &amp; sidebar"</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"2. Pages &amp; Grid"</span><span class="p">,</span> <span class="s2">"Author &amp; -g review"</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"3. Build &amp; Check"</span><span class="p">,</span> <span class="s2">"HTML, MD &amp; --check"</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"4. Day-2 Add Page"</span><span class="p">,</span> <span class="s2">"Cache &lt;1ms &amp; sync"</span><span class="p">),</span>
+<span class="p">]</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">draw_step_bar</span><span class="p">(</span><span class="n">active_part</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Draw top 4-pill progress bar aligned with both panes."""</span>
+    <span class="n">pill_w</span> <span class="o">=</span> <span class="mf">31.0</span>
+    <span class="n">pill_h</span> <span class="o">=</span> <span class="mf">7.4</span>
+    <span class="n">gap</span> <span class="o">=</span> <span class="mf">2.0</span>
+    <span class="n">start_x</span> <span class="o">=</span> <span class="mf">4.0</span> <span class="o">+</span> <span class="n">pill_w</span> <span class="o">/</span> <span class="mf">2.0</span>
+    <span class="n">cy</span> <span class="o">=</span> <span class="mf">75.2</span>
+
+    <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">sublabel</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">PART_ITEMS</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">cx</span> <span class="o">=</span> <span class="n">start_x</span> <span class="o">+</span> <span class="p">(</span><span class="n">idx</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">pill_w</span> <span class="o">+</span> <span class="n">gap</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">idx</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">prev_cx</span> <span class="o">=</span> <span class="n">cx</span> <span class="o">-</span> <span class="p">(</span><span class="n">pill_w</span> <span class="o">+</span> <span class="n">gap</span><span class="p">)</span>
+            <span class="n">line</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">prev_cx</span> <span class="o">+</span> <span class="n">pill_w</span> <span class="o">/</span> <span class="mf">2.0</span> <span class="o">+</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">cy</span><span class="p">),</span>
+                <span class="p">(</span><span class="n">cx</span> <span class="o">-</span> <span class="n">pill_w</span> <span class="o">/</span> <span class="mf">2.0</span> <span class="o">-</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">cy</span><span class="p">),</span>
+                <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span> <span class="k">if</span> <span class="n">idx</span> <span class="o">&lt;=</span> <span class="n">active_part</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">MutedThin</span><span class="p">,</span>
+            <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">idx</span> <span class="o">==</span> <span class="n">active_part</span><span class="p">:</span>
+            <span class="n">st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.4</span><span class="p">)</span>
+            <span class="n">tst</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.2</span><span class="p">)</span>
+            <span class="n">sub_tst</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">idx</span> <span class="o">&lt;</span> <span class="n">active_part</span><span class="p">:</span>
+            <span class="n">st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.4</span><span class="p">,</span> <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.1</span><span class="p">)</span>
+            <span class="n">tst</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.2</span><span class="p">)</span>
+            <span class="n">sub_tst</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.4</span><span class="p">,</span> <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.1</span><span class="p">)</span>
+            <span class="n">tst</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">MutedBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.2</span><span class="p">)</span>
+            <span class="n">sub_tst</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">)</span>
+
+        <span class="n">rectangle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="n">pill_w</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">pill_h</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">st</span><span class="p">)</span>
+        <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span> <span class="o">+</span> <span class="mf">1.35</span><span class="p">),</span> <span class="n">label</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">tst</span><span class="p">)</span>
+        <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span> <span class="o">-</span> <span class="mf">1.55</span><span class="p">),</span> <span class="n">sublabel</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">sub_tst</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">draw_pane_shell</span><span class="p">(</span><span class="n">cx</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">width</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Draw rounded pane container with top header bar."""</span>
+    <span class="n">rectangle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mf">36.75</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">65.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">PANE_BG</span><span class="p">)</span>
+    <span class="n">rectangle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mf">66.25</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">6.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">PANE_HEADER_TOP</span><span class="p">)</span>
+    <span class="n">rectangle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mf">64.60</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">3.2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">PANE_HEADER_FLAT</span><span class="p">)</span>
+    <span class="n">line</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">cx</span> <span class="o">-</span> <span class="n">width</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">63.0</span><span class="p">),</span>
+        <span class="p">(</span><span class="n">cx</span> <span class="o">+</span> <span class="n">width</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">63.0</span><span class="p">),</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_color</span><span class="o">=</span><span class="p">(</span><span class="mi">203</span><span class="p">,</span> <span class="mi">213</span><span class="p">,</span> <span class="mi">225</span><span class="p">),</span> <span class="n">line_width</span><span class="o">=</span><span class="mf">1.2</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">rectangle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mf">36.75</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">65.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">PANE_BORDER</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">draw_user_avatar</span><span class="p">(</span><span class="n">xy</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="n">radius</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">4.2</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Draw circular User avatar badge."""</span>
+    <span class="n">circle</span><span class="p">(</span>
+        <span class="n">xy</span><span class="p">,</span>
+        <span class="n">radius</span><span class="o">=</span><span class="n">radius</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+            <span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">241</span><span class="p">,</span> <span class="mi">245</span><span class="p">,</span> <span class="mi">250</span><span class="p">),</span>
+            <span class="n">shape_line_color</span><span class="o">=</span><span class="p">(</span><span class="mi">51</span><span class="p">,</span> <span class="mi">65</span><span class="p">,</span> <span class="mi">85</span><span class="p">),</span>
+            <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.6</span><span class="p">,</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">phosphor</span><span class="o">.</span><span class="n">user</span><span class="p">(</span><span class="n">xy</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">radius</span> <span class="o">*</span> <span class="mf">1.25</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">draw_gemini_avatar</span><span class="p">(</span><span class="n">xy</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="n">radius</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">4.2</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Draw circular Gemini avatar badge."""</span>
+    <span class="n">circle</span><span class="p">(</span>
+        <span class="n">xy</span><span class="p">,</span>
+        <span class="n">radius</span><span class="o">=</span><span class="n">radius</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+            <span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">248</span><span class="p">,</span> <span class="mi">250</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span>
+            <span class="n">shape_line_color</span><span class="o">=</span><span class="p">(</span><span class="mi">59</span><span class="p">,</span> <span class="mi">130</span><span class="p">,</span> <span class="mi">246</span><span class="p">),</span>
+            <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">ai</span><span class="o">.</span><span class="n">gemini</span><span class="p">(</span><span class="n">xy</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">radius</span> <span class="o">*</span> <span class="mf">1.42</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">draw_actor_row_icon</span><span class="p">(</span>
+    <span class="n">actor_kind</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">xy</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">muted</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Draw mini User or Gemini icon at the start of an operation row."""</span>
+    <span class="k">if</span> <span class="n">actor_kind</span> <span class="o">==</span> <span class="s2">"user"</span><span class="p">:</span>
+        <span class="n">phosphor</span><span class="o">.</span><span class="n">user</span><span class="p">(</span>
+            <span class="n">xy</span><span class="p">,</span>
+            <span class="n">width</span><span class="o">=</span><span class="mf">2.8</span><span class="p">,</span>
+            <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span> <span class="k">if</span> <span class="n">muted</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="k">elif</span> <span class="n">actor_kind</span> <span class="o">==</span> <span class="s2">"user_git"</span><span class="p">:</span>
+        <span class="n">phosphor</span><span class="o">.</span><span class="n">user</span><span class="p">(</span>
+            <span class="n">xy</span><span class="p">,</span>
+            <span class="n">width</span><span class="o">=</span><span class="mf">2.8</span><span class="p">,</span>
+            <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span> <span class="k">if</span> <span class="n">muted</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">devops</span><span class="o">.</span><span class="n">git</span><span class="p">((</span><span class="n">xy</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mf">2.8</span><span class="p">,</span> <span class="n">xy</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="n">width</span><span class="o">=</span><span class="mf">2.6</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">ai</span><span class="o">.</span><span class="n">gemini</span><span class="p">(</span><span class="n">xy</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">2.9</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">draw_tree_icon</span><span class="p">(</span><span class="n">kind</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">xy</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="o">*</span><span class="p">,</span> <span class="n">muted</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Draw file or folder icon in the right-side directory tree."""</span>
+    <span class="k">if</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">"folder_open"</span><span class="p">:</span>
+        <span class="n">phosphor</span><span class="o">.</span><span class="n">folder_open</span><span class="p">(</span>
+            <span class="n">xy</span><span class="p">,</span>
+            <span class="n">width</span><span class="o">=</span><span class="mf">3.0</span><span class="p">,</span>
+            <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span> <span class="k">if</span> <span class="n">muted</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="k">elif</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">"folder_out"</span><span class="p">:</span>
+        <span class="n">phosphor</span><span class="o">.</span><span class="n">folder</span><span class="p">(</span>
+            <span class="n">xy</span><span class="p">,</span>
+            <span class="n">width</span><span class="o">=</span><span class="mf">3.0</span><span class="p">,</span>
+            <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span> <span class="k">if</span> <span class="n">muted</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="k">elif</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">"py"</span><span class="p">:</span>
+        <span class="n">code</span><span class="o">.</span><span class="n">python</span><span class="p">(</span><span class="n">xy</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">2.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">"html"</span><span class="p">:</span>
+        <span class="n">phosphor</span><span class="o">.</span><span class="n">file_html</span><span class="p">(</span>
+            <span class="n">xy</span><span class="p">,</span>
+            <span class="n">width</span><span class="o">=</span><span class="mf">2.9</span><span class="p">,</span>
+            <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span> <span class="k">if</span> <span class="n">muted</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="k">elif</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">"md"</span><span class="p">:</span>
+        <span class="n">phosphor</span><span class="o">.</span><span class="n">file_text</span><span class="p">(</span>
+            <span class="n">xy</span><span class="p">,</span>
+            <span class="n">width</span><span class="o">=</span><span class="mf">2.9</span><span class="p">,</span>
+            <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span> <span class="k">if</span> <span class="n">muted</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="k">elif</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">"sh"</span><span class="p">:</span>
+        <span class="n">phosphor</span><span class="o">.</span><span class="n">file_code</span><span class="p">(</span>
+            <span class="n">xy</span><span class="p">,</span>
+            <span class="n">width</span><span class="o">=</span><span class="mf">2.9</span><span class="p">,</span>
+            <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span> <span class="k">if</span> <span class="n">muted</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="k">elif</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">"globe"</span><span class="p">:</span>
+        <span class="n">phosphor</span><span class="o">.</span><span class="n">globe</span><span class="p">(</span>
+            <span class="n">xy</span><span class="p">,</span>
+            <span class="n">width</span><span class="o">=</span><span class="mf">2.9</span><span class="p">,</span>
+            <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span> <span class="k">if</span> <span class="n">muted</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">,</span>
+        <span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">draw_workspace</span><span class="p">(</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">active_part</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">actor</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">actor_title</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">actor_sub</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">ops</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]],</span>
+    <span class="n">show_day2_note</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+    <span class="n">show_pages</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+    <span class="n">show_deploy</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+    <span class="n">show_outputs</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+    <span class="n">row_states</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]],</span>
+    <span class="n">committed</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+    <span class="n">pulse_arrow</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Draw 2-pane split workspace for the site project workflow."""</span>
+    <span class="n">draw_step_bar</span><span class="p">(</span><span class="n">active_part</span><span class="p">)</span>
+
+    <span class="c1"># Left Pane: User &amp; Gemini — Prompts &amp; Commands</span>
+    <span class="n">draw_pane_shell</span><span class="p">(</span><span class="mf">36.0</span><span class="p">,</span> <span class="mf">64.0</span><span class="p">)</span>
+    <span class="n">phosphor</span><span class="o">.</span><span class="n">user</span><span class="p">((</span><span class="mf">8.3</span><span class="p">,</span> <span class="mf">66.25</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.4</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+    <span class="n">ai</span><span class="o">.</span><span class="n">gemini</span><span class="p">((</span><span class="mf">12.2</span><span class="p">,</span> <span class="mf">66.25</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.7</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+    <span class="n">text</span><span class="p">(</span>
+        <span class="p">(</span><span class="mf">15.4</span><span class="p">,</span> <span class="mf">66.25</span><span class="p">),</span>
+        <span class="s2">"User &amp; Gemini — Prompts &amp; Commands"</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">),</span>
+    <span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">actor</span> <span class="o">==</span> <span class="s2">"user"</span><span class="p">:</span>
+        <span class="n">draw_user_avatar</span><span class="p">((</span><span class="mf">10.8</span><span class="p">,</span> <span class="mf">55.3</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">4.2</span><span class="p">)</span>
+        <span class="n">bubble_st</span> <span class="o">=</span> <span class="n">ROW_USER</span>
+        <span class="n">title_st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.2</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">draw_gemini_avatar</span><span class="p">((</span><span class="mf">10.8</span><span class="p">,</span> <span class="mf">55.3</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">4.2</span><span class="p">)</span>
+        <span class="n">bubble_st</span> <span class="o">=</span> <span class="n">ROW_ACTIVE</span>
+        <span class="n">title_st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.2</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">)</span>
+
+    <span class="n">rectangle</span><span class="p">((</span><span class="mf">41.5</span><span class="p">,</span> <span class="mf">55.3</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">48.6</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">9.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">bubble_st</span><span class="p">)</span>
+    <span class="n">text</span><span class="p">((</span><span class="mf">19.0</span><span class="p">,</span> <span class="mf">57.3</span><span class="p">),</span> <span class="n">actor_title</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">title_st</span><span class="p">)</span>
+    <span class="n">text</span><span class="p">(</span>
+        <span class="p">(</span><span class="mf">19.0</span><span class="p">,</span> <span class="mf">53.0</span><span class="p">),</span>
+        <span class="n">actor_sub</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.7</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">),</span>
+    <span class="p">)</span>
+
+    <span class="n">rectangle</span><span class="p">((</span><span class="mf">36.0</span><span class="p">,</span> <span class="mf">26.7</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">59.6</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">42.2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">SUBPANEL_BG</span><span class="p">)</span>
+    <span class="n">phosphor</span><span class="o">.</span><span class="n">terminal_window</span><span class="p">((</span><span class="mf">9.2</span><span class="p">,</span> <span class="mf">45.2</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.1</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="p">)</span>
+    <span class="n">text</span><span class="p">(</span>
+        <span class="p">(</span><span class="mf">12.0</span><span class="p">,</span> <span class="mf">45.2</span><span class="p">),</span>
+        <span class="s2">"Workflow Steps"</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.8</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">),</span>
+    <span class="p">)</span>
+
+    <span class="n">op_ys</span> <span class="o">=</span> <span class="p">[</span><span class="mf">40.8</span><span class="p">,</span> <span class="mf">36.2</span><span class="p">,</span> <span class="mf">31.6</span><span class="p">,</span> <span class="mf">27.0</span><span class="p">,</span> <span class="mf">22.4</span><span class="p">,</span> <span class="mf">17.8</span><span class="p">,</span> <span class="mf">13.2</span><span class="p">,</span> <span class="mf">8.6</span><span class="p">]</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">akind</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">state</span><span class="p">),</span> <span class="n">oy</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">ops</span><span class="p">,</span> <span class="n">op_ys</span><span class="p">):</span>
+        <span class="n">is_done</span> <span class="o">=</span> <span class="n">state</span> <span class="o">==</span> <span class="s2">"done"</span>
+        <span class="k">if</span> <span class="n">state</span> <span class="o">==</span> <span class="s2">"active_user"</span><span class="p">:</span>
+            <span class="n">ost</span> <span class="o">=</span> <span class="n">ROW_USER</span>
+            <span class="n">otxt</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.7</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">state</span> <span class="o">==</span> <span class="s2">"active_gemini"</span><span class="p">:</span>
+            <span class="n">ost</span> <span class="o">=</span> <span class="n">ROW_ACTIVE</span>
+            <span class="n">otxt</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.7</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">ost</span> <span class="o">=</span> <span class="n">ROW_DONE</span>
+            <span class="n">otxt</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.6</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">)</span>
+
+        <span class="n">rectangle</span><span class="p">((</span><span class="mf">36.0</span><span class="p">,</span> <span class="n">oy</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">56.4</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">ost</span><span class="p">)</span>
+        <span class="n">draw_actor_row_icon</span><span class="p">(</span><span class="n">akind</span><span class="p">,</span> <span class="p">(</span><span class="mf">10.3</span><span class="p">,</span> <span class="n">oy</span><span class="p">),</span> <span class="n">muted</span><span class="o">=</span><span class="n">is_done</span><span class="p">)</span>
+        <span class="n">text</span><span class="p">((</span><span class="mf">15.5</span> <span class="k">if</span> <span class="n">akind</span> <span class="o">==</span> <span class="s2">"user_git"</span> <span class="k">else</span> <span class="mf">12.8</span><span class="p">,</span> <span class="n">oy</span><span class="p">),</span> <span class="n">label</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">otxt</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">show_day2_note</span><span class="p">:</span>
+        <span class="n">rectangle</span><span class="p">(</span>
+            <span class="p">(</span><span class="mf">36.0</span><span class="p">,</span> <span class="mf">12.0</span><span class="p">),</span>
+            <span class="n">width</span><span class="o">=</span><span class="mf">55.6</span><span class="p">,</span>
+            <span class="n">height</span><span class="o">=</span><span class="mf">7.4</span><span class="p">,</span>
+            <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+                <span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span>
+                <span class="n">shape_line_color</span><span class="o">=</span><span class="p">(</span><span class="mi">210</span><span class="p">,</span> <span class="mi">220</span><span class="p">,</span> <span class="mi">234</span><span class="p">),</span>
+                <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+                <span class="n">shape_r</span><span class="o">=</span><span class="mf">1.1</span><span class="p">,</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+        <span class="n">text</span><span class="p">(</span>
+            <span class="p">(</span><span class="mf">36.0</span><span class="p">,</span> <span class="mf">13.7</span><span class="p">),</span>
+            <span class="s2">"styles.py, utils.py &amp; template.html stay untouched"</span><span class="p">,</span>
+            <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.6</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="n">text</span><span class="p">(</span>
+            <span class="p">(</span><span class="mf">36.0</span><span class="p">,</span> <span class="mf">10.1</span><span class="p">),</span>
+            <span class="s2">"Existing pages hit .drawlib/cache.db in &lt;1ms"</span><span class="p">,</span>
+            <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+        <span class="p">)</span>
+
+    <span class="n">line</span><span class="p">(</span>
+        <span class="p">(</span><span class="mf">68.4</span><span class="p">,</span> <span class="mf">36.75</span><span class="p">),</span>
+        <span class="p">(</span><span class="mf">71.6</span><span class="p">,</span> <span class="mf">36.75</span><span class="p">),</span>
+        <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="p">(</span>
+            <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">1.8</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">pulse_arrow</span>
+            <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">MutedThin</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">1.2</span><span class="p">)</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Right Pane: Directory Structure</span>
+    <span class="n">draw_pane_shell</span><span class="p">(</span><span class="mf">103.0</span><span class="p">,</span> <span class="mf">62.0</span><span class="p">)</span>
+    <span class="n">phosphor</span><span class="o">.</span><span class="n">folder_open</span><span class="p">((</span><span class="mf">76.6</span><span class="p">,</span> <span class="mf">66.25</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+    <span class="n">text</span><span class="p">(</span>
+        <span class="p">(</span><span class="mf">79.8</span><span class="p">,</span> <span class="mf">66.25</span><span class="p">),</span>
+        <span class="s2">"Directory Structure"</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.6</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">),</span>
+    <span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">committed</span><span class="p">:</span>
+        <span class="n">rectangle</span><span class="p">((</span><span class="mf">123.2</span><span class="p">,</span> <span class="mf">66.25</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">17.6</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">4.4</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">ROW_OUTPUT</span><span class="p">)</span>
+        <span class="n">devops</span><span class="o">.</span><span class="n">git</span><span class="p">((</span><span class="mf">116.8</span><span class="p">,</span> <span class="mf">66.25</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">2.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+        <span class="n">text</span><span class="p">(</span>
+            <span class="p">(</span><span class="mf">119.0</span><span class="p">,</span> <span class="mf">66.25</span><span class="p">),</span>
+            <span class="s2">"Committed"</span><span class="p">,</span>
+            <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">),</span>
+        <span class="p">)</span>
+
+    <span class="n">tree_rows</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">(</span><span class="s2">"root"</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">"folder_open"</span><span class="p">,</span> <span class="s2">"my_repo/"</span><span class="p">,</span> <span class="mf">59.50</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">"docs_src"</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">"folder_open"</span><span class="p">,</span> <span class="s2">"docs_src/"</span><span class="p">,</span> <span class="mf">55.50</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">"styles"</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">"py"</span><span class="p">,</span> <span class="s2">"styles.py"</span><span class="p">,</span> <span class="mf">51.50</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">"utils_assets"</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">"py"</span><span class="p">,</span> <span class="s2">"utils.py, _assets/"</span><span class="p">,</span> <span class="mf">47.50</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">"template"</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">"html"</span><span class="p">,</span> <span class="s2">"template.html, style.css"</span><span class="p">,</span> <span class="mf">43.50</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">"build_sh"</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">"sh"</span><span class="p">,</span> <span class="s2">"build.sh"</span><span class="p">,</span> <span class="mf">39.50</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">"index"</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">"md"</span><span class="p">,</span> <span class="s2">"index.md"</span><span class="p">,</span> <span class="mf">35.50</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">"navbar"</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">"md"</span><span class="p">,</span> <span class="s2">"navbar.md"</span><span class="p">,</span> <span class="mf">31.50</span><span class="p">),</span>
+    <span class="p">]</span>
+    <span class="k">if</span> <span class="n">show_pages</span><span class="p">:</span>
+        <span class="n">tree_rows</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span>
+            <span class="p">[</span>
+                <span class="p">(</span><span class="s2">"arch"</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">"md"</span><span class="p">,</span> <span class="s2">"guide/arch.md"</span><span class="p">,</span> <span class="mf">27.50</span><span class="p">),</span>
+                <span class="p">(</span><span class="s2">"ref"</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">"md"</span><span class="p">,</span> <span class="s2">"api/ref.md"</span><span class="p">,</span> <span class="mf">23.50</span><span class="p">),</span>
+            <span class="p">]</span>
+        <span class="p">)</span>
+    <span class="k">if</span> <span class="n">show_deploy</span><span class="p">:</span>
+        <span class="n">tree_rows</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="s2">"deploy"</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">"md"</span><span class="p">,</span> <span class="s2">"guide/deploy.md"</span><span class="p">,</span> <span class="mf">19.50</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">show_outputs</span><span class="p">:</span>
+        <span class="n">tree_rows</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span>
+            <span class="p">[</span>
+                <span class="p">(</span><span class="s2">"out_html"</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">"globe"</span><span class="p">,</span> <span class="s2">"docs_html/"</span><span class="p">,</span> <span class="mf">13.80</span><span class="p">),</span>
+                <span class="p">(</span><span class="s2">"out_md"</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">"folder_out"</span><span class="p">,</span> <span class="s2">"docs_markdown/"</span><span class="p">,</span> <span class="mf">9.50</span><span class="p">),</span>
+            <span class="p">]</span>
+        <span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">_lvl</span><span class="p">,</span> <span class="n">_ik</span><span class="p">,</span> <span class="n">_lbl</span><span class="p">,</span> <span class="n">ry</span> <span class="ow">in</span> <span class="n">tree_rows</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">row_states</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="n">rstate</span><span class="p">,</span> <span class="n">badge_txt</span> <span class="o">=</span> <span class="n">row_states</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">rstate</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">"new"</span><span class="p">,</span> <span class="s2">"active"</span><span class="p">}:</span>
+            <span class="n">rst</span> <span class="o">=</span> <span class="n">ROW_ACTIVE</span>
+            <span class="n">b_st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+            <span class="n">b_txt</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">rstate</span> <span class="o">==</span> <span class="s2">"cached"</span><span class="p">:</span>
+            <span class="n">rst</span> <span class="o">=</span> <span class="n">ROW_CACHED</span>
+            <span class="n">b_st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+            <span class="n">b_txt</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">rstate</span> <span class="o">==</span> <span class="s2">"output"</span><span class="p">:</span>
+            <span class="n">rst</span> <span class="o">=</span> <span class="n">ROW_OUTPUT</span>
+            <span class="n">b_st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+            <span class="n">b_txt</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">rst</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">b_st</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">b_txt</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="k">if</span> <span class="n">rst</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">rectangle</span><span class="p">((</span><span class="mf">103.1</span><span class="p">,</span> <span class="n">ry</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">57.8</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">3.45</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">rst</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">badge_txt</span> <span class="ow">and</span> <span class="n">b_st</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">b_txt</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">bw</span> <span class="o">=</span> <span class="mf">15.6</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">badge_txt</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">10</span> <span class="k">else</span> <span class="mf">12.8</span>
+            <span class="n">bcx</span> <span class="o">=</span> <span class="mf">131.3</span> <span class="o">-</span> <span class="n">bw</span> <span class="o">/</span> <span class="mf">2.0</span>
+            <span class="n">rectangle</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">bcx</span><span class="p">,</span> <span class="n">ry</span><span class="p">),</span>
+                <span class="n">width</span><span class="o">=</span><span class="n">bw</span><span class="p">,</span>
+                <span class="n">height</span><span class="o">=</span><span class="mf">3.0</span><span class="p">,</span>
+                <span class="n">style</span><span class="o">=</span><span class="n">b_st</span><span class="p">,</span>
+                <span class="n">text</span><span class="o">=</span><span class="n">badge_txt</span><span class="p">,</span>
+                <span class="n">text_style</span><span class="o">=</span><span class="n">b_txt</span><span class="p">,</span>
+            <span class="p">)</span>
+
+    <span class="n">guide_st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">MutedThin</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_color</span><span class="o">=</span><span class="p">(</span><span class="mi">180</span><span class="p">,</span> <span class="mi">194</span><span class="p">,</span> <span class="mi">212</span><span class="p">),</span> <span class="n">line_width</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+    <span class="n">last_lvl1_y</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">ry</span> <span class="k">for</span> <span class="n">_k</span><span class="p">,</span> <span class="n">lvl</span><span class="p">,</span> <span class="n">_ik</span><span class="p">,</span> <span class="n">_l</span><span class="p">,</span> <span class="n">ry</span> <span class="ow">in</span> <span class="n">tree_rows</span> <span class="k">if</span> <span class="n">lvl</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">last_lvl2_y</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">ry</span> <span class="k">for</span> <span class="n">_k</span><span class="p">,</span> <span class="n">lvl</span><span class="p">,</span> <span class="n">_ik</span><span class="p">,</span> <span class="n">_l</span><span class="p">,</span> <span class="n">ry</span> <span class="ow">in</span> <span class="n">tree_rows</span> <span class="k">if</span> <span class="n">lvl</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">line</span><span class="p">((</span><span class="mf">77.2</span><span class="p">,</span> <span class="mf">57.7</span><span class="p">),</span> <span class="p">(</span><span class="mf">77.2</span><span class="p">,</span> <span class="n">last_lvl1_y</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="n">guide_st</span><span class="p">)</span>
+    <span class="n">line</span><span class="p">((</span><span class="mf">81.6</span><span class="p">,</span> <span class="mf">53.7</span><span class="p">),</span> <span class="p">(</span><span class="mf">81.6</span><span class="p">,</span> <span class="n">last_lvl2_y</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="n">guide_st</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">lvl</span><span class="p">,</span> <span class="n">ik</span><span class="p">,</span> <span class="n">lbl</span><span class="p">,</span> <span class="n">ry</span> <span class="ow">in</span> <span class="n">tree_rows</span><span class="p">:</span>
+        <span class="n">rstate</span> <span class="o">=</span> <span class="n">row_states</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="p">(</span><span class="s2">"normal"</span><span class="p">,</span> <span class="s2">""</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">is_muted</span> <span class="o">=</span> <span class="n">rstate</span> <span class="o">==</span> <span class="s2">"muted"</span>
+
+        <span class="k">if</span> <span class="n">lvl</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">ix</span><span class="p">,</span> <span class="n">lx</span> <span class="o">=</span> <span class="mf">77.2</span><span class="p">,</span> <span class="mf">79.8</span>
+        <span class="k">elif</span> <span class="n">lvl</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">line</span><span class="p">((</span><span class="mf">77.2</span><span class="p">,</span> <span class="n">ry</span><span class="p">),</span> <span class="p">(</span><span class="mf">79.5</span><span class="p">,</span> <span class="n">ry</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="n">guide_st</span><span class="p">)</span>
+            <span class="n">ix</span><span class="p">,</span> <span class="n">lx</span> <span class="o">=</span> <span class="mf">81.6</span><span class="p">,</span> <span class="mf">84.2</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">line</span><span class="p">((</span><span class="mf">81.6</span><span class="p">,</span> <span class="n">ry</span><span class="p">),</span> <span class="p">(</span><span class="mf">83.9</span><span class="p">,</span> <span class="n">ry</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="n">guide_st</span><span class="p">)</span>
+            <span class="n">ix</span><span class="p">,</span> <span class="n">lx</span> <span class="o">=</span> <span class="mf">86.0</span><span class="p">,</span> <span class="mf">88.5</span>
+
+        <span class="n">draw_tree_icon</span><span class="p">(</span><span class="n">ik</span><span class="p">,</span> <span class="p">(</span><span class="n">ix</span><span class="p">,</span> <span class="n">ry</span><span class="p">),</span> <span class="n">muted</span><span class="o">=</span><span class="n">is_muted</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">rstate</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">"new"</span><span class="p">,</span> <span class="s2">"active"</span><span class="p">,</span> <span class="s2">"cached"</span><span class="p">}:</span>
+            <span class="n">t_st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.9</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">rstate</span> <span class="o">==</span> <span class="s2">"output"</span><span class="p">:</span>
+            <span class="n">t_st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.9</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">is_muted</span><span class="p">:</span>
+            <span class="n">t_st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.7</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">lvl</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">t_st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.9</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">t_st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.8</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">)</span>
+
+        <span class="n">text</span><span class="p">((</span><span class="n">lx</span><span class="p">,</span> <span class="n">ry</span><span class="p">),</span> <span class="n">lbl</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">t_st</span><span class="p">)</span>
+
+
+<span class="c1"># Phase 1: 1. Init &amp; Navbar (f0..f2)</span>
+<span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="mf">3.1</span><span class="p">):</span>
+    <span class="n">draw_workspace</span><span class="p">(</span>
+        <span class="n">active_part</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">actor</span><span class="o">=</span><span class="s2">"user"</span><span class="p">,</span>
+        <span class="n">actor_title</span><span class="o">=</span><span class="s2">"$ drawlib init site docs -s google"</span><span class="p">,</span>
+        <span class="n">actor_sub</span><span class="o">=</span><span class="s2">"Scaffold docs_src/ config, navbar &amp; scripts"</span><span class="p">,</span>
+        <span class="n">ops</span><span class="o">=</span><span class="p">[</span>
+            <span class="p">(</span><span class="s2">"user"</span><span class="p">,</span> <span class="s2">"$ drawlib init site docs -s google"</span><span class="p">,</span> <span class="s2">"active_user"</span><span class="p">),</span>
+        <span class="p">],</span>
+        <span class="n">show_day2_note</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">show_pages</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">show_deploy</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">show_outputs</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">row_states</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">"docs_src"</span><span class="p">:</span> <span class="p">(</span><span class="s2">"new"</span><span class="p">,</span> <span class="s2">"Created"</span><span class="p">),</span>
+            <span class="s2">"styles"</span><span class="p">:</span> <span class="p">(</span><span class="s2">"new"</span><span class="p">,</span> <span class="s2">"Created"</span><span class="p">),</span>
+            <span class="s2">"utils_assets"</span><span class="p">:</span> <span class="p">(</span><span class="s2">"new"</span><span class="p">,</span> <span class="s2">"Created"</span><span class="p">),</span>
+            <span class="s2">"template"</span><span class="p">:</span> <span class="p">(</span><span class="s2">"new"</span><span class="p">,</span> <span class="s2">"Created"</span><span class="p">),</span>
+            <span class="s2">"build_sh"</span><span class="p">:</span> <span class="p">(</span><span class="s2">"new"</span><span class="p">,</span> <span class="s2">"Created"</span><span class="p">),</span>
+            <span class="s2">"index"</span><span class="p">:</span> <span class="p">(</span><span class="s2">"new"</span><span class="p">,</span> <span class="s2">"Created"</span><span class="p">),</span>
+            <span class="s2">"navbar"</span><span class="p">:</span> <span class="p">(</span><span class="s2">"new"</span><span class="p">,</span> <span class="s2">"Created"</span><span class="p">),</span>
+        <span class="p">},</span>
+        <span class="n">committed</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">pulse_arrow</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span>
+
+<span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="mf">3.1</span><span class="p">):</span>
+    <span class="n">draw_workspace</span><span class="p">(</span>
+        <span class="n">active_part</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">actor</span><span class="o">=</span><span class="s2">"gemini"</span><span class="p">,</span>
+        <span class="n">actor_title</span><span class="o">=</span><span class="s2">"Gemini: Configure theme in styles.py"</span><span class="p">,</span>
+        <span class="n">actor_sub</span><span class="o">=</span><span class="s2">"Set Google brand palette, fonts &amp; helpers"</span><span class="p">,</span>
+        <span class="n">ops</span><span class="o">=</span><span class="p">[</span>
+            <span class="p">(</span><span class="s2">"user"</span><span class="p">,</span> <span class="s2">"$ drawlib init site docs -s google"</span><span class="p">,</span> <span class="s2">"done"</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">"gemini"</span><span class="p">,</span> <span class="s2">"Edit docs_src/styles.py, utils.py"</span><span class="p">,</span> <span class="s2">"active_gemini"</span><span class="p">),</span>
+        <span class="p">],</span>
+        <span class="n">show_day2_note</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">show_pages</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">show_deploy</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">show_outputs</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">row_states</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">"styles"</span><span class="p">:</span> <span class="p">(</span><span class="s2">"active"</span><span class="p">,</span> <span class="s2">"Updated"</span><span class="p">),</span>
+            <span class="s2">"utils_assets"</span><span class="p">:</span> <span class="p">(</span><span class="s2">"active"</span><span class="p">,</span> <span class="s2">"Updated"</span><span class="p">),</span>
+        <span class="p">},</span>
+        <span class="n">committed</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">pulse_arrow</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span>
+
+<span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="mf">3.3</span><span class="p">):</span>
+    <span class="n">draw_workspace</span><span class="p">(</span>
+        <span class="n">active_part</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">actor</span><span class="o">=</span><span class="s2">"gemini"</span><span class="p">,</span>
+        <span class="n">actor_title</span><span class="o">=</span><span class="s2">"Gemini: Organize sidebar in navbar.md"</span><span class="p">,</span>
+        <span class="n">actor_sub</span><span class="o">=</span><span class="s2">"Define category headings &amp; relative links"</span><span class="p">,</span>
+        <span class="n">ops</span><span class="o">=</span><span class="p">[</span>
+            <span class="p">(</span><span class="s2">"user"</span><span class="p">,</span> <span class="s2">"$ drawlib init site docs -s google"</span><span class="p">,</span> <span class="s2">"done"</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">"gemini"</span><span class="p">,</span> <span class="s2">"Edit docs_src/styles.py, utils.py"</span><span class="p">,</span> <span class="s2">"done"</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">"gemini"</span><span class="p">,</span> <span class="s2">"Edit docs_src/navbar.md (sidebar)"</span><span class="p">,</span> <span class="s2">"active_gemini"</span><span class="p">),</span>
+        <span class="p">],</span>
+        <span class="n">show_day2_note</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">show_pages</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">show_deploy</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">show_outputs</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">row_states</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">"navbar"</span><span class="p">:</span> <span class="p">(</span><span class="s2">"active"</span><span class="p">,</span> <span class="s2">"Updated"</span><span class="p">),</span>
+        <span class="p">},</span>
+        <span class="n">committed</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">pulse_arrow</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span>
+
+<span class="c1"># Phase 2: 2. Pages &amp; Grid (f3..f5)</span>
+<span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="mf">3.1</span><span class="p">):</span>
+    <span class="n">draw_workspace</span><span class="p">(</span>
+        <span class="n">active_part</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="n">actor</span><span class="o">=</span><span class="s2">"gemini"</span><span class="p">,</span>
+        <span class="n">actor_title</span><span class="o">=</span><span class="s2">"Gemini: Author guide/arch.md &amp; api/ref.md"</span><span class="p">,</span>
+        <span class="n">actor_sub</span><span class="o">=</span><span class="s2">"Write pages with Top Hero ```drawlib blocks"</span><span class="p">,</span>
+        <span class="n">ops</span><span class="o">=</span><span class="p">[</span>
+            <span class="p">(</span><span class="s2">"user"</span><span class="p">,</span> <span class="s2">"$ drawlib init site docs -s google"</span><span class="p">,</span> <span class="s2">"done"</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">"gemini"</span><span class="p">,</span> <span class="s2">"Configure styles.py &amp; navbar.md"</span><span class="p">,</span> <span class="s2">"done"</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">"gemini"</span><span class="p">,</span> <span class="s2">"Author guide/arch.md &amp; api/ref.md"</span><span class="p">,</span> <span class="s2">"active_gemini"</span><span class="p">),</span>
+        <span class="p">],</span>
+        <span class="n">show_day2_note</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">show_pages</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">show_deploy</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">show_outputs</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">row_states</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">"arch"</span><span class="p">:</span> <span class="p">(</span><span class="s2">"new"</span><span class="p">,</span> <span class="s2">"Created"</span><span class="p">),</span>
+            <span class="s2">"ref"</span><span class="p">:</span> <span class="p">(</span><span class="s2">"new"</span><span class="p">,</span> <span class="s2">"Created"</span><span class="p">),</span>
+        <span class="p">},</span>
+        <span class="n">committed</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">pulse_arrow</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span>
+
+<span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="mf">3.1</span><span class="p">):</span>
+    <span class="n">draw_workspace</span><span class="p">(</span>
+        <span class="n">active_part</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="n">actor</span><span class="o">=</span><span class="s2">"gemini"</span><span class="p">,</span>
+        <span class="n">actor_title</span><span class="o">=</span><span class="s2">"$ drawlib show .../arch.md hero.png -g"</span><span class="p">,</span>
+        <span class="n">actor_sub</span><span class="o">=</span><span class="s2">"Export -o .drawlib/scratch/grid.png preview"</span><span class="p">,</span>
+        <span class="n">ops</span><span class="o">=</span><span class="p">[</span>
+            <span class="p">(</span><span class="s2">"user"</span><span class="p">,</span> <span class="s2">"$ drawlib init site docs -s google"</span><span class="p">,</span> <span class="s2">"done"</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">"gemini"</span><span class="p">,</span> <span class="s2">"Configure styles.py &amp; navbar.md"</span><span class="p">,</span> <span class="s2">"done"</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">"gemini"</span><span class="p">,</span> <span class="s2">"Author guide/arch.md &amp; api/ref.md"</span><span class="p">,</span> <span class="s2">"done"</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">"gemini"</span><span class="p">,</span> <span class="s2">"$ drawlib show .../arch.md hero.png -g"</span><span class="p">,</span> <span class="s2">"active_gemini"</span><span class="p">),</span>
+        <span class="p">],</span>
+        <span class="n">show_day2_note</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">show_pages</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">show_deploy</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">show_outputs</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">row_states</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">"arch"</span><span class="p">:</span> <span class="p">(</span><span class="s2">"active"</span><span class="p">,</span> <span class="s2">"Grid -g"</span><span class="p">),</span>
+        <span class="p">},</span>
+        <span class="n">committed</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">pulse_arrow</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span>
+
+<span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="mf">3.3</span><span class="p">):</span>
+    <span class="n">draw_workspace</span><span class="p">(</span>
+        <span class="n">active_part</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="n">actor</span><span class="o">=</span><span class="s2">"gemini"</span><span class="p">,</span>
+        <span class="n">actor_title</span><span class="o">=</span><span class="s2">"Gemini: Layout &amp; 16px parity verified"</span><span class="p">,</span>
+        <span class="n">actor_sub</span><span class="o">=</span><span class="s2">"Zero clipping, clean margins &amp; legible text"</span><span class="p">,</span>
+        <span class="n">ops</span><span class="o">=</span><span class="p">[</span>
+            <span class="p">(</span><span class="s2">"user"</span><span class="p">,</span> <span class="s2">"$ drawlib init site docs -s google"</span><span class="p">,</span> <span class="s2">"done"</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">"gemini"</span><span class="p">,</span> <span class="s2">"Configure styles.py &amp; navbar.md"</span><span class="p">,</span> <span class="s2">"done"</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">"gemini"</span><span class="p">,</span> <span class="s2">"Author guide/arch.md &amp; api/ref.md"</span><span class="p">,</span> <span class="s2">"done"</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">"gemini"</span><span class="p">,</span> <span class="s2">"$ drawlib show .../arch.md hero.png -g"</span><span class="p">,</span> <span class="s2">"done"</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">"gemini"</span><span class="p">,</span> <span class="s2">"Confirm clean layout &amp; 16px parity"</span><span class="p">,</span> <span class="s2">"active_gemini"</span><span class="p">),</span>
+        <span class="p">],</span>
+        <span class="n">show_day2_note</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">show_pages</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">show_deploy</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">show_outputs</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">row_states</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">"index"</span><span class="p">:</span> <span class="p">(</span><span class="s2">"output"</span><span class="p">,</span> <span class="s2">"Verified"</span><span class="p">),</span>
+            <span class="s2">"arch"</span><span class="p">:</span> <span class="p">(</span><span class="s2">"output"</span><span class="p">,</span> <span class="s2">"Verified"</span><span class="p">),</span>
+            <span class="s2">"ref"</span><span class="p">:</span> <span class="p">(</span><span class="s2">"output"</span><span class="p">,</span> <span class="s2">"Verified"</span><span class="p">),</span>
+        <span class="p">},</span>
+        <span class="n">committed</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">pulse_arrow</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="p">)</span>
+
+<span class="c1"># Phase 3: 3. Build &amp; Check (f6..f8)</span>
+<span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="mf">3.1</span><span class="p">):</span>
+    <span class="n">draw_workspace</span><span class="p">(</span>
+        <span class="n">active_part</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+        <span class="n">actor</span><span class="o">=</span><span class="s2">"gemini"</span><span class="p">,</span>
+        <span class="n">actor_title</span><span class="o">=</span><span class="s2">"$ ./docs_src/build.sh"</span><span class="p">,</span>
+        <span class="n">actor_sub</span><span class="o">=</span><span class="s2">"Compile docs_html/, docs_markdown/ &amp; _assets/"</span><span class="p">,</span>
+        <span class="n">ops</span><span class="o">=</span><span class="p">[</span>
+            <span class="p">(</span><span class="s2">"user"</span><span class="p">,</span> <span class="s2">"$ drawlib init site docs -s google"</span><span class="p">,</span> <span class="s2">"done"</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">"gemini"</span><span class="p">,</span> <span class="s2">"Configure styles.py &amp; navbar.md"</span><span class="p">,</span> <span class="s2">"done"</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">"gemini"</span><span class="p">,</span> <span class="s2">"Author &amp; grid-verify site pages"</span><span class="p">,</span> <span class="s2">"done"</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">"gemini"</span><span class="p">,</span> <span class="s2">"$ ./docs_src/build.sh"</span><span class="p">,</span> <span class="s2">"active_gemini"</span><span class="p">),</span>
+        <span class="p">],</span>
+        <span class="n">show_day2_note</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">show_pages</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">show_deploy</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">show_outputs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">row_states</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">"build_sh"</span><span class="p">:</span> <span class="p">(</span><span class="s2">"active"</span><span class="p">,</span> <span class="s2">"Running"</span><span class="p">),</span>
+            <span class="s2">"utils_assets"</span><span class="p">:</span> <span class="p">(</span><span class="s2">"output"</span><span class="p">,</span> <span class="s2">"Synced"</span><span class="p">),</span>
+            <span class="s2">"out_html"</span><span class="p">:</span> <span class="p">(</span><span class="s2">"output"</span><span class="p">,</span> <span class="s2">"Output"</span><span class="p">),</span>
+            <span class="s2">"out_md"</span><span class="p">:</span> <span class="p">(</span><span class="s2">"output"</span><span class="p">,</span> <span class="s2">"Output"</span><span class="p">),</span>
+        <span class="p">},</span>
+        <span class="n">committed</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">pulse_arrow</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span>
+
+<span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="mf">3.1</span><span class="p">):</span>
+    <span class="n">draw_workspace</span><span class="p">(</span>
+        <span class="n">active_part</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+        <span class="n">actor</span><span class="o">=</span><span class="s2">"gemini"</span><span class="p">,</span>
+        <span class="n">actor_title</span><span class="o">=</span><span class="s2">"$ drawlib serve docs_html/ --check"</span><span class="p">,</span>
+        <span class="n">actor_sub</span><span class="o">=</span><span class="s2">"Headless audit verifies 0 broken links"</span><span class="p">,</span>
+        <span class="n">ops</span><span class="o">=</span><span class="p">[</span>
+            <span class="p">(</span><span class="s2">"user"</span><span class="p">,</span> <span class="s2">"$ drawlib init site docs -s google"</span><span class="p">,</span> <span class="s2">"done"</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">"gemini"</span><span class="p">,</span> <span class="s2">"Configure styles.py &amp; navbar.md"</span><span class="p">,</span> <span class="s2">"done"</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">"gemini"</span><span class="p">,</span> <span class="s2">"Author &amp; grid-verify site pages"</span><span class="p">,</span> <span class="s2">"done"</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">"gemini"</span><span class="p">,</span> <span class="s2">"$ ./docs_src/build.sh"</span><span class="p">,</span> <span class="s2">"done"</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">"gemini"</span><span class="p">,</span> <span class="s2">"$ drawlib serve docs_html/ --check"</span><span class="p">,</span> <span class="s2">"active_gemini"</span><span class="p">),</span>
+        <span class="p">],</span>
+        <span class="n">show_day2_note</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">show_pages</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">show_deploy</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">show_outputs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">row_states</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">"out_html"</span><span class="p">:</span> <span class="p">(</span><span class="s2">"output"</span><span class="p">,</span> <span class="s2">"0 Broken"</span><span class="p">),</span>
+            <span class="s2">"out_md"</span><span class="p">:</span> <span class="p">(</span><span class="s2">"output"</span><span class="p">,</span> <span class="s2">"Checked"</span><span class="p">),</span>
+        <span class="p">},</span>
+        <span class="n">committed</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">pulse_arrow</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span>
+
+<span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="mf">3.3</span><span class="p">):</span>
+    <span class="n">draw_workspace</span><span class="p">(</span>
+        <span class="n">active_part</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+        <span class="n">actor</span><span class="o">=</span><span class="s2">"user"</span><span class="p">,</span>
+        <span class="n">actor_title</span><span class="o">=</span><span class="s1">'User: $ git commit -m "Launch docs site"'</span><span class="p">,</span>
+        <span class="n">actor_sub</span><span class="o">=</span><span class="s2">"Source Markdown &amp; built portals versioned"</span><span class="p">,</span>
+        <span class="n">ops</span><span class="o">=</span><span class="p">[</span>
+            <span class="p">(</span><span class="s2">"user"</span><span class="p">,</span> <span class="s2">"$ drawlib init site docs -s google"</span><span class="p">,</span> <span class="s2">"done"</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">"gemini"</span><span class="p">,</span> <span class="s2">"Configure styles.py &amp; navbar.md"</span><span class="p">,</span> <span class="s2">"done"</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">"gemini"</span><span class="p">,</span> <span class="s2">"Author &amp; grid-verify site pages"</span><span class="p">,</span> <span class="s2">"done"</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">"gemini"</span><span class="p">,</span> <span class="s2">"$ ./docs_src/build.sh"</span><span class="p">,</span> <span class="s2">"done"</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">"gemini"</span><span class="p">,</span> <span class="s2">"$ drawlib serve docs_html/ --check"</span><span class="p">,</span> <span class="s2">"done"</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">"user_git"</span><span class="p">,</span> <span class="s1">'$ git add . &amp;&amp; git commit -m "Init site"'</span><span class="p">,</span> <span class="s2">"active_user"</span><span class="p">),</span>
+        <span class="p">],</span>
+        <span class="n">show_day2_note</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">show_pages</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">show_deploy</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">show_outputs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">row_states</span><span class="o">=</span><span class="p">{},</span>
+        <span class="n">committed</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">pulse_arrow</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="p">)</span>
+
+<span class="c1"># Phase 4: 4. Day-2 Add Page (f9..f11)</span>
+<span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="mf">3.1</span><span class="p">):</span>
+    <span class="n">draw_workspace</span><span class="p">(</span>
+        <span class="n">active_part</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+        <span class="n">actor</span><span class="o">=</span><span class="s2">"gemini"</span><span class="p">,</span>
+        <span class="n">actor_title</span><span class="o">=</span><span class="s1">'1 day later: Add guide/deploy.md'</span><span class="p">,</span>
+        <span class="n">actor_sub</span><span class="o">=</span><span class="s2">"Create new page &amp; register link in navbar.md"</span><span class="p">,</span>
+        <span class="n">ops</span><span class="o">=</span><span class="p">[</span>
+            <span class="p">(</span><span class="s2">"user"</span><span class="p">,</span> <span class="s1">'1 day later: "Add deployment guide"'</span><span class="p">,</span> <span class="s2">"done"</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">"gemini"</span><span class="p">,</span> <span class="s2">"Add guide/deploy.md &amp; link navbar.md"</span><span class="p">,</span> <span class="s2">"active_gemini"</span><span class="p">),</span>
+        <span class="p">],</span>
+        <span class="n">show_day2_note</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">show_pages</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">show_deploy</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">show_outputs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">row_states</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">"styles"</span><span class="p">:</span> <span class="p">(</span><span class="s2">"muted"</span><span class="p">,</span> <span class="s2">""</span><span class="p">),</span>
+            <span class="s2">"utils_assets"</span><span class="p">:</span> <span class="p">(</span><span class="s2">"muted"</span><span class="p">,</span> <span class="s2">""</span><span class="p">),</span>
+            <span class="s2">"template"</span><span class="p">:</span> <span class="p">(</span><span class="s2">"muted"</span><span class="p">,</span> <span class="s2">""</span><span class="p">),</span>
+            <span class="s2">"navbar"</span><span class="p">:</span> <span class="p">(</span><span class="s2">"active"</span><span class="p">,</span> <span class="s2">"Modified"</span><span class="p">),</span>
+            <span class="s2">"deploy"</span><span class="p">:</span> <span class="p">(</span><span class="s2">"new"</span><span class="p">,</span> <span class="s2">"Created"</span><span class="p">),</span>
+            <span class="s2">"out_html"</span><span class="p">:</span> <span class="p">(</span><span class="s2">"muted"</span><span class="p">,</span> <span class="s2">""</span><span class="p">),</span>
+            <span class="s2">"out_md"</span><span class="p">:</span> <span class="p">(</span><span class="s2">"muted"</span><span class="p">,</span> <span class="s2">""</span><span class="p">),</span>
+        <span class="p">},</span>
+        <span class="n">committed</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">pulse_arrow</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span>
+
+<span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="mf">3.1</span><span class="p">):</span>
+    <span class="n">draw_workspace</span><span class="p">(</span>
+        <span class="n">active_part</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+        <span class="n">actor</span><span class="o">=</span><span class="s2">"gemini"</span><span class="p">,</span>
+        <span class="n">actor_title</span><span class="o">=</span><span class="s2">"$ ./docs_src/build.sh (Incremental)"</span><span class="p">,</span>
+        <span class="n">actor_sub</span><span class="o">=</span><span class="s2">"Unchanged pages cached; render only deploy.md"</span><span class="p">,</span>
+        <span class="n">ops</span><span class="o">=</span><span class="p">[</span>
+            <span class="p">(</span><span class="s2">"user"</span><span class="p">,</span> <span class="s1">'1 day later: "Add deployment guide"'</span><span class="p">,</span> <span class="s2">"done"</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">"gemini"</span><span class="p">,</span> <span class="s2">"Add guide/deploy.md &amp; link navbar.md"</span><span class="p">,</span> <span class="s2">"done"</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">"gemini"</span><span class="p">,</span> <span class="s2">"$ ./docs_src/build.sh  (SQLite cache)"</span><span class="p">,</span> <span class="s2">"active_gemini"</span><span class="p">),</span>
+        <span class="p">],</span>
+        <span class="n">show_day2_note</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">show_pages</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">show_deploy</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">show_outputs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">row_states</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">"styles"</span><span class="p">:</span> <span class="p">(</span><span class="s2">"muted"</span><span class="p">,</span> <span class="s2">""</span><span class="p">),</span>
+            <span class="s2">"utils_assets"</span><span class="p">:</span> <span class="p">(</span><span class="s2">"muted"</span><span class="p">,</span> <span class="s2">""</span><span class="p">),</span>
+            <span class="s2">"template"</span><span class="p">:</span> <span class="p">(</span><span class="s2">"muted"</span><span class="p">,</span> <span class="s2">""</span><span class="p">),</span>
+            <span class="s2">"index"</span><span class="p">:</span> <span class="p">(</span><span class="s2">"cached"</span><span class="p">,</span> <span class="s2">"Cached &lt;1ms"</span><span class="p">),</span>
+            <span class="s2">"arch"</span><span class="p">:</span> <span class="p">(</span><span class="s2">"cached"</span><span class="p">,</span> <span class="s2">"Cached &lt;1ms"</span><span class="p">),</span>
+            <span class="s2">"ref"</span><span class="p">:</span> <span class="p">(</span><span class="s2">"cached"</span><span class="p">,</span> <span class="s2">"Cached &lt;1ms"</span><span class="p">),</span>
+            <span class="s2">"deploy"</span><span class="p">:</span> <span class="p">(</span><span class="s2">"output"</span><span class="p">,</span> <span class="s2">"Output"</span><span class="p">),</span>
+            <span class="s2">"out_html"</span><span class="p">:</span> <span class="p">(</span><span class="s2">"output"</span><span class="p">,</span> <span class="s2">"Output"</span><span class="p">),</span>
+            <span class="s2">"out_md"</span><span class="p">:</span> <span class="p">(</span><span class="s2">"output"</span><span class="p">,</span> <span class="s2">"Output"</span><span class="p">),</span>
+        <span class="p">},</span>
+        <span class="n">committed</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">pulse_arrow</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span>
+
+<span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="mf">3.3</span><span class="p">):</span>
+    <span class="n">draw_workspace</span><span class="p">(</span>
+        <span class="n">active_part</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+        <span class="n">actor</span><span class="o">=</span><span class="s2">"user"</span><span class="p">,</span>
+        <span class="n">actor_title</span><span class="o">=</span><span class="s2">"Re-audit (--check) &amp; git commit"</span><span class="p">,</span>
+        <span class="n">actor_sub</span><span class="o">=</span><span class="s2">"0 broken links — updated site committed"</span><span class="p">,</span>
+        <span class="n">ops</span><span class="o">=</span><span class="p">[</span>
+            <span class="p">(</span><span class="s2">"user"</span><span class="p">,</span> <span class="s1">'1 day later: "Add deployment guide"'</span><span class="p">,</span> <span class="s2">"done"</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">"gemini"</span><span class="p">,</span> <span class="s2">"Add guide/deploy.md &amp; link navbar.md"</span><span class="p">,</span> <span class="s2">"done"</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">"gemini"</span><span class="p">,</span> <span class="s2">"$ ./docs_src/build.sh  (SQLite cache)"</span><span class="p">,</span> <span class="s2">"done"</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">"gemini"</span><span class="p">,</span> <span class="s2">"$ drawlib serve docs_html/ --check"</span><span class="p">,</span> <span class="s2">"done"</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">"user_git"</span><span class="p">,</span> <span class="s1">'$ git commit -m "Add deploy guide"'</span><span class="p">,</span> <span class="s2">"active_user"</span><span class="p">),</span>
+        <span class="p">],</span>
+        <span class="n">show_day2_note</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">show_pages</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">show_deploy</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">show_outputs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">row_states</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">"out_html"</span><span class="p">:</span> <span class="p">(</span><span class="s2">"output"</span><span class="p">,</span> <span class="s2">"0 Broken"</span><span class="p">),</span>
+            <span class="s2">"out_md"</span><span class="p">:</span> <span class="p">(</span><span class="s2">"output"</span><span class="p">,</span> <span class="s2">"Checked"</span><span class="p">),</span>
+        <span class="p">},</span>
+        <span class="n">committed</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">pulse_arrow</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<hr />
+<h2>2. プロジェクトの初期化</h2>
+<p><code>drawlib init</code> を使用してドキュメントサイトをスキャフォールディングします。</p>
+<pre><code class="language-bash"><span class="c1"># Scaffold default 'docs_src/' in the current directory:</span>
+drawlib<span class="w"> </span>init<span class="w"> </span>site
+
+<span class="c1"># Or specify a custom target prefix (creates 'my_docs_src/', 'my_docs_html/', etc.):</span>
+drawlib<span class="w"> </span>init<span class="w"> </span>site<span class="w"> </span>my_docs<span class="w"> </span>--style<span class="w"> </span>google<span class="w"> </span>--lang<span class="w"> </span>en
+</code></pre>
+<hr />
+<h2>3. ディレクトリ構成とアーキテクチャ</h2>
+<p><code>site</code> プロジェクトでは、編集対象のソースファイル（<code>docs_src/</code>）と生成される公開用成果物を厳密に分離します。</p>
+<ul>
+<li><strong><code>docs_src/</code>（信頼できる唯一の情報源）</strong>:
+<ul>
+<li><strong><code>index.md</code></strong>: ルートエントリドキュメント（<code>index.html</code>）としてレンダリングされるサイトのランディングページです。</li>
+<li><strong><code>navbar.md</code></strong>: ブランドタイトル、折りたたみ可能なセクション、およびページリンクを宣言的に定義するサイドバーナビゲーションマニフェストです。</li>
+<li><strong>ネストされたセクションサブフォルダ (<code>guide/</code>, <code>api/</code>, <code>01_architecture/</code> など)</strong>: <code>```drawlib</code> 図解ブロックを埋め込んだ階層構造の Markdown ページ群です。</li>
+<li><strong><code>_assets/</code></strong>: 出力ポータルへ再帰的にミラーリングされる静的メディアファイル（ロゴ、スクリーンショット、データファイルなど）です。</li>
+<li><strong><code>styles.py</code> &amp; <code>utils.py</code></strong>: プロジェクト全体のテーマパレット、言語ごとのタイポグラフィ既定値、および共有の Python 描画ヘルパーです。</li>
+<li><strong><code>template.html</code> &amp; <code>style.css</code></strong>: レスポンシブな 2 カラム HTML レイアウトシェルと 3 層構造の CSS スタイルシートです。</li>
+<li><strong><code>build.sh</code>, <code>build_html.sh</code>, <code>build_markdown.sh</code>, <code>build_image.sh</code>, <code>serve.sh</code></strong>: モジュール化されたビルドスクリプトおよびローカルプレビュー用スクリプトです。</li>
+</ul>
+</li>
+<li><strong>生成される出力先（直接編集しないでください）</strong>:
+<ul>
+<li><strong><code>docs_html/</code></strong>: Web ホスティングや <code>drawlib serve</code> にそのまま利用できるレスポンシブな静的 HTML ドキュメントポータルです。</li>
+<li><strong><code>docs_markdown/</code></strong>: コンパイル済みの PNG / WebP 図表リンクを備えた GitHub 向けの Markdown ポータルです。</li>
+<li><strong><code>docs_images/</code></strong>: <code>build_image.sh</code> 実行時に単体ファイルとして抽出される図解画像群です。</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h2>4. サイドバーナビゲーション (<code>navbar.md</code>)</h2>
+<p>サイドバーのナビゲーション構造は、すべて <code>docs_src/navbar.md</code> によって制御されます。</p>
+<pre><code class="language-markdown"><span class="gh"># Drawlib Documentation</span>
+
+<span class="k">-</span><span class="w"> </span>[<span class="nt">Home</span>](<span class="na">index.md</span>)
+
+<span class="gu">## Core Infrastructure</span>
+<span class="k">-</span><span class="w"> </span>[<span class="nt">VPC Architecture</span>](<span class="na">01_architecture/vpc.md</span>)
+<span class="k">-</span><span class="w"> </span>[<span class="nt">Storage Tier</span>](<span class="na">01_architecture/storage.md</span>)
+
+<span class="gu">## Microservices</span>
+<span class="k">-</span><span class="w"> </span>[<span class="nt">Authentication Gateway</span>](<span class="na">02_services/auth.md</span>)
+<span class="k">-</span><span class="w"> </span>[<span class="nt">Payment Service</span>](<span class="na">02_services/payments.md</span>)
+
+<span class="gu">## External Resources</span>
+<span class="k">-</span><span class="w"> </span>[<span class="nt">GitHub Repository</span>](<span class="na">https://github.com/example/repo</span>)
+</code></pre>
+<h3>記述ルール:</h3>
+<ol>
+<li><strong>ブランドヘッダー (<code># Title</code>)</strong>: トップレベルの <code># 見出し 1</code> がサイドバーヘッダーのブランドタイトルを設定します。</li>
+<li><strong>カテゴリグループ (<code>## Category</code>)</strong>: 各 <code>## 見出し 2</code> が折りたたみ可能なナビゲーションカテゴリセクションを定義します。</li>
+<li><strong>内部ドキュメントリンク</strong>: 相対パスは <code>docs_src/</code> 内に実在する Markdown ファイルを指している必要があります。</li>
+<li><strong>外部リンク</strong>: <code>http://</code> または <code>https://</code> で始まる URL は、外部リンクアイコン付きで自動的に新しいタブ（<code>target=&quot;_blank&quot;</code>）で開きます。</li>
+<li><strong>ビルド時の厳格な検証</strong>: リンク先のドキュメントが存在しない場合、ビルドは即座に中断され、該当ファイルと行番号を示すエラーが出力されます。</li>
+<li><strong>アクティブページの自動追跡</strong>: 現在閲覧中のページは動的な相対パス解決によって自動的にハイライト表示（<code>.nav-item.active</code>）されます。</li>
+</ol>
+<hr />
+<h2>5. 静的アセットの同期</h2>
+<p><code>docs_src/</code> 内に配置された静的アセット（カスタムロゴ、サンプルデータファイル、<code>_assets/</code> 内の画像など）は、フォルダ階層を維持したまま <code>docs_html/</code> および <code>docs/</code> へ再帰的にミラーリングされます。</p>
+<hr />
+<h2>6. ビルドとローカルプレビュー</h2>
+<h3>サイトのコンパイル</h3>
+<pre><code class="language-bash">./docs_src/build_html.sh<span class="w">       </span><span class="c1"># Compile HTML site (docs_html/)</span>
+./docs_src/build_markdown.sh<span class="w">   </span><span class="c1"># Compile Markdown site (docs_markdown/ or docs/)</span>
+./docs_src/build_image.sh<span class="w">      </span><span class="c1"># Extract standalone images (docs_images/)</span>
+./docs_src/build.sh<span class="w">            </span><span class="c1"># Run all builds sequentially</span>
+</code></pre>
+<h3>ローカルプレビューサーバーとリンク監査</h3>
+<p>ローカル開発サーバーを起動してページをプレビューします。</p>
+<pre><code class="language-bash">uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>serve<span class="w"> </span>docs_html/
+</code></pre>
+<p>本番環境へデプロイする前に、ヘッドレスの事前リンク監査を実行します。</p>
+<pre><code class="language-bash">uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>serve<span class="w"> </span>docs_html/<span class="w"> </span>--check
+</code></pre>
+<hr />
+<h2>7. マルチエージェントによる並列サイト執筆</h2>
+<p>マルチページ構成の <code>site</code> プロジェクト（<code>docs_src/**/*.md</code>）は、並列 AI サブエージェントによる分担作業に自然にスケールします。</p>
+<ol>
+<li><strong>フェーズ 1（親エージェントによる初期設定）</strong>: サブエージェントを起動する前に、<code>docs_src/</code> をスキャフォールディング（<code>drawlib init site</code>）し、共有ファイル（<code>styles.py</code>、<code>utils.py</code>、<code>_assets/</code>、<code>index.md</code>、および完全な <code>navbar.md</code> サイドバーツリー）を確定させます。</li>
+<li><strong>フェーズ 2（サブエージェントによる並列執筆）</strong>: 各サブエージェントに重複しないページまたはセクションディレクトリ（例: <code>01_architecture/*.md</code> と <code>02_services/*.md</code>）を割り当てます。各サブエージェントは <code>styles.py</code>、<code>utils.py</code>、<code>navbar.md</code> を読み取り専用として扱い、担当ページを執筆して一意なスクラッチファイル名（<code>-o .drawlib/scratch/&lt;page&gt;_&lt;block&gt;_grid.png</code>）で <code>-g</code> グリッドプレビューを実行します。</li>
+<li><strong>フェーズ 3（統合ビルドとリンク監査）</strong>: すべてのサブエージェントが完了したら、親エージェントが <code>./docs_src/build.sh</code> を 1 回実行し、<code>uv run drawlib serve docs_html/ --check</code> でサイト全体のリンク整合性を検証します。</li>
+</ol>
+
+            </main>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Theme toggle
+            const themeBtn = document.getElementById('theme-toggle');
+            if (themeBtn) {
+                themeBtn.addEventListener('click', function() {
+                    const current = document.documentElement.getAttribute('data-theme');
+                    const next = current === 'dark' ? 'light' : 'dark';
+                    document.documentElement.setAttribute('data-theme', next);
+                    localStorage.setItem('drawlib-theme', next);
+                });
+            }
+
+            // Language dropdown outside-click & Escape close
+            const langDropdowns = document.querySelectorAll('.lang-dropdown');
+            if (langDropdowns.length > 0) {
+                document.addEventListener('click', function(e) {
+                    langDropdowns.forEach(function(dd) {
+                        if (dd.hasAttribute('open') && !dd.contains(e.target)) {
+                            dd.removeAttribute('open');
+                        }
+                    });
+                });
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape') {
+                        langDropdowns.forEach(function(dd) {
+                            dd.removeAttribute('open');
+                        });
+                    }
+                });
+            }
+
+            // Mobile menu toggle
+            const menuBtn = document.getElementById('menu-toggle');
+            const sidebar = document.querySelector('.sidebar');
+            if (menuBtn && sidebar) {
+                function setMenuOpen(open) {
+                    sidebar.classList.toggle('is-open', open);
+                    menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+                    document.body.classList.toggle('menu-open', open);
+                    if (open) {
+                        const menu = sidebar.querySelector('.sidebar-menu');
+                        if (menu) {
+                            menu.scrollTop = 0;
+                        }
+                    }
+                }
+
+                menuBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const willOpen = !sidebar.classList.contains('is-open');
+                    setMenuOpen(willOpen);
+                });
+
+                // Close menu when clicking outside sidebar
+                document.addEventListener('click', function(e) {
+                    if (sidebar.classList.contains('is-open') && !sidebar.contains(e.target)) {
+                        setMenuOpen(false);
+                    }
+                });
+
+                // Close menu when a navigation link is clicked
+                const navLinks = sidebar.querySelectorAll('.nav-item a');
+                navLinks.forEach(function(link) {
+                    link.addEventListener('click', function() {
+                        setMenuOpen(false);
+                    });
+                });
+
+                // Close on Escape key
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape' && sidebar.classList.contains('is-open')) {
+                        setMenuOpen(false);
+                    }
+                });
+
+                // Reset menu state when resized above mobile breakpoint
+                window.addEventListener('resize', function() {
+                    if (window.innerWidth > 768 && sidebar.classList.contains('is-open')) {
+                        setMenuOpen(false);
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1181 @@
+<!--
+ Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+
+ This software is licensed under the Apache License, Version 2.0.
+ For more information, please visit: https://github.com/yuichi110/drawlib
+
+ This software is provided "as is", without warranty of any kind,
+ express or implied, including but not limited to the warranties of
+ merchantability, fitness for a particular purpose and noninfringement.
+-->
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI・機械学習アイコン</title>
+    <script>
+        (function() {
+            const saved = localStorage.getItem('drawlib-theme');
+            if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    
+    
+    <link rel="alternate" hreflang="en" href="../../en/03_icons/ai.html">
+    
+    <link rel="alternate" hreflang="ja" href="ai.html">
+    
+    <link rel="alternate" hreflang="x-default" href="../../en/03_icons/ai.html">
+    
+    
+    
+    <link rel="icon" type="image/png" href="../../_assets/favicon.png">
+    
+    
+    <link rel="stylesheet" href="../style.css">
+    
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-brand" aria-label="Drawlib ドキュメント">
+                    
+                    <img src="../../_assets/logo.png" alt="Drawlib ドキュメント" class="sidebar-logo sidebar-logo-light">
+                    <img src="../../_assets/logo_dark.png" alt="Drawlib ドキュメント" class="sidebar-logo sidebar-logo-dark">
+                    
+                </a>
+                <div class="sidebar-header-actions">
+                    <button type="button" id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle theme">
+                        <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                        <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                    </button>
+                    <button type="button" id="menu-toggle" class="menu-toggle-btn" aria-label="Toggle navigation" aria-expanded="false">
+                        <svg class="icon-hamburger" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                        <svg class="icon-close" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                    </button>
+                </div>
+            </div>
+            <div class="sidebar-subbar">
+                
+                <a href="../01_getting_started/release_notes.html" class="sidebar-version-badge" title="View Release Notes">
+                    <span class="sidebar-version-dot" aria-hidden="true"></span>
+                    <span class="sidebar-version-text">v0.3.2</span>
+                </a>
+                <a href="https://github.com/yuichi110/drawlib" target="_blank" rel="noopener noreferrer" class="sidebar-github-link" aria-label="GitHub Repository" title="GitHub Repository">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+                </a>
+            </div>
+            <div class="sidebar-menu">
+                
+                    
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../index.html" >ようこそ</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">1. はじめに</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/overview.html" >Drawlib とは</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/installation.html" >インストールガイド</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/quick_start.html" >クイックスタートガイド</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/core_concepts.html" >基本ビジュアル概念</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/project_quicklook.html" >プロジェクト構成とビルド</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/agent_quicklook.html" >AI 駆動ワークフローとエージェント設定</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/release_notes.html" >リリースノートと移行ガイド</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">2. 描画プリミティブとスタイル</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/canvas.html" >キャンバスと座標系</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_overview.html" >図形プリミティブ概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_basic.html" >基本図形・放射状図形</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_polygon.html" >多角形とカスタムパス</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_arrow.html" >ブロック矢印・シェブロン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_container.html" >3D コンテナ・フロー・グルーピング</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_badge.html" >吹き出し・バッジ・ステータス</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_symbol.html" >フェイス・時計・記号・演算子</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/lines.html" >線とコネクタ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/text.html" >テキストとタイポグラフィ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/fonts.html" >フォントと多言語カタログ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/font_file.html" >カスタムフォントファイル (FontFile)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/images.html" >画像と Dimage</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/styles.html" >スタイルとテーマ設定</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/colors.html" >カラーパレットと色モデル</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/style_guide.html" >図解デザインとスタイルガイド</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">3. アイコンとブランドスイート</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="overview.html" >アイコン概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="phosphor.html" >Phosphor ベクターアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="gcp.html" >Google Cloud (GCP) アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="aws.html" >Amazon Web Services (AWS) アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="azure.html" >Microsoft Azure アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="cloud.html" >クラウド・オリジナルクラウドアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="cnative.html" >クラウドネイティブ (K8s) アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="devops.html" >DevOps・オブザーバビリティアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="network.html" >ネットワーク・Cisco トポロジアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="server.html" >サーバー・OS・仮想化アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="security.html" >セキュリティ・ゼロトラストアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="facility.html" >データセンター・ファシリティアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item active">
+                                <a href="ai.html" >AI・機械学習アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="data.html" >データ・データベースアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="code.html" >コード・言語・フレームワークアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="business.html" >エンタープライズ・FinTech アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="itservice.html" >IT サービス・コンサルティングアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="workspace.html" >ワークスペース・コラボレーションアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="social.html" >ソーシャル・メディア・コミュニティアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="client.html" >クライアント端末・エンドポイントアイコン</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">4. SmartArts（スマートアート）</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/overview.html" >SmartArts 概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/chevron_process.html" >ChevronProcess（シェブロン工程図）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/cycle.html" >Cycle（サイクル図）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/table.html" >Table（テーブル）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/tree.html" >Tree（ツリー図）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/mindmap.html" >MindMap（マインドマップ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/grid_layout.html" >GridLayout（グリッドレイアウト）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/pyramid.html" >Pyramid（ピラミッド図）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/box_list.html" >BoxList（ボックスリスト）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/kpi_cards.html" >KpiCards（KPI カード）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/card_list.html" >CardList（カードリスト）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/roadmap.html" >Roadmap（ロードマップ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/panel.html" >Panel（パネル）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/calendar.html" >Calendar（カレンダー）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/bullet_points.html" >BulletPoints（箇条書きボード）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/source_code.html" >SourceCode（ソースコードカード）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/geomap.html" >GeoMap（地理マップ）</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">5. Charts（定量チャート）</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/overview.html" >Charts 概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/axes_and_legends.html" >軸・スケール・凡例</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/bar.html" >Bar Chart（棒グラフ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/line.html" >Line Chart（折れ線グラフ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/area.html" >Area Chart（面グラフ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/pie.html" >Pie & Donut Chart（円・ドーナツグラフ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/radar.html" >Radar Chart（レーダーチャート）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/scatter.html" >Scatter Chart（散布図）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/gantt.html" >Gantt Chart（ガントチャート）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/heatmap.html" >Heatmap & Thermal Overlay（ヒートマップ）</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">6. テクニカルダイアグラム</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/overview.html" >ダイアグラム概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/architecture.html" >アーキテクチャ図</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/flow.html" >フロー図</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/sequence.html" >シーケンス図</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/class_diagram.html" >UML クラス図</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/er.html" >ER 図</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/state_diagram.html" >ステートマシン図</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">7. 自動レイアウトグラフ</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/overview.html" >グラフエンジン概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/architecture_graph.html" >ArchitectureGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/layer_graph.html" >LayerGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/tree_graph.html" >TreeGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/radial_graph.html" >RadialGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/grid_graph.html" >GridGraph</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">8. アニメーション</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/overview.html" >アニメーション概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/primitives.html" >プリミティブと色のアニメーション</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/smartarts.html" >SmartArts のアニメーション</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/charts.html" >Charts のアニメーション</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/diagrams.html" >ダイアグラムのアニメーション</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/graphs.html" >グラフのアニメーション</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">9. ドキュメントビルダと CLI</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/overview.html" >コードとしての図解ドキュメント概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/code_blocks.html" >Markdown コードブロック構文</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/cli_reference.html" >CLI リファレンス</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/project_doc.html" >リニアドキュメントプロジェクト (`doc`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/project_site.html" >ドキュメントサイトプロジェクト (`site`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/project_slide.html" >スライドデッキプロジェクト (`slide`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/slide_layout_and_api.html" >スライドステージレイアウトと API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/project_image.html" >画像プロジェクト (`images`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/customization.html" >テンプレートと CSS カスタマイズ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/caching_and_cicd.html" >キャッシュ機構と CI/CD</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">10. AI エージェントと高度な統合</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/ai_agent_instructions.html" >AI エージェント指示とルール体系</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/multimodal_feedback_loop.html" >自律検証フィードバックループ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/programmatic_api.html" >プログラマティック API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/math_and_layout.html" >アルゴリズムレイアウトと幾何計算</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/debugging.html" >トラブルシューティングとデバッグ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/case_study_brand_assets.html" >事例紹介: 公式ブランドアセットの設計</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/case_study_documentation_site.html" >事例紹介: AI エージェントによるドキュメントサイト構築</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/case_study_software_architecture.html" >事例紹介: コードとしてのソフトウェアアーキテクチャ設計書</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/case_study_technical_slides.html" >事例紹介: 技術プレゼンテーションスライドの作成</a>
+                            </li>
+                            
+                        </ul>
+                    
+                
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">AI・機械学習アイコン</span>
+                </div>
+                
+                <div class="lang-switcher">
+                    <details class="lang-dropdown">
+                        <summary class="lang-dropdown-btn" aria-label="Select language">
+                            <svg class="lang-globe-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                            <span class="lang-current-label">日本語</span>
+                            <svg class="lang-caret-icon" viewBox="0 0 24 24" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </summary>
+                        <div class="lang-dropdown-menu" role="menu">
+                            
+                            <a href="../../en/03_icons/ai.html" class="lang-option" lang="en" hreflang="en" >
+                                <span>English</span>
+                                
+                            </a>
+                            
+                            <a href="ai.html" class="lang-option active" lang="ja" hreflang="ja" aria-current="page">
+                                <span>日本語</span>
+                                
+                                <svg class="lang-check-icon" viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                
+                            </a>
+                            
+                        </div>
+                    </details>
+                </div>
+                
+            </header>
+            <main class="main-content">
+                <h1>AI・機械学習アイコン</h1>
+<p>Drawlib は、<code>drawlib.icons.ai</code>（<code>AiIcon</code>）に <strong>60 種の公式 AI・機械学習ブランドアイコン</strong>を、<code>drawlib.icons.original_ai</code>（<code>OriginalAiIcon</code>）に <strong>80 種のフラット 2D パステルアイコン</strong>（<strong>60 種のブランドツイン</strong>＋<strong>20 種のベンダー中立 AI/LLM/エージェントコンセプトアイコン</strong>）を提供しています。ティア間の使い分け指針については<a href="./overview.html">アイコン概要</a>を、トポロジ図への組み込みについては<a href="../06_diagrams/architecture.html">アーキテクチャ図</a>を参照してください。</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="../../images/03_icons/ai/icons_ai_hero.png" alt="ai_1" />
+  <figcaption class="drawlib-caption">公式ブランドアイコン (ai)、オリジナル 2D パステルブランド (original_ai)、オリジナル 2D パステルコンセプト (original_ai) の比較</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">ai</span><span class="p">,</span> <span class="n">original_ai</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">144</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">70</span><span class="p">)</span>
+
+<span class="n">columns</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span>
+        <span class="mf">26.0</span><span class="p">,</span>
+        <span class="s2">"1. Official AI Brands"</span><span class="p">,</span>
+        <span class="s2">"drawlib.icons.ai (60)"</span><span class="p">,</span>
+        <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+        <span class="p">[</span>
+            <span class="p">(</span><span class="s2">"openai"</span><span class="p">,</span> <span class="n">ai</span><span class="o">.</span><span class="n">openai</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">"claude"</span><span class="p">,</span> <span class="n">ai</span><span class="o">.</span><span class="n">claude</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">"gemini"</span><span class="p">,</span> <span class="n">ai</span><span class="o">.</span><span class="n">gemini</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">"pytorch"</span><span class="p">,</span> <span class="n">ai</span><span class="o">.</span><span class="n">pytorch</span><span class="p">),</span>
+        <span class="p">],</span>
+    <span class="p">),</span>
+    <span class="p">(</span>
+        <span class="mf">72.0</span><span class="p">,</span>
+        <span class="s2">"2. 2D Pastel Brands"</span><span class="p">,</span>
+        <span class="s2">"original_ai Twins (60)"</span><span class="p">,</span>
+        <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
+        <span class="p">[</span>
+            <span class="p">(</span><span class="s2">"openai"</span><span class="p">,</span> <span class="n">original_ai</span><span class="o">.</span><span class="n">openai</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">"claude"</span><span class="p">,</span> <span class="n">original_ai</span><span class="o">.</span><span class="n">claude</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">"gemini"</span><span class="p">,</span> <span class="n">original_ai</span><span class="o">.</span><span class="n">gemini</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">"pytorch"</span><span class="p">,</span> <span class="n">original_ai</span><span class="o">.</span><span class="n">pytorch</span><span class="p">),</span>
+        <span class="p">],</span>
+    <span class="p">),</span>
+    <span class="p">(</span>
+        <span class="mf">118.0</span><span class="p">,</span>
+        <span class="s2">"3. 2D Pastel Concepts"</span><span class="p">,</span>
+        <span class="s2">"original_ai Exclusive (20)"</span><span class="p">,</span>
+        <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
+        <span class="p">[</span>
+            <span class="p">(</span><span class="s2">"ai_agent"</span><span class="p">,</span> <span class="n">original_ai</span><span class="o">.</span><span class="n">ai_agent</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">"llm_model"</span><span class="p">,</span> <span class="n">original_ai</span><span class="o">.</span><span class="n">llm_model</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">"rag_KB"</span><span class="p">,</span> <span class="n">original_ai</span><span class="o">.</span><span class="n">rag_knowledge_base</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">"guardrail"</span><span class="p">,</span> <span class="n">original_ai</span><span class="o">.</span><span class="n">prompt_guardrail</span><span class="p">),</span>
+        <span class="p">],</span>
+    <span class="p">),</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">cx</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">subtitle</span><span class="p">,</span> <span class="n">card_style</span><span class="p">,</span> <span class="n">icons_list</span> <span class="ow">in</span> <span class="n">columns</span><span class="p">:</span>
+    <span class="n">rectangle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mf">35.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">42.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">62.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">card_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.5</span><span class="p">))</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mf">60.0</span><span class="p">),</span> <span class="n">title</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">))</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mf">54.8</span><span class="p">),</span> <span class="n">subtitle</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+
+    <span class="n">offsets</span> <span class="o">=</span> <span class="p">[(</span><span class="o">-</span><span class="mf">9.8</span><span class="p">,</span> <span class="mf">41.5</span><span class="p">),</span> <span class="p">(</span><span class="mf">9.8</span><span class="p">,</span> <span class="mf">41.5</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mf">9.8</span><span class="p">,</span> <span class="mf">20.5</span><span class="p">),</span> <span class="p">(</span><span class="mf">9.8</span><span class="p">,</span> <span class="mf">20.5</span><span class="p">)]</span>
+    <span class="n">sub_card_style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">line_width</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">dx</span><span class="p">,</span> <span class="n">iy</span><span class="p">),</span> <span class="p">(</span><span class="n">lbl</span><span class="p">,</span> <span class="n">fn</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">offsets</span><span class="p">,</span> <span class="n">icons_list</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="n">ix</span> <span class="o">=</span> <span class="n">cx</span> <span class="o">+</span> <span class="n">dx</span>
+        <span class="n">rectangle</span><span class="p">((</span><span class="n">ix</span><span class="p">,</span> <span class="n">iy</span> <span class="o">-</span> <span class="mf">1.8</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">17.6</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">17.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">sub_card_style</span><span class="p">)</span>
+        <span class="n">fn</span><span class="p">((</span><span class="n">ix</span><span class="p">,</span> <span class="n">iy</span> <span class="o">+</span> <span class="mf">1.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">7.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">)</span>
+        <span class="n">text</span><span class="p">((</span><span class="n">ix</span><span class="p">,</span> <span class="n">iy</span> <span class="o">-</span> <span class="mf">6.6</span><span class="p">),</span> <span class="n">lbl</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<hr />
+<h2>1. API シグネチャとツインモジュール構成</h2>
+<p>AI アイコンスイートは、1 対 1 の正規命名規則を共有するツインモジュールペアとして構成されています。</p>
+<ul>
+<li><strong><code>drawlib.icons.ai</code></strong>（<code>AiIcon</code> Enum）: 基盤モデル、推論サーバー、エージェントフレームワーク、MLOps プラットフォームを対象とした <strong>60 種の公式ベンダーおよび OSS ブランドアイコン</strong>（<code>512×512</code> RGBA PNG）。</li>
+<li><strong><code>drawlib.icons.original_ai</code></strong>（<code>OriginalAiIcon</code> Enum）: 全 <strong>60 種の対応するブランドツイン</strong>に加え、<strong>20 種のベンダー中立 AI/LLM/エージェントコンセプトアイコン</strong>（<code>ai_agent</code>、<code>llm_model</code>、<code>rag_knowledge_base</code>、<code>embedding_vector</code>、<code>prompt_guardrail</code> など）を含む合計 <strong>80 種のフラット 2D パステルアイコン</strong>（<code>512×512</code> RGBA PNG）。</li>
+</ul>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.diagrams.architecture</span><span class="w"> </span><span class="kn">import</span> <span class="n">AiIcon</span><span class="p">,</span> <span class="n">Node</span><span class="p">,</span> <span class="n">OriginalAiIcon</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">ai</span><span class="p">,</span> <span class="n">original_ai</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+
+<span class="c1"># 1. Direct canvas rendering (center-anchored at (cx, cy), 1:1 square aspect ratio)</span>
+<span class="n">ai</span><span class="o">.</span><span class="n">openai</span><span class="p">((</span><span class="mi">30</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">9.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">)</span>
+<span class="n">original_ai</span><span class="o">.</span><span class="n">openai</span><span class="p">((</span><span class="mi">60</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">9.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">)</span>
+<span class="n">original_ai</span><span class="o">.</span><span class="n">ai_agent</span><span class="p">((</span><span class="mi">90</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">9.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">)</span>
+
+<span class="c1"># 2. High-level ArchitectureDiagram / SequenceDiagram Enums</span>
+<span class="n">llm_node</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="s2">"OpenAI API"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">AiIcon</span><span class="o">.</span><span class="n">OPENAI</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">7.5</span><span class="p">)</span>
+<span class="n">agent_node</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="s2">"Router Agent"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">OriginalAiIcon</span><span class="o">.</span><span class="n">AI_AGENT</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">7.5</span><span class="p">)</span>
+</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">項目</th>
+<th style="text-align:left">公式スイート (<code>drawlib.icons.ai</code>)</th>
+<th style="text-align:left">オリジナル 2D パステルスイート (<code>drawlib.icons.original_ai</code>)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>関数シグネチャ</strong></td>
+<td style="text-align:left"><code>ai.&lt;name&gt;(xy, width, *, style, variant=&quot;default&quot;)</code></td>
+<td style="text-align:left"><code>original_ai.&lt;name&gt;(xy, width, *, style, variant=&quot;default&quot;)</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>ダイアグラム Enum</strong></td>
+<td style="text-align:left"><code>AiIcon.&lt;NAME&gt;</code>（例: <code>AiIcon.OPENAI</code>）</td>
+<td style="text-align:left"><code>OriginalAiIcon.&lt;NAME&gt;</code>（例: <code>OriginalAiIcon.AI_AGENT</code>）</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>正規アイコン数</strong></td>
+<td style="text-align:left">ブランドアイコン <strong>60</strong> 種</td>
+<td style="text-align:left">合計 <strong>80</strong> 種（ブランドツイン <strong>60</strong> 種 + コンセプトアイコン <strong>20</strong> 種）</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>座標アンカー</strong></td>
+<td style="text-align:left">中央基準 <code>(cx, cy)</code>（<code>halign=&quot;center&quot;</code>, <code>valign=&quot;center&quot;</code>）</td>
+<td style="text-align:left">中央基準 <code>(cx, cy)</code>（<code>halign=&quot;center&quot;</code>, <code>valign=&quot;center&quot;</code>）</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>アセットアーカイブ</strong></td>
+<td style="text-align:left"><code>icon_ai</code>（<code>512×512</code> RGBA PNG）</td>
+<td style="text-align:left"><code>icon_original_ai</code>（<code>512×512</code> RGBA PNG）</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>2. 公式・パステルブランドアイコン一覧とリファレンス (<code>ai</code> &amp; <code>original_ai</code>)</h2>
+<p>以下に示す <strong>60 種のブランドアイコン名</strong>は、<code>drawlib.icons.ai</code>（公式ロゴ）と <code>drawlib.icons.original_ai</code>（対応する 2D パステルブランドツイン）の両方に共通して収録されています。</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="../../images/03_icons/ai/icons_ai_brands.png" alt="ai_2" />
+  <figcaption class="drawlib-caption">基盤モデル・推論基盤・エージェント・ディープラーニングにわたる代表的な AI・機械学習ブランドアイコン</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">ai</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">148</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">64</span><span class="p">)</span>
+
+<span class="n">row1</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s2">"openai"</span><span class="p">,</span> <span class="s2">"LLM Model"</span><span class="p">,</span> <span class="n">ai</span><span class="o">.</span><span class="n">openai</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"claude"</span><span class="p">,</span> <span class="s2">"LLM Model"</span><span class="p">,</span> <span class="n">ai</span><span class="o">.</span><span class="n">claude</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"gemini"</span><span class="p">,</span> <span class="s2">"LLM Model"</span><span class="p">,</span> <span class="n">ai</span><span class="o">.</span><span class="n">gemini</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"meta_llama"</span><span class="p">,</span> <span class="s2">"Open Weights"</span><span class="p">,</span> <span class="n">ai</span><span class="o">.</span><span class="n">meta_llama</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"vllm"</span><span class="p">,</span> <span class="s2">"Serving"</span><span class="p">,</span> <span class="n">ai</span><span class="o">.</span><span class="n">vllm</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"nvidia"</span><span class="p">,</span> <span class="s2">"GPU Compute"</span><span class="p">,</span> <span class="n">ai</span><span class="o">.</span><span class="n">nvidia</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">),</span>
+<span class="p">]</span>
+
+<span class="n">row2</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s2">"langchain"</span><span class="p">,</span> <span class="s2">"Agent SDK"</span><span class="p">,</span> <span class="n">ai</span><span class="o">.</span><span class="n">langchain</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"llamaindex"</span><span class="p">,</span> <span class="s2">"RAG Framework"</span><span class="p">,</span> <span class="n">ai</span><span class="o">.</span><span class="n">llamaindex</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"mcp"</span><span class="p">,</span> <span class="s2">"Protocol"</span><span class="p">,</span> <span class="n">ai</span><span class="o">.</span><span class="n">mcp</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"pytorch"</span><span class="p">,</span> <span class="s2">"Deep Learning"</span><span class="p">,</span> <span class="n">ai</span><span class="o">.</span><span class="n">pytorch</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"huggingface"</span><span class="p">,</span> <span class="s2">"Model Hub"</span><span class="p">,</span> <span class="n">ai</span><span class="o">.</span><span class="n">huggingface</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"langfuse"</span><span class="p">,</span> <span class="s2">"Observability"</span><span class="p">,</span> <span class="n">ai</span><span class="o">.</span><span class="n">langfuse</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">row_idx</span><span class="p">,</span> <span class="n">items</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">([</span><span class="n">row1</span><span class="p">,</span> <span class="n">row2</span><span class="p">]):</span>
+    <span class="n">cy</span> <span class="o">=</span> <span class="mf">46.5</span> <span class="k">if</span> <span class="n">row_idx</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="mf">17.5</span>
+    <span class="k">for</span> <span class="n">col_idx</span><span class="p">,</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">cat</span><span class="p">,</span> <span class="n">icon_fn</span><span class="p">,</span> <span class="n">card_st</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">items</span><span class="p">):</span>
+        <span class="n">cx</span> <span class="o">=</span> <span class="mf">15.2</span> <span class="o">+</span> <span class="n">col_idx</span> <span class="o">*</span> <span class="mf">23.5</span>
+        <span class="n">rectangle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">21.8</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">25.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">card_st</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+        <span class="n">icon_fn</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span> <span class="o">+</span> <span class="mf">4.8</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">8.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">)</span>
+        <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span> <span class="o">-</span> <span class="mf">3.4</span><span class="p">),</span> <span class="n">name</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+        <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span> <span class="o">-</span> <span class="mf">8.2</span><span class="p">),</span> <span class="n">cat</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<h3>2.1. 共通ブランドアイコン全 60 種一覧 (<code>ai.&lt;name&gt;</code> &amp; <code>original_ai.&lt;name&gt;</code>)</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">カテゴリ</th>
+<th style="text-align:center">数</th>
+<th style="text-align:left">正規関数名 (<code>ai.&lt;name&gt;</code> &amp; <code>original_ai.&lt;name&gt;</code>)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>基盤 LLM プロバイダ・モデルファミリ</strong></td>
+<td style="text-align:center">10</td>
+<td style="text-align:left"><code>claude</code>, <code>cohere</code>, <code>deepseek</code>, <code>gemini</code>, <code>grok</code>, <code>meta_llama</code>, <code>mistral</code>, <code>openai</code>, <code>perplexity</code>, <code>qwen</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>推論エンジン・ルータ・GPU クラウド</strong></td>
+<td style="text-align:center">13</td>
+<td style="text-align:left"><code>fireworks_ai</code>, <code>groq</code>, <code>litellm</code>, <code>modal</code>, <code>nvidia</code>, <code>ollama</code>, <code>openrouter</code>, <code>replicate</code>, <code>runpod</code>, <code>sglang</code>, <code>together_ai</code>, <code>triton</code>, <code>vllm</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>エージェントフレームワーク・プロトコル・オーケストレーション</strong></td>
+<td style="text-align:center">14</td>
+<td style="text-align:left"><code>a2a</code>, <code>autogen</code>, <code>crewai</code>, <code>dify</code>, <code>haystack</code>, <code>langchain</code>, <code>langgraph</code>, <code>llamaindex</code>, <code>mastra</code>, <code>mcp</code>, <code>n8n</code>, <code>openhands</code>, <code>pydantic_ai</code>, <code>semantic_kernel</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>ディープラーニング・機械学習フレームワーク</strong></td>
+<td style="text-align:center">8</td>
+<td style="text-align:left"><code>huggingface</code>, <code>jax</code>, <code>jupyter</code>, <code>keras</code>, <code>onnx</code>, <code>pytorch</code>, <code>scikit_learn</code>, <code>tensorflow</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>オブザーバビリティ・評価・MLOps・データ取り込み</strong></td>
+<td style="text-align:center">8</td>
+<td style="text-align:left"><code>arize_phoenix</code>, <code>braintrust</code>, <code>firecrawl</code>, <code>langfuse</code>, <code>mlflow</code>, <code>ray</code>, <code>tavily</code>, <code>wandb</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>AI コーディング・マルチモーダル音声・UI アプリ</strong></td>
+<td style="text-align:center">7</td>
+<td style="text-align:left"><code>copilot</code>, <code>cursor</code>, <code>deepgram</code>, <code>elevenlabs</code>, <code>gradio</code>, <code>livekit</code>, <code>streamlit</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>3. ベンダー中立コンセプトアイコン一覧とリファレンス (<code>original_ai</code>)</h2>
+<p>60 種のブランドツインに加え、<code>drawlib.icons.original_ai</code>（<code>OriginalAiIcon</code>）には <strong>20 種の専用ベンダー中立 AI/ML アーキテクチャコンセプトアイコン</strong>が収録されており、特定ベンダーに依存しない汎用的な RAG パイプライン、マルチエージェントメモリ、ガードレール、学習ワークフローを図解できます。</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="../../images/03_icons/ai/icons_ai_concepts.png" alt="ai_3" />
+  <figcaption class="drawlib-caption">drawlib.icons.original_ai に収録された代表的なベンダー中立 AI・エージェントコンセプトアイコン 12 選</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">original_ai</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">140</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">88</span><span class="p">)</span>
+
+<span class="n">rows</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">[</span>
+        <span class="p">(</span><span class="s2">"ai_agent"</span><span class="p">,</span> <span class="s2">"Autonomous Agent"</span><span class="p">,</span> <span class="n">original_ai</span><span class="o">.</span><span class="n">ai_agent</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">"multi_agent"</span><span class="p">,</span> <span class="s2">"Swarm / Crew"</span><span class="p">,</span> <span class="n">original_ai</span><span class="o">.</span><span class="n">multi_agent</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">"agent_memory"</span><span class="p">,</span> <span class="s2">"Context &amp; State"</span><span class="p">,</span> <span class="n">original_ai</span><span class="o">.</span><span class="n">agent_memory</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">"function_calling"</span><span class="p">,</span> <span class="s2">"Structured Tool Use"</span><span class="p">,</span> <span class="n">original_ai</span><span class="o">.</span><span class="n">function_calling</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
+    <span class="p">],</span>
+    <span class="p">[</span>
+        <span class="p">(</span><span class="s2">"llm_model"</span><span class="p">,</span> <span class="s2">"Foundation Model"</span><span class="p">,</span> <span class="n">original_ai</span><span class="o">.</span><span class="n">llm_model</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">"prompt_guardrail"</span><span class="p">,</span> <span class="s2">"Safety &amp; Policy"</span><span class="p">,</span> <span class="n">original_ai</span><span class="o">.</span><span class="n">prompt_guardrail</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">"rag_knowledge_base"</span><span class="p">,</span> <span class="s2">"Document Retrieval"</span><span class="p">,</span> <span class="n">original_ai</span><span class="o">.</span><span class="n">rag_knowledge_base</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">"embedding_vector"</span><span class="p">,</span> <span class="s2">"Dense Embeddings"</span><span class="p">,</span> <span class="n">original_ai</span><span class="o">.</span><span class="n">embedding_vector</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">),</span>
+    <span class="p">],</span>
+    <span class="p">[</span>
+        <span class="p">(</span><span class="s2">"vector_database"</span><span class="p">,</span> <span class="s2">"ANN Vector Index"</span><span class="p">,</span> <span class="n">original_ai</span><span class="o">.</span><span class="n">vector_database</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">"fine_tuning"</span><span class="p">,</span> <span class="s2">"LoRA / SFT"</span><span class="p">,</span> <span class="n">original_ai</span><span class="o">.</span><span class="n">fine_tuning</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">"evaluation"</span><span class="p">,</span> <span class="s2">"LLM-as-a-Judge"</span><span class="p">,</span> <span class="n">original_ai</span><span class="o">.</span><span class="n">evaluation</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">"gpu_node"</span><span class="p">,</span> <span class="s2">"GPU Accelerator"</span><span class="p">,</span> <span class="n">original_ai</span><span class="o">.</span><span class="n">gpu_node</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
+    <span class="p">],</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">row_idx</span><span class="p">,</span> <span class="n">items</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">rows</span><span class="p">):</span>
+    <span class="n">cy</span> <span class="o">=</span> <span class="mf">71.5</span> <span class="o">-</span> <span class="n">row_idx</span> <span class="o">*</span> <span class="mf">27.5</span>
+    <span class="k">for</span> <span class="n">col_idx</span><span class="p">,</span> <span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">sub</span><span class="p">,</span> <span class="n">icon_fn</span><span class="p">,</span> <span class="n">card_st</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">items</span><span class="p">):</span>
+        <span class="n">cx</span> <span class="o">=</span> <span class="mf">20.5</span> <span class="o">+</span> <span class="n">col_idx</span> <span class="o">*</span> <span class="mf">33.0</span>
+        <span class="n">rectangle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">30.5</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">24.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">card_st</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+        <span class="n">icon_fn</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span> <span class="o">+</span> <span class="mf">4.6</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">8.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">)</span>
+        <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span> <span class="o">-</span> <span class="mf">3.4</span><span class="p">),</span> <span class="n">title</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+        <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span> <span class="o">-</span> <span class="mf">8.2</span><span class="p">),</span> <span class="n">sub</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<h3>3.1. ベンダー中立コンセプトアイコン全 20 種一覧 (<code>original_ai.&lt;name&gt;</code>)</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">正規関数名 (<code>original_ai.*</code>)</th>
+<th style="text-align:left"><code>OriginalAiIcon</code> Enum メンバー</th>
+<th style="text-align:left">アーキテクチャ上の役割</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>agent_memory</code></td>
+<td style="text-align:left"><code>OriginalAiIcon.AGENT_MEMORY</code></td>
+<td style="text-align:left">短期ワーキングコンテキストおよび長期エピソード記憶（エージェントメモリ）</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>ai_agent</code></td>
+<td style="text-align:left"><code>OriginalAiIcon.AI_AGENT</code></td>
+<td style="text-align:left">計画立案とツール実行ループを担う自律推論エージェント</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>dataset</code></td>
+<td style="text-align:left"><code>OriginalAiIcon.DATASET</code></td>
+<td style="text-align:left">学習・検証・ベンチマーク用に整備されたデータセットコーパス</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>embedding_vector</code></td>
+<td style="text-align:left"><code>OriginalAiIcon.EMBEDDING_VECTOR</code></td>
+<td style="text-align:left">密ベクトルエンコーダおよびセマンティック埋め込み表現</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>evaluation</code></td>
+<td style="text-align:left"><code>OriginalAiIcon.EVALUATION</code></td>
+<td style="text-align:left">LLM-as-a-Judge による自動スコアリングおよびベンチマーク評価</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>feature_store</code></td>
+<td style="text-align:left"><code>OriginalAiIcon.FEATURE_STORE</code></td>
+<td style="text-align:left">オンライン／オフライン統合型の ML 特徴量ストア</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>fine_tuning</code></td>
+<td style="text-align:left"><code>OriginalAiIcon.FINE_TUNING</code></td>
+<td style="text-align:left">教師ありファインチューニング（SFT）、LoRA 適応、RLHF ステージ</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>function_calling</code></td>
+<td style="text-align:left"><code>OriginalAiIcon.FUNCTION_CALLING</code></td>
+<td style="text-align:left">構造化ツール呼び出しおよび外部 API 実行</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>gpu_node</code></td>
+<td style="text-align:left"><code>OriginalAiIcon.GPU_NODE</code></td>
+<td style="text-align:left">学習・推論向け高密度 GPU コンピュートノード</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>inference_endpoint</code></td>
+<td style="text-align:left"><code>OriginalAiIcon.INFERENCE_ENDPOINT</code></td>
+<td style="text-align:left">低レイテンシなモデルサービングゲートウェイおよびトークンストリーミング API</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>llm_model</code></td>
+<td style="text-align:left"><code>OriginalAiIcon.LLM_MODEL</code></td>
+<td style="text-align:left">ベンダー中立の大規模言語モデル（LLM）・基盤モデルコア</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>model_registry</code></td>
+<td style="text-align:left"><code>OriginalAiIcon.MODEL_REGISTRY</code></td>
+<td style="text-align:left">バージョン管理されたモデル重み・チェックポイント・リネージカタログ</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>multi_agent</code></td>
+<td style="text-align:left"><code>OriginalAiIcon.MULTI_AGENT</code></td>
+<td style="text-align:left">スーパーバイザと専門エージェントによるマルチエージェント協調トポロジ</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>notebook</code></td>
+<td style="text-align:left"><code>OriginalAiIcon.NOTEBOOK</code></td>
+<td style="text-align:left">対話型のデータサイエンス・機械学習実験ノートブック</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>npu_node</code></td>
+<td style="text-align:left"><code>OriginalAiIcon.NPU_NODE</code></td>
+<td style="text-align:left">Neural Processing Unit（NPU）またはカスタム AI ASIC アクセラレータノード</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>prompt_guardrail</code></td>
+<td style="text-align:left"><code>OriginalAiIcon.PROMPT_GUARDRAIL</code></td>
+<td style="text-align:left">入出力の安全性フィルタ、PII マスキング、ポリシーガードレール</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>prompt_template</code></td>
+<td style="text-align:left"><code>OriginalAiIcon.PROMPT_TEMPLATE</code></td>
+<td style="text-align:left">パラメータ化されたシステムプロンプトおよび Few-shot コンテキストテンプレート</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>rag_knowledge_base</code></td>
+<td style="text-align:left"><code>OriginalAiIcon.RAG_KNOWLEDGE_BASE</code></td>
+<td style="text-align:left">インデックス化されたドキュメントチャンクおよび検索拡張（RAG）ナレッジストア</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>training_pipeline</code></td>
+<td style="text-align:left"><code>OriginalAiIcon.TRAINING_PIPELINE</code></td>
+<td style="text-align:left">分散事前学習または継続的モデル再学習ワークフロー</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>vector_database</code></td>
+<td style="text-align:left"><code>OriginalAiIcon.VECTOR_DATABASE</code></td>
+<td style="text-align:left">近似最近傍探索（ANN）によるセマンティックベクトルストア</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>4. 実践的なアーキテクチャ図 (<code>AiIcon</code> &amp; <code>OriginalAiIcon</code>)</h2>
+<p>以下の例では、<a href="../06_diagrams/architecture.html"><code>ArchitectureDiagram</code></a> 内でガードレールにベンダー中立コンセプトアイコン（<code>OriginalAiIcon</code>）を、<code>LangGraph</code>・<code>OpenAI</code>・<code>MCP</code> に公式ブランドアイコン（<code>AiIcon</code>）を組み合わせています。</p>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">clear</span><span class="p">,</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.diagrams.architecture</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">AiIcon</span><span class="p">,</span>
+    <span class="n">ArchitectureDiagram</span><span class="p">,</span>
+    <span class="n">Node</span><span class="p">,</span>
+    <span class="n">NodeGroup</span><span class="p">,</span>
+    <span class="n">OriginalAiIcon</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+
+<span class="n">clear</span><span class="p">()</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">64</span><span class="p">)</span>
+
+<span class="n">d</span> <span class="o">=</span> <span class="n">ArchitectureDiagram</span><span class="p">(</span>
+    <span class="n">node_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">,</span>
+    <span class="n">node_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">edge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+    <span class="n">edge_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">node_card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">"Enterprise Agentic RAG &amp; MCP Orchestration Topology"</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">cluster</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">NodeGroup</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">"Agentic AI Runtime Cluster"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">5.0</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">))</span>
+<span class="n">guard</span> <span class="o">=</span> <span class="n">cluster</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span>
+        <span class="s2">"Prompt</span><span class="se">\n</span><span class="s2">Guardrail"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span>
+        <span class="n">icon</span><span class="o">=</span><span class="n">OriginalAiIcon</span><span class="o">.</span><span class="n">PROMPT_GUARDRAIL</span><span class="p">,</span>
+        <span class="n">icon_size</span><span class="o">=</span><span class="mf">7.5</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">12.0</span><span class="p">,</span> <span class="mf">18.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">agent</span> <span class="o">=</span> <span class="n">cluster</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span>
+        <span class="s2">"LangGraph</span><span class="se">\n</span><span class="s2">Supervisor"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span>
+        <span class="n">icon</span><span class="o">=</span><span class="n">AiIcon</span><span class="o">.</span><span class="n">LANGGRAPH</span><span class="p">,</span>
+        <span class="n">icon_size</span><span class="o">=</span><span class="mf">7.5</span><span class="p">,</span>
+        <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">56.0</span><span class="p">,</span> <span class="mf">18.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">llm</span> <span class="o">=</span> <span class="n">cluster</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span>
+        <span class="s2">"OpenAI</span><span class="se">\n</span><span class="s2">Reasoning"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span>
+        <span class="n">icon</span><span class="o">=</span><span class="n">AiIcon</span><span class="o">.</span><span class="n">OPENAI</span><span class="p">,</span>
+        <span class="n">icon_size</span><span class="o">=</span><span class="mf">7.5</span><span class="p">,</span>
+        <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">98.0</span><span class="p">,</span> <span class="mf">28.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">rag</span> <span class="o">=</span> <span class="n">cluster</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span>
+        <span class="s2">"MCP &amp; RAG</span><span class="se">\n</span><span class="s2">Knowledge"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span>
+        <span class="n">icon</span><span class="o">=</span><span class="n">AiIcon</span><span class="o">.</span><span class="n">MCP</span><span class="p">,</span>
+        <span class="n">icon_size</span><span class="o">=</span><span class="mf">7.5</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">98.0</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">d</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">guard</span><span class="p">,</span> <span class="n">agent</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Validated"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
+<span class="n">agent</span><span class="o">.</span><span class="n">fork</span><span class="p">([</span><span class="n">llm</span><span class="p">,</span> <span class="n">rag</span><span class="p">],</span> <span class="n">at_x</span><span class="o">=</span><span class="mf">88.0</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
+
+<span class="n">d</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">))</span>
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="../../images/03_icons/ai/icons_ai_arch.png" alt="ai_4" />
+  <figcaption class="drawlib-caption">OriginalAiIcon と AiIcon を組み合わせたエージェンティック RAG・MCP ツール連携トポロジ</figcaption>
+</figure>
+
+            </main>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Theme toggle
+            const themeBtn = document.getElementById('theme-toggle');
+            if (themeBtn) {
+                themeBtn.addEventListener('click', function() {
+                    const current = document.documentElement.getAttribute('data-theme');
+                    const next = current === 'dark' ? 'light' : 'dark';
+                    document.documentElement.setAttribute('data-theme', next);
+                    localStorage.setItem('drawlib-theme', next);
+                });
+            }
+
+            // Language dropdown outside-click & Escape close
+            const langDropdowns = document.querySelectorAll('.lang-dropdown');
+            if (langDropdowns.length > 0) {
+                document.addEventListener('click', function(e) {
+                    langDropdowns.forEach(function(dd) {
+                        if (dd.hasAttribute('open') && !dd.contains(e.target)) {
+                            dd.removeAttribute('open');
+                        }
+                    });
+                });
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape') {
+                        langDropdowns.forEach(function(dd) {
+                            dd.removeAttribute('open');
+                        });
+                    }
+                });
+            }
+
+            // Mobile menu toggle
+            const menuBtn = document.getElementById('menu-toggle');
+            const sidebar = document.querySelector('.sidebar');
+            if (menuBtn && sidebar) {
+                function setMenuOpen(open) {
+                    sidebar.classList.toggle('is-open', open);
+                    menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+                    document.body.classList.toggle('menu-open', open);
+                    if (open) {
+                        const menu = sidebar.querySelector('.sidebar-menu');
+                        if (menu) {
+                            menu.scrollTop = 0;
+                        }
+                    }
+                }
+
+                menuBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const willOpen = !sidebar.classList.contains('is-open');
+                    setMenuOpen(willOpen);
+                });
+
+                // Close menu when clicking outside sidebar
+                document.addEventListener('click', function(e) {
+                    if (sidebar.classList.contains('is-open') && !sidebar.contains(e.target)) {
+                        setMenuOpen(false);
+                    }
+                });
+
+                // Close menu when a navigation link is clicked
+                const navLinks = sidebar.querySelectorAll('.nav-item a');
+                navLinks.forEach(function(link) {
+                    link.addEventListener('click', function() {
+                        setMenuOpen(false);
+                    });
+                });
+
+                // Close on Escape key
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape' && sidebar.classList.contains('is-open')) {
+                        setMenuOpen(false);
+                    }
+                });
+
+                // Reset menu state when resized above mobile breakpoint
+                window.addEventListener('resize', function() {
+                    if (window.innerWidth > 768 && sidebar.classList.contains('is-open')) {
+                        setMenuOpen(false);
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

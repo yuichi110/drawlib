@@ -1,0 +1,1195 @@
+<!--
+ Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+
+ This software is licensed under the Apache License, Version 2.0.
+ For more information, please visit: https://github.com/yuichi110/drawlib
+
+ This software is provided "as is", without warranty of any kind,
+ express or implied, including but not limited to the warranties of
+ merchantability, fitness for a particular purpose and noninfringement.
+-->
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Charts 概要</title>
+    <script>
+        (function() {
+            const saved = localStorage.getItem('drawlib-theme');
+            if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    
+    
+    <link rel="alternate" hreflang="en" href="../../en/05_charts/overview.html">
+    
+    <link rel="alternate" hreflang="ja" href="overview.html">
+    
+    <link rel="alternate" hreflang="x-default" href="../../en/05_charts/overview.html">
+    
+    
+    
+    <link rel="icon" type="image/png" href="../../_assets/favicon.png">
+    
+    
+    <link rel="stylesheet" href="../style.css">
+    
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-brand" aria-label="Drawlib ドキュメント">
+                    
+                    <img src="../../_assets/logo.png" alt="Drawlib ドキュメント" class="sidebar-logo sidebar-logo-light">
+                    <img src="../../_assets/logo_dark.png" alt="Drawlib ドキュメント" class="sidebar-logo sidebar-logo-dark">
+                    
+                </a>
+                <div class="sidebar-header-actions">
+                    <button type="button" id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle theme">
+                        <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                        <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                    </button>
+                    <button type="button" id="menu-toggle" class="menu-toggle-btn" aria-label="Toggle navigation" aria-expanded="false">
+                        <svg class="icon-hamburger" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                        <svg class="icon-close" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                    </button>
+                </div>
+            </div>
+            <div class="sidebar-subbar">
+                
+                <a href="../01_getting_started/release_notes.html" class="sidebar-version-badge" title="View Release Notes">
+                    <span class="sidebar-version-dot" aria-hidden="true"></span>
+                    <span class="sidebar-version-text">v0.3.2</span>
+                </a>
+                <a href="https://github.com/yuichi110/drawlib" target="_blank" rel="noopener noreferrer" class="sidebar-github-link" aria-label="GitHub Repository" title="GitHub Repository">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+                </a>
+            </div>
+            <div class="sidebar-menu">
+                
+                    
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../index.html" >ようこそ</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">1. はじめに</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/overview.html" >Drawlib とは</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/installation.html" >インストールガイド</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/quick_start.html" >クイックスタートガイド</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/core_concepts.html" >基本ビジュアル概念</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/project_quicklook.html" >プロジェクト構成とビルド</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/agent_quicklook.html" >AI 駆動ワークフローとエージェント設定</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/release_notes.html" >リリースノートと移行ガイド</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">2. 描画プリミティブとスタイル</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/canvas.html" >キャンバスと座標系</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_overview.html" >図形プリミティブ概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_basic.html" >基本図形・放射状図形</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_polygon.html" >多角形とカスタムパス</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_arrow.html" >ブロック矢印・シェブロン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_container.html" >3D コンテナ・フロー・グルーピング</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_badge.html" >吹き出し・バッジ・ステータス</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_symbol.html" >フェイス・時計・記号・演算子</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/lines.html" >線とコネクタ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/text.html" >テキストとタイポグラフィ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/fonts.html" >フォントと多言語カタログ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/font_file.html" >カスタムフォントファイル (FontFile)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/images.html" >画像と Dimage</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/styles.html" >スタイルとテーマ設定</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/colors.html" >カラーパレットと色モデル</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/style_guide.html" >図解デザインとスタイルガイド</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">3. アイコンとブランドスイート</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/overview.html" >アイコン概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/phosphor.html" >Phosphor ベクターアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/gcp.html" >Google Cloud (GCP) アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/aws.html" >Amazon Web Services (AWS) アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/azure.html" >Microsoft Azure アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/cloud.html" >クラウド・オリジナルクラウドアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/cnative.html" >クラウドネイティブ (K8s) アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/devops.html" >DevOps・オブザーバビリティアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/network.html" >ネットワーク・Cisco トポロジアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/server.html" >サーバー・OS・仮想化アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/security.html" >セキュリティ・ゼロトラストアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/facility.html" >データセンター・ファシリティアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/ai.html" >AI・機械学習アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/data.html" >データ・データベースアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/code.html" >コード・言語・フレームワークアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/business.html" >エンタープライズ・FinTech アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/itservice.html" >IT サービス・コンサルティングアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/workspace.html" >ワークスペース・コラボレーションアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/social.html" >ソーシャル・メディア・コミュニティアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/client.html" >クライアント端末・エンドポイントアイコン</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">4. SmartArts（スマートアート）</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/overview.html" >SmartArts 概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/chevron_process.html" >ChevronProcess（シェブロン工程図）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/cycle.html" >Cycle（サイクル図）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/table.html" >Table（テーブル）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/tree.html" >Tree（ツリー図）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/mindmap.html" >MindMap（マインドマップ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/grid_layout.html" >GridLayout（グリッドレイアウト）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/pyramid.html" >Pyramid（ピラミッド図）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/box_list.html" >BoxList（ボックスリスト）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/kpi_cards.html" >KpiCards（KPI カード）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/card_list.html" >CardList（カードリスト）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/roadmap.html" >Roadmap（ロードマップ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/panel.html" >Panel（パネル）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/calendar.html" >Calendar（カレンダー）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/bullet_points.html" >BulletPoints（箇条書きボード）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/source_code.html" >SourceCode（ソースコードカード）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/geomap.html" >GeoMap（地理マップ）</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">5. Charts（定量チャート）</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item active">
+                                <a href="overview.html" >Charts 概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="axes_and_legends.html" >軸・スケール・凡例</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="bar.html" >Bar Chart（棒グラフ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="line.html" >Line Chart（折れ線グラフ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="area.html" >Area Chart（面グラフ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="pie.html" >Pie & Donut Chart（円・ドーナツグラフ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="radar.html" >Radar Chart（レーダーチャート）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="scatter.html" >Scatter Chart（散布図）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="gantt.html" >Gantt Chart（ガントチャート）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="heatmap.html" >Heatmap & Thermal Overlay（ヒートマップ）</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">6. テクニカルダイアグラム</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/overview.html" >ダイアグラム概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/architecture.html" >アーキテクチャ図</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/flow.html" >フロー図</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/sequence.html" >シーケンス図</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/class_diagram.html" >UML クラス図</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/er.html" >ER 図</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/state_diagram.html" >ステートマシン図</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">7. 自動レイアウトグラフ</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/overview.html" >グラフエンジン概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/architecture_graph.html" >ArchitectureGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/layer_graph.html" >LayerGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/tree_graph.html" >TreeGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/radial_graph.html" >RadialGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/grid_graph.html" >GridGraph</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">8. アニメーション</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/overview.html" >アニメーション概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/primitives.html" >プリミティブと色のアニメーション</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/smartarts.html" >SmartArts のアニメーション</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/charts.html" >Charts のアニメーション</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/diagrams.html" >ダイアグラムのアニメーション</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/graphs.html" >グラフのアニメーション</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">9. ドキュメントビルダと CLI</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/overview.html" >コードとしての図解ドキュメント概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/code_blocks.html" >Markdown コードブロック構文</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/cli_reference.html" >CLI リファレンス</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/project_doc.html" >リニアドキュメントプロジェクト (`doc`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/project_site.html" >ドキュメントサイトプロジェクト (`site`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/project_slide.html" >スライドデッキプロジェクト (`slide`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/slide_layout_and_api.html" >スライドステージレイアウトと API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/project_image.html" >画像プロジェクト (`images`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/customization.html" >テンプレートと CSS カスタマイズ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/caching_and_cicd.html" >キャッシュ機構と CI/CD</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">10. AI エージェントと高度な統合</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/ai_agent_instructions.html" >AI エージェント指示とルール体系</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/multimodal_feedback_loop.html" >自律検証フィードバックループ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/programmatic_api.html" >プログラマティック API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/math_and_layout.html" >アルゴリズムレイアウトと幾何計算</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/debugging.html" >トラブルシューティングとデバッグ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/case_study_brand_assets.html" >事例紹介: 公式ブランドアセットの設計</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/case_study_documentation_site.html" >事例紹介: AI エージェントによるドキュメントサイト構築</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/case_study_software_architecture.html" >事例紹介: コードとしてのソフトウェアアーキテクチャ設計書</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/case_study_technical_slides.html" >事例紹介: 技術プレゼンテーションスライドの作成</a>
+                            </li>
+                            
+                        </ul>
+                    
+                
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">Charts 概要</span>
+                </div>
+                
+                <div class="lang-switcher">
+                    <details class="lang-dropdown">
+                        <summary class="lang-dropdown-btn" aria-label="Select language">
+                            <svg class="lang-globe-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                            <span class="lang-current-label">日本語</span>
+                            <svg class="lang-caret-icon" viewBox="0 0 24 24" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </summary>
+                        <div class="lang-dropdown-menu" role="menu">
+                            
+                            <a href="../../en/05_charts/overview.html" class="lang-option" lang="en" hreflang="en" >
+                                <span>English</span>
+                                
+                            </a>
+                            
+                            <a href="overview.html" class="lang-option active" lang="ja" hreflang="ja" aria-current="page">
+                                <span>日本語</span>
+                                
+                                <svg class="lang-check-icon" viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                
+                            </a>
+                            
+                        </div>
+                    </details>
+                </div>
+                
+            </header>
+            <main class="main-content">
+                <h1>Charts 概要</h1>
+<p><code>drawlib.charts</code> モジュールは、比較・統計・相関・プロジェクトスケジュール向けの宣言的かつ純粋 Python 製のデータ可視化エンジンを提供します。</p>
+<p>全 8 系統のチャートファミリーはファーストクラスのベクターキャンバスコンポーネントとして描画され、吹き出しやカード、各種テクニカルダイアグラムと同じ統一座標平面上でシームレスに共存できます。</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="../../images/05_charts/overview/charts_ecosystem_hero.png" alt="overview_1" />
+  <figcaption class="drawlib-caption">Drawlib の純粋 Python チャートエコシステム：単一キャンバス上で共存する棒・折れ線・ドーナツ・レーダーチャート</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.charts.bar</span><span class="w"> </span><span class="kn">import</span> <span class="n">BarChart</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.charts.pie</span><span class="w"> </span><span class="kn">import</span> <span class="n">PieChart</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.charts.radar</span><span class="w"> </span><span class="kn">import</span> <span class="n">RadarChart</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Colors</span><span class="p">,</span> <span class="n">Styles</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">132</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">54</span><span class="p">)</span>
+
+<span class="n">card_style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">shape_line_color</span><span class="o">=</span><span class="n">Colors</span><span class="o">.</span><span class="n">Gray4</span><span class="p">,</span> <span class="n">shape_fill_color</span><span class="o">=</span><span class="n">Colors</span><span class="o">.</span><span class="n">White</span><span class="p">)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">22.5</span><span class="p">,</span> <span class="mf">27.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">40.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">46.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">card_style</span><span class="p">)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">66.0</span><span class="p">,</span> <span class="mf">27.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">40.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">46.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">card_style</span><span class="p">)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">109.5</span><span class="p">,</span> <span class="mf">27.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">40.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">46.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">card_style</span><span class="p">)</span>
+
+<span class="c1"># 1. Left: Compact BarChart (Bar / Area / Line Cartesian family)</span>
+<span class="n">bar</span> <span class="o">=</span> <span class="n">BarChart</span><span class="p">(</span>
+    <span class="n">categories</span><span class="o">=</span><span class="p">[</span><span class="s2">"Q1"</span><span class="p">,</span> <span class="s2">"Q2"</span><span class="p">,</span> <span class="s2">"Q3"</span><span class="p">],</span>
+    <span class="n">axis_line_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="p">,</span>
+    <span class="n">axis_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">grid_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedThin</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="mf">36.0</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">33.0</span><span class="p">,</span>
+    <span class="n">bar_mode</span><span class="o">=</span><span class="s2">"group"</span><span class="p">,</span>
+    <span class="n">bar_r</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">"Bar / Area / Line"</span><span class="p">,</span>
+    <span class="n">title_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">BlackBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">bar</span><span class="o">.</span><span class="n">add_series</span><span class="p">(</span><span class="s2">"2025"</span><span class="p">,</span> <span class="p">[</span><span class="mf">18.0</span><span class="p">,</span> <span class="mf">26.0</span><span class="p">,</span> <span class="mf">32.0</span><span class="p">],</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">)</span>
+<span class="n">bar</span><span class="o">.</span><span class="n">add_series</span><span class="p">(</span><span class="s2">"2026"</span><span class="p">,</span> <span class="p">[</span><span class="mf">24.0</span><span class="p">,</span> <span class="mf">35.0</span><span class="p">,</span> <span class="mf">44.0</span><span class="p">],</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">)</span>
+<span class="n">bar</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">4.5</span><span class="p">,</span> <span class="mf">12.0</span><span class="p">))</span>
+<span class="n">bar</span><span class="o">.</span><span class="n">draw_legend</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">8.5</span><span class="p">,</span> <span class="mf">7.8</span><span class="p">),</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span> <span class="n">orientation</span><span class="o">=</span><span class="s2">"horizontal"</span><span class="p">)</span>
+
+<span class="c1"># 2. Center: Compact PieChart Donut</span>
+<span class="n">pie</span> <span class="o">=</span> <span class="n">PieChart</span><span class="p">(</span>
+    <span class="n">radius</span><span class="o">=</span><span class="mf">10.5</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="mf">36.0</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">33.0</span><span class="p">,</span>
+    <span class="n">hole_ratio</span><span class="o">=</span><span class="mf">0.58</span><span class="p">,</span>
+    <span class="n">center_text</span><span class="o">=</span><span class="s2">"99.9%</span><span class="se">\n</span><span class="s2">SLA"</span><span class="p">,</span>
+    <span class="n">center_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">"Pie &amp; Donut"</span><span class="p">,</span>
+    <span class="n">title_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">BlackBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">),</span>
+    <span class="n">value_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">BlackBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">value_format</span><span class="o">=</span><span class="s2">"</span><span class="si">{:.0f}</span><span class="s2">%"</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">pie</span><span class="o">.</span><span class="n">add_slice</span><span class="p">(</span><span class="s2">"Core"</span><span class="p">,</span> <span class="mf">48.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">)</span>
+<span class="n">pie</span><span class="o">.</span><span class="n">add_slice</span><span class="p">(</span><span class="s2">"Edge"</span><span class="p">,</span> <span class="mf">32.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
+<span class="n">pie</span><span class="o">.</span><span class="n">add_slice</span><span class="p">(</span><span class="s2">"Ops"</span><span class="p">,</span> <span class="mf">20.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">)</span>
+<span class="n">pie</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">48.0</span><span class="p">,</span> <span class="mf">12.0</span><span class="p">))</span>
+<span class="n">pie</span><span class="o">.</span><span class="n">draw_legend</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">49.0</span><span class="p">,</span> <span class="mf">7.8</span><span class="p">),</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span> <span class="n">orientation</span><span class="o">=</span><span class="s2">"horizontal"</span><span class="p">,</span> <span class="n">item_gap</span><span class="o">=</span><span class="mf">1.8</span><span class="p">)</span>
+
+<span class="c1"># 3. Right: Compact RadarChart (5 spokes)</span>
+<span class="n">radar</span> <span class="o">=</span> <span class="n">RadarChart</span><span class="p">(</span>
+    <span class="n">categories</span><span class="o">=</span><span class="p">[</span><span class="s2">"Scale"</span><span class="p">,</span> <span class="s2">"Speed"</span><span class="p">,</span> <span class="s2">"Sec"</span><span class="p">,</span> <span class="s2">"UX"</span><span class="p">,</span> <span class="s2">"SLA"</span><span class="p">],</span>
+    <span class="n">axis_line_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="p">,</span>
+    <span class="n">axis_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">grid_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedThin</span><span class="p">,</span>
+    <span class="n">radius</span><span class="o">=</span><span class="mf">9.2</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="mf">36.0</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">33.0</span><span class="p">,</span>
+    <span class="n">min_value</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+    <span class="n">max_value</span><span class="o">=</span><span class="mf">100.0</span><span class="p">,</span>
+    <span class="n">levels</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+    <span class="n">grid_shape</span><span class="o">=</span><span class="s2">"polygon"</span><span class="p">,</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">"Radar / Scatter / Gantt"</span><span class="p">,</span>
+    <span class="n">title_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">BlackBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">radar</span><span class="o">.</span><span class="n">add_series</span><span class="p">(</span><span class="s2">"Target"</span><span class="p">,</span> <span class="p">[</span><span class="mi">65</span><span class="p">,</span> <span class="mi">85</span><span class="p">,</span> <span class="mi">70</span><span class="p">,</span> <span class="mi">85</span><span class="p">,</span> <span class="mi">75</span><span class="p">],</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">fill_alpha</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">line_style</span><span class="o">=</span><span class="s2">"dashed"</span><span class="p">)</span>
+<span class="n">radar</span><span class="o">.</span><span class="n">add_series</span><span class="p">(</span><span class="s2">"Actual"</span><span class="p">,</span> <span class="p">[</span><span class="mi">90</span><span class="p">,</span> <span class="mi">78</span><span class="p">,</span> <span class="mi">88</span><span class="p">,</span> <span class="mi">76</span><span class="p">,</span> <span class="mi">95</span><span class="p">],</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">fill_alpha</span><span class="o">=</span><span class="mf">0.28</span><span class="p">)</span>
+<span class="n">radar</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">91.5</span><span class="p">,</span> <span class="mf">12.0</span><span class="p">))</span>
+<span class="n">radar</span><span class="o">.</span><span class="n">draw_legend</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">94.5</span><span class="p">,</span> <span class="mf">7.8</span><span class="p">),</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span> <span class="n">orientation</span><span class="o">=</span><span class="s2">"horizontal"</span><span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<hr />
+<h2>1. なぜ Drawlib の純粋 Python チャートなのか？</h2>
+<p>Matplotlib、Seaborn、Plotly など従来の Python 可視化ライブラリが独立した画像ファイルや Web 専用キャンバスを生成するのに対し、Drawlib のチャートは<strong>ファーストクラスのベクターキャンバス要素</strong>として設計されています。</p>
+<ul>
+<li><strong>キャンバス上でのシームレスな共存</strong>: アーキテクチャ構成図、吹き出し、アイコンと同じキャンバスをそのまま共有できます。</li>
+<li><strong>決定論的なレイアウト計算</strong>: 余白、目盛り間隔、プロット領域はすべて明示的なキャンバス寸法（<code>width</code>、<code>height</code>）から数学的に算出されます。</li>
+<li><strong>一貫したテーマ適用と存在ベースのスタイリング</strong>: チャートは「スタイル＝表示の有無（Style-as-Presence）」の思想に従います。要素に <code>Style</code> が指定されていれば描画され、省略（<code>None</code>）されていれば不要なデフォルトのグリッドや背景は一切描画されません。また、凡例は本体から分離されており、<code>chart.draw_legend(...)</code> で任意の座標に明示的に描画します。</li>
+</ul>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.charts.bar</span><span class="w"> </span><span class="kn">import</span> <span class="n">BarChart</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">66</span><span class="p">)</span>
+
+<span class="n">chart</span> <span class="o">=</span> <span class="n">BarChart</span><span class="p">(</span>
+    <span class="n">categories</span><span class="o">=</span><span class="p">[</span><span class="s2">"Q1"</span><span class="p">,</span> <span class="s2">"Q2"</span><span class="p">,</span> <span class="s2">"Q3"</span><span class="p">,</span> <span class="s2">"Q4"</span><span class="p">],</span>
+    <span class="n">axis_line_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="p">,</span>
+    <span class="n">axis_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="n">grid_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedThin</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">82</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">45</span><span class="p">,</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">"Quarterly Revenue ($M)"</span><span class="p">,</span>
+    <span class="n">title_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">BlackBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">13.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">add_series</span><span class="p">(</span><span class="s2">"2025"</span><span class="p">,</span> <span class="p">[</span><span class="mf">12.5</span><span class="p">,</span> <span class="mf">18.2</span><span class="p">,</span> <span class="mf">22.0</span><span class="p">,</span> <span class="mf">31.4</span><span class="p">],</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">)</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">add_series</span><span class="p">(</span><span class="s2">"2026"</span><span class="p">,</span> <span class="p">[</span><span class="mf">15.0</span><span class="p">,</span> <span class="mf">24.5</span><span class="p">,</span> <span class="mf">29.8</span><span class="p">,</span> <span class="mf">38.0</span><span class="p">],</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">)</span>
+
+<span class="n">chart</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">draw_legend</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">25</span><span class="p">,</span> <span class="mi">57</span><span class="p">),</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span> <span class="n">orientation</span><span class="o">=</span><span class="s2">"horizontal"</span><span class="p">)</span>
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="../../images/05_charts/overview/barchart_multi_series.png" alt="overview_2" />
+  <figcaption class="drawlib-caption">宣言的な複数系列の棒グラフ (BarChart)</figcaption>
+</figure>
+<hr />
+<h2>2. 8 つのチャートファミリーとサブモジュールの公開シンボル</h2>
+<p>Drawlib のチャートは、<strong><a href="./axes_and_legends.html">軸・スケール・凡例</a></strong> の共通基盤の上に、<code>drawlib.charts</code> 配下の 8 つの専門サブモジュールとして整理されています。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">モジュール</th>
+<th style="text-align:left">主要クラス</th>
+<th style="text-align:left">補助データモデル</th>
+<th style="text-align:left">公開されている型リテラル・エイリアス</th>
+<th style="text-align:left">主な用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>drawlib.charts.bar</code></td>
+<td style="text-align:left"><strong><a href="./bar.html"><code>BarChart</code></a></strong></td>
+<td style="text-align:left"><code>Series</code>, <code>Axis</code></td>
+<td style="text-align:left"><code>Mode</code>, <code>Orientation</code>, <code>FormatterType</code>, <code>DrawDirection</code>, <code>LegendPosition</code></td>
+<td style="text-align:left">カテゴリ比較（縦棒・横棒・集合・積み上げ）。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>drawlib.charts.line</code></td>
+<td style="text-align:left"><strong><a href="./line.html"><code>LineChart</code></a></strong></td>
+<td style="text-align:left"><code>Series</code>, <code>Axis</code></td>
+<td style="text-align:left"><code>LineStyle</code>, <code>PointShape</code>, <code>FormatterType</code>, <code>DrawDirection</code>, <code>LegendPosition</code></td>
+<td style="text-align:left">時系列に沿った連続メトリクスやトレンド（折れ線またはスプライン補間）。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>drawlib.charts.area</code></td>
+<td style="text-align:left"><strong><a href="./area.html"><code>AreaChart</code></a></strong></td>
+<td style="text-align:left"><code>Series</code>, <code>Axis</code></td>
+<td style="text-align:left"><code>Mode</code>, <code>FormatterType</code>, <code>DrawDirection</code>, <code>LegendPosition</code></td>
+<td style="text-align:left">時系列にわたる累積ボリュームや全体に対する内訳トレンド。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>drawlib.charts.pie</code></td>
+<td style="text-align:left"><strong><a href="./pie.html"><code>PieChart</code></a></strong></td>
+<td style="text-align:left"><code>Slice</code></td>
+<td style="text-align:left"><code>FormatterType</code>, <code>DrawDirection</code></td>
+<td style="text-align:left">構成比の可視化、ドーナツグラフ、中央 KPI バッジ表示。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>drawlib.charts.radar</code></td>
+<td style="text-align:left"><strong><a href="./radar.html"><code>RadarChart</code></a></strong></td>
+<td style="text-align:left"><code>Series</code></td>
+<td style="text-align:left"><code>GridShape</code>, <code>FormatterType</code>, <code>DrawDirection</code>, <code>LegendPosition</code></td>
+<td style="text-align:left">多属性の評価、スキルマトリクス、スパイダープロット。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>drawlib.charts.scatter</code></td>
+<td style="text-align:left"><strong><a href="./scatter.html"><code>ScatterChart</code></a></strong></td>
+<td style="text-align:left"><code>Series</code>, <code>Point</code>, <code>Axis</code></td>
+<td style="text-align:left"><code>ScaleType</code>, <code>PointShape</code>, <code>DrawDirection</code>, <code>LegendPosition</code></td>
+<td style="text-align:left">2 次元の相関分析、クラスタ分布、3D バブルプロット。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>drawlib.charts.gantt</code></td>
+<td style="text-align:left"><strong><a href="./gantt.html"><code>GanttChart</code></a></strong></td>
+<td style="text-align:left"><code>Task</code>, <code>Section</code>, <code>Milestone</code>, <code>Marker</code>, <code>Dependency</code></td>
+<td style="text-align:left"><code>DrawDirection</code></td>
+<td style="text-align:left">プロジェクトロードマップ、フェーズ別タスク、マイルストーン、依存関係の矢印。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>drawlib.charts.heatmap</code></td>
+<td style="text-align:left"><strong><a href="./heatmap.html"><code>HeatmapChart</code> / <code>HeatmapOverlay</code></a></strong></td>
+<td style="text-align:left"><code>Row</code>, <code>Cell</code>, <code>Spot</code></td>
+<td style="text-align:left"><code>OverlayMode</code>, <code>BlendMode</code>, <code>DrawDirection</code>, <code>FormatterType</code>, <code>Orientation</code></td>
+<td style="text-align:left">2D マトリクスヒートマップおよびダイアグラム（<code>ClassDiagram</code>、<code>ArchitectureDiagram</code>、<code>GeoMap</code> など）上の空間熱分布／ホットスポットオーバーレイ。</td>
+</tr>
+</tbody>
+</table>
+<h3>公開されている型リテラル一覧</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">型エイリアス</th>
+<th style="text-align:left">定義</th>
+<th style="text-align:left">使用箇所</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong><code>Mode</code></strong> (<code>bar</code>)</td>
+<td style="text-align:left"><code>Literal[&quot;group&quot;, &quot;stack&quot;]</code></td>
+<td style="text-align:left"><code>BarChart(bar_mode=...)</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>Mode</code></strong> (<code>area</code>)</td>
+<td style="text-align:left"><code>Literal[&quot;overlap&quot;, &quot;stack&quot;]</code></td>
+<td style="text-align:left"><code>AreaChart(mode=...)</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>Orientation</code></strong></td>
+<td style="text-align:left"><code>Literal[&quot;vertical&quot;, &quot;horizontal&quot;]</code></td>
+<td style="text-align:left"><code>BarChart(orientation=...)</code>, <code>draw_legend(orientation=...)</code>, <code>draw_colorbar(orientation=...)</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>LineStyle</code></strong></td>
+<td style="text-align:left"><code>Literal[&quot;solid&quot;, &quot;dashed&quot;, &quot;dotted&quot;, &quot;dashdot&quot;]</code></td>
+<td style="text-align:left"><code>LineChart</code>、<code>AreaChart</code>、<code>RadarChart</code> の系列ストロークパターン</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>PointShape</code></strong></td>
+<td style="text-align:left"><code>Literal[&quot;circle&quot;, &quot;square&quot;, &quot;rhombus&quot;, &quot;triangle&quot;, &quot;none&quot;]</code></td>
+<td style="text-align:left"><code>ScatterChart</code>（全 5 形状）、<code>LineChart</code>・<code>AreaChart</code>・<code>RadarChart</code>（<code>&quot;circle&quot;</code>、<code>&quot;square&quot;</code>、<code>&quot;none&quot;</code>）</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>GridShape</code></strong></td>
+<td style="text-align:left"><code>Literal[&quot;polygon&quot;, &quot;circle&quot;]</code></td>
+<td style="text-align:left"><code>RadarChart(grid_shape=...)</code> の同心グリッド形状</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>ScaleType</code></strong></td>
+<td style="text-align:left"><code>Literal[&quot;linear&quot;, &quot;log&quot;]</code></td>
+<td style="text-align:left"><code>Axis(scale=...)</code> の線形（Nice Numbers）または常用対数（<code>log10</code>）スケーリング</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>OverlayMode</code></strong></td>
+<td style="text-align:left"><code>Literal[&quot;smooth&quot;, &quot;contour&quot;]</code></td>
+<td style="text-align:left"><code>HeatmapOverlay(mode=...)</code> のガウス熱グラデーションまたはベクター等高線リング</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>BlendMode</code></strong></td>
+<td style="text-align:left"><code>Literal[&quot;add&quot;, &quot;max&quot;]</code></td>
+<td style="text-align:left"><code>HeatmapOverlay(blend_mode=...)</code> における重なり合うホットスポットの合成モード</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>FormatterType</code></strong></td>
+<td style="text-align:left"><code>str | Callable[[float], str] | None</code></td>
+<td style="text-align:left">数値・目盛りフォーマット（<code>&quot;{:.1f}%&quot;</code>、<code>lambda v: f&quot;${v:,.0f}&quot;</code>）</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>DrawDirection</code></strong></td>
+<td style="text-align:left"><code>Literal[&quot;bottom_to_top&quot;, &quot;left_to_right&quot;]</code></td>
+<td style="text-align:left"><code>Series</code>、<code>Slice</code>、<code>Task</code>、<code>Row</code> における部分空間描画の方向（<code>drawlib.charts.DrawDirection</code> としても公開）</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>3. 共通チャートアーキテクチャと存在ベースのスタイリング</h2>
+<p>Drawlib のすべてのチャートは一貫したライフサイクルと座標規約に従います（軸フォーマット、対数スケール、凡例カスタマイズ、<code>get_size()</code> の詳細は <strong><a href="./axes_and_legends.html">軸・スケール・凡例</a></strong> を参照してください）。</p>
+<h3>1. 寸法を指定したインスタンス化と必須アンカースタイル</h3>
+<p>初期化時にカテゴリラベルと必須の <code>axis_line_style</code>（直交座標系・レーダー・ガントチャートの構造的基準線）を指定します。</p>
+<pre><code class="language-python"><span class="n">chart</span> <span class="o">=</span> <span class="n">BarChart</span><span class="p">(</span>
+    <span class="n">categories</span><span class="o">=</span><span class="p">[</span><span class="s2">"US"</span><span class="p">,</span> <span class="s2">"EU"</span><span class="p">,</span> <span class="s2">"APAC"</span><span class="p">],</span>
+    <span class="n">axis_line_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">,</span>
+    <span class="n">axis_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Black</span><span class="p">,</span>
+    <span class="n">grid_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedThin</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">"Regional Distribution"</span><span class="p">,</span>
+    <span class="n">title_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">BlackBold</span><span class="p">,</span>
+<span class="p">)</span>
+</code></pre>
+<h3>2. 存在ベース（Style-as-Presence）のスタイル一覧（<code>Style | None = None</code>）</h3>
+<p>Drawlib のチャートは厳格な <strong>「Style-as-Presence（スタイルの指定＝要素の表示）」</strong> ルールを採用しています。任意の視覚要素はデフォルトが <code>None</code> であり、明示的な <code>Style</code> を渡したときのみ描画されます。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">任意スタイル引数</th>
+<th style="text-align:left">デフォルト</th>
+<th style="text-align:left"><code>Style</code> 指定時に有効化される視覚要素</th>
+<th style="text-align:left">対象チャートクラス</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong><code>axis_text_style</code></strong></td>
+<td style="text-align:left"><code>None</code></td>
+<td style="text-align:left">軸の目盛りラベル、カテゴリ名、放射軸ラベル（<code>RadarChart</code>）、列／行ラベル（<code>GanttChart</code>）。</td>
+<td style="text-align:left"><code>BarChart</code>, <code>LineChart</code>, <code>AreaChart</code>, <code>RadarChart</code>, <code>ScatterChart</code>, <code>GanttChart</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>grid_style</code></strong></td>
+<td style="text-align:left"><code>None</code></td>
+<td style="text-align:left">背景の数値グリッド線、同心リング（<code>RadarChart</code>）、縦方向の列区切り線（<code>GanttChart</code>）。</td>
+<td style="text-align:left"><code>BarChart</code>, <code>LineChart</code>, <code>AreaChart</code>, <code>RadarChart</code>, <code>ScatterChart</code>, <code>GanttChart</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>value_text_style</code></strong></td>
+<td style="text-align:left"><code>None</code></td>
+<td style="text-align:left">棒グラフの先端、折れ線／レーダーの頂点、円グラフの扇形内、散布図のポイント横の数値ラベル。</td>
+<td style="text-align:left"><code>BarChart</code>, <code>LineChart</code>, <code>AreaChart</code>, <code>PieChart</code>, <code>RadarChart</code>, <code>ScatterChart</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>title_style</code></strong></td>
+<td style="text-align:left"><code>None</code></td>
+<td style="text-align:left">チャート上部のタイトル文字列（空でない <code>title</code> 文字列が必要）。</td>
+<td style="text-align:left">全 7 チャートクラス</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>background_style</code></strong></td>
+<td style="text-align:left"><code>None</code></td>
+<td style="text-align:left">チャート外枠コンテナカードの背景塗りと枠線ストローク。</td>
+<td style="text-align:left">全 7 チャートクラス</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>scale_text_style</code></strong></td>
+<td style="text-align:left"><code>None</code></td>
+<td style="text-align:left">レーダーチャートの垂直上向きスポークに沿った同心リングの数値ラベル。</td>
+<td style="text-align:left"><code>RadarChart</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>center_text_style</code></strong></td>
+<td style="text-align:left"><code>None</code></td>
+<td style="text-align:left">ドーナツ中央穴の KPI バッジテキスト（<code>hole_ratio &gt; 0</code> かつ <code>center_text</code> の指定が必要）。</td>
+<td style="text-align:left"><code>PieChart</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>header_style</code></strong></td>
+<td style="text-align:left"><code>None</code></td>
+<td style="text-align:left">上部タイムライン列ヘッダー帯の背景塗り／枠線。</td>
+<td style="text-align:left"><code>GanttChart</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>zebra_style</code></strong></td>
+<td style="text-align:left"><code>None</code></td>
+<td style="text-align:left">スケジュール行に交互に敷かれる横方向の背景ストライプ。</td>
+<td style="text-align:left"><code>GanttChart</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>progress_text_style</code></strong></td>
+<td style="text-align:left"><code>None</code></td>
+<td style="text-align:left">タスクバー内部または横に表示される進捗率テキスト（<code>&quot;85%&quot;</code>）。</td>
+<td style="text-align:left"><code>GanttChart</code>（チャート全体またはタスク単位）</td>
+</tr>
+</tbody>
+</table>
+<h3>3. データ系列の追加と軸の設定</h3>
+<p>明示的なスタイルを指定してデータ系列を追加し、必要に応じて <code>configure_x_axis()</code> / <code>configure_y_axis()</code> で軸の上下限、目盛り間隔、単位、対数スケールを設定します。</p>
+<pre><code class="language-python"><span class="n">chart</span><span class="o">.</span><span class="n">add_series</span><span class="p">(</span><span class="s2">"Allocated"</span><span class="p">,</span> <span class="p">[</span><span class="mi">120</span><span class="p">,</span> <span class="mi">180</span><span class="p">,</span> <span class="mi">240</span><span class="p">],</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">)</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">add_series</span><span class="p">(</span><span class="s2">"Available"</span><span class="p">,</span> <span class="p">[</span><span class="mi">90</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="mi">210</span><span class="p">],</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryFlat</span><span class="p">)</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">configure_y_axis</span><span class="p">(</span><span class="n">min_value</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">max_value</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">tick_step</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s2">"TB"</span><span class="p">)</span>
+</code></pre>
+<h3>4. 左下アンカーでの描画と分離配置された凡例</h3>
+<p>すべてのチャートは <code>draw(xy=(x, y))</code> によって**左下角（bottom-left）**を基準に配置されます。凡例は本体から切り離されており、<code>draw_legend(xy=(x, y), text_style=...)</code> で任意の座標に描画できます。</p>
+<pre><code class="language-python"><span class="n">chart</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="n">chart</span><span class="o">.</span><span class="n">draw_legend</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">85</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Black</span><span class="p">)</span>
+</code></pre>
+<hr />
+<h2>4. コンポーネントライフサイクル・部分描画・比例スケーリング</h2>
+<p>Drawlib のすべてのチャートは統一された 4 フェーズのコンポーネントライフサイクル（<strong>1. インスタンス化 -&gt; 2. 要素の登録 -&gt; 3. 状態の変更 -&gt; 4. 描画</strong>）に従っており、ステップバイステップのスライド構築や段階的なデータ表示、複数チャートを並べたダッシュボード作成を容易に行えます。</p>
+<h3>1. 要素の表示切り替え（<code>show</code>）と軸スケールの固定維持</h3>
+<p>すべての要素登録メソッド（<code>add_series</code>、<code>add_slice</code>、<code>add</code>、<code>add_task</code>、<code>add_section</code>、<code>add_milestone</code>、<code>add_marker</code>、<code>add_dependency</code>）は <code>show: bool = True</code> を受け取り、変更可能な要素インスタンス（<code>Series</code>、<code>Slice</code>、<code>Point</code>、<code>Task</code> など）を返します。</p>
+<ul>
+<li><code>elem.show = False</code>（または <code>draw_ratio = 0.0</code>）に切り替えると、その要素の描画はスキップされますが、<strong>データセット全体（100%）に基づく自動軸スケール、円グラフの合計比率、ガントチャートの行スロット配置はそのまま維持されます</strong>。スライドやアニメーションフレーム間で系列を順番に表示しても、軸の目盛りが急にジャンプすることはありません。</li>
+</ul>
+<h3>2. 部分空間描画（<code>draw_ratio</code> と <code>draw_direction</code>）</h3>
+<p><code>Series</code>、<code>Slice</code>、<code>Task</code> オブジェクトは <code>draw_ratio: float = 1.0</code>（<code>0.0</code>〜<code>1.0</code>）および <code>draw_direction: DrawDirection</code>（<code>&quot;bottom_to_top&quot;</code> または <code>&quot;left_to_right&quot;</code>）をサポートしています。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">チャートクラス</th>
+<th style="text-align:left">デフォルトの <code>draw_direction</code></th>
+<th style="text-align:left"><code>&quot;bottom_to_top&quot;</code> の挙動</th>
+<th style="text-align:left"><code>&quot;left_to_right&quot;</code> の挙動</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong><code>BarChart</code></strong></td>
+<td style="text-align:left"><code>&quot;bottom_to_top&quot;</code>（<code>&quot;vertical&quot;</code> 時）／<code>&quot;left_to_right&quot;</code>（<code>&quot;horizontal&quot;</code> 時）</td>
+<td style="text-align:left">縦向き：すべての棒がベースラインから上へ伸長。横向き：下のカテゴリから順に表示。</td>
+<td style="text-align:left">縦向き：左のカテゴリから順に表示。横向き：すべての棒がベースラインから右へ伸長。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>LineChart</code></strong></td>
+<td style="text-align:left"><code>&quot;left_to_right&quot;</code></td>
+<td style="text-align:left">すべての頂点がベースラインから目標の <code>y</code> へ向かって同時に上昇。</td>
+<td style="text-align:left">曲線が弧長に沿って左から右へ連続的に伸長。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>AreaChart</code></strong></td>
+<td style="text-align:left"><code>&quot;left_to_right&quot;</code></td>
+<td style="text-align:left">面ポリゴンと上部輪郭線がベースライン（または下段スタック）から上昇。</td>
+<td style="text-align:left">面ポリゴンと上部輪郭線が左から右へ連続的にスイープ。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>ScatterChart</code></strong></td>
+<td style="text-align:left"><code>&quot;left_to_right&quot;</code></td>
+<td style="text-align:left">各ポイントが下端軸から目標の <code>y</code> へ上昇（半径も <code>radius * r</code> に拡大）。</td>
+<td style="text-align:left">X 軸の範囲に沿って左から右へポイントを順次表示。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>PieChart</code></strong></td>
+<td style="text-align:left"><code>&quot;left_to_right&quot;</code></td>
+<td style="text-align:left">扇形が内側の穴から外周半径へ向かって放射状に拡大。</td>
+<td style="text-align:left">扇形が <code>start_angle</code> から角度幅 <code>sweep_angle * r</code> に沿ってスイープ。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>RadarChart</code></strong></td>
+<td style="text-align:left"><code>&quot;bottom_to_top&quot;</code></td>
+<td style="text-align:left">ポリゴンが中心の <code>min_value</code> から外側へ放射状に拡大。</td>
+<td style="text-align:left">ポリゴンが外周の放射軸に沿って順番にスイープ。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>GanttChart</code></strong></td>
+<td style="text-align:left"><code>&quot;left_to_right&quot;</code></td>
+<td style="text-align:left">タスクバーが下端から本来の高さまで縦方向に伸長。</td>
+<td style="text-align:left">タスクバーが <code>start</code> から <code>end</code> に向かって横方向に伸長。</td>
+</tr>
+</tbody>
+</table>
+<h3>3. 一時的な寸法オーバーライドと比例スケーリング（<code>scale</code>）</h3>
+<p>すべての <code>draw()</code> 呼び出しでは、一時的なレイアウト寸法のオーバーライド（<code>width</code>、<code>height</code>、および <code>PieChart</code>／<code>RadarChart</code> の <code>radius</code>）に加えて、<code>scale: float = 1.0</code>（<code>draw_legend()</code> でも対応）を指定できます。<code>scale != 1.0</code> を渡すと、プロット形状・線幅・ポイントマーカー・フォントサイズを含むチャート全体が基準点 <code>xy</code> から一様に比例スケーリングされます。</p>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.charts.bar</span><span class="w"> </span><span class="kn">import</span> <span class="n">BarChart</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.charts.line</span><span class="w"> </span><span class="kn">import</span> <span class="n">LineChart</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">115</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">58</span><span class="p">)</span>
+
+<span class="c1"># Left: BarChart with partial series rendering (draw_ratio)</span>
+<span class="n">bar</span> <span class="o">=</span> <span class="n">BarChart</span><span class="p">(</span>
+    <span class="n">categories</span><span class="o">=</span><span class="p">[</span><span class="s2">"Q1"</span><span class="p">,</span> <span class="s2">"Q2"</span><span class="p">,</span> <span class="s2">"Q3"</span><span class="p">,</span> <span class="s2">"Q4"</span><span class="p">],</span>
+    <span class="n">axis_line_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="p">,</span>
+    <span class="n">axis_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">grid_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedThin</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">48</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">38</span><span class="p">,</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">"Partial Growth (draw_ratio=0.6)"</span><span class="p">,</span>
+    <span class="n">title_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">BlackBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">),</span>
+    <span class="n">bar_r</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">bar</span><span class="o">.</span><span class="n">add_series</span><span class="p">(</span><span class="s2">"2025 Baseline"</span><span class="p">,</span> <span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">34</span><span class="p">,</span> <span class="mi">42</span><span class="p">],</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">draw_ratio</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="n">bar</span><span class="o">.</span><span class="n">add_series</span><span class="p">(</span><span class="s2">"2026 Actual"</span><span class="p">,</span> <span class="p">[</span><span class="mi">25</span><span class="p">,</span> <span class="mi">36</span><span class="p">,</span> <span class="mi">48</span><span class="p">,</span> <span class="mi">60</span><span class="p">],</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">draw_ratio</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
+<span class="n">bar</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="n">bar</span><span class="o">.</span><span class="n">draw_legend</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">52</span><span class="p">),</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span> <span class="n">orientation</span><span class="o">=</span><span class="s2">"horizontal"</span><span class="p">)</span>
+
+<span class="c1"># Right: LineChart rendered at compact 0.75x proportional scale</span>
+<span class="n">line</span> <span class="o">=</span> <span class="n">LineChart</span><span class="p">(</span>
+    <span class="n">categories</span><span class="o">=</span><span class="p">[</span><span class="s2">"M1"</span><span class="p">,</span> <span class="s2">"M2"</span><span class="p">,</span> <span class="s2">"M3"</span><span class="p">,</span> <span class="s2">"M4"</span><span class="p">,</span> <span class="s2">"M5"</span><span class="p">],</span>
+    <span class="n">axis_line_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="p">,</span>
+    <span class="n">axis_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">13.5</span><span class="p">),</span>
+    <span class="n">grid_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedThin</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">46</span><span class="p">,</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">"Scaled Trend (scale=0.75, ratio=0.75)"</span><span class="p">,</span>
+    <span class="n">title_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">BlackBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">15.0</span><span class="p">),</span>
+    <span class="n">smooth</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">line</span><span class="o">.</span><span class="n">add_series</span><span class="p">(</span><span class="s2">"Target"</span><span class="p">,</span> <span class="p">[</span><span class="mi">30</span><span class="p">,</span> <span class="mi">45</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">100</span><span class="p">],</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">line_style</span><span class="o">=</span><span class="s2">"dashed"</span><span class="p">)</span>
+<span class="n">line</span><span class="o">.</span><span class="n">add_series</span><span class="p">(</span><span class="s2">"Active"</span><span class="p">,</span> <span class="p">[</span><span class="mi">32</span><span class="p">,</span> <span class="mi">54</span><span class="p">,</span> <span class="mi">78</span><span class="p">,</span> <span class="mi">95</span><span class="p">,</span> <span class="mi">120</span><span class="p">],</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">line_width</span><span class="o">=</span><span class="mf">2.5</span><span class="p">,</span> <span class="n">draw_ratio</span><span class="o">=</span><span class="mf">0.75</span><span class="p">)</span>
+<span class="n">line</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">62</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">scale</span><span class="o">=</span><span class="mf">0.75</span><span class="p">)</span>
+<span class="n">line</span><span class="o">.</span><span class="n">draw_legend</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">68</span><span class="p">,</span> <span class="mi">47</span><span class="p">),</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">13.5</span><span class="p">),</span> <span class="n">orientation</span><span class="o">=</span><span class="s2">"horizontal"</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">0.75</span><span class="p">)</span>
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="../../images/05_charts/overview/charts_lifecycle_partial_scale.png" alt="overview_3" />
+  <figcaption class="drawlib-caption">部分空間描画 (draw_ratio) と比例スケーリング (scale)</figcaption>
+</figure>
+
+            </main>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Theme toggle
+            const themeBtn = document.getElementById('theme-toggle');
+            if (themeBtn) {
+                themeBtn.addEventListener('click', function() {
+                    const current = document.documentElement.getAttribute('data-theme');
+                    const next = current === 'dark' ? 'light' : 'dark';
+                    document.documentElement.setAttribute('data-theme', next);
+                    localStorage.setItem('drawlib-theme', next);
+                });
+            }
+
+            // Language dropdown outside-click & Escape close
+            const langDropdowns = document.querySelectorAll('.lang-dropdown');
+            if (langDropdowns.length > 0) {
+                document.addEventListener('click', function(e) {
+                    langDropdowns.forEach(function(dd) {
+                        if (dd.hasAttribute('open') && !dd.contains(e.target)) {
+                            dd.removeAttribute('open');
+                        }
+                    });
+                });
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape') {
+                        langDropdowns.forEach(function(dd) {
+                            dd.removeAttribute('open');
+                        });
+                    }
+                });
+            }
+
+            // Mobile menu toggle
+            const menuBtn = document.getElementById('menu-toggle');
+            const sidebar = document.querySelector('.sidebar');
+            if (menuBtn && sidebar) {
+                function setMenuOpen(open) {
+                    sidebar.classList.toggle('is-open', open);
+                    menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+                    document.body.classList.toggle('menu-open', open);
+                    if (open) {
+                        const menu = sidebar.querySelector('.sidebar-menu');
+                        if (menu) {
+                            menu.scrollTop = 0;
+                        }
+                    }
+                }
+
+                menuBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const willOpen = !sidebar.classList.contains('is-open');
+                    setMenuOpen(willOpen);
+                });
+
+                // Close menu when clicking outside sidebar
+                document.addEventListener('click', function(e) {
+                    if (sidebar.classList.contains('is-open') && !sidebar.contains(e.target)) {
+                        setMenuOpen(false);
+                    }
+                });
+
+                // Close menu when a navigation link is clicked
+                const navLinks = sidebar.querySelectorAll('.nav-item a');
+                navLinks.forEach(function(link) {
+                    link.addEventListener('click', function() {
+                        setMenuOpen(false);
+                    });
+                });
+
+                // Close on Escape key
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape' && sidebar.classList.contains('is-open')) {
+                        setMenuOpen(false);
+                    }
+                });
+
+                // Reset menu state when resized above mobile breakpoint
+                window.addEventListener('resize', function() {
+                    if (window.innerWidth > 768 && sidebar.classList.contains('is-open')) {
+                        setMenuOpen(false);
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

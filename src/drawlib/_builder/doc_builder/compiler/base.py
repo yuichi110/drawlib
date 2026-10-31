@@ -26,7 +26,7 @@ EXCLUDED_ASSET_NAMES: set[str] = {
     "template.html",
     "i18n.toml",
 }
-EXCLUDED_ASSET_EXTENSIONS: tuple[str, ...] = (".py", ".sh", ".j2", ".template")
+EXCLUDED_ASSET_EXTENSIONS: tuple[str, ...] = (".py", ".pyc", ".sh", ".j2", ".template")
 
 
 def require_directory(path: str, caller_name: str) -> str:
@@ -201,11 +201,13 @@ def copy_directory_assets(
     excluded = excluded_files or set()
 
     for root, dirnames, files in os.walk(input_dir_abs):
-        # Exclude output dir if inside input dir
+        # Exclude hidden dirs, __pycache__, and output dir if inside input dir
         dirnames[:] = [
             d
             for d in dirnames
-            if not (
+            if not d.startswith(".")
+            and d != "__pycache__"
+            and not (
                 os.path.abspath(os.path.join(root, d)) == out_dir_abs
                 or os.path.abspath(os.path.join(root, d)).startswith(out_dir_abs + os.sep)
             )

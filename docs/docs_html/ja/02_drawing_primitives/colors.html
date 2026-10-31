@@ -1,0 +1,1074 @@
+<!--
+ Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+
+ This software is licensed under the Apache License, Version 2.0.
+ For more information, please visit: https://github.com/yuichi110/drawlib
+
+ This software is provided "as is", without warranty of any kind,
+ express or implied, including but not limited to the warranties of
+ merchantability, fitness for a particular purpose and noninfringement.
+-->
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>カラーパレットと色モデル</title>
+    <script>
+        (function() {
+            const saved = localStorage.getItem('drawlib-theme');
+            if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    
+    
+    <link rel="alternate" hreflang="en" href="../../en/02_drawing_primitives/colors.html">
+    
+    <link rel="alternate" hreflang="ja" href="colors.html">
+    
+    <link rel="alternate" hreflang="x-default" href="../../en/02_drawing_primitives/colors.html">
+    
+    
+    
+    <link rel="icon" type="image/png" href="../../_assets/favicon.png">
+    
+    
+    <link rel="stylesheet" href="../style.css">
+    
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-brand" aria-label="Drawlib ドキュメント">
+                    
+                    <img src="../../_assets/logo.png" alt="Drawlib ドキュメント" class="sidebar-logo sidebar-logo-light">
+                    <img src="../../_assets/logo_dark.png" alt="Drawlib ドキュメント" class="sidebar-logo sidebar-logo-dark">
+                    
+                </a>
+                <div class="sidebar-header-actions">
+                    <button type="button" id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle theme">
+                        <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                        <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                    </button>
+                    <button type="button" id="menu-toggle" class="menu-toggle-btn" aria-label="Toggle navigation" aria-expanded="false">
+                        <svg class="icon-hamburger" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                        <svg class="icon-close" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                    </button>
+                </div>
+            </div>
+            <div class="sidebar-subbar">
+                
+                <a href="../01_getting_started/release_notes.html" class="sidebar-version-badge" title="View Release Notes">
+                    <span class="sidebar-version-dot" aria-hidden="true"></span>
+                    <span class="sidebar-version-text">v0.3.2</span>
+                </a>
+                <a href="https://github.com/yuichi110/drawlib" target="_blank" rel="noopener noreferrer" class="sidebar-github-link" aria-label="GitHub Repository" title="GitHub Repository">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+                </a>
+            </div>
+            <div class="sidebar-menu">
+                
+                    
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../index.html" >ようこそ</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">1. はじめに</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/overview.html" >Drawlib とは</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/installation.html" >インストールガイド</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/quick_start.html" >クイックスタートガイド</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/core_concepts.html" >基本ビジュアル概念</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/project_quicklook.html" >プロジェクト構成とビルド</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/agent_quicklook.html" >AI 駆動ワークフローとエージェント設定</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/release_notes.html" >リリースノートと移行ガイド</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">2. 描画プリミティブとスタイル</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="canvas.html" >キャンバスと座標系</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="shapes_overview.html" >図形プリミティブ概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="shapes_basic.html" >基本図形・放射状図形</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="shapes_polygon.html" >多角形とカスタムパス</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="shapes_arrow.html" >ブロック矢印・シェブロン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="shapes_container.html" >3D コンテナ・フロー・グルーピング</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="shapes_badge.html" >吹き出し・バッジ・ステータス</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="shapes_symbol.html" >フェイス・時計・記号・演算子</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="lines.html" >線とコネクタ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="text.html" >テキストとタイポグラフィ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="fonts.html" >フォントと多言語カタログ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="font_file.html" >カスタムフォントファイル (FontFile)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="images.html" >画像と Dimage</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="styles.html" >スタイルとテーマ設定</a>
+                            </li>
+                            
+                            <li class="nav-item active">
+                                <a href="colors.html" >カラーパレットと色モデル</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="style_guide.html" >図解デザインとスタイルガイド</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">3. アイコンとブランドスイート</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/overview.html" >アイコン概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/phosphor.html" >Phosphor ベクターアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/gcp.html" >Google Cloud (GCP) アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/aws.html" >Amazon Web Services (AWS) アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/azure.html" >Microsoft Azure アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/cloud.html" >クラウド・オリジナルクラウドアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/cnative.html" >クラウドネイティブ (K8s) アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/devops.html" >DevOps・オブザーバビリティアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/network.html" >ネットワーク・Cisco トポロジアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/server.html" >サーバー・OS・仮想化アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/security.html" >セキュリティ・ゼロトラストアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/facility.html" >データセンター・ファシリティアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/ai.html" >AI・機械学習アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/data.html" >データ・データベースアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/code.html" >コード・言語・フレームワークアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/business.html" >エンタープライズ・FinTech アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/itservice.html" >IT サービス・コンサルティングアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/workspace.html" >ワークスペース・コラボレーションアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/social.html" >ソーシャル・メディア・コミュニティアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/client.html" >クライアント端末・エンドポイントアイコン</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">4. SmartArts（スマートアート）</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/overview.html" >SmartArts 概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/chevron_process.html" >ChevronProcess（シェブロン工程図）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/cycle.html" >Cycle（サイクル図）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/table.html" >Table（テーブル）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/tree.html" >Tree（ツリー図）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/mindmap.html" >MindMap（マインドマップ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/grid_layout.html" >GridLayout（グリッドレイアウト）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/pyramid.html" >Pyramid（ピラミッド図）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/box_list.html" >BoxList（ボックスリスト）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/kpi_cards.html" >KpiCards（KPI カード）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/card_list.html" >CardList（カードリスト）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/roadmap.html" >Roadmap（ロードマップ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/panel.html" >Panel（パネル）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/calendar.html" >Calendar（カレンダー）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/bullet_points.html" >BulletPoints（箇条書きボード）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/source_code.html" >SourceCode（ソースコードカード）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/geomap.html" >GeoMap（地理マップ）</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">5. Charts（定量チャート）</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/overview.html" >Charts 概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/axes_and_legends.html" >軸・スケール・凡例</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/bar.html" >Bar Chart（棒グラフ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/line.html" >Line Chart（折れ線グラフ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/area.html" >Area Chart（面グラフ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/pie.html" >Pie & Donut Chart（円・ドーナツグラフ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/radar.html" >Radar Chart（レーダーチャート）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/scatter.html" >Scatter Chart（散布図）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/gantt.html" >Gantt Chart（ガントチャート）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/heatmap.html" >Heatmap & Thermal Overlay（ヒートマップ）</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">6. テクニカルダイアグラム</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/overview.html" >ダイアグラム概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/architecture.html" >アーキテクチャ図</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/flow.html" >フロー図</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/sequence.html" >シーケンス図</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/class_diagram.html" >UML クラス図</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/er.html" >ER 図</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/state_diagram.html" >ステートマシン図</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">7. 自動レイアウトグラフ</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/overview.html" >グラフエンジン概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/architecture_graph.html" >ArchitectureGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/layer_graph.html" >LayerGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/tree_graph.html" >TreeGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/radial_graph.html" >RadialGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/grid_graph.html" >GridGraph</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">8. アニメーション</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/overview.html" >アニメーション概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/primitives.html" >プリミティブと色のアニメーション</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/smartarts.html" >SmartArts のアニメーション</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/charts.html" >Charts のアニメーション</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/diagrams.html" >ダイアグラムのアニメーション</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/graphs.html" >グラフのアニメーション</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">9. ドキュメントビルダと CLI</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/overview.html" >コードとしての図解ドキュメント概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/code_blocks.html" >Markdown コードブロック構文</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/cli_reference.html" >CLI リファレンス</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/project_doc.html" >リニアドキュメントプロジェクト (`doc`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/project_site.html" >ドキュメントサイトプロジェクト (`site`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/project_slide.html" >スライドデッキプロジェクト (`slide`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/slide_layout_and_api.html" >スライドステージレイアウトと API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/project_image.html" >画像プロジェクト (`images`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/customization.html" >テンプレートと CSS カスタマイズ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/caching_and_cicd.html" >キャッシュ機構と CI/CD</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">10. AI エージェントと高度な統合</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/ai_agent_instructions.html" >AI エージェント指示とルール体系</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/multimodal_feedback_loop.html" >自律検証フィードバックループ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/programmatic_api.html" >プログラマティック API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/math_and_layout.html" >アルゴリズムレイアウトと幾何計算</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/debugging.html" >トラブルシューティングとデバッグ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/case_study_brand_assets.html" >事例紹介: 公式ブランドアセットの設計</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/case_study_documentation_site.html" >事例紹介: AI エージェントによるドキュメントサイト構築</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/case_study_software_architecture.html" >事例紹介: コードとしてのソフトウェアアーキテクチャ設計書</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/case_study_technical_slides.html" >事例紹介: 技術プレゼンテーションスライドの作成</a>
+                            </li>
+                            
+                        </ul>
+                    
+                
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">カラーパレットと色モデル</span>
+                </div>
+                
+                <div class="lang-switcher">
+                    <details class="lang-dropdown">
+                        <summary class="lang-dropdown-btn" aria-label="Select language">
+                            <svg class="lang-globe-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                            <span class="lang-current-label">日本語</span>
+                            <svg class="lang-caret-icon" viewBox="0 0 24 24" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </summary>
+                        <div class="lang-dropdown-menu" role="menu">
+                            
+                            <a href="../../en/02_drawing_primitives/colors.html" class="lang-option" lang="en" hreflang="en" >
+                                <span>English</span>
+                                
+                            </a>
+                            
+                            <a href="colors.html" class="lang-option active" lang="ja" hreflang="ja" aria-current="page">
+                                <span>日本語</span>
+                                
+                                <svg class="lang-check-icon" viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                
+                            </a>
+                            
+                        </div>
+                    </details>
+                </div>
+                
+            </header>
+            <main class="main-content">
+                <h1>カラーパレットと色モデル</h1>
+<p>Drawlib は、厳選されたテーマパレット（<code>DefaultColors</code>、<code>GoogleColors</code>、<code>MonochromeColors</code>、<code>CssColors</code>）と線形色補間ユーティリティを備えたイミュータブルな RGBA <strong><code>Color</code></strong> モデルによって色を表現します。</p>
+<hr />
+<h2>1. セマンティックカラーロールと明度階調の概要</h2>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="../../images/02_drawing_primitives/colors/colors_overview.png" alt="colors_1" />
+  <figcaption class="drawlib-caption">Drawlib の 7 種類のセマンティックカラーロールと 6 段階のトーンランプ</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Colors</span><span class="p">,</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">130</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">62</span><span class="p">)</span>
+
+<span class="n">roles</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s2">"Primary"</span><span class="p">,</span> <span class="p">[</span><span class="n">Colors</span><span class="o">.</span><span class="n">Primary1</span><span class="p">,</span> <span class="n">Colors</span><span class="o">.</span><span class="n">Primary2</span><span class="p">,</span> <span class="n">Colors</span><span class="o">.</span><span class="n">Primary3</span><span class="p">,</span> <span class="n">Colors</span><span class="o">.</span><span class="n">Primary4</span><span class="p">,</span> <span class="n">Colors</span><span class="o">.</span><span class="n">Primary5</span><span class="p">,</span> <span class="n">Colors</span><span class="o">.</span><span class="n">Primary6</span><span class="p">]),</span>
+    <span class="p">(</span><span class="s2">"Secondary"</span><span class="p">,</span> <span class="p">[</span><span class="n">Colors</span><span class="o">.</span><span class="n">Secondary1</span><span class="p">,</span> <span class="n">Colors</span><span class="o">.</span><span class="n">Secondary2</span><span class="p">,</span> <span class="n">Colors</span><span class="o">.</span><span class="n">Secondary3</span><span class="p">,</span> <span class="n">Colors</span><span class="o">.</span><span class="n">Secondary4</span><span class="p">,</span> <span class="n">Colors</span><span class="o">.</span><span class="n">Secondary5</span><span class="p">,</span> <span class="n">Colors</span><span class="o">.</span><span class="n">Secondary6</span><span class="p">]),</span>
+    <span class="p">(</span><span class="s2">"Accent"</span><span class="p">,</span> <span class="p">[</span><span class="n">Colors</span><span class="o">.</span><span class="n">Accent1</span><span class="p">,</span> <span class="n">Colors</span><span class="o">.</span><span class="n">Accent2</span><span class="p">,</span> <span class="n">Colors</span><span class="o">.</span><span class="n">Accent3</span><span class="p">,</span> <span class="n">Colors</span><span class="o">.</span><span class="n">Accent4</span><span class="p">,</span> <span class="n">Colors</span><span class="o">.</span><span class="n">Accent5</span><span class="p">,</span> <span class="n">Colors</span><span class="o">.</span><span class="n">Accent6</span><span class="p">]),</span>
+    <span class="p">(</span><span class="s2">"Success"</span><span class="p">,</span> <span class="p">[</span><span class="n">Colors</span><span class="o">.</span><span class="n">Success1</span><span class="p">,</span> <span class="n">Colors</span><span class="o">.</span><span class="n">Success2</span><span class="p">,</span> <span class="n">Colors</span><span class="o">.</span><span class="n">Success3</span><span class="p">,</span> <span class="n">Colors</span><span class="o">.</span><span class="n">Success4</span><span class="p">,</span> <span class="n">Colors</span><span class="o">.</span><span class="n">Success5</span><span class="p">,</span> <span class="n">Colors</span><span class="o">.</span><span class="n">Success6</span><span class="p">]),</span>
+    <span class="p">(</span><span class="s2">"Warning"</span><span class="p">,</span> <span class="p">[</span><span class="n">Colors</span><span class="o">.</span><span class="n">Warning1</span><span class="p">,</span> <span class="n">Colors</span><span class="o">.</span><span class="n">Warning2</span><span class="p">,</span> <span class="n">Colors</span><span class="o">.</span><span class="n">Warning3</span><span class="p">,</span> <span class="n">Colors</span><span class="o">.</span><span class="n">Warning4</span><span class="p">,</span> <span class="n">Colors</span><span class="o">.</span><span class="n">Warning5</span><span class="p">,</span> <span class="n">Colors</span><span class="o">.</span><span class="n">Warning6</span><span class="p">]),</span>
+    <span class="p">(</span><span class="s2">"Danger"</span><span class="p">,</span> <span class="p">[</span><span class="n">Colors</span><span class="o">.</span><span class="n">Danger1</span><span class="p">,</span> <span class="n">Colors</span><span class="o">.</span><span class="n">Danger2</span><span class="p">,</span> <span class="n">Colors</span><span class="o">.</span><span class="n">Danger3</span><span class="p">,</span> <span class="n">Colors</span><span class="o">.</span><span class="n">Danger4</span><span class="p">,</span> <span class="n">Colors</span><span class="o">.</span><span class="n">Danger5</span><span class="p">,</span> <span class="n">Colors</span><span class="o">.</span><span class="n">Danger6</span><span class="p">]),</span>
+    <span class="p">(</span><span class="s2">"Muted"</span><span class="p">,</span> <span class="p">[</span><span class="n">Colors</span><span class="o">.</span><span class="n">Muted1</span><span class="p">,</span> <span class="n">Colors</span><span class="o">.</span><span class="n">Muted2</span><span class="p">,</span> <span class="n">Colors</span><span class="o">.</span><span class="n">Muted3</span><span class="p">,</span> <span class="n">Colors</span><span class="o">.</span><span class="n">Muted4</span><span class="p">,</span> <span class="n">Colors</span><span class="o">.</span><span class="n">Muted5</span><span class="p">,</span> <span class="n">Colors</span><span class="o">.</span><span class="n">Muted6</span><span class="p">]),</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">col_idx</span><span class="p">,</span> <span class="p">(</span><span class="n">role_name</span><span class="p">,</span> <span class="n">shades</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">roles</span><span class="p">):</span>
+    <span class="n">cx</span> <span class="o">=</span> <span class="mf">13.5</span> <span class="o">+</span> <span class="n">col_idx</span> <span class="o">*</span> <span class="mf">17.2</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mf">55.5</span><span class="p">),</span> <span class="n">role_name</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">row_idx</span><span class="p">,</span> <span class="n">shade</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">shades</span><span class="p">):</span>
+        <span class="n">cy</span> <span class="o">=</span> <span class="mf">45.5</span> <span class="o">-</span> <span class="n">row_idx</span> <span class="o">*</span> <span class="mf">7.5</span>
+        <span class="n">txt_st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span> <span class="k">if</span> <span class="n">row_idx</span> <span class="o">&lt;</span> <span class="mi">3</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span>
+        <span class="n">rectangle</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="p">),</span>
+            <span class="n">width</span><span class="o">=</span><span class="mf">15.4</span><span class="p">,</span>
+            <span class="n">height</span><span class="o">=</span><span class="mf">6.6</span><span class="p">,</span>
+            <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">NeutralFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_fill_color</span><span class="o">=</span><span class="n">shade</span><span class="p">,</span> <span class="n">shape_r</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+            <span class="n">text</span><span class="o">=</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">role_name</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}{</span><span class="n">row_idx</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
+            <span class="n">text_style</span><span class="o">=</span><span class="n">txt_st</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+        <span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<hr />
+<h2>2. <code>Color</code> クラス (<code>drawlib.preset_colors.Color</code>)</h2>
+<p>Drawlib のすべての色定数は <code>Color</code> のインスタンスです（<code>drawlib.styles</code> または <code>drawlib.preset_colors</code> からインポート可能）。<code>Color</code> はイミュータブルな RGBA モデルであると同時に、4 要素タプル <code>(r, g, b, alpha)</code> のようにも振る舞います。</p>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.preset_colors</span><span class="w"> </span><span class="kn">import</span> <span class="n">Color</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Colors</span><span class="p">,</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">126</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+
+<span class="c1"># Left Panel: Custom RGB and Hex Color construction</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">26</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">26</span><span class="p">,</span> <span class="mi">40</span><span class="p">),</span> <span class="s2">"Custom RGB &amp; Hex"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
+
+<span class="n">c_rgb</span> <span class="o">=</span> <span class="n">Color</span><span class="p">(</span><span class="mi">37</span><span class="p">,</span> <span class="mi">99</span><span class="p">,</span> <span class="mi">235</span><span class="p">)</span>
+<span class="n">c_hex</span> <span class="o">=</span> <span class="n">Color</span><span class="p">(</span><span class="s2">"#10B981"</span><span class="p">)</span>
+
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">26</span><span class="p">,</span> <span class="mi">29</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">36</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">11</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">NeutralFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_fill_color</span><span class="o">=</span><span class="n">c_rgb</span><span class="p">,</span> <span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Color(37, 99, 235)"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">26</span><span class="p">,</span> <span class="mi">14</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">36</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">11</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">NeutralFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_fill_color</span><span class="o">=</span><span class="n">c_hex</span><span class="p">,</span> <span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s1">'Color("#10B981")'</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># Right Panel: Alpha opacity patching on Colors.Blue4</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">87</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">68</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">87</span><span class="p">,</span> <span class="mi">40</span><span class="p">),</span> <span class="s2">"Colors.Blue4.patch(alpha=...)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">a_val</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">([</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]):</span>
+    <span class="n">cx</span> <span class="o">=</span> <span class="mf">62.2</span> <span class="o">+</span> <span class="n">i</span> <span class="o">*</span> <span class="mf">16.5</span>
+    <span class="n">col</span> <span class="o">=</span> <span class="n">Colors</span><span class="o">.</span><span class="n">Blue4</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="n">a_val</span><span class="p">)</span>
+    <span class="n">lbl_st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span> <span class="k">if</span> <span class="n">a_val</span> <span class="o">&lt;=</span> <span class="mf">0.5</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span>
+    <span class="n">rectangle</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">cx</span><span class="p">,</span> <span class="mi">22</span><span class="p">),</span>
+        <span class="n">width</span><span class="o">=</span><span class="mf">14.8</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_fill_color</span><span class="o">=</span><span class="n">col</span><span class="p">,</span> <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">),</span>
+        <span class="n">text</span><span class="o">=</span><span class="sa">f</span><span class="s2">"alpha</span><span class="se">\n</span><span class="si">{</span><span class="n">a_val</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
+        <span class="n">text_style</span><span class="o">=</span><span class="n">lbl_st</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="../../images/02_drawing_primitives/colors/colors_alpha_and_hex.png" alt="colors_2" />
+  <figcaption class="drawlib-caption">カスタム RGB／Hex カラーの生成とアルファ不透明度のレイヤリング</figcaption>
+</figure>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">プロパティ／メソッド</th>
+<th style="text-align:left">戻り値の型</th>
+<th style="text-align:left">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>color.r</code>, <code>color.g</code>, <code>color.b</code></td>
+<td style="text-align:left"><code>int</code> (<code>0..255</code>)</td>
+<td style="text-align:left">赤（Red）・緑（Green）・青（Blue）の各チャンネル値。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>color.alpha</code> / <code>color.a</code></td>
+<td style="text-align:left"><code>float</code> (<code>0.0..1.0</code>)</td>
+<td style="text-align:left">不透明度チャンネル（<code>0.0</code> = 完全透明、<code>1.0</code> = 完全不透明）。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>color.rgb</code></td>
+<td style="text-align:left"><code>tuple[int, int, int]</code></td>
+<td style="text-align:left">標準の 3 要素タプル <code>(r, g, b)</code>。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>color.rgba</code></td>
+<td style="text-align:left"><code>tuple[int, int, int, float]</code></td>
+<td style="text-align:left">標準の 4 要素タプル <code>(r, g, b, alpha)</code>。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>color.hex</code></td>
+<td style="text-align:left"><code>str</code></td>
+<td style="text-align:left">小文字の 16 進カラーコード文字列（<code>&quot;#rrggbb&quot;</code>、または <code>alpha &lt; 1.0</code> の場合は <code>&quot;#rrggbbaa&quot;</code>）。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>Color.from_hex(hexcode, alpha=None)</code></td>
+<td style="text-align:left"><code>Color</code></td>
+<td style="text-align:left">3 桁・4 桁・6 桁・8 桁の 16 進カラー文字列を解析して <code>Color</code> を生成します（任意の <code>alpha</code> 上書き対応）。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>color.patch(r=..., g=..., b=..., alpha=...)</code></td>
+<td style="text-align:left"><code>Color</code></td>
+<td style="text-align:left">指定したチャンネルまたは不透明度を更新した新しい <code>Color</code> を返します。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>color.to_mplot_rgba()</code></td>
+<td style="text-align:left"><code>tuple[float, float, float, float]</code></td>
+<td style="text-align:left">Matplotlib バックエンド向けの <code>0.0..1.0</code> 正規化 RGBA タプル。</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>3. プリセットカラーパレットと明度階調</h2>
+<p>すべてのカラーカタログは <code>drawlib.preset_colors</code> からインポートします（現在有効なパレットは <code>drawlib.styles</code> の <code>Colors</code> として公開されます）。</p>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.preset_colors</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">CssColors</span><span class="p">,</span>
+    <span class="n">DefaultColors</span><span class="p">,</span>
+    <span class="n">DefaultColors1</span><span class="p">,</span>
+    <span class="n">DefaultColors2</span><span class="p">,</span>
+    <span class="n">DefaultColors3</span><span class="p">,</span>
+    <span class="n">DefaultColors4</span><span class="p">,</span>
+    <span class="n">DefaultColors5</span><span class="p">,</span>
+    <span class="n">DefaultColors6</span><span class="p">,</span>
+    <span class="n">GoogleColors</span><span class="p">,</span>
+    <span class="n">MonochromeColors</span><span class="p">,</span>
+<span class="p">)</span>
+</code></pre>
+<h3>3.1. 明度階調（トーン）とサーフェストークン</h3>
+<p><code>DefaultColors</code> および <code>GoogleColors</code> では、すべてのセマンティックロール（<code>Primary</code>、<code>Secondary</code>、<code>Accent</code>、<code>Warning</code>、<code>Danger</code>、<code>Success</code>、<code>Muted</code>）と有彩色相（<code>Blue</code>、<code>Green</code>、<code>Red</code>、<code>Orange</code>、<code>Amber</code>、<code>Purple</code>、<code>Teal</code>、<code>Pink</code>）が <strong>6 段階の明度階調（トーン）</strong> とサーフェストークンに体系化されています。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">トーン／トークン</th>
+<th style="text-align:left">属性の例</th>
+<th style="text-align:left">視覚的役割</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>トーン <code>1</code>（極淡色／パステル）</strong></td>
+<td style="text-align:left"><code>Colors.Primary1</code>, <code>Colors.Blue1</code>, <code>Colors.PrimaryNeutral</code></td>
+<td style="text-align:left">淡く色付けされたニュートラルカードの塗り色（<code>Styles.*Neutral</code>）。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>トーン <code>2</code>（淡色）</strong></td>
+<td style="text-align:left"><code>Colors.Primary2</code>, <code>Colors.Gray2</code>, <code>Colors.Neutral</code></td>
+<td style="text-align:left">落ち着いた標準ニュートラルカードの背景面（<code>Styles.Neutral</code>）。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>トーン <code>3</code>（ソフト中間色）</strong></td>
+<td style="text-align:left"><code>Colors.Primary3</code>, <code>Colors.Blue3</code>, <code>Colors.Gray3</code></td>
+<td style="text-align:left">色付きニュートラルカードの枠線や控えめな区切り線。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>トーン <code>4</code>（標準／ベース）</strong></td>
+<td style="text-align:left"><code>Colors.Primary</code> (<code>Primary4</code>), <code>Colors.Blue4</code></td>
+<td style="text-align:left">標準の鮮やかなヒーロー塗りつぶし色（<code>Styles.PrimaryFlat</code>）。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>トーン <code>5</code>（濃色）</strong></td>
+<td style="text-align:left"><code>Colors.Primary5</code>, <code>Colors.Blue5</code>, <code>Colors.Gray5</code></td>
+<td style="text-align:left">強調された枠線やアクティブ状態。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>トーン <code>6</code>（最濃色）</strong></td>
+<td style="text-align:left"><code>Colors.Primary6</code>, <code>Colors.Blue6</code></td>
+<td style="text-align:left">色付きニュートラルカード内の高コントラスト文字色。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>サーフェス・チャコール系</strong></td>
+<td style="text-align:left"><code>Colors.Canvas</code>, <code>Colors.Light</code> (<code>White</code>), <code>Colors.Dark</code> (<code>Gray7</code>), <code>Colors.Gray1</code>..<code>Gray8</code>, <code>Colors.Black</code></td>
+<td style="text-align:left">キャンバス背景、カード面、枠線、および本文のチャコール文字色。</td>
+</tr>
+</tbody>
+</table>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="../../images/02_drawing_primitives/colors/colors_chromatic_and_surface_swatches.png" alt="colors_3" />
+  <figcaption class="drawlib-caption">8 種類の有彩色相ファミリー（トーン 1〜6）とグレースケール・サーフェスランプ</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Colors</span><span class="p">,</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">134</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">74</span><span class="p">)</span>
+
+<span class="n">hues</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"Blue"</span><span class="p">,</span> <span class="s2">"Green"</span><span class="p">,</span> <span class="s2">"Red"</span><span class="p">,</span> <span class="s2">"Orange"</span><span class="p">,</span> <span class="s2">"Amber"</span><span class="p">,</span> <span class="s2">"Purple"</span><span class="p">,</span> <span class="s2">"Teal"</span><span class="p">,</span> <span class="s2">"Pink"</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="n">col_idx</span><span class="p">,</span> <span class="n">hue</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">hues</span><span class="p">):</span>
+    <span class="n">cx</span> <span class="o">=</span> <span class="mf">12.2</span> <span class="o">+</span> <span class="n">col_idx</span> <span class="o">*</span> <span class="mf">15.6</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mf">68.5</span><span class="p">),</span> <span class="n">hue</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">tier</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">7</span><span class="p">):</span>
+        <span class="n">cy</span> <span class="o">=</span> <span class="mf">60.0</span> <span class="o">-</span> <span class="p">(</span><span class="n">tier</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mf">6.8</span>
+        <span class="n">col</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">Colors</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">hue</span><span class="si">}{</span><span class="n">tier</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="n">txt_st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span> <span class="k">if</span> <span class="n">tier</span> <span class="o">&lt;=</span> <span class="mi">3</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span>
+        <span class="n">rectangle</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="p">),</span>
+            <span class="n">width</span><span class="o">=</span><span class="mf">14.2</span><span class="p">,</span>
+            <span class="n">height</span><span class="o">=</span><span class="mf">6.0</span><span class="p">,</span>
+            <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">NeutralFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_fill_color</span><span class="o">=</span><span class="n">col</span><span class="p">,</span> <span class="n">shape_r</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+            <span class="n">text</span><span class="o">=</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">hue</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}{</span><span class="n">tier</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
+            <span class="n">text_style</span><span class="o">=</span><span class="n">txt_st</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+        <span class="p">)</span>
+
+<span class="c1"># Bottom row: Grayscale &amp; Surface Ramp (Light, Gray1..Gray8, Dark)</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">67</span><span class="p">,</span> <span class="mf">17.5</span><span class="p">),</span> <span class="s2">"Surface &amp; Grayscale Ramp (Light, Gray1..Gray8, Dark)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
+<span class="n">surfaces</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s2">"L"</span><span class="p">,</span> <span class="n">Colors</span><span class="o">.</span><span class="n">Light</span><span class="p">),</span>
+    <span class="o">*</span><span class="p">[(</span><span class="sa">f</span><span class="s2">"G</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">Colors</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"Gray</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">"</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">9</span><span class="p">)],</span>
+    <span class="p">(</span><span class="s2">"D"</span><span class="p">,</span> <span class="n">Colors</span><span class="o">.</span><span class="n">Dark</span><span class="p">),</span>
+<span class="p">]</span>
+<span class="k">for</span> <span class="n">s_idx</span><span class="p">,</span> <span class="p">(</span><span class="n">s_lbl</span><span class="p">,</span> <span class="n">s_col</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">surfaces</span><span class="p">):</span>
+    <span class="n">sx</span> <span class="o">=</span> <span class="mf">11.8</span> <span class="o">+</span> <span class="n">s_idx</span> <span class="o">*</span> <span class="mf">12.3</span>
+    <span class="n">s_txt</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span> <span class="k">if</span> <span class="n">s_idx</span> <span class="o">&lt;</span> <span class="mi">5</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span>
+    <span class="n">rectangle</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">sx</span><span class="p">,</span> <span class="mf">9.0</span><span class="p">),</span>
+        <span class="n">width</span><span class="o">=</span><span class="mf">11.2</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mf">8.0</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_fill_color</span><span class="o">=</span><span class="n">s_col</span><span class="p">,</span> <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">shape_r</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+        <span class="n">text</span><span class="o">=</span><span class="n">s_lbl</span><span class="p">,</span>
+        <span class="n">text_style</span><span class="o">=</span><span class="n">s_txt</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<h3>3.2. テーマパレットの比較 (<code>DefaultColors1..6</code>, <code>GoogleColors</code>, <code>MonochromeColors</code>, <code>CssColors</code>)</h3>
+<ul>
+<li><strong><code>DefaultColors</code> (<code>DefaultColors1</code>..<code>DefaultColors6</code>)</strong>: <code>DefaultColors</code> はセマンティックロールの中心をトーン 4（<code>DefaultColors4</code>）に置きます。一方 <code>DefaultColors1</code>〜<code>DefaultColors6</code> はデフォルトの <code>Primary</code>／<code>Secondary</code>／<code>Accent</code> トークンをトーン 1〜6 にシフトさせます。</li>
+<li><strong><code>GoogleColors</code></strong>: Google Workspace／Material の公式トーン（<code>GoogleBlue</code>、<code>GoogleRed</code>、<code>GoogleYellow</code>、<code>GoogleGreen</code>、<code>GoogleOrange</code>、<code>GooglePurple</code>、<code>CornflowerBlue1..6</code>、<code>RedBerry1..6</code>）。</li>
+<li><strong><code>MonochromeColors</code></strong>: 印刷物や学術論文向けの 10 段階の純粋なグレースケールランプ（<code>White</code>、<code>Gray1</code>..<code>Gray8</code>、<code>Black</code>）。</li>
+<li><strong><code>CssColors</code></strong>: W3C CSS の全 140 種類の名前付きカラー（<code>CssColors.AliceBlue</code>、<code>CssColors.CornflowerBlue</code>、<code>CssColors.DarkSlateGray</code> など）。</li>
+</ul>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.preset_colors</span><span class="w"> </span><span class="kn">import</span> <span class="n">DefaultColors</span><span class="p">,</span> <span class="n">GoogleColors</span><span class="p">,</span> <span class="n">MonochromeColors</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">132</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">56</span><span class="p">)</span>
+
+<span class="n">palettes</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="mi">44</span><span class="p">,</span> <span class="s2">"DefaultColors"</span><span class="p">,</span> <span class="p">[</span><span class="n">DefaultColors</span><span class="o">.</span><span class="n">Primary</span><span class="p">,</span> <span class="n">DefaultColors</span><span class="o">.</span><span class="n">Secondary</span><span class="p">,</span> <span class="n">DefaultColors</span><span class="o">.</span><span class="n">Accent</span><span class="p">,</span> <span class="n">DefaultColors</span><span class="o">.</span><span class="n">Success</span><span class="p">,</span> <span class="n">DefaultColors</span><span class="o">.</span><span class="n">Warning</span><span class="p">,</span> <span class="n">DefaultColors</span><span class="o">.</span><span class="n">Danger</span><span class="p">]),</span>
+    <span class="p">(</span><span class="mi">28</span><span class="p">,</span> <span class="s2">"GoogleColors"</span><span class="p">,</span> <span class="p">[</span><span class="n">GoogleColors</span><span class="o">.</span><span class="n">Primary</span><span class="p">,</span> <span class="n">GoogleColors</span><span class="o">.</span><span class="n">Secondary</span><span class="p">,</span> <span class="n">GoogleColors</span><span class="o">.</span><span class="n">Accent</span><span class="p">,</span> <span class="n">GoogleColors</span><span class="o">.</span><span class="n">Success</span><span class="p">,</span> <span class="n">GoogleColors</span><span class="o">.</span><span class="n">Warning</span><span class="p">,</span> <span class="n">GoogleColors</span><span class="o">.</span><span class="n">Danger</span><span class="p">]),</span>
+    <span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="s2">"Monochrome"</span><span class="p">,</span> <span class="p">[</span><span class="n">MonochromeColors</span><span class="o">.</span><span class="n">Gray1</span><span class="p">,</span> <span class="n">MonochromeColors</span><span class="o">.</span><span class="n">Gray2</span><span class="p">,</span> <span class="n">MonochromeColors</span><span class="o">.</span><span class="n">Gray4</span><span class="p">,</span> <span class="n">MonochromeColors</span><span class="o">.</span><span class="n">Gray6</span><span class="p">,</span> <span class="n">MonochromeColors</span><span class="o">.</span><span class="n">Gray8</span><span class="p">,</span> <span class="n">MonochromeColors</span><span class="o">.</span><span class="n">Black</span><span class="p">]),</span>
+<span class="p">]</span>
+
+<span class="n">headers</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"Primary"</span><span class="p">,</span> <span class="s2">"Secondary"</span><span class="p">,</span> <span class="s2">"Accent"</span><span class="p">,</span> <span class="s2">"Success"</span><span class="p">,</span> <span class="s2">"Warning"</span><span class="p">,</span> <span class="s2">"Danger"</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">h</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">headers</span><span class="p">):</span>
+    <span class="n">text</span><span class="p">((</span><span class="mi">44</span> <span class="o">+</span> <span class="n">idx</span> <span class="o">*</span> <span class="mf">15.5</span><span class="p">,</span> <span class="mi">52</span><span class="p">),</span> <span class="n">h</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">y</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">swatch_list</span> <span class="ow">in</span> <span class="n">palettes</span><span class="p">:</span>
+    <span class="n">text</span><span class="p">((</span><span class="mi">6</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">label</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">swatch_list</span><span class="p">):</span>
+        <span class="n">cx</span> <span class="o">=</span> <span class="mi">44</span> <span class="o">+</span> <span class="n">idx</span> <span class="o">*</span> <span class="mf">15.5</span>
+        <span class="n">rectangle</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">cx</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span>
+            <span class="n">width</span><span class="o">=</span><span class="mf">13.5</span><span class="p">,</span>
+            <span class="n">height</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+            <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_fill_color</span><span class="o">=</span><span class="n">col</span><span class="p">,</span> <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">),</span>
+        <span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="../../images/02_drawing_primitives/colors/colors_theme_palettes.png" alt="colors_4" />
+  <figcaption class="drawlib-caption">DefaultColors、GoogleColors、MonochromeColors のカラースウォッチ比較</figcaption>
+</figure>
+<hr />
+<h2>4. 色の線形補間 (<code>get_intermediate_color</code> と <code>get_intermediate_colors</code>)</h2>
+<p>ヒートマップ、多段階パイプライン、あるいは滑らかなアニメーション遷移を作成する際は、<code>drawlib.styles</code>（または <code>drawlib.preset_colors</code>）の <code>get_intermediate_color</code> と <code>get_intermediate_colors</code> を利用します。</p>
+<ul>
+<li><strong><code>get_intermediate_color(color1, color2) -&gt; Color</code></strong>: <code>color1</code> と <code>color2</code> のちょうど 50% 中間にあたる <code>Color</code> を返します。</li>
+<li><strong><code>get_intermediate_colors(color1, color2, num=1, *, include_ends=False) -&gt; list[Color]</code></strong>: <code>color1</code> から <code>color2</code> への線形 RGBA 遷移を <code>num + 1</code> 等分し、<code>num</code> 個の中間色（<code>include_ends=True</code> の場合は両端を含む <code>num + 2</code> 個の色）をリストとして返します。</li>
+</ul>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Colors</span><span class="p">,</span> <span class="n">Styles</span><span class="p">,</span> <span class="n">get_intermediate_colors</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">130</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">44</span><span class="p">)</span>
+
+<span class="c1"># Generate 7 steps including endpoints from Primary1 (light pastel) to Primary6 (dark shade)</span>
+<span class="n">steps</span> <span class="o">=</span> <span class="n">get_intermediate_colors</span><span class="p">(</span><span class="n">Colors</span><span class="o">.</span><span class="n">Primary1</span><span class="p">,</span> <span class="n">Colors</span><span class="o">.</span><span class="n">Primary6</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">include_ends</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">text</span><span class="p">((</span><span class="mi">65</span><span class="p">,</span> <span class="mf">36.5</span><span class="p">),</span> <span class="s2">"get_intermediate_colors(Colors.Primary1, Colors.Primary6, num=5, include_ends=True)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">steps</span><span class="p">):</span>
+    <span class="n">cx</span> <span class="o">=</span> <span class="mf">13.5</span> <span class="o">+</span> <span class="n">i</span> <span class="o">*</span> <span class="mf">17.2</span>
+    <span class="n">label_style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span> <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">3</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span>
+    <span class="n">rectangle</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">cx</span><span class="p">,</span> <span class="mf">18.5</span><span class="p">),</span>
+        <span class="n">width</span><span class="o">=</span><span class="mf">15.5</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">NeutralFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_fill_color</span><span class="o">=</span><span class="n">col</span><span class="p">,</span> <span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">),</span>
+        <span class="n">text</span><span class="o">=</span><span class="n">col</span><span class="o">.</span><span class="n">hex</span><span class="p">,</span>
+        <span class="n">text_style</span><span class="o">=</span><span class="n">label_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="../../images/02_drawing_primitives/colors/colors_interpolation.png" alt="colors_5" />
+  <figcaption class="drawlib-caption">get_intermediate_colors() で生成した滑らかなカラーグラデーション</figcaption>
+</figure>
+
+            </main>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Theme toggle
+            const themeBtn = document.getElementById('theme-toggle');
+            if (themeBtn) {
+                themeBtn.addEventListener('click', function() {
+                    const current = document.documentElement.getAttribute('data-theme');
+                    const next = current === 'dark' ? 'light' : 'dark';
+                    document.documentElement.setAttribute('data-theme', next);
+                    localStorage.setItem('drawlib-theme', next);
+                });
+            }
+
+            // Language dropdown outside-click & Escape close
+            const langDropdowns = document.querySelectorAll('.lang-dropdown');
+            if (langDropdowns.length > 0) {
+                document.addEventListener('click', function(e) {
+                    langDropdowns.forEach(function(dd) {
+                        if (dd.hasAttribute('open') && !dd.contains(e.target)) {
+                            dd.removeAttribute('open');
+                        }
+                    });
+                });
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape') {
+                        langDropdowns.forEach(function(dd) {
+                            dd.removeAttribute('open');
+                        });
+                    }
+                });
+            }
+
+            // Mobile menu toggle
+            const menuBtn = document.getElementById('menu-toggle');
+            const sidebar = document.querySelector('.sidebar');
+            if (menuBtn && sidebar) {
+                function setMenuOpen(open) {
+                    sidebar.classList.toggle('is-open', open);
+                    menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+                    document.body.classList.toggle('menu-open', open);
+                    if (open) {
+                        const menu = sidebar.querySelector('.sidebar-menu');
+                        if (menu) {
+                            menu.scrollTop = 0;
+                        }
+                    }
+                }
+
+                menuBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const willOpen = !sidebar.classList.contains('is-open');
+                    setMenuOpen(willOpen);
+                });
+
+                // Close menu when clicking outside sidebar
+                document.addEventListener('click', function(e) {
+                    if (sidebar.classList.contains('is-open') && !sidebar.contains(e.target)) {
+                        setMenuOpen(false);
+                    }
+                });
+
+                // Close menu when a navigation link is clicked
+                const navLinks = sidebar.querySelectorAll('.nav-item a');
+                navLinks.forEach(function(link) {
+                    link.addEventListener('click', function() {
+                        setMenuOpen(false);
+                    });
+                });
+
+                // Close on Escape key
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape' && sidebar.classList.contains('is-open')) {
+                        setMenuOpen(false);
+                    }
+                });
+
+                // Reset menu state when resized above mobile breakpoint
+                window.addEventListener('resize', function() {
+                    if (window.innerWidth > 768 && sidebar.classList.contains('is-open')) {
+                        setMenuOpen(false);
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

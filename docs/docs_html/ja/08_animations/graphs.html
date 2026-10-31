@@ -1,0 +1,1107 @@
+<!--
+ Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+
+ This software is licensed under the Apache License, Version 2.0.
+ For more information, please visit: https://github.com/yuichi110/drawlib
+
+ This software is provided "as is", without warranty of any kind,
+ express or implied, including but not limited to the warranties of
+ merchantability, fitness for a particular purpose and noninfringement.
+-->
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>グラフのアニメーション</title>
+    <script>
+        (function() {
+            const saved = localStorage.getItem('drawlib-theme');
+            if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    
+    
+    <link rel="alternate" hreflang="en" href="../../en/08_animations/graphs.html">
+    
+    <link rel="alternate" hreflang="ja" href="graphs.html">
+    
+    <link rel="alternate" hreflang="x-default" href="../../en/08_animations/graphs.html">
+    
+    
+    
+    <link rel="icon" type="image/png" href="../../_assets/favicon.png">
+    
+    
+    <link rel="stylesheet" href="../style.css">
+    
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-brand" aria-label="Drawlib ドキュメント">
+                    
+                    <img src="../../_assets/logo.png" alt="Drawlib ドキュメント" class="sidebar-logo sidebar-logo-light">
+                    <img src="../../_assets/logo_dark.png" alt="Drawlib ドキュメント" class="sidebar-logo sidebar-logo-dark">
+                    
+                </a>
+                <div class="sidebar-header-actions">
+                    <button type="button" id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle theme">
+                        <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                        <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                    </button>
+                    <button type="button" id="menu-toggle" class="menu-toggle-btn" aria-label="Toggle navigation" aria-expanded="false">
+                        <svg class="icon-hamburger" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                        <svg class="icon-close" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                    </button>
+                </div>
+            </div>
+            <div class="sidebar-subbar">
+                
+                <a href="../01_getting_started/release_notes.html" class="sidebar-version-badge" title="View Release Notes">
+                    <span class="sidebar-version-dot" aria-hidden="true"></span>
+                    <span class="sidebar-version-text">v0.3.2</span>
+                </a>
+                <a href="https://github.com/yuichi110/drawlib" target="_blank" rel="noopener noreferrer" class="sidebar-github-link" aria-label="GitHub Repository" title="GitHub Repository">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+                </a>
+            </div>
+            <div class="sidebar-menu">
+                
+                    
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../index.html" >ようこそ</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">1. はじめに</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/overview.html" >Drawlib とは</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/installation.html" >インストールガイド</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/quick_start.html" >クイックスタートガイド</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/core_concepts.html" >基本ビジュアル概念</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/project_quicklook.html" >プロジェクト構成とビルド</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/agent_quicklook.html" >AI 駆動ワークフローとエージェント設定</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/release_notes.html" >リリースノートと移行ガイド</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">2. 描画プリミティブとスタイル</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/canvas.html" >キャンバスと座標系</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_overview.html" >図形プリミティブ概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_basic.html" >基本図形・放射状図形</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_polygon.html" >多角形とカスタムパス</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_arrow.html" >ブロック矢印・シェブロン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_container.html" >3D コンテナ・フロー・グルーピング</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_badge.html" >吹き出し・バッジ・ステータス</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_symbol.html" >フェイス・時計・記号・演算子</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/lines.html" >線とコネクタ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/text.html" >テキストとタイポグラフィ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/fonts.html" >フォントと多言語カタログ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/font_file.html" >カスタムフォントファイル (FontFile)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/images.html" >画像と Dimage</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/styles.html" >スタイルとテーマ設定</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/colors.html" >カラーパレットと色モデル</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/style_guide.html" >図解デザインとスタイルガイド</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">3. アイコンとブランドスイート</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/overview.html" >アイコン概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/phosphor.html" >Phosphor ベクターアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/gcp.html" >Google Cloud (GCP) アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/aws.html" >Amazon Web Services (AWS) アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/azure.html" >Microsoft Azure アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/cloud.html" >クラウド・オリジナルクラウドアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/cnative.html" >クラウドネイティブ (K8s) アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/devops.html" >DevOps・オブザーバビリティアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/network.html" >ネットワーク・Cisco トポロジアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/server.html" >サーバー・OS・仮想化アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/security.html" >セキュリティ・ゼロトラストアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/facility.html" >データセンター・ファシリティアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/ai.html" >AI・機械学習アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/data.html" >データ・データベースアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/code.html" >コード・言語・フレームワークアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/business.html" >エンタープライズ・FinTech アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/itservice.html" >IT サービス・コンサルティングアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/workspace.html" >ワークスペース・コラボレーションアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/social.html" >ソーシャル・メディア・コミュニティアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/client.html" >クライアント端末・エンドポイントアイコン</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">4. SmartArts（スマートアート）</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/overview.html" >SmartArts 概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/chevron_process.html" >ChevronProcess（シェブロン工程図）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/cycle.html" >Cycle（サイクル図）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/table.html" >Table（テーブル）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/tree.html" >Tree（ツリー図）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/mindmap.html" >MindMap（マインドマップ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/grid_layout.html" >GridLayout（グリッドレイアウト）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/pyramid.html" >Pyramid（ピラミッド図）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/box_list.html" >BoxList（ボックスリスト）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/kpi_cards.html" >KpiCards（KPI カード）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/card_list.html" >CardList（カードリスト）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/roadmap.html" >Roadmap（ロードマップ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/panel.html" >Panel（パネル）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/calendar.html" >Calendar（カレンダー）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/bullet_points.html" >BulletPoints（箇条書きボード）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/source_code.html" >SourceCode（ソースコードカード）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/geomap.html" >GeoMap（地理マップ）</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">5. Charts（定量チャート）</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/overview.html" >Charts 概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/axes_and_legends.html" >軸・スケール・凡例</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/bar.html" >Bar Chart（棒グラフ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/line.html" >Line Chart（折れ線グラフ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/area.html" >Area Chart（面グラフ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/pie.html" >Pie & Donut Chart（円・ドーナツグラフ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/radar.html" >Radar Chart（レーダーチャート）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/scatter.html" >Scatter Chart（散布図）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/gantt.html" >Gantt Chart（ガントチャート）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/heatmap.html" >Heatmap & Thermal Overlay（ヒートマップ）</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">6. テクニカルダイアグラム</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/overview.html" >ダイアグラム概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/architecture.html" >アーキテクチャ図</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/flow.html" >フロー図</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/sequence.html" >シーケンス図</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/class_diagram.html" >UML クラス図</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/er.html" >ER 図</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/state_diagram.html" >ステートマシン図</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">7. 自動レイアウトグラフ</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/overview.html" >グラフエンジン概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/architecture_graph.html" >ArchitectureGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/layer_graph.html" >LayerGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/tree_graph.html" >TreeGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/radial_graph.html" >RadialGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/grid_graph.html" >GridGraph</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">8. アニメーション</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="overview.html" >アニメーション概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="primitives.html" >プリミティブと色のアニメーション</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="smartarts.html" >SmartArts のアニメーション</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="charts.html" >Charts のアニメーション</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="diagrams.html" >ダイアグラムのアニメーション</a>
+                            </li>
+                            
+                            <li class="nav-item active">
+                                <a href="graphs.html" >グラフのアニメーション</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">9. ドキュメントビルダと CLI</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/overview.html" >コードとしての図解ドキュメント概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/code_blocks.html" >Markdown コードブロック構文</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/cli_reference.html" >CLI リファレンス</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/project_doc.html" >リニアドキュメントプロジェクト (`doc`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/project_site.html" >ドキュメントサイトプロジェクト (`site`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/project_slide.html" >スライドデッキプロジェクト (`slide`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/slide_layout_and_api.html" >スライドステージレイアウトと API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/project_image.html" >画像プロジェクト (`images`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/customization.html" >テンプレートと CSS カスタマイズ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/caching_and_cicd.html" >キャッシュ機構と CI/CD</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">10. AI エージェントと高度な統合</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/ai_agent_instructions.html" >AI エージェント指示とルール体系</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/multimodal_feedback_loop.html" >自律検証フィードバックループ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/programmatic_api.html" >プログラマティック API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/math_and_layout.html" >アルゴリズムレイアウトと幾何計算</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/debugging.html" >トラブルシューティングとデバッグ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/case_study_brand_assets.html" >事例紹介: 公式ブランドアセットの設計</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/case_study_documentation_site.html" >事例紹介: AI エージェントによるドキュメントサイト構築</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/case_study_software_architecture.html" >事例紹介: コードとしてのソフトウェアアーキテクチャ設計書</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/case_study_technical_slides.html" >事例紹介: 技術プレゼンテーションスライドの作成</a>
+                            </li>
+                            
+                        </ul>
+                    
+                
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">グラフのアニメーション</span>
+                </div>
+                
+                <div class="lang-switcher">
+                    <details class="lang-dropdown">
+                        <summary class="lang-dropdown-btn" aria-label="Select language">
+                            <svg class="lang-globe-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                            <span class="lang-current-label">日本語</span>
+                            <svg class="lang-caret-icon" viewBox="0 0 24 24" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </summary>
+                        <div class="lang-dropdown-menu" role="menu">
+                            
+                            <a href="../../en/08_animations/graphs.html" class="lang-option" lang="en" hreflang="en" >
+                                <span>English</span>
+                                
+                            </a>
+                            
+                            <a href="graphs.html" class="lang-option active" lang="ja" hreflang="ja" aria-current="page">
+                                <span>日本語</span>
+                                
+                                <svg class="lang-check-icon" viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                
+                            </a>
+                            
+                        </div>
+                    </details>
+                </div>
+                
+            </header>
+            <main class="main-content">
+                <h1>グラフのアニメーション</h1>
+<p><a href="../07_graph/overview.html"><code>drawlib.graph</code></a> に含まれる宣言的な 5 つの自動レイアウトグラフソルバー（<code>ArchitectureGraph</code>、<code>LayerGraph</code>、<code>TreeGraph</code>、<code>RadialGraph</code>、<code>GridGraph</code>）はすべて<strong>純粋な座標・レイアウト計算機</strong>であり、**パターン B（<code>get_layout()</code> で一度だけ座標を解決し、変更・アニメーション描画する）**と自然に組み合わせて使用できます。</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="../../images/08_animations/graphs/anim_graphs_hero.png" alt="graphs_1" />
+  <figcaption class="drawlib-caption">自動レイアウトグラフのアニメーション：get_layout() で一度だけ解決・完全固定されたノード座標による段階的表示</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.anim</span><span class="w"> </span><span class="kn">import</span> <span class="n">Animation</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.graph</span><span class="w"> </span><span class="kn">import</span> <span class="n">TreeGraph</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">lines</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">124</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">52</span><span class="p">)</span>
+<span class="n">anim</span> <span class="o">=</span> <span class="n">Animation</span><span class="p">(</span><span class="n">fps</span><span class="o">=</span><span class="mf">2.0</span><span class="p">)</span>
+
+<span class="c1"># 1. Declare full tree topology once &amp; lock 100% of coordinates via get_layout()</span>
+<span class="n">g</span> <span class="o">=</span> <span class="n">TreeGraph</span><span class="p">(</span>
+    <span class="n">root</span><span class="o">=</span><span class="s2">"gw"</span><span class="p">,</span>
+    <span class="n">direction</span><span class="o">=</span><span class="s2">"LR"</span><span class="p">,</span>
+    <span class="n">default_node_width</span><span class="o">=</span><span class="mf">26.0</span><span class="p">,</span>
+    <span class="n">default_node_height</span><span class="o">=</span><span class="mf">12.5</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"gw"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">"gw"</span><span class="p">,</span> <span class="s2">"auth"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">"gw"</span><span class="p">,</span> <span class="s2">"bill"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">"auth"</span><span class="p">,</span> <span class="s2">"cache"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">child</span><span class="p">(</span><span class="s2">"bill"</span><span class="p">,</span> <span class="s2">"ledger"</span><span class="p">)</span>
+
+<span class="n">layout</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">get_layout</span><span class="p">(</span><span class="n">margin</span><span class="o">=</span><span class="mf">5.0</span><span class="p">)</span>
+
+<span class="n">node_meta</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"gw"</span><span class="p">:</span> <span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">API Gateway"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">shield_check</span><span class="p">),</span>
+    <span class="s2">"auth"</span><span class="p">:</span> <span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Auth Service"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">lock_key</span><span class="p">),</span>
+    <span class="s2">"bill"</span><span class="p">:</span> <span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Billing API"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">credit_card</span><span class="p">),</span>
+    <span class="s2">"cache"</span><span class="p">:</span> <span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Token Cache"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">lightning</span><span class="p">),</span>
+    <span class="s2">"ledger"</span><span class="p">:</span> <span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Ledger DB"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">database</span><span class="p">),</span>
+<span class="p">}</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">draw_step</span><span class="p">(</span><span class="n">visible</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">focal</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">layout</span><span class="o">.</span><span class="n">edges</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">src</span> <span class="ow">in</span> <span class="n">visible</span> <span class="ow">and</span> <span class="n">e</span><span class="o">.</span><span class="n">dst</span> <span class="ow">in</span> <span class="n">visible</span><span class="p">:</span>
+            <span class="n">lines</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">points</span><span class="p">,</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">nid</span> <span class="ow">in</span> <span class="n">visible</span><span class="p">:</span>
+        <span class="n">label</span><span class="p">,</span> <span class="n">base_st</span><span class="p">,</span> <span class="n">icon_fn</span> <span class="o">=</span> <span class="n">node_meta</span><span class="p">[</span><span class="n">nid</span><span class="p">]</span>
+        <span class="n">nl</span> <span class="o">=</span> <span class="n">layout</span><span class="p">[</span><span class="n">nid</span><span class="p">]</span>
+        <span class="n">is_focal</span> <span class="o">=</span> <span class="n">nid</span> <span class="o">==</span> <span class="n">focal</span>
+        <span class="n">box_st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span> <span class="k">if</span> <span class="n">is_focal</span> <span class="k">else</span> <span class="n">base_st</span>
+        <span class="n">txt_st</span> <span class="o">=</span> <span class="p">(</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span> <span class="k">if</span> <span class="n">is_focal</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">)</span>
+        <span class="n">ic_st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">White</span> <span class="k">if</span> <span class="n">is_focal</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span>
+        <span class="n">rectangle</span><span class="p">(</span><span class="n">nl</span><span class="o">.</span><span class="n">xy</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">nl</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">nl</span><span class="o">.</span><span class="n">height</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">box_st</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="n">label</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">txt_st</span><span class="p">)</span>
+        <span class="n">icon_fn</span><span class="p">((</span><span class="n">nl</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">nl</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="mf">2.4</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">ic_st</span><span class="p">)</span>
+
+
+<span class="c1"># Frame 1: Root node at its final auto-solved position</span>
+<span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="mf">0.7</span><span class="p">):</span>
+    <span class="n">draw_step</span><span class="p">({</span><span class="s2">"gw"</span><span class="p">},</span> <span class="n">focal</span><span class="o">=</span><span class="s2">"gw"</span><span class="p">)</span>
+
+<span class="c1"># Frame 2: Reveal Tier 1 services (Auth Service highlighted)</span>
+<span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="mf">0.7</span><span class="p">):</span>
+    <span class="n">draw_step</span><span class="p">({</span><span class="s2">"gw"</span><span class="p">,</span> <span class="s2">"auth"</span><span class="p">,</span> <span class="s2">"bill"</span><span class="p">},</span> <span class="n">focal</span><span class="o">=</span><span class="s2">"auth"</span><span class="p">)</span>
+
+<span class="c1"># Frame 3: Reveal Leaf data stores (Ledger DB highlighted)</span>
+<span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="mf">0.7</span><span class="p">):</span>
+    <span class="n">draw_step</span><span class="p">({</span><span class="s2">"gw"</span><span class="p">,</span> <span class="s2">"auth"</span><span class="p">,</span> <span class="s2">"bill"</span><span class="p">,</span> <span class="s2">"cache"</span><span class="p">,</span> <span class="s2">"ledger"</span><span class="p">},</span> <span class="n">focal</span><span class="o">=</span><span class="s2">"ledger"</span><span class="p">)</span>
+
+<span class="c1"># Frame 4: Settled full hierarchy with Root Gateway as focal node</span>
+<span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="mf">2.5</span><span class="p">):</span>
+    <span class="n">draw_step</span><span class="p">({</span><span class="s2">"gw"</span><span class="p">,</span> <span class="s2">"auth"</span><span class="p">,</span> <span class="s2">"bill"</span><span class="p">,</span> <span class="s2">"cache"</span><span class="p">,</span> <span class="s2">"ledger"</span><span class="p">},</span> <span class="n">focal</span><span class="o">=</span><span class="s2">"gw"</span><span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<ol>
+<li><strong>トポロジ全体の座標を一度だけ解決する (<code>layout = g.get_layout()</code>)</strong>: アニメーションループの前にすべてのノード（<code>g.node()</code>）、クラスタ（<code>g.cluster()</code> / <code>g.group()</code>）、エッジ（<code>g.edge()</code>）を<strong>一度だけ</strong>登録し、<code>layout = g.get_layout(margin=...)</code> を呼び出します。</li>
+<li><strong>ダイアグラム要素を変更するか、<code>edge_layout.points</code> に沿ってアニメーション化する</strong>:
+<ul>
+<li><strong>方法 1 (<code>drawlib.diagrams</code>)</strong>: ループの外側で <code>layout</code> の座標（<code>nl.xy</code>、<code>nl.local_xy</code>、<code>cl.bottom_left</code>）に <code>ArchitectureDiagram</code> や <code>FlowDiagram</code> のノード・グループを一度だけ配置し、<code>with anim.frame():</code> 内で <code>.show</code> や <code>.style</code> / <code>.card_style</code> を変更してから <code>d.draw()</code> を呼び出します。</li>
+<li><strong>方法 2 (<code>drawlib.shapes</code> と <code>drawlib.lines</code>)</strong>: 表示対象のノード（<code>layout[id].xy</code>）と折れ線（<code>edge_layout.points</code>）を描画するか、<code>get_intermediate_path_points()</code> を使って <code>edge_layout.points</code> に沿ってデータパケットを移動させます。</li>
+</ul>
+</li>
+</ol>
+<p><em>（<code>drawlib.diagrams</code> の座標制御型ダイアグラムについては、<a href="./diagrams.html">ダイアグラムのアニメーション</a>を参照してください。）</em></p>
+<hr />
+<h2>1. 決定論的なレイアウト固定 (<code>layout = g.get_layout()</code>)</h2>
+<p>従来のツールで自動レイアウトグラフをアニメーション化する際の大きな課題は**レイアウトジャンプ（位置ずれ）**です。第 2 フレームでノードを追加するとレイアウトエンジンが全座標を再計算してしまい、第 1 フレームのノード位置が予期せず移動してしまいます。</p>
+<p>Drawlib は<strong>座標解決（<code>g.get_layout()</code>）<strong>と</strong>フレームごとの描画</strong>を分離することで、このレイアウトジャンプを解消しています。</p>
+<ul>
+<li>アニメーションループの外側で <code>layout = g.get_layout(width=None, height=None, margin=10.0)</code> を<strong>一度だけ</strong>呼び出すことで、トポロジ全体のすべてのノード中心座標（<code>layout[id].xy</code> / <code>.local_xy</code>）、クラスタの境界ボックス（<code>layout[cid].bottom_left</code> / <code>.size</code>）、直交エッジ軌道（<code>edge_layout.points</code>）が解決・固定されます。</li>
+<li><code>FlowDiagram</code> や <code>ArchitectureDiagram</code> で描画する場合、<code>node.show = False</code> を設定すると非表示ノードがスキップされると同時に<strong>そのノードに接続されたエッジも自動的に非表示</strong>になるため、両端のノードが表示されたタイミングでエッジが自然に現れます。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">レイアウト / ダイアグラムのプロパティ</th>
+<th style="text-align:left">アニメーションにおける役割</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong><code>layout = g.get_layout(margin=...)</code></strong></td>
+<td style="text-align:left">アニメーションループ開始前に、すべてのノード・クラスタ・エッジ座標を一度だけ計算して固定します。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>node.show</code> / <code>group.show</code> / <code>edge.show</code></strong></td>
+<td style="text-align:left">配置座標を 100% 固定したまま、<code>layout</code> 座標に配置された <code>FlowDiagram</code> や <code>ArchitectureDiagram</code> 要素の表示・非表示をフレームごとに切り替えます。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>node.style</code> / <code>node.card_style</code> / <code>node.text_style</code></strong></td>
+<td style="text-align:left">新たに表示されたステップやアクティブなステップを <code>Styles.PrimaryFlat</code>（テキストは <code>Styles.WhiteBold</code>）で強調し、前のステップを <code>Styles.PrimaryNeutral</code> や <code>Styles.Neutral</code> に落ち着かせます。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>edge_layout.points</code></strong></td>
+<td style="text-align:left">自動ルーティング済みの完全な折れ線座標列（<code>[src_port, *waypoints, dst_port]</code>）。<code>lines(e.points)</code> での描画や <code>get_intermediate_path_points(e.points, num=...)</code> によるパケットアニメーションにそのまま渡せます。</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>2. パイプラインのステップバイステップ段階表示 (<code>LayerGraph</code> + <code>FlowDiagram</code>)</h2>
+<p><code>LayerGraph.get_layout()</code> で水平方向のランク座標を一度解決した後、<code>FlowDiagram</code> 内の <code>xy=layout[nid].xy</code> に <code>Process</code> ノードを配置します。フレームループ内で <code>fn.show = (i &lt;= step)</code> の切り替えと <code>fn.style</code> の更新を行うことで、水平レイアウトを固定したまま各パイプライン段階を順に表示できます。</p>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.anim</span><span class="w"> </span><span class="kn">import</span> <span class="n">Animation</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.diagrams.flow</span><span class="w"> </span><span class="kn">import</span> <span class="n">FlowDiagram</span><span class="p">,</span> <span class="n">Process</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.graph</span><span class="w"> </span><span class="kn">import</span> <span class="n">LayerGraph</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">124</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">34</span><span class="p">)</span>
+<span class="n">anim</span> <span class="o">=</span> <span class="n">Animation</span><span class="p">(</span><span class="n">fps</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
+
+<span class="c1"># Step 1: Solve pipeline coordinates once via LayerGraph.get_layout()</span>
+<span class="n">g</span> <span class="o">=</span> <span class="n">LayerGraph</span><span class="p">(</span>
+    <span class="n">direction</span><span class="o">=</span><span class="s2">"LR"</span><span class="p">,</span>
+    <span class="n">rank_sep</span><span class="o">=</span><span class="mf">8.0</span><span class="p">,</span>
+    <span class="n">default_node_width</span><span class="o">=</span><span class="mf">23.0</span><span class="p">,</span>
+    <span class="n">default_node_height</span><span class="o">=</span><span class="mf">11.5</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">stages</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s2">"edge"</span><span class="p">,</span> <span class="s2">"Edge Router"</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"auth"</span><span class="p">,</span> <span class="s2">"Auth Guard"</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"core"</span><span class="p">,</span> <span class="s2">"Core API"</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"db"</span><span class="p">,</span> <span class="s2">"Primary DB"</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+<span class="p">]</span>
+<span class="k">for</span> <span class="n">nid</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">layer_idx</span> <span class="ow">in</span> <span class="n">stages</span><span class="p">:</span>
+    <span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="n">nid</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="n">layer_idx</span><span class="p">)</span>
+
+<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"edge"</span><span class="p">,</span> <span class="s2">"auth"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"auth"</span><span class="p">,</span> <span class="s2">"core"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"core"</span><span class="p">,</span> <span class="s2">"db"</span><span class="p">)</span>
+
+<span class="n">layout</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">get_layout</span><span class="p">(</span><span class="n">margin</span><span class="o">=</span><span class="mf">5.0</span><span class="p">)</span>
+
+<span class="c1"># Step 2: Register Process nodes at locked layout[nid].xy coordinates</span>
+<span class="n">fd</span> <span class="o">=</span> <span class="n">FlowDiagram</span><span class="p">(</span>
+    <span class="n">node_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="n">edge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+    <span class="n">edge_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">flow_nodes</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">nid</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">stages</span><span class="p">:</span>
+    <span class="n">nl</span> <span class="o">=</span> <span class="n">layout</span><span class="p">[</span><span class="n">nid</span><span class="p">]</span>
+    <span class="n">flow_nodes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">fd</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Process</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">nl</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">nl</span><span class="o">.</span><span class="n">height</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="n">nl</span><span class="o">.</span><span class="n">xy</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">flow_nodes</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+    <span class="n">fd</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">flow_nodes</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">flow_nodes</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span>
+
+<span class="c1"># Step 3: Reveal stages one by one without layout jumping</span>
+<span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">flow_nodes</span><span class="p">)):</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">fn</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">flow_nodes</span><span class="p">):</span>
+        <span class="n">fn</span><span class="o">.</span><span class="n">show</span> <span class="o">=</span> <span class="p">(</span><span class="n">i</span> <span class="o">&lt;=</span> <span class="n">step</span><span class="p">)</span>
+        <span class="n">fn</span><span class="o">.</span><span class="n">style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span> <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="n">step</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span>
+        <span class="n">fn</span><span class="o">.</span><span class="n">text_style</span> <span class="o">=</span> <span class="p">(</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span> <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="n">step</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">)</span>
+
+    <span class="n">is_last</span> <span class="o">=</span> <span class="p">(</span><span class="n">step</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">flow_nodes</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="mf">2.5</span> <span class="k">if</span> <span class="n">is_last</span> <span class="k">else</span> <span class="mf">0.8</span><span class="p">):</span>
+        <span class="n">fd</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="../../images/08_animations/graphs/anim_diagrams_graph_layers.png" alt="graphs_2" />
+  <figcaption class="drawlib-caption">LayerGraph の自動レイアウト座標を FlowDiagram で段階表示するアニメーション</figcaption>
+</figure>
+<hr />
+<h2>3. クラスタとエッジの段階的表示 (<code>ArchitectureGraph</code> + <code>ArchitectureDiagram</code>)</h2>
+<p><code>ArchitectureGraph</code> で <code>layout = g.get_layout()</code> を呼び出すと、外側コンテナの境界ボックス（<code>cl.bottom_left</code>、<code>cl.width</code>、<code>cl.height</code>）と子ノードの相対座標（<code>nl.local_xy</code>）の両方が計算されます。これらの固定座標を使って <code>ArchitectureDiagram</code> を構築することで、クラウドゾーン（<code>group.show</code>）、サービスノード（<code>node.show</code>）、アクティブなリクエスト経路（<code>edge.style</code>）を段階的に表示できます。</p>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.anim</span><span class="w"> </span><span class="kn">import</span> <span class="n">Animation</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.diagrams.architecture</span><span class="w"> </span><span class="kn">import</span> <span class="n">ArchitectureDiagram</span><span class="p">,</span> <span class="n">Node</span><span class="p">,</span> <span class="n">NodeGroup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.graph</span><span class="w"> </span><span class="kn">import</span> <span class="n">ArchitectureGraph</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">138</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">anim</span> <span class="o">=</span> <span class="n">Animation</span><span class="p">(</span><span class="n">fps</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
+
+<span class="c1"># Step 1: Solve multi-zone container and node coordinates once</span>
+<span class="n">g</span> <span class="o">=</span> <span class="n">ArchitectureGraph</span><span class="p">(</span>
+    <span class="n">direction</span><span class="o">=</span><span class="s2">"LR"</span><span class="p">,</span>
+    <span class="n">container_sep</span><span class="o">=</span><span class="mf">6.0</span><span class="p">,</span>
+    <span class="n">default_node_width</span><span class="o">=</span><span class="mf">18.0</span><span class="p">,</span>
+    <span class="n">default_node_height</span><span class="o">=</span><span class="mf">10.5</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">cluster</span><span class="p">(</span><span class="s2">"ext"</span><span class="p">,</span> <span class="p">[</span><span class="s2">"client"</span><span class="p">],</span> <span class="n">pos</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">3.5</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"client"</span><span class="p">)</span>
+
+<span class="n">g</span><span class="o">.</span><span class="n">cluster</span><span class="p">(</span><span class="s2">"app"</span><span class="p">,</span> <span class="p">[</span><span class="s2">"gw"</span><span class="p">,</span> <span class="s2">"worker"</span><span class="p">],</span> <span class="n">pos</span><span class="o">=</span><span class="s2">"center"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">4.0</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"gw"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"worker"</span><span class="p">)</span>
+
+<span class="n">g</span><span class="o">.</span><span class="n">cluster</span><span class="p">(</span><span class="s2">"data"</span><span class="p">,</span> <span class="p">[</span><span class="s2">"db"</span><span class="p">],</span> <span class="n">pos</span><span class="o">=</span><span class="s2">"right"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">3.5</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"db"</span><span class="p">)</span>
+
+<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"client"</span><span class="p">,</span> <span class="s2">"gw"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"gw"</span><span class="p">,</span> <span class="s2">"worker"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"worker"</span><span class="p">,</span> <span class="s2">"db"</span><span class="p">)</span>
+
+<span class="n">layout</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">get_layout</span><span class="p">()</span>
+
+<span class="c1"># Step 2: Populate ArchitectureDiagram at solved layout coordinates</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">ArchitectureDiagram</span><span class="p">(</span>
+    <span class="n">node_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
+    <span class="n">node_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="n">edge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+    <span class="n">edge_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">node_card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+<span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">make_group</span><span class="p">(</span><span class="n">cid</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">title</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">show</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NodeGroup</span><span class="p">:</span>
+    <span class="n">cl</span> <span class="o">=</span> <span class="n">layout</span><span class="o">.</span><span class="n">clusters</span><span class="p">[</span><span class="n">cid</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+        <span class="n">NodeGroup</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">cl</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">cl</span><span class="o">.</span><span class="n">height</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="n">show</span><span class="p">),</span>
+        <span class="n">xy</span><span class="o">=</span><span class="n">cl</span><span class="o">.</span><span class="n">bottom_left</span><span class="p">,</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">make_node</span><span class="p">(</span><span class="n">grp</span><span class="p">:</span> <span class="n">NodeGroup</span><span class="p">,</span> <span class="n">nid</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">label</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">card_st</span><span class="p">,</span> <span class="n">txt_st</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">show</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Node</span><span class="p">:</span>
+    <span class="n">nl</span> <span class="o">=</span> <span class="n">layout</span><span class="p">[</span><span class="n">nid</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">grp</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+        <span class="n">Node</span><span class="p">(</span>
+            <span class="n">label</span><span class="p">,</span>
+            <span class="n">width</span><span class="o">=</span><span class="n">nl</span><span class="o">.</span><span class="n">width</span><span class="p">,</span>
+            <span class="n">height</span><span class="o">=</span><span class="n">nl</span><span class="o">.</span><span class="n">height</span><span class="p">,</span>
+            <span class="n">card_style</span><span class="o">=</span><span class="n">card_st</span><span class="p">,</span>
+            <span class="n">text_style</span><span class="o">=</span><span class="n">txt_st</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+            <span class="n">show</span><span class="o">=</span><span class="n">show</span><span class="p">,</span>
+        <span class="p">),</span>
+        <span class="n">xy</span><span class="o">=</span><span class="n">nl</span><span class="o">.</span><span class="n">local_xy</span><span class="p">,</span>
+    <span class="p">)</span>
+
+
+<span class="n">c_ext</span> <span class="o">=</span> <span class="n">make_group</span><span class="p">(</span><span class="s2">"ext"</span><span class="p">,</span> <span class="s2">"External"</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">n_client</span> <span class="o">=</span> <span class="n">make_node</span><span class="p">(</span><span class="n">c_ext</span><span class="p">,</span> <span class="s2">"client"</span><span class="p">,</span> <span class="s2">"Client App"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">c_app</span> <span class="o">=</span> <span class="n">make_group</span><span class="p">(</span><span class="s2">"app"</span><span class="p">,</span> <span class="s2">"Compute VPC"</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">n_gw</span> <span class="o">=</span> <span class="n">make_node</span><span class="p">(</span><span class="n">c_app</span><span class="p">,</span> <span class="s2">"gw"</span><span class="p">,</span> <span class="s2">"API Gateway"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">n_worker</span> <span class="o">=</span> <span class="n">make_node</span><span class="p">(</span><span class="n">c_app</span><span class="p">,</span> <span class="s2">"worker"</span><span class="p">,</span> <span class="s2">"Task Worker"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">c_data</span> <span class="o">=</span> <span class="n">make_group</span><span class="p">(</span><span class="s2">"data"</span><span class="p">,</span> <span class="s2">"Data Tier"</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">n_db</span> <span class="o">=</span> <span class="n">make_node</span><span class="p">(</span><span class="n">c_data</span><span class="p">,</span> <span class="s2">"db"</span><span class="p">,</span> <span class="s2">"Primary DB"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">e1</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">n_client</span><span class="p">,</span> <span class="n">n_gw</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"HTTPS"</span><span class="p">)</span>
+<span class="n">e2</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">n_gw</span><span class="p">,</span> <span class="n">n_worker</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Queue"</span><span class="p">)</span>
+<span class="n">e3</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">n_worker</span><span class="p">,</span> <span class="n">n_db</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Write"</span><span class="p">)</span>
+
+<span class="c1"># Frame 1: External Client entry point</span>
+<span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="mf">0.8</span><span class="p">):</span>
+    <span class="n">d</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+
+<span class="c1"># Frame 2: Reveal Compute VPC &amp; API Gateway with active incoming edge</span>
+<span class="n">c_app</span><span class="o">.</span><span class="n">show</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">n_gw</span><span class="o">.</span><span class="n">show</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">e1</span><span class="o">.</span><span class="n">style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span>
+<span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="mf">0.8</span><span class="p">):</span>
+    <span class="n">d</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+
+<span class="c1"># Frame 3: Reveal Task Worker inside Compute VPC</span>
+<span class="n">e1</span><span class="o">.</span><span class="n">style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span>
+<span class="n">n_gw</span><span class="o">.</span><span class="n">card_style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span>
+<span class="n">n_gw</span><span class="o">.</span><span class="n">text_style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">)</span>
+<span class="n">n_worker</span><span class="o">.</span><span class="n">show</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">n_worker</span><span class="o">.</span><span class="n">card_style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span>
+<span class="n">n_worker</span><span class="o">.</span><span class="n">text_style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">)</span>
+<span class="n">e2</span><span class="o">.</span><span class="n">style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span>
+<span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="mf">0.8</span><span class="p">):</span>
+    <span class="n">d</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+
+<span class="c1"># Frame 4: Reveal Data Tier and complete architecture (hold final frame)</span>
+<span class="n">e2</span><span class="o">.</span><span class="n">style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span>
+<span class="n">n_worker</span><span class="o">.</span><span class="n">card_style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span>
+<span class="n">n_worker</span><span class="o">.</span><span class="n">text_style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">)</span>
+<span class="n">c_data</span><span class="o">.</span><span class="n">show</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">n_db</span><span class="o">.</span><span class="n">show</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">n_gw</span><span class="o">.</span><span class="n">card_style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span>
+<span class="n">n_gw</span><span class="o">.</span><span class="n">text_style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">)</span>
+<span class="n">e3</span><span class="o">.</span><span class="n">style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span>
+<span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="mf">2.5</span><span class="p">):</span>
+    <span class="n">d</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="../../images/08_animations/graphs/anim_graphs_architecture_reveal.png" alt="graphs_3" />
+  <figcaption class="drawlib-caption">ArchitectureGraph + ArchitectureDiagram によるクラスタ・ノード・エッジの段階的表示</figcaption>
+</figure>
+<hr />
+<h2>4. 自動ルーティングされたエッジ上のパケットアニメーション (<code>g.get_layout()</code> と <code>edge_layout.points</code>)</h2>
+<p><code>layout.edges</code> 内の各 <code>EdgeLayout</code> は、ノード境界間を結ぶ自動ルーティング済みの完全な折れ線軌道を表す <code>edge_layout.points: list[tuple[float, float]]</code>（<code>[src_port, *waypoints, dst_port]</code>）を公開しています。</p>
+<p><code>edge_layout.points</code> を <code>get_intermediate_path_points(edge_layout.points, num=..., include_ends=True)</code> に渡すことで、自動ルーティングされたグラフエッジに沿って滑らかに移動するデータパケット（<code>circle</code>）をアニメーション化できます。</p>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.anim</span><span class="w"> </span><span class="kn">import</span> <span class="n">Animation</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.graph</span><span class="w"> </span><span class="kn">import</span> <span class="n">LayerGraph</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">lines</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.math</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_intermediate_path_points</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">circle</span><span class="p">,</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">118</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">38</span><span class="p">)</span>
+<span class="n">anim</span> <span class="o">=</span> <span class="n">Animation</span><span class="p">(</span><span class="n">fps</span><span class="o">=</span><span class="mf">10.0</span><span class="p">)</span>
+
+<span class="n">g</span> <span class="o">=</span> <span class="n">LayerGraph</span><span class="p">(</span>
+    <span class="n">direction</span><span class="o">=</span><span class="s2">"LR"</span><span class="p">,</span>
+    <span class="n">default_node_width</span><span class="o">=</span><span class="mf">24.0</span><span class="p">,</span>
+    <span class="n">default_node_height</span><span class="o">=</span><span class="mf">12.0</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"ingest"</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"worker"</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"store"</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"ingest"</span><span class="p">,</span> <span class="s2">"worker"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"worker"</span><span class="p">,</span> <span class="s2">"store"</span><span class="p">)</span>
+
+<span class="c1"># 1. Solve layout once to inspect auto-routed edge polylines</span>
+<span class="n">layout</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">get_layout</span><span class="p">(</span><span class="n">margin</span><span class="o">=</span><span class="mf">5.0</span><span class="p">)</span>
+<span class="n">pts_e0</span> <span class="o">=</span> <span class="n">get_intermediate_path_points</span><span class="p">(</span><span class="n">layout</span><span class="o">.</span><span class="n">edges</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">points</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">include_ends</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">pts_e1</span> <span class="o">=</span> <span class="n">get_intermediate_path_points</span><span class="p">(</span><span class="n">layout</span><span class="o">.</span><span class="n">edges</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">points</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">include_ends</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">edge_labels</span> <span class="o">=</span> <span class="p">{(</span><span class="s2">"ingest"</span><span class="p">,</span> <span class="s2">"worker"</span><span class="p">):</span> <span class="s2">"Events"</span><span class="p">,</span> <span class="p">(</span><span class="s2">"worker"</span><span class="p">,</span> <span class="s2">"store"</span><span class="p">):</span> <span class="s2">"Batch"</span><span class="p">}</span>
+<span class="n">base_nodes</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s2">"ingest"</span><span class="p">,</span> <span class="s2">"Ingest API"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"worker"</span><span class="p">,</span> <span class="s2">"Stream Worker"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"store"</span><span class="p">,</span> <span class="s2">"Data Warehouse"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">),</span>
+<span class="p">]</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">draw_pipeline</span><span class="p">(</span><span class="n">active_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">layout</span><span class="o">.</span><span class="n">edges</span><span class="p">:</span>
+        <span class="n">lines</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">points</span><span class="p">,</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+        <span class="n">lbl</span> <span class="o">=</span> <span class="n">edge_labels</span><span class="p">[(</span><span class="n">e</span><span class="o">.</span><span class="n">src</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">dst</span><span class="p">)]</span>
+        <span class="n">text</span><span class="p">((</span><span class="n">e</span><span class="o">.</span><span class="n">mid_xy</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">e</span><span class="o">.</span><span class="n">mid_xy</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mf">2.4</span><span class="p">),</span> <span class="n">lbl</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">nid</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">base_st</span> <span class="ow">in</span> <span class="n">base_nodes</span><span class="p">:</span>
+        <span class="n">nl</span> <span class="o">=</span> <span class="n">layout</span><span class="p">[</span><span class="n">nid</span><span class="p">]</span>
+        <span class="n">is_active</span> <span class="o">=</span> <span class="n">nid</span> <span class="o">==</span> <span class="n">active_id</span>
+        <span class="n">st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span> <span class="k">if</span> <span class="n">is_active</span> <span class="k">else</span> <span class="n">base_st</span>
+        <span class="n">tst</span> <span class="o">=</span> <span class="p">(</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span> <span class="k">if</span> <span class="n">is_active</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">)</span>
+        <span class="n">rectangle</span><span class="p">(</span><span class="n">nl</span><span class="o">.</span><span class="n">xy</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">nl</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">nl</span><span class="o">.</span><span class="n">height</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">st</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="n">label</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">tst</span><span class="p">)</span>
+
+
+<span class="c1"># 2. Hop 1: Packet travels along layout.edges[0].points</span>
+<span class="k">for</span> <span class="n">pkt_xy</span> <span class="ow">in</span> <span class="n">pts_e0</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="mf">0.12</span><span class="p">):</span>
+        <span class="n">draw_pipeline</span><span class="p">(</span><span class="n">active_id</span><span class="o">=</span><span class="s2">"ingest"</span><span class="p">)</span>
+        <span class="n">circle</span><span class="p">(</span><span class="n">pkt_xy</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mf">2.2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">)</span>
+
+<span class="c1"># 3. Hop 2: Highlight worker and move packet along layout.edges[1].points</span>
+<span class="k">for</span> <span class="n">pkt_xy</span> <span class="ow">in</span> <span class="n">pts_e1</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="mf">0.12</span><span class="p">):</span>
+        <span class="n">draw_pipeline</span><span class="p">(</span><span class="n">active_id</span><span class="o">=</span><span class="s2">"worker"</span><span class="p">)</span>
+        <span class="n">circle</span><span class="p">(</span><span class="n">pkt_xy</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mf">2.2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">)</span>
+
+<span class="c1"># 4. Final settled frame: Data Warehouse active</span>
+<span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="mf">2.2</span><span class="p">):</span>
+    <span class="n">draw_pipeline</span><span class="p">(</span><span class="n">active_id</span><span class="o">=</span><span class="s2">"store"</span><span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="../../images/08_animations/graphs/anim_graphs_edge_packet.png" alt="graphs_4" />
+  <figcaption class="drawlib-caption">layout = g.get_layout() と edge_layout.points を用いた自動ルーティングエッジ上のデータパケット移動</figcaption>
+</figure>
+
+            </main>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Theme toggle
+            const themeBtn = document.getElementById('theme-toggle');
+            if (themeBtn) {
+                themeBtn.addEventListener('click', function() {
+                    const current = document.documentElement.getAttribute('data-theme');
+                    const next = current === 'dark' ? 'light' : 'dark';
+                    document.documentElement.setAttribute('data-theme', next);
+                    localStorage.setItem('drawlib-theme', next);
+                });
+            }
+
+            // Language dropdown outside-click & Escape close
+            const langDropdowns = document.querySelectorAll('.lang-dropdown');
+            if (langDropdowns.length > 0) {
+                document.addEventListener('click', function(e) {
+                    langDropdowns.forEach(function(dd) {
+                        if (dd.hasAttribute('open') && !dd.contains(e.target)) {
+                            dd.removeAttribute('open');
+                        }
+                    });
+                });
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape') {
+                        langDropdowns.forEach(function(dd) {
+                            dd.removeAttribute('open');
+                        });
+                    }
+                });
+            }
+
+            // Mobile menu toggle
+            const menuBtn = document.getElementById('menu-toggle');
+            const sidebar = document.querySelector('.sidebar');
+            if (menuBtn && sidebar) {
+                function setMenuOpen(open) {
+                    sidebar.classList.toggle('is-open', open);
+                    menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+                    document.body.classList.toggle('menu-open', open);
+                    if (open) {
+                        const menu = sidebar.querySelector('.sidebar-menu');
+                        if (menu) {
+                            menu.scrollTop = 0;
+                        }
+                    }
+                }
+
+                menuBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const willOpen = !sidebar.classList.contains('is-open');
+                    setMenuOpen(willOpen);
+                });
+
+                // Close menu when clicking outside sidebar
+                document.addEventListener('click', function(e) {
+                    if (sidebar.classList.contains('is-open') && !sidebar.contains(e.target)) {
+                        setMenuOpen(false);
+                    }
+                });
+
+                // Close menu when a navigation link is clicked
+                const navLinks = sidebar.querySelectorAll('.nav-item a');
+                navLinks.forEach(function(link) {
+                    link.addEventListener('click', function() {
+                        setMenuOpen(false);
+                    });
+                });
+
+                // Close on Escape key
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape' && sidebar.classList.contains('is-open')) {
+                        setMenuOpen(false);
+                    }
+                });
+
+                // Reset menu state when resized above mobile breakpoint
+                window.addEventListener('resize', function() {
+                    if (window.innerWidth > 768 && sidebar.classList.contains('is-open')) {
+                        setMenuOpen(false);
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

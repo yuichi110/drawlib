@@ -9,7 +9,7 @@
  merchantability, fitness for a particular purpose and noninfringement.
 -->
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="{{ html_lang | default('en') }}" dir="{{ html_dir | default('ltr') }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,9 +24,18 @@
             }
         })();
     </script>
+    {% if font_link_html %}
+    {{ font_link_html | safe }}
+    {% else %}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    {% endif %}
+    {% if alternate_links %}
+    {% for alt in alternate_links %}
+    <link rel="alternate" hreflang="{{ alt.hreflang }}" href="{{ alt.url }}">
+    {% endfor %}
+    {% endif %}
     {% if favicon_href %}
     <link rel="icon" type="image/png" href="{{ favicon_href }}">
     {% endif %}
@@ -64,7 +73,8 @@
                 </div>
             </div>
             <div class="sidebar-subbar">
-                <a href="{{ index_url | replace('index.html', '01_getting_started/release_notes.html') }}" class="sidebar-version-badge" title="View Release Notes">
+                {% set locale_index_url = nav_sections[0]["items"][0].url if (nav_sections and nav_sections | length > 0 and nav_sections[0]["items"] | length > 0) else (index_url | default('index.html')) %}
+                <a href="{{ locale_index_url | replace('index.html', '01_getting_started/release_notes.html') }}" class="sidebar-version-badge" title="View Release Notes">
                     <span class="sidebar-version-dot" aria-hidden="true"></span>
                     <span class="sidebar-version-text">v0.3.2</span>
                 </a>
@@ -105,6 +115,27 @@
                     <span class="crumb-separator">&raquo;</span>
                     <span class="crumb active">{{ title }}</span>
                 </div>
+                {% if languages and languages | length > 1 %}
+                <div class="lang-switcher">
+                    <details class="lang-dropdown">
+                        <summary class="lang-dropdown-btn" aria-label="Select language">
+                            <svg class="lang-globe-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                            <span class="lang-current-label">{% for l in languages %}{% if l.active %}{{ l.label }}{% endif %}{% endfor %}</span>
+                            <svg class="lang-caret-icon" viewBox="0 0 24 24" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </summary>
+                        <div class="lang-dropdown-menu" role="menu">
+                            {% for l in languages %}
+                            <a href="{{ l.url }}" class="lang-option{% if l.active %} active{% endif %}" lang="{{ l.html_lang }}" hreflang="{{ l.html_lang }}" {% if l.active %}aria-current="page"{% endif %}>
+                                <span>{{ l.label }}</span>
+                                {% if l.active %}
+                                <svg class="lang-check-icon" viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                {% endif %}
+                            </a>
+                            {% endfor %}
+                        </div>
+                    </details>
+                </div>
+                {% endif %}
             </header>
             <main class="main-content">
                 {{ body | safe }}
@@ -126,6 +157,25 @@
                     const next = current === 'dark' ? 'light' : 'dark';
                     document.documentElement.setAttribute('data-theme', next);
                     localStorage.setItem('drawlib-theme', next);
+                });
+            }
+
+            // Language dropdown outside-click & Escape close
+            const langDropdowns = document.querySelectorAll('.lang-dropdown');
+            if (langDropdowns.length > 0) {
+                document.addEventListener('click', function(e) {
+                    langDropdowns.forEach(function(dd) {
+                        if (dd.hasAttribute('open') && !dd.contains(e.target)) {
+                            dd.removeAttribute('open');
+                        }
+                    });
+                });
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape') {
+                        langDropdowns.forEach(function(dd) {
+                            dd.removeAttribute('open');
+                        });
+                    }
                 });
             }
 

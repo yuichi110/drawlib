@@ -668,13 +668,21 @@ html[data-theme="dark"] .sidebar-logo-dark,
 .top-bar {
     background-color: var(--rtd-content-bg);
     border-bottom: 1px solid var(--rtd-border-color);
-    padding: 1rem 2.5rem;
+    padding: 0.85rem 2.5rem;
     font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
 }
 
 .breadcrumbs {
     font-family: var(--rtd-font);
     color: var(--rtd-muted-color);
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .crumb {
@@ -690,6 +698,121 @@ html[data-theme="dark"] .sidebar-logo-dark,
 .crumb-separator {
     margin: 0 0.4rem;
     color: var(--rtd-border-color);
+}
+
+/* Multi-locale Language Switcher Dropdown */
+.lang-switcher {
+    position: relative;
+    flex-shrink: 0;
+}
+
+.lang-dropdown {
+    position: relative;
+}
+
+.lang-dropdown-btn {
+    list-style: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.38rem 0.7rem;
+    border: 1px solid var(--rtd-border-color);
+    border-radius: 8px;
+    background-color: var(--rtd-surface-bg);
+    color: var(--rtd-text-color);
+    font-family: var(--rtd-font);
+    font-size: 0.85rem;
+    font-weight: 500;
+    line-height: 1.2;
+    cursor: pointer;
+    user-select: none;
+    transition: border-color 0.15s ease, background-color 0.15s ease, color 0.15s ease;
+}
+
+.lang-dropdown-btn::-webkit-details-marker {
+    display: none;
+}
+
+.lang-dropdown-btn:hover,
+.lang-dropdown[open] .lang-dropdown-btn {
+    border-color: var(--rtd-brand-color);
+    color: var(--rtd-heading-color);
+}
+
+.lang-globe-icon,
+.lang-caret-icon,
+.lang-check-icon {
+    width: 15px;
+    height: 15px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    flex-shrink: 0;
+}
+
+.lang-caret-icon {
+    width: 14px;
+    height: 14px;
+    color: var(--rtd-muted-color);
+    transition: transform 0.15s ease;
+}
+
+.lang-dropdown[open] .lang-caret-icon {
+    transform: rotate(180deg);
+}
+
+.lang-dropdown-menu {
+    position: absolute;
+    top: calc(100% + 6px);
+    right: 0;
+    min-width: 160px;
+    background-color: var(--rtd-content-bg);
+    border: 1px solid var(--rtd-border-color);
+    border-radius: 10px;
+    box-shadow: 0 10px 25px rgba(15, 23, 42, 0.12);
+    padding: 0.35rem;
+    z-index: 950;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+html[data-theme="dark"] .lang-dropdown-menu {
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.45);
+}
+
+.lang-option {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.6rem;
+    padding: 0.45rem 0.7rem;
+    border-radius: 6px;
+    font-family: var(--rtd-font);
+    font-size: 0.86rem;
+    color: var(--rtd-text-color);
+    text-decoration: none;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.lang-option:hover {
+    background-color: var(--rtd-sidebar-hover);
+    color: var(--rtd-heading-color);
+    text-decoration: none;
+}
+
+.lang-option.active {
+    background-color: var(--rtd-sidebar-active);
+    color: var(--rtd-sidebar-active-text);
+    font-weight: 600;
+}
+
+.lang-check-icon {
+    width: 14px;
+    height: 14px;
+    color: var(--rtd-brand-color);
 }
 
 .main-content {
@@ -822,7 +945,8 @@ html[data-theme="dark"] .sidebar-logo-dark,
 /* Print & PDF Export Immunity: Ensure clean Light Mode in printed / PDF documents */
 @media print {
     #theme-toggle,
-    #menu-toggle {
+    #menu-toggle,
+    .lang-switcher {
         display: none !important;
     }
 

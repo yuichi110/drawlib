@@ -1,0 +1,1083 @@
+<!--
+ Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+
+ This software is licensed under the Apache License, Version 2.0.
+ For more information, please visit: https://github.com/yuichi110/drawlib
+
+ This software is provided "as is", without warranty of any kind,
+ express or implied, including but not limited to the warranties of
+ merchantability, fitness for a particular purpose and noninfringement.
+-->
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drawlib とは</title>
+    <script>
+        (function() {
+            const saved = localStorage.getItem('drawlib-theme');
+            if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    
+    
+    <link rel="alternate" hreflang="en" href="../../en/01_getting_started/overview.html">
+    
+    <link rel="alternate" hreflang="ja" href="overview.html">
+    
+    <link rel="alternate" hreflang="x-default" href="../../en/01_getting_started/overview.html">
+    
+    
+    
+    <link rel="icon" type="image/png" href="../../_assets/favicon.png">
+    
+    
+    <link rel="stylesheet" href="../style.css">
+    
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-brand" aria-label="Drawlib ドキュメント">
+                    
+                    <img src="../../_assets/logo.png" alt="Drawlib ドキュメント" class="sidebar-logo sidebar-logo-light">
+                    <img src="../../_assets/logo_dark.png" alt="Drawlib ドキュメント" class="sidebar-logo sidebar-logo-dark">
+                    
+                </a>
+                <div class="sidebar-header-actions">
+                    <button type="button" id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle theme">
+                        <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                        <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                    </button>
+                    <button type="button" id="menu-toggle" class="menu-toggle-btn" aria-label="Toggle navigation" aria-expanded="false">
+                        <svg class="icon-hamburger" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                        <svg class="icon-close" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                    </button>
+                </div>
+            </div>
+            <div class="sidebar-subbar">
+                
+                <a href="../01_getting_started/release_notes.html" class="sidebar-version-badge" title="View Release Notes">
+                    <span class="sidebar-version-dot" aria-hidden="true"></span>
+                    <span class="sidebar-version-text">v0.3.2</span>
+                </a>
+                <a href="https://github.com/yuichi110/drawlib" target="_blank" rel="noopener noreferrer" class="sidebar-github-link" aria-label="GitHub Repository" title="GitHub Repository">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+                </a>
+            </div>
+            <div class="sidebar-menu">
+                
+                    
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../index.html" >ようこそ</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">1. はじめに</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item active">
+                                <a href="overview.html" >Drawlib とは</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="installation.html" >インストールガイド</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="quick_start.html" >クイックスタートガイド</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="core_concepts.html" >基本ビジュアル概念</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="project_quicklook.html" >プロジェクト構成とビルド</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="agent_quicklook.html" >AI 駆動ワークフローとエージェント設定</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="release_notes.html" >リリースノートと移行ガイド</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">2. 描画プリミティブとスタイル</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/canvas.html" >キャンバスと座標系</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_overview.html" >図形プリミティブ概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_basic.html" >基本図形・放射状図形</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_polygon.html" >多角形とカスタムパス</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_arrow.html" >ブロック矢印・シェブロン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_container.html" >3D コンテナ・フロー・グルーピング</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_badge.html" >吹き出し・バッジ・ステータス</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_symbol.html" >フェイス・時計・記号・演算子</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/lines.html" >線とコネクタ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/text.html" >テキストとタイポグラフィ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/fonts.html" >フォントと多言語カタログ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/font_file.html" >カスタムフォントファイル (FontFile)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/images.html" >画像と Dimage</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/styles.html" >スタイルとテーマ設定</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/colors.html" >カラーパレットと色モデル</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/style_guide.html" >図解デザインとスタイルガイド</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">3. アイコンとブランドスイート</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/overview.html" >アイコン概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/phosphor.html" >Phosphor ベクターアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/gcp.html" >Google Cloud (GCP) アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/aws.html" >Amazon Web Services (AWS) アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/azure.html" >Microsoft Azure アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/cloud.html" >クラウド・オリジナルクラウドアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/cnative.html" >クラウドネイティブ (K8s) アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/devops.html" >DevOps・オブザーバビリティアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/network.html" >ネットワーク・Cisco トポロジアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/server.html" >サーバー・OS・仮想化アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/security.html" >セキュリティ・ゼロトラストアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/facility.html" >データセンター・ファシリティアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/ai.html" >AI・機械学習アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/data.html" >データ・データベースアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/code.html" >コード・言語・フレームワークアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/business.html" >エンタープライズ・FinTech アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/itservice.html" >IT サービス・コンサルティングアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/workspace.html" >ワークスペース・コラボレーションアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/social.html" >ソーシャル・メディア・コミュニティアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/client.html" >クライアント端末・エンドポイントアイコン</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">4. SmartArts（スマートアート）</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/overview.html" >SmartArts 概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/chevron_process.html" >ChevronProcess（シェブロン工程図）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/cycle.html" >Cycle（サイクル図）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/table.html" >Table（テーブル）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/tree.html" >Tree（ツリー図）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/mindmap.html" >MindMap（マインドマップ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/grid_layout.html" >GridLayout（グリッドレイアウト）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/pyramid.html" >Pyramid（ピラミッド図）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/box_list.html" >BoxList（ボックスリスト）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/kpi_cards.html" >KpiCards（KPI カード）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/card_list.html" >CardList（カードリスト）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/roadmap.html" >Roadmap（ロードマップ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/panel.html" >Panel（パネル）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/calendar.html" >Calendar（カレンダー）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/bullet_points.html" >BulletPoints（箇条書きボード）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/source_code.html" >SourceCode（ソースコードカード）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/geomap.html" >GeoMap（地理マップ）</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">5. Charts（定量チャート）</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/overview.html" >Charts 概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/axes_and_legends.html" >軸・スケール・凡例</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/bar.html" >Bar Chart（棒グラフ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/line.html" >Line Chart（折れ線グラフ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/area.html" >Area Chart（面グラフ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/pie.html" >Pie & Donut Chart（円・ドーナツグラフ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/radar.html" >Radar Chart（レーダーチャート）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/scatter.html" >Scatter Chart（散布図）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/gantt.html" >Gantt Chart（ガントチャート）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/heatmap.html" >Heatmap & Thermal Overlay（ヒートマップ）</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">6. テクニカルダイアグラム</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/overview.html" >ダイアグラム概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/architecture.html" >アーキテクチャ図</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/flow.html" >フロー図</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/sequence.html" >シーケンス図</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/class_diagram.html" >UML クラス図</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/er.html" >ER 図</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/state_diagram.html" >ステートマシン図</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">7. 自動レイアウトグラフ</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/overview.html" >グラフエンジン概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/architecture_graph.html" >ArchitectureGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/layer_graph.html" >LayerGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/tree_graph.html" >TreeGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/radial_graph.html" >RadialGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/grid_graph.html" >GridGraph</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">8. アニメーション</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/overview.html" >アニメーション概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/primitives.html" >プリミティブと色のアニメーション</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/smartarts.html" >SmartArts のアニメーション</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/charts.html" >Charts のアニメーション</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/diagrams.html" >ダイアグラムのアニメーション</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/graphs.html" >グラフのアニメーション</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">9. ドキュメントビルダと CLI</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/overview.html" >コードとしての図解ドキュメント概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/code_blocks.html" >Markdown コードブロック構文</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/cli_reference.html" >CLI リファレンス</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/project_doc.html" >リニアドキュメントプロジェクト (`doc`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/project_site.html" >ドキュメントサイトプロジェクト (`site`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/project_slide.html" >スライドデッキプロジェクト (`slide`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/slide_layout_and_api.html" >スライドステージレイアウトと API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/project_image.html" >画像プロジェクト (`images`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/customization.html" >テンプレートと CSS カスタマイズ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/caching_and_cicd.html" >キャッシュ機構と CI/CD</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">10. AI エージェントと高度な統合</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/ai_agent_instructions.html" >AI エージェント指示とルール体系</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/multimodal_feedback_loop.html" >自律検証フィードバックループ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/programmatic_api.html" >プログラマティック API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/math_and_layout.html" >アルゴリズムレイアウトと幾何計算</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/debugging.html" >トラブルシューティングとデバッグ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/case_study_brand_assets.html" >事例紹介: 公式ブランドアセットの設計</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/case_study_documentation_site.html" >事例紹介: AI エージェントによるドキュメントサイト構築</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/case_study_software_architecture.html" >事例紹介: コードとしてのソフトウェアアーキテクチャ設計書</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/case_study_technical_slides.html" >事例紹介: 技術プレゼンテーションスライドの作成</a>
+                            </li>
+                            
+                        </ul>
+                    
+                
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">Drawlib とは</span>
+                </div>
+                
+                <div class="lang-switcher">
+                    <details class="lang-dropdown">
+                        <summary class="lang-dropdown-btn" aria-label="Select language">
+                            <svg class="lang-globe-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                            <span class="lang-current-label">日本語</span>
+                            <svg class="lang-caret-icon" viewBox="0 0 24 24" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </summary>
+                        <div class="lang-dropdown-menu" role="menu">
+                            
+                            <a href="../../en/01_getting_started/overview.html" class="lang-option" lang="en" hreflang="en" >
+                                <span>English</span>
+                                
+                            </a>
+                            
+                            <a href="overview.html" class="lang-option active" lang="ja" hreflang="ja" aria-current="page">
+                                <span>日本語</span>
+                                
+                                <svg class="lang-check-icon" viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                
+                            </a>
+                            
+                        </div>
+                    </details>
+                </div>
+                
+            </header>
+            <main class="main-content">
+                <h1>Drawlib とは</h1>
+<p>従来の技術ドキュメント作成では、<strong>ソースコード</strong>（Git）、<strong>図版</strong>（外部の GUI 作図ツール）、<strong>文章</strong>（外部の Wiki 等）がそれぞれ分断されており、コードの進化に伴ってアーキテクチャ図が必然的に陳腐化してしまいます。</p>
+<p>Drawlib は <strong>「Illustration as Code（コードとしての図解）」</strong> と <strong>「Illustrated Documentation as Code（コードとしての図解ドキュメント）」</strong> によってこの分断を解消し、Python コード・図版・マルチフォーマットのドキュメント出力を単一の Git リポジトリ内で常に同期させます。</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="../../images/01_getting_started/overview/overview_paradigm_shift.png" alt="overview_1" />
+  <figcaption class="drawlib-caption">従来のワークフローと Drawlib ワークフローの比較（APNG アニメーション）</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.anim</span><span class="w"> </span><span class="kn">import</span> <span class="n">Animation</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">ai</span><span class="p">,</span> <span class="n">code</span><span class="p">,</span> <span class="n">devops</span><span class="p">,</span> <span class="n">phosphor</span><span class="p">,</span> <span class="n">workspace</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.images</span><span class="w"> </span><span class="kn">import</span> <span class="n">image</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">circle</span><span class="p">,</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="c1"># 16:9 widescreen canvas matching index.md (128 x 72)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">72</span><span class="p">)</span>
+<span class="n">anim</span> <span class="o">=</span> <span class="n">Animation</span><span class="p">(</span><span class="n">fps</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">loop</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">FAVICON_PATH</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s2">"_assets/favicon.png"</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s2">"_assets/favicon.png"</span><span class="p">)</span>
+    <span class="k">else</span> <span class="s2">"../_assets/favicon.png"</span>
+<span class="p">)</span>
+
+<span class="n">TITLE_TRAD</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">15.5</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">)</span>
+<span class="n">TITLE_DRAWLIB</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">15.5</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">)</span>
+<span class="n">SUB_MUTED</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">MutedBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"right"</span><span class="p">)</span>
+<span class="n">SUB_PRIMARY</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"right"</span><span class="p">)</span>
+
+<span class="n">TOOL_TEXT</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">)</span>
+<span class="n">STEP_TEXT</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.5</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">)</span>
+<span class="n">STEP_TEXT_WHITE</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.5</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">)</span>
+
+<span class="n">TOOL_CARD</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+    <span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">246</span><span class="p">,</span> <span class="mi">248</span><span class="p">,</span> <span class="mi">252</span><span class="p">),</span>
+    <span class="n">shape_line_color</span><span class="o">=</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">212</span><span class="p">,</span> <span class="mi">228</span><span class="p">),</span>
+    <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span>
+    <span class="n">shape_r</span><span class="o">=</span><span class="mf">1.6</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">STEP_CARD</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+    <span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span>
+    <span class="n">shape_line_color</span><span class="o">=</span><span class="p">(</span><span class="mi">208</span><span class="p">,</span> <span class="mi">218</span><span class="p">,</span> <span class="mi">232</span><span class="p">),</span>
+    <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span>
+    <span class="n">shape_r</span><span class="o">=</span><span class="mf">1.6</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">STEP_CARD_HERO</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.6</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">draw_drawio_badge</span><span class="p">(</span><span class="n">xy</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="n">size</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">5.0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Draw a clean Draw.io-style orange diagram app icon."""</span>
+    <span class="n">cx</span><span class="p">,</span> <span class="n">cy</span> <span class="o">=</span> <span class="n">xy</span>
+    <span class="n">rectangle</span><span class="p">(</span>
+        <span class="n">xy</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="n">size</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="n">size</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+            <span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">240</span><span class="p">,</span> <span class="mi">135</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
+            <span class="n">shape_line_width</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+            <span class="n">shape_r</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">top_pt</span> <span class="o">=</span> <span class="p">(</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span> <span class="o">+</span> <span class="n">size</span> <span class="o">*</span> <span class="mf">0.23</span><span class="p">)</span>
+    <span class="n">bl_pt</span> <span class="o">=</span> <span class="p">(</span><span class="n">cx</span> <span class="o">-</span> <span class="n">size</span> <span class="o">*</span> <span class="mf">0.24</span><span class="p">,</span> <span class="n">cy</span> <span class="o">-</span> <span class="n">size</span> <span class="o">*</span> <span class="mf">0.23</span><span class="p">)</span>
+    <span class="n">br_pt</span> <span class="o">=</span> <span class="p">(</span><span class="n">cx</span> <span class="o">+</span> <span class="n">size</span> <span class="o">*</span> <span class="mf">0.24</span><span class="p">,</span> <span class="n">cy</span> <span class="o">-</span> <span class="n">size</span> <span class="o">*</span> <span class="mf">0.23</span><span class="p">)</span>
+    <span class="n">wire</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">1.1</span><span class="p">)</span>
+    <span class="n">line</span><span class="p">(</span><span class="n">top_pt</span><span class="p">,</span> <span class="n">bl_pt</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">wire</span><span class="p">)</span>
+    <span class="n">line</span><span class="p">(</span><span class="n">top_pt</span><span class="p">,</span> <span class="n">br_pt</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">wire</span><span class="p">)</span>
+    <span class="n">node_st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span> <span class="n">shape_line_width</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">shape_r</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">pt</span> <span class="ow">in</span> <span class="p">(</span><span class="n">top_pt</span><span class="p">,</span> <span class="n">bl_pt</span><span class="p">,</span> <span class="n">br_pt</span><span class="p">):</span>
+        <span class="n">rectangle</span><span class="p">(</span><span class="n">pt</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">size</span> <span class="o">*</span> <span class="mf">0.30</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">size</span> <span class="o">*</span> <span class="mf">0.22</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">node_st</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">draw_step_badge</span><span class="p">(</span><span class="n">xy</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="n">num</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">inverted</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Draw numbered circular step badge."""</span>
+    <span class="k">if</span> <span class="n">inverted</span><span class="p">:</span>
+        <span class="n">circle</span><span class="p">(</span>
+            <span class="n">xy</span><span class="p">,</span>
+            <span class="n">radius</span><span class="o">=</span><span class="mf">2.6</span><span class="p">,</span>
+            <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+                <span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span>
+                <span class="n">shape_line_width</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+        <span class="n">text</span><span class="p">(</span><span class="n">xy</span><span class="p">,</span> <span class="n">num</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">circle</span><span class="p">(</span>
+            <span class="n">xy</span><span class="p">,</span>
+            <span class="n">radius</span><span class="o">=</span><span class="mf">2.6</span><span class="p">,</span>
+            <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+                <span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">238</span><span class="p">,</span> <span class="mi">244</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span>
+                <span class="n">shape_line_color</span><span class="o">=</span><span class="p">(</span><span class="mi">180</span><span class="p">,</span> <span class="mi">198</span><span class="p">,</span> <span class="mi">228</span><span class="p">),</span>
+                <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.1</span><span class="p">,</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+        <span class="n">text</span><span class="p">(</span><span class="n">xy</span><span class="p">,</span> <span class="n">num</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">draw_traditional_scene</span><span class="p">(</span><span class="n">visible_steps</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Scene 1: Traditional 4-step workflow across Word, VS Code, and Draw.io."""</span>
+    <span class="c1"># Header</span>
+    <span class="n">phosphor</span><span class="o">.</span><span class="n">arrows_left_right</span><span class="p">((</span><span class="mf">10.5</span><span class="p">,</span> <span class="mf">64.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Danger</span><span class="p">)</span>
+    <span class="n">text</span><span class="p">((</span><span class="mf">14.8</span><span class="p">,</span> <span class="mf">64.0</span><span class="p">),</span> <span class="s2">"Traditional Workflow"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">TITLE_TRAD</span><span class="p">)</span>
+    <span class="n">text</span><span class="p">((</span><span class="mf">120.0</span><span class="p">,</span> <span class="mf">64.0</span><span class="p">),</span> <span class="s2">"Switching Across 3 Disconnected Tools"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">SUB_MUTED</span><span class="p">)</span>
+    <span class="n">line</span><span class="p">((</span><span class="mf">8.0</span><span class="p">,</span> <span class="mf">58.2</span><span class="p">),</span> <span class="p">(</span><span class="mf">120.0</span><span class="p">,</span> <span class="mf">58.2</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedThin</span><span class="p">)</span>
+
+    <span class="n">steps</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">(</span><span class="s2">"1"</span><span class="p">,</span> <span class="s2">"word"</span><span class="p">,</span> <span class="s2">"Word"</span><span class="p">,</span> <span class="s2">"Write initial design spec in Word"</span><span class="p">,</span> <span class="mf">49.5</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">"2"</span><span class="p">,</span> <span class="s2">"vscode_ai"</span><span class="p">,</span> <span class="s2">"VS Code"</span><span class="p">,</span> <span class="s2">"Develop application code"</span><span class="p">,</span> <span class="mf">37.0</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">"3"</span><span class="p">,</span> <span class="s2">"drawio"</span><span class="p">,</span> <span class="s2">"Draw.io"</span><span class="p">,</span> <span class="s2">"Read code &amp; manually draw diagrams in Draw.io"</span><span class="p">,</span> <span class="mf">24.5</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">"4"</span><span class="p">,</span> <span class="s2">"word"</span><span class="p">,</span> <span class="s2">"Word"</span><span class="p">,</span> <span class="s2">"Read code, write Word spec &amp; paste diagrams"</span><span class="p">,</span> <span class="mf">12.0</span><span class="p">),</span>
+    <span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">visible_steps</span><span class="p">):</span>
+        <span class="n">num</span><span class="p">,</span> <span class="n">tool_key</span><span class="p">,</span> <span class="n">tool_label</span><span class="p">,</span> <span class="n">desc</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">steps</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+
+        <span class="c1"># Context-switch connector between different tools</span>
+        <span class="k">if</span> <span class="n">idx</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">prev_y</span> <span class="o">=</span> <span class="n">steps</span><span class="p">[</span><span class="n">idx</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="mi">4</span><span class="p">]</span>
+            <span class="n">line</span><span class="p">(</span>
+                <span class="p">(</span><span class="mf">21.5</span><span class="p">,</span> <span class="n">prev_y</span> <span class="o">-</span> <span class="mf">4.7</span><span class="p">),</span>
+                <span class="p">(</span><span class="mf">21.5</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="mf">4.7</span><span class="p">),</span>
+                <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span>
+                <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerDashed</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">1.3</span><span class="p">),</span>
+            <span class="p">)</span>
+
+        <span class="c1"># Left tool pill (x = 8.0 .. 35.0, cx = 21.5, width = 27.0)</span>
+        <span class="n">rectangle</span><span class="p">((</span><span class="mf">21.5</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">27.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">9.2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">TOOL_CARD</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">tool_key</span> <span class="o">==</span> <span class="s2">"word"</span><span class="p">:</span>
+            <span class="n">workspace</span><span class="o">.</span><span class="n">word</span><span class="p">((</span><span class="mf">15.0</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+            <span class="n">text</span><span class="p">((</span><span class="mf">19.2</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">tool_label</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">TOOL_TEXT</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">tool_key</span> <span class="o">==</span> <span class="s2">"vscode_ai"</span><span class="p">:</span>
+            <span class="n">code</span><span class="o">.</span><span class="n">vscode</span><span class="p">((</span><span class="mf">12.4</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.4</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+            <span class="n">ai</span><span class="o">.</span><span class="n">gemini</span><span class="p">((</span><span class="mf">17.3</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.3</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+            <span class="n">text</span><span class="p">((</span><span class="mf">21.2</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">tool_label</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">TOOL_TEXT</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">draw_drawio_badge</span><span class="p">((</span><span class="mf">15.0</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="mf">4.8</span><span class="p">)</span>
+            <span class="n">text</span><span class="p">((</span><span class="mf">19.2</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">tool_label</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">TOOL_TEXT</span><span class="p">)</span>
+
+        <span class="c1"># Right action card (x = 37.5 .. 120.0, cx = 78.75, width = 82.5)</span>
+        <span class="n">rectangle</span><span class="p">((</span><span class="mf">78.75</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">82.5</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">9.2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">STEP_CARD</span><span class="p">)</span>
+        <span class="n">draw_step_badge</span><span class="p">((</span><span class="mf">42.5</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">num</span><span class="p">)</span>
+        <span class="n">text</span><span class="p">((</span><span class="mf">47.0</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">desc</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">STEP_TEXT</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">draw_drawlib_scene</span><span class="p">(</span><span class="n">visible_steps</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Scene 2: Drawlib 3-step workflow unified inside VS Code + GitHub Repo + AI Agent."""</span>
+    <span class="c1"># Header</span>
+    <span class="n">image</span><span class="p">((</span><span class="mf">10.5</span><span class="p">,</span> <span class="mf">64.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">5.4</span><span class="p">,</span> <span class="n">image</span><span class="o">=</span><span class="n">FAVICON_PATH</span><span class="p">)</span>
+    <span class="n">text</span><span class="p">((</span><span class="mf">15.0</span><span class="p">,</span> <span class="mf">64.0</span><span class="p">),</span> <span class="s2">"Drawlib Workflow"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">TITLE_DRAWLIB</span><span class="p">)</span>
+    <span class="n">text</span><span class="p">((</span><span class="mf">120.0</span><span class="p">,</span> <span class="mf">64.0</span><span class="p">),</span> <span class="s2">"Unified in VS Code + GitHub Repository"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">SUB_PRIMARY</span><span class="p">)</span>
+    <span class="n">line</span><span class="p">((</span><span class="mf">8.0</span><span class="p">,</span> <span class="mf">58.2</span><span class="p">),</span> <span class="p">(</span><span class="mf">120.0</span><span class="p">,</span> <span class="mf">58.2</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedThin</span><span class="p">)</span>
+
+    <span class="c1"># Unified GitHub / Git Repository container (x = 7.0 .. 121.0, y = 6.0 .. 55.0)</span>
+    <span class="n">rectangle</span><span class="p">(</span>
+        <span class="p">(</span><span class="mf">64.0</span><span class="p">,</span> <span class="mf">30.5</span><span class="p">),</span>
+        <span class="n">width</span><span class="o">=</span><span class="mf">114.0</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mf">49.0</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+            <span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">245</span><span class="p">,</span> <span class="mi">248</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span>
+            <span class="n">shape_line_color</span><span class="o">=</span><span class="p">(</span><span class="mi">165</span><span class="p">,</span> <span class="mi">185</span><span class="p">,</span> <span class="mi">232</span><span class="p">),</span>
+            <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.4</span><span class="p">,</span>
+            <span class="n">shape_r</span><span class="o">=</span><span class="mf">2.2</span><span class="p">,</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">devops</span><span class="o">.</span><span class="n">github</span><span class="p">((</span><span class="mf">11.8</span><span class="p">,</span> <span class="mf">51.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+    <span class="n">text</span><span class="p">(</span>
+        <span class="p">(</span><span class="mf">15.4</span><span class="p">,</span> <span class="mf">51.0</span><span class="p">),</span>
+        <span class="s2">"GitHub / Git Repository (Specs, Source Code &amp; Illustrated Docs Together)"</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">),</span>
+    <span class="p">)</span>
+
+    <span class="n">steps</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">(</span><span class="s2">"1"</span><span class="p">,</span> <span class="s2">"Design specs in Git Repo with AI Agent &amp; Drawlib"</span><span class="p">,</span> <span class="mf">40.2</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">"2"</span><span class="p">,</span> <span class="s2">"Develop application code"</span><span class="p">,</span> <span class="mf">26.8</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">"3"</span><span class="p">,</span> <span class="s2">"AI Agent reads repo code &amp; auto-writes illustrated docs"</span><span class="p">,</span> <span class="mf">13.4</span><span class="p">,</span> <span class="kc">True</span><span class="p">),</span>
+    <span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">visible_steps</span><span class="p">):</span>
+        <span class="n">num</span><span class="p">,</span> <span class="n">desc</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">is_hero</span> <span class="o">=</span> <span class="n">steps</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">idx</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">prev_y</span> <span class="o">=</span> <span class="n">steps</span><span class="p">[</span><span class="n">idx</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span>
+            <span class="n">line</span><span class="p">(</span>
+                <span class="p">(</span><span class="mf">23.5</span><span class="p">,</span> <span class="n">prev_y</span> <span class="o">-</span> <span class="mf">4.9</span><span class="p">),</span>
+                <span class="p">(</span><span class="mf">23.5</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="mf">4.9</span><span class="p">),</span>
+                <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span>
+                <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">1.4</span><span class="p">),</span>
+            <span class="p">)</span>
+
+        <span class="c1"># Left tool pill: Always VS Code + Gemini AI Agent across all 3 steps</span>
+        <span class="n">rectangle</span><span class="p">(</span>
+            <span class="p">(</span><span class="mf">23.5</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span>
+            <span class="n">width</span><span class="o">=</span><span class="mf">27.0</span><span class="p">,</span>
+            <span class="n">height</span><span class="o">=</span><span class="mf">9.6</span><span class="p">,</span>
+            <span class="n">style</span><span class="o">=</span><span class="n">STEP_CARD</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_line_color</span><span class="o">=</span><span class="p">(</span><span class="mi">175</span><span class="p">,</span> <span class="mi">192</span><span class="p">,</span> <span class="mi">230</span><span class="p">)),</span>
+        <span class="p">)</span>
+        <span class="n">code</span><span class="o">.</span><span class="n">vscode</span><span class="p">((</span><span class="mf">14.4</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.4</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+        <span class="n">ai</span><span class="o">.</span><span class="n">gemini</span><span class="p">((</span><span class="mf">19.3</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.3</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+        <span class="n">text</span><span class="p">((</span><span class="mf">23.2</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="s2">"VS Code"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">TOOL_TEXT</span><span class="p">)</span>
+
+        <span class="c1"># Right action card (x = 39.5 .. 118.0, cx = 78.75, width = 78.5)</span>
+        <span class="n">rectangle</span><span class="p">(</span>
+            <span class="p">(</span><span class="mf">78.75</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span>
+            <span class="n">width</span><span class="o">=</span><span class="mf">78.5</span><span class="p">,</span>
+            <span class="n">height</span><span class="o">=</span><span class="mf">9.6</span><span class="p">,</span>
+            <span class="n">style</span><span class="o">=</span><span class="n">STEP_CARD_HERO</span> <span class="k">if</span> <span class="n">is_hero</span> <span class="k">else</span> <span class="n">STEP_CARD</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">draw_step_badge</span><span class="p">((</span><span class="mf">44.2</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">num</span><span class="p">,</span> <span class="n">inverted</span><span class="o">=</span><span class="n">is_hero</span><span class="p">)</span>
+        <span class="n">text</span><span class="p">(</span>
+            <span class="p">(</span><span class="mf">48.6</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span>
+            <span class="n">desc</span><span class="p">,</span>
+            <span class="n">style</span><span class="o">=</span><span class="n">STEP_TEXT_WHITE</span> <span class="k">if</span> <span class="n">is_hero</span> <span class="k">else</span> <span class="n">STEP_TEXT</span><span class="p">,</span>
+        <span class="p">)</span>
+
+
+<span class="c1"># -------------------------------------------------------------------------</span>
+<span class="c1"># Scene 1: Traditional Workflow (4 progressive steps + read hold)</span>
+<span class="c1"># -------------------------------------------------------------------------</span>
+<span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="mf">0.95</span><span class="p">):</span>
+    <span class="n">draw_traditional_scene</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="mf">0.95</span><span class="p">):</span>
+    <span class="n">draw_traditional_scene</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="mf">0.95</span><span class="p">):</span>
+    <span class="n">draw_traditional_scene</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+
+<span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="mf">2.70</span><span class="p">):</span>
+    <span class="n">draw_traditional_scene</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+
+<span class="c1"># -------------------------------------------------------------------------</span>
+<span class="c1"># Scene 2: Drawlib Workflow (3 progressive steps + read hold)</span>
+<span class="c1"># -------------------------------------------------------------------------</span>
+<span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="mf">1.05</span><span class="p">):</span>
+    <span class="n">draw_drawlib_scene</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="mf">1.00</span><span class="p">):</span>
+    <span class="n">draw_drawlib_scene</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="mf">3.20</span><span class="p">):</span>
+    <span class="n">draw_drawlib_scene</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<hr />
+<h2>パラダイムシフト: なぜ「Illustration as Code」なのか？</h2>
+<p>AI コーディングアシスタントによって加速する現代のソフトウェア開発では、コードのリファクタリングや機能追加がかつてないスピードで進みます。しかしその一方で、システムアーキテクチャ設計書、データベーススキーマ、ワークフロー図などの更新は置き去りにされがちであり、<strong>ドキュメントの形骸化（Documentation Rot）</strong> やオンボーディングのボトルネックを引き起こしています。</p>
+<h3>現代のワークフローにおける GUI ツールの限界</h3>
+<p>従来の技術作図は、ドラッグ＆ドロップ操作の GUI ツール（Draw.io、Visio、Lucidchart、Figma など）に依存してきました。ホワイトボード代わりの素早いラフスケッチには便利ですが、書き出したバイナリ画像（PNG、JPEG）を別管理の Wiki に貼り付けて運用する手法には、看過できない構造的欠陥があります。</p>
+<ul>
+<li><strong>深刻なツールの分断</strong>: マイクロサービスの経路を 1 つ変更するだけでも、Git 上でコードを編集し、外部の GUI ツールを手動で開いて箱を描き直し、PNG を書き出して外部ドキュメントや Wiki に再アップロードする手間が発生します。</li>
+<li><strong>意味のあるバージョン管理の欠如</strong>: バイナリ画像はプルリクエスト上で意味のある Git diff を生成できません。レビュアーはどのアーキテクチャ要素が変更されたのかを正確に把握できません。</li>
+<li><strong>AI エージェントがバイナリアセットを編集できない</strong>: AI コーディングエージェントはコードベースの読み書きをシームレスに行えますが、GUI ソフトウェア上のピクセル操作やドラッグ＆ドロップ編集を行うことはできません。</li>
+<li><strong>デザインとブランドの一貫性の崩れ</strong>: 色使い、線の太さ、余白、フォントサイズが担当者ごとにばらつき、組織としてのデザイン基準が徐々に損なわれていきます。</li>
+</ul>
+<h3>生の SVG 生成や Matplotlib 直接記述の落とし穴</h3>
+<p>作図をコードで自動化しようと試みる際、エンジニアは AI エージェントに生の SVG XML や低レベルな Matplotlib スクリプトを直接生成させがちです。しかし実務においては、どちらのアプローチもすぐに限界に突き当たります。</p>
+<ul>
+<li><strong>生の SVG 生成</strong>:
+<ul>
+<li>LLM はブラウザのレイアウトエンジンなしではフォントのグリフ幅や動的な複数行折り返しを正確に計算できないため、テキストが枠線からはみ出す問題が頻発します。</li>
+<li>正確な接続ベクトル、直交ルーティング、矢印の向きを手計算で求めるには複雑な三角関数の計算が必要となり、わずかなズレが簡単に発生します。</li>
+<li>何百もの生の <code>&lt;path&gt;</code> や <code>&lt;polygon&gt;</code> 要素を羅列した XML は保守不能な塊となり、人間がレビューや監査を行うことが困難です。</li>
+</ul>
+</li>
+<li><strong>Matplotlib の直接スクリプティング</strong>:
+<ul>
+<li>Matplotlib は本来、学術・科学計算向けのデータ可視化（散布図、ヒストグラム、折れ線グラフ）のために設計されており、ソフトウェアシステム設計向けではありません。</li>
+<li>アーキテクチャ要素（ノード、境界コンテナ、シーケンスのライフライン、分岐ゲート、標準クラウドアイコンなど）を表すネイティブな抽象化が存在しません。</li>
+<li>アイコン付きのラベルボックスを 1 つ描画してスタイリングするだけでも、何十行もの低レベルなボイラープレートコードを記述する必要があります。</li>
+</ul>
+</li>
+</ul>
+<h3>Drawlib の解決策: 「Illustration as Code」</h3>
+<p>Drawlib は、アーキテクチャ図や技術ドキュメントを、標準的なソフトウェアエンジニアリング手法で管理されるファーストクラスの成果物として扱います。</p>
+<ol>
+<li><strong>Git 内の単一の情報源（Single Source of Truth）</strong>: ソースコード、Markdown の本文、そして宣言的な Python 作図コードが同じリポジトリ内に共存し、1 つのコミットでアトミックに更新できます。</li>
+<li><strong>決定論的かつ再現可能</strong>: 幾何配置、間隔、カラーパレットの階調、タイポグラフィがすべてコード上で数学的に定義されるため、再ビルドしてもビット単位で完全に同一の視覚出力が保証されます。</li>
+<li><strong>高水準なドメインプリミティブ</strong>: 宣言的な抽象コンポーネント（<code>ArchitectureDiagram</code>、<code>ChevronProcess</code>、<code>Table</code>、<code>ArchitectureGraph</code>）により、ピクセル単位の精密な制御を維持しつつレイアウトのボイラープレートを排除します。</li>
+<li><strong>マルチフォーマットへの一括コンパイル</strong>: 単一の Markdown ソースから、静的 HTML サイト、GitHub 用 Markdown、鮮明なベクター PDF、MS Word（<code>.docx</code>）文書、さらに 16:9 の HTML / PDF / PowerPoint（<code>.pptx</code>）スライドデッキへとコンパイルできます。</li>
+<li><strong>一元化されたスタイルガバナンス</strong>: テーマトークン（<code>DefaultStyles</code>、<code>GoogleStyles</code>、<code>MonochromeStyles</code>）により、図形・コネクタ・テキスト・アイコンのすべてが統一された視覚的階層に従います。</li>
+</ol>
+<hr />
+<h2>AI ネイティブ設計</h2>
+<p>Drawlib は、<strong>AI 支援ソフトウェア開発</strong> の時代を見据えて意図的に設計されています。</p>
+<p>大規模言語モデル（LLM）や AI コーディングエージェント（Claude Code、Cursor、Gemini など）は宣言的なコードを書くことに長けている一方、手作業の GUI ツールを扱うことは苦手です。Drawlib の図版はすべてクリーンな Python コードまたは Markdown 埋め込みブロック（<code>```drawlib</code>）として記述されるため、AI エージェントは以下の作業を自在に遂行できます。</p>
+<ul>
+<li><strong>既存図版の理解とリファクタリング</strong>: Python ソースコードを読むだけで、既存の図版の構造を正確に解析・改修できます。</li>
+<li><strong>複雑な図版の自動生成</strong>: リポジトリのコード解析に基づき、本格的なクラウド構成図、シーケンス図、フローチャートを自律的に作成できます。</li>
+<li><strong>構文ルールのオンデマンド参照</strong>: CLI（<code>drawlib rules show &lt;topic&gt;</code>）を通じて、組み込みのリファレンスマニュアルをいつでも直接照会できます。</li>
+<li><strong>自律的な視覚的自己修正</strong>: 座標グリッドを重ねた画像（<code>drawlib show -g</code>）を出力し、マルチモーダル視覚ツールで自ら確認することで、ラベルの見切れや線の重なりを自律的に修正できます。</li>
+</ul>
+<hr />
+<h2>レイヤードアーキテクチャ</h2>
+<p>Drawlib は密接に連携する 4 つのレイヤーで構成されており、低レベルの柔軟性と高レベルの生産性を両立しています。</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="../../images/01_getting_started/overview/drawlib_layered_architecture.png" alt="overview_2" />
+  <figcaption class="drawlib-caption">Drawlib のレイヤードアーキテクチャ</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">120</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">54</span><span class="p">)</span>
+
+<span class="n">title_dark</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.5</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">)</span>
+<span class="n">sub_dark</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">)</span>
+<span class="n">title_white</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.5</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">)</span>
+<span class="n">sub_white</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">)</span>
+
+<span class="c1"># Layer 4: Animation, Slide &amp; Doc Builder</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">60.0</span><span class="p">,</span> <span class="mf">45.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">112.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">stack</span><span class="p">((</span><span class="mf">10.5</span><span class="p">,</span> <span class="mf">45.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">5.2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">15.5</span><span class="p">,</span> <span class="mf">47.0</span><span class="p">),</span> <span class="s2">"Layer 4: Animation, Slide &amp; Doc Builder"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">title_dark</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">15.5</span><span class="p">,</span> <span class="mf">42.8</span><span class="p">),</span> <span class="s2">"drawlib.anim • drawlib.slide • drawlib.tools • CLI Compiler"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">sub_dark</span><span class="p">)</span>
+
+<span class="c1"># Layer 3: High-Level Visualizations</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">60.0</span><span class="p">,</span> <span class="mf">33.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">112.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">cube</span><span class="p">((</span><span class="mf">10.5</span><span class="p">,</span> <span class="mf">33.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">5.2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">15.5</span><span class="p">,</span> <span class="mf">35.0</span><span class="p">),</span> <span class="s2">"Layer 3: High-Level Visualizations &amp; Geometry"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">title_dark</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">15.5</span><span class="p">,</span> <span class="mf">30.8</span><span class="p">),</span> <span class="s2">"drawlib.graph • diagrams • smartarts • charts • math"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">sub_dark</span><span class="p">)</span>
+
+<span class="c1"># Layer 2: Drawing Primitives</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">60.0</span><span class="p">,</span> <span class="mf">21.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">112.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">paint_brush</span><span class="p">((</span><span class="mf">10.5</span><span class="p">,</span> <span class="mf">21.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">5.2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">15.5</span><span class="p">,</span> <span class="mf">23.0</span><span class="p">),</span> <span class="s2">"Layer 2: Drawing Primitives &amp; Assets"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">title_dark</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">15.5</span><span class="p">,</span> <span class="mf">18.8</span><span class="p">),</span> <span class="s2">"drawlib.shapes (43 shapes) • lines • text • icons • images"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">sub_dark</span><span class="p">)</span>
+
+<span class="c1"># Layer 1: Core Engine (Hero anchor)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">60.0</span><span class="p">,</span> <span class="mf">9.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">112.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">gear</span><span class="p">((</span><span class="mf">10.5</span><span class="p">,</span> <span class="mf">9.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">5.2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">15.5</span><span class="p">,</span> <span class="mf">11.0</span><span class="p">),</span> <span class="s2">"Layer 1: Core Engine (Foundation)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">title_white</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">15.5</span><span class="p">,</span> <span class="mf">6.8</span><span class="p">),</span> <span class="s2">"drawlib.canvas • styles • types • fonts (Cartesian Engine)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">sub_white</span><span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<ol>
+<li><strong>Layer 1: コアエンジン (<code>drawlib.canvas</code>, <code>drawlib.styles</code>, <code>drawlib.types</code>, <code>drawlib.fonts</code>)</strong><br />
+キャンバスのライフサイクル、デカルト座標系、ローカル座標変換、テーマ解決、および多言語対応フォントのタイポグラフィを管理します。</li>
+<li><strong>Layer 2: 描画プリミティブ (<code>drawlib.shapes</code>, <code>drawlib.lines</code>, <code>drawlib.text</code>, <code>drawlib.icons</code>, <code>drawlib.images</code>)</strong><br />
+<strong>43 種</strong> のベクター図形（<code>cylinder</code>、<code>cube</code>、<code>document</code>、<code>cloud</code>、<code>brace</code>、<code>gear</code>、<code>math_symbol</code>、<code>face</code>、<code>bubblespeech</code> など）、ルーティングや矢印を備えた柔軟なコネクタ線、タイポグラフィ、および合計 <strong>4,538 個のアイコン</strong> を収録する <strong>34 の標準アイコンモジュール</strong>（<code>phosphor</code> ベクターアイコン、<code>gcp</code> / <code>aws</code> / <code>azure</code> クラウドアイコン、15 種の公式ドメインブランドパック、15 種の Drawlib Original 2D パステルパック）を提供します。</li>
+<li><strong>Layer 3: 高水準ビジュアライゼーションと幾何計算 (<code>drawlib.graph</code>, <code>drawlib.smartarts</code>, <code>drawlib.charts</code>, <code>drawlib.diagrams</code>, <code>drawlib.math</code>)</strong><br />
+すぐに使えるドメイン別コンポーネント群です。自動レイアウトグラフ（<code>LayerGraph</code>、<code>ArchitectureGraph</code>、<code>TreeGraph</code>、<code>RadialGraph</code>、<code>GridGraph</code>）、クラウドアーキテクチャ図、フロー図、シーケンス図、UML クラス図・ステートマシン図、ER 図、データチャート、プロセスフロー、地理マップ（<code>drawlib.smartarts.GeoMap</code>）、および幾何計算・パス／カラー補間ユーティリティ（<code>drawlib.math</code>）を備えています。</li>
+<li><strong>Layer 4: アニメーション・プレゼンテーション・ドキュメントビルダ (<code>drawlib.anim</code>, <code>drawlib.slide</code>, <code>drawlib.tools</code>)</strong><br />
+マルチフレームアニメーション（APNG および Animated WebP 対応の <code>drawlib.anim</code>）、16:9 ワイドスクリーンのスライドステージ＆コンパイラ（<code>drawlib.slide</code>）、および <code>drawlib</code> ブロックを埋め込んだ Markdown ファイルをレスポンシブな静的 HTML サイト・GitHub 対応 Markdown・スタンドアロンの PDF／MS Word（<code>.docx</code>）文書・16:9 の HTML／PDF／PowerPoint（<code>.pptx</code>）スライドデッキへとコンパイルするプログラマティックなビルド・プレビューサーバー・キャッシュ API（<code>drawlib.tools</code>）を提供します。</li>
+</ol>
+
+            </main>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Theme toggle
+            const themeBtn = document.getElementById('theme-toggle');
+            if (themeBtn) {
+                themeBtn.addEventListener('click', function() {
+                    const current = document.documentElement.getAttribute('data-theme');
+                    const next = current === 'dark' ? 'light' : 'dark';
+                    document.documentElement.setAttribute('data-theme', next);
+                    localStorage.setItem('drawlib-theme', next);
+                });
+            }
+
+            // Language dropdown outside-click & Escape close
+            const langDropdowns = document.querySelectorAll('.lang-dropdown');
+            if (langDropdowns.length > 0) {
+                document.addEventListener('click', function(e) {
+                    langDropdowns.forEach(function(dd) {
+                        if (dd.hasAttribute('open') && !dd.contains(e.target)) {
+                            dd.removeAttribute('open');
+                        }
+                    });
+                });
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape') {
+                        langDropdowns.forEach(function(dd) {
+                            dd.removeAttribute('open');
+                        });
+                    }
+                });
+            }
+
+            // Mobile menu toggle
+            const menuBtn = document.getElementById('menu-toggle');
+            const sidebar = document.querySelector('.sidebar');
+            if (menuBtn && sidebar) {
+                function setMenuOpen(open) {
+                    sidebar.classList.toggle('is-open', open);
+                    menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+                    document.body.classList.toggle('menu-open', open);
+                    if (open) {
+                        const menu = sidebar.querySelector('.sidebar-menu');
+                        if (menu) {
+                            menu.scrollTop = 0;
+                        }
+                    }
+                }
+
+                menuBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const willOpen = !sidebar.classList.contains('is-open');
+                    setMenuOpen(willOpen);
+                });
+
+                // Close menu when clicking outside sidebar
+                document.addEventListener('click', function(e) {
+                    if (sidebar.classList.contains('is-open') && !sidebar.contains(e.target)) {
+                        setMenuOpen(false);
+                    }
+                });
+
+                // Close menu when a navigation link is clicked
+                const navLinks = sidebar.querySelectorAll('.nav-item a');
+                navLinks.forEach(function(link) {
+                    link.addEventListener('click', function() {
+                        setMenuOpen(false);
+                    });
+                });
+
+                // Close on Escape key
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape' && sidebar.classList.contains('is-open')) {
+                        setMenuOpen(false);
+                    }
+                });
+
+                // Reset menu state when resized above mobile breakpoint
+                window.addEventListener('resize', function() {
+                    if (window.innerWidth > 768 && sidebar.classList.contains('is-open')) {
+                        setMenuOpen(false);
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

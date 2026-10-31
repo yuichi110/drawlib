@@ -1,0 +1,1222 @@
+<!--
+ Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+
+ This software is licensed under the Apache License, Version 2.0.
+ For more information, please visit: https://github.com/yuichi110/drawlib
+
+ This software is provided "as is", without warranty of any kind,
+ express or implied, including but not limited to the warranties of
+ merchantability, fitness for a particular purpose and noninfringement.
+-->
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Network & Cisco Topology Icons</title>
+    <script>
+        (function() {
+            const saved = localStorage.getItem('drawlib-theme');
+            if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    
+    
+    <link rel="alternate" hreflang="en" href="network.html">
+    
+    <link rel="alternate" hreflang="ja" href="../../ja/03_icons/network.html">
+    
+    <link rel="alternate" hreflang="x-default" href="network.html">
+    
+    
+    
+    <link rel="icon" type="image/png" href="../../_assets/favicon.png">
+    
+    
+    <link rel="stylesheet" href="../style.css">
+    
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-brand" aria-label="Drawlib Documentation">
+                    
+                    <img src="../../_assets/logo.png" alt="Drawlib Documentation" class="sidebar-logo sidebar-logo-light">
+                    <img src="../../_assets/logo_dark.png" alt="Drawlib Documentation" class="sidebar-logo sidebar-logo-dark">
+                    
+                </a>
+                <div class="sidebar-header-actions">
+                    <button type="button" id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle theme">
+                        <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                        <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                    </button>
+                    <button type="button" id="menu-toggle" class="menu-toggle-btn" aria-label="Toggle navigation" aria-expanded="false">
+                        <svg class="icon-hamburger" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                        <svg class="icon-close" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                    </button>
+                </div>
+            </div>
+            <div class="sidebar-subbar">
+                
+                <a href="../01_getting_started/release_notes.html" class="sidebar-version-badge" title="View Release Notes">
+                    <span class="sidebar-version-dot" aria-hidden="true"></span>
+                    <span class="sidebar-version-text">v0.3.2</span>
+                </a>
+                <a href="https://github.com/yuichi110/drawlib" target="_blank" rel="noopener noreferrer" class="sidebar-github-link" aria-label="GitHub Repository" title="GitHub Repository">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+                </a>
+            </div>
+            <div class="sidebar-menu">
+                
+                    
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../index.html" >Welcome</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">1. Getting Started</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/overview.html" >Why Drawlib</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/installation.html" >Installation Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/quick_start.html" >Quick Start Guide</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/core_concepts.html" >Core Visual Concepts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/project_quicklook.html" >Project & Build Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/agent_quicklook.html" >AI-Driven Workflow & Agent Setup</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/release_notes.html" >Release Notes & Migration</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">2. Drawing Primitives & Styles</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/canvas.html" >Canvas & Coordinates</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_overview.html" >Shapes Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_basic.html" >Basic & Radial Shapes</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_polygon.html" >Polygons & Custom Paths</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_arrow.html" >Block Arrows & Chevrons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_container.html" >3D Containers, Flow & Grouping</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_badge.html" >Callouts, Badges & Status</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_symbol.html" >Faces, Clocks, Symbols & Operators</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/lines.html" >Lines & Connectors</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/text.html" >Text & Typography</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/fonts.html" >Fonts & Multilingual Catalog</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/font_file.html" >Custom Font Files (FontFile)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/images.html" >Images & Dimage</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/styles.html" >Styles & Theming</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/colors.html" >Color Palettes & Color Model</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/style_guide.html" >Diagram Design & Style Guide</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">3. Icons & Brand Suites</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="overview.html" >Icons Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="phosphor.html" >Phosphor Vector Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="gcp.html" >Google Cloud (GCP) Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="aws.html" >Amazon Web Services (AWS) Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="azure.html" >Microsoft Azure Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="cloud.html" >Cloud & Original Cloud Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="cnative.html" >Cloud Native (K8s) Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="devops.html" >DevOps & Observability Icons</a>
+                            </li>
+                            
+                            <li class="nav-item active">
+                                <a href="network.html" >Network & Cisco Topology Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="server.html" >Server, OS & Virtualization Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="security.html" >Security & Zero-Trust Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="facility.html" >Data Center & Facility Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="ai.html" >AI & Machine Learning Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="data.html" >Data & Database Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="code.html" >Code, Languages & Frameworks Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="business.html" >Enterprise Business & FinTech Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="itservice.html" >IT Services & Consulting Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="workspace.html" >Workspace & Collaboration Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="social.html" >Social, Media & Community Icons</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="client.html" >Client Devices & Endpoints Icons</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">4. SmartArts</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/overview.html" >SmartArts Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/chevron_process.html" >ChevronProcess</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/cycle.html" >Cycle</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/table.html" >Table</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/tree.html" >Tree</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/mindmap.html" >MindMap</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/grid_layout.html" >GridLayout</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/pyramid.html" >Pyramid</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/box_list.html" >BoxList</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/kpi_cards.html" >KpiCards</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/card_list.html" >CardList</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/roadmap.html" >Roadmap</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/panel.html" >Panel</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/calendar.html" >Calendar</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/bullet_points.html" >BulletPoints</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/source_code.html" >SourceCode</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/geomap.html" >GeoMap</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">5. Charts</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/overview.html" >Charts Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/axes_and_legends.html" >Axes, Scales & Legends</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/bar.html" >Bar Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/line.html" >Line Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/area.html" >Area Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/pie.html" >Pie & Donut Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/radar.html" >Radar Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/scatter.html" >Scatter Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/gantt.html" >Gantt Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/heatmap.html" >Heatmap & Thermal Overlay</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">6. Technical Diagrams</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/overview.html" >Diagrams Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/architecture.html" >Architecture Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/flow.html" >Flow Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/sequence.html" >Sequence Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/class_diagram.html" >UML Class Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/er.html" >ER Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/state_diagram.html" >State Machine Diagrams</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">7. Auto-Layout Graphs</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/overview.html" >Graph Engine Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/architecture_graph.html" >ArchitectureGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/layer_graph.html" >LayerGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/tree_graph.html" >TreeGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/radial_graph.html" >RadialGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/grid_graph.html" >GridGraph</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">8. Animations</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/overview.html" >Animations Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/primitives.html" >Animating Primitives & Colors</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/smartarts.html" >Animating SmartArts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/charts.html" >Animating Charts</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/diagrams.html" >Animating Diagrams</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/graphs.html" >Animating Graphs</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">9. Document Builder & CLI</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/overview.html" >Illustrated Documentation as Code Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/code_blocks.html" >Markdown Code Block Syntax</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/cli_reference.html" >CLI Reference</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/project_doc.html" >Linear Document Project (`doc`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/project_site.html" >Doc Site Project (`site`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/project_slide.html" >Slide Deck Project (`slide`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/slide_layout_and_api.html" >Slide Stage Layout & API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/project_image.html" >Image Project (`images`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/customization.html" >Templates & CSS Customization</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/caching_and_cicd.html" >Caching Architecture & CI/CD</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">10. AI Agents & Advanced Integration</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/ai_agent_instructions.html" >AI Agent Instructions & Rules</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/multimodal_feedback_loop.html" >Autonomous Verification Loop</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/programmatic_api.html" >Programmatic API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/math_and_layout.html" >Algorithmic Layout & Math</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/debugging.html" >Troubleshooting & Debugging</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/case_study_brand_assets.html" >Case Study: Designing Official Brand Assets</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/case_study_documentation_site.html" >Case Study: Building Documentation Sites with AI Agents</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/case_study_software_architecture.html" >Case Study: Authoring Software Architecture as Code</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/case_study_technical_slides.html" >Case Study: Creating Technical Slide Decks</a>
+                            </li>
+                            
+                        </ul>
+                    
+                
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">Network & Cisco Topology Icons</span>
+                </div>
+                
+                <div class="lang-switcher">
+                    <details class="lang-dropdown">
+                        <summary class="lang-dropdown-btn" aria-label="Select language">
+                            <svg class="lang-globe-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                            <span class="lang-current-label">English</span>
+                            <svg class="lang-caret-icon" viewBox="0 0 24 24" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </summary>
+                        <div class="lang-dropdown-menu" role="menu">
+                            
+                            <a href="network.html" class="lang-option active" lang="en" hreflang="en" aria-current="page">
+                                <span>English</span>
+                                
+                                <svg class="lang-check-icon" viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                
+                            </a>
+                            
+                            <a href="../../ja/03_icons/network.html" class="lang-option" lang="ja" hreflang="ja" >
+                                <span>日本語</span>
+                                
+                            </a>
+                            
+                        </div>
+                    </details>
+                </div>
+                
+            </header>
+            <main class="main-content">
+                <h1>Network &amp; Cisco Topology Icons</h1>
+<p>Drawlib provides <strong>70 official networking &amp; Cisco topology icons</strong> in <code>drawlib.icons.network</code> (<code>NetworkIcon</code>) and <strong>70 matching 2D pastel icons</strong> in <code>drawlib.icons.original_network</code> (<code>OriginalNetworkIcon</code>). Both suites include <strong>48 networking vendor/project logos</strong> and <strong>22 L2/L3 network topology icons</strong> (<code>cisco_*</code> in <code>network</code> with <code>&quot;classic&quot;</code> and <code>&quot;modern&quot;</code> variants, paired with 22 vendor-neutral topology icons in <code>original_network</code>) for standalone diagrams or <strong><a href="../06_diagrams/architecture.html">Architecture Diagrams</a></strong> (see <strong><a href="./overview.html">Icons Overview</a></strong>).</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="../../images/03_icons/network/icons_network_hero.png" alt="network_1" />
+  <figcaption class="drawlib-caption">Comparing Official Network & Cisco Icons (drawlib.icons.network) and Original 2D Pastel Twins (drawlib.icons.original_network)</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">network</span><span class="p">,</span> <span class="n">original_network</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">146</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">64</span><span class="p">)</span>
+
+<span class="n">columns</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s2">"Cloudflare"</span><span class="p">,</span> <span class="n">network</span><span class="o">.</span><span class="n">cloudflare</span><span class="p">,</span> <span class="n">original_network</span><span class="o">.</span><span class="n">cloudflare</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"NGINX Proxy"</span><span class="p">,</span> <span class="n">network</span><span class="o">.</span><span class="n">nginx</span><span class="p">,</span> <span class="n">original_network</span><span class="o">.</span><span class="n">nginx</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"Palo Alto"</span><span class="p">,</span> <span class="n">network</span><span class="o">.</span><span class="n">palo_alto</span><span class="p">,</span> <span class="n">original_network</span><span class="o">.</span><span class="n">palo_alto</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"Core Router"</span><span class="p">,</span> <span class="n">network</span><span class="o">.</span><span class="n">cisco_core_router</span><span class="p">,</span> <span class="n">original_network</span><span class="o">.</span><span class="n">core_router</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"L3 Switch"</span><span class="p">,</span> <span class="n">network</span><span class="o">.</span><span class="n">cisco_l3_switch</span><span class="p">,</span> <span class="n">original_network</span><span class="o">.</span><span class="n">l3_switch</span><span class="p">),</span>
+<span class="p">]</span>
+
+<span class="n">rows</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="mf">40.0</span><span class="p">,</span> <span class="s2">"Official / Cisco"</span><span class="p">,</span> <span class="s2">"drawlib.icons.network"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">16.0</span><span class="p">,</span> <span class="s2">"2D Pastel Suite"</span><span class="p">,</span> <span class="s2">"original_network"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">),</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">col_idx</span><span class="p">,</span> <span class="p">(</span><span class="n">col_title</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">columns</span><span class="p">):</span>
+    <span class="n">cx</span> <span class="o">=</span> <span class="mf">46.5</span> <span class="o">+</span> <span class="n">col_idx</span> <span class="o">*</span> <span class="mf">22.0</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mf">56.5</span><span class="p">),</span> <span class="n">col_title</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">row_idx</span><span class="p">,</span> <span class="p">(</span><span class="n">cy</span><span class="p">,</span> <span class="n">row_title</span><span class="p">,</span> <span class="n">row_sub</span><span class="p">,</span> <span class="n">card_st</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">rows</span><span class="p">):</span>
+    <span class="n">rectangle</span><span class="p">((</span><span class="mf">19.0</span><span class="p">,</span> <span class="n">cy</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">28.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">21.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">card_st</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+    <span class="n">text</span><span class="p">((</span><span class="mf">19.0</span><span class="p">,</span> <span class="n">cy</span> <span class="o">+</span> <span class="mf">3.0</span><span class="p">),</span> <span class="n">row_title</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+    <span class="n">text</span><span class="p">((</span><span class="mf">19.0</span><span class="p">,</span> <span class="n">cy</span> <span class="o">-</span> <span class="mf">3.0</span><span class="p">),</span> <span class="n">row_sub</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+
+    <span class="k">for</span> <span class="n">col_idx</span><span class="p">,</span> <span class="p">(</span><span class="n">lbl</span><span class="p">,</span> <span class="n">fn_off</span><span class="p">,</span> <span class="n">fn_orig</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">columns</span><span class="p">):</span>
+        <span class="n">cx</span> <span class="o">=</span> <span class="mf">46.5</span> <span class="o">+</span> <span class="n">col_idx</span> <span class="o">*</span> <span class="mf">22.0</span>
+        <span class="n">cell_st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span> <span class="k">if</span> <span class="p">(</span><span class="n">row_idx</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">col_idx</span> <span class="o">&gt;=</span> <span class="mi">3</span><span class="p">)</span> <span class="k">else</span> <span class="n">card_st</span>
+        <span class="n">rectangle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">19.5</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">21.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">cell_st</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+        <span class="n">fn</span> <span class="o">=</span> <span class="n">fn_off</span> <span class="k">if</span> <span class="n">row_idx</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">fn_orig</span>
+        <span class="n">fn</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span> <span class="o">+</span> <span class="mf">3.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">8.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">)</span>
+        <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span> <span class="o">-</span> <span class="mf">6.0</span><span class="p">),</span> <span class="n">lbl</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<hr />
+<h2>1. API Signature, Twin Module Structure &amp; Cisco <code>variant</code> Options</h2>
+<p>All 48 networking brand icons share identical names across <code>drawlib.icons.network</code> and <code>drawlib.icons.original_network</code>. In addition, the <strong>22 <code>cisco_*</code> topology functions</strong> in <code>drawlib.icons.network</code> accept <code>variant=&quot;default&quot; | &quot;classic&quot; | &quot;modern&quot;</code>:</p>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.diagrams.architecture</span><span class="w"> </span><span class="kn">import</span> <span class="n">NetworkIcon</span><span class="p">,</span> <span class="n">Node</span><span class="p">,</span> <span class="n">OriginalNetworkIcon</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">network</span><span class="p">,</span> <span class="n">original_network</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+
+<span class="c1"># 1. Networking brand icons (identical function names in both suites)</span>
+<span class="n">network</span><span class="o">.</span><span class="n">cloudflare</span><span class="p">((</span><span class="mi">25</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">)</span>
+<span class="n">original_network</span><span class="o">.</span><span class="n">cloudflare</span><span class="p">((</span><span class="mi">55</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">)</span>
+
+<span class="c1"># 2. Cisco topology icons support variant="default" ("classic") or variant="modern"</span>
+<span class="n">network</span><span class="o">.</span><span class="n">cisco_core_router</span><span class="p">((</span><span class="mi">85</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">,</span> <span class="n">variant</span><span class="o">=</span><span class="s2">"classic"</span><span class="p">)</span>
+<span class="n">network</span><span class="o">.</span><span class="n">cisco_core_router</span><span class="p">((</span><span class="mi">115</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">,</span> <span class="n">variant</span><span class="o">=</span><span class="s2">"modern"</span><span class="p">)</span>
+
+<span class="c1"># 3. Vendor-neutral 2D pastel topology twin in original_network</span>
+<span class="n">original_network</span><span class="o">.</span><span class="n">core_router</span><span class="p">((</span><span class="mi">145</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">)</span>
+
+<span class="c1"># 4. High-level ArchitectureDiagram Node integration via Enum</span>
+<span class="n">fw_node</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="s2">"Perimeter FW"</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">NetworkIcon</span><span class="o">.</span><span class="n">CISCO_FIREWALL</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">8.0</span><span class="p">)</span>
+<span class="n">sw_node</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="s2">"Core Switch"</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">OriginalNetworkIcon</span><span class="o">.</span><span class="n">CORE_SWITCH</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">8.0</span><span class="p">)</span>
+</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Feature</th>
+<th style="text-align:left">Official &amp; Cisco Suite (<code>network</code>)</th>
+<th style="text-align:left">Original 2D Pastel Suite (<code>original_network</code>)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Module Import</strong></td>
+<td style="text-align:left"><code>from drawlib.icons import network</code></td>
+<td style="text-align:left"><code>from drawlib.icons import original_network</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Brand Function Signature</strong></td>
+<td style="text-align:left"><code>network.&lt;brand&gt;(xy, width, *, style, variant=&quot;default&quot;)</code></td>
+<td style="text-align:left"><code>original_network.&lt;brand&gt;(xy, width, *, style, variant=&quot;default&quot;)</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Topology Function Signature</strong></td>
+<td style="text-align:left"><code>network.cisco_&lt;role&gt;(xy, width, *, style, variant=&quot;default&quot; | &quot;classic&quot; | &quot;modern&quot;)</code></td>
+<td style="text-align:left"><code>original_network.&lt;role&gt;(xy, width, *, style, variant=&quot;default&quot;)</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Architecture Enum</strong></td>
+<td style="text-align:left"><code>NetworkIcon.&lt;NAME&gt;</code></td>
+<td style="text-align:left"><code>OriginalNetworkIcon.&lt;NAME&gt;</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Canonical Count</strong></td>
+<td style="text-align:left"><strong>70</strong> (<code>48</code> vendor/OSS brands + <code>22</code> <code>cisco_*</code> topology icons)</td>
+<td style="text-align:left"><strong>70</strong> (<code>48</code> 2D pastel brand twins + <code>22</code> topology icons)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>2. Networking Vendor, CDN, Proxy &amp; VPN Brand Icons (48 Icons)</h2>
+<p>The 48 brand icons cover enterprise switching/routing hardware, next-generation firewalls (NGFW), Zero-Trust mesh VPNs, CDNs, reverse proxies, API gateways, and DNS authorities:</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="../../images/03_icons/network/icons_network_brands.png" alt="network_2" />
+  <figcaption class="drawlib-caption">Representative Networking Hardware, CDN, Proxy & Mesh VPN Brand Icons (drawlib.icons.network)</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">network</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">144</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">64</span><span class="p">)</span>
+
+<span class="n">row1</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s2">"cisco"</span><span class="p">,</span> <span class="s2">"Enterprise Net"</span><span class="p">,</span> <span class="n">network</span><span class="o">.</span><span class="n">cisco</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"arista"</span><span class="p">,</span> <span class="s2">"Data Center"</span><span class="p">,</span> <span class="n">network</span><span class="o">.</span><span class="n">arista</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"juniper"</span><span class="p">,</span> <span class="s2">"Routing"</span><span class="p">,</span> <span class="n">network</span><span class="o">.</span><span class="n">juniper</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"palo_alto"</span><span class="p">,</span> <span class="s2">"NGFW Security"</span><span class="p">,</span> <span class="n">network</span><span class="o">.</span><span class="n">palo_alto</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"fortinet"</span><span class="p">,</span> <span class="s2">"FortiGate"</span><span class="p">,</span> <span class="n">network</span><span class="o">.</span><span class="n">fortinet</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
+<span class="p">]</span>
+
+<span class="n">row2</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s2">"cloudflare"</span><span class="p">,</span> <span class="s2">"Edge CDN &amp; WAF"</span><span class="p">,</span> <span class="n">network</span><span class="o">.</span><span class="n">cloudflare</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"nginx"</span><span class="p">,</span> <span class="s2">"Reverse Proxy"</span><span class="p">,</span> <span class="n">network</span><span class="o">.</span><span class="n">nginx</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"traefik"</span><span class="p">,</span> <span class="s2">"Cloud Proxy"</span><span class="p">,</span> <span class="n">network</span><span class="o">.</span><span class="n">traefik</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"kong"</span><span class="p">,</span> <span class="s2">"API Gateway"</span><span class="p">,</span> <span class="n">network</span><span class="o">.</span><span class="n">kong</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"tailscale"</span><span class="p">,</span> <span class="s2">"Mesh VPN"</span><span class="p">,</span> <span class="n">network</span><span class="o">.</span><span class="n">tailscale</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">row_idx</span><span class="p">,</span> <span class="n">items</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">([</span><span class="n">row1</span><span class="p">,</span> <span class="n">row2</span><span class="p">]):</span>
+    <span class="n">cy</span> <span class="o">=</span> <span class="mf">46.5</span> <span class="k">if</span> <span class="n">row_idx</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="mf">17.5</span>
+    <span class="k">for</span> <span class="n">col_idx</span><span class="p">,</span> <span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">cat</span><span class="p">,</span> <span class="n">icon_fn</span><span class="p">,</span> <span class="n">card_st</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">items</span><span class="p">):</span>
+        <span class="n">cx</span> <span class="o">=</span> <span class="mf">18.0</span> <span class="o">+</span> <span class="n">col_idx</span> <span class="o">*</span> <span class="mf">27.0</span>
+        <span class="n">rectangle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">24.5</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">25.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">card_st</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+        <span class="n">icon_fn</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span> <span class="o">+</span> <span class="mf">4.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">8.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">)</span>
+        <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span> <span class="o">-</span> <span class="mf">3.5</span><span class="p">),</span> <span class="n">title</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+        <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span> <span class="o">-</span> <span class="mf">8.2</span><span class="p">),</span> <span class="n">cat</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<h3>2.1. Complete Networking Brand Icons Reference (48 Canonical Names)</h3>
+<p>All 48 canonical brand names below are available in both <code>network.&lt;name&gt;</code> (<code>NetworkIcon.&lt;NAME&gt;</code>) and <code>original_network.&lt;name&gt;</code> (<code>OriginalNetworkIcon.&lt;NAME&gt;</code>):</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Category</th>
+<th style="text-align:center">Count</th>
+<th style="text-align:left">Canonical Icon Names (<code>network.*</code> &amp; <code>original_network.*</code>)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Enterprise &amp; Campus Network Hardware Vendors</strong></td>
+<td style="text-align:center">15</td>
+<td style="text-align:left"><code>arista</code>, <code>aruba</code>, <code>asus</code>, <code>cisco</code>, <code>d_link</code>, <code>frrouting</code>, <code>juniper</code>, <code>linksys</code>, <code>meraki</code>, <code>mikrotik</code>, <code>netgear</code>, <code>openwrt</code>, <code>tp_link</code>, <code>ubiquiti</code>, <code>yamaha</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Next-Gen Firewalls (NGFW), Zero-Trust VPN &amp; SASE</strong></td>
+<td style="text-align:center">11</td>
+<td style="text-align:left"><code>checkpoint</code>, <code>fortinet</code>, <code>netbird</code>, <code>opnsense</code>, <code>openvpn</code>, <code>palo_alto</code>, <code>pfsense</code>, <code>tailscale</code>, <code>wireguard</code>, <code>zerotier</code>, <code>zscaler</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>CDNs, Load Balancers, Reverse Proxies &amp; API Gateways</strong></td>
+<td style="text-align:center">12</td>
+<td style="text-align:left"><code>akamai</code>, <code>apisix</code>, <code>caddy</code>, <code>cloudflare</code>, <code>f5</code>, <code>fastly</code>, <code>haproxy</code>, <code>kong</code>, <code>nginx</code>, <code>squid</code>, <code>traefik</code>, <code>varnish</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>DNS Servers, Ad-Blockers, TLS CAs &amp; Domain Registrars</strong></td>
+<td style="text-align:center">10</td>
+<td style="text-align:left"><code>adguard</code>, <code>bind</code>, <code>digicert</code>, <code>godaddy</code>, <code>lets_encrypt</code>, <code>namecheap</code>, <code>pi_hole</code>, <code>porkbun</code>, <code>powerdns</code>, <code>unbound</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>3. Cisco Topology Variants (<code>classic</code> vs. <code>modern</code>) &amp; 2D Pastel Twins (22 Icons)</h2>
+<p>For standard L2/L3 network topology symbols (routers, switches, firewalls, wireless controllers, and optical transport), Drawlib provides three visual styles:</p>
+<ol>
+<li><strong><code>network.cisco_&lt;role&gt;(..., variant=&quot;classic&quot;)</code></strong> <em>(or <code>variant=&quot;default&quot;</code>)</em>: Classic 3D isometric Cisco teal/blue topology pucks.</li>
+<li><strong><code>network.cisco_&lt;role&gt;(..., variant=&quot;modern&quot;)</code></strong>: Flat modern Cisco circular/square blue topology badges.</li>
+<li><strong><code>original_network.&lt;role&gt;(...)</code></strong>: Vendor-neutral 2D pastel topology icons authored in Drawlib's flat aesthetic.</li>
+</ol>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">network</span><span class="p">,</span> <span class="n">original_network</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">148</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">82</span><span class="p">)</span>
+
+<span class="n">columns</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s2">"Core Router"</span><span class="p">,</span> <span class="n">network</span><span class="o">.</span><span class="n">cisco_core_router</span><span class="p">,</span> <span class="n">original_network</span><span class="o">.</span><span class="n">core_router</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"L3 Switch"</span><span class="p">,</span> <span class="n">network</span><span class="o">.</span><span class="n">cisco_l3_switch</span><span class="p">,</span> <span class="n">original_network</span><span class="o">.</span><span class="n">l3_switch</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"Firewall"</span><span class="p">,</span> <span class="n">network</span><span class="o">.</span><span class="n">cisco_firewall</span><span class="p">,</span> <span class="n">original_network</span><span class="o">.</span><span class="n">firewall</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"Load Balancer"</span><span class="p">,</span> <span class="n">network</span><span class="o">.</span><span class="n">cisco_load_balancer</span><span class="p">,</span> <span class="n">original_network</span><span class="o">.</span><span class="n">load_balancer</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"Wireless AP"</span><span class="p">,</span> <span class="n">network</span><span class="o">.</span><span class="n">cisco_wireless_ap</span><span class="p">,</span> <span class="n">original_network</span><span class="o">.</span><span class="n">wireless_ap</span><span class="p">),</span>
+<span class="p">]</span>
+
+<span class="n">rows</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="mf">59.0</span><span class="p">,</span> <span class="s1">'variant="classic"'</span><span class="p">,</span> <span class="s2">"network.cisco_* (default)"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">36.5</span><span class="p">,</span> <span class="s1">'variant="modern"'</span><span class="p">,</span> <span class="s2">"network.cisco_*"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">14.0</span><span class="p">,</span> <span class="s2">"2D Pastel Twin"</span><span class="p">,</span> <span class="s2">"original_network.*"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">),</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">col_idx</span><span class="p">,</span> <span class="p">(</span><span class="n">col_title</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">columns</span><span class="p">):</span>
+    <span class="n">cx</span> <span class="o">=</span> <span class="mf">48.0</span> <span class="o">+</span> <span class="n">col_idx</span> <span class="o">*</span> <span class="mf">21.8</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mf">74.5</span><span class="p">),</span> <span class="n">col_title</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">row_idx</span><span class="p">,</span> <span class="p">(</span><span class="n">cy</span><span class="p">,</span> <span class="n">row_title</span><span class="p">,</span> <span class="n">row_sub</span><span class="p">,</span> <span class="n">card_st</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">rows</span><span class="p">):</span>
+    <span class="n">rectangle</span><span class="p">((</span><span class="mf">20.0</span><span class="p">,</span> <span class="n">cy</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">30.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">19.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">card_st</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+    <span class="n">text</span><span class="p">((</span><span class="mf">20.0</span><span class="p">,</span> <span class="n">cy</span> <span class="o">+</span> <span class="mf">2.8</span><span class="p">),</span> <span class="n">row_title</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+    <span class="n">text</span><span class="p">((</span><span class="mf">20.0</span><span class="p">,</span> <span class="n">cy</span> <span class="o">-</span> <span class="mf">3.2</span><span class="p">),</span> <span class="n">row_sub</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+
+    <span class="k">for</span> <span class="n">col_idx</span><span class="p">,</span> <span class="p">(</span><span class="n">_</span><span class="p">,</span> <span class="n">fn_cisco</span><span class="p">,</span> <span class="n">fn_orig</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">columns</span><span class="p">):</span>
+        <span class="n">cx</span> <span class="o">=</span> <span class="mf">48.0</span> <span class="o">+</span> <span class="n">col_idx</span> <span class="o">*</span> <span class="mf">21.8</span>
+        <span class="n">rectangle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">19.5</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">19.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">card_st</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">row_idx</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">fn_cisco</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">9.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">,</span> <span class="n">variant</span><span class="o">=</span><span class="s2">"classic"</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">row_idx</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">fn_cisco</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">9.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">,</span> <span class="n">variant</span><span class="o">=</span><span class="s2">"modern"</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">fn_orig</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">9.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="../../images/03_icons/network/icons_network_concepts.png" alt="network_3" />
+  <figcaption class="drawlib-caption">Comparing Cisco Classic (3D), Cisco Modern (Flat), and Original 2D Pastel Network Topology Icons</figcaption>
+</figure>
+<h3>3.1. Complete 22 Network Topology Icons Reference (<code>network.cisco_*</code> &amp; <code>original_network.*</code>)</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><code>network.cisco_*</code> Function (<code>classic</code> / <code>modern</code>)</th>
+<th style="text-align:left"><code>NetworkIcon</code> Enum</th>
+<th style="text-align:left"><code>original_network.*</code> 2D Pastel Twin</th>
+<th style="text-align:left"><code>OriginalNetworkIcon</code> Enum</th>
+<th style="text-align:left">Network Topology Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>cisco_client_pc</code></td>
+<td style="text-align:left"><code>CISCO_CLIENT_PC</code></td>
+<td style="text-align:left"><code>client_pc</code></td>
+<td style="text-align:left"><code>CLIENT_PC</code></td>
+<td style="text-align:left">End-user workstation or desktop client host</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>cisco_core_router</code></td>
+<td style="text-align:left"><code>CISCO_CORE_ROUTER</code></td>
+<td style="text-align:left"><code>core_router</code></td>
+<td style="text-align:left"><code>CORE_ROUTER</code></td>
+<td style="text-align:left">High-capacity backbone / core MPLS/BGP router</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>cisco_core_switch</code></td>
+<td style="text-align:left"><code>CISCO_CORE_SWITCH</code></td>
+<td style="text-align:left"><code>core_switch</code></td>
+<td style="text-align:left"><code>CORE_SWITCH</code></td>
+<td style="text-align:left">Campus or distribution core chassis switch</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>cisco_firewall</code></td>
+<td style="text-align:left"><code>CISCO_FIREWALL</code></td>
+<td style="text-align:left"><code>firewall</code></td>
+<td style="text-align:left"><code>FIREWALL</code></td>
+<td style="text-align:left">Perimeter L3/L4/L7 stateful security appliance</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>cisco_ids_ips</code></td>
+<td style="text-align:left"><code>CISCO_IDS_IPS</code></td>
+<td style="text-align:left"><code>ids_ips</code></td>
+<td style="text-align:left"><code>IDS_IPS</code></td>
+<td style="text-align:left">Intrusion detection and prevention sensor</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>cisco_ip_phone</code></td>
+<td style="text-align:left"><code>CISCO_IP_PHONE</code></td>
+<td style="text-align:left"><code>ip_phone</code></td>
+<td style="text-align:left"><code>IP_PHONE</code></td>
+<td style="text-align:left">VoIP desk telephone endpoint</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>cisco_ise</code></td>
+<td style="text-align:left"><code>CISCO_ISE</code></td>
+<td style="text-align:left"><code>nac_server</code></td>
+<td style="text-align:left"><code>NAC_SERVER</code></td>
+<td style="text-align:left">Network Access Control (NAC) / Cisco ISE policy server</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>cisco_l2_switch</code></td>
+<td style="text-align:left"><code>CISCO_L2_SWITCH</code></td>
+<td style="text-align:left"><code>l2_switch</code></td>
+<td style="text-align:left"><code>L2_SWITCH</code></td>
+<td style="text-align:left">Access-layer Ethernet VLAN switch</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>cisco_l3_switch</code></td>
+<td style="text-align:left"><code>CISCO_L3_SWITCH</code></td>
+<td style="text-align:left"><code>l3_switch</code></td>
+<td style="text-align:left"><code>L3_SWITCH</code></td>
+<td style="text-align:left">Multilayer inter-VLAN routing switch</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>cisco_load_balancer</code></td>
+<td style="text-align:left"><code>CISCO_LOAD_BALANCER</code></td>
+<td style="text-align:left"><code>load_balancer</code></td>
+<td style="text-align:left"><code>LOAD_BALANCER</code></td>
+<td style="text-align:left">Server load balancer / ADC appliance</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>cisco_nexus_switch</code></td>
+<td style="text-align:left"><code>CISCO_NEXUS_SWITCH</code></td>
+<td style="text-align:left"><code>datacenter_switch</code></td>
+<td style="text-align:left"><code>DATACENTER_SWITCH</code></td>
+<td style="text-align:left">Leaf-spine data center fabric switch (Cisco Nexus)</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>cisco_optical_transport</code></td>
+<td style="text-align:left"><code>CISCO_OPTICAL_TRANSPORT</code></td>
+<td style="text-align:left"><code>optical_transport</code></td>
+<td style="text-align:left"><code>OPTICAL_TRANSPORT</code></td>
+<td style="text-align:left">DWDM / fiber-optic metro transport node</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>cisco_router</code></td>
+<td style="text-align:left"><code>CISCO_ROUTER</code></td>
+<td style="text-align:left"><code>router</code></td>
+<td style="text-align:left"><code>ROUTER</code></td>
+<td style="text-align:left">Standard branch or edge IP router</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>cisco_server</code></td>
+<td style="text-align:left"><code>CISCO_SERVER</code></td>
+<td style="text-align:left"><code>server</code></td>
+<td style="text-align:left"><code>SERVER</code></td>
+<td style="text-align:left">Rack or tower application server host</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>cisco_voice_gateway</code></td>
+<td style="text-align:left"><code>CISCO_VOICE_GATEWAY</code></td>
+<td style="text-align:left"><code>voice_gateway</code></td>
+<td style="text-align:left"><code>VOICE_GATEWAY</code></td>
+<td style="text-align:left">SIP / PSTN unified communications voice gateway</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>cisco_vpn_gateway</code></td>
+<td style="text-align:left"><code>CISCO_VPN_GATEWAY</code></td>
+<td style="text-align:left"><code>vpn_gateway</code></td>
+<td style="text-align:left"><code>VPN_GATEWAY</code></td>
+<td style="text-align:left">Site-to-site IPsec / SSL VPN concentrator</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>cisco_wan_cloud</code></td>
+<td style="text-align:left"><code>CISCO_WAN_CLOUD</code></td>
+<td style="text-align:left"><code>wan_cloud</code></td>
+<td style="text-align:left"><code>WAN_CLOUD</code></td>
+<td style="text-align:left">Public Internet, MPLS carrier cloud, or ISP transit</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>cisco_wan_router</code></td>
+<td style="text-align:left"><code>CISCO_WAN_ROUTER</code></td>
+<td style="text-align:left"><code>wan_router</code></td>
+<td style="text-align:left"><code>WAN_ROUTER</code></td>
+<td style="text-align:left">SD-WAN / wide-area edge router</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>cisco_web_security</code></td>
+<td style="text-align:left"><code>CISCO_WEB_SECURITY</code></td>
+<td style="text-align:left"><code>web_security</code></td>
+<td style="text-align:left"><code>WEB_SECURITY</code></td>
+<td style="text-align:left">Secure web gateway (SWG) &amp; URL filtering proxy</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>cisco_wireless_ap</code></td>
+<td style="text-align:left"><code>CISCO_WIRELESS_AP</code></td>
+<td style="text-align:left"><code>wireless_ap</code></td>
+<td style="text-align:left"><code>WIRELESS_AP</code></td>
+<td style="text-align:left">Wi-Fi wireless access point (AP)</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>cisco_wireless_controller</code></td>
+<td style="text-align:left"><code>CISCO_WIRELESS_CONTROLLER</code></td>
+<td style="text-align:left"><code>wireless_controller</code></td>
+<td style="text-align:left"><code>WIRELESS_CONTROLLER</code></td>
+<td style="text-align:left">Centralized WLAN controller (WLC)</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>cisco_wireless_router</code></td>
+<td style="text-align:left"><code>CISCO_WIRELESS_ROUTER</code></td>
+<td style="text-align:left"><code>wireless_router</code></td>
+<td style="text-align:left"><code>WIRELESS_ROUTER</code></td>
+<td style="text-align:left">SOHO integrated Wi-Fi gateway router</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>4. Practical Architecture Diagram (<code>NetworkIcon</code> &amp; <code>OriginalNetworkIcon</code>)</h2>
+<p>The following <strong><a href="../06_diagrams/architecture.html"><code>ArchitectureDiagram</code></a></strong> models an enterprise campus and data center perimeter network using <code>NetworkIcon</code>:</p>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.diagrams.architecture</span><span class="w"> </span><span class="kn">import</span> <span class="n">ArchitectureDiagram</span><span class="p">,</span> <span class="n">NetworkIcon</span><span class="p">,</span> <span class="n">Node</span><span class="p">,</span> <span class="n">NodeGroup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">68</span><span class="p">)</span>
+
+<span class="n">d</span> <span class="o">=</span> <span class="n">ArchitectureDiagram</span><span class="p">(</span>
+    <span class="n">node_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">,</span>
+    <span class="n">node_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">edge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+    <span class="n">edge_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">node_card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">"Enterprise Perimeter &amp; Campus Network Topology (NetworkIcon)"</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">wan</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span>
+        <span class="s2">"Cloudflare</span><span class="se">\n</span><span class="s2">Anycast Edge"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span>
+        <span class="n">icon</span><span class="o">=</span><span class="n">NetworkIcon</span><span class="o">.</span><span class="n">CLOUDFLARE</span><span class="p">,</span>
+        <span class="n">icon_size</span><span class="o">=</span><span class="mf">7.5</span><span class="p">,</span>
+        <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">13.0</span><span class="p">,</span> <span class="mf">23.0</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">dc</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">NodeGroup</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">"Corporate DMZ &amp; Core Network"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">4.5</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">36.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">))</span>
+<span class="n">fw</span> <span class="o">=</span> <span class="n">dc</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span>
+        <span class="s2">"Cisco Firewall</span><span class="se">\n</span><span class="s2">(ASA / Firepower)"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span>
+        <span class="n">icon</span><span class="o">=</span><span class="n">NetworkIcon</span><span class="o">.</span><span class="n">CISCO_FIREWALL</span><span class="p">,</span>
+        <span class="n">icon_size</span><span class="o">=</span><span class="mf">7.5</span><span class="p">,</span>
+        <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">15.5</span><span class="p">,</span> <span class="mf">19.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">core_sw</span> <span class="o">=</span> <span class="n">dc</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span>
+        <span class="s2">"Cisco L3 Core</span><span class="se">\n</span><span class="s2">Switch"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span>
+        <span class="n">icon</span><span class="o">=</span><span class="n">NetworkIcon</span><span class="o">.</span><span class="n">CISCO_L3_SWITCH</span><span class="p">,</span>
+        <span class="n">icon_size</span><span class="o">=</span><span class="mf">7.5</span><span class="p">,</span>
+        <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">52.0</span><span class="p">,</span> <span class="mf">19.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">lb</span> <span class="o">=</span> <span class="n">dc</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span>
+        <span class="s2">"NGINX Reverse</span><span class="se">\n</span><span class="s2">Proxy Cluster"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mi">17</span><span class="p">,</span>
+        <span class="n">icon</span><span class="o">=</span><span class="n">NetworkIcon</span><span class="o">.</span><span class="n">NGINX</span><span class="p">,</span>
+        <span class="n">icon_size</span><span class="o">=</span><span class="mf">7.2</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">88.0</span><span class="p">,</span> <span class="mf">29.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">wifi</span> <span class="o">=</span> <span class="n">dc</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span>
+        <span class="s2">"Campus Wi-Fi</span><span class="se">\n</span><span class="s2">Access Point"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mi">17</span><span class="p">,</span>
+        <span class="n">icon</span><span class="o">=</span><span class="n">NetworkIcon</span><span class="o">.</span><span class="n">CISCO_WIRELESS_AP</span><span class="p">,</span>
+        <span class="n">icon_size</span><span class="o">=</span><span class="mf">7.2</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">88.0</span><span class="p">,</span> <span class="mf">9.0</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">d</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">wan</span><span class="p">,</span> <span class="n">fw</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"BGP"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">fw</span><span class="p">,</span> <span class="n">core_sw</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">core_sw</span><span class="p">,</span> <span class="n">lb</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">core_sw</span><span class="p">,</span> <span class="n">wifi</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
+
+<span class="n">d</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">))</span>
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="../../images/03_icons/network/icons_network_arch.png" alt="network_4" />
+  <figcaption class="drawlib-caption">Enterprise Perimeter & Campus Network Topology Using NetworkIcon</figcaption>
+</figure>
+<blockquote>
+<p>[!TIP]
+For bare-metal servers, hypervisors, and Linux/Windows operating systems, see <strong><a href="./server.html">Server, OS &amp; Virtualization Icons</a></strong>. For IAM, SIEM, and endpoint security icons, see <strong><a href="./security.html">Security &amp; Zero-Trust Icons</a></strong>.</p>
+</blockquote>
+
+            </main>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Theme toggle
+            const themeBtn = document.getElementById('theme-toggle');
+            if (themeBtn) {
+                themeBtn.addEventListener('click', function() {
+                    const current = document.documentElement.getAttribute('data-theme');
+                    const next = current === 'dark' ? 'light' : 'dark';
+                    document.documentElement.setAttribute('data-theme', next);
+                    localStorage.setItem('drawlib-theme', next);
+                });
+            }
+
+            // Language dropdown outside-click & Escape close
+            const langDropdowns = document.querySelectorAll('.lang-dropdown');
+            if (langDropdowns.length > 0) {
+                document.addEventListener('click', function(e) {
+                    langDropdowns.forEach(function(dd) {
+                        if (dd.hasAttribute('open') && !dd.contains(e.target)) {
+                            dd.removeAttribute('open');
+                        }
+                    });
+                });
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape') {
+                        langDropdowns.forEach(function(dd) {
+                            dd.removeAttribute('open');
+                        });
+                    }
+                });
+            }
+
+            // Mobile menu toggle
+            const menuBtn = document.getElementById('menu-toggle');
+            const sidebar = document.querySelector('.sidebar');
+            if (menuBtn && sidebar) {
+                function setMenuOpen(open) {
+                    sidebar.classList.toggle('is-open', open);
+                    menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+                    document.body.classList.toggle('menu-open', open);
+                    if (open) {
+                        const menu = sidebar.querySelector('.sidebar-menu');
+                        if (menu) {
+                            menu.scrollTop = 0;
+                        }
+                    }
+                }
+
+                menuBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const willOpen = !sidebar.classList.contains('is-open');
+                    setMenuOpen(willOpen);
+                });
+
+                // Close menu when clicking outside sidebar
+                document.addEventListener('click', function(e) {
+                    if (sidebar.classList.contains('is-open') && !sidebar.contains(e.target)) {
+                        setMenuOpen(false);
+                    }
+                });
+
+                // Close menu when a navigation link is clicked
+                const navLinks = sidebar.querySelectorAll('.nav-item a');
+                navLinks.forEach(function(link) {
+                    link.addEventListener('click', function() {
+                        setMenuOpen(false);
+                    });
+                });
+
+                // Close on Escape key
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape' && sidebar.classList.contains('is-open')) {
+                        setMenuOpen(false);
+                    }
+                });
+
+                // Reset menu state when resized above mobile breakpoint
+                window.addEventListener('resize', function() {
+                    if (window.innerWidth > 768 && sidebar.classList.contains('is-open')) {
+                        setMenuOpen(false);
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

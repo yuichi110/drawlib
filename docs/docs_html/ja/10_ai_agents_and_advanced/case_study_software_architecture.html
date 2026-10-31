@@ -1,0 +1,1128 @@
+<!--
+ Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+
+ This software is licensed under the Apache License, Version 2.0.
+ For more information, please visit: https://github.com/yuichi110/drawlib
+
+ This software is provided "as is", without warranty of any kind,
+ express or implied, including but not limited to the warranties of
+ merchantability, fitness for a particular purpose and noninfringement.
+-->
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>事例紹介: コードとしてのソフトウェアアーキテクチャ設計書</title>
+    <script>
+        (function() {
+            const saved = localStorage.getItem('drawlib-theme');
+            if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    
+    
+    <link rel="alternate" hreflang="en" href="../../en/10_ai_agents_and_advanced/case_study_software_architecture.html">
+    
+    <link rel="alternate" hreflang="ja" href="case_study_software_architecture.html">
+    
+    <link rel="alternate" hreflang="x-default" href="../../en/10_ai_agents_and_advanced/case_study_software_architecture.html">
+    
+    
+    
+    <link rel="icon" type="image/png" href="../../_assets/favicon.png">
+    
+    
+    <link rel="stylesheet" href="../style.css">
+    
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-brand" aria-label="Drawlib ドキュメント">
+                    
+                    <img src="../../_assets/logo.png" alt="Drawlib ドキュメント" class="sidebar-logo sidebar-logo-light">
+                    <img src="../../_assets/logo_dark.png" alt="Drawlib ドキュメント" class="sidebar-logo sidebar-logo-dark">
+                    
+                </a>
+                <div class="sidebar-header-actions">
+                    <button type="button" id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle theme">
+                        <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                        <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                    </button>
+                    <button type="button" id="menu-toggle" class="menu-toggle-btn" aria-label="Toggle navigation" aria-expanded="false">
+                        <svg class="icon-hamburger" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                        <svg class="icon-close" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                    </button>
+                </div>
+            </div>
+            <div class="sidebar-subbar">
+                
+                <a href="../01_getting_started/release_notes.html" class="sidebar-version-badge" title="View Release Notes">
+                    <span class="sidebar-version-dot" aria-hidden="true"></span>
+                    <span class="sidebar-version-text">v0.3.2</span>
+                </a>
+                <a href="https://github.com/yuichi110/drawlib" target="_blank" rel="noopener noreferrer" class="sidebar-github-link" aria-label="GitHub Repository" title="GitHub Repository">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+                </a>
+            </div>
+            <div class="sidebar-menu">
+                
+                    
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../index.html" >ようこそ</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">1. はじめに</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/overview.html" >Drawlib とは</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/installation.html" >インストールガイド</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/quick_start.html" >クイックスタートガイド</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/core_concepts.html" >基本ビジュアル概念</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/project_quicklook.html" >プロジェクト構成とビルド</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/agent_quicklook.html" >AI 駆動ワークフローとエージェント設定</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_getting_started/release_notes.html" >リリースノートと移行ガイド</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">2. 描画プリミティブとスタイル</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/canvas.html" >キャンバスと座標系</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_overview.html" >図形プリミティブ概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_basic.html" >基本図形・放射状図形</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_polygon.html" >多角形とカスタムパス</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_arrow.html" >ブロック矢印・シェブロン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_container.html" >3D コンテナ・フロー・グルーピング</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_badge.html" >吹き出し・バッジ・ステータス</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_symbol.html" >フェイス・時計・記号・演算子</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/lines.html" >線とコネクタ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/text.html" >テキストとタイポグラフィ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/fonts.html" >フォントと多言語カタログ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/font_file.html" >カスタムフォントファイル (FontFile)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/images.html" >画像と Dimage</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/styles.html" >スタイルとテーマ設定</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/colors.html" >カラーパレットと色モデル</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/style_guide.html" >図解デザインとスタイルガイド</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">3. アイコンとブランドスイート</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/overview.html" >アイコン概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/phosphor.html" >Phosphor ベクターアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/gcp.html" >Google Cloud (GCP) アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/aws.html" >Amazon Web Services (AWS) アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/azure.html" >Microsoft Azure アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/cloud.html" >クラウド・オリジナルクラウドアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/cnative.html" >クラウドネイティブ (K8s) アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/devops.html" >DevOps・オブザーバビリティアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/network.html" >ネットワーク・Cisco トポロジアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/server.html" >サーバー・OS・仮想化アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/security.html" >セキュリティ・ゼロトラストアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/facility.html" >データセンター・ファシリティアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/ai.html" >AI・機械学習アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/data.html" >データ・データベースアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/code.html" >コード・言語・フレームワークアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/business.html" >エンタープライズ・FinTech アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/itservice.html" >IT サービス・コンサルティングアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/workspace.html" >ワークスペース・コラボレーションアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/social.html" >ソーシャル・メディア・コミュニティアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/client.html" >クライアント端末・エンドポイントアイコン</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">4. SmartArts（スマートアート）</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/overview.html" >SmartArts 概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/chevron_process.html" >ChevronProcess（シェブロン工程図）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/cycle.html" >Cycle（サイクル図）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/table.html" >Table（テーブル）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/tree.html" >Tree（ツリー図）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/mindmap.html" >MindMap（マインドマップ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/grid_layout.html" >GridLayout（グリッドレイアウト）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/pyramid.html" >Pyramid（ピラミッド図）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/box_list.html" >BoxList（ボックスリスト）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/kpi_cards.html" >KpiCards（KPI カード）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/card_list.html" >CardList（カードリスト）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/roadmap.html" >Roadmap（ロードマップ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/panel.html" >Panel（パネル）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/calendar.html" >Calendar（カレンダー）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/bullet_points.html" >BulletPoints（箇条書きボード）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/source_code.html" >SourceCode（ソースコードカード）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/geomap.html" >GeoMap（地理マップ）</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">5. Charts（定量チャート）</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/overview.html" >Charts 概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/axes_and_legends.html" >軸・スケール・凡例</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/bar.html" >Bar Chart（棒グラフ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/line.html" >Line Chart（折れ線グラフ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/area.html" >Area Chart（面グラフ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/pie.html" >Pie & Donut Chart（円・ドーナツグラフ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/radar.html" >Radar Chart（レーダーチャート）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/scatter.html" >Scatter Chart（散布図）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/gantt.html" >Gantt Chart（ガントチャート）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/heatmap.html" >Heatmap & Thermal Overlay（ヒートマップ）</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">6. テクニカルダイアグラム</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/overview.html" >ダイアグラム概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/architecture.html" >アーキテクチャ図</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/flow.html" >フロー図</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/sequence.html" >シーケンス図</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/class_diagram.html" >UML クラス図</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/er.html" >ER 図</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/state_diagram.html" >ステートマシン図</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">7. 自動レイアウトグラフ</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/overview.html" >グラフエンジン概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/architecture_graph.html" >ArchitectureGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/layer_graph.html" >LayerGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/tree_graph.html" >TreeGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/radial_graph.html" >RadialGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/grid_graph.html" >GridGraph</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">8. アニメーション</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/overview.html" >アニメーション概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/primitives.html" >プリミティブと色のアニメーション</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/smartarts.html" >SmartArts のアニメーション</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/charts.html" >Charts のアニメーション</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/diagrams.html" >ダイアグラムのアニメーション</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/graphs.html" >グラフのアニメーション</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">9. ドキュメントビルダと CLI</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/overview.html" >コードとしての図解ドキュメント概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/code_blocks.html" >Markdown コードブロック構文</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/cli_reference.html" >CLI リファレンス</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/project_doc.html" >リニアドキュメントプロジェクト (`doc`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/project_site.html" >ドキュメントサイトプロジェクト (`site`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/project_slide.html" >スライドデッキプロジェクト (`slide`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/slide_layout_and_api.html" >スライドステージレイアウトと API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/project_image.html" >画像プロジェクト (`images`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/customization.html" >テンプレートと CSS カスタマイズ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/caching_and_cicd.html" >キャッシュ機構と CI/CD</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">10. AI エージェントと高度な統合</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="ai_agent_instructions.html" >AI エージェント指示とルール体系</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="multimodal_feedback_loop.html" >自律検証フィードバックループ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="programmatic_api.html" >プログラマティック API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="math_and_layout.html" >アルゴリズムレイアウトと幾何計算</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="debugging.html" >トラブルシューティングとデバッグ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="case_study_brand_assets.html" >事例紹介: 公式ブランドアセットの設計</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="case_study_documentation_site.html" >事例紹介: AI エージェントによるドキュメントサイト構築</a>
+                            </li>
+                            
+                            <li class="nav-item active">
+                                <a href="case_study_software_architecture.html" >事例紹介: コードとしてのソフトウェアアーキテクチャ設計書</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="case_study_technical_slides.html" >事例紹介: 技術プレゼンテーションスライドの作成</a>
+                            </li>
+                            
+                        </ul>
+                    
+                
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">事例紹介: コードとしてのソフトウェアアーキテクチャ設計書</span>
+                </div>
+                
+                <div class="lang-switcher">
+                    <details class="lang-dropdown">
+                        <summary class="lang-dropdown-btn" aria-label="Select language">
+                            <svg class="lang-globe-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                            <span class="lang-current-label">日本語</span>
+                            <svg class="lang-caret-icon" viewBox="0 0 24 24" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </summary>
+                        <div class="lang-dropdown-menu" role="menu">
+                            
+                            <a href="../../en/10_ai_agents_and_advanced/case_study_software_architecture.html" class="lang-option" lang="en" hreflang="en" >
+                                <span>English</span>
+                                
+                            </a>
+                            
+                            <a href="case_study_software_architecture.html" class="lang-option active" lang="ja" hreflang="ja" aria-current="page">
+                                <span>日本語</span>
+                                
+                                <svg class="lang-check-icon" viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                
+                            </a>
+                            
+                        </div>
+                    </details>
+                </div>
+                
+            </header>
+            <main class="main-content">
+                <h1>事例紹介: コードとしてのソフトウェアアーキテクチャ設計書</h1>
+<p>現代のソフトウェアシステムには、コントリビューターの指針となり、新メンバーのオンボーディングを加速し、非自明な設計判断を明確にするための包括的かつ厳密なアーキテクチャ設計書が求められます。しかし、ソフトウェアアーキテクチャ文書は慢性的な**アーキテクチャの乖離（Architectural Drift）**と **Visio 負債（Visio Debt）**に悩まされがちです。外部 GUI ツールで描かれた図はすぐに実際のコードベースから乖離し、実態とは異なる架空の「ゴースト抽象（Ghost Abstractions）」が記述され、複雑な継承ツリー全体にわたる人手でのレビューは限界を迎えます。</p>
+<p><strong>全21章、480件以上の相互参照リンク、数十点の純粋な Python 製 UML クラス図および複合グラフ</strong>で構成される Drawlib 公式のソフトウェアアーキテクチャ仕様書は、人間と AI の協働によって構築・自律監査されました。</p>
+<p>本事例では、<strong>「コードとしてのアーキテクチャ設計書（Architecture Documentation as Code）」</strong>、<strong>3ステップの段階的理解フレームワーク</strong>、および<strong>マルチエージェントによるコードベース監査</strong>を組み合わせて、プロダクション品質のアーキテクチャ仕様書を執筆・監査・維持する手法を紹介します。</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="../../images/10_ai_agents_and_advanced/case_study_software_architecture/architecture_doc_as_code_lifecycle.png" alt="case_study_software_architecture_1" />
+  <figcaption class="drawlib-caption">コードとしてのアーキテクチャ設計書：5段階のライフサイクル</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">140</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">56</span><span class="p">)</span>
+
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">70</span><span class="p">,</span> <span class="mi">28</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">136</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">52</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.5</span><span class="p">))</span>
+<span class="n">text</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">70</span><span class="p">,</span> <span class="mf">48.5</span><span class="p">),</span>
+    <span class="s2">"The 5-Stage Architecture Documentation as Code Lifecycle"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">12.2</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">stages</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="mf">18.5</span><span class="p">,</span> <span class="s2">"1. Code Reality"</span><span class="p">,</span> <span class="s2">"Real AST &amp; Types</span><span class="se">\n</span><span class="s2">Mixins &amp; Contracts</span><span class="se">\n</span><span class="s2">No Speculation"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">file_code</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">44.25</span><span class="p">,</span> <span class="s2">"2. Agent Audit"</span><span class="p">,</span> <span class="s2">"Cross-Reference Spec</span><span class="se">\n</span><span class="s2">Detect Ghost Classes</span><span class="se">\n</span><span class="s2">Uncover Omissions"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">magnifying_glass</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">70.0</span><span class="p">,</span> <span class="s2">"3. 3-Step Model"</span><span class="p">,</span> <span class="s2">"Concept First</span><span class="se">\n</span><span class="s2">Position in System</span><span class="se">\n</span><span class="s2">Deep Implementation"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">list_numbers</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">95.75</span><span class="p">,</span> <span class="s2">"4. Python Render"</span><span class="p">,</span> <span class="s2">"Pure-Python Drawlib</span><span class="se">\n</span><span class="s2">UML, Graphs &amp; Flows</span><span class="se">\n</span><span class="s2">Deterministic Assets"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">paint_brush</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">121.5</span><span class="p">,</span> <span class="s2">"5. Quality Gate"</span><span class="p">,</span> <span class="s2">"0 Broken Links</span><span class="se">\n</span><span class="s2">Strict Static Analysis</span><span class="se">\n</span><span class="s2">Visual Regression"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">shield_check</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">),</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">cx</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">desc</span><span class="p">,</span> <span class="n">icon_fn</span><span class="p">,</span> <span class="n">card_st</span><span class="p">,</span> <span class="n">title_st</span> <span class="ow">in</span> <span class="n">stages</span><span class="p">:</span>
+    <span class="n">is_accent</span> <span class="o">=</span> <span class="p">(</span><span class="n">card_st</span> <span class="o">==</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">)</span>
+    <span class="n">rectangle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mf">23.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">23.5</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">31</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">card_st</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.8</span><span class="p">))</span>
+    <span class="n">icon_st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span> <span class="k">if</span> <span class="n">is_accent</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span>
+    <span class="n">icon_fn</span><span class="p">((</span><span class="n">cx</span> <span class="o">-</span> <span class="mf">8.2</span><span class="p">,</span> <span class="mf">33.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">icon_st</span><span class="p">)</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">cx</span> <span class="o">-</span> <span class="mf">4.2</span><span class="p">,</span> <span class="mf">33.5</span><span class="p">),</span> <span class="n">title</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">title_st</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">8.6</span><span class="p">))</span>
+    <span class="n">sub_st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">White</span> <span class="k">if</span> <span class="n">is_accent</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mf">19.5</span><span class="p">),</span> <span class="n">desc</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">sub_st</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.0</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
+    <span class="n">x_from</span> <span class="o">=</span> <span class="n">stages</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mf">11.75</span>
+    <span class="n">x_to</span> <span class="o">=</span> <span class="n">stages</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mf">11.75</span>
+    <span class="n">line</span><span class="p">((</span><span class="n">x_from</span><span class="p">,</span> <span class="mf">23.5</span><span class="p">),</span> <span class="p">(</span><span class="n">x_to</span><span class="p">,</span> <span class="mf">23.5</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<hr />
+<h2>1. 根本的な課題: アーキテクチャの乖離と Visio 負債</h2>
+<p>従来の開発組織において、アーキテクチャ設計書は3つの慢性的な構造問題を抱えています。</p>
+<ol>
+<li><strong>分断されたツールチェーン（Visio 負債）</strong>:
+エンジニアはコードを Git で書き、RFC を Markdown や Google ドキュメントで執筆し、アーキテクチャ図を外部 GUI ツール（Visio、draw.io、Lucidchart、Miro）で作図します。図を更新するたびに手動エクスポートや再アップロード、複数ツールの行き来が必要になるため、内部実装が変わっても図が更新されないまま放置されます。</li>
+<li><strong>「ゴースト抽象（Ghost Abstraction）」の罠</strong>:
+テクニカルライターや AI アシスタントが記憶や表面的な推測だけでアーキテクチャ仕様書を書き起こすと、もっともらしいものの実際には存在しない設計パターン（架空の例外階層 <code>CanvasError</code>・<code>StyleError</code>、存在しない座標クラス <code>Point</code>・<code>Vector</code>、あるいは実際は関数型タプルと Pydantic バリデータで実装されている箇所に対する古典的 OOP モデルなど）を頻繁に捏造してしまいます。</li>
+<li><strong>視覚モデルを欠いた難解な長文</strong>:
+ダイヤモンド多重継承、メタクラスによるシングルトン伝播、2階層自動レイアウト DAG といった複雑なアーキテクチャ構造を、文章だけで正確に理解することはほぼ不可能です。コードのすぐ隣に正確な視覚モデルが存在しなければ、チームメンバー間でシステムのメンタルモデルが食い違っていきます。</li>
+</ol>
+<h3>Drawlib の解決策: 「コードとしてのアーキテクチャ設計書」</h3>
+<p>Drawlib は、アーキテクチャ設計書をリポジトリ内でバージョン管理されたコードとして扱うことでこれらの問題を解決します。</p>
+<ul>
+<li><strong>実行可能な唯一の情報源（Executable SoT）</strong>: Markdown による解説と実行可能な Python 描画ブロックが <code>docs/architecture_src/</code> 内で隣り合って管理されます。</li>
+<li><strong>ドッグフーディングによる乖離ゼロの維持</strong>: 公開クラス名の変更や内部メソッドのシグネチャ変更が発生すると、アーキテクチャ設計書のビルド（<code>./dcli docs build architecture</code>）が即座に失敗し、本番混入前に不整合を検知できます。</li>
+<li><strong>マルチモーダル AI 監査</strong>: AI コーディングエージェントが実際のコードベースの AST を解析し、設計書ドラフトと照合して齟齬を洗い出し、そのまま公開品質のダイアグラムを自律的にレンダリングします。</li>
+</ul>
+<hr />
+<h2>2. 3ステップの段階的アーキテクチャ解説フレームワーク</h2>
+<p>技術ドキュメントは、抽象的すぎる（概念を曖昧になぞるだけの概要図）か、逆に細かすぎる（背景説明のないコードの羅列）かの両極端に陥りがちです。全21章にわたって高い明快さと理解の定着を実現するため、Drawlib のアーキテクチャ仕様書では<strong>3ステップの段階的解説パラダイム</strong>を定めています。</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="../../images/10_ai_agents_and_advanced/case_study_software_architecture/pedagogical_3step_framework.png" alt="case_study_software_architecture_2" />
+  <figcaption class="drawlib-caption">3ステップの段階的アーキテクチャ解説フレームワーク</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">140</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">58</span><span class="p">)</span>
+
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">70</span><span class="p">,</span> <span class="mi">29</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">136</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">54</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.5</span><span class="p">))</span>
+<span class="n">text</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">70</span><span class="p">,</span> <span class="mf">51.5</span><span class="p">),</span>
+    <span class="s2">"The 3-Step Pedagogical Architecture Framework"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">12.2</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">steps</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span>
+        <span class="mi">26</span><span class="p">,</span>
+        <span class="s2">"Step 1: Concept"</span><span class="p">,</span>
+        <span class="s2">"Why does it exist?</span><span class="se">\n\n</span><span class="s2">• Target Problem &amp; Rationale</span><span class="se">\n</span><span class="s2">• High-Level Mental Model</span><span class="se">\n</span><span class="s2">• Core Trade-offs &amp; Decisions"</span><span class="p">,</span>
+        <span class="n">phosphor</span><span class="o">.</span><span class="n">lightbulb</span><span class="p">,</span>
+        <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
+        <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="p">(</span>
+        <span class="mi">70</span><span class="p">,</span>
+        <span class="s2">"Step 2: Positioning"</span><span class="p">,</span>
+        <span class="s2">"Where does it live?</span><span class="se">\n\n</span><span class="s2">• Unidirectional Layer Place</span><span class="se">\n</span><span class="s2">• Upstream Callers &amp; Consumers</span><span class="se">\n</span><span class="s2">• Boundary Law Constraints"</span><span class="p">,</span>
+        <span class="n">phosphor</span><span class="o">.</span><span class="n">git_fork</span><span class="p">,</span>
+        <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
+        <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="p">(</span>
+        <span class="mi">114</span><span class="p">,</span>
+        <span class="s2">"Step 3: Details"</span><span class="p">,</span>
+        <span class="s2">"How does it work?</span><span class="se">\n\n</span><span class="s2">• UML Classes &amp; Mixin Models</span><span class="se">\n</span><span class="s2">• Execution Pipelines &amp; States</span><span class="se">\n</span><span class="s2">• Concrete Data Contracts"</span><span class="p">,</span>
+        <span class="n">phosphor</span><span class="o">.</span><span class="n">cpu</span><span class="p">,</span>
+        <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
+        <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">,</span>
+    <span class="p">),</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">cx</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">desc</span><span class="p">,</span> <span class="n">icon_fn</span><span class="p">,</span> <span class="n">card_st</span><span class="p">,</span> <span class="n">title_st</span> <span class="ow">in</span> <span class="n">steps</span><span class="p">:</span>
+    <span class="n">is_accent</span> <span class="o">=</span> <span class="p">(</span><span class="n">card_st</span> <span class="o">==</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">)</span>
+    <span class="n">rectangle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mf">24.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">38</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">35</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">card_st</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">))</span>
+    
+    <span class="n">badge_bg</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">White</span> <span class="k">if</span> <span class="n">is_accent</span> <span class="k">else</span> <span class="n">card_st</span>
+    <span class="n">rectangle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mf">38.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">35</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">4.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">badge_bg</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">))</span>
+    
+    <span class="n">badge_icon_st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span> <span class="k">if</span> <span class="n">is_accent</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span>
+    <span class="n">icon_fn</span><span class="p">((</span><span class="n">cx</span> <span class="o">-</span> <span class="mf">13.5</span><span class="p">,</span> <span class="mf">38.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">badge_icon_st</span><span class="p">)</span>
+    
+    <span class="n">badge_text_st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span> <span class="k">if</span> <span class="n">is_accent</span> <span class="k">else</span> <span class="n">title_st</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">cx</span> <span class="o">-</span> <span class="mf">9.5</span><span class="p">,</span> <span class="mf">38.0</span><span class="p">),</span> <span class="n">title</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">badge_text_st</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">9.2</span><span class="p">))</span>
+    
+    <span class="n">sub_st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">White</span> <span class="k">if</span> <span class="n">is_accent</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">cx</span> <span class="o">-</span> <span class="mf">15.0</span><span class="p">,</span> <span class="mf">21.0</span><span class="p">),</span> <span class="n">desc</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">sub_st</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">8.2</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
+    <span class="n">x_from</span> <span class="o">=</span> <span class="n">steps</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mf">19.0</span>
+    <span class="n">x_to</span> <span class="o">=</span> <span class="n">steps</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mf">19.0</span>
+    <span class="n">line</span><span class="p">((</span><span class="n">x_from</span><span class="p">,</span> <span class="mf">24.5</span><span class="p">),</span> <span class="p">(</span><span class="n">x_to</span><span class="p">,</span> <span class="mf">24.5</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<h3>3つのステップの適用方法</h3>
+<ol>
+<li><strong>ステップ 1: コンセプト（なぜこのサブシステムが存在するのか？）</strong>:
+設計の動機とトレードオフを読者に示します。たとえば、なぜ Drawlib は古典的なオブジェクト指向の継承階層ではなく、28個のプロパティと動的な <code>supports</code> 追跡を備えた単一フラットな <code>Style</code> モデルを採用したのか？（答え: 実行時の型分岐なしに、全17種類のテーマスタイルに対して統一的な <code>.patch()</code> 伝播を適用できるようにするためです）。</li>
+<li><strong>ステップ 2: アーキテクチャ上の位置づけ（システム内のどこに属するのか？）</strong>:
+アーキテクチャ境界とレイヤー不変条件を定義します。どのモジュールがこのモジュールをインポートでき、どの方向への依存が厳格に禁止されているかを明示します（例: L3 サービス層は L1 / L2 をインポートできるが、上位の L4 キャンバス層や公開ファサードを決してインポートしてはならない）。</li>
+<li><strong>ステップ 3: 詳細設計と内部実装メカニズム（内部でどのように動作するのか？）</strong>:
+厳密な UML クラス図、AST パイプラインの各段階、SQLite WAL キャッシュスキーマ、正確なエラーハンドリング契約など、構造面・動作面の具体的な設計図を提示します。</li>
+</ol>
+<hr />
+<h2>3. アーキテクチャダイアグラムの体系（タクソノミー）</h2>
+<p>ソフトウェアアーキテクチャには、捉えたい技術的視点に応じて多様な視覚記法が求められます。すべての図を汎用的なフローチャート図形に無理やり押し込めるのではなく、Drawlib では用途に特化した高水準ダイアグラムモジュールを使い分けます。</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="../../images/10_ai_agents_and_advanced/case_study_software_architecture/architecture_diagram_taxonomy.png" alt="case_study_software_architecture_3" />
+  <figcaption class="drawlib-caption">ソフトウェアシステム向け Drawlib アーキテクチャダイアグラム体系</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">140</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">66</span><span class="p">)</span>
+
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">70</span><span class="p">,</span> <span class="mi">33</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">136</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">62</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.5</span><span class="p">))</span>
+<span class="n">text</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">70</span><span class="p">,</span> <span class="mf">59.5</span><span class="p">),</span>
+    <span class="s2">"Drawlib Architectural Diagram Taxonomy for Software Systems"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">12.2</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">cards</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span>
+        <span class="mi">38</span><span class="p">,</span>
+        <span class="mi">42</span><span class="p">,</span>
+        <span class="s2">"1. Layer &amp; Boundary Models"</span><span class="p">,</span>
+        <span class="s2">"Recommended: shapes, lines, icons</span><span class="se">\n\n</span><span class="s2">• Package boundaries &amp; layer stacks</span><span class="se">\n</span><span class="s2">• Downward unidirectional dependency laws</span><span class="se">\n</span><span class="s2">• Architectural firewall rules"</span><span class="p">,</span>
+        <span class="n">phosphor</span><span class="o">.</span><span class="n">stack</span><span class="p">,</span>
+        <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
+        <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="p">(</span>
+        <span class="mi">102</span><span class="p">,</span>
+        <span class="mi">42</span><span class="p">,</span>
+        <span class="s2">"2. UML Class &amp; Inheritance"</span><span class="p">,</span>
+        <span class="s2">"Recommended: diagrams.class_diagram</span><span class="se">\n\n</span><span class="s2">• Multiple inheritance diamond mixins</span><span class="se">\n</span><span class="s2">• Pydantic data &amp; boundary models</span><span class="se">\n</span><span class="s2">• Metaclass singleton cascading resolvers"</span><span class="p">,</span>
+        <span class="n">phosphor</span><span class="o">.</span><span class="n">tree_structure</span><span class="p">,</span>
+        <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
+        <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="p">(</span>
+        <span class="mi">38</span><span class="p">,</span>
+        <span class="mi">20</span><span class="p">,</span>
+        <span class="s2">"3. Compound Cloud Topologies"</span><span class="p">,</span>
+        <span class="s2">"Recommended: graph.ArchitectureGraph</span><span class="se">\n\n</span><span class="s2">• 2-level macro/micro auto-layout</span><span class="se">\n</span><span class="s2">• Nested VPC, region &amp; subnet clusters</span><span class="se">\n</span><span class="s2">• Declarative cloud resource topologies"</span><span class="p">,</span>
+        <span class="n">phosphor</span><span class="o">.</span><span class="n">cloud</span><span class="p">,</span>
+        <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+        <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="p">(</span>
+        <span class="mi">102</span><span class="p">,</span>
+        <span class="mi">20</span><span class="p">,</span>
+        <span class="s2">"4. Lifecycles &amp; Release Pipelines"</span><span class="p">,</span>
+        <span class="s2">"Recommended: diagrams.sequence / flow</span><span class="se">\n\n</span><span class="s2">• Decoupled 3-tier release lifecycles</span><span class="se">\n</span><span class="s2">• Hybrid AST compilation pipelines</span><span class="se">\n</span><span class="s2">• Runtime SHA-256 integrity verification"</span><span class="p">,</span>
+        <span class="n">phosphor</span><span class="o">.</span><span class="n">arrows_clockwise</span><span class="p">,</span>
+        <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
+        <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">,</span>
+    <span class="p">),</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">desc</span><span class="p">,</span> <span class="n">icon_fn</span><span class="p">,</span> <span class="n">card_st</span><span class="p">,</span> <span class="n">title_st</span> <span class="ow">in</span> <span class="n">cards</span><span class="p">:</span>
+    <span class="n">is_accent</span> <span class="o">=</span> <span class="p">(</span><span class="n">card_st</span> <span class="o">==</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">)</span>
+    <span class="n">rectangle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">card_st</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.8</span><span class="p">))</span>
+    
+    <span class="n">badge_bg</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">White</span> <span class="k">if</span> <span class="n">is_accent</span> <span class="k">else</span> <span class="n">card_st</span>
+    <span class="n">rectangle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span> <span class="o">+</span> <span class="mf">6.8</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">57</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">3.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">badge_bg</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.0</span><span class="p">))</span>
+    
+    <span class="n">icon_st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span> <span class="k">if</span> <span class="n">is_accent</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span>
+    <span class="n">icon_fn</span><span class="p">((</span><span class="n">cx</span> <span class="o">-</span> <span class="mf">24.5</span><span class="p">,</span> <span class="n">cy</span> <span class="o">+</span> <span class="mf">6.8</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">2.4</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">icon_st</span><span class="p">)</span>
+    
+    <span class="n">text_st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span> <span class="k">if</span> <span class="n">is_accent</span> <span class="k">else</span> <span class="n">title_st</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">cx</span> <span class="o">-</span> <span class="mf">21.0</span><span class="p">,</span> <span class="n">cy</span> <span class="o">+</span> <span class="mf">6.8</span><span class="p">),</span> <span class="n">title</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">text_st</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">8.4</span><span class="p">))</span>
+    
+    <span class="n">body_st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">White</span> <span class="k">if</span> <span class="n">is_accent</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">cx</span> <span class="o">-</span> <span class="mf">26.0</span><span class="p">,</span> <span class="n">cy</span> <span class="o">-</span> <span class="mf">1.2</span><span class="p">),</span> <span class="n">desc</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">body_st</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">7.4</span><span class="p">))</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<h3>アーキテクチャ視点と Drawlib コンポーネントの対応関係</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">アーキテクチャ上の関心事</th>
+<th style="text-align:left">主な使用モジュール</th>
+<th style="text-align:left">中核となるコンポーネント</th>
+<th style="text-align:left">視覚化される対象</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>システム階層と境界規律</strong></td>
+<td style="text-align:left"><code>drawlib.shapes</code>、<code>lines</code>、<code>icons</code></td>
+<td style="text-align:left">角丸カード、単方向矢印フロー、境界ルール</td>
+<td style="text-align:left">レイヤースタック、禁止インポート制約</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>OOP 設計とデータ契約</strong></td>
+<td style="text-align:left"><code>drawlib.diagrams.class_diagram</code></td>
+<td style="text-align:left"><code>ClassNode</code>、<code>ClassAttribute</code>、<code>ClassMethod</code>、<code>Relation</code></td>
+<td style="text-align:left">多重継承 Mixin、Pydantic モデル</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>クラウド・クラスタ構成</strong></td>
+<td style="text-align:left"><code>drawlib.graph</code></td>
+<td style="text-align:left"><code>ArchitectureGraph</code>、ネストクラスタ、自動ルーティング</td>
+<td style="text-align:left">マルチ VPC ネットワーク、サービスメッシュ</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>実行時ライフサイクル</strong></td>
+<td style="text-align:left"><code>drawlib.diagrams.sequence</code>、<code>flow</code></td>
+<td style="text-align:left"><code>SequenceDiagram</code>、<code>Participant</code>、<code>Block</code>、<code>ChevronProcess</code></td>
+<td style="text-align:left">3層リリースパイプライン、コンパイル段階</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>4. 実践ケーススタディ: Drawlib 自身のアーキテクチャ設計書</h2>
+<p>この手法の有効性を実証するため、<code>drawlib</code> 自身の内部アーキテクチャ全体を <code>docs/architecture_src/</code> に体系化しました。以下の3つの設計上の難所は、Drawlib の宣言的 Python パラダイムがいかに高い記述精度を発揮するかを示しています。</p>
+<h3>4.1. ダイヤモンド Mixin 継承階層 (<code>CanvasBase</code> + 6種の Mixin)</h3>
+<p>Drawlib の <code>Canvas</code> クラスは、すべての描画プリミティブを巨大な単一クラス内に実装するのではなく、多重継承による Mixin アーキテクチャを採用しています。</p>
+<ul>
+<li><code>CanvasBase</code> が Matplotlib の <code>Figure</code> および <code>Axes</code> 座標マッピングの基盤を提供します。</li>
+<li>6つの独立した Mixin（<code>CanvasShapeBasicFeature</code>、<code>CanvasShapePolygonFeature</code>、<code>CanvasShapeArrowFeature</code>、<code>CanvasLineFeature</code>、<code>CanvasTextFeature</code>、<code>CanvasImageFeature</code>）がそれぞれの専門描画機能を実装します。</li>
+<li><code>drawlib.diagrams.class_diagram</code> を用いることで、このダイヤモンド多重継承モデルを正確なメソッドシグネチャ、可視性修飾子（<code>+</code>、<code>-</code>、<code>#</code>）、継承矢印とともに純粋な Python コードで描画しています。</li>
+</ul>
+<h3>4.2. メタクラス伝播を備えた動的スタイルカタログ</h3>
+<p>Drawlib の17種類のテーマスタイル（<code>Styles.Neutral</code>、<code>Styles.PrimaryFlat</code>、<code>Styles.DarkBold</code> など）は静的なグローバルインスタンスではありません。ユーザーが <code>styles.patch_font()</code> を呼び出した瞬間、全17スタイルへ変更が即座に伝播する必要があります。</p>
+<ul>
+<li>アーキテクチャ設計書では、<code>BaseStyles(BaseModel)</code> とその動的メタクラスシングルトン <code>_BaseStylesMeta</code> の協調動作を正確にモデル化しています。</li>
+<li>専用の UML クラス図によって、プロパティゲッターがキャッシュ済みの <code>Style</code> オブジェクトを動的に解決・複製する仕組みを可視化し、Drawlib のデザイントークンエンジンの内部構造を完全に透明化しています。</li>
+</ul>
+<h3>4.3. 分離型3層リリースアーキテクチャ</h3>
+<p>数百メガバイトに及ぶフォント、GCP アイコン、GeoJSON 地図データによって PyPI の wheel パッケージが肥大化するのを防ぐため、Drawlib は3層構造のリリースアーキテクチャを実装しています。</p>
+<ol>
+<li><strong>第1層: コードリリースと SoT 同期</strong>:
+<code>tools/dcli/release_assets/sync.py</code> がメモリ上で決定論的な <code>.zip</code> アーカイブ（タイムスタンプ <code>2026-01-01</code> 固定、パーミッション <code>0o644</code> 正規化）を生成し、その SHA-256 ダイジェストを <code>src/drawlib/_release_assets.py</code> に記録します。これにより PyPI wheel は極めて軽量（2 MB 未満）に保たれます。</li>
+<li><strong>第2層: バイナリアセット CDN（GitHub Releases）</strong>:
+<code>tools/dcli/release_assets/client.py</code> が53個の決定論的 ZIP パッケージを不変のバージョンタグ（<code>v0.3</code>）配下の GitHub Releases へアップロードします。</li>
+<li><strong>第3層: 実行時の遅延解決（Lazy Resolution）</strong>:
+利用側コードが <code>gcp.compute_engine()</code> や <code>geomap</code> を呼び出すと、<code>ensure_asset_available()</code> が <code>drawlib._cached_assets/</code> を確認します。未取得の場合はパッケージをダウンロードし、改ざん防止のため SoT の SHA-256 ダイジェストと照合したうえでローカル展開します。また、事前キャッシュ済み Docker イメージ（<code>drawlib:assets</code>、<code>drawlib:full</code>）では全アセットがビルド時に同梱されるため、100%オフラインのエアギャップ環境でもそのまま動作します。</li>
+</ol>
+<hr />
+<h2>5. マルチエージェントによるコードベース監査と自律自己修復</h2>
+<p>「コードとしてのアーキテクチャ設計書」において最も革新的な要素が、<strong>マルチエージェント検証ループ</strong>です。1人の人間のアーキテクトが何千行もの実装コードと数十ページの設計書を目視で突き合わせる代わりに、Drawlib では複数の並列サブエージェントを活用します。</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="../../images/10_ai_agents_and_advanced/case_study_software_architecture/multi_agent_verification_loop.png" alt="case_study_software_architecture_4" />
+  <figcaption class="drawlib-caption">マルチエージェントによるコードベース監査と自律自己修復ループ</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">140</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">58</span><span class="p">)</span>
+
+<span class="c1"># Outer card</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mi">70</span><span class="p">,</span> <span class="mi">29</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">136</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">54</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.5</span><span class="p">))</span>
+<span class="n">text</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">70</span><span class="p">,</span> <span class="mf">51.5</span><span class="p">),</span>
+    <span class="s2">"Multi-Agent Codebase Auditing &amp; Autonomous Self-Healing Loop"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">12.2</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># Top row cards (y = 36)</span>
+<span class="n">top_cards</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="mi">26</span><span class="p">,</span> <span class="s2">"1. AST Code Inspection"</span><span class="p">,</span> <span class="s2">"Scan src/, tools/, tests/</span><span class="se">\n</span><span class="s2">Extract real types &amp; mixins"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">file_code</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">70</span><span class="p">,</span> <span class="s2">"2. Discrepancy Detection"</span><span class="p">,</span> <span class="s2">"Detect ghost abstractions</span><span class="se">\n</span><span class="s2">Uncover omitted modules"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">magnifying_glass</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">114</span><span class="p">,</span> <span class="s2">"3. Pure-Python Authoring"</span><span class="p">,</span> <span class="s2">"Draw with Drawlib components</span><span class="se">\n</span><span class="s2">UML, compound graphs &amp; flows"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">paint_brush</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">),</span>
+<span class="p">]</span>
+
+<span class="c1"># Bottom row cards (y = 15)</span>
+<span class="n">bottom_cards</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="mi">114</span><span class="p">,</span> <span class="s2">"4. Build &amp; Link Check"</span><span class="p">,</span> <span class="s2">"./dcli docs build</span><span class="se">\n</span><span class="s2">Verify 0 broken hyperlinks"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">check_circle</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">70</span><span class="p">,</span> <span class="s2">"5. Multimodal Review"</span><span class="p">,</span> <span class="s2">"view_file image inspection</span><span class="se">\n</span><span class="s2">Micro-grid &amp; layout repair"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">eye</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">26</span><span class="p">,</span> <span class="s2">"6. Zero-Drift Spec"</span><span class="p">,</span> <span class="s2">"100% verified code fidelity</span><span class="se">\n</span><span class="s2">CI regression test safety"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">shield_check</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">),</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">cx</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">desc</span><span class="p">,</span> <span class="n">icon_fn</span><span class="p">,</span> <span class="n">card_st</span><span class="p">,</span> <span class="n">title_st</span> <span class="ow">in</span> <span class="n">top_cards</span><span class="p">:</span>
+    <span class="n">rectangle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mi">36</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">38</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">card_st</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
+    <span class="n">icon_fn</span><span class="p">((</span><span class="n">cx</span> <span class="o">-</span> <span class="mf">15.0</span><span class="p">,</span> <span class="mf">40.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">2.6</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">title_st</span><span class="p">)</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">cx</span> <span class="o">-</span> <span class="mf">11.5</span><span class="p">,</span> <span class="mf">40.5</span><span class="p">),</span> <span class="n">title</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">title_st</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">))</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">cx</span> <span class="o">-</span> <span class="mf">15.0</span><span class="p">,</span> <span class="mf">31.5</span><span class="p">),</span> <span class="n">desc</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">7.4</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">cx</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">desc</span><span class="p">,</span> <span class="n">icon_fn</span><span class="p">,</span> <span class="n">card_st</span><span class="p">,</span> <span class="n">title_st</span> <span class="ow">in</span> <span class="n">bottom_cards</span><span class="p">:</span>
+    <span class="n">is_accent</span> <span class="o">=</span> <span class="p">(</span><span class="n">card_st</span> <span class="o">==</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">)</span>
+    <span class="n">rectangle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">38</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">card_st</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
+    <span class="n">icon_st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span> <span class="k">if</span> <span class="n">is_accent</span> <span class="k">else</span> <span class="n">title_st</span>
+    <span class="n">icon_fn</span><span class="p">((</span><span class="n">cx</span> <span class="o">-</span> <span class="mf">15.0</span><span class="p">,</span> <span class="mf">19.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">2.6</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">icon_st</span><span class="p">)</span>
+    <span class="n">text_st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span> <span class="k">if</span> <span class="n">is_accent</span> <span class="k">else</span> <span class="n">title_st</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">cx</span> <span class="o">-</span> <span class="mf">11.5</span><span class="p">,</span> <span class="mf">19.5</span><span class="p">),</span> <span class="n">title</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">text_st</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">))</span>
+    <span class="n">body_st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">White</span> <span class="k">if</span> <span class="n">is_accent</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">cx</span> <span class="o">-</span> <span class="mf">15.0</span><span class="p">,</span> <span class="mf">10.5</span><span class="p">),</span> <span class="n">desc</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">body_st</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">7.4</span><span class="p">))</span>
+
+<span class="c1"># Top row horizontal arrows: 1 -&gt; 2, 2 -&gt; 3</span>
+<span class="n">line</span><span class="p">((</span><span class="mi">45</span><span class="p">,</span> <span class="mi">36</span><span class="p">),</span> <span class="p">(</span><span class="mi">51</span><span class="p">,</span> <span class="mi">36</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
+<span class="n">line</span><span class="p">((</span><span class="mi">89</span><span class="p">,</span> <span class="mi">36</span><span class="p">),</span> <span class="p">(</span><span class="mi">95</span><span class="p">,</span> <span class="mi">36</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
+
+<span class="c1"># Vertical arrow down: 3 -&gt; 4</span>
+<span class="n">line</span><span class="p">((</span><span class="mi">114</span><span class="p">,</span> <span class="mi">28</span><span class="p">),</span> <span class="p">(</span><span class="mi">114</span><span class="p">,</span> <span class="mi">23</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
+
+<span class="c1"># Bottom row horizontal arrows: 4 -&gt; 5, 5 -&gt; 6</span>
+<span class="n">line</span><span class="p">((</span><span class="mi">95</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span> <span class="p">(</span><span class="mi">89</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
+<span class="n">line</span><span class="p">((</span><span class="mi">51</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span> <span class="p">(</span><span class="mi">45</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<h3>自律監査ワークフロー</h3>
+<ol>
+<li><strong>並列サブエージェントによるコード監査</strong>:
+各サブエージェントが担当ディレクトリ（<code>src/drawlib/_core/</code>、<code>_graph/</code>、<code>_builder/</code>、<code>tools/dcli/</code>）を AST 解析によって調査し、実際のクラス定義や関数シグネチャを設計書のドラフトと照合します。</li>
+<li><strong>「存在しない抽象（ゴーストクラス）」と記述漏れの検出</strong>:
+Drawlib のアーキテクチャ仕様書の初期ドラフトでは、この監査によって複数の乖離が特定されました。
+<ul>
+<li><em>ゴーストクラスの排除</em>: 実在しない <code>CanvasError</code> や <code>ShapeStyle</code> クラスへの言及をすべて削除し、実際の Pydantic 境界モデルと統一 <code>Style</code> 表現の記述へ修正しました。</li>
+<li><em>未記載サブシステムの発見</em>: <code>ArchitectureGraph</code>（2階層マクロ／マイクロ複合グラフソルバー）や <code>l3_external</code>（GitHub アセットマネージャー）といった重要サブシステムが初期ドキュメントから完全に抜け落ちていたため、速やかに追記・体系化しました。</li>
+</ul>
+</li>
+<li><strong>マルチモーダル3段階ビジュアルレビュー</strong>:
+AI エージェントは <code>view_file</code> を用いてレンダリング済み図解画像を直接目視確認します。
+<ul>
+<li><strong>ステージ 1</strong>: トップヒーロー配置（5〜15行目）、<code>text_size &gt;= 10.0</code>、アンカー基準（中央 vs 左下）を検証します。</li>
+<li><strong>ステージ 2</strong>: 座標グリッド付きプレビュー（<code>-g</code>）を確認し、テキストの重なり、カード余白、矢印の取り回しを一度で修正します。</li>
+<li><strong>ステージ 3</strong>: ドキュメント全体の HTML ビルドを実行し、<code>drawlib serve --check</code> でリンク切れがゼロであることを検証します。</li>
+</ul>
+</li>
+</ol>
+<hr />
+<h2>6. 定量的な成果とベストプラクティス</h2>
+<p>「コードとしてのアーキテクチャ設計書（Architecture Documentation as Code）」を導入したことで、Drawlib は以下の成果を達成しました。</p>
+<ul>
+<li><strong>コードと設計書の100%一致</strong>: 架空のクラスや古いメソッドシグネチャをゼロにし、<code>main</code> ブランチの実装と完全に一致する構造を維持しています。</li>
+<li><strong>検証済みハイパーリンク488件・リンク切れ0件</strong>: 全21ページのアーキテクチャ設計書にわたる相互参照が CI 上で自動的に検証されます。</li>
+<li><strong>迅速なアーキテクチャ理解とオンボーディング</strong>: 新規参画する開発者や AI コーディングエージェントが、サブシステム階層、Mixin 構造、リリースライフサイクルの全体像を数分で把握できます。</li>
+</ul>
+<h3>コードとしてのアーキテクチャ設計書における4つの鉄則</h3>
+<ol>
+<li><strong>すべての図解を実装コードの事実に根ざす</strong>: 実際のコードベース AST に存在しないクラス、パラメータ、レイヤー境界を決して描いてはいけません。</li>
+<li><strong>50%以上のニュートラル配色ルールを守る</strong>: 技術アーキテクチャ図には落ち着きのあるプロフェッショナルな視覚的基盤（<code>Styles.Neutral</code>、<code>Styles.PrimaryNeutral</code>）が必要です。高彩度カラーは最も重要な1〜2箇所の焦点にのみ限定します。</li>
+<li><strong>720pt タイポグラフィの整合性を保つ</strong>: 10.0インチ基準のキャンバスでは図内の <code>text_size &gt;= 10.0</code>（標準 10.5〜12.0）を確保し、画像内ラベルが 16px の HTML 本文テキストと自然に調和するようにします。</li>
+<li><strong>ドキュメントビルドを CI/CD に組み込む</strong>: プルリクエストの必須チェックとして <code>./dcli docs build</code> とリンク検証を実行します。アーキテクチャ図の破損はビルドエラーと同義として扱います。</li>
+</ol>
+
+            </main>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Theme toggle
+            const themeBtn = document.getElementById('theme-toggle');
+            if (themeBtn) {
+                themeBtn.addEventListener('click', function() {
+                    const current = document.documentElement.getAttribute('data-theme');
+                    const next = current === 'dark' ? 'light' : 'dark';
+                    document.documentElement.setAttribute('data-theme', next);
+                    localStorage.setItem('drawlib-theme', next);
+                });
+            }
+
+            // Language dropdown outside-click & Escape close
+            const langDropdowns = document.querySelectorAll('.lang-dropdown');
+            if (langDropdowns.length > 0) {
+                document.addEventListener('click', function(e) {
+                    langDropdowns.forEach(function(dd) {
+                        if (dd.hasAttribute('open') && !dd.contains(e.target)) {
+                            dd.removeAttribute('open');
+                        }
+                    });
+                });
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape') {
+                        langDropdowns.forEach(function(dd) {
+                            dd.removeAttribute('open');
+                        });
+                    }
+                });
+            }
+
+            // Mobile menu toggle
+            const menuBtn = document.getElementById('menu-toggle');
+            const sidebar = document.querySelector('.sidebar');
+            if (menuBtn && sidebar) {
+                function setMenuOpen(open) {
+                    sidebar.classList.toggle('is-open', open);
+                    menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+                    document.body.classList.toggle('menu-open', open);
+                    if (open) {
+                        const menu = sidebar.querySelector('.sidebar-menu');
+                        if (menu) {
+                            menu.scrollTop = 0;
+                        }
+                    }
+                }
+
+                menuBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const willOpen = !sidebar.classList.contains('is-open');
+                    setMenuOpen(willOpen);
+                });
+
+                // Close menu when clicking outside sidebar
+                document.addEventListener('click', function(e) {
+                    if (sidebar.classList.contains('is-open') && !sidebar.contains(e.target)) {
+                        setMenuOpen(false);
+                    }
+                });
+
+                // Close menu when a navigation link is clicked
+                const navLinks = sidebar.querySelectorAll('.nav-item a');
+                navLinks.forEach(function(link) {
+                    link.addEventListener('click', function() {
+                        setMenuOpen(false);
+                    });
+                });
+
+                // Close on Escape key
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape' && sidebar.classList.contains('is-open')) {
+                        setMenuOpen(false);
+                    }
+                });
+
+                // Reset menu state when resized above mobile breakpoint
+                window.addEventListener('resize', function() {
+                    if (window.innerWidth > 768 && sidebar.classList.contains('is-open')) {
+                        setMenuOpen(false);
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
