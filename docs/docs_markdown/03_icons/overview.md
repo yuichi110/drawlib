@@ -109,7 +109,873 @@ save()
 
 ---
 
-## 1. Why Three Visual Styles? (Choosing the Right Icon Tier)
+## 1. Core Icon Concepts & Visual Tour
+
+All **34 icon modules** (`drawlib.icons.*`) share a single center-anchored `(cx, cy)` API with automatic `1:1` square scaling, so you can swap freely between theme-tinted vector glyphs (`phosphor`), calm 2D pastel twins (`original_*`), and official cloud or vendor logos without recalculating coordinates. Watch how visual tiers, opacity and `image_*` bounding frames, `variant` palettes, and strongly typed `*Icon` diagram Enums work together:
+
+
+
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="overview_images/icons_overview_parameter_tour.png" alt="overview_2" />
+  <figcaption class="drawlib-caption">Visual Tier & Parameter Tour: Live Switching Across 34 Icon Modules, Variants, Framing, and Diagram Enums (APNG Animation)</figcaption>
+</figure>
+
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+
+```python
+from __future__ import annotations
+
+from drawlib.anim import Animation
+from drawlib.canvas import save, setup
+from drawlib.diagrams.architecture import (
+    AiIcon,
+    ArchitectureDiagram,
+    DataIcon,
+    GcpIcon,
+    Node,
+    OriginalAiIcon,
+)
+from drawlib.icons import (
+    ai,
+    client,
+    code as code_icons,
+    data,
+    gcp,
+    original_ai,
+    original_client,
+    original_data,
+    phosphor,
+)
+from drawlib.lines import line
+from drawlib.shapes import circle, rectangle
+from drawlib.smartarts import SourceCode, SourceCodeStyles
+from drawlib.styles import Colors, Styles
+from drawlib.text import text
+
+W, H = 138.0, 82.0
+setup(width=W, height=H)
+anim = Animation(fps=10.0, loop=0)
+
+CODE_TEXT_SIZE = 10.0
+PT_TO_CANVAS = W / 720.0
+FONT_CANVAS = CODE_TEXT_SIZE * PT_TO_CANVAS
+LINE_H = FONT_CANVAS * 1.8
+PAD_Y = FONT_CANVAS * 1.2
+
+CODE_STYLES = SourceCodeStyles.get("default", font_lang="en", text_size=CODE_TEXT_SIZE).patch(
+    box_style=Styles.Neutral.patch(shape_fill_color=(0, 0, 0, 0), shape_line_width=0),
+)
+
+PANE_HEADER = Styles.Neutral.patch(
+    shape_fill_color=(238, 243, 250),
+    shape_line_color=(203, 213, 225),
+    shape_line_width=1.2,
+    shape_r=0.0,
+)
+EDITOR_BODY = Styles.Neutral.patch(
+    shape_fill_color=(250, 252, 255),
+    shape_line_color=(203, 213, 225),
+    shape_line_width=1.2,
+    shape_r=0.0,
+)
+TAKEAWAY_BODY = Styles.Neutral.patch(
+    shape_fill_color=(242, 246, 253),
+    shape_line_color=(203, 213, 225),
+    shape_line_width=1.2,
+    shape_r=0.0,
+)
+STUDIO_BODY = Styles.Neutral.patch(
+    shape_fill_color=(239, 243, 249),
+    shape_line_color=(203, 213, 225),
+    shape_line_width=1.2,
+    shape_r=0.0,
+)
+
+PART_ITEMS = [
+    ("1. Visual Tiers", "vector · pastel · brand"),
+    ("2. Anchor & Style", "xy, width & image_*"),
+    ("3. Variants & Twins", "default/modern & 1:1"),
+    ("4. Diagram Enums", "Node(icon=...Icon)"),
+]
+
+
+def draw_step_bar(active_part: int) -> None:
+    """Draw top 4-part progress bar (active_part is 1..4)."""
+    pill_w = 31.0
+    pill_h = 7.4
+    gap = 2.0
+    start_x = 4.0 + pill_w / 2.0
+    cy = 75.2
+
+    for idx, (label, sublabel) in enumerate(PART_ITEMS, start=1):
+        cx = start_x + (idx - 1) * (pill_w + gap)
+        if idx > 1:
+            prev_cx = cx - (pill_w + gap)
+            line(
+                (prev_cx + pill_w / 2.0 + 0.2, cy),
+                (cx - pill_w / 2.0 - 0.2, cy),
+                style=Styles.PrimaryBold if idx <= active_part else Styles.MutedThin,
+            )
+
+        if idx == active_part:
+            st = Styles.PrimaryFlat.patch(shape_r=1.4)
+            tst = Styles.WhiteBold.patch(text_size=10.3)
+            sub_tst = Styles.White.patch(text_size=9.5)
+        elif idx < active_part:
+            st = Styles.PrimaryNeutral.patch(shape_r=1.4, shape_line_width=1.1)
+            tst = Styles.PrimaryBold.patch(text_size=10.3)
+            sub_tst = Styles.Primary.patch(text_size=9.5)
+        else:
+            st = Styles.Neutral.patch(shape_r=1.4, shape_line_width=1.1)
+            tst = Styles.MutedBold.patch(text_size=10.3)
+            sub_tst = Styles.Muted.patch(text_size=9.5)
+
+        rectangle((cx, cy), width=pill_w, height=pill_h, style=st)
+        text((cx, cy + 1.35), label, style=tst)
+        text((cx, cy - 1.55), sublabel, style=sub_tst)
+
+
+def draw_left_pane(
+    active_part: int,
+    code_lines: list[str],
+    hl_range: tuple[int, int],
+    icon_fn: object,
+    summary_title: str,
+    summary_line1: str,
+    summary_line2: str,
+) -> None:
+    """Draw left Python code editor + bottom concept takeaway note."""
+    x0, w = 4.0, 63.5
+    cx = x0 + w / 2.0
+    top_y = 63.2
+    header_h = 5.4
+    editor_h = 43.8
+    takeaway_h = 15.8
+
+    rectangle((cx, top_y + header_h / 2.0), width=w, height=header_h, style=PANE_HEADER)
+    code_icons.python((x0 + 3.6, top_y + header_h / 2.0), width=3.4, style=Styles.Neutral)
+    text(
+        (x0 + 6.5, top_y + header_h / 2.0),
+        "icons_tour.py",
+        style=Styles.DarkBold.patch(text_size=10.2, halign="left"),
+    )
+    text(
+        (x0 + w - 2.6, top_y + header_h / 2.0),
+        f"Part {active_part} / 4",
+        style=Styles.PrimaryBold.patch(text_size=9.8, halign="right"),
+    )
+
+    rectangle((cx, top_y - editor_h / 2.0), width=w, height=editor_h, style=EDITOR_BODY)
+
+    hl_start, hl_end = hl_range
+    hl_top = top_y - PAD_Y - hl_start * LINE_H
+    hl_bot = top_y - PAD_Y - (hl_end + 1) * LINE_H
+    hl_cy = (hl_top + hl_bot) / 2.0
+    hl_h = hl_top - hl_bot
+    rectangle(
+        (cx, hl_cy),
+        width=w - 0.6,
+        height=hl_h,
+        style=Styles.Neutral.patch(shape_fill_color=(229, 239, 255), shape_line_width=0),
+    )
+    rectangle(
+        (x0 + 0.55, hl_cy),
+        width=0.9,
+        height=hl_h,
+        style=Styles.PrimaryFlat.patch(shape_line_width=0),
+    )
+
+    SourceCode.draw(
+        xy=(x0, top_y),
+        width=w,
+        code="\n".join(code_lines),
+        styles=CODE_STYLES,
+        code_lang="python",
+        show_linenum=True,
+        align="top_left",
+    )
+
+    take_cy = 3.6 + takeaway_h / 2.0
+    rectangle((cx, take_cy), width=w, height=takeaway_h, style=TAKEAWAY_BODY)
+    circle(
+        (x0 + 6.4, take_cy),
+        radius=3.3,
+        style=Styles.PrimaryNeutral.patch(shape_line_width=1.2),
+    )
+    icon_fn((x0 + 6.4, take_cy), width=3.8, style=Styles.PrimaryBold)  # type: ignore[operator]
+    text(
+        (x0 + 11.4, take_cy + 3.6),
+        summary_title,
+        style=Styles.DarkBold.patch(text_size=10.4, halign="left"),
+    )
+    text(
+        (x0 + 11.4, take_cy - 0.2),
+        summary_line1,
+        style=Styles.Dark.patch(text_size=9.7, halign="left"),
+    )
+    text(
+        (x0 + 11.4, take_cy - 3.8),
+        summary_line2,
+        style=Styles.PrimaryBold.patch(text_size=9.6, halign="left"),
+    )
+
+
+def draw_geometry_studio(param_badge: str, footer_caption: str) -> tuple[float, float]:
+    """Draw right studio shell, inner coordinate sheet with subtle grid, and footer."""
+    x0, w = 70.0, 64.0
+    cx = x0 + w / 2.0
+    top_y = 63.2
+    header_h = 5.4
+    body_h = 59.6
+
+    rectangle((cx, top_y + header_h / 2.0), width=w, height=header_h, style=PANE_HEADER)
+    phosphor.ruler((x0 + 3.6, top_y + header_h / 2.0), width=3.4, style=Styles.Primary)
+    text(
+        (x0 + 6.5, top_y + header_h / 2.0),
+        "Live Geometry & Guides",
+        style=Styles.DarkBold.patch(text_size=10.2, halign="left"),
+    )
+    text(
+        (x0 + w - 2.6, top_y + header_h / 2.0),
+        param_badge,
+        style=Styles.PrimaryBold.patch(text_size=9.6, halign="right"),
+    )
+
+    rectangle((cx, 3.6 + body_h / 2.0), width=w, height=body_h, style=STUDIO_BODY)
+
+    sheet_cx, sheet_cy = cx, 36.2
+    sheet_w, sheet_h = 54.0, 40.0
+    sx0, sy0 = sheet_cx - sheet_w / 2.0, sheet_cy - sheet_h / 2.0
+    rectangle(
+        (sheet_cx, sheet_cy),
+        width=sheet_w,
+        height=sheet_h,
+        style=Styles.Neutral.patch(
+            shape_fill_color=(255, 255, 255),
+            shape_line_color=(180, 194, 214),
+            shape_line_width=1.2,
+        ),
+    )
+    g_st = Styles.MutedThin.patch(line_color=(232, 238, 246), line_width=0.8)
+    for gx in range(1, 6):
+        vx = sx0 + gx * (sheet_w / 6.0)
+        line((vx, sy0), (vx, sy0 + sheet_h), style=g_st)
+    for gy in range(1, 5):
+        vy = sy0 + gy * (sheet_h / 5.0)
+        line((sx0, vy), (sx0 + sheet_w, vy), style=g_st)
+
+    rectangle(
+        (cx, 8.4),
+        width=59.2,
+        height=5.2,
+        style=Styles.Neutral.patch(
+            shape_fill_color=(255, 255, 255),
+            shape_line_color=(203, 213, 225),
+            shape_line_width=1.1,
+            shape_r=2.4,
+        ),
+        text=footer_caption,
+        text_style=Styles.DarkBold.patch(text_size=9.8),
+    )
+    return sheet_cx, sheet_cy
+
+
+# =========================================================================
+# Part 1: 1. Visual Tiers — Browser -> AI Service -> Database at fixed (cx, cy)
+# =========================================================================
+CODE_1A = [
+    "from drawlib.icons import phosphor",
+    "from drawlib.styles import Styles",
+    "",
+    "st = Styles.PrimaryBold",
+    "# Tier 1: Theme-tinted vector glyphs",
+    "phosphor.browser((20, 30), 8.0, style=st)",
+    "phosphor.robot((50, 30), 8.0, style=st)",
+    "phosphor.database((80, 30), 8.0, style=st)",
+]
+CODE_1B = [
+    "from drawlib.styles import Styles",
+    "from drawlib.icons import (",
+    "    original_ai, original_client,",
+    "    original_data,",
+    ")",
+    "st = Styles.Primary",
+    "original_client.chrome(",
+    "    (20, 30), width=8.0, style=st)",
+    "original_ai.openai((50, 30), 8, style=st)",
+    "original_data.postgresql(",
+    "    (80, 30), width=8.0, style=st)",
+]
+CODE_1C = [
+    "from drawlib.icons import ai, client, data",
+    "from drawlib.styles import Styles",
+    "",
+    "# Tier 3: Official vendor & OSS logos",
+    "st = Styles.Primary",
+    "client.chrome((20, 30), width=8, style=st)",
+    "ai.openai((50, 30), width=8, style=st)",
+    "data.postgresql((80, 30), 8, style=st)",
+]
+
+
+def draw_tier_pipeline(
+    scx: float,
+    scy: float,
+    top_banner: str,
+    icons_spec: list[tuple[str, object, object]],
+    icon_w: float,
+    bottom_note: str,
+) -> None:
+    """Render connected 3-node pipeline at fixed (cx, cy) coordinates."""
+    text((scx, scy + 15.2), top_banner, style=Styles.PrimaryBold.patch(text_size=9.8))
+    cy_card = scy + 0.5
+    iy = scy + 3.0
+    xs = [scx - 17.8, scx, scx + 17.8]
+    card_styles = [Styles.Neutral, Styles.PrimaryNeutral, Styles.SecondaryNeutral]
+
+    # Fixed coordinate alignment guides behind cards
+    line((scx - 24.5, iy), (scx + 24.5, iy), style=Styles.MutedDashed.patch(line_width=0.9))
+    for nx in xs:
+        line((nx, scy - 11.2), (nx, scy + 12.0), style=Styles.MutedDashed.patch(line_width=0.9))
+
+    for (nx, card_st), (role, fn, ist) in zip(zip(xs, card_styles, strict=True), icons_spec, strict=True):
+        rectangle((nx, cy_card), width=13.4, height=19.6, style=card_st.patch(shape_r=1.8, shape_line_width=1.4))
+        fn((nx, iy), width=icon_w, style=ist)  # type: ignore[operator]
+        text((nx, scy - 5.6), role, style=Styles.DarkBold.patch(text_size=9.5))
+
+    line((xs[0] + 7.0, cy_card), (xs[1] - 7.0, cy_card), arrow_head="->", style=Styles.DarkBold.patch(line_width=1.5))
+    line((xs[1] + 7.0, cy_card), (xs[2] - 7.0, cy_card), arrow_head="->", style=Styles.DarkBold.patch(line_width=1.5))
+    text((scx, scy - 14.5), bottom_note, style=Styles.MutedBold.patch(text_size=9.5))
+
+
+TIER_STATES = [
+    (
+        3.2,
+        CODE_1A,
+        (5, 7),
+        "Tier 1: Phosphor Vector Glyphs",
+        "1,512 TrueType glyphs across 5 stroke weights",
+        "Single-color icons tinted via style=Styles.*",
+        "phosphor.*",
+        "Tier 1 (Vector): Theme-Tinted Glyphs at Fixed xy",
+        "Tier 1: Vector Glyphs (phosphor)",
+        [
+            ("Browser", phosphor.browser, Styles.PrimaryBold),
+            ("AI Service", phosphor.robot, Styles.PrimaryBold),
+            ("Database", phosphor.database, Styles.PrimaryBold),
+        ],
+        7.8,
+        "Fixed (cx, cy)  •  Single-color TrueType font glyphs",
+    ),
+    (
+        0.45,
+        CODE_1B,
+        (6, 10),
+        "Tier 2: Original 2D Pastel Suites",
+        "1,287 icons across 15 original_* domain modules",
+        "Cohesive flat pastel palette across all domains",
+        "original_*",
+        "Tier 2 (2D Pastel): Calm Cohesive Multi-Domain Style",
+        "Switching Tier -> 2D Pastel Twins...",
+        [
+            ("Browser", original_client.chrome, Styles.Primary.patch(alpha=0.65)),
+            ("AI Service", original_ai.openai, Styles.Primary.patch(alpha=0.65)),
+            ("Database", original_data.postgresql, Styles.Primary.patch(alpha=0.65)),
+        ],
+        6.2,
+        "Same (cx, cy) anchors  •  Swapping module imports",
+    ),
+    (
+        3.2,
+        CODE_1B,
+        (6, 10),
+        "Tier 2: Original 2D Pastel Suites",
+        "1,287 icons across 15 original_* domain modules",
+        "Cohesive flat pastel palette across all domains",
+        "original_*",
+        "Tier 2 (2D Pastel): Calm Cohesive Multi-Domain Style",
+        "Tier 2: 2D Pastel Twins (original_*)",
+        [
+            ("Browser", original_client.chrome, Styles.Primary),
+            ("AI Service", original_ai.openai, Styles.Primary),
+            ("Database", original_data.postgresql, Styles.Primary),
+        ],
+        7.8,
+        "Fixed (cx, cy)  •  Unified 2D flat pastel aesthetic",
+    ),
+    (
+        0.45,
+        CODE_1C,
+        (5, 7),
+        "Tier 3: Official Cloud & Brand Logos",
+        "1,739 cloud (gcp/aws/azure) & OSS/vendor PNGs",
+        "Swap module import without changing coordinates!",
+        "Official PNGs",
+        "Tier 3 (Official): Exact Vendor & OSS Product Logos",
+        "Switching Tier -> Official Brand Logos...",
+        [
+            ("Browser", client.chrome, Styles.Primary.patch(alpha=0.65)),
+            ("AI Service", ai.openai, Styles.Primary.patch(alpha=0.65)),
+            ("Database", data.postgresql, Styles.Primary.patch(alpha=0.65)),
+        ],
+        6.2,
+        "Same (cx, cy) anchors  •  Swapping module imports",
+    ),
+    (
+        3.2,
+        CODE_1C,
+        (5, 7),
+        "Tier 3: Official Cloud & Brand Logos",
+        "1,739 cloud (gcp/aws/azure) & OSS/vendor PNGs",
+        "Swap module import without changing coordinates!",
+        "Official PNGs",
+        "Tier 3 (Official): Exact Vendor & OSS Product Logos",
+        "Tier 3: Official Logos (client · ai · data)",
+        [
+            ("Browser", client.chrome, Styles.Primary),
+            ("AI Service", ai.openai, Styles.Primary),
+            ("Database", data.postgresql, Styles.Primary),
+        ],
+        7.8,
+        "Fixed (cx, cy)  •  Recognizable vendor & OSS logos",
+    ),
+]
+
+for dur, c_lines, hl, s_t, s_1, s_2, badge, foot, banner, spec, iw, b_note in TIER_STATES:
+    with anim.frame(duration=dur):
+        draw_step_bar(1)
+        draw_left_pane(1, c_lines, hl, phosphor.squares_four, s_t, s_1, s_2)
+        scx, scy = draw_geometry_studio(badge, foot)
+        draw_tier_pipeline(scx, scy, banner, spec, iw, b_note)
+
+# =========================================================================
+# Part 2: 2. Anchor & Style — (cx, cy), width (8.0 -> 12.5), alpha, image_*
+# =========================================================================
+for w_val, dur in ((8.0, 0.50), (12.5, 3.2)):
+    code_2a = [
+        "from drawlib.icons import gcp",
+        "from drawlib.styles import Styles",
+        "",
+        "# Center-anchored (cx, cy), 1:1 square",
+        "gcp.cloud_run(",
+        "    (50, 30),",
+        f"    width={w_val:.1f},",
+        "    style=Styles.Primary,",
+        ")",
+    ]
+    with anim.frame(duration=dur):
+        draw_step_bar(2)
+        draw_left_pane(
+            2,
+            code_2a,
+            (4, 8),
+            phosphor.bounding_box,
+            "Center Anchor (cx, cy) & Square Width",
+            "All 34 modules anchor at geometric center xy",
+            "width scales height automatically at 1:1 ratio",
+        )
+        scx, scy = draw_geometry_studio(
+            f"width = {w_val:.1f}",
+            f"gcp.cloud_run(xy, width={w_val:.1f})  •  1:1 Square Scaling",
+        )
+        cy_i = scy - 0.8
+        if w_val > 8.0:
+            rectangle(
+                (scx, cy_i),
+                width=8.0,
+                height=8.0,
+                style=Styles.MutedDashed.patch(
+                    shape_fill_color=(0, 0, 0, 0),
+                    shape_line_color=(180, 195, 218),
+                    shape_line_width=1.0,
+                ),
+            )
+        rectangle(
+            (scx, cy_i),
+            width=w_val,
+            height=w_val,
+            style=Styles.PrimaryDashed.patch(shape_fill_color=(0, 0, 0, 0), shape_line_width=1.2),
+        )
+        gcp.cloud_run((scx, cy_i), width=w_val, style=Styles.Primary)
+        circle((scx, cy_i), radius=1.1, style=Styles.DangerFlat)
+        text((scx, cy_i - w_val / 2.0 - 3.8), "xy = (50, 30) center", style=Styles.DangerBold.patch(text_size=9.6))
+
+        half = w_val / 2.0
+        line(
+            (scx - half, cy_i + half + 2.8),
+            (scx + half, cy_i + half + 2.8),
+            arrow_head="<->",
+            style=Styles.PrimaryBold.patch(line_width=1.4),
+        )
+        text((scx, cy_i + half + 5.8), f"width = {w_val:.1f}", style=Styles.PrimaryBold.patch(text_size=9.8))
+        line(
+            (scx - half - 2.8, cy_i - half),
+            (scx - half - 2.8, cy_i + half),
+            arrow_head="<->",
+            style=Styles.DarkBold.patch(line_width=1.4),
+        )
+        text(
+            (scx - half - 4.4, cy_i),
+            f"{w_val:.1f}\n(1:1)",
+            style=Styles.DarkBold.patch(text_size=9.5, halign="right"),
+        )
+
+for a_val, dur in ((0.65, 0.45), (0.35, 3.2)):
+    code_2b = [
+        "from drawlib.icons import gcp",
+        "from drawlib.styles import Styles",
+        "",
+        "st = Styles.Primary",
+        "# Active (1.0) vs Standby (alpha=0.35)",
+        "gcp.cloud_run((34, 30), 11.0, style=st)",
+        "gcp.cloud_run(",
+        "    (66, 30),",
+        "    width=11.0,",
+        f"    style=st.patch(alpha={a_val:.2f}),",
+        ")",
+    ]
+    with anim.frame(duration=dur):
+        draw_step_bar(2)
+        draw_left_pane(
+            2,
+            code_2b,
+            (6, 10),
+            phosphor.bounding_box,
+            "Standby Opacity (style.alpha)",
+            "alpha fades icon artwork smoothly (0.0 to 1.0)",
+            "alpha=0.35 marks standby or deprecated replicas",
+        )
+        scx, scy = draw_geometry_studio(
+            f"alpha = {a_val:.2f}",
+            f"Active (1.0) vs. Standby Replica (alpha={a_val:.2f})",
+        )
+        lx, rx = scx - 13.2, scx + 13.2
+        cy_c = scy + 0.2
+        rectangle((lx, cy_c), width=20.4, height=25.0, style=Styles.PrimaryNeutral.patch(shape_r=2.0))
+        gcp.cloud_run((lx, cy_c + 2.8), width=10.8, style=Styles.Primary)
+        text((lx, cy_c - 6.6), "Active", style=Styles.DarkBold.patch(text_size=9.8))
+        text((lx, cy_c - 9.8), "alpha = 1.00", style=Styles.PrimaryBold.patch(text_size=9.5))
+
+        rectangle((rx, cy_c), width=20.4, height=25.0, style=Styles.Neutral.patch(shape_r=2.0))
+        gcp.cloud_run((rx, cy_c + 2.8), width=10.8, style=Styles.Primary.patch(alpha=a_val))
+        text((rx, cy_c - 6.6), "Standby", style=Styles.DarkBold.patch(text_size=9.8))
+        text((rx, cy_c - 9.8), f"alpha = {a_val:.2f}", style=Styles.MutedBold.patch(text_size=9.5))
+
+        line((lx + 10.5, cy_c + 2.8), (rx - 10.5, cy_c + 2.8), arrow_head="->", style=Styles.PrimaryDashed)
+
+for bw_val, dur in ((0.9, 0.45), (1.8, 3.3)):
+    code_2c = [
+        "from drawlib.icons import gcp",
+        "from drawlib.styles import Colors, Styles",
+        "",
+        "framed = Styles.Primary.patch(",
+        "    image_tint_color=Colors.Primary1,",
+        "    image_border_color=Colors.Primary,",
+        f"    image_border_width={bw_val:.1f},",
+        '    image_border_style="dashed",',
+        ")",
+        "gcp.cloud_run(",
+        "    (50, 30), width=12.5, style=framed)",
+    ]
+    with anim.frame(duration=dur):
+        draw_step_bar(2)
+        draw_left_pane(
+            2,
+            code_2c,
+            (3, 8),
+            phosphor.frame_corners,
+            "Background Tint & Bounding Frame",
+            "image_tint_color fills transparent RGBA pixels",
+            "image_border_* draws solid/dashed icon frames",
+        )
+        scx, scy = draw_geometry_studio(
+            "image_border_*",
+            f"image_tint_color + {bw_val:.1f}pt Dashed image_border_*",
+        )
+        cy_f = scy + 1.2
+        framed_st = Styles.Primary.patch(
+            image_tint_color=Colors.Primary1,
+            image_border_color=Colors.Primary,
+            image_border_width=bw_val,
+            image_border_style="dashed",
+        )
+        gcp.cloud_run((scx, cy_f), width=12.5, style=framed_st)
+
+        # Callouts pointing to background tint and dashed border
+        line((scx - 16.2, cy_f + 6.5), (scx - 6.8, cy_f + 3.2), arrow_head="->", style=Styles.PrimaryBold)
+        text(
+            (scx - 16.8, cy_f + 8.0),
+            "image_tint_color",
+            style=Styles.PrimaryBold.patch(text_size=9.5, halign="center"),
+        )
+        line((scx + 15.8, cy_f - 6.5), (scx + 6.8, cy_f - 4.2), arrow_head="->", style=Styles.DarkBold)
+        text(
+            (scx + 14.5, cy_f - 9.8),
+            'border="dashed"',
+            style=Styles.DarkBold.patch(text_size=9.5, halign="center"),
+        )
+        text(
+            (scx, scy - 14.2),
+            "RGBA alpha filled over grid  •  1.8pt dashed frame",
+            style=Styles.MutedBold.patch(text_size=9.5),
+        )
+
+# =========================================================================
+# Part 3: 3. Variants & Twins — variant="default"|"modern" & 1:1 Twins
+# =========================================================================
+for var_name, iw_v, dur in (("default", 10.5, 3.2), ("modern", 8.8, 0.45), ("modern", 10.5, 3.2)):
+    code_3a = [
+        "from drawlib.icons import gcp",
+        "from drawlib.styles import Styles",
+        "",
+        "st = Styles.Primary",
+        "gcp.google_kubernetes_engine(",
+        "    (34, 30), width=10.5, style=st,",
+        f'    variant="{var_name}",',
+        ")",
+        "gcp.bigquery(",
+        "    (66, 30), width=10.5, style=st,",
+        f'    variant="{var_name}")',
+    ]
+    with anim.frame(duration=dur):
+        draw_step_bar(3)
+        draw_left_pane(
+            3,
+            code_3a,
+            (4, 10),
+            phosphor.palette,
+            "Color Palette Variants (variant)",
+            'variant="default" unifies GCP in 3-tone blue',
+            'variant="modern" switches to Google 4-color',
+        )
+        foot_v = (
+            'variant="default"  •  Unified 3-Tone Blue Palette'
+            if var_name == "default"
+            else 'variant="modern"  •  Google 4-Color Core Artwork'
+        )
+        scx, scy = draw_geometry_studio(f'variant="{var_name}"', foot_v)
+        banner_v = (
+            "Unified 3-Tone Blue (All 253 GCP Icons)"
+            if var_name == "default"
+            else "Google 4-Color Multi-Tone (Core GCP Icons)"
+        )
+        text((scx, scy + 15.0), banner_v, style=Styles.PrimaryBold.patch(text_size=9.8))
+        card_v_st = Styles.Neutral if var_name == "default" else Styles.PrimaryNeutral
+        for dx, title_s, fn_s in (
+            (-13.0, "GKE", gcp.google_kubernetes_engine),
+            (13.0, "BigQuery", gcp.bigquery),
+        ):
+            cx_s = scx + dx
+            rectangle((cx_s, scy - 1.2), width=21.2, height=24.5, style=card_v_st.patch(shape_r=2.0))
+            fn_s((cx_s, scy + 2.4), width=iw_v, style=Styles.Primary, variant=var_name)
+            text((cx_s, scy - 6.8), title_s, style=Styles.DarkBold.patch(text_size=9.8))
+            text((cx_s, scy - 10.2), f'"{var_name}"', style=Styles.PrimaryBold.patch(text_size=9.5))
+
+with anim.frame(duration=3.4):
+    code_3b = [
+        "from drawlib.icons import ai, original_ai",
+        "from drawlib.styles import Styles",
+        "",
+        "st = Styles.Primary",
+        "# 1:1 twin function name parity",
+        "ai.claude((22, 30), width=8.5, style=st)",
+        "original_ai.claude(",
+        "    (50, 30), width=8.5, style=st)",
+        "# Extra vendor-neutral concept icon",
+        "original_ai.ai_agent(",
+        "    (78, 30), width=8.5, style=st)",
+    ]
+    draw_step_bar(3)
+    draw_left_pane(
+        3,
+        code_3b,
+        (5, 10),
+        phosphor.git_diff,
+        "1:1 Twin Naming & Concept Icons",
+        "ai.claude <-> original_ai.claude share names",
+        "original_* adds vendor-neutral concept icons",
+    )
+    scx, scy = draw_geometry_studio(
+        "1:1 Twins",
+        "1:1 Twin Parity (claude) + Concept Icons (ai_agent)",
+    )
+    text(
+        (scx, scy + 15.0),
+        "1:1 Twin Parity  +  Vendor-Neutral Concept Icons",
+        style=Styles.PrimaryBold.patch(text_size=9.7),
+    )
+    cy_t = scy - 1.0
+    xs_t = [scx - 18.2, scx, scx + 18.2]
+    twins = [
+        (xs_t[0], Styles.Neutral, ai.claude, "ai", ".claude"),
+        (xs_t[1], Styles.PrimaryNeutral, original_ai.claude, "original_ai", ".claude"),
+        (xs_t[2], Styles.SecondaryNeutral, original_ai.ai_agent, "original_ai", ".ai_agent"),
+    ]
+    for tx, cst, tfn, mod_lbl, fn_lbl in twins:
+        rectangle((tx, cy_t), width=13.2, height=23.6, style=cst.patch(shape_r=1.8))
+        tfn((tx, cy_t + 3.8), width=8.0, style=Styles.Primary)
+        text((tx, cy_t - 4.8), mod_lbl, style=Styles.MutedBold.patch(text_size=9.5))
+        text((tx, cy_t - 8.2), fn_lbl, style=Styles.DarkBold.patch(text_size=9.5))
+
+    line(
+        (xs_t[0] + 6.9, cy_t + 3.8),
+        (xs_t[1] - 6.9, cy_t + 3.8),
+        arrow_head="<->",
+        style=Styles.PrimaryBold.patch(line_width=1.3),
+    )
+    text(((xs_t[0] + xs_t[1]) / 2.0, cy_t + 7.2), "1:1", style=Styles.PrimaryBold.patch(text_size=9.5))
+    text(((xs_t[1] + xs_t[2]) / 2.0, cy_t + 3.8), "+", style=Styles.DarkBold.patch(text_size=11.0))
+
+# =========================================================================
+# Part 4: 4. Diagram Enums — ArchitectureDiagram *Icon Integration
+# =========================================================================
+CODE_4A = [
+    "from drawlib.diagrams.architecture import (",
+    "    AiIcon, DataIcon, GcpIcon,",
+    "    Node, OriginalAiIcon,",
+    ")",
+    'run = Node("Cloud Run",',
+    "           icon=GcpIcon.CLOUD_RUN)",
+    'ag = Node("AI Agent",',
+    "          icon=OriginalAiIcon.AI_AGENT)",
+    'llm = Node("OpenAI", icon=AiIcon.OPENAI)',
+    'pg = Node("PostgreSQL",',
+    "          icon=DataIcon.POSTGRESQL)",
+]
+CODE_4B = [
+    "d = ArchitectureDiagram()",
+    "d.add(run, xy=(12, 7))",
+    "d.add(ag, xy=(12, 24))",
+    "d.add(llm, xy=(39, 24))",
+    "d.add(pg, xy=(39, 7))",
+    "",
+    "d.connect(run, ag, padding=0.7)",
+    "d.connect(ag, llm, padding=0.7)",
+    "d.connect(run, pg, padding=0.7)",
+    'd.draw(xy=(102, 34), align="center")',
+]
+
+for show_edges, c_lines, hl, s_t, s_1, s_2, badge, foot, dur in (
+    (
+        False,
+        CODE_4A,
+        (4, 10),
+        "Strongly Typed *Icon Diagram Enums",
+        "Every module exports a matching <Module>Icon Enum",
+        "Pass GcpIcon, AiIcon, OriginalAiIcon to Node()",
+        "*Icon Enums",
+        "Node(..., icon=*Icon) Mixes Any of 34 Icon Suites",
+        3.2,
+    ),
+    (
+        True,
+        CODE_4B,
+        (6, 9),
+        "Connected Multi-Domain Topologies",
+        "Mix Cloud, Official Brand, and 2D Pastel Enums",
+        "ArchitectureDiagram & SequenceDiagram auto-route",
+        "d.connect()",
+        "GcpIcon + OriginalAiIcon + AiIcon + DataIcon",
+        0.45,
+    ),
+    (
+        True,
+        CODE_4B,
+        (6, 9),
+        "Connected Multi-Domain Topologies",
+        "Mix Cloud, Official Brand, and 2D Pastel Enums",
+        "ArchitectureDiagram & SequenceDiagram auto-route",
+        "d.connect()",
+        "GcpIcon + OriginalAiIcon + AiIcon + DataIcon",
+        3.5,
+    ),
+):
+    with anim.frame(duration=dur):
+        draw_step_bar(4)
+        draw_left_pane(4, c_lines, hl, phosphor.graph, s_t, s_1, s_2)
+        scx, scy = draw_geometry_studio(badge, foot)
+        text(
+            (scx, scy + 16.2),
+            "4 Icon Suites in One ArchitectureDiagram",
+            style=Styles.PrimaryBold.patch(text_size=9.7),
+        )
+        edge_st = (
+            Styles.PrimaryDashed.patch(line_width=1.4)
+            if dur < 1.0
+            else Styles.DarkBold.patch(line_width=1.5)
+        )
+        d = ArchitectureDiagram(
+            node_style=Styles.Primary,
+            node_text_style=Styles.DarkBold.patch(text_size=9.6),
+            edge_style=edge_st,
+            edge_text_style=Styles.DarkBold.patch(text_size=9.5),
+            node_card_style=Styles.Neutral,
+        )
+        run_n = d.add(
+            Node(
+                "Cloud Run",
+                width=19.8,
+                height=11.8,
+                icon=GcpIcon.CLOUD_RUN,
+                icon_size=5.4,
+                card_style=Styles.PrimaryNeutral,
+            ),
+            xy=(11.5, 7.0),
+        )
+        ag_n = d.add(
+            Node(
+                "AI Agent",
+                width=19.8,
+                height=11.8,
+                icon=OriginalAiIcon.AI_AGENT,
+                icon_size=5.4,
+                card_style=Styles.SecondaryNeutral,
+            ),
+            xy=(11.5, 24.4),
+        )
+        llm_n = d.add(
+            Node(
+                "OpenAI",
+                width=19.8,
+                height=11.8,
+                icon=AiIcon.OPENAI,
+                icon_size=5.4,
+                card_style=Styles.Neutral,
+            ),
+            xy=(38.5, 24.4),
+        )
+        pg_n = d.add(
+            Node(
+                "PostgreSQL",
+                width=19.8,
+                height=11.8,
+                icon=DataIcon.POSTGRESQL,
+                icon_size=5.4,
+                card_style=Styles.Neutral,
+            ),
+            xy=(38.5, 7.0),
+        )
+        d.connect(run_n, ag_n, padding=0.7, show=show_edges)
+        d.connect(ag_n, llm_n, padding=0.7, show=show_edges)
+        d.connect(run_n, pg_n, padding=0.7, show=show_edges)
+        d.draw(xy=(scx, scy - 2.0), align="center")
+
+save()
+```
+
+</details>
+
+
+
+- **Three Interchangeable Visual Tiers**: Switch seamlessly between `phosphor` vector glyphs, `original_*` 2D pastel twins, and official cloud/vendor PNGs (`gcp`, `aws`, `azure`, `ai`, `data`, etc.) at identical `(cx, cy)` coordinates.
+- **Center Anchoring & `image_*` Framing (`xy`, `width`, `style`)**: Every icon centers on `xy` at a `1:1` aspect ratio and supports `alpha` opacity, `image_tint_color` background fill, and `image_border_*` solid/dashed frames.
+- **Palette Variants & `1:1` Twin Naming (`variant="default" | "modern"`)**: Toggle GCP core icons between 3-tone blue and 4-color palettes, or swap `<domain>.<name>` with `original_<domain>.<name>` plus vendor-neutral concept icons.
+- **High-Level Diagram Enums (`<Module>Icon`)**: Pass `PhosphorIcon`, `GcpIcon`, `AiIcon`, `OriginalAiIcon`, `DataIcon`, and all 34 `*Icon` Enums directly into `Node(icon=...)` and `Participant(icon=...)`.
+
+---
+
+## 2. Why Three Visual Styles? (Choosing the Right Icon Tier)
 
 Different technical illustrations call for different levels of visual specificity. Drawlib organizes its 4,538 canonical icons into three distinct visual styles across four module groups so you can match the exact fidelity of your document:
 
@@ -125,7 +991,7 @@ Different technical illustrations call for different levels of visual specificit
 
 ---
 
-## 2. Unified Icon API & Coordinate Anchor
+## 3. Unified Icon API & Coordinate Anchor
 
 Every icon function across `phosphor` and all 33 PNG icon modules shares the exact same **center-anchored `(cx, cy)`** call signature:
 
@@ -150,7 +1016,7 @@ original_ai.ai_agent((110, 25), width=10.0, style=Styles.Primary)
 | `variant: str = "default"` | All 33 PNG modules | Selects `"default"` palette (all modules) or `"modern"` on supported `gcp` and `network` (`cisco_*`) icons. |
 | `<Module>Icon` Enums | `ArchitectureDiagram`, `SequenceDiagram` | Strongly typed `StrEnum`/`Enum` classes (`PhosphorIcon`, `GcpIcon`, `AwsIcon`, `AiIcon`, `OriginalAiIcon`, etc.) passed to `Node(icon=...)` or `Participant(icon=...)`. |
 
-### 2.1. Side-by-Side Comparison Across Visual Tiers
+### 3.1. Side-by-Side Comparison Across Visual Tiers
 
 The following diagram renders the same five architectural roles (**LLM / AI**, **Database**, **Kubernetes**, **Security / IAM**, and **Client Browser**) across all three visual styles:
 
@@ -216,7 +1082,7 @@ save()
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="overview_images/icons_overview_side_by_side.png" alt="overview_2" />
+  <img src="overview_images/icons_overview_side_by_side.png" alt="overview_3" />
   <figcaption class="drawlib-caption">Comparing Phosphor Vector, Official Brand, and Original 2D Pastel Icons</figcaption>
 </figure>
 
@@ -224,7 +1090,7 @@ save()
 
 ---
 
-## 3. Complete 34 Icon Modules Directory
+## 4. Complete 34 Icon Modules Directory
 
 All 34 icon modules use a strict **1-to-1 canonical naming rule** (zero aliases) and lazy-load their underlying font or PNG archive on first use. To pre-download all icon packages for offline or CI environments, run `uv run drawlib cache download --all`.
 
@@ -267,7 +1133,7 @@ All 34 icon modules use a strict **1-to-1 canonical naming rule** (zero aliases)
 
 ---
 
-## 4. Using Icons in High-Level Diagrams (`ArchitectureDiagram` & `SequenceDiagram`)
+## 5. Using Icons in High-Level Diagrams (`ArchitectureDiagram` & `SequenceDiagram`)
 
 Both **[`ArchitectureDiagram`](../06_diagrams/architecture.md)** (`Node(..., icon=...)`) and **[`SequenceDiagram`](../06_diagrams/sequence.md)** (`Participant(..., icon=...)`) natively accept all 34 `*Icon` Enums (`ClientIcon`, `AiIcon`, `GcpIcon`, `AwsIcon`, `DataIcon`, `OriginalAiIcon`, etc.), letting you mix client devices, cloud infrastructure, AI models, and databases in a single connected topology:
 
@@ -345,7 +1211,7 @@ save()
 ```
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="overview_images/icons_overview_arch_integration.png" alt="overview_3" />
+  <img src="overview_images/icons_overview_arch_integration.png" alt="overview_4" />
   <figcaption class="drawlib-caption">Mixing Multiple Icon Modules in an ArchitectureDiagram</figcaption>
 </figure>
 
