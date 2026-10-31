@@ -165,7 +165,7 @@ Drawlib organizes charts into eight specialized submodules under `drawlib.charts
 | **`LineStyle`** | `Literal["solid", "dashed", "dotted", "dashdot"]` | `LineChart`, `AreaChart`, `RadarChart` series stroke patterns |
 | **`PointShape`** | `Literal["circle", "square", "rhombus", "triangle", "none"]` | `ScatterChart` (all 5 shapes); `LineChart`, `AreaChart`, `RadarChart` (`"circle"`, `"square"`, `"none"`) |
 | **`GridShape`** | `Literal["polygon", "circle"]` | `RadarChart(grid_shape=...)` concentric ring geometry |
-| **`ScaleType`** | `Literal["linear", "log"]` | `Axis(scale=...)` linear Nice Numbers or $\log_{10}$ scaling |
+| **`ScaleType`** | `Literal["linear", "log"]` | `Axis(scale=...)` linear Nice Numbers or base-10 (`log10`) scaling |
 | **`OverlayMode`** | `Literal["smooth", "contour"]` | `HeatmapOverlay(mode=...)` Gaussian thermal gradient or vector isoline rings |
 | **`BlendMode`** | `Literal["add", "max"]` | `HeatmapOverlay(blend_mode=...)` overlapping hotspot accumulation mode |
 | **`FormatterType`** | `str \| Callable[[float], str] \| None` | Value/tick formatting (`"{:.1f}%"`, `lambda v: f"${v:,.0f}"`) |
