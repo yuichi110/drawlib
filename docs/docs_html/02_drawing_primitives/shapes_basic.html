@@ -683,70 +683,8 @@
 </code></pre>
 </details>
 <hr />
-<h2>1. Quick Comparison of Basic &amp; Radial Shapes</h2>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">Function</th>
-<th style="text-align:left">Required Geometry Args</th>
-<th style="text-align:left">Optional Geometry Args</th>
-<th style="text-align:center">Supports <code>hole_ratio</code></th>
-<th style="text-align:center">Supports <code>shape_r</code></th>
-<th style="text-align:left">Typical Diagram Use Cases</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left"><strong><code>rectangle</code></strong></td>
-<td style="text-align:left"><code>xy</code>, <code>width</code>, <code>height</code></td>
-<td style="text-align:left"><code>hole_ratio=None</code></td>
-<td style="text-align:center">Yes <code>(0.0, 1.0)</code></td>
-<td style="text-align:center">Scalar <code>float</code> or 4-tuple <code>(bl, tl, tr, br)</code></td>
-<td style="text-align:left">Service cards, containers, swimlanes, UI panels, tabs, and hollow frames.</td>
-</tr>
-<tr>
-<td style="text-align:left"><strong><code>circle</code></strong></td>
-<td style="text-align:left"><code>xy</code>, <code>radius</code></td>
-<td style="text-align:left"><code>hole_ratio=None</code></td>
-<td style="text-align:center">Yes <code>(0.0, 1.0)</code></td>
-<td style="text-align:center">—</td>
-<td style="text-align:left">State nodes, endpoints, numbered badges, and hollow annular rings.</td>
-</tr>
-<tr>
-<td style="text-align:left"><strong><code>ellipse</code></strong></td>
-<td style="text-align:left"><code>xy</code>, <code>width</code>, <code>height</code></td>
-<td style="text-align:left"><code>hole_ratio=None</code></td>
-<td style="text-align:center">Yes <code>(0.0, 1.0)</code></td>
-<td style="text-align:center">—</td>
-<td style="text-align:left">Use-case ovals, Venn diagrams, orbital rings, and wide pill nodes.</td>
-</tr>
-<tr>
-<td style="text-align:left"><strong><code>wedge</code></strong></td>
-<td style="text-align:left"><code>xy</code>, <code>radius</code></td>
-<td style="text-align:left"><code>width=None</code>, <code>angle_start=0</code>, <code>angle_end=360</code></td>
-<td style="text-align:center">Via <code>width</code></td>
-<td style="text-align:center">—</td>
-<td style="text-align:left">Gauge meters, donut slices (<code>width</code> set), or circular sectors (<code>width=None</code>).</td>
-</tr>
-<tr>
-<td style="text-align:left"><strong><code>fan</code></strong></td>
-<td style="text-align:left"><code>xy</code>, <code>radius</code></td>
-<td style="text-align:left"><code>angle_start=0</code>, <code>angle_end=180</code></td>
-<td style="text-align:center">—</td>
-<td style="text-align:center">—</td>
-<td style="text-align:left">Camera/radar field-of-view (FOV) cones, wireless coverage sectors, pie wedges.</td>
-</tr>
-<tr>
-<td style="text-align:left"><strong><code>arc</code></strong></td>
-<td style="text-align:left"><code>xy</code>, <code>width</code>, <code>height</code></td>
-<td style="text-align:left"><code>angle_start=0.0</code>, <code>angle_end=360.0</code></td>
-<td style="text-align:center">— (Unfilled)</td>
-<td style="text-align:center">—</td>
-<td style="text-align:left">Open circular/elliptical trajectory strokes, partial borders, and wave fronts.</td>
-</tr>
-</tbody>
-</table>
-<p>The animation below steps through how key geometric parameters—corner rounding (<code>shape_r</code>), concentric cutouts (<code>hole_ratio</code>), axis rotation (<code>angle</code>), counterclockwise angular sweeps (<code>angle_start</code>..<code>angle_end</code>), and annular wall <code>width</code>—reshape each primitive:</p>
+<h2>1. Core Geometric Concepts</h2>
+<p>All 6 primitives share Drawlib's Cartesian coordinate space and center-anchoring conventions (<code>xy</code>, with <code>fan</code> anchored at its cone apex), while exposing intuitive parameters that morph each shape cleanly without manual trigonometry. Watch how corner rounding (<code>shape_r</code>), concentric cutouts (<code>hole_ratio</code>), axis rotation (<code>angle</code>), counterclockwise angular sweeps (<code>angle_start</code>..<code>angle_end</code>), and annular wall thickness (<code>width</code>) reshape each primitive:</p>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="shapes_basic_images/shapes_basic_parameter_tour.png" alt="shapes_basic_2" />
   <figcaption class="drawlib-caption">Parameter & Geometry Tour: Live Morphing of rectangle, circle, ellipse, wedge, fan, and arc (APNG Animation)</figcaption>
@@ -1442,8 +1380,79 @@
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 </details>
+<ul>
+<li><strong>Center vs. Apex Anchoring (<code>xy</code>)</strong>: <code>rectangle</code>, <code>circle</code>, <code>ellipse</code>, <code>wedge</code>, and <code>arc</code> center on <code>xy</code>, whereas <code>fan</code> anchors its cone apex at <code>xy</code>.</li>
+<li><strong>Corner Filleting (<code>style.shape_r</code>)</strong>: Rounds <code>rectangle</code> corners uniformly with a scalar <code>float</code> or selectively per corner via <code>(bl, tl, tr, br)</code>.</li>
+<li><strong>Hollow Cutouts (<code>hole_ratio</code> &amp; <code>width</code>)</strong>: <code>hole_ratio</code> punches concentric transparent holes (<code>rectangle</code>, <code>circle</code>, <code>ellipse</code>), while <code>width</code> sets annular ring thickness on <code>wedge</code>.</li>
+<li><strong>Counterclockwise Angles (<code>angle_start</code>, <code>angle_end</code>, <code>style.angle</code>)</strong>: Sweep or rotate counterclockwise in degrees from <code>+X</code> (<code>0°</code> right, <code>90°</code> up).</li>
+</ul>
 <hr />
-<h2>2. Rectangles, Per-Corner Rounding &amp; Hollow Frames (<code>rectangle</code>)</h2>
+<h2>2. Quick Comparison of Basic &amp; Radial Shapes</h2>
+<p>Use the summary matrix below to compare geometry arguments, cutout behavior, corner rounding, and typical diagram roles across all 6 functions:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Function</th>
+<th style="text-align:left">Required Geometry Args</th>
+<th style="text-align:left">Optional Geometry Args</th>
+<th style="text-align:center">Supports <code>hole_ratio</code></th>
+<th style="text-align:center">Supports <code>shape_r</code></th>
+<th style="text-align:left">Typical Diagram Use Cases</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong><code>rectangle</code></strong></td>
+<td style="text-align:left"><code>xy</code>, <code>width</code>, <code>height</code></td>
+<td style="text-align:left"><code>hole_ratio=None</code></td>
+<td style="text-align:center">Yes <code>(0.0, 1.0)</code></td>
+<td style="text-align:center">Scalar <code>float</code> or 4-tuple <code>(bl, tl, tr, br)</code></td>
+<td style="text-align:left">Service cards, containers, swimlanes, UI panels, tabs, and hollow frames.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>circle</code></strong></td>
+<td style="text-align:left"><code>xy</code>, <code>radius</code></td>
+<td style="text-align:left"><code>hole_ratio=None</code></td>
+<td style="text-align:center">Yes <code>(0.0, 1.0)</code></td>
+<td style="text-align:center">—</td>
+<td style="text-align:left">State nodes, endpoints, numbered badges, and hollow annular rings.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>ellipse</code></strong></td>
+<td style="text-align:left"><code>xy</code>, <code>width</code>, <code>height</code></td>
+<td style="text-align:left"><code>hole_ratio=None</code></td>
+<td style="text-align:center">Yes <code>(0.0, 1.0)</code></td>
+<td style="text-align:center">—</td>
+<td style="text-align:left">Use-case ovals, Venn diagrams, orbital rings, and wide pill nodes.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>wedge</code></strong></td>
+<td style="text-align:left"><code>xy</code>, <code>radius</code></td>
+<td style="text-align:left"><code>width=None</code>, <code>angle_start=0</code>, <code>angle_end=360</code></td>
+<td style="text-align:center">Via <code>width</code></td>
+<td style="text-align:center">—</td>
+<td style="text-align:left">Gauge meters, donut slices (<code>width</code> set), or circular sectors (<code>width=None</code>).</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>fan</code></strong></td>
+<td style="text-align:left"><code>xy</code>, <code>radius</code></td>
+<td style="text-align:left"><code>angle_start=0</code>, <code>angle_end=180</code></td>
+<td style="text-align:center">—</td>
+<td style="text-align:center">—</td>
+<td style="text-align:left">Camera/radar field-of-view (FOV) cones, wireless coverage sectors, pie wedges.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>arc</code></strong></td>
+<td style="text-align:left"><code>xy</code>, <code>width</code>, <code>height</code></td>
+<td style="text-align:left"><code>angle_start=0.0</code>, <code>angle_end=360.0</code></td>
+<td style="text-align:center">— (Unfilled)</td>
+<td style="text-align:center">—</td>
+<td style="text-align:left">Open circular/elliptical trajectory strokes, partial borders, and wave fronts.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>3. Rectangles, Per-Corner Rounding &amp; Hollow Frames (<code>rectangle</code>)</h2>
 <p><code>rectangle</code> draws a sharp, rounded, or hollow rectangular card centered at <code>xy</code> (when using preset <code>Styles.*</code>):</p>
 <pre><code class="language-python"><span class="n">rectangle</span><span class="p">(</span>
     <span class="n">xy</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
@@ -1576,7 +1585,7 @@
   <figcaption class="drawlib-caption">Sharp, Uniform Rounded, Per-Corner Rounded Tabs, and Hollow Frame Rectangles</figcaption>
 </figure>
 <hr />
-<h2>3. Circles, Ellipses &amp; Hollow Rings (<code>circle</code>, <code>ellipse</code>)</h2>
+<h2>4. Circles, Ellipses &amp; Hollow Rings (<code>circle</code>, <code>ellipse</code>)</h2>
 <p><code>circle</code> and <code>ellipse</code> draw smooth circular and oval primitives, with native support for concentric ring cutouts via <code>hole_ratio</code>:</p>
 <pre><code class="language-python"><span class="n">circle</span><span class="p">(</span>
     <span class="n">xy</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
@@ -1714,8 +1723,8 @@
   <figcaption class="drawlib-caption">Circle, Ellipse, Rotated Ellipse, and Hollow Rings via hole_ratio</figcaption>
 </figure>
 <hr />
-<h2>4. Angular Sectors, Donut Slices &amp; Pie Fans (<code>wedge</code>, <code>fan</code>)</h2>
-<p><code>wedge</code> and <code>fan</code> draw circular angular sectors swept counterclockwise from <code>angle_start</code> to <code>angle_end</code> (in degrees, where $0^\circ$ points right along $+X$, $90^\circ$ points up along $+Y$, $180^\circ$ points left along $-X$, and $270^\circ$ points down along $-Y$):</p>
+<h2>5. Angular Sectors, Donut Slices &amp; Pie Fans (<code>wedge</code>, <code>fan</code>)</h2>
+<p><code>wedge</code> and <code>fan</code> draw circular angular sectors swept counterclockwise from <code>angle_start</code> to <code>angle_end</code> (in degrees, where <code>0°</code> points right along <code>+X</code>, <code>90°</code> points up along <code>+Y</code>, <code>180°</code> points left along <code>-X</code>, and <code>270°</code> points down along <code>-Y</code>):</p>
 <pre><code class="language-python"><span class="n">wedge</span><span class="p">(</span>
     <span class="n">xy</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
     <span class="n">radius</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
@@ -1771,13 +1780,13 @@
 <td style="text-align:left"><code>angle_start</code></td>
 <td style="text-align:left"><code>float</code></td>
 <td style="text-align:left"><code>0</code></td>
-<td style="text-align:left">Starting angle in degrees counterclockwise from $+X$.</td>
+<td style="text-align:left">Starting angle in degrees counterclockwise from <code>+X</code>.</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>angle_end</code></td>
 <td style="text-align:left"><code>float</code></td>
 <td style="text-align:left"><code>360</code> (<code>wedge</code>) / <code>180</code> (<code>fan</code>)</td>
-<td style="text-align:left">Ending angle in degrees counterclockwise from $+X$.</td>
+<td style="text-align:left">Ending angle in degrees counterclockwise from <code>+X</code>.</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>style.angle</code></td>
@@ -1847,7 +1856,7 @@
   <figcaption class="drawlib-caption">Angular Donut Wedge (width=5), Pac-Man Sector (width=None), and Radar FOV Fan</figcaption>
 </figure>
 <hr />
-<h2>5. Open Elliptical &amp; Circular Arcs (<code>arc</code>)</h2>
+<h2>6. Open Elliptical &amp; Circular Arcs (<code>arc</code>)</h2>
 <p><code>arc</code> draws an <strong>open, unfilled vector stroke</strong> along the perimeter of an ellipse or circle between <code>angle_start</code> and <code>angle_end</code>:</p>
 <pre><code class="language-python"><span class="n">arc</span><span class="p">(</span>
     <span class="n">xy</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>

@@ -87,18 +87,9 @@ save()
 
 ---
 
-## 1. Quick Comparison of Basic & Radial Shapes
+## 1. Core Geometric Concepts
 
-| Function | Required Geometry Args | Optional Geometry Args | Supports `hole_ratio` | Supports `shape_r` | Typical Diagram Use Cases |
-| :--- | :--- | :--- | :---: | :---: | :--- |
-| **`rectangle`** | `xy`, `width`, `height` | `hole_ratio=None` | Yes `(0.0, 1.0)` | Scalar `float` or 4-tuple `(bl, tl, tr, br)` | Service cards, containers, swimlanes, UI panels, tabs, and hollow frames. |
-| **`circle`** | `xy`, `radius` | `hole_ratio=None` | Yes `(0.0, 1.0)` | — | State nodes, endpoints, numbered badges, and hollow annular rings. |
-| **`ellipse`** | `xy`, `width`, `height` | `hole_ratio=None` | Yes `(0.0, 1.0)` | — | Use-case ovals, Venn diagrams, orbital rings, and wide pill nodes. |
-| **`wedge`** | `xy`, `radius` | `width=None`, `angle_start=0`, `angle_end=360` | Via `width` | — | Gauge meters, donut slices (`width` set), or circular sectors (`width=None`). |
-| **`fan`** | `xy`, `radius` | `angle_start=0`, `angle_end=180` | — | — | Camera/radar field-of-view (FOV) cones, wireless coverage sectors, pie wedges. |
-| **`arc`** | `xy`, `width`, `height` | `angle_start=0.0`, `angle_end=360.0` | — (Unfilled) | — | Open circular/elliptical trajectory strokes, partial borders, and wave fronts. |
-
-The animation below steps through how key geometric parameters—corner rounding (`shape_r`), concentric cutouts (`hole_ratio`), axis rotation (`angle`), counterclockwise angular sweeps (`angle_start`..`angle_end`), and annular wall `width`—reshape each primitive:
+All 6 primitives share Drawlib's Cartesian coordinate space and center-anchoring conventions (`xy`, with `fan` anchored at its cone apex), while exposing intuitive parameters that morph each shape cleanly without manual trigonometry. Watch how corner rounding (`shape_r`), concentric cutouts (`hole_ratio`), axis rotation (`angle`), counterclockwise angular sweeps (`angle_start`..`angle_end`), and annular wall thickness (`width`) reshape each primitive:
 
 ```drawlib code=fold align=center file=shapes_basic_parameter_tour.png caption="Parameter & Geometry Tour: Live Morphing of rectangle, circle, ellipse, wedge, fan, and arc (APNG Animation)"
 from __future__ import annotations
@@ -790,9 +781,29 @@ for a_end, dur in ((170, 0.45), (315, 3.6)):
 save()
 ```
 
+- **Center vs. Apex Anchoring (`xy`)**: `rectangle`, `circle`, `ellipse`, `wedge`, and `arc` center on `xy`, whereas `fan` anchors its cone apex at `xy`.
+- **Corner Filleting (`style.shape_r`)**: Rounds `rectangle` corners uniformly with a scalar `float` or selectively per corner via `(bl, tl, tr, br)`.
+- **Hollow Cutouts (`hole_ratio` & `width`)**: `hole_ratio` punches concentric transparent holes (`rectangle`, `circle`, `ellipse`), while `width` sets annular ring thickness on `wedge`.
+- **Counterclockwise Angles (`angle_start`, `angle_end`, `style.angle`)**: Sweep or rotate counterclockwise in degrees from `+X` (`0°` right, `90°` up).
+
 ---
 
-## 2. Rectangles, Per-Corner Rounding & Hollow Frames (`rectangle`)
+## 2. Quick Comparison of Basic & Radial Shapes
+
+Use the summary matrix below to compare geometry arguments, cutout behavior, corner rounding, and typical diagram roles across all 6 functions:
+
+| Function | Required Geometry Args | Optional Geometry Args | Supports `hole_ratio` | Supports `shape_r` | Typical Diagram Use Cases |
+| :--- | :--- | :--- | :---: | :---: | :--- |
+| **`rectangle`** | `xy`, `width`, `height` | `hole_ratio=None` | Yes `(0.0, 1.0)` | Scalar `float` or 4-tuple `(bl, tl, tr, br)` | Service cards, containers, swimlanes, UI panels, tabs, and hollow frames. |
+| **`circle`** | `xy`, `radius` | `hole_ratio=None` | Yes `(0.0, 1.0)` | — | State nodes, endpoints, numbered badges, and hollow annular rings. |
+| **`ellipse`** | `xy`, `width`, `height` | `hole_ratio=None` | Yes `(0.0, 1.0)` | — | Use-case ovals, Venn diagrams, orbital rings, and wide pill nodes. |
+| **`wedge`** | `xy`, `radius` | `width=None`, `angle_start=0`, `angle_end=360` | Via `width` | — | Gauge meters, donut slices (`width` set), or circular sectors (`width=None`). |
+| **`fan`** | `xy`, `radius` | `angle_start=0`, `angle_end=180` | — | — | Camera/radar field-of-view (FOV) cones, wireless coverage sectors, pie wedges. |
+| **`arc`** | `xy`, `width`, `height` | `angle_start=0.0`, `angle_end=360.0` | — (Unfilled) | — | Open circular/elliptical trajectory strokes, partial borders, and wave fronts. |
+
+---
+
+## 3. Rectangles, Per-Corner Rounding & Hollow Frames (`rectangle`)
 
 `rectangle` draws a sharp, rounded, or hollow rectangular card centered at `xy` (when using preset `Styles.*`):
 
@@ -881,7 +892,7 @@ save()
 
 ---
 
-## 3. Circles, Ellipses & Hollow Rings (`circle`, `ellipse`)
+## 4. Circles, Ellipses & Hollow Rings (`circle`, `ellipse`)
 
 `circle` and `ellipse` draw smooth circular and oval primitives, with native support for concentric ring cutouts via `hole_ratio`:
 
@@ -970,9 +981,9 @@ save()
 
 ---
 
-## 4. Angular Sectors, Donut Slices & Pie Fans (`wedge`, `fan`)
+## 5. Angular Sectors, Donut Slices & Pie Fans (`wedge`, `fan`)
 
-`wedge` and `fan` draw circular angular sectors swept counterclockwise from `angle_start` to `angle_end` (in degrees, where $0^\circ$ points right along $+X$, $90^\circ$ points up along $+Y$, $180^\circ$ points left along $-X$, and $270^\circ$ points down along $-Y$):
+`wedge` and `fan` draw circular angular sectors swept counterclockwise from `angle_start` to `angle_end` (in degrees, where `0°` points right along `+X`, `90°` points up along `+Y`, `180°` points left along `-X`, and `270°` points down along `-Y`):
 
 ```python
 wedge(
@@ -1004,8 +1015,8 @@ fan(
 | `xy` | `tuple[float, float]` | *Required* | Center coordinate `(cx, cy)` of the underlying circle (apex of the sector). |
 | `radius` | `float` | *Required* | Outer radius of the circular arc (`> 0`). |
 | `width` *(on `wedge`)* | `float \| None` | `None` | Radial wall thickness of the annular ring slice (`0 < width <= radius`), so the inner arc radius is `radius - width`. When `None`, `wedge` draws a solid pie sector all the way to `xy`. |
-| `angle_start` | `float` | `0` | Starting angle in degrees counterclockwise from $+X$. |
-| `angle_end` | `float` | `360` (`wedge`) / `180` (`fan`) | Ending angle in degrees counterclockwise from $+X$. |
+| `angle_start` | `float` | `0` | Starting angle in degrees counterclockwise from `+X`. |
+| `angle_end` | `float` | `360` (`wedge`) / `180` (`fan`) | Ending angle in degrees counterclockwise from `+X`. |
 | `style.angle` | `float` | `0.0` | Additional rotation offset in degrees added to both `angle_start` and `angle_end`. |
 | `text` / `text_style` | `str` / `Style \| None` | `""` / `None` | Label anchored at `xy` by default. For narrow `fan` cones, use `text_style.patch(xy_shift=(dx, dy))` to place the label inside the sector body. |
 
@@ -1062,7 +1073,7 @@ save()
 
 ---
 
-## 5. Open Elliptical & Circular Arcs (`arc`)
+## 6. Open Elliptical & Circular Arcs (`arc`)
 
 `arc` draws an **open, unfilled vector stroke** along the perimeter of an ellipse or circle between `angle_start` and `angle_end`:
 
