@@ -171,6 +171,9 @@ def test_maps_consistency() -> None:
 
         assert cfg.code == html_cfg.code
         assert cfg.name == html_cfg.name
+        assert cfg.native_name == html_cfg.native_name
+        assert cfg.native_name != ""
+        assert cfg.display_name == cfg.native_name
         assert cfg.direction == html_cfg.direction
         assert cfg.google_font_family == html_cfg.google_font_family
 
@@ -182,3 +185,7 @@ def test_maps_consistency() -> None:
         assert cfg.font_bold_attr == style_cfg.font_bold_attr
         assert cfg.font_thin_attr == style_cfg.font_thin_attr
         assert cfg.activate_patch == style_cfg.activate_patch
+
+    assert get_language_config("en").display_name == "English"
+    assert get_language_config("ja").display_name == "日本語"
+    assert get_language_config("zh-cn").display_name == "简体中文"

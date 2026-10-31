@@ -26,6 +26,7 @@ def _build_languages() -> dict[str, LanguageConfig]:
         languages[key] = LanguageConfig(
             code=html_cfg.code,
             name=html_cfg.name,
+            native_name=html_cfg.native_name or html_cfg.name,
             direction=html_cfg.direction,
             google_font_family=html_cfg.google_font_family,
             font_family=css_cfg.font_family,

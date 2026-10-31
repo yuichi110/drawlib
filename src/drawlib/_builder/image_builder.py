@@ -47,6 +47,8 @@ from drawlib._builder._image_ast import (
     resolve_effective_output_dir,
     resolve_static_save_target,
 )
+from drawlib._builder.doc_builder.i18n import load_i18n_config, validate_i18n_site
+from drawlib._builder.doc_builder.processor import DrawlibBlockProcessor
 from drawlib._core.l1_core import drawlib_settings, get_script_relative_path, logger, validate_call
 from drawlib._core.l4_canvas import clear
 from drawlib._core.l4_canvas._canvas import Canvas
@@ -652,65 +654,102 @@ def build_image(
                 executed.append(realpath)
 
     if all_md_files:
-        from drawlib._builder.doc_builder.processor import DrawlibBlockProcessor
-
-        out_img_dir = os.path.abspath(
-            output_dir
-            or (
-                os.path.join(resolved_targets[0], "images")
-                if os.path.isdir(resolved_targets[0])
-                else os.path.join(os.path.dirname(resolved_targets[0]), "images")
-            )
-        )
-        os.makedirs(out_img_dir, exist_ok=True)
-        root_target_dir = (
-            resolved_targets[0] if (len(resolved_targets) == 1 and os.path.isdir(resolved_targets[0])) else None
-        )
-        processor = DrawlibBlockProcessor(
-            styles_path=styles_abs,
-            utils_path=utils_abs,
+        _execute_markdown_image_targets(
+            all_md_files=all_md_files,
+            resolved_targets=resolved_targets,
+            output_dir=output_dir,
+            image_format=str(format or "png"),
+            styles_abs=styles_abs,
+            utils_abs=utils_abs,
             no_cache=no_cache,
-            require_file=False,
-            project_root=root_target_dir,
+            executed=executed,
         )
-        md_pattern = re.compile(r"(?:^|\n)[ \t]*```drawlib\b", re.IGNORECASE)
-        orig_cwd = os.getcwd()
-        try:
-            if root_target_dir:
-                os.chdir(root_target_dir)
-            for md_file in all_md_files:
-                try:
-                    with open(md_file, "r", encoding="utf-8") as f:
-                        content = f.read()
-                except OSError:
-                    continue
-
-                if not md_pattern.search(content):
-                    continue
-
-                os.chdir(os.path.dirname(md_file))
-                if root_target_dir:
-                    rel_md = os.path.relpath(md_file, root_target_dir)
-                    stem = os.path.splitext(rel_md)[0].replace(os.sep, "/")
-                else:
-                    stem = os.path.splitext(os.path.basename(md_file))[0]
-                fmt = str(format or "png")
-                processor.process_markdown(
-                    markdown_text=content,
-                    doc_base_name=stem,
-                    output_dir=out_img_dir,
-                    image_format=fmt,
-                    source_filename=md_file,
-                )
-                if md_file not in executed:
-                    executed.append(md_file)
-        finally:
-            os.chdir(orig_cwd)
 
     if not executed:
         raise ValueError("No valid Python files or Markdown files with drawing code were executed.")
 
     return executed
+
+
+def _execute_markdown_image_targets(
+    *,
+    all_md_files: list[str],
+    resolved_targets: list[str],
+    output_dir: str | None,
+    image_format: str,
+    styles_abs: str | None,
+    utils_abs: str | None,
+    no_cache: bool,
+    executed: list[str],
+) -> None:
+    """Render embedded drawlib blocks inside Markdown targets, deduplicating shared i18n images."""
+    out_img_dir = os.path.abspath(
+        output_dir
+        or (
+            os.path.join(resolved_targets[0], "images")
+            if os.path.isdir(resolved_targets[0])
+            else os.path.join(os.path.dirname(resolved_targets[0]), "images")
+        )
+    )
+    os.makedirs(out_img_dir, exist_ok=True)
+    root_target_dir = (
+        resolved_targets[0] if (len(resolved_targets) == 1 and os.path.isdir(resolved_targets[0])) else None
+    )
+    i18n_cfg = load_i18n_config(root_target_dir) if root_target_dir else None
+
+    md_jobs: list[tuple[str, str, str | None]] = []
+    if root_target_dir and i18n_cfg is not None:
+        locale_files = validate_i18n_site(root_target_dir, i18n_cfg, default_format=image_format)
+        ordered_langs = [i18n_cfg.default_lang] + [lc for lc in i18n_cfg.langs if lc != i18n_cfg.default_lang]
+        for lang in ordered_langs:
+            for rel_path in locale_files[lang]:
+                if not rel_path.lower().endswith((".md", ".markdown")):
+                    continue
+                md_abs = os.path.join(root_target_dir, lang, *rel_path.split("/"))
+                rel_stem = os.path.splitext(rel_path)[0]
+                shared_dir = os.path.join(out_img_dir, *rel_stem.split("/"))
+                md_jobs.append((md_abs, rel_stem, shared_dir))
+    else:
+        for md_file in all_md_files:
+            if root_target_dir:
+                rel_md = os.path.relpath(md_file, root_target_dir)
+                stem = os.path.splitext(rel_md)[0].replace(os.sep, "/")
+            else:
+                stem = os.path.splitext(os.path.basename(md_file))[0]
+            md_jobs.append((md_file, stem, None))
+
+    processor = DrawlibBlockProcessor(
+        styles_path=styles_abs,
+        utils_path=utils_abs,
+        no_cache=no_cache,
+        require_file=False,
+        project_root=root_target_dir,
+    )
+    md_pattern = re.compile(r"(?:^|\n)[ \t]*```drawlib\b", re.IGNORECASE)
+    orig_cwd = os.getcwd()
+    try:
+        for md_file, stem, shared_dir in md_jobs:
+            try:
+                with open(md_file, "r", encoding="utf-8") as f:
+                    content = f.read()
+            except OSError:
+                continue
+            if not md_pattern.search(content):
+                continue
+
+            os.chdir(os.path.dirname(md_file))
+            processor.process_markdown(
+                markdown_text=content,
+                doc_base_name=stem,
+                output_dir=out_img_dir,
+                image_format=image_format,
+                source_filename=md_file,
+                shared_images_dir=shared_dir,
+            )
+            if md_file not in executed:
+                executed.append(md_file)
+    finally:
+        os.chdir(orig_cwd)
 
 
 __all__ = [

@@ -22,12 +22,14 @@ class HtmlLangConfig:
     Attributes:
         code: Normalized ISO 639 / BCP-47 language tag (e.g. 'en', 'ja', 'th', 'zh-CN').
         name: Human-readable English name of the language (e.g. 'English', 'Japanese').
+        native_name: Native display label for UI switchers (e.g. 'English', '日本語').
         direction: Writing direction ('ltr' or 'rtl').
         google_font_family: Google Fonts family query parameter.
     """
 
     code: str
     name: str
+    native_name: str = ""
     direction: Literal["ltr", "rtl"] = "ltr"
     google_font_family: str = ""
 
@@ -71,6 +73,7 @@ class LanguageConfig:
     Attributes:
         code: Normalized ISO 639 / BCP-47 language tag (e.g. 'en', 'ja', 'th', 'zh-CN').
         name: Human-readable English name of the language (e.g. 'English', 'Japanese').
+        native_name: Native display label for UI switchers (e.g. 'English', '日本語').
         direction: Writing direction ('ltr' or 'rtl').
         google_font_family: Google Fonts family query parameter (e.g. 'Noto+Sans+JP:wght@400;500;700').
         font_family: Primary CSS font-family stack for HTML/PDF stylesheets.
@@ -84,6 +87,7 @@ class LanguageConfig:
 
     code: str
     name: str
+    native_name: str = ""
     direction: Literal["ltr", "rtl"] = "ltr"
     google_font_family: str = ""
     font_family: str = ""
@@ -93,6 +97,11 @@ class LanguageConfig:
     font_bold_attr: str = "FontRoboto.BOLD"
     font_thin_attr: str = "FontRoboto.THIN"
     activate_patch: bool = False
+
+    @property
+    def display_name(self) -> str:
+        """Return native language name if configured, otherwise fallback to English name."""
+        return self.native_name or self.name
 
     @property
     def font_link_html(self) -> str:

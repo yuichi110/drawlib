@@ -1,0 +1,359 @@
+<!--
+ Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+
+ This software is licensed under the Apache License, Version 2.0.
+ For more information, please visit: https://github.com/yuichi110/drawlib
+
+ This software is provided "as is", without warranty of any kind,
+ express or implied, including but not limited to the warranties of
+ merchantability, fitness for a particular purpose and noninfringement.
+-->
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Localization Workflow</title>
+    <script>
+        (function() {
+            const saved = localStorage.getItem('drawlib-theme');
+            if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
+    
+    
+    
+    <link rel="alternate" hreflang="en" href="index.html">
+    
+    <link rel="alternate" hreflang="ja" href="../../ja/workflow/index.html">
+    
+    <link rel="alternate" hreflang="x-default" href="index.html">
+    
+    
+    
+    <link rel="icon" type="image/png" href="../../_assets/favicon.png">
+    
+    
+    <link rel="stylesheet" href="../style.css">
+    
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-brand" aria-label="Drawlib i18n Docs">
+                    
+                    Drawlib i18n Docs
+                    
+                </a>
+                <div class="sidebar-header-actions">
+                    <button type="button" id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle theme">
+                        <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                        <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                    </button>
+                    <button type="button" id="menu-toggle" class="menu-toggle-btn" aria-label="Toggle navigation" aria-expanded="false">
+                        <svg class="icon-hamburger" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                        <svg class="icon-close" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                    </button>
+                </div>
+            </div>
+            <div class="sidebar-menu">
+                
+                    
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../index.html" >Overview</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">Guide & Examples</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../architecture/index.html" >System Architecture</a>
+                            </li>
+                            
+                            <li class="nav-item active">
+                                <a href="index.html" >Localization Workflow</a>
+                            </li>
+                            
+                        </ul>
+                    
+                
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">Localization Workflow</span>
+                </div>
+                
+                <div class="lang-switcher">
+                    <details class="lang-dropdown">
+                        <summary class="lang-dropdown-btn" aria-label="Select language">
+                            <svg class="lang-globe-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                            <span class="lang-current-label">English</span>
+                            <svg class="lang-caret-icon" viewBox="0 0 24 24" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </summary>
+                        <div class="lang-dropdown-menu" role="menu">
+                            
+                            <a href="index.html" class="lang-option active" lang="en" hreflang="en" aria-current="page">
+                                <span>English</span>
+                                
+                                <svg class="lang-check-icon" viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                
+                            </a>
+                            
+                            <a href="../../ja/workflow/index.html" class="lang-option" lang="ja" hreflang="ja" >
+                                <span>日本語</span>
+                                
+                            </a>
+                            
+                        </div>
+                    </details>
+                </div>
+                
+            </header>
+            <main class="main-content">
+                <h1>Localization Workflow</h1>
+<p>Drawlib streamlines multi-language documentation by combining AI-assisted Markdown translation with deterministic build-time verification. Author your <a href="../index.html">Overview</a> and <a href="../architecture/index.html">System Architecture</a> pages in the default locale first, translate prose into target locales, and let the compiler render shared diagrams once across the entire site.</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="../../images/workflow/index/translation_workflow.png" alt="index_1" />
+  <figcaption class="drawlib-caption">Four-Stage Multi-Locale Authoring, Verification, and Single-Render Workflow</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.smartarts</span><span class="w"> </span><span class="kn">import</span> <span class="n">ChevronProcess</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">144</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">67</span><span class="p">)</span>
+
+<span class="n">text</span><span class="p">(</span>
+    <span class="p">(</span><span class="mf">72.0</span><span class="p">,</span> <span class="mf">60.0</span><span class="p">),</span>
+    <span class="s2">"4-Step Multi-Locale Documentation &amp; Render Pipeline"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">13.5</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">pipeline</span> <span class="o">=</span> <span class="n">ChevronProcess</span><span class="p">(</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">),</span>
+    <span class="n">description_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="n">corner_angle</span><span class="o">=</span><span class="mf">65.0</span><span class="p">,</span>
+    <span class="n">spacing</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span>
+    <span class="n">flat_left_end</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">pipeline</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"1. Author en/"</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">"Default Locale"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
+<span class="n">pipeline</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"2. AI Translate ja/"</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">"Prose &amp; Captions"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">)</span>
+<span class="n">pipeline</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="s2">"3. Parity Check"</span><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="s2">"4 Pre-Flight Rules"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">),</span>
+    <span class="n">description_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">pipeline</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"4. Single Render"</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">"Shared Assets"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+<span class="n">pipeline</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">6.0</span><span class="p">,</span> <span class="mf">36.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">132.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">17.5</span><span class="p">)</span>
+
+<span class="n">cards</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="mf">21.3</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">file_text</span><span class="p">,</span> <span class="s2">"en/**/*.md"</span><span class="p">,</span> <span class="s2">"Write prose &amp;</span><span class="se">\n</span><span class="s2">drawlib blocks"</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">55.1</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">translate</span><span class="p">,</span> <span class="s2">"ja/**/*.md"</span><span class="p">,</span> <span class="s2">"Translate prose;</span><span class="se">\n</span><span class="s2">keep shared code"</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">88.9</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">shield_check</span><span class="p">,</span> <span class="s2">"AST &amp; Skeleton"</span><span class="p">,</span> <span class="s2">"Verify files, nav,</span><span class="se">\n</span><span class="s2">skeleton &amp; code"</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">122.7</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">rocket_launch</span><span class="p">,</span> <span class="s2">"Build Once"</span><span class="p">,</span> <span class="s2">"Shared PNGs +</span><span class="se">\n</span><span class="s2">hreflang HTML"</span><span class="p">),</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">cx</span><span class="p">,</span> <span class="n">card_st</span><span class="p">,</span> <span class="n">hdr_st</span><span class="p">,</span> <span class="n">icon_fn</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">desc</span> <span class="ow">in</span> <span class="n">cards</span><span class="p">:</span>
+    <span class="n">line</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mf">36.0</span><span class="p">),</span> <span class="p">(</span><span class="n">cx</span><span class="p">,</span> <span class="mf">31.5</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+    <span class="n">rectangle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mf">18.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">30.6</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">25.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">card_st</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">))</span>
+    <span class="n">icon_fn</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mf">26.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">hdr_st</span><span class="p">)</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mf">20.2</span><span class="p">),</span> <span class="n">title</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">hdr_st</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">))</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mf">12.2</span><span class="p">),</span> <span class="n">desc</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<h2>Shared vs. Localized Diagrams</h2>
+<p>Most technical architecture diagrams contain universal component names—such as <code>API Gateway</code>, <code>gRPC</code>, or <code>PostgreSQL</code>—that require zero translation inside the image itself. Drawlib separates caption localization from in-image label localization using a strict filename convention:</p>
+<ul>
+<li><strong>Shared Technical Diagrams (<code>file=arch.png</code>)</strong>: Keep the exact same <code>file=</code> name and identical Python drawing code in both <code>en/</code> and <code>ja/</code>, while translating the Markdown <code>caption=&quot;...&quot;</code> attribute. Drawlib renders <code>arch.png</code> only once into the shared image directory and references it from every locale.</li>
+<li><strong>Intentionally Localized Diagrams (<code>file=&lt;stem&gt;_&lt;lang&gt;.&lt;ext&gt;</code>)</strong>: When a business workflow or conceptual callout diagram contains domain prose that genuinely benefits from translation, rename the non-default block to <code>&lt;stem&gt;_&lt;lang&gt;.&lt;ext&gt;</code> (for example, <code>file=localized_callout.png</code> in <code>en/</code> paired with <code>file=localized_callout_ja.png</code> in <code>ja/</code>) and explicitly patch locale-appropriate typography such as <code>FontJapanese</code>.</li>
+</ul>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="../../images/workflow/index/localized_callout.png" alt="index_2" />
+  <figcaption class="drawlib-caption">Choosing Between Shared Technical Diagrams and Localized Domain Diagrams</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">144</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">65</span><span class="p">)</span>
+
+<span class="n">text</span><span class="p">(</span>
+    <span class="p">(</span><span class="mf">72.0</span><span class="p">,</span> <span class="mf">58.2</span><span class="p">),</span>
+    <span class="s2">"Diagram Localization Strategy: Shared Stem vs. &lt;stem&gt;_&lt;lang&gt;.&lt;ext&gt;"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">13.5</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># Card 1: Shared Technical Diagram (Neutral)</span>
+<span class="n">cx1</span> <span class="o">=</span> <span class="mf">26.0</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="n">cx1</span><span class="p">,</span> <span class="mf">28.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">40.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">45.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.5</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">share_network</span><span class="p">((</span><span class="n">cx1</span><span class="p">,</span> <span class="mf">45.2</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">5.4</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="n">cx1</span><span class="p">,</span> <span class="mf">38.2</span><span class="p">),</span> <span class="s2">"Shared Technical Diagram"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.2</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="n">cx1</span><span class="p">,</span> <span class="mf">30.2</span><span class="p">),</span> <span class="s2">"Universal system labels</span><span class="se">\n</span><span class="s2">(VPC, gRPC, PostgreSQL)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
+<span class="n">line</span><span class="p">((</span><span class="n">cx1</span><span class="p">,</span> <span class="mf">24.2</span><span class="p">),</span> <span class="p">(</span><span class="n">cx1</span><span class="p">,</span> <span class="mf">19.0</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="n">cx1</span><span class="p">,</span> <span class="mf">13.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">34.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.8</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="n">cx1</span><span class="p">,</span> <span class="mf">15.0</span><span class="p">),</span> <span class="s2">"file=arch.png"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.8</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="n">cx1</span><span class="p">,</span> <span class="mf">11.0</span><span class="p">),</span> <span class="s2">"Rendered once (shared)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
+
+<span class="c1"># Card 2: Localized Business Diagram (Single PrimaryFlat Hero Focal Card)</span>
+<span class="n">cx2</span> <span class="o">=</span> <span class="mf">72.0</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="n">cx2</span><span class="p">,</span> <span class="mf">28.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">40.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">45.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.5</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">translate</span><span class="p">((</span><span class="n">cx2</span><span class="p">,</span> <span class="mf">45.2</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">5.4</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="n">cx2</span><span class="p">,</span> <span class="mf">38.2</span><span class="p">),</span> <span class="s2">"Localized Business Diagram"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.2</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="n">cx2</span><span class="p">,</span> <span class="mf">30.2</span><span class="p">),</span> <span class="s2">"Translated domain labels</span><span class="se">\n</span><span class="s2">in ja/ workflow figures"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
+<span class="n">line</span><span class="p">((</span><span class="n">cx2</span><span class="p">,</span> <span class="mf">24.2</span><span class="p">),</span> <span class="p">(</span><span class="n">cx2</span><span class="p">,</span> <span class="mf">19.0</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="n">cx2</span><span class="p">,</span> <span class="mf">13.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">34.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.8</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="n">cx2</span><span class="p">,</span> <span class="mf">15.0</span><span class="p">),</span> <span class="s2">"file=flow_ja.png"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.8</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="n">cx2</span><span class="p">,</span> <span class="mf">11.0</span><span class="p">),</span> <span class="s2">"&lt;stem&gt;_&lt;lang&gt;.png opt-in"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
+
+<span class="c1"># Card 3: CJK Font Patching &amp; Parity Check (Neutral)</span>
+<span class="n">cx3</span> <span class="o">=</span> <span class="mf">118.0</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="n">cx3</span><span class="p">,</span> <span class="mf">28.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">40.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">45.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.5</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">shield_check</span><span class="p">((</span><span class="n">cx3</span><span class="p">,</span> <span class="mf">45.2</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">5.4</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="n">cx3</span><span class="p">,</span> <span class="mf">38.2</span><span class="p">),</span> <span class="s2">"CJK Typography &amp; Parity"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.2</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="n">cx3</span><span class="p">,</span> <span class="mf">30.2</span><span class="p">),</span> <span class="s2">"Patch FontJapanese &amp;</span><span class="se">\n</span><span class="s2">pass 4 pre-flight checks"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
+<span class="n">line</span><span class="p">((</span><span class="n">cx3</span><span class="p">,</span> <span class="mf">24.2</span><span class="p">),</span> <span class="p">(</span><span class="n">cx3</span><span class="p">,</span> <span class="mf">19.0</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="n">cx3</span><span class="p">,</span> <span class="mf">13.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">34.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.8</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="n">cx3</span><span class="p">,</span> <span class="mf">15.0</span><span class="p">),</span> <span class="s2">"Styles.patch_font(...)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.8</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="n">cx3</span><span class="p">,</span> <span class="mf">11.0</span><span class="p">),</span> <span class="s2">"Zero CJK tofu glyphs"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<h2>Multi-Locale Configuration &amp; Parity Rules</h2>
+<p>Multi-language mode is activated by placing an <code>i18n.toml</code> file at the root of the documentation source directory alongside symmetric locale folders (<code>en/</code> and <code>ja/</code>):</p>
+<pre><code class="language-toml"><span class="n">default_lang</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"en"</span>
+<span class="n">langs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">"en"</span><span class="p">,</span><span class="w"> </span><span class="s2">"ja"</span><span class="p">]</span>
+</code></pre>
+<p>Before executing a single diagram script, Drawlib runs <strong>four mechanical parity checks</strong> across every configured locale so translated documentation never drifts out of sync:</p>
+<ol>
+<li><strong>File Set Parity</strong>: Every relative <code>.md</code> document path in <code>ja/</code> must match <code>en/</code> (<code>index.md</code>, <code>architecture/index.md</code>, <code>workflow/index.md</code>).</li>
+<li><strong>Navbar Parity</strong>: <code>ja/navbar.md</code> must preserve the exact section hierarchy, link counts, and normalized target paths defined in <code>en/navbar.md</code>.</li>
+<li><strong>Markdown Skeleton Parity</strong>: Headings (<code>H1</code>–<code>H3</code>), collapsed prose regions, <code>drawlib</code> blocks, and fenced code blocks (such as the <code>toml</code> snippet above) must appear in the exact same structural order.</li>
+<li><strong>Drawlib Code &amp; Stem Parity</strong>: Shared filenames must contain byte-identical Python code, while localized diagrams must explicitly opt in via <code>&lt;stem&gt;_&lt;lang&gt;.&lt;ext&gt;</code>.</li>
+</ol>
+<p>Continue exploring the <a href="../index.html">Overview</a> or review the shared topology examples on the <a href="../architecture/index.html">System Architecture</a> page.</p>
+
+            </main>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Theme toggle
+            const themeBtn = document.getElementById('theme-toggle');
+            if (themeBtn) {
+                themeBtn.addEventListener('click', function() {
+                    const current = document.documentElement.getAttribute('data-theme');
+                    const next = current === 'dark' ? 'light' : 'dark';
+                    document.documentElement.setAttribute('data-theme', next);
+                    localStorage.setItem('drawlib-theme', next);
+                });
+            }
+
+            // Language dropdown outside-click & Escape close
+            const langDropdowns = document.querySelectorAll('.lang-dropdown');
+            if (langDropdowns.length > 0) {
+                document.addEventListener('click', function(e) {
+                    langDropdowns.forEach(function(dd) {
+                        if (dd.hasAttribute('open') && !dd.contains(e.target)) {
+                            dd.removeAttribute('open');
+                        }
+                    });
+                });
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape') {
+                        langDropdowns.forEach(function(dd) {
+                            dd.removeAttribute('open');
+                        });
+                    }
+                });
+            }
+
+            // Mobile menu toggle
+            const menuBtn = document.getElementById('menu-toggle');
+            const sidebar = document.querySelector('.sidebar');
+            if (menuBtn && sidebar) {
+                function setMenuOpen(open) {
+                    sidebar.classList.toggle('is-open', open);
+                    menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+                    document.body.classList.toggle('menu-open', open);
+                    if (open) {
+                        const menu = sidebar.querySelector('.sidebar-menu');
+                        if (menu) {
+                            menu.scrollTop = 0;
+                        }
+                    }
+                }
+
+                menuBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const willOpen = !sidebar.classList.contains('is-open');
+                    setMenuOpen(willOpen);
+                });
+
+                // Close menu when clicking outside sidebar
+                document.addEventListener('click', function(e) {
+                    if (sidebar.classList.contains('is-open') && !sidebar.contains(e.target)) {
+                        setMenuOpen(false);
+                    }
+                });
+
+                // Close menu when a navigation link is clicked
+                const navLinks = sidebar.querySelectorAll('.nav-item a');
+                navLinks.forEach(function(link) {
+                    link.addEventListener('click', function() {
+                        setMenuOpen(false);
+                    });
+                });
+
+                // Close on Escape key
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape' && sidebar.classList.contains('is-open')) {
+                        setMenuOpen(false);
+                    }
+                });
+
+                // Reset menu state when resized above mobile breakpoint
+                window.addEventListener('resize', function() {
+                    if (window.innerWidth > 768 && sidebar.classList.contains('is-open')) {
+                        setMenuOpen(false);
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

@@ -220,3 +220,27 @@ Never deliver changes to `docs_src/` without executing all 3 verification stages
    - **Phase 2 (Parallel Subagents)**: Assign each subagent a disjoint page or section directory (e.g. `01_getting_started/*.md` to Subagent A, `02_architecture/*.md` to Subagent B). Each subagent treats `styles.py`, `utils.py`, and `navbar.md` as read-only, authors its assigned `.md` files (`2+` diagrams, Top Hero at `Lines 5–15`), and runs Stage 1 & Stage 2 using **unique scratch filenames** (`-o .drawlib/scratch/<page>_<diagram>_grid.png`).
    - **Phase 3 (Parent)**: After all subagents report back, run `./docs_src/build.sh` once, run `uv run drawlib serve docs_html/ --check`, and perform Stage 3 `1280×920` browser verification.
 
+---
+
+## 6. Multi-Language (`i18n`) Documentation Websites (`i18n.toml`)
+
+Scaffold a multi-locale `site` project by passing comma-separated language codes to `-l` / `--lang` (first language becomes `default_lang`):
+
+```bash
+uv run drawlib init site [target] -l en,ja [-s <default|google|monochrome>]
+```
+
+- **Source Layout (`<target>_src/`)**:
+  - `i18n.toml` (`default_lang = "en"`, `langs = ["en", "ja"]`) + shared root `styles.py`, `utils.py`, `style.css`, `template.html`, `_assets/`, and `build*.sh`.
+  - Symmetric locale directories (`en/navbar.md`, `en/index.md`, `ja/navbar.md`, `ja/index.md`, ...).
+- **Compiled Output Layout (`<target>_html/` & `<target>_markdown/`)**:
+  - Root `index.html` / `index.md` rendered directly from `<default_lang>/index.md` with relative links automatically rebased (`images/index/...`, `<default_lang>/...`, `_assets/...`).
+  - Per-locale `<lang>/**/*.html` with localized `<lang>/style.css`, `<html lang="...">`, Google Fonts `<link>`, `hreflang` tags, and top-right `<details class="lang-dropdown">` + `<a href>` language switcher.
+  - Shared `images/<doc_rel_stem>/<file>.png` rendered **once** per build run across all locales.
+- **4 Pre-Flight Mechanical Parity Checks (Enforced Automatically on Build)**:
+  1. **File Set Parity**: Relative `.md`/`.html` paths in every `<lang>/` must match `<default_lang>/`.
+  2. **`navbar.md` Parity**: Section count, heading presence, item count, and normalized link targets must match `<default_lang>/navbar.md`.
+  3. **Markdown Skeleton Sequence Parity**: Ordered sequence of `[Heading(H1..H3), MarkdownText, DrawlibBlock(file, code, align, has_caption), CodeBlock(lang)]` must match `<default_lang>` (consecutive paragraphs/lists/tables/blockquotes/H4+ collapse into a single `MarkdownText` token for natural translation freedom).
+  4. **Drawlib Code Parity**: Shared `file=<name>.png` blocks must have identical Python code across locales; intentionally localized diagrams must use `file=<stem>_<lang>.<ext>` (e.g. `file=overview_ja.png` with explicit `FontJapanese`).
+
+

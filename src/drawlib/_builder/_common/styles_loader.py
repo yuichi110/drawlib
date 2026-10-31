@@ -183,15 +183,16 @@ def load_styles_and_utils(
 
 
 def _find_project_search_dirs(base_dir: str) -> list[str]:
-    """Return base_dir and any ancestor project root directory (up to 3 levels up)."""
+    """Return base_dir and any ancestor project root directory (up to 4 levels up)."""
     dirs = [base_dir]
     curr = base_dir
-    for _ in range(3):
+    for _ in range(4):
         parent = os.path.dirname(curr)
         if not parent or parent == curr:
             break
         is_project_root = (
             os.path.basename(parent).endswith("_src")
+            or os.path.isfile(os.path.join(parent, "i18n.toml"))
             or os.path.isfile(os.path.join(parent, "style.css"))
             or os.path.isfile(os.path.join(parent, "build.sh"))
             or os.path.isfile(os.path.join(parent, "navbar.md"))

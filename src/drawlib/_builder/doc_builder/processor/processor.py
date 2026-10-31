@@ -68,6 +68,7 @@ class DrawlibBlockProcessor:
         self.no_cache = no_cache
         self.require_file = require_file
         self._cache: BuildImageCache = cache if cache is not None else BuildImageCache(enabled=not no_cache)
+        self._rendered_targets: set[str] = set()
         self.project_root: str | None = os.path.abspath(project_root) if project_root else None
         if self.project_root is None:
             if styles_path and os.path.isfile(styles_path):
@@ -135,6 +136,9 @@ class DrawlibBlockProcessor:
     ) -> None:
         """Execute a single drawlib code block and save output image to target file path."""
         target_abs_path = os.path.abspath(target_file_path)
+        if grid is None and target_abs_path in self._rendered_targets and os.path.isfile(target_abs_path):
+            return
+
         stem, ext_dot = os.path.splitext(target_abs_path)
         ext_lower = ext_dot.lower()
         if ext_lower == ".svg":
@@ -178,6 +182,8 @@ class DrawlibBlockProcessor:
                 if grid_bytes is not None:
                     with open(grid_abs_path, "wb") as gf:
                         gf.write(grid_bytes)
+                if grid is None:
+                    self._rendered_targets.add(target_abs_path)
                 return
 
         if self.styles_path or self.utils_path:
@@ -205,6 +211,9 @@ class DrawlibBlockProcessor:
             if drawlib_settings.get_logging_mode() not in {"verbose", "developer"}:
                 warnings.filterwarnings("ignore", message=r"Glyph .* missing from font", category=UserWarning)
             save(target_abs_path)
+
+        if grid is None and os.path.isfile(target_abs_path):
+            self._rendered_targets.add(target_abs_path)
 
         if use_cache and os.path.isfile(target_abs_path):
             with open(target_abs_path, "rb") as f:
@@ -309,6 +318,7 @@ class DrawlibBlockProcessor:
         embed_images: bool = False,
         source_filename: str = "<drawlib_block>",
         progress_callback: Callable[[int, int, bool], None] | None = None,
+        shared_images_dir: str | None = None,
     ) -> str:
         """Process Markdown text and replace ```drawlib blocks with rendered images."""
         masked_text, preserved = preserve_outer_fences(markdown_text)
@@ -338,6 +348,7 @@ class DrawlibBlockProcessor:
                 output_dir=output_dir,
                 require_file=self.require_file,
                 line_number=line_no,
+                shared_images_dir=shared_images_dir,
             )
 
             if embed_images:
@@ -396,6 +407,7 @@ class DrawlibBlockProcessor:
         embed_images: bool = False,
         source_filename: str = "<drawlib_block>",
         progress_callback: Callable[[int, int, bool], None] | None = None,
+        shared_images_dir: str | None = None,
     ) -> str:
         """Process HTML text and replace <script type="text/drawlib"> blocks with rendered images."""
         pattern_script = re.compile(
@@ -422,6 +434,7 @@ class DrawlibBlockProcessor:
                 output_dir=output_dir,
                 require_file=self.require_file,
                 line_number=line_no,
+                shared_images_dir=shared_images_dir,
             )
 
             if embed_images:

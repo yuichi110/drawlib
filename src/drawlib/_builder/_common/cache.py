@@ -73,6 +73,7 @@ def _hash_referenced_local_assets(
         while True:
             if (
                 os.path.isdir(os.path.join(curr, "_assets"))
+                or os.path.isfile(os.path.join(curr, "i18n.toml"))
                 or os.path.isfile(os.path.join(curr, "styles.py"))
                 or os.path.isfile(os.path.join(curr, "utils.py"))
                 or os.path.isfile(os.path.join(curr, "template.html"))

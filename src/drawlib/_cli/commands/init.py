@@ -49,8 +49,12 @@ def _print_init_success(
     """
     paths = resolve_project_paths(project_type=project_type, target=target)
     cwd = Path(".").resolve()
+    try:
+        rel_src_dir = paths.src_dir.relative_to(cwd).as_posix()
+    except ValueError:
+        rel_src_dir = paths.src_dir.as_posix()
 
-    print(f"Initialized '{project_type}' project ('{paths.src_dir_name}/')\n")
+    print(f"Initialized '{project_type}' project ('{rel_src_dir}/')\n")
     print("Project files created:")
     for file_path in created:
         try:
@@ -60,10 +64,10 @@ def _print_init_success(
             print(f"  - {file_path}")
 
     print("\nNext steps:")
-    print(f"  ./{paths.src_dir_name}/build.sh")
+    print(f"  ./{rel_src_dir}/build.sh")
 
     if project_type in {"site", "doc", "slide"}:
-        print(f"  ./{paths.src_dir_name}/serve.sh")
+        print(f"  ./{rel_src_dir}/serve.sh")
 
 
 def _run_init(
@@ -162,7 +166,7 @@ def cmd_init_site(
         typer.Option(
             "-l",
             "--lang",
-            help="Language code for starter templates and font config ('en', 'ja', 'zh-cn', 'ko', etc.).",
+            help="Language code ('en', 'ja', etc.) or comma-separated codes for multi-locale site ('en,ja').",
         ),
     ] = "en",
     force: Annotated[

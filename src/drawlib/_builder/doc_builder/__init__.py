@@ -34,6 +34,12 @@ from drawlib._builder.doc_builder.exporter_html import (
 )
 from drawlib._builder.doc_builder.exporter_md import write_rendered_markdown
 from drawlib._builder.doc_builder.exporter_pdf import export_html_to_pdf
+from drawlib._builder.doc_builder.i18n import (
+    I18nConfig,
+    extract_markdown_skeleton,
+    load_i18n_config,
+    validate_i18n_site,
+)
 from drawlib._builder.doc_builder.merger import build_merged_html, expand_input_files
 from drawlib._builder.doc_builder.navbar import (
     NavbarItem,
@@ -143,6 +149,7 @@ __all__ = [
     "DocumentInputInfo",
     "DrawlibBlockProcessor",
     "FileBuildProgress",
+    "I18nConfig",
     "NavbarItem",
     "NavbarSection",
     "build_document",
@@ -158,11 +165,13 @@ __all__ = [
     "export_css",
     "export_html_to_pdf",
     "extract_code_blocks",
+    "extract_markdown_skeleton",
     "format_duplicate_output_error",
     "get_default_css",
     "list_css",
     "list_html_css",
     "list_pdf_css",
+    "load_i18n_config",
     "load_styles_and_utils",
     "parse_markdown_to_html",
     "parse_navbar_markdown",
@@ -170,5 +179,6 @@ __all__ = [
     "resolve_navbar_for_page",
     "resolve_styles_and_utils",
     "show_code_block",
+    "validate_i18n_site",
     "write_rendered_markdown",
 ]

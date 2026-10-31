@@ -26,6 +26,7 @@ from drawlib._templates._css import (
     list_html_css,
     list_pdf_css,
     list_slide_css,
+    localize_css_for_language,
 )
 from drawlib._templates._models import ProjectPaths
 from drawlib._templates._project import (
@@ -54,5 +55,6 @@ __all__ = [
     "list_pdf_css",
     "list_project_types",
     "list_slide_css",
+    "localize_css_for_language",
     "resolve_project_paths",
 ]

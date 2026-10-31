@@ -24,6 +24,7 @@ EXCLUDED_ASSET_NAMES: set[str] = {
     "style.css",
     "template.html.j2",
     "template.html",
+    "i18n.toml",
 }
 EXCLUDED_ASSET_EXTENSIONS: tuple[str, ...] = (".py", ".sh", ".j2", ".template")
 

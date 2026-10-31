@@ -28,6 +28,7 @@ def check_document_output_duplicates(
     display_names: Sequence[str],
     image_format: str = "png",
     embed_images: bool = False,
+    shared_images_dirs: Sequence[str | None] | None = None,
 ) -> int:
     """Pre-check all document tasks and drawlib code blocks for duplicate output file paths.
 
@@ -36,6 +37,7 @@ def check_document_output_duplicates(
         display_names (Sequence[str]): Corresponding display names (e.g. `/dir/file.md`).
         image_format (str): Default image format ('png' or 'webp').
         embed_images (bool): True if images are embedded as Data URLs (no image files written).
+        shared_images_dirs (Optional[Sequence[Optional[str]]]): Optional per-task shared images directories.
 
     Returns:
         int: Maximum number of drawlib image blocks in any single document in `tasks`.
@@ -53,7 +55,11 @@ def check_document_output_duplicates(
                 raise ValueError(format_duplicate_output_error(norm_dest, seen_outputs[norm_dest], disp_name))
             seen_outputs[norm_dest] = disp_name
 
-    for (src_abs, dest_abs, is_md), disp_name in zip(tasks, display_names):
+    eff_shared_dirs: Sequence[str | None] = (
+        shared_images_dirs if shared_images_dirs is not None else [None] * len(tasks)
+    )
+
+    for (src_abs, dest_abs, is_md), disp_name, shared_dir in zip(tasks, display_names, eff_shared_dirs):
         try:
             with open(src_abs, "r", encoding="utf-8") as f:
                 content = f.read()
@@ -80,6 +86,7 @@ def check_document_output_duplicates(
                 block_counter=block.index,
                 default_format=image_format,
                 output_dir=output_dir,
+                shared_images_dir=shared_dir,
             )
             norm_img = os.path.abspath(target_img_path)
             block_label = f"{disp_name} (block #{block.index}, line {block.line_number})"

@@ -31,7 +31,7 @@ class _LinkExtractor(HTMLParser):
             self.links.append((tag, attr_dict["href"]))
         elif tag == "img" and "src" in attr_dict:
             self.links.append((tag, attr_dict["src"]))
-        elif tag == "link" and attr_dict.get("rel") == "stylesheet" and "href" in attr_dict:
+        elif tag == "link" and attr_dict.get("rel") in {"stylesheet", "alternate"} and "href" in attr_dict:
             self.links.append((tag, attr_dict["href"]))
 
 

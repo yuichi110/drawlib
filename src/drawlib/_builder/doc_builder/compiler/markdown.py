@@ -23,6 +23,12 @@ from drawlib._builder.doc_builder.compiler.base import (
 )
 from drawlib._builder.doc_builder.detector import detect_document_type
 from drawlib._builder.doc_builder.exporter_md import write_rendered_markdown
+from drawlib._builder.doc_builder.i18n import (
+    I18nConfig,
+    load_i18n_config,
+    rebase_markdown_relative_urls,
+    validate_i18n_site,
+)
 from drawlib._builder.doc_builder.processor import DrawlibBlockProcessor
 from drawlib._builder.doc_builder.progress import check_document_output_duplicates
 
@@ -58,6 +64,18 @@ def build_markdown(
     if out_dir_abs == input_abs:
         raise ValueError(
             f'Refusing to overwrite input source directory "{input_abs}". Please specify a different output directory.'
+        )
+
+    i18n_cfg = load_i18n_config(input_abs)
+    if i18n_cfg is not None:
+        return _build_i18n_markdown(
+            input_abs=input_abs,
+            out_dir_abs=out_dir_abs,
+            i18n_cfg=i18n_cfg,
+            image_format=image_format,
+            styles_path=styles_path,
+            utils_path=utils_path,
+            no_cache=no_cache,
         )
 
     styles_abs, utils_abs = resolve_styles_and_utils(input_abs, styles_path, utils_path)
@@ -132,6 +150,138 @@ def build_markdown(
     return out_dir_abs
 
 
+def _find_locale_index_md(lang_dir_abs: str) -> str | None:
+    """Return absolute path to index.md / index.markdown inside a locale directory if present."""
+    for cand_name in ("index.md", "index.markdown"):
+        cand = os.path.join(lang_dir_abs, cand_name)
+        if os.path.isfile(cand):
+            return cand
+    return None
+
+
+def _build_i18n_markdown_tasks(
+    input_abs: str,
+    out_dir_abs: str,
+    ordered_langs: list[str],
+    locale_files: dict[str, list[str]],
+    image_format: str,
+) -> tuple[list[tuple[str, str, str]], list[str], int]:
+    """Build ordered (src_abs, dest_abs, shared_dir) tasks across locales and validate per-locale duplicates."""
+    all_tasks: list[tuple[str, str, str]] = []
+    display_names: list[str] = []
+    max_blocks = 0
+
+    for lang in ordered_langs:
+        lang_tasks: list[tuple[str, str, bool]] = []
+        lang_disp: list[str] = []
+        lang_shared_dirs: list[str | None] = []
+        for rel_path in locale_files[lang]:
+            if not rel_path.lower().endswith((".md", ".markdown")):
+                continue
+            src_abs = os.path.join(input_abs, lang, *rel_path.split("/"))
+            dest_abs = os.path.join(out_dir_abs, lang, *rel_path.split("/"))
+            rel_stem, _ = os.path.splitext(rel_path)
+            shared_dir = os.path.join(out_dir_abs, "images", *rel_stem.split("/"))
+            disp = f"/{lang}/{rel_path}"
+
+            all_tasks.append((src_abs, dest_abs, shared_dir))
+            display_names.append(disp)
+            lang_tasks.append((src_abs, dest_abs, True))
+            lang_disp.append(disp)
+            lang_shared_dirs.append(shared_dir)
+
+        loc_max = check_document_output_duplicates(
+            tasks=lang_tasks,
+            display_names=lang_disp,
+            image_format=image_format,
+            embed_images=False,
+            shared_images_dirs=lang_shared_dirs,
+        )
+        max_blocks = max(max_blocks, loc_max)
+
+    return all_tasks, display_names, max_blocks
+
+
+def _build_i18n_markdown(
+    *,
+    input_abs: str,
+    out_dir_abs: str,
+    i18n_cfg: I18nConfig,
+    image_format: str,
+    styles_path: str | None,
+    utils_path: str | None,
+    no_cache: bool,
+) -> str:
+    """Compile a multi-locale (i18n) site directory into rendered Markdown."""
+    styles_abs, utils_abs = resolve_styles_and_utils(input_abs, styles_path, utils_path)
+    locale_files = validate_i18n_site(input_abs, i18n_cfg, default_format=image_format)
+
+    default_lang = i18n_cfg.default_lang
+    ordered_langs = [default_lang] + [lc for lc in i18n_cfg.langs if lc != default_lang]
+    all_tasks, display_names, max_blocks = _build_i18n_markdown_tasks(
+        input_abs=input_abs,
+        out_dir_abs=out_dir_abs,
+        ordered_langs=ordered_langs,
+        locale_files=locale_files,
+        image_format=image_format,
+    )
+
+    def_index_src = _find_locale_index_md(os.path.join(input_abs, default_lang))
+    extra_names = [*display_names, "/index.md"] if def_index_src else display_names
+    total_files = len(extra_names)
+    name_width = max((len(n) for n in extra_names), default=0)
+    image_width = len(str(max(max_blocks, 0)))
+
+    cache = BuildImageCache(enabled=not no_cache)
+    processor: DrawlibBlockProcessor | None = None
+
+    for idx, ((src_abs, dest_abs, shared_dir), disp_name) in enumerate(zip(all_tasks, display_names), start=1):
+        processor = _compile_single_markdown_file(
+            src_abs=src_abs,
+            dest_abs=dest_abs,
+            image_format=image_format,
+            styles_path=styles_abs,
+            utils_path=utils_abs,
+            processor=processor,
+            progress=FileBuildProgress(
+                idx,
+                total_files,
+                file_name=disp_name,
+                name_width=name_width,
+                image_width=image_width,
+            ),
+            no_cache=no_cache,
+            cache=cache,
+            project_root=input_abs,
+            shared_images_dir=shared_dir,
+        )
+
+    if def_index_src is not None:
+        _compile_single_markdown_file(
+            src_abs=def_index_src,
+            dest_abs=os.path.join(out_dir_abs, "index.md"),
+            image_format=image_format,
+            styles_path=styles_abs,
+            utils_path=utils_abs,
+            processor=processor,
+            progress=FileBuildProgress(
+                total_files,
+                total_files,
+                file_name="/index.md",
+                name_width=name_width,
+                image_width=image_width,
+            ),
+            no_cache=no_cache,
+            cache=cache,
+            project_root=input_abs,
+            shared_images_dir=os.path.join(out_dir_abs, "images", "index"),
+            rebase_from_dir=os.path.join(out_dir_abs, default_lang),
+        )
+
+    copy_directory_assets(input_abs, out_dir_abs)
+    return out_dir_abs
+
+
 def _compile_single_markdown_file(
     src_abs: str,
     dest_abs: str,
@@ -143,6 +293,8 @@ def _compile_single_markdown_file(
     no_cache: bool = False,
     cache: BuildImageCache | None = None,
     project_root: str | None = None,
+    shared_images_dir: str | None = None,
+    rebase_from_dir: str | None = None,
 ) -> DrawlibBlockProcessor | None:
     """Compile a single Markdown file with drawlib blocks into rendered Markdown."""
     with open(src_abs, "r", encoding="utf-8") as f:
@@ -194,10 +346,18 @@ def _compile_single_markdown_file(
                 use_markdown_syntax=True,
                 source_filename=src_abs,
                 progress_callback=(progress.update if progress else None),
+                shared_images_dir=shared_images_dir,
             )
             rendered_content = processed_text
         else:
             rendered_content = content
+
+        if rebase_from_dir is not None:
+            rendered_content = rebase_markdown_relative_urls(
+                markdown_text=rendered_content,
+                from_dir=rebase_from_dir,
+                to_dir=output_dir,
+            )
 
         write_rendered_markdown(rendered_content, dest_abs)
     finally:

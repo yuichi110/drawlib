@@ -338,3 +338,25 @@ def test_cli_init_lang_invalid(tmp_path: Path) -> None:
     res = run_drawlib_cli(["init", "site", "--lang", "unknown_lang"], cwd=str(tmp_path))
     assert res.returncode != 0
     assert "Unsupported language 'unknown_lang'" in res.stderr
+
+
+def test_cli_init_site_multi_lang(tmp_path: Path) -> None:
+    """Test `drawlib init site sub/portal -l en,ja` scaffolds an i18n site and rejects non-site multi-lang."""
+    res = run_drawlib_cli(["init", "site", "sub/portal", "-l", "en,ja"], cwd=str(tmp_path))
+    assert res.returncode == 0
+    assert "sub/portal_src/" in res.stdout
+
+    src_dir = tmp_path / "sub" / "portal_src"
+    assert (src_dir / "i18n.toml").is_file()
+    i18n_toml = (src_dir / "i18n.toml").read_text(encoding="utf-8")
+    assert 'default_lang = "en"' in i18n_toml
+    assert 'langs = ["en", "ja"]' in i18n_toml
+    assert (src_dir / "en" / "index.md").is_file()
+    assert (src_dir / "ja" / "index.md").is_file()
+    assert (src_dir / "en" / "navbar.md").is_file()
+    assert (src_dir / "ja" / "navbar.md").is_file()
+
+    # Non-site multi-lang should fail cleanly
+    res_doc = run_drawlib_cli(["init", "doc", "-l", "en,ja"], cwd=str(tmp_path))
+    assert res_doc.returncode != 0
+    assert "only supported for 'site' projects" in res_doc.stderr

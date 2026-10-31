@@ -45,6 +45,33 @@ def list_project_types() -> dict[str, str]:
     return dict(PROJECT_TYPES)
 
 
+def _resolve_target_base_and_dir(
+    canonical_type: str,
+    target: str | None,
+    destination: str | Path,
+) -> tuple[str, Path]:
+    """Resolve (base_name, base_dir) supporting subdirectory target paths like 'docs/mysite'."""
+    dest_path = Path(destination)
+    if target is not None and target.strip():
+        cleaned = target.strip().rstrip("/\\").replace("\\", "/")
+        if "/" in cleaned:
+            parent_rel, leaf = cleaned.rsplit("/", 1)
+            base_dir = (dest_path / parent_rel).resolve()
+            base_name = leaf[:-4] if leaf.endswith("_src") else leaf
+            return base_name, base_dir
+        base_name = cleaned[:-4] if cleaned.endswith("_src") else cleaned
+        return base_name, dest_path.resolve()
+
+    default_names = {
+        "site": "docs",
+        "images": "images",
+        "image": "images",
+        "slide": "slide",
+        "doc": "doc",
+    }
+    return default_names.get(canonical_type, canonical_type), dest_path.resolve()
+
+
 def resolve_project_paths(
     project_type: str,
     target: str | None = None,
@@ -54,7 +81,7 @@ def resolve_project_paths(
 
     Args:
         project_type: Project type name ('doc', 'site', 'slide', 'images', 'image').
-        target: Custom base name for the project (e.g. 'spec', 'report', 'docs').
+        target: Custom base name or relative path for the project (e.g. 'spec', 'docs/mysite').
             If None, defaults to canonical type name ('doc', 'docs', 'slide', 'images').
         destination: Base directory path where <target>_src will be created (defaults to current dir).
 
@@ -63,23 +90,8 @@ def resolve_project_paths(
     """
     normalized_type = project_type.strip().lower()
     canonical_type = _CANONICAL_TYPE_MAP.get(normalized_type, normalized_type)
+    base_name, base_dir = _resolve_target_base_and_dir(canonical_type, target, destination)
 
-    if target is not None and target.strip():
-        base_name = target.strip().rstrip("/\\")
-        if base_name.endswith("_src"):
-            base_name = base_name[:-4]
-    elif canonical_type == "site":
-        base_name = "docs"
-    elif canonical_type in {"images", "image"}:
-        base_name = "images"
-    elif canonical_type == "slide":
-        base_name = "slide"
-    elif canonical_type == "doc":
-        base_name = "doc"
-    else:
-        base_name = canonical_type
-
-    base_dir = Path(destination).resolve()
     src_dir_name = f"{base_name}_src"
     src_dir = base_dir / src_dir_name
 
@@ -210,7 +222,7 @@ def _deploy_type_root_files(
 ) -> None:
     """Deploy type-specific root files (build scripts, template.html, etc.)."""
     for item in type_root.iterdir():
-        if item.name in {"docs", "__pycache__", "output_readme.md"} or item.name.startswith("."):
+        if item.name in {"docs", "docs_i18n", "__pycache__", "output_readme.md"} or item.name.startswith("."):
             continue
         _copy_item_with_substitutions(item, src_dir / item.name, replacements, created_files)
 
@@ -239,6 +251,73 @@ def _deploy_localized_docs(
         _copy_item_with_substitutions(item, src_dir / item.name, replacements, created_files)
 
 
+def _parse_init_languages(lang: str, canonical_type: str) -> list[str]:
+    """Parse and validate single or comma-separated language codes for project initialization."""
+    parts = [part.strip() for part in lang.split(",") if part.strip()]
+    if not parts:
+        raise ValueError("Language code cannot be empty.")
+
+    normalized: list[str] = []
+    for raw_code in parts:
+        norm_code = normalize_language(raw_code)
+        if norm_code in normalized:
+            raise ValueError(f"Duplicate language code '{norm_code}' in --lang '{lang}'.")
+        normalized.append(norm_code)
+
+    if len(normalized) > 1 and canonical_type != "site":
+        raise ValueError(
+            f"Multi-language initialization ('{lang}') is only supported for 'site' projects, not '{canonical_type}'."
+        )
+    return normalized
+
+
+def _deploy_i18n_config(
+    src_dir: Path,
+    default_lang: str,
+    langs: list[str],
+    created_files: list[Path],
+) -> None:
+    """Write i18n.toml configuration file for multi-locale site projects."""
+    langs_literal = ", ".join(f'"{lc}"' for lc in langs)
+    toml_text = f'default_lang = "{default_lang}"\nlangs = [{langs_literal}]\n'
+    target_path = src_dir / "i18n.toml"
+    target_path.parent.mkdir(parents=True, exist_ok=True)
+    target_path.write_text(toml_text, encoding="utf-8")
+    if target_path not in created_files:
+        created_files.append(target_path)
+
+
+def _deploy_i18n_site_locales(
+    type_root: Traversable,
+    src_dir: Path,
+    langs: list[str],
+    replacements: dict[str, str],
+    created_files: list[Path],
+) -> None:
+    """Deploy parity-aligned starter document trees under <src_dir>/<lang>/ for each locale."""
+    docs_root = type_root.joinpath("docs")
+    docs_i18n_root = type_root.joinpath("docs_i18n")
+    en_docs = docs_root.joinpath("en")
+
+    root_readme = en_docs.joinpath("README.md")
+    if root_readme.is_file():
+        _copy_item_with_substitutions(root_readme, src_dir / "README.md", replacements, created_files)
+
+    for lc in langs:
+        i18n_cand = docs_i18n_root.joinpath(lc) if docs_i18n_root.is_dir() else None
+        if i18n_cand is not None and i18n_cand.is_dir():
+            source_tree = i18n_cand
+        else:
+            source_tree = en_docs
+        if not source_tree.is_dir():
+            continue
+        locale_dst = src_dir / lc
+        for item in source_tree.iterdir():
+            if item.name in {"__pycache__", "README.md"} or item.name.startswith("."):
+                continue
+            _copy_item_with_substitutions(item, locale_dst / item.name, replacements, created_files)
+
+
 def init_project(
     project_type: str,
     destination: str | Path = ".",
@@ -257,7 +336,7 @@ def init_project(
         target: Custom base name for the project (e.g. 'spec', 'report', 'docs').
         output: Legacy alias for target (e.g. 'rbac' creates 'rbac_src/').
         force: If True, overwrite existing files and directories.
-        lang: Language for starter templates ('en', 'ja', etc.). Defaults to 'en'.
+        lang: Language code ('en', 'ja', etc.) or comma-separated codes for i18n 'site' ('en,ja').
         style: Style preset theme ('default', 'google', 'monochrome', etc.) or custom CSS file path.
         here: Deprecated legacy option. Ignored when target_src is always created.
 
@@ -275,7 +354,9 @@ def init_project(
         raise ValueError(f"Unknown project type '{project_type}'. Available types: {types_str}")
 
     canonical_type = _CANONICAL_TYPE_MAP[raw_type]
-    selected_lang = normalize_language(lang)
+    parsed_langs = _parse_init_languages(lang, canonical_type)
+    primary_lang = parsed_langs[0]
+    is_multi_lang = len(parsed_langs) > 1
     resolved_style = (style or "default").strip()
     effective_target = target if target is not None else output
 
@@ -286,18 +367,13 @@ def init_project(
     )
 
     project_base = importlib.resources.files("drawlib._templates").joinpath("project")
-
-    # Handle image vs images directory fallback
-    type_dir_name = canonical_type
-    type_root = project_base.joinpath(type_dir_name)
+    type_root = project_base.joinpath(canonical_type)
     if not type_root.is_dir() and canonical_type == "images":
-        type_dir_name = "image"
-        type_root = project_base.joinpath(type_dir_name)
-
+        type_root = project_base.joinpath("image")
     if not type_root.is_dir():
         raise FileNotFoundError(f"Template directory for '{canonical_type}' not found.")
 
-    css_content = _resolve_stylesheet(canonical_type, resolved_style, lang=selected_lang)
+    css_content = _resolve_stylesheet(canonical_type, resolved_style, lang=primary_lang)
     _validate_conflicts(src_dir=paths.src_dir, force=force)
 
     replacements = {
@@ -307,13 +383,21 @@ def init_project(
         "__OUT_IMAGES_DIR__": paths.out_images_dir_name,
         "__OUT_HTML_DIR__": paths.out_html_dir_name,
         "__OUT_PDF__": paths.out_pdf_name,
-        **get_font_replacements(selected_lang, style_theme=resolved_style),
+        **get_font_replacements(primary_lang, style_theme=resolved_style),
     }
+    if is_multi_lang:
+        replacements["__RTD_HTML_LANG__"] = "{{ html_lang | default('en') }}"
+        replacements["__RTD_HTML_DIR__"] = "{{ html_dir | default('ltr') }}"
+        replacements["__RTD_FONT_LINK__"] = "{{ font_link_html | default('') | safe }}"
 
     created_files: list[Path] = []
     _deploy_shared_templates(project_base, paths.src_dir, replacements, created_files)
     _deploy_type_root_files(type_root, paths.src_dir, replacements, created_files)
-    _deploy_localized_docs(type_root, paths.src_dir, selected_lang, replacements, created_files)
+    if is_multi_lang:
+        _deploy_i18n_config(paths.src_dir, primary_lang, parsed_langs, created_files)
+        _deploy_i18n_site_locales(type_root, paths.src_dir, parsed_langs, replacements, created_files)
+    else:
+        _deploy_localized_docs(type_root, paths.src_dir, primary_lang, replacements, created_files)
     _copy_shared_assets(paths.src_dir, replacements, created_files)
     _deploy_stylesheet(paths.src_dir, css_content, created_files)
 

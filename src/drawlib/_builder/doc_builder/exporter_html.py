@@ -12,11 +12,12 @@
 from __future__ import annotations
 
 import os
+import re
 from typing import Any, Literal
 
 from jinja2 import Environment, FileSystemLoader
 
-from drawlib._templates import get_css
+from drawlib._templates import get_css, localize_css_for_language
 
 
 def get_default_css(
@@ -37,6 +38,9 @@ def get_default_css(
     Raises:
         ValueError: If specified CSS preset name is unknown or unsupported for the target format.
     """
+    if custom_css_path and os.path.exists(custom_css_path):
+        with open(custom_css_path, "r", encoding="utf-8") as f:
+            return localize_css_for_language(f.read(), lang=lang)
     return get_css(name=custom_css_path, target=target, lang=lang)
 
 
@@ -53,6 +57,40 @@ def get_pdf_css(custom_css_path: str | None = None, lang: str = "en") -> str:
     return get_css(name=custom_css_path, target="pdf", lang=lang)
 
 
+def _ensure_i18n_head_metadata(
+    rendered: str,
+    html_lang: str | None,
+    html_dir: str | None,
+    font_link_html: str | None,
+    alternate_links: list[dict[str, str]] | None,
+) -> str:
+    """Ensure html lang/dir, Google Fonts link, and hreflang links are present even on legacy templates."""
+    if html_lang:
+        eff_dir = html_dir or "ltr"
+        rendered = re.sub(
+            r"<html\b[^>]*>",
+            f'<html lang="{html_lang}" dir="{eff_dir}">',
+            rendered,
+            count=1,
+            flags=re.IGNORECASE,
+        )
+
+    extra_head_lines: list[str] = []
+    if font_link_html and "fonts.googleapis.com" not in rendered:
+        extra_head_lines.append(f"    {font_link_html}")
+    if alternate_links and 'rel="alternate"' not in rendered:
+        for alt in alternate_links:
+            extra_head_lines.append(
+                f'    <link rel="alternate" hreflang="{alt["hreflang"]}" href="{alt["url"]}">'
+            )
+
+    if extra_head_lines and "</head>" in rendered:
+        injection = "\n".join(extra_head_lines) + "\n</head>"
+        rendered = rendered.replace("</head>", injection, 1)
+
+    return rendered
+
+
 def render_html_document(
     body_html: str,
     title: str = "Drawlib Document",
@@ -66,6 +104,12 @@ def render_html_document(
     favicon_href: str | None = None,
     logo_href: str | None = None,
     logo_dark_href: str | None = None,
+    html_lang: str | None = None,
+    html_dir: str | None = None,
+    font_link_html: str | None = None,
+    languages: list[dict[str, Any]] | None = None,
+    alternate_links: list[dict[str, str]] | None = None,
+    css_lang: str = "en",
 ) -> str:
     """Render full standalone HTML document using template and html_css.
 
@@ -82,6 +126,12 @@ def render_html_document(
         favicon_href (Optional[str]): Relative path/href for favicon link. Defaults to None.
         logo_href (Optional[str]): Relative path/href for light mode brand logo image. Defaults to None.
         logo_dark_href (Optional[str]): Relative path/href for dark mode brand logo image. Defaults to None.
+        html_lang (Optional[str]): Explicit BCP-47 language tag for ``<html lang="...">``.
+        html_dir (Optional[str]): Explicit writing direction (``'ltr'`` or ``'rtl'``).
+        font_link_html (Optional[str]): Explicit Google Fonts ``<link>`` HTML snippet.
+        languages (Optional[List[Dict[str, Any]]]): Multi-locale language switcher link items.
+        alternate_links (Optional[List[Dict[str, str]]]): ``hreflang`` alternate link entries.
+        css_lang (str): Language code for embedded CSS font localization when ``css_href`` is None.
 
     Returns:
         str: Complete HTML string.
@@ -100,21 +150,40 @@ def render_html_document(
 
     custom_css_content = ""
     if not css_href:
-        custom_css_content = get_default_css(custom_css_path=custom_css_path, target="html")
+        custom_css_content = get_default_css(custom_css_path=custom_css_path, target="html", lang=css_lang)
 
-    return template.render(
-        title=title,
-        body=body_html,
-        custom_css=custom_css_content,
-        css_href=css_href,
-        nav_items=nav_items or [],
-        nav_sections=nav_sections or [],
-        index_url=index_url,
-        site_title=site_title or "drawlib",
-        favicon_href=favicon_href,
-        logo_href=logo_href,
-        logo_dark_href=logo_dark_href,
-    )
+    render_kwargs: dict[str, Any] = {
+        "title": title,
+        "body": body_html,
+        "custom_css": custom_css_content,
+        "css_href": css_href,
+        "nav_items": nav_items or [],
+        "nav_sections": nav_sections or [],
+        "index_url": index_url,
+        "site_title": site_title or "drawlib",
+        "favicon_href": favicon_href,
+        "logo_href": logo_href,
+        "logo_dark_href": logo_dark_href,
+        "languages": languages or [],
+        "alternate_links": alternate_links or [],
+    }
+    if html_lang is not None:
+        render_kwargs["html_lang"] = html_lang
+    if html_dir is not None:
+        render_kwargs["html_dir"] = html_dir
+    if font_link_html is not None:
+        render_kwargs["font_link_html"] = font_link_html
+
+    rendered = template.render(**render_kwargs)
+    if html_lang is not None or font_link_html is not None or alternate_links:
+        rendered = _ensure_i18n_head_metadata(
+            rendered=rendered,
+            html_lang=html_lang,
+            html_dir=html_dir,
+            font_link_html=font_link_html,
+            alternate_links=alternate_links,
+        )
+    return rendered
 
 
 def render_pdf_document(

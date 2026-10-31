@@ -15,7 +15,7 @@ import importlib.resources
 import os
 from typing import Final, Literal
 
-from drawlib._templates.langs import get_font_replacements
+from drawlib._templates.langs import CSS_MAP, get_font_replacements, get_language_config
 
 BUILTIN_THEMES: Final[dict[str, dict[str, str]]] = {
     "default": {
@@ -112,6 +112,43 @@ def _apply_css_font_replacements(css_text: str, lang: str = "en") -> str:
         if key in replacements:
             css_text = css_text.replace(key, replacements[key])
     return css_text
+
+
+def localize_css_for_language(css_text: str, lang: str = "en") -> str:
+    """Adapt an existing stylesheet's font-family stack for a target language.
+
+    Works both when ``css_text`` still contains ``__RTD_FONT_FAMILY__`` placeholders and
+    when ``css_text`` was already generated for another default language (such as ``en``).
+
+    Args:
+        css_text: Base stylesheet content read from ``style.css``.
+        lang: Target language code or alias (e.g. ``'ja'``, ``'zh-cn'``, ``'ko'``).
+
+    Returns:
+        str: Stylesheet content with language-specific font stacks applied.
+    """
+    updated = _apply_css_font_replacements(css_text, lang=lang)
+    cfg = get_language_config(lang)
+    en_css = CSS_MAP["en"]
+
+    replaced_font = False
+    if cfg.font_family and en_css.font_family in updated:
+        updated = updated.replace(en_css.font_family, cfg.font_family)
+        replaced_font = True
+    if cfg.mono_font_family and en_css.mono_font_family in updated:
+        updated = updated.replace(en_css.mono_font_family, cfg.mono_font_family)
+
+    if not replaced_font and cfg.font_family and cfg.font_family != en_css.font_family:
+        if cfg.font_family not in updated:
+            override = (
+                f"\n/* Localized typography override ({cfg.code}) */\n"
+                f":root {{\n"
+                f"    --rtd-font: {cfg.font_family}, system-ui, sans-serif;\n"
+                f"}}\n"
+            )
+            updated = updated.rstrip() + "\n" + override
+
+    return updated
 
 
 def _read_template_resource(*subpath: str) -> str:

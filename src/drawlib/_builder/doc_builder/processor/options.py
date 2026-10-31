@@ -175,6 +175,7 @@ def resolve_block_image_paths(
     output_dir: str | None,
     require_file: bool = False,
     line_number: int = 1,
+    shared_images_dir: str | None = None,
 ) -> tuple[str, str]:
     """Resolve relative image reference path and target filesystem path for a drawlib block.
 
@@ -186,6 +187,7 @@ def resolve_block_image_paths(
         output_dir (Optional[str]): Target output directory for generated assets.
         require_file (bool): Whether to enforce that options.file is provided.
         line_number (int): Line number of the code block for error reporting.
+        shared_images_dir (Optional[str]): Optional shared target directory for multi-locale sites.
 
     Returns:
         tuple[str, str]: (rel_img_path for HTML/Markdown src, target_img_path on disk).
@@ -216,6 +218,14 @@ def resolve_block_image_paths(
             )
         img_name = f"{block_counter}.{ext}"
         rel_img_path = f"{doc_base_name}_images/{img_name}"
+
+    if shared_images_dir is not None:
+        target_img_path = os.path.abspath(os.path.join(shared_images_dir, img_name))
+        if output_dir:
+            rel_img_path = os.path.relpath(target_img_path, os.path.abspath(output_dir)).replace(os.sep, "/")
+        else:
+            rel_img_path = os.path.join(shared_images_dir, img_name).replace(os.sep, "/")
+        return rel_img_path, target_img_path
 
     if output_dir:
         target_img_path = os.path.join(output_dir, rel_img_path)
