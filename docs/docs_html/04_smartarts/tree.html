@@ -682,7 +682,953 @@ It automates vertical branch alignment, indentation levels, and tree connector l
 </code></pre>
 </details>
 <hr />
-<h2>1. Quick Example: Project Directory Hierarchy</h2>
+<h2>1. Core Concepts &amp; Basic Usage</h2>
+<p><code>TreeNode</code> builds hierarchical directory and taxonomy trees anchored at <strong>Top-Left <code>xy=(x, y)</code></strong> (the root label's left edge and vertical center), automatically stepping child levels <code>+2 * line_horizontal_margin</code> rightward and <code>-line_vertical_margin</code> downward with orthogonal branch connectors. Style and spacing overrides on any intermediate node cascade to its subtree, while <code>register_drawing_item</code> attaches <code>&quot;before&quot;</code> icons or <code>&quot;after&quot;</code> status badges and <code>show</code> / <code>scale</code> control visibility and proportional sizing:</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="tree_images/tree_parameter_tour.png" alt="tree_2" />
+  <figcaption class="drawlib-caption">Basic Usage & Parameter Tour: Top-Left Anchor, Connector Margins & Cascading, Icons & Badges, and Visibility & Scaling (APNG Animation)</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.anim</span><span class="w"> </span><span class="kn">import</span> <span class="n">Animation</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">code</span> <span class="k">as</span> <span class="n">code_icons</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">circle</span><span class="p">,</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.smartarts</span><span class="w"> </span><span class="kn">import</span> <span class="n">SourceCode</span><span class="p">,</span> <span class="n">SourceCodeStyles</span><span class="p">,</span> <span class="n">TreeNode</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">W</span><span class="p">,</span> <span class="n">H</span> <span class="o">=</span> <span class="mf">138.0</span><span class="p">,</span> <span class="mf">82.0</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="n">W</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">H</span><span class="p">)</span>
+<span class="n">anim</span> <span class="o">=</span> <span class="n">Animation</span><span class="p">(</span><span class="n">fps</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">loop</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">CODE_TEXT_SIZE</span> <span class="o">=</span> <span class="mf">10.0</span>
+<span class="n">PT_TO_CANVAS</span> <span class="o">=</span> <span class="n">W</span> <span class="o">/</span> <span class="mf">720.0</span>
+<span class="n">FONT_CANVAS</span> <span class="o">=</span> <span class="n">CODE_TEXT_SIZE</span> <span class="o">*</span> <span class="n">PT_TO_CANVAS</span>
+<span class="n">LINE_H</span> <span class="o">=</span> <span class="n">FONT_CANVAS</span> <span class="o">*</span> <span class="mf">1.8</span>
+<span class="n">PAD_Y</span> <span class="o">=</span> <span class="n">FONT_CANVAS</span> <span class="o">*</span> <span class="mf">1.2</span>
+
+<span class="n">CODE_STYLES</span> <span class="o">=</span> <span class="n">SourceCodeStyles</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"default"</span><span class="p">,</span> <span class="n">font_lang</span><span class="o">=</span><span class="s2">"en"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="n">CODE_TEXT_SIZE</span><span class="p">)</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+    <span class="n">box_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">shape_line_width</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">PANE_HEADER</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+    <span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">238</span><span class="p">,</span> <span class="mi">243</span><span class="p">,</span> <span class="mi">250</span><span class="p">),</span>
+    <span class="n">shape_line_color</span><span class="o">=</span><span class="p">(</span><span class="mi">203</span><span class="p">,</span> <span class="mi">213</span><span class="p">,</span> <span class="mi">225</span><span class="p">),</span>
+    <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span>
+    <span class="n">shape_r</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">EDITOR_BODY</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+    <span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">250</span><span class="p">,</span> <span class="mi">252</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span>
+    <span class="n">shape_line_color</span><span class="o">=</span><span class="p">(</span><span class="mi">203</span><span class="p">,</span> <span class="mi">213</span><span class="p">,</span> <span class="mi">225</span><span class="p">),</span>
+    <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span>
+    <span class="n">shape_r</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">TAKEAWAY_BODY</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+    <span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">242</span><span class="p">,</span> <span class="mi">246</span><span class="p">,</span> <span class="mi">253</span><span class="p">),</span>
+    <span class="n">shape_line_color</span><span class="o">=</span><span class="p">(</span><span class="mi">203</span><span class="p">,</span> <span class="mi">213</span><span class="p">,</span> <span class="mi">225</span><span class="p">),</span>
+    <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span>
+    <span class="n">shape_r</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">STUDIO_BODY</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+    <span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">239</span><span class="p">,</span> <span class="mi">243</span><span class="p">,</span> <span class="mi">249</span><span class="p">),</span>
+    <span class="n">shape_line_color</span><span class="o">=</span><span class="p">(</span><span class="mi">203</span><span class="p">,</span> <span class="mi">213</span><span class="p">,</span> <span class="mi">225</span><span class="p">),</span>
+    <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span>
+    <span class="n">shape_r</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">PART_ITEMS</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s2">"1. Top-Left &amp; .add()"</span><span class="p">,</span> <span class="s2">"xy=(x, y) &amp; hierarchy"</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"2. Connector Tuning"</span><span class="p">,</span> <span class="s2">"margins &amp; cascading"</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"3. Icons &amp; Badges"</span><span class="p">,</span> <span class="s2">"before &amp; after items"</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"4. Hide &amp; Scale"</span><span class="p">,</span> <span class="s2">"show=False &amp; scale"</span><span class="p">),</span>
+<span class="p">]</span>
+
+<span class="n">TreeNode</span><span class="o">.</span><span class="n">register_drawing_item</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">"tour_dir"</span><span class="p">,</span>
+    <span class="n">location</span><span class="o">=</span><span class="s2">"before"</span><span class="p">,</span>
+    <span class="n">padding_width</span><span class="o">=</span><span class="mf">4.4</span><span class="p">,</span>
+    <span class="n">function</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">folder</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
+    <span class="n">args</span><span class="o">=</span><span class="p">{</span><span class="s2">"width"</span><span class="p">:</span> <span class="mf">3.1</span><span class="p">},</span>
+<span class="p">)</span>
+<span class="n">TreeNode</span><span class="o">.</span><span class="n">register_drawing_item</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">"tour_file"</span><span class="p">,</span>
+    <span class="n">location</span><span class="o">=</span><span class="s2">"before"</span><span class="p">,</span>
+    <span class="n">padding_width</span><span class="o">=</span><span class="mf">4.4</span><span class="p">,</span>
+    <span class="n">function</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">file_text</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="p">,</span>
+    <span class="n">args</span><span class="o">=</span><span class="p">{</span><span class="s2">"width"</span><span class="p">:</span> <span class="mf">3.1</span><span class="p">},</span>
+<span class="p">)</span>
+<span class="n">TreeNode</span><span class="o">.</span><span class="n">register_drawing_item</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">"tour_ok"</span><span class="p">,</span>
+    <span class="n">location</span><span class="o">=</span><span class="s2">"after"</span><span class="p">,</span>
+    <span class="n">padding_width</span><span class="o">=</span><span class="mf">14.5</span><span class="p">,</span>
+    <span class="n">function</span><span class="o">=</span><span class="n">rectangle</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">0.9</span><span class="p">),</span>
+    <span class="n">args</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">"width"</span><span class="p">:</span> <span class="mf">8.5</span><span class="p">,</span>
+        <span class="s2">"height"</span><span class="p">:</span> <span class="mf">4.0</span><span class="p">,</span>
+        <span class="s2">"text"</span><span class="p">:</span> <span class="s2">"OK"</span><span class="p">,</span>
+        <span class="s2">"text_style"</span><span class="p">:</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+    <span class="p">},</span>
+<span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">draw_step_bar</span><span class="p">(</span><span class="n">active_part</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Draw top 4-part progress bar (active_part is 1..4)."""</span>
+    <span class="n">pill_w</span> <span class="o">=</span> <span class="mf">31.0</span>
+    <span class="n">pill_h</span> <span class="o">=</span> <span class="mf">7.4</span>
+    <span class="n">gap</span> <span class="o">=</span> <span class="mf">2.0</span>
+    <span class="n">start_x</span> <span class="o">=</span> <span class="mf">4.0</span> <span class="o">+</span> <span class="n">pill_w</span> <span class="o">/</span> <span class="mf">2.0</span>
+    <span class="n">cy</span> <span class="o">=</span> <span class="mf">75.2</span>
+
+    <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">sublabel</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">PART_ITEMS</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">cx</span> <span class="o">=</span> <span class="n">start_x</span> <span class="o">+</span> <span class="p">(</span><span class="n">idx</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">pill_w</span> <span class="o">+</span> <span class="n">gap</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">idx</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">prev_cx</span> <span class="o">=</span> <span class="n">cx</span> <span class="o">-</span> <span class="p">(</span><span class="n">pill_w</span> <span class="o">+</span> <span class="n">gap</span><span class="p">)</span>
+            <span class="n">line</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">prev_cx</span> <span class="o">+</span> <span class="n">pill_w</span> <span class="o">/</span> <span class="mf">2.0</span> <span class="o">+</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">cy</span><span class="p">),</span>
+                <span class="p">(</span><span class="n">cx</span> <span class="o">-</span> <span class="n">pill_w</span> <span class="o">/</span> <span class="mf">2.0</span> <span class="o">-</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">cy</span><span class="p">),</span>
+                <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span> <span class="k">if</span> <span class="n">idx</span> <span class="o">&lt;=</span> <span class="n">active_part</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">MutedThin</span><span class="p">,</span>
+            <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">idx</span> <span class="o">==</span> <span class="n">active_part</span><span class="p">:</span>
+            <span class="n">st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.4</span><span class="p">)</span>
+            <span class="n">tst</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.3</span><span class="p">)</span>
+            <span class="n">sub_tst</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">idx</span> <span class="o">&lt;</span> <span class="n">active_part</span><span class="p">:</span>
+            <span class="n">st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.4</span><span class="p">,</span> <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.1</span><span class="p">)</span>
+            <span class="n">tst</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.3</span><span class="p">)</span>
+            <span class="n">sub_tst</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.4</span><span class="p">,</span> <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.1</span><span class="p">)</span>
+            <span class="n">tst</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">MutedBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.3</span><span class="p">)</span>
+            <span class="n">sub_tst</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">)</span>
+
+        <span class="n">rectangle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="n">pill_w</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">pill_h</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">st</span><span class="p">)</span>
+        <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span> <span class="o">+</span> <span class="mf">1.35</span><span class="p">),</span> <span class="n">label</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">tst</span><span class="p">)</span>
+        <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span> <span class="o">-</span> <span class="mf">1.55</span><span class="p">),</span> <span class="n">sublabel</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">sub_tst</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">draw_left_pane</span><span class="p">(</span>
+    <span class="n">active_part</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">code_lines</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+    <span class="n">hl_range</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span>
+    <span class="n">icon_fn</span><span class="p">:</span> <span class="nb">object</span><span class="p">,</span>
+    <span class="n">summary_title</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">summary_line1</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">summary_line2</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Draw left Python code editor + bottom concept takeaway card."""</span>
+    <span class="n">x0</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">63.5</span>
+    <span class="n">cx</span> <span class="o">=</span> <span class="n">x0</span> <span class="o">+</span> <span class="n">w</span> <span class="o">/</span> <span class="mf">2.0</span>
+    <span class="n">top_y</span> <span class="o">=</span> <span class="mf">63.2</span>
+    <span class="n">header_h</span> <span class="o">=</span> <span class="mf">5.4</span>
+    <span class="n">editor_h</span> <span class="o">=</span> <span class="mf">43.8</span>
+    <span class="n">takeaway_h</span> <span class="o">=</span> <span class="mf">15.8</span>
+
+    <span class="n">rectangle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">top_y</span> <span class="o">+</span> <span class="n">header_h</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="n">w</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">header_h</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">PANE_HEADER</span><span class="p">)</span>
+    <span class="n">code_icons</span><span class="o">.</span><span class="n">python</span><span class="p">((</span><span class="n">x0</span> <span class="o">+</span> <span class="mf">3.6</span><span class="p">,</span> <span class="n">top_y</span> <span class="o">+</span> <span class="n">header_h</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.4</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+    <span class="n">text</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">x0</span> <span class="o">+</span> <span class="mf">6.5</span><span class="p">,</span> <span class="n">top_y</span> <span class="o">+</span> <span class="n">header_h</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">),</span>
+        <span class="s2">"tree_tour.py"</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.2</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">text</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">x0</span> <span class="o">+</span> <span class="n">w</span> <span class="o">-</span> <span class="mf">2.6</span><span class="p">,</span> <span class="n">top_y</span> <span class="o">+</span> <span class="n">header_h</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">),</span>
+        <span class="sa">f</span><span class="s2">"Part </span><span class="si">{</span><span class="n">active_part</span><span class="si">}</span><span class="s2"> / 4"</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.8</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"right"</span><span class="p">),</span>
+    <span class="p">)</span>
+
+    <span class="n">rectangle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">top_y</span> <span class="o">-</span> <span class="n">editor_h</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="n">w</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">editor_h</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">EDITOR_BODY</span><span class="p">)</span>
+
+    <span class="n">hl_start</span><span class="p">,</span> <span class="n">hl_end</span> <span class="o">=</span> <span class="n">hl_range</span>
+    <span class="n">hl_top</span> <span class="o">=</span> <span class="n">top_y</span> <span class="o">-</span> <span class="n">PAD_Y</span> <span class="o">-</span> <span class="n">hl_start</span> <span class="o">*</span> <span class="n">LINE_H</span>
+    <span class="n">hl_bot</span> <span class="o">=</span> <span class="n">top_y</span> <span class="o">-</span> <span class="n">PAD_Y</span> <span class="o">-</span> <span class="p">(</span><span class="n">hl_end</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">LINE_H</span>
+    <span class="n">hl_cy</span> <span class="o">=</span> <span class="p">(</span><span class="n">hl_top</span> <span class="o">+</span> <span class="n">hl_bot</span><span class="p">)</span> <span class="o">/</span> <span class="mf">2.0</span>
+    <span class="n">hl_h</span> <span class="o">=</span> <span class="n">hl_top</span> <span class="o">-</span> <span class="n">hl_bot</span>
+    <span class="n">rectangle</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">cx</span><span class="p">,</span> <span class="n">hl_cy</span><span class="p">),</span>
+        <span class="n">width</span><span class="o">=</span><span class="n">w</span> <span class="o">-</span> <span class="mf">0.6</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="n">hl_h</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">229</span><span class="p">,</span> <span class="mi">239</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span> <span class="n">shape_line_width</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">rectangle</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">x0</span> <span class="o">+</span> <span class="mf">0.55</span><span class="p">,</span> <span class="n">hl_cy</span><span class="p">),</span>
+        <span class="n">width</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="n">hl_h</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_line_width</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
+    <span class="p">)</span>
+
+    <span class="n">SourceCode</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span>
+        <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span> <span class="n">top_y</span><span class="p">),</span>
+        <span class="n">width</span><span class="o">=</span><span class="n">w</span><span class="p">,</span>
+        <span class="n">code</span><span class="o">=</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">code_lines</span><span class="p">),</span>
+        <span class="n">styles</span><span class="o">=</span><span class="n">CODE_STYLES</span><span class="p">,</span>
+        <span class="n">code_lang</span><span class="o">=</span><span class="s2">"python"</span><span class="p">,</span>
+        <span class="n">show_linenum</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">align</span><span class="o">=</span><span class="s2">"top_left"</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">take_cy</span> <span class="o">=</span> <span class="mf">3.6</span> <span class="o">+</span> <span class="n">takeaway_h</span> <span class="o">/</span> <span class="mf">2.0</span>
+    <span class="n">rectangle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">take_cy</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="n">w</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">takeaway_h</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">TAKEAWAY_BODY</span><span class="p">)</span>
+    <span class="n">circle</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">x0</span> <span class="o">+</span> <span class="mf">6.4</span><span class="p">,</span> <span class="n">take_cy</span><span class="p">),</span>
+        <span class="n">radius</span><span class="o">=</span><span class="mf">3.3</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.2</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">icon_fn</span><span class="p">((</span><span class="n">x0</span> <span class="o">+</span> <span class="mf">6.4</span><span class="p">,</span> <span class="n">take_cy</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>  <span class="c1"># type: ignore[operator]</span>
+    <span class="n">text</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">x0</span> <span class="o">+</span> <span class="mf">11.4</span><span class="p">,</span> <span class="n">take_cy</span> <span class="o">+</span> <span class="mf">3.6</span><span class="p">),</span>
+        <span class="n">summary_title</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.4</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">text</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">x0</span> <span class="o">+</span> <span class="mf">11.4</span><span class="p">,</span> <span class="n">take_cy</span> <span class="o">-</span> <span class="mf">0.2</span><span class="p">),</span>
+        <span class="n">summary_line1</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.7</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">text</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">x0</span> <span class="o">+</span> <span class="mf">11.4</span><span class="p">,</span> <span class="n">take_cy</span> <span class="o">-</span> <span class="mf">3.8</span><span class="p">),</span>
+        <span class="n">summary_line2</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.6</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">),</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">draw_geometry_studio</span><span class="p">(</span><span class="n">param_badge</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">footer_caption</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""Draw right geometry lab shell, inner coordinate sheet with subtle grid, and footer."""</span>
+    <span class="n">x0</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="mf">70.0</span><span class="p">,</span> <span class="mf">64.0</span>
+    <span class="n">cx</span> <span class="o">=</span> <span class="n">x0</span> <span class="o">+</span> <span class="n">w</span> <span class="o">/</span> <span class="mf">2.0</span>
+    <span class="n">top_y</span> <span class="o">=</span> <span class="mf">63.2</span>
+    <span class="n">header_h</span> <span class="o">=</span> <span class="mf">5.4</span>
+    <span class="n">body_h</span> <span class="o">=</span> <span class="mf">59.6</span>
+
+    <span class="n">rectangle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">top_y</span> <span class="o">+</span> <span class="n">header_h</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="n">w</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">header_h</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">PANE_HEADER</span><span class="p">)</span>
+    <span class="n">phosphor</span><span class="o">.</span><span class="n">ruler</span><span class="p">((</span><span class="n">x0</span> <span class="o">+</span> <span class="mf">3.6</span><span class="p">,</span> <span class="n">top_y</span> <span class="o">+</span> <span class="n">header_h</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.4</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">)</span>
+    <span class="n">text</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">x0</span> <span class="o">+</span> <span class="mf">6.5</span><span class="p">,</span> <span class="n">top_y</span> <span class="o">+</span> <span class="n">header_h</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">),</span>
+        <span class="s2">"Live Geometry &amp; Guides"</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.2</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">text</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">x0</span> <span class="o">+</span> <span class="n">w</span> <span class="o">-</span> <span class="mf">2.6</span><span class="p">,</span> <span class="n">top_y</span> <span class="o">+</span> <span class="n">header_h</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">),</span>
+        <span class="n">param_badge</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.6</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"right"</span><span class="p">),</span>
+    <span class="p">)</span>
+
+    <span class="n">rectangle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mf">3.6</span> <span class="o">+</span> <span class="n">body_h</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="n">w</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">body_h</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">STUDIO_BODY</span><span class="p">)</span>
+
+    <span class="n">sheet_cx</span><span class="p">,</span> <span class="n">sheet_cy</span> <span class="o">=</span> <span class="n">cx</span><span class="p">,</span> <span class="mf">36.2</span>
+    <span class="n">sheet_w</span><span class="p">,</span> <span class="n">sheet_h</span> <span class="o">=</span> <span class="mf">54.0</span><span class="p">,</span> <span class="mf">40.0</span>
+    <span class="n">sx0</span><span class="p">,</span> <span class="n">sy0</span> <span class="o">=</span> <span class="n">sheet_cx</span> <span class="o">-</span> <span class="n">sheet_w</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">,</span> <span class="n">sheet_cy</span> <span class="o">-</span> <span class="n">sheet_h</span> <span class="o">/</span> <span class="mf">2.0</span>
+    <span class="n">rectangle</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">sheet_cx</span><span class="p">,</span> <span class="n">sheet_cy</span><span class="p">),</span>
+        <span class="n">width</span><span class="o">=</span><span class="n">sheet_w</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="n">sheet_h</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+            <span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span>
+            <span class="n">shape_line_color</span><span class="o">=</span><span class="p">(</span><span class="mi">180</span><span class="p">,</span> <span class="mi">194</span><span class="p">,</span> <span class="mi">214</span><span class="p">),</span>
+            <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">g_st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">MutedThin</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_color</span><span class="o">=</span><span class="p">(</span><span class="mi">232</span><span class="p">,</span> <span class="mi">238</span><span class="p">,</span> <span class="mi">246</span><span class="p">),</span> <span class="n">line_width</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">gx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">):</span>
+        <span class="n">vx</span> <span class="o">=</span> <span class="n">sx0</span> <span class="o">+</span> <span class="n">gx</span> <span class="o">*</span> <span class="p">(</span><span class="n">sheet_w</span> <span class="o">/</span> <span class="mf">6.0</span><span class="p">)</span>
+        <span class="n">line</span><span class="p">((</span><span class="n">vx</span><span class="p">,</span> <span class="n">sy0</span><span class="p">),</span> <span class="p">(</span><span class="n">vx</span><span class="p">,</span> <span class="n">sy0</span> <span class="o">+</span> <span class="n">sheet_h</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="n">g_st</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">gy</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">):</span>
+        <span class="n">vy</span> <span class="o">=</span> <span class="n">sy0</span> <span class="o">+</span> <span class="n">gy</span> <span class="o">*</span> <span class="p">(</span><span class="n">sheet_h</span> <span class="o">/</span> <span class="mf">5.0</span><span class="p">)</span>
+        <span class="n">line</span><span class="p">((</span><span class="n">sx0</span><span class="p">,</span> <span class="n">vy</span><span class="p">),</span> <span class="p">(</span><span class="n">sx0</span> <span class="o">+</span> <span class="n">sheet_w</span><span class="p">,</span> <span class="n">vy</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="n">g_st</span><span class="p">)</span>
+
+    <span class="n">rectangle</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">cx</span><span class="p">,</span> <span class="mf">8.4</span><span class="p">),</span>
+        <span class="n">width</span><span class="o">=</span><span class="mf">59.2</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mf">5.2</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+            <span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span>
+            <span class="n">shape_line_color</span><span class="o">=</span><span class="p">(</span><span class="mi">203</span><span class="p">,</span> <span class="mi">213</span><span class="p">,</span> <span class="mi">225</span><span class="p">),</span>
+            <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.1</span><span class="p">,</span>
+            <span class="n">shape_r</span><span class="o">=</span><span class="mf">2.4</span><span class="p">,</span>
+        <span class="p">),</span>
+        <span class="n">text</span><span class="o">=</span><span class="n">footer_caption</span><span class="p">,</span>
+        <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.8</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">sheet_cx</span><span class="p">,</span> <span class="n">sheet_cy</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">draw_sub_pills</span><span class="p">(</span><span class="n">scx</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">labels</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">active_idx</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Draw 3-pill sub-step indicator above the 54x40 coordinate sheet."""</span>
+    <span class="n">pw</span><span class="p">,</span> <span class="n">ph</span><span class="p">,</span> <span class="n">pgap</span> <span class="o">=</span> <span class="mf">17.2</span><span class="p">,</span> <span class="mf">4.2</span><span class="p">,</span> <span class="mf">1.2</span>
+    <span class="n">p_start</span> <span class="o">=</span> <span class="n">scx</span> <span class="o">-</span> <span class="p">(</span><span class="mi">3</span> <span class="o">*</span> <span class="n">pw</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">pgap</span><span class="p">)</span> <span class="o">/</span> <span class="mf">2.0</span> <span class="o">+</span> <span class="n">pw</span> <span class="o">/</span> <span class="mf">2.0</span>
+    <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">lbl</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">labels</span><span class="p">):</span>
+        <span class="n">px</span> <span class="o">=</span> <span class="n">p_start</span> <span class="o">+</span> <span class="n">idx</span> <span class="o">*</span> <span class="p">(</span><span class="n">pw</span> <span class="o">+</span> <span class="n">pgap</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">idx</span> <span class="o">==</span> <span class="n">active_idx</span><span class="p">:</span>
+            <span class="n">pst</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">)</span>
+            <span class="n">ptst</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">idx</span> <span class="o">&lt;</span> <span class="n">active_idx</span><span class="p">:</span>
+            <span class="n">pst</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span> <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+            <span class="n">ptst</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">pst</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span> <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+            <span class="n">ptst</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">)</span>
+        <span class="n">rectangle</span><span class="p">((</span><span class="n">px</span><span class="p">,</span> <span class="mf">59.7</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="n">pw</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">ph</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">pst</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="n">lbl</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">ptst</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">build_tree</span><span class="p">(</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">stage</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="n">hm</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">3.8</span><span class="p">,</span>
+    <span class="n">hl</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">3.6</span><span class="p">,</span>
+    <span class="n">vm</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">6.8</span><span class="p">,</span>
+    <span class="n">cascade_api</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">dir_icons</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">file_icons</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">after_badges</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">show_routes</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TreeNode</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Build configured TreeNode hierarchy for the active frame."""</span>
+    <span class="n">bold_tx</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.3</span><span class="p">)</span>
+    <span class="n">leaf_tx</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">)</span>
+    <span class="n">prim_tx</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.2</span><span class="p">)</span>
+
+    <span class="n">root</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span>
+        <span class="s2">"src/"</span><span class="p">,</span>
+        <span class="n">text_style</span><span class="o">=</span><span class="n">bold_tx</span><span class="p">,</span>
+        <span class="n">line_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkThin</span><span class="p">,</span>
+        <span class="n">line_horizontal_margin</span><span class="o">=</span><span class="n">hm</span><span class="p">,</span>
+        <span class="n">line_horizontal_length</span><span class="o">=</span><span class="n">hl</span><span class="p">,</span>
+        <span class="n">line_vertical_margin</span><span class="o">=</span><span class="n">vm</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">if</span> <span class="n">dir_icons</span><span class="p">:</span>
+        <span class="n">root</span><span class="o">.</span><span class="n">set_drawing_item</span><span class="p">(</span><span class="s2">"tour_dir"</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">stage</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">api</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+            <span class="s2">"api/"</span><span class="p">,</span>
+            <span class="n">text_style</span><span class="o">=</span><span class="n">prim_tx</span> <span class="k">if</span> <span class="n">cascade_api</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">line_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span> <span class="k">if</span> <span class="n">cascade_api</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">dir_icons</span><span class="p">:</span>
+            <span class="n">api</span><span class="o">.</span><span class="n">set_drawing_item</span><span class="p">(</span><span class="s2">"tour_dir"</span><span class="p">)</span>
+        <span class="n">routes</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+            <span class="s2">"routes.py"</span><span class="p">,</span>
+            <span class="n">text_style</span><span class="o">=</span><span class="kc">None</span> <span class="k">if</span> <span class="n">cascade_api</span> <span class="k">else</span> <span class="n">leaf_tx</span><span class="p">,</span>
+            <span class="n">show</span><span class="o">=</span><span class="n">show_routes</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">after_badges</span><span class="p">:</span>
+            <span class="n">routes</span><span class="o">.</span><span class="n">set_drawing_item</span><span class="p">(</span><span class="s2">"tour_ok"</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">file_icons</span><span class="p">:</span>
+            <span class="n">routes</span><span class="o">.</span><span class="n">set_drawing_item</span><span class="p">(</span><span class="s2">"tour_file"</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">stage</span> <span class="o">&gt;=</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="n">core</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"core/"</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">dir_icons</span><span class="p">:</span>
+            <span class="n">core</span><span class="o">.</span><span class="n">set_drawing_item</span><span class="p">(</span><span class="s2">"tour_dir"</span><span class="p">)</span>
+        <span class="n">auth</span> <span class="o">=</span> <span class="n">core</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"auth.py"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">leaf_tx</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">after_badges</span><span class="p">:</span>
+            <span class="n">auth</span><span class="o">.</span><span class="n">set_drawing_item</span><span class="p">(</span><span class="s2">"tour_ok"</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">file_icons</span><span class="p">:</span>
+            <span class="n">auth</span><span class="o">.</span><span class="n">set_drawing_item</span><span class="p">(</span><span class="s2">"tour_file"</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">root</span>
+
+
+<span class="c1"># =========================================================================</span>
+<span class="c1"># Part 1: Top-Left xy Anchor &amp; Imperative .add() Hierarchy (3 frames)</span>
+<span class="c1"># =========================================================================</span>
+<span class="n">P1_STATES</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span>
+        <span class="mi">1</span><span class="p">,</span>
+        <span class="mf">3.3</span><span class="p">,</span>
+        <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span>
+        <span class="p">[</span>
+            <span class="s2">"root = TreeNode("</span><span class="p">,</span>
+            <span class="s1">'    "src/",'</span><span class="p">,</span>
+            <span class="s2">"    text_style=Styles.DarkBold,"</span><span class="p">,</span>
+            <span class="s2">"    line_style=Styles.DarkThin,"</span><span class="p">,</span>
+            <span class="s2">"    line_horizontal_margin=3.8,"</span><span class="p">,</span>
+            <span class="s2">"    line_horizontal_length=3.6,"</span><span class="p">,</span>
+            <span class="s2">"    line_vertical_margin=6.8,"</span><span class="p">,</span>
+            <span class="s2">")"</span><span class="p">,</span>
+            <span class="s2">"root.draw(xy=(10, 49))"</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="s2">"xy = (10, 49)"</span><span class="p">,</span>
+        <span class="s2">"Step 1: Root Pin at xy=(x, y) (Left Edge, Vertical Center)"</span><span class="p">,</span>
+        <span class="s2">"1. Top-Left Anchor (xy)"</span><span class="p">,</span>
+        <span class="s2">"xy=(x, y) pins root left edge &amp; vertical center"</span><span class="p">,</span>
+        <span class="s2">"Root sets base styles &amp; all 3 connector margins"</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="p">(</span>
+        <span class="mi">2</span><span class="p">,</span>
+        <span class="mf">3.3</span><span class="p">,</span>
+        <span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span>
+        <span class="p">[</span>
+            <span class="s2">"root = TreeNode("</span><span class="p">,</span>
+            <span class="s1">'    "src/",'</span><span class="p">,</span>
+            <span class="s2">"    text_style=Styles.DarkBold,"</span><span class="p">,</span>
+            <span class="s2">"    line_style=Styles.DarkThin,"</span><span class="p">,</span>
+            <span class="s2">"    line_horizontal_margin=3.8,"</span><span class="p">,</span>
+            <span class="s2">"    line_horizontal_length=3.6,"</span><span class="p">,</span>
+            <span class="s2">"    line_vertical_margin=6.8)"</span><span class="p">,</span>
+            <span class="s1">'api = root.add("api/")'</span><span class="p">,</span>
+            <span class="s1">'api.add("routes.py",'</span><span class="p">,</span>
+            <span class="s2">"        text_style=Styles.Dark)"</span><span class="p">,</span>
+            <span class="s2">"root.draw(xy=(10, 49))"</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="s1">'root.add("api/")'</span><span class="p">,</span>
+        <span class="s2">"Step 2: .add() Indents +2*h_margin (+X) &amp; Steps -v_margin (-Y)"</span><span class="p">,</span>
+        <span class="s2">"2. Nested Subtree (.add())"</span><span class="p">,</span>
+        <span class="s2">"parent.add(text) appends &amp; returns new TreeNode"</span><span class="p">,</span>
+        <span class="s2">"Indents +2*h_margin (+7.6) &amp; steps -6.8 per row"</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="p">(</span>
+        <span class="mi">3</span><span class="p">,</span>
+        <span class="mf">3.4</span><span class="p">,</span>
+        <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span>
+        <span class="p">[</span>
+            <span class="s1">'root = TreeNode("src/", ...)'</span><span class="p">,</span>
+            <span class="s1">'api = root.add("api/")'</span><span class="p">,</span>
+            <span class="s1">'api.add("routes.py",'</span><span class="p">,</span>
+            <span class="s2">"        text_style=Styles.Dark)"</span><span class="p">,</span>
+            <span class="s1">'core = root.add("core/")'</span><span class="p">,</span>
+            <span class="s1">'core.add("auth.py",'</span><span class="p">,</span>
+            <span class="s2">"         text_style=Styles.Dark)"</span><span class="p">,</span>
+            <span class="s2">"# Auto-routes trunk &amp; ticks"</span><span class="p">,</span>
+            <span class="s2">"root.draw(xy=(10, 49))"</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="s1">'root.add("core/")'</span><span class="p">,</span>
+        <span class="s2">"Step 3: Multi-Branch Trunk Extends to Last Visible Sibling"</span><span class="p">,</span>
+        <span class="s2">"3. Automatic Trunk Routing"</span><span class="p">,</span>
+        <span class="s2">"Siblings share the parent's vertical trunk line"</span><span class="p">,</span>
+        <span class="s2">"Rows flow top-down (-Y) in depth-first order"</span><span class="p">,</span>
+    <span class="p">),</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">idx_p1</span><span class="p">,</span> <span class="p">(</span><span class="n">stg</span><span class="p">,</span> <span class="n">dur</span><span class="p">,</span> <span class="n">hl_rng</span><span class="p">,</span> <span class="n">c_lines</span><span class="p">,</span> <span class="n">badge</span><span class="p">,</span> <span class="n">foot</span><span class="p">,</span> <span class="n">s_t</span><span class="p">,</span> <span class="n">s_1</span><span class="p">,</span> <span class="n">s_2</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">P1_STATES</span><span class="p">):</span>
+    <span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="n">dur</span><span class="p">):</span>
+        <span class="n">draw_step_bar</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">draw_left_pane</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">c_lines</span><span class="p">,</span> <span class="n">hl_rng</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">git_branch</span><span class="p">,</span> <span class="n">s_t</span><span class="p">,</span> <span class="n">s_1</span><span class="p">,</span> <span class="n">s_2</span><span class="p">)</span>
+        <span class="n">scx</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">draw_geometry_studio</span><span class="p">(</span><span class="n">badge</span><span class="p">,</span> <span class="n">foot</span><span class="p">)</span>
+        <span class="n">draw_sub_pills</span><span class="p">(</span><span class="n">scx</span><span class="p">,</span> <span class="p">[</span><span class="s2">"1. Root xy"</span><span class="p">,</span> <span class="s2">"2. Subtree"</span><span class="p">,</span> <span class="s2">"3. Full Tree"</span><span class="p">],</span> <span class="n">idx_p1</span><span class="p">)</span>
+
+        <span class="n">tx</span><span class="p">,</span> <span class="n">ty</span> <span class="o">=</span> <span class="mf">86.0</span><span class="p">,</span> <span class="mf">48.0</span>
+        <span class="n">hm</span><span class="p">,</span> <span class="n">hl</span><span class="p">,</span> <span class="n">vm</span> <span class="o">=</span> <span class="mf">3.8</span><span class="p">,</span> <span class="mf">3.6</span><span class="p">,</span> <span class="mf">6.8</span>
+
+        <span class="c1"># Subtle depth column guides (d0, d1, d2)</span>
+        <span class="k">for</span> <span class="n">d_i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+            <span class="n">dx</span> <span class="o">=</span> <span class="n">tx</span> <span class="o">+</span> <span class="n">d_i</span> <span class="o">*</span> <span class="p">(</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">hm</span><span class="p">)</span>
+            <span class="n">line</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">dx</span><span class="p">,</span> <span class="mf">19.6</span><span class="p">),</span>
+                <span class="p">(</span><span class="n">dx</span><span class="p">,</span> <span class="mf">50.8</span><span class="p">),</span>
+                <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">0.85</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.55</span><span class="p">),</span>
+            <span class="p">)</span>
+            <span class="n">text</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">dx</span><span class="p">,</span> <span class="mf">18.0</span><span class="p">),</span>
+                <span class="sa">f</span><span class="s2">"d</span><span class="si">{</span><span class="n">d_i</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
+                <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+            <span class="p">)</span>
+
+        <span class="n">tree</span> <span class="o">=</span> <span class="n">build_tree</span><span class="p">(</span><span class="n">stage</span><span class="o">=</span><span class="n">stg</span><span class="p">,</span> <span class="n">hm</span><span class="o">=</span><span class="n">hm</span><span class="p">,</span> <span class="n">hl</span><span class="o">=</span><span class="n">hl</span><span class="p">,</span> <span class="n">vm</span><span class="o">=</span><span class="n">vm</span><span class="p">)</span>
+        <span class="n">tree</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">tx</span><span class="p">,</span> <span class="n">ty</span><span class="p">))</span>
+
+        <span class="c1"># Crisp non-overlapping Top-Left xy crosshair + dot just left of "src/"</span>
+        <span class="n">line</span><span class="p">((</span><span class="n">tx</span> <span class="o">-</span> <span class="mf">3.2</span><span class="p">,</span> <span class="n">ty</span><span class="p">),</span> <span class="p">(</span><span class="n">tx</span> <span class="o">-</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">ty</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">1.2</span><span class="p">))</span>
+        <span class="n">line</span><span class="p">((</span><span class="n">tx</span><span class="p">,</span> <span class="n">ty</span> <span class="o">+</span> <span class="mf">1.6</span><span class="p">),</span> <span class="p">(</span><span class="n">tx</span><span class="p">,</span> <span class="n">ty</span> <span class="o">+</span> <span class="mf">3.8</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">1.2</span><span class="p">))</span>
+        <span class="n">circle</span><span class="p">((</span><span class="n">tx</span> <span class="o">-</span> <span class="mf">1.5</span><span class="p">,</span> <span class="n">ty</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">0.85</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerFlat</span><span class="p">)</span>
+        <span class="n">text</span><span class="p">(</span>
+            <span class="p">(</span><span class="mf">76.6</span><span class="p">,</span> <span class="mf">53.2</span><span class="p">),</span>
+            <span class="s2">"xy (top-left)"</span><span class="p">,</span>
+            <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="n">line</span><span class="p">((</span><span class="mf">82.2</span><span class="p">,</span> <span class="mf">51.8</span><span class="p">),</span> <span class="p">(</span><span class="n">tx</span> <span class="o">-</span> <span class="mf">1.5</span><span class="p">,</span> <span class="n">ty</span> <span class="o">+</span> <span class="mf">1.1</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">1.1</span><span class="p">))</span>
+        <span class="n">line</span><span class="p">(</span>
+            <span class="p">(</span><span class="mf">97.0</span><span class="p">,</span> <span class="mf">52.6</span><span class="p">),</span>
+            <span class="p">(</span><span class="mf">114.5</span><span class="p">,</span> <span class="mf">52.6</span><span class="p">),</span>
+            <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span>
+            <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">1.25</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="n">text</span><span class="p">(</span>
+            <span class="p">(</span><span class="mf">115.6</span><span class="p">,</span> <span class="mf">52.6</span><span class="p">),</span>
+            <span class="s2">"indent (+X)"</span><span class="p">,</span>
+            <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="n">line</span><span class="p">(</span>
+            <span class="p">(</span><span class="mf">79.4</span><span class="p">,</span> <span class="n">ty</span> <span class="o">-</span> <span class="mf">1.5</span><span class="p">),</span>
+            <span class="p">(</span><span class="mf">79.4</span><span class="p">,</span> <span class="mf">22.8</span><span class="p">),</span>
+            <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span>
+            <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">1.25</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="n">text</span><span class="p">(</span>
+            <span class="p">(</span><span class="mf">76.2</span><span class="p">,</span> <span class="mf">20.4</span><span class="p">),</span>
+            <span class="s2">"rows (-Y)"</span><span class="p">,</span>
+            <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">),</span>
+        <span class="p">)</span>
+
+<span class="c1"># =========================================================================</span>
+<span class="c1"># Part 2: Connector Margin Calipers &amp; Cascading Subtree Overrides (3 frames)</span>
+<span class="c1"># =========================================================================</span>
+<span class="n">P2_STATES</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span>
+        <span class="s2">"hm"</span><span class="p">,</span>
+        <span class="mf">3.3</span><span class="p">,</span>
+        <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
+        <span class="p">[</span>
+            <span class="s2">"root = TreeNode("</span><span class="p">,</span>
+            <span class="s1">'    "src/",'</span><span class="p">,</span>
+            <span class="s2">"    text_style=Styles.DarkBold,"</span><span class="p">,</span>
+            <span class="s2">"    line_style=Styles.DarkThin,"</span><span class="p">,</span>
+            <span class="s2">"    line_horizontal_margin=5.2,"</span><span class="p">,</span>
+            <span class="s2">"    line_horizontal_length=4.8,"</span><span class="p">,</span>
+            <span class="s2">"    line_vertical_margin=6.8,"</span><span class="p">,</span>
+            <span class="s2">")"</span><span class="p">,</span>
+            <span class="s2">"# child_x = x + 2 * 5.2"</span><span class="p">,</span>
+            <span class="s2">"root.draw(xy=(10, 49))"</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="s2">"h_margin=5.2, h_len=4.8"</span><span class="p">,</span>
+        <span class="s2">"Wider Horizontal Indent (2 * 5.2 = 10.4) &amp; Connector Ticks"</span><span class="p">,</span>
+        <span class="s2">"Horizontal Margin &amp; Tick Length"</span><span class="p">,</span>
+        <span class="s2">"Trunk at x + h_margin; child at x + 2*h_margin"</span><span class="p">,</span>
+        <span class="s2">"Tick spans 2/3 * line_horizontal_length"</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="p">(</span>
+        <span class="s2">"vm"</span><span class="p">,</span>
+        <span class="mf">3.4</span><span class="p">,</span>
+        <span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span>
+        <span class="p">[</span>
+            <span class="s2">"root = TreeNode("</span><span class="p">,</span>
+            <span class="s1">'    "src/",'</span><span class="p">,</span>
+            <span class="s2">"    text_style=Styles.DarkBold,"</span><span class="p">,</span>
+            <span class="s2">"    line_style=Styles.DarkThin,"</span><span class="p">,</span>
+            <span class="s2">"    line_horizontal_margin=3.8,"</span><span class="p">,</span>
+            <span class="s2">"    line_horizontal_length=3.6,"</span><span class="p">,</span>
+            <span class="s2">"    line_vertical_margin=7.6,"</span><span class="p">,</span>
+            <span class="s2">")"</span><span class="p">,</span>
+            <span class="s2">"# Each row steps -7.6 in Y"</span><span class="p">,</span>
+            <span class="s2">"root.draw(xy=(10, 50))"</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="s2">"line_vertical_margin=7.6"</span><span class="p">,</span>
+        <span class="s2">"Expanded Vertical Row Cadence (-7.6 Units Between Rows)"</span><span class="p">,</span>
+        <span class="s2">"Vertical Row Step (line_vertical_margin)"</span><span class="p">,</span>
+        <span class="s2">"Sets exact center-to-center row Y spacing"</span><span class="p">,</span>
+        <span class="s2">"Widen for badges; tighten for dense trees"</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="p">(</span>
+        <span class="s2">"cascade"</span><span class="p">,</span>
+        <span class="mf">3.4</span><span class="p">,</span>
+        <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span>
+        <span class="p">[</span>
+            <span class="s1">'root = TreeNode("src/", ...)'</span><span class="p">,</span>
+            <span class="s2">"api = root.add("</span><span class="p">,</span>
+            <span class="s1">'    "api/",'</span><span class="p">,</span>
+            <span class="s2">"    text_style=Styles.PrimaryBold,"</span><span class="p">,</span>
+            <span class="s2">"    line_style=Styles.PrimaryBold,"</span><span class="p">,</span>
+            <span class="s2">")"</span><span class="p">,</span>
+            <span class="s1">'api.add("routes.py")  # inherits!'</span><span class="p">,</span>
+            <span class="s1">'core = root.add("core/")'</span><span class="p">,</span>
+            <span class="s1">'core.add("auth.py",'</span><span class="p">,</span>
+            <span class="s2">"         text_style=Styles.Dark)"</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="s2">"cascading override"</span><span class="p">,</span>
+        <span class="s2">"Subtree Cascade: api/ Overrides Style for Itself &amp; routes.py"</span><span class="p">,</span>
+        <span class="s2">"Cascading Subtree Overrides"</span><span class="p">,</span>
+        <span class="s2">"Node style or margin overrides cascade downward"</span><span class="p">,</span>
+        <span class="s2">"Sibling core/ keeps root's calm neutral defaults"</span><span class="p">,</span>
+    <span class="p">),</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">idx_p2</span><span class="p">,</span> <span class="p">(</span><span class="n">mode_p2</span><span class="p">,</span> <span class="n">dur</span><span class="p">,</span> <span class="n">hl_rng</span><span class="p">,</span> <span class="n">c_lines</span><span class="p">,</span> <span class="n">badge</span><span class="p">,</span> <span class="n">foot</span><span class="p">,</span> <span class="n">s_t</span><span class="p">,</span> <span class="n">s_1</span><span class="p">,</span> <span class="n">s_2</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">P2_STATES</span><span class="p">):</span>
+    <span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="n">dur</span><span class="p">):</span>
+        <span class="n">draw_step_bar</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">draw_left_pane</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">c_lines</span><span class="p">,</span> <span class="n">hl_rng</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">sliders_horizontal</span><span class="p">,</span> <span class="n">s_t</span><span class="p">,</span> <span class="n">s_1</span><span class="p">,</span> <span class="n">s_2</span><span class="p">)</span>
+        <span class="n">scx</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">draw_geometry_studio</span><span class="p">(</span><span class="n">badge</span><span class="p">,</span> <span class="n">foot</span><span class="p">)</span>
+        <span class="n">draw_sub_pills</span><span class="p">(</span><span class="n">scx</span><span class="p">,</span> <span class="p">[</span><span class="s2">"1. H-Margins"</span><span class="p">,</span> <span class="s2">"2. V-Margin"</span><span class="p">,</span> <span class="s2">"3. Cascade"</span><span class="p">],</span> <span class="n">idx_p2</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">mode_p2</span> <span class="o">==</span> <span class="s2">"hm"</span><span class="p">:</span>
+            <span class="n">tx</span><span class="p">,</span> <span class="n">ty</span><span class="p">,</span> <span class="n">hm</span><span class="p">,</span> <span class="n">hl</span><span class="p">,</span> <span class="n">vm</span> <span class="o">=</span> <span class="mf">82.0</span><span class="p">,</span> <span class="mf">47.0</span><span class="p">,</span> <span class="mf">5.2</span><span class="p">,</span> <span class="mf">4.8</span><span class="p">,</span> <span class="mf">6.8</span>
+            <span class="n">tree</span> <span class="o">=</span> <span class="n">build_tree</span><span class="p">(</span><span class="n">stage</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">hm</span><span class="o">=</span><span class="n">hm</span><span class="p">,</span> <span class="n">hl</span><span class="o">=</span><span class="n">hl</span><span class="p">,</span> <span class="n">vm</span><span class="o">=</span><span class="n">vm</span><span class="p">)</span>
+            <span class="n">tree</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">tx</span><span class="p">,</span> <span class="n">ty</span><span class="p">))</span>
+
+            <span class="c1"># Horizontal margin calipers on depth 0 -&gt; trunk -&gt; depth 1</span>
+            <span class="n">x_trunk</span> <span class="o">=</span> <span class="n">tx</span> <span class="o">+</span> <span class="n">hm</span>
+            <span class="n">x_child</span> <span class="o">=</span> <span class="n">tx</span> <span class="o">+</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">hm</span>
+            <span class="k">for</span> <span class="n">gx_c</span> <span class="ow">in</span> <span class="p">(</span><span class="n">tx</span><span class="p">,</span> <span class="n">x_trunk</span><span class="p">,</span> <span class="n">x_child</span><span class="p">):</span>
+                <span class="n">line</span><span class="p">((</span><span class="n">gx_c</span><span class="p">,</span> <span class="mf">48.6</span><span class="p">),</span> <span class="p">(</span><span class="n">gx_c</span><span class="p">,</span> <span class="mf">52.8</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryDashed</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">0.9</span><span class="p">))</span>
+            <span class="n">line</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">tx</span> <span class="o">+</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">51.0</span><span class="p">),</span>
+                <span class="p">(</span><span class="n">x_trunk</span> <span class="o">-</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">51.0</span><span class="p">),</span>
+                <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"&lt;-&gt;"</span><span class="p">,</span>
+                <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">1.2</span><span class="p">),</span>
+            <span class="p">)</span>
+            <span class="n">line</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">x_trunk</span> <span class="o">+</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">51.0</span><span class="p">),</span>
+                <span class="p">(</span><span class="n">x_child</span> <span class="o">-</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">51.0</span><span class="p">),</span>
+                <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"&lt;-&gt;"</span><span class="p">,</span>
+                <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">1.2</span><span class="p">),</span>
+            <span class="p">)</span>
+            <span class="n">text</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">x_trunk</span><span class="p">,</span> <span class="mf">53.8</span><span class="p">),</span>
+                <span class="s2">"5.2 + 5.2 = 10.4 indent"</span><span class="p">,</span>
+                <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+            <span class="p">)</span>
+            <span class="c1"># Pointer to horizontal tick at row 1 (y = ty - vm = 40.2)</span>
+            <span class="n">tick_y</span> <span class="o">=</span> <span class="n">ty</span> <span class="o">-</span> <span class="n">vm</span>
+            <span class="n">text</span><span class="p">(</span>
+                <span class="p">(</span><span class="mf">114.5</span><span class="p">,</span> <span class="n">tick_y</span><span class="p">),</span>
+                <span class="s2">"h_length = 4.8"</span><span class="p">,</span>
+                <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">),</span>
+            <span class="p">)</span>
+            <span class="n">line</span><span class="p">(</span>
+                <span class="p">(</span><span class="mf">113.6</span><span class="p">,</span> <span class="n">tick_y</span><span class="p">),</span>
+                <span class="p">(</span><span class="mf">103.5</span><span class="p">,</span> <span class="n">tick_y</span><span class="p">),</span>
+                <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span>
+                <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">1.2</span><span class="p">),</span>
+            <span class="p">)</span>
+
+        <span class="k">elif</span> <span class="n">mode_p2</span> <span class="o">==</span> <span class="s2">"vm"</span><span class="p">:</span>
+            <span class="n">tx</span><span class="p">,</span> <span class="n">ty</span><span class="p">,</span> <span class="n">hm</span><span class="p">,</span> <span class="n">hl</span><span class="p">,</span> <span class="n">vm</span> <span class="o">=</span> <span class="mf">89.5</span><span class="p">,</span> <span class="mf">50.8</span><span class="p">,</span> <span class="mf">3.8</span><span class="p">,</span> <span class="mf">3.6</span><span class="p">,</span> <span class="mf">7.6</span>
+            <span class="n">tree</span> <span class="o">=</span> <span class="n">build_tree</span><span class="p">(</span><span class="n">stage</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">hm</span><span class="o">=</span><span class="n">hm</span><span class="p">,</span> <span class="n">hl</span><span class="o">=</span><span class="n">hl</span><span class="p">,</span> <span class="n">vm</span><span class="o">=</span><span class="n">vm</span><span class="p">)</span>
+            <span class="n">tree</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">tx</span><span class="p">,</span> <span class="n">ty</span><span class="p">))</span>
+
+            <span class="c1"># Vertical row-step calipers on left of tree</span>
+            <span class="n">cal_x</span> <span class="o">=</span> <span class="mf">83.2</span>
+            <span class="k">for</span> <span class="n">r_i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
+                <span class="n">ry</span> <span class="o">=</span> <span class="n">ty</span> <span class="o">-</span> <span class="n">r_i</span> <span class="o">*</span> <span class="n">vm</span>
+                <span class="n">line</span><span class="p">((</span><span class="n">cal_x</span> <span class="o">-</span> <span class="mf">1.2</span><span class="p">,</span> <span class="n">ry</span><span class="p">),</span> <span class="p">(</span><span class="n">tx</span> <span class="o">-</span> <span class="mf">1.2</span><span class="p">,</span> <span class="n">ry</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedThin</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">r_i</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">:</span>
+                    <span class="n">ry_next</span> <span class="o">=</span> <span class="n">ty</span> <span class="o">-</span> <span class="p">(</span><span class="n">r_i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">vm</span>
+                    <span class="n">line</span><span class="p">(</span>
+                        <span class="p">(</span><span class="n">cal_x</span><span class="p">,</span> <span class="n">ry</span> <span class="o">-</span> <span class="mf">0.3</span><span class="p">),</span>
+                        <span class="p">(</span><span class="n">cal_x</span><span class="p">,</span> <span class="n">ry_next</span> <span class="o">+</span> <span class="mf">0.3</span><span class="p">),</span>
+                        <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"&lt;-&gt;"</span><span class="p">,</span>
+                        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">1.2</span><span class="p">),</span>
+                    <span class="p">)</span>
+                    <span class="n">text</span><span class="p">(</span>
+                        <span class="p">(</span><span class="n">cal_x</span> <span class="o">-</span> <span class="mf">1.4</span><span class="p">,</span> <span class="p">(</span><span class="n">ry</span> <span class="o">+</span> <span class="n">ry_next</span><span class="p">)</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">),</span>
+                        <span class="s2">"7.6"</span><span class="p">,</span>
+                        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"right"</span><span class="p">),</span>
+                    <span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">tx</span><span class="p">,</span> <span class="n">ty</span><span class="p">,</span> <span class="n">hm</span><span class="p">,</span> <span class="n">hl</span><span class="p">,</span> <span class="n">vm</span> <span class="o">=</span> <span class="mf">84.5</span><span class="p">,</span> <span class="mf">48.0</span><span class="p">,</span> <span class="mf">3.8</span><span class="p">,</span> <span class="mf">3.6</span><span class="p">,</span> <span class="mf">6.8</span>
+            <span class="n">tree</span> <span class="o">=</span> <span class="n">build_tree</span><span class="p">(</span><span class="n">stage</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">hm</span><span class="o">=</span><span class="n">hm</span><span class="p">,</span> <span class="n">hl</span><span class="o">=</span><span class="n">hl</span><span class="p">,</span> <span class="n">vm</span><span class="o">=</span><span class="n">vm</span><span class="p">,</span> <span class="n">cascade_api</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">tree</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">tx</span><span class="p">,</span> <span class="n">ty</span><span class="p">))</span>
+
+            <span class="c1"># Dashed highlight frame around api/ + routes.py cascaded subtree</span>
+            <span class="n">rectangle</span><span class="p">(</span>
+                <span class="p">(</span><span class="mf">103.5</span><span class="p">,</span> <span class="mf">37.8</span><span class="p">),</span>
+                <span class="n">width</span><span class="o">=</span><span class="mf">31.0</span><span class="p">,</span>
+                <span class="n">height</span><span class="o">=</span><span class="mf">13.2</span><span class="p">,</span>
+                <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryDashed</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.3</span><span class="p">),</span>
+            <span class="p">)</span>
+            <span class="n">text</span><span class="p">(</span>
+                <span class="p">(</span><span class="mf">103.5</span><span class="p">,</span> <span class="mf">46.2</span><span class="p">),</span>
+                <span class="s2">"Cascaded PrimaryBold subtree"</span><span class="p">,</span>
+                <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+            <span class="p">)</span>
+            <span class="n">text</span><span class="p">(</span>
+                <span class="p">(</span><span class="mf">103.5</span><span class="p">,</span> <span class="mf">18.2</span><span class="p">),</span>
+                <span class="s2">"core/ keeps root neutral style"</span><span class="p">,</span>
+                <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+            <span class="p">)</span>
+
+<span class="c1"># =========================================================================</span>
+<span class="c1"># Part 3: Custom Vector Icons ("before") &amp; Status Badges ("after") (3 frames)</span>
+<span class="c1"># =========================================================================</span>
+<span class="n">P3_STATES</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span>
+        <span class="kc">True</span><span class="p">,</span>
+        <span class="kc">False</span><span class="p">,</span>
+        <span class="kc">False</span><span class="p">,</span>
+        <span class="mf">3.3</span><span class="p">,</span>
+        <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span>
+        <span class="p">[</span>
+            <span class="s2">"TreeNode.register_drawing_item("</span><span class="p">,</span>
+            <span class="s1">'    name="tour_dir",'</span><span class="p">,</span>
+            <span class="s1">'    location="before",'</span><span class="p">,</span>
+            <span class="s2">"    padding_width=4.4,"</span><span class="p">,</span>
+            <span class="s2">"    function=phosphor.folder,"</span><span class="p">,</span>
+            <span class="s2">"    style=Styles.PrimaryFlat,"</span><span class="p">,</span>
+            <span class="s1">'    args={"width": 3.1},'</span><span class="p">,</span>
+            <span class="s2">")"</span><span class="p">,</span>
+            <span class="s1">'root.set_drawing_item("tour_dir")'</span><span class="p">,</span>
+            <span class="s1">'api.set_drawing_item("tour_dir")'</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="s1">'location = "before"'</span><span class="p">,</span>
+        <span class="s1">'Folder Icons ("tour_dir") Drawn Before Directory Labels'</span><span class="p">,</span>
+        <span class="s1">'1. Leading Icons (location="before")'</span><span class="p">,</span>
+        <span class="s2">"Draws icon at xy &amp; shifts label +padding_width"</span><span class="p">,</span>
+        <span class="s2">"Attach via .set_drawing_item('tour_dir')"</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="p">(</span>
+        <span class="kc">True</span><span class="p">,</span>
+        <span class="kc">True</span><span class="p">,</span>
+        <span class="kc">False</span><span class="p">,</span>
+        <span class="mf">3.4</span><span class="p">,</span>
+        <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span>
+        <span class="p">[</span>
+            <span class="s2">"TreeNode.register_drawing_item("</span><span class="p">,</span>
+            <span class="s1">'    name="tour_file",'</span><span class="p">,</span>
+            <span class="s1">'    location="before",'</span><span class="p">,</span>
+            <span class="s2">"    padding_width=4.4,"</span><span class="p">,</span>
+            <span class="s2">"    function=phosphor.file_text,"</span><span class="p">,</span>
+            <span class="s2">"    style=Styles.Dark,"</span><span class="p">,</span>
+            <span class="s1">'    args={"width": 3.1},'</span><span class="p">,</span>
+            <span class="s2">")"</span><span class="p">,</span>
+            <span class="s2">"routes.set_drawing_item("</span><span class="p">,</span>
+            <span class="s1">'    "tour_file")'</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="s1">'"tour_dir" + "tour_file"'</span><span class="p">,</span>
+        <span class="s2">"Distinct Folder &amp; File Icons Across Directory Levels"</span><span class="p">,</span>
+        <span class="s2">"2. Folder + File Icon Pairing"</span><span class="p">,</span>
+        <span class="s2">"Register named presets once on TreeNode class"</span><span class="p">,</span>
+        <span class="s2">"Mix folder &amp; file icons across nested levels"</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="p">(</span>
+        <span class="kc">True</span><span class="p">,</span>
+        <span class="kc">False</span><span class="p">,</span>
+        <span class="kc">True</span><span class="p">,</span>
+        <span class="mf">3.4</span><span class="p">,</span>
+        <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
+        <span class="p">[</span>
+            <span class="s2">"TreeNode.register_drawing_item("</span><span class="p">,</span>
+            <span class="s1">'    name="tour_ok",'</span><span class="p">,</span>
+            <span class="s1">'    location="after",'</span><span class="p">,</span>
+            <span class="s2">"    padding_width=14.5,"</span><span class="p">,</span>
+            <span class="s2">"    function=rectangle,"</span><span class="p">,</span>
+            <span class="s2">"    style=Styles.PrimaryFlat,"</span><span class="p">,</span>
+            <span class="s1">'    args={"width": 8.5,'</span><span class="p">,</span>
+            <span class="s1">'          "height": 4.0,'</span><span class="p">,</span>
+            <span class="s1">'          "text": "OK", ...},'</span><span class="p">,</span>
+            <span class="s2">")"</span><span class="p">,</span>
+            <span class="s1">'routes.set_drawing_item("tour_ok")'</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="s1">'location = "after"'</span><span class="p">,</span>
+        <span class="s1">'Trailing Status Pill Badges Placed at x + padding_width'</span><span class="p">,</span>
+        <span class="s1">'3. Trailing Badges (location="after")'</span><span class="p">,</span>
+        <span class="s2">"Keeps text at xy &amp; draws badge at x + padding"</span><span class="p">,</span>
+        <span class="s2">"Accepts any shape or icon callable"</span><span class="p">,</span>
+    <span class="p">),</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">idx_p3</span><span class="p">,</span> <span class="p">(</span><span class="n">d_ic</span><span class="p">,</span> <span class="n">f_ic</span><span class="p">,</span> <span class="n">a_bg</span><span class="p">,</span> <span class="n">dur</span><span class="p">,</span> <span class="n">hl_rng</span><span class="p">,</span> <span class="n">c_lines</span><span class="p">,</span> <span class="n">badge</span><span class="p">,</span> <span class="n">foot</span><span class="p">,</span> <span class="n">s_t</span><span class="p">,</span> <span class="n">s_1</span><span class="p">,</span> <span class="n">s_2</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">P3_STATES</span><span class="p">):</span>
+    <span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="n">dur</span><span class="p">):</span>
+        <span class="n">draw_step_bar</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+        <span class="n">draw_left_pane</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">c_lines</span><span class="p">,</span> <span class="n">hl_rng</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">tag</span><span class="p">,</span> <span class="n">s_t</span><span class="p">,</span> <span class="n">s_1</span><span class="p">,</span> <span class="n">s_2</span><span class="p">)</span>
+        <span class="n">scx</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">draw_geometry_studio</span><span class="p">(</span><span class="n">badge</span><span class="p">,</span> <span class="n">foot</span><span class="p">)</span>
+        <span class="n">draw_sub_pills</span><span class="p">(</span><span class="n">scx</span><span class="p">,</span> <span class="p">[</span><span class="s2">"1. Dir Icons"</span><span class="p">,</span> <span class="s2">"2. File Icons"</span><span class="p">,</span> <span class="s2">"3. After Badge"</span><span class="p">],</span> <span class="n">idx_p3</span><span class="p">)</span>
+
+        <span class="n">tx</span><span class="p">,</span> <span class="n">ty</span><span class="p">,</span> <span class="n">hm</span><span class="p">,</span> <span class="n">hl</span><span class="p">,</span> <span class="n">vm</span> <span class="o">=</span> <span class="mf">82.5</span><span class="p">,</span> <span class="mf">49.4</span> <span class="k">if</span> <span class="n">a_bg</span> <span class="k">else</span> <span class="mf">47.6</span><span class="p">,</span> <span class="mf">3.8</span><span class="p">,</span> <span class="mf">3.6</span><span class="p">,</span> <span class="mf">6.4</span> <span class="k">if</span> <span class="n">a_bg</span> <span class="k">else</span> <span class="mf">6.8</span>
+        <span class="n">tree</span> <span class="o">=</span> <span class="n">build_tree</span><span class="p">(</span>
+            <span class="n">stage</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+            <span class="n">hm</span><span class="o">=</span><span class="n">hm</span><span class="p">,</span>
+            <span class="n">hl</span><span class="o">=</span><span class="n">hl</span><span class="p">,</span>
+            <span class="n">vm</span><span class="o">=</span><span class="n">vm</span><span class="p">,</span>
+            <span class="n">dir_icons</span><span class="o">=</span><span class="n">d_ic</span><span class="p">,</span>
+            <span class="n">file_icons</span><span class="o">=</span><span class="n">f_ic</span><span class="p">,</span>
+            <span class="n">after_badges</span><span class="o">=</span><span class="n">a_bg</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">tree</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">tx</span><span class="p">,</span> <span class="n">ty</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">a_bg</span><span class="p">:</span>
+            <span class="c1"># Show padding_width=4.4 caliper on root folder icon</span>
+            <span class="n">line</span><span class="p">((</span><span class="n">tx</span><span class="p">,</span> <span class="mf">50.0</span><span class="p">),</span> <span class="p">(</span><span class="n">tx</span><span class="p">,</span> <span class="mf">52.8</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryDashed</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">0.9</span><span class="p">))</span>
+            <span class="n">line</span><span class="p">((</span><span class="n">tx</span> <span class="o">+</span> <span class="mf">4.4</span><span class="p">,</span> <span class="mf">50.0</span><span class="p">),</span> <span class="p">(</span><span class="n">tx</span> <span class="o">+</span> <span class="mf">4.4</span><span class="p">,</span> <span class="mf">52.8</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryDashed</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">0.9</span><span class="p">))</span>
+            <span class="n">line</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">tx</span> <span class="o">+</span> <span class="mf">0.15</span><span class="p">,</span> <span class="mf">51.4</span><span class="p">),</span>
+                <span class="p">(</span><span class="n">tx</span> <span class="o">+</span> <span class="mf">4.25</span><span class="p">,</span> <span class="mf">51.4</span><span class="p">),</span>
+                <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"&lt;-&gt;"</span><span class="p">,</span>
+                <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">1.15</span><span class="p">),</span>
+            <span class="p">)</span>
+            <span class="n">text</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">tx</span> <span class="o">+</span> <span class="mf">5.4</span><span class="p">,</span> <span class="mf">51.6</span><span class="p">),</span>
+                <span class="s2">"padding_width = 4.4 (before)"</span><span class="p">,</span>
+                <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">),</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Show unobstructed padding_width=14.5 caliper below auth.py (row 4 at y = 23.8)</span>
+            <span class="n">rx</span> <span class="o">=</span> <span class="n">tx</span> <span class="o">+</span> <span class="mf">4.0</span> <span class="o">*</span> <span class="n">hm</span>
+            <span class="n">ry</span> <span class="o">=</span> <span class="n">ty</span> <span class="o">-</span> <span class="mf">4.0</span> <span class="o">*</span> <span class="n">vm</span>
+            <span class="n">line</span><span class="p">((</span><span class="n">rx</span><span class="p">,</span> <span class="mf">19.0</span><span class="p">),</span> <span class="p">(</span><span class="n">rx</span><span class="p">,</span> <span class="n">ry</span> <span class="o">-</span> <span class="mf">1.8</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryDashed</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">0.9</span><span class="p">))</span>
+            <span class="n">line</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">rx</span> <span class="o">+</span> <span class="mf">14.5</span><span class="p">,</span> <span class="mf">19.0</span><span class="p">),</span>
+                <span class="p">(</span><span class="n">rx</span> <span class="o">+</span> <span class="mf">14.5</span><span class="p">,</span> <span class="n">ry</span> <span class="o">-</span> <span class="mf">1.8</span><span class="p">),</span>
+                <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryDashed</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">0.9</span><span class="p">),</span>
+            <span class="p">)</span>
+            <span class="n">line</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">rx</span> <span class="o">+</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">20.1</span><span class="p">),</span>
+                <span class="p">(</span><span class="n">rx</span> <span class="o">+</span> <span class="mf">14.2</span><span class="p">,</span> <span class="mf">20.1</span><span class="p">),</span>
+                <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"&lt;-&gt;"</span><span class="p">,</span>
+                <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">1.2</span><span class="p">),</span>
+            <span class="p">)</span>
+            <span class="n">text</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">rx</span> <span class="o">-</span> <span class="mf">1.2</span><span class="p">,</span> <span class="mf">19.8</span><span class="p">),</span>
+                <span class="s2">"padding = 14.5"</span><span class="p">,</span>
+                <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"right"</span><span class="p">),</span>
+            <span class="p">)</span>
+
+<span class="c1"># =========================================================================</span>
+<span class="c1"># Part 4: Layout-Preserving Visibility (show=False) &amp; Scaling (3 frames)</span>
+<span class="c1"># =========================================================================</span>
+<span class="n">P4_STATES</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span>
+        <span class="kc">True</span><span class="p">,</span>
+        <span class="mf">1.0</span><span class="p">,</span>
+        <span class="mf">3.3</span><span class="p">,</span>
+        <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span>
+        <span class="p">[</span>
+            <span class="s1">'root = TreeNode("src/", ...)'</span><span class="p">,</span>
+            <span class="s1">'api = root.add("api/")'</span><span class="p">,</span>
+            <span class="s1">'routes = api.add("routes.py")'</span><span class="p">,</span>
+            <span class="s1">'core = root.add("core/")'</span><span class="p">,</span>
+            <span class="s1">'auth = core.add("auth.py")'</span><span class="p">,</span>
+            <span class="s2">"# Default: all nodes visible"</span><span class="p">,</span>
+            <span class="s2">"# routes.show == True"</span><span class="p">,</span>
+            <span class="s2">"# scale == 1.0"</span><span class="p">,</span>
+            <span class="s2">"root.draw(xy=(10, 49), scale=1.0)"</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="s2">"show=True, scale=1.0"</span><span class="p">,</span>
+        <span class="s2">"Baseline Full Tree (show=True, scale=1.0) at xy=(10, 49)"</span><span class="p">,</span>
+        <span class="s2">"1. Baseline Visibility &amp; Scale"</span><span class="p">,</span>
+        <span class="s2">"All nodes render at unscaled 1.0x dimensions"</span><span class="p">,</span>
+        <span class="s2">"Establishes fixed row Y-slots for animations"</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="p">(</span>
+        <span class="kc">False</span><span class="p">,</span>
+        <span class="mf">1.0</span><span class="p">,</span>
+        <span class="mf">3.4</span><span class="p">,</span>
+        <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span>
+        <span class="p">[</span>
+            <span class="s1">'root = TreeNode("src/", ...)'</span><span class="p">,</span>
+            <span class="s1">'api = root.add("api/")'</span><span class="p">,</span>
+            <span class="s1">'routes = api.add("routes.py")'</span><span class="p">,</span>
+            <span class="s1">'core = root.add("core/")'</span><span class="p">,</span>
+            <span class="s1">'auth = core.add("auth.py")'</span><span class="p">,</span>
+            <span class="s2">"# Hide node without Y-shift:"</span><span class="p">,</span>
+            <span class="s2">"routes.show = False"</span><span class="p">,</span>
+            <span class="s2">"root.draw(xy=(10, 49))"</span><span class="p">,</span>
+            <span class="s2">"# Sibling rows keep fixed Y!"</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="s2">"routes.show = False"</span><span class="p">,</span>
+        <span class="s2">"Hides routes.py &amp; Sub-Connector While Keeping core/ Y Fixed"</span><span class="p">,</span>
+        <span class="s2">"2. Layout-Preserving show=False"</span><span class="p">,</span>
+        <span class="s2">"Hides label &amp; tick without shifting siblings"</span><span class="p">,</span>
+        <span class="s2">"Prevents vertical jumps in multi-frame anims"</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="p">(</span>
+        <span class="kc">True</span><span class="p">,</span>
+        <span class="mf">0.85</span><span class="p">,</span>
+        <span class="mf">3.5</span><span class="p">,</span>
+        <span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span>
+        <span class="p">[</span>
+            <span class="s1">'root = TreeNode("src/", ...)'</span><span class="p">,</span>
+            <span class="s1">'api = root.add("api/")'</span><span class="p">,</span>
+            <span class="s1">'routes = api.add("routes.py")'</span><span class="p">,</span>
+            <span class="s1">'core = root.add("core/")'</span><span class="p">,</span>
+            <span class="s1">'auth = core.add("auth.py")'</span><span class="p">,</span>
+            <span class="s2">"routes.show = True"</span><span class="p">,</span>
+            <span class="s2">"# Proportional scale around xy:"</span><span class="p">,</span>
+            <span class="s2">"root.draw("</span><span class="p">,</span>
+            <span class="s2">"    xy=(10, 49), scale=0.85)"</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="s2">"scale = 0.85"</span><span class="p">,</span>
+        <span class="s2">"Proportional 0.85x Scaling Pinned at Top-Left Anchor xy"</span><span class="p">,</span>
+        <span class="s2">"3. Proportional Scaling (scale=0.85)"</span><span class="p">,</span>
+        <span class="s2">"Scales indents, rows, icons, badges &amp; text"</span><span class="p">,</span>
+        <span class="s2">"Top-left root anchor xy=(x, y) stays fixed"</span><span class="p">,</span>
+    <span class="p">),</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">idx_p4</span><span class="p">,</span> <span class="p">(</span><span class="n">sh_routes</span><span class="p">,</span> <span class="n">sc_val</span><span class="p">,</span> <span class="n">dur</span><span class="p">,</span> <span class="n">hl_rng</span><span class="p">,</span> <span class="n">c_lines</span><span class="p">,</span> <span class="n">badge</span><span class="p">,</span> <span class="n">foot</span><span class="p">,</span> <span class="n">s_t</span><span class="p">,</span> <span class="n">s_1</span><span class="p">,</span> <span class="n">s_2</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">P4_STATES</span><span class="p">):</span>
+    <span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="n">dur</span><span class="p">):</span>
+        <span class="n">draw_step_bar</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+        <span class="n">draw_left_pane</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">c_lines</span><span class="p">,</span> <span class="n">hl_rng</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">corners_in</span><span class="p">,</span> <span class="n">s_t</span><span class="p">,</span> <span class="n">s_1</span><span class="p">,</span> <span class="n">s_2</span><span class="p">)</span>
+        <span class="n">scx</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">draw_geometry_studio</span><span class="p">(</span><span class="n">badge</span><span class="p">,</span> <span class="n">foot</span><span class="p">)</span>
+        <span class="n">draw_sub_pills</span><span class="p">(</span><span class="n">scx</span><span class="p">,</span> <span class="p">[</span><span class="s2">"1. Baseline"</span><span class="p">,</span> <span class="s2">"2. show=False"</span><span class="p">,</span> <span class="s2">"3. scale=0.85"</span><span class="p">],</span> <span class="n">idx_p4</span><span class="p">)</span>
+
+        <span class="n">tx</span><span class="p">,</span> <span class="n">ty</span><span class="p">,</span> <span class="n">hm</span><span class="p">,</span> <span class="n">hl</span><span class="p">,</span> <span class="n">vm</span> <span class="o">=</span> <span class="mf">82.5</span><span class="p">,</span> <span class="mf">48.6</span><span class="p">,</span> <span class="mf">3.8</span><span class="p">,</span> <span class="mf">3.6</span><span class="p">,</span> <span class="mf">6.7</span>
+        <span class="n">tree</span> <span class="o">=</span> <span class="n">build_tree</span><span class="p">(</span>
+            <span class="n">stage</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+            <span class="n">hm</span><span class="o">=</span><span class="n">hm</span><span class="p">,</span>
+            <span class="n">hl</span><span class="o">=</span><span class="n">hl</span><span class="p">,</span>
+            <span class="n">vm</span><span class="o">=</span><span class="n">vm</span><span class="p">,</span>
+            <span class="n">dir_icons</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">after_badges</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">show_routes</span><span class="o">=</span><span class="n">sh_routes</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">sc_val</span> <span class="o">&lt;</span> <span class="mf">1.0</span><span class="p">:</span>
+            <span class="c1"># 1.0x reference box vs 0.85x scaled box anchored cleanly around (tx, ty)</span>
+            <span class="n">x_min0</span><span class="p">,</span> <span class="n">x_max0</span> <span class="o">=</span> <span class="n">tx</span> <span class="o">-</span> <span class="mf">2.2</span><span class="p">,</span> <span class="n">tx</span> <span class="o">+</span> <span class="mf">40.8</span>
+            <span class="n">y_max0</span><span class="p">,</span> <span class="n">y_min0</span> <span class="o">=</span> <span class="n">ty</span> <span class="o">+</span> <span class="mf">3.0</span><span class="p">,</span> <span class="n">ty</span> <span class="o">-</span> <span class="mf">4.0</span> <span class="o">*</span> <span class="n">vm</span> <span class="o">-</span> <span class="mf">3.0</span>
+            <span class="n">rectangle</span><span class="p">(</span>
+                <span class="p">((</span><span class="n">x_min0</span> <span class="o">+</span> <span class="n">x_max0</span><span class="p">)</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">,</span> <span class="p">(</span><span class="n">y_min0</span> <span class="o">+</span> <span class="n">y_max0</span><span class="p">)</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">),</span>
+                <span class="n">width</span><span class="o">=</span><span class="n">x_max0</span> <span class="o">-</span> <span class="n">x_min0</span><span class="p">,</span>
+                <span class="n">height</span><span class="o">=</span><span class="n">y_max0</span> <span class="o">-</span> <span class="n">y_min0</span><span class="p">,</span>
+                <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.1</span><span class="p">),</span>
+            <span class="p">)</span>
+            <span class="n">sx_min</span> <span class="o">=</span> <span class="n">tx</span> <span class="o">+</span> <span class="p">(</span><span class="n">x_min0</span> <span class="o">-</span> <span class="n">tx</span><span class="p">)</span> <span class="o">*</span> <span class="n">sc_val</span>
+            <span class="n">sx_max</span> <span class="o">=</span> <span class="n">tx</span> <span class="o">+</span> <span class="p">(</span><span class="n">x_max0</span> <span class="o">-</span> <span class="n">tx</span><span class="p">)</span> <span class="o">*</span> <span class="n">sc_val</span>
+            <span class="n">sy_max</span> <span class="o">=</span> <span class="n">ty</span> <span class="o">+</span> <span class="p">(</span><span class="n">y_max0</span> <span class="o">-</span> <span class="n">ty</span><span class="p">)</span> <span class="o">*</span> <span class="n">sc_val</span>
+            <span class="n">sy_min</span> <span class="o">=</span> <span class="n">ty</span> <span class="o">+</span> <span class="p">(</span><span class="n">y_min0</span> <span class="o">-</span> <span class="n">ty</span><span class="p">)</span> <span class="o">*</span> <span class="n">sc_val</span>
+            <span class="n">rectangle</span><span class="p">(</span>
+                <span class="p">((</span><span class="n">sx_min</span> <span class="o">+</span> <span class="n">sx_max</span><span class="p">)</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">,</span> <span class="p">(</span><span class="n">sy_min</span> <span class="o">+</span> <span class="n">sy_max</span><span class="p">)</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">),</span>
+                <span class="n">width</span><span class="o">=</span><span class="n">sx_max</span> <span class="o">-</span> <span class="n">sx_min</span><span class="p">,</span>
+                <span class="n">height</span><span class="o">=</span><span class="n">sy_max</span> <span class="o">-</span> <span class="n">sy_min</span><span class="p">,</span>
+                <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryDashed</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.3</span><span class="p">),</span>
+            <span class="p">)</span>
+            <span class="n">line</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">x_max0</span> <span class="o">-</span> <span class="mf">0.3</span><span class="p">,</span> <span class="n">y_min0</span> <span class="o">+</span> <span class="mf">0.3</span><span class="p">),</span>
+                <span class="p">(</span><span class="n">sx_max</span> <span class="o">+</span> <span class="mf">0.3</span><span class="p">,</span> <span class="n">sy_min</span> <span class="o">-</span> <span class="mf">0.3</span><span class="p">),</span>
+                <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span>
+                <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">1.3</span><span class="p">),</span>
+            <span class="p">)</span>
+            <span class="n">text</span><span class="p">(</span>
+                <span class="p">(</span><span class="mf">126.8</span><span class="p">,</span> <span class="mf">17.8</span><span class="p">),</span>
+                <span class="s2">"0.85x from xy"</span><span class="p">,</span>
+                <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"right"</span><span class="p">),</span>
+            <span class="p">)</span>
+            <span class="n">circle</span><span class="p">((</span><span class="n">sx_min</span><span class="p">,</span> <span class="n">sy_max</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">0.95</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerFlat</span><span class="p">)</span>
+            <span class="n">text</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">tx</span><span class="p">,</span> <span class="mf">53.4</span><span class="p">),</span>
+                <span class="s2">"xy pinned"</span><span class="p">,</span>
+                <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">),</span>
+            <span class="p">)</span>
+
+        <span class="n">tree</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">tx</span><span class="p">,</span> <span class="n">ty</span><span class="p">),</span> <span class="n">scale</span><span class="o">=</span><span class="n">sc_val</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">sh_routes</span><span class="p">:</span>
+            <span class="c1"># Show preserved ghost slot at routes.py row (y = ty - 2*vm)</span>
+            <span class="n">rx</span> <span class="o">=</span> <span class="n">tx</span> <span class="o">+</span> <span class="mf">4.0</span> <span class="o">*</span> <span class="n">hm</span>
+            <span class="n">ry</span> <span class="o">=</span> <span class="n">ty</span> <span class="o">-</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">vm</span>
+            <span class="n">rectangle</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">rx</span> <span class="o">+</span> <span class="mf">12.0</span><span class="p">,</span> <span class="n">ry</span><span class="p">),</span>
+                <span class="n">width</span><span class="o">=</span><span class="mf">25.5</span><span class="p">,</span>
+                <span class="n">height</span><span class="o">=</span><span class="mf">4.6</span><span class="p">,</span>
+                <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerDashed</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.2</span><span class="p">),</span>
+                <span class="n">text</span><span class="o">=</span><span class="s2">"routes.py (show=False)"</span><span class="p">,</span>
+                <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+            <span class="p">)</span>
+            <span class="n">text</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">scx</span><span class="p">,</span> <span class="mf">18.0</span><span class="p">),</span>
+                <span class="s2">"core/ stays fixed at y = 28.5 (no layout jump)"</span><span class="p">,</span>
+                <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+            <span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<ul>
+<li><strong>Top-Left Anchor &amp; Imperative <code>.add()</code> (<code>xy</code>, <code>add</code>)</strong>: Pins the root label's left edge and vertical center at <code>xy=(x, y)</code>, stepping child levels <code>+2 * line_horizontal_margin</code> rightward and <code>-line_vertical_margin</code> downward.</li>
+<li><strong>Connector Margins &amp; Cascading Overrides</strong>: Tunes trunk offset (<code>line_horizontal_margin</code>), horizontal tick span (<code>line_horizontal_length</code>), and row step (<code>line_vertical_margin</code>), cascading any intermediate node's overrides to its descendants.</li>
+<li><strong>Reusable Icons &amp; Trailing Badges (<code>register_drawing_item</code>)</strong>: Attaches <code>&quot;before&quot;</code> vector icons (shifting text right by <code>padding_width</code>) or <code>&quot;after&quot;</code> status badges (placed at <code>x + padding_width</code>) via <code>.set_drawing_item(name)</code>.</li>
+<li><strong>Layout-Preserving Visibility &amp; Scaling (<code>show</code>, <code>scale</code>)</strong>: Toggles <code>node.show = False</code> to hide nodes and connector ticks without shifting sibling Y-coordinates, or passes <code>scale</code> to <code>root.draw(xy, scale=...)</code> for proportional resizing around <code>xy</code>.</li>
+</ul>
+<hr />
+<h2>2. Quick Example: Project Directory Hierarchy</h2>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">setup</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.smartarts</span><span class="w"> </span><span class="kn">import</span> <span class="n">TreeNode</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
@@ -719,11 +1665,11 @@ It automates vertical branch alignment, indentation levels, and tree connector l
 <span class="n">root</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">37</span><span class="p">))</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="tree_images/tree_project_structure.png" alt="tree_2" />
+  <img src="tree_images/tree_project_structure.png" alt="tree_3" />
   <figcaption class="drawlib-caption">Project File Structure with TreeNode</figcaption>
 </figure>
 <hr />
-<h2>2. Imperative Construction (<code>.add()</code>), Cascading Overrides &amp; <code>&quot;after&quot;</code> Status Badges</h2>
+<h2>3. Imperative Construction (<code>.add()</code>), Cascading Overrides &amp; <code>&quot;after&quot;</code> Status Badges</h2>
 <p>Instead of nesting <code>children=[...]</code> inside the constructor, you can build trees imperatively using <code>parent.add(text, ...) -&gt; TreeNode</code>. Any style or margin parameter specified on an intermediate node automatically <strong>cascades down to its subtree</strong> unless overridden again. You can also register status badges or icons with <code>location=&quot;after&quot;</code> (where <code>padding_width</code> specifies the horizontal offset from the node's left <code>x</code> coordinate to the badge).</p>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
@@ -780,11 +1726,11 @@ It automates vertical branch alignment, indentation levels, and tree connector l
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="tree_images/tree_imperative_badges.png" alt="tree_3" />
+  <img src="tree_images/tree_imperative_badges.png" alt="tree_4" />
   <figcaption class="drawlib-caption">Imperative TreeNode Construction with Cascading Subtree Overrides and 'after' Status Badges</figcaption>
 </figure>
 <hr />
-<h2>3. Geometry, Lifecycle &amp; Coordinate Mechanics</h2>
+<h2>4. Geometry, Lifecycle &amp; Coordinate Mechanics</h2>
 <ul>
 <li><strong>Top-Left Anchor <code>(x, y)</code></strong>: The coordinate passed to <code>root.draw(xy=..., scale=1.0)</code> represents the <strong>left edge and vertical center</strong> of the root node label. Passing <code>scale</code> proportionally scales indentation, vertical spacing, icons, and text sizes relative to <code>xy</code>.</li>
 <li><strong>Downward &amp; Rightward Flow</strong>: Child nodes step downward (<code>child_y = current_y - line_vertical_margin</code>) and indent rightward (<code>child_x = parent_x + 2 * line_horizontal_margin</code>).</li>
@@ -798,7 +1744,7 @@ It automates vertical branch alignment, indentation levels, and tree connector l
 The root <code>TreeNode</code> must define all five baseline style and spacing attributes (<code>text_style</code>, <code>line_style</code>, <code>line_horizontal_margin</code>, <code>line_horizontal_length</code>, and <code>line_vertical_margin</code>). Descendant nodes inherit these settings automatically via cascading unless overridden on a child node.</li>
 </ul>
 <hr />
-<h2>4. API Reference</h2>
+<h2>5. API Reference</h2>
 <h3>Constructor (<code>TreeNode</code>)</h3>
 <pre><code class="language-python"><span class="n">TreeNode</span><span class="p">(</span>
     <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>

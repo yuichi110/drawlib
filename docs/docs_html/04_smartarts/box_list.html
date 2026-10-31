@@ -657,7 +657,891 @@ Custom-styled items are automatically rendered in a second pass so their borders
 </code></pre>
 </details>
 <hr />
-<h2>1. Horizontal Sequence with Highlighted Focal Stage (<code>direction=&quot;left&quot;</code>)</h2>
+<h2>1. Core Concepts &amp; Basic Usage</h2>
+<p><code>BoxList</code> constructs contiguous zero-gap sequences of rectangular cells step-by-step via <code>.add(...)</code>, anchoring by default at the <strong>Bottom-Left <code>(x, y)</code></strong> corner of the overall multi-box bounding box (or its center via <code>align=&quot;center&quot;</code>). You can orient sequences across all four axis directions (<code>&quot;left&quot;</code>, <code>&quot;right&quot;</code>, <code>&quot;bottom&quot;</code>, <code>&quot;top&quot;</code>), rely on automatic two-pass Z-ordering so custom focal borders cleanly overlay shared neighbor edges, and hide or scale <code>.items[i]</code> cells in place without shifting sibling slots:</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="box_list_images/box_list_parameter_tour.png" alt="box_list_2" />
+  <figcaption class="drawlib-caption">Basic Usage & Parameter Tour: Contiguous Construction, 4 Layout Directions, Two-Pass Border Z-Order, and Slot-Preserving Hide & Center Alignment (APNG Animation)</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.anim</span><span class="w"> </span><span class="kn">import</span> <span class="n">Animation</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">code</span> <span class="k">as</span> <span class="n">code_icons</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">circle</span><span class="p">,</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.smartarts</span><span class="w"> </span><span class="kn">import</span> <span class="n">BoxList</span><span class="p">,</span> <span class="n">SourceCode</span><span class="p">,</span> <span class="n">SourceCodeStyles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">W</span><span class="p">,</span> <span class="n">H</span> <span class="o">=</span> <span class="mf">138.0</span><span class="p">,</span> <span class="mf">82.0</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="n">W</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">H</span><span class="p">)</span>
+<span class="n">anim</span> <span class="o">=</span> <span class="n">Animation</span><span class="p">(</span><span class="n">fps</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">loop</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">CODE_TEXT_SIZE</span> <span class="o">=</span> <span class="mf">10.0</span>
+<span class="n">PT_TO_CANVAS</span> <span class="o">=</span> <span class="n">W</span> <span class="o">/</span> <span class="mf">720.0</span>
+<span class="n">FONT_CANVAS</span> <span class="o">=</span> <span class="n">CODE_TEXT_SIZE</span> <span class="o">*</span> <span class="n">PT_TO_CANVAS</span>
+<span class="n">LINE_H</span> <span class="o">=</span> <span class="n">FONT_CANVAS</span> <span class="o">*</span> <span class="mf">1.8</span>
+<span class="n">PAD_Y</span> <span class="o">=</span> <span class="n">FONT_CANVAS</span> <span class="o">*</span> <span class="mf">1.2</span>
+
+<span class="n">CODE_STYLES</span> <span class="o">=</span> <span class="n">SourceCodeStyles</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"default"</span><span class="p">,</span> <span class="n">font_lang</span><span class="o">=</span><span class="s2">"en"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="n">CODE_TEXT_SIZE</span><span class="p">)</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+    <span class="n">box_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">shape_line_width</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">PANE_HEADER</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+    <span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">238</span><span class="p">,</span> <span class="mi">243</span><span class="p">,</span> <span class="mi">250</span><span class="p">),</span>
+    <span class="n">shape_line_color</span><span class="o">=</span><span class="p">(</span><span class="mi">203</span><span class="p">,</span> <span class="mi">213</span><span class="p">,</span> <span class="mi">225</span><span class="p">),</span>
+    <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span>
+    <span class="n">shape_r</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">EDITOR_BODY</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+    <span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">250</span><span class="p">,</span> <span class="mi">252</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span>
+    <span class="n">shape_line_color</span><span class="o">=</span><span class="p">(</span><span class="mi">203</span><span class="p">,</span> <span class="mi">213</span><span class="p">,</span> <span class="mi">225</span><span class="p">),</span>
+    <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span>
+    <span class="n">shape_r</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">TAKEAWAY_BODY</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+    <span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">242</span><span class="p">,</span> <span class="mi">246</span><span class="p">,</span> <span class="mi">253</span><span class="p">),</span>
+    <span class="n">shape_line_color</span><span class="o">=</span><span class="p">(</span><span class="mi">203</span><span class="p">,</span> <span class="mi">213</span><span class="p">,</span> <span class="mi">225</span><span class="p">),</span>
+    <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span>
+    <span class="n">shape_r</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">STUDIO_BODY</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+    <span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">239</span><span class="p">,</span> <span class="mi">243</span><span class="p">,</span> <span class="mi">249</span><span class="p">),</span>
+    <span class="n">shape_line_color</span><span class="o">=</span><span class="p">(</span><span class="mi">203</span><span class="p">,</span> <span class="mi">213</span><span class="p">,</span> <span class="mi">225</span><span class="p">),</span>
+    <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span>
+    <span class="n">shape_r</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">PART_ITEMS</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s2">"1. Contiguous .add()"</span><span class="p">,</span> <span class="s2">"shared-border boxes"</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"2. 4 Directions"</span><span class="p">,</span> <span class="s2">"left, right, bot, top"</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"3. Two-Pass Z-Order"</span><span class="p">,</span> <span class="s2">"clean focal borders"</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"4. Hide &amp; Align"</span><span class="p">,</span> <span class="s2">"show=False &amp; center"</span><span class="p">),</span>
+<span class="p">]</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">draw_step_bar</span><span class="p">(</span><span class="n">active_part</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Draw top 4-part progress bar (active_part is 1..4)."""</span>
+    <span class="n">pill_w</span> <span class="o">=</span> <span class="mf">31.0</span>
+    <span class="n">pill_h</span> <span class="o">=</span> <span class="mf">7.4</span>
+    <span class="n">gap</span> <span class="o">=</span> <span class="mf">2.0</span>
+    <span class="n">start_x</span> <span class="o">=</span> <span class="mf">4.0</span> <span class="o">+</span> <span class="n">pill_w</span> <span class="o">/</span> <span class="mf">2.0</span>
+    <span class="n">cy</span> <span class="o">=</span> <span class="mf">75.2</span>
+
+    <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">sublabel</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">PART_ITEMS</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">cx</span> <span class="o">=</span> <span class="n">start_x</span> <span class="o">+</span> <span class="p">(</span><span class="n">idx</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">pill_w</span> <span class="o">+</span> <span class="n">gap</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">idx</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">prev_cx</span> <span class="o">=</span> <span class="n">cx</span> <span class="o">-</span> <span class="p">(</span><span class="n">pill_w</span> <span class="o">+</span> <span class="n">gap</span><span class="p">)</span>
+            <span class="n">line</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">prev_cx</span> <span class="o">+</span> <span class="n">pill_w</span> <span class="o">/</span> <span class="mf">2.0</span> <span class="o">+</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">cy</span><span class="p">),</span>
+                <span class="p">(</span><span class="n">cx</span> <span class="o">-</span> <span class="n">pill_w</span> <span class="o">/</span> <span class="mf">2.0</span> <span class="o">-</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">cy</span><span class="p">),</span>
+                <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span> <span class="k">if</span> <span class="n">idx</span> <span class="o">&lt;=</span> <span class="n">active_part</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">MutedThin</span><span class="p">,</span>
+            <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">idx</span> <span class="o">==</span> <span class="n">active_part</span><span class="p">:</span>
+            <span class="n">st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.4</span><span class="p">)</span>
+            <span class="n">tst</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.3</span><span class="p">)</span>
+            <span class="n">sub_tst</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">idx</span> <span class="o">&lt;</span> <span class="n">active_part</span><span class="p">:</span>
+            <span class="n">st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.4</span><span class="p">,</span> <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.1</span><span class="p">)</span>
+            <span class="n">tst</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.3</span><span class="p">)</span>
+            <span class="n">sub_tst</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.4</span><span class="p">,</span> <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.1</span><span class="p">)</span>
+            <span class="n">tst</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">MutedBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.3</span><span class="p">)</span>
+            <span class="n">sub_tst</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">)</span>
+
+        <span class="n">rectangle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="n">pill_w</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">pill_h</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">st</span><span class="p">)</span>
+        <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span> <span class="o">+</span> <span class="mf">1.35</span><span class="p">),</span> <span class="n">label</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">tst</span><span class="p">)</span>
+        <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span> <span class="o">-</span> <span class="mf">1.55</span><span class="p">),</span> <span class="n">sublabel</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">sub_tst</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">draw_left_pane</span><span class="p">(</span>
+    <span class="n">active_part</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">code_lines</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+    <span class="n">hl_range</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span>
+    <span class="n">icon_fn</span><span class="p">:</span> <span class="nb">object</span><span class="p">,</span>
+    <span class="n">summary_title</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">summary_line1</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">summary_line2</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Draw left Python code editor + bottom concept takeaway card."""</span>
+    <span class="n">x0</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">63.5</span>
+    <span class="n">cx</span> <span class="o">=</span> <span class="n">x0</span> <span class="o">+</span> <span class="n">w</span> <span class="o">/</span> <span class="mf">2.0</span>
+    <span class="n">top_y</span> <span class="o">=</span> <span class="mf">63.2</span>
+    <span class="n">header_h</span> <span class="o">=</span> <span class="mf">5.4</span>
+    <span class="n">editor_h</span> <span class="o">=</span> <span class="mf">43.8</span>
+    <span class="n">takeaway_h</span> <span class="o">=</span> <span class="mf">15.8</span>
+
+    <span class="n">rectangle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">top_y</span> <span class="o">+</span> <span class="n">header_h</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="n">w</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">header_h</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">PANE_HEADER</span><span class="p">)</span>
+    <span class="n">code_icons</span><span class="o">.</span><span class="n">python</span><span class="p">((</span><span class="n">x0</span> <span class="o">+</span> <span class="mf">3.6</span><span class="p">,</span> <span class="n">top_y</span> <span class="o">+</span> <span class="n">header_h</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.4</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+    <span class="n">text</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">x0</span> <span class="o">+</span> <span class="mf">6.5</span><span class="p">,</span> <span class="n">top_y</span> <span class="o">+</span> <span class="n">header_h</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">),</span>
+        <span class="s2">"boxlist_tour.py"</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.2</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">text</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">x0</span> <span class="o">+</span> <span class="n">w</span> <span class="o">-</span> <span class="mf">2.6</span><span class="p">,</span> <span class="n">top_y</span> <span class="o">+</span> <span class="n">header_h</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">),</span>
+        <span class="sa">f</span><span class="s2">"Part </span><span class="si">{</span><span class="n">active_part</span><span class="si">}</span><span class="s2"> / 4"</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.8</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"right"</span><span class="p">),</span>
+    <span class="p">)</span>
+
+    <span class="n">rectangle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">top_y</span> <span class="o">-</span> <span class="n">editor_h</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="n">w</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">editor_h</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">EDITOR_BODY</span><span class="p">)</span>
+
+    <span class="n">hl_start</span><span class="p">,</span> <span class="n">hl_end</span> <span class="o">=</span> <span class="n">hl_range</span>
+    <span class="n">hl_top</span> <span class="o">=</span> <span class="n">top_y</span> <span class="o">-</span> <span class="n">PAD_Y</span> <span class="o">-</span> <span class="n">hl_start</span> <span class="o">*</span> <span class="n">LINE_H</span>
+    <span class="n">hl_bot</span> <span class="o">=</span> <span class="n">top_y</span> <span class="o">-</span> <span class="n">PAD_Y</span> <span class="o">-</span> <span class="p">(</span><span class="n">hl_end</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">LINE_H</span>
+    <span class="n">hl_cy</span> <span class="o">=</span> <span class="p">(</span><span class="n">hl_top</span> <span class="o">+</span> <span class="n">hl_bot</span><span class="p">)</span> <span class="o">/</span> <span class="mf">2.0</span>
+    <span class="n">hl_h</span> <span class="o">=</span> <span class="n">hl_top</span> <span class="o">-</span> <span class="n">hl_bot</span>
+    <span class="n">rectangle</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">cx</span><span class="p">,</span> <span class="n">hl_cy</span><span class="p">),</span>
+        <span class="n">width</span><span class="o">=</span><span class="n">w</span> <span class="o">-</span> <span class="mf">0.6</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="n">hl_h</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">229</span><span class="p">,</span> <span class="mi">239</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span> <span class="n">shape_line_width</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">rectangle</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">x0</span> <span class="o">+</span> <span class="mf">0.55</span><span class="p">,</span> <span class="n">hl_cy</span><span class="p">),</span>
+        <span class="n">width</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="n">hl_h</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_line_width</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
+    <span class="p">)</span>
+
+    <span class="n">SourceCode</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span>
+        <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span> <span class="n">top_y</span><span class="p">),</span>
+        <span class="n">width</span><span class="o">=</span><span class="n">w</span><span class="p">,</span>
+        <span class="n">code</span><span class="o">=</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">code_lines</span><span class="p">),</span>
+        <span class="n">styles</span><span class="o">=</span><span class="n">CODE_STYLES</span><span class="p">,</span>
+        <span class="n">code_lang</span><span class="o">=</span><span class="s2">"python"</span><span class="p">,</span>
+        <span class="n">show_linenum</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">align</span><span class="o">=</span><span class="s2">"top_left"</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">take_cy</span> <span class="o">=</span> <span class="mf">3.6</span> <span class="o">+</span> <span class="n">takeaway_h</span> <span class="o">/</span> <span class="mf">2.0</span>
+    <span class="n">rectangle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">take_cy</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="n">w</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">takeaway_h</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">TAKEAWAY_BODY</span><span class="p">)</span>
+    <span class="n">circle</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">x0</span> <span class="o">+</span> <span class="mf">6.4</span><span class="p">,</span> <span class="n">take_cy</span><span class="p">),</span>
+        <span class="n">radius</span><span class="o">=</span><span class="mf">3.3</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.2</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">icon_fn</span><span class="p">((</span><span class="n">x0</span> <span class="o">+</span> <span class="mf">6.4</span><span class="p">,</span> <span class="n">take_cy</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>  <span class="c1"># type: ignore[operator]</span>
+    <span class="n">text</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">x0</span> <span class="o">+</span> <span class="mf">11.4</span><span class="p">,</span> <span class="n">take_cy</span> <span class="o">+</span> <span class="mf">3.6</span><span class="p">),</span>
+        <span class="n">summary_title</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.4</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">text</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">x0</span> <span class="o">+</span> <span class="mf">11.4</span><span class="p">,</span> <span class="n">take_cy</span> <span class="o">-</span> <span class="mf">0.2</span><span class="p">),</span>
+        <span class="n">summary_line1</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.7</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">text</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">x0</span> <span class="o">+</span> <span class="mf">11.4</span><span class="p">,</span> <span class="n">take_cy</span> <span class="o">-</span> <span class="mf">3.8</span><span class="p">),</span>
+        <span class="n">summary_line2</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.6</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">),</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">draw_geometry_studio</span><span class="p">(</span><span class="n">param_badge</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">footer_caption</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""Draw right geometry lab shell, inner coordinate sheet with subtle grid, and footer."""</span>
+    <span class="n">x0</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="mf">70.0</span><span class="p">,</span> <span class="mf">64.0</span>
+    <span class="n">cx</span> <span class="o">=</span> <span class="n">x0</span> <span class="o">+</span> <span class="n">w</span> <span class="o">/</span> <span class="mf">2.0</span>
+    <span class="n">top_y</span> <span class="o">=</span> <span class="mf">63.2</span>
+    <span class="n">header_h</span> <span class="o">=</span> <span class="mf">5.4</span>
+    <span class="n">body_h</span> <span class="o">=</span> <span class="mf">59.6</span>
+
+    <span class="n">rectangle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">top_y</span> <span class="o">+</span> <span class="n">header_h</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="n">w</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">header_h</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">PANE_HEADER</span><span class="p">)</span>
+    <span class="n">phosphor</span><span class="o">.</span><span class="n">ruler</span><span class="p">((</span><span class="n">x0</span> <span class="o">+</span> <span class="mf">3.6</span><span class="p">,</span> <span class="n">top_y</span> <span class="o">+</span> <span class="n">header_h</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.4</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">)</span>
+    <span class="n">text</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">x0</span> <span class="o">+</span> <span class="mf">6.5</span><span class="p">,</span> <span class="n">top_y</span> <span class="o">+</span> <span class="n">header_h</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">),</span>
+        <span class="s2">"Live Geometry &amp; Guides"</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.2</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">text</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">x0</span> <span class="o">+</span> <span class="n">w</span> <span class="o">-</span> <span class="mf">2.6</span><span class="p">,</span> <span class="n">top_y</span> <span class="o">+</span> <span class="n">header_h</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">),</span>
+        <span class="n">param_badge</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.6</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"right"</span><span class="p">),</span>
+    <span class="p">)</span>
+
+    <span class="n">rectangle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mf">3.6</span> <span class="o">+</span> <span class="n">body_h</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="n">w</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">body_h</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">STUDIO_BODY</span><span class="p">)</span>
+
+    <span class="n">sheet_cx</span><span class="p">,</span> <span class="n">sheet_cy</span> <span class="o">=</span> <span class="n">cx</span><span class="p">,</span> <span class="mf">36.2</span>
+    <span class="n">sheet_w</span><span class="p">,</span> <span class="n">sheet_h</span> <span class="o">=</span> <span class="mf">54.0</span><span class="p">,</span> <span class="mf">40.0</span>
+    <span class="n">sx0</span><span class="p">,</span> <span class="n">sy0</span> <span class="o">=</span> <span class="n">sheet_cx</span> <span class="o">-</span> <span class="n">sheet_w</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">,</span> <span class="n">sheet_cy</span> <span class="o">-</span> <span class="n">sheet_h</span> <span class="o">/</span> <span class="mf">2.0</span>
+    <span class="n">rectangle</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">sheet_cx</span><span class="p">,</span> <span class="n">sheet_cy</span><span class="p">),</span>
+        <span class="n">width</span><span class="o">=</span><span class="n">sheet_w</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="n">sheet_h</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+            <span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span>
+            <span class="n">shape_line_color</span><span class="o">=</span><span class="p">(</span><span class="mi">180</span><span class="p">,</span> <span class="mi">194</span><span class="p">,</span> <span class="mi">214</span><span class="p">),</span>
+            <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">g_st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">MutedThin</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_color</span><span class="o">=</span><span class="p">(</span><span class="mi">232</span><span class="p">,</span> <span class="mi">238</span><span class="p">,</span> <span class="mi">246</span><span class="p">),</span> <span class="n">line_width</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">gx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">):</span>
+        <span class="n">vx</span> <span class="o">=</span> <span class="n">sx0</span> <span class="o">+</span> <span class="n">gx</span> <span class="o">*</span> <span class="p">(</span><span class="n">sheet_w</span> <span class="o">/</span> <span class="mf">6.0</span><span class="p">)</span>
+        <span class="n">line</span><span class="p">((</span><span class="n">vx</span><span class="p">,</span> <span class="n">sy0</span><span class="p">),</span> <span class="p">(</span><span class="n">vx</span><span class="p">,</span> <span class="n">sy0</span> <span class="o">+</span> <span class="n">sheet_h</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="n">g_st</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">gy</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">):</span>
+        <span class="n">vy</span> <span class="o">=</span> <span class="n">sy0</span> <span class="o">+</span> <span class="n">gy</span> <span class="o">*</span> <span class="p">(</span><span class="n">sheet_h</span> <span class="o">/</span> <span class="mf">5.0</span><span class="p">)</span>
+        <span class="n">line</span><span class="p">((</span><span class="n">sx0</span><span class="p">,</span> <span class="n">vy</span><span class="p">),</span> <span class="p">(</span><span class="n">sx0</span> <span class="o">+</span> <span class="n">sheet_w</span><span class="p">,</span> <span class="n">vy</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="n">g_st</span><span class="p">)</span>
+
+    <span class="n">rectangle</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">cx</span><span class="p">,</span> <span class="mf">8.4</span><span class="p">),</span>
+        <span class="n">width</span><span class="o">=</span><span class="mf">59.2</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mf">5.2</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+            <span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span>
+            <span class="n">shape_line_color</span><span class="o">=</span><span class="p">(</span><span class="mi">203</span><span class="p">,</span> <span class="mi">213</span><span class="p">,</span> <span class="mi">225</span><span class="p">),</span>
+            <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.1</span><span class="p">,</span>
+            <span class="n">shape_r</span><span class="o">=</span><span class="mf">2.4</span><span class="p">,</span>
+        <span class="p">),</span>
+        <span class="n">text</span><span class="o">=</span><span class="n">footer_caption</span><span class="p">,</span>
+        <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.8</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">sheet_cx</span><span class="p">,</span> <span class="n">sheet_cy</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">draw_sub_pills</span><span class="p">(</span><span class="n">scx</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">labels</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">active_idx</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Draw 3-step tracker pills near the top of the studio sheet."""</span>
+    <span class="n">pw</span><span class="p">,</span> <span class="n">ph</span><span class="p">,</span> <span class="n">pgap</span> <span class="o">=</span> <span class="mf">16.2</span><span class="p">,</span> <span class="mf">4.2</span><span class="p">,</span> <span class="mf">0.9</span>
+    <span class="n">p_start</span> <span class="o">=</span> <span class="n">scx</span> <span class="o">-</span> <span class="p">(</span><span class="mi">3</span> <span class="o">*</span> <span class="n">pw</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">pgap</span><span class="p">)</span> <span class="o">/</span> <span class="mf">2.0</span> <span class="o">+</span> <span class="n">pw</span> <span class="o">/</span> <span class="mf">2.0</span>
+    <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">lbl</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">labels</span><span class="p">):</span>
+        <span class="n">px</span> <span class="o">=</span> <span class="n">p_start</span> <span class="o">+</span> <span class="n">idx</span> <span class="o">*</span> <span class="p">(</span><span class="n">pw</span> <span class="o">+</span> <span class="n">pgap</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">idx</span> <span class="o">==</span> <span class="n">active_idx</span><span class="p">:</span>
+            <span class="n">pst</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">)</span>
+            <span class="n">ptst</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">idx</span> <span class="o">&lt;</span> <span class="n">active_idx</span><span class="p">:</span>
+            <span class="n">pst</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span> <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+            <span class="n">ptst</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">pst</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span> <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+            <span class="n">ptst</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">)</span>
+        <span class="n">rectangle</span><span class="p">((</span><span class="n">px</span><span class="p">,</span> <span class="mf">52.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="n">pw</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">ph</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">pst</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="n">lbl</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">ptst</span><span class="p">)</span>
+
+
+<span class="n">TITLE_DARK</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.2</span><span class="p">)</span>
+<span class="n">TITLE_WHITE</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.2</span><span class="p">)</span>
+
+<span class="c1"># =========================================================================</span>
+<span class="c1"># Part 1: Contiguous .add() — Shared-Border Packet / Stage Construction</span>
+<span class="c1"># =========================================================================</span>
+<span class="n">BUILD_STATES</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span>
+        <span class="mi">1</span><span class="p">,</span>
+        <span class="mf">3.2</span><span class="p">,</span>
+        <span class="p">[</span>
+            <span class="s2">"bl = BoxList("</span><span class="p">,</span>
+            <span class="s2">"    style=Styles.Neutral,"</span><span class="p">,</span>
+            <span class="s2">"    text_style=Styles.DarkBold,"</span><span class="p">,</span>
+            <span class="s2">")"</span><span class="p">,</span>
+            <span class="s1">'bl.add("Header")'</span><span class="p">,</span>
+            <span class="s2">"bl.draw("</span><span class="p">,</span>
+            <span class="s2">"    xy=(10, 18),"</span><span class="p">,</span>
+            <span class="s2">"    box_width=14.5,"</span><span class="p">,</span>
+            <span class="s2">"    box_height=11.0,"</span><span class="p">,</span>
+            <span class="s1">'    direction="left")'</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span>
+        <span class="s2">"Box 1 / 3"</span><span class="p">,</span>
+        <span class="s2">"Step 1: Anchor First Cell at Bottom-Left xy=(10, 18)"</span><span class="p">,</span>
+        <span class="s2">"1. Bottom-Left Anchor &amp; First Box"</span><span class="p">,</span>
+        <span class="s2">"xy=(x, y) pins the bottom-left bounding-box corner"</span><span class="p">,</span>
+        <span class="s2">"Each box has exact box_width x box_height size"</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="p">(</span>
+        <span class="mi">2</span><span class="p">,</span>
+        <span class="mf">3.3</span><span class="p">,</span>
+        <span class="p">[</span>
+            <span class="s2">"bl = BoxList("</span><span class="p">,</span>
+            <span class="s2">"    style=Styles.Neutral,"</span><span class="p">,</span>
+            <span class="s2">"    text_style=Styles.DarkBold)"</span><span class="p">,</span>
+            <span class="s1">'bl.add("Header")'</span><span class="p">,</span>
+            <span class="s2">"bl.add("</span><span class="p">,</span>
+            <span class="s1">'    "Payload",'</span><span class="p">,</span>
+            <span class="s2">"    style=Styles.PrimaryNeutral)"</span><span class="p">,</span>
+            <span class="s2">"bl.draw("</span><span class="p">,</span>
+            <span class="s2">"    xy=(10, 18),"</span><span class="p">,</span>
+            <span class="s2">"    box_width=14.5,"</span><span class="p">,</span>
+            <span class="s2">"    box_height=11.0)"</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span>
+        <span class="s2">"Box 2 / 3"</span><span class="p">,</span>
+        <span class="s2">"Step 2: Append Contiguous Cell Sharing Exact Border Seam"</span><span class="p">,</span>
+        <span class="s2">"2. Zero-Gap Contiguous Seam"</span><span class="p">,</span>
+        <span class="s2">"Adjacent boxes touch edge-to-edge with 0 spacing"</span><span class="p">,</span>
+        <span class="s2">"Ideal for wire packets, memory maps &amp; stage bars"</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="p">(</span>
+        <span class="mi">3</span><span class="p">,</span>
+        <span class="mf">3.5</span><span class="p">,</span>
+        <span class="p">[</span>
+            <span class="s2">"bl = BoxList("</span><span class="p">,</span>
+            <span class="s2">"    style=Styles.Neutral,"</span><span class="p">,</span>
+            <span class="s2">"    text_style=Styles.DarkBold)"</span><span class="p">,</span>
+            <span class="s1">'bl.add("Header")'</span><span class="p">,</span>
+            <span class="s2">"bl.add("</span><span class="p">,</span>
+            <span class="s1">'    "Payload",'</span><span class="p">,</span>
+            <span class="s2">"    style=Styles.PrimaryNeutral)"</span><span class="p">,</span>
+            <span class="s2">"bl.add("</span><span class="p">,</span>
+            <span class="s1">'    "CRC",'</span><span class="p">,</span>
+            <span class="s2">"    style=Styles.SecondaryNeutral)"</span><span class="p">,</span>
+            <span class="s2">"bl.draw((10, 18), 14.5, 11.0)"</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span>
+        <span class="s2">"Box 3 / 3"</span><span class="p">,</span>
+        <span class="s2">"Step 3: Complete 3-Cell Sequence (Total Span = 3 × 14.5)"</span><span class="p">,</span>
+        <span class="s2">"3. Predictable N × box_width Span"</span><span class="p">,</span>
+        <span class="s2">"Total width grows linearly as N * box_width"</span><span class="p">,</span>
+        <span class="s2">"Calm neutral fills maintain &gt;50% balance"</span><span class="p">,</span>
+    <span class="p">),</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">b_idx</span><span class="p">,</span> <span class="p">(</span><span class="n">n_boxes</span><span class="p">,</span> <span class="n">dur</span><span class="p">,</span> <span class="n">code_b</span><span class="p">,</span> <span class="n">hl_rng</span><span class="p">,</span> <span class="n">badge_txt</span><span class="p">,</span> <span class="n">foot_txt</span><span class="p">,</span> <span class="n">s_t</span><span class="p">,</span> <span class="n">s_1</span><span class="p">,</span> <span class="n">s_2</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">BUILD_STATES</span><span class="p">):</span>
+    <span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="n">dur</span><span class="p">):</span>
+        <span class="n">draw_step_bar</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">draw_left_pane</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">code_b</span><span class="p">,</span> <span class="n">hl_rng</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">list_plus</span><span class="p">,</span> <span class="n">s_t</span><span class="p">,</span> <span class="n">s_1</span><span class="p">,</span> <span class="n">s_2</span><span class="p">)</span>
+        <span class="n">scx</span><span class="p">,</span> <span class="n">scy</span> <span class="o">=</span> <span class="n">draw_geometry_studio</span><span class="p">(</span><span class="n">badge_txt</span><span class="p">,</span> <span class="n">foot_txt</span><span class="p">)</span>
+        <span class="n">draw_sub_pills</span><span class="p">(</span><span class="n">scx</span><span class="p">,</span> <span class="p">[</span><span class="s2">"1 Box"</span><span class="p">,</span> <span class="s2">"2 Boxes"</span><span class="p">,</span> <span class="s2">"3 Boxes"</span><span class="p">],</span> <span class="n">b_idx</span><span class="p">)</span>
+
+        <span class="n">bx0</span><span class="p">,</span> <span class="n">by0</span><span class="p">,</span> <span class="n">bw</span><span class="p">,</span> <span class="n">bh</span> <span class="o">=</span> <span class="mf">80.25</span><span class="p">,</span> <span class="mf">27.5</span><span class="p">,</span> <span class="mf">14.5</span><span class="p">,</span> <span class="mf">11.0</span>
+        <span class="n">tot_w</span> <span class="o">=</span> <span class="mf">3.0</span> <span class="o">*</span> <span class="n">bw</span>
+
+        <span class="c1"># Dashed 3-box target span preview</span>
+        <span class="n">rectangle</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">bx0</span> <span class="o">+</span> <span class="n">tot_w</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">,</span> <span class="n">by0</span> <span class="o">+</span> <span class="n">bh</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">),</span>
+            <span class="n">width</span><span class="o">=</span><span class="n">tot_w</span><span class="p">,</span>
+            <span class="n">height</span><span class="o">=</span><span class="n">bh</span><span class="p">,</span>
+            <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryDashed</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.1</span><span class="p">),</span>
+        <span class="p">)</span>
+
+        <span class="n">bl</span> <span class="o">=</span> <span class="n">BoxList</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">TITLE_DARK</span><span class="p">)</span>
+        <span class="n">bl</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"Header"</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">n_boxes</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">bl</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"Payload"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">n_boxes</span> <span class="o">&gt;=</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="n">bl</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"CRC"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">)</span>
+        <span class="n">bl</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">bx0</span><span class="p">,</span> <span class="n">by0</span><span class="p">),</span> <span class="n">box_width</span><span class="o">=</span><span class="n">bw</span><span class="p">,</span> <span class="n">box_height</span><span class="o">=</span><span class="n">bh</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s2">"left"</span><span class="p">)</span>
+
+        <span class="n">cur_w</span> <span class="o">=</span> <span class="n">n_boxes</span> <span class="o">*</span> <span class="n">bw</span>
+        <span class="n">cal_y</span> <span class="o">=</span> <span class="n">by0</span> <span class="o">+</span> <span class="n">bh</span> <span class="o">+</span> <span class="mf">3.4</span>
+        <span class="n">line</span><span class="p">((</span><span class="n">bx0</span><span class="p">,</span> <span class="n">by0</span> <span class="o">+</span> <span class="n">bh</span> <span class="o">+</span> <span class="mf">0.7</span><span class="p">),</span> <span class="p">(</span><span class="n">bx0</span><span class="p">,</span> <span class="n">cal_y</span> <span class="o">+</span> <span class="mf">1.0</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">1.2</span><span class="p">))</span>
+        <span class="n">line</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">bx0</span> <span class="o">+</span> <span class="n">cur_w</span><span class="p">,</span> <span class="n">by0</span> <span class="o">+</span> <span class="n">bh</span> <span class="o">+</span> <span class="mf">0.7</span><span class="p">),</span>
+            <span class="p">(</span><span class="n">bx0</span> <span class="o">+</span> <span class="n">cur_w</span><span class="p">,</span> <span class="n">cal_y</span> <span class="o">+</span> <span class="mf">1.0</span><span class="p">),</span>
+            <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">1.2</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="n">line</span><span class="p">((</span><span class="n">bx0</span><span class="p">,</span> <span class="n">cal_y</span><span class="p">),</span> <span class="p">(</span><span class="n">bx0</span> <span class="o">+</span> <span class="n">cur_w</span><span class="p">,</span> <span class="n">cal_y</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"&lt;-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">1.3</span><span class="p">))</span>
+        <span class="n">text</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">scx</span><span class="p">,</span> <span class="n">cal_y</span> <span class="o">+</span> <span class="mf">3.0</span><span class="p">),</span>
+            <span class="sa">f</span><span class="s2">"span = </span><span class="si">{</span><span class="n">n_boxes</span><span class="si">}</span><span class="s2"> × 14.5 = </span><span class="si">{</span><span class="n">cur_w</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
+            <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Bottom-Left xy anchor + +X / +Y Cartesian axes</span>
+        <span class="n">line</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">bx0</span><span class="p">,</span> <span class="n">by0</span><span class="p">),</span>
+            <span class="p">(</span><span class="n">bx0</span><span class="p">,</span> <span class="n">by0</span> <span class="o">+</span> <span class="mf">8.6</span><span class="p">),</span>
+            <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span>
+            <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">1.4</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="n">text</span><span class="p">((</span><span class="n">bx0</span> <span class="o">-</span> <span class="mf">2.6</span><span class="p">,</span> <span class="n">by0</span> <span class="o">+</span> <span class="mf">8.4</span><span class="p">),</span> <span class="s2">"+Y"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
+        <span class="n">line</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">bx0</span><span class="p">,</span> <span class="n">by0</span><span class="p">),</span>
+            <span class="p">(</span><span class="n">bx0</span> <span class="o">+</span> <span class="mf">11.5</span><span class="p">,</span> <span class="n">by0</span><span class="p">),</span>
+            <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span>
+            <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">1.4</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="n">text</span><span class="p">((</span><span class="n">bx0</span> <span class="o">+</span> <span class="mf">13.8</span><span class="p">,</span> <span class="n">by0</span> <span class="o">-</span> <span class="mf">1.9</span><span class="p">),</span> <span class="s2">"+X"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
+        <span class="n">circle</span><span class="p">((</span><span class="n">bx0</span><span class="p">,</span> <span class="n">by0</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerFlat</span><span class="p">)</span>
+        <span class="n">text</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">scx</span><span class="p">,</span> <span class="mf">19.6</span><span class="p">),</span>
+            <span class="s2">"xy = (10, 18)  •  zero-gap shared borders"</span><span class="p">,</span>
+            <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+        <span class="p">)</span>
+
+<span class="c1"># =========================================================================</span>
+<span class="c1"># Part 2: 4 Directions — left (+X), right (-X), bottom (+Y) &amp; top (-Y)</span>
+<span class="c1"># =========================================================================</span>
+<span class="n">DIR_STATES</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span>
+        <span class="s2">"left"</span><span class="p">,</span>
+        <span class="mf">3.3</span><span class="p">,</span>
+        <span class="p">[</span>
+            <span class="s2">"bl = BoxList("</span><span class="p">,</span>
+            <span class="s2">"    style=Styles.Neutral,"</span><span class="p">,</span>
+            <span class="s2">"    text_style=Styles.DarkBold)"</span><span class="p">,</span>
+            <span class="s2">"bl.add("</span><span class="p">,</span>
+            <span class="s1">'    "1. Header",'</span><span class="p">,</span>
+            <span class="s2">"    style=Styles.PrimaryFlat,"</span><span class="p">,</span>
+            <span class="s2">"    text_style=Styles.WhiteBold)"</span><span class="p">,</span>
+            <span class="s1">'bl.add("2. Payload")'</span><span class="p">,</span>
+            <span class="s1">'bl.add("3. CRC")'</span><span class="p">,</span>
+            <span class="s2">"bl.draw((10, 18), 14.5, 11.0,"</span><span class="p">,</span>
+            <span class="s1">'        direction="left")'</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
+        <span class="s1">'direction = "left"'</span><span class="p">,</span>
+        <span class="s1">'direction="left" (Default): Sequences +X Left-to-Right'</span><span class="p">,</span>
+        <span class="s1">'Left-to-Right Flow (direction="left")'</span><span class="p">,</span>
+        <span class="s2">"Item 0 starts at xy and sequences +X rightward"</span><span class="p">,</span>
+        <span class="s2">"Standard layout for pipelines &amp; wire headers"</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="p">(</span>
+        <span class="s2">"right"</span><span class="p">,</span>
+        <span class="mf">3.3</span><span class="p">,</span>
+        <span class="p">[</span>
+            <span class="s2">"bl = BoxList("</span><span class="p">,</span>
+            <span class="s2">"    style=Styles.Neutral,"</span><span class="p">,</span>
+            <span class="s2">"    text_style=Styles.DarkBold)"</span><span class="p">,</span>
+            <span class="s2">"bl.add("</span><span class="p">,</span>
+            <span class="s1">'    "1. Header",'</span><span class="p">,</span>
+            <span class="s2">"    style=Styles.PrimaryFlat,"</span><span class="p">,</span>
+            <span class="s2">"    text_style=Styles.WhiteBold)"</span><span class="p">,</span>
+            <span class="s1">'bl.add("2. Payload")'</span><span class="p">,</span>
+            <span class="s1">'bl.add("3. CRC")'</span><span class="p">,</span>
+            <span class="s2">"bl.draw((10, 18), 14.5, 11.0,"</span><span class="p">,</span>
+            <span class="s1">'        direction="right")'</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
+        <span class="s1">'direction = "right"'</span><span class="p">,</span>
+        <span class="s1">'direction="right": Sequences -X Right-to-Left Inside Span'</span><span class="p">,</span>
+        <span class="s1">'Right-to-Left Flow (direction="right")'</span><span class="p">,</span>
+        <span class="s2">"xy stays bottom-left; Item 0 starts at right edge"</span><span class="p">,</span>
+        <span class="s2">"Cells progress -X leftward toward xy"</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="p">(</span>
+        <span class="s2">"vertical_pair"</span><span class="p">,</span>
+        <span class="mf">3.4</span><span class="p">,</span>
+        <span class="p">[</span>
+            <span class="s2">"bl = BoxList("</span><span class="p">,</span>
+            <span class="s2">"    style=Styles.Neutral, ...)"</span><span class="p">,</span>
+            <span class="s1">'bl.add("1. Header",'</span><span class="p">,</span>
+            <span class="s2">"       style=Styles.PrimaryFlat)"</span><span class="p">,</span>
+            <span class="s1">'bl.add("2. Payload")'</span><span class="p">,</span>
+            <span class="s1">'bl.add("3. CRC")'</span><span class="p">,</span>
+            <span class="s2">"# +Y up stack from xy"</span><span class="p">,</span>
+            <span class="s2">"bl.draw((6, 10), 17.5, 6.8,"</span><span class="p">,</span>
+            <span class="s1">'        direction="bottom")'</span><span class="p">,</span>
+            <span class="s2">"# -Y down stack from top"</span><span class="p">,</span>
+            <span class="s1">'bl.draw((32, 10), ..., "top")'</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
+        <span class="s1">'"bottom" &amp; "top"'</span><span class="p">,</span>
+        <span class="s1">'direction="bottom" (+Y Up) vs. direction="top" (-Y Down)'</span><span class="p">,</span>
+        <span class="s1">'Vertical Stacks ("bottom" vs. "top")'</span><span class="p">,</span>
+        <span class="s1">'"bottom" stacks +Y upward from xy (OS/OSI layers)'</span><span class="p">,</span>
+        <span class="s1">'"top" stacks -Y downward from top (priority tiers)'</span><span class="p">,</span>
+    <span class="p">),</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">d_idx</span><span class="p">,</span> <span class="p">(</span><span class="n">d_mode</span><span class="p">,</span> <span class="n">dur</span><span class="p">,</span> <span class="n">code_d</span><span class="p">,</span> <span class="n">hl_rng</span><span class="p">,</span> <span class="n">badge_txt</span><span class="p">,</span> <span class="n">foot_txt</span><span class="p">,</span> <span class="n">s_t</span><span class="p">,</span> <span class="n">s_1</span><span class="p">,</span> <span class="n">s_2</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">DIR_STATES</span><span class="p">):</span>
+    <span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="n">dur</span><span class="p">):</span>
+        <span class="n">draw_step_bar</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">draw_left_pane</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">code_d</span><span class="p">,</span> <span class="n">hl_rng</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">arrow_circle_right</span><span class="p">,</span> <span class="n">s_t</span><span class="p">,</span> <span class="n">s_1</span><span class="p">,</span> <span class="n">s_2</span><span class="p">)</span>
+        <span class="n">scx</span><span class="p">,</span> <span class="n">scy</span> <span class="o">=</span> <span class="n">draw_geometry_studio</span><span class="p">(</span><span class="n">badge_txt</span><span class="p">,</span> <span class="n">foot_txt</span><span class="p">)</span>
+        <span class="n">draw_sub_pills</span><span class="p">(</span><span class="n">scx</span><span class="p">,</span> <span class="p">[</span><span class="s1">'"left" (+X)'</span><span class="p">,</span> <span class="s1">'"right" (-X)'</span><span class="p">,</span> <span class="s1">'"bottom" / "top"'</span><span class="p">],</span> <span class="n">d_idx</span><span class="p">)</span>
+
+        <span class="n">bl</span> <span class="o">=</span> <span class="n">BoxList</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">TITLE_DARK</span><span class="p">)</span>
+        <span class="n">bl</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"1. Header"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">TITLE_WHITE</span><span class="p">)</span>
+        <span class="n">bl</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"2. Payload"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
+        <span class="n">bl</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"3. CRC"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">d_mode</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">"left"</span><span class="p">,</span> <span class="s2">"right"</span><span class="p">):</span>
+            <span class="n">bx0</span><span class="p">,</span> <span class="n">by0</span><span class="p">,</span> <span class="n">bw</span><span class="p">,</span> <span class="n">bh</span> <span class="o">=</span> <span class="mf">80.25</span><span class="p">,</span> <span class="mf">27.5</span><span class="p">,</span> <span class="mf">14.5</span><span class="p">,</span> <span class="mf">11.0</span>
+            <span class="n">tot_w</span> <span class="o">=</span> <span class="mf">3.0</span> <span class="o">*</span> <span class="n">bw</span>
+            <span class="n">bl</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">bx0</span><span class="p">,</span> <span class="n">by0</span><span class="p">),</span> <span class="n">box_width</span><span class="o">=</span><span class="n">bw</span><span class="p">,</span> <span class="n">box_height</span><span class="o">=</span><span class="n">bh</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="n">d_mode</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">d_mode</span> <span class="o">==</span> <span class="s2">"left"</span><span class="p">:</span>
+                <span class="n">line</span><span class="p">(</span>
+                    <span class="p">(</span><span class="n">bx0</span><span class="p">,</span> <span class="n">by0</span> <span class="o">+</span> <span class="n">bh</span> <span class="o">+</span> <span class="mf">3.4</span><span class="p">),</span>
+                    <span class="p">(</span><span class="n">bx0</span> <span class="o">+</span> <span class="n">tot_w</span><span class="p">,</span> <span class="n">by0</span> <span class="o">+</span> <span class="n">bh</span> <span class="o">+</span> <span class="mf">3.4</span><span class="p">),</span>
+                    <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span>
+                    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">1.6</span><span class="p">),</span>
+                <span class="p">)</span>
+                <span class="n">text</span><span class="p">(</span>
+                    <span class="p">(</span><span class="n">scx</span><span class="p">,</span> <span class="n">by0</span> <span class="o">+</span> <span class="n">bh</span> <span class="o">+</span> <span class="mf">6.4</span><span class="p">),</span>
+                    <span class="s2">"Flows +X (Left -&gt; Right)"</span><span class="p">,</span>
+                    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.6</span><span class="p">),</span>
+                <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">line</span><span class="p">(</span>
+                    <span class="p">(</span><span class="n">bx0</span> <span class="o">+</span> <span class="n">tot_w</span><span class="p">,</span> <span class="n">by0</span> <span class="o">+</span> <span class="n">bh</span> <span class="o">+</span> <span class="mf">3.4</span><span class="p">),</span>
+                    <span class="p">(</span><span class="n">bx0</span><span class="p">,</span> <span class="n">by0</span> <span class="o">+</span> <span class="n">bh</span> <span class="o">+</span> <span class="mf">3.4</span><span class="p">),</span>
+                    <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span>
+                    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">1.6</span><span class="p">),</span>
+                <span class="p">)</span>
+                <span class="n">text</span><span class="p">(</span>
+                    <span class="p">(</span><span class="n">scx</span><span class="p">,</span> <span class="n">by0</span> <span class="o">+</span> <span class="n">bh</span> <span class="o">+</span> <span class="mf">6.4</span><span class="p">),</span>
+                    <span class="s2">"Flows -X (Right -&gt; Left)"</span><span class="p">,</span>
+                    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.6</span><span class="p">),</span>
+                <span class="p">)</span>
+            <span class="n">circle</span><span class="p">((</span><span class="n">bx0</span><span class="p">,</span> <span class="n">by0</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerFlat</span><span class="p">)</span>
+            <span class="n">text</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">scx</span><span class="p">,</span> <span class="mf">20.2</span><span class="p">),</span>
+                <span class="s2">"xy = (10, 18)  (bottom-left of 3-box span)"</span><span class="p">,</span>
+                <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">vw</span><span class="p">,</span> <span class="n">vh</span> <span class="o">=</span> <span class="mf">17.2</span><span class="p">,</span> <span class="mf">6.8</span>
+            <span class="n">tot_vh</span> <span class="o">=</span> <span class="mf">3.0</span> <span class="o">*</span> <span class="n">vh</span>
+            <span class="n">lx0</span><span class="p">,</span> <span class="n">rx0_v</span><span class="p">,</span> <span class="n">vy0</span> <span class="o">=</span> <span class="mf">78.2</span><span class="p">,</span> <span class="mf">105.0</span><span class="p">,</span> <span class="mf">22.4</span>
+
+            <span class="n">bl</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">lx0</span><span class="p">,</span> <span class="n">vy0</span><span class="p">),</span> <span class="n">box_width</span><span class="o">=</span><span class="n">vw</span><span class="p">,</span> <span class="n">box_height</span><span class="o">=</span><span class="n">vh</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s2">"bottom"</span><span class="p">)</span>
+            <span class="n">line</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">lx0</span> <span class="o">+</span> <span class="n">vw</span> <span class="o">+</span> <span class="mf">2.0</span><span class="p">,</span> <span class="n">vy0</span><span class="p">),</span>
+                <span class="p">(</span><span class="n">lx0</span> <span class="o">+</span> <span class="n">vw</span> <span class="o">+</span> <span class="mf">2.0</span><span class="p">,</span> <span class="n">vy0</span> <span class="o">+</span> <span class="n">tot_vh</span><span class="p">),</span>
+                <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span>
+                <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">1.5</span><span class="p">),</span>
+            <span class="p">)</span>
+            <span class="n">text</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">lx0</span> <span class="o">+</span> <span class="n">vw</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">,</span> <span class="n">vy0</span> <span class="o">+</span> <span class="n">tot_vh</span> <span class="o">+</span> <span class="mf">2.8</span><span class="p">),</span>
+                <span class="s1">'"bottom" (+Y)'</span><span class="p">,</span>
+                <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+            <span class="p">)</span>
+            <span class="n">circle</span><span class="p">((</span><span class="n">lx0</span><span class="p">,</span> <span class="n">vy0</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">1.1</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerFlat</span><span class="p">)</span>
+            <span class="n">text</span><span class="p">((</span><span class="n">lx0</span> <span class="o">+</span> <span class="n">vw</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">18.8</span><span class="p">),</span> <span class="s2">"xy (bottom-left)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
+
+            <span class="n">bl</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">rx0_v</span><span class="p">,</span> <span class="n">vy0</span><span class="p">),</span> <span class="n">box_width</span><span class="o">=</span><span class="n">vw</span><span class="p">,</span> <span class="n">box_height</span><span class="o">=</span><span class="n">vh</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s2">"top"</span><span class="p">)</span>
+            <span class="n">line</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">rx0_v</span> <span class="o">+</span> <span class="n">vw</span> <span class="o">+</span> <span class="mf">2.0</span><span class="p">,</span> <span class="n">vy0</span> <span class="o">+</span> <span class="n">tot_vh</span><span class="p">),</span>
+                <span class="p">(</span><span class="n">rx0_v</span> <span class="o">+</span> <span class="n">vw</span> <span class="o">+</span> <span class="mf">2.0</span><span class="p">,</span> <span class="n">vy0</span><span class="p">),</span>
+                <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span>
+                <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">1.5</span><span class="p">),</span>
+            <span class="p">)</span>
+            <span class="n">text</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">rx0_v</span> <span class="o">+</span> <span class="n">vw</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">,</span> <span class="n">vy0</span> <span class="o">+</span> <span class="n">tot_vh</span> <span class="o">+</span> <span class="mf">2.8</span><span class="p">),</span>
+                <span class="s1">'"top" (-Y)'</span><span class="p">,</span>
+                <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+            <span class="p">)</span>
+            <span class="n">circle</span><span class="p">((</span><span class="n">rx0_v</span><span class="p">,</span> <span class="n">vy0</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">1.1</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerFlat</span><span class="p">)</span>
+            <span class="n">text</span><span class="p">((</span><span class="n">rx0_v</span> <span class="o">+</span> <span class="n">vw</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">18.8</span><span class="p">),</span> <span class="s2">"xy (bottom-left)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
+
+<span class="c1"># =========================================================================</span>
+<span class="c1"># Part 3: Two-Pass Z-Order — Clean Focal Borders Over Shared Edges</span>
+<span class="c1"># =========================================================================</span>
+<span class="n">ZORDER_STATES</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span>
+        <span class="s2">"all_neutral"</span><span class="p">,</span>
+        <span class="mf">3.3</span><span class="p">,</span>
+        <span class="p">[</span>
+            <span class="s2">"bl = BoxList("</span><span class="p">,</span>
+            <span class="s2">"    style=Styles.Neutral,"</span><span class="p">,</span>
+            <span class="s2">"    text_style=Styles.DarkBold,"</span><span class="p">,</span>
+            <span class="s2">")"</span><span class="p">,</span>
+            <span class="s1">'bl.add("Header")'</span><span class="p">,</span>
+            <span class="s1">'bl.add("Payload")'</span><span class="p">,</span>
+            <span class="s1">'bl.add("CRC")'</span><span class="p">,</span>
+            <span class="s2">""</span><span class="p">,</span>
+            <span class="s2">"# Pass 1: default Neutral boxes"</span><span class="p">,</span>
+            <span class="s2">"bl.draw((10, 18), 14.5, 11.0)"</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span>
+        <span class="s2">"Pass 1: Default"</span><span class="p">,</span>
+        <span class="s2">"All Default Styles.Neutral: Uniform Shared Seams"</span><span class="p">,</span>
+        <span class="s2">"Pass 1: Default Neutral Cells"</span><span class="p">,</span>
+        <span class="s2">"Default-styled items render first in Pass 1"</span><span class="p">,</span>
+        <span class="s2">"Adjacent boxes share crisp uniform borders"</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="p">(</span>
+        <span class="s2">"bold_border"</span><span class="p">,</span>
+        <span class="mf">3.4</span><span class="p">,</span>
+        <span class="p">[</span>
+            <span class="s2">"bl = BoxList("</span><span class="p">,</span>
+            <span class="s2">"    style=Styles.Neutral, ...)"</span><span class="p">,</span>
+            <span class="s1">'bl.add("Header")'</span><span class="p">,</span>
+            <span class="s1">'bl.add("Payload")'</span><span class="p">,</span>
+            <span class="s1">'bl.add("CRC")'</span><span class="p">,</span>
+            <span class="s2">"# Pass 2 draws custom box on top!"</span><span class="p">,</span>
+            <span class="s2">"bl.items[1].style = ("</span><span class="p">,</span>
+            <span class="s2">"    Styles.PrimaryNeutral.patch("</span><span class="p">,</span>
+            <span class="s2">"        shape_line_width=2.0))"</span><span class="p">,</span>
+            <span class="s2">"bl.draw((10, 18), 14.5, 11.0)"</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span>
+        <span class="s2">"Pass 2: Bold 2.0pt"</span><span class="p">,</span>
+        <span class="s2">"Two-Pass Z-Order: Custom 2.0pt Border Overlays Both Seams"</span><span class="p">,</span>
+        <span class="s2">"Pass 2: Unoccluded Bold Borders"</span><span class="p">,</span>
+        <span class="s2">"Custom-styled items render second in Pass 2"</span><span class="p">,</span>
+        <span class="s2">"CRC never paints a grey edge over Payload!"</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="p">(</span>
+        <span class="s2">"primary_flat"</span><span class="p">,</span>
+        <span class="mf">3.4</span><span class="p">,</span>
+        <span class="p">[</span>
+            <span class="s2">"bl = BoxList("</span><span class="p">,</span>
+            <span class="s2">"    style=Styles.Neutral, ...)"</span><span class="p">,</span>
+            <span class="s1">'bl.add("Header")'</span><span class="p">,</span>
+            <span class="s1">'bl.add("Payload")'</span><span class="p">,</span>
+            <span class="s1">'bl.add("CRC")'</span><span class="p">,</span>
+            <span class="s2">"# Pass 2 keeps focal edges crisp"</span><span class="p">,</span>
+            <span class="s2">"mid = bl.items[1]"</span><span class="p">,</span>
+            <span class="s2">"mid.style = Styles.PrimaryFlat"</span><span class="p">,</span>
+            <span class="s2">"mid.text_style = Styles.WhiteBold"</span><span class="p">,</span>
+            <span class="s2">"bl.draw((10, 18), 14.5, 11.0)"</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span>
+        <span class="s2">"Pass 2: PrimaryFlat"</span><span class="p">,</span>
+        <span class="s2">"Focal PrimaryFlat Box Renders Cleanly Above Both Neighbors"</span><span class="p">,</span>
+        <span class="s2">"Focal Spotlight Without Occlusion"</span><span class="p">,</span>
+        <span class="s2">"Reserve PrimaryFlat for 1 focal stage (&gt;50% neutral)"</span><span class="p">,</span>
+        <span class="s2">"All 4 focal borders stay crisp above Pass 1 cells"</span><span class="p">,</span>
+    <span class="p">),</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">z_idx</span><span class="p">,</span> <span class="p">(</span><span class="n">z_mode</span><span class="p">,</span> <span class="n">dur</span><span class="p">,</span> <span class="n">code_z</span><span class="p">,</span> <span class="n">hl_rng</span><span class="p">,</span> <span class="n">badge_txt</span><span class="p">,</span> <span class="n">foot_txt</span><span class="p">,</span> <span class="n">s_t</span><span class="p">,</span> <span class="n">s_1</span><span class="p">,</span> <span class="n">s_2</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">ZORDER_STATES</span><span class="p">):</span>
+    <span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="n">dur</span><span class="p">):</span>
+        <span class="n">draw_step_bar</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+        <span class="n">draw_left_pane</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">code_z</span><span class="p">,</span> <span class="n">hl_rng</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">sliders_horizontal</span><span class="p">,</span> <span class="n">s_t</span><span class="p">,</span> <span class="n">s_1</span><span class="p">,</span> <span class="n">s_2</span><span class="p">)</span>
+        <span class="n">scx</span><span class="p">,</span> <span class="n">scy</span> <span class="o">=</span> <span class="n">draw_geometry_studio</span><span class="p">(</span><span class="n">badge_txt</span><span class="p">,</span> <span class="n">foot_txt</span><span class="p">)</span>
+        <span class="n">draw_sub_pills</span><span class="p">(</span><span class="n">scx</span><span class="p">,</span> <span class="p">[</span><span class="s2">"All Neutral"</span><span class="p">,</span> <span class="s2">"Bold 2.0pt"</span><span class="p">,</span> <span class="s2">"PrimaryFlat"</span><span class="p">],</span> <span class="n">z_idx</span><span class="p">)</span>
+
+        <span class="n">bx0</span><span class="p">,</span> <span class="n">by0</span><span class="p">,</span> <span class="n">bw</span><span class="p">,</span> <span class="n">bh</span> <span class="o">=</span> <span class="mf">80.25</span><span class="p">,</span> <span class="mf">26.8</span><span class="p">,</span> <span class="mf">14.5</span><span class="p">,</span> <span class="mf">11.0</span>
+        <span class="n">bl</span> <span class="o">=</span> <span class="n">BoxList</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">TITLE_DARK</span><span class="p">)</span>
+        <span class="n">bl</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"Header"</span><span class="p">)</span>
+        <span class="n">bl</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"Payload"</span><span class="p">)</span>
+        <span class="n">bl</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"CRC"</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">z_mode</span> <span class="o">==</span> <span class="s2">"bold_border"</span><span class="p">:</span>
+            <span class="n">bl</span><span class="o">.</span><span class="n">items</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_line_width</span><span class="o">=</span><span class="mf">2.0</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">z_mode</span> <span class="o">==</span> <span class="s2">"primary_flat"</span><span class="p">:</span>
+            <span class="n">bl</span><span class="o">.</span><span class="n">items</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span>
+            <span class="n">bl</span><span class="o">.</span><span class="n">items</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">text_style</span> <span class="o">=</span> <span class="n">TITLE_WHITE</span>
+
+        <span class="n">bl</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">bx0</span><span class="p">,</span> <span class="n">by0</span><span class="p">),</span> <span class="n">box_width</span><span class="o">=</span><span class="n">bw</span><span class="p">,</span> <span class="n">box_height</span><span class="o">=</span><span class="n">bh</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s2">"left"</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">idx_c</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+            <span class="n">cx_i</span> <span class="o">=</span> <span class="n">bx0</span> <span class="o">+</span> <span class="p">(</span><span class="n">idx_c</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">)</span> <span class="o">*</span> <span class="n">bw</span>
+            <span class="n">is_pass2</span> <span class="o">=</span> <span class="n">z_mode</span> <span class="o">!=</span> <span class="s2">"all_neutral"</span> <span class="ow">and</span> <span class="n">idx_c</span> <span class="o">==</span> <span class="mi">1</span>
+            <span class="n">pst</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.1</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">is_pass2</span>
+                <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.1</span><span class="p">,</span> <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="n">ptst</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">)</span> <span class="k">if</span> <span class="n">is_pass2</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">MutedBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">)</span>
+            <span class="n">plbl</span> <span class="o">=</span> <span class="s2">"Pass 2 (Top)"</span> <span class="k">if</span> <span class="n">is_pass2</span> <span class="k">else</span> <span class="s2">"Pass 1"</span>
+            <span class="n">rectangle</span><span class="p">((</span><span class="n">cx_i</span><span class="p">,</span> <span class="mf">44.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">13.4</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">3.9</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">pst</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="n">plbl</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">ptst</span><span class="p">)</span>
+            <span class="n">line</span><span class="p">((</span><span class="n">cx_i</span><span class="p">,</span> <span class="mf">42.0</span><span class="p">),</span> <span class="p">(</span><span class="n">cx_i</span><span class="p">,</span> <span class="n">by0</span> <span class="o">+</span> <span class="n">bh</span> <span class="o">+</span> <span class="mf">0.6</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedThin</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">1.0</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="n">z_mode</span> <span class="o">==</span> <span class="s2">"all_neutral"</span><span class="p">:</span>
+            <span class="n">text</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">scx</span><span class="p">,</span> <span class="mf">20.0</span><span class="p">),</span>
+                <span class="s2">"Pass 1 only: all 3 boxes share default Neutral style"</span><span class="p">,</span>
+                <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">seam_l</span><span class="p">,</span> <span class="n">seam_r</span> <span class="o">=</span> <span class="n">bx0</span> <span class="o">+</span> <span class="n">bw</span><span class="p">,</span> <span class="n">bx0</span> <span class="o">+</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">bw</span>
+            <span class="n">circle</span><span class="p">((</span><span class="n">seam_l</span><span class="p">,</span> <span class="n">by0</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerFlat</span><span class="p">)</span>
+            <span class="n">circle</span><span class="p">((</span><span class="n">seam_r</span><span class="p">,</span> <span class="n">by0</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerFlat</span><span class="p">)</span>
+            <span class="n">text</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">scx</span><span class="p">,</span> <span class="mf">20.0</span><span class="p">),</span>
+                <span class="s2">"Pass 2 draws Payload OVER both shared seam edges"</span><span class="p">,</span>
+                <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+            <span class="p">)</span>
+
+<span class="c1"># =========================================================================</span>
+<span class="c1"># Part 4: Hide &amp; Align — show=False, scale=0.85 &amp; align="center"</span>
+<span class="c1"># =========================================================================</span>
+<span class="n">ALIGN_STATES</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span>
+        <span class="s2">"hide_mid"</span><span class="p">,</span>
+        <span class="mf">3.4</span><span class="p">,</span>
+        <span class="p">[</span>
+            <span class="s2">"bl = BoxList("</span><span class="p">,</span>
+            <span class="s2">"    style=Styles.Neutral, ...)"</span><span class="p">,</span>
+            <span class="s1">'bl.add("Header")'</span><span class="p">,</span>
+            <span class="s1">'bl.add("Payload")'</span><span class="p">,</span>
+            <span class="s1">'bl.add("CRC")'</span><span class="p">,</span>
+            <span class="s2">""</span><span class="p">,</span>
+            <span class="s2">"# Hide middle; outer slots stay!"</span><span class="p">,</span>
+            <span class="s2">"bl.items[1].show = False"</span><span class="p">,</span>
+            <span class="s2">""</span><span class="p">,</span>
+            <span class="s2">"bl.draw((10, 18), 14.5, 11.0)"</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span>
+        <span class="s2">"items[1].show=False"</span><span class="p">,</span>
+        <span class="s2">"bl.items[1].show = False: Preserves Middle Slot Without Shift"</span><span class="p">,</span>
+        <span class="s2">"Slot-Preserving Visibility (.show = False)"</span><span class="p">,</span>
+        <span class="s2">"Skips Payload while preserving its 14.5-unit slot"</span><span class="p">,</span>
+        <span class="s2">"Header &amp; CRC keep exact X coordinates"</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="p">(</span>
+        <span class="s2">"scaled"</span><span class="p">,</span>
+        <span class="mf">3.3</span><span class="p">,</span>
+        <span class="p">[</span>
+            <span class="s2">"bl = BoxList("</span><span class="p">,</span>
+            <span class="s2">"    style=Styles.Neutral, ...)"</span><span class="p">,</span>
+            <span class="s1">'bl.add("Header")'</span><span class="p">,</span>
+            <span class="s1">'bl.add("Payload",'</span><span class="p">,</span>
+            <span class="s2">"       style=Styles.PrimaryFlat)"</span><span class="p">,</span>
+            <span class="s1">'bl.add("CRC")'</span><span class="p">,</span>
+            <span class="s2">"# Scale around xy anchor"</span><span class="p">,</span>
+            <span class="s2">"bl.draw("</span><span class="p">,</span>
+            <span class="s2">"    xy=(10, 18),"</span><span class="p">,</span>
+            <span class="s2">"    box_width=14.5, box_height=11,"</span><span class="p">,</span>
+            <span class="s2">"    scale=0.85)"</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
+        <span class="s2">"scale = 0.85"</span><span class="p">,</span>
+        <span class="s2">"scale=0.85: Proportional Transform Anchored at xy"</span><span class="p">,</span>
+        <span class="s2">"Proportional Scaling (scale=0.85)"</span><span class="p">,</span>
+        <span class="s2">"Scales boxes &amp; text uniformly around xy origin"</span><span class="p">,</span>
+        <span class="s2">"Keep scale &gt;= 0.85 so labels stay crisp"</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="p">(</span>
+        <span class="s2">"center_align"</span><span class="p">,</span>
+        <span class="mf">3.4</span><span class="p">,</span>
+        <span class="p">[</span>
+            <span class="s2">"bl = BoxList("</span><span class="p">,</span>
+            <span class="s2">"    style=Styles.Neutral, ...)"</span><span class="p">,</span>
+            <span class="s1">'bl.add("Header")'</span><span class="p">,</span>
+            <span class="s2">"bl.add("</span><span class="p">,</span>
+            <span class="s1">'    "Payload",'</span><span class="p">,</span>
+            <span class="s2">"    style=Styles.PrimaryNeutral)"</span><span class="p">,</span>
+            <span class="s1">'bl.add("CRC")'</span><span class="p">,</span>
+            <span class="s2">"bl.draw("</span><span class="p">,</span>
+            <span class="s2">"    xy=(32, 24),"</span><span class="p">,</span>
+            <span class="s2">"    box_width=14.5, box_height=11,"</span><span class="p">,</span>
+            <span class="s1">'    align="center")'</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
+        <span class="s1">'align = "center"'</span><span class="p">,</span>
+        <span class="s1">'align="center": Centers Multi-Box Span on xy=(cx, cy)'</span><span class="p">,</span>
+        <span class="s1">'Centered Anchor (align="center")'</span><span class="p">,</span>
+        <span class="s2">"Centers N * box_width span horizontally &amp; vertically"</span><span class="p">,</span>
+        <span class="s2">"Eliminates manual half-width offset math"</span><span class="p">,</span>
+    <span class="p">),</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">a_idx</span><span class="p">,</span> <span class="p">(</span><span class="n">a_mode</span><span class="p">,</span> <span class="n">dur</span><span class="p">,</span> <span class="n">code_a</span><span class="p">,</span> <span class="n">hl_rng</span><span class="p">,</span> <span class="n">badge_txt</span><span class="p">,</span> <span class="n">foot_txt</span><span class="p">,</span> <span class="n">s_t</span><span class="p">,</span> <span class="n">s_1</span><span class="p">,</span> <span class="n">s_2</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">ALIGN_STATES</span><span class="p">):</span>
+    <span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="n">dur</span><span class="p">):</span>
+        <span class="n">draw_step_bar</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+        <span class="n">draw_left_pane</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">code_a</span><span class="p">,</span> <span class="n">hl_rng</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">arrows_out_line_horizontal</span><span class="p">,</span> <span class="n">s_t</span><span class="p">,</span> <span class="n">s_1</span><span class="p">,</span> <span class="n">s_2</span><span class="p">)</span>
+        <span class="n">scx</span><span class="p">,</span> <span class="n">scy</span> <span class="o">=</span> <span class="n">draw_geometry_studio</span><span class="p">(</span><span class="n">badge_txt</span><span class="p">,</span> <span class="n">foot_txt</span><span class="p">)</span>
+        <span class="n">draw_sub_pills</span><span class="p">(</span><span class="n">scx</span><span class="p">,</span> <span class="p">[</span><span class="s2">".show = False"</span><span class="p">,</span> <span class="s2">"scale = 0.85"</span><span class="p">,</span> <span class="s1">'align="center"'</span><span class="p">],</span> <span class="n">a_idx</span><span class="p">)</span>
+
+        <span class="n">bx0</span><span class="p">,</span> <span class="n">by0</span><span class="p">,</span> <span class="n">bw</span><span class="p">,</span> <span class="n">bh</span> <span class="o">=</span> <span class="mf">80.25</span><span class="p">,</span> <span class="mf">28.0</span><span class="p">,</span> <span class="mf">14.5</span><span class="p">,</span> <span class="mf">11.0</span>
+        <span class="n">tot_w</span> <span class="o">=</span> <span class="mf">3.0</span> <span class="o">*</span> <span class="n">bw</span>
+
+        <span class="k">if</span> <span class="n">a_mode</span> <span class="o">==</span> <span class="s2">"hide_mid"</span><span class="p">:</span>
+            <span class="c1"># Draw ghost middle slot first so neighbors render crisp inner borders</span>
+            <span class="n">rectangle</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">bx0</span> <span class="o">+</span> <span class="mf">1.5</span> <span class="o">*</span> <span class="n">bw</span><span class="p">,</span> <span class="n">by0</span> <span class="o">+</span> <span class="n">bh</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">),</span>
+                <span class="n">width</span><span class="o">=</span><span class="n">bw</span><span class="p">,</span>
+                <span class="n">height</span><span class="o">=</span><span class="n">bh</span><span class="p">,</span>
+                <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+                    <span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">248</span><span class="p">,</span> <span class="mi">250</span><span class="p">,</span> <span class="mi">252</span><span class="p">),</span>
+                    <span class="n">shape_line_color</span><span class="o">=</span><span class="p">(</span><span class="mi">148</span><span class="p">,</span> <span class="mi">163</span><span class="p">,</span> <span class="mi">184</span><span class="p">),</span>
+                    <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span>
+                <span class="p">),</span>
+                <span class="n">text</span><span class="o">=</span><span class="s2">"slot</span><span class="se">\n</span><span class="s2">preserved"</span><span class="p">,</span>
+                <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+            <span class="p">)</span>
+            <span class="n">bl</span> <span class="o">=</span> <span class="n">BoxList</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">TITLE_DARK</span><span class="p">)</span>
+            <span class="n">bl</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"Header"</span><span class="p">)</span>
+            <span class="n">bl</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"Payload"</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="n">bl</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"CRC"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">)</span>
+            <span class="n">bl</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">bx0</span><span class="p">,</span> <span class="n">by0</span><span class="p">),</span> <span class="n">box_width</span><span class="o">=</span><span class="n">bw</span><span class="p">,</span> <span class="n">box_height</span><span class="o">=</span><span class="n">bh</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s2">"left"</span><span class="p">)</span>
+            <span class="n">text</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">scx</span><span class="p">,</span> <span class="mf">20.2</span><span class="p">),</span>
+                <span class="s2">"Header &amp; CRC hold exact X positions"</span><span class="p">,</span>
+                <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+            <span class="p">)</span>
+        <span class="k">elif</span> <span class="n">a_mode</span> <span class="o">==</span> <span class="s2">"scaled"</span><span class="p">:</span>
+            <span class="c1"># 1.0x reference outline</span>
+            <span class="n">rectangle</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">bx0</span> <span class="o">+</span> <span class="n">tot_w</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">,</span> <span class="n">by0</span> <span class="o">+</span> <span class="n">bh</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">),</span>
+                <span class="n">width</span><span class="o">=</span><span class="n">tot_w</span><span class="p">,</span>
+                <span class="n">height</span><span class="o">=</span><span class="n">bh</span><span class="p">,</span>
+                <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.2</span><span class="p">),</span>
+            <span class="p">)</span>
+            <span class="n">text</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">bx0</span> <span class="o">+</span> <span class="n">tot_w</span> <span class="o">-</span> <span class="mf">4.8</span><span class="p">,</span> <span class="n">by0</span> <span class="o">+</span> <span class="n">bh</span> <span class="o">+</span> <span class="mf">2.8</span><span class="p">),</span>
+                <span class="s2">"1.0x span"</span><span class="p">,</span>
+                <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+            <span class="p">)</span>
+            <span class="n">bl</span> <span class="o">=</span> <span class="n">BoxList</span><span class="p">(</span>
+                <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+                <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.2</span><span class="p">),</span>
+            <span class="p">)</span>
+            <span class="n">bl</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"Header"</span><span class="p">)</span>
+            <span class="n">bl</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+                <span class="s2">"Payload"</span><span class="p">,</span>
+                <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
+                <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.2</span><span class="p">),</span>
+            <span class="p">)</span>
+            <span class="n">bl</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"CRC"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">)</span>
+            <span class="n">bl</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">bx0</span><span class="p">,</span> <span class="n">by0</span><span class="p">),</span> <span class="n">box_width</span><span class="o">=</span><span class="n">bw</span><span class="p">,</span> <span class="n">box_height</span><span class="o">=</span><span class="n">bh</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">0.85</span><span class="p">)</span>
+            <span class="n">circle</span><span class="p">((</span><span class="n">bx0</span><span class="p">,</span> <span class="n">by0</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerFlat</span><span class="p">)</span>
+            <span class="n">text</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">scx</span><span class="p">,</span> <span class="mf">20.2</span><span class="p">),</span>
+                <span class="s2">"scale = 0.85  (anchored at bottom-left xy)"</span><span class="p">,</span>
+                <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">cx_a</span><span class="p">,</span> <span class="n">cy_a</span> <span class="o">=</span> <span class="n">scx</span><span class="p">,</span> <span class="mf">34.0</span>
+            <span class="n">bl</span> <span class="o">=</span> <span class="n">BoxList</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">TITLE_DARK</span><span class="p">)</span>
+            <span class="n">bl</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"Header"</span><span class="p">)</span>
+            <span class="n">bl</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"Payload"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
+            <span class="n">bl</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"CRC"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">)</span>
+            <span class="n">bl</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">cx_a</span><span class="p">,</span> <span class="n">cy_a</span><span class="p">),</span> <span class="n">box_width</span><span class="o">=</span><span class="n">bw</span><span class="p">,</span> <span class="n">box_height</span><span class="o">=</span><span class="n">bh</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">align</span><span class="o">=</span><span class="s2">"center"</span><span class="p">)</span>
+
+            <span class="n">rectangle</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">cx_a</span><span class="p">,</span> <span class="n">cy_a</span><span class="p">),</span>
+                <span class="n">width</span><span class="o">=</span><span class="n">tot_w</span><span class="p">,</span>
+                <span class="n">height</span><span class="o">=</span><span class="n">bh</span><span class="p">,</span>
+                <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryDashed</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.3</span><span class="p">),</span>
+            <span class="p">)</span>
+            <span class="c1"># 4-way outer crosshair arms + inner reticle ticks converging on (cx_a, cy_a)</span>
+            <span class="n">line</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">cx_a</span> <span class="o">-</span> <span class="n">tot_w</span> <span class="o">/</span> <span class="mf">2.0</span> <span class="o">-</span> <span class="mf">3.0</span><span class="p">,</span> <span class="n">cy_a</span><span class="p">),</span>
+                <span class="p">(</span><span class="n">cx_a</span> <span class="o">-</span> <span class="n">tot_w</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">,</span> <span class="n">cy_a</span><span class="p">),</span>
+                <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">1.6</span><span class="p">),</span>
+            <span class="p">)</span>
+            <span class="n">line</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">cx_a</span> <span class="o">+</span> <span class="n">tot_w</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">,</span> <span class="n">cy_a</span><span class="p">),</span>
+                <span class="p">(</span><span class="n">cx_a</span> <span class="o">+</span> <span class="n">tot_w</span> <span class="o">/</span> <span class="mf">2.0</span> <span class="o">+</span> <span class="mf">3.0</span><span class="p">,</span> <span class="n">cy_a</span><span class="p">),</span>
+                <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">1.6</span><span class="p">),</span>
+            <span class="p">)</span>
+            <span class="n">line</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">cx_a</span> <span class="o">-</span> <span class="mf">6.8</span><span class="p">,</span> <span class="n">cy_a</span><span class="p">),</span>
+                <span class="p">(</span><span class="n">cx_a</span> <span class="o">-</span> <span class="mf">5.2</span><span class="p">,</span> <span class="n">cy_a</span><span class="p">),</span>
+                <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">1.4</span><span class="p">),</span>
+            <span class="p">)</span>
+            <span class="n">line</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">cx_a</span> <span class="o">+</span> <span class="mf">5.2</span><span class="p">,</span> <span class="n">cy_a</span><span class="p">),</span>
+                <span class="p">(</span><span class="n">cx_a</span> <span class="o">+</span> <span class="mf">6.8</span><span class="p">,</span> <span class="n">cy_a</span><span class="p">),</span>
+                <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">1.4</span><span class="p">),</span>
+            <span class="p">)</span>
+            <span class="n">line</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">cx_a</span><span class="p">,</span> <span class="n">cy_a</span> <span class="o">+</span> <span class="mf">2.5</span><span class="p">),</span>
+                <span class="p">(</span><span class="n">cx_a</span><span class="p">,</span> <span class="n">cy_a</span> <span class="o">+</span> <span class="n">bh</span> <span class="o">/</span> <span class="mf">2.0</span> <span class="o">+</span> <span class="mf">4.2</span><span class="p">),</span>
+                <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">1.6</span><span class="p">),</span>
+            <span class="p">)</span>
+            <span class="n">line</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">cx_a</span><span class="p">,</span> <span class="n">cy_a</span> <span class="o">-</span> <span class="n">bh</span> <span class="o">/</span> <span class="mf">2.0</span> <span class="o">-</span> <span class="mf">4.2</span><span class="p">),</span>
+                <span class="p">(</span><span class="n">cx_a</span><span class="p">,</span> <span class="n">cy_a</span> <span class="o">-</span> <span class="mf">2.5</span><span class="p">),</span>
+                <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">1.6</span><span class="p">),</span>
+            <span class="p">)</span>
+            <span class="n">text</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">cx_a</span><span class="p">,</span> <span class="mf">20.2</span><span class="p">),</span>
+                <span class="s1">'xy = (32, 24)  •  align="center"'</span><span class="p">,</span>
+                <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+            <span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<ul>
+<li><strong>Contiguous Construction &amp; Anchor (<code>.add()</code>, <code>xy</code>)</strong>: Append boxes in order to build zero-gap sequences of exact <code>N * box_width</code> span, anchored at <strong>Bottom-Left <code>xy</code></strong> by default.</li>
+<li><strong>Four Axis Directions (<code>direction</code>)</strong>: Flow horizontally via <code>&quot;left&quot;</code> (<code>+X</code>, default) or <code>&quot;right&quot;</code> (<code>-X</code>), or stack vertically via <code>&quot;bottom&quot;</code> (<code>+Y</code> upward) or <code>&quot;top&quot;</code> (<code>-Y</code> downward).</li>
+<li><strong>Two-Pass Highlight Z-Order (<code>style</code> overrides)</strong>: <code>BoxList.draw()</code> renders default cells in Pass 1 and custom-styled focal cells in Pass 2 so bold or <code>PrimaryFlat</code> borders cleanly overlay shared neighbor seams.</li>
+<li><strong>Slot-Preserving <code>.show</code>, <code>scale</code> &amp; <code>align=&quot;center&quot;</code></strong>: Set <code>bl.items[i].show = False</code> to hide a box without shifting adjacent coordinates, resize around <code>xy</code> via <code>scale</code>, or center the overall span on <code>(cx, cy)</code> with <code>align=&quot;center&quot;</code>.</li>
+</ul>
+<hr />
+<h2>2. Horizontal Sequence with Highlighted Focal Stage (<code>direction=&quot;left&quot;</code>)</h2>
 <p>When <code>direction=&quot;left&quot;</code> (the default), boxes flow horizontally to the right (<code>+x</code>) starting from <code>xy=(x, y)</code>. You can combine multiple <code>BoxList</code> instances with arrows or labels to illustrate pipelines and packet structures.</p>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
@@ -703,11 +1587,11 @@ Custom-styled items are automatically rendered in a second pass so their borders
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="box_list_images/smartarts_boxlist_horizontal.png" alt="box_list_2" />
+  <img src="box_list_images/smartarts_boxlist_horizontal.png" alt="box_list_3" />
   <figcaption class="drawlib-caption">Horizontal Pipeline Sequence and Packet Header Layout with BoxList</figcaption>
 </figure>
 <hr />
-<h2>2. Vertical Feature &amp; Layer Stack (<code>direction=&quot;bottom&quot;</code> / <code>direction=&quot;top&quot;</code>)</h2>
+<h2>3. Vertical Feature &amp; Layer Stack (<code>direction=&quot;bottom&quot;</code> / <code>direction=&quot;top&quot;</code>)</h2>
 <p>Using <code>direction=&quot;bottom&quot;</code> stacks boxes vertically upward (<code>+y</code>) inside the bounding box, while <code>direction=&quot;top&quot;</code> stacks boxes downward (<code>-y</code>) from the top of the bounding box. Patching <code>shape_r</code> on the box style creates rounded feature cards.</p>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.smartarts</span><span class="w"> </span><span class="kn">import</span> <span class="n">BoxList</span>
@@ -752,11 +1636,11 @@ Custom-styled items are automatically rendered in a second pass so their borders
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="box_list_images/smartarts_boxlist_vertical_stack.png" alt="box_list_3" />
+  <img src="box_list_images/smartarts_boxlist_vertical_stack.png" alt="box_list_4" />
   <figcaption class="drawlib-caption">Vertical Platform Layer Stacks with BoxList</figcaption>
 </figure>
 <hr />
-<h2>3. Layout Direction, Anchor Alignment &amp; Two-Pass Z-Order</h2>
+<h2>4. Layout Direction, Anchor Alignment &amp; Two-Pass Z-Order</h2>
 <p>As illustrated in the opening diagram at the top of this page:</p>
 <ul>
 <li><strong>Layout Direction (<code>direction</code>)</strong>:
@@ -776,7 +1660,7 @@ Custom-styled items are automatically rendered in a second pass so their borders
 <li><strong>Two-Pass Highlight Z-Order</strong>: <code>BoxList.draw()</code> automatically renders default-styled boxes first and custom-styled boxes second so highlighted borders are never occluded by adjacent neutral boxes.</li>
 </ul>
 <hr />
-<h2>4. API Reference</h2>
+<h2>5. API Reference</h2>
 <h3>Constructor</h3>
 <pre><code class="language-python"><span class="n">BoxList</span><span class="p">(</span>
     <span class="o">*</span><span class="p">,</span>

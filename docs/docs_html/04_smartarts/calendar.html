@@ -680,14 +680,829 @@ All three classes share a strict ISO 8601 date/datetime interface (<strong>only 
 </code></pre>
 </details>
 <hr />
-<h2>1. Strict ISO 8601 Date &amp; Datetime Format</h2>
+<h2>1. Core Concepts &amp; Basic Usage</h2>
+<p><code>MonthCalendar</code>, <code>WeekCalendar</code>, and <code>DayCalendar</code> build schedule grids from strict ISO 8601 strings (<code>&quot;YYYY-MM-DD&quot;</code> for all-day spans and <code>&quot;YYYY-MM-DD HH:MM&quot;</code> for timed slots), anchoring by default at the <strong>Bottom-Left <code>(x, y)</code></strong> corner of the calendar frame (or <code>align=&quot;center&quot;</code> / <code>&quot;top_left&quot;</code>). Events added via <code>.add(...)</code> automatically wrap across weeks, route between the top All-Day band and hourly grid, split overlapping slots into parallel lanes, and expose mutable <code>.items[i]</code> entries:</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="calendar_images/calendar_parameter_tour.png" alt="calendar_2" />
+  <figcaption class="drawlib-caption">Basic Usage & Parameter Tour: MonthCalendar, WeekCalendar, Multi-Day Span Modes, and DayCalendar Orientations (APNG Animation)</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.anim</span><span class="w"> </span><span class="kn">import</span> <span class="n">Animation</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">code</span> <span class="k">as</span> <span class="n">code_icons</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">circle</span><span class="p">,</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.smartarts</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">DayCalendar</span><span class="p">,</span>
+    <span class="n">MonthCalendar</span><span class="p">,</span>
+    <span class="n">SourceCode</span><span class="p">,</span>
+    <span class="n">SourceCodeStyles</span><span class="p">,</span>
+    <span class="n">WeekCalendar</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">W</span><span class="p">,</span> <span class="n">H</span> <span class="o">=</span> <span class="mf">138.0</span><span class="p">,</span> <span class="mf">82.0</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="n">W</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">H</span><span class="p">)</span>
+<span class="n">anim</span> <span class="o">=</span> <span class="n">Animation</span><span class="p">(</span><span class="n">fps</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">loop</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">CODE_TEXT_SIZE</span> <span class="o">=</span> <span class="mf">10.0</span>
+<span class="n">PT_TO_CANVAS</span> <span class="o">=</span> <span class="n">W</span> <span class="o">/</span> <span class="mf">720.0</span>
+<span class="n">FONT_CANVAS</span> <span class="o">=</span> <span class="n">CODE_TEXT_SIZE</span> <span class="o">*</span> <span class="n">PT_TO_CANVAS</span>
+<span class="n">LINE_H</span> <span class="o">=</span> <span class="n">FONT_CANVAS</span> <span class="o">*</span> <span class="mf">1.8</span>
+<span class="n">PAD_Y</span> <span class="o">=</span> <span class="n">FONT_CANVAS</span> <span class="o">*</span> <span class="mf">1.2</span>
+
+<span class="n">CODE_STYLES</span> <span class="o">=</span> <span class="n">SourceCodeStyles</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"default"</span><span class="p">,</span> <span class="n">font_lang</span><span class="o">=</span><span class="s2">"en"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="n">CODE_TEXT_SIZE</span><span class="p">)</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+    <span class="n">box_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">shape_line_width</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">PANE_HEADER</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+    <span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">238</span><span class="p">,</span> <span class="mi">243</span><span class="p">,</span> <span class="mi">250</span><span class="p">),</span>
+    <span class="n">shape_line_color</span><span class="o">=</span><span class="p">(</span><span class="mi">203</span><span class="p">,</span> <span class="mi">213</span><span class="p">,</span> <span class="mi">225</span><span class="p">),</span>
+    <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span>
+    <span class="n">shape_r</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">EDITOR_BODY</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+    <span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">250</span><span class="p">,</span> <span class="mi">252</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span>
+    <span class="n">shape_line_color</span><span class="o">=</span><span class="p">(</span><span class="mi">203</span><span class="p">,</span> <span class="mi">213</span><span class="p">,</span> <span class="mi">225</span><span class="p">),</span>
+    <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span>
+    <span class="n">shape_r</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">TAKEAWAY_BODY</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+    <span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">242</span><span class="p">,</span> <span class="mi">246</span><span class="p">,</span> <span class="mi">253</span><span class="p">),</span>
+    <span class="n">shape_line_color</span><span class="o">=</span><span class="p">(</span><span class="mi">203</span><span class="p">,</span> <span class="mi">213</span><span class="p">,</span> <span class="mi">225</span><span class="p">),</span>
+    <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span>
+    <span class="n">shape_r</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">STUDIO_BODY</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+    <span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">239</span><span class="p">,</span> <span class="mi">243</span><span class="p">,</span> <span class="mi">249</span><span class="p">),</span>
+    <span class="n">shape_line_color</span><span class="o">=</span><span class="p">(</span><span class="mi">203</span><span class="p">,</span> <span class="mi">213</span><span class="p">,</span> <span class="mi">225</span><span class="p">),</span>
+    <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span>
+    <span class="n">shape_r</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">PART_ITEMS</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s2">"1. MonthCalendar"</span><span class="p">,</span> <span class="s2">"ISO dates &amp; track bars"</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"2. WeekCalendar"</span><span class="p">,</span> <span class="s2">"all-day + hourly grid"</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"3. Span Modes"</span><span class="p">,</span> <span class="s2">"columns vs box &amp; overlap"</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"4. DayCalendar"</span><span class="p">,</span> <span class="s2">"vertical vs horizontal"</span><span class="p">),</span>
+<span class="p">]</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">draw_step_bar</span><span class="p">(</span><span class="n">active_part</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Draw top 4-part progress bar (active_part is 1..4)."""</span>
+    <span class="n">pill_w</span> <span class="o">=</span> <span class="mf">31.0</span>
+    <span class="n">pill_h</span> <span class="o">=</span> <span class="mf">7.4</span>
+    <span class="n">gap</span> <span class="o">=</span> <span class="mf">2.0</span>
+    <span class="n">start_x</span> <span class="o">=</span> <span class="mf">4.0</span> <span class="o">+</span> <span class="n">pill_w</span> <span class="o">/</span> <span class="mf">2.0</span>
+    <span class="n">cy</span> <span class="o">=</span> <span class="mf">75.2</span>
+
+    <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">sublabel</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">PART_ITEMS</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">cx</span> <span class="o">=</span> <span class="n">start_x</span> <span class="o">+</span> <span class="p">(</span><span class="n">idx</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">pill_w</span> <span class="o">+</span> <span class="n">gap</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">idx</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">prev_cx</span> <span class="o">=</span> <span class="n">cx</span> <span class="o">-</span> <span class="p">(</span><span class="n">pill_w</span> <span class="o">+</span> <span class="n">gap</span><span class="p">)</span>
+            <span class="n">line</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">prev_cx</span> <span class="o">+</span> <span class="n">pill_w</span> <span class="o">/</span> <span class="mf">2.0</span> <span class="o">+</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">cy</span><span class="p">),</span>
+                <span class="p">(</span><span class="n">cx</span> <span class="o">-</span> <span class="n">pill_w</span> <span class="o">/</span> <span class="mf">2.0</span> <span class="o">-</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">cy</span><span class="p">),</span>
+                <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span> <span class="k">if</span> <span class="n">idx</span> <span class="o">&lt;=</span> <span class="n">active_part</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">MutedThin</span><span class="p">,</span>
+            <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">idx</span> <span class="o">==</span> <span class="n">active_part</span><span class="p">:</span>
+            <span class="n">st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.4</span><span class="p">)</span>
+            <span class="n">tst</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.3</span><span class="p">)</span>
+            <span class="n">sub_tst</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">idx</span> <span class="o">&lt;</span> <span class="n">active_part</span><span class="p">:</span>
+            <span class="n">st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.4</span><span class="p">,</span> <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.1</span><span class="p">)</span>
+            <span class="n">tst</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.3</span><span class="p">)</span>
+            <span class="n">sub_tst</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.4</span><span class="p">,</span> <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.1</span><span class="p">)</span>
+            <span class="n">tst</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">MutedBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.3</span><span class="p">)</span>
+            <span class="n">sub_tst</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">)</span>
+
+        <span class="n">rectangle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="n">pill_w</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">pill_h</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">st</span><span class="p">)</span>
+        <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span> <span class="o">+</span> <span class="mf">1.35</span><span class="p">),</span> <span class="n">label</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">tst</span><span class="p">)</span>
+        <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span> <span class="o">-</span> <span class="mf">1.55</span><span class="p">),</span> <span class="n">sublabel</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">sub_tst</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">draw_left_pane</span><span class="p">(</span>
+    <span class="n">active_part</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">code_lines</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+    <span class="n">hl_range</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span>
+    <span class="n">icon_fn</span><span class="p">:</span> <span class="nb">object</span><span class="p">,</span>
+    <span class="n">summary_title</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">summary_line1</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">summary_line2</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Draw left Python code editor + bottom concept takeaway card."""</span>
+    <span class="n">x0</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">63.5</span>
+    <span class="n">cx</span> <span class="o">=</span> <span class="n">x0</span> <span class="o">+</span> <span class="n">w</span> <span class="o">/</span> <span class="mf">2.0</span>
+    <span class="n">top_y</span> <span class="o">=</span> <span class="mf">63.2</span>
+    <span class="n">header_h</span> <span class="o">=</span> <span class="mf">5.4</span>
+    <span class="n">editor_h</span> <span class="o">=</span> <span class="mf">43.8</span>
+    <span class="n">takeaway_h</span> <span class="o">=</span> <span class="mf">15.8</span>
+
+    <span class="n">rectangle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">top_y</span> <span class="o">+</span> <span class="n">header_h</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="n">w</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">header_h</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">PANE_HEADER</span><span class="p">)</span>
+    <span class="n">code_icons</span><span class="o">.</span><span class="n">python</span><span class="p">((</span><span class="n">x0</span> <span class="o">+</span> <span class="mf">3.6</span><span class="p">,</span> <span class="n">top_y</span> <span class="o">+</span> <span class="n">header_h</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.4</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+    <span class="n">text</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">x0</span> <span class="o">+</span> <span class="mf">6.5</span><span class="p">,</span> <span class="n">top_y</span> <span class="o">+</span> <span class="n">header_h</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">),</span>
+        <span class="s2">"calendar_tour.py"</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.2</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">text</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">x0</span> <span class="o">+</span> <span class="n">w</span> <span class="o">-</span> <span class="mf">2.6</span><span class="p">,</span> <span class="n">top_y</span> <span class="o">+</span> <span class="n">header_h</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">),</span>
+        <span class="sa">f</span><span class="s2">"Part </span><span class="si">{</span><span class="n">active_part</span><span class="si">}</span><span class="s2"> / 4"</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.8</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"right"</span><span class="p">),</span>
+    <span class="p">)</span>
+
+    <span class="n">rectangle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">top_y</span> <span class="o">-</span> <span class="n">editor_h</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="n">w</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">editor_h</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">EDITOR_BODY</span><span class="p">)</span>
+
+    <span class="n">hl_start</span><span class="p">,</span> <span class="n">hl_end</span> <span class="o">=</span> <span class="n">hl_range</span>
+    <span class="n">hl_top</span> <span class="o">=</span> <span class="n">top_y</span> <span class="o">-</span> <span class="n">PAD_Y</span> <span class="o">-</span> <span class="n">hl_start</span> <span class="o">*</span> <span class="n">LINE_H</span>
+    <span class="n">hl_bot</span> <span class="o">=</span> <span class="n">top_y</span> <span class="o">-</span> <span class="n">PAD_Y</span> <span class="o">-</span> <span class="p">(</span><span class="n">hl_end</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">LINE_H</span>
+    <span class="n">hl_cy</span> <span class="o">=</span> <span class="p">(</span><span class="n">hl_top</span> <span class="o">+</span> <span class="n">hl_bot</span><span class="p">)</span> <span class="o">/</span> <span class="mf">2.0</span>
+    <span class="n">hl_h</span> <span class="o">=</span> <span class="n">hl_top</span> <span class="o">-</span> <span class="n">hl_bot</span>
+    <span class="n">rectangle</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">cx</span><span class="p">,</span> <span class="n">hl_cy</span><span class="p">),</span>
+        <span class="n">width</span><span class="o">=</span><span class="n">w</span> <span class="o">-</span> <span class="mf">0.6</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="n">hl_h</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">229</span><span class="p">,</span> <span class="mi">239</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span> <span class="n">shape_line_width</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">rectangle</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">x0</span> <span class="o">+</span> <span class="mf">0.55</span><span class="p">,</span> <span class="n">hl_cy</span><span class="p">),</span>
+        <span class="n">width</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="n">hl_h</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_line_width</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
+    <span class="p">)</span>
+
+    <span class="n">SourceCode</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span>
+        <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span> <span class="n">top_y</span><span class="p">),</span>
+        <span class="n">width</span><span class="o">=</span><span class="n">w</span><span class="p">,</span>
+        <span class="n">code</span><span class="o">=</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">code_lines</span><span class="p">),</span>
+        <span class="n">styles</span><span class="o">=</span><span class="n">CODE_STYLES</span><span class="p">,</span>
+        <span class="n">code_lang</span><span class="o">=</span><span class="s2">"python"</span><span class="p">,</span>
+        <span class="n">show_linenum</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">align</span><span class="o">=</span><span class="s2">"top_left"</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">take_cy</span> <span class="o">=</span> <span class="mf">3.6</span> <span class="o">+</span> <span class="n">takeaway_h</span> <span class="o">/</span> <span class="mf">2.0</span>
+    <span class="n">rectangle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">take_cy</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="n">w</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">takeaway_h</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">TAKEAWAY_BODY</span><span class="p">)</span>
+    <span class="n">circle</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">x0</span> <span class="o">+</span> <span class="mf">6.4</span><span class="p">,</span> <span class="n">take_cy</span><span class="p">),</span>
+        <span class="n">radius</span><span class="o">=</span><span class="mf">3.3</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.2</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">icon_fn</span><span class="p">((</span><span class="n">x0</span> <span class="o">+</span> <span class="mf">6.4</span><span class="p">,</span> <span class="n">take_cy</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>  <span class="c1"># type: ignore[operator]</span>
+    <span class="n">text</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">x0</span> <span class="o">+</span> <span class="mf">11.4</span><span class="p">,</span> <span class="n">take_cy</span> <span class="o">+</span> <span class="mf">3.6</span><span class="p">),</span>
+        <span class="n">summary_title</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.4</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">text</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">x0</span> <span class="o">+</span> <span class="mf">11.4</span><span class="p">,</span> <span class="n">take_cy</span> <span class="o">-</span> <span class="mf">0.2</span><span class="p">),</span>
+        <span class="n">summary_line1</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.7</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">text</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">x0</span> <span class="o">+</span> <span class="mf">11.4</span><span class="p">,</span> <span class="n">take_cy</span> <span class="o">-</span> <span class="mf">3.8</span><span class="p">),</span>
+        <span class="n">summary_line2</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.6</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">),</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">draw_geometry_studio</span><span class="p">(</span><span class="n">param_badge</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">footer_caption</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""Draw right geometry lab shell, inner coordinate sheet with subtle grid, and footer."""</span>
+    <span class="n">x0</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="mf">70.0</span><span class="p">,</span> <span class="mf">64.0</span>
+    <span class="n">cx</span> <span class="o">=</span> <span class="n">x0</span> <span class="o">+</span> <span class="n">w</span> <span class="o">/</span> <span class="mf">2.0</span>
+    <span class="n">top_y</span> <span class="o">=</span> <span class="mf">63.2</span>
+    <span class="n">header_h</span> <span class="o">=</span> <span class="mf">5.4</span>
+    <span class="n">body_h</span> <span class="o">=</span> <span class="mf">59.6</span>
+
+    <span class="n">rectangle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">top_y</span> <span class="o">+</span> <span class="n">header_h</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="n">w</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">header_h</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">PANE_HEADER</span><span class="p">)</span>
+    <span class="n">phosphor</span><span class="o">.</span><span class="n">ruler</span><span class="p">((</span><span class="n">x0</span> <span class="o">+</span> <span class="mf">3.6</span><span class="p">,</span> <span class="n">top_y</span> <span class="o">+</span> <span class="n">header_h</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.4</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">)</span>
+    <span class="n">text</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">x0</span> <span class="o">+</span> <span class="mf">6.5</span><span class="p">,</span> <span class="n">top_y</span> <span class="o">+</span> <span class="n">header_h</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">),</span>
+        <span class="s2">"Live Geometry &amp; Guides"</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.2</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">text</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">x0</span> <span class="o">+</span> <span class="n">w</span> <span class="o">-</span> <span class="mf">2.6</span><span class="p">,</span> <span class="n">top_y</span> <span class="o">+</span> <span class="n">header_h</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">),</span>
+        <span class="n">param_badge</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.6</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"right"</span><span class="p">),</span>
+    <span class="p">)</span>
+
+    <span class="n">rectangle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mf">3.6</span> <span class="o">+</span> <span class="n">body_h</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="n">w</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">body_h</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">STUDIO_BODY</span><span class="p">)</span>
+
+    <span class="n">sheet_cx</span><span class="p">,</span> <span class="n">sheet_cy</span> <span class="o">=</span> <span class="n">cx</span><span class="p">,</span> <span class="mf">36.2</span>
+    <span class="n">sheet_w</span><span class="p">,</span> <span class="n">sheet_h</span> <span class="o">=</span> <span class="mf">54.0</span><span class="p">,</span> <span class="mf">40.0</span>
+    <span class="n">sx0</span><span class="p">,</span> <span class="n">sy0</span> <span class="o">=</span> <span class="n">sheet_cx</span> <span class="o">-</span> <span class="n">sheet_w</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">,</span> <span class="n">sheet_cy</span> <span class="o">-</span> <span class="n">sheet_h</span> <span class="o">/</span> <span class="mf">2.0</span>
+    <span class="n">rectangle</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">sheet_cx</span><span class="p">,</span> <span class="n">sheet_cy</span><span class="p">),</span>
+        <span class="n">width</span><span class="o">=</span><span class="n">sheet_w</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="n">sheet_h</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+            <span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span>
+            <span class="n">shape_line_color</span><span class="o">=</span><span class="p">(</span><span class="mi">180</span><span class="p">,</span> <span class="mi">194</span><span class="p">,</span> <span class="mi">214</span><span class="p">),</span>
+            <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">g_st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">MutedThin</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_color</span><span class="o">=</span><span class="p">(</span><span class="mi">232</span><span class="p">,</span> <span class="mi">238</span><span class="p">,</span> <span class="mi">246</span><span class="p">),</span> <span class="n">line_width</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">gx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">):</span>
+        <span class="n">vx</span> <span class="o">=</span> <span class="n">sx0</span> <span class="o">+</span> <span class="n">gx</span> <span class="o">*</span> <span class="p">(</span><span class="n">sheet_w</span> <span class="o">/</span> <span class="mf">6.0</span><span class="p">)</span>
+        <span class="n">line</span><span class="p">((</span><span class="n">vx</span><span class="p">,</span> <span class="n">sy0</span><span class="p">),</span> <span class="p">(</span><span class="n">vx</span><span class="p">,</span> <span class="n">sy0</span> <span class="o">+</span> <span class="n">sheet_h</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="n">g_st</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">gy</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">):</span>
+        <span class="n">vy</span> <span class="o">=</span> <span class="n">sy0</span> <span class="o">+</span> <span class="n">gy</span> <span class="o">*</span> <span class="p">(</span><span class="n">sheet_h</span> <span class="o">/</span> <span class="mf">5.0</span><span class="p">)</span>
+        <span class="n">line</span><span class="p">((</span><span class="n">sx0</span><span class="p">,</span> <span class="n">vy</span><span class="p">),</span> <span class="p">(</span><span class="n">sx0</span> <span class="o">+</span> <span class="n">sheet_w</span><span class="p">,</span> <span class="n">vy</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="n">g_st</span><span class="p">)</span>
+
+    <span class="n">rectangle</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">cx</span><span class="p">,</span> <span class="mf">8.4</span><span class="p">),</span>
+        <span class="n">width</span><span class="o">=</span><span class="mf">59.2</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mf">5.2</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+            <span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span>
+            <span class="n">shape_line_color</span><span class="o">=</span><span class="p">(</span><span class="mi">203</span><span class="p">,</span> <span class="mi">213</span><span class="p">,</span> <span class="mi">225</span><span class="p">),</span>
+            <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.1</span><span class="p">,</span>
+            <span class="n">shape_r</span><span class="o">=</span><span class="mf">2.4</span><span class="p">,</span>
+        <span class="p">),</span>
+        <span class="n">text</span><span class="o">=</span><span class="n">footer_caption</span><span class="p">,</span>
+        <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.8</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">sheet_cx</span><span class="p">,</span> <span class="n">sheet_cy</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">draw_sub_pills</span><span class="p">(</span><span class="n">scx</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">labels</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">active_idx</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Draw 3-step tracker pills near the top of the studio sheet."""</span>
+    <span class="n">pw</span><span class="p">,</span> <span class="n">ph</span><span class="p">,</span> <span class="n">pgap</span> <span class="o">=</span> <span class="mf">16.2</span><span class="p">,</span> <span class="mf">4.2</span><span class="p">,</span> <span class="mf">0.9</span>
+    <span class="n">p_start</span> <span class="o">=</span> <span class="n">scx</span> <span class="o">-</span> <span class="p">(</span><span class="mi">3</span> <span class="o">*</span> <span class="n">pw</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">pgap</span><span class="p">)</span> <span class="o">/</span> <span class="mf">2.0</span> <span class="o">+</span> <span class="n">pw</span> <span class="o">/</span> <span class="mf">2.0</span>
+    <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">lbl</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">labels</span><span class="p">):</span>
+        <span class="n">px</span> <span class="o">=</span> <span class="n">p_start</span> <span class="o">+</span> <span class="n">idx</span> <span class="o">*</span> <span class="p">(</span><span class="n">pw</span> <span class="o">+</span> <span class="n">pgap</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">idx</span> <span class="o">==</span> <span class="n">active_idx</span><span class="p">:</span>
+            <span class="n">pst</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">)</span>
+            <span class="n">ptst</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">idx</span> <span class="o">&lt;</span> <span class="n">active_idx</span><span class="p">:</span>
+            <span class="n">pst</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span> <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+            <span class="n">ptst</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">pst</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span> <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+            <span class="n">ptst</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">)</span>
+        <span class="n">rectangle</span><span class="p">((</span><span class="n">px</span><span class="p">,</span> <span class="mf">52.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="n">pw</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">ph</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">pst</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="n">lbl</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">ptst</span><span class="p">)</span>
+
+
+<span class="n">CAL_TEXT</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">)</span>
+<span class="n">CAL_TEXT_BOLD</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">)</span>
+<span class="n">CAL_WHITE_BOLD</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">)</span>
+
+<span class="c1"># =========================================================================</span>
+<span class="c1"># Part 1: MonthCalendar — ISO Dates, Cross-Week Wrap &amp; Track Stacking</span>
+<span class="c1"># =========================================================================</span>
+<span class="n">MONTH_STATES</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span>
+        <span class="mi">0</span><span class="p">,</span>
+        <span class="mf">3.3</span><span class="p">,</span>
+        <span class="p">[</span>
+            <span class="s2">"mcal = MonthCalendar("</span><span class="p">,</span>
+            <span class="s1">'    start_date="2026-10-04",'</span><span class="p">,</span>
+            <span class="s1">'    end_date="2026-10-17",'</span><span class="p">,</span>
+            <span class="s2">"    cell_style=Styles.White,"</span><span class="p">,</span>
+            <span class="s2">"    text_style=Styles.DarkBold,"</span><span class="p">,</span>
+            <span class="s2">"    header_style=...,"</span><span class="p">,</span>
+            <span class="s2">"    border_style=Styles.Neutral,"</span><span class="p">,</span>
+            <span class="s2">")"</span><span class="p">,</span>
+            <span class="s2">"# Default bottom-left xy anchor"</span><span class="p">,</span>
+            <span class="s2">"mcal.draw((8, 10), 48, 25)"</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span>
+        <span class="s2">"2-Week Grid"</span><span class="p">,</span>
+        <span class="s2">"Bottom-Left xy Anchor: 2-Week MonthCalendar (Oct 4..17)"</span><span class="p">,</span>
+        <span class="s2">"MonthCalendar &amp; ISO Dates"</span><span class="p">,</span>
+        <span class="s2">"Pass start_date &amp; end_date in strict YYYY-MM-DD format"</span><span class="p">,</span>
+        <span class="s2">"Anchors at bottom-left xy=(x, y) by default"</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="p">(</span>
+        <span class="mi">1</span><span class="p">,</span>
+        <span class="mf">3.3</span><span class="p">,</span>
+        <span class="p">[</span>
+            <span class="s2">"mcal = MonthCalendar("</span><span class="p">,</span>
+            <span class="s1">'    start_date="2026-10-04",'</span><span class="p">,</span>
+            <span class="s1">'    end_date="2026-10-17",'</span><span class="p">,</span>
+            <span class="s2">"    ...,"</span><span class="p">,</span>
+            <span class="s2">")"</span><span class="p">,</span>
+            <span class="s2">"# Single-day ISO date bar"</span><span class="p">,</span>
+            <span class="s2">"mcal.add("</span><span class="p">,</span>
+            <span class="s1">'    "2026-10-06",'</span><span class="p">,</span>
+            <span class="s1">'    text="Sync",'</span><span class="p">,</span>
+            <span class="s2">"    style=Styles.PrimaryNeutral)"</span><span class="p">,</span>
+            <span class="s2">"mcal.draw((8, 10), 48, 25)"</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span>
+        <span class="s2">"1-Day Event"</span><span class="p">,</span>
+        <span class="s1">'mcal.add("2026-10-06"): Places Event Bar on Target Date Cell'</span><span class="p">,</span>
+        <span class="s2">"Single-Day Event Bar (.add())"</span><span class="p">,</span>
+        <span class="s2">"Omit end to create a single-day schedule bar"</span><span class="p">,</span>
+        <span class="s2">"Renders cleanly below the top-left cell date number"</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="p">(</span>
+        <span class="mi">2</span><span class="p">,</span>
+        <span class="mf">3.4</span><span class="p">,</span>
+        <span class="p">[</span>
+            <span class="s2">"mcal = MonthCalendar(...)"</span><span class="p">,</span>
+            <span class="s2">"mcal.add("</span><span class="p">,</span>
+            <span class="s1">'    "2026-10-06", text="Sync")'</span><span class="p">,</span>
+            <span class="s2">"# Wraps week &amp; stacks track 2!"</span><span class="p">,</span>
+            <span class="s2">"mcal.add("</span><span class="p">,</span>
+            <span class="s1">'    "2026-10-08", "2026-10-13",'</span><span class="p">,</span>
+            <span class="s1">'    text="Rollout",'</span><span class="p">,</span>
+            <span class="s2">"    style=Styles.PrimaryFlat)"</span><span class="p">,</span>
+            <span class="s1">'mcal.add("2026-10-12",'</span><span class="p">,</span>
+            <span class="s1">'         "2026-10-15", text="QA")'</span><span class="p">,</span>
+            <span class="s2">"mcal.draw((8, 10), 48, 25)"</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span>
+        <span class="s2">"Wrap &amp; Stack"</span><span class="p">,</span>
+        <span class="s2">"Cross-Week Spans Wrap (← / →) &amp; Overlaps Stack into Tracks"</span><span class="p">,</span>
+        <span class="s2">"Automatic Row Wrap &amp; Track Packing"</span><span class="p">,</span>
+        <span class="s2">"2026-10-08..13 wraps across Sat-&gt;Sun with arrows"</span><span class="p">,</span>
+        <span class="s2">"Overlapping 2026-10-12..15 stacks onto Track 2"</span><span class="p">,</span>
+    <span class="p">),</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">m_idx</span><span class="p">,</span> <span class="p">(</span><span class="n">ev_step</span><span class="p">,</span> <span class="n">dur</span><span class="p">,</span> <span class="n">code_m</span><span class="p">,</span> <span class="n">hl_rng</span><span class="p">,</span> <span class="n">badge_txt</span><span class="p">,</span> <span class="n">foot_txt</span><span class="p">,</span> <span class="n">s_t</span><span class="p">,</span> <span class="n">s_1</span><span class="p">,</span> <span class="n">s_2</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">MONTH_STATES</span><span class="p">):</span>
+    <span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="n">dur</span><span class="p">):</span>
+        <span class="n">draw_step_bar</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">draw_left_pane</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">code_m</span><span class="p">,</span> <span class="n">hl_rng</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">calendar_blank</span><span class="p">,</span> <span class="n">s_t</span><span class="p">,</span> <span class="n">s_1</span><span class="p">,</span> <span class="n">s_2</span><span class="p">)</span>
+        <span class="n">scx</span><span class="p">,</span> <span class="n">scy</span> <span class="o">=</span> <span class="n">draw_geometry_studio</span><span class="p">(</span><span class="n">badge_txt</span><span class="p">,</span> <span class="n">foot_txt</span><span class="p">)</span>
+        <span class="n">draw_sub_pills</span><span class="p">(</span><span class="n">scx</span><span class="p">,</span> <span class="p">[</span><span class="s2">"2-Week Grid"</span><span class="p">,</span> <span class="s2">"1-Day Event"</span><span class="p">,</span> <span class="s2">"Wrap &amp; Stack"</span><span class="p">],</span> <span class="n">m_idx</span><span class="p">)</span>
+
+        <span class="n">cx0</span><span class="p">,</span> <span class="n">cy0</span><span class="p">,</span> <span class="n">cw</span><span class="p">,</span> <span class="n">ch</span> <span class="o">=</span> <span class="mf">78.5</span><span class="p">,</span> <span class="mf">22.4</span><span class="p">,</span> <span class="mf">48.0</span><span class="p">,</span> <span class="mf">25.0</span>
+        <span class="n">mcal</span> <span class="o">=</span> <span class="n">MonthCalendar</span><span class="p">(</span>
+            <span class="n">start_date</span><span class="o">=</span><span class="s2">"2026-10-04"</span><span class="p">,</span>
+            <span class="n">end_date</span><span class="o">=</span><span class="s2">"2026-10-17"</span><span class="p">,</span>
+            <span class="n">first_weekday</span><span class="o">=</span><span class="s2">"sun"</span><span class="p">,</span>
+            <span class="n">title</span><span class="o">=</span><span class="s2">""</span><span class="p">,</span>
+            <span class="n">max_tracks</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+            <span class="n">cell_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="p">,</span>
+            <span class="n">text_style</span><span class="o">=</span><span class="n">CAL_TEXT_BOLD</span><span class="p">,</span>
+            <span class="n">header_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
+            <span class="n">header_text_style</span><span class="o">=</span><span class="n">CAL_TEXT_BOLD</span><span class="p">,</span>
+            <span class="n">border_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+            <span class="n">event_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
+            <span class="n">event_text_style</span><span class="o">=</span><span class="n">CAL_TEXT_BOLD</span><span class="p">,</span>
+            <span class="n">sunday_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+            <span class="n">saturday_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">ev_step</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">mcal</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"2026-10-06"</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"Sync"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">ev_step</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">mcal</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+                <span class="s2">"2026-10-08"</span><span class="p">,</span>
+                <span class="s2">"2026-10-13"</span><span class="p">,</span>
+                <span class="n">text</span><span class="o">=</span><span class="s2">"Rollout"</span><span class="p">,</span>
+                <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
+                <span class="n">text_style</span><span class="o">=</span><span class="n">CAL_WHITE_BOLD</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">mcal</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"2026-10-12"</span><span class="p">,</span> <span class="s2">"2026-10-15"</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"QA"</span><span class="p">)</span>
+        <span class="n">mcal</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">cx0</span><span class="p">,</span> <span class="n">cy0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="n">cw</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">ch</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">ev_step</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">line</span><span class="p">((</span><span class="n">cx0</span><span class="p">,</span> <span class="n">cy0</span><span class="p">),</span> <span class="p">(</span><span class="n">cx0</span><span class="p">,</span> <span class="n">cy0</span> <span class="o">+</span> <span class="mf">8.0</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">1.4</span><span class="p">))</span>
+            <span class="n">text</span><span class="p">((</span><span class="n">cx0</span> <span class="o">-</span> <span class="mf">1.1</span><span class="p">,</span> <span class="n">cy0</span> <span class="o">+</span> <span class="mf">7.8</span><span class="p">),</span> <span class="s2">"+Y"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"right"</span><span class="p">))</span>
+            <span class="n">line</span><span class="p">((</span><span class="n">cx0</span><span class="p">,</span> <span class="n">cy0</span><span class="p">),</span> <span class="p">(</span><span class="n">cx0</span> <span class="o">+</span> <span class="mf">9.0</span><span class="p">,</span> <span class="n">cy0</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">1.4</span><span class="p">))</span>
+            <span class="n">text</span><span class="p">((</span><span class="n">cx0</span> <span class="o">+</span> <span class="mf">9.8</span><span class="p">,</span> <span class="n">cy0</span> <span class="o">-</span> <span class="mf">1.5</span><span class="p">),</span> <span class="s2">"+X"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">))</span>
+            <span class="n">circle</span><span class="p">((</span><span class="n">cx0</span><span class="p">,</span> <span class="n">cy0</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">1.1</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerFlat</span><span class="p">)</span>
+            <span class="n">text</span><span class="p">((</span><span class="n">scx</span> <span class="o">+</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">18.4</span><span class="p">),</span> <span class="s2">"xy = (8, 10)  (bottom-left)  •  Oct 4..17"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="n">ev_step</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">text</span><span class="p">((</span><span class="n">scx</span><span class="p">,</span> <span class="mf">18.4</span><span class="p">),</span> <span class="s2">"Single-day ISO date: 2026-10-06 (Tue)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">text</span><span class="p">((</span><span class="n">scx</span><span class="p">,</span> <span class="mf">18.4</span><span class="p">),</span> <span class="s2">"Wraps week row (← / →) &amp; stacks Track 2!"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
+
+<span class="c1"># =========================================================================</span>
+<span class="c1"># Part 2: WeekCalendar — Auto Top All-Day Band + Hourly Time Grid</span>
+<span class="c1"># =========================================================================</span>
+<span class="n">WEEK_STATES</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span>
+        <span class="mi">0</span><span class="p">,</span>
+        <span class="mf">3.3</span><span class="p">,</span>
+        <span class="p">[</span>
+            <span class="s2">"wcal = WeekCalendar("</span><span class="p">,</span>
+            <span class="s1">'    start_date="2026-10-12",'</span><span class="p">,</span>
+            <span class="s1">'    end_date="2026-10-14",'</span><span class="p">,</span>
+            <span class="s2">"    start_hour=9, end_hour=18,"</span><span class="p">,</span>
+            <span class="s2">"    hour_step=3,"</span><span class="p">,</span>
+            <span class="s2">"    show_all_day=None,"</span><span class="p">,</span>
+            <span class="s2">"    cell_style=Styles.White,"</span><span class="p">,</span>
+            <span class="s2">"    ...,"</span><span class="p">,</span>
+            <span class="s2">")"</span><span class="p">,</span>
+            <span class="s2">"wcal.draw((7, 8), 50, 29)"</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span>
+        <span class="s2">"3-Day Grid"</span><span class="p">,</span>
+        <span class="s2">"3-Day WeekCalendar (hour_step=3, show_all_day=None)"</span><span class="p">,</span>
+        <span class="s2">"Custom N-Day Hourly Grid"</span><span class="p">,</span>
+        <span class="s2">"end_date='2026-10-14' builds a 3-day release window"</span><span class="p">,</span>
+        <span class="s2">"show_all_day=None hides All-Day band until needed"</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="p">(</span>
+        <span class="mi">1</span><span class="p">,</span>
+        <span class="mf">3.3</span><span class="p">,</span>
+        <span class="p">[</span>
+            <span class="s2">"wcal = WeekCalendar("</span><span class="p">,</span>
+            <span class="s1">'    start_date="2026-10-12",'</span><span class="p">,</span>
+            <span class="s1">'    end_date="2026-10-14",'</span><span class="p">,</span>
+            <span class="s2">"    hour_step=3, ...)"</span><span class="p">,</span>
+            <span class="s2">"# YYYY-MM-DD -&gt; Top All-Day bar!"</span><span class="p">,</span>
+            <span class="s2">"wcal.add("</span><span class="p">,</span>
+            <span class="s1">'    "2026-10-12", "2026-10-14",'</span><span class="p">,</span>
+            <span class="s1">'    text="Code Freeze",'</span><span class="p">,</span>
+            <span class="s2">"    style=Styles.PrimaryNeutral,"</span><span class="p">,</span>
+            <span class="s2">")"</span><span class="p">,</span>
+            <span class="s2">"wcal.draw((7, 8), 50, 29)"</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span>
+        <span class="s2">"Top All-Day"</span><span class="p">,</span>
+        <span class="s2">"YYYY-MM-DD Dates Automatically Open Top All-Day Band"</span><span class="p">,</span>
+        <span class="s2">"Automatic All-Day Routing"</span><span class="p">,</span>
+        <span class="s2">"YYYY-MM-DD dates route to the top All-Day field"</span><span class="p">,</span>
+        <span class="s2">"Spans horizontally across Mon 10/12 – Wed 10/14"</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="p">(</span>
+        <span class="mi">2</span><span class="p">,</span>
+        <span class="mf">3.4</span><span class="p">,</span>
+        <span class="p">[</span>
+            <span class="s2">"wcal = WeekCalendar("</span><span class="p">,</span>
+            <span class="s1">'    start_date="2026-10-12",'</span><span class="p">,</span>
+            <span class="s1">'    end_date="2026-10-14", ...)'</span><span class="p">,</span>
+            <span class="s2">"wcal.add("</span><span class="p">,</span>
+            <span class="s1">'    "2026-10-12", "2026-10-14",'</span><span class="p">,</span>
+            <span class="s1">'    text="Code Freeze")'</span><span class="p">,</span>
+            <span class="s2">"# YYYY-MM-DD HH:MM -&gt; Hourly grid"</span><span class="p">,</span>
+            <span class="s2">"wcal.add("</span><span class="p">,</span>
+            <span class="s1">'    "2026-10-12 09:30",'</span><span class="p">,</span>
+            <span class="s1">'    "2026-10-12 13:30",'</span><span class="p">,</span>
+            <span class="s1">'    text="Deploy", style=...)'</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
+        <span class="s2">"Timed Slot"</span><span class="p">,</span>
+        <span class="s2">"YYYY-MM-DD HH:MM Places Timed Blocks on Hourly Grid"</span><span class="p">,</span>
+        <span class="s2">"Exact Minute-Precision Slots"</span><span class="p">,</span>
+        <span class="s2">"YYYY-MM-DD HH:MM maps vertically to 09:30–13:30"</span><span class="p">,</span>
+        <span class="s2">"Combines multi-day banners with timed runbooks"</span><span class="p">,</span>
+    <span class="p">),</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">w_idx</span><span class="p">,</span> <span class="p">(</span><span class="n">w_step</span><span class="p">,</span> <span class="n">dur</span><span class="p">,</span> <span class="n">code_w</span><span class="p">,</span> <span class="n">hl_rng</span><span class="p">,</span> <span class="n">badge_txt</span><span class="p">,</span> <span class="n">foot_txt</span><span class="p">,</span> <span class="n">s_t</span><span class="p">,</span> <span class="n">s_1</span><span class="p">,</span> <span class="n">s_2</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">WEEK_STATES</span><span class="p">):</span>
+    <span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="n">dur</span><span class="p">):</span>
+        <span class="n">draw_step_bar</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">draw_left_pane</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">code_w</span><span class="p">,</span> <span class="n">hl_rng</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">clock</span><span class="p">,</span> <span class="n">s_t</span><span class="p">,</span> <span class="n">s_1</span><span class="p">,</span> <span class="n">s_2</span><span class="p">)</span>
+        <span class="n">scx</span><span class="p">,</span> <span class="n">scy</span> <span class="o">=</span> <span class="n">draw_geometry_studio</span><span class="p">(</span><span class="n">badge_txt</span><span class="p">,</span> <span class="n">foot_txt</span><span class="p">)</span>
+        <span class="n">draw_sub_pills</span><span class="p">(</span><span class="n">scx</span><span class="p">,</span> <span class="p">[</span><span class="s2">"3-Day Grid"</span><span class="p">,</span> <span class="s2">"Top All-Day"</span><span class="p">,</span> <span class="s2">"Timed Slot"</span><span class="p">],</span> <span class="n">w_idx</span><span class="p">)</span>
+
+        <span class="n">wx0</span><span class="p">,</span> <span class="n">wy0</span><span class="p">,</span> <span class="n">ww</span><span class="p">,</span> <span class="n">wh</span> <span class="o">=</span> <span class="mf">77.0</span><span class="p">,</span> <span class="mf">20.0</span><span class="p">,</span> <span class="mf">50.0</span><span class="p">,</span> <span class="mf">28.8</span>
+        <span class="n">wcal</span> <span class="o">=</span> <span class="n">WeekCalendar</span><span class="p">(</span>
+            <span class="n">start_date</span><span class="o">=</span><span class="s2">"2026-10-12"</span><span class="p">,</span>
+            <span class="n">end_date</span><span class="o">=</span><span class="s2">"2026-10-14"</span><span class="p">,</span>
+            <span class="n">start_hour</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span>
+            <span class="n">end_hour</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span>
+            <span class="n">hour_step</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+            <span class="n">show_all_day</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">all_day_label</span><span class="o">=</span><span class="s2">"All"</span><span class="p">,</span>
+            <span class="n">title</span><span class="o">=</span><span class="s2">""</span><span class="p">,</span>
+            <span class="n">cell_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="p">,</span>
+            <span class="n">text_style</span><span class="o">=</span><span class="n">CAL_TEXT</span><span class="p">,</span>
+            <span class="n">header_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
+            <span class="n">header_text_style</span><span class="o">=</span><span class="n">CAL_TEXT_BOLD</span><span class="p">,</span>
+            <span class="n">border_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+            <span class="n">event_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
+            <span class="n">event_text_style</span><span class="o">=</span><span class="n">CAL_TEXT_BOLD</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">w_step</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">wcal</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"2026-10-12"</span><span class="p">,</span> <span class="s2">"2026-10-14"</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"Code Freeze"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">w_step</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">wcal</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+                <span class="s2">"2026-10-12 09:30"</span><span class="p">,</span>
+                <span class="s2">"2026-10-12 13:30"</span><span class="p">,</span>
+                <span class="n">text</span><span class="o">=</span><span class="s2">"Deploy"</span><span class="p">,</span>
+                <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
+                <span class="n">text_style</span><span class="o">=</span><span class="n">CAL_WHITE_BOLD</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">wcal</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"2026-10-13 13:00"</span><span class="p">,</span> <span class="s2">"2026-10-13 17:00"</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"Verify"</span><span class="p">)</span>
+        <span class="n">wcal</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">wx0</span><span class="p">,</span> <span class="n">wy0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="n">ww</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">wh</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">w_step</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">text</span><span class="p">((</span><span class="n">scx</span><span class="p">,</span> <span class="mf">17.8</span><span class="p">),</span> <span class="s2">"0 all-day items -&gt; All-Day row auto-hidden"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="n">w_step</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">text</span><span class="p">((</span><span class="n">scx</span><span class="p">,</span> <span class="mf">17.8</span><span class="p">),</span> <span class="s2">"YYYY-MM-DD -&gt; routed to Top All-Day band!"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">text</span><span class="p">((</span><span class="n">scx</span><span class="p">,</span> <span class="mf">17.8</span><span class="p">),</span> <span class="s2">"YYYY-MM-DD HH:MM -&gt; placed in 09:00..18:00 grid!"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
+
+<span class="c1"># =========================================================================</span>
+<span class="c1"># Part 3: Span Modes — span_mode="columns" vs "box" &amp; Overlap Lane Split</span>
+<span class="c1"># =========================================================================</span>
+<span class="n">SPAN_STATES</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span>
+        <span class="s2">"columns"</span><span class="p">,</span>
+        <span class="mf">3.3</span><span class="p">,</span>
+        <span class="p">[</span>
+            <span class="s2">"wcal = WeekCalendar("</span><span class="p">,</span>
+            <span class="s1">'    start_date="2026-10-12",'</span><span class="p">,</span>
+            <span class="s1">'    end_date="2026-10-14",'</span><span class="p">,</span>
+            <span class="s2">"    hour_step=3, ...)"</span><span class="p">,</span>
+            <span class="s2">"# Per-day bars across Mon..Wed"</span><span class="p">,</span>
+            <span class="s2">"wcal.add("</span><span class="p">,</span>
+            <span class="s1">'    "2026-10-12 10:00",'</span><span class="p">,</span>
+            <span class="s1">'    "2026-10-14 16:00",'</span><span class="p">,</span>
+            <span class="s1">'    text="Canary",'</span><span class="p">,</span>
+            <span class="s1">'    span_mode="columns")'</span><span class="p">,</span>
+            <span class="s2">"wcal.draw((7, 9), 50, 27)"</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span>
+        <span class="s1">'span_mode="columns"'</span><span class="p">,</span>
+        <span class="s1">'span_mode="columns" (Default): Per-Day Column Segments'</span><span class="p">,</span>
+        <span class="s1">'Per-Day Column Bars (span_mode="columns")'</span><span class="p">,</span>
+        <span class="s2">"Fills Mon 10:00..18:00, Tue 09:00..18:00, Wed 09:00..16:00"</span><span class="p">,</span>
+        <span class="s2">"True continuous chronological coverage across days"</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="p">(</span>
+        <span class="s2">"box"</span><span class="p">,</span>
+        <span class="mf">3.3</span><span class="p">,</span>
+        <span class="p">[</span>
+            <span class="s2">"wcal = WeekCalendar("</span><span class="p">,</span>
+            <span class="s1">'    start_date="2026-10-12",'</span><span class="p">,</span>
+            <span class="s1">'    end_date="2026-10-14",'</span><span class="p">,</span>
+            <span class="s2">"    hour_step=3, ...)"</span><span class="p">,</span>
+            <span class="s2">"# Unified cross-day block!"</span><span class="p">,</span>
+            <span class="s2">"wcal.add("</span><span class="p">,</span>
+            <span class="s1">'    "2026-10-12 10:00",'</span><span class="p">,</span>
+            <span class="s1">'    "2026-10-14 16:00",'</span><span class="p">,</span>
+            <span class="s1">'    text="Canary Window",'</span><span class="p">,</span>
+            <span class="s1">'    span_mode="box")'</span><span class="p">,</span>
+            <span class="s2">"wcal.draw((7, 9), 50, 27)"</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span>
+        <span class="s1">'span_mode="box"'</span><span class="p">,</span>
+        <span class="s1">'span_mode="box": Unified Multi-Day Block Across Columns'</span><span class="p">,</span>
+        <span class="s1">'Unified Cross-Column Box (span_mode="box")'</span><span class="p">,</span>
+        <span class="s2">"Draws a single 10:00–16:00 rectangle across Mon..Wed"</span><span class="p">,</span>
+        <span class="s2">"Ideal for daily recurring workshops or shift windows"</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="p">(</span>
+        <span class="s2">"overlap"</span><span class="p">,</span>
+        <span class="mf">3.4</span><span class="p">,</span>
+        <span class="p">[</span>
+            <span class="s2">"wcal = WeekCalendar("</span><span class="p">,</span>
+            <span class="s1">'    start_date="2026-10-12", ...)'</span><span class="p">,</span>
+            <span class="s2">"# Overlapping hours split lanes!"</span><span class="p">,</span>
+            <span class="s1">'wcal.add("2026-10-12 10:00",'</span><span class="p">,</span>
+            <span class="s1">'         "2026-10-12 15:00",'</span><span class="p">,</span>
+            <span class="s1">'         text="API")'</span><span class="p">,</span>
+            <span class="s1">'wcal.add("2026-10-12 12:00",'</span><span class="p">,</span>
+            <span class="s1">'         "2026-10-12 17:00",'</span><span class="p">,</span>
+            <span class="s1">'         text="QA",'</span><span class="p">,</span>
+            <span class="s2">"         style=Styles.PrimaryFlat)"</span><span class="p">,</span>
+            <span class="s2">"wcal.draw((7, 9), 50, 27)"</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span>
+        <span class="s2">"Overlap Split"</span><span class="p">,</span>
+        <span class="s2">"Overlapping Timed Slots Automatically Split Side-by-Side"</span><span class="p">,</span>
+        <span class="s2">"Automatic Parallel Lane Splitting"</span><span class="p">,</span>
+        <span class="s2">"10:00–15:00 &amp; 12:00–17:00 subdivide Mon column in half"</span><span class="p">,</span>
+        <span class="s2">"Zero manual X-offset math required"</span><span class="p">,</span>
+    <span class="p">),</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">sp_idx</span><span class="p">,</span> <span class="p">(</span><span class="n">sp_mode</span><span class="p">,</span> <span class="n">dur</span><span class="p">,</span> <span class="n">code_sp</span><span class="p">,</span> <span class="n">hl_rng</span><span class="p">,</span> <span class="n">badge_txt</span><span class="p">,</span> <span class="n">foot_txt</span><span class="p">,</span> <span class="n">s_t</span><span class="p">,</span> <span class="n">s_1</span><span class="p">,</span> <span class="n">s_2</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">SPAN_STATES</span><span class="p">):</span>
+    <span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="n">dur</span><span class="p">):</span>
+        <span class="n">draw_step_bar</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+        <span class="n">draw_left_pane</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">code_sp</span><span class="p">,</span> <span class="n">hl_rng</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span> <span class="n">s_t</span><span class="p">,</span> <span class="n">s_1</span><span class="p">,</span> <span class="n">s_2</span><span class="p">)</span>
+        <span class="n">scx</span><span class="p">,</span> <span class="n">scy</span> <span class="o">=</span> <span class="n">draw_geometry_studio</span><span class="p">(</span><span class="n">badge_txt</span><span class="p">,</span> <span class="n">foot_txt</span><span class="p">)</span>
+        <span class="n">draw_sub_pills</span><span class="p">(</span><span class="n">scx</span><span class="p">,</span> <span class="p">[</span><span class="s1">'"columns" Mode'</span><span class="p">,</span> <span class="s1">'"box" Mode'</span><span class="p">,</span> <span class="s2">"Lane Split"</span><span class="p">],</span> <span class="n">sp_idx</span><span class="p">)</span>
+
+        <span class="n">wx0</span><span class="p">,</span> <span class="n">wy0</span><span class="p">,</span> <span class="n">ww</span><span class="p">,</span> <span class="n">wh</span> <span class="o">=</span> <span class="mf">77.0</span><span class="p">,</span> <span class="mf">21.2</span><span class="p">,</span> <span class="mf">50.0</span><span class="p">,</span> <span class="mf">27.2</span>
+        <span class="n">wcal</span> <span class="o">=</span> <span class="n">WeekCalendar</span><span class="p">(</span>
+            <span class="n">start_date</span><span class="o">=</span><span class="s2">"2026-10-12"</span><span class="p">,</span>
+            <span class="n">end_date</span><span class="o">=</span><span class="s2">"2026-10-14"</span><span class="p">,</span>
+            <span class="n">start_hour</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span>
+            <span class="n">end_hour</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span>
+            <span class="n">hour_step</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+            <span class="n">show_all_day</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">title</span><span class="o">=</span><span class="s2">""</span><span class="p">,</span>
+            <span class="n">cell_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="p">,</span>
+            <span class="n">text_style</span><span class="o">=</span><span class="n">CAL_TEXT</span><span class="p">,</span>
+            <span class="n">header_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
+            <span class="n">header_text_style</span><span class="o">=</span><span class="n">CAL_TEXT_BOLD</span><span class="p">,</span>
+            <span class="n">border_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+            <span class="n">event_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
+            <span class="n">event_text_style</span><span class="o">=</span><span class="n">CAL_TEXT_BOLD</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">sp_mode</span> <span class="o">==</span> <span class="s2">"columns"</span><span class="p">:</span>
+            <span class="n">wcal</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+                <span class="s2">"2026-10-12 10:00"</span><span class="p">,</span>
+                <span class="s2">"2026-10-14 16:00"</span><span class="p">,</span>
+                <span class="n">text</span><span class="o">=</span><span class="s2">"Canary"</span><span class="p">,</span>
+                <span class="n">span_mode</span><span class="o">=</span><span class="s2">"columns"</span><span class="p">,</span>
+                <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">foot_note</span> <span class="o">=</span> <span class="s1">'span_mode="columns": 3 per-day bars (Mon..Wed)'</span>
+        <span class="k">elif</span> <span class="n">sp_mode</span> <span class="o">==</span> <span class="s2">"box"</span><span class="p">:</span>
+            <span class="n">wcal</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+                <span class="s2">"2026-10-12 10:00"</span><span class="p">,</span>
+                <span class="s2">"2026-10-14 16:00"</span><span class="p">,</span>
+                <span class="n">text</span><span class="o">=</span><span class="s2">"Canary Window (10:00–16:00)"</span><span class="p">,</span>
+                <span class="n">span_mode</span><span class="o">=</span><span class="s2">"box"</span><span class="p">,</span>
+                <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">foot_note</span> <span class="o">=</span> <span class="s1">'span_mode="box": 1 unified cross-column block'</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">wcal</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"2026-10-12 10:00"</span><span class="p">,</span> <span class="s2">"2026-10-12 15:00"</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"API"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
+            <span class="n">wcal</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+                <span class="s2">"2026-10-12 12:00"</span><span class="p">,</span>
+                <span class="s2">"2026-10-12 17:00"</span><span class="p">,</span>
+                <span class="n">text</span><span class="o">=</span><span class="s2">"QA"</span><span class="p">,</span>
+                <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
+                <span class="n">text_style</span><span class="o">=</span><span class="n">CAL_WHITE_BOLD</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">wcal</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"2026-10-14 10:30"</span><span class="p">,</span> <span class="s2">"2026-10-14 15:30"</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"Sync"</span><span class="p">)</span>
+            <span class="n">foot_note</span> <span class="o">=</span> <span class="s2">"Overlapping API &amp; QA split Mon 10/12 into 2 lanes"</span>
+
+        <span class="n">wcal</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">wx0</span><span class="p">,</span> <span class="n">wy0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="n">ww</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">wh</span><span class="p">)</span>
+        <span class="n">text</span><span class="p">((</span><span class="n">scx</span><span class="p">,</span> <span class="mf">18.2</span><span class="p">),</span> <span class="n">foot_note</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
+
+<span class="c1"># =========================================================================</span>
+<span class="c1"># Part 4: DayCalendar — vertical vs horizontal, .show=False &amp; align="center"</span>
+<span class="c1"># =========================================================================</span>
+<span class="n">DAY_STATES</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span>
+        <span class="s2">"vertical"</span><span class="p">,</span>
+        <span class="mf">3.3</span><span class="p">,</span>
+        <span class="p">[</span>
+            <span class="s2">"dcal = DayCalendar("</span><span class="p">,</span>
+            <span class="s1">'    date="2026-10-14",'</span><span class="p">,</span>
+            <span class="s1">'    direction="vertical",'</span><span class="p">,</span>
+            <span class="s2">"    start_hour=9, end_hour=18,"</span><span class="p">,</span>
+            <span class="s2">"    hour_step=3, ...)"</span><span class="p">,</span>
+            <span class="s1">'dcal.add("2026-10-14 09:00",'</span><span class="p">,</span>
+            <span class="s1">'         "2026-10-14 13:00",'</span><span class="p">,</span>
+            <span class="s1">'         text="Snapshot")'</span><span class="p">,</span>
+            <span class="s1">'dcal.add(..., text="Shadow")'</span><span class="p">,</span>
+            <span class="s1">'dcal.add(..., text="Cutover")'</span><span class="p">,</span>
+            <span class="s2">"dcal.draw((10, 9), 44, 27)"</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
+        <span class="s1">'direction="vertical"'</span><span class="p">,</span>
+        <span class="s1">'direction="vertical": Top-to-Bottom Time Axis'</span><span class="p">,</span>
+        <span class="s1">'Vertical Day Schedule ("vertical")'</span><span class="p">,</span>
+        <span class="s2">"Time flows top-to-bottom along left hour gutter"</span><span class="p">,</span>
+        <span class="s2">"Overlapping slots split horizontally side-by-side"</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="p">(</span>
+        <span class="s2">"horizontal"</span><span class="p">,</span>
+        <span class="mf">3.3</span><span class="p">,</span>
+        <span class="p">[</span>
+            <span class="s2">"dcal = DayCalendar("</span><span class="p">,</span>
+            <span class="s1">'    date="2026-10-14",'</span><span class="p">,</span>
+            <span class="s1">'    direction="horizontal",'</span><span class="p">,</span>
+            <span class="s2">"    start_hour=9, end_hour=18,"</span><span class="p">,</span>
+            <span class="s2">"    hour_step=3, ...)"</span><span class="p">,</span>
+            <span class="s1">'dcal.add("2026-10-14 09:00",'</span><span class="p">,</span>
+            <span class="s1">'         "2026-10-14 13:00",'</span><span class="p">,</span>
+            <span class="s1">'         text="Snapshot")'</span><span class="p">,</span>
+            <span class="s1">'dcal.add(..., text="Shadow")'</span><span class="p">,</span>
+            <span class="s1">'dcal.add(..., text="Cutover")'</span><span class="p">,</span>
+            <span class="s2">"dcal.draw((8, 12), 48, 22)"</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+        <span class="s1">'direction="horizontal"'</span><span class="p">,</span>
+        <span class="s1">'direction="horizontal": Left-to-Right Timeline Axis'</span><span class="p">,</span>
+        <span class="s1">'Horizontal Timeline ("horizontal")'</span><span class="p">,</span>
+        <span class="s2">"Time flows left-to-right across hour columns"</span><span class="p">,</span>
+        <span class="s2">"Overlapping slots stack vertically into clean lanes"</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="p">(</span>
+        <span class="s2">"hide_and_center"</span><span class="p">,</span>
+        <span class="mf">3.6</span><span class="p">,</span>
+        <span class="p">[</span>
+            <span class="s2">"dcal = DayCalendar("</span><span class="p">,</span>
+            <span class="s1">'    date="2026-10-14",'</span><span class="p">,</span>
+            <span class="s1">'    direction="horizontal", ...)'</span><span class="p">,</span>
+            <span class="s1">'dcal.add(..., text="Snapshot")'</span><span class="p">,</span>
+            <span class="s1">'dcal.add(..., text="Shadow")'</span><span class="p">,</span>
+            <span class="s1">'dcal.add(..., text="Cutover")'</span><span class="p">,</span>
+            <span class="s2">"# Hide slot &amp; center on xy!"</span><span class="p">,</span>
+            <span class="s2">"dcal.items[1].show = False"</span><span class="p">,</span>
+            <span class="s2">"dcal.draw("</span><span class="p">,</span>
+            <span class="s2">"    xy=(31, 23), width=48,"</span><span class="p">,</span>
+            <span class="s1">'    height=22, align="center")'</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
+        <span class="s2">".show &amp; center"</span><span class="p">,</span>
+        <span class="s1">'items[1].show=False Keeps Lanes &amp; align="center"'</span><span class="p">,</span>
+        <span class="s2">"Slot-Preserving .show &amp; Centered Anchor"</span><span class="p">,</span>
+        <span class="s2">"items[1].show=False hides Shadow without shifting lanes"</span><span class="p">,</span>
+        <span class="s1">'align="center" centers calendar box on xy=(cx, cy)'</span><span class="p">,</span>
+    <span class="p">),</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">d_idx</span><span class="p">,</span> <span class="p">(</span><span class="n">d_mode</span><span class="p">,</span> <span class="n">dur</span><span class="p">,</span> <span class="n">code_d</span><span class="p">,</span> <span class="n">hl_rng</span><span class="p">,</span> <span class="n">badge_txt</span><span class="p">,</span> <span class="n">foot_txt</span><span class="p">,</span> <span class="n">s_t</span><span class="p">,</span> <span class="n">s_1</span><span class="p">,</span> <span class="n">s_2</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">DAY_STATES</span><span class="p">):</span>
+    <span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="n">dur</span><span class="p">):</span>
+        <span class="n">draw_step_bar</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+        <span class="n">draw_left_pane</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">code_d</span><span class="p">,</span> <span class="n">hl_rng</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">arrows_left_right</span><span class="p">,</span> <span class="n">s_t</span><span class="p">,</span> <span class="n">s_1</span><span class="p">,</span> <span class="n">s_2</span><span class="p">)</span>
+        <span class="n">scx</span><span class="p">,</span> <span class="n">scy</span> <span class="o">=</span> <span class="n">draw_geometry_studio</span><span class="p">(</span><span class="n">badge_txt</span><span class="p">,</span> <span class="n">foot_txt</span><span class="p">)</span>
+        <span class="n">draw_sub_pills</span><span class="p">(</span><span class="n">scx</span><span class="p">,</span> <span class="p">[</span><span class="s1">'"vertical"'</span><span class="p">,</span> <span class="s1">'"horizontal"'</span><span class="p">,</span> <span class="s2">".show &amp; center"</span><span class="p">],</span> <span class="n">d_idx</span><span class="p">)</span>
+
+        <span class="n">orient</span> <span class="o">=</span> <span class="s2">"vertical"</span> <span class="k">if</span> <span class="n">d_mode</span> <span class="o">==</span> <span class="s2">"vertical"</span> <span class="k">else</span> <span class="s2">"horizontal"</span>
+        <span class="n">dcal</span> <span class="o">=</span> <span class="n">DayCalendar</span><span class="p">(</span>
+            <span class="n">date</span><span class="o">=</span><span class="s2">"2026-10-14"</span><span class="p">,</span>
+            <span class="n">direction</span><span class="o">=</span><span class="n">orient</span><span class="p">,</span>
+            <span class="n">start_hour</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span>
+            <span class="n">end_hour</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span>
+            <span class="n">hour_step</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+            <span class="n">show_all_day</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">title</span><span class="o">=</span><span class="s2">""</span><span class="p">,</span>
+            <span class="n">cell_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="p">,</span>
+            <span class="n">text_style</span><span class="o">=</span><span class="n">CAL_TEXT</span><span class="p">,</span>
+            <span class="n">header_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
+            <span class="n">header_text_style</span><span class="o">=</span><span class="n">CAL_TEXT_BOLD</span><span class="p">,</span>
+            <span class="n">border_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+            <span class="n">event_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
+            <span class="n">event_text_style</span><span class="o">=</span><span class="n">CAL_TEXT_BOLD</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">dcal</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"2026-10-14 09:00"</span><span class="p">,</span> <span class="s2">"2026-10-14 13:00"</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"Snapshot"</span><span class="p">)</span>
+        <span class="n">dcal</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"2026-10-14 11:00"</span><span class="p">,</span> <span class="s2">"2026-10-14 15:00"</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"Shadow"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
+        <span class="n">dcal</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+            <span class="s2">"2026-10-14 14:00"</span><span class="p">,</span>
+            <span class="s2">"2026-10-14 18:00"</span><span class="p">,</span>
+            <span class="n">text</span><span class="o">=</span><span class="s2">"Cutover"</span><span class="p">,</span>
+            <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
+            <span class="n">text_style</span><span class="o">=</span><span class="n">CAL_WHITE_BOLD</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">d_mode</span> <span class="o">==</span> <span class="s2">"vertical"</span><span class="p">:</span>
+            <span class="n">dcal</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">80.0</span><span class="p">,</span> <span class="mf">21.2</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">44.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">27.0</span><span class="p">)</span>
+            <span class="n">text</span><span class="p">((</span><span class="n">scx</span><span class="p">,</span> <span class="mf">18.2</span><span class="p">),</span> <span class="s1">'direction="vertical"  (09:00 -&gt; 18:00 top-down)'</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="n">d_mode</span> <span class="o">==</span> <span class="s2">"horizontal"</span><span class="p">:</span>
+            <span class="n">dcal</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">78.0</span><span class="p">,</span> <span class="mf">23.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">48.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">22.5</span><span class="p">)</span>
+            <span class="n">text</span><span class="p">((</span><span class="n">scx</span><span class="p">,</span> <span class="mf">18.2</span><span class="p">),</span> <span class="s1">'direction="horizontal"  (09:00 -&gt; 18:00 left-to-right)'</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">dcal</span><span class="o">.</span><span class="n">items</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">show</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="n">cx_d</span><span class="p">,</span> <span class="n">cy_d</span><span class="p">,</span> <span class="n">dw</span><span class="p">,</span> <span class="n">dh</span> <span class="o">=</span> <span class="n">scx</span><span class="p">,</span> <span class="mf">34.8</span><span class="p">,</span> <span class="mf">48.0</span><span class="p">,</span> <span class="mf">22.5</span>
+            <span class="n">dcal</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">cx_d</span><span class="p">,</span> <span class="n">cy_d</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="n">dw</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">dh</span><span class="p">,</span> <span class="n">align</span><span class="o">=</span><span class="s2">"center"</span><span class="p">)</span>
+
+            <span class="c1"># Ghost slot showing preserved Lane 2 where items[1] ("Shadow", 11:00..15:00) sits</span>
+            <span class="n">dx0</span><span class="p">,</span> <span class="n">dy0</span> <span class="o">=</span> <span class="n">cx_d</span> <span class="o">-</span> <span class="n">dw</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">,</span> <span class="n">cy_d</span> <span class="o">-</span> <span class="n">dh</span> <span class="o">/</span> <span class="mf">2.0</span>
+            <span class="n">hdr_h</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="mf">4.2</span><span class="p">,</span> <span class="n">dh</span> <span class="o">*</span> <span class="mf">0.12</span><span class="p">)</span>
+            <span class="n">body_top</span> <span class="o">=</span> <span class="n">dy0</span> <span class="o">+</span> <span class="n">dh</span> <span class="o">-</span> <span class="n">hdr_h</span>
+            <span class="n">body_h</span> <span class="o">=</span> <span class="n">body_top</span> <span class="o">-</span> <span class="n">dy0</span>
+            <span class="n">lane_h</span> <span class="o">=</span> <span class="p">(</span><span class="n">body_h</span> <span class="o">-</span> <span class="mf">1.0</span><span class="p">)</span> <span class="o">/</span> <span class="mf">2.0</span>
+            <span class="n">gx_l</span> <span class="o">=</span> <span class="n">dx0</span> <span class="o">+</span> <span class="p">(</span><span class="mf">2.0</span> <span class="o">/</span> <span class="mf">9.0</span><span class="p">)</span> <span class="o">*</span> <span class="n">dw</span> <span class="o">+</span> <span class="mf">0.2</span>
+            <span class="n">gx_r</span> <span class="o">=</span> <span class="n">dx0</span> <span class="o">+</span> <span class="p">(</span><span class="mf">6.0</span> <span class="o">/</span> <span class="mf">9.0</span><span class="p">)</span> <span class="o">*</span> <span class="n">dw</span> <span class="o">-</span> <span class="mf">0.2</span>
+            <span class="n">g_cy</span> <span class="o">=</span> <span class="n">body_top</span> <span class="o">-</span> <span class="mf">0.5</span> <span class="o">-</span> <span class="mf">1.5</span> <span class="o">*</span> <span class="n">lane_h</span>
+            <span class="n">rectangle</span><span class="p">(</span>
+                <span class="p">((</span><span class="n">gx_l</span> <span class="o">+</span> <span class="n">gx_r</span><span class="p">)</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">,</span> <span class="n">g_cy</span><span class="p">),</span>
+                <span class="n">width</span><span class="o">=</span><span class="n">gx_r</span> <span class="o">-</span> <span class="n">gx_l</span><span class="p">,</span>
+                <span class="n">height</span><span class="o">=</span><span class="n">lane_h</span> <span class="o">-</span> <span class="mf">0.25</span><span class="p">,</span>
+                <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+                    <span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">248</span><span class="p">,</span> <span class="mi">250</span><span class="p">,</span> <span class="mi">252</span><span class="p">),</span>
+                    <span class="n">shape_line_color</span><span class="o">=</span><span class="p">(</span><span class="mi">148</span><span class="p">,</span> <span class="mi">163</span><span class="p">,</span> <span class="mi">184</span><span class="p">),</span>
+                    <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span>
+                    <span class="n">shape_r</span><span class="o">=</span><span class="mf">0.55</span><span class="p">,</span>
+                <span class="p">),</span>
+                <span class="n">text</span><span class="o">=</span><span class="s2">"items[1] hidden"</span><span class="p">,</span>
+                <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+            <span class="p">)</span>
+
+            <span class="c1"># Centered anchor guides</span>
+            <span class="n">line</span><span class="p">((</span><span class="n">cx_d</span> <span class="o">-</span> <span class="mf">25.6</span><span class="p">,</span> <span class="n">cy_d</span><span class="p">),</span> <span class="p">(</span><span class="n">cx_d</span> <span class="o">-</span> <span class="mf">24.0</span><span class="p">,</span> <span class="n">cy_d</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
+            <span class="n">line</span><span class="p">((</span><span class="n">cx_d</span> <span class="o">+</span> <span class="mf">24.0</span><span class="p">,</span> <span class="n">cy_d</span><span class="p">),</span> <span class="p">(</span><span class="n">cx_d</span> <span class="o">+</span> <span class="mf">25.6</span><span class="p">,</span> <span class="n">cy_d</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
+            <span class="n">line</span><span class="p">((</span><span class="n">cx_d</span><span class="p">,</span> <span class="n">cy_d</span> <span class="o">+</span> <span class="mf">11.25</span><span class="p">),</span> <span class="p">(</span><span class="n">cx_d</span><span class="p">,</span> <span class="n">cy_d</span> <span class="o">+</span> <span class="mf">13.0</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
+            <span class="n">line</span><span class="p">((</span><span class="n">cx_d</span><span class="p">,</span> <span class="n">cy_d</span> <span class="o">-</span> <span class="mf">13.0</span><span class="p">),</span> <span class="p">(</span><span class="n">cx_d</span><span class="p">,</span> <span class="n">cy_d</span> <span class="o">-</span> <span class="mf">11.25</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
+            <span class="n">circle</span><span class="p">((</span><span class="n">cx_d</span><span class="p">,</span> <span class="n">cy_d</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">1.1</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerFlat</span><span class="p">)</span>
+            <span class="n">text</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">scx</span><span class="p">,</span> <span class="mf">18.2</span><span class="p">),</span>
+                <span class="s1">'items[1].show=False  •  align="center"'</span><span class="p">,</span>
+                <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+            <span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<ul>
+<li><strong>Strict ISO Dates &amp; Anchor (<code>MonthCalendar</code>, <code>xy</code>, <code>align</code>)</strong>: Pass <code>&quot;YYYY-MM-DD&quot;</code> dates to <code>MonthCalendar</code> (anchored at <strong>Bottom-Left <code>xy</code></strong> by default, or <code>align=&quot;center&quot;</code> / <code>&quot;top_left&quot;</code>) to auto-wrap multi-day spans across weeks and stack overlaps into tracks.</li>
+<li><strong>Automatic All-Day vs. Hourly Routing (<code>WeekCalendar</code>)</strong>: Date-only strings (<code>&quot;YYYY-MM-DD&quot;</code>) automatically open and populate the top All-Day band, while datetime strings (<code>&quot;YYYY-MM-DD HH:MM&quot;</code>) render on the hourly grid.</li>
+<li><strong>Multi-Day Span Modes &amp; Lane Splitting (<code>span_mode</code>)</strong>: Choose <code>span_mode=&quot;columns&quot;</code> for per-day column segments or <code>span_mode=&quot;box&quot;</code> for a unified cross-day block; overlapping timed slots split automatically into parallel lanes.</li>
+<li><strong>Orientation &amp; Live Slot Visibility (<code>DayCalendar</code>, <code>.items[i].show</code>)</strong>: Switch <code>DayCalendar</code> between <code>direction=&quot;vertical&quot;</code> and <code>&quot;horizontal&quot;</code> timelines, and toggle <code>.items[i].show = False</code> to hide events without shifting sibling lane geometry.</li>
+</ul>
+<hr />
+<h2>2. Strict ISO 8601 Date &amp; Datetime Format</h2>
 <p>To avoid ambiguity across multi-day spans and leap years (<code>2024-02-29</code>), all Calendar classes accept <strong>only two strict ISO 8601 formats</strong> (slash-separated dates <code>&quot;2026/10/10&quot;</code> or time-only strings <code>&quot;09:00&quot;</code> raise a <code>ValueError</code>):</p>
 <ol>
 <li><strong><code>&quot;YYYY-MM-DD&quot;</code></strong> (e.g. <code>&quot;2026-10-10&quot;</code>): Treated automatically as an <strong>All-Day (<code>全日</code>)</strong> date or multi-day date span.</li>
 <li><strong><code>&quot;YYYY-MM-DD HH:MM&quot;</code></strong> (e.g. <code>&quot;2026-10-10 09:00&quot;</code>): Treated automatically as a <strong>Timed (<code>時間指定</code>)</strong> slot or multi-day continuous datetime span.</li>
 </ol>
 <hr />
-<h2>2. MonthCalendar (Monthly &amp; Multi-Week Cross-Month Grids)</h2>
+<h2>3. MonthCalendar (Monthly &amp; Multi-Week Cross-Month Grids)</h2>
 <p><code>MonthCalendar</code> renders a 7-column calendar grid (<code>first_weekday=&quot;sun&quot; | &quot;mon&quot;</code>). When <code>end_date=None</code> (default), it displays the full calendar month of <code>start_date</code>. Passing an explicit <code>end_date=&quot;YYYY-MM-DD&quot;</code> constructs a multi-week grid spanning across month or year boundaries. Multi-day events automatically wrap across week rows (<code>←</code> / <code>→</code>) and stack into non-overlapping vertical tracks.</p>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.smartarts</span><span class="w"> </span><span class="kn">import</span> <span class="n">MonthCalendar</span>
@@ -730,11 +1545,11 @@ All three classes share a strict ISO 8601 date/datetime interface (<strong>only 
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="calendar_images/smartarts_calendar_month.png" alt="calendar_2" />
+  <img src="calendar_images/smartarts_calendar_month.png" alt="calendar_3" />
   <figcaption class="drawlib-caption">MonthCalendar with Cross-Week Multi-Day Bars and Overlapping Track Stacking</figcaption>
 </figure>
 <hr />
-<h2>3. WeekCalendar (Top All-Day Field + Hourly Time Grid)</h2>
+<h2>4. WeekCalendar (Top All-Day Field + Hourly Time Grid)</h2>
 <p><code>WeekCalendar</code> displays a 7-day week (or any custom N-day range via <code>end_date</code> or <code>num_days</code>) with an hourly vertical axis (<code>start_hour=9, end_hour=18, hour_step=1</code>).</p>
 <ul>
 <li><strong>Top All-Day (<code>全日</code>) Field (<code>show_all_day=None | True | False</code>)</strong>: When <code>show_all_day=None</code> (default), the All-Day row is hidden if 0 all-day items exist and automatically appears when 1 or more all-day items (<code>&quot;YYYY-MM-DD&quot;</code>) are added (counting <code>item.show=False</code> items so <code>drawlib.anim</code> frames keep fixed layout coordinates).</li>
@@ -798,11 +1613,11 @@ All three classes share a strict ISO 8601 date/datetime interface (<strong>only 
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="calendar_images/smartarts_calendar_week.png" alt="calendar_3" />
+  <img src="calendar_images/smartarts_calendar_week.png" alt="calendar_4" />
   <figcaption class="drawlib-caption">WeekCalendar Showing Top All-Day X-Axis Bars and Multi-Day Timed Events</figcaption>
 </figure>
 <hr />
-<h2>4. DayCalendar (Vertical &amp; Horizontal Orientations)</h2>
+<h2>5. DayCalendar (Vertical &amp; Horizontal Orientations)</h2>
 <p><code>DayCalendar</code> renders a single-day schedule in either:</p>
 <ul>
 <li><strong><code>direction=&quot;vertical&quot;</code> (default)</strong>: Time flows <strong>top-to-bottom</strong>, and overlapping time ranges split horizontally into parallel side-by-side columns.</li>
@@ -873,7 +1688,7 @@ All three classes share a strict ISO 8601 date/datetime interface (<strong>only 
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="calendar_images/smartarts_calendar_day.png" alt="calendar_4" />
+  <img src="calendar_images/smartarts_calendar_day.png" alt="calendar_5" />
   <figcaption class="drawlib-caption">DayCalendar in Vertical Mode (Left) and Horizontal Mode (Right)</figcaption>
 </figure>
 

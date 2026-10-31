@@ -636,7 +636,809 @@
 </code></pre>
 </details>
 <hr />
-<h2>1. Global Multi-Region Topology (<code>GeoMap.World.All</code>)</h2>
+<h2>1. Core Concepts &amp; Basic Usage</h2>
+<p><code>GeoMap</code> renders vector world, continental, country, and city presets (<code>GeoMap.World.*</code>, <code>GeoMap.Countries.*</code>, <code>GeoMap.Cities.*</code>) or custom GeoJSON files directly onto the canvas, anchoring by default at the <strong>Bottom-Left <code>(x, y)</code></strong> corner of the target box (or its center when <code>align=&quot;center&quot;</code>). You can highlight or isolate territories via <code>set_area_styles()</code>, crop viewports with <code>lon_range</code> and <code>lat_range</code>, and query projected canvas coordinates after <code>.draw()</code> using <code>get_area_xy()</code> and <code>lonlat_to_xy()</code>:</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="geomap_images/geomap_parameter_tour.png" alt="geomap_2" />
+  <figcaption class="drawlib-caption">Basic Usage & Parameter Tour: Map Presets, Area Styling, Viewport Cropping, and Coordinate Pins (APNG Animation)</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.anim</span><span class="w"> </span><span class="kn">import</span> <span class="n">Animation</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">code</span> <span class="k">as</span> <span class="n">code_icons</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span><span class="p">,</span> <span class="n">line_curved</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">circle</span><span class="p">,</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.smartarts</span><span class="w"> </span><span class="kn">import</span> <span class="n">GeoMap</span><span class="p">,</span> <span class="n">SourceCode</span><span class="p">,</span> <span class="n">SourceCodeStyles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+
+<span class="n">W</span><span class="p">,</span> <span class="n">H</span> <span class="o">=</span> <span class="mf">138.0</span><span class="p">,</span> <span class="mf">82.0</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="n">W</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">H</span><span class="p">)</span>
+<span class="n">anim</span> <span class="o">=</span> <span class="n">Animation</span><span class="p">(</span><span class="n">fps</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">loop</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">CODE_TEXT_SIZE</span> <span class="o">=</span> <span class="mf">10.0</span>
+<span class="n">PT_TO_CANVAS</span> <span class="o">=</span> <span class="n">W</span> <span class="o">/</span> <span class="mf">720.0</span>
+<span class="n">FONT_CANVAS</span> <span class="o">=</span> <span class="n">CODE_TEXT_SIZE</span> <span class="o">*</span> <span class="n">PT_TO_CANVAS</span>
+<span class="n">LINE_H</span> <span class="o">=</span> <span class="n">FONT_CANVAS</span> <span class="o">*</span> <span class="mf">1.8</span>
+<span class="n">PAD_Y</span> <span class="o">=</span> <span class="n">FONT_CANVAS</span> <span class="o">*</span> <span class="mf">1.2</span>
+
+<span class="n">CODE_STYLES</span> <span class="o">=</span> <span class="n">SourceCodeStyles</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"default"</span><span class="p">,</span> <span class="n">font_lang</span><span class="o">=</span><span class="s2">"en"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="n">CODE_TEXT_SIZE</span><span class="p">)</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+    <span class="n">box_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">shape_line_width</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">PANE_HEADER</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+    <span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">238</span><span class="p">,</span> <span class="mi">243</span><span class="p">,</span> <span class="mi">250</span><span class="p">),</span>
+    <span class="n">shape_line_color</span><span class="o">=</span><span class="p">(</span><span class="mi">203</span><span class="p">,</span> <span class="mi">213</span><span class="p">,</span> <span class="mi">225</span><span class="p">),</span>
+    <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span>
+    <span class="n">shape_r</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">EDITOR_BODY</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+    <span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">250</span><span class="p">,</span> <span class="mi">252</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span>
+    <span class="n">shape_line_color</span><span class="o">=</span><span class="p">(</span><span class="mi">203</span><span class="p">,</span> <span class="mi">213</span><span class="p">,</span> <span class="mi">225</span><span class="p">),</span>
+    <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span>
+    <span class="n">shape_r</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">TAKEAWAY_BODY</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+    <span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">242</span><span class="p">,</span> <span class="mi">246</span><span class="p">,</span> <span class="mi">253</span><span class="p">),</span>
+    <span class="n">shape_line_color</span><span class="o">=</span><span class="p">(</span><span class="mi">203</span><span class="p">,</span> <span class="mi">213</span><span class="p">,</span> <span class="mi">225</span><span class="p">),</span>
+    <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span>
+    <span class="n">shape_r</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">STUDIO_BODY</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+    <span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">239</span><span class="p">,</span> <span class="mi">243</span><span class="p">,</span> <span class="mi">249</span><span class="p">),</span>
+    <span class="n">shape_line_color</span><span class="o">=</span><span class="p">(</span><span class="mi">203</span><span class="p">,</span> <span class="mi">213</span><span class="p">,</span> <span class="mi">225</span><span class="p">),</span>
+    <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span>
+    <span class="n">shape_r</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">PART_ITEMS</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s2">"1. Presets &amp; Anchor"</span><span class="p">,</span> <span class="s2">"World, Asia &amp; Countries"</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"2. Area Styling"</span><span class="p">,</span> <span class="s2">"set_area_styles &amp; auto-fit"</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"3. Viewport Crop"</span><span class="p">,</span> <span class="s2">"lon_range &amp; lat_range"</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"4. Coordinate Pins"</span><span class="p">,</span> <span class="s2">"get_area_xy &amp; lonlat"</span><span class="p">),</span>
+<span class="p">]</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">draw_step_bar</span><span class="p">(</span><span class="n">active_part</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Draw top 4-part progress bar (active_part is 1..4)."""</span>
+    <span class="n">pill_w</span> <span class="o">=</span> <span class="mf">31.0</span>
+    <span class="n">pill_h</span> <span class="o">=</span> <span class="mf">7.4</span>
+    <span class="n">gap</span> <span class="o">=</span> <span class="mf">2.0</span>
+    <span class="n">start_x</span> <span class="o">=</span> <span class="mf">4.0</span> <span class="o">+</span> <span class="n">pill_w</span> <span class="o">/</span> <span class="mf">2.0</span>
+    <span class="n">cy</span> <span class="o">=</span> <span class="mf">75.2</span>
+
+    <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">sublabel</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">PART_ITEMS</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">cx</span> <span class="o">=</span> <span class="n">start_x</span> <span class="o">+</span> <span class="p">(</span><span class="n">idx</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">pill_w</span> <span class="o">+</span> <span class="n">gap</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">idx</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">prev_cx</span> <span class="o">=</span> <span class="n">cx</span> <span class="o">-</span> <span class="p">(</span><span class="n">pill_w</span> <span class="o">+</span> <span class="n">gap</span><span class="p">)</span>
+            <span class="n">line</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">prev_cx</span> <span class="o">+</span> <span class="n">pill_w</span> <span class="o">/</span> <span class="mf">2.0</span> <span class="o">+</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">cy</span><span class="p">),</span>
+                <span class="p">(</span><span class="n">cx</span> <span class="o">-</span> <span class="n">pill_w</span> <span class="o">/</span> <span class="mf">2.0</span> <span class="o">-</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">cy</span><span class="p">),</span>
+                <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span> <span class="k">if</span> <span class="n">idx</span> <span class="o">&lt;=</span> <span class="n">active_part</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">MutedThin</span><span class="p">,</span>
+            <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">idx</span> <span class="o">==</span> <span class="n">active_part</span><span class="p">:</span>
+            <span class="n">st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.4</span><span class="p">)</span>
+            <span class="n">tst</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.3</span><span class="p">)</span>
+            <span class="n">sub_tst</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">idx</span> <span class="o">&lt;</span> <span class="n">active_part</span><span class="p">:</span>
+            <span class="n">st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.4</span><span class="p">,</span> <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.1</span><span class="p">)</span>
+            <span class="n">tst</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.3</span><span class="p">)</span>
+            <span class="n">sub_tst</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.4</span><span class="p">,</span> <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.1</span><span class="p">)</span>
+            <span class="n">tst</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">MutedBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.3</span><span class="p">)</span>
+            <span class="n">sub_tst</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">)</span>
+
+        <span class="n">rectangle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="n">pill_w</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">pill_h</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">st</span><span class="p">)</span>
+        <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span> <span class="o">+</span> <span class="mf">1.35</span><span class="p">),</span> <span class="n">label</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">tst</span><span class="p">)</span>
+        <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span> <span class="o">-</span> <span class="mf">1.55</span><span class="p">),</span> <span class="n">sublabel</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">sub_tst</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">draw_left_pane</span><span class="p">(</span>
+    <span class="n">active_part</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">code_lines</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+    <span class="n">hl_range</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span>
+    <span class="n">icon_fn</span><span class="p">:</span> <span class="nb">object</span><span class="p">,</span>
+    <span class="n">summary_title</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">summary_line1</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">summary_line2</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Draw left Python code editor + bottom concept takeaway card."""</span>
+    <span class="n">x0</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">63.5</span>
+    <span class="n">cx</span> <span class="o">=</span> <span class="n">x0</span> <span class="o">+</span> <span class="n">w</span> <span class="o">/</span> <span class="mf">2.0</span>
+    <span class="n">top_y</span> <span class="o">=</span> <span class="mf">63.2</span>
+    <span class="n">header_h</span> <span class="o">=</span> <span class="mf">5.4</span>
+    <span class="n">editor_h</span> <span class="o">=</span> <span class="mf">43.8</span>
+    <span class="n">takeaway_h</span> <span class="o">=</span> <span class="mf">15.8</span>
+
+    <span class="n">rectangle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">top_y</span> <span class="o">+</span> <span class="n">header_h</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="n">w</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">header_h</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">PANE_HEADER</span><span class="p">)</span>
+    <span class="n">code_icons</span><span class="o">.</span><span class="n">python</span><span class="p">((</span><span class="n">x0</span> <span class="o">+</span> <span class="mf">3.6</span><span class="p">,</span> <span class="n">top_y</span> <span class="o">+</span> <span class="n">header_h</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.4</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+    <span class="n">text</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">x0</span> <span class="o">+</span> <span class="mf">6.5</span><span class="p">,</span> <span class="n">top_y</span> <span class="o">+</span> <span class="n">header_h</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">),</span>
+        <span class="s2">"geomap_tour.py"</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.2</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">text</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">x0</span> <span class="o">+</span> <span class="n">w</span> <span class="o">-</span> <span class="mf">2.6</span><span class="p">,</span> <span class="n">top_y</span> <span class="o">+</span> <span class="n">header_h</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">),</span>
+        <span class="sa">f</span><span class="s2">"Part </span><span class="si">{</span><span class="n">active_part</span><span class="si">}</span><span class="s2"> / 4"</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.8</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"right"</span><span class="p">),</span>
+    <span class="p">)</span>
+
+    <span class="n">rectangle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">top_y</span> <span class="o">-</span> <span class="n">editor_h</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="n">w</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">editor_h</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">EDITOR_BODY</span><span class="p">)</span>
+
+    <span class="n">hl_start</span><span class="p">,</span> <span class="n">hl_end</span> <span class="o">=</span> <span class="n">hl_range</span>
+    <span class="n">hl_top</span> <span class="o">=</span> <span class="n">top_y</span> <span class="o">-</span> <span class="n">PAD_Y</span> <span class="o">-</span> <span class="n">hl_start</span> <span class="o">*</span> <span class="n">LINE_H</span>
+    <span class="n">hl_bot</span> <span class="o">=</span> <span class="n">top_y</span> <span class="o">-</span> <span class="n">PAD_Y</span> <span class="o">-</span> <span class="p">(</span><span class="n">hl_end</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">LINE_H</span>
+    <span class="n">hl_cy</span> <span class="o">=</span> <span class="p">(</span><span class="n">hl_top</span> <span class="o">+</span> <span class="n">hl_bot</span><span class="p">)</span> <span class="o">/</span> <span class="mf">2.0</span>
+    <span class="n">hl_h</span> <span class="o">=</span> <span class="n">hl_top</span> <span class="o">-</span> <span class="n">hl_bot</span>
+    <span class="n">rectangle</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">cx</span><span class="p">,</span> <span class="n">hl_cy</span><span class="p">),</span>
+        <span class="n">width</span><span class="o">=</span><span class="n">w</span> <span class="o">-</span> <span class="mf">0.6</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="n">hl_h</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">229</span><span class="p">,</span> <span class="mi">239</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span> <span class="n">shape_line_width</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">rectangle</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">x0</span> <span class="o">+</span> <span class="mf">0.55</span><span class="p">,</span> <span class="n">hl_cy</span><span class="p">),</span>
+        <span class="n">width</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="n">hl_h</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_line_width</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
+    <span class="p">)</span>
+
+    <span class="n">SourceCode</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span>
+        <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span> <span class="n">top_y</span><span class="p">),</span>
+        <span class="n">width</span><span class="o">=</span><span class="n">w</span><span class="p">,</span>
+        <span class="n">code</span><span class="o">=</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">code_lines</span><span class="p">),</span>
+        <span class="n">styles</span><span class="o">=</span><span class="n">CODE_STYLES</span><span class="p">,</span>
+        <span class="n">code_lang</span><span class="o">=</span><span class="s2">"python"</span><span class="p">,</span>
+        <span class="n">show_linenum</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">align</span><span class="o">=</span><span class="s2">"top_left"</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">take_cy</span> <span class="o">=</span> <span class="mf">3.6</span> <span class="o">+</span> <span class="n">takeaway_h</span> <span class="o">/</span> <span class="mf">2.0</span>
+    <span class="n">rectangle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">take_cy</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="n">w</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">takeaway_h</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">TAKEAWAY_BODY</span><span class="p">)</span>
+    <span class="n">circle</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">x0</span> <span class="o">+</span> <span class="mf">6.4</span><span class="p">,</span> <span class="n">take_cy</span><span class="p">),</span>
+        <span class="n">radius</span><span class="o">=</span><span class="mf">3.3</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.2</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">icon_fn</span><span class="p">((</span><span class="n">x0</span> <span class="o">+</span> <span class="mf">6.4</span><span class="p">,</span> <span class="n">take_cy</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>  <span class="c1"># type: ignore[operator]</span>
+    <span class="n">text</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">x0</span> <span class="o">+</span> <span class="mf">11.4</span><span class="p">,</span> <span class="n">take_cy</span> <span class="o">+</span> <span class="mf">3.6</span><span class="p">),</span>
+        <span class="n">summary_title</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.4</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">text</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">x0</span> <span class="o">+</span> <span class="mf">11.4</span><span class="p">,</span> <span class="n">take_cy</span> <span class="o">-</span> <span class="mf">0.2</span><span class="p">),</span>
+        <span class="n">summary_line1</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.7</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">text</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">x0</span> <span class="o">+</span> <span class="mf">11.4</span><span class="p">,</span> <span class="n">take_cy</span> <span class="o">-</span> <span class="mf">3.8</span><span class="p">),</span>
+        <span class="n">summary_line2</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.6</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">),</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">draw_geometry_studio</span><span class="p">(</span><span class="n">param_badge</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">footer_caption</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""Draw right geometry lab shell, inner coordinate sheet with subtle grid, and footer."""</span>
+    <span class="n">x0</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="mf">70.0</span><span class="p">,</span> <span class="mf">64.0</span>
+    <span class="n">cx</span> <span class="o">=</span> <span class="n">x0</span> <span class="o">+</span> <span class="n">w</span> <span class="o">/</span> <span class="mf">2.0</span>
+    <span class="n">top_y</span> <span class="o">=</span> <span class="mf">63.2</span>
+    <span class="n">header_h</span> <span class="o">=</span> <span class="mf">5.4</span>
+    <span class="n">body_h</span> <span class="o">=</span> <span class="mf">59.6</span>
+
+    <span class="n">rectangle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">top_y</span> <span class="o">+</span> <span class="n">header_h</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="n">w</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">header_h</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">PANE_HEADER</span><span class="p">)</span>
+    <span class="n">phosphor</span><span class="o">.</span><span class="n">ruler</span><span class="p">((</span><span class="n">x0</span> <span class="o">+</span> <span class="mf">3.6</span><span class="p">,</span> <span class="n">top_y</span> <span class="o">+</span> <span class="n">header_h</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.4</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">)</span>
+    <span class="n">text</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">x0</span> <span class="o">+</span> <span class="mf">6.5</span><span class="p">,</span> <span class="n">top_y</span> <span class="o">+</span> <span class="n">header_h</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">),</span>
+        <span class="s2">"Live Geometry &amp; Guides"</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.2</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">text</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">x0</span> <span class="o">+</span> <span class="n">w</span> <span class="o">-</span> <span class="mf">2.6</span><span class="p">,</span> <span class="n">top_y</span> <span class="o">+</span> <span class="n">header_h</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">),</span>
+        <span class="n">param_badge</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.6</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"right"</span><span class="p">),</span>
+    <span class="p">)</span>
+
+    <span class="n">rectangle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mf">3.6</span> <span class="o">+</span> <span class="n">body_h</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="n">w</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">body_h</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">STUDIO_BODY</span><span class="p">)</span>
+
+    <span class="n">sheet_cx</span><span class="p">,</span> <span class="n">sheet_cy</span> <span class="o">=</span> <span class="n">cx</span><span class="p">,</span> <span class="mf">36.2</span>
+    <span class="n">sheet_w</span><span class="p">,</span> <span class="n">sheet_h</span> <span class="o">=</span> <span class="mf">54.0</span><span class="p">,</span> <span class="mf">40.0</span>
+    <span class="n">sx0</span><span class="p">,</span> <span class="n">sy0</span> <span class="o">=</span> <span class="n">sheet_cx</span> <span class="o">-</span> <span class="n">sheet_w</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">,</span> <span class="n">sheet_cy</span> <span class="o">-</span> <span class="n">sheet_h</span> <span class="o">/</span> <span class="mf">2.0</span>
+    <span class="n">rectangle</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">sheet_cx</span><span class="p">,</span> <span class="n">sheet_cy</span><span class="p">),</span>
+        <span class="n">width</span><span class="o">=</span><span class="n">sheet_w</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="n">sheet_h</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+            <span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span>
+            <span class="n">shape_line_color</span><span class="o">=</span><span class="p">(</span><span class="mi">180</span><span class="p">,</span> <span class="mi">194</span><span class="p">,</span> <span class="mi">214</span><span class="p">),</span>
+            <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">g_st</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">MutedThin</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_color</span><span class="o">=</span><span class="p">(</span><span class="mi">232</span><span class="p">,</span> <span class="mi">238</span><span class="p">,</span> <span class="mi">246</span><span class="p">),</span> <span class="n">line_width</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">gx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">):</span>
+        <span class="n">vx</span> <span class="o">=</span> <span class="n">sx0</span> <span class="o">+</span> <span class="n">gx</span> <span class="o">*</span> <span class="p">(</span><span class="n">sheet_w</span> <span class="o">/</span> <span class="mf">6.0</span><span class="p">)</span>
+        <span class="n">line</span><span class="p">((</span><span class="n">vx</span><span class="p">,</span> <span class="n">sy0</span><span class="p">),</span> <span class="p">(</span><span class="n">vx</span><span class="p">,</span> <span class="n">sy0</span> <span class="o">+</span> <span class="n">sheet_h</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="n">g_st</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">gy</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">):</span>
+        <span class="n">vy</span> <span class="o">=</span> <span class="n">sy0</span> <span class="o">+</span> <span class="n">gy</span> <span class="o">*</span> <span class="p">(</span><span class="n">sheet_h</span> <span class="o">/</span> <span class="mf">5.0</span><span class="p">)</span>
+        <span class="n">line</span><span class="p">((</span><span class="n">sx0</span><span class="p">,</span> <span class="n">vy</span><span class="p">),</span> <span class="p">(</span><span class="n">sx0</span> <span class="o">+</span> <span class="n">sheet_w</span><span class="p">,</span> <span class="n">vy</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="n">g_st</span><span class="p">)</span>
+
+    <span class="n">rectangle</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">cx</span><span class="p">,</span> <span class="mf">8.4</span><span class="p">),</span>
+        <span class="n">width</span><span class="o">=</span><span class="mf">59.2</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mf">5.2</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+            <span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span>
+            <span class="n">shape_line_color</span><span class="o">=</span><span class="p">(</span><span class="mi">203</span><span class="p">,</span> <span class="mi">213</span><span class="p">,</span> <span class="mi">225</span><span class="p">),</span>
+            <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.1</span><span class="p">,</span>
+            <span class="n">shape_r</span><span class="o">=</span><span class="mf">2.4</span><span class="p">,</span>
+        <span class="p">),</span>
+        <span class="n">text</span><span class="o">=</span><span class="n">footer_caption</span><span class="p">,</span>
+        <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.8</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">sheet_cx</span><span class="p">,</span> <span class="n">sheet_cy</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">draw_sub_pills</span><span class="p">(</span><span class="n">scx</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">labels</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">active_idx</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Draw 3-step tracker pills near the top of the studio sheet."""</span>
+    <span class="n">pw</span><span class="p">,</span> <span class="n">ph</span><span class="p">,</span> <span class="n">pgap</span> <span class="o">=</span> <span class="mf">16.2</span><span class="p">,</span> <span class="mf">4.2</span><span class="p">,</span> <span class="mf">0.9</span>
+    <span class="n">p_start</span> <span class="o">=</span> <span class="n">scx</span> <span class="o">-</span> <span class="p">(</span><span class="mi">3</span> <span class="o">*</span> <span class="n">pw</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">pgap</span><span class="p">)</span> <span class="o">/</span> <span class="mf">2.0</span> <span class="o">+</span> <span class="n">pw</span> <span class="o">/</span> <span class="mf">2.0</span>
+    <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">lbl</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">labels</span><span class="p">):</span>
+        <span class="n">px</span> <span class="o">=</span> <span class="n">p_start</span> <span class="o">+</span> <span class="n">idx</span> <span class="o">*</span> <span class="p">(</span><span class="n">pw</span> <span class="o">+</span> <span class="n">pgap</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">idx</span> <span class="o">==</span> <span class="n">active_idx</span><span class="p">:</span>
+            <span class="n">pst</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">)</span>
+            <span class="n">ptst</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">idx</span> <span class="o">&lt;</span> <span class="n">active_idx</span><span class="p">:</span>
+            <span class="n">pst</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span> <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+            <span class="n">ptst</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">pst</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span> <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+            <span class="n">ptst</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">)</span>
+        <span class="n">rectangle</span><span class="p">((</span><span class="n">px</span><span class="p">,</span> <span class="mf">52.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="n">pw</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">ph</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">pst</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="n">lbl</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">ptst</span><span class="p">)</span>
+
+
+<span class="n">OCEAN_BG</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+    <span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">244</span><span class="p">,</span> <span class="mi">248</span><span class="p">,</span> <span class="mi">254</span><span class="p">),</span>
+    <span class="n">shape_line_width</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="n">shape_r</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># =========================================================================</span>
+<span class="c1"># Part 1: Presets &amp; Anchor — World.All, World.Asia &amp; Countries.Japan</span>
+<span class="c1"># =========================================================================</span>
+<span class="n">PRESET_STATES</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span>
+        <span class="n">GeoMap</span><span class="o">.</span><span class="n">World</span><span class="o">.</span><span class="n">All</span><span class="p">,</span>
+        <span class="mf">3.3</span><span class="p">,</span>
+        <span class="p">[</span>
+            <span class="s2">"m = GeoMap("</span><span class="p">,</span>
+            <span class="s2">"    GeoMap.World.All,"</span><span class="p">,</span>
+            <span class="s2">"    area_style=Styles.Neutral,"</span><span class="p">,</span>
+            <span class="s2">")"</span><span class="p">,</span>
+            <span class="s2">"# Default bottom-left xy anchor"</span><span class="p">,</span>
+            <span class="s2">"m.draw("</span><span class="p">,</span>
+            <span class="s2">"    xy=(8, 10),"</span><span class="p">,</span>
+            <span class="s2">"    width=45,"</span><span class="p">,</span>
+            <span class="s2">"    height=26,"</span><span class="p">,</span>
+            <span class="s2">")"</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span>
+        <span class="s2">"World.All"</span><span class="p">,</span>
+        <span class="s2">"Default Bottom-Left xy Anchor: Fits World Map Inside 45×26"</span><span class="p">,</span>
+        <span class="s2">"Global Preset &amp; Bottom-Left Anchor"</span><span class="p">,</span>
+        <span class="s2">"xy=(x, y) pins the bottom-left bounding-box corner"</span><span class="p">,</span>
+        <span class="s2">"Aspect ratio stays cosine-latitude safe inside 45×26"</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="p">(</span>
+        <span class="n">GeoMap</span><span class="o">.</span><span class="n">World</span><span class="o">.</span><span class="n">Asia</span><span class="p">,</span>
+        <span class="mf">3.3</span><span class="p">,</span>
+        <span class="p">[</span>
+            <span class="s2">"# 11 regional World.* presets"</span><span class="p">,</span>
+            <span class="s2">"m = GeoMap("</span><span class="p">,</span>
+            <span class="s2">"    GeoMap.World.Asia,"</span><span class="p">,</span>
+            <span class="s2">"    area_style=Styles.Neutral,"</span><span class="p">,</span>
+            <span class="s2">")"</span><span class="p">,</span>
+            <span class="s2">"m.draw("</span><span class="p">,</span>
+            <span class="s2">"    xy=(8, 10),"</span><span class="p">,</span>
+            <span class="s2">"    width=45,"</span><span class="p">,</span>
+            <span class="s2">"    height=26,"</span><span class="p">,</span>
+            <span class="s2">")"</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
+        <span class="s2">"World.Asia"</span><span class="p">,</span>
+        <span class="s2">"GeoMap.World.Asia: Built-In Continental Preset Inside 45×26"</span><span class="p">,</span>
+        <span class="s2">"11 Regional World.* Presets"</span><span class="p">,</span>
+        <span class="s2">"Switch between Asia, Europe, APAC, NorthAmerica, etc."</span><span class="p">,</span>
+        <span class="s2">"Centers regional geometry cleanly inside target box"</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="p">(</span>
+        <span class="n">GeoMap</span><span class="o">.</span><span class="n">Countries</span><span class="o">.</span><span class="n">Japan</span><span class="p">,</span>
+        <span class="mf">3.4</span><span class="p">,</span>
+        <span class="p">[</span>
+            <span class="s2">"# 215 Admin-1 country presets"</span><span class="p">,</span>
+            <span class="s2">"m = GeoMap("</span><span class="p">,</span>
+            <span class="s2">"    GeoMap.Countries.Japan,"</span><span class="p">,</span>
+            <span class="s2">"    area_style=Styles.Neutral,"</span><span class="p">,</span>
+            <span class="s2">")"</span><span class="p">,</span>
+            <span class="s2">"m.draw("</span><span class="p">,</span>
+            <span class="s2">"    xy=(8, 10),"</span><span class="p">,</span>
+            <span class="s2">"    width=45,"</span><span class="p">,</span>
+            <span class="s2">"    height=26,"</span><span class="p">,</span>
+            <span class="s2">")"</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
+        <span class="s2">"Countries.Japan"</span><span class="p">,</span>
+        <span class="s2">"GeoMap.Countries.Japan: 47 Prefectures in 45×26 Box"</span><span class="p">,</span>
+        <span class="s2">"Country &amp; City Presets (215 + 16)"</span><span class="p">,</span>
+        <span class="s2">"Admin-1 states/prefectures via GeoMap.Countries.*"</span><span class="p">,</span>
+        <span class="s2">"Plus 16 metro ward maps via GeoMap.Cities.*"</span><span class="p">,</span>
+    <span class="p">),</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">p_idx</span><span class="p">,</span> <span class="p">(</span><span class="n">target_preset</span><span class="p">,</span> <span class="n">dur</span><span class="p">,</span> <span class="n">code_p</span><span class="p">,</span> <span class="n">hl_rng</span><span class="p">,</span> <span class="n">badge_txt</span><span class="p">,</span> <span class="n">foot_txt</span><span class="p">,</span> <span class="n">s_t</span><span class="p">,</span> <span class="n">s_1</span><span class="p">,</span> <span class="n">s_2</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">PRESET_STATES</span><span class="p">):</span>
+    <span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="n">dur</span><span class="p">):</span>
+        <span class="n">draw_step_bar</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">draw_left_pane</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">code_p</span><span class="p">,</span> <span class="n">hl_rng</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">globe_hemisphere_east</span><span class="p">,</span> <span class="n">s_t</span><span class="p">,</span> <span class="n">s_1</span><span class="p">,</span> <span class="n">s_2</span><span class="p">)</span>
+        <span class="n">scx</span><span class="p">,</span> <span class="n">scy</span> <span class="o">=</span> <span class="n">draw_geometry_studio</span><span class="p">(</span><span class="n">badge_txt</span><span class="p">,</span> <span class="n">foot_txt</span><span class="p">)</span>
+        <span class="n">draw_sub_pills</span><span class="p">(</span><span class="n">scx</span><span class="p">,</span> <span class="p">[</span><span class="s2">"World.All"</span><span class="p">,</span> <span class="s2">"World.Asia"</span><span class="p">,</span> <span class="s2">"Japan Preset"</span><span class="p">],</span> <span class="n">p_idx</span><span class="p">)</span>
+
+        <span class="n">mx0</span><span class="p">,</span> <span class="n">my0</span><span class="p">,</span> <span class="n">mw</span><span class="p">,</span> <span class="n">mh</span> <span class="o">=</span> <span class="mf">80.5</span><span class="p">,</span> <span class="mf">22.0</span><span class="p">,</span> <span class="mf">45.0</span><span class="p">,</span> <span class="mf">26.0</span>
+        <span class="n">gm</span> <span class="o">=</span> <span class="n">GeoMap</span><span class="p">(</span><span class="n">target_preset</span><span class="p">,</span> <span class="n">area_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">background_style</span><span class="o">=</span><span class="n">OCEAN_BG</span><span class="p">)</span>
+        <span class="n">gm</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">mx0</span><span class="p">,</span> <span class="n">my0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="n">mw</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">mh</span><span class="p">)</span>
+
+        <span class="n">rectangle</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">mx0</span> <span class="o">+</span> <span class="n">mw</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">,</span> <span class="n">my0</span> <span class="o">+</span> <span class="n">mh</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">),</span>
+            <span class="n">width</span><span class="o">=</span><span class="n">mw</span><span class="p">,</span>
+            <span class="n">height</span><span class="o">=</span><span class="n">mh</span><span class="p">,</span>
+            <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryDashed</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.2</span><span class="p">),</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Bottom-Left xy anchor + +X / +Y Cartesian axes</span>
+        <span class="n">line</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">mx0</span><span class="p">,</span> <span class="n">my0</span><span class="p">),</span>
+            <span class="p">(</span><span class="n">mx0</span><span class="p">,</span> <span class="n">my0</span> <span class="o">+</span> <span class="mf">8.5</span><span class="p">),</span>
+            <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span>
+            <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">1.4</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="n">text</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">mx0</span> <span class="o">-</span> <span class="mf">1.3</span><span class="p">,</span> <span class="n">my0</span> <span class="o">+</span> <span class="mf">8.2</span><span class="p">),</span>
+            <span class="s2">"+Y"</span><span class="p">,</span>
+            <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"right"</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="n">line</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">mx0</span><span class="p">,</span> <span class="n">my0</span><span class="p">),</span>
+            <span class="p">(</span><span class="n">mx0</span> <span class="o">+</span> <span class="mf">9.5</span><span class="p">,</span> <span class="n">my0</span><span class="p">),</span>
+            <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span>
+            <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">1.4</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="n">text</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">mx0</span> <span class="o">+</span> <span class="mf">10.2</span><span class="p">,</span> <span class="n">my0</span> <span class="o">-</span> <span class="mf">1.5</span><span class="p">),</span>
+            <span class="s2">"+X"</span><span class="p">,</span>
+            <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="n">circle</span><span class="p">((</span><span class="n">mx0</span><span class="p">,</span> <span class="n">my0</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">1.15</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerFlat</span><span class="p">)</span>
+        <span class="n">text</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">scx</span> <span class="o">+</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">18.4</span><span class="p">),</span>
+            <span class="s2">"xy = (8, 10)  (bottom-left)  •  45×26 box"</span><span class="p">,</span>
+            <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+        <span class="p">)</span>
+
+<span class="c1"># =========================================================================</span>
+<span class="c1"># Part 2: Area Styling — set_area_styles() &amp; Styles.Transparent Auto-Fit</span>
+<span class="c1"># =========================================================================</span>
+<span class="n">STYLE_STATES</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span>
+        <span class="s2">"neutral_tints"</span><span class="p">,</span>
+        <span class="mf">3.3</span><span class="p">,</span>
+        <span class="p">[</span>
+            <span class="s2">"world = GeoMap("</span><span class="p">,</span>
+            <span class="s2">"    GeoMap.World.All,"</span><span class="p">,</span>
+            <span class="s2">"    area_style=Styles.Neutral,"</span><span class="p">,</span>
+            <span class="s2">")"</span><span class="p">,</span>
+            <span class="s2">"world.set_area_styles("</span><span class="p">,</span>
+            <span class="s1">'    ["United States", "Germany"],'</span><span class="p">,</span>
+            <span class="s2">"    Styles.PrimaryNeutral,"</span><span class="p">,</span>
+            <span class="s2">")"</span><span class="p">,</span>
+            <span class="s2">"world.draw((8, 10), 45, 26)"</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span>
+        <span class="s2">"PrimaryNeutral"</span><span class="p">,</span>
+        <span class="s2">"set_area_styles(): Calm PrimaryNeutral Secondary Regions"</span><span class="p">,</span>
+        <span class="s2">"Selective Territory Tinting"</span><span class="p">,</span>
+        <span class="s2">"Accepts English names, ISO codes, or JP aliases"</span><span class="p">,</span>
+        <span class="s2">"Ground secondary regions in PrimaryNeutral"</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="p">(</span>
+        <span class="s2">"focal_japan"</span><span class="p">,</span>
+        <span class="mf">3.3</span><span class="p">,</span>
+        <span class="p">[</span>
+            <span class="s2">"world = GeoMap("</span><span class="p">,</span>
+            <span class="s2">"    GeoMap.World.All,"</span><span class="p">,</span>
+            <span class="s2">"    area_style=Styles.Neutral,"</span><span class="p">,</span>
+            <span class="s2">")"</span><span class="p">,</span>
+            <span class="s2">"world.set_area_styles("</span><span class="p">,</span>
+            <span class="s1">'    ["United States", "Germany"],'</span><span class="p">,</span>
+            <span class="s2">"    Styles.PrimaryNeutral,"</span><span class="p">,</span>
+            <span class="s2">")"</span><span class="p">,</span>
+            <span class="s2">"world.set_area_styles("</span><span class="p">,</span>
+            <span class="s1">'    ["Japan"], Styles.PrimaryFlat)'</span><span class="p">,</span>
+            <span class="s2">"world.draw((8, 10), 45, 26)"</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span>
+        <span class="s2">"PrimaryFlat Focal"</span><span class="p">,</span>
+        <span class="s2">"Reserve Styles.PrimaryFlat for 1 Focal Territory (Japan)"</span><span class="p">,</span>
+        <span class="s2">"50%+ Neutral Visual Hierarchy"</span><span class="p">,</span>
+        <span class="s2">"Neutral world base + 1 saturated PrimaryFlat hero"</span><span class="p">,</span>
+        <span class="s2">"Preserves crisp borders between adjacent regions"</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="p">(</span>
+        <span class="s2">"transparent_fit"</span><span class="p">,</span>
+        <span class="mf">3.5</span><span class="p">,</span>
+        <span class="p">[</span>
+            <span class="s2">"asia = GeoMap("</span><span class="p">,</span>
+            <span class="s2">"    GeoMap.World.Asia,"</span><span class="p">,</span>
+            <span class="s2">"    area_style=Styles.Transparent,"</span><span class="p">,</span>
+            <span class="s2">")"</span><span class="p">,</span>
+            <span class="s2">"asia.set_area_styles("</span><span class="p">,</span>
+            <span class="s1">'    ["China", "South Korea"],'</span><span class="p">,</span>
+            <span class="s2">"    Styles.PrimaryNeutral,"</span><span class="p">,</span>
+            <span class="s2">")"</span><span class="p">,</span>
+            <span class="s2">"asia.set_area_styles("</span><span class="p">,</span>
+            <span class="s1">'    ["Japan"], Styles.PrimaryFlat)'</span><span class="p">,</span>
+            <span class="s2">"asia.draw((8, 10), 45, 26)"</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span>
+        <span class="s2">"Transparent Fit"</span><span class="p">,</span>
+        <span class="s2">"Styles.Transparent Hides Rest &amp; Auto-Fits Visible Bounds"</span><span class="p">,</span>
+        <span class="s2">"Selective Visibility &amp; Auto-Fit"</span><span class="p">,</span>
+        <span class="s2">"area_style=Styles.Transparent hides all other areas"</span><span class="p">,</span>
+        <span class="s2">"draw() auto-zooms to fit only styled countries!"</span><span class="p">,</span>
+    <span class="p">),</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">st_idx</span><span class="p">,</span> <span class="p">(</span><span class="n">st_mode</span><span class="p">,</span> <span class="n">dur</span><span class="p">,</span> <span class="n">code_st</span><span class="p">,</span> <span class="n">hl_rng</span><span class="p">,</span> <span class="n">badge_txt</span><span class="p">,</span> <span class="n">foot_txt</span><span class="p">,</span> <span class="n">s_t</span><span class="p">,</span> <span class="n">s_1</span><span class="p">,</span> <span class="n">s_2</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">STYLE_STATES</span><span class="p">):</span>
+    <span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="n">dur</span><span class="p">):</span>
+        <span class="n">draw_step_bar</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">draw_left_pane</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">code_st</span><span class="p">,</span> <span class="n">hl_rng</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">palette</span><span class="p">,</span> <span class="n">s_t</span><span class="p">,</span> <span class="n">s_1</span><span class="p">,</span> <span class="n">s_2</span><span class="p">)</span>
+        <span class="n">scx</span><span class="p">,</span> <span class="n">scy</span> <span class="o">=</span> <span class="n">draw_geometry_studio</span><span class="p">(</span><span class="n">badge_txt</span><span class="p">,</span> <span class="n">foot_txt</span><span class="p">)</span>
+        <span class="n">draw_sub_pills</span><span class="p">(</span><span class="n">scx</span><span class="p">,</span> <span class="p">[</span><span class="s2">"Neutral Tints"</span><span class="p">,</span> <span class="s2">"+ Focal Area"</span><span class="p">,</span> <span class="s2">"Auto-Fit Crop"</span><span class="p">],</span> <span class="n">st_idx</span><span class="p">)</span>
+
+        <span class="n">mx0</span><span class="p">,</span> <span class="n">my0</span><span class="p">,</span> <span class="n">mw</span><span class="p">,</span> <span class="n">mh</span> <span class="o">=</span> <span class="mf">79.5</span><span class="p">,</span> <span class="mf">22.0</span><span class="p">,</span> <span class="mf">45.0</span><span class="p">,</span> <span class="mf">26.0</span>
+        <span class="k">if</span> <span class="n">st_mode</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">"neutral_tints"</span><span class="p">,</span> <span class="s2">"focal_japan"</span><span class="p">):</span>
+            <span class="n">gm</span> <span class="o">=</span> <span class="n">GeoMap</span><span class="p">(</span><span class="n">GeoMap</span><span class="o">.</span><span class="n">World</span><span class="o">.</span><span class="n">All</span><span class="p">,</span> <span class="n">area_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">background_style</span><span class="o">=</span><span class="n">OCEAN_BG</span><span class="p">)</span>
+            <span class="n">gm</span><span class="o">.</span><span class="n">set_area_styles</span><span class="p">([</span><span class="s2">"United States"</span><span class="p">,</span> <span class="s2">"Germany"</span><span class="p">],</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">st_mode</span> <span class="o">==</span> <span class="s2">"focal_japan"</span><span class="p">:</span>
+                <span class="n">gm</span><span class="o">.</span><span class="n">set_area_styles</span><span class="p">([</span><span class="s2">"Japan"</span><span class="p">],</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">)</span>
+            <span class="n">gm</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">mx0</span><span class="p">,</span> <span class="n">my0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="n">mw</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">mh</span><span class="p">)</span>
+            <span class="n">rectangle</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">mx0</span> <span class="o">+</span> <span class="n">mw</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">,</span> <span class="n">my0</span> <span class="o">+</span> <span class="n">mh</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">),</span>
+                <span class="n">width</span><span class="o">=</span><span class="n">mw</span><span class="p">,</span>
+                <span class="n">height</span><span class="o">=</span><span class="n">mh</span><span class="p">,</span>
+                <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedThin</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.0</span><span class="p">),</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="n">st_mode</span> <span class="o">==</span> <span class="s2">"neutral_tints"</span><span class="p">:</span>
+                <span class="n">text</span><span class="p">(</span>
+                    <span class="p">(</span><span class="n">scx</span><span class="p">,</span> <span class="mf">18.4</span><span class="p">),</span>
+                    <span class="s2">"United States &amp; Germany -&gt; Styles.PrimaryNeutral"</span><span class="p">,</span>
+                    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+                <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">jp_pt</span> <span class="o">=</span> <span class="n">gm</span><span class="o">.</span><span class="n">get_area_xy</span><span class="p">(</span><span class="s2">"Japan"</span><span class="p">)</span>
+                <span class="n">circle</span><span class="p">(</span>
+                    <span class="n">jp_pt</span><span class="p">,</span>
+                    <span class="n">radius</span><span class="o">=</span><span class="mf">1.7</span><span class="p">,</span>
+                    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+                        <span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+                        <span class="n">shape_line_color</span><span class="o">=</span><span class="p">(</span><span class="mi">220</span><span class="p">,</span> <span class="mi">38</span><span class="p">,</span> <span class="mi">38</span><span class="p">),</span>
+                        <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.6</span><span class="p">,</span>
+                    <span class="p">),</span>
+                <span class="p">)</span>
+                <span class="n">text</span><span class="p">(</span>
+                    <span class="p">(</span><span class="n">scx</span><span class="p">,</span> <span class="mf">18.4</span><span class="p">),</span>
+                    <span class="s2">"1 focal hero: Japan -&gt; Styles.PrimaryFlat"</span><span class="p">,</span>
+                    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+                <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">gm</span> <span class="o">=</span> <span class="n">GeoMap</span><span class="p">(</span><span class="n">GeoMap</span><span class="o">.</span><span class="n">World</span><span class="o">.</span><span class="n">Asia</span><span class="p">,</span> <span class="n">area_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Transparent</span><span class="p">,</span> <span class="n">background_style</span><span class="o">=</span><span class="n">OCEAN_BG</span><span class="p">)</span>
+            <span class="n">gm</span><span class="o">.</span><span class="n">set_area_styles</span><span class="p">([</span><span class="s2">"China"</span><span class="p">,</span> <span class="s2">"South Korea"</span><span class="p">],</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
+            <span class="n">gm</span><span class="o">.</span><span class="n">set_area_styles</span><span class="p">([</span><span class="s2">"Japan"</span><span class="p">],</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">)</span>
+            <span class="n">gm</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">mx0</span><span class="p">,</span> <span class="n">my0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="n">mw</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">mh</span><span class="p">)</span>
+            <span class="n">rectangle</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">mx0</span> <span class="o">+</span> <span class="n">mw</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">,</span> <span class="n">my0</span> <span class="o">+</span> <span class="n">mh</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">),</span>
+                <span class="n">width</span><span class="o">=</span><span class="n">mw</span><span class="p">,</span>
+                <span class="n">height</span><span class="o">=</span><span class="n">mh</span><span class="p">,</span>
+                <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryDashed</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.2</span><span class="p">),</span>
+            <span class="p">)</span>
+            <span class="n">text</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">scx</span><span class="p">,</span> <span class="mf">18.4</span><span class="p">),</span>
+                <span class="s2">"Auto-zoomed to China, South Korea &amp; Japan!"</span><span class="p">,</span>
+                <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+            <span class="p">)</span>
+
+<span class="c1"># =========================================================================</span>
+<span class="c1"># Part 3: Viewport Crop — lon_range, lat_range &amp; align="center"</span>
+<span class="c1"># =========================================================================</span>
+<span class="n">CROP_STATES</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span>
+        <span class="p">(</span><span class="mf">106.0</span><span class="p">,</span> <span class="mf">146.0</span><span class="p">),</span>
+        <span class="p">(</span><span class="mf">18.0</span><span class="p">,</span> <span class="mf">46.0</span><span class="p">),</span>
+        <span class="s2">"bottom_left"</span><span class="p">,</span>
+        <span class="mf">3.3</span><span class="p">,</span>
+        <span class="p">[</span>
+            <span class="s2">"asia = GeoMap("</span><span class="p">,</span>
+            <span class="s2">"    GeoMap.World.Asia,"</span><span class="p">,</span>
+            <span class="s2">"    area_style=Styles.Neutral,"</span><span class="p">,</span>
+            <span class="s2">")"</span><span class="p">,</span>
+            <span class="s2">"asia.set_area_styles("</span><span class="p">,</span>
+            <span class="s1">'    ["Japan"], Styles.PrimaryFlat)'</span><span class="p">,</span>
+            <span class="s2">"asia.draw("</span><span class="p">,</span>
+            <span class="s2">"    xy=(8, 10), width=45,"</span><span class="p">,</span>
+            <span class="s2">"    height=26,"</span><span class="p">,</span>
+            <span class="s2">"    lon_range=(106, 146),"</span><span class="p">,</span>
+            <span class="s2">"    lat_range=(18, 46))"</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
+        <span class="s2">"lon 106..146"</span><span class="p">,</span>
+        <span class="s2">"Crop Asia: lon_range=(106, 146), lat_range=(18, 46)"</span><span class="p">,</span>
+        <span class="s2">"Explicit Bounding-Box Crop"</span><span class="p">,</span>
+        <span class="s2">"Clips polygons cleanly at (min_lon, max_lon) bounds"</span><span class="p">,</span>
+        <span class="s2">"East Asia view spanning 106°E–146°E, 18°N–46°N"</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="p">(</span>
+        <span class="p">(</span><span class="mf">124.0</span><span class="p">,</span> <span class="mf">146.0</span><span class="p">),</span>
+        <span class="p">(</span><span class="mf">28.0</span><span class="p">,</span> <span class="mf">46.0</span><span class="p">),</span>
+        <span class="s2">"bottom_left"</span><span class="p">,</span>
+        <span class="mf">3.3</span><span class="p">,</span>
+        <span class="p">[</span>
+            <span class="s2">"asia = GeoMap("</span><span class="p">,</span>
+            <span class="s2">"    GeoMap.World.Asia,"</span><span class="p">,</span>
+            <span class="s2">"    area_style=Styles.Neutral,"</span><span class="p">,</span>
+            <span class="s2">")"</span><span class="p">,</span>
+            <span class="s2">"asia.set_area_styles("</span><span class="p">,</span>
+            <span class="s1">'    ["Japan"], Styles.PrimaryFlat)'</span><span class="p">,</span>
+            <span class="s2">"asia.draw("</span><span class="p">,</span>
+            <span class="s2">"    xy=(8, 10), width=45,"</span><span class="p">,</span>
+            <span class="s2">"    height=26,"</span><span class="p">,</span>
+            <span class="s2">"    lon_range=(124, 146),"</span><span class="p">,</span>
+            <span class="s2">"    lat_range=(28, 46))"</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
+        <span class="s2">"lon 124..146"</span><span class="p">,</span>
+        <span class="s2">"Zoom Closer: lon_range=(124, 146), lat_range=(28, 46)"</span><span class="p">,</span>
+        <span class="s2">"Continuous Regional Zoom"</span><span class="p">,</span>
+        <span class="s2">"Narrower degree bounds magnify Korea &amp; Japan"</span><span class="p">,</span>
+        <span class="s2">"Same 45×26 canvas box with zero distortion"</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="p">(</span>
+        <span class="p">(</span><span class="mf">124.0</span><span class="p">,</span> <span class="mf">146.0</span><span class="p">),</span>
+        <span class="p">(</span><span class="mf">28.0</span><span class="p">,</span> <span class="mf">46.0</span><span class="p">),</span>
+        <span class="s2">"center"</span><span class="p">,</span>
+        <span class="mf">3.4</span><span class="p">,</span>
+        <span class="p">[</span>
+            <span class="s2">"asia = GeoMap("</span><span class="p">,</span>
+            <span class="s2">"    GeoMap.World.Asia,"</span><span class="p">,</span>
+            <span class="s2">"    area_style=Styles.Neutral,"</span><span class="p">,</span>
+            <span class="s2">")"</span><span class="p">,</span>
+            <span class="s2">"asia.set_area_styles("</span><span class="p">,</span>
+            <span class="s1">'    ["Japan"], Styles.PrimaryFlat)'</span><span class="p">,</span>
+            <span class="s2">"asia.draw("</span><span class="p">,</span>
+            <span class="s2">"    xy=(30, 23), width=45,"</span><span class="p">,</span>
+            <span class="s1">'    height=26, align="center",'</span><span class="p">,</span>
+            <span class="s2">"    lon_range=(124, 146),"</span><span class="p">,</span>
+            <span class="s2">"    lat_range=(28, 46))"</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span>
+        <span class="s1">'align="center"'</span><span class="p">,</span>
+        <span class="s1">'align="center": Centers 45×26 Map Box on xy=(cx, cy)'</span><span class="p">,</span>
+        <span class="s1">'Centered Map Anchor (align="center")'</span><span class="p">,</span>
+        <span class="s2">"Centers map bounding box horizontally &amp; vertically"</span><span class="p">,</span>
+        <span class="s2">"Ideal for symmetric panels and centered cards"</span><span class="p">,</span>
+    <span class="p">),</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">c_idx</span><span class="p">,</span> <span class="p">(</span><span class="n">lon_r</span><span class="p">,</span> <span class="n">lat_r</span><span class="p">,</span> <span class="n">aln</span><span class="p">,</span> <span class="n">dur</span><span class="p">,</span> <span class="n">code_c</span><span class="p">,</span> <span class="n">hl_rng</span><span class="p">,</span> <span class="n">badge_txt</span><span class="p">,</span> <span class="n">foot_txt</span><span class="p">,</span> <span class="n">s_t</span><span class="p">,</span> <span class="n">s_1</span><span class="p">,</span> <span class="n">s_2</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">CROP_STATES</span><span class="p">):</span>
+    <span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="n">dur</span><span class="p">):</span>
+        <span class="n">draw_step_bar</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+        <span class="n">draw_left_pane</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">code_c</span><span class="p">,</span> <span class="n">hl_rng</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">crop</span><span class="p">,</span> <span class="n">s_t</span><span class="p">,</span> <span class="n">s_1</span><span class="p">,</span> <span class="n">s_2</span><span class="p">)</span>
+        <span class="n">scx</span><span class="p">,</span> <span class="n">scy</span> <span class="o">=</span> <span class="n">draw_geometry_studio</span><span class="p">(</span><span class="n">badge_txt</span><span class="p">,</span> <span class="n">foot_txt</span><span class="p">)</span>
+        <span class="n">draw_sub_pills</span><span class="p">(</span><span class="n">scx</span><span class="p">,</span> <span class="p">[</span><span class="s2">"East Asia"</span><span class="p">,</span> <span class="s2">"Zoom Closer"</span><span class="p">,</span> <span class="s1">'align="center"'</span><span class="p">],</span> <span class="n">c_idx</span><span class="p">)</span>
+
+        <span class="n">mw</span><span class="p">,</span> <span class="n">mh</span> <span class="o">=</span> <span class="mf">45.0</span><span class="p">,</span> <span class="mf">26.0</span>
+        <span class="n">asia</span> <span class="o">=</span> <span class="n">GeoMap</span><span class="p">(</span><span class="n">GeoMap</span><span class="o">.</span><span class="n">World</span><span class="o">.</span><span class="n">Asia</span><span class="p">,</span> <span class="n">area_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">background_style</span><span class="o">=</span><span class="n">OCEAN_BG</span><span class="p">)</span>
+        <span class="n">asia</span><span class="o">.</span><span class="n">set_area_styles</span><span class="p">([</span><span class="s2">"Japan"</span><span class="p">],</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">aln</span> <span class="o">==</span> <span class="s2">"bottom_left"</span><span class="p">:</span>
+            <span class="n">mx0</span><span class="p">,</span> <span class="n">my0</span> <span class="o">=</span> <span class="mf">79.5</span><span class="p">,</span> <span class="mf">22.0</span>
+            <span class="n">asia</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">mx0</span><span class="p">,</span> <span class="n">my0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="n">mw</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">mh</span><span class="p">,</span> <span class="n">lon_range</span><span class="o">=</span><span class="n">lon_r</span><span class="p">,</span> <span class="n">lat_range</span><span class="o">=</span><span class="n">lat_r</span><span class="p">)</span>
+            <span class="n">rectangle</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">mx0</span> <span class="o">+</span> <span class="n">mw</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">,</span> <span class="n">my0</span> <span class="o">+</span> <span class="n">mh</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">),</span>
+                <span class="n">width</span><span class="o">=</span><span class="n">mw</span><span class="p">,</span>
+                <span class="n">height</span><span class="o">=</span><span class="n">mh</span><span class="p">,</span>
+                <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryDashed</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.2</span><span class="p">),</span>
+            <span class="p">)</span>
+            <span class="n">circle</span><span class="p">((</span><span class="n">mx0</span><span class="p">,</span> <span class="n">my0</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">1.1</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerFlat</span><span class="p">)</span>
+            <span class="n">text</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">scx</span><span class="p">,</span> <span class="mf">18.4</span><span class="p">),</span>
+                <span class="sa">f</span><span class="s2">"lon=(</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">lon_r</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="si">}</span><span class="s2">°E, </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">lon_r</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="si">}</span><span class="s2">°E)  •  lat=(</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">lat_r</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="si">}</span><span class="s2">°N, </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">lat_r</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="si">}</span><span class="s2">°N)"</span><span class="p">,</span>
+                <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">cx_m</span><span class="p">,</span> <span class="n">cy_m</span> <span class="o">=</span> <span class="n">scx</span><span class="p">,</span> <span class="mf">35.0</span>
+            <span class="n">asia</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">cx_m</span><span class="p">,</span> <span class="n">cy_m</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="n">mw</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">mh</span><span class="p">,</span> <span class="n">align</span><span class="o">=</span><span class="s2">"center"</span><span class="p">,</span> <span class="n">lon_range</span><span class="o">=</span><span class="n">lon_r</span><span class="p">,</span> <span class="n">lat_range</span><span class="o">=</span><span class="n">lat_r</span><span class="p">)</span>
+            <span class="n">rectangle</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">cx_m</span><span class="p">,</span> <span class="n">cy_m</span><span class="p">),</span>
+                <span class="n">width</span><span class="o">=</span><span class="n">mw</span><span class="p">,</span>
+                <span class="n">height</span><span class="o">=</span><span class="n">mh</span><span class="p">,</span>
+                <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryDashed</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.3</span><span class="p">),</span>
+            <span class="p">)</span>
+            <span class="n">line</span><span class="p">((</span><span class="n">cx_m</span> <span class="o">-</span> <span class="mf">24.5</span><span class="p">,</span> <span class="n">cy_m</span><span class="p">),</span> <span class="p">(</span><span class="n">cx_m</span> <span class="o">-</span> <span class="mf">22.5</span><span class="p">,</span> <span class="n">cy_m</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
+            <span class="n">line</span><span class="p">((</span><span class="n">cx_m</span> <span class="o">+</span> <span class="mf">22.5</span><span class="p">,</span> <span class="n">cy_m</span><span class="p">),</span> <span class="p">(</span><span class="n">cx_m</span> <span class="o">+</span> <span class="mf">24.5</span><span class="p">,</span> <span class="n">cy_m</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
+            <span class="n">line</span><span class="p">((</span><span class="n">cx_m</span><span class="p">,</span> <span class="n">cy_m</span> <span class="o">+</span> <span class="mf">13.0</span><span class="p">),</span> <span class="p">(</span><span class="n">cx_m</span><span class="p">,</span> <span class="n">cy_m</span> <span class="o">+</span> <span class="mf">14.5</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
+            <span class="n">line</span><span class="p">((</span><span class="n">cx_m</span><span class="p">,</span> <span class="n">cy_m</span> <span class="o">-</span> <span class="mf">14.5</span><span class="p">),</span> <span class="p">(</span><span class="n">cx_m</span><span class="p">,</span> <span class="n">cy_m</span> <span class="o">-</span> <span class="mf">13.0</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
+            <span class="n">circle</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">cx_m</span><span class="p">,</span> <span class="n">cy_m</span><span class="p">),</span>
+                <span class="n">radius</span><span class="o">=</span><span class="mf">1.6</span><span class="p">,</span>
+                <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span> <span class="n">shape_line_width</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
+            <span class="p">)</span>
+            <span class="n">circle</span><span class="p">((</span><span class="n">cx_m</span><span class="p">,</span> <span class="n">cy_m</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">1.15</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerFlat</span><span class="p">)</span>
+            <span class="n">text</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">scx</span><span class="p">,</span> <span class="mf">18.4</span><span class="p">),</span>
+                <span class="s1">'xy = (30, 23)  •  align="center"'</span><span class="p">,</span>
+                <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+            <span class="p">)</span>
+
+<span class="c1"># =========================================================================</span>
+<span class="c1"># Part 4: Coordinate Pins — get_area_xy() &amp; lonlat_to_xy() After .draw()</span>
+<span class="c1"># =========================================================================</span>
+<span class="n">PIN_STATES</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span>
+        <span class="s2">"area_xy"</span><span class="p">,</span>
+        <span class="mf">3.3</span><span class="p">,</span>
+        <span class="p">[</span>
+            <span class="s2">"w = GeoMap(GeoMap.World.All)"</span><span class="p">,</span>
+            <span class="s2">"w.set_area_styles("</span><span class="p">,</span>
+            <span class="s1">'    ["United States"],'</span><span class="p">,</span>
+            <span class="s2">"    Styles.PrimaryNeutral)"</span><span class="p">,</span>
+            <span class="s2">"w.set_area_styles("</span><span class="p">,</span>
+            <span class="s1">'    ["Japan"], Styles.PrimaryFlat)'</span><span class="p">,</span>
+            <span class="s2">"w.draw((8, 10), 45, 26)"</span><span class="p">,</span>
+            <span class="s2">"# Query centers AFTER .draw()"</span><span class="p">,</span>
+            <span class="s1">'jp = w.get_area_xy("Japan")'</span><span class="p">,</span>
+            <span class="s2">"us = w.get_area_xy("</span><span class="p">,</span>
+            <span class="s1">'    "United States")'</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
+        <span class="s2">"get_area_xy()"</span><span class="p">,</span>
+        <span class="s2">"Query Area Centers After .draw() via get_area_xy()"</span><span class="p">,</span>
+        <span class="s2">"Named Area Coordinate Lookup"</span><span class="p">,</span>
+        <span class="s2">"Call get_area_xy() after .draw() projects polygons"</span><span class="p">,</span>
+        <span class="s2">"Returns interior center (x, y) on the canvas"</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="p">(</span>
+        <span class="s2">"curved_arc"</span><span class="p">,</span>
+        <span class="mf">3.4</span><span class="p">,</span>
+        <span class="p">[</span>
+            <span class="s2">"w = GeoMap(GeoMap.World.All)"</span><span class="p">,</span>
+            <span class="s2">"w.set_area_styles(..., ...)"</span><span class="p">,</span>
+            <span class="s2">"w.draw((8, 10), 45, 26)"</span><span class="p">,</span>
+            <span class="s1">'jp = w.get_area_xy("Japan")'</span><span class="p">,</span>
+            <span class="s2">"us = w.get_area_xy("</span><span class="p">,</span>
+            <span class="s1">'    "United States")'</span><span class="p">,</span>
+            <span class="s2">"line_curved("</span><span class="p">,</span>
+            <span class="s2">"    us, jp,"</span><span class="p">,</span>
+            <span class="s2">"    bend=-0.22,"</span><span class="p">,</span>
+            <span class="s1">'    arrow_head="&lt;-&gt;",'</span><span class="p">,</span>
+            <span class="s2">"    style=Styles.PrimaryBold)"</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
+        <span class="s2">"line_curved()"</span><span class="p">,</span>
+        <span class="s1">'Connect Regions with line_curved(us, jp, arrow_head="&lt;-&gt;")'</span><span class="p">,</span>
+        <span class="s2">"Overlaying Drawlib Connectors"</span><span class="p">,</span>
+        <span class="s2">"Pass projected (x, y) tuples to any line or shape"</span><span class="p">,</span>
+        <span class="s2">"Builds multi-region cloud &amp; network topologies"</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="p">(</span>
+        <span class="s2">"lonlat_pin"</span><span class="p">,</span>
+        <span class="mf">3.5</span><span class="p">,</span>
+        <span class="p">[</span>
+            <span class="s2">"asia = GeoMap(GeoMap.World.Asia)"</span><span class="p">,</span>
+            <span class="s2">"asia.set_area_styles("</span><span class="p">,</span>
+            <span class="s1">'    ["Japan"], Styles.PrimaryFlat)'</span><span class="p">,</span>
+            <span class="s2">"asia.draw("</span><span class="p">,</span>
+            <span class="s2">"    (8, 10), 45, 26,"</span><span class="p">,</span>
+            <span class="s2">"    lon_range=(106, 146),"</span><span class="p">,</span>
+            <span class="s2">"    lat_range=(18, 46))"</span><span class="p">,</span>
+            <span class="s2">"# Project (lon, lat) -&gt; (x, y)"</span><span class="p">,</span>
+            <span class="s2">"px, py = asia.lonlat_to_xy("</span><span class="p">,</span>
+            <span class="s2">"    139.69, 35.69)"</span><span class="p">,</span>
+            <span class="s2">"circle((px, py), 1.0, style=...)"</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
+        <span class="s2">"lonlat_to_xy()"</span><span class="p">,</span>
+        <span class="s2">"lonlat_to_xy(139.69, 35.69): Exact GPS City Pin Markers"</span><span class="p">,</span>
+        <span class="s2">"Exact (lon, lat) Pin Projection"</span><span class="p">,</span>
+        <span class="s2">"Projects decimal (longitude, latitude) into (x, y)"</span><span class="p">,</span>
+        <span class="s2">"Pinpoints cities, PoPs, and data center sites"</span><span class="p">,</span>
+    <span class="p">),</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">pin_idx</span><span class="p">,</span> <span class="p">(</span><span class="n">p_mode</span><span class="p">,</span> <span class="n">dur</span><span class="p">,</span> <span class="n">code_pin</span><span class="p">,</span> <span class="n">hl_rng</span><span class="p">,</span> <span class="n">badge_txt</span><span class="p">,</span> <span class="n">foot_txt</span><span class="p">,</span> <span class="n">s_t</span><span class="p">,</span> <span class="n">s_1</span><span class="p">,</span> <span class="n">s_2</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">PIN_STATES</span><span class="p">):</span>
+    <span class="k">with</span> <span class="n">anim</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="n">dur</span><span class="p">):</span>
+        <span class="n">draw_step_bar</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+        <span class="n">draw_left_pane</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">code_pin</span><span class="p">,</span> <span class="n">hl_rng</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">map_pin</span><span class="p">,</span> <span class="n">s_t</span><span class="p">,</span> <span class="n">s_1</span><span class="p">,</span> <span class="n">s_2</span><span class="p">)</span>
+        <span class="n">scx</span><span class="p">,</span> <span class="n">scy</span> <span class="o">=</span> <span class="n">draw_geometry_studio</span><span class="p">(</span><span class="n">badge_txt</span><span class="p">,</span> <span class="n">foot_txt</span><span class="p">)</span>
+        <span class="n">draw_sub_pills</span><span class="p">(</span><span class="n">scx</span><span class="p">,</span> <span class="p">[</span><span class="s2">"get_area_xy()"</span><span class="p">,</span> <span class="s2">"line_curved()"</span><span class="p">,</span> <span class="s2">"lonlat_to_xy()"</span><span class="p">],</span> <span class="n">pin_idx</span><span class="p">)</span>
+
+        <span class="n">mx0</span><span class="p">,</span> <span class="n">my0</span><span class="p">,</span> <span class="n">mw</span><span class="p">,</span> <span class="n">mh</span> <span class="o">=</span> <span class="mf">79.5</span><span class="p">,</span> <span class="mf">22.0</span><span class="p">,</span> <span class="mf">45.0</span><span class="p">,</span> <span class="mf">26.0</span>
+        <span class="k">if</span> <span class="n">p_mode</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">"area_xy"</span><span class="p">,</span> <span class="s2">"curved_arc"</span><span class="p">):</span>
+            <span class="n">w_map</span> <span class="o">=</span> <span class="n">GeoMap</span><span class="p">(</span><span class="n">GeoMap</span><span class="o">.</span><span class="n">World</span><span class="o">.</span><span class="n">All</span><span class="p">,</span> <span class="n">area_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">background_style</span><span class="o">=</span><span class="n">OCEAN_BG</span><span class="p">)</span>
+            <span class="n">w_map</span><span class="o">.</span><span class="n">set_area_styles</span><span class="p">([</span><span class="s2">"United States"</span><span class="p">],</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
+            <span class="n">w_map</span><span class="o">.</span><span class="n">set_area_styles</span><span class="p">([</span><span class="s2">"Japan"</span><span class="p">],</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">)</span>
+            <span class="n">w_map</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">mx0</span><span class="p">,</span> <span class="n">my0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="n">mw</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">mh</span><span class="p">)</span>
+            <span class="n">rectangle</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">mx0</span> <span class="o">+</span> <span class="n">mw</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">,</span> <span class="n">my0</span> <span class="o">+</span> <span class="n">mh</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">),</span>
+                <span class="n">width</span><span class="o">=</span><span class="n">mw</span><span class="p">,</span>
+                <span class="n">height</span><span class="o">=</span><span class="n">mh</span><span class="p">,</span>
+                <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedThin</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.0</span><span class="p">),</span>
+            <span class="p">)</span>
+            <span class="n">jp_xy</span> <span class="o">=</span> <span class="n">w_map</span><span class="o">.</span><span class="n">get_area_xy</span><span class="p">(</span><span class="s2">"Japan"</span><span class="p">)</span>
+            <span class="n">us_xy</span> <span class="o">=</span> <span class="n">w_map</span><span class="o">.</span><span class="n">get_area_xy</span><span class="p">(</span><span class="s2">"United States"</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">p_mode</span> <span class="o">==</span> <span class="s2">"curved_arc"</span><span class="p">:</span>
+                <span class="n">line_curved</span><span class="p">(</span><span class="n">us_xy</span><span class="p">,</span> <span class="n">jp_xy</span><span class="p">,</span> <span class="n">bend</span><span class="o">=-</span><span class="mf">0.22</span><span class="p">,</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"&lt;-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+
+            <span class="n">circle</span><span class="p">(</span><span class="n">us_xy</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mf">1.05</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerFlat</span><span class="p">)</span>
+            <span class="n">circle</span><span class="p">(</span><span class="n">jp_xy</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mf">1.05</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerFlat</span><span class="p">)</span>
+            <span class="n">text</span><span class="p">((</span><span class="n">us_xy</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">us_xy</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mf">2.6</span><span class="p">),</span> <span class="s2">"US"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
+            <span class="n">text</span><span class="p">((</span><span class="n">jp_xy</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mf">1.2</span><span class="p">,</span> <span class="n">jp_xy</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mf">2.6</span><span class="p">),</span> <span class="s2">"Japan"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
+            <span class="n">text</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">scx</span><span class="p">,</span> <span class="mf">18.4</span><span class="p">),</span>
+                <span class="s1">'get_area_xy("United States") &amp; get_area_xy("Japan")'</span>
+                <span class="k">if</span> <span class="n">p_mode</span> <span class="o">==</span> <span class="s2">"area_xy"</span>
+                <span class="k">else</span> <span class="s1">'line_curved(us, jp, bend=-0.22, arrow_head="&lt;-&gt;")'</span><span class="p">,</span>
+                <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">asia</span> <span class="o">=</span> <span class="n">GeoMap</span><span class="p">(</span><span class="n">GeoMap</span><span class="o">.</span><span class="n">World</span><span class="o">.</span><span class="n">Asia</span><span class="p">,</span> <span class="n">area_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">background_style</span><span class="o">=</span><span class="n">OCEAN_BG</span><span class="p">)</span>
+            <span class="n">asia</span><span class="o">.</span><span class="n">set_area_styles</span><span class="p">([</span><span class="s2">"South Korea"</span><span class="p">,</span> <span class="s2">"Taiwan"</span><span class="p">],</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
+            <span class="n">asia</span><span class="o">.</span><span class="n">set_area_styles</span><span class="p">([</span><span class="s2">"Japan"</span><span class="p">],</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">)</span>
+            <span class="n">asia</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">mx0</span><span class="p">,</span> <span class="n">my0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="n">mw</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">mh</span><span class="p">,</span> <span class="n">lon_range</span><span class="o">=</span><span class="p">(</span><span class="mf">106.0</span><span class="p">,</span> <span class="mf">146.0</span><span class="p">),</span> <span class="n">lat_range</span><span class="o">=</span><span class="p">(</span><span class="mf">18.0</span><span class="p">,</span> <span class="mf">46.0</span><span class="p">))</span>
+            <span class="n">rectangle</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">mx0</span> <span class="o">+</span> <span class="n">mw</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">,</span> <span class="n">my0</span> <span class="o">+</span> <span class="n">mh</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">),</span>
+                <span class="n">width</span><span class="o">=</span><span class="n">mw</span><span class="p">,</span>
+                <span class="n">height</span><span class="o">=</span><span class="n">mh</span><span class="p">,</span>
+                <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedThin</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.0</span><span class="p">),</span>
+            <span class="p">)</span>
+            <span class="k">for</span> <span class="n">city_lbl</span><span class="p">,</span> <span class="n">lon</span><span class="p">,</span> <span class="n">lat</span><span class="p">,</span> <span class="n">dx</span><span class="p">,</span> <span class="n">dy</span> <span class="ow">in</span> <span class="p">[</span>
+                <span class="p">(</span><span class="s2">"Tokyo"</span><span class="p">,</span> <span class="mf">139.69</span><span class="p">,</span> <span class="mf">35.69</span><span class="p">,</span> <span class="mf">1.4</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.6</span><span class="p">),</span>
+                <span class="p">(</span><span class="s2">"Seoul"</span><span class="p">,</span> <span class="mf">126.98</span><span class="p">,</span> <span class="mf">37.57</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.2</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">),</span>
+                <span class="p">(</span><span class="s2">"Taipei"</span><span class="p">,</span> <span class="mf">121.56</span><span class="p">,</span> <span class="mf">25.03</span><span class="p">,</span> <span class="mf">4.4</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.6</span><span class="p">),</span>
+            <span class="p">]:</span>
+                <span class="n">px</span><span class="p">,</span> <span class="n">py</span> <span class="o">=</span> <span class="n">asia</span><span class="o">.</span><span class="n">lonlat_to_xy</span><span class="p">(</span><span class="n">lon</span><span class="p">,</span> <span class="n">lat</span><span class="p">)</span>
+                <span class="n">circle</span><span class="p">((</span><span class="n">px</span><span class="p">,</span> <span class="n">py</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">0.95</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerFlat</span><span class="p">)</span>
+                <span class="n">text</span><span class="p">((</span><span class="n">px</span> <span class="o">+</span> <span class="n">dx</span><span class="p">,</span> <span class="n">py</span> <span class="o">+</span> <span class="n">dy</span><span class="p">),</span> <span class="n">city_lbl</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
+            <span class="n">text</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">scx</span><span class="p">,</span> <span class="mf">18.4</span><span class="p">),</span>
+                <span class="s2">"Tokyo = lonlat_to_xy(139.69, 35.69)"</span><span class="p">,</span>
+                <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+            <span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<ul>
+<li><strong>Presets &amp; Anchor (<code>xy</code>, <code>align</code>)</strong>: Pass <code>GeoMap.World.*</code>, <code>GeoMap.Countries.*</code>, <code>GeoMap.Cities.*</code>, or a <code>.geojson</code> path and render inside <code>width × height</code> anchored at <strong>Bottom-Left <code>xy</code></strong> by default (or centered via <code>align=&quot;center&quot;</code>).</li>
+<li><strong>Area Styling &amp; Auto-Fit (<code>set_area_styles</code>, <code>Styles.Transparent</code>)</strong>: Highlight specific territories by English name, ISO code, or Japanese alias, or pass <code>area_style=Styles.Transparent</code> so <code>.draw()</code> hides unstyled areas and auto-fits visible bounds.</li>
+<li><strong>Viewport Cropping (<code>lon_range</code>, <code>lat_range</code>)</strong>: Pass <code>(min_lon, max_lon)</code> and <code>(min_lat, max_lat)</code> to crop and zoom into any sub-region while preserving cosine-corrected geographical aspect ratio.</li>
+<li><strong>Post-Draw Coordinate Lookup (<code>get_area_xy</code>, <code>lonlat_to_xy</code>)</strong>: Call <code>get_area_xy(area)</code> or <code>lonlat_to_xy(lon, lat)</code> <em>after</em> <code>.draw()</code> to attach curved connectors, pins, icons, and callout labels at exact projected coordinates.</li>
+</ul>
+<hr />
+<h2>2. Global Multi-Region Topology (<code>GeoMap.World.All</code>)</h2>
 <p>As shown in the global topology map above, pass <code>GeoMap.World.All</code> to <code>GeoMap</code> to render a complete world map. You can inspect all available area names via <code>get_areas()</code>, highlight specific areas with <code>set_area_styles()</code> (by English name, ISO code such as <code>&quot;JP&quot;</code> / <code>&quot;USA&quot;</code>, or Japanese name such as <code>&quot;日本&quot;</code>), and use <code>get_area_xy()</code> to anchor connectors and labels:</p>
 <pre><code class="language-python"><span class="n">world</span> <span class="o">=</span> <span class="n">GeoMap</span><span class="p">(</span><span class="n">GeoMap</span><span class="o">.</span><span class="n">World</span><span class="o">.</span><span class="n">All</span><span class="p">,</span> <span class="n">area_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
 <span class="n">world</span><span class="o">.</span><span class="n">set_area_styles</span><span class="p">([</span><span class="s2">"United States"</span><span class="p">,</span> <span class="s2">"Germany"</span><span class="p">,</span> <span class="s2">"Singapore"</span><span class="p">,</span> <span class="s2">"Australia"</span><span class="p">],</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
@@ -646,7 +1448,7 @@
 <span class="n">jp_xy</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">get_area_xy</span><span class="p">(</span><span class="s2">"Japan"</span><span class="p">)</span>
 </code></pre>
 <hr />
-<h2>2. Regional World Presets &amp; Cropping (<code>GeoMap.World.Asia</code>, <code>EastAsia</code>, <code>Europe</code>)</h2>
+<h2>3. Regional World Presets &amp; Cropping (<code>GeoMap.World.Asia</code>, <code>EastAsia</code>, <code>Europe</code>)</h2>
 <p><code>GeoMap.World</code> provides 11 continental and regional presets (<code>All</code>, <code>Asia</code>, <code>Europe</code>, <code>NorthAmerica</code>, <code>SouthAmerica</code>, <code>Africa</code>, <code>Oceania</code>, <code>EastAsia</code>, <code>SoutheastAsia</code>, <code>APAC</code>, <code>MiddleEast</code>).</p>
 <p>You can also initialize any map with <code>area_style=Styles.Transparent</code> so unstyled areas are hidden, style only the target countries via <code>set_area_styles()</code>, and refine the viewport with <code>lon_range</code> and <code>lat_range</code>.</p>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">setup</span>
@@ -686,11 +1488,11 @@
     <span class="n">text</span><span class="p">((</span><span class="n">px</span> <span class="o">+</span> <span class="n">dx</span><span class="p">,</span> <span class="n">py</span> <span class="o">+</span> <span class="n">dy</span><span class="p">),</span> <span class="n">label</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="geomap_images/geomap_east_asia.png" alt="geomap_2" />
+  <img src="geomap_images/geomap_east_asia.png" alt="geomap_3" />
   <figcaption class="drawlib-caption">East Asia Regional Map (GeoMap.World.Asia + Selective Visibility)</figcaption>
 </figure>
 <hr />
-<h2>3. Country &amp; City Presets (<code>GeoMap.Countries.*</code> &amp; <code>GeoMap.Cities.*</code>)</h2>
+<h2>4. Country &amp; City Presets (<code>GeoMap.Countries.*</code> &amp; <code>GeoMap.Cities.*</code>)</h2>
 <p>Use <code>GeoMap.Countries.&lt;Country&gt;</code> for Admin-1 state/province/prefecture maps across 215 countries (such as <code>GeoMap.Countries.Japan</code>, <code>GeoMap.Countries.UnitedStates</code>, <code>GeoMap.Countries.Germany</code>) and <code>GeoMap.Cities.&lt;Country&gt;_&lt;City&gt;</code> for flagship metropolitan ward/district maps (such as <code>GeoMap.Cities.Japan_Tokyo</code>, <code>GeoMap.Cities.UnitedStates_NewYork</code>).</p>
 <p>When <code>area_style=Styles.Transparent</code> is used and only a subset of areas is styled via <code>set_area_styles()</code> (such as Tokyo's 23 wards excluding Tama and the islands), <code>GeoMap.draw()</code> automatically zooms and fits the viewport to the visible areas even without specifying <code>lon_range</code> / <code>lat_range</code>.</p>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">setup</span>
@@ -737,11 +1539,11 @@
 <span class="n">text</span><span class="p">((</span><span class="n">shibuya_xy</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mf">4.5</span><span class="p">,</span> <span class="n">shibuya_xy</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mf">2.5</span><span class="p">),</span> <span class="s2">"Shibuya"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="geomap_images/geomap_japan_and_tokyo.png" alt="geomap_3" />
+  <img src="geomap_images/geomap_japan_and_tokyo.png" alt="geomap_4" />
   <figcaption class="drawlib-caption">Japan Prefectures Map and Tokyo 23 Wards Map</figcaption>
 </figure>
 <hr />
-<h2>4. Custom GeoJSON Files (<code>_assets/geodata/*.geojson</code>)</h2>
+<h2>5. Custom GeoJSON Files (<code>_assets/geodata/*.geojson</code>)</h2>
 <p>In addition to built-in presets, you can pass any <code>.geojson</code> file path (or parsed GeoJSON dictionary) to <code>GeoMap</code>. The example below loads custom municipal GeoJSON files from <code>_assets/geodata/hokkaido.geojson</code> and <code>_assets/geodata/okinawa.geojson</code>.</p>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">setup</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">circle</span><span class="p">,</span> <span class="n">rectangle</span>
@@ -782,11 +1584,11 @@
 <span class="n">text</span><span class="p">((</span><span class="n">naha_xy</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mf">5.0</span><span class="p">,</span> <span class="n">naha_xy</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mf">1.5</span><span class="p">),</span> <span class="s2">"Naha"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
 </code></pre>
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="geomap_images/geomap_custom_geojson.png" alt="geomap_4" />
+  <img src="geomap_images/geomap_custom_geojson.png" alt="geomap_5" />
   <figcaption class="drawlib-caption">Loading Custom GeoJSON Files (Hokkaido & Okinawa Municipalities)</figcaption>
 </figure>
 <hr />
-<h2>5. Preset Targets &amp; Area Discovery</h2>
+<h2>6. Preset Targets &amp; Area Discovery</h2>
 <h3>Built-in Presets</h3>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.smartarts</span><span class="w"> </span><span class="kn">import</span> <span class="n">GeoMap</span>
 </code></pre>
@@ -830,7 +1632,7 @@
 <p><strong>Alias Resolution</strong>: Methods accepting area names (<code>set_area_styles()</code>, <code>get_area_xy()</code>) are case-insensitive and also accept ISO codes (<code>&quot;JP&quot;</code>, <code>&quot;JPN&quot;</code>, <code>&quot;US&quot;</code>) as well as Japanese names (<code>&quot;日本&quot;</code>, <code>&quot;東京都&quot;</code>, <code>&quot;東京&quot;</code>, <code>&quot;渋谷区&quot;</code>, <code>&quot;渋谷&quot;</code>).</p>
 </blockquote>
 <hr />
-<h2>6. API Reference</h2>
+<h2>7. API Reference</h2>
 <h3>Constructor</h3>
 <pre><code class="language-python"><span class="n">GeoMap</span><span class="p">(</span>
     <span class="n">target</span><span class="p">:</span> <span class="n">World</span> <span class="o">|</span> <span class="nb">type</span><span class="p">[</span><span class="n">World</span><span class="p">]</span> <span class="o">|</span> <span class="n">Countries</span> <span class="o">|</span> <span class="n">Cities</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span> <span class="o">|</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
