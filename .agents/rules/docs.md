@@ -16,16 +16,17 @@ All documentation, guides, slides, and README illustrations in this repository a
 | Build Target (`./dcli docs build <target>`) | Source Directory (`docs/*_src/`) | Template Type (`drawlib init`) | Generated Outputs (Do NOT edit directly) | Description |
 | :--- | :--- | :--- | :--- | :--- |
 | **`site`** | `docs/docs_src/` (`drawlib.toml`: `en/`, `ja/`) | `site` | `docs/docs_markdown/`, `docs/docs_html/`, `docs/docs_images/` | Official multi-language (`en`/`ja`) documentation website & GitHub Markdown |
-| **`architecture`** | `docs/architecture_src/` | `site` | `docs/architecture_markdown/`, `docs/architecture_html/`, `docs/architecture_images/` | Software architecture specification site |
-| **`quickstart`** | `docs/quickstart_src/` | `doc` | `docs/quickstart_html/`, `docs/quickstart.pdf`, `docs/quickstart_markdown/`, `docs/quickstart_images/` | Linear quickstart guide & PDF |
+| **`architecture`** | `docs/architecture_src/` (`drawlib.toml`: `en/`) | `site` | `docs/architecture_markdown/`, `docs/architecture_html/`, `docs/architecture_images/` | Software architecture specification site |
+| **`quickstart`** | `docs/quickstart_src/` (`drawlib.toml`: `en/`) | `doc` | `docs/quickstart_html/`, `docs/quickstart_en.pdf`, `docs/quickstart_markdown/`, `docs/quickstart_images/` | Linear quickstart guide & PDF |
 | **`dogfooding`** | `docs/drawlib-dogfooding_src/` (`drawlib.toml`: `en/`, `ja/`) | `doc` | `docs/drawlib-dogfooding_html/`, `docs/drawlib-dogfooding_en.pdf`, `docs/drawlib-dogfooding_ja.pdf`, `docs/drawlib-dogfooding_markdown/`, `docs/drawlib-dogfooding_images/` | Bilingual (`en`/`ja`) Dogfooding technical whitepaper |
-| **`slide`** | `docs/slide_about_drawlib_src/` | `slide` | `docs/slide_about_drawlib_html/`, `docs/slide_about_drawlib.pdf`, `docs/slide_about_drawlib_images/` | 16:9 presentation slide deck (About Drawlib) |
-| **`slide-ddos`** | `docs/slide_ddos_incident_response_src/` | `slide` | `docs/slide_ddos_incident_response_html/`, `docs/slide_ddos_incident_response.pdf`, `docs/slide_ddos_incident_response_images/` | 16:9 presentation slide deck (DDoS Incident Response) |
-| **`readme`** | `docs/readme_src/` | `image` | `docs/readme_images/` | Standalone Python scripts generating illustrations for `README.md` |
-| **`logo`** | `docs/logo_src/` | `image` | `docs/logo_images/` | Drawlib brand logo & favicon asset generator scripts |
+| **`slide`** | `docs/slide_about_drawlib_src/` (`drawlib.toml`: `en/`) | `slide` | `docs/slide_about_drawlib_html/`, `docs/slide_about_drawlib_en.pdf`, `docs/slide_about_drawlib_images/` | 16:9 presentation slide deck (About Drawlib) |
+| **`slide-ddos`** | `docs/slide_ddos_incident_response_src/` (`drawlib.toml`: `en/`) | `slide` | `docs/slide_ddos_incident_response_html/`, `docs/slide_ddos_incident_response_en.pdf`, `docs/slide_ddos_incident_response_images/` | 16:9 presentation slide deck (DDoS Incident Response) |
+| **`readme`** | `docs/readme_src/` | `images` | `docs/readme_images/` | Standalone Python scripts generating illustrations for `README.md` |
+| **`logo`** | `docs/logo_src/` | `images` | `docs/logo_images/` | Drawlib brand logo & favicon asset generator scripts |
 
-- **Source of Truth**: Always edit files inside `docs/<name>_src/` (and `drawlib.toml`, `build.sh`, `navbar.md` within it). Never manually edit generated output folders or PDFs.
-- **Multi-Language Parity in `docs/docs_src/` & `docs/drawlib-dogfooding_src/` (`en/` & `ja/`)**: Multi-language projects declare `[i18n]` (`default_lang = "en"`, `langs = ["en", "ja"]`) inside `drawlib.toml` with shared `styles.py` (optional per-locale `<lang>/styles.py` override), `utils.py`, `_assets/`, `style.css`, and `template.html` at root and localized Markdown trees in `en/` and `ja/`. Whenever adding, renaming, or editing a page/chapter or `drawlib` block in `en/`, apply the corresponding update to `ja/` so file paths, `navbar.md` structure (for `site`), `H1`–`H3` skeleton sequence, and `drawlib` code blocks remain 100% in parity (`caption="..."` and prose localized per language; localized diagram labels use `file=<stem>_<lang>.png`).
+- **Source of Truth**: Always edit files inside `docs/<name>_src/` (and `drawlib.toml`, `build.sh`, `<lang>/navbar.md` within it). Never manually edit generated output folders or PDFs.
+- **Unified `<src_dir>/<lang>/` Locale Architecture (`doc`, `site`, `slide`)**: Every `doc`, `site`, and `slide` project declares `[i18n]` (`default_lang`, `langs`, optional `[i18n.labels]`; no `[project].lang`) in `drawlib.toml` and places Markdown sources inside `<src_dir>/<lang>/` (even single-language `en/` projects), emitting locale-suffixed document/deck deliverables (`<base>_<lang>.pdf`, `<base>_<lang>.docx`, `<base>_<lang>.pptx`). Standalone `images` projects (`readme_src/`, `logo_src/`) remain flat (`*.py`) with `lang = "en"` under `[project]`.
+- **Multi-Language Parity in `docs/docs_src/` & `docs/drawlib-dogfooding_src/` (`en/` & `ja/`)**: Multi-language projects declare `langs = ["en", "ja"]` with shared `styles.py` (optional per-locale `<lang>/styles.py` override), `utils.py`, `_assets/`, `style.css`, and `template.html` at root and localized Markdown trees in `en/` and `ja/`. Whenever adding, renaming, or editing a page/chapter or `drawlib` block in `en/`, apply the corresponding update to `ja/` so file paths, `navbar.md` structure (for `site`), `H1`–`H3` skeleton sequence, and `drawlib` code blocks remain 100% in parity (`caption="..."` and prose localized per language; localized diagram labels use `file=<stem>_<lang>.png`).
 - **Build & Preview**:
   ```bash
   ./dcli docs build <target>          # e.g. ./dcli docs build site (or --all)
@@ -39,9 +40,9 @@ All documentation, guides, slides, and README illustrations in this repository a
 Because all documentation projects are built with `drawlib init`, always inspect and follow the embedded Drawlib rules before authoring content or diagrams:
 
 ```bash
-uv run drawlib rules show project       # Project structure, navbar.md, code fence attributes
-uv run drawlib rules show overview      # Coordinate space (origin (0,0) at bottom-left) & lifecycle
-uv run drawlib rules show style-guide   # Visual design rules, typography, and color discipline
+uv run drawlib rules show project-overview # Project structure, drawlib.toml, navbar.md, code fence attributes
+uv run drawlib rules show overview         # Coordinate space (origin (0,0) at bottom-left) & lifecycle
+uv run drawlib rules show style-guide      # Visual design rules, typography, and color discipline
 ```
 
 - **Strict Style Guide Compliance**:
@@ -85,7 +86,7 @@ Never consider a documentation or diagram update complete after only writing cod
 1. **Render with Grid (`-g`)**:
    ```bash
    # Preview a specific embedded diagram block or standalone script
-   uv run drawlib show docs/docs_src/path/to/page.md <diagram_file.png> -g -o .drawlib/scratch/preview.png
+   uv run drawlib show docs/docs_src/en/path/to/page.md <diagram_file.png> -g -o .drawlib/scratch/preview.png
    ```
 2. **Multimodal Visual Review (`view_file`)**:
    Open the generated image using `view_file` and verify:

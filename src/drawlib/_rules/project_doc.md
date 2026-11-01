@@ -1,6 +1,6 @@
 # Drawlib Linear Document, PDF & MS Word Project Guidelines (`project-doc`)
 
-A **`doc` project** (`drawlib init doc`) compiles a sequential series of Markdown chapter files (`doc_src/*.md`) containing embedded ````drawlib```` blocks into a **single unified HTML document (`doc_html/index.html`)**, a **print-ready A4 vector PDF (`doc.pdf`)**, **GitHub-Flavored Markdown (`doc_markdown/`)**, and **extracted diagram images (`doc_images/`)**, with optional on-demand export to a **native editable Microsoft Word document (`doc.docx`)** via `drawlib build docx`.
+A **`doc` project** (`drawlib init doc`) compiles a sequential series of Markdown chapter files (`doc_src/<lang>/*.md`) containing embedded ````drawlib```` blocks into a **merged HTML document (`doc_html/<lang>/index.html` + root `doc_html/index.html` redirect)**, a **print-ready A4 vector PDF (`doc_<lang>.pdf`)**, **GitHub-Flavored Markdown (`doc_markdown/<lang>/`)**, and **extracted diagram images (`doc_images/`)**, with optional on-demand export to a **native editable Microsoft Word document (`doc_<lang>.docx`)** via `drawlib build docx`.
 
 *(For general project scaffolding, see `uv run drawlib rules show project-overview`. For multi-page websites with a sidebar, see `uv run drawlib rules show project-site`. For the 3-stage review loop, see `uv run drawlib rules show review-guide`.)*
 
@@ -27,39 +27,42 @@ uv run drawlib init doc rbac_spec -s default
 
 ## 2. Directory Structure & Multi-Target Compilation (`doc_src/`)
 
+Every `doc` project uses the unified `<src_dir>/<lang>/` locale directory structure (even for single-language projects such as `-l en` -> `doc_src/en/`), governed by `[i18n]` in `drawlib.toml`:
+
 ```text
 .
 ├── doc_src/                   # [SOURCE OF TRUTH] Edit ONLY files here!
-│   ├── drawlib.toml           # Project manifest (type = "doc", lang/title/style, optional [i18n])
-│   ├── 00_cover.md            # Cover chapter (H1 Document Title, subtitle, hero figure, metadata)
-│   ├── 01_overview.md         # Chapter 1: Executive Overview
-│   ├── 02_architecture.md     # Chapter 2: System Architecture
-│   ├── 03_implementation.md   # Chapter 3: Implementation & Benchmarks
+│   ├── drawlib.toml           # Project manifest (type = "doc" + required [i18n] table)
+│   ├── en/                    # Locale chapter directory (e.g. en/, ja/)
+│   │   ├── 00_cover.md        # Cover chapter (H1 Document Title, subtitle, hero figure, metadata)
+│   │   ├── 01_overview.md     # Chapter 1: Executive Overview
+│   │   ├── 02_architecture.md # Chapter 2: System Architecture
+│   │   └── 03_implementation.md # Chapter 3: Implementation & Benchmarks
 │   ├── _assets/               # Static images, logos, or custom .ttf fonts
-│   ├── styles.py              # Document-wide Drawlib Styles & Colors
+│   ├── styles.py              # Document-wide Drawlib Styles & Colors (optional <lang>/styles.py override)
 │   ├── utils.py               # Reusable Python drawing helpers & macros
 │   ├── style.css              # Screen + @media print / @page A4 CSS stylesheet
 │   ├── template.html          # Jinja2 linear document HTML template
 │   ├── build.sh               # Master build script (HTML + PDF + Markdown + Images)
-│   ├── build_html.sh          # Compiles merged HTML preview (doc_html/index.html)
-│   ├── build_pdf.sh           # Compiles headless Chromium vector PDF (doc.pdf)
-│   ├── build_markdown.sh      # Compiles GitHub-ready Markdown chapters (doc_markdown/)
+│   ├── build_html.sh          # Compiles merged HTML preview (doc_html/)
+│   ├── build_pdf.sh           # Compiles headless Chromium vector PDF (doc_en.pdf)
+│   ├── build_markdown.sh      # Compiles GitHub-ready Markdown chapters (doc_markdown/en/)
 │   ├── build_image.sh         # Extracts standalone diagram PNGs (doc_images/)
 │   └── serve.sh               # Local preview server for doc_html/
-├── doc_html/                  # [GENERATED] Merged linear HTML document
-├── doc.pdf                    # [GENERATED] High-resolution printable vector PDF
-├── doc_markdown/              # [GENERATED] Rendered Markdown with image links
+├── doc_html/                  # [GENERATED] Merged linear HTML (index.html + en/index.html)
+├── doc_en.pdf                 # [GENERATED] High-resolution printable vector PDF (<base>_<lang>.pdf)
+├── doc_markdown/              # [GENERATED] Rendered Markdown with image links (en/*.md)
 └── doc_images/                # [GENERATED] Extracted chapter diagram images
 ```
 
-> **CRITICAL (`No navbar.md` in `doc` Projects & Excluding Planning Files)**: Never create a `navbar.md` file inside `doc_src/`. Drawlib's HTML builder uses the presence of `navbar.md` to distinguish between a multi-page website (`site`) and a merged single-page linear document (`doc`). Any non-chapter files or subdirectories starting with `_` (e.g., `_outline.md`, `_drafts/`) as well as `README.md` are automatically excluded from document compilation.
+> **CRITICAL (`No navbar.md` in `doc` Projects & Excluding Planning Files)**: Never create a `navbar.md` file inside `doc_src/` or `doc_src/<lang>/` (`navbar.md` belongs exclusively to multi-page `site` projects). Any non-chapter files or subdirectories starting with `_` (e.g., `_outline.md`, `_drafts/`) as well as `README.md` are automatically excluded from document compilation.
 
 ### 2.1. Zero-Config PDF Compilation & On-Demand MS Word (`.docx`) Export
 - **Standard Out-of-the-Box Dependencies**: `playwright` and `python-docx` are standard dependencies of `drawlib` (no optional extras required). Headless Chromium (`chromium-headless-shell`) downloads automatically on your first `drawlib build pdf` run (or pre-download offline via `uv run drawlib cache download --browser` / `--all`; in minimal Linux containers such as `python:3.12-slim` lacking OS shared libraries, run `playwright install-deps chromium`).
 - **On-Demand MS Word Export (`drawlib build docx` / `drawlib.tools.build_docx`)**:
-  While scaffolded `build.sh` continues to build HTML, PDF, Markdown, and Images, you can compile `doc_src/` (or any single `.md` file) into a native editable `.docx` document with headings, prose, lists, tables, blockquotes, syntax-highlighted code blocks, and high-DPI static PNG diagrams (`dpi=200` default):
+  While scaffolded `build.sh` continues to build HTML, PDF, Markdown, and Images, you can compile `doc_src/` (producing `doc_<lang>.docx` for every locale in `[i18n].langs`, e.g., `doc_en.docx`) or any standalone `.md` file into a native editable `.docx` document with headings, prose, lists, tables, blockquotes, syntax-highlighted code blocks, and high-DPI static PNG diagrams (`dpi=200` default):
   ```bash
-  # CLI export (directory or single .md):
+  # CLI export (directory produces doc_<lang>.docx; single .md writes directly to target path):
   uv run drawlib build docx doc_src/ -o doc.docx --page-break --generate-index \
       --dpi 200 -s doc_src/styles.py -u doc_src/utils.py
   ```
@@ -69,7 +72,7 @@ uv run drawlib init doc rbac_spec -s default
 
   build_docx(
       input_path="doc_src/",
-      output_file="doc.docx",
+      output_file="doc.docx",  # Emits doc_en.docx (and doc_ja.docx if langs = ["en", "ja"])
       title=None,
       page_break=True,
       generate_index=True,
@@ -81,7 +84,7 @@ uv run drawlib init doc rbac_spec -s default
   )
   ```
 
-```drawlib align=center code=fold file=project_doc_pipeline.png caption="Linear Document (doc_src/) Chapter Merging, ToC Injection & PDF / Word Compilation"
+```drawlib align=center code=fold file=project_doc_pipeline.png caption="Linear Document (doc_src/<lang>/) Chapter Merging, ToC Injection & PDF / Word Compilation"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line
@@ -94,7 +97,7 @@ setup(width=150, height=58, dpi=150)
 rectangle((75, 29), width=144, height=52, style=Styles.MutedDashed.patch(shape_r=2.5))
 text(
     (75, 50.5),
-    "Linear Document Pipeline (doc_src/*.md -> doc.pdf / doc.docx)",
+    "Linear Document Pipeline (doc_src/<lang>/*.md -> doc_<lang>.pdf / .docx)",
     style=Styles.DarkBold.patch(text_size=12.5),
 )
 
@@ -104,7 +107,7 @@ phosphor.files((12, 36.5), width=5.0, style=Styles.PrimaryBold)
 text((28, 36.5), "1. Chapter Files", style=Styles.PrimaryBold.patch(text_size=11.5))
 text(
     (26, 21),
-    "• 00_cover.md (Cover)\n• 01_overview.md\n• 02_design.md\n• 2+ diagrams / chapter",
+    "• <lang>/00_cover.md\n• <lang>/01_overview.md\n• <lang>/02_design.md\n• 2+ diagrams / chapter",
     style=Styles.Dark.patch(text_size=10.0),
 )
 
@@ -128,7 +131,7 @@ phosphor.file_pdf((110, 36.5), width=5.0, style=Styles.WhiteBold)
 text((126, 36.5), "3. Deliverables", style=Styles.WhiteBold.patch(text_size=11.5))
 text(
     (124, 21),
-    "• doc.pdf (Vector A4)\n• doc.docx (MS Word)\n• doc_html/index.html\n• doc_markdown/*.md",
+    "• doc_<lang>.pdf (A4)\n• doc_<lang>.docx (Word)\n• doc_html/<lang>/\n• doc_markdown/<lang>/",
     style=Styles.White.patch(text_size=10.0),
 )
 
@@ -139,11 +142,11 @@ save()
 
 ## 3. Authoring Best Practices for Linear Documents & Whitepapers
 
-### 3.1. Deterministic Chapter Numbering (`00_cover.md`, `01_...`, `02_...`)
-When `drawlib build html`, `drawlib build pdf`, or `drawlib build docx` compiles `doc_src/`, it discovers all `.md` files (excluding `README.md`) and merges them in **sorted lexicographical order**:
+### 3.1. Deterministic Chapter Numbering (`<lang>/00_cover.md`, `01_...`, `02_...`)
+When `drawlib build html`, `drawlib build pdf`, or `drawlib build docx` compiles `doc_src/`, it discovers all `.md` files inside each `doc_src/<lang>/` directory (excluding `README.md` and `_`-prefixed files) and merges them in **sorted lexicographical order**:
 1. **`00_cover.md` (Cover Page)**:
-   - Place the overall document `# Title`, subtitle, executive abstract, a rich cover Hero diagram (`code=hide`), and author/date metadata in `00_cover.md`.
-   - When `--generate-index` is passed to `drawlib build pdf` or `drawlib build docx` (or `build_pdf.sh`), Drawlib automatically injects the generated **Table of Contents** immediately after the first chapter (`00_cover.md`) and before `01_*.md`.
+   - Place the overall document `# Title`, subtitle, executive abstract, a rich cover Hero diagram (`code=hide`), and author/date metadata in `<lang>/00_cover.md`.
+   - When `--generate-index` is passed to `drawlib build pdf` or `drawlib build docx` (or `build_pdf.sh`), Drawlib automatically injects the localized **Table of Contents** immediately after the first chapter (`00_cover.md`) and before `01_*.md`.
 2. **Numbered Chapters (`01_overview.md`, `02_architecture.md`, ...)**:
    - Start each chapter file with a top-level `# 1. Chapter Title` heading.
    - When `--page-break` (default `True`) is enabled, Drawlib inserts a page break before each chapter file so every chapter starts cleanly at the top of a new page in both A4 PDF and MS Word (`.docx`).
@@ -167,7 +170,7 @@ Choose the ```` ```drawlib ```` visibility attribute based on the document's pur
    - Avoid tall portrait canvases (`height > width`), which often get pushed to the next A4 page and leave large blank gaps at the bottom of the preceding page.
    - Favor compact widescreen or landscape canvases (`setup(width=140, height=60)`, `150×65`, or `120×55`) that fit comfortably alongside headings and prose on an A4 page.
 5. **Strictly Relative Links & Asset References (No Absolute Paths or `file://` URLs)**:
-   - All cross-chapter references (`[Chapter 2](02_details.md)`) and image assets (`![Fig](_assets/arch.png)`) must use relative paths.
+   - Cross-chapter references within `<lang>/` use `[Chapter 2](02_details.md)`, and Markdown image links to root static assets use `![Fig](../_assets/arch.png)` (while Python drawing code inside ````drawlib```` blocks uses `"_assets/arch.png"` directly).
    - Never write local filesystem absolute paths (`/usr/...`, `/home/...`, `/Users/...`, `C:\...`) or `file:///` URLs. Prohibited paths are rejected at build time.
 
 ---
@@ -181,7 +184,7 @@ Always verify linear documents across all three stages before finishing:
 2. **Stage 2 — Micro-Geometry Grid Review (`drawlib show ... -g` + `view_file`)**:
    Test each new or modified diagram quickly with the coordinate grid without rebuilding the entire PDF:
    ```bash
-   uv run drawlib show doc_src/02_architecture.md system_arch.png \
+   uv run drawlib show doc_src/en/02_architecture.md system_arch.png \
        -s doc_src/styles.py -u doc_src/utils.py \
        -g -o .drawlib/scratch/preview.png
    ```
@@ -191,21 +194,21 @@ Always verify linear documents across all three stages before finishing:
    ./doc_src/build.sh
    uv run drawlib serve doc_html/ --check
    ```
-   Inspect `doc.pdf` (or a `1280×920` headless Chromium screenshot of `doc_html/index.html`) via `view_file` to confirm that:
+   Inspect `doc_en.pdf` (or a `1280×920` headless Chromium screenshot of `doc_html/en/index.html`) via `view_file` to confirm that:
    - The cover page (`00_cover.md`) and Table of Contents (`--generate-index`) render cleanly without overflowing onto extra blank pages.
    - Diagram labels are crisp and proportional to the surrounding body prose.
    - Clean up `.drawlib/scratch/` when done.
 4. **Parallel Multi-Agent Chapter Delegation (For Multi-Chapter Documents)**:
-   Because each chapter in `doc_src/` is a standalone numbered file (`01_overview.md`, `02_architecture.md`, `03_security.md`, etc.), **distribute chapter authoring across parallel subagents** whenever creating or updating multiple chapters:
-   - **Phase 1 (Parent)**: Scaffold `doc_src/`, configure `styles.py`, `utils.py`, and `00_cover.md`, and define the numbered chapter filenames.
-   - **Phase 2 (Parallel Subagents)**: Assign each subagent its own `doc_src/0N_<chapter>.md` file(s). Each subagent writes the chapter (`2+` diagrams, Chapter Hero at `Lines 5–15`) and executes Stage 1 & Stage 2 using a **unique scratch filename** (`-o .drawlib/scratch/0N_<diagram>_grid.png`).
-   - **Phase 3 (Parent)**: Run `./doc_src/build.sh` once after all subagents finish, verify links (`drawlib serve doc_html/ --check`), and perform Stage 3 inspection of `doc.pdf` and `doc_html/index.html`.
+   Because each chapter in `doc_src/<lang>/` is a standalone numbered file (`01_overview.md`, `02_architecture.md`, `03_security.md`, etc.), **distribute chapter authoring across parallel subagents** whenever creating or updating multiple chapters:
+   - **Phase 1 (Parent)**: Scaffold `doc_src/`, configure `drawlib.toml`, `styles.py`, `utils.py`, and `<lang>/00_cover.md`, and define the numbered chapter filenames.
+   - **Phase 2 (Parallel Subagents)**: Assign each subagent its own `doc_src/<lang>/0N_<chapter>.md` file(s). Each subagent writes the chapter (`2+` diagrams, Chapter Hero at `Lines 5–15`) and executes Stage 1 & Stage 2 using a **unique scratch filename** (`-o .drawlib/scratch/0N_<diagram>_grid.png`).
+   - **Phase 3 (Parent)**: Run `./doc_src/build.sh` once after all subagents finish, verify links (`drawlib serve doc_html/ --check`), and perform Stage 3 inspection of `doc_<lang>.pdf` and `doc_html/<lang>/index.html`.
 
 ---
 
-## 5. Multi-Language (`i18n`) Linear Documents (`drawlib.toml`)
+## 5. Unified Locale Layout & Multi-Language (`i18n`) Linear Documents (`drawlib.toml`)
 
-A single `doc_src/` directory can compile synchronized multi-locale HTML, PDF, Word (`.docx`), and Markdown deliverables by passing comma-separated locales to `drawlib init doc` (or adding an `[i18n]` table to `doc_src/drawlib.toml`):
+Because every `doc` project uses `<src_dir>/<lang>/` from day one, scaling a single-language document (`langs = ["en"]`) to a multi-language whitepaper requires **zero `git mv` file moves**—simply add `doc_src/ja/` and append `"ja"` to `langs` in `doc_src/drawlib.toml` (or initialize directly with `-l en,ja`):
 
 ```bash
 uv run drawlib init doc whitepaper -l en,ja -s google
@@ -226,10 +229,11 @@ en = "English"
 ja = "日本語"
 ```
 
-- **Symmetric Locale Chapter Trees (`doc_src/<lang>/`)**: Every locale directory (`en/`, `ja/`, ...) must contain the exact same relative set of numbered Markdown chapters (`00_cover.md`, `01_overview.md`, ...) with matching Markdown structural skeletons (headings, fenced code blocks, tables, lists, blockquotes).
+- **No `[project].lang` on `doc` Projects**: Locale settings live exclusively in `[i18n]` (`default_lang`, `langs`, optional `[i18n.labels]`).
+- **Symmetric Locale Chapter Trees (`doc_src/<lang>/`)**: Every locale directory (`en/`, `ja/`, ...) must contain the exact same relative set of numbered Markdown chapters (`00_cover.md`, `01_overview.md`, ...) with matching Markdown structural skeletons (headings `H1`–`H3`, `MarkdownText` runs, `DrawlibBlock` attributes, and non-drawlib `CodeBlock` languages).
 - **Per-Locale `styles.py` / `utils.py` Overrides**: Shared language-neutral diagrams (`file=fig_arch.png`) use root `doc_src/styles.py` and render once into shared `images/` (`default_lang` authoritative). When a locale needs CJK typography or translated diagram labels, place a locale-specific override at `doc_src/<lang>/styles.py` (e.g., `ja/styles.py` with `FontJapanese`) and give localized fences a distinct filename (`file=fig_arch_ja.png`).
 - **Synchronized Per-Locale Deliverables**:
-  - **HTML (`whitepaper_html/`)**: Generates `<lang>/index.html`, a root `index.html` browser-language redirector, shared `images/` + `_assets/`, and a top-right `.lang-switcher` dropdown (automatically hidden in `@media print`).
+  - **HTML (`whitepaper_html/`)**: Generates `<lang>/index.html`, a root `index.html` browser-language redirector, shared `images/` + `_assets/`, and a top-right `.lang-switcher` dropdown when `len(langs) >= 2` (automatically omitted when `len(langs) == 1` and hidden in `@media print`).
   - **PDF & MS Word (`whitepaper_<lang>.pdf` / `whitepaper_<lang>.docx`)**: Compiles one A4 vector PDF and/or `.docx` per locale (`whitepaper_en.pdf`, `whitepaper_ja.pdf`), automatically localizing the injected Table of Contents heading (`"Table of Contents"`, `"目次"`, etc.) for each locale.
   - **Markdown (`whitepaper_markdown/<lang>/`)**: Emits per-locale GitHub Markdown chapters referencing shared `../images/...`.
 

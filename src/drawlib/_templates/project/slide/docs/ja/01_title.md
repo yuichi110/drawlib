@@ -10,7 +10,7 @@ Declarative Python Diagramming & Modern Presentation Decks
 :::
 
 ::: block xy=(1360, 260) width=400 height=480
-![Sample Asset](_assets/linux.png)
+![Sample Asset](../_assets/linux.png)
 :::
 
 ::: note

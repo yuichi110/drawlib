@@ -27,4 +27,4 @@ fi
 
 echo "Building Presentation PDF..."
 $DRAWLIB_CMD build pdf slide_about_drawlib_src/ -o slide_about_drawlib.pdf
-echo "Presentation PDF build complete: slide_about_drawlib.pdf"
+echo "Presentation PDF build complete: slide_about_drawlib_en.pdf"

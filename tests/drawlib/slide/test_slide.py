@@ -13,10 +13,14 @@ from __future__ import annotations
 
 import base64
 from pathlib import Path
+from unittest.mock import patch
 
 import pytest
+from PIL import Image
 
 import drawlib.slide as slide_module
+from drawlib._builder.doc_builder.processor import DrawlibBlockProcessor
+from drawlib._http_server._link_scanner import scan_broken_links
 from drawlib._slide import (
     BoundingBox,
     build_slide,
@@ -28,6 +32,42 @@ from drawlib._slide.base import reset_slide_context, set_slide_context
 from drawlib._templates import get_css, get_slide_js, init_project, list_slide_css
 from drawlib.canvas import clear, save
 from tests.drawlib.cli.common import run_drawlib_cli
+
+
+def _write_slide_manifest(
+    src_dir: Path,
+    *,
+    name: str = "slide",
+    langs: tuple[str, ...] = ("en",),
+    default_lang: str | None = None,
+    style: str = "google",
+    title: str = "",
+    labels: dict[str, str] | None = None,
+) -> Path:
+    """Create a valid drawlib.toml slide manifest and locale directories."""
+    src_dir.mkdir(parents=True, exist_ok=True)
+    eff_default = default_lang or langs[0]
+    for lc in langs:
+        (src_dir / lc).mkdir(parents=True, exist_ok=True)
+    langs_str = ", ".join(f'"{lc}"' for lc in langs)
+    lines = [
+        "[project]",
+        f'name = "{name}"',
+        'type = "slide"',
+        f'title = "{title}"',
+        'description = ""',
+        f'style = "{style}"',
+        "",
+        "[i18n]",
+        f'default_lang = "{eff_default}"',
+        f"langs = [{langs_str}]",
+    ]
+    if labels:
+        lines.extend(["", "[i18n.labels]"])
+        for lc, lbl in labels.items():
+            lines.append(f'{lc} = "{lbl}"')
+    (src_dir / "drawlib.toml").write_text("\n".join(lines) + "\n", encoding="utf-8")
+    return src_dir / eff_default
 
 
 class TestSlideFoundation:
@@ -58,6 +98,7 @@ class TestSlideFoundation:
         google_css = get_css(name="google", target="slide")
         assert "--slide-width" in google_css
         assert "presentation-stage" in google_css
+        assert ".slide-lang-dropdown" in google_css
 
         default_css = get_css(name="default", target="slide")
         assert "--slide-width" in default_css
@@ -68,6 +109,7 @@ class TestSlideFoundation:
         assert "STAGE_WIDTH" in js_code
         assert "goToSlide" in js_code
         assert "updateScale" in js_code
+        assert "data-lang-switch" in js_code
 
     def test_public_slide_facade(self) -> None:
         """Verify public drawlib.slide facade exposes expected domain symbols."""
@@ -149,12 +191,12 @@ class TestSlideCompiler:
     """Test suite for slide markdown compiler and presentation deck generator."""
 
     def test_build_slide_compilation(self, tmp_path: Path) -> None:
-        """Verify end-to-end compilation of a multi-slide presentation."""
+        """Verify end-to-end compilation of an i18n-native multi-slide presentation."""
         src_dir = tmp_path / "slide_src"
-        out_dir = tmp_path / "slide"
-        src_dir.mkdir()
+        out_dir = tmp_path / "slide_html"
+        en_dir = _write_slide_manifest(src_dir)
 
-        (src_dir / "01_title.md").write_text(
+        (en_dir / "01_title.md").write_text(
             """::: block xy=(160, 240) width=1600 height=600
 # Drawlib Test Deck
 ## Presentation as Code
@@ -163,7 +205,7 @@ class TestSlideCompiler:
             encoding="utf-8",
         )
 
-        (src_dir / "02_agenda.md").write_text(
+        (en_dir / "02_agenda.md").write_text(
             """::: block xy=(80, 40) width=1760 height=60
 # Presentation Agenda
 :::
@@ -200,7 +242,7 @@ rm.draw(xy=(4, 4), width=96, height=78)
             encoding="utf-8",
         )
 
-        (src_dir / "03_features.md").write_text(
+        (en_dir / "03_features.md").write_text(
             """::: block xy=(80, 40) width=1760 height=60
 # Features
 :::
@@ -231,7 +273,10 @@ text((50, 10), current_slide.text, style=Styles.Dark)
         )
 
         result_html = build_slide(str(src_dir), str(out_dir), no_cache=True)
+        assert Path(result_html) == out_dir / "en" / "index.html"
         assert Path(result_html).is_file()
+        assert (out_dir / "index.html").is_file()
+        assert "en/index.html" in (out_dir / "index.html").read_text(encoding="utf-8")
 
         index_content = Path(result_html).read_text(encoding="utf-8")
         assert "Drawlib Test Deck" in index_content
@@ -239,9 +284,11 @@ text((50, 10), current_slide.text, style=Styles.Dark)
         assert 'data-slide-index="1"' in index_content
         assert 'data-slide-index="2"' in index_content
         assert 'data-slide-index="3"' in index_content
+        assert '<script src="../slide.js"></script>' in index_content
+        assert "slide-lang-dropdown" not in index_content
 
         # Assets
-        assert (out_dir / "style.css").is_file()
+        assert (out_dir / "en" / "style.css").is_file()
         assert (out_dir / "slide.js").is_file()
         assert (out_dir / "images" / "02_agenda" / "agenda.svg").is_file()
         assert (out_dir / "images" / "03_features" / "diag.svg").is_file()
@@ -260,10 +307,33 @@ text((50, 10), current_slide.text, style=Styles.Dark)
         with pytest.raises(ValueError, match="Input directory does not exist"):
             build_slide(str(tmp_path / "non_existent_dir"))
 
+    def test_build_slide_missing_manifest_and_locale_subdir_hint_raises(self, tmp_path: Path) -> None:
+        """Verify missing drawlib.toml raises ValueError and locale subdir hints parent project root."""
+        uninitialized = tmp_path / "uninitialized_src"
+        uninitialized.mkdir()
+        (uninitialized / "01_title.md").write_text("# No Manifest\n", encoding="utf-8")
+        with pytest.raises(ValueError, match=r"drawlib\.toml"):
+            build_slide(str(uninitialized))
+
+        valid_proj = tmp_path / "deck_src"
+        en_dir = _write_slide_manifest(valid_proj)
+        (en_dir / "01_title.md").write_text("# Valid\n", encoding="utf-8")
+        with pytest.raises(ValueError, match="pass the project root directory"):
+            build_slide(str(en_dir))
+
+        wrong_type = tmp_path / "doc_src"
+        (wrong_type / "en").mkdir(parents=True)
+        (wrong_type / "drawlib.toml").write_text(
+            '[project]\nname = "doc"\ntype = "doc"\nstyle = "default"\n\n[i18n]\ndefault_lang = "en"\nlangs = ["en"]\n',
+            encoding="utf-8",
+        )
+        with pytest.raises(ValueError, match='not a "slide" presentation project'):
+            build_slide(str(wrong_type))
+
     def test_build_slide_no_md_files_raises(self, tmp_path: Path) -> None:
-        """Verify ValueError raised when source directory contains no markdown files."""
-        empty_dir = tmp_path / "empty_dir"
-        empty_dir.mkdir()
+        """Verify ValueError raised when locale directory contains no markdown slide files."""
+        empty_dir = tmp_path / "empty_src"
+        _write_slide_manifest(empty_dir)
         with pytest.raises(ValueError, match="No Markdown slide files"):
             build_slide(str(empty_dir))
 
@@ -271,9 +341,9 @@ text((50, 10), current_slide.text, style=Styles.Dark)
         """Verify full-bleed 1920x1080 stage renders pure section without injected chrome."""
         src_dir = tmp_path / "slide_src"
         out_dir = tmp_path / "slide"
-        src_dir.mkdir()
+        en_dir = _write_slide_manifest(src_dir)
 
-        (src_dir / "01_canvas.md").write_text(
+        (en_dir / "01_canvas.md").write_text(
             """::: block xy=(0, 0) width=1920 height=1080
 ```drawlib file=hero.svg
 from drawlib.canvas import setup, clear
@@ -307,9 +377,9 @@ text((96, 20), current_slide.text, style=Styles.White)
         """Verify ::: block container syntax creates absolutely positioned, styled blocks."""
         src_dir = tmp_path / "slide_src"
         out_dir = tmp_path / "slide"
-        src_dir.mkdir()
+        en_dir = _write_slide_manifest(src_dir)
 
-        (src_dir / "01_boxes.md").write_text(
+        (en_dir / "01_boxes.md").write_text(
             """::: block xy=(80, 140) width=740 height=480 font_size=21px compact=true z_index=10
 # Ingress Controller
 - **TLS**: Terminated at edge
@@ -337,9 +407,9 @@ text((96, 20), current_slide.text, style=Styles.White)
         """Verify slides are completely chrome-free by default without injected header/footer/paginate."""
         src_dir = tmp_path / "slide_src"
         out_dir = tmp_path / "slide"
-        src_dir.mkdir()
+        en_dir = _write_slide_manifest(src_dir)
 
-        (src_dir / "01_clean.md").write_text(
+        (en_dir / "01_clean.md").write_text(
             """::: block xy=(80, 140) width=800 height=400
 # Clean Slide Without Chrome
 - Focused content only
@@ -360,13 +430,13 @@ text((96, 20), current_slide.text, style=Styles.White)
         """Verify ::: block options: font_size, compact, align, z-index, and custom styles."""
         src_dir = tmp_path / "slide_src"
         out_dir = tmp_path / "slide"
-        src_dir.mkdir()
+        en_dir = _write_slide_manifest(src_dir)
 
         block_header = (
             "::: block xy=(80, 140) width=740 height=840 font_size=20px "
             'compact=true style="transform: translateY(-25px);"'
         )
-        (src_dir / "01_options.md").write_text(
+        (en_dir / "01_options.md").write_text(
             f"""{block_header}
 # Title Inside Block
 - Point 1
@@ -388,7 +458,7 @@ text((96, 20), current_slide.text, style=Styles.White)
         """Verify build_slide clears previous output files to avoid obsolete ghost files."""
         src_dir = tmp_path / "slide_src"
         out_dir = tmp_path / "slide"
-        src_dir.mkdir()
+        en_dir = _write_slide_manifest(src_dir)
         out_dir.mkdir()
 
         # Seed old/obsolete files in output directory
@@ -397,7 +467,7 @@ text((96, 20), current_slide.text, style=Styles.White)
         old_images.mkdir(parents=True)
         (old_images / "legacy.svg").write_text("<svg>legacy</svg>", encoding="utf-8")
 
-        (src_dir / "01_slide.md").write_text(
+        (en_dir / "01_slide.md").write_text(
             """::: block xy=(80, 140) width=800 height=400
 # Fresh Slide
 :::
@@ -410,7 +480,8 @@ text((96, 20), current_slide.text, style=Styles.White)
         assert not (out_dir / "obsolete.svg").exists()
         assert not (out_dir / "images" / "old_slide").exists()
         assert (out_dir / "index.html").is_file()
-        assert (out_dir / "style.css").is_file()
+        assert (out_dir / "en" / "index.html").is_file()
+        assert (out_dir / "en" / "style.css").is_file()
 
 
 class TestSlideCli:
@@ -420,9 +491,9 @@ class TestSlideCli:
         """Verify `drawlib build slide` CLI command execution."""
         src_dir = tmp_path / "slide_src"
         out_dir = tmp_path / "slide_dist"
-        src_dir.mkdir()
+        en_dir = _write_slide_manifest(src_dir)
 
-        (src_dir / "01_title.md").write_text(
+        (en_dir / "01_title.md").write_text(
             """::: block xy=(160, 240) width=1600 height=600
 # CLI Slide Test
 :::
@@ -433,7 +504,9 @@ class TestSlideCli:
         res = run_drawlib_cli(["build", "slide", str(src_dir), "-o", str(out_dir), "--theme", "google", "--no-cache"])
         assert res.returncode == 0
         assert (out_dir / "index.html").is_file()
-        assert (out_dir / "style.css").is_file()
+        assert (out_dir / "en" / "index.html").is_file()
+        assert (out_dir / "en" / "style.css").is_file()
+        assert (out_dir / "slide.js").is_file()
         assert (out_dir / "README.md").is_file()
         assert "Presenter View" in (out_dir / "README.md").read_text(encoding="utf-8")
 
@@ -446,8 +519,9 @@ class TestSlideCli:
 
         src_dir = target_dir / "slide_src"
         assert src_dir.is_dir()
-        assert (src_dir / "01_title.md").is_file()
-        assert (src_dir / "02_agenda.md").is_file()
+        assert (src_dir / "drawlib.toml").is_file()
+        assert (src_dir / "en" / "01_title.md").is_file()
+        assert (src_dir / "en" / "02_agenda.md").is_file()
         assert (src_dir / "build.sh").is_file()
         assert (src_dir / "build_image.sh").is_file()
         assert (src_dir / "serve.sh").is_file()
@@ -472,7 +546,7 @@ class TestSlideCli:
         utils_content = (src_dir / "utils.py").read_text(encoding="utf-8")
         styles_content = (src_dir / "styles.py").read_text(encoding="utf-8")
         css_content = (src_dir / "style.css").read_text(encoding="utf-8")
-        agenda_content = (src_dir / "02_agenda.md").read_text(encoding="utf-8")
+        agenda_content = (src_dir / "en" / "02_agenda.md").read_text(encoding="utf-8")
 
         assert "service_card" in utils_content
         assert "connect" in utils_content
@@ -519,18 +593,18 @@ class TestSlideCli:
         assert "draw_kpi_cards" not in utils_content
 
     def test_build_slide_copies_static_assets(self, tmp_path: Path) -> None:
-        """Verify static assets in _assets are copied to output directory."""
+        """Verify static assets in _assets are copied to output directory and rebased to ../_assets/."""
         src_dir = tmp_path / "slide_src"
         out_dir = tmp_path / "slide"
-        src_dir.mkdir()
+        en_dir = _write_slide_manifest(src_dir)
         assets_dir = src_dir / "_assets"
         assets_dir.mkdir()
         (assets_dir / "logo.png").write_bytes(b"\x89PNG\r\n\x1a\nfakeimage")
 
-        (src_dir / "01_title.md").write_text(
+        (en_dir / "01_title.md").write_text(
             """
 ::: block xy=(100, 100) width=400 height=400
-![Logo](_assets/logo.png)
+![Logo](../_assets/logo.png)
 :::
 """,
             encoding="utf-8",
@@ -540,14 +614,14 @@ class TestSlideCli:
 
         assert (out_dir / "_assets" / "logo.png").is_file()
         assert (out_dir / "_assets" / "logo.png").read_bytes() == b"\x89PNG\r\n\x1a\nfakeimage"
-        html_content = (out_dir / "index.html").read_text(encoding="utf-8")
-        assert '<img src="_assets/logo.png" alt="Logo" />' in html_content
+        html_content = (out_dir / "en" / "index.html").read_text(encoding="utf-8")
+        assert '<img src="../_assets/logo.png" alt="Logo" />' in html_content
 
     def test_build_slide_page_numbers_unique_per_slide(self, tmp_path: Path) -> None:
         """Verify identical page number code blocks produce unique cached SVGs per slide."""
         src_dir = tmp_path / "slide_src"
         out_dir = tmp_path / "slide"
-        src_dir.mkdir()
+        en_dir = _write_slide_manifest(src_dir)
 
         page_block = """
 ::: block xy=(1700, 1010) width=140 height=30
@@ -564,9 +638,9 @@ text((7, 1.5), current_slide.text, style=Styles.Black)
 :::
 """
 
-        (src_dir / "01_first.md").write_text(f"# Slide 1\n{page_block}", encoding="utf-8")
-        (src_dir / "02_second.md").write_text(f"# Slide 2\n{page_block}", encoding="utf-8")
-        (src_dir / "03_third.md").write_text(f"# Slide 3\n{page_block}", encoding="utf-8")
+        (en_dir / "01_first.md").write_text(f"# Slide 1\n{page_block}", encoding="utf-8")
+        (en_dir / "02_second.md").write_text(f"# Slide 2\n{page_block}", encoding="utf-8")
+        (en_dir / "03_third.md").write_text(f"# Slide 3\n{page_block}", encoding="utf-8")
 
         build_slide(str(src_dir), str(out_dir))
 
@@ -582,7 +656,7 @@ text((7, 1.5), current_slide.text, style=Styles.Black)
         """Verify adding a slide invalidates cache across deck and updates total slides in page numbers."""
         src_dir = tmp_path / "slide_src"
         out_dir = tmp_path / "slide"
-        src_dir.mkdir()
+        en_dir = _write_slide_manifest(src_dir)
 
         page_block = """
 ::: block xy=(1700, 1010) width=140 height=30
@@ -599,15 +673,15 @@ text((7, 1.5), current_slide.text, style=Styles.Black)
 :::
 """
 
-        (src_dir / "01_first.md").write_text(f"# Slide 1\n{page_block}", encoding="utf-8")
-        (src_dir / "02_second.md").write_text(f"# Slide 2\n{page_block}", encoding="utf-8")
-        (src_dir / "03_third.md").write_text(f"# Slide 3\n{page_block}", encoding="utf-8")
+        (en_dir / "01_first.md").write_text(f"# Slide 1\n{page_block}", encoding="utf-8")
+        (en_dir / "02_second.md").write_text(f"# Slide 2\n{page_block}", encoding="utf-8")
+        (en_dir / "03_third.md").write_text(f"# Slide 3\n{page_block}", encoding="utf-8")
 
         build_slide(str(src_dir), str(out_dir))
         assert "1 / 3" in (out_dir / "images" / "01_first" / "page.svg").read_text(encoding="utf-8")
 
         # Now add a 4th slide and re-build with cache enabled
-        (src_dir / "04_fourth.md").write_text(f"# Slide 4\n{page_block}", encoding="utf-8")
+        (en_dir / "04_fourth.md").write_text(f"# Slide 4\n{page_block}", encoding="utf-8")
         build_slide(str(src_dir), str(out_dir))
 
         svg1 = (out_dir / "images" / "01_first" / "page.svg").read_text(encoding="utf-8")
@@ -619,9 +693,9 @@ text((7, 1.5), current_slide.text, style=Styles.Black)
         """Verify animated drawlib blocks with anim-trigger/loop/pause emit <canvas> player markup with data-base64."""
         src_dir = tmp_path / "slide_src"
         out_dir = tmp_path / "slide"
-        src_dir.mkdir()
+        en_dir = _write_slide_manifest(src_dir)
 
-        (src_dir / "01_anim.md").write_text(
+        (en_dir / "01_anim.md").write_text(
             """::: block xy=(80, 140) width=800 height=500
 ```drawlib file=flow anim_trigger=click anim_loop=once anim_pause=(2, 4)
 from drawlib.anim import Animation
@@ -668,12 +742,12 @@ rectangle((20, 10), width=10, height=10, style=Styles.Neutral)
         assert 'data-anim-loop="once"' in html_content
         assert 'data-anim-pause="2,4"' in html_content
         assert (
-            f'<canvas class="drawlib-anim-canvas" data-src="images/01_anim/flow.png" data-base64="{expected_b64}"'
+            f'<canvas class="drawlib-anim-canvas" data-src="../images/01_anim/flow.png" data-base64="{expected_b64}"'
         ) in html_content
         assert 'class="anim-play-badge"' in html_content
 
         # Static block without playback options -> standard <img>
-        assert '<img src="images/01_anim/static_box.png"' in html_content
+        assert '<img src="../images/01_anim/static_box.png"' in html_content
 
     def test_extract_slide_notes_single_and_multiple(self) -> None:
         """Verify extract_slide_notes extracts ::: note and joins multiple blocks with a blank line."""
@@ -700,9 +774,9 @@ Second speaker note with **bold** text.
         """Verify build_slide compiles ::: note blocks into .slide-notes and emits #btn-presenter."""
         src_dir = tmp_path / "slide_src"
         out_dir = tmp_path / "slide"
-        src_dir.mkdir()
+        en_dir = _write_slide_manifest(src_dir)
 
-        (src_dir / "01_with_notes.md").write_text(
+        (en_dir / "01_with_notes.md").write_text(
             """::: block xy=(80, 40) width=1760 height=60
 # Slide With Notes
 :::
@@ -719,7 +793,7 @@ Note block one.
             encoding="utf-8",
         )
 
-        (src_dir / "02_no_notes.md").write_text(
+        (en_dir / "02_no_notes.md").write_text(
             """::: block xy=(80, 40) width=1760 height=60
 # Slide Without Notes
 :::
@@ -741,11 +815,11 @@ Note block one.
         src_dir = tmp_path / "slide_src"
         out_dir_1 = tmp_path / "slide_out_1"
         out_dir_2 = tmp_path / "slide_out_2"
-        src_dir.mkdir()
+        en_dir = _write_slide_manifest(src_dir)
 
         custom_font_path = (Path(__file__).resolve().parents[2] / "assets" / "avenger" / "regular.ttf").as_posix()
 
-        (src_dir / "01_fonts.md").write_text(
+        (en_dir / "01_fonts.md").write_text(
             f"""::: block xy=(80, 40) width=1760 height=900
 ```drawlib file=fonts_demo.svg
 from drawlib.canvas import setup, clear
@@ -770,7 +844,7 @@ phosphor.rocket((75, 25), width=12, style=Styles.Primary)
         # 1. Build with cache enabled (cold cache -> populates SQLite cache)
         result_html_1 = build_slide(str(src_dir), str(out_dir_1), no_cache=False)
         html_1 = Path(result_html_1).read_text(encoding="utf-8")
-        css_1 = (out_dir_1 / "style.css").read_text(encoding="utf-8")
+        css_1 = (out_dir_1 / "en" / "style.css").read_text(encoding="utf-8")
         svg_disk_1 = (out_dir_1 / "images" / "01_fonts" / "fonts_demo.svg").read_text(encoding="utf-8")
 
         # Verify SVG on disk has metadata comment, while inline HTML strips it
@@ -791,15 +865,15 @@ phosphor.rocket((75, 25), width=12, style=Styles.Primary)
         assert custom_fonts_dir.is_dir()
         assert len(list(custom_fonts_dir.glob("*_regular.ttf"))) == 1
 
-        # Verify @font-face declarations in style.css
+        # Verify @font-face declarations in en/style.css point to ../_assets/fonts/...
         assert "font-family: 'drawlib-roboto-regular';" in css_1
-        assert "src: url('_assets/fonts/roboto/regular.ttf') format('truetype');" in css_1
+        assert "src: url('../_assets/fonts/roboto/regular.ttf') format('truetype');" in css_1
         assert "font-family: 'drawlib-roboto-bold';" in css_1
         assert "font-family: 'drawlib-phosphor-regular';" in css_1
 
         # 2. Rebuild into a fresh output directory using warm cache
         build_slide(str(src_dir), str(out_dir_2), no_cache=False)
-        css_2 = (out_dir_2 / "style.css").read_text(encoding="utf-8")
+        css_2 = (out_dir_2 / "en" / "style.css").read_text(encoding="utf-8")
         assert (out_dir_2 / "_assets" / "fonts" / "roboto" / "regular.ttf").is_file()
         assert (out_dir_2 / "_assets" / "fonts" / "roboto" / "bold.ttf").is_file()
         assert (out_dir_2 / "_assets" / "fonts" / "phosphor" / "regular.ttf").is_file()
@@ -809,7 +883,7 @@ phosphor.rocket((75, 25), width=12, style=Styles.Primary)
         """Verify slides in chapter subdirectories sort in order, resolve root utils/styles, and avoid collisions."""
         src_dir = tmp_path / "slide_src"
         out_dir = tmp_path / "slide_out"
-        src_dir.mkdir()
+        en_dir = _write_slide_manifest(src_dir)
 
         (src_dir / "utils.py").write_text(
             """from drawlib.canvas import clear, setup
@@ -825,8 +899,8 @@ def draw_page_number():
             encoding="utf-8",
         )
 
-        ch0 = src_dir / "00_opening"
-        ch1 = src_dir / "01_chapter_one"
+        ch0 = en_dir / "00_opening"
+        ch1 = en_dir / "01_chapter_one"
         ch0.mkdir()
         ch1.mkdir()
 
@@ -861,28 +935,27 @@ utils.draw_page_number()
         assert "3 / 3" in svg3
 
     def test_build_slide_excludes_underscore_prefix_and_special_files(self, tmp_path: Path) -> None:
-        """Verify files/directories starting with _ and special files (README.md, navbar.md) are excluded."""
+        """Verify files/directories starting with _ and special README files are excluded, while navbar.md errors."""
         src_dir = tmp_path / "slide_src"
         out_dir = tmp_path / "slide_out"
-        src_dir.mkdir()
+        en_dir = _write_slide_manifest(src_dir)
 
-        (src_dir / "01_title.md").write_text("# Valid Slide 1\n", encoding="utf-8")
-        (src_dir / "02_content.md").write_text("# Valid Slide 2\n", encoding="utf-8")
+        (en_dir / "01_title.md").write_text("# Valid Slide 1\n", encoding="utf-8")
+        (en_dir / "02_content.md").write_text("# Valid Slide 2\n", encoding="utf-8")
 
         # Non-slide files prefixed with _
-        (src_dir / "_CONTENTS_PLANNING.md").write_text("# Secret Planning Doc\n", encoding="utf-8")
-        (src_dir / "_notes.markdown").write_text("# Internal Notes\n", encoding="utf-8")
+        (en_dir / "_CONTENTS_PLANNING.md").write_text("# Secret Planning Doc\n", encoding="utf-8")
+        (en_dir / "_notes.markdown").write_text("# Internal Notes\n", encoding="utf-8")
 
         # Subdirectory prefixed with _
-        drafts_dir = src_dir / "_drafts"
+        drafts_dir = en_dir / "_drafts"
         drafts_dir.mkdir()
         (drafts_dir / "99_wip.md").write_text("# WIP Slide\n", encoding="utf-8")
 
         # Special excluded files
-        (src_dir / "README.md").write_text("# Project Readme\n", encoding="utf-8")
-        (src_dir / "navbar.md").write_text("* [Home](01_title.md)\n", encoding="utf-8")
-        (src_dir / "output_readme.md").write_text("# Output Viewer Readme\n", encoding="utf-8")
-        (src_dir / "output_html_readme.md").write_text("# Output HTML Viewer Readme\n", encoding="utf-8")
+        (en_dir / "README.md").write_text("# Project Readme\n", encoding="utf-8")
+        (en_dir / "output_readme.md").write_text("# Output Viewer Readme\n", encoding="utf-8")
+        (en_dir / "output_html_readme.md").write_text("# Output HTML Viewer Readme\n", encoding="utf-8")
 
         result_html = build_slide(str(src_dir), str(out_dir), no_cache=True)
         html = Path(result_html).read_text(encoding="utf-8")
@@ -899,3 +972,156 @@ utils.draw_page_number()
         assert "Project Readme" not in html
         assert "Output Viewer Readme" not in html
         assert "Output HTML Viewer Readme" not in html
+
+        # navbar.md inside a slide locale directory is explicitly rejected
+        (en_dir / "navbar.md").write_text("* [Home](01_title.md)\n", encoding="utf-8")
+        with pytest.raises(ValueError, match=r"navbar\.md"):
+            build_slide(str(src_dir), str(out_dir), no_cache=True)
+
+    def test_cli_init_slide_multi_locale_and_default_output(self, tmp_path: Path) -> None:
+        """Verify `drawlib init slide -l en,ja` scaffolds multi-locale slides that build with zero broken links."""
+        target_dir = tmp_path / "bilingual_deck"
+        target_dir.mkdir()
+        res = run_drawlib_cli(["init", "slide", "-l", "en,ja"], cwd=str(target_dir))
+        assert res.returncode == 0
+
+        src_dir = target_dir / "slide_src"
+        manifest_text = (src_dir / "drawlib.toml").read_text(encoding="utf-8")
+        assert 'type = "slide"' in manifest_text
+        assert 'default_lang = "en"' in manifest_text
+        assert 'langs = ["en", "ja"]' in manifest_text
+        assert "[i18n.labels]" in manifest_text
+        assert (src_dir / "en" / "01_title.md").is_file()
+        assert (src_dir / "ja" / "01_title.md").is_file()
+
+        # Default output_dir resolves slide_src -> slide_html
+        result_html = build_slide(str(src_dir), no_cache=True)
+        out_dir = target_dir / "slide_html"
+        assert Path(result_html) == out_dir / "en" / "index.html"
+        assert (out_dir / "index.html").is_file()
+        assert (out_dir / "en" / "index.html").is_file()
+        assert (out_dir / "ja" / "index.html").is_file()
+
+        html_count, total_links, broken_errors = scan_broken_links(str(out_dir))
+        assert html_count == 3
+        assert total_links > 0
+        assert broken_errors == []
+
+    def test_build_slide_multi_locale_deduplication_styles_switcher_and_links(self, tmp_path: Path) -> None:
+        """Verify multi-locale slide build deduplicates shared blocks, applies ja/styles.py, and passes link check."""
+        src_dir = tmp_path / "deck_src"
+        out_dir = tmp_path / "deck_html"
+        _write_slide_manifest(
+            src_dir,
+            name="deck",
+            langs=("en", "ja"),
+            labels={"en": "English (US)", "ja": "日本語"},
+        )
+
+        # Shared _assets (logo + favicon)
+        assets_dir = src_dir / "_assets"
+        assets_dir.mkdir()
+        Image.new("RGBA", (16, 16), (30, 64, 175, 255)).save(assets_dir / "logo.png")
+        Image.new("RGBA", (16, 16), (30, 64, 175, 255)).save(assets_dir / "favicon.png")
+
+        # Root styles.py (blue PrimaryFlat) vs ja/styles.py override (red PrimaryFlat)
+        (src_dir / "styles.py").write_text(
+            """from drawlib.preset_styles import DefaultStyles
+_base = DefaultStyles()
+Styles = DefaultStyles(PrimaryFlat=_base.WhiteFlat.patch(shape_fill_color=(20, 70, 220)))
+""",
+            encoding="utf-8",
+        )
+        (src_dir / "ja" / "styles.py").write_text(
+            """from drawlib.preset_styles import DefaultStyles
+_base = DefaultStyles()
+Styles = DefaultStyles(PrimaryFlat=_base.WhiteFlat.patch(shape_fill_color=(220, 35, 35)))
+""",
+            encoding="utf-8",
+        )
+
+        shared_block = """```drawlib file=shared_top.png
+from drawlib.canvas import clear, save, setup
+from drawlib.shapes import rectangle
+from drawlib.styles import Styles
+
+clear()
+setup(width=40, height=20)
+rectangle((20, 10), width=36, height=16, style=Styles.Neutral, text="Shared")
+save()
+```"""
+
+        loc_block_en = """```drawlib file=regional.png
+from drawlib.canvas import clear, save, setup
+from drawlib.shapes import rectangle
+from drawlib.styles import Styles
+
+clear()
+setup(width=40, height=20)
+rectangle((20, 10), width=40, height=20, style=Styles.PrimaryFlat)
+save()
+```"""
+        loc_block_ja = loc_block_en.replace("file=regional.png", "file=regional_ja.png")
+
+        (src_dir / "en" / "01_intro").mkdir()
+        (src_dir / "ja" / "01_intro").mkdir()
+
+        (src_dir / "en" / "01_intro" / "01_cover.md").write_text(
+            f"# English Architecture Deck\n\n![Logo](../../_assets/logo.png)\n\n{shared_block}\n\n{loc_block_en}\n",
+            encoding="utf-8",
+        )
+        (src_dir / "ja" / "01_intro" / "01_cover.md").write_text(
+            f"# 日本語アーキテクチャデッキ\n\n![ロゴ](../../_assets/logo.png)\n\n{shared_block}\n\n{loc_block_ja}\n",
+            encoding="utf-8",
+        )
+
+        orig_exec = DrawlibBlockProcessor._exec_code_block
+        exec_count = 0
+
+        def _counting_exec(
+            code: str,
+            source_filename: str = "<drawlib_block>",
+            shared_globals: dict[str, object] | None = None,
+        ) -> None:
+            nonlocal exec_count
+            exec_count += 1
+            orig_exec(code=code, source_filename=source_filename, shared_globals=shared_globals)
+
+        with patch.object(DrawlibBlockProcessor, "_exec_code_block", staticmethod(_counting_exec)):
+            res_html = build_slide(str(src_dir), str(out_dir), no_cache=True)
+
+        assert Path(res_html) == out_dir / "en" / "index.html"
+        # 1 shared diagram + 2 localized diagrams = 3 total executions (instead of 4)
+        assert exec_count == 3
+
+        # Verify ja/styles.py red fill vs root styles.py blue fill on localized diagrams
+        with Image.open(out_dir / "images" / "01_intro" / "01_cover" / "regional.png") as im_en:
+            r_en, _, b_en = im_en.convert("RGB").getpixel((im_en.width // 2, im_en.height // 2))
+        with Image.open(out_dir / "images" / "01_intro" / "01_cover" / "regional_ja.png") as im_ja:
+            r_ja, _, b_ja = im_ja.convert("RGB").getpixel((im_ja.width // 2, im_ja.height // 2))
+        assert b_en > 180 and r_en < 80
+        assert r_ja > 180 and b_ja < 80
+
+        en_html = (out_dir / "en" / "index.html").read_text(encoding="utf-8")
+        ja_html = (out_dir / "ja" / "index.html").read_text(encoding="utf-8")
+        ja_css = (out_dir / "ja" / "style.css").read_text(encoding="utf-8")
+
+        assert "<title>English Architecture Deck</title>" in en_html
+        assert "<title>日本語アーキテクチャデッキ</title>" in ja_html
+        assert '<html lang="en" dir="ltr">' in en_html
+        assert '<html lang="ja" dir="ltr">' in ja_html
+        assert "Noto Sans JP" in ja_css
+        assert 'href="../_assets/favicon.png"' in en_html
+        assert 'src="../_assets/logo.png"' in en_html
+        assert 'src="../_assets/logo.png"' in ja_html
+        assert 'class="slide-lang-dropdown"' in en_html
+        assert "English (US)" in en_html
+        assert "日本語" in en_html
+        assert 'data-lang-switch="ja"' in en_html
+        assert 'href="../ja/index.html"' in en_html
+        assert 'href="../en/index.html"' in ja_html
+
+        html_count, total_links, broken_errors = scan_broken_links(str(out_dir))
+        assert html_count == 3
+        assert total_links > 5
+        assert broken_errors == []

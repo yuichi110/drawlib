@@ -1,6 +1,6 @@
 # Drawlib Multi-Page Documentation Website Guidelines (`project-site`)
 
-A **`site` project** (`drawlib init site`) compiles a directory tree of Markdown files (`docs_src/**/*.md`) governed by a sidebar definition (`docs_src/navbar.md`) into a **responsive multi-page static HTML documentation website (`docs_html/`)**, **GitHub-Flavored Markdown (`docs_markdown/`)**, and **extracted diagram assets (`docs_images/`)**.
+A **`site` project** (`drawlib init site`) compiles a locale-structured directory tree of Markdown files (`docs_src/<lang>/**/*.md`) governed by a sidebar definition (`docs_src/<lang>/navbar.md`) into a **responsive multi-page static HTML documentation website (`docs_html/`)**, **GitHub-Flavored Markdown (`docs_markdown/`)**, and **extracted diagram assets (`docs_images/`)**.
 
 *(For general project scaffolding, see `uv run drawlib rules show project-overview`. For single-file linear documents/PDFs, see `uv run drawlib rules show project-doc`. For the 3-stage review loop, see `uv run drawlib rules show review-guide`.)*
 
@@ -15,30 +15,34 @@ Choose `drawlib init site` when the user wants a **multi-page documentation webs
 
 ```bash
 # Scaffold a multi-page documentation site (default target 'docs', creates 'docs_src/'):
-uv run drawlib init site [target] [-l <lang>] [-s <default|google|monochrome>]
+uv run drawlib init site [target] [-l <lang[,lang...]>] [-s <default|google|monochrome>]
 
 # Examples:
 uv run drawlib init site --lang ja -s google
-uv run drawlib init site docs -s default
+uv run drawlib init site docs -l en,ja -s default
 ```
 
 ---
 
 ## 2. Directory Structure & Mandatory Files (`docs_src/`)
 
+Every `site` project uses the unified `<src_dir>/<lang>/` locale directory layout (even for single-language sites such as `-l en` -> `docs_src/en/`), governed by `[i18n]` in `drawlib.toml`:
+
 ```text
 .
 ├── docs_src/                  # [SOURCE OF TRUTH] Edit ONLY files here!
-│   ├── index.md               # [MANDATORY] Root landing page
-│   ├── navbar.md              # [MANDATORY] Sidebar navigation menu & brand definition
-│   ├── 01_getting_started/    # Categorized chapter subdirectories
-│   │   ├── overview.md
-│   │   └── quickstart.md
-│   ├── 02_architecture/
-│   │   ├── overview.md
-│   │   └── data_model.md
+│   ├── drawlib.toml           # [MANDATORY] Project manifest (type = "site" + [i18n])
+│   ├── en/                    # Locale page tree (e.g. en/, ja/)
+│   │   ├── index.md           # [MANDATORY] Locale landing page
+│   │   ├── navbar.md          # [MANDATORY] Sidebar navigation menu & brand definition
+│   │   ├── 01_getting_started/# Categorized chapter subdirectories
+│   │   │   ├── overview.md
+│   │   │   └── quickstart.md
+│   │   └── 02_architecture/
+│   │       ├── overview.md
+│   │       └── data_model.md
 │   ├── _assets/               # Static images, logos, or custom .ttf/.otf fonts
-│   ├── styles.py              # Site-wide Drawlib Styles & Colors
+│   ├── styles.py              # Site-wide Drawlib Styles & Colors (optional <lang>/styles.py override)
 │   ├── utils.py               # Site-wide Python drawing helpers & macros
 │   ├── style.css              # Responsive HTML & sidebar CSS theme
 │   ├── template.html          # Jinja2 multi-page HTML layout template
@@ -47,12 +51,12 @@ uv run drawlib init site docs -s default
 │   ├── build_markdown.sh      # GitHub-ready Markdown build (docs_markdown/)
 │   ├── build_image.sh         # Standalone diagram extraction (docs_images/)
 │   └── serve.sh               # Local preview server + broken link checker
-├── docs_html/                 # [GENERATED] Static HTML website with sidebar
-├── docs_markdown/             # [GENERATED] Rendered Markdown for GitHub browsing
+├── docs_html/                 # [GENERATED] Static HTML website (index.html + <lang>/**)
+├── docs_markdown/             # [GENERATED] Rendered Markdown for GitHub (index.md + <lang>/**)
 └── docs_images/               # [GENERATED] Extracted diagram PNG/WebP images
 ```
 
-```drawlib align=center code=fold file=project_site_architecture.png caption="Multi-Page Documentation Website (docs_src/) Architecture & Above-the-Fold Page Layout"
+```drawlib align=center code=fold file=project_site_architecture.png caption="Multi-Page Documentation Website (docs_src/<lang>/) Architecture & Above-the-Fold Page Layout"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line
@@ -65,7 +69,7 @@ setup(width=150, height=58, dpi=150)
 rectangle((75, 29), width=144, height=52, style=Styles.MutedDashed.patch(shape_r=2.5))
 text(
     (75, 50.5),
-    "Multi-Page Website Architecture (docs_src/ -> docs_html/)",
+    "Multi-Page Website Architecture (docs_src/<lang>/ -> docs_html/)",
     style=Styles.DarkBold.patch(text_size=12.5),
 )
 
@@ -75,7 +79,7 @@ phosphor.list_bullets((12, 36.5), width=5.0, style=Styles.PrimaryBold)
 text((28, 36.5), "1. navbar.md & Tree", style=Styles.PrimaryBold.patch(text_size=11.5))
 text(
     (26, 21),
-    "• # Brand Title (H1)\n• ## Category (H2)\n• - [Page](path.md)\n• Build-time link check",
+    "• <lang>/navbar.md\n• ## Category (H2)\n• - [Page](path.md)\n• Build-time link check",
     style=Styles.Dark.patch(text_size=10.0),
 )
 
@@ -108,9 +112,9 @@ save()
 
 ---
 
-## 3. Sidebar Navigation Architecture (`navbar.md`)
+## 3. Sidebar Navigation Architecture (`<lang>/navbar.md`)
 
-`docs_src/navbar.md` is **mandatory** for every `site` project and defines the persistent left navigation sidebar:
+`docs_src/<lang>/navbar.md` is **mandatory** in every locale directory of a `site` project and defines the persistent left navigation sidebar:
 
 ```markdown
 # Cloud Platform Docs
@@ -133,17 +137,17 @@ save()
 1. **Brand Title (`# Heading 1`)**: The first `# Heading 1` sets the site brand title displayed in the top-left sidebar header.
 2. **Category Sections (`## Heading 2`)**: Each `## Heading 2` creates a collapsible/grouped category section in the sidebar. Bullet items placed before the first `##` render as top-level ungrouped links (e.g. `Home`).
 3. **Internal Page Links (`- [Label](relative/path.md)`)**:
-   - Paths are resolved relative to `docs_src/`.
+   - Paths are resolved relative to the locale directory (`docs_src/<lang>/`).
    - Section anchors are supported (`- [Section](path.md#anchor)`).
    - **Strict Build-Time Link Validation**: Every local `.md` file referenced in `navbar.md` is verified during `drawlib build html`. If a target file is missing or misspelled, compilation halts immediately with the exact line number.
-   - **Every New Page Must Be Registered**: Whenever you create a new `.md` page in `docs_src/`, add it to `navbar.md` and link to it from its parent/overview page.
+   - **Every New Page Must Be Registered**: Whenever you create a new `.md` page in `docs_src/<lang>/`, add it to `<lang>/navbar.md` and link to it from its parent/overview page.
 4. **External Links**: Links starting with `http://` or `https://` automatically render with an external-link icon and `target="_blank"`.
 
 ---
 
 ## 4. Page Authoring & Visual Composition Best Practices
 
-To achieve true **"Illustrated Documentation as Code"**, every page in `docs_src/` must follow these four layout laws:
+To achieve true **"Illustrated Documentation as Code"**, every page in `docs_src/<lang>/` must follow these four layout laws:
 
 ### 4.1. Law 1: Above-the-Fold Top Hero Diagram (`Lines 5–15` + `code=fold`)
 When a reader opens any page in `docs_html/` at a standard desktop viewport (`1280×920`), they must immediately see a rich architectural illustration—**never a wall of text or a 60-line Python code block**:
@@ -182,8 +186,8 @@ $$\text{Rendered CSS Font Size (px)} = \text{text\_size} \times \frac{\text{Disp
    - When increasing `text_size`, proportionally widen boxes (`width += 20%–30%`) and `Table` `col_widths` so labels never clip.
 
 ### 4.4. Law 4: Cross-Page Relative Markdown Links & Asset References
-- **Strictly Relative Links**: In Markdown prose (`[Link Text](../02_architecture/overview.md)`), write links as relative `.md` paths (Drawlib's HTML compiler automatically rewrites internal `.md` links to `.html` in `docs_html/` while preserving `.md` in `docs_markdown/`).
-- **Static Assets (`_assets/`)**: Reference local assets relatively from the current file (e.g. `![Logo](_assets/logo.png)` or `![Architecture](../_assets/arch.png)`).
+- **Strictly Relative Links**: In Markdown prose (`[Link Text](../02_architecture/overview.md)`), write links as relative `.md` paths within the locale tree (Drawlib's HTML compiler automatically rewrites internal `.md` links to `.html` in `docs_html/` while preserving `.md` in `docs_markdown/`).
+- **Static Assets (`_assets/`)**: In Markdown prose, reference root assets relatively from the current file inside `docs_src/<lang>/` (e.g. `![Logo](../_assets/logo.png)` from `<lang>/index.md` or `![Architecture](../../_assets/arch.png)` from `<lang>/02_architecture/overview.md`). Inside Python ````drawlib```` blocks, `image("_assets/logo.png")` walks up ancestor directories automatically.
 - **No Absolute Paths or `file://` URLs**: Never write local filesystem absolute paths (`/usr/...`, `/home/...`, `/Users/...`, `C:\...`) or `file:///` URLs in documentation Markdown. All links and image paths must be relative or inline code.
 - **Distinction from Agent Chat**: While the AI assistant uses `file:///` links when conversing with the user in chat responses for clickable local IDE navigation, repository documentation files published on the web or GitHub must never contain `file:///` or machine-specific absolute paths.
 - **Automated Build Validation**: `drawlib build` automatically scans all links and images and aborts with line numbers if any forbidden `file://` or absolute filesystem path is detected.
@@ -199,7 +203,7 @@ Never deliver changes to `docs_src/` without executing all 3 verification stages
 2. **Stage 2 — Micro-Geometry Grid Review (`drawlib show ... -g` + `view_file`)**:
    Export each modified diagram with the coordinate grid to `.drawlib/scratch/` (do not rebuild the entire site just to test one diagram):
    ```bash
-   uv run drawlib show docs_src/02_architecture/overview.md auth_gateway_hero.png \
+   uv run drawlib show docs_src/en/02_architecture/overview.md auth_gateway_hero.png \
        -s docs_src/styles.py -u docs_src/utils.py \
        -g -o .drawlib/scratch/preview.png
    ```
@@ -210,34 +214,49 @@ Never deliver changes to `docs_src/` without executing all 3 verification stages
    ./docs_src/build.sh
    uv run drawlib serve docs_html/ --check
    ```
-   Then capture a `1280×920` headless Chromium screenshot of the modified `docs_html/<page>.html` page via Playwright and inspect it with `view_file` to confirm:
+   Then capture a `1280×920` headless Chromium screenshot of the modified `docs_html/en/<page>.html` page via Playwright and inspect it with `view_file` to confirm:
    - The `# Title`, lead paragraph, and **Top Hero diagram** are immediately visible above the fold without scrolling.
    - Diagram labels match the surrounding `16px` HTML body prose in visual font size.
    - Clean up `.drawlib/scratch/` when finished.
 4. **Parallel Multi-Agent Page & Section Delegation (For Multi-Page Sites)**:
-   When authoring or overhauling multiple pages across `docs_src/**/*.md`, **actively parallelize work across subagents** rather than editing every page sequentially in one context window:
-   - **Phase 1 (Parent)**: Scaffold `docs_src/` (`drawlib init site`) and finalize `styles.py`, `utils.py`, `_assets/`, `index.md`, and the complete `navbar.md` link tree first.
-   - **Phase 2 (Parallel Subagents)**: Assign each subagent a disjoint page or section directory (e.g. `01_getting_started/*.md` to Subagent A, `02_architecture/*.md` to Subagent B). Each subagent treats `styles.py`, `utils.py`, and `navbar.md` as read-only, authors its assigned `.md` files (`2+` diagrams, Top Hero at `Lines 5–15`), and runs Stage 1 & Stage 2 using **unique scratch filenames** (`-o .drawlib/scratch/<page>_<diagram>_grid.png`).
+   When authoring or overhauling multiple pages across `docs_src/<lang>/**/*.md`, **actively parallelize work across subagents** rather than editing every page sequentially in one context window:
+   - **Phase 1 (Parent)**: Scaffold `docs_src/` (`drawlib init site`) and finalize `drawlib.toml`, `styles.py`, `utils.py`, `_assets/`, `<lang>/index.md`, and the complete `<lang>/navbar.md` link tree first.
+   - **Phase 2 (Parallel Subagents)**: Assign each subagent a disjoint page or section directory (e.g. `en/01_getting_started/*.md` to Subagent A, `en/02_architecture/*.md` to Subagent B). Each subagent treats `drawlib.toml`, `styles.py`, `utils.py`, and `<lang>/navbar.md` as read-only, authors its assigned `.md` files (`2+` diagrams, Top Hero at `Lines 5–15`), and runs Stage 1 & Stage 2 using **unique scratch filenames** (`-o .drawlib/scratch/<page>_<diagram>_grid.png`).
    - **Phase 3 (Parent)**: After all subagents report back, run `./docs_src/build.sh` once, run `uv run drawlib serve docs_html/ --check`, and perform Stage 3 `1280×920` browser verification.
 
 ---
 
-## 6. Multi-Language (`i18n`) Documentation Websites (`drawlib.toml`)
+## 6. Unified Locale Layout & Multi-Language (`i18n`) Documentation Websites (`drawlib.toml`)
 
-Scaffold a multi-locale `site` project by passing comma-separated language codes to `-l` / `--lang` (first language becomes `default_lang`):
+Every `site` project uses `<target>_src/<lang>/` and `[i18n]` in `drawlib.toml` (no `[project].lang`). Scaffold a bilingual/multilingual site directly with comma-separated language codes (first language becomes `default_lang`), or expand an existing single-locale site later with zero `git mv` file moves:
 
 ```bash
 uv run drawlib init site [target] -l en,ja [-s <default|google|monochrome>]
 ```
 
+```toml
+[project]
+name = "docs"
+type = "site"
+style = "default"
+
+[i18n]
+default_lang = "en"
+langs = ["en", "ja"]
+
+[i18n.labels]
+en = "English"
+ja = "日本語"
+```
+
 - **Source Layout (`<target>_src/`)**:
-  - `drawlib.toml` (`[project]` `type = "site"` + `[i18n]` `default_lang = "en"`, `langs = ["en", "ja"]`) + shared root `styles.py`, `utils.py`, `style.css`, `template.html`, `_assets/`, and `build*.sh` (with optional per-locale `<lang>/styles.py` or `<lang>/utils.py` overrides).
+  - `drawlib.toml` (`[project]` `type = "site"` + `[i18n]` `default_lang`, `langs`, optional `[i18n.labels]`) + shared root `styles.py`, `utils.py`, `style.css`, `template.html`, `_assets/`, and `build*.sh` (with optional per-locale `<lang>/styles.py` or `<lang>/utils.py` overrides).
   - Symmetric locale directories (`en/navbar.md`, `en/index.md`, `ja/navbar.md`, `ja/index.md`, ...).
 - **Compiled Output Layout (`<target>_html/` & `<target>_markdown/`)**:
   - Root `index.html` / `index.md` rendered directly from `<default_lang>/index.md` with relative links automatically rebased (`images/index/...`, `<default_lang>/...`, `_assets/...`).
-  - Per-locale `<lang>/**/*.html` with localized `<lang>/style.css`, `<html lang="...">`, Google Fonts `<link>`, `hreflang` tags, and top-right `<details class="lang-dropdown">` + `<a href>` language switcher.
+  - Per-locale `<lang>/**/*.html` with localized `<lang>/style.css`, `<html lang="...">`, Google Fonts `<link>`, `hreflang` tags, and top-right `<details class="lang-dropdown">` + `<a href>` language switcher when `len(langs) >= 2` (automatically hidden when `len(langs) == 1` and in `@media print`).
   - Shared `images/<doc_rel_stem>/<file>.png` rendered **once** per build run across all locales.
-- **4 Pre-Flight Mechanical Parity Checks (Enforced Automatically on Build)**:
+- **4 Pre-Flight Mechanical Parity Checks (Enforced Automatically When `len(langs) >= 2`)**:
   1. **File Set Parity**: Relative `.md`/`.html` paths in every `<lang>/` must match `<default_lang>/`.
   2. **`navbar.md` Parity**: Section count, heading presence, item count, and normalized link targets must match `<default_lang>/navbar.md`.
   3. **Markdown Skeleton Sequence Parity**: Ordered sequence of `[Heading(H1..H3), MarkdownText, DrawlibBlock(file, code, align, has_caption), CodeBlock(lang)]` must match `<default_lang>` (consecutive paragraphs/lists/tables/blockquotes/H4+ collapse into a single `MarkdownText` token for natural translation freedom).

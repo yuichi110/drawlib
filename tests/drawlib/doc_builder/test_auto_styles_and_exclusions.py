@@ -19,11 +19,16 @@ from drawlib._builder.image_builder import build_image
 
 
 def test_doc_builder_exclusions_and_auto_styles(tmp_path: Path) -> None:
-    """Test that README.md, build.sh, styles.py, and utils.py are excluded from output and auto-detected."""
+    """Test that README.md, _draft.md, build.sh, styles.py, and utils.py are excluded and auto-detected."""
     src = tmp_path / "docs_src"
-    src.mkdir()
+    en_dir = src / "en"
+    en_dir.mkdir(parents=True)
 
-    # Create styles.py, utils.py, style.css, template.html
+    # Create drawlib.toml, styles.py, utils.py, style.css, template.html at project root
+    (src / "drawlib.toml").write_text(
+        '[project]\ntype = "site"\n\n[i18n]\ndefault_lang = "en"\nlangs = ["en"]\n',
+        encoding="utf-8",
+    )
     (src / "styles.py").write_text("# styles\n", encoding="utf-8")
     (src / "utils.py").write_text("# utils\n", encoding="utf-8")
     (src / "build.sh").write_text("#!/bin/bash\necho build\n", encoding="utf-8")
@@ -34,9 +39,11 @@ def test_doc_builder_exclusions_and_auto_styles(tmp_path: Path) -> None:
         "<!DOCTYPE html><html><body><!-- custom-template-marker -->{{ body }}</body></html>\n",
         encoding="utf-8",
     )
-    (src / "index.md").write_text("# Welcome\nHome page content.\n", encoding="utf-8")
-    (src / "navbar.md").write_text("# Site\n- [Home](index.md)\n- [Guide](guide.md)\n", encoding="utf-8")
-    (src / "guide.md").write_text(
+    (en_dir / "README.md").write_text("# Locale Internal Guide\nDo not build this.\n", encoding="utf-8")
+    (en_dir / "_draft.md").write_text("# Draft\nDo not build this.\n", encoding="utf-8")
+    (en_dir / "index.md").write_text("# Welcome\nHome page content.\n", encoding="utf-8")
+    (en_dir / "navbar.md").write_text("# Site\n- [Home](index.md)\n- [Guide](guide.md)\n", encoding="utf-8")
+    (en_dir / "guide.md").write_text(
         "# Guide\n```drawlib file=circle.png\n"
         "from drawlib.canvas import setup, save\n"
         "from drawlib.shapes import circle\n"
@@ -51,11 +58,15 @@ def test_doc_builder_exclusions_and_auto_styles(tmp_path: Path) -> None:
     build_html(input_dir=str(src), output_dir=str(out_html), no_cache=True)
 
     assert (out_html / "index.html").is_file()
-    assert (out_html / "guide.html").is_file()
-    assert (out_html / "style.css").is_file()
-    assert "custom-css-marker" in (out_html / "style.css").read_text(encoding="utf-8")
+    assert (out_html / "en" / "index.html").is_file()
+    assert (out_html / "en" / "guide.html").is_file()
+    assert (out_html / "en" / "style.css").is_file()
+    assert "custom-css-marker" in (out_html / "en" / "style.css").read_text(encoding="utf-8")
+    assert "custom-template-marker" in (out_html / "en" / "index.html").read_text(encoding="utf-8")
     assert "custom-template-marker" in (out_html / "index.html").read_text(encoding="utf-8")
     assert not (out_html / "README.html").exists()
+    assert not (out_html / "en" / "README.html").exists()
+    assert not (out_html / "en" / "_draft.html").exists()
     assert (out_html / "README.md").is_file()
     assert "Do not build this." not in (out_html / "README.md").read_text(encoding="utf-8")
     assert "HTML Documentation" in (out_html / "README.md").read_text(encoding="utf-8")
@@ -64,19 +75,24 @@ def test_doc_builder_exclusions_and_auto_styles(tmp_path: Path) -> None:
     assert not (out_html / "styles.py").exists()
     assert not (out_html / "utils.py").exists()
     assert not (out_html / "template.html").exists()
+    assert not (out_html / "drawlib.toml").exists()
 
     out_md = tmp_path / "docs_md"
     build_markdown(input_dir=str(src), output_dir=str(out_md), no_cache=True)
 
     assert (out_md / "index.md").is_file()
-    assert (out_md / "guide.md").is_file()
+    assert (out_md / "en" / "index.md").is_file()
+    assert (out_md / "en" / "guide.md").is_file()
     assert not (out_md / "README.md").exists()
+    assert not (out_md / "en" / "README.md").exists()
+    assert not (out_md / "en" / "_draft.md").exists()
     assert not (out_md / "build.sh").exists()
     assert not (out_md / "serve.sh").exists()
     assert not (out_md / "styles.py").exists()
     assert not (out_md / "utils.py").exists()
     assert not (out_md / "style.css").exists()
     assert not (out_md / "template.html").exists()
+    assert not (out_md / "drawlib.toml").exists()
 
 
 def test_merger_excludes_readme(tmp_path: Path) -> None:

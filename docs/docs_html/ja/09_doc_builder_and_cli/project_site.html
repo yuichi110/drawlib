@@ -632,7 +632,7 @@
             <main class="main-content">
                 <h1>ドキュメントサイトプロジェクトガイド (<code>drawlib init site</code>)</h1>
 <p><code>site</code> スターターテンプレートは、階層型のサイドバーナビゲーション、モバイル対応のレスポンシブレイアウト、シンタックスハイライト、および静的 HTML と GitHub 対応 Markdown へのデュアル出力を備えた、マルチページ構成の技術ドキュメントサイトを構築します。</p>
-<p>Drawlib は <code>docs_src/navbar.md</code> と各 Markdown ページを、ビルド時の厳格なリンク検証を備えた 2 カラム構成のドキュメントポータルへコンパイルします。</p>
+<p>Drawlib は <code>docs_src/&lt;lang&gt;/navbar.md</code> と各 Markdown ページを、ビルド時の厳格なリンク検証を備えた 2 カラム構成のドキュメントポータルへコンパイルします。</p>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="../../images/09_doc_builder_and_cli/project_site/project_site_navbar_architecture.png" alt="project_site_1" />
   <figcaption class="drawlib-caption">navbar.md と Markdown ページから 2 カラム構成のドキュメントサイト UI が生成される仕組み</figcaption>
@@ -650,7 +650,7 @@
 
 <span class="c1"># Left: Source directory container</span>
 <span class="n">rectangle</span><span class="p">((</span><span class="mi">21</span><span class="p">,</span> <span class="mi">31</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">34</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">54</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">))</span>
-<span class="n">text</span><span class="p">((</span><span class="mi">21</span><span class="p">,</span> <span class="mf">54.2</span><span class="p">),</span> <span class="s2">"Source (docs_src/)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.8</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">21</span><span class="p">,</span> <span class="mf">54.2</span><span class="p">),</span> <span class="s2">"docs_src/&lt;lang&gt;/"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.8</span><span class="p">))</span>
 
 <span class="n">rectangle</span><span class="p">((</span><span class="mi">21</span><span class="p">,</span> <span class="mf">39.2</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
 <span class="n">phosphor</span><span class="o">.</span><span class="n">list_bullets</span><span class="p">((</span><span class="mf">10.5</span><span class="p">,</span> <span class="mf">45.8</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.4</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
@@ -736,12 +736,13 @@
 </div>
 <hr />
 <h2>2. プロジェクトの初期化</h2>
-<p><code>drawlib init</code> を使用してドキュメントサイトをスキャフォールディングします。</p>
-<pre><code class="language-bash"><span class="c1"># Scaffold default 'docs_src/' in the current directory:</span>
+<p><code>drawlib init</code> を使用してドキュメントサイトをスキャフォールディングします（すべての <code>site</code> プロジェクトは、単一言語であっても統一された <code>&lt;src_dir&gt;/&lt;lang&gt;/</code> ロケール構成を使用します）。</p>
+<pre><code class="language-bash"><span class="c1"># Scaffold default 'docs_src/en/' in the current directory:</span>
 drawlib<span class="w"> </span>init<span class="w"> </span>site
 
-<span class="c1"># Or specify a custom target prefix (creates 'my_docs_src/', 'my_docs_html/', etc.):</span>
+<span class="c1"># Or specify a custom target prefix and single or multiple locales (creates 'my_docs_src/&lt;lang&gt;/'):</span>
 drawlib<span class="w"> </span>init<span class="w"> </span>site<span class="w"> </span>my_docs<span class="w"> </span>--style<span class="w"> </span>google<span class="w"> </span>--lang<span class="w"> </span>en
+drawlib<span class="w"> </span>init<span class="w"> </span>site<span class="w"> </span>my_docs<span class="w"> </span>--style<span class="w"> </span>google<span class="w"> </span>--lang<span class="w"> </span>en,ja
 </code></pre>
 <hr />
 <h2>3. ディレクトリ構成とアーキテクチャ</h2>
@@ -749,27 +750,27 @@ drawlib<span class="w"> </span>init<span class="w"> </span>site<span class="w"> 
 <ul>
 <li><strong><code>docs_src/</code>（信頼できる唯一の情報源）</strong>:
 <ul>
-<li><strong><code>drawlib.toml</code></strong>: <code>type = &quot;site&quot;</code>、既定の言語・テーマメタデータ、および任意の <code>[i18n]</code> 多言語設定を宣言するプロジェクトマニフェストです。</li>
-<li><strong><code>index.md</code></strong>: ルートエントリドキュメント（<code>index.html</code>）としてレンダリングされるサイトのランディングページです。</li>
-<li><strong><code>navbar.md</code></strong>: ブランドタイトル、折りたたみ可能なセクション、およびページリンクを宣言的に定義するサイドバーナビゲーションマニフェストです。</li>
-<li><strong>ネストされたセクションサブフォルダ (<code>guide/</code>, <code>api/</code>, <code>01_architecture/</code> など)</strong>: <code>```drawlib</code> 図解ブロックを埋め込んだ階層構造の Markdown ページ群です。</li>
-<li><strong><code>_assets/</code></strong>: 出力ポータルへ再帰的にミラーリングされる静的メディアファイル（ロゴ、スクリーンショット、データファイルなど）です。</li>
-<li><strong><code>styles.py</code> &amp; <code>utils.py</code></strong>: プロジェクト全体のテーマパレット、言語ごとのタイポグラフィ既定値、および共有の Python 描画ヘルパーです。</li>
+<li><strong><code>drawlib.toml</code></strong>: <code>type = &quot;site&quot;</code>、<code>style</code>、および必須の <code>[i18n]</code> セクション（<code>default_lang</code>、<code>len &gt;= 1</code> の <code>langs</code>、および任意の <code>[i18n.labels]</code>。<code>[project]</code> 直下の <code>lang</code> は使用不可）を宣言するプロジェクトマニフェストです。</li>
+<li><strong><code>&lt;lang&gt;/index.md</code></strong>: <code>&lt;lang&gt;/index.html</code> としてレンダリングされるロケール別のランディングページです（<code>docs_html/index.html</code> は <code>default_lang</code> へ自動リダイレクトします）。</li>
+<li><strong><code>&lt;lang&gt;/navbar.md</code></strong>: ブランドタイトル、折りたたみ可能なセクション、およびページリンクを宣言的に定義するロケール別のサイドバーナビゲーションマニフェストです。</li>
+<li><strong>ネストされたセクションサブフォルダ (<code>&lt;lang&gt;/guide/</code>, <code>&lt;lang&gt;/api/</code>, <code>&lt;lang&gt;/01_architecture/</code> など)</strong>: <code>```drawlib</code> 図解ブロックを埋め込んだ階層構造の Markdown ページ群です。</li>
+<li><strong><code>_assets/</code></strong>: 出力ポータルへ再帰的にミラーリングされる静的メディアファイル（ロゴ、スクリーンショット、データファイルなど）です（<code>&lt;lang&gt;/</code> 内の Markdown 本文からは <code>../_assets/...</code> で参照します）。</li>
+<li><strong><code>styles.py</code> &amp; <code>utils.py</code></strong>: プロジェクト全体のテーマパレット、言語ごとのタイポグラフィ既定値（任意のロケール別 <code>&lt;lang&gt;/styles.py</code> による上書きも可能）、および共有の Python 描画ヘルパーです。</li>
 <li><strong><code>template.html</code> &amp; <code>style.css</code></strong>: レスポンシブな 2 カラム HTML レイアウトシェルと 3 層構造の CSS スタイルシートです。</li>
 <li><strong><code>build.sh</code>, <code>build_html.sh</code>, <code>build_markdown.sh</code>, <code>build_image.sh</code>, <code>serve.sh</code></strong>: モジュール化されたビルドスクリプトおよびローカルプレビュー用スクリプトです。</li>
 </ul>
 </li>
 <li><strong>生成される出力先（直接編集しないでください）</strong>:
 <ul>
-<li><strong><code>docs_html/</code></strong>: Web ホスティングや <code>drawlib serve</code> にそのまま利用できるレスポンシブな静的 HTML ドキュメントポータルです。</li>
-<li><strong><code>docs_markdown/</code></strong>: コンパイル済みの PNG / WebP 図表リンクを備えた GitHub 向けの Markdown ポータルです。</li>
+<li><strong><code>docs_html/</code></strong>: Web ホスティングや <code>drawlib serve</code> にそのまま利用できるレスポンシブな静的 HTML ドキュメントポータル（<code>docs_html/&lt;lang&gt;/</code>、ルートの <code>docs_html/index.html</code> リダイレクト、および共有の <code>docs_html/images/</code>）です。</li>
+<li><strong><code>docs_markdown/</code></strong>: コンパイル済みの PNG / WebP 図表リンクを備えた GitHub 向けの Markdown ポータル（<code>docs_markdown/&lt;lang&gt;/</code> および共有の <code>docs_markdown/images/</code>）です。</li>
 <li><strong><code>docs_images/</code></strong>: <code>build_image.sh</code> 実行時に単体ファイルとして抽出される図解画像群です。</li>
 </ul>
 </li>
 </ul>
 <hr />
-<h2>4. サイドバーナビゲーション (<code>navbar.md</code>)</h2>
-<p>サイドバーのナビゲーション構造は、すべて <code>docs_src/navbar.md</code> によって制御されます。</p>
+<h2>4. サイドバーナビゲーション (<code>&lt;lang&gt;/navbar.md</code>)</h2>
+<p>各ロケールのサイドバーナビゲーション構造は、すべて <code>docs_src/&lt;lang&gt;/navbar.md</code> によって制御されます。</p>
 <pre><code class="language-markdown"><span class="gh"># Drawlib Documentation</span>
 
 <span class="k">-</span><span class="w"> </span>[<span class="nt">Home</span>](<span class="na">index.md</span>)
@@ -789,14 +790,14 @@ drawlib<span class="w"> </span>init<span class="w"> </span>site<span class="w"> 
 <ol>
 <li><strong>ブランドヘッダー (<code># Title</code>)</strong>: トップレベルの <code># 見出し 1</code> がサイドバーヘッダーのブランドタイトルを設定します。</li>
 <li><strong>カテゴリグループ (<code>## Category</code>)</strong>: 各 <code>## 見出し 2</code> が折りたたみ可能なナビゲーションカテゴリセクションを定義します。</li>
-<li><strong>内部ドキュメントリンク</strong>: 相対パスは <code>docs_src/</code> 内に実在する Markdown ファイルを指している必要があります。</li>
+<li><strong>内部ドキュメントリンク</strong>: 相対パスは各ロケールディレクトリ（<code>docs_src/&lt;lang&gt;/</code>）内で解決され、実在する Markdown ファイルを指している必要があります。</li>
 <li><strong>外部リンク</strong>: <code>http://</code> または <code>https://</code> で始まる URL は、外部リンクアイコン付きで自動的に新しいタブ（<code>target=&quot;_blank&quot;</code>）で開きます。</li>
 <li><strong>ビルド時の厳格な検証</strong>: リンク先のドキュメントが存在しない場合、ビルドは即座に中断され、該当ファイルと行番号を示すエラーが出力されます。</li>
 <li><strong>アクティブページの自動追跡</strong>: 現在閲覧中のページは動的な相対パス解決によって自動的にハイライト表示（<code>.nav-item.active</code>）されます。</li>
 </ol>
 <hr />
 <h2>5. 静的アセットの同期</h2>
-<p><code>docs_src/</code> 内に配置された静的アセット（カスタムロゴ、サンプルデータファイル、<code>_assets/</code> 内の画像など）は、フォルダ階層を維持したまま <code>docs_html/</code> および <code>docs/</code> へ再帰的にミラーリングされます。</p>
+<p><code>docs_src/</code> 内に配置された静的アセット（カスタムロゴ、サンプルデータファイル、<code>_assets/</code> 内の画像など）は、フォルダ階層を維持したまま <code>docs_html/</code> および <code>docs/</code>（<code>docs_markdown/</code>）へ再帰的にミラーリングされます。</p>
 <hr />
 <h2>6. ビルドとローカルプレビュー</h2>
 <h3>サイトのコンパイル</h3>
@@ -814,15 +815,15 @@ drawlib<span class="w"> </span>init<span class="w"> </span>site<span class="w"> 
 </code></pre>
 <hr />
 <h2>7. マルチエージェントによる並列サイト執筆</h2>
-<p>マルチページ構成の <code>site</code> プロジェクト（<code>docs_src/**/*.md</code>）は、並列 AI サブエージェントによる分担作業に自然にスケールします。</p>
+<p>マルチページ構成の <code>site</code> プロジェクト（<code>docs_src/&lt;lang&gt;/**/*.md</code>）は、並列 AI サブエージェントによる分担作業に自然にスケールします。</p>
 <ol>
-<li><strong>フェーズ 1（親エージェントによる初期設定）</strong>: サブエージェントを起動する前に、<code>docs_src/</code> をスキャフォールディング（<code>drawlib init site</code>）し、共有ファイル（<code>styles.py</code>、<code>utils.py</code>、<code>_assets/</code>、<code>index.md</code>、および完全な <code>navbar.md</code> サイドバーツリー）を確定させます。</li>
-<li><strong>フェーズ 2（サブエージェントによる並列執筆）</strong>: 各サブエージェントに重複しないページまたはセクションディレクトリ（例: <code>01_architecture/*.md</code> と <code>02_services/*.md</code>）を割り当てます。各サブエージェントは <code>styles.py</code>、<code>utils.py</code>、<code>navbar.md</code> を読み取り専用として扱い、担当ページを執筆して一意なスクラッチファイル名（<code>-o .drawlib/scratch/&lt;page&gt;_&lt;block&gt;_grid.png</code>）で <code>-g</code> グリッドプレビューを実行します。</li>
+<li><strong>フェーズ 1（親エージェントによる初期設定）</strong>: サブエージェントを起動する前に、<code>docs_src/</code> をスキャフォールディング（<code>drawlib init site</code>）し、共有ファイル（<code>drawlib.toml</code>、<code>styles.py</code>、<code>utils.py</code>、<code>_assets/</code>、<code>&lt;lang&gt;/index.md</code>、および完全な <code>&lt;lang&gt;/navbar.md</code> サイドバーツリー）を確定させます。</li>
+<li><strong>フェーズ 2（サブエージェントによる並列執筆）</strong>: 各サブエージェントに重複しないページまたはセクションディレクトリ（例: <code>&lt;lang&gt;/01_architecture/*.md</code> と <code>&lt;lang&gt;/02_services/*.md</code>）を割り当てます。各サブエージェントは <code>drawlib.toml</code>、<code>styles.py</code>、<code>utils.py</code>、<code>&lt;lang&gt;/navbar.md</code> を読み取り専用として扱い、担当ページを執筆して一意なスクラッチファイル名（<code>-o .drawlib/scratch/&lt;page&gt;_&lt;block&gt;_grid.png</code>）で <code>-g</code> グリッドプレビューを実行します。</li>
 <li><strong>フェーズ 3（統合ビルドとリンク監査）</strong>: すべてのサブエージェントが完了したら、親エージェントが <code>./docs_src/build.sh</code> を 1 回実行し、<code>uv run drawlib serve docs_html/ --check</code> でサイト全体のリンク整合性を検証します。</li>
 </ol>
 <hr />
-<h2>8. 多言語（<code>i18n</code>）ドキュメントサイト (<code>drawlib.toml</code>)</h2>
-<p><code>drawlib init site</code> にカンマ区切りの言語コードを指定するか、<code>docs_src/drawlib.toml</code> に <code>[i18n]</code> セクションを設定することで、単一の <code>docs_src/</code> プロジェクトから同期された多言語ドキュメントポータルを公開できます。</p>
+<h2>8. 統一 <code>i18n</code> アーキテクチャと多言語ドキュメントサイト (<code>drawlib.toml</code>)</h2>
+<p>すべての <code>docs_src/</code> プロジェクトは標準で <code>i18n</code> ネイティブ構成（既定は <code>langs = [&quot;en&quot;]</code>）を採用しています。単一言語のポータルを後から多言語サイトへ拡張する際も、<code>git mv</code> によるファイル移動は不要です。<code>drawlib init site</code> にカンマ区切りの言語コードを指定するか、ロケールディレクトリ（<code>docs_src/ja/</code>）を追加して <code>docs_src/drawlib.toml</code> の <code>[i18n]</code> を更新するだけで完了します。</p>
 <pre><code class="language-bash">uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>site<span class="w"> </span>docs<span class="w"> </span>-l<span class="w"> </span>en,ja<span class="w"> </span>-s<span class="w"> </span>default
 </code></pre>
 <pre><code class="language-toml"><span class="k">[project]</span>
@@ -841,7 +842,7 @@ drawlib<span class="w"> </span>init<span class="w"> </span>site<span class="w"> 
 <ul>
 <li><strong>対称なロケールサブツリー (<code>docs_src/&lt;lang&gt;/</code>)</strong>: 設定された各ロケール（<code>en/</code>、<code>ja/</code> など）は、それぞれ固有の <code>navbar.md</code>、<code>index.md</code>、および同一構成のセクションサブディレクトリを保持します。</li>
 <li><strong>共有図解の重複排除とロケール別 <code>styles.py</code></strong>: 言語間で共通の図解（<code>file=vpc_arch.png</code>）はルートの <code>docs_html/images/</code> ディレクトリに 1 回だけコンパイルされ、全ロケールで共有されます。日本語フォントや翻訳ラベルを含む図解が必要な場合は、<code>docs_src/&lt;lang&gt;/styles.py</code> を配置してロケール接尾辞付きのファイル名（<code>file=vpc_arch_ja.png</code>）を指定します。</li>
-<li><strong>自動言語スイッチャーとルートリダイレクト</strong>: コンパイルされた各 HTML ページのヘッダーには他言語の同一ページへ直接遷移する言語切り替えドロップダウンが生成され、ルートの <code>docs_html/index.html</code> は訪問者を優先ロケール（既定は <code>default_lang</code>）へリダイレクトします。</li>
+<li><strong>自動言語スイッチャーとルートリダイレクト</strong>: <code>len(langs) &gt; 1</code> の場合、コンパイルされた各 HTML ページのヘッダーには他言語の同一ページへ直接遷移する言語切り替えドロップダウンが生成され、ルートの <code>docs_html/index.html</code> は訪問者を優先ロケール（既定は <code>default_lang</code>）へリダイレクトします。</li>
 <li><strong>ビルド前の厳格なパリティ検証</strong>: ビルド実行時には、全ロケール間でファイルセットの一致、<code>navbar.md</code> の構造一致、Markdown の構造スケルトン一致、および内部リンク先の存在がレンダリング前に自動検証されます。</li>
 <li><strong>統合リンク監査</strong>: <code>uv run drawlib serve docs_html/ --check</code> を実行すると、すべてのロケールにわたる内部ナビゲーション、共有画像参照、および言語切り替えリンクを 1 パスで一括検証できます。</li>
 </ul>

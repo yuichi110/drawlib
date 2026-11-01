@@ -652,7 +652,7 @@
 <span class="n">phosphor</span><span class="o">.</span><span class="n">file_code</span><span class="p">((</span><span class="mi">13</span><span class="p">,</span> <span class="mf">45.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">5.2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
 <span class="n">phosphor</span><span class="o">.</span><span class="n">sliders_horizontal</span><span class="p">((</span><span class="mi">25</span><span class="p">,</span> <span class="mf">45.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">5.2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
 <span class="n">text</span><span class="p">((</span><span class="mi">19</span><span class="p">,</span> <span class="mf">35.5</span><span class="p">),</span> <span class="s2">"Markdown Source"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">))</span>
-<span class="n">text</span><span class="p">((</span><span class="mi">19</span><span class="p">,</span> <span class="mf">26.5</span><span class="p">),</span> <span class="s2">"docs_src/*.md</span><span class="se">\n</span><span class="s2">styles.py &amp; utils.py</span><span class="se">\n</span><span class="s2">_assets/*"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">19</span><span class="p">,</span> <span class="mf">26.5</span><span class="p">),</span> <span class="s2">"docs_src/&lt;lang&gt;/*.md</span><span class="se">\n</span><span class="s2">styles.py &amp; utils.py</span><span class="se">\n</span><span class="s2">_assets/*"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
 <span class="n">rectangle</span><span class="p">(</span>
     <span class="p">(</span><span class="mi">19</span><span class="p">,</span> <span class="mf">13.0</span><span class="p">),</span>
     <span class="n">width</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span>
@@ -759,20 +759,20 @@
 <tbody>
 <tr>
 <td><strong><code>doc</code></strong></td>
-<td><code>doc_src/</code></td>
-<td><code>doc_html/</code>, <code>doc.pdf</code>, <code>doc.docx</code>, <code>doc_markdown/</code>, <code>doc_images/</code></td>
+<td><code>doc_src/&lt;lang&gt;/</code></td>
+<td><code>doc_html/</code>, <code>doc_&lt;lang&gt;.pdf</code>, <code>doc_&lt;lang&gt;.docx</code>, <code>doc_markdown/</code>, <code>doc_images/</code></td>
 <td>リニアな技術文書、RFC、仕様書、ホワイトペーパー、公式レポート</td>
 </tr>
 <tr>
 <td><strong><code>site</code></strong></td>
-<td><code>docs_src/</code></td>
+<td><code>docs_src/&lt;lang&gt;/</code></td>
 <td><code>docs_html/</code>, <code>docs_markdown/</code>（または <code>docs/</code>）, <code>docs_images/</code></td>
-<td>サイドバーナビゲーション（<code>navbar.md</code>）を備えたマルチページ構成のドキュメントサイト</td>
+<td>サイドバーナビゲーション（<code>&lt;lang&gt;/navbar.md</code>）を備えたマルチページ構成のドキュメントサイト</td>
 </tr>
 <tr>
 <td><strong><code>slide</code></strong></td>
-<td><code>slide_src/</code></td>
-<td><code>slide_html/</code>, <code>slide.pdf</code>, <code>slide.pptx</code>, <code>slide_images/</code></td>
+<td><code>slide_src/&lt;lang&gt;/</code></td>
+<td><code>slide_html/</code>, <code>slide_&lt;lang&gt;.pdf</code>, <code>slide_&lt;lang&gt;.pptx</code>, <code>slide_images/</code></td>
 <td>16:9 プレゼンテーションスライドデッキ（インタラクティブ Web スライド、印刷対応ベクター PDF、編集可能な PowerPoint）</td>
 </tr>
 <tr>
@@ -807,8 +807,8 @@
         <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
         <span class="n">phosphor</span><span class="o">.</span><span class="n">file_pdf</span><span class="p">,</span>
         <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">,</span>
-        <span class="s2">"doc_src/*.md"</span><span class="p">,</span>
-        <span class="s2">"doc.pdf / .docx</span><span class="se">\n</span><span class="s2">&amp; doc_html/"</span><span class="p">,</span>
+        <span class="s2">"doc_src/</span><span class="se">\n</span><span class="s2">&lt;lang&gt;/*.md"</span><span class="p">,</span>
+        <span class="s2">"doc_&lt;lang&gt;.pdf</span><span class="se">\n</span><span class="s2">.docx &amp; _html/"</span><span class="p">,</span>
     <span class="p">),</span>
     <span class="p">(</span>
         <span class="mi">93</span><span class="p">,</span>
@@ -818,7 +818,7 @@
         <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">,</span>
         <span class="n">phosphor</span><span class="o">.</span><span class="n">globe</span><span class="p">,</span>
         <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">,</span>
-        <span class="s2">"docs_src/*.md</span><span class="se">\n</span><span class="s2">+ navbar.md"</span><span class="p">,</span>
+        <span class="s2">"docs_src/&lt;lang&gt;/</span><span class="se">\n</span><span class="s2">+ navbar.md"</span><span class="p">,</span>
         <span class="s2">"docs_html/</span><span class="se">\n</span><span class="s2">docs_markdown/"</span><span class="p">,</span>
     <span class="p">),</span>
     <span class="p">(</span>
@@ -829,8 +829,8 @@
         <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
         <span class="n">phosphor</span><span class="o">.</span><span class="n">presentation_chart</span><span class="p">,</span>
         <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">,</span>
-        <span class="s2">"slide_src/*.md"</span><span class="p">,</span>
-        <span class="s2">"slide_html/</span><span class="se">\n</span><span class="s2">.pdf &amp; .pptx"</span><span class="p">,</span>
+        <span class="s2">"slide_src/</span><span class="se">\n</span><span class="s2">&lt;lang&gt;/*.md"</span><span class="p">,</span>
+        <span class="s2">"slide_html/</span><span class="se">\n</span><span class="s2">_&lt;lang&gt;.pdf/.pptx"</span><span class="p">,</span>
     <span class="p">),</span>
     <span class="p">(</span>
         <span class="mi">93</span><span class="p">,</span>
@@ -874,7 +874,7 @@
 </details>
 <hr />
 <h2>4. プロジェクトテンプレート横断の並列マルチエージェント執筆</h2>
-<p>すべての Drawlib プロジェクトは、<strong>共有設定</strong>（<code>styles.py</code>、<code>utils.py</code>、<code>_assets/</code>、<code>navbar.md</code>）と<strong>モジュール化されたコンテンツファイル</strong>（<code>*.py</code> や <code>*.md</code>）を明確に分離しています。そのため、AI コーディングエージェントは大規模なドキュメント作成や図解生成タスクを<strong>並列サブエージェント</strong>へ分散し、高速に進めることができます。</p>
+<p>すべての Drawlib プロジェクトは、<strong>共有設定</strong>（<code>drawlib.toml</code>、<code>styles.py</code>、<code>utils.py</code>、<code>_assets/</code>、<code>&lt;lang&gt;/navbar.md</code>）と<strong>モジュール化されたコンテンツファイル</strong>（<code>*.py</code> や <code>&lt;lang&gt;/*.md</code>）を明確に分離しています。そのため、AI コーディングエージェントは大規模なドキュメント作成や図解生成タスクを<strong>並列サブエージェント</strong>へ分散し、高速に進めることができます。</p>
 <table>
 <thead>
 <tr>
@@ -888,24 +888,24 @@
 <tbody>
 <tr>
 <td style="text-align:left"><strong><code>doc</code></strong></td>
-<td style="text-align:left">連番付きの章ファイル（<code>doc_src/01_*.md</code>、<code>02_*.md</code> など）</td>
-<td style="text-align:left"><code>drawlib init doc</code>、<code>styles.py</code>、<code>utils.py</code>、<code>00_cover.md</code>、章構成の作成</td>
+<td style="text-align:left">連番付きの章ファイル（<code>doc_src/&lt;lang&gt;/01_*.md</code>、<code>02_*.md</code> など）</td>
+<td style="text-align:left"><code>drawlib init doc</code>、<code>styles.py</code>、<code>utils.py</code>、<code>&lt;lang&gt;/00_cover.md</code>、章構成の作成</td>
 <td style="text-align:left">担当章の執筆と <code>drawlib show ... -g -o .drawlib/scratch/0N_&lt;fig&gt;_grid.png</code> の実行</td>
-<td style="text-align:left"><code>./doc_src/build.sh</code>（または <code>build docx</code>）を実行し、<code>doc.pdf</code> / <code>doc_html/</code> を確認</td>
+<td style="text-align:left"><code>./doc_src/build.sh</code>（または <code>build docx</code>）を実行し、<code>doc_&lt;lang&gt;.pdf</code> / <code>doc_html/</code> を確認</td>
 </tr>
 <tr>
 <td style="text-align:left"><strong><code>site</code></strong></td>
-<td style="text-align:left">トピックページまたはセクションフォルダ（<code>docs_src/01_arch/*.md</code> など）</td>
-<td style="text-align:left"><code>drawlib init site</code>、<code>styles.py</code>、<code>utils.py</code>、<code>navbar.md</code>、<code>index.md</code> の設定</td>
+<td style="text-align:left">トピックページまたはセクションフォルダ（<code>docs_src/&lt;lang&gt;/01_arch/*.md</code> など）</td>
+<td style="text-align:left"><code>drawlib init site</code>、<code>styles.py</code>、<code>utils.py</code>、<code>&lt;lang&gt;/navbar.md</code>、<code>&lt;lang&gt;/index.md</code> の設定</td>
 <td style="text-align:left">担当ページの執筆と、一意のスクラッチファイル名を用いた Stage 1 + Stage 2 グリッド検証</td>
 <td style="text-align:left"><code>./docs_src/build.sh</code>、<code>serve --check</code>、およびブラウザ確認を実行</td>
 </tr>
 <tr>
 <td style="text-align:left"><strong><code>slide</code></strong></td>
-<td style="text-align:left">スライドファイル（<code>slide_src/02_*.md</code> など）またはセクションディレクトリ</td>
+<td style="text-align:left">スライドファイル（<code>slide_src/&lt;lang&gt;/02_*.md</code> など）またはセクションディレクトリ</td>
 <td style="text-align:left"><code>drawlib init slide</code>、<code>styles.py</code>、<code>utils.py</code>、ストーリー構成とスライド連番の設計</td>
 <td style="text-align:left">担当スライド（<code>::: block</code> + <code>::: note</code>）の執筆と Stage 1 + Stage 2 グリッド検証</td>
-<td style="text-align:left"><code>./slide_src/build.sh</code>（または <code>build pptx</code>）を実行し、<code>slide.pdf</code> / <code>1920x1080</code> ステージを確認</td>
+<td style="text-align:left"><code>./slide_src/build.sh</code>（または <code>build pptx</code>）を実行し、<code>slide_&lt;lang&gt;.pdf</code> / <code>1920x1080</code> ステージを確認</td>
 </tr>
 <tr>
 <td style="text-align:left"><strong><code>images</code></strong></td>
@@ -918,7 +918,7 @@
 </table>
 <h3>サブエージェント並列実行時のガードレール:</h3>
 <ol>
-<li><strong>共有ファイルは読み取り専用として扱う</strong>: サブエージェントは <code>styles.py</code>、<code>utils.py</code>、<code>navbar.md</code> を読み取り専用として扱い、自身に割り当てられた <code>.md</code> または <code>.py</code> ファイルのみを編集します。</li>
+<li><strong>共有ファイルは読み取り専用として扱う</strong>: サブエージェントは <code>drawlib.toml</code>、<code>styles.py</code>、<code>utils.py</code>、<code>&lt;lang&gt;/navbar.md</code> を読み取り専用として扱い、自身に割り当てられた <code>.md</code> または <code>.py</code> ファイルのみを編集します。</li>
 <li><strong>一意のスクラッチプレビューパスを使用する</strong>: 各サブエージェントは <code>-g</code> グリッドプレビューを一意のパス（共有の <code>preview.png</code> ではなく <code>-o .drawlib/scratch/&lt;unique_name&gt;_grid.png</code>）へ出力し、並列実行中のマルチモーダル検証の衝突を防ぎます。</li>
 <li><strong>統合ビルドは最後に 1 回だけ実行する</strong>: サブエージェントは担当図解に対する <code>drawlib show ... -g</code> のみを実行し、<code>.drawlib/cache.db</code> への同時 SQLite 書き込み競合を避けるため、全サブエージェント完了後に親エージェントが <code>./build.sh</code> を 1 回だけ実行します。</li>
 </ol>

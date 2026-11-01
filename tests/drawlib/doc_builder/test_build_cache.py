@@ -178,8 +178,13 @@ def test_build_markdown_caching_and_no_cache(tmp_path: Path, monkeypatch: pytest
     monkeypatch.chdir(tmp_path)
 
     src_dir = tmp_path / "docs_src"
-    src_dir.mkdir()
-    md_file = src_dir / "sample.md"
+    en_dir = src_dir / "en"
+    en_dir.mkdir(parents=True)
+    (src_dir / "drawlib.toml").write_text(
+        '[project]\ntype = "doc"\n\n[i18n]\ndefault_lang = "en"\nlangs = ["en"]\n',
+        encoding="utf-8",
+    )
+    md_file = en_dir / "sample.md"
     md_file.write_text(
         """# Sample
 ```drawlib file=cached_circle.png
@@ -207,12 +212,13 @@ circle((50, 50), 20, style=Styles.Primary)
     # 2nd run with same code: cache hit (no new entries added)
     out_dir2 = tmp_path / "out2"
     build_markdown(input_dir=str(src_dir), output_dir=str(out_dir2))
-    assert (out_dir2 / "sample_images" / "cached_circle.png").exists()
+    assert (out_dir2 / "en" / "sample.md").is_file()
+    assert (out_dir2 / "images" / "sample" / "cached_circle.png").exists()
 
     # 3rd run with no_cache=True: runs successfully without cache interaction
     out_dir3 = tmp_path / "out3"
     build_markdown(input_dir=str(src_dir), output_dir=str(out_dir3), no_cache=True)
-    assert (out_dir3 / "sample_images" / "cached_circle.png").exists()
+    assert (out_dir3 / "images" / "sample" / "cached_circle.png").exists()
 
 
 def test_build_image_caching_and_no_cache(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:

@@ -194,7 +194,7 @@ def cmd_build_html(
 
 
 def _format_multi_locale_build_summary(input_path: str, output: str | None, default_out: str, ext: str) -> str:
-    """Return comma-separated paths for all locales when building a multi-locale doc directory."""
+    """Return comma-separated paths for all locales when building a doc or slide directory."""
     import os  # noqa: PLC0415
 
     if not os.path.isdir(input_path):
@@ -204,13 +204,19 @@ def _format_multi_locale_build_summary(input_path: str, output: str | None, defa
 
     input_abs = os.path.abspath(input_path)
     manifest = load_project_manifest(input_abs)
-    if manifest is None or manifest.i18n is None or manifest.project.type != "doc":
+    if manifest is None or manifest.i18n is None or manifest.project.type not in {"doc", "slide"}:
         return default_out
+
+    out_root, out_ext = os.path.splitext(default_out)
+    default_suffix = f"_{manifest.i18n.default_lang}"
+    if out_ext.lower() == ext.lower() and out_root.endswith(default_suffix):
+        prefix = out_root[: -len(default_suffix)]
+        return ", ".join(f"{prefix}_{lc}{out_ext}" for lc in manifest.i18n.langs)
 
     dir_name = os.path.basename(input_abs.rstrip(os.sep))
     base_name = dir_name[:-4] if dir_name.endswith("_src") else dir_name
     if not base_name:
-        base_name = "document"
+        base_name = "slide" if manifest.project.type == "slide" else "document"
     default_parent = os.path.dirname(input_abs)
     paths = [resolve_multi_locale_dest(default_parent, base_name, output, lc, ext) for lc in manifest.i18n.langs]
     return ", ".join(paths)
@@ -227,7 +233,11 @@ def cmd_build_pdf(
     ],
     output: Annotated[
         str | None,
-        typer.Option("-o", "--output", help="Output PDF file path (or base path/directory for multi-locale doc)."),
+        typer.Option(
+            "-o",
+            "--output",
+            help="Output PDF file path (or base path/directory for doc/slide projects).",
+        ),
     ] = None,
     page_break: Annotated[
         bool,
@@ -420,7 +430,11 @@ def cmd_build_pptx(
     ],
     output: Annotated[
         str | None,
-        typer.Option("-o", "--output", help="Output MS PowerPoint (.pptx) file path."),
+        typer.Option(
+            "-o",
+            "--output",
+            help="Output MS PowerPoint (.pptx) file path (or base path/directory for slide projects).",
+        ),
     ] = None,
     theme: Annotated[
         str | None,
@@ -474,6 +488,7 @@ def cmd_build_pptx(
             no_cache=no_cache,
             timestamp=timestamp,
         )
-        print(f"Successfully compiled PowerPoint presentation: {out_file}")
+        summary = _format_multi_locale_build_summary(input_dir, output, out_file, ".pptx")
+        print(f"Successfully compiled PowerPoint presentation: {summary}")
     except Exception as e:
         _handle_build_error("Build PowerPoint Error", e)

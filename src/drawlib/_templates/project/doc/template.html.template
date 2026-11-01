@@ -9,12 +9,12 @@
  merchantability, fitness for a particular purpose and noninfringement.
 -->
 <!DOCTYPE html>
-<html lang="__RTD_HTML_LANG__" dir="__RTD_HTML_DIR__">
+<html lang="{{ html_lang | default('en') }}" dir="{{ html_dir | default('ltr') }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ title | default("Drawlib Document") }}</title>
-    __RTD_FONT_LINK__
+    {{ font_link_html | default('') | safe }}
     {% if alternate_links %}
     {% for alt in alternate_links %}
     <link rel="alternate" hreflang="{{ alt.hreflang }}" href="{{ alt.url }}">

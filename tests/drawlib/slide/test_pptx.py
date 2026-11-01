@@ -24,6 +24,41 @@ from pptx.util import Pt
 from drawlib.slide import build_pptx
 
 
+def _write_slide_manifest(
+    src_dir: Path,
+    *,
+    name: str = "deck",
+    langs: tuple[str, ...] = ("en",),
+    default_lang: str | None = None,
+    style: str = "google",
+    labels: dict[str, str] | None = None,
+) -> Path:
+    """Create a valid drawlib.toml slide manifest and locale directories."""
+    src_dir.mkdir(parents=True, exist_ok=True)
+    eff_default = default_lang or langs[0]
+    for lc in langs:
+        (src_dir / lc).mkdir(parents=True, exist_ok=True)
+    langs_str = ", ".join(f'"{lc}"' for lc in langs)
+    lines = [
+        "[project]",
+        f'name = "{name}"',
+        'type = "slide"',
+        'title = ""',
+        'description = ""',
+        f'style = "{style}"',
+        "",
+        "[i18n]",
+        f'default_lang = "{eff_default}"',
+        f"langs = [{langs_str}]",
+    ]
+    if labels:
+        lines.extend(["", "[i18n.labels]"])
+        for lc, lbl in labels.items():
+            lines.append(f'{lc} = "{lbl}"')
+    (src_dir / "drawlib.toml").write_text("\n".join(lines) + "\n", encoding="utf-8")
+    return src_dir / eff_default
+
+
 def _collect_all_slide_text(slide) -> str:
     """Concatenate all text runs from text frames and tables on a slide."""
     chunks: list[str] = []
@@ -43,9 +78,9 @@ class TestBuildPptx:
     def test_widescreen_geometry_typography_tables_code_and_notes(self, tmp_path: Path) -> None:
         """Verify 0.5x coordinate mapping, rich text, lists, tables, code blocks, CJK fonts, and speaker notes."""
         slide_dir = tmp_path / "deck_src"
-        slide_dir.mkdir()
+        en_dir = _write_slide_manifest(slide_dir, name="deck")
 
-        (slide_dir / "01_overview.md").write_text(
+        (en_dir / "01_overview.md").write_text(
             """\
 ::: block xy=(80, 40) width=1760 height=90
 # アーキテクチャ概要 (Architecture Overview)
@@ -99,7 +134,7 @@ save()
         )
 
         out_pptx = build_pptx(str(slide_dir), dpi=200)
-        assert Path(out_pptx) == tmp_path / "deck.pptx"
+        assert Path(out_pptx) == tmp_path / "deck_en.pptx"
         assert Path(out_pptx).is_file()
 
         prs = Presentation(out_pptx)
@@ -117,9 +152,7 @@ save()
         assert "greet" in full_text
 
         # Verify heading coordinate mapping (~0.5x of xy=(80, 40) -> left=40pt, top=20pt)
-        heading_shapes = [
-            s for s in slide.shapes if s.has_text_frame and "アーキテクチャ概要" in s.text_frame.text
-        ]
+        heading_shapes = [s for s in slide.shapes if s.has_text_frame and "アーキテクチャ概要" in s.text_frame.text]
         assert len(heading_shapes) == 1
         assert abs(heading_shapes[0].left.pt - 40.0) < 4.0
         assert abs(heading_shapes[0].top.pt - 20.0) < 6.0
@@ -179,13 +212,13 @@ save()
     def test_z_index_layering_and_rgba_floating_card(self, tmp_path: Path) -> None:
         """Verify z_index stacking order across blocks and DrawingML alpha on rgba() cards."""
         slide_dir = tmp_path / "zdeck_src"
-        slide_dir.mkdir()
+        en_dir = _write_slide_manifest(slide_dir, name="zdeck")
 
         card_css = (
             "background: rgba(15, 23, 42, 0.85); color: #f8fafc; "
             "padding: 20px; border-radius: 16px; border: 2px solid #6366f1;"
         )
-        (slide_dir / "01_layers.md").write_text(
+        (en_dir / "01_layers.md").write_text(
             f"""\
 ::: block xy=(1680, 990) width=160 height=40 z_index=20
 ```drawlib file=badge_top.svg
@@ -220,10 +253,12 @@ save()
             encoding="utf-8",
         )
 
-        out_pptx = tmp_path / "layers.pptx"
-        build_pptx(str(slide_dir), str(out_pptx), dpi=120)
+        out_pptx_arg = tmp_path / "layers.pptx"
+        out_pptx_actual = Path(build_pptx(str(slide_dir), str(out_pptx_arg), dpi=120))
+        assert out_pptx_actual == tmp_path / "layers_en.pptx"
+        assert out_pptx_actual.is_file()
 
-        prs = Presentation(str(out_pptx))
+        prs = Presentation(str(out_pptx_actual))
         slide = prs.slides[0]
         shapes = list(slide.shapes)
 
@@ -253,9 +288,9 @@ save()
     def test_animation_first_vs_last_frame_extraction(self, tmp_path: Path) -> None:
         """Verify Animation() blocks flatten cleanly to the requested 'first' or 'last' static frame."""
         slide_dir = tmp_path / "anim_src"
-        slide_dir.mkdir()
+        en_dir = _write_slide_manifest(slide_dir, name="anim")
 
-        (slide_dir / "01_anim.md").write_text(
+        (en_dir / "01_anim.md").write_text(
             """\
 ::: block xy=(160, 140) width=1600 height=800
 ```drawlib file=motion.png anim_trigger=auto
@@ -281,10 +316,10 @@ save()
             encoding="utf-8",
         )
 
-        first_pptx = tmp_path / "first.pptx"
-        last_pptx = tmp_path / "last.pptx"
-        build_pptx(str(slide_dir), str(first_pptx), dpi=100, anim_frame="first")
-        build_pptx(str(slide_dir), str(last_pptx), dpi=100, anim_frame="last")
+        first_pptx = Path(build_pptx(str(slide_dir), str(tmp_path / "first.pptx"), dpi=100, anim_frame="first"))
+        last_pptx = Path(build_pptx(str(slide_dir), str(tmp_path / "last.pptx"), dpi=100, anim_frame="last"))
+        assert first_pptx == tmp_path / "first_en.pptx"
+        assert last_pptx == tmp_path / "last_en.pptx"
 
         def _center_rgb(pptx_file: Path) -> tuple[int, int, int]:
             prs = Presentation(str(pptx_file))
@@ -308,17 +343,98 @@ save()
         """Verify deterministic OPC archive output and input validation errors."""
         monkeypatch.setenv("SOURCE_DATE_EPOCH", "1735689600")
         slide_dir = tmp_path / "det_src"
-        slide_dir.mkdir()
-        (slide_dir / "01_title.md").write_text("# Deterministic Deck\n\nReproducible output.", encoding="utf-8")
+        en_dir = _write_slide_manifest(slide_dir, name="det")
+        (en_dir / "01_title.md").write_text("# Deterministic Deck\n\nReproducible output.", encoding="utf-8")
 
-        out_a = tmp_path / "a.pptx"
-        out_b = tmp_path / "b.pptx"
-        build_pptx(str(slide_dir), str(out_a), timestamp=False)
-        build_pptx(str(slide_dir), str(out_b), timestamp=False)
+        out_a = Path(build_pptx(str(slide_dir), str(tmp_path / "a.pptx"), timestamp=False))
+        out_b = Path(build_pptx(str(slide_dir), str(tmp_path / "b.pptx"), timestamp=False))
+        assert out_a == tmp_path / "a_en.pptx"
+        assert out_b == tmp_path / "b_en.pptx"
         assert out_a.read_bytes() == out_b.read_bytes()
+
+        uninitialized = tmp_path / "no_manifest_src"
+        uninitialized.mkdir()
+        with pytest.raises(ValueError, match=r"drawlib\.toml"):
+            build_pptx(str(uninitialized))
 
         with pytest.raises(ValueError, match="Input directory does not exist"):
             build_pptx(str(tmp_path / "missing_dir"))
 
         with pytest.raises(ValueError, match="dpi must be a positive integer"):
             build_pptx(str(slide_dir), dpi=0)
+
+    def test_multi_locale_build_pptx_en_and_ja(self, tmp_path: Path) -> None:
+        """Verify multi-locale slide project compiles both <stem>_en.pptx and <stem>_ja.pptx."""
+        slide_dir = tmp_path / "bilingual_src"
+        _write_slide_manifest(
+            slide_dir,
+            name="bilingual",
+            langs=("en", "ja"),
+            labels={"en": "English", "ja": "日本語"},
+        )
+        en_dir = slide_dir / "en"
+        ja_dir = slide_dir / "ja"
+
+        shared_diag = """\
+```drawlib file=shared_arch.svg
+from drawlib.canvas import clear, save, setup
+from drawlib.shapes import rectangle
+from drawlib.styles import Styles
+
+clear()
+setup(width=60, height=30)
+rectangle((30, 15), width=48, height=18, style=Styles.Neutral, text="Gateway")
+save()
+```"""
+
+        (en_dir / "01_title.md").write_text(
+            "# Global Architecture Deck\n\n"
+            "Unified multi-locale presentation.\n\n"
+            "::: note\nEnglish speaker intro.\n:::\n",
+            encoding="utf-8",
+        )
+        (en_dir / "02_arch.md").write_text(
+            f"# System Topology\n\nCore edge routing.\n\n{shared_diag}\n",
+            encoding="utf-8",
+        )
+
+        (ja_dir / "01_title.md").write_text(
+            "# グローバル設計デッキ\n\n"
+            "多言語ネイティブプレゼンテーション。\n\n"
+            "::: note\n日本語スピーカーノート。\n:::\n",
+            encoding="utf-8",
+        )
+        (ja_dir / "02_arch.md").write_text(
+            f"# システム構成\n\nコアエッジルーティング。\n\n{shared_diag}\n",
+            encoding="utf-8",
+        )
+
+        returned_path = Path(build_pptx(str(slide_dir), dpi=140))
+        en_pptx = tmp_path / "bilingual_en.pptx"
+        ja_pptx = tmp_path / "bilingual_ja.pptx"
+
+        assert returned_path == en_pptx
+        assert en_pptx.is_file()
+        assert ja_pptx.is_file()
+
+        prs_en = Presentation(str(en_pptx))
+        prs_ja = Presentation(str(ja_pptx))
+        assert len(prs_en.slides) == 2
+        assert len(prs_ja.slides) == 2
+
+        en_s1_text = _collect_all_slide_text(prs_en.slides[0])
+        en_s2_text = _collect_all_slide_text(prs_en.slides[1])
+        ja_s1_text = _collect_all_slide_text(prs_ja.slides[0])
+        ja_s2_text = _collect_all_slide_text(prs_ja.slides[1])
+
+        assert "Global Architecture Deck" in en_s1_text
+        assert "System Topology" in en_s2_text
+        en_notes = prs_en.slides[0].notes_slide.notes_text_frame
+        assert en_notes is not None
+        assert "English speaker intro." in en_notes.text
+
+        assert "グローバル設計デッキ" in ja_s1_text
+        assert "システム構成" in ja_s2_text
+        ja_notes = prs_ja.slides[0].notes_slide.notes_text_frame
+        assert ja_notes is not None
+        assert "日本語スピーカーノート。" in ja_notes.text

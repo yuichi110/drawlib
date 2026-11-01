@@ -15,6 +15,9 @@ This directory contains the source Markdown files, drawing code, and configurati
 ## 1. Directory Structure
 
 - `docs/architecture_src/`: Source documents and drawing code (**Source of Truth**).
+  - `drawlib.toml`: Unified project manifest (`type = "site"`, `style = "default"`, `[i18n]` `default_lang = "en"`, `langs = ["en"]`).
+  - `en/`: English specification tree (`navbar.md`, `index.md`, `01_overview/` .. `07_test_architecture/`).
+  - `_assets/`: Shared favicon and brand assets across locales.
   - `build.sh`: Master build script (runs HTML, Markdown, and Image builds).
   - `build_html.sh`: Static HTML website build script.
   - `build_markdown.sh`: Rendered Markdown build script.
@@ -24,13 +27,9 @@ This directory contains the source Markdown files, drawing code, and configurati
   - `utils.py`: Reusable drawing helper functions, macros, and project constants.
   - `style.css`: Custom CSS stylesheet for HTML pages.
   - `template.html`: Jinja2 HTML layout template.
-  - `navbar.md`: Navigation sidebar hierarchy definition.
   - `README.md`: This customization guide.
-  - `index.md`: Root landing page.
-  - `architecture/index.md`: Architecture chapter page.
-  - `workflow/index.md`: Workflow chapter page.
-- `docs/architecture_markdown/`: Generated Markdown site (**Do not edit directly**).
-- `docs/architecture_html/`: Generated static HTML website (**Do not edit directly**).
+- `docs/architecture_markdown/`: Generated Markdown site (`index.md`, `en/`, `images/`) (**Do not edit directly**).
+- `docs/architecture_html/`: Generated static HTML website (`index.html`, `en/`) (**Do not edit directly**).
 - `docs/architecture_images/`: Generated standalone diagram images (**Do not edit directly**).
 
 ---
@@ -154,16 +153,16 @@ The sidebar brand header supports both text titles and custom graphical logos:
 
 ### 3.6. Adding New Chapters & Pages
 To add a new documentation page:
-1. Create a Markdown file or subdirectory with `index.md` under `docs/architecture_src/`.
-2. Add an entry for the new file in `navbar.md`.
+1. Create a Markdown file or subdirectory with `index.md` under `docs/architecture_src/en/`.
+2. Add an entry for the new file in `en/navbar.md`.
 3. Embed illustrations using ````drawlib```` code blocks.
 4. Run `./build.sh` to compile.
 
 ### 3.7. Fast Developer Verification
 When designing diagrams, test individual blocks quickly with a coordinate grid (`-g`):
 ```bash
-# Export block 1 of a Markdown document to an image with alignment grid:
-drawlib export docs/architecture_src/index.md 1 -g -o preview.png
+# Preview block 1 of a Markdown document to an image with alignment grid:
+drawlib show docs/architecture_src/en/index.md 1 -g -o preview.png
 ```
 To force a complete rebuild bypassing the cache:
 ```bash

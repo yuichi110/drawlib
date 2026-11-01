@@ -2,7 +2,7 @@
 
 `site` スターターテンプレートは、階層型のサイドバーナビゲーション、モバイル対応のレスポンシブレイアウト、シンタックスハイライト、および静的 HTML と GitHub 対応 Markdown へのデュアル出力を備えた、マルチページ構成の技術ドキュメントサイトを構築します。
 
-Drawlib は `docs_src/navbar.md` と各 Markdown ページを、ビルド時の厳格なリンク検証を備えた 2 カラム構成のドキュメントポータルへコンパイルします。
+Drawlib は `docs_src/<lang>/navbar.md` と各 Markdown ページを、ビルド時の厳格なリンク検証を備えた 2 カラム構成のドキュメントポータルへコンパイルします。
 
 
 
@@ -26,7 +26,7 @@ setup(width=128, height=62)
 
 # Left: Source directory container
 rectangle((21, 31), width=34, height=54, style=Styles.MutedDashed.patch(shape_r=2.0))
-text((21, 54.2), "Source (docs_src/)", style=Styles.DarkBold.patch(text_size=10.8))
+text((21, 54.2), "docs_src/<lang>/", style=Styles.DarkBold.patch(text_size=10.8))
 
 rectangle((21, 39.2), width=30, height=22, style=Styles.PrimaryNeutral.patch(shape_r=1.5))
 phosphor.list_bullets((10.5, 45.8), width=4.4, style=Styles.PrimaryBold)
@@ -127,14 +127,15 @@ save()
 
 ## 2. プロジェクトの初期化
 
-`drawlib init` を使用してドキュメントサイトをスキャフォールディングします。
+`drawlib init` を使用してドキュメントサイトをスキャフォールディングします（すべての `site` プロジェクトは、単一言語であっても統一された `<src_dir>/<lang>/` ロケール構成を使用します）。
 
 ```bash
-# Scaffold default 'docs_src/' in the current directory:
+# Scaffold default 'docs_src/en/' in the current directory:
 drawlib init site
 
-# Or specify a custom target prefix (creates 'my_docs_src/', 'my_docs_html/', etc.):
+# Or specify a custom target prefix and single or multiple locales (creates 'my_docs_src/<lang>/'):
 drawlib init site my_docs --style google --lang en
+drawlib init site my_docs --style google --lang en,ja
 ```
 
 ---
@@ -144,24 +145,24 @@ drawlib init site my_docs --style google --lang en
 `site` プロジェクトでは、編集対象のソースファイル（`docs_src/`）と生成される公開用成果物を厳密に分離します。
 
 - **`docs_src/`（信頼できる唯一の情報源）**:
-  - **`drawlib.toml`**: `type = "site"`、既定の言語・テーマメタデータ、および任意の `[i18n]` 多言語設定を宣言するプロジェクトマニフェストです。
-  - **`index.md`**: ルートエントリドキュメント（`index.html`）としてレンダリングされるサイトのランディングページです。
-  - **`navbar.md`**: ブランドタイトル、折りたたみ可能なセクション、およびページリンクを宣言的に定義するサイドバーナビゲーションマニフェストです。
-  - **ネストされたセクションサブフォルダ (`guide/`, `api/`, `01_architecture/` など)**: ```` ```drawlib ```` 図解ブロックを埋め込んだ階層構造の Markdown ページ群です。
-  - **`_assets/`**: 出力ポータルへ再帰的にミラーリングされる静的メディアファイル（ロゴ、スクリーンショット、データファイルなど）です。
-  - **`styles.py` & `utils.py`**: プロジェクト全体のテーマパレット、言語ごとのタイポグラフィ既定値、および共有の Python 描画ヘルパーです。
+  - **`drawlib.toml`**: `type = "site"`、`style`、および必須の `[i18n]` セクション（`default_lang`、`len >= 1` の `langs`、および任意の `[i18n.labels]`。`[project]` 直下の `lang` は使用不可）を宣言するプロジェクトマニフェストです。
+  - **`<lang>/index.md`**: `<lang>/index.html` としてレンダリングされるロケール別のランディングページです（`docs_html/index.html` は `default_lang` へ自動リダイレクトします）。
+  - **`<lang>/navbar.md`**: ブランドタイトル、折りたたみ可能なセクション、およびページリンクを宣言的に定義するロケール別のサイドバーナビゲーションマニフェストです。
+  - **ネストされたセクションサブフォルダ (`<lang>/guide/`, `<lang>/api/`, `<lang>/01_architecture/` など)**: ```` ```drawlib ```` 図解ブロックを埋め込んだ階層構造の Markdown ページ群です。
+  - **`_assets/`**: 出力ポータルへ再帰的にミラーリングされる静的メディアファイル（ロゴ、スクリーンショット、データファイルなど）です（`<lang>/` 内の Markdown 本文からは `../_assets/...` で参照します）。
+  - **`styles.py` & `utils.py`**: プロジェクト全体のテーマパレット、言語ごとのタイポグラフィ既定値（任意のロケール別 `<lang>/styles.py` による上書きも可能）、および共有の Python 描画ヘルパーです。
   - **`template.html` & `style.css`**: レスポンシブな 2 カラム HTML レイアウトシェルと 3 層構造の CSS スタイルシートです。
   - **`build.sh`, `build_html.sh`, `build_markdown.sh`, `build_image.sh`, `serve.sh`**: モジュール化されたビルドスクリプトおよびローカルプレビュー用スクリプトです。
 - **生成される出力先（直接編集しないでください）**:
-  - **`docs_html/`**: Web ホスティングや `drawlib serve` にそのまま利用できるレスポンシブな静的 HTML ドキュメントポータルです。
-  - **`docs_markdown/`**: コンパイル済みの PNG / WebP 図表リンクを備えた GitHub 向けの Markdown ポータルです。
+  - **`docs_html/`**: Web ホスティングや `drawlib serve` にそのまま利用できるレスポンシブな静的 HTML ドキュメントポータル（`docs_html/<lang>/`、ルートの `docs_html/index.html` リダイレクト、および共有の `docs_html/images/`）です。
+  - **`docs_markdown/`**: コンパイル済みの PNG / WebP 図表リンクを備えた GitHub 向けの Markdown ポータル（`docs_markdown/<lang>/` および共有の `docs_markdown/images/`）です。
   - **`docs_images/`**: `build_image.sh` 実行時に単体ファイルとして抽出される図解画像群です。
 
 ---
 
-## 4. サイドバーナビゲーション (`navbar.md`)
+## 4. サイドバーナビゲーション (`<lang>/navbar.md`)
 
-サイドバーのナビゲーション構造は、すべて `docs_src/navbar.md` によって制御されます。
+各ロケールのサイドバーナビゲーション構造は、すべて `docs_src/<lang>/navbar.md` によって制御されます。
 
 ```markdown
 # Drawlib Documentation
@@ -183,7 +184,7 @@ drawlib init site my_docs --style google --lang en
 ### 記述ルール:
 1. **ブランドヘッダー (`# Title`)**: トップレベルの `# 見出し 1` がサイドバーヘッダーのブランドタイトルを設定します。
 2. **カテゴリグループ (`## Category`)**: 各 `## 見出し 2` が折りたたみ可能なナビゲーションカテゴリセクションを定義します。
-3. **内部ドキュメントリンク**: 相対パスは `docs_src/` 内に実在する Markdown ファイルを指している必要があります。
+3. **内部ドキュメントリンク**: 相対パスは各ロケールディレクトリ（`docs_src/<lang>/`）内で解決され、実在する Markdown ファイルを指している必要があります。
 4. **外部リンク**: `http://` または `https://` で始まる URL は、外部リンクアイコン付きで自動的に新しいタブ（`target="_blank"`）で開きます。
 5. **ビルド時の厳格な検証**: リンク先のドキュメントが存在しない場合、ビルドは即座に中断され、該当ファイルと行番号を示すエラーが出力されます。
 6. **アクティブページの自動追跡**: 現在閲覧中のページは動的な相対パス解決によって自動的にハイライト表示（`.nav-item.active`）されます。
@@ -192,7 +193,7 @@ drawlib init site my_docs --style google --lang en
 
 ## 5. 静的アセットの同期
 
-`docs_src/` 内に配置された静的アセット（カスタムロゴ、サンプルデータファイル、`_assets/` 内の画像など）は、フォルダ階層を維持したまま `docs_html/` および `docs/` へ再帰的にミラーリングされます。
+`docs_src/` 内に配置された静的アセット（カスタムロゴ、サンプルデータファイル、`_assets/` 内の画像など）は、フォルダ階層を維持したまま `docs_html/` および `docs/`（`docs_markdown/`）へ再帰的にミラーリングされます。
 
 ---
 
@@ -223,16 +224,16 @@ uv run drawlib serve docs_html/ --check
 
 ## 7. マルチエージェントによる並列サイト執筆
 
-マルチページ構成の `site` プロジェクト（`docs_src/**/*.md`）は、並列 AI サブエージェントによる分担作業に自然にスケールします。
-1. **フェーズ 1（親エージェントによる初期設定）**: サブエージェントを起動する前に、`docs_src/` をスキャフォールディング（`drawlib init site`）し、共有ファイル（`styles.py`、`utils.py`、`_assets/`、`index.md`、および完全な `navbar.md` サイドバーツリー）を確定させます。
-2. **フェーズ 2（サブエージェントによる並列執筆）**: 各サブエージェントに重複しないページまたはセクションディレクトリ（例: `01_architecture/*.md` と `02_services/*.md`）を割り当てます。各サブエージェントは `styles.py`、`utils.py`、`navbar.md` を読み取り専用として扱い、担当ページを執筆して一意なスクラッチファイル名（`-o .drawlib/scratch/<page>_<block>_grid.png`）で `-g` グリッドプレビューを実行します。
+マルチページ構成の `site` プロジェクト（`docs_src/<lang>/**/*.md`）は、並列 AI サブエージェントによる分担作業に自然にスケールします。
+1. **フェーズ 1（親エージェントによる初期設定）**: サブエージェントを起動する前に、`docs_src/` をスキャフォールディング（`drawlib init site`）し、共有ファイル（`drawlib.toml`、`styles.py`、`utils.py`、`_assets/`、`<lang>/index.md`、および完全な `<lang>/navbar.md` サイドバーツリー）を確定させます。
+2. **フェーズ 2（サブエージェントによる並列執筆）**: 各サブエージェントに重複しないページまたはセクションディレクトリ（例: `<lang>/01_architecture/*.md` と `<lang>/02_services/*.md`）を割り当てます。各サブエージェントは `drawlib.toml`、`styles.py`、`utils.py`、`<lang>/navbar.md` を読み取り専用として扱い、担当ページを執筆して一意なスクラッチファイル名（`-o .drawlib/scratch/<page>_<block>_grid.png`）で `-g` グリッドプレビューを実行します。
 3. **フェーズ 3（統合ビルドとリンク監査）**: すべてのサブエージェントが完了したら、親エージェントが `./docs_src/build.sh` を 1 回実行し、`uv run drawlib serve docs_html/ --check` でサイト全体のリンク整合性を検証します。
 
 ---
 
-## 8. 多言語（`i18n`）ドキュメントサイト (`drawlib.toml`)
+## 8. 統一 `i18n` アーキテクチャと多言語ドキュメントサイト (`drawlib.toml`)
 
-`drawlib init site` にカンマ区切りの言語コードを指定するか、`docs_src/drawlib.toml` に `[i18n]` セクションを設定することで、単一の `docs_src/` プロジェクトから同期された多言語ドキュメントポータルを公開できます。
+すべての `docs_src/` プロジェクトは標準で `i18n` ネイティブ構成（既定は `langs = ["en"]`）を採用しています。単一言語のポータルを後から多言語サイトへ拡張する際も、`git mv` によるファイル移動は不要です。`drawlib init site` にカンマ区切りの言語コードを指定するか、ロケールディレクトリ（`docs_src/ja/`）を追加して `docs_src/drawlib.toml` の `[i18n]` を更新するだけで完了します。
 
 ```bash
 uv run drawlib init site docs -l en,ja -s default
@@ -255,7 +256,7 @@ ja = "日本語"
 
 - **対称なロケールサブツリー (`docs_src/<lang>/`)**: 設定された各ロケール（`en/`、`ja/` など）は、それぞれ固有の `navbar.md`、`index.md`、および同一構成のセクションサブディレクトリを保持します。
 - **共有図解の重複排除とロケール別 `styles.py`**: 言語間で共通の図解（`file=vpc_arch.png`）はルートの `docs_html/images/` ディレクトリに 1 回だけコンパイルされ、全ロケールで共有されます。日本語フォントや翻訳ラベルを含む図解が必要な場合は、`docs_src/<lang>/styles.py` を配置してロケール接尾辞付きのファイル名（`file=vpc_arch_ja.png`）を指定します。
-- **自動言語スイッチャーとルートリダイレクト**: コンパイルされた各 HTML ページのヘッダーには他言語の同一ページへ直接遷移する言語切り替えドロップダウンが生成され、ルートの `docs_html/index.html` は訪問者を優先ロケール（既定は `default_lang`）へリダイレクトします。
+- **自動言語スイッチャーとルートリダイレクト**: `len(langs) > 1` の場合、コンパイルされた各 HTML ページのヘッダーには他言語の同一ページへ直接遷移する言語切り替えドロップダウンが生成され、ルートの `docs_html/index.html` は訪問者を優先ロケール（既定は `default_lang`）へリダイレクトします。
 - **ビルド前の厳格なパリティ検証**: ビルド実行時には、全ロケール間でファイルセットの一致、`navbar.md` の構造一致、Markdown の構造スケルトン一致、および内部リンク先の存在がレンダリング前に自動検証されます。
 - **統合リンク監査**: `uv run drawlib serve docs_html/ --check` を実行すると、すべてのロケールにわたる内部ナビゲーション、共有画像参照、および言語切り替えリンクを 1 パスで一括検証できます。
 

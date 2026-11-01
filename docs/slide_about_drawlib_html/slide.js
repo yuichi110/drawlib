@@ -1172,6 +1172,15 @@
         return;
       }
 
+      if (e.key === 'Escape') {
+        const openLangDropdowns = document.querySelectorAll('.slide-lang-dropdown[open]');
+        if (openLangDropdowns.length > 0) {
+          e.preventDefault();
+          openLangDropdowns.forEach((dd) => dd.removeAttribute('open'));
+          return;
+        }
+      }
+
       if (isOverviewOpen) {
         if (e.key === 'Escape' || e.key === 'o' || e.key === 'O') {
           toggleOverview();
@@ -1219,6 +1228,21 @@
           e.preventDefault();
           triggerCurrentSlideAnimations();
           break;
+        case 'l':
+        case 'L': {
+          const langDropdown = document.querySelector('.slide-lang-dropdown');
+          if (langDropdown) {
+            e.preventDefault();
+            const controls = document.querySelector('.slide-controls');
+            if (controls) controls.classList.add('visible');
+            if (langDropdown.hasAttribute('open')) {
+              langDropdown.removeAttribute('open');
+            } else {
+              langDropdown.setAttribute('open', '');
+            }
+          }
+          break;
+        }
         case 'o':
         case 'O':
         case 'Escape':
@@ -1243,6 +1267,31 @@
     if (btnPresenter) btnPresenter.addEventListener('click', openPresenterView);
     if (btnFullscreen) btnFullscreen.addEventListener('click', toggleFullscreen);
 
+    // Language switcher: close on outside click & preserve #N slide hash across locales
+    document.addEventListener('click', (e) => {
+      document.querySelectorAll('.slide-lang-dropdown[open]').forEach((dd) => {
+        if (!dd.contains(e.target)) {
+          dd.removeAttribute('open');
+        }
+      });
+    });
+
+    document.querySelectorAll('a[data-lang-switch]').forEach((link) => {
+      link.addEventListener('click', (e) => {
+        const href = link.getAttribute('href');
+        if (!href) return;
+        const parentDropdown = link.closest('.slide-lang-dropdown');
+        if (parentDropdown) {
+          parentDropdown.removeAttribute('open');
+        }
+        e.preventDefault();
+        if (link.classList.contains('active')) {
+          return;
+        }
+        window.location.href = href + window.location.hash;
+      });
+    });
+
     let controlsHideTimer = null;
     function showControlsTemporarily() {
       if (!controls || isPresenterMode) return;
@@ -1251,7 +1300,8 @@
         clearTimeout(controlsHideTimer);
       }
       controlsHideTimer = setTimeout(() => {
-        if (!controls.matches(':hover')) {
+        const hasOpenLangMenu = Boolean(controls.querySelector('.slide-lang-dropdown[open]'));
+        if (!controls.matches(':hover') && !hasOpenLangMenu) {
           controls.classList.remove('visible');
         }
       }, 1000);

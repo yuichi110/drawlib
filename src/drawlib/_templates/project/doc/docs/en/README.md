@@ -7,23 +7,26 @@ This directory contains multi-chapter specification or technical report document
 ## 1. Directory Structure
 
 - `__SRC_DIR__/`: Source Markdown chapters and drawing code (**Source of Truth**).
+  - `drawlib.toml`: Project manifest (`[project]` metadata and `[i18n]` locale configuration).
+  - `__DEFAULT_LANG__/`: Markdown chapters for the default locale (add `<lang>/` directories and append to `langs` in `drawlib.toml` for multi-language builds):
+    - `00_cover.md`: Document title/cover page.
+    - `01_overview.md`: Overview chapter.
+    - `02_design.md`: Technical design chapter.
+  - `_assets/`: Shared image assets across locales (`favicon.png`, `linux.png`).
   - `build.sh`: Master build script to run all builds.
   - `build_html.sh`: Fast HTML preview compiler.
   - `build_pdf.sh`: Print-ready vector PDF compiler.
   - `build_markdown.sh`: GitHub-ready Markdown compiler.
   - `build_image.sh`: Batch diagram image exporter.
   - `serve.sh`: Local preview server with live reloading.
-  - `styles.py`: Global styles script (themes, styles, font presets).
+  - `styles.py`: Global styles script (themes, styles, font presets; optional `<lang>/styles.py` override).
   - `utils.py`: Reusable drawing helper functions, macros, and project constants.
   - `style.css`: Document stylesheet (layout, typography, paged media rules).
   - `template.html`: Jinja2 HTML layout.
   - `README.md`: This customization guide.
-  - `00_cover.md`: Document title/cover page.
-  - `01_overview.md`: Overview chapter.
-  - `02_design.md`: Technical design chapter.
-- `__OUT_MARKDOWN_DIR__/`: Generated Markdown files.
-- `__OUT_HTML_DIR__/`: Generated HTML documents.
-- `__OUT_PDF__`: Generated PDF document.
+- `__OUT_MARKDOWN_DIR__/`: Generated Markdown files (`<lang>/...`).
+- `__OUT_HTML_DIR__/`: Generated HTML documents (`index.html`, `<lang>/index.html`).
+- `__TARGET___<lang>.pdf` (e.g. `__TARGET_____DEFAULT_LANG__.pdf`): Generated vector PDF document(s) per locale.
 - `__OUT_IMAGES_DIR__/`: Generated diagram images.
 
 ---
@@ -33,7 +36,7 @@ This directory contains multi-chapter specification or technical report document
 ### Using the Build Scripts
 ```bash
 ./build_html.sh       # Compile standalone HTML
-./build_pdf.sh        # Compile vector PDF
+./build_pdf.sh        # Compile vector PDF (<base>_<lang>.pdf)
 ./build_markdown.sh   # Compile Markdown
 ./build_image.sh      # Export diagram images
 ./build.sh            # Run all builds

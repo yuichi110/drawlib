@@ -12,56 +12,30 @@
 from __future__ import annotations
 
 import os
+import tempfile
 
-from drawlib._builder._common import BuildImageCache, load_project_manifest, resolve_styles_and_utils
+from drawlib._builder._common import (
+    BuildImageCache,
+    ProjectManifest,
+    find_project_manifest,
+    load_project_manifest,
+    resolve_styles_and_utils,
+)
 from drawlib._builder.doc_builder.compiler.base import (
     require_directory,
     resolve_doc_locale_and_root,
     resolve_multi_locale_dest,
     resolve_template_and_css,
 )
-from drawlib._builder.doc_builder.exporter_pdf import export_html_to_pdf
+from drawlib._builder.doc_builder.exporter_pdf import export_html_file_to_pdf, export_html_to_pdf
 from drawlib._builder.doc_builder.i18n import validate_i18n_project
 from drawlib._builder.doc_builder.merger import build_merged_html
-
-
-def _is_slide_project_dir(input_abs: str) -> bool:
-    """Return True if input_abs is a slide presentation source directory."""
-    if not os.path.isdir(input_abs):
-        return False
-    manifest = load_project_manifest(input_abs)
-    if manifest is not None:
-        return manifest.project.type == "slide"
-    if os.path.isfile(os.path.join(input_abs, "slide.css")):
-        return True
-    style_css = os.path.join(input_abs, "style.css")
-    if os.path.isfile(style_css):
-        try:
-            with open(style_css, "r", encoding="utf-8") as f:
-                css_text = f.read()
-            if (
-                "--slide-width" in css_text
-                or ".presentation-stage" in css_text
-                or "1920px 1080px" in css_text
-                or "16in 9in" in css_text
-            ):
-                return True
-        except OSError:
-            pass
-    build_html_sh = os.path.join(input_abs, "build_html.sh")
-    if os.path.isfile(build_html_sh):
-        try:
-            with open(build_html_sh, "r", encoding="utf-8") as f:
-                if "build slide" in f.read():
-                    return True
-        except OSError:
-            pass
-    return False
 
 
 def _build_i18n_doc_pdfs(
     *,
     input_dir_abs: str,
+    manifest: ProjectManifest,
     output_file: str | None,
     base_name: str,
     title: str | None,
@@ -72,10 +46,9 @@ def _build_i18n_doc_pdfs(
     no_cache: bool,
     timestamp: bool,
 ) -> str:
-    """Compile all locales of a multi-language ``doc`` project into ``<base>_<lang>.pdf`` files."""
-    manifest = load_project_manifest(input_dir_abs)
-    if manifest is None or manifest.i18n is None:
-        raise ValueError(f'Expected multi-locale drawlib.toml in "{input_dir_abs}".')
+    """Compile all locales of a ``doc`` project into ``<base>_<lang>.pdf`` files."""
+    if manifest.i18n is None:
+        raise ValueError(f'Expected "[i18n]" configuration in "{input_dir_abs}/drawlib.toml".')
 
     validate_i18n_project(input_dir_abs, manifest.i18n, project_type="doc")
     template_file, css_file = resolve_template_and_css(input_dir_abs)
@@ -108,6 +81,107 @@ def _build_i18n_doc_pdfs(
     return generated_paths[manifest.i18n.default_lang]
 
 
+def _build_i18n_slide_pdfs(
+    *,
+    input_dir_abs: str,
+    manifest: ProjectManifest,
+    output_file: str | None,
+    default_stem: str,
+    title: str | None,
+    styles_path: str | None,
+    utils_path: str | None,
+    no_cache: bool,
+    timestamp: bool,
+) -> str:
+    """Compile all locales of a ``slide`` project into ``<stem>_<lang>.pdf`` files."""
+    from drawlib._slide import build_slide  # noqa: PLC0415
+
+    if manifest.i18n is None:
+        raise ValueError(f'Expected "[i18n]" configuration in "{input_dir_abs}/drawlib.toml".')
+
+    default_base_dir = os.path.dirname(input_dir_abs)
+    generated_paths: dict[str, str] = {}
+
+    with tempfile.TemporaryDirectory() as stage_dir:
+        build_slide(
+            input_dir_abs,
+            output_dir=stage_dir,
+            title=title,
+            styles_path=styles_path,
+            utils_path=utils_path,
+            no_cache=no_cache,
+        )
+        for lang in manifest.i18n.langs:
+            dest_abs = resolve_multi_locale_dest(default_base_dir, default_stem, output_file, lang, ".pdf")
+            os.makedirs(os.path.dirname(dest_abs), exist_ok=True)
+            locale_index_html = os.path.join(stage_dir, lang, "index.html")
+            export_html_file_to_pdf(
+                locale_index_html,
+                dest_abs,
+                timestamp=timestamp,
+                prefer_css_page_size=True,
+            )
+            generated_paths[lang] = dest_abs
+
+    return generated_paths[manifest.i18n.default_lang]
+
+
+def _compile_single_file_pdf(
+    *,
+    input_abs: str,
+    output_file: str | None,
+    title: str | None,
+    page_break: bool,
+    generate_index: bool,
+    styles_path: str | None,
+    utils_path: str | None,
+    no_cache: bool,
+    timestamp: bool,
+) -> str:
+    """Compile a standalone ``.md`` or ``.html`` file into a vector PDF."""
+    ext = os.path.splitext(input_abs)[1].lower()
+    if ext not in {".md", ".markdown", ".html", ".htm"}:
+        raise ValueError(f'Unsupported input file "{input_abs}". Expected .md or .html.')
+
+    search_dir = os.path.dirname(input_abs)
+    doc_lang, _, proj_root = resolve_doc_locale_and_root(input_abs)
+    styles_abs, utils_abs = resolve_styles_and_utils(search_dir, styles_path, utils_path)
+    template_file: str | None = None
+    css_file: str | None = None
+    for cand_dir in (search_dir, proj_root):
+        if template_file is None and os.path.isfile(os.path.join(cand_dir, "template.html")):
+            template_file = os.path.join(cand_dir, "template.html")
+        if css_file is None and os.path.isfile(os.path.join(cand_dir, "style.css")):
+            css_file = os.path.join(cand_dir, "style.css")
+
+    merged_html, _ = build_merged_html(
+        inputs=[input_abs],
+        title=title,
+        page_break=page_break,
+        generate_index=generate_index,
+        styles_path=styles_abs,
+        utils_path=utils_abs,
+        css_path=css_file,
+        template_path=template_file,
+        no_cache=no_cache,
+        lang=doc_lang,
+        project_root=proj_root,
+    )
+
+    stem = os.path.splitext(os.path.basename(input_abs))[0]
+    if output_file:
+        if os.path.isdir(output_file) or output_file.endswith((os.sep, "/")):
+            dest_abs = os.path.abspath(os.path.join(output_file, f"{stem}.pdf"))
+        else:
+            dest_abs = os.path.abspath(output_file)
+    else:
+        dest_abs = os.path.join(search_dir, f"{stem}.pdf")
+
+    os.makedirs(os.path.dirname(dest_abs), exist_ok=True)
+    export_html_to_pdf(merged_html, dest_abs, timestamp=timestamp)
+    return dest_abs
+
+
 def build_pdf(
     input_path: str | None = None,
     output_file: str | None = None,
@@ -121,17 +195,16 @@ def build_pdf(
     no_cache: bool = False,
     timestamp: bool = False,
 ) -> str:
-    """Merge Markdown chapters, single Markdown file, or slide deck into a print-ready vector PDF.
+    """Compile a ``doc`` project, ``slide`` project, or standalone Markdown/HTML file into vector PDF(s).
 
-    For multi-language ``doc`` projects (``[i18n]`` in ``drawlib.toml``), compiles one
+    For ``doc`` and ``slide`` project directories (``[i18n]`` in ``drawlib.toml``), compiles one
     ``<base>_<lang>.pdf`` per configured locale and returns the ``default_lang`` PDF path.
 
     Args:
-        input_path (Optional[str]): Directory containing Markdown (.md) documents, single Markdown file,
-            or slide presentation directory.
-        output_file (Optional[str]): Destination PDF file path. Defaults to '<name>.pdf'.
+        input_path (Optional[str]): ``doc`` or ``slide`` project directory, or standalone ``.md``/``.html`` file.
+        output_file (Optional[str]): Destination PDF file path (or base path/directory for project builds).
         input_dir (Optional[str]): Alias for input_path.
-        title (Optional[str]): Document title override.
+        title (Optional[str]): Document or presentation title override.
         page_break (bool): Insert CSS page breaks between merged chapters. Defaults to True.
         generate_index (bool): Generate a Table of Contents between 1st and 2nd documents.
         styles_path (Optional[str]): Path to custom styles.py script.
@@ -140,10 +213,10 @@ def build_pdf(
         timestamp (bool): If True, include current build timestamp in PDF metadata.
 
     Returns:
-        str: Absolute path of generated PDF file (or default-locale PDF for multi-locale doc projects).
+        str: Absolute path of generated PDF file (or default-locale PDF for project directories).
 
     Raises:
-        ValueError: If input_path does not exist or has an unsupported format.
+        ValueError: If input_path does not exist, lacks ``drawlib.toml`` for directories, or has an unsupported type.
     """
     resolved_input = input_path if input_path is not None else input_dir
     if not resolved_input:
@@ -152,111 +225,10 @@ def build_pdf(
         raise ValueError(f'Input path "{resolved_input}" does not exist.')
 
     input_abs = os.path.abspath(resolved_input)
-    direct_manifest = load_project_manifest(input_abs) if os.path.isdir(input_abs) else None
-    if direct_manifest is not None:
-        if direct_manifest.project.type == "site":
-            raise ValueError(
-                f'Input directory "{input_abs}" is a multi-page "site" project (drawlib.toml). '
-                'Please use "drawlib build html" instead of "drawlib build pdf".'
-            )
-        if direct_manifest.project.type == "images":
-            raise ValueError(
-                f'Input directory "{input_abs}" is an "images" script project (drawlib.toml). '
-                'Please use "drawlib build image" instead of "drawlib build pdf".'
-            )
-
-    # 1. Slide presentation project directory
-    if _is_slide_project_dir(input_abs):
-        import tempfile
-
-        from drawlib._builder.doc_builder.exporter_pdf import export_html_file_to_pdf
-        from drawlib._slide import build_slide
-
-        dir_name = os.path.basename(input_abs.rstrip(os.sep))
-        base_name = dir_name[:-4] if dir_name.endswith("_src") else dir_name
-        if not base_name:
-            base_name = "slide"
-
-        if output_file:
-            if os.path.isdir(output_file) or output_file.endswith(os.sep) or output_file.endswith("/"):
-                dest_abs = os.path.abspath(os.path.join(output_file, f"{base_name}.pdf"))
-            else:
-                dest_abs = os.path.abspath(output_file)
-        else:
-            dest_abs = os.path.join(os.path.dirname(input_abs), f"{base_name}.pdf")
-
-        os.makedirs(os.path.dirname(dest_abs), exist_ok=True)
-        eff_slide_title = title or (
-            direct_manifest.project.title if direct_manifest and direct_manifest.project.title else None
-        )
-        with tempfile.TemporaryDirectory() as tmp_dir:
-            index_html = build_slide(
-                input_dir=input_abs,
-                output_dir=tmp_dir,
-                title=eff_slide_title,
-                styles_path=styles_path,
-                utils_path=utils_path,
-                no_cache=no_cache,
-            )
-            export_html_file_to_pdf(index_html, dest_abs, timestamp=timestamp, prefer_css_page_size=True)
-        return dest_abs
-
-    # 2. Single Markdown / HTML file
     if os.path.isfile(input_abs):
-        ext = os.path.splitext(input_abs)[1].lower()
-        if ext not in {".md", ".markdown", ".html", ".htm"}:
-            raise ValueError(f'Unsupported input file "{input_abs}". Expected .md or .html.')
-
-        search_dir = os.path.dirname(input_abs)
-        doc_lang, _, proj_root = resolve_doc_locale_and_root(input_abs)
-        styles_abs, utils_abs = resolve_styles_and_utils(search_dir, styles_path, utils_path)
-        template_file: str | None = None
-        css_file: str | None = None
-        for cand_dir in (search_dir, proj_root):
-            if template_file is None and os.path.isfile(os.path.join(cand_dir, "template.html")):
-                template_file = os.path.join(cand_dir, "template.html")
-            if css_file is None and os.path.isfile(os.path.join(cand_dir, "style.css")):
-                css_file = os.path.join(cand_dir, "style.css")
-
-        merged_html, _ = build_merged_html(
-            inputs=[input_abs],
-            title=title,
-            page_break=page_break,
-            generate_index=generate_index,
-            styles_path=styles_abs,
-            utils_path=utils_abs,
-            css_path=css_file,
-            template_path=template_file,
-            no_cache=no_cache,
-            lang=doc_lang,
-            project_root=proj_root,
-        )
-
-        stem = os.path.splitext(os.path.basename(input_abs))[0]
-        if output_file:
-            if os.path.isdir(output_file) or output_file.endswith(os.sep) or output_file.endswith("/"):
-                dest_abs = os.path.abspath(os.path.join(output_file, f"{stem}.pdf"))
-            else:
-                dest_abs = os.path.abspath(output_file)
-        else:
-            dest_abs = os.path.join(search_dir, f"{stem}.pdf")
-
-        os.makedirs(os.path.dirname(dest_abs), exist_ok=True)
-        export_html_to_pdf(merged_html, dest_abs, timestamp=timestamp)
-        return dest_abs
-
-    # 3. Document chapters directory
-    input_dir_abs = require_directory(resolved_input, "build_pdf")
-    dir_name = os.path.basename(input_dir_abs.rstrip(os.sep))
-    base_name = dir_name[:-4] if dir_name.endswith("_src") else dir_name
-    if not base_name:
-        base_name = "document"
-
-    if direct_manifest is not None and direct_manifest.i18n is not None:
-        return _build_i18n_doc_pdfs(
-            input_dir_abs=input_dir_abs,
+        return _compile_single_file_pdf(
+            input_abs=input_abs,
             output_file=output_file,
-            base_name=base_name,
             title=title,
             page_break=page_break,
             generate_index=generate_index,
@@ -266,32 +238,58 @@ def build_pdf(
             timestamp=timestamp,
         )
 
-    doc_lang, _, proj_root = resolve_doc_locale_and_root(input_dir_abs)
-    template_file, css_file = resolve_template_and_css(input_dir_abs)
-    styles_abs, utils_abs = resolve_styles_and_utils(input_dir_abs, styles_path, utils_path)
+    input_dir_abs = require_directory(resolved_input, "build_pdf")
+    manifest = load_project_manifest(input_dir_abs)
+    if manifest is None:
+        found = find_project_manifest(input_dir_abs, max_up=3)
+        if found is not None:
+            proj_root, _ = found
+            raise ValueError(
+                f'Input directory "{input_dir_abs}" is a subdirectory inside project "{proj_root}". '
+                f'Please pass the project root directory "{proj_root}" containing "drawlib.toml".'
+            )
+        raise ValueError(
+            f'Missing required "drawlib.toml" in "{input_dir_abs}". '
+            'PDF directory builds require a Drawlib project manifest (run "drawlib init doc" or "drawlib init slide").'
+        )
 
-    merged_html, _ = build_merged_html(
-        inputs=[input_dir_abs],
+    if manifest.project.type == "site":
+        raise ValueError(
+            f'Input directory "{input_dir_abs}" is a multi-page "site" project (drawlib.toml). '
+            'Please use "drawlib build html" instead of "drawlib build pdf".'
+        )
+    if manifest.project.type == "images":
+        raise ValueError(
+            f'Input directory "{input_dir_abs}" is an "images" script project (drawlib.toml). '
+            'Please use "drawlib build image" instead of "drawlib build pdf".'
+        )
+
+    dir_name = os.path.basename(input_dir_abs.rstrip(os.sep))
+    raw_stem = dir_name[:-4] if dir_name.endswith("_src") else dir_name
+
+    if manifest.project.type == "slide":
+        return _build_i18n_slide_pdfs(
+            input_dir_abs=input_dir_abs,
+            manifest=manifest,
+            output_file=output_file,
+            default_stem=raw_stem or "slide",
+            title=title,
+            styles_path=styles_path,
+            utils_path=utils_path,
+            no_cache=no_cache,
+            timestamp=timestamp,
+        )
+
+    return _build_i18n_doc_pdfs(
+        input_dir_abs=input_dir_abs,
+        manifest=manifest,
+        output_file=output_file,
+        base_name=raw_stem or "document",
         title=title,
         page_break=page_break,
         generate_index=generate_index,
-        styles_path=styles_abs,
-        utils_path=utils_abs,
-        css_path=css_file,
-        template_path=template_file,
+        styles_path=styles_path,
+        utils_path=utils_path,
         no_cache=no_cache,
-        lang=doc_lang,
-        project_root=proj_root,
+        timestamp=timestamp,
     )
-
-    if output_file:
-        if os.path.isdir(output_file) or output_file.endswith(os.sep) or output_file.endswith("/"):
-            dest_abs = os.path.abspath(os.path.join(output_file, f"{base_name}.pdf"))
-        else:
-            dest_abs = os.path.abspath(output_file)
-    else:
-        dest_abs = os.path.join(os.path.dirname(input_dir_abs), f"{base_name}.pdf")
-
-    os.makedirs(os.path.dirname(dest_abs), exist_ok=True)
-    export_html_to_pdf(merged_html, dest_abs, timestamp=timestamp)
-    return dest_abs

@@ -162,12 +162,12 @@ def collect_locale_doc_files(lang_dir_abs: str, *, markdown_only: bool = False) 
 
 def _normalize_block_filename(raw_file: str | None, fmt_opt: str | None, default_format: str, index: int) -> str:
     """Resolve canonical output filename for a drawlib block."""
-    eff_fmt = fmt_opt if fmt_opt in {"png", "webp", "svg", "apng"} else default_format
-    ext = eff_fmt if eff_fmt in {"svg", "webp", "apng"} else "png"
+    eff_fmt = fmt_opt if fmt_opt in {"png", "webp", "svg", "apng", "jpg", "pdf"} else default_format
+    ext = eff_fmt if eff_fmt in {"svg", "webp", "apng", "jpg", "pdf"} else "png"
     if raw_file:
         cleaned = raw_file.strip()
         _, file_ext = os.path.splitext(cleaned)
-        if file_ext.lower() in {".png", ".webp", ".svg", ".apng"}:
+        if file_ext.lower() in {".png", ".webp", ".svg", ".apng", ".jpg", ".pdf"}:
             return cleaned
         return f"{cleaned}.{ext}"
     return f"{index}.{ext}"
@@ -180,6 +180,22 @@ def _strip_html_comments(text: str) -> str:
         lambda m: re.sub(r"[^\n]", " ", m.group(0)),
         text,
         flags=re.DOTALL,
+    )
+
+
+def _strip_slide_directives_preserving_lines(text: str) -> str:
+    """Blank out slide ``::: note ... :::`` sections and ``::: block`` fences while keeping line numbers intact."""
+    without_notes = re.sub(
+        r"^[ \t]*:::[ \t]+note\b.*?^[ \t]*:::[ \t\r]*$",
+        lambda m: re.sub(r"[^\n]", " ", m.group(0)),
+        text,
+        flags=re.MULTILINE | re.DOTALL,
+    )
+    return re.sub(
+        r"^[ \t]*:::(?:[ \t]+block\b[^\n]*)?[ \t\r]*$",
+        lambda m: " " * len(m.group(0)),
+        without_notes,
+        flags=re.MULTILINE,
     )
 
 
@@ -206,8 +222,21 @@ def _consume_fenced_block(
         block_counter += 1
         opt_str = info[len("drawlib") :].strip()
         opts = parse_block_info(opt_str)
-        fn = _normalize_block_filename(opts.file, opts.format, default_format, block_counter)
-        norm_code = "\n".join(line.rstrip("\r") for line in body_lines).strip()
+        body_joined = "\n".join(line.rstrip("\r") for line in body_lines)
+        block_default_fmt = default_format
+        if (
+            block_default_fmt == "svg"
+            and opts.format is None
+            and (
+                opts.anim_trigger is not None
+                or opts.anim_loop is not None
+                or bool(opts.anim_pause)
+                or "Animation(" in body_joined
+            )
+        ):
+            block_default_fmt = "png"
+        fn = _normalize_block_filename(opts.file, opts.format, block_default_fmt, block_counter)
+        norm_code = body_joined.strip()
         token: SkeletonToken = DrawlibBlockToken(
             line_number=start_line,
             file_name=fn,
@@ -222,7 +251,12 @@ def _consume_fenced_block(
     return CodeBlockToken(line_number=start_line, lang=lang_tag), idx + 1, block_counter
 
 
-def extract_markdown_skeleton(content: str, default_format: str = "png") -> list[SkeletonToken]:
+def extract_markdown_skeleton(
+    content: str,
+    default_format: str = "png",
+    *,
+    is_slide: bool = False,
+) -> list[SkeletonToken]:
     """Extract ordered structural skeleton tokens from a Markdown document.
 
     Consecutive paragraphs, bullet lists, tables, blockquotes, horizontal rules, and H4+
@@ -232,12 +266,15 @@ def extract_markdown_skeleton(content: str, default_format: str = "png") -> list
     Args:
         content: Raw Markdown file content.
         default_format: Default image extension when ``format=``/file extension is omitted.
+        is_slide: If True, strip ``::: note ... :::`` and ``::: block`` fences while keeping line numbers.
 
     Returns:
         list[SkeletonToken]: Ordered sequence of structural skeleton tokens.
     """
     masked_text, preserved = preserve_outer_fences(content)
     cleaned_text = _strip_html_comments(masked_text)
+    if is_slide:
+        cleaned_text = _strip_slide_directives_preserving_lines(cleaned_text)
     lines = cleaned_text.split("\n")
 
     tokens: list[SkeletonToken] = []
@@ -308,6 +345,8 @@ def _check_file_set_parity(
     default_files: list[str],
     default_has_navbar: bool,
     lang: str,
+    *,
+    markdown_only: bool = False,
 ) -> list[str]:
     """Validate Check 1: File set parity and navbar presence between default_lang and lang."""
     lang_dir = os.path.join(input_abs, lang)
@@ -318,7 +357,7 @@ def _check_file_set_parity(
             f'does not match default_lang "{default_lang}" ({default_has_navbar}).'
         )
 
-    lang_files = collect_locale_doc_files(lang_dir)
+    lang_files = collect_locale_doc_files(lang_dir, markdown_only=markdown_only)
     def_set = set(default_files)
     lang_set = set(lang_files)
     missing = sorted(def_set - lang_set)
@@ -462,13 +501,15 @@ def _check_markdown_page_parity(
     lang: str,
     default_tokens: list[SkeletonToken],
     default_format: str,
+    *,
+    is_slide: bool = False,
 ) -> None:
     """Validate Check 3 (Skeleton Sequence) and Check 4 (Drawlib Code) for a single Markdown page."""
     lang_file_abs = os.path.join(input_abs, lang, rel_path)
     with open(lang_file_abs, "r", encoding="utf-8") as f:
         lang_content = f.read()
 
-    lang_tokens = extract_markdown_skeleton(lang_content, default_format=default_format)
+    lang_tokens = extract_markdown_skeleton(lang_content, default_format=default_format, is_slide=is_slide)
     for idx, (def_tok, lang_tok) in enumerate(zip(default_tokens, lang_tokens), start=1):
         if not _tokens_match_structure(def_tok, lang_tok):
             raise ValueError(
@@ -541,22 +582,22 @@ def validate_i18n_project(
     input_dir: str,
     config: I18nConfig,
     *,
-    project_type: Literal["site", "doc"] = "site",
+    project_type: Literal["site", "doc", "slide"] = "site",
     default_format: str = "png",
 ) -> dict[str, list[str]]:
     """Run mechanical consistency checks across every locale in ``config``.
 
     Checks performed:
     1. File set parity across ``<input_dir>/<lang>/``.
-    2. ``navbar.md`` section and link target parity (for ``project_type='site'``; rejected for ``'doc'``).
+    2. ``navbar.md`` section and link target parity (for ``'site'``; rejected for ``'doc'`` and ``'slide'``).
     3. Markdown skeleton sequence parity (``H1..H3``, ``MarkdownText``, ``DrawlibBlock``, ``CodeBlock``).
     4. ``DrawlibBlock`` Python code parity (exact match for shared filenames, ``<stem>_<lang>.<ext>`` for localized).
 
     Args:
         input_dir: Root source directory containing ``drawlib.toml``.
         config: Loaded ``I18nConfig`` instance.
-        project_type: ``'site'`` (multi-page sidebar site) or ``'doc'`` (linear multi-chapter document).
-        default_format: Default image output format (``'png'`` or ``'webp'``).
+        project_type: ``'site'``, ``'doc'``, or ``'slide'``.
+        default_format: Default image output format (``'png'``, ``'webp'``, or ``'svg'``).
 
     Returns:
         dict[str, list[str]]: Mapping from ``lang`` to sorted relative document paths.
@@ -567,17 +608,20 @@ def validate_i18n_project(
     input_abs = os.path.abspath(input_dir)
     default_lang = config.default_lang
     default_dir = os.path.join(input_abs, default_lang)
+    is_slide = project_type == "slide"
 
-    default_files = collect_locale_doc_files(default_dir)
+    default_files = collect_locale_doc_files(default_dir, markdown_only=is_slide)
     if not default_files:
+        if is_slide:
+            raise ValueError(f'No Markdown slide files found in "{default_dir}".')
         raise ValueError(f'No Markdown or HTML documentation files found in "{default_dir}".')
 
-    if project_type == "doc":
+    if project_type in {"doc", "slide"}:
         for lang in config.langs:
             lang_nav = resolve_locale_navbar_path(os.path.join(input_abs, lang))
             if lang_nav is not None:
                 raise ValueError(
-                    f'[i18n doc structure error] Found "{lang_nav}" inside a "doc" project. '
+                    f'[i18n {project_type} structure error] Found "{lang_nav}" inside a "{project_type}" project. '
                     'Navigation sidebars ("navbar.md") are only supported in "site" projects.'
                 )
         default_navbar_path: str | None = None
@@ -598,6 +642,7 @@ def validate_i18n_project(
             default_files=default_files,
             default_has_navbar=(default_navbar_path is not None),
             lang=lang,
+            markdown_only=is_slide,
         )
 
     if default_navbar_path is not None:
@@ -620,7 +665,7 @@ def validate_i18n_project(
             def_content = f.read()
 
         if rel_path.lower().endswith((".md", ".markdown")):
-            def_tokens = extract_markdown_skeleton(def_content, default_format=default_format)
+            def_tokens = extract_markdown_skeleton(def_content, default_format=default_format, is_slide=is_slide)
             for lang in other_langs:
                 _check_markdown_page_parity(
                     input_abs=input_abs,
@@ -629,6 +674,7 @@ def validate_i18n_project(
                     lang=lang,
                     default_tokens=def_tokens,
                     default_format=default_format,
+                    is_slide=is_slide,
                 )
         else:
             for lang in other_langs:
@@ -796,7 +842,7 @@ def build_language_switcher_context(
             {
                 "code": lang_key,
                 "html_lang": lang_cfg.code,
-                "label": lang_cfg.display_name,
+                "label": config.labels.get(lang_key) or lang_cfg.display_name,
                 "url": rel_url,
                 "active": (lang_key == active_lang),
             }

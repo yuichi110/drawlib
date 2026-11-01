@@ -7,7 +7,7 @@ This specification document provides a comprehensive technical breakdown of Draw
 
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="index_images/system_architecture_at_a_glance.png" alt="index_1" />
+  <img src="images/index/system_architecture_at_a_glance.png" alt="index_1" />
   <figcaption class="drawlib-caption">Drawlib System Architecture at a Glance</figcaption>
 </figure>
 
@@ -105,7 +105,7 @@ Drawlib's codebase (`src/drawlib/`) and engineering environment are structured i
 
 
 <figure class="drawlib-image" style="text-align: center;">
-  <img src="index_images/seven_architectural_pillars.png" alt="index_2" />
+  <img src="images/index/seven_architectural_pillars.png" alt="index_2" />
   <figcaption class="drawlib-caption">The Seven Architectural Pillars of the Drawlib Ecosystem</figcaption>
 </figure>
 
@@ -159,13 +159,13 @@ save()
 
 
 
-1. **[Overview & Architecture](01_overview/01_system_architecture.md)**: System goals, architectural vision, and strict unidirectional layer hierarchy (`l1_core` through `l4_canvas` to Domain modules).
-2. **[Core Engine](02_core_engine/01_canvas_and_geometry.md)**: Virtual coordinate system, Canvas lifecycle state machine, strong type models, and cryptographic AST hash caching (`.drawlib/cache.db`).
-3. **[Domain Subsystems](03_domain_subsystems/01_primitives_and_backends.md)**: Vectorized primitives, SmartArts auto-layout, quantitative charts, UML diagram models, and the declarative `drawlib.graph` engine.
-4. **[Doc Builder & Compiler](04_doc_builder_and_compiler/01_compilation_pipeline.md)**: In-process Markdown-it compilation, multi-target exporters (HTML, vector PDF, Markdown), and preflight link validation.
-5. **[CLI & Runtime](05_cli_and_runtime/01_cli_architecture.md)**: Typer CLI command dispatching, zero-dependency preview server, and release asset management.
-6. **[Developer Tooling](06_developer_tooling/01_dcli_orchestrator.md)**: The `./dcli` unified orchestrator, Phosphor/GCP icon code generation, asset packaging, and clean-room Docker testing.
-7. **[Test Architecture & Quality Assurance](07_test_architecture/01_test_hierarchy_and_strategy.md)**: Headless graphics testing, 1:1 test suite mirroring, live repository dogfooding, and static quality gates.
+1. **[Overview & Architecture](en/01_overview/01_system_architecture.md)**: System goals, architectural vision, and strict unidirectional layer hierarchy (`l1_core` through `l4_canvas` to Domain modules).
+2. **[Core Engine](en/02_core_engine/01_canvas_and_geometry.md)**: Virtual coordinate system, Canvas lifecycle state machine, strong type models, and cryptographic AST hash caching (`.drawlib/cache.db`).
+3. **[Domain Subsystems](en/03_domain_subsystems/01_primitives_and_backends.md)**: Vectorized primitives, SmartArts auto-layout, quantitative charts, UML diagram models, and the declarative `drawlib.graph` engine.
+4. **[Doc Builder & Compiler](en/04_doc_builder_and_compiler/01_compilation_pipeline.md)**: In-process Markdown-it compilation, multi-target exporters (HTML, vector PDF, Markdown), and preflight link validation.
+5. **[CLI & Runtime](en/05_cli_and_runtime/01_cli_architecture.md)**: Typer CLI command dispatching, zero-dependency preview server, and release asset management.
+6. **[Developer Tooling](en/06_developer_tooling/01_dcli_orchestrator.md)**: The `./dcli` unified orchestrator, Phosphor/GCP icon code generation, asset packaging, and clean-room Docker testing.
+7. **[Test Architecture & Quality Assurance](en/07_test_architecture/01_test_hierarchy_and_strategy.md)**: Headless graphics testing, 1:1 test suite mirroring, live repository dogfooding, and static quality gates.
 
 ---
 
@@ -177,4 +177,4 @@ Each subsequent chapter in this specification follows a rigorous 3-step technica
 - **2. Positioning in Architecture**: Explicit placement within the L1–L4 / Domain / Builder layers, dependency boundaries, and upstream/downstream interfaces.
 - **3. Implementation Details**: Deep dive into internal modules, data models, state transitions, algorithms, and code paths.
 
-To begin exploring, navigate to **[System Architecture](01_overview/01_system_architecture.md)** or review the **[Layer Hierarchy](01_overview/02_layer_hierarchy.md)**.
+To begin exploring, navigate to **[System Architecture](en/01_overview/01_system_architecture.md)** or review the **[Layer Hierarchy](en/01_overview/02_layer_hierarchy.md)**.

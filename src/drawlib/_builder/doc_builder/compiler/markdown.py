@@ -18,6 +18,7 @@ from typing import Literal
 from drawlib._builder._common import (
     BuildImageCache,
     FileBuildProgress,
+    find_project_manifest,
     load_project_manifest,
     resolve_styles_and_utils,
 )
@@ -38,6 +39,15 @@ from drawlib._builder.doc_builder.processor import DrawlibBlockProcessor
 from drawlib._builder.doc_builder.progress import check_document_output_duplicates
 
 
+def _resolve_default_markdown_out_dir(input_abs: str, output_dir: str | None) -> str:
+    """Resolve output Markdown directory path, defaulting to ``<parent>/<base>_markdown``."""
+    if output_dir:
+        return os.path.abspath(output_dir)
+    dir_name = os.path.basename(input_abs.rstrip(os.sep))
+    base_name = dir_name[:-4] if dir_name.endswith("_src") and len(dir_name) > 4 else (dir_name or "docs")
+    return os.path.join(os.path.dirname(input_abs), f"{base_name}_markdown")
+
+
 def build_markdown(
     input_dir: str,
     output_dir: str | None = None,
@@ -47,11 +57,11 @@ def build_markdown(
     utils_path: str | None = None,
     no_cache: bool = False,
 ) -> str:
-    """Compile a directory of Markdown files with drawlib code blocks into rendered Markdown.
+    """Compile an i18n-native ``site`` or ``doc`` directory into rendered Markdown.
 
     Args:
-        input_dir (str): Directory containing Markdown (.md) source files.
-        output_dir (Optional[str]): Target output directory. Defaults to input_dir.
+        input_dir (str): Project root directory containing ``drawlib.toml`` and ``<lang>/`` folders.
+        output_dir (Optional[str]): Target output directory. Defaults to ``<base>_markdown``.
         image_format (str): Image output format ('png' or 'webp'). Defaults to 'png'.
         styles_path (Optional[str]): Path to custom styles.py script.
         utils_path (Optional[str]): Path to custom utils.py script.
@@ -61,10 +71,10 @@ def build_markdown(
         str: Absolute path of generated Markdown output directory.
 
     Raises:
-        ValueError: If input_dir is not a directory or output is invalid.
+        ValueError: If input_dir is not a valid ``doc`` or ``site`` project root directory or output overwrites source.
     """
     input_abs = require_directory(input_dir, "build_markdown")
-    out_dir_abs = os.path.abspath(output_dir) if output_dir else input_abs
+    out_dir_abs = _resolve_default_markdown_out_dir(input_abs, output_dir)
 
     if out_dir_abs == input_abs:
         raise ValueError(
@@ -72,100 +82,44 @@ def build_markdown(
         )
 
     manifest = load_project_manifest(input_abs)
-    if manifest is not None:
-        if manifest.project.type == "slide":
+    if manifest is None:
+        found = find_project_manifest(input_abs, max_up=3)
+        if found is not None:
+            proj_root, _ = found
             raise ValueError(
-                f'Input directory "{input_abs}" is a slide presentation project (drawlib.toml). '
-                'Please use "drawlib build slide" instead of "drawlib build markdown".'
+                f'Input directory "{input_abs}" is a subdirectory inside project "{proj_root}". '
+                f'Please pass the project root directory "{proj_root}" containing "drawlib.toml".'
             )
-        if manifest.project.type == "images":
-            raise ValueError(
-                f'Input directory "{input_abs}" is an "images" script project (drawlib.toml). '
-                'Please use "drawlib build image" instead of "drawlib build markdown".'
-            )
-        if manifest.i18n is not None:
-            proj_type: Literal["site", "doc"] = "doc" if manifest.project.type == "doc" else "site"
-            return _build_i18n_markdown(
-                input_abs=input_abs,
-                out_dir_abs=out_dir_abs,
-                i18n_cfg=manifest.i18n,
-                project_type=proj_type,
-                image_format=image_format,
-                styles_path=styles_path,
-                utils_path=utils_path,
-                no_cache=no_cache,
-            )
-
-    styles_abs, utils_abs = resolve_styles_and_utils(input_abs, styles_path, utils_path)
-    cache = BuildImageCache(enabled=not no_cache)
-
-    md_tasks: list[tuple[str, str]] = []
-    for root, dirnames, files in os.walk(input_abs):
-        if out_dir_abs != input_abs:
-            dirnames[:] = [
-                d
-                for d in dirnames
-                if not d.startswith(".")
-                and not d.startswith("_")
-                and not (
-                    os.path.abspath(os.path.join(root, d)) == out_dir_abs
-                    or os.path.abspath(os.path.join(root, d)).startswith(out_dir_abs + os.sep)
-                )
-            ]
-        else:
-            dirnames[:] = [d for d in dirnames if not d.startswith(".") and not d.startswith("_")]
-        for fname in sorted(files):
-            if fname.startswith(".") or fname.startswith("_"):
-                continue
-            if fname.lower() in {
-                "readme.md",
-                "readme.markdown",
-                "output_readme.md",
-                "output_html_readme.md",
-                "navbar.md",
-                "navbar.markdown",
-            }:
-                continue
-            if fname.endswith((".md", ".markdown")):
-                src_abs = os.path.join(root, fname)
-                rel_path = os.path.relpath(src_abs, input_abs)
-                dest_abs = os.path.join(out_dir_abs, rel_path)
-                md_tasks.append((src_abs, dest_abs))
-
-    total_files = len(md_tasks)
-    display_names = ["/" + os.path.relpath(s_abs, input_abs).replace(os.sep, "/") for s_abs, _ in md_tasks]
-    max_blocks = check_document_output_duplicates(
-        tasks=[(s_abs, d_abs, True) for s_abs, d_abs in md_tasks],
-        display_names=display_names,
-        image_format=image_format,
-        embed_images=False,
-    )
-    name_width = max((len(n) for n in display_names), default=0)
-    image_width = len(str(max(max_blocks, 0)))
-
-    processor: DrawlibBlockProcessor | None = None
-    for idx, ((src_abs, dest_abs), disp_name) in enumerate(zip(md_tasks, display_names), start=1):
-        processor = _compile_single_markdown_file(
-            src_abs=src_abs,
-            dest_abs=dest_abs,
-            image_format=image_format,
-            styles_path=styles_abs,
-            utils_path=utils_abs,
-            processor=processor,
-            progress=FileBuildProgress(
-                idx,
-                total_files,
-                file_name=disp_name,
-                name_width=name_width,
-                image_width=image_width,
-            ),
-            no_cache=no_cache,
-            cache=cache,
-            project_root=input_abs,
+        raise ValueError(
+            f'Missing required "drawlib.toml" in "{input_abs}". '
+            "Markdown directory builds require a Drawlib project manifest "
+            '(run "drawlib init site" or "drawlib init doc").'
         )
 
-    copy_directory_assets(input_abs, out_dir_abs)
-    return out_dir_abs
+    if manifest.project.type == "slide":
+        raise ValueError(
+            f'Input directory "{input_abs}" is a "slide" presentation project (drawlib.toml). '
+            'Please use "drawlib build slide" instead of "drawlib build markdown".'
+        )
+    if manifest.project.type == "images":
+        raise ValueError(
+            f'Input directory "{input_abs}" is an "images" script project (drawlib.toml). '
+            'Please use "drawlib build image" instead of "drawlib build markdown".'
+        )
+    if manifest.i18n is None:
+        raise ValueError(f'Invalid "{input_abs}/drawlib.toml": "[i18n]" configuration is required.')
+
+    proj_type: Literal["site", "doc"] = "doc" if manifest.project.type == "doc" else "site"
+    return _build_i18n_markdown(
+        input_abs=input_abs,
+        out_dir_abs=out_dir_abs,
+        i18n_cfg=manifest.i18n,
+        project_type=proj_type,
+        image_format=image_format,
+        styles_path=styles_path,
+        utils_path=utils_path,
+        no_cache=no_cache,
+    )
 
 
 def _find_locale_index_md(lang_dir_abs: str) -> str | None:

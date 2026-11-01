@@ -27,7 +27,7 @@ rectangle((19, 29), width=30, height=48, style=Styles.Neutral.patch(shape_r=2.0)
 phosphor.file_code((13, 45.5), width=5.2, style=Styles.PrimaryBold)
 phosphor.sliders_horizontal((25, 45.5), width=5.2, style=Styles.DarkBold)
 text((19, 35.5), "Markdown Source", style=Styles.DarkBold.patch(text_size=11.0))
-text((19, 26.5), "docs_src/*.md\nstyles.py & utils.py\n_assets/*", style=Styles.Dark.patch(text_size=10.0))
+text((19, 26.5), "docs_src/<lang>/*.md\nstyles.py & utils.py\n_assets/*", style=Styles.Dark.patch(text_size=10.0))
 rectangle(
     (19, 13.0),
     width=25,
@@ -138,9 +138,9 @@ Never construct documentation directories manually. Scaffolding them with `drawl
 
 | Template | Source Directory | Primary Output | Typical Use Case |
 |---|---|---|---|
-| **`doc`** | `doc_src/` | `doc_html/`, `doc.pdf`, `doc.docx`, `doc_markdown/`, `doc_images/` | Linear technical documents, RFCs, specifications, whitepapers, and formal reports. |
-| **`site`** | `docs_src/` | `docs_html/`, `docs_markdown/` (or `docs/`), `docs_images/` | Multi-page documentation websites with sidebar navigation (`navbar.md`). |
-| **`slide`** | `slide_src/` | `slide_html/`, `slide.pdf`, `slide.pptx`, `slide_images/` | 16:9 presentation slide decks (interactive web deck, printable vector PDF, and editable PowerPoint). |
+| **`doc`** | `doc_src/<lang>/` | `doc_html/`, `doc_<lang>.pdf`, `doc_<lang>.docx`, `doc_markdown/`, `doc_images/` | Linear technical documents, RFCs, specifications, whitepapers, and formal reports. |
+| **`site`** | `docs_src/<lang>/` | `docs_html/`, `docs_markdown/` (or `docs/`), `docs_images/` | Multi-page documentation websites with sidebar navigation (`<lang>/navbar.md`). |
+| **`slide`** | `slide_src/<lang>/` | `slide_html/`, `slide_<lang>.pdf`, `slide_<lang>.pptx`, `slide_images/` | 16:9 presentation slide decks (interactive web deck, printable vector PDF, and editable PowerPoint). |
 | **`images`** *(alias: `image`)* | `images_src/` | `images/*.png` (or `.webp`) | Batch rendering standalone Python drawing scripts to image assets. |
 
 
@@ -172,8 +172,8 @@ cards = [
         Styles.DarkBold,
         phosphor.file_pdf,
         Styles.PrimaryBold,
-        "doc_src/*.md",
-        "doc.pdf / .docx\n& doc_html/",
+        "doc_src/\n<lang>/*.md",
+        "doc_<lang>.pdf\n.docx & _html/",
     ),
     (
         93,
@@ -183,7 +183,7 @@ cards = [
         Styles.WhiteBold,
         phosphor.globe,
         Styles.WhiteBold,
-        "docs_src/*.md\n+ navbar.md",
+        "docs_src/<lang>/\n+ navbar.md",
         "docs_html/\ndocs_markdown/",
     ),
     (
@@ -194,8 +194,8 @@ cards = [
         Styles.DarkBold,
         phosphor.presentation_chart,
         Styles.PrimaryBold,
-        "slide_src/*.md",
-        "slide_html/\n.pdf & .pptx",
+        "slide_src/\n<lang>/*.md",
+        "slide_html/\n_<lang>.pdf/.pptx",
     ),
     (
         93,
@@ -245,17 +245,17 @@ save()
 
 ## 4. Parallel Multi-Agent Authoring Across Project Templates
 
-Because every Drawlib project separates **shared configuration** (`styles.py`, `utils.py`, `_assets/`, `navbar.md`) from **modular content files** (`*.py` or `*.md`), AI coding agents can accelerate large documentation and illustration tasks by distributing work across **parallel subagents**:
+Because every Drawlib project separates **shared configuration** (`drawlib.toml`, `styles.py`, `utils.py`, `_assets/`, `<lang>/navbar.md`) from **modular content files** (`*.py` or `<lang>/*.md`), AI coding agents can accelerate large documentation and illustration tasks by distributing work across **parallel subagents**:
 
 | Project Template | Parallel Subagent Unit | Phase 1: Parent Orchestrator Setup | Phase 2: Parallel Subagent Execution | Phase 3: Parent Finalization |
 | :--- | :--- | :--- | :--- | :--- |
-| **`doc`** | Numbered chapter file (`doc_src/01_*.md`, `02_*.md`, ...) | `drawlib init doc`, `styles.py`, `utils.py`, `00_cover.md`, chapter outline | Author assigned chapter(s) & run `drawlib show ... -g -o .drawlib/scratch/0N_<fig>_grid.png` | Run `./doc_src/build.sh` (or `build docx`) & inspect `doc.pdf` / `doc_html/` |
-| **`site`** | Topic page or section folder (`docs_src/01_arch/*.md`, ...) | `drawlib init site`, `styles.py`, `utils.py`, `navbar.md`, `index.md` | Author assigned page(s) & run Stage 1 + Stage 2 grid review with unique scratch filenames | Run `./docs_src/build.sh`, `serve --check`, & browser check |
-| **`slide`** | Slide file (`slide_src/02_*.md`, ...) or section directory | `drawlib init slide`, `styles.py`, `utils.py`, deck story arc & slide numbering | Author assigned slide(s) (`::: block` + `::: note`) & run Stage 1 + Stage 2 grid review | Run `./slide_src/build.sh` (or `build pptx`) & inspect `slide.pdf` / `1920x1080` stage |
+| **`doc`** | Numbered chapter file (`doc_src/<lang>/01_*.md`, `02_*.md`, ...) | `drawlib init doc`, `styles.py`, `utils.py`, `<lang>/00_cover.md`, chapter outline | Author assigned chapter(s) & run `drawlib show ... -g -o .drawlib/scratch/0N_<fig>_grid.png` | Run `./doc_src/build.sh` (or `build docx`) & inspect `doc_<lang>.pdf` / `doc_html/` |
+| **`site`** | Topic page or section folder (`docs_src/<lang>/01_arch/*.md`, ...) | `drawlib init site`, `styles.py`, `utils.py`, `<lang>/navbar.md`, `<lang>/index.md` | Author assigned page(s) & run Stage 1 + Stage 2 grid review with unique scratch filenames | Run `./docs_src/build.sh`, `serve --check`, & browser check |
+| **`slide`** | Slide file (`slide_src/<lang>/02_*.md`, ...) or section directory | `drawlib init slide`, `styles.py`, `utils.py`, deck story arc & slide numbering | Author assigned slide(s) (`::: block` + `::: note`) & run Stage 1 + Stage 2 grid review | Run `./slide_src/build.sh` (or `build pptx`) & inspect `slide_<lang>.pdf` / `1920x1080` stage |
 | **`images`** | Standalone Python script (`images_src/<name>.py`) | `drawlib init images`, `styles.py`, `utils.py`, `_assets/` | Author assigned `.py` script(s) & run `drawlib show ... -g -o .drawlib/scratch/<script>_grid.png` | Run `./images_src/build.sh` & inspect `images/*.png` |
 
 ### Concurrency Guardrails for Subagents:
-1. **Read-Only Shared Files**: Subagents treat `styles.py`, `utils.py`, and `navbar.md` as read-only and edit only their assigned `.md` or `.py` files.
+1. **Read-Only Shared Files**: Subagents treat `drawlib.toml`, `styles.py`, `utils.py`, and `<lang>/navbar.md` as read-only and edit only their assigned `.md` or `.py` files.
 2. **Unique Scratch Preview Paths**: Each subagent writes `-g` grid previews to a unique path (`-o .drawlib/scratch/<unique_name>_grid.png`, never a shared `preview.png`) so concurrent multimodal inspections never collide.
 3. **Single Unified Build**: Subagents only run `drawlib show ... -g` for their assigned diagrams; the parent agent runs `./build.sh` once after all subagents finish, avoiding concurrent SQLite writes to `.drawlib/cache.db`.
 

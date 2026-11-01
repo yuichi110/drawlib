@@ -15,7 +15,7 @@ import os
 import tomllib
 from typing import Literal
 
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field
 
 from drawlib._templates.langs import normalize_language
 
@@ -28,6 +28,7 @@ _VALID_ARCHETYPES: dict[str, ProjectArchetype] = {
     "site": "site",
     "slide": "slide",
 }
+_I18N_ARCHETYPES: frozenset[str] = frozenset({"doc", "site", "slide"})
 
 
 class ProjectMetadata(BaseModel):
@@ -36,9 +37,9 @@ class ProjectMetadata(BaseModel):
     Attributes:
         name: Project identifier / base stem (e.g. ``'quickstart'``, ``'drawlib-dogfooding'``).
         type: Canonical project archetype (``'images'``, ``'doc'``, ``'site'``, or ``'slide'``).
-        title: Optional default document/site title override.
+        title: Optional default document/site/slide title override.
         description: Optional human/agent-facing summary of the project.
-        lang: Canonical single-language code (e.g. ``'en'``, ``'ja'``).
+        lang: Canonical single-language code for ``images`` projects (``None`` for ``doc``/``site``/``slide``).
         style: Style preset theme or CSS path recorded at initialization.
     """
 
@@ -48,22 +49,24 @@ class ProjectMetadata(BaseModel):
     type: ProjectArchetype
     title: str = ""
     description: str = ""
-    lang: str = "en"
+    lang: str | None = None
     style: str = "default"
 
 
 class I18nConfig(BaseModel):
-    """Parsed multi-locale configuration from the ``[i18n]`` section of ``drawlib.toml``.
+    """Parsed locale configuration from the ``[i18n]`` section of ``drawlib.toml``.
 
     Attributes:
         default_lang: Canonical default language key (e.g. ``'en'``).
-        langs: Ordered list of canonical language keys enabled for the project (e.g. ``['en', 'ja']``).
+        langs: Ordered list of canonical language keys enabled for the project (1 or more locales).
+        labels: Optional custom display labels keyed by canonical language code.
     """
 
     model_config = ConfigDict(frozen=True)
 
     default_lang: str
     langs: list[str]
+    labels: dict[str, str] = Field(default_factory=dict)
 
 
 class ProjectManifest(BaseModel):
@@ -71,7 +74,7 @@ class ProjectManifest(BaseModel):
 
     Attributes:
         project: Core project archetype and metadata from ``[project]``.
-        i18n: Optional multi-locale configuration from ``[i18n]``.
+        i18n: Locale configuration from ``[i18n]`` (always populated for ``doc``, ``site``, ``slide``).
     """
 
     model_config = ConfigDict(frozen=True)
@@ -81,15 +84,15 @@ class ProjectManifest(BaseModel):
 
     @property
     def is_i18n(self) -> bool:
-        """Return True if this project uses multi-locale ``<lang>/`` subdirectories."""
+        """Return True if this project uses locale ``<lang>/`` subdirectories."""
         return self.i18n is not None
 
     @property
     def effective_lang(self) -> str:
-        """Return default canonical language code for single-locale or multi-locale projects."""
+        """Return default canonical language code for the project."""
         if self.i18n is not None:
             return self.i18n.default_lang
-        return self.project.lang
+        return self.project.lang or "en"
 
 
 def _parse_project_section(raw_proj: object, cfg_path: str, input_abs: str) -> ProjectMetadata:
@@ -124,10 +127,18 @@ def _parse_project_section(raw_proj: object, cfg_path: str, input_abs: str) -> P
     if not isinstance(raw_style, str) or not raw_style.strip():
         raise ValueError(f'Invalid "{cfg_path}": "[project].style" must be a non-empty string.')
 
-    raw_lang = raw_proj.get("lang", "en")
-    if not isinstance(raw_lang, str) or not raw_lang.strip():
-        raise ValueError(f'Invalid "{cfg_path}": "[project].lang" must be a non-empty language code string.')
-    norm_lang = normalize_language(raw_lang)
+    norm_lang: str | None = None
+    if norm_type in _I18N_ARCHETYPES:
+        if "lang" in raw_proj:
+            raise ValueError(
+                f'Invalid "{cfg_path}": "[project].lang" is not supported for "{norm_type}" projects; '
+                'configure "default_lang" and "langs" under "[i18n]" instead.'
+            )
+    else:
+        raw_lang = raw_proj.get("lang", "en")
+        if not isinstance(raw_lang, str) or not raw_lang.strip():
+            raise ValueError(f'Invalid "{cfg_path}": "[project].lang" must be a non-empty language code string.')
+        norm_lang = normalize_language(raw_lang)
 
     return ProjectMetadata(
         name=norm_name,
@@ -137,6 +148,25 @@ def _parse_project_section(raw_proj: object, cfg_path: str, input_abs: str) -> P
         lang=norm_lang,
         style=raw_style.strip(),
     )
+
+
+def _parse_i18n_labels(raw_labels: object, norm_langs: list[str], cfg_path: str) -> dict[str, str]:
+    """Validate optional ``[i18n.labels]`` mapping."""
+    if raw_labels is None:
+        return {}
+    if not isinstance(raw_labels, dict):
+        raise ValueError(f'Invalid "{cfg_path}": "[i18n.labels]" must be a TOML table.')
+    parsed: dict[str, str] = {}
+    for raw_k, raw_v in raw_labels.items():
+        if not isinstance(raw_k, str) or not isinstance(raw_v, str) or not raw_v.strip():
+            raise ValueError(f'Invalid "{cfg_path}": "[i18n.labels]" entries must be non-empty strings.')
+        norm_k = normalize_language(raw_k)
+        if norm_k not in norm_langs:
+            raise ValueError(
+                f'Invalid "{cfg_path}": "[i18n.labels]" key "{norm_k}" is not listed in "[i18n].langs" {norm_langs}.'
+            )
+        parsed[norm_k] = raw_v.strip()
+    return parsed
 
 
 def _parse_i18n_section(
@@ -149,11 +179,15 @@ def _parse_i18n_section(
     if not isinstance(raw_i18n, dict):
         raise ValueError(f'Invalid "{cfg_path}": "[i18n]" must be a TOML table.')
 
-    if project_meta.type not in {"doc", "site"}:
+    if project_meta.type not in _I18N_ARCHETYPES:
         raise ValueError(
-            f'Invalid "{cfg_path}": "[i18n]" is only supported for "doc" and "site" projects, '
+            f'Invalid "{cfg_path}": "[i18n]" is only supported for "doc", "site", and "slide" projects, '
             f'not "{project_meta.type}".'
         )
+
+    unknown_keys = sorted(set(raw_i18n.keys()) - {"default_lang", "langs", "labels"})
+    if unknown_keys:
+        raise ValueError(f'Invalid "{cfg_path}": unknown key(s) {unknown_keys} in "[i18n]".')
 
     raw_default = raw_i18n.get("default_lang")
     raw_langs = raw_i18n.get("langs")
@@ -182,7 +216,8 @@ def _parse_i18n_section(
                 f'Missing locale directory "{lang_dir}" required by "{cfg_path}" (lang="{lang_code}").'
             )
 
-    return I18nConfig(default_lang=norm_default, langs=norm_langs)
+    labels = _parse_i18n_labels(raw_i18n.get("labels"), norm_langs, cfg_path)
+    return I18nConfig(default_lang=norm_default, langs=norm_langs, labels=labels)
 
 
 def load_project_manifest(input_dir: str) -> ProjectManifest | None:
@@ -210,10 +245,15 @@ def load_project_manifest(input_dir: str) -> ProjectManifest | None:
 
     project_meta = _parse_project_section(raw.get("project"), cfg_path, input_abs)
     i18n_cfg: I18nConfig | None = None
-    if "i18n" in raw:
+    if project_meta.type in _I18N_ARCHETYPES:
+        if "i18n" not in raw:
+            raise ValueError(
+                f'Invalid "{cfg_path}": "{project_meta.type}" projects require an "[i18n]" table '
+                'defining "default_lang" and "langs".'
+            )
         i18n_cfg = _parse_i18n_section(raw["i18n"], project_meta, cfg_path, input_abs)
-        if raw.get("project", {}).get("lang") is None:
-            project_meta = project_meta.model_copy(update={"lang": i18n_cfg.default_lang})
+    elif "i18n" in raw:
+        i18n_cfg = _parse_i18n_section(raw["i18n"], project_meta, cfg_path, input_abs)
 
     return ProjectManifest(project=project_meta, i18n=i18n_cfg)
 
@@ -248,6 +288,7 @@ def format_project_manifest_toml(
     style: str = "default",
     lang: str = "en",
     langs: list[str] | None = None,
+    labels: dict[str, str] | None = None,
     title: str = "",
     description: str = "",
 ) -> str:
@@ -258,7 +299,8 @@ def format_project_manifest_toml(
         project_type: Canonical project archetype.
         style: Selected style preset or CSS path.
         lang: Primary / default canonical language code.
-        langs: Optional list of canonical languages; when ``len(langs) > 1``, emits ``[i18n]``.
+        langs: Ordered list of canonical languages for ``doc``, ``site``, and ``slide``.
+        labels: Optional custom display labels for ``[i18n.labels]``.
         title: Optional default title override.
         description: Optional project description.
 
@@ -277,13 +319,13 @@ def format_project_manifest_toml(
         f'description = "{_esc(description)}"',
     ]
 
-    is_multi = langs is not None and len(langs) > 1
-    if not is_multi:
+    if project_type not in _I18N_ARCHETYPES:
         lines.append(f'lang = "{_esc(lang)}"')
     lines.append(f'style = "{_esc(style)}"')
 
-    if is_multi and langs is not None:
-        langs_literal = ", ".join(f'"{_esc(lc)}"' for lc in langs)
+    if project_type in _I18N_ARCHETYPES:
+        eff_langs = langs if langs else [lang]
+        langs_literal = ", ".join(f'"{_esc(lc)}"' for lc in eff_langs)
         lines.extend(
             [
                 "",
@@ -292,5 +334,10 @@ def format_project_manifest_toml(
                 f"langs = [{langs_literal}]",
             ]
         )
+        if labels:
+            lines.extend(["", "[i18n.labels]"])
+            for lc, lbl in labels.items():
+                lines.append(f'{_esc(lc)} = "{_esc(lbl)}"')
 
     return "\n".join(lines) + "\n"
+

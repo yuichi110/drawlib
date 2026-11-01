@@ -732,12 +732,13 @@
 </div>
 <hr />
 <h2>2. Project Initialization</h2>
-<p>Scaffold a presentation project using <code>drawlib init</code>:</p>
-<pre><code class="language-bash"><span class="c1"># Scaffold standard slide project in current directory (creates 'slide_src/'):</span>
+<p>Scaffold a presentation project using <code>drawlib init</code> (every <code>slide</code> project uses the unified <code>&lt;src_dir&gt;/&lt;lang&gt;/</code> locale layout, even for a single language):</p>
+<pre><code class="language-bash"><span class="c1"># Scaffold standard slide project in current directory (creates 'slide_src/en/'):</span>
 drawlib<span class="w"> </span>init<span class="w"> </span>slide
 
-<span class="c1"># With custom target name, theme, and language (creates 'my_deck_src/'):</span>
+<span class="c1"># With custom target name, theme, and single or multiple locales (creates 'my_deck_src/&lt;lang&gt;/'):</span>
 drawlib<span class="w"> </span>init<span class="w"> </span>slide<span class="w"> </span>my_deck<span class="w"> </span>-s<span class="w"> </span>google<span class="w"> </span>-l<span class="w"> </span>en
+drawlib<span class="w"> </span>init<span class="w"> </span>slide<span class="w"> </span>my_deck<span class="w"> </span>-s<span class="w"> </span>google<span class="w"> </span>-l<span class="w"> </span>en,ja
 </code></pre>
 <hr />
 <h2>3. Directory Layout &amp; Anatomy</h2>
@@ -745,19 +746,20 @@ drawlib<span class="w"> </span>init<span class="w"> </span>slide<span class="w">
 <ul>
 <li><strong><code>slide_src/</code> (Single Source of Truth)</strong>:
 <ul>
-<li><strong><code>01_title.md</code>, <code>02_agenda.md</code>, <code>03_arch.md</code> (and section sub-folders)</strong>: Individual <code>1920x1080</code> 16:9 slides compiled in sorted path order, combining <code>::: block</code> stage containers, <code>```drawlib</code> diagrams (<code>.svg</code>, <code>.png</code>, <code>.webp</code>), and <code>::: note</code> speaker notes.</li>
+<li><strong><code>drawlib.toml</code></strong>: Project manifest declaring <code>type = &quot;slide&quot;</code>, <code>style</code>, and the required <code>[i18n]</code> section (<code>default_lang</code>, <code>langs</code> with <code>len &gt;= 1</code>, and optional <code>[i18n.labels]</code>; <code>lang</code> under <code>[project]</code> is disallowed).</li>
+<li><strong><code>&lt;lang&gt;/</code> (<code>en/01_title.md</code>, <code>en/02_agenda.md</code>, <code>en/03_arch.md</code>, and section sub-folders)</strong>: Per-locale <code>1920x1080</code> 16:9 slides compiled in sorted path order, combining <code>::: block</code> stage containers, <code>```drawlib</code> diagrams (<code>.svg</code>, <code>.png</code>, <code>.webp</code>), and <code>::: note</code> speaker notes.</li>
 <li><strong><code>_</code>-Prefixed Files &amp; <code>README.md</code></strong>: Planning outlines, draft slides (<code>_planning.md</code>, <code>_drafts/</code>), and <code>README.md</code> are automatically excluded from deck compilation.</li>
-<li><strong><code>_assets/</code></strong>: Static logos, fonts, and reference media synchronized into output folders.</li>
-<li><strong><code>styles.py</code> &amp; <code>utils.py</code></strong>: Shared presentation color tokens, typography defaults, slide header/footer helpers, and KPI/card utilities.</li>
-<li><strong><code>style.css</code> &amp; <code>slide.js</code></strong>: 16:9 viewport scaling stylesheet, keyboard navigation controller, and <code>BroadcastChannel</code> Presenter View runtime.</li>
+<li><strong><code>_assets/</code></strong>: Static logos, fonts, and reference media synchronized into output folders (referenced from <code>&lt;lang&gt;/</code> slides via <code>../_assets/...</code>, or <code>../../_assets/...</code> from <code>&lt;lang&gt;/&lt;section&gt;/</code>).</li>
+<li><strong><code>styles.py</code> &amp; <code>utils.py</code></strong>: Shared presentation color tokens, typography defaults (plus optional per-locale <code>&lt;lang&gt;/styles.py</code> overrides), slide header/footer helpers, and KPI/card utilities.</li>
+<li><strong><code>style.css</code> &amp; <code>slide.js</code></strong>: 16:9 viewport scaling stylesheet, keyboard navigation controller, <code>.lang-switcher</code> control, and <code>BroadcastChannel</code> Presenter View runtime.</li>
 <li><strong><code>build.sh</code>, <code>build_html.sh</code>, <code>build_pdf.sh</code>, <code>build_image.sh</code>, <code>serve.sh</code></strong>: Modular build scripts and local presentation preview launcher.</li>
 </ul>
 </li>
 <li><strong>Generated Outputs (Do Not Edit Directly)</strong>:
 <ul>
-<li><strong><code>slide_html/</code></strong>: Interactive browser slide deck (<code>index.html</code>) supporting full-screen mode, overview grid, and <code>?presenter=1</code> Presenter View.</li>
-<li><strong><code>slide.pdf</code></strong>: Multi-page vector-sharp 16:9 PDF (<code>1920px × 1080px</code> per page) rendered via headless Chromium.</li>
-<li><strong><code>slide.pptx</code></strong>: Native editable 16:9 (<code>960×540 pt</code>) MS PowerPoint deck exported on demand via <code>drawlib build pptx</code>, preserving stage cards, text runs, diagrams, and speaker notes.</li>
+<li><strong><code>slide_html/</code></strong>: Interactive browser slide decks (<code>slide_html/&lt;lang&gt;/index.html</code>, root <code>slide_html/index.html</code> redirect preserving <code>?presenter=1</code> and <code>#N</code>, and shared <code>slide_html/images/</code>, <code>style.css</code>, <code>slide.js</code>).</li>
+<li><strong><code>slide_&lt;lang&gt;.pdf</code></strong> <em>(e.g. <code>slide_en.pdf</code>)</em>: Multi-page vector-sharp 16:9 PDF (<code>1920px × 1080px</code> per page) per locale rendered via headless Chromium.</li>
+<li><strong><code>slide_&lt;lang&gt;.pptx</code></strong> <em>(e.g. <code>slide_en.pptx</code>)</em>: Native editable 16:9 (<code>960×540 pt</code>) MS PowerPoint deck per locale exported on demand via <code>drawlib build pptx</code>, preserving stage cards, text runs, diagrams, and speaker notes.</li>
 <li><strong><code>slide_images/</code></strong>: Standalone extracted illustrations when running <code>build_image.sh</code>.</li>
 </ul>
 </li>
@@ -776,21 +778,21 @@ drawlib<span class="w"> </span>init<span class="w"> </span>slide<span class="w">
 </thead>
 <tbody>
 <tr>
-<td style="text-align:left"><strong><code>slide_html/index.html</code></strong></td>
+<td style="text-align:left"><strong><code>slide_html/&lt;lang&gt;/index.html</code></strong></td>
 <td style="text-align:left">Interactive Presenting</td>
-<td style="text-align:left">1920x1080 fixed stage, auto-scaling viewport, keyboard navigation (<code>Space</code>, <code>Arrows</code>, <code>F</code>), Presenter View (<code>?presenter=1</code>), overview grid</td>
+<td style="text-align:left">1920x1080 fixed stage, auto-scaling viewport, keyboard navigation (<code>Space</code>, <code>Arrows</code>, <code>F</code>), Presenter View (<code>?presenter=1</code>), overview grid, locale switcher</td>
 <td style="text-align:left"><code>build_html.sh</code> (<code>drawlib build slide</code>)</td>
 </tr>
 <tr>
-<td style="text-align:left"><strong><code>slide.pdf</code></strong></td>
+<td style="text-align:left"><strong><code>slide_&lt;lang&gt;.pdf</code></strong></td>
 <td style="text-align:left">Print &amp; Read-Only Distribution</td>
-<td style="text-align:left">1 slide per page, vector-sharp graphics, exact 16:9 aspect ratio (<code>@page { size: 1920px 1080px; margin: 0; }</code>)</td>
+<td style="text-align:left">1 slide per page per locale, vector-sharp graphics, exact 16:9 aspect ratio (<code>@page { size: 1920px 1080px; margin: 0; }</code>)</td>
 <td style="text-align:left"><code>build_pdf.sh</code> (<code>drawlib build pdf</code>)</td>
 </tr>
 <tr>
-<td style="text-align:left"><strong><code>slide.pptx</code></strong></td>
+<td style="text-align:left"><strong><code>slide_&lt;lang&gt;.pptx</code></strong></td>
 <td style="text-align:left">Collaborative Editing &amp; Executive Decks</td>
-<td style="text-align:left">Native editable 16:9 (<code>960×540 pt</code>) MS PowerPoint deck (<code>::: block</code> cards with <code>rgba</code> alpha, text boxes, lists, tables, <code>::: note</code> speaker notes, high-DPI diagram PNGs)</td>
+<td style="text-align:left">Native editable 16:9 (<code>960×540 pt</code>) MS PowerPoint deck per locale (<code>::: block</code> cards with <code>rgba</code> alpha, text boxes, lists, tables, <code>::: note</code> speaker notes, high-DPI diagram PNGs)</td>
 <td style="text-align:left"><code>drawlib build pptx</code></td>
 </tr>
 <tr>
@@ -803,7 +805,7 @@ drawlib<span class="w"> </span>init<span class="w"> </span>slide<span class="w">
 </table>
 <hr />
 <h2>5. Authoring Slides &amp; Stage Blocks</h2>
-<p>Each Markdown file in <code>slide_src/</code> (and any nested chapter subdirectories such as <code>01_intro/01_cover.md</code>) represents a single 16:9 slide (<code>1920x1080</code> stage), compiled in sorted relative-path order.</p>
+<p>Each Markdown file in <code>slide_src/&lt;lang&gt;/</code> (and any nested chapter subdirectories such as <code>&lt;lang&gt;/01_intro/01_cover.md</code>) represents a single 16:9 slide (<code>1920x1080</code> stage), compiled in sorted relative-path order per locale.</p>
 <ul>
 <li><strong>Excluding Non-Slide Files (<code>_</code> Prefix)</strong>: Prefix any planning notes, outlines, or draft files/folders with an underscore <code>_</code> (e.g., <code>_planning.md</code>, <code>_drafts/</code>) to exclude them from slide compilation.</li>
 <li><strong>Special Excluded Files</strong>: <code>README.md</code> and <code>navbar.md</code> are also automatically excluded from the slide deck.</li>
@@ -835,15 +837,15 @@ drawlib<span class="w"> </span>init<span class="w"> </span>slide<span class="w">
 <h2>6. Modular Build Scripts &amp; MS PowerPoint (<code>.pptx</code>) Export</h2>
 <ul>
 <li><strong><code>build_html.sh</code></strong>:
-Compiles slides into the web presentation deck in <code>slide_html/index.html</code> (<code>drawlib build slide</code>).</li>
+Compiles slides per locale into the web presentation deck in <code>slide_html/&lt;lang&gt;/index.html</code> plus root <code>slide_html/index.html</code> redirect (<code>drawlib build slide</code>).</li>
 <li><strong><code>build_pdf.sh</code></strong>:
-Uses headless Chromium to capture each slide into a multi-page vector PDF (<code>slide.pdf</code>).</li>
+Uses headless Chromium to capture each locale's slides into a multi-page vector PDF (<code>slide_&lt;lang&gt;.pdf</code>, e.g. <code>slide_en.pdf</code>).</li>
 <li><strong><code>build_image.sh</code></strong>:
 Extracts embedded <code>drawlib</code> blocks into standalone diagram images in <code>slide_images/</code>.</li>
 <li><strong><code>build.sh</code> (Master Script)</strong>:
 Runs HTML, PDF, and Image builds in sequence.</li>
 <li><strong>Editable MS PowerPoint Export (<code>drawlib build pptx</code>)</strong>:
-Measures the <code>1920x1080</code> slide DOM and computed CSS styles via headless Chromium and exports a native editable 16:9 (<code>960x540 pt</code>) <code>.pptx</code> file:<pre><code class="language-bash">uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>build<span class="w"> </span>pptx<span class="w"> </span>slide_src/<span class="w"> </span>-o<span class="w"> </span>slide.pptx<span class="w"> </span>--dpi<span class="w"> </span><span class="m">240</span><span class="w"> </span>--anim-frame<span class="w"> </span>last
+Measures the <code>1920x1080</code> slide DOM and computed CSS styles via headless Chromium and exports a native editable 16:9 (<code>960x540 pt</code>) <code>.pptx</code> file per locale (<code>slide_&lt;lang&gt;.pptx</code>, such as <code>slide_en.pptx</code>):<pre><code class="language-bash">uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>build<span class="w"> </span>pptx<span class="w"> </span>slide_src/<span class="w"> </span>-o<span class="w"> </span>slide.pptx<span class="w"> </span>--dpi<span class="w"> </span><span class="m">240</span><span class="w"> </span>--anim-frame<span class="w"> </span>last
 </code></pre>
 </li>
 </ul>
@@ -895,12 +897,37 @@ Measures the <code>1920x1080</code> slide DOM and computed CSS styles via headle
 </ul>
 <hr />
 <h2>8. Parallel Multi-Agent Slide Deck Authoring</h2>
-<p>Because each slide in <code>slide_src/</code> is an isolated Markdown file (<code>01_title.md</code>, <code>02_agenda.md</code>, <code>03_arch.md</code>, or organized in section folders), AI coding agents can construct or overhaul multi-slide presentations in parallel:</p>
+<p>Because each slide in <code>slide_src/&lt;lang&gt;/</code> is an isolated Markdown file (<code>01_title.md</code>, <code>02_agenda.md</code>, <code>03_arch.md</code>, or organized in section folders), AI coding agents can construct or overhaul multi-slide presentations in parallel:</p>
 <ol>
-<li><strong>Phase 1 (Parent Setup)</strong>: Scaffold <code>slide_src/</code> (<code>drawlib init slide</code>), configure <code>styles.py</code> and <code>utils.py</code>, and define the slide deck story arc and numbered filenames first.</li>
-<li><strong>Phase 2 (Parallel Subagents)</strong>: Delegate disjoint slide files (or section directories) to parallel subagents. Each subagent authors its assigned slides (<code>::: block</code> stage layout + <code>::: note</code> speaker script) and runs <code>-g</code> grid previews using unique scratch paths (<code>-o .drawlib/scratch/&lt;slide&gt;_&lt;block&gt;_grid.png</code>).</li>
-<li><strong>Phase 3 (Unified Deck Build &amp; Review)</strong>: After all subagents complete their slides, the parent agent runs <code>./slide_src/build.sh</code> (and <code>drawlib build pptx</code> if needed) once and inspects the compiled <code>slide.pdf</code> and <code>slide_html/index.html</code>.</li>
+<li><strong>Phase 1 (Parent Setup)</strong>: Scaffold <code>slide_src/</code> (<code>drawlib init slide</code>), configure <code>drawlib.toml</code>, <code>styles.py</code>, and <code>utils.py</code>, and define the slide deck story arc and numbered filenames first.</li>
+<li><strong>Phase 2 (Parallel Subagents)</strong>: Delegate disjoint slide files (or section directories) inside <code>slide_src/&lt;lang&gt;/</code> to parallel subagents. Each subagent authors its assigned slides (<code>::: block</code> stage layout + <code>::: note</code> speaker script) and runs <code>-g</code> grid previews using unique scratch paths (<code>-o .drawlib/scratch/&lt;slide&gt;_&lt;block&gt;_grid.png</code>).</li>
+<li><strong>Phase 3 (Unified Deck Build &amp; Review)</strong>: After all subagents complete their slides, the parent agent runs <code>./slide_src/build.sh</code> (and <code>drawlib build pptx</code> if needed) once and inspects the compiled <code>slide_&lt;lang&gt;.pdf</code> and <code>slide_html/&lt;lang&gt;/index.html</code>.</li>
 </ol>
+<hr />
+<h2>9. Unified <code>i18n</code> &amp; Multi-Language Slide Decks (<code>drawlib.toml</code>)</h2>
+<p>Every <code>slide_src/</code> project uses the unified <code>i18n</code>-native <code>&lt;src_dir&gt;/&lt;lang&gt;/</code> directory layout (<code>langs = [&quot;en&quot;]</code> by default). Maintaining synchronized multi-language conference or executive decks (such as English and Japanese editions) requires zero <code>git mv</code> restructuring—pass comma-separated locales to <code>drawlib init slide</code> or add <code>slide_src/ja/</code> and update <code>[i18n]</code> in <code>slide_src/drawlib.toml</code>:</p>
+<pre><code class="language-bash">uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>slide<span class="w"> </span>keynote<span class="w"> </span>-l<span class="w"> </span>en,ja<span class="w"> </span>-s<span class="w"> </span>google
+</code></pre>
+<pre><code class="language-toml"><span class="k">[project]</span>
+<span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"keynote"</span>
+<span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"slide"</span>
+<span class="n">style</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"google"</span>
+
+<span class="k">[i18n]</span>
+<span class="n">default_lang</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"en"</span>
+<span class="n">langs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">"en"</span><span class="p">,</span><span class="w"> </span><span class="s2">"ja"</span><span class="p">]</span>
+
+<span class="k">[i18n.labels]</span>
+<span class="n">en</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"English"</span>
+<span class="n">ja</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"日本語"</span>
+</code></pre>
+<ul>
+<li><strong>Symmetric Locale Slide Trees &amp; Flexible Speaker Notes (<code>slide_src/&lt;lang&gt;/</code>)</strong>: Each locale directory (<code>en/</code>, <code>ja/</code>) contains the exact same sorted slide paths and <code>::: block</code> stage structure. <code>::: note</code> speaker scripts are stripped prior to structural skeleton checks so presenters can freely tailor spoken explanations per language without triggering false parity errors.</li>
+<li><strong>Shared Diagram Deduplication &amp; Per-Locale <code>styles.py</code></strong>: Language-neutral diagrams (<code>file=arch_flow.svg</code>) compile once into shared <code>slide_html/images/</code>. For slides with localized labels or CJK typography, add <code>slide_src/&lt;lang&gt;/styles.py</code> (e.g. <code>ja/styles.py</code> with <code>FontJapanese</code>) and use a locale-suffixed filename (<code>file=arch_flow_ja.svg</code>).</li>
+<li><strong>Consistent Locale-Suffixed PDF &amp; PowerPoint Deliverables (<code>&lt;base&gt;_&lt;lang&gt;.pdf</code> / <code>.pptx</code>)</strong>: <code>drawlib build pdf</code> and <code>drawlib build pptx</code> emit per-locale presentation files (<code>keynote_en.pdf</code>, <code>keynote_ja.pdf</code>, <code>keynote_en.pptx</code>, <code>keynote_ja.pptx</code>).</li>
+<li><strong>Hash-Preserving In-Deck Language Switcher</strong>: When <code>len(langs) &gt; 1</code>, <code>.slide-controls</code> renders a compact <code>.lang-switcher</code> dropdown (<code>@media print</code> hidden) that switches directly to the corresponding slide number in the target language (<code>../ja/index.html#4</code>), while root <code>slide_html/index.html</code> redirects to <code>default_lang</code> preserving both <code>?presenter=1</code> and <code>#N</code>.</li>
+<li><strong>Locale-Scoped Presenter Sync &amp; Link Audit</strong>: <code>BroadcastChannel</code> synchronization is scoped per locale so concurrent <code>en</code> and <code>ja</code> decks never cross-interfere, and <code>uv run drawlib serve slide_html/ --check</code> verifies all slide assets and locale links in one pass.</li>
+</ul>
 
             </main>
         </div>

@@ -9,10 +9,10 @@
 
 # ruff: noqa: S404, S603
 
-"""Integration tests using subprocess to verify drawlib CLI build {markdown, html, pdf} subcommands."""
+"""Integration tests using subprocess to verify drawlib CLI build subcommands."""
 
-import os
-import sys
+from collections.abc import Sequence
+from pathlib import Path
 
 import pytest
 
@@ -31,11 +31,28 @@ def _is_playwright_available() -> bool:
         return False
 
 
-def test_cli_build_html_directory_default(tmp_path) -> None:
+def _write_manifest(
+    directory: Path,
+    project_type: str = "site",
+    *,
+    default_lang: str = "en",
+    langs: Sequence[str] = ("en",),
+) -> None:
+    for lang in langs:
+        (directory / lang).mkdir(parents=True, exist_ok=True)
+    langs_toml = ", ".join(f'"{lc}"' for lc in langs)
+    (directory / "drawlib.toml").write_text(
+        f'[project]\ntype = "{project_type}"\n\n[i18n]\ndefault_lang = "{default_lang}"\nlangs = [{langs_toml}]\n',
+        encoding="utf-8",
+    )
+
+
+def test_cli_build_html_directory_default(tmp_path: Path) -> None:
     """Test CLI build html directory (PNG image export + external style.css)."""
     src_dir = tmp_path / "src_docs"
     out_dir = tmp_path / "dist_docs"
     src_dir.mkdir()
+    _write_manifest(src_dir, "site")
 
     (src_dir / "template.html").write_text(
         '<!DOCTYPE html><html><head>{% if css_href %}<link rel="stylesheet" href="{{ css_href }}">'
@@ -43,7 +60,7 @@ def test_cli_build_html_directory_default(tmp_path) -> None:
         encoding="utf-8",
     )
     (src_dir / "style.css").write_text("body { margin: 0; }", encoding="utf-8")
-    (src_dir / "index.md").write_text(
+    (src_dir / "en" / "index.md").write_text(
         """# Main Index
 
 ```drawlib file=circle.png
@@ -54,27 +71,29 @@ circle((50, 50), radius=20, style=Styles.Primary)
 """,
         encoding="utf-8",
     )
-    (src_dir / "navbar.md").write_text("- [Main Index](index.md)\n", encoding="utf-8")
+    (src_dir / "en" / "navbar.md").write_text("- [Main Index](index.md)\n", encoding="utf-8")
 
     res = run_drawlib_cli(["build", "html", str(src_dir), "-o", str(out_dir)], cwd=str(tmp_path))
 
-    assert res.returncode == 0
+    assert res.returncode == 0, res.stderr
     assert "Successfully compiled HTML" in res.stdout
 
-    index_html = out_dir / "index.html"
-    style_css = out_dir / "style.css"
-    index_img = out_dir / "index_images" / "circle.png"
+    en_index_html = out_dir / "en" / "index.html"
+    root_index_html = out_dir / "index.html"
+    style_css = out_dir / "en" / "style.css"
+    index_img = out_dir / "images" / "index" / "circle.png"
 
-    assert index_html.exists()
+    assert en_index_html.exists()
+    assert root_index_html.exists()
     assert style_css.exists()
     assert index_img.exists()
 
-    content = index_html.read_text(encoding="utf-8")
+    content = en_index_html.read_text(encoding="utf-8")
     assert '<link rel="stylesheet" href="style.css">' in content
-    assert '<img src="index_images/circle.png"' in content
+    assert '<img src="../images/index/circle.png"' in content
 
 
-def test_cli_build_html_single_file_rejected(tmp_path) -> None:
+def test_cli_build_html_single_file_rejected(tmp_path: Path) -> None:
     """Test CLI build html rejects single file with descriptive error."""
     input_md = tmp_path / "sample.md"
     input_md.write_text("# Sample Page\n", encoding="utf-8")
@@ -86,11 +105,12 @@ def test_cli_build_html_single_file_rejected(tmp_path) -> None:
     assert "requires a directory as input" in res.stderr or "requires a directory as input" in res.stdout
 
 
-def test_cli_build_html_webp_format(tmp_path) -> None:
+def test_cli_build_html_webp_format(tmp_path: Path) -> None:
     """Test CLI build html with -f webp."""
     src_dir = tmp_path / "src_webp"
     out_dir = tmp_path / "out_webp"
     src_dir.mkdir()
+    _write_manifest(src_dir, "site")
 
     (src_dir / "template.html").write_text(
         '<!DOCTYPE html><html><head>{% if css_href %}<link rel="stylesheet" href="{{ css_href }}">'
@@ -98,7 +118,7 @@ def test_cli_build_html_webp_format(tmp_path) -> None:
         encoding="utf-8",
     )
     (src_dir / "style.css").write_text("body { margin: 0; }", encoding="utf-8")
-    (src_dir / "index.md").write_text(
+    (src_dir / "en" / "index.md").write_text(
         """# WebP Test
 
 ```drawlib file=circle.webp
@@ -109,17 +129,17 @@ circle((50, 50), radius=10, style=Styles.Primary)
 """,
         encoding="utf-8",
     )
-    (src_dir / "navbar.md").write_text("- [WebP Test](index.md)\n", encoding="utf-8")
+    (src_dir / "en" / "navbar.md").write_text("- [WebP Test](index.md)\n", encoding="utf-8")
 
     res = run_drawlib_cli(
         ["build", "html", str(src_dir), "-o", str(out_dir), "-f", "webp"],
         cwd=str(tmp_path),
     )
 
-    assert res.returncode == 0
-    content = (out_dir / "index.html").read_text(encoding="utf-8")
-    assert "index_images/circle.webp" in content
-    assert (out_dir / "index_images" / "circle.webp").exists()
+    assert res.returncode == 0, res.stderr
+    content = (out_dir / "en" / "index.html").read_text(encoding="utf-8")
+    assert "../images/index/circle.webp" in content
+    assert (out_dir / "images" / "index" / "circle.webp").exists()
 
     # Verify deprecated --image-format is rejected
     res_err = run_drawlib_cli(
@@ -129,13 +149,14 @@ circle((50, 50), radius=10, style=Styles.Primary)
     assert res_err.returncode != 0
 
 
-def test_cli_build_markdown_directory(tmp_path) -> None:
+def test_cli_build_markdown_directory(tmp_path: Path) -> None:
     """Test CLI build markdown directory."""
     src_dir = tmp_path / "src_md"
     out_dir = tmp_path / "out_md"
     src_dir.mkdir()
+    _write_manifest(src_dir, "doc")
 
-    (src_dir / "doc.md").write_text(
+    (src_dir / "en" / "doc.md").write_text(
         """# Markdown Output
 
 ```drawlib file=circle.png
@@ -149,13 +170,13 @@ circle((50, 50), radius=10, style=Styles.Primary)
 
     res = run_drawlib_cli(["build", "markdown", str(src_dir), "-o", str(out_dir)], cwd=str(tmp_path))
 
-    assert res.returncode == 0
+    assert res.returncode == 0, res.stderr
     assert "Successfully compiled Markdown" in res.stdout
-    assert (out_dir / "doc.md").exists()
-    assert (out_dir / "doc_images" / "circle.png").exists()
+    assert (out_dir / "en" / "doc.md").exists()
+    assert (out_dir / "images" / "doc" / "circle.png").exists()
 
 
-def test_cli_build_single_file_rejected(tmp_path) -> None:
+def test_cli_build_single_file_rejected(tmp_path: Path) -> None:
     """Test CLI build markdown rejects single file input."""
     input_md = tmp_path / "sample.md"
     input_md.write_text("# Single File Test", encoding="utf-8")
@@ -166,7 +187,7 @@ def test_cli_build_single_file_rejected(tmp_path) -> None:
     assert "requires a directory as input" in res.stderr or "requires a directory as input" in res.stdout
 
 
-def test_cli_build_image_single_file(tmp_path) -> None:
+def test_cli_build_image_single_file(tmp_path: Path) -> None:
     """Test CLI build image command executes Python script."""
     script = tmp_path / "simple.py"
     script.write_text(
@@ -186,7 +207,7 @@ save()
     assert (tmp_path / "simple.png").exists()
 
 
-def test_cli_build_images_removed_error(tmp_path) -> None:
+def test_cli_build_images_removed_error(tmp_path: Path) -> None:
     """Test CLI build images alias is rejected after being removed."""
     script = tmp_path / "simple.py"
     script.write_text(
@@ -200,7 +221,7 @@ save()
     assert res.returncode != 0
 
 
-def test_cli_build_image_subdirectories(tmp_path) -> None:
+def test_cli_build_image_subdirectories(tmp_path: Path) -> None:
     """Test CLI build image preserves subdirectory structure under output directory."""
     codes_dir = tmp_path / "codes"
     sub_a = codes_dir / "about"
@@ -241,7 +262,7 @@ save()
     assert (out_images / "qs" / "img_b.png").exists()
 
 
-def test_cli_build_image_auto_detect(tmp_path) -> None:
+def test_cli_build_image_auto_detect(tmp_path: Path) -> None:
     """Test CLI build image auto-detects codes/ and routes to images/ when given root directory."""
     root_dir = tmp_path / "readme_assets"
     sub_codes = root_dir / "codes" / "feature"
@@ -267,50 +288,55 @@ save()
     assert (root_dir / "images" / "feature" / "feat.png").exists()
 
 
-def test_cli_build_pdf_deterministic(tmp_path) -> None:
+def test_cli_build_pdf_deterministic(tmp_path: Path) -> None:
     """Test CLI build pdf produces deterministic identical bytes without --timestamp."""
     if not _is_playwright_available():
         pytest.skip("Playwright or headless Chromium not available")
 
     doc_dir = tmp_path / "doc_src"
     doc_dir.mkdir()
+    _write_manifest(doc_dir, "doc")
     (doc_dir / "template.html").write_text("<!DOCTYPE html><html><body>{{ body }}</body></html>", encoding="utf-8")
     (doc_dir / "style.css").write_text("body { margin: 0; }", encoding="utf-8")
-    (doc_dir / "00_intro.md").write_text("# Title\n\nContent for PDF.", encoding="utf-8")
+    (doc_dir / "en" / "00_intro.md").write_text("# Title\n\nContent for PDF.", encoding="utf-8")
 
     out_pdf1 = tmp_path / "doc1.pdf"
     out_pdf2 = tmp_path / "doc2.pdf"
 
     res1 = run_drawlib_cli(["build", "pdf", str(doc_dir), "-o", str(out_pdf1)], cwd=str(tmp_path))
-    assert res1.returncode == 0
+    assert res1.returncode == 0, res1.stderr
     res2 = run_drawlib_cli(["build", "pdf", str(doc_dir), "-o", str(out_pdf2)], cwd=str(tmp_path))
-    assert res2.returncode == 0
+    assert res2.returncode == 0, res2.stderr
 
-    assert out_pdf1.read_bytes() == out_pdf2.read_bytes()
-    assert b"D:20260101000000+00'00'" in out_pdf1.read_bytes()
+    expected_pdf1 = tmp_path / "doc1_en.pdf"
+    expected_pdf2 = tmp_path / "doc2_en.pdf"
+    assert expected_pdf1.read_bytes() == expected_pdf2.read_bytes()
+    assert b"D:20260101000000+00'00'" in expected_pdf1.read_bytes()
 
 
-def test_cli_build_pdf_timestamp_flag(tmp_path) -> None:
+def test_cli_build_pdf_timestamp_flag(tmp_path: Path) -> None:
     """Test CLI build pdf preserves timestamp when --timestamp is provided."""
     if not _is_playwright_available():
         pytest.skip("Playwright or headless Chromium not available")
 
     doc_dir = tmp_path / "doc_src"
     doc_dir.mkdir()
+    _write_manifest(doc_dir, "doc")
     (doc_dir / "template.html").write_text("<!DOCTYPE html><html><body>{{ body }}</body></html>", encoding="utf-8")
     (doc_dir / "style.css").write_text("body { margin: 0; }", encoding="utf-8")
-    (doc_dir / "00_intro.md").write_text("# Title\n\nContent for PDF.", encoding="utf-8")
+    (doc_dir / "en" / "00_intro.md").write_text("# Title\n\nContent for PDF.", encoding="utf-8")
 
     out_pdf = tmp_path / "doc_ts.pdf"
     res = run_drawlib_cli(["build", "pdf", str(doc_dir), "-o", str(out_pdf), "--timestamp"], cwd=str(tmp_path))
-    assert res.returncode == 0
+    assert res.returncode == 0, res.stderr
 
-    data = out_pdf.read_bytes()
+    expected_pdf = tmp_path / "doc_ts_en.pdf"
+    data = expected_pdf.read_bytes()
     assert b"/CreationDate (D:" in data
     assert b"D:20260101000000+00'00'" not in data
 
 
-def test_cli_build_multiple_inputs_rejected(tmp_path) -> None:
+def test_cli_build_multiple_inputs_rejected(tmp_path: Path) -> None:
     """Test that all build commands reject multiple input arguments."""
     file1 = tmp_path / "a.py"
     file2 = tmp_path / "b.py"
@@ -334,7 +360,7 @@ def test_cli_build_multiple_inputs_rejected(tmp_path) -> None:
     assert res_pdf.returncode != 0
 
 
-def test_cli_build_pdf_single_markdown_file(tmp_path) -> None:
+def test_cli_build_pdf_single_markdown_file(tmp_path: Path) -> None:
     """Test CLI build pdf compiles a single standalone markdown file into PDF."""
     if not _is_playwright_available():
         pytest.skip("Playwright or headless Chromium not available")
@@ -344,35 +370,64 @@ def test_cli_build_pdf_single_markdown_file(tmp_path) -> None:
     out_pdf = tmp_path / "spec.pdf"
 
     res = run_drawlib_cli(["build", "pdf", str(md_file), "-o", str(out_pdf)], cwd=str(tmp_path))
-    assert res.returncode == 0
+    assert res.returncode == 0, res.stderr
     assert "Successfully compiled PDF" in res.stdout
     assert out_pdf.exists()
     assert out_pdf.stat().st_size > 0
 
 
-def test_cli_build_pdf_slide_project(tmp_path) -> None:
+def test_cli_build_pdf_slide_project(tmp_path: Path) -> None:
     """Test CLI build pdf compiles a slide project into presentation PDF."""
     if not _is_playwright_available():
         pytest.skip("Playwright or headless Chromium not available")
 
     slide_dir = tmp_path / "slide_src"
     slide_dir.mkdir()
+    _write_manifest(slide_dir, "slide")
     (slide_dir / "style.css").write_text("@media print { @page { size: 16in 9in; } }", encoding="utf-8")
-    (slide_dir / "01_title.md").write_text("# Slide Title\n\nPresentation slide content.", encoding="utf-8")
+    (slide_dir / "en" / "01_title.md").write_text("# Slide Title\n\nPresentation slide content.", encoding="utf-8")
 
     out_pdf = tmp_path / "presentation.pdf"
+    expected_pdf = tmp_path / "presentation_en.pdf"
     res = run_drawlib_cli(["build", "pdf", str(slide_dir), "-o", str(out_pdf)], cwd=str(tmp_path))
-    assert res.returncode == 0
+    assert res.returncode == 0, res.stderr
     assert "Successfully compiled PDF" in res.stdout
-    assert out_pdf.exists()
-    assert out_pdf.stat().st_size > 0
+    assert str(expected_pdf) in res.stdout
+    assert expected_pdf.exists()
+    assert expected_pdf.stat().st_size > 0
 
 
-def test_cli_build_image_from_markdown(tmp_path) -> None:
+def test_cli_build_pdf_slide_project_multi_locale(tmp_path: Path) -> None:
+    """Test CLI build pdf compiles a multi-locale slide project into <stem>_<lang>.pdf files."""
+    if not _is_playwright_available():
+        pytest.skip("Playwright or headless Chromium not available")
+
+    slide_dir = tmp_path / "deck_src"
+    slide_dir.mkdir()
+    _write_manifest(slide_dir, "slide", default_lang="en", langs=("en", "ja"))
+    (slide_dir / "style.css").write_text("@media print { @page { size: 16in 9in; } }", encoding="utf-8")
+    (slide_dir / "en" / "01_title.md").write_text("# Slide Title\n\nPresentation slide content.", encoding="utf-8")
+    (slide_dir / "ja" / "01_title.md").write_text("# スライドタイトル\n\nプレゼンテーションの内容。", encoding="utf-8")
+
+    out_pdf = tmp_path / "deck.pdf"
+    expected_en = tmp_path / "deck_en.pdf"
+    expected_ja = tmp_path / "deck_ja.pdf"
+
+    res = run_drawlib_cli(["build", "pdf", str(slide_dir), "-o", str(out_pdf)], cwd=str(tmp_path))
+    assert res.returncode == 0, res.stderr
+    assert "Successfully compiled PDF" in res.stdout
+    assert str(expected_en) in res.stdout
+    assert str(expected_ja) in res.stdout
+    assert expected_en.is_file() and expected_en.stat().st_size > 0
+    assert expected_ja.is_file() and expected_ja.stat().st_size > 0
+
+
+def test_cli_build_image_from_markdown(tmp_path: Path) -> None:
     """Test CLI build image extracts and renders drawlib blocks from Markdown files."""
     doc_dir = tmp_path / "doc_src"
     doc_dir.mkdir()
-    (doc_dir / "chapter.md").write_text(
+    _write_manifest(doc_dir, "doc")
+    (doc_dir / "en" / "chapter.md").write_text(
         """# Chapter 1
 
 Here is an architectural diagram:
@@ -388,18 +443,19 @@ rectangle((50, 50), width=40, height=20, style=Styles.Primary)
 
     out_images = tmp_path / "doc_images"
     res = run_drawlib_cli(["build", "image", "doc_src/", "-o", "doc_images/"], cwd=str(tmp_path))
-    assert res.returncode == 0
+    assert res.returncode == 0, res.stderr
     assert "Successfully executed image build" in res.stdout
-    assert (out_images / "chapter_images" / "arch.png").exists()
-    assert (out_images / "chapter_images" / "arch.png").stat().st_size > 0
+    assert (out_images / "chapter" / "arch.png").exists()
+    assert (out_images / "chapter" / "arch.png").stat().st_size > 0
     assert not (doc_dir / "doc_images").exists()
 
 
-def test_cli_build_html_favicon_resolution(tmp_path) -> None:
+def test_cli_build_html_favicon_resolution(tmp_path: Path) -> None:
     """Test CLI build html resolves correct relative favicon paths for root and nested pages."""
     src_dir = tmp_path / "site_src"
     out_dir = tmp_path / "site_dist"
     src_dir.mkdir()
+    _write_manifest(src_dir, "site")
     (src_dir / "_assets").mkdir()
     (src_dir / "_assets" / "favicon.png").write_bytes(b"dummy_png_data")
 
@@ -410,48 +466,58 @@ def test_cli_build_html_favicon_resolution(tmp_path) -> None:
         encoding="utf-8",
     )
     (src_dir / "style.css").write_text("body { margin: 0; }", encoding="utf-8")
-    (src_dir / "index.md").write_text("# Home Page\n\nWelcome home.", encoding="utf-8")
-    sub_dir = src_dir / "guides"
+    (src_dir / "en" / "index.md").write_text("# Home Page\n\nWelcome home.", encoding="utf-8")
+    sub_dir = src_dir / "en" / "guides"
     sub_dir.mkdir()
     (sub_dir / "tutorial.md").write_text("# Tutorial\n\nStep by step.", encoding="utf-8")
-    (src_dir / "navbar.md").write_text("- [Home](index.md)\n- [Tutorial](guides/tutorial.md)\n", encoding="utf-8")
+    (src_dir / "en" / "navbar.md").write_text(
+        "- [Home](index.md)\n- [Tutorial](guides/tutorial.md)\n",
+        encoding="utf-8",
+    )
 
     res = run_drawlib_cli(["build", "html", str(src_dir), "-o", str(out_dir)], cwd=str(tmp_path))
-    assert res.returncode == 0
+    assert res.returncode == 0, res.stderr
     assert (out_dir / "_assets" / "favicon.png").is_file()
 
     # Root index.html should have relative href="_assets/favicon.png"
     root_html = (out_dir / "index.html").read_text(encoding="utf-8")
     assert '<link rel="icon" href="_assets/favicon.png">' in root_html
 
-    # Nested tutorial.html should have relative href="../_assets/favicon.png"
-    sub_html = (out_dir / "guides" / "tutorial.html").read_text(encoding="utf-8")
-    assert '<link rel="icon" href="../_assets/favicon.png">' in sub_html
+    # Locale en/index.html should have relative href="../_assets/favicon.png"
+    en_html = (out_dir / "en" / "index.html").read_text(encoding="utf-8")
+    assert '<link rel="icon" href="../_assets/favicon.png">' in en_html
+
+    # Nested en/guides/tutorial.html should have relative href="../../_assets/favicon.png"
+    sub_html = (out_dir / "en" / "guides" / "tutorial.html").read_text(encoding="utf-8")
+    assert '<link rel="icon" href="../../_assets/favicon.png">' in sub_html
 
 
-def test_cli_build_slide_favicon(tmp_path) -> None:
+def test_cli_build_slide_favicon(tmp_path: Path) -> None:
     """Test CLI build slide presentation automatically injects favicon link when present."""
     slide_dir = tmp_path / "slide_src"
     out_dir = tmp_path / "slide_dist"
     slide_dir.mkdir()
+    _write_manifest(slide_dir, "slide")
     (slide_dir / "_assets").mkdir()
     (slide_dir / "_assets" / "favicon.png").write_bytes(b"dummy_favicon_data")
-    (slide_dir / "01_title.md").write_text("# Keynote\n\nIntroductory slide.", encoding="utf-8")
+    (slide_dir / "en" / "01_title.md").write_text("# Keynote\n\nIntroductory slide.", encoding="utf-8")
 
     res = run_drawlib_cli(["build", "slide", str(slide_dir), "-o", str(out_dir)], cwd=str(tmp_path))
-    assert res.returncode == 0
+    assert res.returncode == 0, res.stderr
     assert (out_dir / "_assets" / "favicon.png").is_file()
+    assert (out_dir / "index.html").is_file()
 
-    index_html = (out_dir / "index.html").read_text(encoding="utf-8")
-    assert '<link rel="icon" type="image/png" href="_assets/favicon.png">' in index_html
+    en_index_html = (out_dir / "en" / "index.html").read_text(encoding="utf-8")
+    assert '<link rel="icon" type="image/png" href="../_assets/favicon.png">' in en_index_html
 
 
-def test_cli_build_docx_directory_and_single_file(tmp_path) -> None:
+def test_cli_build_docx_directory_and_single_file(tmp_path: Path) -> None:
     """Test CLI build docx compiles chapters directory and single file."""
     doc_dir = tmp_path / "report_src"
     doc_dir.mkdir()
-    (doc_dir / "00_cover.md").write_text("# Annual Report\n\nExecutive summary.", encoding="utf-8")
-    (doc_dir / "01_metrics.md").write_text("# Key Metrics\n\n- Availability: 99.99%", encoding="utf-8")
+    _write_manifest(doc_dir, "doc")
+    (doc_dir / "en" / "00_cover.md").write_text("# Annual Report\n\nExecutive summary.", encoding="utf-8")
+    (doc_dir / "en" / "01_metrics.md").write_text("# Key Metrics\n\n- Availability: 99.99%", encoding="utf-8")
 
     res_dir = run_drawlib_cli(
         ["build", "docx", str(doc_dir), "--generate-index", "--dpi", "150"],
@@ -459,7 +525,8 @@ def test_cli_build_docx_directory_and_single_file(tmp_path) -> None:
     )
     assert res_dir.returncode == 0, res_dir.stderr
     assert "Successfully compiled Word document" in res_dir.stdout
-    default_docx = tmp_path / "report.docx"
+    default_docx = tmp_path / "report_en.docx"
+    assert str(default_docx) in res_dir.stdout
     assert default_docx.is_file()
     assert default_docx.stat().st_size > 0
 
@@ -474,12 +541,13 @@ def test_cli_build_docx_directory_and_single_file(tmp_path) -> None:
     assert out_note.is_file()
 
 
-def test_cli_build_pptx(tmp_path) -> None:
-    """Test CLI build pptx compiles a slide source directory into a .pptx deck."""
+def test_cli_build_pptx(tmp_path: Path) -> None:
+    """Test CLI build pptx compiles a slide source directory into a <stem>_<lang>.pptx deck."""
     slide_dir = tmp_path / "talk_src"
     slide_dir.mkdir()
-    (slide_dir / "01_title.md").write_text("# Tech Talk\n\nOpening slide.", encoding="utf-8")
-    (slide_dir / "02_agenda.md").write_text(
+    _write_manifest(slide_dir, "slide")
+    (slide_dir / "en" / "01_title.md").write_text("# Tech Talk\n\nOpening slide.", encoding="utf-8")
+    (slide_dir / "en" / "02_agenda.md").write_text(
         "::: block xy=(80, 80) width=1760 height=800\n"
         "# Agenda\n\n- Topic A\n- Topic B\n:::\n\n"
         "::: note\nSpeaker cue.\n:::\n",
@@ -492,7 +560,7 @@ def test_cli_build_pptx(tmp_path) -> None:
     )
     assert res.returncode == 0, res.stderr
     assert "Successfully compiled PowerPoint presentation" in res.stdout
-    default_pptx = tmp_path / "talk.pptx"
+    default_pptx = tmp_path / "talk_en.pptx"
+    assert str(default_pptx) in res.stdout
     assert default_pptx.is_file()
     assert default_pptx.stat().st_size > 0
-

@@ -228,7 +228,8 @@ def check_duplicate_script_outputs(
 def _get_python_files(directory: str) -> list[str]:
     """Retrieve all Python files recursively within the specified directory."""
     python_files: list[str] = []
-    for root, _, files in os.walk(directory):
+    for root, dirs, files in os.walk(directory):
+        dirs[:] = [d for d in sorted(dirs) if not d.startswith((".", "_"))]
         for file in files:
             if file.startswith("."):
                 continue
@@ -242,6 +243,24 @@ def _get_python_files(directory: str) -> list[str]:
         return (path.count(os.sep), path)
 
     return sorted(python_files, key=sort_key)
+
+
+def _get_markdown_files(directory: str) -> list[str]:
+    """Retrieve all Markdown files recursively within the specified directory."""
+    md_files: list[str] = []
+    for root, dirs, files in os.walk(directory):
+        dirs[:] = [d for d in sorted(dirs) if not d.startswith((".", "_"))]
+        for f in sorted(files):
+            if f.startswith((".", "_")):
+                continue
+            f_lower = f.lower()
+            if (
+                f_lower.endswith((".md", ".markdown"))
+                and not f_lower.startswith("readme")
+                and f_lower not in {"navbar.md", "navbar.markdown", "output_readme.md", "output_html_readme.md"}
+            ):
+                md_files.append(os.path.join(root, f))
+    return md_files
 
 
 def _collect_target_files(
@@ -266,18 +285,7 @@ def _collect_target_files(
                 all_md_files.append(realpath)
         elif os.path.isdir(realpath):
             all_py_files.extend(fp for fp in get_py_fn(realpath) if not os.path.basename(fp).startswith("__"))
-            for root, dirnames, files in os.walk(realpath):
-                dirnames[:] = sorted(d for d in dirnames if not d.startswith(".") and not d.startswith("_"))
-                for f in sorted(files):
-                    if f.startswith(".") or f.startswith("_"):
-                        continue
-                    f_lower = f.lower()
-                    if (
-                        f_lower.endswith((".md", ".markdown"))
-                        and not f_lower.startswith("readme")
-                        and f_lower not in {"navbar.md", "navbar.markdown", "output_readme.md", "output_html_readme.md"}
-                    ):
-                        all_md_files.append(os.path.join(root, f))
+            all_md_files.extend(_get_markdown_files(realpath))
     return resolved_targets, all_py_files, all_md_files
 
 

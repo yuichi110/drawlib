@@ -10,28 +10,28 @@ This document serves as an exhaustive reference and operational manual for softw
 
 ```bash
 # Compile documentation and illustrations
-drawlib build html docs_src/ -o docs_html/                  # Multi-page responsive HTML site
-drawlib build markdown docs_src/ -o docs/                  # Rendered Markdown for GitHub browsing
-drawlib build pdf docs_src/ -o manual.pdf --generate-index  # Merged vector PDF via headless Chromium
-drawlib build docx doc_src/ -o manual.docx --generate-index # Editable MS Word (.docx) document
-drawlib build slide slide_src/ -o slide_html/               # 16:9 HTML presentation slide deck
-drawlib build pptx slide_src/ -o slide.pptx                 # Editable 16:9 MS PowerPoint (.pptx) deck
-drawlib build image scripts/ -o assets/ -g                 # Batch Python illustration rendering
+drawlib build html docs_src/ -o docs_html/                  # Multi-page responsive HTML site (<lang>/ + root index.html)
+drawlib build markdown docs_src/ -o docs_markdown/          # Rendered Markdown for GitHub browsing (<lang>/ + root index.md)
+drawlib build pdf doc_src/ -o manual.pdf --generate-index   # Merged vector PDF per locale (manual_<lang>.pdf)
+drawlib build docx doc_src/ -o manual.docx --generate-index # Editable MS Word (.docx) per locale (manual_<lang>.docx)
+drawlib build slide slide_src/ -o slide_html/               # 16:9 HTML presentation slide deck (<lang>/index.html)
+drawlib build pptx slide_src/ -o slide.pptx                 # Editable 16:9 MS PowerPoint per locale (slide_<lang>.pptx)
+drawlib build image scripts/ -o assets/ -g                  # Batch Python illustration rendering
 
 # Project scaffolding
 drawlib init list                                          # List available starter project templates (site, doc, slide, images)
-drawlib init site                                          # Scaffold multi-page documentation website (docs_src/)
-drawlib init doc                                           # Scaffold linear document project (doc_src/)
-drawlib init doc rbac -s google                            # Scaffold doc project with custom target name & theme (rbac_src/)
-drawlib init slide -s google                               # Scaffold 16:9 presentation slide deck (slide_src/)
+drawlib init site                                          # Scaffold multi-page documentation website (docs_src/en/)
+drawlib init doc                                           # Scaffold linear document project (doc_src/en/)
+drawlib init doc rbac -s google                            # Scaffold doc project with custom target name & theme (rbac_src/en/)
+drawlib init slide -l en,ja -s google                      # Scaffold bilingual 16:9 presentation slide deck (slide_src/{en,ja}/)
 drawlib init images                                        # Scaffold standalone Python illustrations repository (images_src/)
 
 # Inspection, visual preview, and extraction
-drawlib show doc.md arch.png -o .drawlib/scratch/arch.png            # Export named block to file without GUI (Recommended)
-drawlib show doc.md arch.png -g -o .drawlib/scratch/arch_grid.png    # Export block with coordinate grid for review
-drawlib show script.py -o .drawlib/scratch/script.png                # Render standalone Python script to image
-drawlib show script.py -g -o .drawlib/scratch/script_grid.png        # Render script with coordinate grid
-drawlib show doc.md arch.png                                # Open desktop GUI preview (interactive only)
+drawlib show doc_src/en/01_arch.md arch.png -o .drawlib/scratch/arch.png         # Export named block without GUI (Recommended)
+drawlib show doc_src/en/01_arch.md arch.png -g -o .drawlib/scratch/arch_grid.png # Export block with coordinate grid for review
+drawlib show script.py -o .drawlib/scratch/script.png                            # Render standalone Python script to image
+drawlib show script.py -g -o .drawlib/scratch/script_grid.png                    # Render script with coordinate grid
+drawlib show doc_src/en/01_arch.md arch.png                                      # Open desktop GUI preview (interactive only)
 
 # Local preview server and link verification
 drawlib serve docs_html/                                   # Local HTTP server on http://localhost:8000
@@ -88,20 +88,21 @@ drawlib [GLOBAL_OPTIONS] COMMAND [SUBCOMMAND] [ARGS...]
 
 ## 1. Document & Illustration Compiler (`drawlib build`)
 
-The `drawlib build` subsystem compiles Markdown documentation directories, slide decks, MS Office deliverables (`.docx`, `.pptx`), and standalone Python illustration scripts into production-ready publishing targets.
+The `drawlib build` subsystem compiles Markdown documentation directories (`doc`, `site`), slide decks (`slide`), MS Office deliverables (`.docx`, `.pptx`), and standalone Python illustration scripts (`images`) into production-ready publishing targets.
 
 ```text
 drawlib build
-├── html       Compile a documentation source directory into a static HTML site or linear page
-├── markdown   Compile a directory of Markdown files with drawlib blocks into GitHub-ready Markdown
-├── pdf        Compile Markdown chapters, a single Markdown file, or a slide deck into a vector PDF
-├── docx       Compile Markdown chapters or a single Markdown file into an editable MS Word (.docx) document
-├── slide      Compile a directory of Markdown slide files into a 16:9 HTML presentation deck
-├── pptx       Compile a directory of Markdown slide files into an editable 16:9 MS PowerPoint (.pptx) deck
-└── image      Batch execute standalone Python scripts to generate image files
+├── html       Compile a documentation source directory (site or doc) into static HTML
+├── markdown   Compile a documentation source directory (site or doc) into GitHub-ready Markdown
+├── pdf        Compile a doc/slide project directory (<stem>_<lang>.pdf) or single Markdown file into vector PDF
+├── docx       Compile a doc project directory (<stem>_<lang>.docx) or single Markdown file into editable MS Word
+├── slide      Compile a slide project directory into a 16:9 HTML presentation deck (<lang>/index.html)
+├── pptx       Compile a slide project directory into editable 16:9 MS PowerPoint (<stem>_<lang>.pptx)
+└── image      Batch execute standalone Python scripts or extract embedded project diagram images
 ```
 
 Common build behavior:
+- **Required `drawlib.toml` + `[i18n]` on `doc`, `site`, and `slide` Directories**: All directory builds for `doc`, `site`, and `slide` require `drawlib.toml` with `[i18n]` (`default_lang`, `langs`) and read Markdown sources from `<DIR>/<lang>/`.
 - **Automatic Clear / Reset**: Between separate code blocks or Python files, canvas state is automatically reset to avoid cross-diagram side effects.
 - **SQLite Build Cache**: Rendered illustrations are hashed and stored in a local SQLite database (`.drawlib/cache.db`). Unchanged code blocks skip re-rendering automatically unless `--no-cache` is specified.
 - **Working Directory Parity**: When compiling blocks, drawlib switches the current working directory (`os.chdir`) to the document's directory and prepends it to `sys.path[0]`, ensuring relative asset references and module imports resolve identically to standalone execution.
@@ -110,7 +111,7 @@ Common build behavior:
 
 ### 1.1 `drawlib build html` (Static Site & Linear HTML)
 
-Compiles a documentation source directory (`docs_src/` or `doc_src/`) into responsive HTML with modern styling, sidebar navigation (when `navbar.md` is present), dark/light theme support, and syntax highlighting.
+Compiles an `i18n`-native documentation source directory (`docs_src/` with `type = "site"` or `doc_src/` with `type = "doc"`) into responsive HTML with modern styling, sidebar navigation (`site`), dark/light theme support, and syntax highlighting.
 
 #### Syntax:
 ```bash
@@ -118,7 +119,7 @@ drawlib build html <DIR> [OPTIONS]
 ```
 
 #### Arguments:
-- `<DIR>`: Path to input directory containing documentation source files (`docs_src/` or `doc_src/`).
+- `<DIR>`: Path to input project directory containing `drawlib.toml` (`type = "site"` or `"doc"`) and `<lang>/` sources.
 
 #### Options:
 | Option | Shorthand | Type | Default | Description |
@@ -129,16 +130,16 @@ drawlib build html <DIR> [OPTIONS]
 | `--utils` | `-u` | `<path>` | `None` | Path to Python utils script (e.g. `utils.py`). |
 | `--no-cache` | | flag | `False` | Disable reading and writing the SQLite image build cache (forces clean re-rendering). |
 
-> **Mandatory Files**: `template.html` and `style.css` must exist in the input directory. Run `drawlib init` to scaffold them.
+> **Mandatory Files**: `drawlib.toml` (with `[i18n]`), `template.html`, and `style.css` must exist in the input directory. Run `drawlib init <site|doc>` to scaffold them.
 
 #### Directory Compilation Rules:
 When `<DIR>` is compiled by `drawlib build html`:
-1. **Multi-Page Site (`site` — `navbar.md` present)** vs. **Merged Linear Document (`doc` — no `navbar.md`)**:
-   - When `index.md` and `navbar.md` exist at the root of `<DIR>`, `drawlib build html` compiles a multi-page documentation website with a persistent sidebar.
-   - When `navbar.md` is absent (as in `doc_src/`), it merges all numbered chapters into `index.html`.
-2. **Navigation Construction**: The builder parses `navbar.md`, generates hierarchical categories and links, computes relative paths for nested directories, and highlights the current page (`.active`).
-3. **Static Asset Synchronization**: Non-markdown files (`_assets/`, images, custom stylesheets, font files) located within `<DIR>` are recursively mirrored to `--output` preserving folder hierarchy.
-4. **Shared Stylesheet**: An external `style.css` is generated in the root of the output directory and referenced by all pages via relative paths.
+1. **Manifest-Driven Archetype Dispatch (`site` vs. `doc`)**:
+   - **`type = "site"`**: Requires `<lang>/index.md` and `<lang>/navbar.md` inside each locale directory, compiling `<output>/<lang>/**/*.html` plus a root `<output>/index.html` landing page.
+   - **`type = "doc"`**: Forbids `navbar.md` and merges all numbered chapters inside each `<lang>/` directory into `<output>/<lang>/index.html`, plus a root `<output>/index.html` redirector.
+2. **Navigation & Language Switcher**: For `site`, the builder parses `<lang>/navbar.md`, computes relative paths, and highlights `.active` pages. When `len(langs) >= 2`, a language switcher is rendered automatically (and omitted when `len(langs) == 1` or in `@media print`).
+3. **Shared Diagrams & Static Assets**: `_assets/` is mirrored to `<output>/_assets/`, and shared ````drawlib```` blocks render once into `<output>/images/` across locales.
+4. **Per-Locale Stylesheet**: Localized `<output>/<lang>/style.css` files are generated with language-appropriate font stacks.
 
 #### Examples:
 ```bash
@@ -156,7 +157,7 @@ drawlib build html docs_src/ -o docs_html/ --no-cache
 
 ### 1.2 `drawlib build markdown` (Rendered Markdown for GitHub)
 
-Compiles a directory of Markdown source files containing embedded ````drawlib```` blocks into standard GitHub-Flavored Markdown (`.md`). Rendered illustration images are written to companion folders (e.g. `<doc_name>_images/`), and code blocks are replaced according to their `code=` visibility setting.
+Compiles a `site` or `doc` project directory containing embedded ````drawlib```` blocks into standard GitHub-Flavored Markdown (`<output>/<lang>/...` plus root `index.md` for `site`, with shared diagrams in `<output>/images/`).
 
 #### Syntax:
 ```bash
@@ -164,7 +165,7 @@ drawlib build markdown <DIR> [OPTIONS]
 ```
 
 #### Arguments:
-- `<DIR>`: Path to input directory containing Markdown (`.md`) source files.
+- `<DIR>`: Path to input project directory (`drawlib.toml` with `type = "site"` or `"doc"`).
 
 #### Options:
 | Option | Shorthand | Type | Default | Description |
@@ -176,30 +177,30 @@ drawlib build markdown <DIR> [OPTIONS]
 | `--no-cache` | | flag | `False` | Disable reading and writing the SQLite image build cache. |
 
 #### Overwrite Protection:
-To safeguard author source files, `drawlib build markdown` strictly refuses to overwrite source Markdown directories in-place (`src_abs == dest_abs`). Always specify a separate destination directory (e.g. `-o docs/` or `-o docs_markdown/`).
+To safeguard author source files, `drawlib build markdown` strictly refuses to overwrite source Markdown directories in-place (`src_abs == dest_abs`). Always specify a separate destination directory (e.g. `-o docs_markdown/`).
 
 #### Code Visibility in Rendered Markdown:
-- `code=hide` *(default)*: Embedded code block is replaced strictly by the relative image reference: `![alt](<page>_images/<file>.png)`.
+- `code=hide` *(default)*: Embedded code block is replaced strictly by the relative image reference.
 - `code=show`: Embedded code block becomes a syntax-highlighted ````python```` block followed by the image reference.
 - `code=fold`: The image reference is displayed first, followed by a collapsed `<details><summary>Source Code</summary>...</details>` block containing the Python source.
 
 #### Examples:
 ```bash
-# Compile author source directory to GitHub-ready docs/ directory:
-drawlib build markdown docs_src/ -o docs/
+# Compile author source directory to GitHub-ready docs_markdown/ directory:
+drawlib build markdown docs_src/ -o docs_markdown/
 
 # Compile directory using custom styles script:
-drawlib build markdown docs_src/ -o docs/ -s docs_src/styles.py
+drawlib build markdown docs_src/ -o docs_markdown/ -s docs_src/styles.py
 
 # Export images as modern WebP format:
-drawlib build markdown docs_src/ -o docs/ -f webp
+drawlib build markdown docs_src/ -o docs_markdown/ -f webp
 ```
 
 ---
 
 ### 1.3 `drawlib build pdf` (Headless Vector PDF Compilation)
 
-Merges Markdown chapters, a single Markdown document, or a slide presentation directory and compiles it directly into a high-fidelity vector PDF using headless Chromium.
+Compiles a `doc` project directory, a `slide` presentation directory, or a standalone Markdown document directly into high-fidelity vector PDF(s) using headless Chromium. For `doc` and `slide` project directories, `-o <stem>.pdf` always emits locale-suffixed `<stem>_<lang>.pdf` files for every locale in `[i18n].langs` (even when `langs = ["en"]` -> `<stem>_en.pdf`).
 
 #### Syntax:
 ```bash
@@ -207,21 +208,21 @@ drawlib build pdf <INPUT> [OPTIONS]
 ```
 
 #### Arguments:
-- `<INPUT>`: Directory containing Markdown chapters (`doc_src/`), single Markdown file (`.md`), or slide presentation directory (`slide_src/`).
+- `<INPUT>`: `doc` project directory (`doc_src/`), `slide` presentation directory (`slide_src/`), or standalone Markdown file (`.md`).
 
 #### Options:
 | Option | Shorthand | Type | Default | Description |
 | :--- | :--- | :--- | :--- | :--- |
-| `--output` | `-o` | `<path>` | `<stem>.pdf` | Destination PDF output file path. |
+| `--output` | `-o` | `<path>` | `<stem>.pdf` | Base destination PDF path (`<stem>_<lang>.pdf` for project directories; exact path for single `.md` files). |
 | `--title` | | `<str>` | Extracted from H1 | Overall document title override for the merged PDF. |
-| `--generate-index / --no-generate-index` | | flag | `False` | Generate an index (Table of Contents) and insert it between the 1st and 2nd documents. |
-| `--page-break / --no-page-break` | | flag | `True` | Insert CSS page breaks (`page-break-before: always`) between merged chapters. |
+| `--generate-index / --no-generate-index` | | flag | `False` | Generate a localized index (Table of Contents) and insert it between the 1st and 2nd chapters (`doc`). |
+| `--page-break / --no-page-break` | | flag | `True` | Insert CSS page breaks (`page-break-before: always`) between merged chapters (`doc`). |
 | `--styles` | `-s` | `<path>` | `None` | Path to Python styles script (e.g. `styles.py`). |
 | `--utils` | `-u` | `<path>` | `None` | Path to Python utils script (e.g. `utils.py`). |
 | `--no-cache` | | flag | `False` | Force clean diagram generation ignoring SQLite cache. |
 | `--timestamp` | | flag | `False` | Include current build timestamp in PDF metadata instead of normalizing for deterministic builds. |
 
-> **Mandatory Files**: `template.html` and `style.css` must exist in the target directory (or parent directory of the input file) for document PDF builds. Run `drawlib init` to scaffold them.
+> **Mandatory Files**: `doc` and `slide` directory builds require `drawlib.toml` (with `[i18n]`), plus `template.html` and `style.css` for `doc` projects. Run `drawlib init` to scaffold them.
 
 #### Zero-Config Headless Chromium Engine:
 Drawlib renders PDFs using Playwright (installed automatically as a standard dependency of `drawlib`) and a headless Chromium browser instance (`chromium-headless-shell`, `page.pdf()`). This guarantees identical layout across all operating systems, accurate web font loading, and background CSS rendering:
@@ -231,10 +232,10 @@ Drawlib renders PDFs using Playwright (installed automatically as a standard dep
 
 #### Examples:
 ```bash
-# Compile single document to vector PDF:
-drawlib build pdf doc.md -o output.pdf
+# Compile standalone Markdown file directly to output.pdf:
+drawlib build pdf spec.md -o output.pdf
 
-# Merge an entire directory of chapters into a single PDF with Table of Contents:
+# Compile doc_src/ project chapters into comprehensive_guide_<lang>.pdf with Table of Contents:
 drawlib build pdf doc_src/ -o comprehensive_guide.pdf --page-break --generate-index
 ```
 
@@ -242,7 +243,7 @@ drawlib build pdf doc_src/ -o comprehensive_guide.pdf --page-break --generate-in
 
 ### 1.4 `drawlib build docx` (Editable MS Word `.docx` Export)
 
-Compiles a linear document directory (`doc_src/`) or a single Markdown file (`.md`) into a native editable Microsoft Word (`.docx`) document using `python-docx` (installed automatically as a standard dependency). Outputs native editable Word headings, prose, lists, tables, blockquotes, and syntax-highlighted code blocks, with ````drawlib```` diagrams embedded as high-DPI static PNGs (default `dpi=200`).
+Compiles a linear `doc` project directory (`doc_src/`, emitting `<stem>_<lang>.docx` per locale) or a standalone Markdown file (`.md`) into a native editable Microsoft Word (`.docx`) document using `python-docx` (installed automatically as a standard dependency). Outputs native editable Word headings, prose, lists, tables, blockquotes, and syntax-highlighted code blocks, with ````drawlib```` diagrams embedded as high-DPI static PNGs (default `dpi=200`).
 
 *(Note: Scaffolded `build.sh` in `drawlib init doc` continues to build HTML, PDF, Markdown, and Images; `drawlib build docx` is an on-demand optional export command.)*
 
@@ -252,14 +253,14 @@ drawlib build docx <INPUT> [OPTIONS]
 ```
 
 #### Arguments:
-- `<INPUT>`: Directory containing Markdown chapters (`doc_src/`) or single Markdown file (`.md`).
+- `<INPUT>`: `doc` project directory (`doc_src/`) or standalone Markdown file (`.md`).
 
 #### Options:
 | Option | Shorthand | Type | Default | Description |
 | :--- | :--- | :--- | :--- | :--- |
-| `--output` | `-o` | `<path>` | `<stem>.docx` | Destination `.docx` output file path. |
+| `--output` | `-o` | `<path>` | `<stem>.docx` | Base destination `.docx` path (`<stem>_<lang>.docx` for `doc` directories; exact path for single `.md` files). |
 | `--page-break / --no-page-break` | | flag | `True` | Insert Word page breaks between merged chapters. |
-| `--generate-index / --no-generate-index` | | flag | `False` | Generate an index (Table of Contents) and insert it between the 1st and 2nd documents. |
+| `--generate-index / --no-generate-index` | | flag | `False` | Generate a localized index (Table of Contents) and insert it between the 1st and 2nd chapters. |
 | `--title` | | `<str>` | Extracted from H1 | Overall document title override for the merged `.docx` file. |
 | `--dpi` | | `<int>` | `200` | Rasterization DPI for embedded ````drawlib```` static PNG diagrams. |
 | `--styles` | `-s` | `<path>` | `None` | Path to Python styles script (e.g. `styles.py`). |
@@ -269,10 +270,10 @@ drawlib build docx <INPUT> [OPTIONS]
 
 #### Examples:
 ```bash
-# Compile a single Markdown specification to editable MS Word:
+# Compile a standalone Markdown specification to editable MS Word:
 drawlib build docx spec.md -o spec.docx
 
-# Merge an entire doc_src/ directory into a Word document with Table of Contents:
+# Merge doc_src/ chapters into manual_<lang>.docx with Table of Contents:
 drawlib build docx doc_src/ -o manual.docx --page-break --generate-index -s doc_src/styles.py -u doc_src/utils.py
 ```
 
@@ -280,7 +281,7 @@ drawlib build docx doc_src/ -o manual.docx --page-break --generate-index -s doc_
 
 ### 1.5 `drawlib build slide` (16:9 HTML Presentation Deck)
 
-Compiles a directory of Markdown slide files (`slide_src/`) into an interactive 16:9 HTML presentation deck (`index.html`) with dual-window Presenter View (`?presenter=1`), automatic SVG font bundling, and `<canvas>` animation playback.
+Compiles an `i18n`-native `slide` project directory (`slide_src/<lang>/`) into an interactive 16:9 HTML presentation deck (`<output>/<lang>/index.html` + root `<output>/index.html` redirector preserving `?presenter=1` and `#N`) with dual-window Presenter View, `.lang-switcher` controls (when `len(langs) >= 2`), automatic SVG font bundling, and `<canvas>` animation playback.
 
 #### Syntax:
 ```bash
@@ -288,7 +289,7 @@ drawlib build slide <DIR> [OPTIONS]
 ```
 
 #### Arguments:
-- `<DIR>`: Directory containing Markdown (`.md`) slide files (`slide_src/`).
+- `<DIR>`: Slide project directory containing `drawlib.toml` (`type = "slide"` + `[i18n]`) and `<lang>/` slide files.
 
 #### Options:
 | Option | Shorthand | Type | Default | Description |
@@ -305,7 +306,7 @@ drawlib build slide <DIR> [OPTIONS]
 # Compile slide deck directory to HTML presentation:
 drawlib build slide slide_src/ -o slide_html/ -s slide_src/styles.py -u slide_src/utils.py
 
-# Export companion 16:9 vector PDF or editable PowerPoint (.pptx):
+# Export companion 16:9 vector PDF (slide_<lang>.pdf) or editable PowerPoint (slide_<lang>.pptx):
 drawlib build pdf slide_src/ -o slide.pdf -s slide_src/styles.py -u slide_src/utils.py
 drawlib build pptx slide_src/ -o slide.pptx -s slide_src/styles.py -u slide_src/utils.py
 ```
@@ -314,7 +315,7 @@ drawlib build pptx slide_src/ -o slide.pptx -s slide_src/styles.py -u slide_src/
 
 ### 1.6 `drawlib build pptx` (Editable 16:9 MS PowerPoint `.pptx` Export)
 
-Measures the `1920x1080` slide DOM via headless Chromium and writes native editable 16:9 (`960x540 pt`) Microsoft PowerPoint (`.pptx`) slides using `python-pptx` (installed automatically as a standard dependency). Converts `::: block` cards (including `rgba` alpha backgrounds/borders), text boxes, bullet/numbered lists, tables, code blocks, and `::: note` speaker notes into native PowerPoint shapes, with ````drawlib```` diagrams embedded as high-DPI static PNGs (default `dpi=240`, `anim_frame="last"`).
+Measures the `1920x1080` slide DOM via headless Chromium for each locale in `[i18n].langs` and writes native editable 16:9 (`960x540 pt`) Microsoft PowerPoint (`<stem>_<lang>.pptx`) decks using `python-pptx` (installed automatically as a standard dependency). Converts `::: block` cards (including `rgba` alpha backgrounds/borders), text boxes, bullet/numbered lists, tables, code blocks, and `::: note` speaker notes into native PowerPoint shapes, with ````drawlib```` diagrams embedded as high-DPI static PNGs (default `dpi=240`, `anim_frame="last"`).
 
 *(Note: Headless Chromium auto-downloads on first `drawlib build pdf` or `drawlib build pptx` run. Scaffolded `build.sh` in `drawlib init slide` remains unchanged; `drawlib build pptx` is an on-demand optional export command.)*
 
@@ -324,12 +325,12 @@ drawlib build pptx <DIR> [OPTIONS]
 ```
 
 #### Arguments:
-- `<DIR>`: Directory containing Markdown (`.md`) slide files (`slide_src/`).
+- `<DIR>`: Slide project directory containing `drawlib.toml` (`type = "slide"` + `[i18n]`) and `<lang>/` slide files.
 
 #### Options:
 | Option | Shorthand | Type | Default | Description |
 | :--- | :--- | :--- | :--- | :--- |
-| `--output` | `-o` | `<path>` | `<stem>.pptx` | Destination `.pptx` output file path. |
+| `--output` | `-o` | `<path>` | `<stem>.pptx` | Base destination `.pptx` path (produces `<stem>_<lang>.pptx` per locale). |
 | `--theme` | `-t` | `<str>` | `None` | CSS theme preset override (`google`, `default`, `google-dark`, `default-dark`, etc.). |
 | `--title` | | `<str>` | Extracted from H1 | Presentation title override in `.pptx` metadata. |
 | `--dpi` | | `<int>` | `240` | Rasterization DPI for embedded ````drawlib```` static PNG diagrams. |
@@ -341,7 +342,7 @@ drawlib build pptx <DIR> [OPTIONS]
 
 #### Examples:
 ```bash
-# Export slide deck directory to native editable 16:9 PowerPoint (.pptx):
+# Export slide deck directory to native editable 16:9 PowerPoint (slide_<lang>.pptx):
 drawlib build pptx slide_src/ -o slide.pptx -s slide_src/styles.py -u slide_src/utils.py
 
 # Export with higher diagram DPI and first animation frame:
@@ -350,9 +351,9 @@ drawlib build pptx slide_src/ -o slide.pptx --dpi 300 --anim-frame first
 
 ---
 
-### 1.7 `drawlib build image` (Batch Python Script Execution)
+### 1.7 `drawlib build image` (Batch Python Script & Embedded Block Execution)
 
-Executes one or more standalone Python drawing scripts (`.py`) or directories containing Python scripts to generate image assets.
+Executes one or more standalone Python drawing scripts (`.py`), `images` script directories, or extracts embedded diagrams from `doc`, `site`, and `slide` project directories to generate image assets.
 
 #### Syntax:
 ```bash
@@ -360,7 +361,7 @@ drawlib build image <INPUT> [OPTIONS]
 ```
 
 #### Arguments:
-- `<INPUT>`: Python script file path (`.py`) or directory path containing Python scripts.
+- `<INPUT>`: Python script file path (`.py`), Markdown file (`.md`), or project directory path.
 
 #### Options:
 | Option | Shorthand | Type | Default | Description |
@@ -403,7 +404,7 @@ Bootstraps new documentation projects with production-ready file layouts, sample
 
 > **Project-First Guideline for AI Agents & Developers**: Never create standalone `.py` drawing scripts directly in an uninitialized directory, and never craft project directory structures manually. Always scaffold a project first using `drawlib init`:
 > - If the user wants **diagram image(s) only**, run `drawlib init images [-l <lang>] [-s <style>]` and author scripts inside `images_src/`.
-> - If the user wants an **illustrated document, website, or slide deck**, run `drawlib init <doc|site|slide> [-l <lang>] [-s <style>]`.
+> - If the user wants an **illustrated document, website, or slide deck**, run `drawlib init <doc|site|slide> [-l <lang[,lang...]>] [-s <style>]`.
 > - After scaffolding, replace or remove the starter sample files (`sample1.py`, `sample2.py`, etc.).
 
 ### Syntax:
@@ -420,47 +421,57 @@ drawlib init list
 | Option | Shorthand | Type | Default | Description |
 | :--- | :--- | :--- | :--- | :--- |
 | `--style` | `-s` | `<theme>` | `default` | Style preset theme (`default`, `google`, `monochrome`, etc.) or custom CSS path. Synchronously configures both `style.css` and `styles.py`. |
-| `--lang` | `-l` | `<lang>` | `en` | Starter content and font configuration language (`en`, `ja`, `zh-cn`, `ko`, `th`, `hi`, etc.), or comma-separated locales (`-l en,ja`) for multi-language `doc` and `site` projects. |
+| `--lang` | `-l` | `<lang>` | `en` | Starter content and font configuration language (`en`, `ja`, `zh-cn`, `ko`, `th`, `hi`, etc.), or comma-separated locales (`-l en,ja`) for multi-language `doc`, `site`, and `slide` projects (`images` is single-language only). |
 | `--force` | `-f` | flag | `False` | Overwrite existing files if destination directory is not empty. |
 
-> **Note on Initial Build & `drawlib.toml`**: Every `drawlib init` command generates `<target>_src/drawlib.toml` (`[project]` metadata, plus `[i18n]` when `-l en,ja` is passed). `drawlib init` performs pure scaffolding without running compilation automatically; run `./<target>_src/build.sh` to compile.
+> **Note on Initial Build & `drawlib.toml`**: Every `drawlib init` command generates `<target>_src/drawlib.toml`. For `doc`, `site`, and `slide`, `drawlib.toml` always includes `[i18n]` (`default_lang`, `langs`) and places Markdown inside `<target>_src/<lang>/` (even for single-language projects); for `images`, `lang` is recorded directly under `[project]`. `drawlib init` performs pure scaffolding without running compilation automatically; run `./<target>_src/build.sh` to compile.
 
 ---
 
 ### Project Types & Generated Directory Structures
 
 #### 1. `doc`: Linear Document Project (HTML, PDF, Markdown, Images + Optional `.docx`)
-Designed for technical specifications, RFCs, design docs, whitepapers, formal reports, and thesis papers. *(Supports multi-locale `-l en,ja`, compiling `<target>_<lang>.pdf` and `<target>_<lang>.docx` with localized TOC headings.)*
+Designed for technical specifications, RFCs, design docs, whitepapers, formal reports, and thesis papers. *(Supports single- or multi-locale `-l en,ja`, compiling `<target>_<lang>.pdf` and `<target>_<lang>.docx` with localized TOC headings.)*
 ```text
 .
 ├── doc_src/                   # [SOURCE OF TRUTH] Edit ONLY files here!
-│   ├── drawlib.toml           # Project manifest (type = "doc", lang / [i18n])
-│   ├── 00_cover.md            # Cover page (title, author, metadata)
-│   ├── 01_overview.md         # Executive overview chapter
-│   ├── 02_design.md           # Technical design chapter
+│   ├── drawlib.toml           # Project manifest (type = "doc" + [i18n])
+│   ├── en/                    # Locale chapter directory (e.g. en/, ja/)
+│   │   ├── 00_cover.md        # Cover page (title, author, metadata)
+│   │   ├── 01_overview.md     # Executive overview chapter
+│   │   └── 02_design.md       # Technical design chapter
+│   ├── _assets/               # Static project assets (favicon.png, logos)
 │   ├── styles.py              # Global custom styles and theme presets
 │   ├── utils.py               # Custom helper drawing functions
+│   ├── style.css              # Screen + print A4 stylesheet
+│   ├── template.html          # Jinja2 linear document HTML template
 │   ├── build.sh               # Master build script (runs all target builds)
 │   ├── build_html.sh          # Standalone HTML build (doc_html/)
-│   ├── build_pdf.sh           # Headless Chromium vector PDF build (doc.pdf)
-│   ├── build_markdown.sh      # Rendered Markdown for GitHub browsing (doc_markdown/)
+│   ├── build_pdf.sh           # Headless Chromium vector PDF build (doc_en.pdf)
+│   ├── build_markdown.sh      # Rendered Markdown for GitHub browsing (doc_markdown/en/)
 │   ├── build_image.sh         # Extract embedded drawlib blocks to doc_images/
 │   ├── serve.sh               # Local preview server script
 │   └── README.md              # Project instructions
-├── doc_html/                  # [GENERATED] Standalone HTML document(s)
-├── doc.pdf                    # [GENERATED] High-quality vector PDF
-├── doc_markdown/              # [GENERATED] Markdown with rendered images for GitHub
+├── doc_html/                  # [GENERATED] Standalone HTML document(s) (index.html + en/index.html)
+├── doc_en.pdf                 # [GENERATED] High-quality vector PDF (<target>_<lang>.pdf)
+├── doc_markdown/              # [GENERATED] Markdown with rendered images for GitHub (en/)
 └── doc_images/                # [GENERATED] Extracted diagram images
 ```
 
 #### 2. `site`: Multi-page Website with Navigation Sidebar
-Designed for technical documentation, library user guides, and architecture wikis. *(Supports multi-locale `-l en,ja`.)*
+Designed for technical documentation, library user guides, and architecture wikis. *(Supports single- or multi-locale `-l en,ja`.)*
 ```text
 .
 ├── docs_src/
-│   ├── drawlib.toml           # Project manifest (type = "site", lang / [i18n])
-│   ├── index.md               # [MANDATORY] Root landing page
-│   ├── navbar.md              # [MANDATORY] Sidebar categories and links definition
+│   ├── drawlib.toml           # Project manifest (type = "site" + [i18n])
+│   ├── en/                    # Locale page tree (e.g. en/, ja/)
+│   │   ├── index.md           # [MANDATORY] Locale landing page
+│   │   ├── navbar.md          # [MANDATORY] Sidebar categories and links definition
+│   │   ├── architecture/
+│   │   │   └── index.md       # Chapter page with embedded diagrams
+│   │   └── workflow/
+│   │       └── index.md       # Workflow chapter page
+│   ├── _assets/               # Static project assets (favicon.png, logos)
 │   ├── template.html          # [MANDATORY] Jinja2 HTML layout template
 │   ├── style.css              # [MANDATORY] Site stylesheet (from --style preset)
 │   ├── styles.py              # Global custom styles and theme presets
@@ -470,36 +481,35 @@ Designed for technical documentation, library user guides, and architecture wiki
 │   ├── build_markdown.sh      # Rendered Markdown for GitHub browsing (docs_markdown/)
 │   ├── build_image.sh         # Extract embedded drawlib blocks to docs_images/
 │   ├── serve.sh               # Local preview server script
-│   ├── README.md              # Documentation workflow guide
-│   ├── architecture/
-│   │   └── index.md           # Chapter page with embedded diagrams
-│   └── workflow/
-│       └── index.md           # Workflow chapter page
-├── docs_html/                 # [GENERATED] Static HTML website with sidebar
-├── docs_markdown/             # [GENERATED] Markdown site for GitHub browsing
+│   └── README.md              # Documentation workflow guide
+├── docs_html/                 # [GENERATED] Static HTML website with sidebar (index.html + en/**)
+├── docs_markdown/             # [GENERATED] Markdown site for GitHub browsing (index.md + en/**)
 └── docs_images/               # [GENERATED] Extracted diagram images
 ```
 
 #### 3. `slide`: 16:9 Presentation Slide Deck (HTML & Vector PDF + Optional `.pptx`)
-Designed for technical presentations, conference talks, and pitch decks with embedded diagrams. *(Scaffolded `build.sh` compiles HTML, PDF, and Images; run `drawlib build pptx slide_src/ -o slide.pptx` on demand for editable 16:9 MS PowerPoint export.)*
+Designed for technical presentations, conference talks, and pitch decks with embedded diagrams. *(Supports single- or multi-locale `-l en,ja`. Scaffolded `build.sh` compiles HTML, PDF, and Images; run `drawlib build pptx slide_src/ -o slide.pptx` on demand for editable 16:9 MS PowerPoint `slide_<lang>.pptx` export.)*
 ```text
 .
 ├── slide_src/
-│   ├── drawlib.toml           # Project manifest (type = "slide")
-│   ├── 01_title.md            # Title slide
-│   ├── 02_agenda.md           # Agenda slide
-│   ├── 03_architecture.md     # Architecture slide with diagrams
+│   ├── drawlib.toml           # Project manifest (type = "slide" + [i18n])
+│   ├── en/                    # Locale slide directory (e.g. en/, ja/)
+│   │   ├── 01_title.md        # Title slide
+│   │   ├── 02_agenda.md       # Agenda slide
+│   │   └── 03_architecture.md # Architecture slide with diagrams
+│   ├── _assets/               # Static project assets (favicon.png, logos)
 │   ├── styles.py              # Slide-wide styling and color overrides
 │   ├── utils.py               # Slide layout helpers (cards, badges, grids)
+│   ├── style.css              # Presentation theme & typography stylesheet
 │   ├── slide.js               # Slide runtime keyboard / navigation engine
 │   ├── build.sh               # Master build script (HTML + PDF + Images)
 │   ├── build_html.sh          # HTML presentation deck build (slide_html/)
-│   ├── build_pdf.sh           # 16:9 vector PDF presentation export (slide.pdf)
+│   ├── build_pdf.sh           # 16:9 vector PDF presentation export (slide_en.pdf)
 │   ├── build_image.sh         # Extract embedded drawlib blocks to slide_images/
 │   ├── serve.sh               # Local preview server script
 │   └── README.md              # Slide authoring guide
-├── slide_html/                # [GENERATED] HTML presentation deck (index.html)
-├── slide.pdf                  # [GENERATED] High-quality vector presentation PDF
+├── slide_html/                # [GENERATED] HTML presentation deck (index.html + en/index.html)
+├── slide_en.pdf               # [GENERATED] High-quality vector presentation PDF (<target>_<lang>.pdf)
 └── slide_images/              # [GENERATED] Extracted standalone slide diagram images
 ```
 
@@ -508,7 +518,7 @@ Designed for illustration asset repositories, diagrams for slides, or article ba
 ```text
 .
 ├── images_src/
-│   ├── drawlib.toml           # Project manifest (type = "images")
+│   ├── drawlib.toml           # Project manifest (type = "images", lang = "en")
 │   ├── _assets/               # Static project assets (images, icons)
 │   ├── sample1.py             # Basic diagram script (primitives)
 │   ├── sample2.py             # Advanced diagram script (utils & assets)
@@ -523,13 +533,14 @@ Designed for illustration asset repositories, diagrams for slides, or article ba
 ### Scaffolding Examples:
 ```bash
 drawlib init list                              # List available project types (site, doc, slide, images)
-drawlib init doc                               # Scaffold a linear document project (doc_src/)
-drawlib init doc rbac -s google                # Scaffold doc with custom target name: creates rbac_src/ and targets rbac.pdf
+drawlib init doc                               # Scaffold a linear document project (doc_src/en/)
+drawlib init doc rbac -s google                # Scaffold doc with custom target name: creates rbac_src/en/ -> rbac_en.pdf
 drawlib init doc whitepaper -l en,ja -s google # Scaffold bilingual EN/JA linear document (whitepaper_en.pdf, whitepaper_ja.pdf)
-drawlib init site                              # Scaffold a multi-page documentation website (docs_src/)
-drawlib init site -l en,ja -s default          # Scaffold multi-language documentation website (en/, ja/)
-drawlib init site --lang ja                    # Scaffold site with Japanese starter content & fonts
-drawlib init slide -s google                   # Scaffold 16:9 slide deck with Google styling (slide_src/)
+drawlib init site                              # Scaffold a multi-page documentation website (docs_src/en/)
+drawlib init site -l en,ja -s default          # Scaffold multi-language documentation website (docs_src/{en,ja}/)
+drawlib init site --lang ja                    # Scaffold site with Japanese starter content & fonts (docs_src/ja/)
+drawlib init slide -s google                   # Scaffold 16:9 slide deck with Google styling (slide_src/en/ -> slide_en.pdf)
+drawlib init slide pitch -l en,ja -s google    # Scaffold bilingual 16:9 slide deck (pitch_en.pdf, pitch_ja.pdf)
 drawlib init images                            # Scaffold standalone illustration project (images_src/)
 drawlib init doc --force                       # Force overwrite existing doc_src/ directory
 ```
@@ -574,12 +585,12 @@ drawlib show <FILE> [TARGET] [OPTIONS]
 If `[TARGET]` is omitted when pointing to a Markdown or HTML document, `drawlib show` scans the file and prints all available illustration blocks without executing them:
 
 ```bash
-drawlib show docs_src/architecture.md
+drawlib show docs_src/en/architecture.md
 ```
 
 Example Output:
 ```text
-Available drawlib code blocks in 'docs_src/architecture.md':
+Available drawlib code blocks in 'docs_src/en/architecture.md':
 Index   Line    File Target                  Header Options
 -----------------------------------------------------------------
 1       L34     architecture_images/overview.png  align=center code=fold file=overview.png caption="System Overview"
@@ -594,13 +605,13 @@ Index   Line    File Target                  Header Options
 #### 1. Interactive Desktop GUI Mode (Default without `-o`):
 ```bash
 # Preview block by image filename (Recommended):
-drawlib show docs_src/architecture.md db.png
+drawlib show docs_src/en/architecture.md db.png
 
 # Preview block with coordinate grid overlay:
-drawlib show docs_src/architecture.md db.png -g
+drawlib show docs_src/en/architecture.md db.png -g
 
 # Preview block by index (convenient for ad-hoc inspection):
-drawlib show docs_src/architecture.md 2
+drawlib show docs_src/en/architecture.md 2
 
 # Preview standalone Python script in desktop window:
 drawlib show my_drawing.py --grid
@@ -611,19 +622,19 @@ When `-o` / `--output` is provided, `drawlib show` automatically suppresses the 
 
 ```bash
 # Export block by explicit image filename (Recommended):
-drawlib show docs_src/architecture.md db.png -o .drawlib/scratch/db.png
+drawlib show docs_src/en/architecture.md db.png -o .drawlib/scratch/db.png
 
 # Export block with coordinate grid overlay for alignment verification:
-drawlib show docs_src/architecture.md db.png -g -o .drawlib/scratch/db_grid.png
+drawlib show docs_src/en/architecture.md db.png -g -o .drawlib/scratch/db_grid.png
 
 # Export block by index to file:
-drawlib show docs_src/architecture.md 1 -o .drawlib/scratch/fig1.png
+drawlib show docs_src/en/architecture.md 1 -o .drawlib/scratch/fig1.png
 
 # Export the last block in the document using negative index:
-drawlib show docs_src/architecture.md -1 -o .drawlib/scratch/last_fig.png
+drawlib show docs_src/en/architecture.md -1 -o .drawlib/scratch/last_fig.png
 
 # Export with custom styles script:
-drawlib show docs_src/architecture.md db.png -s styles.py -o .drawlib/scratch/db.png
+drawlib show docs_src/en/architecture.md db.png -s docs_src/styles.py -o .drawlib/scratch/db.png
 
 # Export from a standalone Python script:
 drawlib show my_drawing.py -o .drawlib/scratch/my_drawing.png
@@ -785,10 +796,10 @@ If your drawing code imports a custom external Python helper module outside `sty
 ```bash
 # Bypass SQLite cache for a single build or preview run:
 drawlib build html docs_src/ -o docs_html/ --no-cache
-drawlib build markdown docs_src/ -o docs/ --no-cache
-drawlib build pdf docs_src/ -o out.pdf --no-cache
+drawlib build markdown docs_src/ -o docs_markdown/ --no-cache
+drawlib build pdf doc_src/ -o out.pdf --no-cache
 drawlib build image scripts/ -o assets/ --no-cache
-drawlib show docs_src/index.md arch.png -g -o .drawlib/scratch/arch.png --no-cache
+drawlib show docs_src/en/index.md arch.png -g -o .drawlib/scratch/arch.png --no-cache
 
 # Or clear the SQLite image cache database via CLI:
 drawlib cache clear --images
@@ -845,8 +856,8 @@ drawlib css show html google
 # Export Google preset with Japanese typography font stack to local style.css:
 drawlib css show html google -l ja -o style.css --force
 
-# Export PDF preset to local docs_src/style.css:
-drawlib css show pdf default -o docs_src/style.css --force
+# Export PDF preset to local doc_src/style.css:
+drawlib css show pdf default -o doc_src/style.css --force
 ```
 
 ---
@@ -854,10 +865,10 @@ drawlib css show pdf default -o docs_src/style.css --force
 ### 6.3 Compiling with Custom CSS:
 `drawlib build html` and `drawlib build pdf` read `style.css` directly from your source directory:
 ```bash
-# Export or edit docs_src/style.css, then compile:
-drawlib css show html google -o docs_src/style.css --force
-drawlib build html docs_src/ -o docs_html/
-drawlib build pdf docs_src/ -o output.pdf
+# Export or edit doc_src/style.css, then compile:
+drawlib css show html google -o doc_src/style.css --force
+drawlib build html doc_src/ -o doc_html/
+drawlib build pdf doc_src/ -o doc.pdf
 ```
 
 ---
@@ -1024,7 +1035,7 @@ drawlib rules
 | `project-overview` | Project scaffolding (`init`), choosing among the 4 project archetypes, and cache architecture. |
 | `project-images` | Standalone Python diagram scripts (`images_src/*.py`), `clear()` lifecycle, and batch image build. |
 | `project-doc` | Linear technical documents, whitepapers, `00_cover.md` / `--generate-index`, A4 vector PDF, and MS Word (`.docx`) export (`doc_src/`). |
-| `project-site` | Multi-page documentation websites, `navbar.md` sidebar rules, and Top Hero layout (`docs_src/`). |
+| `project-site` | Multi-page documentation websites, `<lang>/navbar.md` sidebar rules, and Top Hero layout (`docs_src/`). |
 | `project-slide` | 16:9 presentation slide decks, `1920×1080` `::: block` / `::: note` syntax, Presenter View, vector PDF, and MS PowerPoint (`.pptx`) export (`slide_src/`). |
 | `cli` | Document compilation, export, preview, and cache CLI commands. |
 | `api` | Comprehensive API index and quick reference cheat sheet for all Drawlib modules. |
@@ -1211,21 +1222,21 @@ repos:
 
 ### Common Error Messages & Solutions:
 
-#### 1. `Directory build requires "index.md" at the root of the input directory`
-- **Cause**: Running `drawlib build html` on a directory that does not have an `index.md` file at its top level.
-- **Fix**: Create `docs_src/index.md` as the root landing page or scaffold the directory with `drawlib init site`.
+#### 1. Missing `drawlib.toml` or `[i18n]` Table on Directory Build
+- **Cause**: Running `drawlib build <html|markdown|pdf|docx|slide|pptx>` on a project directory lacking `drawlib.toml` or missing `[i18n]` (`default_lang`, `langs`).
+- **Fix**: Scaffold the project with `drawlib init <site|doc|slide>` or add `drawlib.toml` with `[project]` (`type = "site" | "doc" | "slide"`) and `[i18n]` (`default_lang`, `langs`), placing Markdown sources inside `<target>_src/<lang>/`.
 
-#### 2. `Directory build requires "navbar.md" at the root of the input directory`
-- **Cause**: Multi-page website builds require `navbar.md` in the root of the input directory to construct sidebar navigation.
-- **Fix**: Add `docs_src/navbar.md` defining categories and links. Refer to `drawlib rules show project-site` for navbar syntax.
+#### 2. Missing `<lang>/index.md` or `<lang>/navbar.md` in a `site` Project
+- **Cause**: Multi-page website (`type = "site"`) builds require `index.md` and `navbar.md` at the root of every configured locale directory (`docs_src/<lang>/`).
+- **Fix**: Add `docs_src/<lang>/index.md` and `docs_src/<lang>/navbar.md` defining categories and links. Refer to `drawlib rules show project-site` for navbar syntax.
 
 #### 3. `Refusing to overwrite input source file "..."`
 - **Cause**: The output path `-o` points to the exact same file or directory as the input source.
-- **Fix**: Specify a distinct destination path (e.g. `drawlib build markdown docs_src/ -o docs/`).
+- **Fix**: Specify a distinct destination path (e.g. `drawlib build markdown docs_src/ -o docs_markdown/`).
 
 #### 4. `Broken links / missing assets detected` or `Invalid link target in Markdown`
 - **Cause**: `drawlib build` detected prohibited absolute paths (`/usr/...`, `/home/...`, `C:\...`) or `file://` URLs in Markdown source files, or `drawlib serve --check` detected `<a href="...">` or `<img src="...">` paths that do not exist on disk or point to local filesystem schemes.
-- **Fix**: Review the terminal error log for the exact file and line number. Ensure all Markdown links and asset paths use relative paths, and verify filename spelling.
+- **Fix**: Review the terminal error log for the exact file and line number. Ensure all Markdown links and asset paths use relative paths (e.g. `../_assets/logo.png` from `<lang>/*.md`), and verify filename spelling.
 
 #### 5. Headless Chromium Download Failure or Missing Linux Shared Libraries (`pdf` / `pptx` Build)
 - **Cause**: `drawlib build pdf` and `drawlib build pptx` include `playwright` as a standard dependency and automatically download `chromium-headless-shell` on first run. This can fail in strict air-gapped/offline environments without a pre-warmed browser cache, or inside minimal Linux container images (such as `python:3.12-slim`) lacking OS shared libraries (`libnss3`, `libgbm1`, etc.).
@@ -1242,7 +1253,7 @@ repos:
 | Exit Code | Meaning | Common Causes |
 | :---: | :--- | :--- |
 | `0` | Success | Command completed execution normally without errors. |
-| `1` | Build / Execution Error | Missing required files (`index.md`, `navbar.md`), code execution failure, broken links on `--check`. |
+| `1` | Build / Execution Error | Missing required files (`drawlib.toml`, `<lang>/index.md`, `<lang>/navbar.md`), i18n parity mismatch, code execution failure, broken links on `--check`. |
 | `2` | Bad Parameter / Syntax Error | Invalid option combination (e.g. `--quiet` with `--verbose`), unknown subcommand or missing required arguments. |
 
 ---

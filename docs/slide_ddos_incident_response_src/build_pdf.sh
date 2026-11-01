@@ -27,4 +27,4 @@ fi
 
 echo "Building Presentation PDF..."
 $DRAWLIB_CMD build pdf slide_ddos_incident_response_src/ -o slide_ddos_incident_response.pdf
-echo "Presentation PDF build complete: slide_ddos_incident_response.pdf"
+echo "Presentation PDF build complete: slide_ddos_incident_response_en.pdf"

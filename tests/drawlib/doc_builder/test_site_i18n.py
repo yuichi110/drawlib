@@ -92,6 +92,14 @@ def test_load_i18n_config_validation_errors(tmp_path: Path) -> None:
     with pytest.raises(ValueError, match="Missing locale directory"):
         load_i18n_config(str(base))
 
+    # Disallowed [project].lang on site
+    (base / "drawlib.toml").write_text(
+        '[project]\ntype = "site"\nlang = "en"\n\n[i18n]\ndefault_lang = "en"\nlangs = ["en", "ja"]\n',
+        encoding="utf-8",
+    )
+    with pytest.raises(ValueError, match=r'"\[project\]\.lang" is not supported'):
+        load_i18n_config(str(base))
+
 
 def test_check_1_file_set_parity(tmp_path: Path) -> None:
     """Verify Check 1 catches missing and extra files across locale folders."""
@@ -146,7 +154,7 @@ def test_check_3_markdown_skeleton_sequence_parity(tmp_path: Path) -> None:
     en_md = (
         "# Page Title\n\n"
         "Lead paragraph in English.\n\n"
-        "```drawlib align=center code=fold file=hero.png caption=\"Hero\"\n"
+        '```drawlib align=center code=fold file=hero.png caption="Hero"\n'
         "setup(width=60, height=30)\n"
         "```\n\n"
         "## Usage\n\n"
@@ -165,7 +173,7 @@ def test_check_3_markdown_skeleton_sequence_parity(tmp_path: Path) -> None:
         "- 箇条書き項目 A\n"
         "- 箇条書き項目 B\n\n"
         "#### H4 小見出しも本文トークンに吸収されます\n\n"
-        "```drawlib align=center code=fold file=hero.png caption=\"ヒーロー図\"\n"
+        '```drawlib align=center code=fold file=hero.png caption="ヒーロー図"\n'
         "setup(width=60, height=30)\n"
         "```\n\n"
         "## 使い方\n\n"
@@ -246,6 +254,15 @@ def test_i18n_build_html_markdown_image_and_link_integrity(tmp_path: Path) -> No
     src_dir = tmp_path / "docs_src"
     _write_minimal_i18n_site(src_dir)
 
+    # Customize [i18n.labels] to verify custom switcher label rendering
+    toml_path = src_dir / "drawlib.toml"
+    toml_text = toml_path.read_text(encoding="utf-8")
+    assert '\nlang = "' not in toml_text
+    toml_path.write_text(
+        toml_text.replace('en = "English"', 'en = "English (Global)"').replace('ja = "日本語"', 'ja = "日本語 (JP)"'),
+        encoding="utf-8",
+    )
+
     # Create a custom static asset in root _assets/ and reference it via ../_assets/badge.png in index.md
     badge_path = src_dir / "_assets" / "badge.png"
     Image.new("RGBA", (16, 16), (59, 130, 246, 255)).save(badge_path)
@@ -305,7 +322,7 @@ def test_i18n_build_html_markdown_image_and_link_integrity(tmp_path: Path) -> No
     ja_css = (out_html / "ja" / "style.css").read_text(encoding="utf-8")
     assert "Noto Sans JP" in ja_css
 
-    # Check root index.html rebased URLs and language switcher links
+    # Check root index.html rebased URLs and custom [i18n.labels] language switcher links
     root_html = (out_html / "index.html").read_text(encoding="utf-8")
     assert '<html lang="en" dir="ltr">' in root_html
     assert 'href="en/style.css"' in root_html
@@ -313,6 +330,8 @@ def test_i18n_build_html_markdown_image_and_link_integrity(tmp_path: Path) -> No
     assert 'src="_assets/badge.png"' in root_html
     assert 'href="en/architecture/index.html"' in root_html
     assert 'href="ja/index.html"' in root_html
+    assert "English (Global)" in root_html
+    assert "日本語 (JP)" in root_html
 
     # Check ja page metadata and switcher links
     ja_wf_html = (out_html / "ja" / "workflow" / "index.html").read_text(encoding="utf-8")
@@ -320,6 +339,8 @@ def test_i18n_build_html_markdown_image_and_link_integrity(tmp_path: Path) -> No
     assert "Noto+Sans+JP" in ja_wf_html
     assert 'src="../../images/workflow/index/execution_lifecycle_ja.png"' in ja_wf_html
     assert 'href="../../en/workflow/index.html"' in ja_wf_html
+    assert "English (Global)" in ja_wf_html
+    assert "日本語 (JP)" in ja_wf_html
 
     # Zero broken links across entire compiled site (including <a href>, <img>, <link rel="alternate">)
     html_count, total_links, broken_errors = scan_broken_links(str(out_html))

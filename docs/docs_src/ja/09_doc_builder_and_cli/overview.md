@@ -17,7 +17,7 @@ rectangle((19, 29), width=30, height=48, style=Styles.Neutral.patch(shape_r=2.0)
 phosphor.file_code((13, 45.5), width=5.2, style=Styles.PrimaryBold)
 phosphor.sliders_horizontal((25, 45.5), width=5.2, style=Styles.DarkBold)
 text((19, 35.5), "Markdown Source", style=Styles.DarkBold.patch(text_size=11.0))
-text((19, 26.5), "docs_src/*.md\nstyles.py & utils.py\n_assets/*", style=Styles.Dark.patch(text_size=10.0))
+text((19, 26.5), "docs_src/<lang>/*.md\nstyles.py & utils.py\n_assets/*", style=Styles.Dark.patch(text_size=10.0))
 rectangle(
     (19, 13.0),
     width=25,
@@ -901,9 +901,9 @@ save()
 
 | テンプレート | ソースディレクトリ | 主な出力先 | 主な用途 |
 |---|---|---|---|
-| **`doc`** | `doc_src/` | `doc_html/`, `doc.pdf`, `doc.docx`, `doc_markdown/`, `doc_images/` | リニアな技術文書、RFC、仕様書、ホワイトペーパー、公式レポート |
-| **`site`** | `docs_src/` | `docs_html/`, `docs_markdown/`（または `docs/`）, `docs_images/` | サイドバーナビゲーション（`navbar.md`）を備えたマルチページ構成のドキュメントサイト |
-| **`slide`** | `slide_src/` | `slide_html/`, `slide.pdf`, `slide.pptx`, `slide_images/` | 16:9 プレゼンテーションスライドデッキ（インタラクティブ Web スライド、印刷対応ベクター PDF、編集可能な PowerPoint） |
+| **`doc`** | `doc_src/<lang>/` | `doc_html/`, `doc_<lang>.pdf`, `doc_<lang>.docx`, `doc_markdown/`, `doc_images/` | リニアな技術文書、RFC、仕様書、ホワイトペーパー、公式レポート |
+| **`site`** | `docs_src/<lang>/` | `docs_html/`, `docs_markdown/`（または `docs/`）, `docs_images/` | サイドバーナビゲーション（`<lang>/navbar.md`）を備えたマルチページ構成のドキュメントサイト |
+| **`slide`** | `slide_src/<lang>/` | `slide_html/`, `slide_<lang>.pdf`, `slide_<lang>.pptx`, `slide_images/` | 16:9 プレゼンテーションスライドデッキ（インタラクティブ Web スライド、印刷対応ベクター PDF、編集可能な PowerPoint） |
 | **`images`** *（別名: `image`）* | `images_src/` | `images/*.png`（または `.webp`） | スタンドアロンの Python 描画スクリプトから画像アセットを一括レンダリング |
 
 ```drawlib code=fold align=center file=doc_builder_four_templates_matrix.png caption="Drawlib の 4 種類のプロジェクトスターターテンプレートと出力形式の概要"
@@ -925,8 +925,8 @@ cards = [
         Styles.DarkBold,
         phosphor.file_pdf,
         Styles.PrimaryBold,
-        "doc_src/*.md",
-        "doc.pdf / .docx\n& doc_html/",
+        "doc_src/\n<lang>/*.md",
+        "doc_<lang>.pdf\n.docx & _html/",
     ),
     (
         93,
@@ -936,7 +936,7 @@ cards = [
         Styles.WhiteBold,
         phosphor.globe,
         Styles.WhiteBold,
-        "docs_src/*.md\n+ navbar.md",
+        "docs_src/<lang>/\n+ navbar.md",
         "docs_html/\ndocs_markdown/",
     ),
     (
@@ -947,8 +947,8 @@ cards = [
         Styles.DarkBold,
         phosphor.presentation_chart,
         Styles.PrimaryBold,
-        "slide_src/*.md",
-        "slide_html/\n.pdf & .pptx",
+        "slide_src/\n<lang>/*.md",
+        "slide_html/\n_<lang>.pdf/.pptx",
     ),
     (
         93,
@@ -994,17 +994,17 @@ save()
 
 ## 4. プロジェクトテンプレート横断の並列マルチエージェント執筆
 
-すべての Drawlib プロジェクトは、**共有設定**（`styles.py`、`utils.py`、`_assets/`、`navbar.md`）と**モジュール化されたコンテンツファイル**（`*.py` や `*.md`）を明確に分離しています。そのため、AI コーディングエージェントは大規模なドキュメント作成や図解生成タスクを**並列サブエージェント**へ分散し、高速に進めることができます。
+すべての Drawlib プロジェクトは、**共有設定**（`drawlib.toml`、`styles.py`、`utils.py`、`_assets/`、`<lang>/navbar.md`）と**モジュール化されたコンテンツファイル**（`*.py` や `<lang>/*.md`）を明確に分離しています。そのため、AI コーディングエージェントは大規模なドキュメント作成や図解生成タスクを**並列サブエージェント**へ分散し、高速に進めることができます。
 
 | プロジェクトテンプレート | 並列サブエージェントの担当単位 | フェーズ 1: 親オーケストレータの初期構築 | フェーズ 2: 並列サブエージェントの実行 | フェーズ 3: 親エージェントの統合完了処理 |
 | :--- | :--- | :--- | :--- | :--- |
-| **`doc`** | 連番付きの章ファイル（`doc_src/01_*.md`、`02_*.md` など） | `drawlib init doc`、`styles.py`、`utils.py`、`00_cover.md`、章構成の作成 | 担当章の執筆と `drawlib show ... -g -o .drawlib/scratch/0N_<fig>_grid.png` の実行 | `./doc_src/build.sh`（または `build docx`）を実行し、`doc.pdf` / `doc_html/` を確認 |
-| **`site`** | トピックページまたはセクションフォルダ（`docs_src/01_arch/*.md` など） | `drawlib init site`、`styles.py`、`utils.py`、`navbar.md`、`index.md` の設定 | 担当ページの執筆と、一意のスクラッチファイル名を用いた Stage 1 + Stage 2 グリッド検証 | `./docs_src/build.sh`、`serve --check`、およびブラウザ確認を実行 |
-| **`slide`** | スライドファイル（`slide_src/02_*.md` など）またはセクションディレクトリ | `drawlib init slide`、`styles.py`、`utils.py`、ストーリー構成とスライド連番の設計 | 担当スライド（`::: block` + `::: note`）の執筆と Stage 1 + Stage 2 グリッド検証 | `./slide_src/build.sh`（または `build pptx`）を実行し、`slide.pdf` / `1920x1080` ステージを確認 |
+| **`doc`** | 連番付きの章ファイル（`doc_src/<lang>/01_*.md`、`02_*.md` など） | `drawlib init doc`、`styles.py`、`utils.py`、`<lang>/00_cover.md`、章構成の作成 | 担当章の執筆と `drawlib show ... -g -o .drawlib/scratch/0N_<fig>_grid.png` の実行 | `./doc_src/build.sh`（または `build docx`）を実行し、`doc_<lang>.pdf` / `doc_html/` を確認 |
+| **`site`** | トピックページまたはセクションフォルダ（`docs_src/<lang>/01_arch/*.md` など） | `drawlib init site`、`styles.py`、`utils.py`、`<lang>/navbar.md`、`<lang>/index.md` の設定 | 担当ページの執筆と、一意のスクラッチファイル名を用いた Stage 1 + Stage 2 グリッド検証 | `./docs_src/build.sh`、`serve --check`、およびブラウザ確認を実行 |
+| **`slide`** | スライドファイル（`slide_src/<lang>/02_*.md` など）またはセクションディレクトリ | `drawlib init slide`、`styles.py`、`utils.py`、ストーリー構成とスライド連番の設計 | 担当スライド（`::: block` + `::: note`）の執筆と Stage 1 + Stage 2 グリッド検証 | `./slide_src/build.sh`（または `build pptx`）を実行し、`slide_<lang>.pdf` / `1920x1080` ステージを確認 |
 | **`images`** | スタンドアロン Python スクリプト（`images_src/<name>.py`） | `drawlib init images`、`styles.py`、`utils.py`、`_assets/` の準備 | 担当 `.py` スクリプトの作成と `drawlib show ... -g -o .drawlib/scratch/<script>_grid.png` の実行 | `./images_src/build.sh` を実行し、`images/*.png` を確認 |
 
 ### サブエージェント並列実行時のガードレール:
-1. **共有ファイルは読み取り専用として扱う**: サブエージェントは `styles.py`、`utils.py`、`navbar.md` を読み取り専用として扱い、自身に割り当てられた `.md` または `.py` ファイルのみを編集します。
+1. **共有ファイルは読み取り専用として扱う**: サブエージェントは `drawlib.toml`、`styles.py`、`utils.py`、`<lang>/navbar.md` を読み取り専用として扱い、自身に割り当てられた `.md` または `.py` ファイルのみを編集します。
 2. **一意のスクラッチプレビューパスを使用する**: 各サブエージェントは `-g` グリッドプレビューを一意のパス（共有の `preview.png` ではなく `-o .drawlib/scratch/<unique_name>_grid.png`）へ出力し、並列実行中のマルチモーダル検証の衝突を防ぎます。
 3. **統合ビルドは最後に 1 回だけ実行する**: サブエージェントは担当図解に対する `drawlib show ... -g` のみを実行し、`.drawlib/cache.db` への同時 SQLite 書き込み競合を避けるため、全サブエージェント完了後に親エージェントが `./build.sh` を 1 回だけ実行します。
 

@@ -113,6 +113,10 @@ def test_get_and_export_css(tmp_path) -> None:
 
 def test_build_document_custom_template(tmp_path) -> None:
     """Test compiling document with custom template.html and style.css in the directory."""
+    (tmp_path / "drawlib.toml").write_text(
+        '[project]\ntype = "site"\n\n[i18n]\ndefault_lang = "en"\nlangs = ["en"]\n',
+        encoding="utf-8",
+    )
     tmpl = tmp_path / "template.html"
     tmpl.write_text(
         """<!DOCTYPE html>
@@ -128,16 +132,20 @@ def test_build_document_custom_template(tmp_path) -> None:
     style = tmp_path / "style.css"
     style.write_text("body { margin: 0; }", encoding="utf-8")
 
-    index_md = tmp_path / "index.md"
+    en_dir = tmp_path / "en"
+    en_dir.mkdir()
+    index_md = en_dir / "index.md"
     index_md.write_text("# Custom Template Page\n\nHello Custom Template!", encoding="utf-8")
-    (tmp_path / "navbar.md").write_text("- [Home](index.md)\n", encoding="utf-8")
+    (en_dir / "navbar.md").write_text("- [Home](index.md)\n", encoding="utf-8")
 
     out_dir = tmp_path / "out"
     res_path = build_html(input_dir=str(tmp_path), output_dir=str(out_dir))
 
     assert os.path.exists(res_path)
-    out_html = out_dir / "index.html"
-    content = out_html.read_text(encoding="utf-8")
+    en_html = out_dir / "en" / "index.html"
+    assert en_html.is_file()
+    assert (out_dir / "index.html").is_file()
+    content = en_html.read_text(encoding="utf-8")
     assert '<header class="custom-header">My Custom Header</header>' in content
     assert "Hello Custom Template!" in content
 

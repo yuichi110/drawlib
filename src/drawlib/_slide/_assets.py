@@ -13,20 +13,34 @@ from __future__ import annotations
 
 import base64
 import contextlib
+import html
 import json
 import os
 import re
 import shutil
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Final
 
 from drawlib._core.l1_core import FONT_DIR_PATH, FONT_ICON_DIR_PATH
 from drawlib._core.l3_external import download_if_not_exist
-from drawlib._templates import get_css, get_slide_js, get_slide_readme
+from drawlib._templates import get_css, get_slide_js, get_slide_readme, localize_css_for_language
 
 if TYPE_CHECKING:
     from drawlib._builder.doc_builder.processor.options import DrawlibBlockOptions
 
 _PATTERN_SVG_FONTS_COMMENT = re.compile(r"<!--\s*drawlib-svg-fonts:\s*(\[.*?\])\s*-->")
+_STATIC_ASSET_EXTS: Final[tuple[str, ...]] = (
+    ".png",
+    ".apng",
+    ".jpg",
+    ".jpeg",
+    ".webp",
+    ".svg",
+    ".gif",
+    ".ico",
+    ".ttf",
+    ".woff",
+    ".woff2",
+)
 
 
 def _resolve_font_src_spec(src_spec: str) -> str:
@@ -158,14 +172,17 @@ def format_asset_markup(
     alt_text: str,
     output_abs: str = "",
     options: DrawlibBlockOptions | None = None,
+    *,
+    asset_url_prefix: str = "",
 ) -> str:
     """Format HTML markup for a rendered slide asset to fill its parent block container.
 
     Args:
-        file_name: Image filename or relative path on disk.
+        file_name: Image filename or relative path on disk under ``output_abs``.
         alt_text: Alt text attribute.
-        output_abs: Absolute path to output directory for inlining SVGs and Base64 animation data.
+        output_abs: Absolute path to root output directory for inlining SVGs and Base64 animation data.
         options: Parsed drawlib block options for animation playback controls.
+        asset_url_prefix: Optional URL prefix for HTML ``src`` / ``data-src`` (e.g. ``'../'``).
 
     Returns:
         str: Generated HTML snippet.
@@ -186,12 +203,19 @@ def format_asset_markup(
             )
             return f'\n<figure class="drawlib-image">\n  {svg_clean}\n</figure>\n'
 
+    if asset_url_prefix and not file_name.startswith(("../", "/", "http://", "https://", "data:")):
+        asset_href = f"{asset_url_prefix}{file_name}"
+    else:
+        asset_href = file_name
+    esc_href = html.escape(asset_href, quote=True)
+    esc_alt = html.escape(alt_text, quote=True)
+
     has_anim_opts = options is not None and (
         options.anim_trigger is not None or options.anim_loop is not None or bool(options.anim_pause)
     )
     if has_anim_opts and options is not None and file_name.lower().endswith((".png", ".apng", ".webp")):
-        trigger = options.anim_trigger or "auto"
-        loop = options.anim_loop or ("once" if options.anim_pause else "infinite")
+        trigger = html.escape(options.anim_trigger or "auto", quote=True)
+        loop = html.escape(options.anim_loop or ("once" if options.anim_pause else "infinite"), quote=True)
         pause_attr = f' data-anim-pause="{",".join(str(p) for p in options.anim_pause)}"' if options.anim_pause else ""
         base64_attr = ""
         if output_abs:
@@ -204,8 +228,8 @@ def format_asset_markup(
         return (
             f'\n<figure class="drawlib-image drawlib-anim-container" '
             f'data-anim-trigger="{trigger}" data-anim-loop="{loop}"{pause_attr}>\n'
-            f'  <canvas class="drawlib-anim-canvas" data-src="{file_name}"{base64_attr} '
-            f'role="img" aria-label="{alt_text}"></canvas>\n'
+            f'  <canvas class="drawlib-anim-canvas" data-src="{esc_href}"{base64_attr} '
+            f'role="img" aria-label="{esc_alt}"></canvas>\n'
             f'  <div class="anim-play-badge" title="Click to play / continue animation">\n'
             f'    <svg class="play-icon" viewBox="0 0 24 24">'
             f'<polygon points="6 4 20 12 6 20" fill="currentColor"></polygon></svg>\n'
@@ -218,60 +242,120 @@ def format_asset_markup(
 
     return (
         f'\n<figure class="drawlib-image">\n'
-        f'  <img src="{file_name}" alt="{alt_text}" class="slide-raster-graphic" '
+        f'  <img src="{esc_href}" alt="{esc_alt}" class="slide-raster-graphic" '
         f'style="width: 100%; height: 100%; object-fit: contain;" />\n'
         f"</figure>\n"
     )
 
 
 def copy_static_assets(input_abs: str, output_abs: str) -> None:
-    """Copy static image and font assets from input directory to output directory.
+    """Copy root static image/font assets from ``input_abs`` to ``output_abs/_assets`` and ``output_abs``.
 
     Args:
-        input_abs: Source directory.
-        output_abs: Target directory.
+        input_abs: Source project root directory.
+        output_abs: Target root output directory.
     """
-    for asset_file in os.listdir(input_abs):
+    if not os.path.isdir(input_abs):
+        return
+    out_assets_dir = os.path.join(output_abs, "_assets")
+    for asset_file in sorted(os.listdir(input_abs)):
         asset_lower = asset_file.lower()
-        if asset_lower.endswith(
-            (".png", ".apng", ".jpg", ".jpeg", ".webp", ".svg", ".gif", ".ttf", ".woff", ".woff2")
-        ) and not asset_lower.startswith("."):
-            src_p = os.path.join(input_abs, asset_file)
-            dst_p = os.path.join(output_abs, asset_file)
+        if asset_lower.startswith(".") or not asset_lower.endswith(_STATIC_ASSET_EXTS):
+            continue
+        src_p = os.path.join(input_abs, asset_file)
+        if not os.path.isfile(src_p):
+            continue
+        os.makedirs(out_assets_dir, exist_ok=True)
+        dst_assets_p = os.path.join(out_assets_dir, asset_file)
+        if not os.path.exists(dst_assets_p):
+            shutil.copy2(src_p, dst_assets_p)
+        dst_root_p = os.path.join(output_abs, asset_file)
+        if not os.path.exists(dst_root_p):
+            shutil.copy2(src_p, dst_root_p)
+
+
+def copy_locale_static_assets(lang_src_dir: str, lang_out_dir: str) -> None:
+    """Copy static image/font files inside a locale directory to its output locale directory.
+
+    Args:
+        lang_src_dir: Locale source directory (``<input_abs>/<lang>``).
+        lang_out_dir: Locale output directory (``<output_abs>/<lang>``).
+    """
+    if not os.path.isdir(lang_src_dir):
+        return
+    for root, dirnames, files in os.walk(lang_src_dir):
+        dirnames[:] = sorted(d for d in dirnames if not d.startswith(".") and d != "__pycache__")
+        for fname in sorted(files):
+            fname_lower = fname.lower()
+            if fname.startswith(".") or not fname_lower.endswith(_STATIC_ASSET_EXTS):
+                continue
+            src_p = os.path.join(root, fname)
+            rel_p = os.path.relpath(src_p, lang_src_dir)
+            dst_p = os.path.join(lang_out_dir, rel_p)
             if not os.path.exists(dst_p):
+                os.makedirs(os.path.dirname(dst_p), exist_ok=True)
                 shutil.copy2(src_p, dst_p)
 
 
-def deploy_slide_assets(input_abs: str, output_abs: str, deck_theme: str) -> None:
-    """Deploy style.css, slide.js, static assets, and auto-bundled SVG fonts to the output directory.
+def resolve_locale_slide_css(input_abs: str, lang: str, deck_theme: str) -> str:
+    """Resolve and localize ``style.css`` content for a specific slide locale.
+
+    Resolution order:
+    1. ``<input_abs>/<lang>/style.css``
+    2. ``<input_abs>/style.css`` (localized via ``localize_css_for_language``)
+    3. ``<input_abs>/slide.css`` (localized via ``localize_css_for_language``)
+    4. ``get_css(name=deck_theme, target="slide", lang=lang)`` (localized via ``localize_css_for_language``)
 
     Args:
-        input_abs: Input directory containing potential style.css overrides and assets.
-        output_abs: Output directory.
-        deck_theme: Chosen CSS theme name.
+        input_abs: Project root directory.
+        lang: Canonical language code (e.g. ``'en'``, ``'ja'``).
+        deck_theme: Chosen CSS theme preset name or custom CSS path.
+
+    Returns:
+        str: Synthesized and localized CSS text for ``<output_abs>/<lang>/style.css``.
     """
-    local_style_css = os.path.join(input_abs, "style.css")
-    local_slide_css = os.path.join(input_abs, "slide.css")
-    if os.path.isfile(local_style_css):
-        with open(local_style_css, "r", encoding="utf-8") as f:
-            css_content = f.read()
-    elif os.path.isfile(local_slide_css):
-        with open(local_slide_css, "r", encoding="utf-8") as f:
-            css_content = f.read()
-    else:
-        css_content = get_css(name=deck_theme, target="slide")
+    locale_style_css = os.path.join(input_abs, lang, "style.css")
+    if os.path.isfile(locale_style_css):
+        with open(locale_style_css, "r", encoding="utf-8") as f:
+            raw_locale_css = f.read()
+        if "__RTD_FONT_FAMILY__" in raw_locale_css or "__RTD_MONO_FONT_FAMILY__" in raw_locale_css:
+            return localize_css_for_language(raw_locale_css, lang=lang)
+        return raw_locale_css
 
-    style_css_out = os.path.join(output_abs, "style.css")
-    with open(style_css_out, "w", encoding="utf-8") as f:
-        f.write(css_content)
+    root_style_css = os.path.join(input_abs, "style.css")
+    if os.path.isfile(root_style_css):
+        with open(root_style_css, "r", encoding="utf-8") as f:
+            raw_root_css = f.read()
+        return localize_css_for_language(raw_root_css, lang=lang)
 
-    with open(os.path.join(output_abs, "slide.js"), "w", encoding="utf-8") as f:
-        f.write(get_slide_js())
+    root_slide_css = os.path.join(input_abs, "slide.css")
+    if os.path.isfile(root_slide_css):
+        with open(root_slide_css, "r", encoding="utf-8") as f:
+            raw_slide_css = f.read()
+        return localize_css_for_language(raw_slide_css, lang=lang)
 
-    readme_out = os.path.join(output_abs, "README.md")
-    if os.path.abspath(output_abs) != os.path.abspath(input_abs) or not os.path.exists(readme_out):
-        with open(readme_out, "w", encoding="utf-8") as f:
-            f.write(get_slide_readme())
+    synthesized = get_css(name=deck_theme, target="slide", lang=lang)
+    return localize_css_for_language(synthesized, lang=lang)
+
+
+def deploy_slide_assets(
+    input_abs: str,
+    output_abs: str,
+    deck_theme: str = "google",
+    langs: list[str] | tuple[str, ...] = (),
+) -> dict[str, str]:
+    """Deploy shared ``_assets/``, ``slide.js``, ``README.md``, per-locale ``style.css``, and SVG fonts.
+
+    Args:
+        input_abs: Project root directory containing ``drawlib.toml`` and shared assets.
+        output_abs: Root output directory.
+        deck_theme: Chosen CSS theme preset name or path.
+        langs: Ordered canonical language codes to write ``<output_abs>/<lang>/style.css`` for.
+
+    Returns:
+        dict[str, str]: Mapping from ``lang`` to written ``style.css`` absolute path.
+    """
+    os.makedirs(output_abs, exist_ok=True)
 
     for asset_dir_name in ("_assets", "assets"):
         local_assets_dir = os.path.join(input_abs, asset_dir_name)
@@ -281,4 +365,26 @@ def deploy_slide_assets(input_abs: str, output_abs: str, deck_theme: str) -> Non
                 shutil.rmtree(out_assets_dir)
             shutil.copytree(local_assets_dir, out_assets_dir)
 
-    bundle_svg_fonts(output_abs, css_file_path=style_css_out)
+    copy_static_assets(input_abs, output_abs)
+
+    with open(os.path.join(output_abs, "slide.js"), "w", encoding="utf-8") as f:
+        f.write(get_slide_js())
+
+    readme_out = os.path.join(output_abs, "README.md")
+    if os.path.abspath(output_abs) != os.path.abspath(input_abs) or not os.path.exists(readme_out):
+        with open(readme_out, "w", encoding="utf-8") as f:
+            f.write(get_slide_readme())
+
+    locale_css_paths: dict[str, str] = {}
+    for lang in langs:
+        lang_out_dir = os.path.join(output_abs, lang)
+        os.makedirs(lang_out_dir, exist_ok=True)
+        copy_locale_static_assets(os.path.join(input_abs, lang), lang_out_dir)
+        css_content = resolve_locale_slide_css(input_abs, lang, deck_theme)
+        lang_style_css = os.path.join(lang_out_dir, "style.css")
+        with open(lang_style_css, "w", encoding="utf-8") as f:
+            f.write(css_content)
+        bundle_svg_fonts(output_abs, css_file_path=lang_style_css)
+        locale_css_paths[lang] = lang_style_css
+
+    return locale_css_paths

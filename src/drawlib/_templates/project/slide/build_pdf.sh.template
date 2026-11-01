@@ -27,4 +27,4 @@ fi
 
 echo "Building Presentation PDF..."
 $DRAWLIB_CMD build pdf __SRC_DIR__/ -o __OUT_PDF__
-echo "Presentation PDF build complete: __OUT_PDF__"
+echo "Presentation PDF build complete!"

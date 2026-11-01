@@ -18,7 +18,7 @@ from typing import Final, Literal
 
 from drawlib._templates._css import get_css
 from drawlib._templates._models import ProjectPaths
-from drawlib._templates.langs import get_font_replacements, normalize_language
+from drawlib._templates.langs import get_font_replacements, get_language_config, normalize_language
 
 PROJECT_TYPES: Final[dict[str, str]] = {
     "doc": "Single specification, RFC, or multi-chapter technical report compiled to HTML and PDF.",
@@ -34,6 +34,7 @@ _CANONICAL_TYPE_MAP: Final[dict[str, str]] = {
     "images": "images",
     "image": "images",
 }
+_I18N_PROJECT_TYPES: Final[frozenset[str]] = frozenset({"doc", "site", "slide"})
 
 
 def list_project_types() -> dict[str, str]:
@@ -176,7 +177,7 @@ def _resolve_stylesheet(
     lang: str = "en",
 ) -> str | None:
     """Resolve and validate stylesheet content for web/slide project types."""
-    if project_type not in {"site", "doc", "slide"}:
+    if project_type not in _I18N_PROJECT_TYPES:
         return None
     target: Literal["site", "doc", "slide"] = (
         "site" if project_type == "site" else ("doc" if project_type == "doc" else "slide")
@@ -234,7 +235,7 @@ def _deploy_localized_docs(
     replacements: dict[str, str],
     created_files: list[Path],
 ) -> None:
-    """Deploy localized documents and samples (<type>/docs/<lang>/)."""
+    """Deploy flat localized scripts and README (<type>/docs/<lang>/) for standalone 'images' projects."""
     docs_root = type_root.joinpath("docs")
     if not docs_root.is_dir():
         return
@@ -264,9 +265,9 @@ def _parse_init_languages(lang: str, canonical_type: str) -> list[str]:
             raise ValueError(f"Duplicate language code '{norm_code}' in --lang '{lang}'.")
         normalized.append(norm_code)
 
-    if len(normalized) > 1 and canonical_type not in {"site", "doc"}:
+    if len(normalized) > 1 and canonical_type not in _I18N_PROJECT_TYPES:
         raise ValueError(
-            f"Multi-language initialization ('{lang}') is only supported for 'site' and 'doc' projects, "
+            f"Multi-language initialization ('{lang}') is supported for 'doc', 'site', and 'slide' projects, "
             f"not '{canonical_type}'."
         )
     return normalized
@@ -286,12 +287,19 @@ def _deploy_project_manifest(
 
     project_name = target_name or canonical_type
     manifest_style = "custom" if Path(style).exists() else style
+    is_i18n_type = canonical_type in _I18N_PROJECT_TYPES
+    labels = (
+        {lc: get_language_config(lc).display_name for lc in parsed_langs}
+        if is_i18n_type and len(parsed_langs) > 1
+        else None
+    )
     toml_text = format_project_manifest_toml(
         name=project_name,
         project_type=canonical_type,
         style=manifest_style,
         lang=primary_lang,
-        langs=parsed_langs if len(parsed_langs) > 1 else None,
+        langs=parsed_langs if is_i18n_type else None,
+        labels=labels,
     )
 
     target_path = src_dir / "drawlib.toml"
@@ -308,24 +316,30 @@ def _deploy_i18n_locales(
     replacements: dict[str, str],
     created_files: list[Path],
 ) -> None:
-    """Deploy parity-aligned starter document trees under <src_dir>/<lang>/ for each locale."""
+    """Deploy starter document trees under <src_dir>/<lang>/ for each locale."""
     docs_root = type_root.joinpath("docs")
     docs_i18n_root = type_root.joinpath("docs_i18n")
     en_docs = docs_root.joinpath("en")
 
-    root_readme = en_docs.joinpath("README.md")
-    if root_readme.is_file():
-        _copy_item_with_substitutions(root_readme, src_dir / "README.md", replacements, created_files)
+    primary_lang = langs[0] if langs else "en"
+    primary_docs = docs_root.joinpath(primary_lang) if docs_root.is_dir() else None
+    readme_cand = primary_docs.joinpath("README.md") if primary_docs is not None and primary_docs.is_dir() else None
+    if readme_cand is None or not readme_cand.is_file():
+        readme_cand = en_docs.joinpath("README.md") if en_docs.is_dir() else None
+    if readme_cand is not None and readme_cand.is_file():
+        _copy_item_with_substitutions(readme_cand, src_dir / "README.md", replacements, created_files)
 
+    is_multi = len(langs) > 1
     for lc in langs:
-        i18n_cand = docs_i18n_root.joinpath(lc) if docs_i18n_root.is_dir() else None
-        if i18n_cand is not None and i18n_cand.is_dir():
-            source_tree = i18n_cand
+        if is_multi:
+            cand = docs_i18n_root.joinpath(lc) if docs_i18n_root.is_dir() else None
         else:
-            source_tree = en_docs
+            cand = docs_root.joinpath(lc) if docs_root.is_dir() else None
+        source_tree = cand if (cand is not None and cand.is_dir()) else en_docs
         if not source_tree.is_dir():
             continue
         locale_dst = src_dir / lc
+        locale_dst.mkdir(parents=True, exist_ok=True)
         for item in source_tree.iterdir():
             if item.name in {"__pycache__", "README.md"} or item.name.startswith("."):
                 continue
@@ -350,7 +364,7 @@ def init_project(
         target: Custom base name for the project (e.g. 'spec', 'report', 'docs').
         output: Legacy alias for target (e.g. 'rbac' creates 'rbac_src/').
         force: If True, overwrite existing files and directories.
-        lang: Language code ('en', 'ja', etc.) or comma-separated codes for i18n 'site'/'doc' ('en,ja').
+        lang: Language code ('en', 'ja', etc.) or comma-separated codes for 'doc'/'site'/'slide' ('en,ja').
         style: Style preset theme ('default', 'google', 'monochrome', etc.) or custom CSS file path.
         here: Deprecated legacy option. Ignored when target_src is always created.
 
@@ -370,7 +384,6 @@ def init_project(
     canonical_type = _CANONICAL_TYPE_MAP[raw_type]
     parsed_langs = _parse_init_languages(lang, canonical_type)
     primary_lang = parsed_langs[0]
-    is_multi_lang = len(parsed_langs) > 1
     resolved_style = (style or "default").strip()
     effective_target = target if target is not None else output
 
@@ -391,6 +404,8 @@ def init_project(
     _validate_conflicts(src_dir=paths.src_dir, force=force)
 
     replacements = {
+        "__TARGET__": paths.target,
+        "__DEFAULT_LANG__": primary_lang,
         "__SRC_DIR__": paths.src_dir_name,
         "__OUT_DIR__": paths.out_markdown_dir_name,
         "__OUT_MARKDOWN_DIR__": paths.out_markdown_dir_name,
@@ -399,10 +414,6 @@ def init_project(
         "__OUT_PDF__": paths.out_pdf_name,
         **get_font_replacements(primary_lang, style_theme=resolved_style),
     }
-    if is_multi_lang:
-        replacements["__RTD_HTML_LANG__"] = "{{ html_lang | default('en') }}"
-        replacements["__RTD_HTML_DIR__"] = "{{ html_dir | default('ltr') }}"
-        replacements["__RTD_FONT_LINK__"] = "{{ font_link_html | default('') | safe }}"
 
     created_files: list[Path] = []
     _deploy_shared_templates(project_base, paths.src_dir, replacements, created_files)
@@ -421,7 +432,7 @@ def init_project(
         parsed_langs=parsed_langs,
         created_files=created_files,
     )
-    if is_multi_lang:
+    if canonical_type in _I18N_PROJECT_TYPES:
         _deploy_i18n_locales(type_root, paths.src_dir, parsed_langs, replacements, created_files)
     else:
         _deploy_localized_docs(type_root, paths.src_dir, primary_lang, replacements, created_files)

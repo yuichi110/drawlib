@@ -114,12 +114,18 @@ def test_cli_cache_list(tmp_path) -> None:
 
 def test_cli_build_html_with_custom_template(tmp_path) -> None:
     """Test drawlib build html uses template.html and style.css in directory."""
+    (tmp_path / "drawlib.toml").write_text(
+        '[project]\ntype = "doc"\n\n[i18n]\ndefault_lang = "en"\nlangs = ["en"]\n',
+        encoding="utf-8",
+    )
     tmpl = tmp_path / "template.html"
     tmpl.write_text("<html><body class='cli-custom'>{{ body | safe }}</body></html>", encoding="utf-8")
     style = tmp_path / "style.css"
     style.write_text("body { margin: 0; }", encoding="utf-8")
 
-    input_md = tmp_path / "sample.md"
+    en_dir = tmp_path / "en"
+    en_dir.mkdir()
+    input_md = en_dir / "sample.md"
     input_md.write_text("# CLI Custom Template Test", encoding="utf-8")
     out_dir = tmp_path / "out"
 
@@ -129,16 +135,25 @@ def test_cli_build_html_with_custom_template(tmp_path) -> None:
     )
 
     assert res.returncode == 0
+    en_html = out_dir / "en" / "index.html"
     out_html = out_dir / "index.html"
+    assert en_html.exists()
     assert out_html.exists()
+    assert "<body class='cli-custom'>" in en_html.read_text(encoding="utf-8")
     assert "<body class='cli-custom'>" in out_html.read_text(encoding="utf-8")
 
 
 def test_cli_build_html_missing_template_error(tmp_path) -> None:
     """Test that build html fails when template.html is missing."""
+    (tmp_path / "drawlib.toml").write_text(
+        '[project]\ntype = "doc"\n\n[i18n]\ndefault_lang = "en"\nlangs = ["en"]\n',
+        encoding="utf-8",
+    )
     style = tmp_path / "style.css"
     style.write_text("body { margin: 0; }", encoding="utf-8")
-    input_md = tmp_path / "sample.md"
+    en_dir = tmp_path / "en"
+    en_dir.mkdir()
+    input_md = en_dir / "sample.md"
     input_md.write_text("# Sample", encoding="utf-8")
     out_dir = tmp_path / "out"
 

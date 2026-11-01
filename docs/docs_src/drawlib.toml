@@ -8,3 +8,7 @@ style = "default"
 [i18n]
 default_lang = "en"
 langs = ["en", "ja"]
+
+[i18n.labels]
+en = "English"
+ja = "日本語"

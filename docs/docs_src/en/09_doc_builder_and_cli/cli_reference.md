@@ -980,7 +980,7 @@ drawlib build pdf doc_src/ -o report.pdf --toc --page-break
 
 | Option | Shorthand | Default | Description |
 |---|---|---|---|
-| `--output` | `-o` | `<first_stem>.pdf` | Destination PDF file path. |
+| `--output` | `-o` | `<base>_<lang>.pdf` | Destination PDF file path (emits `<base>_<lang>.pdf` per locale for `doc` / `slide` directories). |
 | `--title` | | Extracted from H1 | Overall document title displayed on cover and running headers. |
 | `--generate-index` | `--toc` | `False` | Insert an automated Table of Contents between the 1st (`00_cover.md`) and 2nd chapter. |
 | `--page-break` / `--no-page-break` | | `True` | Insert CSS page breaks (`page-break-before: always`) between chapters. |
@@ -997,7 +997,7 @@ drawlib build docx doc_src/ -o report.docx --generate-index --page-break
 
 | Option | Shorthand | Default | Description |
 |---|---|---|---|
-| `--output` | `-o` | `<first_stem>.docx` | Output MS Word (`.docx`) file path. |
+| `--output` | `-o` | `<base>_<lang>.docx` | Output MS Word (`.docx`) file path (emits `<base>_<lang>.docx` per locale for `doc` directories). |
 | `--page-break` / `--no-page-break` | | `True` | Insert page breaks between merged chapters. |
 | `--generate-index` / `--no-generate-index` | | `False` | Generate an index (Table of Contents) and insert it between the 1st (`00_cover.md`) and 2nd documents. |
 | `--title` | | Extracted from H1 | Document title override for the merged Word document. |
@@ -1007,7 +1007,7 @@ drawlib build docx doc_src/ -o report.docx --generate-index --page-break
 | `--timestamp` | | `False` | Include current build timestamp in Word metadata instead of normalizing it. |
 
 ### 4.5 `drawlib build slide`
-Compiles a directory of Markdown slide files (`slide_src/`) into a standalone 16:9 HTML presentation deck (`index.html`) with dual-window Presenter View (`?presenter=1`).
+Compiles a directory of Markdown slide files (`slide_src/`) into standalone 16:9 HTML presentation decks (`<lang>/index.html` + root `index.html` redirect) with dual-window Presenter View (`?presenter=1`).
 
 ```bash
 drawlib build slide slide_src/ -o slide_html/ [OPTIONS]
@@ -1022,7 +1022,7 @@ drawlib build slide slide_src/ -o slide_html/ [OPTIONS]
 | `--no-cache` | | `False` | Disable reading and writing `.drawlib/cache.db`. |
 
 ### 4.6 `drawlib build pptx`
-Compiles a directory of Markdown slide files (`slide_src/`) into a native editable 16:9 (`960×540 pt`) MS PowerPoint (`.pptx`) deck by measuring the `1920×1080` slide layout and computed CSS styles via headless Chromium (`::: block` cards with `rgba` alpha, text boxes, bullet/numbered lists, tables, inline code, and `::: note` speaker notes), embedding ````drawlib```` diagrams as high-DPI static PNGs.
+Compiles a directory of Markdown slide files (`slide_src/`) into native editable 16:9 (`960×540 pt`) MS PowerPoint (`.pptx`) decks per locale by measuring the `1920×1080` slide layout and computed CSS styles via headless Chromium (`::: block` cards with `rgba` alpha, text boxes, bullet/numbered lists, tables, inline code, and `::: note` speaker notes), embedding ````drawlib```` diagrams as high-DPI static PNGs.
 
 ```bash
 drawlib build pptx slide_src/ -o deck.pptx --dpi 240 --anim-frame last
@@ -1030,7 +1030,7 @@ drawlib build pptx slide_src/ -o deck.pptx --dpi 240 --anim-frame last
 
 | Option | Shorthand | Default | Description |
 |---|---|---|---|
-| `--output` | `-o` | `<dir_name>.pptx` | Output MS PowerPoint (`.pptx`) file path. |
+| `--output` | `-o` | `<base>_<lang>.pptx` | Output MS PowerPoint (`.pptx`) file path (emits `<base>_<lang>.pptx` per locale). |
 | `--theme` | `-t` | Auto / `default` | CSS theme preset (`google`, `default`, `google-dark`, `default-dark`). |
 | `--title` | | Extracted from deck | Presentation title override for PowerPoint metadata. |
 | `--dpi` | | `240` | Rasterization DPI for embedded `drawlib` diagrams. |
@@ -1070,10 +1070,10 @@ drawlib init <TYPE> [target] [OPTIONS]
 drawlib init list
 ```
 
-- `<TYPE>`: Subcommand choosing project type: `doc`, `site`, `slide`, `images` (alias: `image`), or `list`.
+- `<TYPE>`: Subcommand choosing project type: `doc`, `site`, `slide` (all initialized with unified `<src_dir>/<lang>/` locale directories and `[i18n]` in `drawlib.toml`), `images` (alias: `image`), or `list`.
 - `[target]`: Base name for the project and source folder (creates `<target>_src/`). Defaults: `doc` for `doc`, `docs` for `site`, `slide` for `slide`, `images` for `images`.
 - `-s`, `--style <theme>`: Style preset theme (`default`, `google`, `monochrome`, etc.) synchronously configuring both `style.css` and `styles.py`.
-- `-l`, `--lang <code>`: Starter content and font configuration language (`en`, `ja`, `zh-cn`, `ko`, `th`, `hi`, etc.). Default: `en`.
+- `-l`, `--lang <code>`: Starter content and font configuration language (`en`, `ja`, `zh-cn`, `ko`, `th`, `hi`, etc.; supports comma-separated multi-locale codes such as `-l en,ja` on `doc`, `site`, and `slide`). Default: `en`.
 - `-f`, `--force`: Overwrite existing files if destination directory already exists.
 
 ---
@@ -1084,14 +1084,14 @@ Lists embedded blocks in a document, previews a diagram in a desktop GUI window,
 
 ```bash
 # 1. List all drawlib blocks in a Markdown document (when [TARGET] is omitted):
-drawlib show docs_src/overview.md
+drawlib show docs_src/en/overview.md
 
 # 2. Export block by explicit filename with coordinate grid (Recommended):
-drawlib show docs_src/overview.md arch.png -g -o .drawlib/scratch/arch_grid.png
+drawlib show docs_src/en/overview.md arch.png -g -o .drawlib/scratch/arch_grid.png
 
 # 3. Export block by 1-based index (or -1 for the last block in the file):
-drawlib show docs_src/overview.md 1 -g -o .drawlib/scratch/fig1.png
-drawlib show docs_src/overview.md -1 -o .drawlib/scratch/last_fig.png
+drawlib show docs_src/en/overview.md 1 -g -o .drawlib/scratch/fig1.png
+drawlib show docs_src/en/overview.md -1 -o .drawlib/scratch/last_fig.png
 
 # 4. Preview standalone Python script in interactive GUI window:
 drawlib show my_drawing.py

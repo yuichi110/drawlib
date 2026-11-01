@@ -8,8 +8,8 @@ Drawlib is a declarative Python drawing library and integrated documentation com
 
 - **Official Website & Documentation**: [https://www.drawlib.com/](https://www.drawlib.com/)
 - **Repository Guides & Whitepapers**:
-  - [Quickstart Guide (PDF)](docs/quickstart.pdf)
-  - [16:9 Presentation Slide Deck (PDF)](docs/slide_about_drawlib.pdf)
+  - [Quickstart Guide (PDF)](docs/quickstart_en.pdf)
+  - [16:9 Presentation Slide Deck (PDF)](docs/slide_about_drawlib_en.pdf)
   - [Dogfooding Whitepaper — English (PDF)](docs/drawlib-dogfooding_en.pdf) | [日本語版 (PDF)](docs/drawlib-dogfooding_ja.pdf)
 
 ---
@@ -62,9 +62,9 @@ Write Markdown files with embedded ```` ```drawlib ```` code blocks. A single `d
 ![Documentation as Code Workflow](docs/readme_images/05_workflow_doc_as_code.png)
 
 - **4 Project Scaffolds (`drawlib init <type>`)**:
-  - `drawlib init site`: Multi-page documentation website (`docs_html/`), GitHub Markdown (`docs/`), and PDF.
-  - `drawlib init doc`: Linear technical specification / whitepaper (`*_html/`, `*_markdown/`, `*.pdf`, plus on-demand editable MS Word `*.docx` via `drawlib build docx`).
-  - `drawlib init slide`: 16:9 presentation slide deck with native SVG text, Presenter View, and keyboard navigation (`slide_html/`, `slide.pdf`, plus on-demand editable MS PowerPoint `slide.pptx` via `drawlib build pptx`).
+  - `drawlib init site`: Multi-page documentation website (`docs_html/`) and GitHub Markdown (`docs_markdown/`) with built-in multi-locale (`<lang>/`) support.
+  - `drawlib init doc`: Linear technical specification / whitepaper (`*_html/`, `*_markdown/`, `*_<lang>.pdf`, plus on-demand editable MS Word `*_<lang>.docx` via `drawlib build docx`).
+  - `drawlib init slide`: 16:9 presentation slide deck with native SVG text, Presenter View, multi-locale (`<lang>/`) support, and keyboard navigation (`slide_html/`, `slide_<lang>.pdf`, plus on-demand editable MS PowerPoint `slide_<lang>.pptx` via `drawlib build pptx`).
   - `drawlib init images`: Standalone batch Python illustration scripts (`images_src/` -> `images/`).
 
 ---
@@ -167,21 +167,21 @@ python architecture.py
 Scaffold a new documentation website, technical spec, or 16:9 slide deck in seconds:
 
 ```bash
-# Initialize a multi-page documentation site in docs_src/
+# Initialize a multi-page documentation site in docs_src/ (with en/ locale tree)
 drawlib init site
 
-# Or initialize a 16:9 presentation slide deck in slide_src/
+# Or initialize a 16:9 presentation slide deck in slide_src/ (supports -l en,ja too)
 drawlib init slide
 ```
 
-Inside your Markdown files (`docs_src/index.md`), embed Python drawing blocks using the ```` ```drawlib ```` fence:
+Inside your Markdown files (`docs_src/en/index.md`), embed Python drawing blocks using the ```` ```drawlib ```` fence:
 
 ````markdown
 # System Architecture
 
 Below is our core request routing pipeline:
 
-```drawlib 600px center file:service_routing.png caption:"Service Routing Pipeline"
+```drawlib align=center file=service_routing.png caption="Service Routing Pipeline"
 from drawlib.canvas import setup
 from drawlib.shapes import rectangle
 from drawlib.lines import line
@@ -201,14 +201,14 @@ Compile or preview with the `drawlib` CLI:
 ./docs_src/build.sh
 
 # Optional on-demand export to editable MS Word (.docx) or MS PowerPoint (.pptx)
-drawlib build docx doc_src/ -o spec.docx --generate-index
-drawlib build pptx slide_src/ -o deck.pptx
+drawlib build docx doc_src/ -o spec.docx --generate-index   # -> spec_en.docx
+drawlib build pptx slide_src/ -o deck.pptx                  # -> deck_en.pptx
 
 # Launch local HTTP server with broken-link check at http://localhost:8000
 drawlib serve docs_html/
 
 # Render a single diagram with coordinate grid (-g) for layout inspection
-drawlib show docs_src/index.md service_routing.png -g -o preview_grid.png
+drawlib show docs_src/en/index.md service_routing.png -g -o preview_grid.png
 ```
 
 ---

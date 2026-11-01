@@ -632,7 +632,7 @@
             <main class="main-content">
                 <h1>Site Project Guide (<code>drawlib init site</code>)</h1>
 <p>The <code>site</code> starter template builds a responsive multi-page technical documentation website with hierarchical sidebar navigation, mobile-responsive layout, syntax highlighting, and dual publishing to static HTML and GitHub-ready Markdown.</p>
-<p>Drawlib compiles <code>docs_src/navbar.md</code> and your Markdown pages into a two-column documentation portal with strict build-time link validation:</p>
+<p>Drawlib compiles <code>docs_src/&lt;lang&gt;/navbar.md</code> and your Markdown pages into a two-column documentation portal with strict build-time link validation:</p>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="../../images/09_doc_builder_and_cli/project_site/project_site_navbar_architecture.png" alt="project_site_1" />
   <figcaption class="drawlib-caption">How navbar.md and Markdown Pages Compile into the Two-Column Documentation Site UI</figcaption>
@@ -650,7 +650,7 @@
 
 <span class="c1"># Left: Source directory container</span>
 <span class="n">rectangle</span><span class="p">((</span><span class="mi">21</span><span class="p">,</span> <span class="mi">31</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">34</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">54</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">))</span>
-<span class="n">text</span><span class="p">((</span><span class="mi">21</span><span class="p">,</span> <span class="mf">54.2</span><span class="p">),</span> <span class="s2">"Source (docs_src/)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.8</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">21</span><span class="p">,</span> <span class="mf">54.2</span><span class="p">),</span> <span class="s2">"docs_src/&lt;lang&gt;/"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.8</span><span class="p">))</span>
 
 <span class="n">rectangle</span><span class="p">((</span><span class="mi">21</span><span class="p">,</span> <span class="mf">39.2</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
 <span class="n">phosphor</span><span class="o">.</span><span class="n">list_bullets</span><span class="p">((</span><span class="mf">10.5</span><span class="p">,</span> <span class="mf">45.8</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.4</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
@@ -736,12 +736,13 @@
 </div>
 <hr />
 <h2>2. Project Initialization</h2>
-<p>Scaffold a documentation website using <code>drawlib init</code>:</p>
-<pre><code class="language-bash"><span class="c1"># Scaffold default 'docs_src/' in the current directory:</span>
+<p>Scaffold a documentation website using <code>drawlib init</code> (every <code>site</code> project uses the unified <code>&lt;src_dir&gt;/&lt;lang&gt;/</code> locale layout, even for a single language):</p>
+<pre><code class="language-bash"><span class="c1"># Scaffold default 'docs_src/en/' in the current directory:</span>
 drawlib<span class="w"> </span>init<span class="w"> </span>site
 
-<span class="c1"># Or specify a custom target prefix (creates 'my_docs_src/', 'my_docs_html/', etc.):</span>
+<span class="c1"># Or specify a custom target prefix and single or multiple locales (creates 'my_docs_src/&lt;lang&gt;/'):</span>
 drawlib<span class="w"> </span>init<span class="w"> </span>site<span class="w"> </span>my_docs<span class="w"> </span>--style<span class="w"> </span>google<span class="w"> </span>--lang<span class="w"> </span>en
+drawlib<span class="w"> </span>init<span class="w"> </span>site<span class="w"> </span>my_docs<span class="w"> </span>--style<span class="w"> </span>google<span class="w"> </span>--lang<span class="w"> </span>en,ja
 </code></pre>
 <hr />
 <h2>3. Directory Layout &amp; Architecture</h2>
@@ -749,27 +750,27 @@ drawlib<span class="w"> </span>init<span class="w"> </span>site<span class="w"> 
 <ul>
 <li><strong><code>docs_src/</code> (Single Source of Truth)</strong>:
 <ul>
-<li><strong><code>drawlib.toml</code></strong>: Project manifest declaring <code>type = &quot;site&quot;</code>, default language/theme metadata, and optional <code>[i18n]</code> multi-locale settings.</li>
-<li><strong><code>index.md</code></strong>: Site landing page rendered as the root entry document (<code>index.html</code>).</li>
-<li><strong><code>navbar.md</code></strong>: Declarative sidebar navigation manifest defining brand title, collapsible sections, and page links.</li>
-<li><strong>Nested Section Sub-Folders (<code>guide/</code>, <code>api/</code>, <code>01_architecture/</code>, etc.)</strong>: Hierarchical Markdown pages with embedded <code>```drawlib</code> diagram blocks.</li>
-<li><strong><code>_assets/</code></strong>: Static media files (logos, screenshots, data files) recursively mirrored into output portals.</li>
-<li><strong><code>styles.py</code> &amp; <code>utils.py</code></strong>: Project-wide theme palette, language typography defaults, and shared Python drawing helpers.</li>
+<li><strong><code>drawlib.toml</code></strong>: Project manifest declaring <code>type = &quot;site&quot;</code>, <code>style</code>, and the required <code>[i18n]</code> section (<code>default_lang</code>, <code>langs</code> with <code>len &gt;= 1</code>, and optional <code>[i18n.labels]</code>; <code>lang</code> under <code>[project]</code> is disallowed).</li>
+<li><strong><code>&lt;lang&gt;/index.md</code></strong>: Per-locale site landing page rendered as <code>&lt;lang&gt;/index.html</code> (with <code>docs_html/index.html</code> redirecting to <code>default_lang</code>).</li>
+<li><strong><code>&lt;lang&gt;/navbar.md</code></strong>: Per-locale declarative sidebar navigation manifest defining brand title, collapsible sections, and page links.</li>
+<li><strong>Nested Section Sub-Folders (<code>&lt;lang&gt;/guide/</code>, <code>&lt;lang&gt;/api/</code>, <code>&lt;lang&gt;/01_architecture/</code>, etc.)</strong>: Hierarchical Markdown pages with embedded <code>```drawlib</code> diagram blocks.</li>
+<li><strong><code>_assets/</code></strong>: Static media files (logos, screenshots, data files) recursively mirrored into output portals (referenced from <code>&lt;lang&gt;/</code> Markdown prose via <code>../_assets/...</code>).</li>
+<li><strong><code>styles.py</code> &amp; <code>utils.py</code></strong>: Project-wide theme palette, language typography defaults (plus optional per-locale <code>&lt;lang&gt;/styles.py</code> overrides), and shared Python drawing helpers.</li>
 <li><strong><code>template.html</code> &amp; <code>style.css</code></strong>: Responsive two-column HTML layout shell and 3-layer CSS stylesheet.</li>
 <li><strong><code>build.sh</code>, <code>build_html.sh</code>, <code>build_markdown.sh</code>, <code>build_image.sh</code>, <code>serve.sh</code></strong>: Modular build and local preview scripts.</li>
 </ul>
 </li>
 <li><strong>Generated Outputs (Do Not Edit Directly)</strong>:
 <ul>
-<li><strong><code>docs_html/</code></strong>: Responsive static HTML documentation portal ready for web hosting and <code>drawlib serve</code>.</li>
-<li><strong><code>docs_markdown/</code></strong>: GitHub-ready Markdown portal with compiled PNG/WebP figure links.</li>
+<li><strong><code>docs_html/</code></strong>: Responsive static HTML documentation portal (<code>docs_html/&lt;lang&gt;/</code>, root <code>docs_html/index.html</code> redirect, and shared <code>docs_html/images/</code>) ready for web hosting and <code>drawlib serve</code>.</li>
+<li><strong><code>docs_markdown/</code></strong>: GitHub-ready Markdown portal (<code>docs_markdown/&lt;lang&gt;/</code> and shared <code>docs_markdown/images/</code>) with compiled PNG/WebP figure links.</li>
 <li><strong><code>docs_images/</code></strong>: Standalone extracted illustrations when running <code>build_image.sh</code>.</li>
 </ul>
 </li>
 </ul>
 <hr />
-<h2>4. Sidebar Navigation (<code>navbar.md</code>)</h2>
-<p>The sidebar navigation structure is governed entirely by <code>docs_src/navbar.md</code>:</p>
+<h2>4. Sidebar Navigation (<code>&lt;lang&gt;/navbar.md</code>)</h2>
+<p>The sidebar navigation structure for each locale is governed entirely by <code>docs_src/&lt;lang&gt;/navbar.md</code>:</p>
 <pre><code class="language-markdown"><span class="gh"># Drawlib Documentation</span>
 
 <span class="k">-</span><span class="w"> </span>[<span class="nt">Home</span>](<span class="na">index.md</span>)
@@ -789,14 +790,14 @@ drawlib<span class="w"> </span>init<span class="w"> </span>site<span class="w"> 
 <ol>
 <li><strong>Brand Header (<code># Title</code>)</strong>: The top level <code># Heading 1</code> sets the brand title in the sidebar header.</li>
 <li><strong>Category Groupings (<code>## Category</code>)</strong>: Each <code>## Heading 2</code> defines a collapsible navigation category section.</li>
-<li><strong>Internal Document Links</strong>: Relative paths must point to existing Markdown files within <code>docs_src/</code>.</li>
+<li><strong>Internal Document Links</strong>: Relative paths are resolved within that locale directory (<code>docs_src/&lt;lang&gt;/</code>) and must point to existing Markdown files.</li>
 <li><strong>External Links</strong>: URLs beginning with <code>http://</code> or <code>https://</code> automatically open in a new tab (<code>target=&quot;_blank&quot;</code>) with an external link indicator.</li>
 <li><strong>Strict Build-Time Validation</strong>: If any linked document does not exist, the build immediately aborts with an error indicating the file and line number.</li>
 <li><strong>Active Page Tracking</strong>: The currently viewed page is automatically highlighted (<code>.nav-item.active</code>) with dynamic relative path resolution.</li>
 </ol>
 <hr />
 <h2>5. Static Asset Synchronization</h2>
-<p>Any static assets placed in <code>docs_src/</code> (such as custom logos, sample data files, or images in <code>_assets/</code>) are recursively mirrored to <code>docs_html/</code> and <code>docs/</code>, preserving folder hierarchies.</p>
+<p>Any static assets placed in <code>docs_src/</code> (such as custom logos, sample data files, or images in <code>_assets/</code>) are recursively mirrored to <code>docs_html/</code> and <code>docs/</code> (<code>docs_markdown/</code>), preserving folder hierarchies.</p>
 <hr />
 <h2>6. Building &amp; Local Preview</h2>
 <h3>Compile Site</h3>
@@ -814,15 +815,15 @@ drawlib<span class="w"> </span>init<span class="w"> </span>site<span class="w"> 
 </code></pre>
 <hr />
 <h2>7. Parallel Multi-Agent Site Authoring</h2>
-<p>Multi-page <code>site</code> projects (<code>docs_src/**/*.md</code>) scale naturally across parallel AI subagents:</p>
+<p>Multi-page <code>site</code> projects (<code>docs_src/&lt;lang&gt;/**/*.md</code>) scale naturally across parallel AI subagents:</p>
 <ol>
-<li><strong>Phase 1 (Parent Setup)</strong>: Scaffold <code>docs_src/</code> (<code>drawlib init site</code>) and finalize shared files (<code>styles.py</code>, <code>utils.py</code>, <code>_assets/</code>, <code>index.md</code>, and the complete <code>navbar.md</code> sidebar tree) before launching subagents.</li>
-<li><strong>Phase 2 (Parallel Subagents)</strong>: Assign each subagent a disjoint page or section directory (e.g., <code>01_architecture/*.md</code> vs. <code>02_services/*.md</code>). Each subagent treats <code>styles.py</code>, <code>utils.py</code>, and <code>navbar.md</code> as read-only, authors its assigned pages, and runs <code>-g</code> grid previews using unique scratch filenames (<code>-o .drawlib/scratch/&lt;page&gt;_&lt;block&gt;_grid.png</code>).</li>
+<li><strong>Phase 1 (Parent Setup)</strong>: Scaffold <code>docs_src/</code> (<code>drawlib init site</code>) and finalize shared files (<code>drawlib.toml</code>, <code>styles.py</code>, <code>utils.py</code>, <code>_assets/</code>, <code>&lt;lang&gt;/index.md</code>, and the complete <code>&lt;lang&gt;/navbar.md</code> sidebar tree) before launching subagents.</li>
+<li><strong>Phase 2 (Parallel Subagents)</strong>: Assign each subagent a disjoint page or section directory (e.g., <code>&lt;lang&gt;/01_architecture/*.md</code> vs. <code>&lt;lang&gt;/02_services/*.md</code>). Each subagent treats <code>drawlib.toml</code>, <code>styles.py</code>, <code>utils.py</code>, and <code>&lt;lang&gt;/navbar.md</code> as read-only, authors its assigned pages, and runs <code>-g</code> grid previews using unique scratch filenames (<code>-o .drawlib/scratch/&lt;page&gt;_&lt;block&gt;_grid.png</code>).</li>
 <li><strong>Phase 3 (Unified Build &amp; Link Audit)</strong>: Once all subagents finish, the parent agent runs <code>./docs_src/build.sh</code> once and verifies site-wide link integrity with <code>uv run drawlib serve docs_html/ --check</code>.</li>
 </ol>
 <hr />
-<h2>8. Multi-Language (<code>i18n</code>) Websites (<code>drawlib.toml</code>)</h2>
-<p>A single <code>docs_src/</code> project can publish a synchronized multi-language documentation portal by passing comma-separated language codes to <code>drawlib init site</code> or configuring <code>[i18n]</code> in <code>docs_src/drawlib.toml</code>:</p>
+<h2>8. Unified <code>i18n</code> &amp; Multi-Language Websites (<code>drawlib.toml</code>)</h2>
+<p>Every <code>docs_src/</code> project is <code>i18n</code>-native out of the box (<code>langs = [&quot;en&quot;]</code> by default). Expanding a single-language portal into a multi-language site later requires zero <code>git mv</code> restructuring—pass comma-separated language codes to <code>drawlib init site</code> or add a locale directory (<code>docs_src/ja/</code>) and update <code>[i18n]</code> in <code>docs_src/drawlib.toml</code>:</p>
 <pre><code class="language-bash">uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>site<span class="w"> </span>docs<span class="w"> </span>-l<span class="w"> </span>en,ja<span class="w"> </span>-s<span class="w"> </span>default
 </code></pre>
 <pre><code class="language-toml"><span class="k">[project]</span>
@@ -841,7 +842,7 @@ drawlib<span class="w"> </span>init<span class="w"> </span>site<span class="w"> 
 <ul>
 <li><strong>Symmetric Locale Subtrees (<code>docs_src/&lt;lang&gt;/</code>)</strong>: Each configured locale (<code>en/</code>, <code>ja/</code>, ...) maintains its own <code>navbar.md</code>, <code>index.md</code>, and mirrored section subdirectories.</li>
 <li><strong>Shared Diagram Deduplication &amp; Per-Locale <code>styles.py</code></strong>: Identical diagrams (<code>file=vpc_arch.png</code>) are compiled once into the root <code>docs_html/images/</code> directory and shared across all locales. If a locale requires CJK fonts or localized figure text, add <code>docs_src/&lt;lang&gt;/styles.py</code> and use a locale-suffixed filename (<code>file=vpc_arch_ja.png</code>).</li>
-<li><strong>Automatic Locale Switcher &amp; Root Redirect</strong>: Compiled HTML pages include a header language dropdown linking directly to the corresponding page in every other locale, while <code>docs_html/index.html</code> redirects visitors to their preferred locale (<code>default_lang</code> fallback).</li>
+<li><strong>Automatic Locale Switcher &amp; Root Redirect</strong>: When <code>len(langs) &gt; 1</code>, compiled HTML pages render a header language dropdown linking directly to the corresponding page in every other locale, while <code>docs_html/index.html</code> redirects visitors to their preferred locale (<code>default_lang</code> fallback).</li>
 <li><strong>Pre-Flight Parity Enforcement</strong>: Every build automatically verifies file-set parity, <code>navbar.md</code> structure parity, Markdown structural skeleton parity, and internal link targets across all configured locales before rendering.</li>
 <li><strong>Unified Link Verification</strong>: Running <code>uv run drawlib serve docs_html/ --check</code> validates internal navigation, shared image references, and cross-locale switcher links across all locales in one pass.</li>
 </ul>

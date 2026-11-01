@@ -28,4 +28,4 @@ fi
 echo "Using Drawlib command: $DRAWLIB_CMD"
 echo "Building PDF document..."
 $DRAWLIB_CMD build pdf quickstart_src/ -o quickstart.pdf --generate-index
-echo "PDF build complete: quickstart.pdf"
+echo "PDF build complete: quickstart_en.pdf"

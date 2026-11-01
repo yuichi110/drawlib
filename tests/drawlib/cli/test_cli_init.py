@@ -62,13 +62,15 @@ def test_cli_init_doc_default(tmp_path: Path) -> None:
     assert res.returncode == 0
     assert "Initialized 'doc' project ('doc_src/')" in res.stdout
 
-    # Source files inside doc_src/
+    # Source files inside doc_src/ and doc_src/en/
     assert (tmp_path / "doc_src" / "README.md").is_file()
+    assert (tmp_path / "doc_src" / "drawlib.toml").is_file()
     assert (tmp_path / "doc_src" / "styles.py").is_file()
     assert (tmp_path / "doc_src" / "utils.py").is_file()
-    assert (tmp_path / "doc_src" / "00_cover.md").is_file()
-    assert (tmp_path / "doc_src" / "01_overview.md").is_file()
-    assert (tmp_path / "doc_src" / "02_design.md").is_file()
+    assert (tmp_path / "doc_src" / "en" / "00_cover.md").is_file()
+    assert (tmp_path / "doc_src" / "en" / "01_overview.md").is_file()
+    assert (tmp_path / "doc_src" / "en" / "02_design.md").is_file()
+    assert not (tmp_path / "doc_src" / "00_cover.md").exists()
     assert (tmp_path / "doc_src" / "template.html").is_file()
     assert (tmp_path / "doc_src" / "style.css").is_file()
     assert (tmp_path / "doc_src" / "_assets" / "linux.png").is_file()
@@ -91,6 +93,7 @@ def test_cli_init_doc_default(tmp_path: Path) -> None:
     assert not (tmp_path / "doc_markdown").exists()
     assert not (tmp_path / "doc_images").exists()
     assert not (tmp_path / "doc_html").exists()
+    assert not (tmp_path / "doc_en.pdf").exists()
     assert not (tmp_path / "doc.pdf").exists()
 
 
@@ -100,16 +103,18 @@ def test_cli_init_site_default(tmp_path: Path) -> None:
     assert res.returncode == 0
     assert "Initialized 'site' project ('docs_src/')" in res.stdout
 
-    # Source files inside docs_src/
+    # Source files inside docs_src/ and docs_src/en/
     assert (tmp_path / "docs_src" / "README.md").is_file()
+    assert (tmp_path / "docs_src" / "drawlib.toml").is_file()
     assert (tmp_path / "docs_src" / "styles.py").is_file()
     assert (tmp_path / "docs_src" / "utils.py").is_file()
     assert (tmp_path / "docs_src" / "template.html").is_file()
     assert (tmp_path / "docs_src" / "style.css").is_file()
-    assert (tmp_path / "docs_src" / "index.md").is_file()
-    assert (tmp_path / "docs_src" / "navbar.md").is_file()
-    assert (tmp_path / "docs_src" / "architecture" / "index.md").is_file()
-    assert (tmp_path / "docs_src" / "workflow" / "index.md").is_file()
+    assert (tmp_path / "docs_src" / "en" / "index.md").is_file()
+    assert (tmp_path / "docs_src" / "en" / "navbar.md").is_file()
+    assert (tmp_path / "docs_src" / "en" / "architecture" / "index.md").is_file()
+    assert (tmp_path / "docs_src" / "en" / "workflow" / "index.md").is_file()
+    assert not (tmp_path / "docs_src" / "index.md").exists()
     assert (tmp_path / "docs_src" / "_assets" / "linux.png").is_file()
     assert (tmp_path / "docs_src" / "_assets" / "favicon.png").is_file()
 
@@ -132,12 +137,15 @@ def test_cli_init_slide_default(tmp_path: Path) -> None:
     assert "Initialized 'slide' project ('slide_src/')" in res.stdout
 
     assert (tmp_path / "slide_src" / "README.md").is_file()
+    assert (tmp_path / "slide_src" / "drawlib.toml").is_file()
     assert (tmp_path / "slide_src" / "styles.py").is_file()
     assert (tmp_path / "slide_src" / "utils.py").is_file()
     assert (tmp_path / "slide_src" / "style.css").is_file()
-    assert (tmp_path / "slide_src" / "01_title.md").is_file()
-    assert (tmp_path / "slide_src" / "02_agenda.md").is_file()
-    assert (tmp_path / "slide_src" / "03_architecture.md").is_file()
+    assert (tmp_path / "slide_src" / "en" / "01_title.md").is_file()
+    assert (tmp_path / "slide_src" / "en" / "02_agenda.md").is_file()
+    assert (tmp_path / "slide_src" / "en" / "03_architecture.md").is_file()
+    assert not (tmp_path / "slide_src" / "01_title.md").exists()
+    assert "../_assets/linux.png" in (tmp_path / "slide_src" / "en" / "01_title.md").read_text(encoding="utf-8")
     assert (tmp_path / "slide_src" / "_assets" / "linux.png").is_file()
     assert (tmp_path / "slide_src" / "_assets" / "favicon.png").is_file()
 
@@ -149,6 +157,7 @@ def test_cli_init_slide_default(tmp_path: Path) -> None:
 
     assert not (tmp_path / "slide_html").exists()
     assert not (tmp_path / "slide_images").exists()
+    assert not (tmp_path / "slide_en.pdf").exists()
     assert not (tmp_path / "slide.pdf").exists()
 
 
@@ -190,8 +199,10 @@ def test_cli_init_custom_target(tmp_path: Path) -> None:
     assert res.returncode == 0
     assert "Initialized 'site' project ('manual_src/')" in res.stdout
 
-    # Source folder is manual_src/
-    assert (tmp_path / "manual_src" / "index.md").is_file()
+    # Source folder is manual_src/ with locale subfolder en/
+    assert (tmp_path / "manual_src" / "drawlib.toml").is_file()
+    assert (tmp_path / "manual_src" / "en" / "index.md").is_file()
+    assert not (tmp_path / "manual_src" / "index.md").exists()
     assert (tmp_path / "manual_src" / "build.sh").is_file()
     assert (tmp_path / "manual_src" / "build_html.sh").is_file()
     build_html_content = (tmp_path / "manual_src" / "build_html.sh").read_text(encoding="utf-8")
@@ -199,9 +210,21 @@ def test_cli_init_custom_target(tmp_path: Path) -> None:
     assert "manual_html" in build_html_content
 
 
+def _is_playwright_available() -> bool:
+    try:
+        from playwright.sync_api import sync_playwright  # noqa: PLC0415
+
+        with sync_playwright() as p:
+            browser = p.chromium.launch(headless=True)
+            browser.close()
+        return True
+    except Exception:
+        return False
+
+
 @pytest.mark.skipif(sys.platform == "win32", reason="POSIX bash script execution")
 def test_cli_init_run_build_sh(tmp_path: Path) -> None:
-    """Test executing the scaffolded build_html.sh script compiles the documentation."""
+    """Test executing the scaffolded build_html.sh and build_pdf.sh scripts compiles the documentation."""
     res = run_drawlib_cli(["init", "doc"], cwd=str(tmp_path))
     assert res.returncode == 0
 
@@ -218,8 +241,24 @@ def test_cli_init_run_build_sh(tmp_path: Path) -> None:
     )
     assert build_res.returncode == 0
     assert (tmp_path / "doc_html" / "index.html").is_file()
+    assert (tmp_path / "doc_html" / "en" / "index.html").is_file()
     assert (tmp_path / "doc_html" / "README.md").is_file()
     assert not (tmp_path / "doc_html" / "01_overview.html").exists()
+    assert not (tmp_path / "doc_html" / "en" / "01_overview.html").exists()
+
+    if _is_playwright_available():
+        build_pdf_sh = tmp_path / "doc_src" / "build_pdf.sh"
+        assert build_pdf_sh.is_file()
+        pdf_res = subprocess.run(
+            ["bash", str(build_pdf_sh)],
+            cwd=str(tmp_path / "doc_src"),
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        assert pdf_res.returncode == 0
+        assert (tmp_path / "doc_en.pdf").is_file()
+        assert not (tmp_path / "doc.pdf").exists()
 
 
 def test_cli_init_conflict_and_force(tmp_path: Path) -> None:
@@ -258,12 +297,19 @@ def test_cli_init_lang_ja(tmp_path: Path) -> None:
     assert "Initialized 'site' project" in res.stdout
 
     src_dir = tmp_path / "docs_src"
-    assert (src_dir / "index.md").is_file()
-    index_content = (src_dir / "index.md").read_text(encoding="utf-8")
+    assert (src_dir / "ja" / "index.md").is_file()
+    assert not (src_dir / "index.md").exists()
+    index_content = (src_dir / "ja" / "index.md").read_text(encoding="utf-8")
     assert "プロジェクト概要" in index_content
 
+    manifest_content = (src_dir / "drawlib.toml").read_text(encoding="utf-8")
+    assert "[i18n]" in manifest_content
+    assert 'default_lang = "ja"' in manifest_content
+    assert 'langs = ["ja"]' in manifest_content
+
     template_content = (src_dir / "template.html").read_text(encoding="utf-8")
-    assert '<html lang="ja"' in template_content
+    assert "{{ html_lang | default('en') }}" in template_content
+    assert "{{ html_dir | default('ltr') }}" in template_content
 
     config_content = (src_dir / "styles.py").read_text(encoding="utf-8")
     assert "FontJapanese" in config_content
@@ -319,15 +365,24 @@ def test_cli_init_lang_ja_style_google(tmp_path: Path) -> None:
 
 
 def test_cli_init_lang_th(tmp_path: Path) -> None:
-    """Test `drawlib init site --lang th` injects Thai font and falls back gracefully."""
+    """Test `drawlib init site --lang th` configures Thai locale, CSS font, and Jinja template."""
     res = run_drawlib_cli(["init", "site", "--lang", "th"], cwd=str(tmp_path))
     assert res.returncode == 0
     assert "Initialized 'site' project" in res.stdout
 
     src_dir = tmp_path / "docs_src"
+    assert (src_dir / "th" / "index.md").is_file()
+    assert not (src_dir / "index.md").exists()
+
+    manifest_content = (src_dir / "drawlib.toml").read_text(encoding="utf-8")
+    assert "[i18n]" in manifest_content
+    assert 'default_lang = "th"' in manifest_content
+    assert 'langs = ["th"]' in manifest_content
+
     template_content = (src_dir / "template.html").read_text(encoding="utf-8")
-    assert '<html lang="th"' in template_content
-    assert "Noto+Sans+Thai" in template_content
+    assert "{{ html_lang | default('en') }}" in template_content
+    assert "{{ html_dir | default('ltr') }}" in template_content
+    assert "{{ font_link_html | default('') | safe }}" in template_content
 
     style_content = (src_dir / "style.css").read_text(encoding="utf-8")
     assert "Noto Sans Thai" in style_content
@@ -341,14 +396,25 @@ def test_cli_init_lang_invalid(tmp_path: Path) -> None:
 
 
 def test_cli_init_site_and_doc_multi_lang(tmp_path: Path) -> None:
-    """Test multi-locale `drawlib init site` and `drawlib init doc` with drawlib.toml and reject slide/images."""
-    for single_type, folder in [("doc", "s_doc"), ("site", "s_site"), ("slide", "s_slide"), ("images", "s_imgs")]:
+    """Test unified i18n manifest/layout for doc, site, slide (single & multi-locale) and flat images."""
+    for single_type, folder in [("doc", "s_doc"), ("site", "s_site"), ("slide", "s_slide")]:
         res_single = run_drawlib_cli(["init", single_type, folder], cwd=str(tmp_path))
         assert res_single.returncode == 0
         manifest_text = (tmp_path / f"{folder}_src" / "drawlib.toml").read_text(encoding="utf-8")
         assert f'type = "{single_type}"' in manifest_text
-        assert 'lang = "en"' in manifest_text
-        assert "[i18n]" not in manifest_text
+        assert "[i18n]" in manifest_text
+        assert 'default_lang = "en"' in manifest_text
+        assert 'langs = ["en"]' in manifest_text
+        assert '\nlang = "en"' not in manifest_text
+        assert "[i18n.labels]" not in manifest_text
+
+    res_imgs = run_drawlib_cli(["init", "images", "s_imgs"], cwd=str(tmp_path))
+    assert res_imgs.returncode == 0
+    imgs_manifest = (tmp_path / "s_imgs_src" / "drawlib.toml").read_text(encoding="utf-8")
+    assert 'type = "images"' in imgs_manifest
+    assert 'lang = "en"' in imgs_manifest
+    assert "[i18n]" not in imgs_manifest
+    assert (tmp_path / "s_imgs_src" / "sample1.py").is_file()
 
     res = run_drawlib_cli(["init", "site", "sub/portal", "-l", "en,ja"], cwd=str(tmp_path))
     assert res.returncode == 0
@@ -361,6 +427,7 @@ def test_cli_init_site_and_doc_multi_lang(tmp_path: Path) -> None:
     assert "[i18n]" in site_toml
     assert 'default_lang = "en"' in site_toml
     assert 'langs = ["en", "ja"]' in site_toml
+    assert "[i18n.labels]" in site_toml
     assert (src_dir / "en" / "index.md").is_file()
     assert (src_dir / "ja" / "index.md").is_file()
     assert (src_dir / "en" / "navbar.md").is_file()
@@ -376,12 +443,31 @@ def test_cli_init_site_and_doc_multi_lang(tmp_path: Path) -> None:
     assert "[i18n]" in doc_toml
     assert 'default_lang = "en"' in doc_toml
     assert 'langs = ["en", "ja"]' in doc_toml
+    assert "[i18n.labels]" in doc_toml
     assert (doc_dir / "en" / "00_cover.md").is_file()
     assert (doc_dir / "ja" / "00_cover.md").is_file()
     assert not (doc_dir / "en" / "navbar.md").exists()
 
-    # Slide and images multi-lang should fail cleanly
-    for unsupported in ("slide", "images"):
-        res_bad = run_drawlib_cli(["init", unsupported, "-l", "en,ja"], cwd=str(tmp_path))
-        assert res_bad.returncode != 0
-        assert "only supported for 'site' and 'doc' projects" in res_bad.stderr
+    res_slide = run_drawlib_cli(["init", "slide", "sub/deck", "-l", "en,ja"], cwd=str(tmp_path))
+    assert res_slide.returncode == 0
+    slide_dir = tmp_path / "sub" / "deck_src"
+    assert (slide_dir / "drawlib.toml").is_file()
+    slide_toml = (slide_dir / "drawlib.toml").read_text(encoding="utf-8")
+    assert 'type = "slide"' in slide_toml
+    assert "[i18n]" in slide_toml
+    assert 'default_lang = "en"' in slide_toml
+    assert 'langs = ["en", "ja"]' in slide_toml
+    assert "[i18n.labels]" in slide_toml
+    assert 'en = "English"' in slide_toml
+    assert 'ja = "日本語"' in slide_toml
+    assert (slide_dir / "en" / "01_title.md").is_file()
+    assert (slide_dir / "en" / "02_agenda.md").is_file()
+    assert (slide_dir / "en" / "03_architecture.md").is_file()
+    assert (slide_dir / "ja" / "01_title.md").is_file()
+    assert (slide_dir / "ja" / "02_agenda.md").is_file()
+    assert (slide_dir / "ja" / "03_architecture.md").is_file()
+
+    # Images multi-lang should fail cleanly
+    res_bad = run_drawlib_cli(["init", "images", "-l", "en,ja"], cwd=str(tmp_path))
+    assert res_bad.returncode != 0
+    assert "supported for 'doc', 'site', and 'slide' projects, not 'images'" in res_bad.stderr

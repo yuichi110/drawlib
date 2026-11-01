@@ -652,7 +652,7 @@
 <span class="n">phosphor</span><span class="o">.</span><span class="n">file_code</span><span class="p">((</span><span class="mi">13</span><span class="p">,</span> <span class="mf">45.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">5.2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
 <span class="n">phosphor</span><span class="o">.</span><span class="n">sliders_horizontal</span><span class="p">((</span><span class="mi">25</span><span class="p">,</span> <span class="mf">45.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">5.2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
 <span class="n">text</span><span class="p">((</span><span class="mi">19</span><span class="p">,</span> <span class="mf">35.5</span><span class="p">),</span> <span class="s2">"Markdown Source"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">))</span>
-<span class="n">text</span><span class="p">((</span><span class="mi">19</span><span class="p">,</span> <span class="mf">26.5</span><span class="p">),</span> <span class="s2">"docs_src/*.md</span><span class="se">\n</span><span class="s2">styles.py &amp; utils.py</span><span class="se">\n</span><span class="s2">_assets/*"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mi">19</span><span class="p">,</span> <span class="mf">26.5</span><span class="p">),</span> <span class="s2">"docs_src/&lt;lang&gt;/*.md</span><span class="se">\n</span><span class="s2">styles.py &amp; utils.py</span><span class="se">\n</span><span class="s2">_assets/*"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
 <span class="n">rectangle</span><span class="p">(</span>
     <span class="p">(</span><span class="mi">19</span><span class="p">,</span> <span class="mf">13.0</span><span class="p">),</span>
     <span class="n">width</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span>
@@ -759,20 +759,20 @@
 <tbody>
 <tr>
 <td><strong><code>doc</code></strong></td>
-<td><code>doc_src/</code></td>
-<td><code>doc_html/</code>, <code>doc.pdf</code>, <code>doc.docx</code>, <code>doc_markdown/</code>, <code>doc_images/</code></td>
+<td><code>doc_src/&lt;lang&gt;/</code></td>
+<td><code>doc_html/</code>, <code>doc_&lt;lang&gt;.pdf</code>, <code>doc_&lt;lang&gt;.docx</code>, <code>doc_markdown/</code>, <code>doc_images/</code></td>
 <td>Linear technical documents, RFCs, specifications, whitepapers, and formal reports.</td>
 </tr>
 <tr>
 <td><strong><code>site</code></strong></td>
-<td><code>docs_src/</code></td>
+<td><code>docs_src/&lt;lang&gt;/</code></td>
 <td><code>docs_html/</code>, <code>docs_markdown/</code> (or <code>docs/</code>), <code>docs_images/</code></td>
-<td>Multi-page documentation websites with sidebar navigation (<code>navbar.md</code>).</td>
+<td>Multi-page documentation websites with sidebar navigation (<code>&lt;lang&gt;/navbar.md</code>).</td>
 </tr>
 <tr>
 <td><strong><code>slide</code></strong></td>
-<td><code>slide_src/</code></td>
-<td><code>slide_html/</code>, <code>slide.pdf</code>, <code>slide.pptx</code>, <code>slide_images/</code></td>
+<td><code>slide_src/&lt;lang&gt;/</code></td>
+<td><code>slide_html/</code>, <code>slide_&lt;lang&gt;.pdf</code>, <code>slide_&lt;lang&gt;.pptx</code>, <code>slide_images/</code></td>
 <td>16:9 presentation slide decks (interactive web deck, printable vector PDF, and editable PowerPoint).</td>
 </tr>
 <tr>
@@ -807,8 +807,8 @@
         <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
         <span class="n">phosphor</span><span class="o">.</span><span class="n">file_pdf</span><span class="p">,</span>
         <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">,</span>
-        <span class="s2">"doc_src/*.md"</span><span class="p">,</span>
-        <span class="s2">"doc.pdf / .docx</span><span class="se">\n</span><span class="s2">&amp; doc_html/"</span><span class="p">,</span>
+        <span class="s2">"doc_src/</span><span class="se">\n</span><span class="s2">&lt;lang&gt;/*.md"</span><span class="p">,</span>
+        <span class="s2">"doc_&lt;lang&gt;.pdf</span><span class="se">\n</span><span class="s2">.docx &amp; _html/"</span><span class="p">,</span>
     <span class="p">),</span>
     <span class="p">(</span>
         <span class="mi">93</span><span class="p">,</span>
@@ -818,7 +818,7 @@
         <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">,</span>
         <span class="n">phosphor</span><span class="o">.</span><span class="n">globe</span><span class="p">,</span>
         <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">,</span>
-        <span class="s2">"docs_src/*.md</span><span class="se">\n</span><span class="s2">+ navbar.md"</span><span class="p">,</span>
+        <span class="s2">"docs_src/&lt;lang&gt;/</span><span class="se">\n</span><span class="s2">+ navbar.md"</span><span class="p">,</span>
         <span class="s2">"docs_html/</span><span class="se">\n</span><span class="s2">docs_markdown/"</span><span class="p">,</span>
     <span class="p">),</span>
     <span class="p">(</span>
@@ -829,8 +829,8 @@
         <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
         <span class="n">phosphor</span><span class="o">.</span><span class="n">presentation_chart</span><span class="p">,</span>
         <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">,</span>
-        <span class="s2">"slide_src/*.md"</span><span class="p">,</span>
-        <span class="s2">"slide_html/</span><span class="se">\n</span><span class="s2">.pdf &amp; .pptx"</span><span class="p">,</span>
+        <span class="s2">"slide_src/</span><span class="se">\n</span><span class="s2">&lt;lang&gt;/*.md"</span><span class="p">,</span>
+        <span class="s2">"slide_html/</span><span class="se">\n</span><span class="s2">_&lt;lang&gt;.pdf/.pptx"</span><span class="p">,</span>
     <span class="p">),</span>
     <span class="p">(</span>
         <span class="mi">93</span><span class="p">,</span>
@@ -874,7 +874,7 @@
 </details>
 <hr />
 <h2>4. Parallel Multi-Agent Authoring Across Project Templates</h2>
-<p>Because every Drawlib project separates <strong>shared configuration</strong> (<code>styles.py</code>, <code>utils.py</code>, <code>_assets/</code>, <code>navbar.md</code>) from <strong>modular content files</strong> (<code>*.py</code> or <code>*.md</code>), AI coding agents can accelerate large documentation and illustration tasks by distributing work across <strong>parallel subagents</strong>:</p>
+<p>Because every Drawlib project separates <strong>shared configuration</strong> (<code>drawlib.toml</code>, <code>styles.py</code>, <code>utils.py</code>, <code>_assets/</code>, <code>&lt;lang&gt;/navbar.md</code>) from <strong>modular content files</strong> (<code>*.py</code> or <code>&lt;lang&gt;/*.md</code>), AI coding agents can accelerate large documentation and illustration tasks by distributing work across <strong>parallel subagents</strong>:</p>
 <table>
 <thead>
 <tr>
@@ -888,24 +888,24 @@
 <tbody>
 <tr>
 <td style="text-align:left"><strong><code>doc</code></strong></td>
-<td style="text-align:left">Numbered chapter file (<code>doc_src/01_*.md</code>, <code>02_*.md</code>, ...)</td>
-<td style="text-align:left"><code>drawlib init doc</code>, <code>styles.py</code>, <code>utils.py</code>, <code>00_cover.md</code>, chapter outline</td>
+<td style="text-align:left">Numbered chapter file (<code>doc_src/&lt;lang&gt;/01_*.md</code>, <code>02_*.md</code>, ...)</td>
+<td style="text-align:left"><code>drawlib init doc</code>, <code>styles.py</code>, <code>utils.py</code>, <code>&lt;lang&gt;/00_cover.md</code>, chapter outline</td>
 <td style="text-align:left">Author assigned chapter(s) &amp; run <code>drawlib show ... -g -o .drawlib/scratch/0N_&lt;fig&gt;_grid.png</code></td>
-<td style="text-align:left">Run <code>./doc_src/build.sh</code> (or <code>build docx</code>) &amp; inspect <code>doc.pdf</code> / <code>doc_html/</code></td>
+<td style="text-align:left">Run <code>./doc_src/build.sh</code> (or <code>build docx</code>) &amp; inspect <code>doc_&lt;lang&gt;.pdf</code> / <code>doc_html/</code></td>
 </tr>
 <tr>
 <td style="text-align:left"><strong><code>site</code></strong></td>
-<td style="text-align:left">Topic page or section folder (<code>docs_src/01_arch/*.md</code>, ...)</td>
-<td style="text-align:left"><code>drawlib init site</code>, <code>styles.py</code>, <code>utils.py</code>, <code>navbar.md</code>, <code>index.md</code></td>
+<td style="text-align:left">Topic page or section folder (<code>docs_src/&lt;lang&gt;/01_arch/*.md</code>, ...)</td>
+<td style="text-align:left"><code>drawlib init site</code>, <code>styles.py</code>, <code>utils.py</code>, <code>&lt;lang&gt;/navbar.md</code>, <code>&lt;lang&gt;/index.md</code></td>
 <td style="text-align:left">Author assigned page(s) &amp; run Stage 1 + Stage 2 grid review with unique scratch filenames</td>
 <td style="text-align:left">Run <code>./docs_src/build.sh</code>, <code>serve --check</code>, &amp; browser check</td>
 </tr>
 <tr>
 <td style="text-align:left"><strong><code>slide</code></strong></td>
-<td style="text-align:left">Slide file (<code>slide_src/02_*.md</code>, ...) or section directory</td>
+<td style="text-align:left">Slide file (<code>slide_src/&lt;lang&gt;/02_*.md</code>, ...) or section directory</td>
 <td style="text-align:left"><code>drawlib init slide</code>, <code>styles.py</code>, <code>utils.py</code>, deck story arc &amp; slide numbering</td>
 <td style="text-align:left">Author assigned slide(s) (<code>::: block</code> + <code>::: note</code>) &amp; run Stage 1 + Stage 2 grid review</td>
-<td style="text-align:left">Run <code>./slide_src/build.sh</code> (or <code>build pptx</code>) &amp; inspect <code>slide.pdf</code> / <code>1920x1080</code> stage</td>
+<td style="text-align:left">Run <code>./slide_src/build.sh</code> (or <code>build pptx</code>) &amp; inspect <code>slide_&lt;lang&gt;.pdf</code> / <code>1920x1080</code> stage</td>
 </tr>
 <tr>
 <td style="text-align:left"><strong><code>images</code></strong></td>
@@ -918,7 +918,7 @@
 </table>
 <h3>Concurrency Guardrails for Subagents:</h3>
 <ol>
-<li><strong>Read-Only Shared Files</strong>: Subagents treat <code>styles.py</code>, <code>utils.py</code>, and <code>navbar.md</code> as read-only and edit only their assigned <code>.md</code> or <code>.py</code> files.</li>
+<li><strong>Read-Only Shared Files</strong>: Subagents treat <code>drawlib.toml</code>, <code>styles.py</code>, <code>utils.py</code>, and <code>&lt;lang&gt;/navbar.md</code> as read-only and edit only their assigned <code>.md</code> or <code>.py</code> files.</li>
 <li><strong>Unique Scratch Preview Paths</strong>: Each subagent writes <code>-g</code> grid previews to a unique path (<code>-o .drawlib/scratch/&lt;unique_name&gt;_grid.png</code>, never a shared <code>preview.png</code>) so concurrent multimodal inspections never collide.</li>
 <li><strong>Single Unified Build</strong>: Subagents only run <code>drawlib show ... -g</code> for their assigned diagrams; the parent agent runs <code>./build.sh</code> once after all subagents finish, avoiding concurrent SQLite writes to <code>.drawlib/cache.db</code>.</li>
 </ol>

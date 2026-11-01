@@ -24,8 +24,13 @@ from drawlib._builder.doc_builder import build_document, build_docx
 def test_build_docx_rich_markdown_elements(tmp_path) -> None:
     """Verify headings, inline styles, links, lists, blockquotes, tables, and code blocks."""
     doc_dir = tmp_path / "spec_src"
-    doc_dir.mkdir()
+    en_dir = doc_dir / "en"
+    en_dir.mkdir(parents=True)
 
+    (doc_dir / "drawlib.toml").write_text(
+        '[project]\ntype = "doc"\n\n[i18n]\ndefault_lang = "en"\nlangs = ["en"]\n',
+        encoding="utf-8",
+    )
     (doc_dir / "style.css").write_text(
         """:root {
     --rtd-brand-color: #1a73e8;
@@ -38,7 +43,7 @@ def test_build_docx_rich_markdown_elements(tmp_path) -> None:
         encoding="utf-8",
     )
 
-    (doc_dir / "00_cover.md").write_text(
+    (en_dir / "00_cover.md").write_text(
         """# System Architecture Specification
 
 Lead paragraph with **bold**, *italic*, ~~strikethrough~~, `inline_code()`, and [Drawlib Site](https://www.drawlib.com).
@@ -64,7 +69,7 @@ Paragraph between numbered lists.
         encoding="utf-8",
     )
 
-    (doc_dir / "01_details.md").write_text(
+    (en_dir / "01_details.md").write_text(
         """# Implementation Details
 
 ## Service Matrix
@@ -83,6 +88,7 @@ def health_check() -> bool:
     )
 
     out_docx = tmp_path / "spec.docx"
+    expected_docx = tmp_path / "spec_en.docx"
     result_path = build_docx(
         input_path=str(doc_dir),
         output_file=str(out_docx),
@@ -91,10 +97,10 @@ def health_check() -> bool:
         no_cache=True,
     )
 
-    assert result_path == str(out_docx)
-    assert out_docx.is_file()
+    assert result_path == str(expected_docx)
+    assert expected_docx.is_file()
 
-    parsed = docx.Document(str(out_docx))
+    parsed = docx.Document(str(expected_docx))
     assert parsed.core_properties.title == "System Architecture Specification"
     assert parsed.core_properties.created == datetime.datetime(2026, 1, 1, 0, 0, 0, tzinfo=datetime.timezone.utc)
 
@@ -202,16 +208,24 @@ save()
 def test_build_docx_deterministic_and_build_document_dispatch(tmp_path) -> None:
     """Verify deterministic byte-identical output and build_document dispatch."""
     src_dir = tmp_path / "doc_src"
-    src_dir.mkdir()
-    (src_dir / "00_intro.md").write_text("# Deterministic Word\n\n日本語テキストの検証。", encoding="utf-8")
+    (src_dir / "en").mkdir(parents=True)
+    (src_dir / "drawlib.toml").write_text(
+        '[project]\ntype = "doc"\n\n[i18n]\ndefault_lang = "en"\nlangs = ["en"]\n',
+        encoding="utf-8",
+    )
+    (src_dir / "en" / "00_intro.md").write_text("# Deterministic Word\n\n日本語テキストの検証。", encoding="utf-8")
 
     out1 = tmp_path / "out1.docx"
     out2 = tmp_path / "out2.docx"
-    build_docx(str(src_dir), str(out1))
-    build_document(str(src_dir), str(out2))  # inferred from .docx suffix
+    res1 = build_docx(str(src_dir), str(out1))
+    res2 = build_document(str(src_dir), str(out2))  # inferred from .docx suffix
 
-    assert out1.read_bytes() == out2.read_bytes()
-    with zipfile.ZipFile(out1, "r") as zf:
+    out1_en = tmp_path / "out1_en.docx"
+    out2_en = tmp_path / "out2_en.docx"
+    assert res1 == str(out1_en)
+    assert res2 == str(out2_en)
+    assert out1_en.read_bytes() == out2_en.read_bytes()
+    with zipfile.ZipFile(out1_en, "r") as zf:
         for info in zf.infolist():
             assert info.date_time == (2026, 1, 1, 0, 0, 0)
 
@@ -219,13 +233,18 @@ def test_build_docx_deterministic_and_build_document_dispatch(tmp_path) -> None:
 def test_build_docx_dark_theme_fallback_and_slide_rejection(tmp_path) -> None:
     """Verify dark CSS theme falls back to readable text colors and slide directories are rejected."""
     dark_dir = tmp_path / "dark_doc_src"
-    dark_dir.mkdir()
+    (dark_dir / "en").mkdir(parents=True)
+    (dark_dir / "drawlib.toml").write_text(
+        '[project]\ntype = "doc"\n\n[i18n]\ndefault_lang = "en"\nlangs = ["en"]\n',
+        encoding="utf-8",
+    )
     (dark_dir / "style.css").write_text(
         ":root { --rtd-bg-color: #0f172a; --rtd-text-color: #f8fafc; --rtd-brand-color: #38bdf8; }",
         encoding="utf-8",
     )
-    (dark_dir / "01_page.md").write_text("# Dark Theme Chapter\n\nBody text.", encoding="utf-8")
+    (dark_dir / "en" / "01_page.md").write_text("# Dark Theme Chapter\n\nBody text.", encoding="utf-8")
     dark_out = build_docx(str(dark_dir), str(tmp_path / "dark.docx"))
+    assert dark_out == str(tmp_path / "dark_en.docx")
     parsed = docx.Document(dark_out)
     # Normal text color must stay dark on white A4 Word paper, not #f8fafc near-white
     rgb = parsed.styles["Normal"].font.color.rgb
@@ -234,9 +253,12 @@ def test_build_docx_dark_theme_fallback_and_slide_rejection(tmp_path) -> None:
 
     # Slide directory must raise clear error suggesting drawlib build pptx
     slide_dir = tmp_path / "slide_src"
-    slide_dir.mkdir()
-    (slide_dir / "slide.css").write_text(".presentation-stage {}", encoding="utf-8")
-    (slide_dir / "01_title.md").write_text("# Slide", encoding="utf-8")
+    (slide_dir / "en").mkdir(parents=True)
+    (slide_dir / "drawlib.toml").write_text(
+        '[project]\ntype = "slide"\n\n[i18n]\ndefault_lang = "en"\nlangs = ["en"]\n',
+        encoding="utf-8",
+    )
+    (slide_dir / "en" / "01_title.md").write_text("# Slide", encoding="utf-8")
 
     with pytest.raises(ValueError, match="drawlib build pptx"):
         build_docx(str(slide_dir))

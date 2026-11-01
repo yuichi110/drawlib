@@ -21,13 +21,15 @@ import sys
 import traceback
 import warnings
 from collections.abc import Callable, Sequence
-from typing import Literal
+from dataclasses import dataclass
+from typing import Final, Literal
 
 import drawlib._core.l4_canvas
 import drawlib.canvas
 from drawlib._builder._common import (
     BuildImageCache,
     FileBuildProgress,
+    find_project_manifest,
     format_duplicate_output_error,
     hash_file,
     load_project_manifest,
@@ -37,6 +39,7 @@ from drawlib._builder._common import (
 from drawlib._builder._image_ast import (
     _collect_target_files,
     _extract_single_static_save,
+    _get_markdown_files,
     _get_python_files,
     _has_local_imports,
     _is_save_call_node,
@@ -48,8 +51,10 @@ from drawlib._builder._image_ast import (
     resolve_effective_output_dir,
     resolve_static_save_target,
 )
-from drawlib._builder.doc_builder.i18n import validate_i18n_project
+from drawlib._builder.doc_builder.detector import preserve_outer_fences
+from drawlib._builder.doc_builder.i18n import collect_locale_doc_files, validate_i18n_project
 from drawlib._builder.doc_builder.processor import DrawlibBlockProcessor
+from drawlib._builder.doc_builder.processor.options import DrawlibBlockOptions, parse_block_info
 from drawlib._core.l1_core import drawlib_settings, get_script_relative_path, logger, validate_call
 from drawlib._core.l4_canvas import clear
 from drawlib._core.l4_canvas._canvas import Canvas
@@ -659,7 +664,7 @@ def build_image(
             all_md_files=all_md_files,
             resolved_targets=resolved_targets,
             output_dir=output_dir,
-            image_format=str(format or "png"),
+            image_format=format,
             styles_path=styles_path,
             utils_path=utils_path,
             styles_abs=styles_abs,
@@ -674,12 +679,310 @@ def build_image(
     return executed
 
 
+_SLIDE_DRAWLIB_PATTERN: Final[re.Pattern[str]] = re.compile(
+    r"(?<=\n)[ \t]*```drawlib([^\n]*)\n(.*?)\n[ \t]*```",
+    re.DOTALL,
+)
+_SLIDE_DIAGRAM_EXTS: Final[tuple[str, ...]] = (".svg", ".png", ".apng", ".webp", ".jpg", ".jpeg", ".pdf")
+
+
+@dataclass(frozen=True)
+class _MarkdownImageJob:
+    """Single Markdown file image-rendering job with resolved locale configuration."""
+
+    md_file: str
+    stem: str
+    shared_dir: str | None
+    styles_path: str | None
+    utils_path: str | None
+    project_root: str | None
+    slide_ctx: tuple[int, int] | None = None
+
+
+def _resolve_styles_and_utils_in_project(
+    start_dir: str,
+    proj_root: str,
+    styles_path: str | None,
+    utils_path: str | None,
+) -> tuple[str | None, str | None]:
+    """Resolve styles.py and utils.py walking from start_dir up to proj_root inclusive."""
+    start_abs = os.path.abspath(start_dir)
+    root_abs = os.path.abspath(proj_root)
+    search_dirs: list[str] = []
+    curr = start_abs
+    while True:
+        search_dirs.append(curr)
+        if curr == root_abs:
+            break
+        parent = os.path.dirname(curr)
+        if not parent or parent == curr:
+            if root_abs not in search_dirs:
+                search_dirs.append(root_abs)
+            break
+        curr = parent
+
+    resolved_styles = os.path.abspath(styles_path) if styles_path else None
+    if resolved_styles is None:
+        for d in search_dirs:
+            cand = os.path.join(d, "styles.py")
+            if os.path.isfile(cand):
+                resolved_styles = os.path.abspath(cand)
+                break
+
+    resolved_utils = os.path.abspath(utils_path) if utils_path else None
+    if resolved_utils is None:
+        for d in search_dirs:
+            cand = os.path.join(d, "utils.py")
+            if os.path.isfile(cand):
+                resolved_utils = os.path.abspath(cand)
+                break
+
+    return resolved_styles, resolved_utils
+
+
+def _evict_project_utils_module(project_root: str | None, active_utils: str | None) -> None:
+    """Evict cached top-level ``utils`` module if it belongs to a different file inside project_root."""
+    if not project_root:
+        return
+    mod = sys.modules.get("utils")
+    if mod is None:
+        return
+    mod_file = getattr(mod, "__file__", None)
+    if not mod_file:
+        return
+    mod_abs = os.path.abspath(mod_file)
+    root_abs = os.path.abspath(project_root)
+    if mod_abs.startswith(root_abs + os.sep) and (active_utils is None or mod_abs != os.path.abspath(active_utils)):
+        sys.modules.pop("utils", None)
+
+
+def _resolve_slide_block_filename(
+    options: DrawlibBlockOptions,
+    slide_idx: int,
+    counter: int,
+    image_format: str | None,
+    *,
+    has_anim: bool,
+) -> str:
+    """Resolve output filename for a single slide drawlib block."""
+    force_fmt = image_format is not None
+    if force_fmt:
+        eff_fmt = image_format
+    else:
+        eff_fmt = options.format or "svg"
+        if has_anim and eff_fmt == "svg":
+            eff_fmt = "png"
+
+    if not options.file:
+        return f"drawlib_{slide_idx}_{counter}.{eff_fmt}"
+
+    dl_file = options.file.strip()
+    if force_fmt:
+        stem_f, ext_f = os.path.splitext(dl_file)
+        if ext_f.lower() in _SLIDE_DIAGRAM_EXTS:
+            return f"{stem_f}.{eff_fmt}"
+        return f"{dl_file}.{eff_fmt}"
+
+    if not dl_file.lower().endswith(_SLIDE_DIAGRAM_EXTS):
+        return f"{dl_file}.{eff_fmt}"
+    return dl_file
+
+
+def _render_slide_markdown_job(
+    *,
+    content: str,
+    job: _MarkdownImageJob,
+    processor: DrawlibBlockProcessor,
+    out_img_dir: str,
+    image_format: str | None,
+) -> bool:
+    """Render embedded drawlib blocks inside a single slide Markdown file with SlideContext."""
+    from drawlib._slide._blocks import extract_slide_notes  # noqa: PLC0415
+    from drawlib._slide.base import reset_slide_context, set_slide_context  # noqa: PLC0415
+
+    if job.slide_ctx is None:
+        return False
+    slide_idx, total_slides = job.slide_ctx
+    content_without_notes, _ = extract_slide_notes(content)
+    masked_text, _ = preserve_outer_fences(content_without_notes)
+    text_to_search = "\n" + masked_text if not masked_text.startswith("\n") else masked_text
+    matches = list(_SLIDE_DRAWLIB_PATTERN.finditer(text_to_search))
+    if not matches:
+        return False
+
+    ctx_token = set_slide_context(index=slide_idx, total=total_slides)
+    try:
+        for counter, match in enumerate(matches, start=1):
+            info_str = match.group(1).strip()
+            code = match.group(2).strip()
+            options = parse_block_info(info_str)
+            has_anim = (
+                options.anim_trigger is not None
+                or options.anim_loop is not None
+                or bool(options.anim_pause)
+                or "Animation(" in code
+            )
+            dl_file = _resolve_slide_block_filename(
+                options,
+                slide_idx,
+                counter,
+                image_format,
+                has_anim=has_anim,
+            )
+            if "/" in dl_file or "\\" in dl_file:
+                target_img_path = os.path.abspath(os.path.join(out_img_dir, dl_file.replace("\\", "/")))
+            elif job.shared_dir is not None:
+                target_img_path = os.path.abspath(os.path.join(job.shared_dir, dl_file))
+            else:
+                target_img_path = os.path.abspath(os.path.join(out_img_dir, f"{job.stem}_images", dl_file))
+            processor.render_block_to_file(
+                code,
+                target_img_path,
+                source_filename=job.md_file,
+                no_cache=options.no_cache,
+            )
+    finally:
+        reset_slide_context(ctx_token)
+    return True
+
+
+def _build_directory_markdown_jobs(
+    *,
+    root_target_dir: str,
+    out_img_dir: str,
+    image_format: str | None,
+    styles_path: str | None,
+    utils_path: str | None,
+) -> list[_MarkdownImageJob]:
+    """Validate drawlib.toml and build locale-ordered Markdown image jobs for a project directory."""
+    manifest = load_project_manifest(root_target_dir)
+    if manifest is None:
+        found = find_project_manifest(root_target_dir, max_up=3)
+        if found is not None and os.path.abspath(found[0]) != os.path.abspath(root_target_dir):
+            proj_root, _ = found
+            raise ValueError(
+                f'No "drawlib.toml" manifest found in "{root_target_dir}". '
+                f'Found project manifest in parent directory "{proj_root}" — '
+                f'pass the project root directory "{proj_root}" instead of a locale subdirectory.'
+            )
+        raise ValueError(
+            f'Missing required "drawlib.toml" project manifest in "{root_target_dir}". '
+            "Markdown project directories require a drawlib.toml manifest with [project] and [i18n] sections."
+        )
+
+    if manifest.project.type not in {"doc", "site", "slide"} or manifest.i18n is None:
+        raise ValueError(
+            f'Input directory "{root_target_dir}" is a "{manifest.project.type}" project; '
+            'Markdown image compilation requires a "doc", "site", or "slide" project with [i18n] in drawlib.toml.'
+        )
+
+    if manifest.project.type == "doc":
+        proj_type: Literal["doc", "site", "slide"] = "doc"
+    elif manifest.project.type == "slide":
+        proj_type = "slide"
+    else:
+        proj_type = "site"
+
+    eff_default_fmt = image_format or ("svg" if proj_type == "slide" else "png")
+    i18n_cfg = manifest.i18n
+    locale_files = validate_i18n_project(
+        root_target_dir,
+        i18n_cfg,
+        project_type=proj_type,
+        default_format=eff_default_fmt,
+    )
+    ordered_langs = [i18n_cfg.default_lang] + [lc for lc in i18n_cfg.langs if lc != i18n_cfg.default_lang]
+    jobs: list[_MarkdownImageJob] = []
+    for lang in ordered_langs:
+        lang_dir = os.path.join(root_target_dir, lang)
+        loc_styles, loc_utils = _resolve_styles_and_utils_in_project(
+            lang_dir,
+            root_target_dir,
+            styles_path,
+            utils_path,
+        )
+        md_rel_files = [rp for rp in locale_files[lang] if rp.lower().endswith((".md", ".markdown"))]
+        total_slides = len(md_rel_files)
+        for slide_idx, rel_path in enumerate(md_rel_files, start=1):
+            md_abs = os.path.join(lang_dir, *rel_path.split("/"))
+            rel_stem = os.path.splitext(rel_path)[0]
+            shared_dir = os.path.join(out_img_dir, *rel_stem.split("/"))
+            jobs.append(
+                _MarkdownImageJob(
+                    md_file=md_abs,
+                    stem=rel_stem,
+                    shared_dir=shared_dir,
+                    styles_path=loc_styles,
+                    utils_path=loc_utils,
+                    project_root=root_target_dir,
+                    slide_ctx=(slide_idx, total_slides) if proj_type == "slide" else None,
+                )
+            )
+    return jobs
+
+
+def _build_single_markdown_job(
+    *,
+    md_file: str,
+    styles_path: str | None,
+    utils_path: str | None,
+    styles_abs: str | None,
+    utils_abs: str | None,
+) -> _MarkdownImageJob:
+    """Resolve project root, nested locale styles/utils, and slide context for a single Markdown file."""
+    md_dir = os.path.dirname(md_file)
+    stem = os.path.splitext(os.path.basename(md_file))[0]
+    found = find_project_manifest(md_dir, max_up=10)
+    if found is None:
+        job_styles, job_utils = resolve_styles_and_utils(md_dir, styles_path, utils_path)
+        return _MarkdownImageJob(
+            md_file=md_file,
+            stem=stem,
+            shared_dir=None,
+            styles_path=job_styles or styles_abs,
+            utils_path=job_utils or utils_abs,
+            project_root=None,
+            slide_ctx=None,
+        )
+
+    proj_root, single_manifest = found
+    job_styles, job_utils = _resolve_styles_and_utils_in_project(
+        md_dir,
+        proj_root,
+        styles_path,
+        utils_path,
+    )
+    slide_ctx: tuple[int, int] | None = None
+    if single_manifest.project.type == "slide":
+        rel_to_proj = os.path.relpath(md_file, proj_root).replace(os.sep, "/")
+        parts = rel_to_proj.split("/")
+        if single_manifest.i18n is not None and len(parts) >= 2 and parts[0] in single_manifest.i18n.langs:
+            lang_code = parts[0]
+            rel_in_lang = "/".join(parts[1:])
+            deck_files = collect_locale_doc_files(os.path.join(proj_root, lang_code), markdown_only=True)
+            total_s = max(len(deck_files), 1)
+            s_idx = (deck_files.index(rel_in_lang) + 1) if rel_in_lang in deck_files else 1
+            slide_ctx = (s_idx, total_s)
+        else:
+            slide_ctx = (1, 1)
+
+    return _MarkdownImageJob(
+        md_file=md_file,
+        stem=stem,
+        shared_dir=None,
+        styles_path=job_styles,
+        utils_path=job_utils,
+        project_root=proj_root,
+        slide_ctx=slide_ctx,
+    )
+
+
 def _execute_markdown_image_targets(
     *,
     all_md_files: list[str],
     resolved_targets: list[str],
     output_dir: str | None,
-    image_format: str,
+    image_format: str | None,
     styles_path: str | None,
     utils_path: str | None,
     styles_abs: str | None,
@@ -696,83 +999,84 @@ def _execute_markdown_image_targets(
             else os.path.join(os.path.dirname(resolved_targets[0]), "images")
         )
     )
-    os.makedirs(out_img_dir, exist_ok=True)
     root_target_dir = (
         resolved_targets[0] if (len(resolved_targets) == 1 and os.path.isdir(resolved_targets[0])) else None
     )
-    manifest = load_project_manifest(root_target_dir) if root_target_dir else None
 
-    md_jobs: list[tuple[str, str, str | None, str | None, str | None]] = []
-    if root_target_dir and manifest is not None and manifest.i18n is not None:
-        i18n_cfg = manifest.i18n
-        proj_type: Literal["site", "doc"] = "doc" if manifest.project.type == "doc" else "site"
-        locale_files = validate_i18n_project(
-            root_target_dir,
-            i18n_cfg,
-            project_type=proj_type,
-            default_format=image_format,
+    if root_target_dir is not None:
+        md_jobs = _build_directory_markdown_jobs(
+            root_target_dir=root_target_dir,
+            out_img_dir=out_img_dir,
+            image_format=image_format,
+            styles_path=styles_path,
+            utils_path=utils_path,
         )
-        ordered_langs = [i18n_cfg.default_lang] + [lc for lc in i18n_cfg.langs if lc != i18n_cfg.default_lang]
-        for lang in ordered_langs:
-            loc_styles, loc_utils = resolve_styles_and_utils(
-                os.path.join(root_target_dir, lang),
-                styles_path,
-                utils_path,
-            )
-            for rel_path in locale_files[lang]:
-                if not rel_path.lower().endswith((".md", ".markdown")):
-                    continue
-                md_abs = os.path.join(root_target_dir, lang, *rel_path.split("/"))
-                rel_stem = os.path.splitext(rel_path)[0]
-                shared_dir = os.path.join(out_img_dir, *rel_stem.split("/"))
-                md_jobs.append((md_abs, rel_stem, shared_dir, loc_styles, loc_utils))
     else:
-        for md_file in all_md_files:
-            if root_target_dir:
-                rel_md = os.path.relpath(md_file, root_target_dir)
-                stem = os.path.splitext(rel_md)[0].replace(os.sep, "/")
-            else:
-                stem = os.path.splitext(os.path.basename(md_file))[0]
-            md_jobs.append((md_file, stem, None, styles_abs, utils_abs))
+        md_jobs = [
+            _build_single_markdown_job(
+                md_file=md_file,
+                styles_path=styles_path,
+                utils_path=utils_path,
+                styles_abs=styles_abs,
+                utils_abs=utils_abs,
+            )
+            for md_file in all_md_files
+        ]
 
+    os.makedirs(out_img_dir, exist_ok=True)
     cache = BuildImageCache(enabled=not no_cache)
-    processors_by_cfg: dict[tuple[str | None, str | None], DrawlibBlockProcessor] = {}
+    processors_by_cfg: dict[tuple[str | None, str | None, str | None, str], DrawlibBlockProcessor] = {}
     md_pattern = re.compile(r"(?:^|\n)[ \t]*```drawlib\b", re.IGNORECASE)
+    doc_img_format = image_format or "png"
     orig_cwd = os.getcwd()
     try:
-        for md_file, stem, shared_dir, job_styles, job_utils in md_jobs:
+        for job in md_jobs:
             try:
-                with open(md_file, "r", encoding="utf-8") as f:
+                with open(job.md_file, "r", encoding="utf-8") as f:
                     content = f.read()
             except OSError:
                 continue
             if not md_pattern.search(content):
                 continue
 
-            cfg_key = (job_styles, job_utils)
+            extra_hash = f"total_slides:{job.slide_ctx[1]}" if job.slide_ctx is not None else ""
+            cfg_key = (job.styles_path, job.utils_path, job.project_root, extra_hash)
+            _evict_project_utils_module(job.project_root, job.utils_path)
             processor = processors_by_cfg.get(cfg_key)
             if processor is None:
                 processor = DrawlibBlockProcessor(
-                    styles_path=job_styles,
-                    utils_path=job_utils,
+                    styles_path=job.styles_path,
+                    utils_path=job.utils_path,
                     no_cache=no_cache,
                     cache=cache,
                     require_file=False,
-                    project_root=root_target_dir,
+                    project_root=job.project_root,
+                    extra_config_hash=extra_hash,
                 )
                 processors_by_cfg[cfg_key] = processor
 
-            os.chdir(os.path.dirname(md_file))
-            processor.process_markdown(
-                markdown_text=content,
-                doc_base_name=stem,
-                output_dir=out_img_dir,
-                image_format=image_format,
-                source_filename=md_file,
-                shared_images_dir=shared_dir,
-            )
-            if md_file not in executed:
-                executed.append(md_file)
+            os.chdir(os.path.dirname(job.md_file))
+            if job.slide_ctx is not None:
+                rendered = _render_slide_markdown_job(
+                    content=content,
+                    job=job,
+                    processor=processor,
+                    out_img_dir=out_img_dir,
+                    image_format=image_format,
+                )
+                if rendered and job.md_file not in executed:
+                    executed.append(job.md_file)
+            else:
+                processor.process_markdown(
+                    markdown_text=content,
+                    doc_base_name=job.stem,
+                    output_dir=out_img_dir,
+                    image_format=doc_img_format,
+                    source_filename=job.md_file,
+                    shared_images_dir=job.shared_dir,
+                )
+                if job.md_file not in executed:
+                    executed.append(job.md_file)
     finally:
         os.chdir(orig_cwd)
 
@@ -782,6 +1086,7 @@ __all__ = [
     "_SaveCallVisitor",
     "_collect_target_files",
     "_extract_single_static_save",
+    "_get_markdown_files",
     "_get_python_files",
     "_has_local_imports",
     "_is_save_call_node",

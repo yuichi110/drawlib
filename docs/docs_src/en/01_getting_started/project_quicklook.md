@@ -1080,12 +1080,12 @@ save()
 
 Instead of writing documentation in static wikis and manually copying and pasting PNG screenshots, Drawlib establishes a clean, repeatable human-in-the-loop workflow with AI coding agents:
 
-1. **Day 1 — Initialize, Author & Commit**: Ask your AI agent to create the initial project (`drawlib init doc`, configuring `styles.py`, `utils.py`, and optional `template.html` / `style.css`), then ask it to author and compile your specification (`*.md` with ```` ```drawlib ```` blocks -> `doc_markdown/`, `doc_html/`, `doc.pdf`, `doc.docx`), and review & commit to Git.
+1. **Day 1 — Initialize, Author & Commit**: Ask your AI agent to create the initial project (`drawlib init doc`, configuring `drawlib.toml`, `styles.py`, `utils.py`, and optional `template.html` / `style.css`), then ask it to author and compile your specification (`doc_src/<lang>/*.md` with ```` ```drawlib ```` blocks -> `doc_markdown/`, `doc_html/`, `doc_<lang>.pdf`, `doc_<lang>.docx`), and review & commit to Git.
 2. **Day 2+ — Daily Incremental Updates**: Whenever application code evolves, simply ask the AI agent to update the project docs (editing `.md` chapters and running `./doc_src/build.sh` with `.drawlib/cache.db` caching) and commit the refreshed deliverables alongside your code.
 
 ### The Golden Rule: `<name>_src/` is the Single Source of Truth
 - Always edit Markdown files and Python code inside the source directory (e.g. `docs_src/`).
-- Never edit the output directories (`docs/`, `docs_html/`, `docs.pdf`, `doc.docx`, `slide.pptx`) directly; they are build artifacts completely overwritten during compilation.
+- Never edit the output directories or deliverables (`docs_markdown/`, `docs_html/`, `*_<lang>.pdf`, `*_<lang>.docx`, `*_<lang>.pptx`) directly; they are build artifacts completely overwritten during compilation.
 
 ---
 
@@ -1103,14 +1103,14 @@ $ uv run drawlib init site
 # Or scaffold into a custom target name (positional argument, e.g., mybook_src/ -> mybook_html/):
 $ uv run drawlib init site mybook
 
-# Optional flags: --style (-s) for theme and --lang (-l) for language fonts
-$ uv run drawlib init doc rbac -s google --lang ja
+# Optional flags: --style (-s) for theme and --lang (-l) for single or multi-locale (e.g. en,ja)
+$ uv run drawlib init doc rbac -s google -l en,ja
 ```
 
-Drawlib supports four starter project types:
-- **`doc`**: Linear technical document / spec / RFC / report compiled to HTML (`doc_html/`), PDF (`doc.pdf`), editable MS Word (`doc.docx`), Markdown (`doc_markdown/`), and diagrams (`doc_images/`).
-- **`site`**: Multi-page documentation website (`docs_html/`), Markdown site (`docs_markdown/` or `docs/`), and diagrams (`docs_images/`).
-- **`slide`**: 16:9 presentation slide deck compiled to web deck (`slide_html/`), vector PDF (`slide.pdf`), editable MS PowerPoint (`slide.pptx`), and diagrams (`slide_images/`).
+Drawlib supports four starter project types (`doc`, `site`, and `slide` natively use `<src_dir>/<lang>/` and `[i18n]` in `drawlib.toml`):
+- **`doc`**: Linear technical document / spec / RFC / report compiled to HTML (`doc_html/`), PDF (`doc_<lang>.pdf`), editable MS Word (`doc_<lang>.docx`), Markdown (`doc_markdown/`), and diagrams (`doc_images/`).
+- **`site`**: Multi-page documentation website (`docs_html/`), Markdown site (`docs_markdown/`), and diagrams (`docs_images/`).
+- **`slide`**: 16:9 presentation slide deck compiled to web deck (`slide_html/`), vector PDF (`slide_<lang>.pdf`), editable MS PowerPoint (`slide_<lang>.pptx`), and diagrams (`slide_images/`).
 - **`images`**: Standalone Python illustration scripts (`images_src/*.py`) batch-compiled to image files (`images/*.png`).
 
 ```drawlib code=fold align=center file=project_scaffolding_types.png caption="The Four Drawlib Project Scaffolding Archetypes (drawlib init)"
@@ -1131,22 +1131,22 @@ body_sub = Styles.Dark.patch(text_size=10.0, halign="left")
 rectangle((32.0, 35.5), width=58.0, height=19.0, style=Styles.Neutral.patch(shape_r=2.0))
 rectangle((32.0, 41.0), width=55.0, height=5.5, style=Styles.PrimaryFlat.patch(shape_r=1.2), text="1. drawlib init site (Multi-Page Website)", text_style=hdr_white)
 phosphor.globe((9.5, 32.0), width=5.2, style=Styles.Primary)
-text((14.0, 34.0), "Source: docs_src/**/*.md + navbar.md", style=body_bold)
+text((14.0, 34.0), "Source: docs_src/<lang>/**/*.md + navbar.md", style=body_bold)
 text((14.0, 29.8), "Output: docs_html/ + docs_markdown/", style=body_sub)
 
 # 2. Top-Right: drawlib init doc
 rectangle((94.0, 35.5), width=58.0, height=19.0, style=Styles.Neutral.patch(shape_r=2.0))
 rectangle((94.0, 41.0), width=55.0, height=5.5, style=Styles.SecondaryNeutral.patch(shape_r=1.2), text="2. drawlib init doc (Linear Spec & PDF/Word)", text_style=hdr_dark)
 phosphor.file_pdf((71.5, 32.0), width=5.2, style=Styles.Primary)
-text((76.0, 34.0), "Source: doc_src/00_cover.md, 01_*.md", style=body_bold)
-text((76.0, 29.8), "Output: doc.pdf + doc.docx + doc_html/", style=body_sub)
+text((76.0, 34.0), "Source: doc_src/<lang>/00_cover.md, ...", style=body_bold)
+text((76.0, 29.8), "Output: doc_<lang>.pdf/.docx + doc_html/", style=body_sub)
 
 # 3. Bottom-Left: drawlib init slide
 rectangle((32.0, 12.5), width=58.0, height=19.0, style=Styles.Neutral.patch(shape_r=2.0))
 rectangle((32.0, 18.0), width=55.0, height=5.5, style=Styles.SecondaryNeutral.patch(shape_r=1.2), text="3. drawlib init slide (16:9 Slide Deck)", text_style=hdr_dark)
 phosphor.presentation_chart((9.5, 9.0), width=5.2, style=Styles.Primary)
-text((14.0, 11.0), "Source: slide_src/*.md (1920x1080 Stage)", style=body_bold)
-text((14.0, 6.8), "Output: slide_html/ + slide.pdf + slide.pptx", style=body_sub)
+text((14.0, 11.0), "Source: slide_src/<lang>/*.md (16:9 Stage)", style=body_bold)
+text((14.0, 6.8), "Output: slide_html/ + slide_<lang>.pdf/.pptx", style=body_sub)
 
 # 4. Bottom-Right: drawlib init images
 rectangle((94.0, 12.5), width=58.0, height=19.0, style=Styles.Neutral.patch(shape_r=2.0))
@@ -1170,11 +1170,11 @@ $ ./docs_src/build.sh
 
 # Or compile using the CLI subcommands directly:
 $ uv run drawlib build html docs_src/ -o docs_html/
-$ uv run drawlib build markdown docs_src/ -o docs/
-$ uv run drawlib build pdf doc_src/ -o doc.pdf --toc
-$ uv run drawlib build docx doc_src/ -o doc.docx --generate-index
+$ uv run drawlib build markdown docs_src/ -o docs_markdown/
+$ uv run drawlib build pdf doc_src/ -o doc.pdf --toc              # -> doc_<lang>.pdf
+$ uv run drawlib build docx doc_src/ -o doc.docx --generate-index # -> doc_<lang>.docx
 $ uv run drawlib build slide slide_src/ -o slide_html/
-$ uv run drawlib build pptx slide_src/ -o slide.pptx
+$ uv run drawlib build pptx slide_src/ -o slide.pptx              # -> slide_<lang>.pptx
 $ uv run drawlib build image images_src/ -o images/
 
 # Force a clean re-render bypassing the SQLite build cache (.drawlib/cache.db):

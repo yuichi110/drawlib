@@ -16,10 +16,10 @@ This document covers the **universal project architecture, template selection, s
 > **CRITICAL for AI Agents & Developers**: Never create standalone `.py` drawing scripts directly in an uninitialized directory, and never construct project folders from scratch manually.  
 > Before writing any drawing code, check if a Drawlib project (`*_src/`) already exists in the workspace. If not, **always scaffold a project first using `drawlib init`** (or guide the user to choose one) so that `styles.py` (theme & language fonts), `utils.py`, `_assets/`, and `build.sh` are properly configured:
 > - **Diagram image(s) only** -> Scaffold an **`images`** project (`uv run drawlib init images [-l <lang>] [-s <style>]`).
-> - **Linear technical spec / whitepaper / PDF / Word (`.docx`)** -> Scaffold a **`doc`** project (`uv run drawlib init doc [-l <lang>] [-s <style>]`).
-> - **Multi-page documentation website** -> Scaffold a **`site`** project (`uv run drawlib init site [-l <lang>] [-s <style>]`).
-> - **16:9 presentation slide deck / PowerPoint (`.pptx`)** -> Scaffold a **`slide`** project (`uv run drawlib init slide [-l <lang>] [-s <style>]`).
-> - **Pass `--lang` for Non-English Labels**: When the user prompts in Japanese (or requires CJK/multilingual typography), pass `--lang ja` (or target language code) to `drawlib init` so `styles.py` automatically configures CJK-safe fonts.
+> - **Linear technical spec / whitepaper / PDF / Word (`.docx`)** -> Scaffold a **`doc`** project (`uv run drawlib init doc [-l <lang[,lang...]>] [-s <style>]`).
+> - **Multi-page documentation website** -> Scaffold a **`site`** project (`uv run drawlib init site [-l <lang[,lang...]>] [-s <style>]`).
+> - **16:9 presentation slide deck / PowerPoint (`.pptx`)** -> Scaffold a **`slide`** project (`uv run drawlib init slide [-l <lang[,lang...]>] [-s <style>]`).
+> - **Pass `--lang` for Non-English Labels**: When the user prompts in Japanese (or requires CJK/multilingual typography), pass `--lang ja` (or comma-separated `-l en,ja` for bilingual projects) to `drawlib init` so `styles.py` automatically configures CJK-safe fonts.
 > - **Clean Up Starter Samples**: After scaffolding, replace or delete the generated starter sample files (`sample1.py`, `sample2.py`, etc.) so only the user's requested diagrams are built.
 
 ### Scaffolding CLI Syntax & Options:
@@ -28,19 +28,19 @@ This document covers the **universal project architecture, template selection, s
 uv run drawlib init list
 
 # Scaffold a project in the current directory:
-uv run drawlib init <images|doc|site|slide> [target] [-l <lang>] [-s <style>] [-f]
+uv run drawlib init <images|doc|site|slide> [target] [-l <lang[,lang...]>] [-s <style>] [-f]
 
 # Examples:
 uv run drawlib init images --lang ja -s google
 uv run drawlib init doc rbac -s google
-uv run drawlib init site docs -s default
-uv run drawlib init slide pitch -l ja -s google
+uv run drawlib init site docs -l en,ja -s default
+uv run drawlib init slide pitch -l en,ja -s google
 ```
 
 | Option | Shorthand | Type | Default | Description |
 | :--- | :--- | :--- | :--- | :--- |
 | `--style` | `-s` | `<theme>` | `default` | Style preset theme (`default`, `google`, `monochrome`) or custom CSS path. Synchronously configures both `style.css` and `styles.py`. |
-| `--lang` | `-l` | `<lang>` | `en` | Starter template language code (`en`, `ja`, `zh-cn`, `ko`, `th`, `hi`, etc.), or comma-separated locales (`-l en,ja`) for multi-language `doc` and `site` projects. |
+| `--lang` | `-l` | `<lang>` | `en` | Starter template language code (`en`, `ja`, `zh-cn`, `ko`, `th`, `hi`, etc.), or comma-separated locales (`-l en,ja`) for multi-language `doc`, `site`, and `slide` projects (`images` is single-language only). |
 | `--force` | `-f` | flag | `False` | Overwrite existing files if the destination directory is not empty. |
 
 > **Pure Scaffolding Principle**: `drawlib init` only creates template and configuration files; it never runs compilation automatically. To compile your project, run `./<target>_src/build.sh` (or `./<target>_src/build_*.sh`).
@@ -49,14 +49,14 @@ uv run drawlib init slide pitch -l ja -s google
 
 ## 2. Choosing Among the 4 Project Archetypes
 
-Drawlib features 4 project starter templates tailored to distinct authoring and publishing workflows:
+Drawlib features 4 project starter templates tailored to distinct authoring and publishing workflows. All three Markdown-based archetypes (`doc`, `site`, `slide`) share a **unified `<src_dir>/<lang>/` locale layout** ($N \ge 1$ locales), so adding a second language later requires zero `git mv` file moves:
 
 | Project Type | Source Folder | Generated Deliverables | When AI Agents Should Choose This | Dedicated Guide |
 | :--- | :--- | :--- | :--- | :--- |
 | **`images`** | `images_src/*.py` | `images/*.png` (or `.webp`) | User wants **diagram image(s) only** (architecture figures, README illustrations, standalone assets). | `project-images` |
-| **`doc`** | `doc_src/*.md`<br>*(or `<lang>/*.md`)* | `doc_html/` (Web preview)<br>`doc.pdf` / `doc_<lang>.pdf`<br>`doc_markdown/` (GitHub MD)<br>`doc_images/` (Extracted PNGs)<br>*(+ on-demand `.docx` via `build docx`)* | User wants a **single linear technical document** (RFCs, design specs, whitepapers, quickstarts, printable PDFs, or editable MS Word `.docx`). | `project-doc` |
-| **`site`** | `docs_src/**/*.md`<br>+ `navbar.md` | `docs_html/` (Multi-page site)<br>`docs_markdown/` (GitHub MD)<br>`docs_images/` (Extracted PNGs) | User wants a **multi-page documentation website** with a persistent navigation sidebar (portals, guides, wikis). | `project-site` |
-| **`slide`** | `slide_src/*.md` | `slide_html/index.html` (Deck)<br>`slide.pdf` (16:9 vector PDF)<br>`slide_images/` (Extracted SVGs)<br>*(+ on-demand `slide.pptx` via `build pptx`)* | User wants a **16:9 widescreen presentation deck** with `1920×1080` stage blocks, speaker notes, Presenter View, or editable MS PowerPoint `.pptx`. | `project-slide` |
+| **`doc`** | `doc_src/<lang>/*.md` | `doc_html/` (`<lang>/` + root redirect)<br>`doc_<lang>.pdf`<br>`doc_markdown/<lang>/` (GitHub MD)<br>`doc_images/` (Extracted PNGs)<br>*(+ on-demand `doc_<lang>.docx` via `build docx`)* | User wants a **single linear technical document** (RFCs, design specs, whitepapers, quickstarts, printable PDFs, or editable MS Word `.docx`). | `project-doc` |
+| **`site`** | `docs_src/<lang>/**/*.md`<br>+ `<lang>/navbar.md` | `docs_html/` (`<lang>/` + root `index.html`)<br>`docs_markdown/` (`<lang>/` + root `index.md`)<br>`docs_images/` (Extracted PNGs) | User wants a **multi-page documentation website** with a persistent navigation sidebar (portals, guides, wikis). | `project-site` |
+| **`slide`** | `slide_src/<lang>/*.md` | `slide_html/` (`<lang>/index.html` + redirect)<br>`slide_<lang>.pdf` (16:9 vector PDF)<br>`slide_images/` (Extracted SVGs)<br>*(+ on-demand `slide_<lang>.pptx` via `build pptx`)* | User wants a **16:9 widescreen presentation deck** with `1920×1080` stage blocks, speaker notes, Presenter View, or editable MS PowerPoint `.pptx`. | `project-slide` |
 
 ```drawlib align=center code=fold file=project_archetypes_overview.png caption="Drawlib's Four Project Archetypes & Compilation Deliverables"
 from drawlib.canvas import save, setup
@@ -77,16 +77,16 @@ text(
 
 cards = [
     (22.5, "images", "images_src/*.py", "• Batch Python scripts\n• Standalone PNG/WebP\n• Rule: project-images", Styles.Neutral, Styles.PrimaryBold, phosphor.image),
-    (58.2, "doc", "doc_src/*.md", "• Linear chapters + ToC\n• A4 PDF, HTML & .docx\n• Rule: project-doc", Styles.PrimaryNeutral, Styles.PrimaryBold, phosphor.file_pdf),
-    (93.8, "site", "docs_src/**/*.md", "• Multi-page + navbar.md\n• Static Website & Search\n• Rule: project-site", Styles.PrimaryFlat, Styles.WhiteBold, phosphor.globe),
-    (129.5, "slide", "slide_src/*.md", "• 1920x1080 ::: block\n• Web, 16:9 PDF & .pptx\n• Rule: project-slide", Styles.SecondaryNeutral, Styles.SecondaryBold, phosphor.presentation_chart),
+    (58.2, "doc", "doc_src/<lang>/*.md", "• Linear chapters + ToC\n• A4 PDF, HTML & .docx\n• Rule: project-doc", Styles.PrimaryNeutral, Styles.PrimaryBold, phosphor.file_pdf),
+    (93.8, "site", "docs_src/<lang>/**/*.md", "• Multi-page + navbar.md\n• Static Website & Search\n• Rule: project-site", Styles.PrimaryFlat, Styles.WhiteBold, phosphor.globe),
+    (129.5, "slide", "slide_src/<lang>/*.md", "• 1920x1080 ::: block\n• Web, 16:9 PDF & .pptx\n• Rule: project-slide", Styles.SecondaryNeutral, Styles.SecondaryBold, phosphor.presentation_chart),
 ]
 
 for cx, title, sub, body, card_st, hdr_st, icon_fn in cards:
     rectangle((cx, 25.5), width=32.5, height=38, style=card_st.patch(shape_r=2.0))
     icon_fn((cx - 9.5, 38.5), width=4.8, style=hdr_st)
     text((cx + 2.5, 38.5), title, style=hdr_st.patch(text_size=12.0))
-    sub_st = Styles.White.patch(text_size=9.8) if card_st == Styles.PrimaryFlat else Styles.Muted.patch(text_size=9.8)
+    sub_st = Styles.White.patch(text_size=9.5) if card_st == Styles.PrimaryFlat else Styles.Muted.patch(text_size=9.5)
     body_st = Styles.White.patch(text_size=9.8) if card_st == Styles.PrimaryFlat else Styles.Dark.patch(text_size=9.8)
     text((cx, 31.5), sub, style=sub_st)
     line((cx - 13, 28.2), (cx + 13, 28.2), style=Styles.White if card_st == Styles.PrimaryFlat else Styles.Muted)
@@ -103,28 +103,43 @@ Every scaffolded `<target>_src/` directory shares foundational configuration and
 
 ### 3.1. Golden Rule: `<target>_src/` Is the Single Source of Truth
 - **Author & Edit Strictly Inside `<target>_src/`**: All Markdown documents, Python scripts, stylesheets, and assets live inside `images_src/`, `doc_src/`, `docs_src/`, or `slide_src/`.
-- **Never Manually Edit Output Directories**: Generated folders and artifacts (`images/`, `doc_html/`, `docs_html/`, `docs_markdown/`, `slide_html/`, `*.pdf`, `*.docx`, `*.pptx`) are overwritten on build.
+- **Never Manually Edit Output Directories**: Generated folders and artifacts (`images/`, `doc_html/`, `docs_html/`, `docs_markdown/`, `slide_html/`, `*_<lang>.pdf`, `*_<lang>.docx`, `*_<lang>.pptx`) are overwritten on build.
 - **Overwrite Protection**: `drawlib build` strictly refuses to execute if the source and destination paths resolve to the same directory (`src_abs == dest_abs`).
 
 ### 3.2. Unified Project Manifest (`drawlib.toml`)
-`drawlib init` automatically writes `<target>_src/drawlib.toml` to record canonical project metadata:
+`drawlib init` automatically writes `<target>_src/drawlib.toml` as the canonical project manifest:
 ```toml
+# Markdown archetypes ("doc", "site", "slide") — [i18n] is REQUIRED (1 or more locales):
 [project]
 name = "whitepaper"
-type = "doc"                  # "images" | "doc" | "site" | "slide"
+type = "doc"                  # "doc" | "site" | "slide"
 title = ""                    # Optional explicit title override (empty = auto-infer from # H1 / navbar.md)
 description = ""              # Human & AI agent project summary
 style = "google"
 
-[i18n]                        # Present when initialized with multi-locale `-l en,ja` (doc or site)
+[i18n]                        # Always present on doc, site, and slide (even single-locale ["en"])
 default_lang = "en"
 langs = ["en", "ja"]
+
+[i18n.labels]                 # Optional custom switcher display labels
+en = "English"
+ja = "日本語"
 ```
-- **Explicit Archetype Priority**: When `drawlib.toml` is present, `[project].type` deterministically governs compiler dispatch and guardrails (preventing accidental cross-archetype builds), while legacy directories without `drawlib.toml` remain 100% backward-compatible via file heuristics.
-- **Single-Locale Metadata**: Single-language projects omit `[i18n]` and set `lang = "ja"` under `[project]`, automatically localizing HTML `lang`/`dir`, fonts, and generated Table of Contents headings (`toc_title`, e.g. `"目次"`).
+```toml
+# Standalone Python scripts ("images") — lang is set under [project] (no [i18n]):
+[project]
+name = "images"
+type = "images"
+title = ""
+description = ""
+lang = "en"
+style = "default"
+```
+- **Required Manifest & `[i18n]` for `doc`, `site`, and `slide`**: Directory builds for `doc`, `site`, and `slide` strictly require `drawlib.toml` with an `[i18n]` table (`default_lang`, `langs` with `len >= 1`, and optional `[i18n.labels]`), and disallow `lang` under `[project]`. Even single-language projects (`langs = ["en"]` or `langs = ["ja"]`) place Markdown inside `<target>_src/<lang>/` and emit locale-suffixed document/deck files (`<base>_<lang>.pdf`, `<base>_<lang>.docx`, `<base>_<lang>.pptx`), while automatically hiding the HTML language switcher until `len(langs) >= 2`.
+- **Standalone Single-File Builds Preserved**: Single-file CLI/API calls (`drawlib build pdf spec.md -o spec.pdf`, `drawlib build docx spec.md -o spec.docx`, `drawlib build image fig.py -o fig.png`) continue to work directly without a project manifest.
 
 ### 3.3. Global Theme & Font Configuration (`styles.py` & `<lang>/styles.py`)
-`styles.py` defines project-wide `Styles` and `Colors` overrides (including regional CJK font patching when initialized with `--lang`). In multi-language `doc` and `site` projects, an optional per-locale `<target>_src/<lang>/styles.py` overrides the root `styles.py` for that locale's localized diagrams (`file=<stem>_<lang>.png`).
+`styles.py` defines project-wide `Styles` and `Colors` overrides (including regional CJK font patching when initialized with `--lang`). In `doc`, `site`, and `slide` projects, an optional per-locale `<target>_src/<lang>/styles.py` (and `<lang>/utils.py`) overrides the root `styles.py` / `utils.py` for that locale's localized diagrams (`file=<stem>_<lang>.png` / `.svg`).
 Inside any drawing script or embedded ````drawlib```` block, always import uppercase `Styles` and `Colors`:
 ```python
 from drawlib.styles import Colors, Styles
@@ -141,8 +156,9 @@ from drawlib.utils import draw_service_card
 Place static logos, custom `.ttf`/`.otf` font files, or reference screenshots inside `<target>_src/_assets/`.
 - During HTML/Markdown/Slide builds, `_assets/` is automatically copied to the output directory.
 - `drawlib init` automatically provisions `_assets/favicon.png` so HTML pages, documentation websites, and slide presentations display the brand favicon out-of-the-box (customizable by replacing `_assets/favicon.png`).
-- Inside drawing code, reference files as `"_assets/logo.png"` or `FontFile("_assets/brand.ttf")`—Drawlib automatically resolves paths relative to the document or project root and hashes them in `.drawlib/cache.db`.
-- **Strictly Relative Referencing (No Absolute Paths or `file://` URLs)**: Always reference assets relatively (e.g. `_assets/logo.png` or `../_assets/logo.png`). Never use machine-specific absolute paths (`/usr/...`, `/home/...`, `C:\...`) or `file:///` URLs. The compiler validates link hygiene at build time and rejects prohibited paths.
+- Inside Python drawing code, reference files as `"_assets/logo.png"` or `FontFile("_assets/brand.ttf")`—Drawlib automatically walks up ancestor directories from `<target>_src/<lang>/...` to resolve `_assets/` at the project root and hashes them in `.drawlib/cache.db`.
+- Inside Markdown prose (`![Logo](...)`), reference `_assets/` relatively from the current Markdown file inside `<target>_src/<lang>/` (e.g. `../_assets/logo.png` from `<lang>/index.md`, or `../../_assets/logo.png` from `<lang>/01_section/page.md`).
+- **Strictly Relative Referencing (No Absolute Paths or `file://` URLs)**: Always reference assets relatively. Never use machine-specific absolute paths (`/usr/...`, `/home/...`, `C:\...`) or `file:///` URLs. The compiler validates link hygiene at build time and rejects prohibited paths.
 
 ### 3.6. Link & Path Hygiene in Markdown Documents
 - **Relative Links Only**: All internal page links, cross-chapter references, and asset links in Markdown source files (`*_src/**/*.md`) must be written as relative paths (e.g. `../architecture/overview.md`) or inline code format.
@@ -151,12 +167,12 @@ Place static logos, custom `.ttf`/`.otf` font files, or reference screenshots in
 ### 3.7. Modular Build Scripts (`build_*.sh`) & On-Demand Office Exports
 Each project scaffolds focused shell scripts alongside the master `build.sh`:
 - **`build_html.sh`**: Fast HTML compilation for rapid browser verification.
-- **`build_pdf.sh`**: Headless Chromium print to vector PDF (`doc` and `slide`).
+- **`build_pdf.sh`**: Headless Chromium print to vector PDF (`doc` -> `<target>_<lang>.pdf` and `slide` -> `<target>_<lang>.pdf`).
 - **`build_markdown.sh`**: GitHub-Flavored Markdown compilation (`doc` and `site`).
 - **`build_image.sh`**: Standalone diagram image compilation/extraction.
 - **`build.sh`**: Master script that runs the standard target builds for the project sequentially (HTML, PDF, Markdown, Images).
 - **`serve.sh`**: Local preview HTTP server (`drawlib serve`).
-- **On-Demand Office Exports (`docx` & `pptx`)**: Editable MS Word (`uv run drawlib build docx doc_src/ -o doc.docx`) and editable 16:9 MS PowerPoint (`uv run drawlib build pptx slide_src/ -o slide.pptx`) are available as optional on-demand CLI commands without changing scaffolded `build.sh` pipelines.
+- **On-Demand Office Exports (`docx` & `pptx`)**: Editable MS Word (`uv run drawlib build docx doc_src/ -o doc.docx` -> `doc_<lang>.docx`) and editable 16:9 MS PowerPoint (`uv run drawlib build pptx slide_src/ -o slide.pptx` -> `slide_<lang>.pptx`) are available as optional on-demand CLI commands without changing scaffolded `build.sh` pipelines.
 
 ---
 
@@ -198,20 +214,20 @@ Drawlib projects are intentionally structured as **modular collections of indepe
 | Project Type | Partition Unit per Subagent | Shared Files (Parent Sets Up First) | Subagent Responsibility (Phase 2) | Parent Finalization (Phase 3) |
 | :--- | :--- | :--- | :--- | :--- |
 | **`images`** | Individual `images_src/<name>.py` script (or subset of scripts) | `images_src/styles.py`, `utils.py`, `_assets/` | Author assigned `.py` script(s) & run `drawlib show ... -g -o .drawlib/scratch/<script>_grid.png` + `view_file` | Run `./images_src/build.sh` & inspect `images/*.png` |
-| **`doc`** | Individual chapter `doc_src/0N_<topic>.md` | `doc_src/styles.py`, `utils.py`, `00_cover.md`, chapter outline | Author assigned chapter(s) (`2+` diagrams, Hero at Lines 5–15) & run Stage 1 + Stage 2 grid review | Run `./doc_src/build.sh`, `serve --check`, & inspect `doc.pdf` / `doc_html/` |
-| **`site`** | Topic page `docs_src/<sec>/<page>.md` or section folder | `docs_src/styles.py`, `utils.py`, `navbar.md`, `index.md` | Author assigned page(s) & run Stage 1 + Stage 2 grid review with unique scratch filenames | Run `./docs_src/build.sh`, `serve --check`, & `1280×920` browser check |
-| **`slide`** | Individual slide `slide_src/0N_<slide>.md` or section folder | `slide_src/styles.py`, `utils.py`, deck story arc & slide numbering | Author assigned slide(s) (`::: block` + `::: note`) & run Stage 1 + Stage 2 grid review | Run `./slide_src/build.sh` & inspect `slide.pdf` / `1920×1080` stage |
+| **`doc`** | Individual chapter `doc_src/<lang>/0N_<topic>.md` | `doc_src/drawlib.toml`, `styles.py`, `utils.py`, `<lang>/00_cover.md`, chapter outline | Author assigned chapter(s) (`2+` diagrams, Hero at Lines 5–15) & run Stage 1 + Stage 2 grid review | Run `./doc_src/build.sh`, `serve --check`, & inspect `doc_<lang>.pdf` / `doc_html/` |
+| **`site`** | Topic page `docs_src/<lang>/<sec>/<page>.md` or section folder | `docs_src/drawlib.toml`, `styles.py`, `utils.py`, `<lang>/navbar.md`, `<lang>/index.md` | Author assigned page(s) & run Stage 1 + Stage 2 grid review with unique scratch filenames | Run `./docs_src/build.sh`, `serve --check`, & `1280×920` browser check |
+| **`slide`** | Individual slide `slide_src/<lang>/0N_<slide>.md` or section folder | `slide_src/drawlib.toml`, `styles.py`, `utils.py`, deck story arc & slide numbering | Author assigned slide(s) (`::: block` + `::: note`) & run Stage 1 + Stage 2 grid review | Run `./slide_src/build.sh` & inspect `slide_<lang>.pdf` / `1920×1080` stage |
 
 ### 5.2. The 3-Phase Orchestrator–Subagent Protocol & Concurrency Guardrails
 
 1. **Phase 1 — Parent Orchestrator Establishes Shared Foundation First**:
-   - Run `drawlib init <type>` and configure `styles.py` (theme, language fonts), `utils.py` (shared helpers/macros), `_assets/`, and the structural index (`navbar.md` for `site`, chapter numbering for `doc`, or slide numbering/story arc for `slide`) **before** launching subagents.
-   - Subagents must treat `styles.py`, `utils.py`, and `navbar.md` as **read-only** so parallel workers never overwrite shared configuration.
+   - Run `drawlib init <type>` and configure `drawlib.toml`, `styles.py` (theme, language fonts), `utils.py` (shared helpers/macros), `_assets/`, and the structural index (`<lang>/navbar.md` for `site`, chapter numbering for `doc`, or slide numbering/story arc for `slide`) **before** launching subagents.
+   - Subagents must treat `drawlib.toml`, `styles.py`, `utils.py`, and `<lang>/navbar.md` as **read-only** so parallel workers never overwrite shared configuration.
 2. **Phase 2 — Parallel Subagents Author Disjoint Files & Run Stage 1 + Stage 2**:
    - **Strict Disjoint File Ownership**: Never assign the same `.py` or `.md` file to two subagents concurrently.
    - **Unique Scratch Preview Filenames (Critical)**: When running `drawlib show ... -g` in parallel, each subagent **must** write to a unique scratch file path named after its script or diagram block:
      ```bash
-     uv run drawlib show docs_src/02_arch/vpc.md vpc_hero.png \
+     uv run drawlib show docs_src/en/02_arch/vpc.md vpc_hero.png \
          -s docs_src/styles.py -u docs_src/utils.py \
          -g -o .drawlib/scratch/vpc_hero_grid.png
      ```

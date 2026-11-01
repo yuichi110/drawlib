@@ -255,7 +255,7 @@ drawlib build pdf doc_src/ -o report.pdf --toc --page-break
 
 | オプション | 短縮形 | デフォルト値 | 説明 |
 |---|---|---|---|
-| `--output` | `-o` | `<first_stem>.pdf` | 出力先 PDF ファイルパス。 |
+| `--output` | `-o` | `<base>_<lang>.pdf` | 出力先 PDF ファイルパス（`doc` / `slide` ディレクトリ指定時はロケール別に `<base>_<lang>.pdf` を出力）。 |
 | `--title` | | H1 見出しから自動抽出 | 表紙およびランニングヘッダーに表示されるドキュメント全体のタイトル。 |
 | `--generate-index` | `--toc` | `False` | 1 番目の章（`00_cover.md`）と 2 番目の章の間に自動生成された目次（TOC）を挿入します。 |
 | `--page-break` / `--no-page-break` | | `True` | 各章の間に CSS 改ページ（`page-break-before: always`）を挿入します。 |
@@ -272,7 +272,7 @@ drawlib build docx doc_src/ -o report.docx --generate-index --page-break
 
 | オプション | 短縮形 | デフォルト値 | 説明 |
 |---|---|---|---|
-| `--output` | `-o` | `<first_stem>.docx` | 出力する MS Word（`.docx`）ファイルパス。 |
+| `--output` | `-o` | `<base>_<lang>.docx` | 出力する MS Word（`.docx`）ファイルパス（`doc` ディレクトリ指定時はロケール別に `<base>_<lang>.docx` を出力）。 |
 | `--page-break` / `--no-page-break` | | `True` | 結合された各章の間に改ページを挿入します。 |
 | `--generate-index` / `--no-generate-index` | | `False` | 目次（インデックス）を生成し、1 番目の文書（`00_cover.md`）と 2 番目の文書の間に挿入します。 |
 | `--title` | | H1 見出しから自動抽出 | 結合される Word ドキュメントのタイトルを上書き指定します。 |
@@ -282,7 +282,7 @@ drawlib build docx doc_src/ -o report.docx --generate-index --page-break
 | `--timestamp` | | `False` | 正規化する代わりに、Word メタデータへ現在のビルド日時を記録します。 |
 
 ### 4.5 `drawlib build slide`
-Markdown スライドファイルのディレクトリ（`slide_src/`）を、デュアルウィンドウ対応の発表者ビュー（`?presenter=1`）を備えたスタンドアロン 16:9 HTML プレゼンテーションデッキ（`index.html`）へコンパイルします。
+Markdown スライドファイルのディレクトリ（`slide_src/`）を、デュアルウィンドウ対応の発表者ビュー（`?presenter=1`）を備えたスタンドアロン 16:9 HTML プレゼンテーションデッキ（`<lang>/index.html`＋ルートの `index.html` リダイレクト）へコンパイルします。
 
 ```bash
 drawlib build slide slide_src/ -o slide_html/ [OPTIONS]
@@ -297,7 +297,7 @@ drawlib build slide slide_src/ -o slide_html/ [OPTIONS]
 | `--no-cache` | | `False` | `.drawlib/cache.db` の読み書きを無効化します。 |
 
 ### 4.6 `drawlib build pptx`
-ヘッドレス Chromium で `1920×1080` スライドレイアウトと計算済み CSS スタイルを計測し、Markdown スライドファイルのディレクトリ（`slide_src/`）をネイティブに編集可能な 16:9（`960×540 pt`）MS PowerPoint（`.pptx`）デッキへコンパイルします（`rgba` アルファ対応の `::: block` カード、テキストボックス、箇条書き・番号付きリスト、テーブル、インラインコード、`::: note` スピーカーノートを変換し、````drawlib```` 図解は高 DPI 静止画 PNG として埋め込みます）。
+ヘッドレス Chromium で `1920×1080` スライドレイアウトと計算済み CSS スタイルを計測し、Markdown スライドファイルのディレクトリ（`slide_src/`）をロケール別にネイティブ編集可能な 16:9（`960×540 pt`）MS PowerPoint（`.pptx`）デッキへコンパイルします（`rgba` アルファ対応の `::: block` カード、テキストボックス、箇条書き・番号付きリスト、テーブル、インラインコード、`::: note` スピーカーノートを変換し、````drawlib```` 図解は高 DPI 静止画 PNG として埋め込みます）。
 
 ```bash
 drawlib build pptx slide_src/ -o deck.pptx --dpi 240 --anim-frame last
@@ -305,7 +305,7 @@ drawlib build pptx slide_src/ -o deck.pptx --dpi 240 --anim-frame last
 
 | オプション | 短縮形 | デフォルト値 | 説明 |
 |---|---|---|---|
-| `--output` | `-o` | `<dir_name>.pptx` | 出力する MS PowerPoint（`.pptx`）ファイルパス。 |
+| `--output` | `-o` | `<base>_<lang>.pptx` | 出力する MS PowerPoint（`.pptx`）ファイルパス（ロケール別に `<base>_<lang>.pptx` を出力）。 |
 | `--theme` | `-t` | 自動 / `default` | CSS テーマプリセット（`google`、`default`、`google-dark`、`default-dark`）。 |
 | `--title` | | デッキから自動抽出 | PowerPoint メタデータのプレゼンテーションタイトルを上書き指定します。 |
 | `--dpi` | | `240` | 埋め込み `drawlib` 図解のラスタライズ DPI。 |
@@ -345,10 +345,10 @@ drawlib init <TYPE> [target] [OPTIONS]
 drawlib init list
 ```
 
-- `<TYPE>`: プロジェクト種別を選択するサブコマンド: `doc`、`site`、`slide`、`images`（エイリアス: `image`）、または `list`。
+- `<TYPE>`: プロジェクト種別を選択するサブコマンド: `doc`、`site`、`slide`（すべて統一された `<src_dir>/<lang>/` ロケールディレクトリと `drawlib.toml` の `[i18n]` で初期化）、`images`（エイリアス: `image`）、または `list`。
 - `[target]`: プロジェクトおよびソースフォルダのベース名（`<target>_src/` を作成します）。デフォルト値: `doc` は `doc`、`site` は `docs`、`slide` は `slide`、`images` は `images`。
 - `-s`, `--style <theme>`: スタイルプリセットテーマ（`default`、`google`、`monochrome` など）。`style.css` と `styles.py` の両方を同期して設定します。
-- `-l`, `--lang <code>`: スターターコンテンツおよびフォント設定の言語（`en`、`ja`、`zh-cn`、`ko`、`th`、`hi` など）。デフォルト: `en`。
+- `-l`, `--lang <code>`: スターターコンテンツおよびフォント設定の言語（`en`、`ja`、`zh-cn`、`ko`、`th`、`hi` など。`doc`、`site`、`slide` では `-l en,ja` のようなカンマ区切りの複数ロケール指定に対応）。デフォルト: `en`。
 - `-f`, `--force`: 出力先ディレクトリが既に存在する場合に既存ファイルを上書きします。
 
 ---
@@ -359,14 +359,14 @@ drawlib init list
 
 ```bash
 # 1. List all drawlib blocks in a Markdown document (when [TARGET] is omitted):
-drawlib show docs_src/overview.md
+drawlib show docs_src/en/overview.md
 
 # 2. Export block by explicit filename with coordinate grid (Recommended):
-drawlib show docs_src/overview.md arch.png -g -o .drawlib/scratch/arch_grid.png
+drawlib show docs_src/en/overview.md arch.png -g -o .drawlib/scratch/arch_grid.png
 
 # 3. Export block by 1-based index (or -1 for the last block in the file):
-drawlib show docs_src/overview.md 1 -g -o .drawlib/scratch/fig1.png
-drawlib show docs_src/overview.md -1 -o .drawlib/scratch/last_fig.png
+drawlib show docs_src/en/overview.md 1 -g -o .drawlib/scratch/fig1.png
+drawlib show docs_src/en/overview.md -1 -o .drawlib/scratch/last_fig.png
 
 # 4. Preview standalone Python script in interactive GUI window:
 drawlib show my_drawing.py

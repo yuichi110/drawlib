@@ -15,22 +15,25 @@ This directory contains the source Markdown files, drawing code, and configurati
 ## 1. Directory Structure
 
 - `__SRC_DIR__/`: Source documents and drawing code (**Source of Truth**).
+  - `drawlib.toml`: Project manifest (`[project]` metadata and `[i18n]` locale configuration).
+  - `__DEFAULT_LANG__/`: Documentation pages for the default locale (add `<lang>/` directories and append to `langs` in `drawlib.toml` for multi-language sites):
+    - `navbar.md`: Navigation sidebar hierarchy definition.
+    - `index.md`: Root landing page.
+    - `architecture/index.md`: Architecture chapter page.
+    - `workflow/index.md`: Workflow chapter page.
+  - `_assets/`: Shared static assets across locales (`favicon.png`, `linux.png`, `_logo.png`, `_logo_dark.png`).
   - `build.sh`: Master build script (runs HTML, Markdown, and Image builds).
   - `build_html.sh`: Static HTML website build script.
   - `build_markdown.sh`: Rendered Markdown build script.
   - `build_image.sh`: Batch diagram image extraction script.
   - `serve.sh`: Local preview server script.
-  - `styles.py`: Global drawing themes, style palettes, and font presets.
+  - `styles.py`: Global drawing themes, style palettes, and font presets (optional `<lang>/styles.py` override).
   - `utils.py`: Reusable drawing helper functions, macros, and project constants.
   - `style.css`: Custom CSS stylesheet for HTML pages.
   - `template.html`: Jinja2 HTML layout template.
-  - `navbar.md`: Navigation sidebar hierarchy definition.
   - `README.md`: This customization guide.
-  - `index.md`: Root landing page.
-  - `architecture/index.md`: Architecture chapter page.
-  - `workflow/index.md`: Workflow chapter page.
-- `__OUT_MARKDOWN_DIR__/`: Generated Markdown site (**Do not edit directly**).
-- `__OUT_HTML_DIR__/`: Generated static HTML website (**Do not edit directly**).
+- `__OUT_MARKDOWN_DIR__/`: Generated Markdown site (`index.md`, `<lang>/...`) (**Do not edit directly**).
+- `__OUT_HTML_DIR__/`: Generated static HTML website (`index.html`, `<lang>/...`) (**Do not edit directly**).
 - `__OUT_IMAGES_DIR__/`: Generated standalone diagram images (**Do not edit directly**).
 
 ---
@@ -154,8 +157,8 @@ The sidebar brand header supports both text titles and custom graphical logos:
 
 ### 3.6. Adding New Chapters & Pages
 To add a new documentation page:
-1. Create a Markdown file or subdirectory with `index.md` under `__SRC_DIR__/`.
-2. Add an entry for the new file in `navbar.md`.
+1. Create a Markdown file or subdirectory with `index.md` under `__SRC_DIR__/__DEFAULT_LANG__/` (and matching `<lang>/` directories for multi-locale sites).
+2. Add an entry for the new file in `__SRC_DIR__/__DEFAULT_LANG__/navbar.md` (and each locale's `navbar.md`).
 3. Embed illustrations using ````drawlib```` code blocks.
 4. Run `./build.sh` to compile.
 
@@ -163,7 +166,7 @@ To add a new documentation page:
 When designing diagrams, test individual blocks quickly with a coordinate grid (`-g`):
 ```bash
 # Export block 1 of a Markdown document to an image with alignment grid:
-drawlib export __SRC_DIR__/index.md 1 -g -o preview.png
+drawlib show __SRC_DIR__/__DEFAULT_LANG__/index.md 1 -g -o preview.png
 ```
 To force a complete rebuild bypassing the cache:
 ```bash

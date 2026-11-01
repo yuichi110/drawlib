@@ -46,7 +46,7 @@ ALL_TARGETS: tuple[BuildTarget, ...] = (
         clean_paths=(
             "docs/quickstart_markdown",
             "docs/quickstart_html",
-            "docs/quickstart.pdf",
+            "docs/quickstart_en.pdf",
             "docs/quickstart_images",
         ),
     ),
@@ -77,7 +77,7 @@ ALL_TARGETS: tuple[BuildTarget, ...] = (
         description="16:9 Presentation Slide Deck (About Drawlib)",
         clean_paths=(
             "docs/slide_about_drawlib_html",
-            "docs/slide_about_drawlib.pdf",
+            "docs/slide_about_drawlib_en.pdf",
             "docs/slide_about_drawlib_images",
         ),
     ),
@@ -88,7 +88,7 @@ ALL_TARGETS: tuple[BuildTarget, ...] = (
         description="16:9 Presentation Slide Deck (DDoS Incident Response)",
         clean_paths=(
             "docs/slide_ddos_incident_response_html",
-            "docs/slide_ddos_incident_response.pdf",
+            "docs/slide_ddos_incident_response_en.pdf",
             "docs/slide_ddos_incident_response_images",
         ),
     ),

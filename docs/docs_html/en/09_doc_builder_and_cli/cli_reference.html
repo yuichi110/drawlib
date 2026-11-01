@@ -907,8 +907,8 @@ drawlib<span class="w"> </span>rules<span class="w"> </span>list<span class="w">
 <tr>
 <td><code>--output</code></td>
 <td><code>-o</code></td>
-<td><code>&lt;first_stem&gt;.pdf</code></td>
-<td>Destination PDF file path.</td>
+<td><code>&lt;base&gt;_&lt;lang&gt;.pdf</code></td>
+<td>Destination PDF file path (emits <code>&lt;base&gt;_&lt;lang&gt;.pdf</code> per locale for <code>doc</code> / <code>slide</code> directories).</td>
 </tr>
 <tr>
 <td><code>--title</code></td>
@@ -965,8 +965,8 @@ drawlib<span class="w"> </span>rules<span class="w"> </span>list<span class="w">
 <tr>
 <td><code>--output</code></td>
 <td><code>-o</code></td>
-<td><code>&lt;first_stem&gt;.docx</code></td>
-<td>Output MS Word (<code>.docx</code>) file path.</td>
+<td><code>&lt;base&gt;_&lt;lang&gt;.docx</code></td>
+<td>Output MS Word (<code>.docx</code>) file path (emits <code>&lt;base&gt;_&lt;lang&gt;.docx</code> per locale for <code>doc</code> directories).</td>
 </tr>
 <tr>
 <td><code>--page-break</code> / <code>--no-page-break</code></td>
@@ -1013,7 +1013,7 @@ drawlib<span class="w"> </span>rules<span class="w"> </span>list<span class="w">
 </tbody>
 </table>
 <h3>4.5 <code>drawlib build slide</code></h3>
-<p>Compiles a directory of Markdown slide files (<code>slide_src/</code>) into a standalone 16:9 HTML presentation deck (<code>index.html</code>) with dual-window Presenter View (<code>?presenter=1</code>).</p>
+<p>Compiles a directory of Markdown slide files (<code>slide_src/</code>) into standalone 16:9 HTML presentation decks (<code>&lt;lang&gt;/index.html</code> + root <code>index.html</code> redirect) with dual-window Presenter View (<code>?presenter=1</code>).</p>
 <pre><code class="language-bash">drawlib<span class="w"> </span>build<span class="w"> </span>slide<span class="w"> </span>slide_src/<span class="w"> </span>-o<span class="w"> </span>slide_html/<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span>
 </code></pre>
 <table>
@@ -1059,7 +1059,7 @@ drawlib<span class="w"> </span>rules<span class="w"> </span>list<span class="w">
 </tbody>
 </table>
 <h3>4.6 <code>drawlib build pptx</code></h3>
-<p>Compiles a directory of Markdown slide files (<code>slide_src/</code>) into a native editable 16:9 (<code>960×540 pt</code>) MS PowerPoint (<code>.pptx</code>) deck by measuring the <code>1920×1080</code> slide layout and computed CSS styles via headless Chromium (<code>::: block</code> cards with <code>rgba</code> alpha, text boxes, bullet/numbered lists, tables, inline code, and <code>::: note</code> speaker notes), embedding <code>drawlib</code> diagrams as high-DPI static PNGs.</p>
+<p>Compiles a directory of Markdown slide files (<code>slide_src/</code>) into native editable 16:9 (<code>960×540 pt</code>) MS PowerPoint (<code>.pptx</code>) decks per locale by measuring the <code>1920×1080</code> slide layout and computed CSS styles via headless Chromium (<code>::: block</code> cards with <code>rgba</code> alpha, text boxes, bullet/numbered lists, tables, inline code, and <code>::: note</code> speaker notes), embedding <code>drawlib</code> diagrams as high-DPI static PNGs.</p>
 <pre><code class="language-bash">drawlib<span class="w"> </span>build<span class="w"> </span>pptx<span class="w"> </span>slide_src/<span class="w"> </span>-o<span class="w"> </span>deck.pptx<span class="w"> </span>--dpi<span class="w"> </span><span class="m">240</span><span class="w"> </span>--anim-frame<span class="w"> </span>last
 </code></pre>
 <table>
@@ -1075,8 +1075,8 @@ drawlib<span class="w"> </span>rules<span class="w"> </span>list<span class="w">
 <tr>
 <td><code>--output</code></td>
 <td><code>-o</code></td>
-<td><code>&lt;dir_name&gt;.pptx</code></td>
-<td>Output MS PowerPoint (<code>.pptx</code>) file path.</td>
+<td><code>&lt;base&gt;_&lt;lang&gt;.pptx</code></td>
+<td>Output MS PowerPoint (<code>.pptx</code>) file path (emits <code>&lt;base&gt;_&lt;lang&gt;.pptx</code> per locale).</td>
 </tr>
 <tr>
 <td><code>--theme</code></td>
@@ -1191,24 +1191,24 @@ drawlib<span class="w"> </span>rules<span class="w"> </span>list<span class="w">
 drawlib<span class="w"> </span>init<span class="w"> </span>list
 </code></pre>
 <ul>
-<li><code>&lt;TYPE&gt;</code>: Subcommand choosing project type: <code>doc</code>, <code>site</code>, <code>slide</code>, <code>images</code> (alias: <code>image</code>), or <code>list</code>.</li>
+<li><code>&lt;TYPE&gt;</code>: Subcommand choosing project type: <code>doc</code>, <code>site</code>, <code>slide</code> (all initialized with unified <code>&lt;src_dir&gt;/&lt;lang&gt;/</code> locale directories and <code>[i18n]</code> in <code>drawlib.toml</code>), <code>images</code> (alias: <code>image</code>), or <code>list</code>.</li>
 <li><code>[target]</code>: Base name for the project and source folder (creates <code>&lt;target&gt;_src/</code>). Defaults: <code>doc</code> for <code>doc</code>, <code>docs</code> for <code>site</code>, <code>slide</code> for <code>slide</code>, <code>images</code> for <code>images</code>.</li>
 <li><code>-s</code>, <code>--style &lt;theme&gt;</code>: Style preset theme (<code>default</code>, <code>google</code>, <code>monochrome</code>, etc.) synchronously configuring both <code>style.css</code> and <code>styles.py</code>.</li>
-<li><code>-l</code>, <code>--lang &lt;code&gt;</code>: Starter content and font configuration language (<code>en</code>, <code>ja</code>, <code>zh-cn</code>, <code>ko</code>, <code>th</code>, <code>hi</code>, etc.). Default: <code>en</code>.</li>
+<li><code>-l</code>, <code>--lang &lt;code&gt;</code>: Starter content and font configuration language (<code>en</code>, <code>ja</code>, <code>zh-cn</code>, <code>ko</code>, <code>th</code>, <code>hi</code>, etc.; supports comma-separated multi-locale codes such as <code>-l en,ja</code> on <code>doc</code>, <code>site</code>, and <code>slide</code>). Default: <code>en</code>.</li>
 <li><code>-f</code>, <code>--force</code>: Overwrite existing files if destination directory already exists.</li>
 </ul>
 <hr />
 <h2>6. Single Diagram Extraction &amp; Preview (<code>drawlib show</code>)</h2>
 <p>Lists embedded blocks in a document, previews a diagram in a desktop GUI window, or exports it headlessly to disk when <code>-o</code> is supplied:</p>
 <pre><code class="language-bash"><span class="c1"># 1. List all drawlib blocks in a Markdown document (when [TARGET] is omitted):</span>
-drawlib<span class="w"> </span>show<span class="w"> </span>docs_src/overview.md
+drawlib<span class="w"> </span>show<span class="w"> </span>docs_src/en/overview.md
 
 <span class="c1"># 2. Export block by explicit filename with coordinate grid (Recommended):</span>
-drawlib<span class="w"> </span>show<span class="w"> </span>docs_src/overview.md<span class="w"> </span>arch.png<span class="w"> </span>-g<span class="w"> </span>-o<span class="w"> </span>.drawlib/scratch/arch_grid.png
+drawlib<span class="w"> </span>show<span class="w"> </span>docs_src/en/overview.md<span class="w"> </span>arch.png<span class="w"> </span>-g<span class="w"> </span>-o<span class="w"> </span>.drawlib/scratch/arch_grid.png
 
 <span class="c1"># 3. Export block by 1-based index (or -1 for the last block in the file):</span>
-drawlib<span class="w"> </span>show<span class="w"> </span>docs_src/overview.md<span class="w"> </span><span class="m">1</span><span class="w"> </span>-g<span class="w"> </span>-o<span class="w"> </span>.drawlib/scratch/fig1.png
-drawlib<span class="w"> </span>show<span class="w"> </span>docs_src/overview.md<span class="w"> </span>-1<span class="w"> </span>-o<span class="w"> </span>.drawlib/scratch/last_fig.png
+drawlib<span class="w"> </span>show<span class="w"> </span>docs_src/en/overview.md<span class="w"> </span><span class="m">1</span><span class="w"> </span>-g<span class="w"> </span>-o<span class="w"> </span>.drawlib/scratch/fig1.png
+drawlib<span class="w"> </span>show<span class="w"> </span>docs_src/en/overview.md<span class="w"> </span>-1<span class="w"> </span>-o<span class="w"> </span>.drawlib/scratch/last_fig.png
 
 <span class="c1"># 4. Preview standalone Python script in interactive GUI window:</span>
 drawlib<span class="w"> </span>show<span class="w"> </span>my_drawing.py

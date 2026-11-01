@@ -2,7 +2,7 @@
 
 The `site` starter template builds a responsive multi-page technical documentation website with hierarchical sidebar navigation, mobile-responsive layout, syntax highlighting, and dual publishing to static HTML and GitHub-ready Markdown.
 
-Drawlib compiles `docs_src/navbar.md` and your Markdown pages into a two-column documentation portal with strict build-time link validation:
+Drawlib compiles `docs_src/<lang>/navbar.md` and your Markdown pages into a two-column documentation portal with strict build-time link validation:
 
 
 
@@ -26,7 +26,7 @@ setup(width=128, height=62)
 
 # Left: Source directory container
 rectangle((21, 31), width=34, height=54, style=Styles.MutedDashed.patch(shape_r=2.0))
-text((21, 54.2), "Source (docs_src/)", style=Styles.DarkBold.patch(text_size=10.8))
+text((21, 54.2), "docs_src/<lang>/", style=Styles.DarkBold.patch(text_size=10.8))
 
 rectangle((21, 39.2), width=30, height=22, style=Styles.PrimaryNeutral.patch(shape_r=1.5))
 phosphor.list_bullets((10.5, 45.8), width=4.4, style=Styles.PrimaryBold)
@@ -127,14 +127,15 @@ From initial `drawlib init site` scaffolding and `navbar.md` sidebar setup to `-
 
 ## 2. Project Initialization
 
-Scaffold a documentation website using `drawlib init`:
+Scaffold a documentation website using `drawlib init` (every `site` project uses the unified `<src_dir>/<lang>/` locale layout, even for a single language):
 
 ```bash
-# Scaffold default 'docs_src/' in the current directory:
+# Scaffold default 'docs_src/en/' in the current directory:
 drawlib init site
 
-# Or specify a custom target prefix (creates 'my_docs_src/', 'my_docs_html/', etc.):
+# Or specify a custom target prefix and single or multiple locales (creates 'my_docs_src/<lang>/'):
 drawlib init site my_docs --style google --lang en
+drawlib init site my_docs --style google --lang en,ja
 ```
 
 ---
@@ -144,24 +145,24 @@ drawlib init site my_docs --style google --lang en
 A `site` project strictly separates editable source files (`docs_src/`) from generated publishing artifacts:
 
 - **`docs_src/` (Single Source of Truth)**:
-  - **`drawlib.toml`**: Project manifest declaring `type = "site"`, default language/theme metadata, and optional `[i18n]` multi-locale settings.
-  - **`index.md`**: Site landing page rendered as the root entry document (`index.html`).
-  - **`navbar.md`**: Declarative sidebar navigation manifest defining brand title, collapsible sections, and page links.
-  - **Nested Section Sub-Folders (`guide/`, `api/`, `01_architecture/`, etc.)**: Hierarchical Markdown pages with embedded ```` ```drawlib ```` diagram blocks.
-  - **`_assets/`**: Static media files (logos, screenshots, data files) recursively mirrored into output portals.
-  - **`styles.py` & `utils.py`**: Project-wide theme palette, language typography defaults, and shared Python drawing helpers.
+  - **`drawlib.toml`**: Project manifest declaring `type = "site"`, `style`, and the required `[i18n]` section (`default_lang`, `langs` with `len >= 1`, and optional `[i18n.labels]`; `lang` under `[project]` is disallowed).
+  - **`<lang>/index.md`**: Per-locale site landing page rendered as `<lang>/index.html` (with `docs_html/index.html` redirecting to `default_lang`).
+  - **`<lang>/navbar.md`**: Per-locale declarative sidebar navigation manifest defining brand title, collapsible sections, and page links.
+  - **Nested Section Sub-Folders (`<lang>/guide/`, `<lang>/api/`, `<lang>/01_architecture/`, etc.)**: Hierarchical Markdown pages with embedded ```` ```drawlib ```` diagram blocks.
+  - **`_assets/`**: Static media files (logos, screenshots, data files) recursively mirrored into output portals (referenced from `<lang>/` Markdown prose via `../_assets/...`).
+  - **`styles.py` & `utils.py`**: Project-wide theme palette, language typography defaults (plus optional per-locale `<lang>/styles.py` overrides), and shared Python drawing helpers.
   - **`template.html` & `style.css`**: Responsive two-column HTML layout shell and 3-layer CSS stylesheet.
   - **`build.sh`, `build_html.sh`, `build_markdown.sh`, `build_image.sh`, `serve.sh`**: Modular build and local preview scripts.
 - **Generated Outputs (Do Not Edit Directly)**:
-  - **`docs_html/`**: Responsive static HTML documentation portal ready for web hosting and `drawlib serve`.
-  - **`docs_markdown/`**: GitHub-ready Markdown portal with compiled PNG/WebP figure links.
+  - **`docs_html/`**: Responsive static HTML documentation portal (`docs_html/<lang>/`, root `docs_html/index.html` redirect, and shared `docs_html/images/`) ready for web hosting and `drawlib serve`.
+  - **`docs_markdown/`**: GitHub-ready Markdown portal (`docs_markdown/<lang>/` and shared `docs_markdown/images/`) with compiled PNG/WebP figure links.
   - **`docs_images/`**: Standalone extracted illustrations when running `build_image.sh`.
 
 ---
 
-## 4. Sidebar Navigation (`navbar.md`)
+## 4. Sidebar Navigation (`<lang>/navbar.md`)
 
-The sidebar navigation structure is governed entirely by `docs_src/navbar.md`:
+The sidebar navigation structure for each locale is governed entirely by `docs_src/<lang>/navbar.md`:
 
 ```markdown
 # Drawlib Documentation
@@ -183,7 +184,7 @@ The sidebar navigation structure is governed entirely by `docs_src/navbar.md`:
 ### Authoring Rules:
 1. **Brand Header (`# Title`)**: The top level `# Heading 1` sets the brand title in the sidebar header.
 2. **Category Groupings (`## Category`)**: Each `## Heading 2` defines a collapsible navigation category section.
-3. **Internal Document Links**: Relative paths must point to existing Markdown files within `docs_src/`.
+3. **Internal Document Links**: Relative paths are resolved within that locale directory (`docs_src/<lang>/`) and must point to existing Markdown files.
 4. **External Links**: URLs beginning with `http://` or `https://` automatically open in a new tab (`target="_blank"`) with an external link indicator.
 5. **Strict Build-Time Validation**: If any linked document does not exist, the build immediately aborts with an error indicating the file and line number.
 6. **Active Page Tracking**: The currently viewed page is automatically highlighted (`.nav-item.active`) with dynamic relative path resolution.
@@ -192,7 +193,7 @@ The sidebar navigation structure is governed entirely by `docs_src/navbar.md`:
 
 ## 5. Static Asset Synchronization
 
-Any static assets placed in `docs_src/` (such as custom logos, sample data files, or images in `_assets/`) are recursively mirrored to `docs_html/` and `docs/`, preserving folder hierarchies.
+Any static assets placed in `docs_src/` (such as custom logos, sample data files, or images in `_assets/`) are recursively mirrored to `docs_html/` and `docs/` (`docs_markdown/`), preserving folder hierarchies.
 
 ---
 
@@ -223,16 +224,16 @@ uv run drawlib serve docs_html/ --check
 
 ## 7. Parallel Multi-Agent Site Authoring
 
-Multi-page `site` projects (`docs_src/**/*.md`) scale naturally across parallel AI subagents:
-1. **Phase 1 (Parent Setup)**: Scaffold `docs_src/` (`drawlib init site`) and finalize shared files (`styles.py`, `utils.py`, `_assets/`, `index.md`, and the complete `navbar.md` sidebar tree) before launching subagents.
-2. **Phase 2 (Parallel Subagents)**: Assign each subagent a disjoint page or section directory (e.g., `01_architecture/*.md` vs. `02_services/*.md`). Each subagent treats `styles.py`, `utils.py`, and `navbar.md` as read-only, authors its assigned pages, and runs `-g` grid previews using unique scratch filenames (`-o .drawlib/scratch/<page>_<block>_grid.png`).
+Multi-page `site` projects (`docs_src/<lang>/**/*.md`) scale naturally across parallel AI subagents:
+1. **Phase 1 (Parent Setup)**: Scaffold `docs_src/` (`drawlib init site`) and finalize shared files (`drawlib.toml`, `styles.py`, `utils.py`, `_assets/`, `<lang>/index.md`, and the complete `<lang>/navbar.md` sidebar tree) before launching subagents.
+2. **Phase 2 (Parallel Subagents)**: Assign each subagent a disjoint page or section directory (e.g., `<lang>/01_architecture/*.md` vs. `<lang>/02_services/*.md`). Each subagent treats `drawlib.toml`, `styles.py`, `utils.py`, and `<lang>/navbar.md` as read-only, authors its assigned pages, and runs `-g` grid previews using unique scratch filenames (`-o .drawlib/scratch/<page>_<block>_grid.png`).
 3. **Phase 3 (Unified Build & Link Audit)**: Once all subagents finish, the parent agent runs `./docs_src/build.sh` once and verifies site-wide link integrity with `uv run drawlib serve docs_html/ --check`.
 
 ---
 
-## 8. Multi-Language (`i18n`) Websites (`drawlib.toml`)
+## 8. Unified `i18n` & Multi-Language Websites (`drawlib.toml`)
 
-A single `docs_src/` project can publish a synchronized multi-language documentation portal by passing comma-separated language codes to `drawlib init site` or configuring `[i18n]` in `docs_src/drawlib.toml`:
+Every `docs_src/` project is `i18n`-native out of the box (`langs = ["en"]` by default). Expanding a single-language portal into a multi-language site later requires zero `git mv` restructuring—pass comma-separated language codes to `drawlib init site` or add a locale directory (`docs_src/ja/`) and update `[i18n]` in `docs_src/drawlib.toml`:
 
 ```bash
 uv run drawlib init site docs -l en,ja -s default
@@ -255,7 +256,7 @@ ja = "日本語"
 
 - **Symmetric Locale Subtrees (`docs_src/<lang>/`)**: Each configured locale (`en/`, `ja/`, ...) maintains its own `navbar.md`, `index.md`, and mirrored section subdirectories.
 - **Shared Diagram Deduplication & Per-Locale `styles.py`**: Identical diagrams (`file=vpc_arch.png`) are compiled once into the root `docs_html/images/` directory and shared across all locales. If a locale requires CJK fonts or localized figure text, add `docs_src/<lang>/styles.py` and use a locale-suffixed filename (`file=vpc_arch_ja.png`).
-- **Automatic Locale Switcher & Root Redirect**: Compiled HTML pages include a header language dropdown linking directly to the corresponding page in every other locale, while `docs_html/index.html` redirects visitors to their preferred locale (`default_lang` fallback).
+- **Automatic Locale Switcher & Root Redirect**: When `len(langs) > 1`, compiled HTML pages render a header language dropdown linking directly to the corresponding page in every other locale, while `docs_html/index.html` redirects visitors to their preferred locale (`default_lang` fallback).
 - **Pre-Flight Parity Enforcement**: Every build automatically verifies file-set parity, `navbar.md` structure parity, Markdown structural skeleton parity, and internal link targets across all configured locales before rendering.
 - **Unified Link Verification**: Running `uv run drawlib serve docs_html/ --check` validates internal navigation, shared image references, and cross-locale switcher links across all locales in one pass.
 

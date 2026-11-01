@@ -296,4 +296,51 @@ def resolve_doc_locale_and_root(path_abs: str) -> tuple[str, ProjectManifest | N
             return first_part, manifest, proj_root
         return manifest.i18n.default_lang, manifest, proj_root
 
-    return manifest.project.lang, manifest, proj_root
+    return manifest.effective_lang, manifest, proj_root
+
+
+def write_root_redirect_html(
+    out_dir_abs: str,
+    default_lang: str,
+    target_rel: str = "index.html",
+    title: str = "Redirecting...",
+) -> str:
+    """Write a root ``index.html`` redirecting to ``<default_lang>/<target_rel>`` with query/hash preserved.
+
+    Args:
+        out_dir_abs: Root output HTML directory.
+        default_lang: Default canonical language directory name (e.g. ``'en'``).
+        target_rel: Target HTML filename inside ``<default_lang>/``.
+        title: HTML page title.
+
+    Returns:
+        str: Absolute path to the written ``index.html``.
+    """
+    import html as html_lib
+
+    target_url = f"{default_lang}/{target_rel}"
+    esc_url = html_lib.escape(target_url, quote=True)
+    esc_title = html_lib.escape(title)
+    content = (
+        "<!DOCTYPE html>\n"
+        f'<html lang="{html_lib.escape(default_lang)}">\n'
+        "<head>\n"
+        '  <meta charset="UTF-8">\n'
+        f'  <meta http-equiv="refresh" content="0; url={esc_url}">\n'
+        f'  <link rel="canonical" href="{esc_url}">\n'
+        f"  <title>{esc_title}</title>\n"
+        "  <script>\n"
+        f'    window.location.replace("{esc_url}" + window.location.search + window.location.hash);\n'
+        "  </script>\n"
+        "</head>\n"
+        "<body>\n"
+        f'  <p>Redirecting to <a href="{esc_url}">{esc_url}</a>...</p>\n'
+        "</body>\n"
+        "</html>\n"
+    )
+    os.makedirs(out_dir_abs, exist_ok=True)
+    dest_abs = os.path.join(out_dir_abs, "index.html")
+    with open(dest_abs, "w", encoding="utf-8") as f:
+        f.write(content)
+    return dest_abs
+

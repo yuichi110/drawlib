@@ -10,18 +10,18 @@
 """Integration tests for build_markdown, build_html, build_pdf, and detector in doc_builder."""
 
 import os
+from collections.abc import Sequence
+from pathlib import Path
 from unittest.mock import MagicMock
 
 import pytest
 
 from drawlib._builder.doc_builder import (
-    DocType,
     build_document,
     build_html,
     build_markdown,
     build_pdf,
     detect_document_type,
-    exporter_pdf,
 )
 from drawlib._builder.doc_builder.compiler.html import resolve_logo_hrefs
 from drawlib._builder.doc_builder.exporter_pdf import export_html_to_pdf
@@ -40,7 +40,23 @@ def _is_playwright_chromium_available() -> bool:
         return False
 
 
-def _setup_template_and_css(directory) -> None:
+def _write_manifest(
+    directory: Path,
+    project_type: str = "site",
+    *,
+    default_lang: str = "en",
+    langs: Sequence[str] = ("en",),
+) -> None:
+    for lang in langs:
+        (directory / lang).mkdir(parents=True, exist_ok=True)
+    langs_toml = ", ".join(f'"{lc}"' for lc in langs)
+    (directory / "drawlib.toml").write_text(
+        f'[project]\ntype = "{project_type}"\n\n[i18n]\ndefault_lang = "{default_lang}"\nlangs = [{langs_toml}]\n',
+        encoding="utf-8",
+    )
+
+
+def _setup_template_and_css(directory: Path) -> None:
     template_content = (
         "<!DOCTYPE html>\n"
         "<html>\n"
@@ -77,7 +93,7 @@ def _setup_template_and_css(directory) -> None:
     (directory / "style.css").write_text("body { margin: 0; }", encoding="utf-8")
 
 
-def test_detect_document_type(tmp_path) -> None:
+def test_detect_document_type(tmp_path: Path) -> None:
     """Test auto-detection of the 4 document input types."""
     md_dl = tmp_path / "doc_dl.md"
     md_dl.write_text("# Doc\n```drawlib file=c.png\ncircle((50,50), 10)\n```\n", encoding="utf-8")
@@ -117,8 +133,8 @@ def test_detect_document_type(tmp_path) -> None:
     assert info5.block_count == 0
 
 
-def test_build_compiler_single_file_rejection(tmp_path) -> None:
-    """Test build_html and build_markdown reject single file inputs."""
+def test_build_compiler_single_file_rejection(tmp_path: Path) -> None:
+    """Test build_html/build_markdown reject single files and directory compilers require drawlib.toml."""
     single_file = tmp_path / "doc.md"
     single_file.write_text("# Single File", encoding="utf-8")
 
@@ -128,14 +144,28 @@ def test_build_compiler_single_file_rejection(tmp_path) -> None:
     with pytest.raises(ValueError, match="requires a directory as input"):
         build_markdown(input_dir=str(single_file))
 
+    uninitialized_dir = tmp_path / "uninit_dir"
+    uninitialized_dir.mkdir()
+    (uninitialized_dir / "index.md").write_text("# Missing Manifest", encoding="utf-8")
 
-def test_build_html_markdown_with_external_css(tmp_path) -> None:
+    with pytest.raises(ValueError, match=r"drawlib\.toml"):
+        build_html(input_dir=str(uninitialized_dir), output_dir=str(tmp_path / "out_html"))
+
+    with pytest.raises(ValueError, match=r"drawlib\.toml"):
+        build_markdown(input_dir=str(uninitialized_dir), output_dir=str(tmp_path / "out_md"))
+
+    with pytest.raises(ValueError, match=r"drawlib\.toml"):
+        build_pdf(input_dir=str(uninitialized_dir), output_file=str(tmp_path / "out.pdf"))
+
+
+def test_build_html_markdown_with_external_css(tmp_path: Path) -> None:
     """Test compiling Markdown directory to HTML with PNG image export and external style.css."""
     src_dir = tmp_path / "src"
     out_dir = tmp_path / "out"
     src_dir.mkdir()
+    _write_manifest(src_dir, "site")
     _setup_template_and_css(src_dir)
-    input_md = src_dir / "index.md"
+    input_md = src_dir / "en" / "index.md"
     input_md.write_text(
         """# Architecture
 
@@ -147,32 +177,40 @@ circle((50, 50), radius=20, style=Styles.Primary, text="Core Engine")
 """,
         encoding="utf-8",
     )
-    (src_dir / "navbar.md").write_text("- [Home](index.md)\n", encoding="utf-8")
+    (src_dir / "en" / "navbar.md").write_text("- [Home](index.md)\n", encoding="utf-8")
 
     res_path = build_html(input_dir=str(src_dir), output_dir=str(out_dir))
 
     assert res_path == str(out_dir)
-    out_html = out_dir / "index.html"
+    out_html = out_dir / "en" / "index.html"
+    root_html = out_dir / "index.html"
     assert out_html.exists()
+    assert root_html.exists()
+
     content = out_html.read_text(encoding="utf-8")
     assert "<!DOCTYPE html>" in content
     assert "<h1" in content
-    assert '<img src="index_images/arch.png"' in content
+    assert '<img src="../images/index/arch.png"' in content
     assert '<link rel="stylesheet" href="style.css">' in content
 
-    png_file = out_dir / "index_images" / "arch.png"
-    style_css = out_dir / "style.css"
+    root_content = root_html.read_text(encoding="utf-8")
+    assert '<img src="images/index/arch.png"' in root_content
+    assert '<link rel="stylesheet" href="en/style.css">' in root_content
+
+    png_file = out_dir / "images" / "index" / "arch.png"
+    style_css = out_dir / "en" / "style.css"
     assert png_file.exists()
     assert style_css.exists()
 
 
-def test_build_html_webp_format(tmp_path) -> None:
+def test_build_html_webp_format(tmp_path: Path) -> None:
     """Test compiling Markdown directory to HTML with WebP image format."""
     src_dir = tmp_path / "src"
     out_dir = tmp_path / "out"
     src_dir.mkdir()
+    _write_manifest(src_dir, "site")
     _setup_template_and_css(src_dir)
-    input_md = src_dir / "index.md"
+    input_md = src_dir / "en" / "index.md"
     input_md.write_text(
         """# WebP Test
 
@@ -184,23 +222,25 @@ circle((50, 50), radius=20, style=Styles.Primary)
 """,
         encoding="utf-8",
     )
-    (src_dir / "navbar.md").write_text("- [Home](index.md)\n", encoding="utf-8")
+    (src_dir / "en" / "navbar.md").write_text("- [Home](index.md)\n", encoding="utf-8")
 
     build_html(input_dir=str(src_dir), output_dir=str(out_dir), image_format="webp")
 
-    out_html = out_dir / "index.html"
+    out_html = out_dir / "en" / "index.html"
     content = out_html.read_text(encoding="utf-8")
-    assert '<img src="index_images/circle.webp"' in content
-    assert (out_dir / "index_images" / "circle.webp").exists()
+    assert '<img src="../images/index/circle.webp"' in content
+    assert (out_dir / "index.html").exists()
+    assert (out_dir / "images" / "index" / "circle.webp").exists()
 
 
-def test_build_html_from_html_drawlib(tmp_path) -> None:
+def test_build_html_from_html_drawlib(tmp_path: Path) -> None:
     """Test compiling HTML file containing <script type='text/drawlib'>."""
     src_dir = tmp_path / "src"
     out_dir = tmp_path / "out"
     src_dir.mkdir()
+    _write_manifest(src_dir, "site")
     _setup_template_and_css(src_dir)
-    input_html = src_dir / "index.html"
+    input_html = src_dir / "en" / "index.html"
     input_html.write_text(
         """<!DOCTYPE html>
 <html>
@@ -217,49 +257,53 @@ circle((50, 50), radius=15, style=Styles.Primary)
 """,
         encoding="utf-8",
     )
-    (src_dir / "navbar.md").write_text("- [Home](index.html)\n", encoding="utf-8")
+    (src_dir / "en" / "navbar.md").write_text("- [Home](index.html)\n", encoding="utf-8")
 
     build_html(input_dir=str(src_dir), output_dir=str(out_dir))
 
-    out_html = out_dir / "index.html"
+    out_html = out_dir / "en" / "index.html"
     content = out_html.read_text(encoding="utf-8")
-    assert '<img src="index_images/my_fig.png"' in content
-    assert (out_dir / "index_images" / "my_fig.png").exists()
+    assert '<img src="../images/index/my_fig.png"' in content
+    assert (out_dir / "index.html").exists()
+    assert (out_dir / "images" / "index" / "my_fig.png").exists()
 
 
-def test_build_document_with_custom_css(tmp_path) -> None:
+def test_build_document_with_custom_css(tmp_path: Path) -> None:
     """Test compiling with custom CSS written to external style.css."""
     src_dir = tmp_path / "src"
     out_dir = tmp_path / "out"
     src_dir.mkdir()
+    _write_manifest(src_dir, "site")
     _setup_template_and_css(src_dir)
     (src_dir / "style.css").write_text("body { background-color: #ff0000; }", encoding="utf-8")
-    (src_dir / "index.md").write_text("# Styled Document", encoding="utf-8")
-    (src_dir / "navbar.md").write_text("- [Home](index.md)\n", encoding="utf-8")
+    (src_dir / "en" / "index.md").write_text("# Styled Document", encoding="utf-8")
+    (src_dir / "en" / "navbar.md").write_text("- [Home](index.md)\n", encoding="utf-8")
 
     build_html(input_dir=str(src_dir), output_dir=str(out_dir))
 
-    style_css = out_dir / "style.css"
+    style_css = out_dir / "en" / "style.css"
     assert style_css.exists()
     assert "background-color: #ff0000;" in style_css.read_text(encoding="utf-8")
 
 
-def test_build_document_safety_guard_overwrite(tmp_path) -> None:
+def test_build_document_safety_guard_overwrite(tmp_path: Path) -> None:
     """Test that build_markdown refuses to overwrite input source directory."""
     src_dir = tmp_path / "src"
     src_dir.mkdir()
-    (src_dir / "index.md").write_text("# Test Document", encoding="utf-8")
+    _write_manifest(src_dir, "doc")
+    (src_dir / "en" / "index.md").write_text("# Test Document", encoding="utf-8")
 
     with pytest.raises(ValueError, match="Refusing to overwrite"):
         build_markdown(input_dir=str(src_dir), output_dir=str(src_dir))
 
 
-def test_build_markdown_format(tmp_path) -> None:
+def test_build_markdown_format(tmp_path: Path) -> None:
     """Test compiling Markdown directory to rendered Markdown with external PNG."""
     src_dir = tmp_path / "src"
     out_dir = tmp_path / "out"
     src_dir.mkdir()
-    (src_dir / "index.md").write_text(
+    _write_manifest(src_dir, "site")
+    (src_dir / "en" / "index.md").write_text(
         """# Rendered MD Test
 
 ```drawlib file=line.png
@@ -270,30 +314,34 @@ line((0, 0), (100, 100), style=Styles.Primary)
 """,
         encoding="utf-8",
     )
+    (src_dir / "en" / "navbar.md").write_text("- [Home](index.md)\n", encoding="utf-8")
 
     res_path = build_markdown(input_dir=str(src_dir), output_dir=str(out_dir))
 
     assert res_path == str(out_dir)
-    out_md = out_dir / "index.md"
+    out_md = out_dir / "en" / "index.md"
     assert out_md.exists()
+    assert (out_dir / "index.md").exists()
     content = out_md.read_text(encoding="utf-8")
     assert "# Rendered MD Test" in content
-    assert "![index_1](index_images/line.png)" in content
+    assert "![index_1](../images/index/line.png)" in content
     assert "```drawlib" not in content
-    assert (out_dir / "index_images" / "line.png").exists()
+    assert (out_dir / "images" / "index" / "line.png").exists()
 
 
-def test_build_document_directory_recursive(tmp_path) -> None:
+def test_build_document_directory_recursive(tmp_path: Path) -> None:
     """Test recursive directory build system with subdirectories and navbar.md navigation."""
     src_dir = tmp_path / "src_docs"
     out_dir = tmp_path / "dist_docs"
     src_dir.mkdir()
+    _write_manifest(src_dir, "site")
     _setup_template_and_css(src_dir)
-    sub_dir = src_dir / "guide"
+    en_dir = src_dir / "en"
+    sub_dir = en_dir / "guide"
     sub_dir.mkdir()
 
-    (src_dir / "index.md").write_text("# Home Page\n\n[Guide](./guide/canvas.md)", encoding="utf-8")
-    (src_dir / "navbar.md").write_text(
+    (en_dir / "index.md").write_text("# Home Page\n\n[Guide](./guide/canvas.md)", encoding="utf-8")
+    (en_dir / "navbar.md").write_text(
         "# Navigation\n\n- [Home](index.md)\n\n## Guides\n- [Canvas Guide](guide/canvas.md)\n",
         encoding="utf-8",
     )
@@ -302,13 +350,14 @@ def test_build_document_directory_recursive(tmp_path) -> None:
     res_dir = build_html(input_dir=str(src_dir), output_dir=str(out_dir))
 
     assert res_dir == str(out_dir)
-    index_html = out_dir / "index.html"
-    canvas_html = out_dir / "guide" / "canvas.html"
+    index_html = out_dir / "en" / "index.html"
+    canvas_html = out_dir / "en" / "guide" / "canvas.html"
 
+    assert (out_dir / "index.html").exists()
     assert index_html.exists()
     assert canvas_html.exists()
-    assert (out_dir / "style.css").exists()
-    assert not (out_dir / "navbar.html").exists()
+    assert (out_dir / "en" / "style.css").exists()
+    assert not (out_dir / "en" / "navbar.html").exists()
 
     c_index = index_html.read_text(encoding="utf-8")
     assert 'href="guide/canvas.html"' in c_index or 'href="./guide/canvas.html"' in c_index
@@ -321,35 +370,39 @@ def test_build_document_directory_recursive(tmp_path) -> None:
     assert "nav-item active" in c_canvas
 
 
-def test_build_document_static_assets_copy(tmp_path) -> None:
-    """Test copying non-drawlib static assets (images, css) to output directory."""
+def test_build_document_static_assets_copy(tmp_path: Path) -> None:
+    """Test copying non-drawlib static assets (_assets, css) to output directory."""
     src_dir = tmp_path / "src_docs"
     out_dir = tmp_path / "dist_docs"
     src_dir.mkdir()
+    _write_manifest(src_dir, "site")
     _setup_template_and_css(src_dir)
 
-    img_dir = src_dir / "images"
-    img_dir.mkdir()
-    (img_dir / "logo.png").write_bytes(b"dummy_png_bytes")
-    (src_dir / "index.md").write_text("# Title\n\n![Logo](./images/logo.png)", encoding="utf-8")
-    (src_dir / "navbar.md").write_text("- [Title](index.md)\n", encoding="utf-8")
+    assets_dir = src_dir / "_assets"
+    assets_dir.mkdir()
+    (assets_dir / "banner.png").write_bytes(b"dummy_png_bytes")
+    (src_dir / "en" / "index.md").write_text("# Title\n\n![Banner](../_assets/banner.png)", encoding="utf-8")
+    (src_dir / "en" / "navbar.md").write_text("- [Title](index.md)\n", encoding="utf-8")
 
     build_html(input_dir=str(src_dir), output_dir=str(out_dir))
 
-    copied_img = out_dir / "images" / "logo.png"
+    copied_img = out_dir / "_assets" / "banner.png"
     assert copied_img.exists()
     assert copied_img.read_bytes() == b"dummy_png_bytes"
+    en_html = (out_dir / "en" / "index.html").read_text(encoding="utf-8")
+    assert "../_assets/banner.png" in en_html
 
 
-def test_build_pdf_multi_document_merge(tmp_path) -> None:
-    """Test build_pdf merges multiple inputs from directory into a single PDF and embeds images."""
+def test_build_pdf_multi_document_merge(tmp_path: Path) -> None:
+    """Test build_pdf merges multiple inputs from directory into a locale PDF and embeds images."""
     if not _is_playwright_chromium_available():
         pytest.skip("Playwright or headless Chromium browser not available for PDF export test.")
 
     src_dir = tmp_path / "pdf_src"
     src_dir.mkdir()
+    _write_manifest(src_dir, "doc")
     _setup_template_and_css(src_dir)
-    doc1 = src_dir / "01_intro.md"
+    doc1 = src_dir / "en" / "01_intro.md"
     doc1.write_text(
         """# Introduction
 
@@ -361,68 +414,77 @@ circle((50, 50), radius=15, style=Styles.Primary)
 """,
         encoding="utf-8",
     )
-    doc2 = src_dir / "02_details.md"
+    doc2 = src_dir / "en" / "02_details.md"
     doc2.write_text("# Details\n\nDetailed architecture.", encoding="utf-8")
 
-    out_pdf = tmp_path / "manual.pdf"
+    out_pdf_base = tmp_path / "manual.pdf"
+    expected_pdf = tmp_path / "manual_en.pdf"
     res = build_pdf(
         input_dir=str(src_dir),
-        output_file=str(out_pdf),
+        output_file=str(out_pdf_base),
         generate_index=True,
         page_break=True,
         title="System Manual",
     )
 
-    assert res == str(out_pdf)
-    assert out_pdf.exists()
-    assert out_pdf.stat().st_size > 0
+    assert res == str(expected_pdf)
+    assert expected_pdf.exists()
+    assert expected_pdf.stat().st_size > 0
 
 
-def test_build_pdf_deterministic_timestamp(tmp_path) -> None:
+def test_build_pdf_deterministic_timestamp(tmp_path: Path) -> None:
     """Test build_pdf normalizes timestamps by default to produce deterministic byte-identical PDFs."""
     if not _is_playwright_chromium_available():
         pytest.skip("Playwright or headless Chromium browser not available for PDF export test.")
 
     src_dir = tmp_path / "pdf_src"
     src_dir.mkdir()
+    _write_manifest(src_dir, "doc")
     _setup_template_and_css(src_dir)
-    doc = src_dir / "doc.md"
+    doc = src_dir / "en" / "doc.md"
     doc.write_text("# Chapter 1\n\nContent for deterministic test.", encoding="utf-8")
 
     out_pdf1 = tmp_path / "out1.pdf"
     out_pdf2 = tmp_path / "out2.pdf"
 
-    build_pdf(input_dir=str(src_dir), output_file=str(out_pdf1), timestamp=False)
-    build_pdf(input_dir=str(src_dir), output_file=str(out_pdf2), timestamp=False)
+    res1 = build_pdf(input_dir=str(src_dir), output_file=str(out_pdf1), timestamp=False)
+    res2 = build_pdf(input_dir=str(src_dir), output_file=str(out_pdf2), timestamp=False)
 
-    bytes1 = out_pdf1.read_bytes()
-    bytes2 = out_pdf2.read_bytes()
+    expected1 = tmp_path / "out1_en.pdf"
+    expected2 = tmp_path / "out2_en.pdf"
+    assert res1 == str(expected1)
+    assert res2 == str(expected2)
+
+    bytes1 = expected1.read_bytes()
+    bytes2 = expected2.read_bytes()
 
     assert bytes1 == bytes2
     assert b"D:20260101000000+00'00'" in bytes1
 
 
-def test_build_pdf_with_timestamp(tmp_path) -> None:
+def test_build_pdf_with_timestamp(tmp_path: Path) -> None:
     """Test build_pdf with timestamp=True preserves the current timestamp in metadata."""
     if not _is_playwright_chromium_available():
         pytest.skip("Playwright or headless Chromium browser not available for PDF export test.")
 
     src_dir = tmp_path / "pdf_src"
     src_dir.mkdir()
+    _write_manifest(src_dir, "doc")
     _setup_template_and_css(src_dir)
-    doc = src_dir / "doc.md"
+    doc = src_dir / "en" / "doc.md"
     doc.write_text("# Chapter 1\n\nContent for timestamp test.", encoding="utf-8")
 
     out_pdf = tmp_path / "out_ts.pdf"
-    build_pdf(input_dir=str(src_dir), output_file=str(out_pdf), timestamp=True)
+    expected_pdf = tmp_path / "out_ts_en.pdf"
+    res = build_pdf(input_dir=str(src_dir), output_file=str(out_pdf), timestamp=True)
+    assert res == str(expected_pdf)
 
-    data = out_pdf.read_bytes()
+    data = expected_pdf.read_bytes()
     assert b"/CreationDate (D:" in data
-    # Should not be normalized to default fixed date
     assert b"D:20260101000000+00'00'" not in data
 
 
-def test_export_html_to_pdf_missing_playwright(monkeypatch, tmp_path) -> None:
+def test_export_html_to_pdf_missing_playwright(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
     """Test friendly error message is raised when playwright package is not installed."""
     orig_import = __import__
 
@@ -443,7 +505,7 @@ def test_export_html_to_pdf_missing_playwright(monkeypatch, tmp_path) -> None:
     assert "pip install drawlib" in err_msg
 
 
-def test_export_html_to_pdf_missing_chromium(monkeypatch, tmp_path) -> None:
+def test_export_html_to_pdf_missing_chromium(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
     """Test auto-install is attempted when Chromium is missing and friendly error is raised if still missing."""
     mock_playwright = MagicMock()
     mock_p = MagicMock()
@@ -468,67 +530,73 @@ def test_export_html_to_pdf_missing_chromium(monkeypatch, tmp_path) -> None:
     assert "playwright install --only-shell chromium" in err_msg
 
 
-def test_build_document_missing_image_warning(tmp_path, capsys) -> None:
+def test_build_document_missing_image_warning(tmp_path: Path, capsys: pytest.CaptureFixture[str]) -> None:
     """Test warning is emitted when local static image referenced in Markdown is missing."""
     src_dir = tmp_path / "src"
     out_dir = tmp_path / "out"
     src_dir.mkdir()
+    _write_manifest(src_dir, "site")
     _setup_template_and_css(src_dir)
-    (src_dir / "index.md").write_text("# Doc\n\n![Nonexistent](missing_test_image.png)\n", encoding="utf-8")
-    (src_dir / "navbar.md").write_text("- [Home](index.md)\n", encoding="utf-8")
+    (src_dir / "en" / "index.md").write_text("# Doc\n\n![Nonexistent](missing_test_image.png)\n", encoding="utf-8")
+    (src_dir / "en" / "navbar.md").write_text("- [Home](index.md)\n", encoding="utf-8")
 
     build_document(input_dir=str(src_dir), output_path=str(out_dir))
     captured = capsys.readouterr()
     assert "WARNING: Image 'missing_test_image.png'" in captured.err
 
 
-def test_build_html_duplicate_document_outputs_error(tmp_path) -> None:
+def test_build_html_duplicate_document_outputs_error(tmp_path: Path) -> None:
     """Test pre-check raises ValueError when two source files map to the same HTML output file."""
     src_dir = tmp_path / "src_dup"
     out_dir = tmp_path / "out_dup"
     src_dir.mkdir()
+    _write_manifest(src_dir, "site")
     _setup_template_and_css(src_dir)
-    (src_dir / "index.md").write_text("# Home\n", encoding="utf-8")
-    (src_dir / "topic.md").write_text("# Topic MD\n", encoding="utf-8")
-    (src_dir / "topic.html").write_text("<h1>Topic HTML</h1>\n", encoding="utf-8")
-    (src_dir / "navbar.md").write_text("- [Home](index.md)\n- [Topic](topic.md)\n", encoding="utf-8")
+    (src_dir / "en" / "index.md").write_text("# Home\n", encoding="utf-8")
+    (src_dir / "en" / "topic.md").write_text("# Topic MD\n", encoding="utf-8")
+    (src_dir / "en" / "topic.html").write_text("<h1>Topic HTML</h1>\n", encoding="utf-8")
+    (src_dir / "en" / "navbar.md").write_text("- [Home](index.md)\n- [Topic](topic.md)\n", encoding="utf-8")
 
     with pytest.raises(ValueError, match="Duplicate output file detected") as exc_info:
         build_html(input_dir=str(src_dir), output_dir=str(out_dir))
-    assert "/topic.md" in str(exc_info.value)
-    assert "/topic.html" in str(exc_info.value)
+    assert "/en/topic.md" in str(exc_info.value)
+    assert "/en/topic.html" in str(exc_info.value)
 
 
-def test_build_html_directory_missing_index_error(tmp_path) -> None:
-    """Test directory build fails when index.md is missing at root."""
+def test_build_html_directory_missing_index_error(tmp_path: Path) -> None:
+    """Test site directory build fails when index.md is missing inside locale directory."""
     src_dir = tmp_path / "src_no_index"
     out_dir = tmp_path / "out_no_index"
     src_dir.mkdir()
+    _write_manifest(src_dir, "site")
     _setup_template_and_css(src_dir)
-    (src_dir / "navbar.md").write_text("- [Topic](topic.md)\n", encoding="utf-8")
-    (src_dir / "topic.md").write_text("# Topic\n", encoding="utf-8")
+    (src_dir / "en" / "navbar.md").write_text("- [Topic](topic.md)\n", encoding="utf-8")
+    (src_dir / "en" / "topic.md").write_text("# Topic\n", encoding="utf-8")
 
-    with pytest.raises(ValueError, match='Directory build requires "index.md" or "index.html"'):
+    with pytest.raises(ValueError, match='requires "index.md" or "index.html"'):
         build_html(input_dir=str(src_dir), output_dir=str(out_dir))
 
 
-def test_build_html_directory_without_navbar(tmp_path) -> None:
-    """Test directory build without navbar.md merges chapters into a single standalone index.html."""
+def test_build_html_directory_without_navbar(tmp_path: Path) -> None:
+    """Test doc directory build merges chapters into standalone locale and root index.html pages."""
     src_dir = tmp_path / "src_no_navbar"
     out_dir = tmp_path / "out_no_navbar"
     src_dir.mkdir()
+    _write_manifest(src_dir, "doc")
     _setup_template_and_css(src_dir)
-    (src_dir / "02_details.md").write_text("# 2. Details\n\nDeep dive content.", encoding="utf-8")
-    (src_dir / "00_cover.md").write_text("# Cover Title\n\nSee [Details](02_details.md).", encoding="utf-8")
-    (src_dir / "01_overview.md").write_text("# 1. Overview\n\nOverview content.", encoding="utf-8")
+    (src_dir / "en" / "02_details.md").write_text("# 2. Details\n\nDeep dive content.", encoding="utf-8")
+    (src_dir / "en" / "00_cover.md").write_text("# Cover Title\n\nSee [Details](02_details.md).", encoding="utf-8")
+    (src_dir / "en" / "01_overview.md").write_text("# 1. Overview\n\nOverview content.", encoding="utf-8")
 
     res_dir = build_html(input_dir=str(src_dir), output_dir=str(out_dir))
     assert res_dir == str(out_dir)
-    out_file = out_dir / "index.html"
+    out_file = out_dir / "en" / "index.html"
     assert out_file.exists()
-    assert not (out_dir / "00_cover.html").exists()
-    assert not (out_dir / "01_overview.html").exists()
-    assert not (out_dir / "02_details.html").exists()
+    assert (out_dir / "index.html").exists()
+    assert (out_dir / "en" / "style.css").exists()
+    assert not (out_dir / "en" / "00_cover.html").exists()
+    assert not (out_dir / "en" / "01_overview.html").exists()
+    assert not (out_dir / "en" / "02_details.html").exists()
     assert (out_dir / "README.md").is_file()
 
     content = out_file.read_text(encoding="utf-8")
@@ -541,14 +609,15 @@ def test_build_html_directory_without_navbar(tmp_path) -> None:
     assert 'href="#chapter-3-02_details"' in content
 
 
-def test_build_html_navbar_broken_link_error(tmp_path) -> None:
+def test_build_html_navbar_broken_link_error(tmp_path: Path) -> None:
     """Test directory build fails with detailed message when navbar.md links to nonexistent file."""
     src_dir = tmp_path / "src_broken_nav"
     out_dir = tmp_path / "out_broken_nav"
     src_dir.mkdir()
+    _write_manifest(src_dir, "site")
     _setup_template_and_css(src_dir)
-    (src_dir / "index.md").write_text("# Home\n", encoding="utf-8")
-    (src_dir / "navbar.md").write_text(
+    (src_dir / "en" / "index.md").write_text("# Home\n", encoding="utf-8")
+    (src_dir / "en" / "navbar.md").write_text(
         "# Navigation\n\n- [Home](index.md)\n- [Ghost Page](nonexistent.md)\n",
         encoding="utf-8",
     )
@@ -557,15 +626,16 @@ def test_build_html_navbar_broken_link_error(tmp_path) -> None:
         build_html(input_dir=str(src_dir), output_dir=str(out_dir))
 
 
-def test_build_html_navbar_external_and_anchor_links(tmp_path) -> None:
+def test_build_html_navbar_external_and_anchor_links(tmp_path: Path) -> None:
     """Test directory build properly handles external URLs and anchor links in navbar.md."""
     src_dir = tmp_path / "src_nav_ext"
     out_dir = tmp_path / "out_nav_ext"
     src_dir.mkdir()
+    _write_manifest(src_dir, "site")
     _setup_template_and_css(src_dir)
-    (src_dir / "index.md").write_text("# Home\n", encoding="utf-8")
-    (src_dir / "guide.md").write_text("# Guide\n", encoding="utf-8")
-    (src_dir / "navbar.md").write_text(
+    (src_dir / "en" / "index.md").write_text("# Home\n", encoding="utf-8")
+    (src_dir / "en" / "guide.md").write_text("# Guide\n", encoding="utf-8")
+    (src_dir / "en" / "navbar.md").write_text(
         "# Navigation\n\n"
         "- [Home](index.md)\n"
         "- [Guide Section](guide.md#sec1)\n"
@@ -576,25 +646,26 @@ def test_build_html_navbar_external_and_anchor_links(tmp_path) -> None:
 
     res_dir = build_html(input_dir=str(src_dir), output_dir=str(out_dir))
     assert res_dir == str(out_dir)
-    index_html = (out_dir / "index.html").read_text(encoding="utf-8")
+    index_html = (out_dir / "en" / "index.html").read_text(encoding="utf-8")
     assert 'href="https://github.com/example/repo"' in index_html
     assert 'target="_blank"' in index_html
     assert 'href="guide.html#sec1"' in index_html
 
 
-def test_build_html_duplicate_block_image_outputs_error(tmp_path) -> None:
+def test_build_html_duplicate_block_image_outputs_error(tmp_path: Path) -> None:
     """Test pre-check raises ValueError when two drawlib blocks write to the same image file."""
     src_dir = tmp_path / "src_dup_img"
     out_dir = tmp_path / "out_dup_img"
     src_dir.mkdir()
+    _write_manifest(src_dir, "site")
     _setup_template_and_css(src_dir)
-    doc = src_dir / "index.md"
+    doc = src_dir / "en" / "index.md"
     doc.write_text(
         "# Guide\n```drawlib file=same.png\ncircle((50, 50), 10, style=Styles.Primary)\n```\n"
         "```drawlib file=same.png\ncircle((50, 50), 20, style=Styles.Primary)\n```\n",
         encoding="utf-8",
     )
-    (src_dir / "navbar.md").write_text("- [Home](index.md)\n", encoding="utf-8")
+    (src_dir / "en" / "navbar.md").write_text("- [Home](index.md)\n", encoding="utf-8")
 
     with pytest.raises(ValueError, match="Duplicate output file detected") as exc_info:
         build_html(input_dir=str(src_dir), output_dir=str(out_dir))
@@ -602,7 +673,7 @@ def test_build_html_duplicate_block_image_outputs_error(tmp_path) -> None:
     assert "block #2" in str(exc_info.value)
 
 
-def test_build_merged_html_filename_order_and_generate_index(tmp_path) -> None:
+def test_build_merged_html_filename_order_and_generate_index(tmp_path: Path) -> None:
     """Test directory files merge strictly in filename order and index is placed between 1st and 2nd files."""
     pdf_src = tmp_path / "pdf_src"
     pdf_src.mkdir()
@@ -631,53 +702,57 @@ def test_build_merged_html_filename_order_and_generate_index(tmp_path) -> None:
     assert "page-break-after: always" in toc_section
 
 
-def test_build_html_missing_template_error(tmp_path) -> None:
+def test_build_html_missing_template_error(tmp_path: Path) -> None:
     """Test build_html raises ValueError when template.html is missing."""
     src_dir = tmp_path / "src"
     out_dir = tmp_path / "out"
     src_dir.mkdir()
-    (src_dir / "index.md").write_text("# Hello\n", encoding="utf-8")
-    (src_dir / "navbar.md").write_text("- [Home](index.md)\n", encoding="utf-8")
+    _write_manifest(src_dir, "site")
+    (src_dir / "en" / "index.md").write_text("# Hello\n", encoding="utf-8")
+    (src_dir / "en" / "navbar.md").write_text("- [Home](index.md)\n", encoding="utf-8")
     (src_dir / "style.css").write_text("body {}", encoding="utf-8")
     with pytest.raises(ValueError, match='Missing required "template.html"'):
         build_html(input_dir=str(src_dir), output_dir=str(out_dir))
 
 
-def test_build_html_missing_style_error(tmp_path) -> None:
+def test_build_html_missing_style_error(tmp_path: Path) -> None:
     """Test build_html raises ValueError when style.css is missing."""
     src_dir = tmp_path / "src"
     out_dir = tmp_path / "out"
     src_dir.mkdir()
-    (src_dir / "index.md").write_text("# Hello\n", encoding="utf-8")
-    (src_dir / "navbar.md").write_text("- [Home](index.md)\n", encoding="utf-8")
+    _write_manifest(src_dir, "site")
+    (src_dir / "en" / "index.md").write_text("# Hello\n", encoding="utf-8")
+    (src_dir / "en" / "navbar.md").write_text("- [Home](index.md)\n", encoding="utf-8")
     (src_dir / "template.html").write_text("<html><body>{{ body }}</body></html>", encoding="utf-8")
     with pytest.raises(ValueError, match='Missing required "style.css"'):
         build_html(input_dir=str(src_dir), output_dir=str(out_dir))
 
 
-def test_build_pdf_missing_template_error(tmp_path) -> None:
+def test_build_pdf_missing_template_error(tmp_path: Path) -> None:
     """Test build_pdf raises ValueError when template.html is missing."""
     src_dir = tmp_path / "src"
     src_dir.mkdir()
-    (src_dir / "doc.md").write_text("# Hello\n", encoding="utf-8")
+    _write_manifest(src_dir, "doc")
+    (src_dir / "en" / "doc.md").write_text("# Hello\n", encoding="utf-8")
     (src_dir / "style.css").write_text("body {}", encoding="utf-8")
     out = tmp_path / "doc.pdf"
     with pytest.raises(ValueError, match='Missing required "template.html"'):
         build_pdf(input_dir=str(src_dir), output_file=str(out))
 
 
-def test_build_pdf_missing_style_error(tmp_path) -> None:
+def test_build_pdf_missing_style_error(tmp_path: Path) -> None:
     """Test build_pdf raises ValueError when style.css is missing."""
     src_dir = tmp_path / "src"
     src_dir.mkdir()
-    (src_dir / "doc.md").write_text("# Hello\n", encoding="utf-8")
+    _write_manifest(src_dir, "doc")
+    (src_dir / "en" / "doc.md").write_text("# Hello\n", encoding="utf-8")
     (src_dir / "template.html").write_text("<html><body>{{ body }}</body></html>", encoding="utf-8")
     out = tmp_path / "doc.pdf"
     with pytest.raises(ValueError, match='Missing required "style.css"'):
         build_pdf(input_dir=str(src_dir), output_file=str(out))
 
 
-def test_resolve_logo_hrefs(tmp_path) -> None:
+def test_resolve_logo_hrefs(tmp_path: Path) -> None:
     """Test resolve_logo_hrefs returns None when logo is absent, and returns relpath when present."""
     src_dir = tmp_path / "src"
     out_dir = tmp_path / "out"
@@ -711,18 +786,19 @@ def test_resolve_logo_hrefs(tmp_path) -> None:
     assert logo_dark_href == "_assets/logo_dark.png"
 
 
-def test_build_html_logo_and_text_fallback(tmp_path) -> None:
+def test_build_html_logo_and_text_fallback(tmp_path: Path) -> None:
     """Test build_html renders text brand when logo is absent, and img tags when logo is present."""
     src_dir = tmp_path / "src"
     out_dir = tmp_path / "out"
     src_dir.mkdir()
+    _write_manifest(src_dir, "site")
     assets_dir = src_dir / "_assets"
     assets_dir.mkdir()
     (assets_dir / "favicon.png").write_bytes(b"favicon")
     (assets_dir / "_logo.png").write_bytes(b"sample_logo")
 
-    (src_dir / "navbar.md").write_text("# My Brand\n\n- [Home](index.md)\n", encoding="utf-8")
-    (src_dir / "index.md").write_text("# Home\nWelcome.\n", encoding="utf-8")
+    (src_dir / "en" / "navbar.md").write_text("# My Brand\n\n- [Home](index.md)\n", encoding="utf-8")
+    (src_dir / "en" / "index.md").write_text("# Home\nWelcome.\n", encoding="utf-8")
     (src_dir / "style.css").write_text("body {}", encoding="utf-8")
 
     template_content = (
@@ -738,13 +814,16 @@ def test_build_html_logo_and_text_fallback(tmp_path) -> None:
 
     # 1. Build with no logo.png -> should render text "My Brand"
     build_html(input_dir=str(src_dir), output_dir=str(out_dir))
-    index_html = (out_dir / "index.html").read_text(encoding="utf-8")
-    assert "My Brand" in index_html
-    assert "class='logo-light'" not in index_html
+    en_index_html = (out_dir / "en" / "index.html").read_text(encoding="utf-8")
+    assert "My Brand" in en_index_html
+    assert "class='logo-light'" not in en_index_html
 
-    # 2. Add logo.png -> should render logo images
+    # 2. Add logo.png -> should render logo images in both locale and root index.html
     (assets_dir / "logo.png").write_bytes(b"real_logo")
     build_html(input_dir=str(src_dir), output_dir=str(out_dir))
-    index_html = (out_dir / "index.html").read_text(encoding="utf-8")
-    assert "class='logo-light'" in index_html
-    assert "_assets/logo.png" in index_html
+    en_index_html = (out_dir / "en" / "index.html").read_text(encoding="utf-8")
+    root_index_html = (out_dir / "index.html").read_text(encoding="utf-8")
+    assert "class='logo-light'" in en_index_html
+    assert "../_assets/logo.png" in en_index_html
+    assert "class='logo-light'" in root_index_html
+    assert "_assets/logo.png" in root_index_html

@@ -11,31 +11,61 @@
 
 from __future__ import annotations
 
+import html
 import os
 import re
 import shutil
+import sys
+from dataclasses import dataclass
 from pathlib import Path
-from typing import TYPE_CHECKING, Final, Literal
+from typing import TYPE_CHECKING, Any, Final, Literal
 
-from drawlib._builder._common import resolve_styles_and_utils
+from drawlib._builder._common import (
+    BuildImageCache,
+    find_project_manifest,
+    load_project_manifest,
+    load_styles_and_utils,
+    resolve_styles_and_utils,
+)
+from drawlib._builder.doc_builder.detector import preserve_outer_fences, restore_outer_fences
+from drawlib._builder.doc_builder.i18n import (
+    build_language_switcher_context,
+    rebase_html_relative_urls,
+    validate_i18n_project,
+)
 from drawlib._builder.doc_builder.processor import DrawlibBlockProcessor
 from drawlib._builder.doc_builder.processor.options import parse_block_info
-from drawlib._slide._assets import copy_static_assets, deploy_slide_assets, format_asset_markup
+from drawlib._slide._assets import deploy_slide_assets, format_asset_markup
 from drawlib._slide._blocks import (
     PATTERN_CONTAINER_BOX,
     extract_slide_notes,
     process_container_blocks,
 )
 from drawlib._slide.base import reset_slide_context, set_slide_context
+from drawlib._templates.langs import get_language_config
 
 if TYPE_CHECKING:
+    from drawlib._builder._common.manifest import I18nConfig, ProjectManifest
     from drawlib._builder.doc_builder.processor.options import DrawlibBlockOptions
 
 _PATTERN_DRAWLIB: Final[re.Pattern[str]] = re.compile(
     r"(?<=\n)[ \t]*```drawlib([^\n]*)\n(.*?)\n[ \t]*```",
     re.DOTALL,
 )
+_PATTERN_H1: Final[re.Pattern[str]] = re.compile(r"^[ \t]*#(?!#)[ \t]+(.+?)[ \t#]*$")
+_PATTERN_FENCE_LINE: Final[re.Pattern[str]] = re.compile(r"^[ \t]{0,3}(`{3,}|~{3,})")
 _KNOWN_DIAGRAM_EXTS: Final[tuple[str, ...]] = (".svg", ".png", ".apng", ".webp", ".jpg", ".jpeg")
+
+
+@dataclass(frozen=True)
+class _SlideRenderOptions:
+    """Internal rendering options shared across slides in a build invocation."""
+
+    output_abs: str
+    default_format: str
+    dpi: int | None
+    force_image_format: bool
+    static_anim_frame: Literal["first", "last"] | None
 
 
 def _resolve_drawlib_filename(
@@ -87,8 +117,38 @@ def _flatten_slide_animation_in_place(
         os.replace(static_path, target_path)
 
 
+def require_slide_manifest(input_abs: str) -> ProjectManifest:
+    """Load and validate a required ``type = "slide"`` ``drawlib.toml`` manifest."""
+    manifest = load_project_manifest(input_abs)
+    if manifest is None:
+        found = find_project_manifest(input_abs)
+        if found is not None and os.path.abspath(found[0]) != input_abs:
+            proj_root, _ = found
+            raise ValueError(
+                f'No "drawlib.toml" manifest found in "{input_abs}". '
+                f'Found project manifest in parent directory "{proj_root}" — '
+                f'pass the project root directory "{proj_root}" instead of a locale subdirectory.'
+            )
+        raise ValueError(
+            f'Missing required "drawlib.toml" project manifest in "{input_abs}". '
+            'Initialize a slide project with "drawlib init slide" or add a drawlib.toml manifest.'
+        )
+
+    if manifest.project.type != "slide":
+        raise ValueError(
+            f'Input directory "{input_abs}" is a "{manifest.project.type}" project (drawlib.toml), '
+            'not a "slide" presentation project.'
+        )
+    if manifest.i18n is None:
+        raise ValueError(f'Slide project "{input_abs}" requires an [i18n] section in drawlib.toml.')
+    return manifest
+
+
 def _resolve_output_dir(input_abs: str, output_dir: str | None) -> str:
     """Resolve target output directory path.
+
+    Defaults to ``<parent>/<base>_html`` where ``<base>`` strips trailing ``_src``
+    from ``input_abs`` basename (or ``<input_abs>_html`` if not ending in ``_src``).
 
     Args:
         input_abs: Absolute path to presentation source directory.
@@ -96,13 +156,23 @@ def _resolve_output_dir(input_abs: str, output_dir: str | None) -> str:
 
     Returns:
         str: Resolved absolute output directory path.
+
+    Raises:
+        ValueError: If resolved output directory equals ``input_abs``.
     """
     if output_dir:
         output_abs = os.path.abspath(output_dir)
-    elif input_abs.endswith("_src"):
-        output_abs = input_abs[:-4]
     else:
-        output_abs = os.path.join(input_abs, "slide")
+        cleaned = input_abs.rstrip(os.sep)
+        base_name = os.path.basename(cleaned)
+        parent_dir = os.path.dirname(cleaned)
+        if base_name.endswith("_src") and len(base_name) > 4:
+            output_abs = os.path.join(parent_dir, f"{base_name[:-4]}_html")
+        else:
+            output_abs = f"{cleaned}_html"
+
+    if os.path.abspath(output_abs) == os.path.abspath(input_abs):
+        raise ValueError(f"Output directory cannot be the same as input directory: '{input_abs}'")
     os.makedirs(output_abs, exist_ok=True)
     return output_abs
 
@@ -129,86 +199,83 @@ def _clean_output_dir(output_abs: str, input_abs: str) -> None:
             os.remove(item_path)
 
 
-_EXCLUDED_SLIDE_FILENAMES: Final[frozenset[str]] = frozenset(
-    {
-        "readme.md",
-        "readme.markdown",
-        "navbar.md",
-        "navbar.markdown",
-        "output_readme.md",
-        "output_html_readme.md",
-    }
-)
+def _extract_first_h1(markdown_text: str) -> str | None:
+    """Extract the first Markdown ``# H1`` heading outside fenced code blocks."""
+    masked, _ = preserve_outer_fences(markdown_text)
+    in_fence = False
+    fence_marker = ""
+    for line in masked.splitlines():
+        if not in_fence:
+            m_open = _PATTERN_FENCE_LINE.match(line)
+            if m_open:
+                in_fence = True
+                fence_marker = m_open.group(1)
+                continue
+            m_h1 = _PATTERN_H1.match(line)
+            if m_h1:
+                heading = m_h1.group(1).strip()
+                if heading:
+                    return heading
+        else:
+            close_pat = rf"^[ \t]{{0,3}}{re.escape(fence_marker[0])}{{{len(fence_marker)},}}[ \t\r]*$"
+            if re.match(close_pat, line):
+                in_fence = False
+                fence_marker = ""
+    return None
 
 
-def _collect_slide_files(input_abs: str) -> list[str]:
-    """Discover and alphabetically sort candidate markdown slide files (including chapter subdirectories).
+def _rebase_slide_html_urls(
+    html_fragment: str,
+    rel_slide_path: str,
+    output_abs: str,
+    lang: str,
+) -> str:
+    """Rebase relative HTML ``href``/``src`` attributes in a slide body to ``<output_abs>/<lang>/``."""
+    if not html_fragment:
+        return html_fragment
 
-    Files and directories starting with ``.`` or ``_`` (e.g., ``_planning.md``, ``_drafts/``)
-    as well as special project files (``README.md``, ``navbar.md``) are excluded.
+    slide_rel_dir = os.path.dirname(rel_slide_path)
+    virtual_from_dir = os.path.normpath(os.path.join(output_abs, lang, *slide_rel_dir.split("/")))
+    lang_out_dir = os.path.join(output_abs, lang)
 
-    Args:
-        input_abs: Absolute path to source directory.
+    rebased = rebase_html_relative_urls(
+        html=html_fragment,
+        from_dir=virtual_from_dir,
+        to_dir=lang_out_dir,
+        skip_prefixes=("../images/", "images/", "_assets/", "assets/"),
+    )
 
-    Returns:
-        list[str]: Sorted list of relative POSIX file paths.
-    """
-    rel_files: list[str] = []
-    for root, dirnames, files in os.walk(input_abs):
-        dirnames[:] = sorted(d for d in dirnames if not d.startswith(".") and not d.startswith("_"))
-        for f in sorted(files):
-            if (
-                (f.endswith(".md") or f.endswith(".markdown"))
-                and not f.startswith(".")
-                and not f.startswith("_")
-                and f.lower() not in _EXCLUDED_SLIDE_FILENAMES
-            ):
-                abs_p = os.path.join(root, f)
-                rel_p = os.path.relpath(abs_p, input_abs).replace(os.sep, "/")
-                rel_files.append(rel_p)
-    rel_files.sort()
-    return rel_files
+    protected_blocks: list[str] = []
+
+    def _protect(m: re.Match[str]) -> str:
+        idx_mask = len(protected_blocks)
+        protected_blocks.append(m.group(0))
+        return f"__DRAWLIB_SLIDE_CODE_MASK_{idx_mask}__"
+
+    masked = re.sub(r"(?is)<pre\b[^>]*>.*?</pre>|<code\b[^>]*>.*?</code>", _protect, rebased)
+    rewritten = re.sub(
+        r'(\b(?:href|src)=["\'])(_assets/|assets/)',
+        r"\1../\2",
+        masked,
+        flags=re.IGNORECASE,
+    )
+    for idx_mask, original in enumerate(protected_blocks):
+        rewritten = rewritten.replace(f"__DRAWLIB_SLIDE_CODE_MASK_{idx_mask}__", original)
+    return rewritten
 
 
 def _process_drawlib_blocks(
     text: str,
-    output_abs: str,
     processor: DrawlibBlockProcessor,
     file_path: str,
+    md_stem: str,
     idx: int,
-    default_format: str,
-    input_abs: str | None = None,
-    *,
-    dpi: int | None = None,
-    force_image_format: bool = False,
-    static_anim_frame: Literal["first", "last"] | None = None,
+    render_opts: _SlideRenderOptions,
+    rendered_targets: set[str],
 ) -> str:
-    """Execute and replace ```drawlib blocks.
-
-    Args:
-        text: Markdown text with code blocks.
-        output_abs: Target output directory.
-        processor: Initialized block processor.
-        file_path: Absolute path to slide source file.
-        idx: Slide index.
-        default_format: Default image format.
-        input_abs: Optional source root directory for computing relative image subdirectories.
-        dpi: Optional explicit rasterization DPI override.
-        force_image_format: If True, force all diagram filenames/extensions to default_format.
-        static_anim_frame: If set ('first' or 'last'), flatten multi-frame animations into a static PNG.
-
-    Returns:
-        str: Transformed markdown text.
-    """
+    """Execute and replace ````drawlib```` blocks, deduplicating shared targets across locales."""
     counter = 0
-    if file_path and input_abs:
-        try:
-            rel_no_ext = os.path.splitext(os.path.relpath(file_path, input_abs))[0].replace(os.sep, "/")
-            md_stem = rel_no_ext if not rel_no_ext.startswith("..") else Path(file_path).stem
-        except ValueError:
-            md_stem = Path(file_path).stem
-    else:
-        md_stem = Path(file_path).stem if file_path else f"slide_{idx}"
+    masked_text, preserved = preserve_outer_fences(text)
 
     def replacer(match: re.Match[str]) -> str:
         nonlocal counter
@@ -227,9 +294,9 @@ def _process_drawlib_blocks(
             options,
             idx,
             counter,
-            default_format,
+            render_opts.default_format,
             has_anim=has_anim,
-            force_image_format=force_image_format,
+            force_image_format=render_opts.force_image_format,
         )
 
         if "/" in dl_file or "\\" in dl_file:
@@ -237,21 +304,34 @@ def _process_drawlib_blocks(
         else:
             rel_asset_path = f"images/{md_stem}/{dl_file}"
 
-        target_path = os.path.normpath(os.path.join(output_abs, rel_asset_path))
-        os.makedirs(os.path.dirname(target_path), exist_ok=True)
-        processor.render_block_to_file(
-            code,
-            target_path,
-            source_filename=file_path,
-            no_cache=options.no_cache,
-            dpi=dpi,
-        )
-        if static_anim_frame is not None:
-            _flatten_slide_animation_in_place(target_path, static_anim_frame)
-        markup_opts = None if static_anim_frame is not None else options
-        return format_asset_markup(rel_asset_path, "Illustration", output_abs=output_abs, options=markup_opts)
+        target_path = os.path.normpath(os.path.join(render_opts.output_abs, rel_asset_path))
+        target_abs = os.path.abspath(target_path)
 
-    return _PATTERN_DRAWLIB.sub(replacer, text)
+        if target_abs not in rendered_targets or not os.path.isfile(target_abs):
+            os.makedirs(os.path.dirname(target_abs), exist_ok=True)
+            processor.render_block_to_file(
+                code,
+                target_abs,
+                source_filename=file_path,
+                no_cache=options.no_cache,
+                dpi=render_opts.dpi,
+            )
+            if render_opts.static_anim_frame is not None:
+                _flatten_slide_animation_in_place(target_abs, render_opts.static_anim_frame)
+            if os.path.isfile(target_abs):
+                rendered_targets.add(target_abs)
+
+        markup_opts = None if render_opts.static_anim_frame is not None else options
+        return format_asset_markup(
+            rel_asset_path,
+            "Illustration",
+            output_abs=render_opts.output_abs,
+            options=markup_opts,
+            asset_url_prefix="../",
+        )
+
+    replaced = _PATTERN_DRAWLIB.sub(replacer, masked_text)
+    return restore_outer_fences(replaced, preserved)
 
 
 def _assemble_slide_section(
@@ -259,16 +339,7 @@ def _assemble_slide_section(
     idx: int,
     notes_html: str = "",
 ) -> str:
-    """Assemble final slide <section> markup on the 1920x1080 stage.
-
-    Args:
-        rendered_body: HTML body snippet containing positioned slide-block elements.
-        idx: Slide index.
-        notes_html: Optional HTML snippet of speaker notes for Presenter View.
-
-    Returns:
-        str: Slide <section> HTML markup.
-    """
+    """Assemble final slide <section> markup on the 1920x1080 stage."""
     active_cls = " active" if idx == 1 else ""
     notes_block = (
         f'      <aside class="slide-notes" hidden>\n{notes_html}\n      </aside>\n'
@@ -281,6 +352,269 @@ def _assemble_slide_section(
         f"{notes_block}"
         f"    </section>"
     )
+
+
+def _clear_project_utils_module(input_abs: str) -> None:
+    """Evict cached top-level ``utils`` module if it was imported from ``input_abs``."""
+    mod = sys.modules.get("utils")
+    if mod is None:
+        return
+    mod_file = getattr(mod, "__file__", None)
+    if mod_file and os.path.abspath(mod_file).startswith(input_abs + os.sep):
+        sys.modules.pop("utils", None)
+
+
+def _compile_locale_slides(
+    *,
+    input_abs: str,
+    lang: str,
+    rel_files: list[str],
+    styles_path: str | None,
+    utils_path: str | None,
+    no_cache: bool,
+    cache: BuildImageCache,
+    render_opts: _SlideRenderOptions,
+    rendered_targets: set[str],
+) -> tuple[str, str, str | None]:
+    """Compile all Markdown slides for a single locale and return ``(slides_markup, thumbs_markup, first_h1)``."""
+    total_slides = len(rel_files)
+    lang_src_dir = os.path.join(input_abs, lang)
+    loc_styles, loc_utils = resolve_styles_and_utils(lang_src_dir, styles_path, utils_path)
+    _clear_project_utils_module(input_abs)
+    load_styles_and_utils(styles_path=loc_styles, utils_path=loc_utils)
+    processor = DrawlibBlockProcessor(
+        styles_path=loc_styles,
+        utils_path=loc_utils,
+        no_cache=no_cache,
+        cache=cache,
+        project_root=input_abs,
+        require_file=False,
+        extra_config_hash=f"total_slides:{total_slides}",
+    )
+
+    slides_html_list: list[str] = []
+    thumbs_html_list: list[str] = []
+    first_h1_title: str | None = None
+
+    for idx, rel_path in enumerate(rel_files, start=1):
+        file_path = os.path.join(lang_src_dir, *rel_path.split("/"))
+        with open(file_path, "r", encoding="utf-8") as f:
+            raw_content = f.read()
+
+        md_stem = os.path.splitext(rel_path)[0] or Path(file_path).stem
+        ctx_token = set_slide_context(index=idx, total=total_slides)
+        try:
+            content_without_notes, notes_html = extract_slide_notes(raw_content)
+            if first_h1_title is None:
+                first_h1_title = _extract_first_h1(content_without_notes)
+
+            text_to_search = (
+                "\n" + content_without_notes if not content_without_notes.startswith("\n") else content_without_notes
+            )
+            if not PATTERN_CONTAINER_BOX.search(text_to_search):
+                text_to_search = f"::: block xy=(80, 140) width=1760 height=840\n{text_to_search.strip()}\n:::"
+
+            t_drawlib = _process_drawlib_blocks(
+                text=text_to_search,
+                processor=processor,
+                file_path=file_path,
+                md_stem=md_stem,
+                idx=idx,
+                render_opts=render_opts,
+                rendered_targets=rendered_targets,
+            )
+            t_containers = process_container_blocks(t_drawlib)
+            rendered_body = _rebase_slide_html_urls(
+                t_containers.strip(),
+                rel_slide_path=rel_path,
+                output_abs=render_opts.output_abs,
+                lang=lang,
+            )
+            rebased_notes = _rebase_slide_html_urls(
+                notes_html,
+                rel_slide_path=rel_path,
+                output_abs=render_opts.output_abs,
+                lang=lang,
+            )
+            slides_html_list.append(
+                _assemble_slide_section(
+                    rendered_body=rendered_body,
+                    idx=idx,
+                    notes_html=rebased_notes,
+                )
+            )
+        finally:
+            reset_slide_context(ctx_token)
+
+        curr_thumb = " current" if idx == 1 else ""
+        thumbs_html_list.append(
+            f'    <div class="overview-thumb{curr_thumb}" data-slide-target="{idx}">\n'
+            f'      <div class="thumb-title">Slide {idx}</div>\n'
+            f'      <div class="thumb-number">{idx} / {total_slides}</div>\n'
+            f"    </div>"
+        )
+
+    return "\n\n".join(slides_html_list), "\n".join(thumbs_html_list), first_h1_title
+
+
+def _resolve_favicon_markup(input_abs: str, output_abs: str, lang_out_dir: str) -> str:
+    """Resolve optional ``<link rel="icon" ...>`` markup relative to ``lang_out_dir``."""
+    mime_by_ext = {
+        ".png": "image/png",
+        ".svg": "image/svg+xml",
+        ".ico": "image/x-icon",
+    }
+    for sub in ("_assets", "assets", ""):
+        for fav_name in ("favicon.png", "favicon.ico", "favicon.svg"):
+            dst_fav = os.path.join(output_abs, sub, fav_name) if sub else os.path.join(output_abs, fav_name)
+            src_fav = os.path.join(input_abs, sub, fav_name) if sub else os.path.join(input_abs, fav_name)
+            if os.path.isfile(dst_fav) or os.path.isfile(src_fav):
+                target_fav = dst_fav if os.path.isfile(dst_fav) else os.path.join(output_abs, "_assets", fav_name)
+                rel_fav = os.path.relpath(target_fav, lang_out_dir).replace(os.sep, "/")
+                ext = os.path.splitext(fav_name)[1].lower()
+                mime = mime_by_ext.get(ext, "image/png")
+                return f'  <link rel="icon" type="{mime}" href="{html.escape(rel_fav, quote=True)}">\n'
+    return ""
+
+
+def _build_lang_switcher_html(languages_ctx: list[dict[str, Any]]) -> str:
+    """Build ``<details class="slide-lang-dropdown">`` markup when multiple locales exist."""
+    if len(languages_ctx) <= 1:
+        return ""
+
+    active_label = ""
+    for item in languages_ctx:
+        if item.get("active"):
+            active_label = str(item.get("label", ""))
+            break
+    if not active_label:
+        active_label = str(languages_ctx[0].get("label", ""))
+
+    esc_active_label = html.escape(active_label)
+    option_lines: list[str] = []
+    for item in languages_ctx:
+        is_active = bool(item.get("active"))
+        cls = "slide-lang-option active" if is_active else "slide-lang-option"
+        esc_url = html.escape(str(item.get("url", "")), quote=True)
+        esc_code = html.escape(str(item.get("code", "")), quote=True)
+        esc_html_lang = html.escape(str(item.get("html_lang", "")), quote=True)
+        esc_label = html.escape(str(item.get("label", "")))
+        aria_curr = ' aria-current="page"' if is_active else ""
+        check_svg = (
+            '\n        <svg class="slide-lang-check" viewBox="0 0 24 24" aria-hidden="true">'
+            '<polyline points="20 6 9 17 4 12"></polyline></svg>'
+            if is_active
+            else ""
+        )
+        option_lines.append(
+            f'      <a href="{esc_url}" class="{cls}" data-lang-switch="{esc_code}" '
+            f'lang="{esc_html_lang}" hreflang="{esc_html_lang}" role="menuitem"{aria_curr}>\n'
+            f"        <span>{esc_label}</span>{check_svg}\n"
+            f"      </a>"
+        )
+
+    options_markup = "\n".join(option_lines)
+    return (
+        '  <details class="slide-lang-dropdown">\n'
+        '    <summary class="slide-lang-btn" title="Switch Language (L)" aria-label="Select language">\n'
+        '      <svg class="slide-lang-globe" viewBox="0 0 24 24" aria-hidden="true">'
+        '<circle cx="12" cy="12" r="10"></circle>'
+        '<line x1="2" y1="12" x2="22" y2="12"></line>'
+        '<path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 '
+        '15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>\n'
+        f'      <span class="slide-lang-label">{esc_active_label}</span>\n'
+        "    </summary>\n"
+        '    <div class="slide-lang-menu" role="menu">\n'
+        f"{options_markup}\n"
+        "    </div>\n"
+        "  </details>\n"
+    )
+
+
+def _render_locale_index_html(
+    *,
+    input_abs: str,
+    output_abs: str,
+    i18n_cfg: I18nConfig,
+    lang: str,
+    deck_title: str,
+    slides_markup: str,
+    thumbs_markup: str,
+) -> str:
+    """Write ``<output_abs>/<lang>/index.html`` and return its absolute path."""
+    lang_out_dir = os.path.join(output_abs, lang)
+    os.makedirs(lang_out_dir, exist_ok=True)
+    lang_index_abs = os.path.join(lang_out_dir, "index.html")
+
+    lang_cfg = get_language_config(lang)
+    languages_ctx, alt_links = build_language_switcher_context(
+        config=i18n_cfg,
+        out_dir_abs=output_abs,
+        rel_html_path="index.html",
+        current_dest_abs=lang_index_abs,
+        active_lang=lang,
+    )
+
+    alt_links_markup = "".join(
+        f'  <link rel="alternate" hreflang="{html.escape(link["hreflang"], quote=True)}" '
+        f'href="{html.escape(link["url"], quote=True)}">\n'
+        for link in alt_links
+    )
+    favicon_markup = _resolve_favicon_markup(input_abs, output_abs, lang_out_dir)
+    extra_font_markup = f"  {lang_cfg.font_link_html.strip()}\n" if lang_cfg.font_link_html.strip() else ""
+    switcher_markup = _build_lang_switcher_html(languages_ctx)
+
+    esc_html_lang = html.escape(lang_cfg.code, quote=True)
+    esc_html_dir = html.escape(lang_cfg.direction, quote=True)
+    esc_title = html.escape(deck_title)
+
+    html_content = (
+        "<!DOCTYPE html>\n"
+        f'<html lang="{esc_html_lang}" dir="{esc_html_dir}">\n'
+        "<head>\n"
+        '  <meta charset="UTF-8">\n'
+        '  <meta name="viewport" content="width=device-width, initial-scale=1.0">\n'
+        f"  <title>{esc_title}</title>\n"
+        f"{favicon_markup}"
+        f"{alt_links_markup}"
+        '  <link rel="preconnect" href="https://fonts.googleapis.com">\n'
+        '  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n'
+        '  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?'
+        "family=Google+Sans:wght@400;500;700&"
+        "family=Inter:wght@400;500;600;700&"
+        'family=JetBrains+Mono:wght@400;600&display=swap">\n'
+        f"{extra_font_markup}"
+        '  <link rel="stylesheet" href="style.css">\n'
+        "</head>\n"
+        "<body>\n\n"
+        '<div class="presentation-viewport">\n'
+        '  <div class="presentation-stage">\n'
+        f"{slides_markup}\n"
+        "  </div>\n"
+        "</div>\n\n"
+        "<!-- On-Screen Controls -->\n"
+        '<div class="slide-controls">\n'
+        '  <button id="btn-prev" title="Previous Slide (Left Arrow)">◀</button>\n'
+        '  <button id="btn-next" title="Next Slide (Right Arrow)">▶</button>\n'
+        '  <button id="btn-overview" title="Slide Overview (O / Esc)">☵</button>\n'
+        '  <button id="btn-presenter" title="Presenter View (P / S)">🗒</button>\n'
+        '  <button id="btn-fullscreen" title="Fullscreen (F)">⛶</button>\n'
+        f"{switcher_markup}"
+        "</div>\n\n"
+        "<!-- Overview Modal Grid -->\n"
+        '<div class="overview-modal">\n'
+        '  <div class="overview-grid">\n'
+        f"{thumbs_markup}\n"
+        "  </div>\n"
+        "</div>\n\n"
+        '<script src="../slide.js"></script>\n'
+        "</body>\n"
+        "</html>\n"
+    )
+
+    with open(lang_index_abs, "w", encoding="utf-8") as f:
+        f.write(html_content)
+    return lang_index_abs
 
 
 def build_slide(
@@ -297,12 +631,12 @@ def build_slide(
     utils_path: str | None = None,
     no_cache: bool = False,
 ) -> str:
-    """Compile a presentation source directory into a static HTML slide deck.
+    """Compile an ``i18n``-native presentation project into a multi-locale HTML slide deck.
 
     Args:
-        input_dir: Directory containing Markdown (.md) slide files and presentation assets.
-        output_dir: Target directory for compiled slide deck (defaults to 'slide/' or 'slides_html/').
-        title: Optional presentation HTML title (defaults to 'Drawlib Presentation').
+        input_dir: Project root directory containing ``drawlib.toml`` and ``<lang>/`` slides.
+        output_dir: Target directory for compiled slide deck (defaults to ``<base>_html``).
+        title: Optional presentation HTML title override.
         theme: CSS theme preset name ('google', 'default', 'google-dark', etc.).
         image_format: Default image format for embedded diagrams ('svg', 'webp', or 'png').
         dpi: Optional rasterization DPI override when generating raster diagrams.
@@ -313,164 +647,87 @@ def build_slide(
         no_cache: If True, disable reading/writing build cache.
 
     Returns:
-        str: Absolute path to the generated index.html file.
+        str: Absolute path to ``<output_abs>/<default_lang>/index.html``.
 
     Raises:
-        ValueError: If input_dir is invalid or no slide files are found.
+        ValueError: If ``input_dir`` is invalid, lacks ``drawlib.toml``, or fails i18n parity checks.
     """
     input_abs = os.path.abspath(input_dir)
     if not os.path.isdir(input_abs):
         raise ValueError(f"Input directory does not exist: '{input_dir}'")
 
-    from drawlib._builder._common import load_project_manifest  # noqa: PLC0415
-
-    manifest = load_project_manifest(input_abs)
-    if manifest is not None and manifest.project.type != "slide":
-        raise ValueError(
-            f'Input directory "{input_abs}" is a "{manifest.project.type}" project (drawlib.toml), '
-            'not a "slide" presentation project.'
-        )
+    manifest = require_slide_manifest(input_abs)
+    assert manifest.i18n is not None  # noqa: S101
+    i18n_cfg = manifest.i18n
 
     output_abs = _resolve_output_dir(input_abs, output_dir)
+    locale_files = validate_i18n_project(
+        input_abs,
+        i18n_cfg,
+        project_type="slide",
+        default_format=image_format,
+    )
     _clean_output_dir(output_abs, input_abs)
-    candidate_files = _collect_slide_files(input_abs)
-    if not candidate_files:
-        raise ValueError(f"No Markdown slide files (.md) found in '{input_dir}'")
+    os.makedirs(output_abs, exist_ok=True)
 
-    total_slides = len(candidate_files)
-    styles_abs, utils_abs = resolve_styles_and_utils(input_abs, styles_path, utils_path)
-    processor = DrawlibBlockProcessor(
-        styles_path=styles_abs,
-        utils_path=utils_abs,
-        no_cache=no_cache,
-        project_root=input_abs,
-        require_file=False,
-        extra_config_hash=f"total_slides:{total_slides}",
+    deck_theme = theme or (manifest.project.style if manifest.project.style else None) or "google"
+    manifest_title = manifest.project.title.strip() if manifest.project.title and manifest.project.title.strip() else ""
+    default_lang = i18n_cfg.default_lang
+    ordered_langs = [default_lang, *[lc for lc in i18n_cfg.langs if lc != default_lang]]
+
+    render_opts = _SlideRenderOptions(
+        output_abs=output_abs,
+        default_format=image_format,
+        dpi=dpi,
+        force_image_format=force_image_format,
+        static_anim_frame=static_anim_frame,
     )
-
-    deck_title = (
-        title or (manifest.project.title if manifest and manifest.project.title else None) or "Drawlib Presentation"
-    )
-    deck_theme = theme or (manifest.project.style if manifest and manifest.project.style else None) or "google"
-
-    slides_html_list: list[str] = []
-    thumbs_html_list: list[str] = []
+    rendered_targets: set[str] = set()
+    cache = BuildImageCache(enabled=not no_cache)
+    compiled_locales: dict[str, tuple[str, str, str]] = {}
 
     orig_cwd = os.getcwd()
     try:
         os.chdir(input_abs)
-        for idx, filename in enumerate(candidate_files, start=1):
-            file_path = os.path.join(input_abs, filename)
-            with open(file_path, "r", encoding="utf-8") as f:
-                raw_content = f.read()
-
-            ctx_token = set_slide_context(index=idx, total=total_slides)
-            try:
-                content_without_notes, notes_html = extract_slide_notes(raw_content)
-                # If no ::: block is in content_without_notes, auto-wrap in default stage block
-                text_to_search = (
-                    "\n" + content_without_notes
-                    if not content_without_notes.startswith("\n")
-                    else content_without_notes
-                )
-                if not PATTERN_CONTAINER_BOX.search(text_to_search):
-                    text_to_search = f"::: block xy=(80, 140) width=1760 height=840\n{text_to_search.strip()}\n:::"
-
-                t_drawlib = _process_drawlib_blocks(
-                    text_to_search,
-                    output_abs,
-                    processor,
-                    file_path,
-                    idx,
-                    image_format,
-                    input_abs=input_abs,
-                    dpi=dpi,
-                    force_image_format=force_image_format,
-                    static_anim_frame=static_anim_frame,
-                )
-                t_containers = process_container_blocks(t_drawlib)
-                rendered_body = t_containers.strip()
-
-                slide_section = _assemble_slide_section(
-                    rendered_body=rendered_body,
-                    idx=idx,
-                    notes_html=notes_html,
-                )
-                slides_html_list.append(slide_section)
-            finally:
-                reset_slide_context(ctx_token)
-
-            curr_thumb = " current" if idx == 1 else ""
-            thumbs_html_list.append(
-                f'    <div class="overview-thumb{curr_thumb}" data-slide-target="{idx}">\n'
-                f'      <div class="thumb-title">Slide {idx}</div>\n'
-                f'      <div class="thumb-number">{idx} / {total_slides}</div>\n'
-                f"    </div>"
+        for lang in ordered_langs:
+            slides_markup, thumbs_markup, first_h1 = _compile_locale_slides(
+                input_abs=input_abs,
+                lang=lang,
+                rel_files=locale_files[lang],
+                styles_path=styles_path,
+                utils_path=utils_path,
+                no_cache=no_cache,
+                cache=cache,
+                render_opts=render_opts,
+                rendered_targets=rendered_targets,
             )
+            locale_title = title or manifest_title or first_h1 or "Presentation"
+            compiled_locales[lang] = (slides_markup, thumbs_markup, locale_title)
     finally:
         os.chdir(orig_cwd)
 
-    copy_static_assets(input_abs, output_abs)
-    deploy_slide_assets(input_abs, output_abs, deck_theme)
-
-    slides_markup = "\n\n".join(slides_html_list)
-    thumbs_markup = "\n".join(thumbs_html_list)
-
-    favicon_markup = ""
-    for sub in ("_assets", "assets", ""):
-        for fav_name in ("favicon.png", "favicon.ico", "favicon.svg"):
-            src_fav = os.path.join(input_abs, sub, fav_name) if sub else os.path.join(input_abs, fav_name)
-            dst_fav = os.path.join(output_abs, sub, fav_name) if sub else os.path.join(output_abs, fav_name)
-            if os.path.isfile(src_fav) or os.path.isfile(dst_fav):
-                rel_fav = f"{sub}/{fav_name}" if sub else fav_name
-                favicon_markup = f'  <link rel="icon" type="image/png" href="{rel_fav}">\n'
-                break
-        if favicon_markup:
-            break
-
-    html_content = (
-        "<!DOCTYPE html>\n"
-        '<html lang="en">\n'
-        "<head>\n"
-        '  <meta charset="UTF-8">\n'
-        '  <meta name="viewport" content="width=device-width, initial-scale=1.0">\n'
-        f"  <title>{deck_title}</title>\n"
-        f"{favicon_markup}"
-        '  <link rel="preconnect" href="https://fonts.googleapis.com">\n'
-        '  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n'
-        '  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?'
-        "family=Google+Sans:wght@400;500;700&"
-        "family=Inter:wght@400;500;600;700&"
-        'family=JetBrains+Mono:wght@400;600&display=swap">\n'
-        '  <link rel="stylesheet" href="style.css">\n'
-        "</head>\n"
-        "<body>\n\n"
-        '<div class="presentation-viewport">\n'
-        '  <div class="presentation-stage">\n'
-        f"{slides_markup}\n"
-        "  </div>\n"
-        "</div>\n\n"
-        "<!-- On-Screen Controls -->\n"
-        '<div class="slide-controls">\n'
-        '  <button id="btn-prev" title="Previous Slide (Left Arrow)">◀</button>\n'
-        '  <button id="btn-next" title="Next Slide (Right Arrow)">▶</button>\n'
-        '  <button id="btn-overview" title="Slide Overview (O / Esc)">☵</button>\n'
-        '  <button id="btn-presenter" title="Presenter View (P / S)">🗒</button>\n'
-        '  <button id="btn-fullscreen" title="Fullscreen (F)">⛶</button>\n'
-        "</div>\n\n"
-        "<!-- Overview Modal Grid -->\n"
-        '<div class="overview-modal">\n'
-        '  <div class="overview-grid">\n'
-        f"{thumbs_markup}\n"
-        "  </div>\n"
-        "</div>\n\n"
-        '<script src="slide.js"></script>\n'
-        "</body>\n"
-        "</html>\n"
+    deploy_slide_assets(
+        input_abs=input_abs,
+        output_abs=output_abs,
+        deck_theme=deck_theme,
+        langs=i18n_cfg.langs,
     )
 
-    index_html_path = os.path.join(output_abs, "index.html")
-    with open(index_html_path, "w", encoding="utf-8") as f:
-        f.write(html_content)
+    locale_index_paths: dict[str, str] = {}
+    for lang in i18n_cfg.langs:
+        slides_markup, thumbs_markup, locale_title = compiled_locales[lang]
+        locale_index_paths[lang] = _render_locale_index_html(
+            input_abs=input_abs,
+            output_abs=output_abs,
+            i18n_cfg=i18n_cfg,
+            lang=lang,
+            deck_title=locale_title,
+            slides_markup=slides_markup,
+            thumbs_markup=thumbs_markup,
+        )
 
-    return index_html_path
+    from drawlib._builder.doc_builder.compiler.base import write_root_redirect_html  # noqa: PLC0415
+
+    default_title = compiled_locales[default_lang][2]
+    write_root_redirect_html(output_abs, default_lang, title=default_title)
+    return locale_index_paths[default_lang]

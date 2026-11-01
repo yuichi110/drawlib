@@ -41,9 +41,11 @@ def test_project_manifest_parsing_and_ancestor_lookup(tmp_path: Path) -> None:
     assert manifest is not None
     assert manifest.project.type == "doc"
     assert manifest.project.style == "google"
+    assert manifest.project.lang is None
     assert manifest.i18n is not None
     assert manifest.i18n.default_lang == "en"
     assert manifest.i18n.langs == ["en", "ja"]
+    assert manifest.i18n.labels == {"en": "English", "ja": "日本語"}
     assert manifest.effective_lang == "en"
 
     # Ancestor lookup from nested chapter file
@@ -52,16 +54,61 @@ def test_project_manifest_parsing_and_ancestor_lookup(tmp_path: Path) -> None:
     assert Path(found[0]) == doc_dir.resolve()
     assert found[1].project.type == "doc"
 
-    # Reject [i18n] on slide or images
-    bad_slide = tmp_path / "bad_slide_src"
-    (bad_slide / "en").mkdir(parents=True)
-    (bad_slide / "ja").mkdir(parents=True)
-    (bad_slide / "drawlib.toml").write_text(
-        '[project]\ntype = "slide"\n\n[i18n]\ndefault_lang = "en"\nlangs = ["en", "ja"]\n',
+    # Accept [i18n] and [i18n.labels] on slide projects
+    slide_dir = tmp_path / "deck_src"
+    (slide_dir / "en").mkdir(parents=True)
+    (slide_dir / "ja").mkdir(parents=True)
+    (slide_dir / "drawlib.toml").write_text(
+        '[project]\ntype = "slide"\n\n[i18n]\ndefault_lang = "en"\nlangs = ["en", "ja"]\n\n'
+        '[i18n.labels]\nen = "EN"\nja = "JP"\n',
         encoding="utf-8",
     )
-    with pytest.raises(ValueError, match='only supported for "doc" and "site" projects'):
-        load_project_manifest(str(bad_slide))
+    slide_manifest = load_project_manifest(str(slide_dir))
+    assert slide_manifest is not None
+    assert slide_manifest.project.type == "slide"
+    assert slide_manifest.project.lang is None
+    assert slide_manifest.i18n is not None
+    assert slide_manifest.i18n.langs == ["en", "ja"]
+    assert slide_manifest.i18n.labels == {"en": "EN", "ja": "JP"}
+
+    # Require [i18n] on doc, site, and slide
+    for req_type in ("doc", "site", "slide"):
+        missing_i18n = tmp_path / f"missing_i18n_{req_type}_src"
+        missing_i18n.mkdir()
+        (missing_i18n / "drawlib.toml").write_text(f'[project]\ntype = "{req_type}"\n', encoding="utf-8")
+        with pytest.raises(ValueError, match=r'require an "\[i18n\]" table'):
+            load_project_manifest(str(missing_i18n))
+
+    # Reject [project].lang on doc, site, and slide
+    for bad_proj_lang_type in ("doc", "site", "slide"):
+        bad_proj_lang = tmp_path / f"bad_proj_lang_{bad_proj_lang_type}_src"
+        (bad_proj_lang / "en").mkdir(parents=True)
+        (bad_proj_lang / "drawlib.toml").write_text(
+            f'[project]\ntype = "{bad_proj_lang_type}"\nlang = "en"\n\n[i18n]\ndefault_lang = "en"\nlangs = ["en"]\n',
+            encoding="utf-8",
+        )
+        with pytest.raises(ValueError, match=r'"\[project\]\.lang" is not supported'):
+            load_project_manifest(str(bad_proj_lang))
+
+    # Accept [project].lang on images and reject [i18n] on images
+    imgs_dir = tmp_path / "imgs_src"
+    imgs_dir.mkdir()
+    (imgs_dir / "drawlib.toml").write_text('[project]\ntype = "images"\nlang = "ja"\n', encoding="utf-8")
+    imgs_manifest = load_project_manifest(str(imgs_dir))
+    assert imgs_manifest is not None
+    assert imgs_manifest.project.type == "images"
+    assert imgs_manifest.project.lang == "ja"
+    assert imgs_manifest.i18n is None
+    assert imgs_manifest.effective_lang == "ja"
+
+    bad_imgs = tmp_path / "bad_imgs_src"
+    (bad_imgs / "en").mkdir(parents=True)
+    (bad_imgs / "drawlib.toml").write_text(
+        '[project]\ntype = "images"\n\n[i18n]\ndefault_lang = "en"\nlangs = ["en"]\n',
+        encoding="utf-8",
+    )
+    with pytest.raises(ValueError, match='only supported for "doc", "site", and "slide" projects'):
+        load_project_manifest(str(bad_imgs))
 
     # Reject unknown project.type
     bad_type = tmp_path / "bad_type_src"
@@ -81,19 +128,19 @@ def test_manifest_archetype_guardrails(tmp_path: Path) -> None:
     slide_src = str(tmp_path / "myslide_src")
     imgs_src = str(tmp_path / "myimgs_src")
 
-    with pytest.raises(ValueError, match="multi-page \"site\" project"):
+    with pytest.raises(ValueError, match='multi-page "site" project'):
         build_pdf(site_src, str(tmp_path / "out.pdf"))
 
-    with pytest.raises(ValueError, match="multi-page \"site\" project"):
+    with pytest.raises(ValueError, match='multi-page "site" project'):
         build_docx(site_src, str(tmp_path / "out.docx"))
 
-    with pytest.raises(ValueError, match="\"slide\" presentation project"):
+    with pytest.raises(ValueError, match='"slide" presentation project'):
         build_html(slide_src, str(tmp_path / "slide_out"))
 
-    with pytest.raises(ValueError, match="\"images\" script project"):
+    with pytest.raises(ValueError, match='"images" script project'):
         build_markdown(imgs_src, str(tmp_path / "md_out"))
 
-    with pytest.raises(ValueError, match="not a \"slide\" presentation project"):
+    with pytest.raises(ValueError, match='not a "slide" presentation project'):
         build_slide(site_src, str(tmp_path / "bad_slide_out"))
 
 
@@ -244,25 +291,50 @@ def test_i18n_doc_end_to_end_all_outputs_and_per_locale_styles(tmp_path: Path) -
     assert "Noto Sans JP" in captured_pdf_html["wp_ja.pdf"]
     assert 'class="lang-switcher"' not in captured_pdf_html["wp_ja.pdf"]
 
-    # Single-locale subdirectory PDF build: build_pdf(wp_src/ja, -o single_ja.pdf)
-    with patch("drawlib._builder.doc_builder.compiler.pdf.export_html_to_pdf", side_effect=_fake_export_pdf):
-        single_ja = build_pdf(str(src_dir / "ja"), str(tmp_path / "single_ja.pdf"), generate_index=True)
-    assert Path(single_ja) == tmp_path / "single_ja.pdf"
-    assert "<h2>目次</h2>" in captured_pdf_html["single_ja.pdf"]
+    # Passing a locale subdirectory directly must raise a clear error pointing to project root
+    with pytest.raises(ValueError, match="is a subdirectory inside project"):
+        build_pdf(str(src_dir / "ja"), str(tmp_path / "single_ja.pdf"), generate_index=True)
 
 
 def test_single_locale_ja_doc_and_legacy_without_manifest(tmp_path: Path) -> None:
-    """Verify single-locale Japanese doc uses '目次' and legacy doc without drawlib.toml still builds."""
+    """Verify single-locale Japanese doc outputs jadoc_ja.{pdf,docx} & ja/index.html, and requires drawlib.toml."""
     init_project("doc", destination=tmp_path, target="jadoc", lang="ja", force=True)
     ja_src = tmp_path / "jadoc_src"
+    for starter_md in (ja_src / "ja").glob("*.md"):
+        starter_md.unlink()
+    (ja_src / "ja" / "00_cover.md").write_text("# 設計書\n\n概要リード文。\n", encoding="utf-8")
+    (ja_src / "ja" / "01_body.md").write_text("# システム構成\n\n本文セクション。\n", encoding="utf-8")
+
     ja_html_dir = tmp_path / "jadoc_html"
     build_html(str(ja_src), str(ja_html_dir))
-    ja_index = (ja_html_dir / "index.html").read_text(encoding="utf-8")
+    assert (ja_html_dir / "ja" / "index.html").is_file()
+    assert (ja_html_dir / "index.html").is_file()
+    ja_index = (ja_html_dir / "ja" / "index.html").read_text(encoding="utf-8")
     assert "<h2>目次</h2>" in ja_index
     assert '<html lang="ja" dir="ltr">' in ja_index
+    assert 'class="lang-switcher"' not in ja_index
 
-    # Remove drawlib.toml to verify 100% backward compatibility
+    ja_docx = build_docx(str(ja_src), generate_index=True)
+    assert Path(ja_docx) == tmp_path / "jadoc_ja.docx"
+    assert (tmp_path / "jadoc_ja.docx").is_file()
+
+    captured_ja_pdf: dict[str, str] = {}
+
+    def _fake_ja_pdf(html_content: str, output_path: str, timestamp: bool = False) -> None:
+        captured_ja_pdf[Path(output_path).name] = html_content
+        Path(output_path).write_bytes(b"%PDF-1.4\n%%EOF\n")
+
+    with patch("drawlib._builder.doc_builder.compiler.pdf.export_html_to_pdf", side_effect=_fake_ja_pdf):
+        ja_pdf = build_pdf(str(ja_src), generate_index=True)
+    assert Path(ja_pdf) == tmp_path / "jadoc_ja.pdf"
+    assert (tmp_path / "jadoc_ja.pdf").is_file()
+    assert "<h2>目次</h2>" in captured_ja_pdf["jadoc_ja.pdf"]
+
+    # Removing drawlib.toml raises ValueError across directory builders
     (ja_src / "drawlib.toml").unlink()
-    legacy_html_dir = tmp_path / "legacy_html"
-    build_html(str(ja_src), str(legacy_html_dir))
-    assert (legacy_html_dir / "index.html").is_file()
+    with pytest.raises(ValueError, match='Missing required "drawlib.toml"'):
+        build_html(str(ja_src), str(tmp_path / "legacy_html"))
+    with pytest.raises(ValueError, match='Missing required "drawlib.toml"'):
+        build_docx(str(ja_src))
+    with pytest.raises(ValueError, match='Missing required "drawlib.toml"'):
+        build_pdf(str(ja_src))

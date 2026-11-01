@@ -13,17 +13,21 @@ from __future__ import annotations
 
 import os
 import re
-import shutil
 import sys
 from typing import Any
 
-from drawlib._builder._common import BuildImageCache, FileBuildProgress, load_project_manifest, resolve_styles_and_utils
+from drawlib._builder._common import (
+    BuildImageCache,
+    FileBuildProgress,
+    find_project_manifest,
+    load_project_manifest,
+    resolve_styles_and_utils,
+)
 from drawlib._builder.doc_builder.compiler.base import (
     copy_directory_assets,
     extract_html_body,
     extract_title,
     require_directory,
-    resolve_doc_locale_and_root,
     resolve_template_and_css,
     validate_markdown_images,
     validate_markdown_links,
@@ -86,6 +90,15 @@ def resolve_logo_hrefs(input_abs: str, out_dir_abs: str, dest_abs: str) -> tuple
     return None, None
 
 
+def _resolve_default_html_out_dir(input_abs: str, output_dir: str | None) -> str:
+    """Resolve output HTML directory path, defaulting to ``<parent>/<base>_html``."""
+    if output_dir:
+        return os.path.abspath(output_dir)
+    dir_name = os.path.basename(input_abs.rstrip(os.sep))
+    base_name = dir_name[:-4] if dir_name.endswith("_src") and len(dir_name) > 4 else (dir_name or "docs")
+    return os.path.join(os.path.dirname(input_abs), f"{base_name}_html")
+
+
 def build_html(
     input_dir: str,
     output_dir: str | None = None,
@@ -96,18 +109,15 @@ def build_html(
     no_cache: bool = False,
     css_mode: str = "external",
 ) -> str:
-    """Compile a Markdown/HTML documentation directory into a static HTML site or single-page document.
+    """Compile an i18n-native ``site`` or ``doc`` project directory into static HTML.
 
-    When ``drawlib.toml`` contains ``[i18n]``, builds a multi-locale ``site`` or ``doc`` with
-    shared diagram deduplication, per-locale stylesheets, language switcher navigation, and a
-    root default-language ``index.html``.
-    For single-language projects, ``drawlib.toml`` ``[project].type`` takes priority over file
-    heuristics (``navbar.md`` presence for ``site`` vs merged ``index.html`` with Table of
-    Contents for ``doc``).
+    Builds all configured locales in ``drawlib.toml`` ``[i18n]`` with shared diagram
+    deduplication, per-locale stylesheets, language switcher navigation (when 2+ locales
+    are configured), and a root default-language ``index.html``.
 
     Args:
-        input_dir (str): Directory containing Markdown (.md), HTML, and site assets.
-        output_dir (Optional[str]): Target output directory. Defaults to input_dir.
+        input_dir (str): Project root directory containing ``drawlib.toml`` and ``<lang>/`` folders.
+        output_dir (Optional[str]): Target output directory. Defaults to ``<base>_html``.
         image_format (str): Image output format ('png' or 'webp'). Defaults to 'png'.
         styles_path (Optional[str]): Path to custom styles.py script.
         utils_path (Optional[str]): Path to custom utils.py script.
@@ -118,250 +128,59 @@ def build_html(
         str: Absolute path of generated HTML output directory.
 
     Raises:
-        ValueError: If input_dir is not a directory, required assets are missing, or output is invalid.
+        ValueError: If input_dir is not a valid ``doc`` or ``site`` project root directory.
     """
     input_abs = require_directory(input_dir, "build_html")
-    out_dir_abs = os.path.abspath(output_dir) if output_dir else input_abs
+    out_dir_abs = _resolve_default_html_out_dir(input_abs, output_dir)
 
     manifest = load_project_manifest(input_abs)
-    if manifest is not None:
-        if manifest.project.type == "slide":
+    if manifest is None:
+        found = find_project_manifest(input_abs, max_up=3)
+        if found is not None:
+            proj_root, _ = found
             raise ValueError(
-                f'Input directory "{input_abs}" is a "slide" presentation project (drawlib.toml). '
-                'Please use "drawlib build slide" instead of "drawlib build html".'
+                f'Input directory "{input_abs}" is a subdirectory inside project "{proj_root}". '
+                f'Please pass the project root directory "{proj_root}" containing "drawlib.toml".'
             )
-        if manifest.project.type == "images":
-            raise ValueError(
-                f'Input directory "{input_abs}" is an "images" script project (drawlib.toml). '
-                'Please use "drawlib build image" instead of "drawlib build html".'
-            )
-        if manifest.i18n is not None:
-            if manifest.project.type == "doc":
-                return _build_i18n_doc_html(
-                    input_abs=input_abs,
-                    out_dir_abs=out_dir_abs,
-                    i18n_cfg=manifest.i18n,
-                    image_format=image_format,
-                    styles_path=styles_path,
-                    utils_path=utils_path,
-                    no_cache=no_cache,
-                    css_mode=css_mode,
-                )
-            return _build_i18n_html(
-                input_abs=input_abs,
-                out_dir_abs=out_dir_abs,
-                i18n_cfg=manifest.i18n,
-                image_format=image_format,
-                styles_path=styles_path,
-                utils_path=utils_path,
-                no_cache=no_cache,
-                css_mode=css_mode,
-            )
-
-    if manifest is not None:
-        doc_lang = manifest.effective_lang
-        project_root_abs = input_abs
-        manifest_type: str | None = manifest.project.type
-        manifest_title = manifest.project.title or None
-    else:
-        doc_lang, parent_manifest, project_root_abs = resolve_doc_locale_and_root(input_abs)
-        manifest_type = parent_manifest.project.type if parent_manifest is not None else None
-        manifest_title = (parent_manifest.project.title or None) if parent_manifest is not None else None
-
-    template_file, css_file = resolve_template_and_css(input_abs)
-    styles_abs, utils_abs = resolve_styles_and_utils(input_abs, styles_path, utils_path)
-
-    navbar_candidates = [
-        os.path.join(input_abs, "navbar.md"),
-        os.path.join(input_abs, "navbar.markdown"),
-    ]
-    active_navbar_path: str | None = None
-    for p in navbar_candidates:
-        if os.path.isfile(p):
-            active_navbar_path = p
-            break
-
-    is_site = (manifest_type == "site") if manifest_type is not None else (active_navbar_path is not None)
-
-    navbar_sections: list[NavbarSection] | None = None
-    site_title: str | None = None
-    if is_site:
-        if active_navbar_path is None:
-            raise ValueError(f'Site project "{input_abs}" requires "navbar.md" at the root.')
-        index_candidates = [
-            os.path.join(input_abs, "index.md"),
-            os.path.join(input_abs, "index.markdown"),
-            os.path.join(input_abs, "index.html"),
-            os.path.join(input_abs, "index.htm"),
-        ]
-        if not any(os.path.isfile(p) for p in index_candidates):
-            raise ValueError(f'Directory build requires "index.md" or "index.html" at the root: "{input_abs}".')
-        navbar_sections, site_title = parse_navbar_markdown(active_navbar_path, input_abs)
-        if site_title is None and manifest_title:
-            site_title = manifest_title
-
-    style_css_path: str | None = None
-    if css_mode != "embed":
-        style_css_path = os.path.join(out_dir_abs, "style.css")
-        if os.path.abspath(style_css_path) != os.path.abspath(css_file):
-            os.makedirs(os.path.dirname(style_css_path), exist_ok=True)
-            with open(css_file, "r", encoding="utf-8") as cf:
-                raw_css = cf.read()
-            with open(style_css_path, "w", encoding="utf-8") as out_cf:
-                out_cf.write(localize_css_for_language(raw_css, lang=doc_lang))
-
-    cache = BuildImageCache(enabled=not no_cache)
-    html_tasks: list[tuple[str, str, bool]] = []
-
-    for root, dirnames, files in os.walk(input_abs):
-        if out_dir_abs != input_abs:
-            dirnames[:] = sorted(
-                d
-                for d in dirnames
-                if not d.startswith(".")
-                and not d.startswith("_")
-                and not (
-                    os.path.abspath(os.path.join(root, d)) == out_dir_abs
-                    or os.path.abspath(os.path.join(root, d)).startswith(out_dir_abs + os.sep)
-                )
-            )
-        else:
-            dirnames[:] = sorted(d for d in dirnames if not d.startswith(".") and not d.startswith("_"))
-        for fname in sorted(files):
-            if fname.startswith(".") or fname.startswith("_"):
-                continue
-            if fname.lower() in {
-                "readme.md",
-                "readme.markdown",
-                "output_readme.md",
-                "output_html_readme.md",
-                "template.html",
-                "template.html.j2",
-                "drawlib.toml",
-            }:
-                continue
-            src_abs = os.path.join(root, fname)
-            if active_navbar_path and os.path.abspath(src_abs) == os.path.abspath(active_navbar_path):
-                continue
-            rel_path = os.path.relpath(src_abs, input_abs)
-
-            if fname.endswith((".md", ".markdown")):
-                rel_base, _ = os.path.splitext(rel_path)
-                dest_abs = os.path.join(out_dir_abs, rel_base + ".html")
-                html_tasks.append((src_abs, dest_abs, True))
-            elif fname.endswith((".html", ".htm")):
-                dest_abs = os.path.join(out_dir_abs, rel_path)
-                if src_abs != dest_abs:
-                    html_tasks.append((src_abs, dest_abs, False))
-
-    if not html_tasks:
-        raise ValueError(f'No Markdown or HTML documentation files found in directory "{input_abs}".')
-
-    total_files = len(html_tasks)
-    display_names = ["/" + os.path.relpath(s_abs, input_abs).replace(os.sep, "/") for s_abs, _, _ in html_tasks]
-    max_blocks = check_document_output_duplicates(
-        tasks=html_tasks,
-        display_names=display_names,
-        image_format=image_format,
-        embed_images=False,
-    )
-
-    processor: DrawlibBlockProcessor | None = None
-    name_width = max((len(n) for n in display_names), default=0)
-    image_width = len(str(max(max_blocks, 0)))
-    root_index_dest_abs = os.path.join(out_dir_abs, "index.html")
-    lang_cfg = get_language_config(doc_lang)
-
-    if is_site and active_navbar_path and navbar_sections is not None:
-        for idx, ((src_abs, dest_abs, is_md), disp_name) in enumerate(zip(html_tasks, display_names), start=1):
-            rel_css_href = (
-                os.path.relpath(style_css_path, os.path.dirname(dest_abs)).replace(os.sep, "/")
-                if style_css_path
-                else None
-            )
-            rel_index_url = os.path.relpath(root_index_dest_abs, os.path.dirname(dest_abs)).replace(os.sep, "/")
-            rel_favicon_href = resolve_favicon_href(project_root_abs, out_dir_abs, dest_abs)
-            rel_logo_href, rel_logo_dark_href = resolve_logo_hrefs(project_root_abs, out_dir_abs, dest_abs)
-            if is_md:
-                cur_sections, cur_items = resolve_navbar_for_page(
-                    sections=navbar_sections,
-                    root_dir_abs=input_abs,
-                    out_dir_abs=out_dir_abs,
-                    current_src_abs=src_abs,
-                    current_dest_abs=dest_abs,
-                )
-            else:
-                cur_sections, cur_items = None, None
-
-            processor = _compile_single_html_file(
-                src_abs=src_abs,
-                dest_abs=dest_abs,
-                image_format=image_format,
-                styles_path=styles_abs,
-                utils_path=utils_abs,
-                css_path=css_file,
-                css_href=rel_css_href,
-                template_path=template_file,
-                processor=processor,
-                progress=FileBuildProgress(
-                    idx,
-                    total_files,
-                    file_name=disp_name,
-                    name_width=name_width,
-                    image_width=image_width,
-                ),
-                no_cache=no_cache,
-                cache=cache,
-                nav_sections=cur_sections,
-                nav_items=cur_items,
-                index_url=rel_index_url,
-                site_title=site_title,
-                project_root=project_root_abs,
-                favicon_href=rel_favicon_href,
-                logo_href=rel_logo_href,
-                logo_dark_href=rel_logo_dark_href,
-                html_lang=lang_cfg.code,
-                html_dir=lang_cfg.direction,
-                font_link_html=lang_cfg.font_link_html,
-                css_lang=doc_lang,
-            )
-    else:
-        _compile_merged_doc_html(
-            html_tasks=html_tasks,
-            display_names=display_names,
-            input_abs=input_abs,
-            out_dir_abs=out_dir_abs,
-            image_format=image_format,
-            styles_path=styles_abs,
-            utils_path=utils_abs,
-            css_path=css_file,
-            css_href=("style.css" if style_css_path else None),
-            template_path=template_file,
-            name_width=name_width,
-            image_width=image_width,
-            no_cache=no_cache,
-            cache=cache,
-            lang=doc_lang,
-            project_root=project_root_abs,
+        raise ValueError(
+            f'Missing required "drawlib.toml" in "{input_abs}". '
+            'HTML directory builds require a Drawlib project manifest (run "drawlib init site" or "drawlib init doc").'
         )
 
-    excluded: set[str] = {template_file, css_file}
-    if active_navbar_path:
-        excluded.add(active_navbar_path)
-    copy_directory_assets(
-        project_root_abs if project_root_abs != input_abs else input_abs,
-        out_dir_abs,
-        excluded_files=excluded,
+    if manifest.project.type == "slide":
+        raise ValueError(
+            f'Input directory "{input_abs}" is a "slide" presentation project (drawlib.toml). '
+            'Please use "drawlib build slide" instead of "drawlib build html".'
+        )
+    if manifest.project.type == "images":
+        raise ValueError(
+            f'Input directory "{input_abs}" is an "images" script project (drawlib.toml). '
+            'Please use "drawlib build image" instead of "drawlib build html".'
+        )
+    if manifest.i18n is None:
+        raise ValueError(f'Invalid "{input_abs}/drawlib.toml": "[i18n]" configuration is required.')
+
+    if manifest.project.type == "doc":
+        return _build_i18n_doc_html(
+            input_abs=input_abs,
+            out_dir_abs=out_dir_abs,
+            i18n_cfg=manifest.i18n,
+            image_format=image_format,
+            styles_path=styles_path,
+            utils_path=utils_path,
+            no_cache=no_cache,
+            css_mode=css_mode,
+        )
+    return _build_i18n_site_html(
+        input_abs=input_abs,
+        out_dir_abs=out_dir_abs,
+        i18n_cfg=manifest.i18n,
+        image_format=image_format,
+        styles_path=styles_path,
+        utils_path=utils_path,
+        no_cache=no_cache,
+        css_mode=css_mode,
     )
-    bundle_svg_fonts(out_dir_abs, css_file_path=style_css_path)
-
-    readme_out = os.path.join(out_dir_abs, "README.md")
-    if out_dir_abs != input_abs or not os.path.exists(readme_out):
-        os.makedirs(out_dir_abs, exist_ok=True)
-        with open(readme_out, "w", encoding="utf-8") as f:
-            f.write(get_html_readme())
-
-    return out_dir_abs
 
 
 def _find_locale_index_src(lang_dir_abs: str) -> str:
@@ -370,7 +189,7 @@ def _find_locale_index_src(lang_dir_abs: str) -> str:
         cand = os.path.join(lang_dir_abs, cand_name)
         if os.path.isfile(cand):
             return cand
-    raise ValueError(f'Multi-locale site requires "index.md" or "index.html" inside "{lang_dir_abs}".')
+    raise ValueError(f'Site project requires "index.md" or "index.html" inside "{lang_dir_abs}".')
 
 
 def _prepare_i18n_locales_metadata(
@@ -393,7 +212,7 @@ def _prepare_i18n_locales_metadata(
         _find_locale_index_src(lang_dir)
         nav_path = resolve_locale_navbar_path(lang_dir)
         if nav_path is None:
-            raise ValueError(f'Multi-locale site requires "navbar.md" inside "{lang_dir}".')
+            raise ValueError(f'Site project requires "navbar.md" inside "{lang_dir}".')
         locale_navbars[lang] = parse_navbar_markdown(nav_path, lang_dir)
 
         if css_mode != "embed":
@@ -451,7 +270,7 @@ def _build_i18n_html_tasks(
     return all_tasks, display_names, max_blocks
 
 
-def _build_i18n_html(
+def _build_i18n_site_html(
     *,
     input_abs: str,
     out_dir_abs: str,
@@ -462,10 +281,10 @@ def _build_i18n_html(
     no_cache: bool,
     css_mode: str,
 ) -> str:
-    """Compile a multi-locale (i18n) site directory into HTML."""
+    """Compile an i18n-native ``site`` directory into HTML."""
     if out_dir_abs == input_abs:
         raise ValueError(
-            f'Refusing to build multi-locale HTML in-place inside source directory "{input_abs}". '
+            f'Refusing to build HTML in-place inside source directory "{input_abs}". '
             "Please specify a separate output directory."
         )
 
@@ -737,10 +556,7 @@ def _build_i18n_doc_html(
         if len(index_entries) > 0:
             toc_items = "\n".join(f'    <li><a href="#{anc}">{t_title}</a></li>' for anc, t_title in index_entries)
             toc_html = (
-                f'<nav class="doc-toc pdf-toc">\n'
-                f"  <h2>{lang_cfg.toc_title}</h2>\n"
-                f"  <ul>\n{toc_items}\n  </ul>\n"
-                f"</nav>"
+                f'<nav class="doc-toc pdf-toc">\n  <h2>{lang_cfg.toc_title}</h2>\n  <ul>\n{toc_items}\n  </ul>\n</nav>'
             )
             body_parts.append(chapters_html[0])
             body_parts.append(toc_html)
@@ -888,9 +704,7 @@ def _compile_i18n_locale_page(
     lang_index_dest = os.path.join(lang_out_root, "index.html")
 
     rel_css_href = (
-        os.path.relpath(locale_css_path, os.path.dirname(dest_abs)).replace(os.sep, "/")
-        if locale_css_path
-        else None
+        os.path.relpath(locale_css_path, os.path.dirname(dest_abs)).replace(os.sep, "/") if locale_css_path else None
     )
     rel_index_url = os.path.relpath(lang_index_dest, os.path.dirname(dest_abs)).replace(os.sep, "/")
     rel_favicon_href = resolve_favicon_href(input_abs, out_dir_abs, dest_abs)
@@ -978,11 +792,7 @@ def _compile_i18n_root_index_page(
     dest_abs = os.path.join(out_dir_abs, "index.html")
     shared_dir = os.path.join(out_dir_abs, "images", "index")
 
-    rel_css_href = (
-        os.path.relpath(default_css_path, out_dir_abs).replace(os.sep, "/")
-        if default_css_path
-        else None
-    )
+    rel_css_href = os.path.relpath(default_css_path, out_dir_abs).replace(os.sep, "/") if default_css_path else None
     rel_favicon_href = resolve_favicon_href(input_abs, out_dir_abs, dest_abs)
     rel_logo_href, rel_logo_dark_href = resolve_logo_hrefs(input_abs, out_dir_abs, dest_abs)
     nav_sections_raw, site_title = default_navbar
@@ -1038,141 +848,6 @@ def _compile_i18n_root_index_page(
         alternate_links=alt_links,
         css_lang=default_lang,
     )
-
-
-def _compile_merged_doc_html(
-    *,
-    html_tasks: list[tuple[str, str, bool]],
-    display_names: list[str],
-    input_abs: str,
-    out_dir_abs: str,
-    image_format: str,
-    styles_path: str | None,
-    utils_path: str | None,
-    css_path: str | None,
-    css_href: str | None,
-    template_path: str | None,
-    name_width: int,
-    image_width: int,
-    no_cache: bool,
-    cache: BuildImageCache,
-    lang: str = "en",
-    project_root: str | None = None,
-) -> None:
-    """Compile and merge all chapters in a linear doc project into a single index.html."""
-    if (
-        out_dir_abs != input_abs
-        and os.path.isdir(out_dir_abs)
-        and not os.path.exists(os.path.join(out_dir_abs, ".git"))
-    ):
-        for entry in os.listdir(out_dir_abs):
-            if entry.lower().endswith((".html", ".htm")) and entry.lower() != "index.html":
-                stale_html = os.path.join(out_dir_abs, entry)
-                if os.path.isfile(stale_html):
-                    os.remove(stale_html)
-
-    chapter_anchors: dict[str, str] = {}
-    for idx, (src_abs, _, _) in enumerate(html_tasks, start=1):
-        stem = os.path.splitext(os.path.basename(src_abs))[0]
-        slug = re.sub(r"[^a-zA-Z0-9_-]+", "-", stem).strip("-").lower() or f"doc-{idx}"
-        anchor_id = f"chapter-{idx}-{slug}"
-        chapter_anchors[src_abs] = anchor_id
-        chapter_anchors[os.path.basename(src_abs)] = anchor_id
-        chapter_anchors[f"{stem}.md"] = anchor_id
-        chapter_anchors[f"{stem}.html"] = anchor_id
-
-    chapters_html: list[str] = []
-    toc_entries: list[tuple[str, str]] = []
-    inferred_title: str | None = None
-    processor: DrawlibBlockProcessor | None = None
-    total_files = len(html_tasks)
-    eff_root = project_root or input_abs
-
-    for idx, ((src_abs, dest_abs, _), disp_name) in enumerate(zip(html_tasks, display_names), start=1):
-        progress = FileBuildProgress(
-            idx,
-            total_files,
-            file_name=disp_name,
-            name_width=name_width,
-            image_width=image_width,
-        )
-        chapter_body, chapter_title, processor = _compile_chapter_body(
-            src_abs=src_abs,
-            dest_abs=dest_abs,
-            image_format=image_format,
-            styles_path=styles_path,
-            utils_path=utils_path,
-            processor=processor,
-            progress=progress,
-            no_cache=no_cache,
-            cache=cache,
-            project_root=eff_root,
-        )
-        if inferred_title is None:
-            inferred_title = chapter_title
-
-        anchor_id = chapter_anchors[src_abs]
-        toc_entries.append((anchor_id, chapter_title))
-
-        def _rewrite_link(match: re.Match[str], _anchors: dict[str, str] = chapter_anchors) -> str:
-            href_target = match.group(1)
-            base_target = os.path.basename(href_target.split("#")[0])
-            if base_target in _anchors:
-                return f'href="#{_anchors[base_target]}"'
-            return match.group(0)
-
-        chapter_body = re.sub(
-            r'href=["\'](?!https?://|//|#)([^"\']+\.(?:md|html))(#[^"\']*)?["\']',
-            _rewrite_link,
-            chapter_body,
-            flags=re.IGNORECASE,
-        )
-
-        chapters_html.append(f'<section id="{anchor_id}" class="doc-chapter pdf-chapter">\n{chapter_body}\n</section>')
-
-    lang_cfg = get_language_config(lang)
-    body_parts: list[str] = []
-    index_entries = toc_entries[1:]
-    if len(index_entries) > 0:
-        toc_items = "\n".join(f'    <li><a href="#{anc}">{t_title}</a></li>' for anc, t_title in index_entries)
-        toc_html = (
-            f'<nav class="doc-toc pdf-toc">\n'
-            f"  <h2>{lang_cfg.toc_title}</h2>\n"
-            f"  <ul>\n{toc_items}\n  </ul>\n"
-            f"</nav>"
-        )
-        body_parts.append(chapters_html[0])
-        body_parts.append(toc_html)
-        body_parts.extend(chapters_html[1:])
-    else:
-        body_parts.extend(chapters_html)
-
-    combined_body = "\n\n".join(body_parts)
-    index_dest_abs = os.path.join(out_dir_abs, "index.html")
-    rel_favicon_href = resolve_favicon_href(eff_root, out_dir_abs, index_dest_abs)
-    rel_logo_href, rel_logo_dark_href = resolve_logo_hrefs(eff_root, out_dir_abs, index_dest_abs)
-    full_html = render_html_document(
-        body_html=combined_body,
-        title=inferred_title or "Drawlib Document",
-        custom_css_path=css_path,
-        css_href=css_href,
-        nav_items=[],
-        nav_sections=None,
-        template_path=template_path,
-        index_url="index.html",
-        site_title=None,
-        favicon_href=rel_favicon_href,
-        logo_href=rel_logo_href,
-        logo_dark_href=rel_logo_dark_href,
-        html_lang=lang_cfg.code,
-        html_dir=lang_cfg.direction,
-        font_link_html=lang_cfg.font_link_html,
-        css_lang=lang,
-    )
-
-    os.makedirs(out_dir_abs, exist_ok=True)
-    with open(index_dest_abs, "w", encoding="utf-8") as f:
-        f.write(full_html)
 
 
 def _compile_chapter_body(

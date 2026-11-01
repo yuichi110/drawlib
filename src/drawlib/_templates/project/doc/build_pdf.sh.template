@@ -28,4 +28,4 @@ fi
 echo "Using Drawlib command: $DRAWLIB_CMD"
 echo "Building PDF document..."
 $DRAWLIB_CMD build pdf __SRC_DIR__/ -o __OUT_PDF__ --generate-index
-echo "PDF build complete: __OUT_PDF__"
+echo "PDF build complete!"

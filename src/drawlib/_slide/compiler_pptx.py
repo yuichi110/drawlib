@@ -15,21 +15,7 @@ import os
 import tempfile
 from typing import Literal
 
-from drawlib._slide.compiler import build_slide
-
-
-def _resolve_pptx_dest(input_abs: str, output_file: str | None) -> str:
-    """Resolve destination .pptx file path from source directory and optional output path."""
-    dir_name = os.path.basename(input_abs.rstrip(os.sep))
-    base_name = dir_name[:-4] if dir_name.endswith("_src") else dir_name
-    if not base_name:
-        base_name = "slide"
-
-    if output_file:
-        if os.path.isdir(output_file) or output_file.endswith(os.sep) or output_file.endswith("/"):
-            return os.path.abspath(os.path.join(output_file, f"{base_name}.pptx"))
-        return os.path.abspath(output_file)
-    return os.path.join(os.path.dirname(input_abs), f"{base_name}.pptx")
+from drawlib._slide.compiler import build_slide, require_slide_manifest
 
 
 def build_pptx(
@@ -45,15 +31,15 @@ def build_pptx(
     no_cache: bool = False,
     timestamp: bool = False,
 ) -> str:
-    """Compile a Markdown slide presentation directory into a native MS PowerPoint (.pptx) deck.
+    """Compile an ``i18n``-native Markdown slide project into native MS PowerPoint (``.pptx``) decks.
 
-    Renders all embedded ```drawlib diagrams as high-DPI static PNGs, measures exact 1920x1080
-    stage layout and computed typography via Headless Chromium, and writes native editable
-    16:9 PowerPoint shapes, text boxes, tables, cards, and speaker notes at 0.5x (960x540 pt) scale.
+    Renders all embedded ````drawlib```` diagrams as high-DPI static PNGs once across locales,
+    measures exact 1920x1080 stage layout and computed typography via Headless Chromium for each
+    configured language, and writes ``<stem>_<lang>.pptx`` deliverables at 0.5x (960x540 pt) scale.
 
     Args:
-        input_dir: Directory containing Markdown (.md) slide files and presentation assets.
-        output_file: Destination .pptx file path (defaults to '<base_name>.pptx').
+        input_dir: Project root directory containing ``drawlib.toml`` and ``<lang>/`` slide files.
+        output_file: Optional destination ``.pptx`` base path or directory (produces ``<stem>_<lang>.pptx``).
         title: Optional presentation title override.
         theme: CSS theme preset name ('google', 'default', 'google-dark', 'default-dark', etc.).
         dpi: Rasterization DPI for embedded drawlib diagrams. Defaults to 240.
@@ -64,10 +50,10 @@ def build_pptx(
         timestamp: If True, include current build timestamp in OpenXML metadata.
 
     Returns:
-        str: Absolute path to the generated .pptx file.
+        str: Absolute path to the generated default-language ``<stem>_<default_lang>.pptx`` file.
 
     Raises:
-        ValueError: If input_dir is invalid, dpi <= 0, or anim_frame is invalid.
+        ValueError: If ``input_dir`` is invalid, lacks ``drawlib.toml``, ``dpi <= 0``, or ``anim_frame`` is invalid.
         RuntimeError: If Playwright, Chromium, or python-pptx fails.
     """
     if not input_dir:
@@ -80,22 +66,26 @@ def build_pptx(
     if anim_frame not in {"first", "last"}:
         raise ValueError(f"anim_frame must be 'first' or 'last', got '{anim_frame}'.")
 
+    manifest = require_slide_manifest(input_abs)
+    assert manifest.i18n is not None  # noqa: S101
+    i18n_cfg = manifest.i18n
+
+    from drawlib._builder.doc_builder.compiler.base import resolve_multi_locale_dest  # noqa: PLC0415
     from drawlib._slide._pptx_dom import extract_deck_dom  # noqa: PLC0415
     from drawlib._slide._pptx_writer import write_deck_to_pptx  # noqa: PLC0415
 
-    dest_abs = _resolve_pptx_dest(input_abs, output_file)
-    dest_parent = os.path.dirname(dest_abs)
-    if dest_parent:
-        os.makedirs(dest_parent, exist_ok=True)
+    default_base_dir = os.path.dirname(input_abs.rstrip(os.sep))
+    default_stem = manifest.project.name
 
+    generated_paths: dict[str, str] = {}
     with tempfile.TemporaryDirectory() as tmp_root:
-        html_out_dir = os.path.join(tmp_root, "html_stage")
+        stage_dir = os.path.join(tmp_root, "html_stage")
         scratch_dir = os.path.join(tmp_root, "pptx_scratch")
         os.makedirs(scratch_dir, exist_ok=True)
 
-        index_html = build_slide(
+        build_slide(
             input_dir=input_abs,
-            output_dir=html_out_dir,
+            output_dir=stage_dir,
             title=title,
             theme=theme,
             image_format="png",
@@ -106,12 +96,31 @@ def build_pptx(
             utils_path=utils_path,
             no_cache=no_cache,
         )
-        deck_spec = extract_deck_dom(index_html, svg_capture_dir=scratch_dir)
-        return write_deck_to_pptx(
-            deck=deck_spec,
-            output_path=dest_abs,
-            scratch_dir=scratch_dir,
-            title=title,
-            anim_frame=anim_frame,
-            timestamp=timestamp,
-        )
+
+        for lang in i18n_cfg.langs:
+            dest_abs = resolve_multi_locale_dest(
+                default_base_dir,
+                default_stem,
+                output_file,
+                lang,
+                ".pptx",
+            )
+            dest_parent = os.path.dirname(dest_abs)
+            if dest_parent:
+                os.makedirs(dest_parent, exist_ok=True)
+
+            lang_scratch = os.path.join(scratch_dir, lang)
+            os.makedirs(lang_scratch, exist_ok=True)
+            lang_index_html = os.path.join(stage_dir, lang, "index.html")
+            deck_spec = extract_deck_dom(lang_index_html, svg_capture_dir=lang_scratch)
+            written_path = write_deck_to_pptx(
+                deck=deck_spec,
+                output_path=dest_abs,
+                scratch_dir=lang_scratch,
+                title=title,
+                anim_frame=anim_frame,
+                timestamp=timestamp,
+            )
+            generated_paths[lang] = written_path
+
+    return generated_paths[i18n_cfg.default_lang]

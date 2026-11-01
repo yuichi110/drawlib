@@ -15,22 +15,25 @@
 ## 1. ディレクトリ構成
 
 - `__SRC_DIR__/`: Markdown ソースドキュメントおよび図面コード (**正本**)。
+  - `drawlib.toml`: プロジェクトマニフェスト (`[project]` 設定および `[i18n]` 言語構成)。
+  - `__DEFAULT_LANG__/`: デフォルト言語のドキュメントディレクトリ (多言語化する場合は `<lang>/` を追加し `drawlib.toml` の `langs` に追記):
+    - `navbar.md`: ナビゲーションサイドバーの階層構造定義。
+    - `index.md`: トップページ。
+    - `architecture/index.md`: アーキテクチャ解説ページ。
+    - `workflow/index.md`: ワークフロー解説ページ。
+  - `_assets/`: 全言語で共有される静的アセット (`favicon.png`, `linux.png`, `_logo.png`, `_logo_dark.png`)。
   - `build.sh`: HTML、Markdown、画像を順次ビルドするマスター統合スクリプト。
   - `build_html.sh`: 静的 HTML サイトのビルドスクリプト。
   - `build_markdown.sh`: GitHub 閲覧用 Markdown のビルドスクリプト。
   - `build_image.sh`: 単体図解画像の一括抽出スクリプト。
   - `serve.sh`: ローカルプレビュー用 HTTP サーバースクリプト。
-  - `styles.py`: 全体描画テーマ、パレット、日本語フォント設定スクリプト。
+  - `styles.py`: 全体描画テーマ、パレット、フォント設定スクリプト (言語別の `<lang>/styles.py` 上書きも可能)。
   - `utils.py`: 再利用可能な描画ヘルパー関数、マクロ、プロジェクト共通定数。
   - `style.css`: HTML サイト用カスタム CSS スタイルシート。
   - `template.html`: HTML サイト用 Jinja2 テンプレート。
-  - `navbar.md`: ナビゲーションサイドバーの階層構造定義。
   - `README.md`: 本カスタマイズガイド。
-  - `index.md`: トップページ。
-  - `architecture/index.md`: アーキテクチャ解説ページ。
-  - `workflow/index.md`: ワークフロー解説ページ。
-- `__OUT_MARKDOWN_DIR__/`: 生成された Markdown ドキュメント (**直接編集しないでください**)。
-- `__OUT_HTML_DIR__/`: 生成された静的 HTML サイト (**直接編集しないでください**)。
+- `__OUT_MARKDOWN_DIR__/`: 生成された Markdown ドキュメント (`index.md`, `<lang>/...`) (**直接編集しないでください**)。
+- `__OUT_HTML_DIR__/`: 生成された静的 HTML サイト (`index.html`, `<lang>/...`) (**直接編集しないでください**)。
 - `__OUT_IMAGES_DIR__/`: 抽出された図解画像群 (**直接編集しないでください**)。
 
 ---
@@ -153,8 +156,8 @@ service_card((50, 25), "認証ゲートウェイ")
   - **見本テンプレート**: プロジェクト初期化時は、見本画像が `_assets/_logo.png` および `_assets/_logo_dark.png` として配置されています。画像ロゴを使用する場合は、ファイル名先頭の `_` を削除して `logo.png` / `logo_dark.png` にリネームするか、自前のロゴ画像を配置してください。
 
 ### 3.6. 新しいチャプターやページの追加
-1. `__SRC_DIR__/` 配下に新規ディレクトリや Markdown ファイルを作成します。
-2. `navbar.md` に作成したファイルへのリンクを追加します。
+1. `__SRC_DIR__/__DEFAULT_LANG__/` 配下 (多言語サイトの場合は各 `<lang>/` 配下) に新規ディレクトリや Markdown ファイルを作成します。
+2. `__SRC_DIR__/__DEFAULT_LANG__/navbar.md` (および各言語の `navbar.md`) に作成したファイルへのリンクを追加します。
 3. ````drawlib```` コードブロックを記述して図面を配置します。
 4. `./build.sh` を実行して反映します。
 
@@ -162,7 +165,7 @@ service_card((50, 25), "認証ゲートウェイ")
 図面の座標合わせを行う際は、座標グリッド表示 (`-g`) を使って対象ブロックのみを高速出力できます:
 ```bash
 # index.md 内の 1 番目のブロックをグリッド付きでプレビュー画像に出力
-drawlib export __SRC_DIR__/index.md 1 -g -o preview.png
+drawlib show __SRC_DIR__/__DEFAULT_LANG__/index.md 1 -g -o preview.png
 ```
 キャッシュを無視して全ドキュメントを再ビルドする場合:
 ```bash

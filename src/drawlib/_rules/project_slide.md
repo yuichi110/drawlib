@@ -1,6 +1,6 @@
 # Drawlib Presentation Slide Deck Guidelines (`project-slide`)
 
-A **`slide` project** (`drawlib init slide`) compiles Markdown slide files (`slide_src/*.md`) into an **interactive 16:9 widescreen web presentation deck (`slide_html/index.html`)** with dual-window Presenter View (`?presenter=1`), a **high-resolution 1920×1080 vector PDF (`slide.pdf`)**, and **standalone vector/animated slide assets (`slide_images/`)**, with optional on-demand export to a **native editable 16:9 Microsoft PowerPoint deck (`slide.pptx`)** via `drawlib build pptx`.
+A **`slide` project** (`drawlib init slide`) compiles Markdown slide files (`slide_src/<lang>/*.md`) into an **interactive 16:9 widescreen web presentation deck (`slide_html/<lang>/index.html` + root `slide_html/index.html` redirect)** with dual-window Presenter View (`?presenter=1`), a **high-resolution 1920×1080 vector PDF (`slide_<lang>.pdf`)**, and **standalone vector/animated slide assets (`slide_images/`)**, with optional on-demand export to a **native editable 16:9 Microsoft PowerPoint deck (`slide_<lang>.pptx`)** via `drawlib build pptx`.
 
 *(For slide storytelling, the Dual-Layer (`::: block` vs. `::: note`) authoring standard, mandatory Cover/Agenda/Section Divider slides, and visual best practices, **always read `uv run drawlib rules show slide-guide`**. For general project scaffolding, see `uv run drawlib rules show project-overview`. For the Python runtime API in `drawlib.slide`, run `uv run drawlib rules show lib-slide`.)*
 
@@ -98,32 +98,34 @@ Matching the aspect ratio prevents unwanted horizontal or vertical letterboxing 
 
 ## 2. Slide Project Structure (`slide_src/`)
 
-Scaffold a new presentation project with `uv run drawlib init slide [target] [-l <lang>] [-s <style>]`:
+Scaffold a new presentation project (single-locale or multi-locale `-l en,ja`) with `uv run drawlib init slide [target] [-l <lang[,lang...]>] [-s <style>]`:
 
 ```text
 slide_src/
-├── 01_title.md            # Slide 1: Title / Cover slide
-├── 02_agenda.md           # Slide 2: Agenda / Roadmap
-├── 03_architecture.md     # Slide 3: Cloud / System Architecture
-├── 04_workflow.md         # Slide 4: Animated CI/CD Pipeline
+├── drawlib.toml           # [MANDATORY] Project manifest (type = "slide" + [i18n])
+├── en/                    # Locale slide directory (e.g. en/, ja/)
+│   ├── 01_title.md        # Slide 1: Title / Cover slide
+│   ├── 02_agenda.md       # Slide 2: Agenda / Roadmap
+│   ├── 03_architecture.md # Slide 3: Cloud / System Architecture
+│   └── 04_workflow.md     # Slide 4: Animated CI/CD Pipeline
 ├── _assets/               # Static images/logos copied to output _assets/
-├── styles.py              # Deck-wide Drawlib Style / Color overrides
+├── styles.py              # Deck-wide Drawlib Style / Color overrides (optional <lang>/styles.py)
 ├── utils.py               # Reusable Python slide helpers (e.g. draw_page_number)
 ├── style.css              # Presentation theme & typography stylesheet
 ├── slide.js               # Interactive web presentation & Presenter View engine
 ├── build.sh               # Master build script (HTML + PDF + Images)
 ├── build_html.sh          # Compile HTML slide deck (slide_html/)
-├── build_pdf.sh           # Export 1920×1080 vector PDF (slide.pdf)
+├── build_pdf.sh           # Export 1920×1080 vector PDF (slide_en.pdf)
 ├── build_image.sh         # Extract standalone slide diagram assets (slide_images/)
 └── serve.sh               # Local preview server (drawlib serve)
 ```
 
-- **File Discovery & Chapter Subdirectories**: All `.md` / `.markdown` files in `slide_src/` and any nested chapter subdirectories (e.g., `00_opening/01_title.md`, `01_why_drawlib/01_section.md`) are discovered recursively and compiled in sorted relative-path order. Slides inside chapter subdirectories automatically inherit root `styles.py`, `utils.py`, and `_assets/`.
+- **Unified `<src_dir>/<lang>/` Discovery & Chapter Subdirectories**: Every `slide` project declares `[i18n]` in `drawlib.toml` and places slide Markdown inside `slide_src/<lang>/` (even single-language decks such as `-l en` -> `slide_src/en/`). All `.md` / `.markdown` files inside `slide_src/<lang>/` and any nested chapter subdirectories (e.g., `en/00_opening/01_title.md`, `en/01_why_drawlib/01_section.md`) are discovered recursively and compiled in sorted relative-path order. Slides inside `<lang>/` and nested subdirectories automatically inherit root `styles.py`, `utils.py`, and `_assets/` (with optional per-locale `<lang>/styles.py` & `<lang>/utils.py` overrides).
 - **Excluding Non-Slide Documents (`_` Prefix & Special Files)**:
-  - **Underscore (`_`) Prefix Rule**: Any Markdown file or subdirectory whose name starts with `_` (e.g., `_CONTENTS_PLANNING.md`, `_notes.md`, `_drafts/`) is automatically excluded from slide compilation. Always prefix planning documents, outlines, or WIP drafts inside `slide_src/` with `_` so they are never rendered as slides.
-  - **Special Excluded Files**: `README.md` (`readme.markdown`) and `navbar.md` (`navbar.markdown`) are also automatically excluded by special rule.
+  - **Underscore (`_`) Prefix Rule**: Any Markdown file or subdirectory whose name starts with `_` (e.g., `_CONTENTS_PLANNING.md`, `_notes.md`, `_drafts/`) is automatically excluded from slide compilation. Always prefix planning documents, outlines, or WIP drafts inside `slide_src/` or `slide_src/<lang>/` with `_` so they are never rendered as slides.
+  - **Special Excluded Files**: `README.md` (`readme.markdown`) is automatically excluded, while `navbar.md` is forbidden inside `slide` locale directories (`navbar.md` belongs exclusively to `site` projects).
 - **Pure Markdown & Zero Frontmatter**: Do not add YAML frontmatter (`---`) at the top of slide files. Every visual element on a slide is placed inside one or more `::: block` containers.
-- **Relative Paths Only (No Absolute Paths or file:// URLs)**: All markdown links, image references (`![logo](_assets/logo.png)`), and diagram asset references must use relative paths. Never write machine-specific absolute paths (`/usr/...`, `/home/...`, `C:\...`) or `file://` URLs in slide source files.
+- **Relative Paths Only (No Absolute Paths or file:// URLs)**: All markdown links, Markdown image references (`![logo](../_assets/logo.png)` from `en/*.md` or `../../_assets/logo.png` from `en/00_opening/*.md`), and diagram asset references (`image("_assets/logo.png")` inside Python ````drawlib```` blocks, which walks up ancestor folders automatically) must use relative paths. Never write machine-specific absolute paths (`/usr/...`, `/home/...`, `C:\...`) or `file://` URLs in slide source files.
 
 ---
 
@@ -181,7 +183,7 @@ utils.draw_page_number()
 :::
 ````
 
-### 4.2. Template A: Title / Cover Slide (`01_title.md`)
+### 4.2. Template A: Title / Cover Slide (`en/01_title.md`)
 ````markdown
 ::: block xy=(160, 240) width=1160 height=600
 # Presentation Title
@@ -196,7 +198,7 @@ Brief one-line summary of the presentation topic
 :::
 
 ::: block xy=(1360, 260) width=400 height=480
-![Hero Logo](_assets/logo.png)
+![Hero Logo](../_assets/logo.png)
 :::
 ````
 
@@ -373,14 +375,14 @@ Press `P` or `S` (or click the `🗒` button in the bottom-right slide controls)
 ### 7.1. Built-In Slide Helpers (`drawlib.slide`) & Custom Macros (`utils.py`)
 Use `from drawlib.slide import draw_page_number, draw_section_header` for standard slide page numbers and full-bleed chapter covers (`01_section.md`). In addition, `slide_src/` is automatically added to Python's import path so any ````drawlib```` block can `import utils` (or `from drawlib.utils import ...`) for deck-specific helper functions (such as `service_card()`, `connect()`, or custom layouts).
 
-### 7.2. Building HTML & Zero-Config 1920×1080 Vector PDF
+### 7.2. Building HTML & Zero-Config 1920×1080 Vector PDF (`slide_<lang>.pdf`)
 `playwright` is included as a standard dependency of Drawlib, and `chromium-headless-shell` downloads automatically on the first `drawlib build pdf` or `drawlib build pptx` run—no optional extra or manual browser installation is required:
 
 ```bash
 # Run full slide build (HTML + PDF + Images):
 ./slide_src/build.sh
 
-# Or run individual CLI commands:
+# Or run individual CLI commands (passing -o slide.pdf emits slide_<lang>.pdf per locale):
 uv run drawlib build slide slide_src/ -o slide_html/ -s slide_src/styles.py -u slide_src/utils.py
 uv run drawlib build pdf slide_src/ -o slide.pdf -s slide_src/styles.py -u slide_src/utils.py
 uv run drawlib serve slide_html/
@@ -389,13 +391,13 @@ uv run drawlib serve slide_html/
 - **Offline / Air-Gapped / CI Environments**: Pre-download headless Chromium ahead of time via `uv run drawlib cache download --browser` (or `--all` to cache all fonts, icons, maps, and headless Chromium together).
 - **Minimal Linux Containers**: On minimal container images (such as `python:3.12-slim`) lacking OS shared libraries (`libnss3`, `libgbm1`, etc.), install system dependencies once via `uv run playwright install-deps chromium` (or `uv run playwright install --with-deps --only-shell chromium`).
 
-### 7.3. On-Demand Editable 16:9 MS PowerPoint (`.pptx`) Export
-While the scaffolded `slide_src/build.sh` compiles HTML, PDF, and standalone images by default, `python-pptx` is installed out of the box so any `slide` project can be exported on demand to a native editable 16:9 (`960×540 pt`) PowerPoint presentation via CLI or Python.
+### 7.3. On-Demand Editable 16:9 MS PowerPoint (`slide_<lang>.pptx`) Export
+While the scaffolded `slide_src/build.sh` compiles HTML, PDF, and standalone images by default, `python-pptx` is installed out of the box so any `slide` project can be exported on demand to native editable 16:9 (`960×540 pt`) PowerPoint presentations (`slide_<lang>.pptx` for every locale in `[i18n].langs`) via CLI or Python.
 
 Drawlib renders and measures the `1920×1080` slide DOM via headless Chromium and translates it into native editable PowerPoint shapes (`::: block` cards including `rgba` alpha fills/borders, text boxes, bullet/numbered lists, tables, syntax-highlighted code blocks, and `::: note` speaker notes), while ````drawlib```` diagrams are embedded as crisp high-DPI static PNGs (`dpi=240`, `anim_frame="last"` by default):
 
 ```bash
-# Export an editable 16:9 PowerPoint deck on demand:
+# Export editable 16:9 PowerPoint deck(s) on demand (emits slide_<lang>.pptx):
 uv run drawlib build pptx slide_src/ -o slide.pptx -s slide_src/styles.py -u slide_src/utils.py
 
 # Customize theme preset, deck title, raster DPI, or animation frame ("first" | "last"):
@@ -409,9 +411,9 @@ Or programmatically from Python (`drawlib.slide.build_pptx` or `drawlib.tools.bu
 ```python
 from drawlib.slide import build_pptx
 
-pptx_path = build_pptx(
+default_pptx_path = build_pptx(
     "slide_src/",
-    "slide.pptx",
+    "slide.pptx",  # Emits slide_en.pptx (and slide_ja.pptx if langs = ["en", "ja"])
     title="Architecture Review",
     theme=None,
     dpi=240,
@@ -430,13 +432,48 @@ pptx_path = build_pptx(
    - `setup(width=W, height=H)` inside ````drawlib```` uses **bottom-left `(0, 0)`** (`Y=H` is top; `Y=0` is bottom).
    - Always begin each slide ````drawlib```` block with `clear()` followed by `setup(width=..., height=...)` matching the enclosing `::: block` `width` and `height` aspect ratio.
    - Use `file=<name>.svg` for static diagrams and `file=<name>.png` (or `.webp`) when using `Animation()`.
-   - **Relative Paths Only**: Verify that all markdown links, image elements (`![logo](_assets/logo.png)`), and script asset paths use relative paths. Never use absolute paths or `file://` URLs.
+   - **Relative Paths Only**: Verify that all markdown links, Markdown image elements (`![logo](../_assets/logo.png)`), and script asset paths (`image("_assets/logo.png")`) use relative paths. Never use absolute paths or `file://` URLs.
 2. **Stage 2 — Grid Preview (`drawlib show ... -g` + `view_file`)**:
-   - Export complex slide diagrams with `-g` to `.drawlib/scratch/preview.png` and inspect via `view_file` to ensure zero text collisions, `50%+` neutral balance, and clean perimeter margins.
+   - Export complex slide diagrams (`uv run drawlib show slide_src/en/03_architecture.md ... -g -o .drawlib/scratch/preview.png`) and inspect via `view_file` to ensure zero text collisions, `50%+` neutral balance, and clean perimeter margins.
 3. **Stage 3 — Full Slide Stage / PDF Verification (`view_file`)**:
-   - Run `./slide_src/build.sh` and inspect `slide.pdf` (or `1920×1080` browser screenshots of `slide_html/index.html`) via `view_file` to verify that text and diagrams do not overflow or collide across `::: block` boundaries.
+   - Run `./slide_src/build.sh` and inspect `slide_en.pdf` (or `1920×1080` browser screenshots of `slide_html/en/index.html`) via `view_file` to verify that text and diagrams do not overflow or collide across `::: block` boundaries.
 4. **Parallel Multi-Agent Slide Delegation (For Multi-Slide Decks)**:
-   Because every slide in `slide_src/` is an independent Markdown file (`01_title.md`, `02_agenda.md`, `03_architecture.md`, or grouped into section directories), **distribute slide authoring across parallel subagents**:
-   - **Phase 1 (Parent)**: Scaffold `slide_src/` (`drawlib init slide`), configure `styles.py` and `utils.py`, and define the slide deck story arc and numbered filenames first.
-   - **Phase 2 (Parallel Subagents)**: Assign disjoint slide files (or section folders) to each subagent. Each subagent authors its slides (`::: block` stage + `::: note` speaker script) and runs Stage 1 & Stage 2 grid previews using **unique scratch filenames** (`-o .drawlib/scratch/<slide>_<block>_grid.png`).
-   - **Phase 3 (Parent)**: Once all subagents complete their slides, run `./slide_src/build.sh` once and inspect the compiled `slide.pdf` / `slide_html/index.html` in Stage 3.
+   Because every slide in `slide_src/<lang>/` is an independent Markdown file (`01_title.md`, `02_agenda.md`, `03_architecture.md`, or grouped into section directories), **distribute slide authoring across parallel subagents**:
+   - **Phase 1 (Parent)**: Scaffold `slide_src/` (`drawlib init slide`), configure `drawlib.toml`, `styles.py`, and `utils.py`, and define the slide deck story arc and numbered filenames first.
+   - **Phase 2 (Parallel Subagents)**: Assign disjoint slide files (or section folders) under `slide_src/<lang>/` to each subagent. Each subagent authors its slides (`::: block` stage + `::: note` speaker script) and runs Stage 1 & Stage 2 grid previews using **unique scratch filenames** (`-o .drawlib/scratch/<slide>_<block>_grid.png`).
+   - **Phase 3 (Parent)**: Once all subagents complete their slides, run `./slide_src/build.sh` once and inspect the compiled `slide_<lang>.pdf` / `slide_html/<lang>/index.html` in Stage 3.
+
+---
+
+## 9. Unified Locale Layout & Multi-Language (`i18n`) Slide Decks (`drawlib.toml`)
+
+Every `slide` project uses `<target>_src/<lang>/` and `[i18n]` in `drawlib.toml` (no `[project].lang`). Scaffold a bilingual or multilingual presentation deck directly with comma-separated locales (`-l en,ja`), or add `<new_lang>/` to an existing deck later with zero `git mv` file moves:
+
+```bash
+uv run drawlib init slide pitch -l en,ja -s google
+```
+
+```toml
+[project]
+name = "pitch"
+type = "slide"
+style = "google"
+
+[i18n]
+default_lang = "en"
+langs = ["en", "ja"]
+
+[i18n.labels]
+en = "English"
+ja = "日本語"
+```
+
+- **Symmetric Locale Slide Trees & Parity Checks (`slide_src/<lang>/`)**:
+  - Every locale directory (`en/`, `ja/`, ...) must contain the exact same relative set of slide Markdown files (`01_title.md`, `02_agenda.md`, ...), and `navbar.md` is prohibited.
+  - Speaker notes (`::: note ... :::`) are stripped before Markdown skeleton comparison so presenters can freely customize spoken scripts per language while keeping visual stage structure (`H1`–`H3`, `MarkdownText`, `DrawlibBlock`, `CodeBlock`) in parity.
+  - Shared language-neutral ````drawlib```` diagrams (`file=arch.svg`) must have identical code across locales and are rendered **once** into shared `slide_html/images/<slide_stem>/`; intentionally localized diagrams use `file=<stem>_<lang>.svg` (with optional per-locale `slide_src/<lang>/styles.py` & `<lang>/utils.py` overrides).
+- **Synchronized Multi-Locale Outputs**:
+  - **HTML (`pitch_html/`)**: Generates per-locale `<lang>/index.html` and localized `<lang>/style.css` (with bundled `@font-face` SVG fonts), shared `images/`, `_assets/`, and `slide.js`, plus a root `pitch_html/index.html` redirector that preserves `?presenter=1` and `#N` slide hashes.
+  - **Interactive Slide Language Switcher**: When `len(langs) >= 2`, `.slide-controls` displays a `.lang-switcher` dropdown that switches locales while preserving the active `#N` slide hash (automatically omitted when `len(langs) == 1` and hidden in `@media print`).
+  - **Vector PDF & PowerPoint (`pitch_<lang>.pdf` / `pitch_<lang>.pptx`)**: `drawlib build pdf` and `drawlib build pptx` emit one 16:9 vector PDF and/or `.pptx` per locale (`pitch_en.pdf`, `pitch_ja.pdf`, `pitch_en.pptx`, `pitch_ja.pptx`).
+
