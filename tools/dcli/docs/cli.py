@@ -35,7 +35,7 @@ def build(
     target: str | None = typer.Argument(
         None,
         help=(
-            "Target to build ('site', 'architecture', 'quickstart', 'readme', 'logo', "
+            "Target to build ('site', 'architecture', 'quickstart', 'readme', 'logo', 'ogp', "
             "'dogfooding', 'slide', 'slide-ddos', or 'all'). Default: 'site'."
         ),
     ),

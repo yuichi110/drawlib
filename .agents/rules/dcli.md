@@ -69,6 +69,7 @@ source ./dcli             # Register 'dcli' alias and dynamic Tab autocompletion
   - `slide-ddos` (`slide_ddos_incident_response`, `ddos`): 16:9 DDoS incident response slide deck (`docs/slide_ddos_incident_response_src/`)
   - `readme`: Standalone README illustration scripts (`docs/readme_src/`)
   - `logo`: Brand logo & favicon asset scripts (`docs/logo_src/`)
+  - `ogp`: GitHub Social Preview & OGP banner scripts (`docs/ogp_src/`)
   - `all`: Build all targets sequentially
 
 ### 2.4. `codegen` — Icon & Binding Code Generation

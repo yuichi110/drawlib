@@ -110,6 +110,13 @@ ALL_TARGETS: tuple[BuildTarget, ...] = (
         description="Drawlib Brand Logo & Favicon Assets",
         clean_paths=("docs/logo_images",),
     ),
+    BuildTarget(
+        name="ogp",
+        src_dir="docs/ogp_src",
+        script_rel_path="docs/ogp_src/build.sh",
+        description="GitHub Social Preview & OGP Banner Images (docs/ogp_images)",
+        clean_paths=("docs/ogp_images",),
+    ),
 )
 
 TARGET_MAP: dict[str, BuildTarget] = {target.name: target for target in ALL_TARGETS}

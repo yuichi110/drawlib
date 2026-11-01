@@ -1,0 +1,7 @@
+[project]
+name = "ogp"
+type = "images"
+title = ""
+description = "GitHub Social Preview & OGP Banner Illustrations (1280x640)"
+lang = "en"
+style = "default"

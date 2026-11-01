@@ -5,11 +5,58 @@ build-backend = "uv_build"
 [project]
 name = "drawlib"
 version = "0.3.3"
-description = "Python drawing library. Illustration as Code."
+description = "Pure-Python library for Illustration, Diagrams, Documentation, and Slides as Code (HTML/PDF/DOCX/PPTX) for developers and AI agents."
 readme = "docs/README_PYPI.md"
 requires-python = ">=3.11"
 license = { text = "Apache-2.0" }
 authors = [{name = "Yuichi Ito", email = "yuichi@yuichi.com"}]
+keywords = [
+    "diagrams-as-code",
+    "illustration-as-code",
+    "documentation-as-code",
+    "slides-as-code",
+    "architecture-diagram",
+    "diagrams",
+    "flowchart",
+    "sequence-diagram",
+    "uml",
+    "er-diagram",
+    "charts",
+    "infographics",
+    "markdown",
+    "slides",
+    "presentation",
+    "pptx",
+    "docx",
+    "pdf",
+    "ai-agent",
+    "claude-code",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Information Technology",
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: System Administrators",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Documentation",
+    "Topic :: Multimedia :: Graphics",
+    "Topic :: Multimedia :: Graphics :: Presentation",
+    "Topic :: Office/Business :: Office Suites",
+    "Topic :: Scientific/Engineering :: Visualization",
+    "Topic :: Software Development :: Code Generators",
+    "Topic :: Software Development :: Documentation",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Text Processing :: Markup :: Markdown",
+    "Typing :: Typed",
+]
 dependencies = [
     "matplotlib>=3.8",
     "pydantic>=2.8",
@@ -25,7 +72,10 @@ dependencies = [
 
 [project.urls]
 Homepage = "https://www.drawlib.com"
+Documentation = "https://www.drawlib.com/en/"
 Repository = "https://github.com/yuichi110/drawlib"
+Issues = "https://github.com/yuichi110/drawlib/issues"
+Changelog = "https://www.drawlib.com/en/01_getting_started/release_notes.html"
 
 [project.scripts]
 drawlib = "drawlib._cli.main:main"
