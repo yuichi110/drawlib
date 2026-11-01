@@ -90,7 +90,7 @@ save()
 
 `TreeNode` は**左上 `xy=(x, y)`**（ルートラベルの左端かつ垂直中央）をアンカーとしてディレクトリやタクソノミーの階層ツリーを構築し、直交ブランチ接続線とともに子階層を右方向に `+2 * line_horizontal_margin`、下方向に `-line_vertical_margin` ずつ自動配置します。中間ノードに指定したスタイルや余白のオーバーライドはサブツリー全体へカスケード継承され、`register_drawing_item` による `"before"` アイコンや `"after"` ステータスバッジの付与、および `show`／`scale` による表示制御と比例スケーリングもサポートしています。
 
-```drawlib code=fold align=center file=tree_parameter_tour.png caption="基本的な使い方とパラメータツアー: 左上アンカー、接続線マージンとカスケード継承、アイコンとバッジ、表示制御とスケーリング（APNG アニメーション）"
+```drawlib align=center file=tree_parameter_tour.png caption="基本的な使い方とパラメータツアー: 左上アンカー、接続線マージンとカスケード継承、アイコンとバッジ、表示制御とスケーリング（APNG アニメーション）"
 from __future__ import annotations
 
 from drawlib.anim import Animation
@@ -1021,6 +1021,10 @@ for idx_p4, (sh_routes, sc_val, dur, hl_rng, c_lines, badge, foot, s_t, s_1, s_2
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/ja/04_smartarts/tree.md" target="_blank" rel="noopener noreferrer">GitHub でアニメーションのソースコードを見る &rarr;</a>
+</div>
 
 - **左上アンカーと命令的な `.add()` (`xy`, `add`)**: ルートラベルの左端かつ垂直中央を `xy=(x, y)` に固定し、子階層を右方向に `+2 * line_horizontal_margin`、下方向に `-line_vertical_margin` ずつ配置します。
 - **接続線マージンとカスケード継承**: 縦幹のオフセット（`line_horizontal_margin`）、横枝の長さ（`line_horizontal_length`）、行間隔（`line_vertical_margin`）を調整でき、中間ノードでの上書き設定はその子孫ノードへ自動的に引き継がれます。

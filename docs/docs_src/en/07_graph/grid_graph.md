@@ -79,7 +79,7 @@ save()
 
 `GridGraph` arranges nodes into a clean 2D `(row, col)` matrix where `(0, 0)` is the top-left slot and row indices grow downward. Pin cells explicitly with `g.cell(id, row, col)` or stream unpinned nodes automatically in `"row-major"` / `"column-major"` order, let `edge_routing="smart"` detour non-adjacent cross-edges into inter-row corridors so lines never cut across neighboring cells, and enclose matrix rows or columns inside `ArchitectureDiagram` `NodeGroup` containers via `g.cluster_row(...)`, `g.cluster_column(...)`, and `layout.offset(...)`:
 
-```drawlib code=fold align=center file=grid_graph_parameter_tour.png caption="Basic Usage & Parameter Tour: Explicit (row, col) Matrix Growth, Row-Major vs. Column-Major Flow, Smart Channel Corridor Routing, and Row/Column Clusters (APNG Animation)"
+```drawlib align=center file=grid_graph_parameter_tour.png caption="Basic Usage & Parameter Tour: Explicit (row, col) Matrix Growth, Row-Major vs. Column-Major Flow, Smart Channel Corridor Routing, and Row/Column Clusters (APNG Animation)"
 from __future__ import annotations
 
 from drawlib.anim import Animation
@@ -1238,6 +1238,10 @@ for p4_idx, (mode_4, dur, code_4, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) in
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/en/07_graph/grid_graph.md" target="_blank" rel="noopener noreferrer">View animation source code on GitHub &rarr;</a>
+</div>
 
 - **Explicit `(row, col)` Matrix Placement**: `(0, 0)` anchors the top-left slot while `row` increases downward and `col` increases rightward; neighbor horizontal and vertical edges connect card boundaries directly.
 - **`"row-major"` vs. `"column-major"` Auto-Flow**: Unpinned `g.node()` / `g.cell()` calls stream left-to-right across rows (`order="row-major"`) or top-to-bottom down columns (`order="column-major", rows=...`), with `col_sep` and `row_sep` controlling corridor widths.

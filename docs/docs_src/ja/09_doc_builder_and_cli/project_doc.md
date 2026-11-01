@@ -106,7 +106,7 @@ save()
 
 `doc` プロジェクトは以下の 4 つのフェーズで進行します。すなわち、`doc_src/` のスキャフォールディングと共有テーマ／表紙メタデータの設定、`-g` グリッドプレビューで検証しながら進める番号付き Markdown 章ファイルの執筆、マルチターゲット成果物（HTML、ベクター PDF、Markdown、および必要に応じたオンデマンドの MS Word `.docx`）へのコンパイル、そして `.drawlib/cache.db` に支えられた Day-2 の高速な差分更新です。
 
-```drawlib code=fold align=center file=project_doc_workflow_tour.png caption="リニアドキュメントプロジェクトのライフサイクル: スキャフォールディング、複数章の執筆、5 ターゲット出力、Day-2 差分ビルド (APNG アニメーション)"
+```drawlib align=center file=project_doc_workflow_tour.png caption="リニアドキュメントプロジェクトのライフサイクル: スキャフォールディング、複数章の執筆、5 ターゲット出力、Day-2 差分ビルド (APNG アニメーション)"
 from __future__ import annotations
 
 from drawlib.anim import Animation
@@ -934,6 +934,10 @@ with anim.frame(duration=DURATIONS[11]):
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/ja/09_doc_builder_and_cli/project_doc.md" target="_blank" rel="noopener noreferrer">GitHub でアニメーションのソースコードを見る &rarr;</a>
+</div>
 
 ---
 

@@ -63,7 +63,7 @@ save()
 
 `PieChart` builds proportional sector compositions via `.add_slice(...)`, anchoring by default at the **Bottom-Left `(x, y)`** corner of its container box (or directly on the pie center when `align="center"`). You can morph solid pies into hollow donut rings (`hole_ratio`, `center_text`), radially offset focal wedges (`explode`) while automatically suppressing cramped `< 4%` inline labels, and animate angular sweeps (`draw_ratio`) or slot-preserving visibility (`show=False`):
 
-```drawlib code=fold align=center file=pie_parameter_tour.png caption="Basic Usage & Parameter Tour: Slices & Anchor, Donut Center KPI, Explode & <4% Rule, and Sweep & Align (APNG Animation)"
+```drawlib align=center file=pie_parameter_tour.png caption="Basic Usage & Parameter Tour: Slices & Anchor, Donut Center KPI, Explode & <4% Rule, and Sweep & Align (APNG Animation)"
 from __future__ import annotations
 
 import math
@@ -1043,6 +1043,10 @@ for p4_idx, (p4_mode, dur, code_4, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) i
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/en/05_charts/pie.md" target="_blank" rel="noopener noreferrer">View animation source code on GitHub &rarr;</a>
+</div>
 
 - **Slices, Anchor & Legend (`xy`, `add_slice`, `draw_legend`)**: Register proportional wedges via `.add_slice(name, value, style=...)`, render inline percentage badges (`value_text_style`, `value_format`), and pair `chart.draw(xy=...)` (default `align="bottom_left"`) with `chart.draw_legend(...)`.
 - **Solid Pie vs. Donut Center KPI (`hole_ratio`, `center_text`)**: Keep `hole_ratio=0.0` for full sectors or set `hole_ratio` in `(0.0, 0.9]` (typically `0.5`–`0.7`) to open a donut ring for multiline `center_text` + `center_text_style` KPI badges.

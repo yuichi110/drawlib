@@ -2,7 +2,7 @@
 
 Drawlib is not only a drawing library—it is a **complete documentation compiler** that bridges executable Python illustrations and version-controlled technical documentation.
 
-```drawlib code=fold align=center file=doc_build_pipeline.png caption="Drawlib Project Lifecycle: Scaffolding, Initial Build & Incremental Updates (APNG Animation)"
+```drawlib align=center file=doc_build_pipeline.png caption="Drawlib Project Lifecycle: Scaffolding, Initial Build & Incremental Updates (APNG Animation)"
 from __future__ import annotations
 
 from drawlib.anim import Animation
@@ -1069,6 +1069,10 @@ with anim.frame(duration=3.8):
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/en/01_getting_started/project_quicklook.md" target="_blank" rel="noopener noreferrer">View animation source code on GitHub &rarr;</a>
+</div>
 
 ---
 

@@ -11,7 +11,7 @@ Drawlib is a pure-Python drawing library and documentation compiler crafted for 
 
 
 
-<div style="text-align: center; margin-top: -1.25rem; margin-bottom: 2rem; font-size: 0.88rem;">
+<div class="drawlib-source-link">
   <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/en/index.md" target="_blank" rel="noopener noreferrer">View animation source code on GitHub &rarr;</a>
 </div>
 

@@ -99,7 +99,7 @@ save()
 
 全 **34 個のアイコンモジュール**（`drawlib.icons.*`）は、`1:1` の正方形アスペクト比で自動スケーリングされる共通の中心アンカー `(cx, cy)` API を備えています。そのため、座標を再計算することなく、テーマカラーを適用できるベクターグリフ（`phosphor`）、落ち着いた 2D パステルツイン（`original_*`）、公式クラウド・ベンダーロゴの間を自在に切り替えられます。ビジュアルティア、不透明度や `image_*` による境界フレーム、`variant` パレット、そして強く型付けされたダイアグラム用 `*Icon` Enum がどのように連携するかを以下のアニメーションで確認してください。
 
-```drawlib code=fold align=center file=icons_overview_parameter_tour.png caption="ビジュアルティア＆パラメータツアー: 34 アイコンモジュール・バリアント・境界フレーム・ダイアグラム Enum のライブ切り替え（APNG アニメーション）"
+```drawlib align=center file=icons_overview_parameter_tour.png caption="ビジュアルティア＆パラメータツアー: 34 アイコンモジュール・バリアント・境界フレーム・ダイアグラム Enum のライブ切り替え（APNG アニメーション）"
 from __future__ import annotations
 
 from drawlib.anim import Animation
@@ -939,6 +939,10 @@ for show_edges, c_lines, hl, s_t, s_1, s_2, badge, foot, dur in (
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/ja/03_icons/overview.md" target="_blank" rel="noopener noreferrer">GitHub でアニメーションのソースコードを見る &rarr;</a>
+</div>
 
 - **互換性のある 3 つのビジュアルティア**: 同一の `(cx, cy)` 座標のまま、`phosphor` ベクターグリフ、`original_*` 2D パステルツイン、公式クラウド／ベンダー PNG（`gcp`、`aws`、`azure`、`ai`、`data` など）をシームレスに切り替えられます。
 - **中心アンカーと `image_*` フレーミング（`xy`、`width`、`style`）**: すべてのアイコンは `xy` を中心に `1:1` のアスペクト比で配置され、`alpha` による不透明度、`image_tint_color` による透過背景の塗りつぶし、`image_border_*` による実線・破線フレームをサポートします。

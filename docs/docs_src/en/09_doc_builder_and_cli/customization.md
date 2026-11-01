@@ -95,7 +95,7 @@ save()
 
 Scaffolding a project with `-s <preset>` (`default`, `google`, `default-dark`, `monochrome`) keeps your HTML/PDF/Slide stylesheet (`style.css`), injected Python design tokens (`styles.py`), reusable composite helpers (`utils.py` tracked by `.drawlib/cache.db` SHA-256 hashing), and Jinja2 `template.html` layout slots synchronized in lockstep:
 
-```drawlib code=fold align=center file=customization_theming_tour.png caption="Unified Customization Tour: Built-In Style Presets, Shared styles.py Tokens, Reusable utils.py Helpers, and 3-Layer CSS & Jinja2 Templates (APNG Animation)"
+```drawlib align=center file=customization_theming_tour.png caption="Unified Customization Tour: Built-In Style Presets, Shared styles.py Tokens, Reusable utils.py Helpers, and 3-Layer CSS & Jinja2 Templates (APNG Animation)"
 from __future__ import annotations
 
 from drawlib.anim import Animation
@@ -1016,6 +1016,10 @@ for p4_idx, (m4, dur, flbl, clang, code_4, hl_rng, badge, foot, st_t, s_1, s_2) 
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/en/09_doc_builder_and_cli/customization.md" target="_blank" rel="noopener noreferrer">View animation source code on GitHub &rarr;</a>
+</div>
 
 ---
 

@@ -64,7 +64,7 @@ save()
 
 `FlowDiagram` places ISO 5807 symbol nodes (`Start`, `Data`, `Process`, `Decision`, `End`) at their **shape center `(cx, cy)`** while anchoring `flow.draw(xy)` at its **Bottom-Left `(x0, y0)`** container corner (or center via `align="center"`). You can route conditional branches via explicit side ports (`start_side`, `end_side`), `flow.junction()` loopbacks, and `.fork()` fan-out buses, or layer cross-functional `"vertical"` and `"horizontal"` swimlanes (`add_lane`) across a single unified coordinate plane:
 
-```drawlib code=fold align=center file=flow_parameter_tour.png caption="Basic Usage & Parameter Tour: ISO Symbol Anchors, Decision Ports & Junctions, Cross-Functional Swimlanes, and Visibility & Center Align (APNG Animation)"
+```drawlib align=center file=flow_parameter_tour.png caption="Basic Usage & Parameter Tour: ISO Symbol Anchors, Decision Ports & Junctions, Cross-Functional Swimlanes, and Visibility & Center Align (APNG Animation)"
 from __future__ import annotations
 
 from drawlib.anim import Animation
@@ -1012,6 +1012,10 @@ for p4_idx, (mode_4, dur, code_4, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) in
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/en/06_diagrams/flow.md" target="_blank" rel="noopener noreferrer">View animation source code on GitHub &rarr;</a>
+</div>
 
 - **Center-Anchored ISO Symbols & Bottom-Left Container (`add`, `draw`)**: `flow.add(node, xy)` places `Start`, `Data`, `Process`, `Decision`, and `End` by their shape center `(cx, cy)`, while `flow.draw(xy)` anchors the container's bottom-left `(x0, y0)` corner.
 - **Explicit Side Ports, `Junction` Loopbacks & `.fork()`**: Control branch attachment via `start_side` / `end_side` (`"left"`, `"right"`, `"top"`, `"bottom"`, `"auto"`), route clean retry loops through `flow.junction(xy)`, or fan out 1-to-N via `node.fork(targets, at_x=..., at_y=...)`.

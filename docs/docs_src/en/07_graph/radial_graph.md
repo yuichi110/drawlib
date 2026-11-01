@@ -92,7 +92,7 @@ save()
 
 `RadialGraph` solves polar hub-and-spoke coordinates without manual trigonometry: place a central hub at `ring=0`, attach satellites via `g.spoke(parent, child, ring=...)`, and call `g.get_layout(margin=...)` to obtain card centers (`layout[id].xy`), radial boundary-clipped edges (`layout.edges`), and concentric orbit guide radii (`layout.ring_radii`). Tune `radius_step` and `start_angle` to control ring spacing and angular orientation, narrow `angle_range` (`180.0` or `110.0`) for directional arc fans, and pass solved coordinates directly into `ArchitectureDiagram` with optional `layout.offset(...)` fine-tuning:
 
-```drawlib code=fold align=center file=radial_graph_parameter_tour.png caption="Basic Usage & Parameter Tour: Concentric Orbit Blooming, Radius Step & Start Angle, Semicircular Arc Fans, and ArchitectureDiagram Integration (APNG Animation)"
+```drawlib align=center file=radial_graph_parameter_tour.png caption="Basic Usage & Parameter Tour: Concentric Orbit Blooming, Radius Step & Start Angle, Semicircular Arc Fans, and ArchitectureDiagram Integration (APNG Animation)"
 from __future__ import annotations
 
 import math
@@ -1103,6 +1103,10 @@ for p4_idx, (mode_4, dur, code_4, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) in
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/en/07_graph/radial_graph.md" target="_blank" rel="noopener noreferrer">View animation source code on GitHub &rarr;</a>
+</div>
 
 - **Concentric Ring Blooming (`hub`, `g.spoke`, `ring_radii`)**: `RadialGraph(hub=...)` places the central hub at `ring=0` and assigns satellites to `ring=1, 2, ...` via BFS hop distance (or explicit `ring=`), exposing exact orbit radii in `layout.ring_radii`.
 - **Orientation & Ring Spacing (`start_angle`, `radius_step`)**: Rotate spokes into axis-aligned (`0.0`) or diagonal (`45.0`) quadrants with `start_angle`, and control compact vs. expanded ring separation with `radius_step`.

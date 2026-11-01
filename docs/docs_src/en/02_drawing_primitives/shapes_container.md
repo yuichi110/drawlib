@@ -89,7 +89,7 @@ save()
 
 All 6 primitives in this category anchor at their bounding-box center `xy` and normalize their 3D projections, waves, lobes, and bracket spines strictly inside `(width, height)`. Watch how multi-platter `disks` and `angle=-90` rotation, 3-face `depth_ratio` shading, `document` variants and sheet stacking, `funnel` neck ratios, normalized `cloud` lobes, and sliding `brace` tips reshape each component:
 
-```drawlib code=fold align=center file=shapes_container_parameter_tour.png caption="Parameter & Geometry Tour: Live Morphing of cylinder, cube, document, funnel, cloud, and brace (APNG Animation)"
+```drawlib align=center file=shapes_container_parameter_tour.png caption="Parameter & Geometry Tour: Live Morphing of cylinder, cube, document, funnel, cloud, and brace (APNG Animation)"
 from __future__ import annotations
 
 from drawlib.anim import Animation
@@ -718,6 +718,10 @@ for sym, tpr, dur, hl in BRACE_STATES:
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/en/02_drawing_primitives/shapes_container.md" target="_blank" rel="noopener noreferrer">View animation source code on GitHub &rarr;</a>
+</div>
 
 - **3D Depth & Platter Tiers (`cylinder`, `cube`)**: `cylinder` adds curved platter seams via `disks` (and rotates into a horizontal queue via `angle=-90`), while `cube` auto-shades 3 faces across `depth_ratio`.
 - **Document Variants & Sheet Cascading (`document`)**: Combines wavy bases and darkened top-right dog-ear flaps (`"wave"`, `"folded"`, `"folded_wave"`), cascading lightened background sheets when `stacked > 1`.

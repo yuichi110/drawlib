@@ -92,7 +92,7 @@ save()
 
 `RadialGraph` は三角関数を手書きすることなく極座標のハブ＆スポーク配置を計算します。中心ハブを `ring=0` に置き、`g.spoke(parent, child, ring=...)` でサテライトノードを接続して `g.get_layout(margin=...)` を呼び出すと、カード中心座標（`layout[id].xy`）、境界クリップ済みの放射状エッジ（`layout.edges`）、および同心円軌道ガイドの半径（`layout.ring_radii`）が得られます。`radius_step` と `start_angle` でリング間隔と開始角度を調整したり、`angle_range`（`180.0` や `110.0` など）を絞って指向性のある扇形（アークファン）を作ったり、計算済み座標を `ArchitectureDiagram` に直接渡して `layout.offset(...)` で微調整したりできます。
 
-```drawlib code=fold align=center file=radial_graph_parameter_tour.png caption="基本的な使い方とパラメータツアー: 同心円軌道の展開、半径ステップと開始角度、半円アークファン、ArchitectureDiagram との連携（APNG アニメーション）"
+```drawlib align=center file=radial_graph_parameter_tour.png caption="基本的な使い方とパラメータツアー: 同心円軌道の展開、半径ステップと開始角度、半円アークファン、ArchitectureDiagram との連携（APNG アニメーション）"
 from __future__ import annotations
 
 import math
@@ -1103,6 +1103,10 @@ for p4_idx, (mode_4, dur, code_4, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) in
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/ja/07_graph/radial_graph.md" target="_blank" rel="noopener noreferrer">GitHub でアニメーションのソースコードを見る &rarr;</a>
+</div>
 
 - **同心円リングの展開（`hub`、`g.spoke`、`ring_radii`）**: `RadialGraph(hub=...)` は中心ハブを `ring=0` に配置し、BFS ホップ距離（または明示的な `ring=` 指定）によってサテライトノードを `ring=1, 2, ...` に割り当て、正確な軌道半径を `layout.ring_radii` として公開します。
 - **角度方向とリング間隔（`start_angle`、`radius_step`）**: `start_angle` でスポークを軸方向（`0.0`）または対角象限（`45.0`）へ回転させ、`radius_step` でコンパクト／広めのリング間隔を制御できます。

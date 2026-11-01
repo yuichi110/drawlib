@@ -76,7 +76,7 @@ save()
 
 `TreeGraph` は `layout = g.get_layout()` によって**バランスの取れた Reingold-Tilford / Buchheim ツリー座標**を計算します。`g.child(parent, child_id)` で階層構造を簡潔に宣言し、`direction`（`"TB"` または `"LR"`）・`level_sep`・`sibling_sep` を調整したり、`edge_routing` を `"orthogonal"`（直交フォーク）と `"straight"`（直線）の間で切り替えたり（あるいは `root=None` を指定して独立した複数ルートのフォレストを横並びに自動配置したり）できます。解決された `layout[id].xy` 中心座標は、プリミティブや [`FlowDiagram`](../06_diagrams/flow.md) と `layout.offset()` を組み合わせて描画できます。
 
-```drawlib code=fold align=center file=tree_graph_parameter_tour.png caption="基本的な使い方とパラメータツアー: Buchheim バランス展開、進行方向とサブツリー間隔、直交分岐とマルチルートフォレスト、FlowDiagram レンダリング（APNG アニメーション）"
+```drawlib align=center file=tree_graph_parameter_tour.png caption="基本的な使い方とパラメータツアー: Buchheim バランス展開、進行方向とサブツリー間隔、直交分岐とマルチルートフォレスト、FlowDiagram レンダリング（APNG アニメーション）"
 from __future__ import annotations
 
 from drawlib.anim import Animation
@@ -1002,6 +1002,10 @@ for p4_idx, (m4, dur, code_4, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) in enu
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/ja/07_graph/tree_graph.md" target="_blank" rel="noopener noreferrer">GitHub でアニメーションのソースコードを見る &rarr;</a>
+</div>
 
 - **Buchheim 法によるバランスの取れたツリー展開**: `TreeGraph` は不等サイズのサブツリー同士を輪郭（コントゥア）に沿って重なりなく密にパッキングしながら、すべての親ノードを子ノードの中央（上下または左右）に対称配置します。
 - **進行軸と間隔の制御**: 上から下への組織図・AST 階層（`direction="TB"`）と左から右への分解ツリー（`direction="LR"`）をシームレスに切り替え、`level_sep` と `sibling_sep` で世代間および兄弟間の余白を調整できます。

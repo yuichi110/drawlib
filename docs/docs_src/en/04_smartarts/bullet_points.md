@@ -74,7 +74,7 @@ save()
 
 `BulletPoints` builds multi-level lists starting from a **Top-Left `xy=(x, y)`** origin, stepping subsequent lines downward along `-Y` by `vertical_margin` and indenting nested levels rightward along `+X` by `indent_width * indent`. You can switch active nesting depth via `set_indent(0..2)`, swap geometric bullets for vector icons via `set_bullet_style(...)`, and mutate individual `BulletPointItem` styles or layout-preserving visibility (`show=False`) before calling `draw(...)`:
 
-```drawlib code=fold align=center file=bullet_points_parameter_tour.png caption="Basic Usage & Parameter Tour: Top-Left Anchor, Nested Indentation, Vector Icon Markers, and Item Mutation (APNG Animation)"
+```drawlib align=center file=bullet_points_parameter_tour.png caption="Basic Usage & Parameter Tour: Top-Left Anchor, Nested Indentation, Vector Icon Markers, and Item Mutation (APNG Animation)"
 from __future__ import annotations
 
 from drawlib.anim import Animation
@@ -920,6 +920,10 @@ for p4_idx, (mode, dur, hl_rng, c_lines, badge, foot, s_t, s_1, s_2) in enumerat
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/en/04_smartarts/bullet_points.md" target="_blank" rel="noopener noreferrer">View animation source code on GitHub &rarr;</a>
+</div>
 
 - **Top-Left Origin & Vertical Pitch (`xy`, `vertical_margin`)**: Pins the first item's vertical baseline and level-`0` left edge at `xy=(x, y)`, stepping subsequent items downward along `-Y` by `vertical_margin`.
 - **Multi-Level Indentation (`set_indent`, `indent_width`)**: Shifts item text rightward to `x + indent_width * indent` with built-in markers (`0` = unbulleted header, `1` = filled circle, `2` = open circle).

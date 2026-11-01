@@ -34,7 +34,7 @@ save()
 
 静的なビットマップアイコンとは異なり、`drawlib.icons.phosphor` のすべての関数は組み込みの TrueType ベクターフォントから直接描画されます。`1:1` のアスペクト比で無限に拡大縮小できると同時に、`Style` を通じて線のウェイト、テーマカラー、回転、不透明度、アンカー位置を動的に制御できます。5 種類のタイポグラフィウェイトにわたる `icon_style` の変化、ニュートラル面や強調面におけるセマンティックテーマプリセットの色付け、`angle` / `alpha` / `halign` / `valign` による `xy` 基準の配置変換、そして落ち着いたコンテナカードと角の確認バッジの組み合わせを以下のアニメーションで確認してください。
 
-```drawlib code=fold align=center file=icons_phosphor_parameter_tour.png caption="パラメータ＆スタイリングツアー: Phosphor のウェイト・テーマカラー・座標変換・カードバッジのライブ変化（APNG アニメーション）"
+```drawlib align=center file=icons_phosphor_parameter_tour.png caption="パラメータ＆スタイリングツアー: Phosphor のウェイト・テーマカラー・座標変換・カードバッジのライブ変化（APNG アニメーション）"
 from __future__ import annotations
 
 import math
@@ -773,6 +773,10 @@ for step_num, dur, hl_rng, badge_lbl, foot_lbl, s_title, s_l1, s_l2 in CARD_STEP
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/ja/03_icons/phosphor.md" target="_blank" rel="noopener noreferrer">GitHub でアニメーションのソースコードを見る &rarr;</a>
+</div>
 
 - **5 種類のタイポグラフィウェイト（`style.icon_style`）**: `style.patch(icon_style=...)` またはプリセットバリアント（`*Thin`、基本の `Styles.Primary`、`*Bold`）により、あらゆる Phosphor グリフを `"thin"`、`"light"`、`"regular"`、`"bold"`、および塗りつぶしの `"fill"` の間で切り替えられます。
 - **セマンティックなベクター色変更（`style.icon_color`）**: テーマプリセット（`Styles.PrimaryBold`、`Styles.SecondaryBold`、`Styles.DangerFlat`）で単色ベクターグリフを着色し、高彩度な `*Flat` バッジの上に `Styles.WhiteBold` を重ねることで鮮明なコントラストを実現します。

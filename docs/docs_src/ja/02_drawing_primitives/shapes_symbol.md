@@ -75,7 +75,7 @@ save()
 
 このカテゴリの全 8 シンボルプリミティブは中心座標 `xy` にきれいにアンカー固定され、セマンティックな `variant` プリセットと表現力豊かな幾何パラメータを組み合わせることで、手動のパス計算なしにペルソナ・時計・天体アイコン・歯車・数学演算子を描き分けられます。`face` と `heart` による SLO／脅威ステータスの遷移、`clock` におけるアナログの `hour`・`minute` 針の進行やフォント不要 7 セグメント `digital` 表示への切り替え、`sun`・`moon`・`lightning` の光線数・月相・`mirror` 反転、そして `gear` と `math_symbol` による歯形・中心穴・演算子バー太さの制御を確認してみましょう。
 
-```drawlib code=fold align=center file=shapes_symbol_parameter_tour.png caption="パラメータ＆ジオメトリツアー: face・clock・sun・moon・lightning・gear・math_symbol のライブ変形（APNG アニメーション）"
+```drawlib align=center file=shapes_symbol_parameter_tour.png caption="パラメータ＆ジオメトリツアー: face・clock・sun・moon・lightning・gear・math_symbol のライブ変形（APNG アニメーション）"
 from __future__ import annotations
 
 import math
@@ -763,6 +763,10 @@ for sym, tr, m_st_name, dur, footer_txt in MATH_STEPS:
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/ja/02_drawing_primitives/shapes_symbol.md" target="_blank" rel="noopener noreferrer">GitHub でアニメーションのソースコードを見る &rarr;</a>
+</div>
 
 - **ペルソナとヘルスのプリセット（`face` & `heart`）**: セマンティックな `variant` プリセットにより、顔の表情（`"smile"`〜`"devil"`）や死活監視ハートの `"standard"`／`"broken"` 状態を中心座標 `xy` で切り替えられます。
 - **アナログ針とフォント不要デジタル表示（`clock`）**: `hour` と `minute` により `90°`（`12:00`）基準でアナログ文字盤／ストップウォッチの針を時計回りに滑らかに進めるほか、`variant="digital"` では純ベクターの 7 セグメント `HH:MM` 数字を描画します。

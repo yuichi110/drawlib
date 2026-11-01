@@ -99,7 +99,7 @@ save()
 
 All **34 icon modules** (`drawlib.icons.*`) share a single center-anchored `(cx, cy)` API with automatic `1:1` square scaling, so you can swap freely between theme-tinted vector glyphs (`phosphor`), calm 2D pastel twins (`original_*`), and official cloud or vendor logos without recalculating coordinates. Watch how visual tiers, opacity and `image_*` bounding frames, `variant` palettes, and strongly typed `*Icon` diagram Enums work together:
 
-```drawlib code=fold align=center file=icons_overview_parameter_tour.png caption="Visual Tier & Parameter Tour: Live Switching Across 34 Icon Modules, Variants, Framing, and Diagram Enums (APNG Animation)"
+```drawlib align=center file=icons_overview_parameter_tour.png caption="Visual Tier & Parameter Tour: Live Switching Across 34 Icon Modules, Variants, Framing, and Diagram Enums (APNG Animation)"
 from __future__ import annotations
 
 from drawlib.anim import Animation
@@ -939,6 +939,10 @@ for show_edges, c_lines, hl, s_t, s_1, s_2, badge, foot, dur in (
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/en/03_icons/overview.md" target="_blank" rel="noopener noreferrer">View animation source code on GitHub &rarr;</a>
+</div>
 
 - **Three Interchangeable Visual Tiers**: Switch seamlessly between `phosphor` vector glyphs, `original_*` 2D pastel twins, and official cloud/vendor PNGs (`gcp`, `aws`, `azure`, `ai`, `data`, etc.) at identical `(cx, cy)` coordinates.
 - **Center Anchoring & `image_*` Framing (`xy`, `width`, `style`)**: Every icon centers on `xy` at a `1:1` aspect ratio and supports `alpha` opacity, `image_tint_color` background fill, and `image_border_*` solid/dashed frames.

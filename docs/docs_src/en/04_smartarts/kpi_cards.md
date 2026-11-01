@@ -87,7 +87,7 @@ save()
 
 `KpiCards` (aliased as `KpiCard`) pairs prominent headline numbers (`metric`) with titles, descriptions, and icons via `.add(...)`, anchoring at the **Bottom-Left `(x, y)`** corner by default (or centered via `align="center"`). You can switch internal geometry between side-by-side `left_column` and centered `top_stack` layouts with `"left_pill"`, `"top_bar"`, or `"none"` accents, scale from `columns=1` stacks to multi-column grids, and customize or hide individual `.items[i]` cells in place:
 
-```drawlib code=fold align=center file=kpi_cards_parameter_tour.png caption="Basic Usage & Parameter Tour: Metric Layouts, Accent Indicators, Multi-Column Grids, and Live Alert Styling (APNG Animation)"
+```drawlib align=center file=kpi_cards_parameter_tour.png caption="Basic Usage & Parameter Tour: Metric Layouts, Accent Indicators, Multi-Column Grids, and Live Alert Styling (APNG Animation)"
 from __future__ import annotations
 
 from drawlib.anim import Animation
@@ -941,6 +941,10 @@ for a_idx, (a_mode, dur, code_a, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) in 
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/en/04_smartarts/kpi_cards.md" target="_blank" rel="noopener noreferrer">View animation source code on GitHub &rarr;</a>
+</div>
 
 - **Headline Metrics & Anchor (`xy`, `align`)**: Register KPI cards via `.add(metric, text, description, icon=...)` and render inside `(width, height)` anchored at **Bottom-Left** `xy` by default (`align="bottom_left"`) or centered via `align="center"`.
 - **Internal Layout & Accents (`metric_layout`, `accent_position`)**: Pair `metric_layout="left_column"` with `accent_position="left_pill"` for side-by-side rows, `"top_stack"` with `"top_bar"` for centered grid tiles, or `"none"` for minimal border-only cards.

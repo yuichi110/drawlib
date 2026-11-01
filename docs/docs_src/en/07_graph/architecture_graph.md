@@ -129,7 +129,7 @@ save()
 
 `ArchitectureGraph` separates cloud layout solving from visual rendering: call `layout = g.get_layout()` once to compute overlap-free container boxes (`c.xy`, `c.bottom_left`, `c.local_bottom_left`), node centers (`n.xy`, `n.local_xy`), and orthogonal routes (`e.points`), then render in strict back-to-front Z-order (clusters, edges, nodes) or map directly onto [`ArchitectureDiagram`](../06_diagrams/architecture.md). You can nest multi-tier subnets inside a parent `g.group()` via `parent` and `order`, pin peripheral services across the 5-zone compass (`pos="top" | "left" | "center" | "right" | "bottom"`) with configurable `container_sep` corridors, and nudge individual nodes post-layout via `layout.offset(id, dx, dy)` while keeping connected edge ports synchronized:
 
-```drawlib code=fold align=center file=architecture_graph_parameter_tour.png caption="Basic Usage & Parameter Tour: Solve & Sprout Coordinates, Nested Micro/Macro Groups, 5-Zone Compass Placement, and Post-Layout Offset (APNG Animation)"
+```drawlib align=center file=architecture_graph_parameter_tour.png caption="Basic Usage & Parameter Tour: Solve & Sprout Coordinates, Nested Micro/Macro Groups, 5-Zone Compass Placement, and Post-Layout Offset (APNG Animation)"
 from __future__ import annotations
 
 from drawlib.anim import Animation
@@ -1155,6 +1155,10 @@ for p4_idx, (_, dur, code_4, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) in enum
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/en/07_graph/architecture_graph.md" target="_blank" rel="noopener noreferrer">View animation source code on GitHub &rarr;</a>
+</div>
 
 ---
 

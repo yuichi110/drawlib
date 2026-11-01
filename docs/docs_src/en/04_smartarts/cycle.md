@@ -132,7 +132,7 @@ save()
 
 `Cycle` arranges perimeter steps evenly around an orbit circle via `.add(...)`, anchoring by default at the **Orbit Center `xy=(cx, cy)`** (`align="center"`, with optional `.set_center(...)` hub) or at the outer bounding corner when `align="bottom_left"`. You can control rotational flow (`clockwise`, `start_angle`), switch between circular nodes and rectangular cards with `inside` or `outside` descriptions, and customize arrow coloring or hide `.items[i]` steps while preserving sibling orbit angles:
 
-```drawlib code=fold align=center file=cycle_parameter_tour.png caption="Basic Usage & Parameter Tour: Orbit Center & Hub, Angular Direction, Node & Label Modes, and Live Item Visibility (APNG Animation)"
+```drawlib align=center file=cycle_parameter_tour.png caption="Basic Usage & Parameter Tour: Orbit Center & Hub, Angular Direction, Node & Label Modes, and Live Item Visibility (APNG Animation)"
 from __future__ import annotations
 
 import math
@@ -965,6 +965,10 @@ for p4_idx, (p4_mode, dur, code_p4, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) 
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/en/04_smartarts/cycle.md" target="_blank" rel="noopener noreferrer">View animation source code on GitHub &rarr;</a>
+</div>
 
 - **Orbit Center Anchor & Central Hub (`xy`, `align="center"`, `.set_center()`)**: Append perimeter steps via `.add(text, description=..., style=...)` around `xy=(cx, cy)` (`align="center"` default), and optionally place a central hub circle via `.set_center(...)`.
 - **Rotational Order & Start Angle (`clockwise`, `start_angle`)**: Default `clockwise=True, start_angle=90.0` starts Step 1 at 12 o'clock and rotates clockwise; adjust `start_angle` (e.g. `180.0`) or set `clockwise=False` for counter-clockwise loops.

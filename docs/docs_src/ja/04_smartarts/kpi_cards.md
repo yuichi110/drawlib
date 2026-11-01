@@ -87,7 +87,7 @@ save()
 
 `KpiCards`（別名 `KpiCard`）は `.add(...)` を通じて視認性の高いヘッドライン数値（`metric`）とタイトル・説明文・アイコンを組み合わせ、デフォルトで**左下角 `(x, y)`**（`align="center"` の場合は中央）を基準に配置します。`"left_pill"`・`"top_bar"`・`"none"` のアクセント表示とともに、左右分割型の `left_column` と中央積み上げ型の `top_stack` を切り替えられるほか、`columns=1` の縦スタックから複数列グリッドへの展開、個々の `.items[i]` セルのスタイル変更や非表示化に対応しています。
 
-```drawlib code=fold align=center file=kpi_cards_parameter_tour.png caption="基本的な使い方とパラメータツアー: メトリクスレイアウト、アクセント表示、複数列グリッド、動的なアラート装飾（APNG アニメーション）"
+```drawlib align=center file=kpi_cards_parameter_tour.png caption="基本的な使い方とパラメータツアー: メトリクスレイアウト、アクセント表示、複数列グリッド、動的なアラート装飾（APNG アニメーション）"
 from __future__ import annotations
 
 from drawlib.anim import Animation
@@ -941,6 +941,10 @@ for a_idx, (a_mode, dur, code_a, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) in 
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/ja/04_smartarts/kpi_cards.md" target="_blank" rel="noopener noreferrer">GitHub でアニメーションのソースコードを見る &rarr;</a>
+</div>
 
 - **ヘッドライン指標とアンカー（`xy`, `align`）**: `.add(metric, text, description, icon=...)` で KPI カードを登録し、デフォルトの**左下** `xy`（`align="bottom_left"`）または中央（`align="center"`）を基準に `(width, height)` 領域内へ描画します。
 - **内部レイアウトとアクセント（`metric_layout`, `accent_position`）**: 左右分割型の行カードには `metric_layout="left_column"` と `accent_position="left_pill"`、中央揃えのグリッドタイルには `"top_stack"` と `"top_bar"`、枠線のみのミニマルなカードには `"none"` を組み合わせます。

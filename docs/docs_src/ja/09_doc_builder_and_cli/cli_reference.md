@@ -53,7 +53,7 @@ save()
 
 プロジェクトの初期構築（`init` および `rules`）から、1 秒未満の座標グリッドプレビュー（`show -g`）、マルチフォーマットへのコンパイル（`build`）、さらに公開前のリンク・アセット検証（`serve --check` および `cache`）まで、9 つの `drawlib` サブコマンドすべてが一貫したループの中で連携します。
 
-```drawlib code=fold align=center file=cli_workflow_tour.png caption="Drawlib CLI 日常ワークフローツアー: スキャフォールディングと AI ルール、単一図解のグリッドプレビュー、7 種類のビルドターゲット、リンク監査とデザインインスペクタ (APNG アニメーション)"
+```drawlib align=center file=cli_workflow_tour.png caption="Drawlib CLI 日常ワークフローツアー: スキャフォールディングと AI ルール、単一図解のグリッドプレビュー、7 種類のビルドターゲット、リンク監査とデザインインスペクタ (APNG アニメーション)"
 from __future__ import annotations
 
 from drawlib.anim import Animation
@@ -814,6 +814,10 @@ for p4_idx, (mode, dur, hl_rng, badge, foot, s_t, s_1, s_2) in enumerate(PART4_S
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/ja/09_doc_builder_and_cli/cli_reference.md" target="_blank" rel="noopener noreferrer">GitHub でアニメーションのソースコードを見る &rarr;</a>
+</div>
 
 ---
 

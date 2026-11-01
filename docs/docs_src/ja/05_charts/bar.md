@@ -58,7 +58,7 @@ save()
 
 `BarChart` はデフォルトでコンテナの**左下 `(x, y)`** を基準にアンカーされ（`align="center"` で中央基準も可）、`.add_series(...)` でカテゴリデータ系列を段階的に登録します。並列クラスタ表示（`bar_mode="group"`）、累積積み上げ表示（`bar_mode="stack"`）、横向きトポロジ（`"horizontal"`）をシームレスに切り替えられるほか、スロット占有幅（`bar_width_ratio`）、外端角丸め（`bar_r`）、インライン数値ラベルの調整や、部分描画（`draw_ratio`）・系列の表示切り替え（`.show`）によるアニメーションにも対応しています。
 
-```drawlib code=fold align=center file=bar_parameter_tour.png caption="基本的な使い方とパラメータツアー：アンカーと系列、集合／積み上げ／横向きトポロジ、棒のジオメトリ、部分描画と配置（APNG アニメーション）"
+```drawlib align=center file=bar_parameter_tour.png caption="基本的な使い方とパラメータツアー：アンカーと系列、集合／積み上げ／横向きトポロジ、棒のジオメトリ、部分描画と配置（APNG アニメーション）"
 from __future__ import annotations
 
 from drawlib.anim import Animation
@@ -959,6 +959,10 @@ for p4_idx, (r_mode, dur, code_4, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) in
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/ja/05_charts/bar.md" target="_blank" rel="noopener noreferrer">GitHub でアニメーションのソースコードを見る &rarr;</a>
+</div>
 
 - **左下アンカーと複数系列の構築（`xy`, `add_series`, `draw_legend`）**: `BarChart.draw(xy)` はデフォルトでコンテナの**左下**角にピン留めされ（`align="bottom_left"`）、登録された各 `Series` をカテゴリごとに配置しつつ、独立した `draw_legend(...)` と組み合わせられます。
 - **トポロジと向き（`bar_mode`, `orientation`）**: `bar_mode` で並列クラスタの `"group"` と累積合計の `"stack"` を切り替えたり、`orientation="horizontal"` を指定して左 Y 軸から右方向へ棒を伸ばしたりできます（`value_axis` も自動的に `y_axis` から `x_axis` へ切り替わります）。

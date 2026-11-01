@@ -49,7 +49,7 @@ save()
 
 `SequenceDiagram` は、`Participant` ヘッダーカードを水平方向（`col_width`）に並べ、デフォルトの**左下 `(x0, y0)`** アンカー（または `align="center"`）を基準として、メッセージ矢印を時系列順に下方向（`step_y`）へと進めます。`.activate()` / `.deactivate()` で実行区間を強調したり、ライフライン上または複数ライフラインをまたぐ付箋ノートを配置したり、条件分岐や反復ステップを Python の `with` 複合フラグメントフレーム（`d.alt()`、`d.loop()`、`d.opt()`）で囲んだりできます。
 
-```drawlib code=fold align=center file=sequence_parameter_tour.png caption="基本的な使い方とパラメータツアー: ライフラインとアンカー、同期/非同期とアクティベーション、自己呼び出しとノート、条件フレームと段階的表示 (APNG アニメーション)"
+```drawlib align=center file=sequence_parameter_tour.png caption="基本的な使い方とパラメータツアー: ライフラインとアンカー、同期/非同期とアクティベーション、自己呼び出しとノート、条件フレームと段階的表示 (APNG アニメーション)"
 from __future__ import annotations
 
 from drawlib.anim import Animation
@@ -1113,6 +1113,10 @@ for p4_idx, (p4_mode, dur, code_4, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) i
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/ja/06_diagrams/sequence.md" target="_blank" rel="noopener noreferrer">GitHub でアニメーションのソースコードを見る &rarr;</a>
+</div>
 
 - **垂直ライフラインとグループ (`Participant`, `ParticipantGroup`, `col_width`, `step_y`)**: ヘッダーカードが上端に整列し、垂直の破線ライフラインが時系列に沿って下方向へ伸びます。`ParticipantGroup` を使うと関連するバックエンドサービス群をラベル付き境界枠でグループ化できます。
 - **メッセージ表現 (`request`, `reply`, `connect`, 自己呼び出し)**: `request()` は同期呼び出し（`is_async=True` で開いた矢印の非同期送信）、`reply()` は破線の応答矢印、`connect(..., arrow="<->")` は全二重ストリームを描画し、`p.request(p, ...)` は自身のライフラインへ戻る自己呼び出しループを描画します。

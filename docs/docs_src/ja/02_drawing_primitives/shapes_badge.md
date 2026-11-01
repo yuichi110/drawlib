@@ -100,7 +100,7 @@ save()
 
 `pin`, `tag`, `ribbon`, `shield`, `forbidden`, `checkmark`, `explosion` が Drawlib 標準の中心アンカー規約（`xy`）に従う一方、`bubblespeech` はポインタテールが任意のターゲット座標（`tail_vertex_xy`）を正確に追従できるよう、矩形ボディの左下角 `(x0, y0)` をアンカーとします。辺上の接続比率（`tail_start_ratio`〜`tail_end_ratio`）、ヘッドやカラーの穴あき（`hole_ratio`）と水平反転（`mirror`）、3D リボンの段差オフセット（`drop_ratio`）、複合パスのステータス記号やバースト形状（`variant`・`thickness_ratio`）によって各プリミティブがどのように変化するかを確認してみましょう。
 
-```drawlib code=fold align=center file=shapes_badge_parameter_tour.png caption="パラメータ＆ジオメトリツアー: bubblespeech・pin・tag・ribbon・shield・forbidden・checkmark・explosion のライブ変形（APNG アニメーション）"
+```drawlib align=center file=shapes_badge_parameter_tour.png caption="パラメータ＆ジオメトリツアー: bubblespeech・pin・tag・ribbon・shield・forbidden・checkmark・explosion のライブ変形（APNG アニメーション）"
 from __future__ import annotations
 
 from drawlib import shapes as sh
@@ -825,6 +825,10 @@ for var, ew, eh, st_lines, st_obj, txt_val, txt_st, note_top, dur in (
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/ja/02_drawing_primitives/shapes_badge.md" target="_blank" rel="noopener noreferrer">GitHub でアニメーションのソースコードを見る &rarr;</a>
+</div>
 
 - **吹き出しのアンカー基準とポインタ比率（`bubblespeech`）**: 矩形ボディを左下角 `xy = (x0, y0)` に固定し、`tail_edge` 辺上の `tail_start_ratio`〜`tail_end_ratio` からターゲット座標 `tail_vertex_xy` へ向かうポインタテールを接続します。
 - **ヘッドの穴あきとカラーの水平反転（`pin`, `tag`）**: `hole_ratio` でピンヘッドやタグの先端に透明な円形リング穴をくり抜き、`mirror=True` で `tag` の向きを `+X` から `-X` へ水平反転します。

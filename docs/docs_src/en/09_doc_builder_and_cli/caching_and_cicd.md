@@ -65,7 +65,7 @@ save()
 
 Explore how Layer 1 SHA-256 SQLite caching, automatic cache key invalidation, Layer 2 offline asset warming, and GitHub Actions and air-gapped Docker pipelines work together end to end:
 
-```drawlib code=fold align=center file=caching_cicd_workflow_tour.png caption="Two-Tier Caching & CI/CD Lifecycle: Layer 1 SHA-256 Incremental Cache, Cache Invalidation, Layer 2 Offline Asset Warming, and GitHub Actions & Docker Pipelines (APNG Animation)"
+```drawlib align=center file=caching_cicd_workflow_tour.png caption="Two-Tier Caching & CI/CD Lifecycle: Layer 1 SHA-256 Incremental Cache, Cache Invalidation, Layer 2 Offline Asset Warming, and GitHub Actions & Docker Pipelines (APNG Animation)"
 from __future__ import annotations
 
 from drawlib.anim import Animation
@@ -848,6 +848,10 @@ for p4_idx, (mode, dur, ftitle, hicon, clang, clines, hl_rng, badge, foot, s_t, 
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/en/09_doc_builder_and_cli/caching_and_cicd.md" target="_blank" rel="noopener noreferrer">View animation source code on GitHub &rarr;</a>
+</div>
 
 ---
 

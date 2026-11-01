@@ -68,7 +68,7 @@ save()
 
 各スライドは、**左上原点の `1920 × 1080` HTML ステージ**（`::: block xy=(x, y) width=W height=H` および `z_index` レイヤー）と、**左下原点のデカルト座標 ````drawlib```` キャンバス**、非表示の **`::: note` 発表者台本**（`?presenter=1` およびネイティブ PowerPoint `.pptx` スピーカーノートに出力）、さらに **`drawlib.slide` Python ランタイム**（`current_slide`、`BoundingBox`、`build_slide`、`build_pptx`）を組み合わせて構成されます。
 
-```drawlib code=fold align=center file=slide_layout_parameter_tour.png caption="16:9 スライドステージ＆API ツアー: 2 つの座標空間、::: block グリッド配置、::: note 発表者レイヤー、current_slide コンテキスト (APNG アニメーション)"
+```drawlib align=center file=slide_layout_parameter_tour.png caption="16:9 スライドステージ＆API ツアー: 2 つの座標空間、::: block グリッド配置、::: note 発表者レイヤー、current_slide コンテキスト (APNG アニメーション)"
 from __future__ import annotations
 
 from drawlib.anim import Animation
@@ -976,6 +976,10 @@ for p4_idx, (m4, dur, flbl, clang, code_4, hl_rng, badge, foot, st_t, s_1, s_2) 
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/ja/09_doc_builder_and_cli/slide_layout_and_api.md" target="_blank" rel="noopener noreferrer">GitHub でアニメーションのソースコードを見る &rarr;</a>
+</div>
 
 ---
 

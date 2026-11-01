@@ -53,7 +53,7 @@ save()
 
 From project bootstrapping (`init` and `rules`) to sub-second coordinate grid previews (`show -g`), multi-format compilation (`build`), and pre-flight link and asset verification (`serve --check` and `cache`), all nine `drawlib` subcommands work together in one cohesive loop:
 
-```drawlib code=fold align=center file=cli_workflow_tour.png caption="Drawlib CLI Daily Workflow Tour: Scaffolding & AI Rules, Single-Diagram Grid Preview, 7 Build Targets, and Link Audit & Design Inspectors (APNG Animation)"
+```drawlib align=center file=cli_workflow_tour.png caption="Drawlib CLI Daily Workflow Tour: Scaffolding & AI Rules, Single-Diagram Grid Preview, 7 Build Targets, and Link Audit & Design Inspectors (APNG Animation)"
 from __future__ import annotations
 
 from drawlib.anim import Animation
@@ -814,6 +814,10 @@ for p4_idx, (mode, dur, hl_rng, badge, foot, s_t, s_1, s_2) in enumerate(PART4_S
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/en/09_doc_builder_and_cli/cli_reference.md" target="_blank" rel="noopener noreferrer">View animation source code on GitHub &rarr;</a>
+</div>
 
 ---
 

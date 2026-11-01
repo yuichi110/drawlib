@@ -89,7 +89,7 @@ save()
 
 Every build command executes a deterministic four-stage pipeline: resolving Markdown prose, shared `styles.py` / `utils.py` helpers, and `_assets/` media from `*_src/`, computing a content-addressed SHA-256 digest against `.drawlib/cache.db`, executing cache misses inside an isolated `canvas.clear()` Python sandbox (while restoring cache hits in under a millisecond), and emitting web, GitHub Markdown, vector PDF, and editable MS Office artifacts from the exact same source:
 
-```drawlib code=fold align=center file=doc_builder_compilation_tour.png caption="Illustrated Documentation as Code Lifecycle: Source Extraction, SHA-256 Cache Lookup, Python Sandbox Execution, and Multi-Target Publishing (APNG Animation)"
+```drawlib align=center file=doc_builder_compilation_tour.png caption="Illustrated Documentation as Code Lifecycle: Source Extraction, SHA-256 Cache Lookup, Python Sandbox Execution, and Multi-Target Publishing (APNG Animation)"
 from __future__ import annotations
 
 from drawlib.anim import Animation
@@ -874,6 +874,10 @@ for active_idx, dur, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2 in PART4_STATES:
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/en/09_doc_builder_and_cli/overview.md" target="_blank" rel="noopener noreferrer">View animation source code on GitHub &rarr;</a>
+</div>
 
 ---
 

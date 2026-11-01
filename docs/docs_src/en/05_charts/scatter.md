@@ -67,7 +67,7 @@ save()
 
 `ScatterChart` plots continuous numerical data across independent X and Y axes, anchoring by default at the **Bottom-Left `(x, y)`** corner of its container (or centered via `align="center"`). You can register multi-shape runs with `.add_series(...)`, encode a third metric into marker radii using `(x, y, radius)` 3-tuples, pinpoint standalone outliers via `.add(...)`, tune linear or logarithmic axes, and animate progressive reveals via `draw_ratio` and `show`:
 
-```drawlib code=fold align=center file=scatter_parameter_tour.png caption="Basic Usage & Parameter Tour: Dual-Axis Series, 3D Bubble Sizing, Point Callouts & Log Axes, and Partial Reveals (APNG Animation)"
+```drawlib align=center file=scatter_parameter_tour.png caption="Basic Usage & Parameter Tour: Dual-Axis Series, 3D Bubble Sizing, Point Callouts & Log Axes, and Partial Reveals (APNG Animation)"
 from __future__ import annotations
 
 from drawlib.anim import Animation
@@ -957,6 +957,10 @@ for p4_idx, (mode_p4, dur, code_4, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) i
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/en/05_charts/scatter.md" target="_blank" rel="noopener noreferrer">View animation source code on GitHub &rarr;</a>
+</div>
 
 - **Dual-Axis Series & Shapes (`xy`, `PointShape`, `draw_legend`)**: Plot continuous `(x, y)` series anchored at **Bottom-Left** `xy` by default, differentiate runs with `"circle"`, `"square"`, `"triangle"`, or `"rhombus"`, and place decoupled legends via `draw_legend(...)`.
 - **3D Proportional Bubble Sizing (`(x, y, radius)`)**: Pass 3-tuples `(x, y, r)` to `add_series(...)` with calm translucent styles (`Styles.PrimaryNeutral`, `Styles.SecondaryNeutral`) so marker radius encodes a third variable without visual clutter.

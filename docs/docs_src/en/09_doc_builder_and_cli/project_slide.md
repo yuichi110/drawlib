@@ -92,7 +92,7 @@ save()
 
 From initial `drawlib init slide` scaffolding and story-arc planning to dual-layer authoring (`::: block` stage + `::: note` speaker scripts), HTML/PDF/`.pptx` compilation, live Presenter View (`?presenter=1`), and Day-2 cached edits:
 
-```drawlib code=fold align=center file=project_slide_workflow_tour.png caption="16:9 Slide Deck Lifecycle: Scaffolding, Dual-Layer Authoring, HTML/PDF/PPTX Export, and Presenter View (APNG Animation)"
+```drawlib align=center file=project_slide_workflow_tour.png caption="16:9 Slide Deck Lifecycle: Scaffolding, Dual-Layer Authoring, HTML/PDF/PPTX Export, and Presenter View (APNG Animation)"
 from __future__ import annotations
 
 from drawlib.anim import Animation
@@ -882,6 +882,10 @@ with anim.frame(duration=3.3):
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/en/09_doc_builder_and_cli/project_slide.md" target="_blank" rel="noopener noreferrer">View animation source code on GitHub &rarr;</a>
+</div>
 
 ---
 

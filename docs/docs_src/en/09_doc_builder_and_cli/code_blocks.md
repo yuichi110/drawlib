@@ -95,7 +95,7 @@ save()
 
 Each ````drawlib```` block combines declarative fence header options (`code=`, `file=`, `caption=`, `align=`, `width=`, `anim_trigger=`, `anim_pause=`) with an isolated Python execution sandbox (`canvas.clear()`). Explore how fence attributes control rendered HTML figures, vector/animated formats, and sub-second `drawlib show -g` coordinate previews:
 
-```drawlib code=fold align=center file=code_blocks_parameter_tour.png caption="Embedded Drawlib Fence Tour: Code Display Modes, File & Layout Sizing, Output Formats & Animation Controls, and Sandbox Preview (APNG Animation)"
+```drawlib align=center file=code_blocks_parameter_tour.png caption="Embedded Drawlib Fence Tour: Code Display Modes, File & Layout Sizing, Output Formats & Animation Controls, and Sandbox Preview (APNG Animation)"
 from __future__ import annotations
 
 from drawlib.anim import Animation
@@ -1091,6 +1091,10 @@ for p4_idx, (mode_4, dur, code_4, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2, ur
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/en/09_doc_builder_and_cli/code_blocks.md" target="_blank" rel="noopener noreferrer">View animation source code on GitHub &rarr;</a>
+</div>
 
 ---
 

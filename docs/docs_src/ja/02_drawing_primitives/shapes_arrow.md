@@ -99,7 +99,7 @@ save()
 
 1 次元の線ストロークコネクタとは異なり、Drawlib の 6 種類のブロック矢印プリミティブは、明示的なシャフト幅（`tail_width`）と矢羽根の寸法（`head_width`、`head_length`、または `head_angle`）を持つ閉じた 2D 多角形を構築します。これにより、状態遷移やデータフロー自体に鮮やかな塗りつぶしや枠線、埋め込みラベルを持たせることができます。シャフトや矢印ヘッドのサイズ指定、向きの制御（`head`, `mirror`）、角丸フィレット（`shape_r`）、楕円弧の角度スイープ（`angle_start`..`angle_end`）、および多点経由ルーティング（`xys`）によって各プリミティブがどのように変化するかを以下のアニメーションで確認できます。
 
-```drawlib code=fold align=center file=shapes_arrow_parameter_tour.png caption="パラメータ・ジオメトリツアー: arrow, chevron, arrow_l, arrow_u, arrow_arc, arrow_polyline のライブ変形（APNG アニメーション）"
+```drawlib align=center file=shapes_arrow_parameter_tour.png caption="パラメータ・ジオメトリツアー: arrow, chevron, arrow_l, arrow_u, arrow_arc, arrow_polyline のライブ変形（APNG アニメーション）"
 from __future__ import annotations
 
 import math
@@ -822,6 +822,10 @@ for r_poly, dur in ((0.0, 0.55), (3.5, 3.6)):
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/ja/02_drawing_primitives/shapes_arrow.md" target="_blank" rel="noopener noreferrer">GitHub でアニメーションのソースコードを見る &rarr;</a>
+</div>
 
 - **シャフト・矢羽根・端点ジオメトリ (`arrow`)**: `xy1` → `xy2` 間を結び、`tail_width`、`head_width`、`head_length`、`head`（`"->"`, `"<-"`, `"<->"`）、およびシャフト角度に沿って自動回転する埋め込み `text` を備えています。
 - **V 字ノッチ付きステージバナー (`chevron`)**: `corner_angle`（`0°`〜`90°`）で先端および背面ノッチの鋭さを調整でき、`shape_r` で全 6 頂点の角丸化、`mirror=True` で `-X` 方向への反転が可能です。

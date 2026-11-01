@@ -2,7 +2,7 @@
 
 Drawlib は単なる描画ライブラリではなく、実行可能な Python による図解とバージョン管理された技術ドキュメントを統合する **包括的なドキュメントコンパイラ** です。
 
-```drawlib code=fold align=center file=doc_build_pipeline.png caption="Drawlib プロジェクトのライフサイクル: スキャフォールディング・初回ビルド・差分更新（APNG アニメーション）"
+```drawlib align=center file=doc_build_pipeline.png caption="Drawlib プロジェクトのライフサイクル: スキャフォールディング・初回ビルド・差分更新（APNG アニメーション）"
 from __future__ import annotations
 
 from drawlib.anim import Animation
@@ -1069,6 +1069,10 @@ with anim.frame(duration=3.8):
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/ja/01_getting_started/project_quicklook.md" target="_blank" rel="noopener noreferrer">GitHub でアニメーションのソースコードを見る &rarr;</a>
+</div>
 
 ---
 

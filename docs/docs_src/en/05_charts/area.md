@@ -68,7 +68,7 @@ save()
 
 `AreaChart` shades geometric volume polygons beneath categorical contours via `.add_series(...)`, anchoring by default at the **Bottom-Left `(x, y)`** corner of its `(width, height)` container (or centered via `align="center"`). You can switch between independent baseline-anchored translucency (`mode="overlap"`, `fill_alpha`) and cumulative stream totals (`mode="stack"`), add vertex markers and dashed threshold bands, and sweep or toggle series visibility while preserving Y-axis bounds:
 
-```drawlib code=fold align=center file=area_parameter_tour.png caption="Basic Usage & Parameter Tour: Baseline & Alpha, Overlap vs. Stack Modes, Vertex & Band Styles, and Sweep/Align Controls (APNG Animation)"
+```drawlib align=center file=area_parameter_tour.png caption="Basic Usage & Parameter Tour: Baseline & Alpha, Overlap vs. Stack Modes, Vertex & Band Styles, and Sweep/Align Controls (APNG Animation)"
 from __future__ import annotations
 
 from drawlib.anim import Animation
@@ -898,6 +898,10 @@ for sw_idx, (sw_mode, dur, code_sw, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) 
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/en/05_charts/area.md" target="_blank" rel="noopener noreferrer">View animation source code on GitHub &rarr;</a>
+</div>
 
 - **Bottom-Left Anchor, `Y=0` Baseline & Opacity (`xy`, `fill_alpha`, `draw_legend`)**: Anchors the `(width, height)` container at bottom-left `xy` by default, shades area polygons down to `Y=0` with configurable `fill_alpha` (`0.0`–`1.0`), and pairs with `draw_legend(...)`.
 - **Overlapping vs. Cumulative Stacked Modes (`mode="overlap"` vs. `"stack"`, `smooth`)**: Use `mode="overlap"` *(default)* so each series starts independently from `Y=0` with translucent blending (`fill_alpha=0.25`–`0.45`), or `mode="stack"` to stack series cumulatively (with optional `smooth=True` contours).

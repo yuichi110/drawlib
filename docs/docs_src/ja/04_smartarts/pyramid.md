@@ -42,7 +42,7 @@ save()
 
 `Pyramid` は `.add(...)` によって段階的な階層構造やコンバージョンファネルを構築し、デフォルトでバウンディングボックスの**左下角 `xy=(x, y)`**（`align="center"` の場合は中央）を基準に配置します。広い底辺の向きを 4 方向（`"bottom"`, `"top"`, `"left"`, `"right"`）から選択できるほか、`"vertex_to_base"` と `"base_to_vertex"` の並び順切り替え、`draw_flexible(...)` による段ごとの高さ指定、他の段の形状を保ったまま `.items[i]` を非表示にする操作に対応しています。
 
-```drawlib code=fold align=center file=pyramid_parameter_tour.png caption="基本的な使い方とパラメータツアー: 段階的なティア構築、4 つの底辺方向、頂点・底辺の並び順、可変サイズ指定（APNG アニメーション）"
+```drawlib align=center file=pyramid_parameter_tour.png caption="基本的な使い方とパラメータツアー: 段階的なティア構築、4 つの底辺方向、頂点・底辺の並び順、可変サイズ指定（APNG アニメーション）"
 from __future__ import annotations
 
 from drawlib.anim import Animation
@@ -773,6 +773,10 @@ for p4_idx, (p4_mode, dur, code_p4, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) 
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/ja/04_smartarts/pyramid.md" target="_blank" rel="noopener noreferrer">GitHub でアニメーションのソースコードを見る &rarr;</a>
+</div>
 
 - **段階的なティア構築とアンカー（`xy`, `align`）**: `.add(text, style=...)` で階層スライスを順に追加し、`margin` で区切られた `width × height` 領域内に描画します（デフォルトの `align="bottom_left"` では**左下角**基準、`align="center"` では中央基準）。
 - **4 つの底辺方向（`direction`）**: `direction` は広い底辺を配置する辺を指定します。`"bottom"`（上向き階層）、`"top"`（逆ピラミッド／ファネル）、`"left"`（底辺が左・頂点が右）、`"right"`（底辺が右・頂点が左。このとき `width` が縦方向の底辺幅、`height` が横方向の高さになります）を選択できます。

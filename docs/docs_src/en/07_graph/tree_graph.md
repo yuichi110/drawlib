@@ -76,7 +76,7 @@ save()
 
 `TreeGraph` computes **balanced Reingold-Tilford / Buchheim tree coordinates** via `layout = g.get_layout()`: declare a hierarchy concisely with `g.child(parent, child_id)`, tune `direction` (`"TB"` or `"LR"`), `level_sep`, and `sibling_sep`, switch `edge_routing` between `"orthogonal"` forks and `"straight"` diagonals (or pass `root=None` to arrange independent multi-root forests side-by-side), and render the solved `layout[id].xy` centers with primitives or [`FlowDiagram`](../06_diagrams/flow.md) plus `layout.offset()`:
 
-```drawlib code=fold align=center file=tree_graph_parameter_tour.png caption="Basic Usage & Parameter Tour: Buchheim Balanced Sprouting, Direction & Subtree Spacing, Orthogonal vs. Multi-Root Forests, and FlowDiagram Rendering (APNG Animation)"
+```drawlib align=center file=tree_graph_parameter_tour.png caption="Basic Usage & Parameter Tour: Buchheim Balanced Sprouting, Direction & Subtree Spacing, Orthogonal vs. Multi-Root Forests, and FlowDiagram Rendering (APNG Animation)"
 from __future__ import annotations
 
 from drawlib.anim import Animation
@@ -1002,6 +1002,10 @@ for p4_idx, (m4, dur, code_4, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) in enu
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/en/07_graph/tree_graph.md" target="_blank" rel="noopener noreferrer">View animation source code on GitHub &rarr;</a>
+</div>
 
 - **Balanced Buchheim Tree Sprouting**: `TreeGraph` centers every parent node symmetrically over (or beside) its children while packing unequal subtrees tightly along their contours without overlap.
 - **Axis & Spacing Controls**: Switch seamlessly between top-down org/AST hierarchies (`direction="TB"`) and left-to-right decomposition trees (`direction="LR"`), and tune generational and sibling spacing via `level_sep` and `sibling_sep`.

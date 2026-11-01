@@ -49,7 +49,7 @@ save()
 
 `SequenceDiagram` arranges `Participant` header cards horizontally (`col_width`) and advances message arrows chronologically downward (`step_y`) from a default **Bottom-Left `(x0, y0)`** anchor (or `align="center"`). You can highlight execution spans with `.activate()` / `.deactivate()`, attach lifeline or spanning sticky notes, and wrap conditional or repeated steps inside Python `with` interaction frames (`d.alt()`, `d.loop()`, `d.opt()`):
 
-```drawlib code=fold align=center file=sequence_parameter_tour.png caption="Basic Usage & Parameter Tour: Lifelines & Anchor, Sync/Async & Activation, Self-Calls & Notes, and Condition Frames & Reveal (APNG Animation)"
+```drawlib align=center file=sequence_parameter_tour.png caption="Basic Usage & Parameter Tour: Lifelines & Anchor, Sync/Async & Activation, Self-Calls & Notes, and Condition Frames & Reveal (APNG Animation)"
 from __future__ import annotations
 
 from drawlib.anim import Animation
@@ -1113,6 +1113,10 @@ for p4_idx, (p4_mode, dur, code_4, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) i
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/en/06_diagrams/sequence.md" target="_blank" rel="noopener noreferrer">View animation source code on GitHub &rarr;</a>
+</div>
 
 - **Vertical Lifelines & Groups (`Participant`, `ParticipantGroup`, `col_width`, `step_y`)**: Header cards align along the top band with vertical dashed lifelines descending chronologically; `ParticipantGroup` clusters related backend services under a labeled boundary.
 - **Message Semantics (`request`, `reply`, `connect`, Self-Calls)**: `request()` draws synchronous calls (or open-stick async dispatches via `is_async=True`), `reply()` draws dashed return arrows, `connect(..., arrow="<->")` models full-duplex streams, and `p.request(p, ...)` loops onto the caller's own lifeline.

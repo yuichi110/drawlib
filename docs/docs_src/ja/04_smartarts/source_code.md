@@ -45,7 +45,7 @@ save()
 
 `SourceCode.draw(...)`（または `sourcecode(...)`）は、Pygments でトークン化されたコードブロックをステートレスに描画します。デフォルトでは**左上 `xy=(x, y)`** をアンカーとし（`align="top_left"`）、右方向 `+X` へ `width` 分広がり、下方向 `-Y` のコンテナ高さをコード行数と `text_size` から自動計算します。`SourceCodeStyles.get(...)` と `.patch(...)` を組み合わせることで、組み込みテーマ（`"default"`、`"google"`、`"dark"`、`"monochrome"`）の切り替え、20 以上の言語のハイライト、行番号ガター（`show_linenum`）の表示切り替え、アンカー位置揃え（`"bottom_left"`、`"center"`）の変更を行えます。
 
-```drawlib code=fold align=center file=source_code_parameter_tour.png caption="基本的な使い方とパラメータツアー: ステートレスな左上描画・組み込みテーマ・言語レキサーと .patch()・アンカー位置揃えと行注釈（APNG アニメーション）"
+```drawlib align=center file=source_code_parameter_tour.png caption="基本的な使い方とパラメータツアー: ステートレスな左上描画・組み込みテーマ・言語レキサーと .patch()・アンカー位置揃えと行注釈（APNG アニメーション）"
 from __future__ import annotations
 
 from drawlib.anim import Animation
@@ -1029,6 +1029,10 @@ with anim.frame(duration=3.5):
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/ja/04_smartarts/source_code.md" target="_blank" rel="noopener noreferrer">GitHub でアニメーションのソースコードを見る &rarr;</a>
+</div>
 
 - **ステートレスな左上描画（`SourceCode.draw` / `sourcecode`）**: インスタンス状態を持たずに `code` または `file` から直接描画します。デフォルトで `xy` を左上に固定して下方向 `-Y` へ高さを自動算出し、`show_linenum=True` の場合は行番号ガター領域を確保します。
 - **組み込みテーマと CJK フォント（`SourceCodeStyles.get`）**: 任意の `text_size` で `"default"`、`"google"`、`"dark"`、`"monochrome"` のプリセットを選択でき、`font_lang` に `"ja"`、`"zh-cn"`、`"zh-tw"`、`"ko"` を指定すると CJK 対応の等幅フォントへ自動的に切り替わります。

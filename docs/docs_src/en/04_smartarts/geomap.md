@@ -45,7 +45,7 @@ for label, pt, dy in [
 
 `GeoMap` renders vector world, continental, country, and city presets (`GeoMap.World.*`, `GeoMap.Countries.*`, `GeoMap.Cities.*`) or custom GeoJSON files directly onto the canvas, anchoring by default at the **Bottom-Left `(x, y)`** corner of the target box (or its center when `align="center"`). You can highlight or isolate territories via `set_area_styles()`, crop viewports with `lon_range` and `lat_range`, and query projected canvas coordinates after `.draw()` using `get_area_xy()` and `lonlat_to_xy()`:
 
-```drawlib code=fold align=center file=geomap_parameter_tour.png caption="Basic Usage & Parameter Tour: Map Presets, Area Styling, Viewport Cropping, and Coordinate Pins (APNG Animation)"
+```drawlib align=center file=geomap_parameter_tour.png caption="Basic Usage & Parameter Tour: Map Presets, Area Styling, Viewport Cropping, and Coordinate Pins (APNG Animation)"
 from __future__ import annotations
 
 from drawlib.anim import Animation
@@ -832,6 +832,10 @@ for pin_idx, (p_mode, dur, code_pin, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2)
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/en/04_smartarts/geomap.md" target="_blank" rel="noopener noreferrer">View animation source code on GitHub &rarr;</a>
+</div>
 
 - **Presets & Anchor (`xy`, `align`)**: Pass `GeoMap.World.*`, `GeoMap.Countries.*`, `GeoMap.Cities.*`, or a `.geojson` path and render inside `width × height` anchored at **Bottom-Left `xy`** by default (or centered via `align="center"`).
 - **Area Styling & Auto-Fit (`set_area_styles`, `Styles.Transparent`)**: Highlight specific territories by English name, ISO code, or Japanese alias, or pass `area_style=Styles.Transparent` so `.draw()` hides unstyled areas and auto-fits visible bounds.

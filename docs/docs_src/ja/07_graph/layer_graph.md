@@ -74,7 +74,7 @@ save()
 
 `LayerGraph` は**トポロジカルなランク計算**とレンダリングを分離します。有向エッジ（`g.edge(src, dst)`）、任意の明示的なランク固定（`layer=...` または `g.tier(...)`）、およびステージコンテナ（`g.cluster(...)`）を宣言してから `layout = g.get_layout()` を呼び出すと、重なりのないノード中心座標（`layout[id].xy`）、ルーティング済みエッジポリライン（`e.points`）、クラスタ境界（`layout.clusters[cid]`）が得られます。計算された座標はプリミティブで直接描画できるほか、`layout[id].xy` を [`FlowDiagram`](../06_diagrams/flow.md) に渡して `layout.offset()` で個別の分岐を微調整することもできます。
 
-```drawlib code=fold align=center file=layer_graph_parameter_tour.png caption="基本的な使い方とパラメータツアー: 杉山法ランク付き DAG の展開、明示的なレイヤ固定とクラスタ、進行方向とエッジルーティング、FlowDiagram レンダリング（APNG アニメーション）"
+```drawlib align=center file=layer_graph_parameter_tour.png caption="基本的な使い方とパラメータツアー: 杉山法ランク付き DAG の展開、明示的なレイヤ固定とクラスタ、進行方向とエッジルーティング、FlowDiagram レンダリング（APNG アニメーション）"
 from __future__ import annotations
 
 from drawlib.anim import Animation
@@ -1019,6 +1019,10 @@ for p4_idx, (m4, dur, code_4, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) in enu
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/ja/07_graph/layer_graph.md" target="_blank" rel="noopener noreferrer">GitHub でアニメーションのソースコードを見る &rarr;</a>
+</div>
 
 - **杉山法による自動ランク割り当てと交差最小化**: `LayerGraph` は最長入力依存パスに基づいてトポロジカルランク（`0, 1, 2, ...`）を割り当て、重心法ヒューリスティックで兄弟ノードを並べ替えることで、ファンアウトや多対一の DAG 合流を整然と保ちます。
 - **明示的なランク固定とステージクラスタ**: `g.node(id, layer=...)` や `g.tier(name, nodes, layer=...)` で特定のノードや並列ステージを正確なランクに固定し、`g.cluster(id, nodes, padding=..., header_height=...)` でステージコンテナ境界を計算できます。

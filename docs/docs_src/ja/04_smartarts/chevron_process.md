@@ -67,7 +67,7 @@ save()
 
 `ChevronProcess` は `.add(...)` で噛み合う連続パイプラインを段階的に構築し、デフォルトではプロセス全体の外接バウンディングボックスの**左下 `(x, y)`**（`align="center"` 指定時は中央）を基準に配置します。左端の開始形状や矢印先端の幾何パラメータ（`flat_left_end`, `corner_angle`, `spacing`）の調整、全体幅 `width` の自動等分とステージごとの固定幅 `item_width` の切り替え、さらに兄弟ステージの座標をずらさずに個別の `.items[i]` を変更・非表示化する操作が可能です。
 
-```drawlib code=fold align=center file=chevron_process_parameter_tour.png caption="基本的な使い方とパラメータツアー: 段階的構築、先端形状、サイズ指定、ライブ変更（APNG アニメーション）"
+```drawlib align=center file=chevron_process_parameter_tour.png caption="基本的な使い方とパラメータツアー: 段階的構築、先端形状、サイズ指定、ライブ変更（APNG アニメーション）"
 from __future__ import annotations
 
 import math
@@ -976,6 +976,10 @@ for m_idx, (m_mode, dur, code_m, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) in 
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/ja/04_smartarts/chevron_process.md" target="_blank" rel="noopener noreferrer">GitHub でアニメーションのソースコードを見る &rarr;</a>
+</div>
 
 - **段階的な構築とアンカー (`xy`, `align`)**: `.add(text, description=..., style=...)` でステージを順番に追加し、`xy=(x, y)` に描画します。デフォルトではバウンディングボックスの**左下**（`align="bottom_left"`）が基準となり、`align="center"` で中央揃えにできます。
 - **左端と先端の幾何形状 (`flat_left_end`, `corner_angle`, `spacing`)**: 第 1 ステージの左端を垂直な直線にするには `flat_left_end=True`（伝統的な切り込み型にする場合は `False`）を指定し、`corner_angle`（`10.0°`〜`80.0°`）と `spacing` で矢印の深さやステージ間隔を調整します。

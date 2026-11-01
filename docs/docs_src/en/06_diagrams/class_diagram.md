@@ -64,7 +64,7 @@ save()
 
 `ClassDiagram` places three-compartment `ClassNode` cards by their **Center `(cx, cy)`** via `cd.add(node, xy=(cx, cy))`, dynamically expanding `effective_height` as attributes and methods with UML visibility modifiers (`+`, `-`, `#`, `~`) are registered. You can annotate headers with guillemet `stereotype` badges, `is_abstract`, and custom `header_style` fills, connect classes using all 6 standard UML `relationship_type` markers with multiplicities, and control port sides, `show=False` visibility, or `align="center"` placement:
 
-```drawlib code=fold align=center file=class_diagram_parameter_tour.png caption="Basic Usage & Parameter Tour: 3-Compartment Cards & Anchors, Stereotypes & Modifiers, UML Relationships & Multiplicity, and Routing & Reveal (APNG Animation)"
+```drawlib align=center file=class_diagram_parameter_tour.png caption="Basic Usage & Parameter Tour: 3-Compartment Cards & Anchors, Stereotypes & Modifiers, UML Relationships & Multiplicity, and Routing & Reveal (APNG Animation)"
 from __future__ import annotations
 
 from drawlib.anim import Animation
@@ -974,6 +974,10 @@ for p4_idx, (p4_mode, dur, code_4, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) i
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/en/06_diagrams/class_diagram.md" target="_blank" rel="noopener noreferrer">View animation source code on GitHub &rarr;</a>
+</div>
 
 - **Three-Compartment `ClassNode` & Dynamic Height (`xy`, `effective_height`)**: `cd.add(node, xy=(cx, cy))` places each class card by its center while `add_attribute(...)` and `add_method(...)` populate compartments and expand `node.effective_height` automatically.
 - **Visibility, Stereotypes & Header Styling (`+`/`-`/`#`/`~`, `stereotype`, `is_abstract`, `header_style`)**: Format members with UML access modifiers, display guillemet headers (`«interface»`, `«abstract»`), and style focal headers via `header_style`.

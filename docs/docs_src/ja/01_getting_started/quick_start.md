@@ -2,7 +2,7 @@
 
 Drawlib を使えば、**スタンドアロンの Python スクリプト**（`.py`）としても、**Markdown 埋め込みブロック**（` ```drawlib `）としても、直感的かつ再現性の高い高品質な技術図版を作成できます。すべての図解は一貫した **5 ステップのライフサイクル** に従います。
 
-```drawlib code=fold align=center file=quickstart_five_step_workflow.png caption="標準的な Drawlib 5 ステップ描画ワークフロー: コードからキャンバスへ（APNG アニメーション）"
+```drawlib align=center file=quickstart_five_step_workflow.png caption="標準的な Drawlib 5 ステップ描画ワークフロー: コードからキャンバスへ（APNG アニメーション）"
 from __future__ import annotations
 
 from drawlib.anim import Animation
@@ -360,6 +360,10 @@ with anim.frame(duration=2.80):
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/ja/01_getting_started/quick_start.md" target="_blank" rel="noopener noreferrer">GitHub でアニメーションのソースコードを見る &rarr;</a>
+</div>
 
 1. **API のインポート**: キャンバス管理、描画プリミティブ、スタイルプリセットをインポートします。
 2. **キャンバスのセットアップ**: `setup()` でキャンバスのサイズ（`width`、`height`）を初期化します。

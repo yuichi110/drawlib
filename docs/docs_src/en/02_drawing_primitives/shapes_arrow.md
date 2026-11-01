@@ -99,7 +99,7 @@ save()
 
 Unlike 1D connector strokes, Drawlib's 6 block arrow primitives build closed 2D polygons with explicit shaft thickness (`tail_width`) and fin dimensions (`head_width`, `head_length`, or `head_angle`) so transitions can carry bold fills, borders, and inline labels. Watch how shaft/head sizing, directionality (`head`, `mirror`), corner filleting (`shape_r`), elliptical angular sweeps (`angle_start`..`angle_end`), and multi-waypoint routing (`xys`) reshape each primitive:
 
-```drawlib code=fold align=center file=shapes_arrow_parameter_tour.png caption="Parameter & Geometry Tour: Live Morphing of arrow, chevron, arrow_l, arrow_u, arrow_arc, and arrow_polyline (APNG Animation)"
+```drawlib align=center file=shapes_arrow_parameter_tour.png caption="Parameter & Geometry Tour: Live Morphing of arrow, chevron, arrow_l, arrow_u, arrow_arc, and arrow_polyline (APNG Animation)"
 from __future__ import annotations
 
 import math
@@ -822,6 +822,10 @@ for r_poly, dur in ((0.0, 0.55), (3.5, 3.6)):
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/en/02_drawing_primitives/shapes_arrow.md" target="_blank" rel="noopener noreferrer">View animation source code on GitHub &rarr;</a>
+</div>
 
 - **Shaft, Fin & Endpoint Geometry (`arrow`)**: Spans `xy1` → `xy2` with `tail_width`, `head_width`, `head_length`, `head` (`"->"`, `"<-"`, `"<->"`), and auto-rotated inline `text`.
 - **Notched Stage Banners (`chevron`)**: Adjusts V-tip and rear notch steepness via `corner_angle` (`0°`–`90°`), fillets all 6 vertices via `shape_r`, and flips toward `-X` with `mirror=True`.

@@ -95,7 +95,7 @@ save()
 
 `-s <preset>`（`default`、`google`、`default-dark`、`monochrome`）を指定してプロジェクトをスキャフォールディングすると、HTML／PDF／スライド用スタイルシート（`style.css`）、注入される Python デザイントークン（`styles.py`）、再利用可能な複合ヘルパー（`.drawlib/cache.db` の SHA-256 ハッシュで自動追跡される `utils.py`）、および Jinja2 の `template.html` レイアウトスロットが一貫して同期されます。
 
-```drawlib code=fold align=center file=customization_theming_tour.png caption="統合カスタマイズツアー: 組み込みスタイルプリセット、共有 styles.py トークン、再利用可能な utils.py ヘルパー、3 層構造 CSS と Jinja2 テンプレート (APNG アニメーション)"
+```drawlib align=center file=customization_theming_tour.png caption="統合カスタマイズツアー: 組み込みスタイルプリセット、共有 styles.py トークン、再利用可能な utils.py ヘルパー、3 層構造 CSS と Jinja2 テンプレート (APNG アニメーション)"
 from __future__ import annotations
 
 from drawlib.anim import Animation
@@ -1016,6 +1016,10 @@ for p4_idx, (m4, dur, flbl, clang, code_4, hl_rng, badge, foot, st_t, s_1, s_2) 
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/ja/09_doc_builder_and_cli/customization.md" target="_blank" rel="noopener noreferrer">GitHub でアニメーションのソースコードを見る &rarr;</a>
+</div>
 
 ---
 

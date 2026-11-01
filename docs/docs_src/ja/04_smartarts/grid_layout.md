@@ -71,7 +71,7 @@ save()
 
 `GridLayout` は、デフォルトで**左下角 `(x, y)`**（`align="bottom_left"`）または中央（`align="center"`）を基準とする、0 始まりの**ボトムアップ `(col, row)`** マトリクス上にカードを配置します。`.add((col, row), width, height, ...)` で追加したセルは複数列・複数行への結合スパンが可能で、`outer_style` コンテナ内での均等配置や `draw_flexible(...)` による任意比率配置、さらに他のセルの座標をずらさない `.items[i].show = False` の切り替えに対応しています。
 
-```drawlib code=fold align=center file=grid_layout_parameter_tour.png caption="基本的な使い方とパラメータツアー: ボトムアップのマトリクスインデックス、複数セル結合、可変比率、表示切り替え（APNG アニメーション）"
+```drawlib align=center file=grid_layout_parameter_tour.png caption="基本的な使い方とパラメータツアー: ボトムアップのマトリクスインデックス、複数セル結合、可変比率、表示切り替え（APNG アニメーション）"
 from __future__ import annotations
 
 from collections.abc import Callable
@@ -952,6 +952,10 @@ for h_idx, (h_mode, dur, code_h, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) in 
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/ja/04_smartarts/grid_layout.md" target="_blank" rel="noopener noreferrer">GitHub でアニメーションのソースコードを見る &rarr;</a>
+</div>
 
 - **ボトムアップの `(col, row)` マトリクス（`xy`, `num_column`, `num_row`）**: デフォルトで**左下 `xy`** を基準に配置され（`align="bottom_left"`）、`col = 0` が左端から右方向（`+X`）、`row = 0` が下端から上方向（`+Y`）へ進みます。
 - **複数セルの結合スパン（`.add((col, row), width, height)`）**: 右方向へ `width` 列、上方向へ `height` 行を内部の余白（ガター）ごとシームレスに結合し、バナーヘッダー、サイドバー、複数スロットにまたがるコア領域を構成できます。

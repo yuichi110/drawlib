@@ -34,7 +34,7 @@ save()
 
 Unlike static bitmap icons, every function in `drawlib.icons.phosphor` renders directly from embedded TrueType vector fonts—scaling infinitely at a 1:1 aspect ratio while dynamically adapting stroke weight, theme color, rotation, opacity, and anchor alignment via `Style`. Watch how `icon_style` morphs across all 5 typographic weights, semantic theme presets recolor glyphs on neutral and saturated surfaces, `angle` / `alpha` / `halign` / `valign` transform placement around `xy`, and calm container cards compose with corner verification badges:
 
-```drawlib code=fold align=center file=icons_phosphor_parameter_tour.png caption="Parameter & Styling Tour: Live Morphing of Phosphor Weights, Theme Colors, Transforms, and Card Badges (APNG Animation)"
+```drawlib align=center file=icons_phosphor_parameter_tour.png caption="Parameter & Styling Tour: Live Morphing of Phosphor Weights, Theme Colors, Transforms, and Card Badges (APNG Animation)"
 from __future__ import annotations
 
 import math
@@ -773,6 +773,10 @@ for step_num, dur, hl_rng, badge_lbl, foot_lbl, s_title, s_l1, s_l2 in CARD_STEP
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/en/03_icons/phosphor.md" target="_blank" rel="noopener noreferrer">View animation source code on GitHub &rarr;</a>
+</div>
 
 - **5 Typographic Weights (`style.icon_style`)**: Morphs any Phosphor glyph across `"thin"`, `"light"`, `"regular"`, `"bold"`, and solid `"fill"` via `style.patch(icon_style=...)` or preset variants (`*Thin`, base `Styles.Primary`, `*Bold`).
 - **Semantic Vector Recoloring (`style.icon_color`)**: Tints monochrome vector glyphs with theme presets (`Styles.PrimaryBold`, `Styles.SecondaryBold`, `Styles.DangerFlat`), pairing `Styles.WhiteBold` atop saturated `*Flat` badges for crisp contrast.

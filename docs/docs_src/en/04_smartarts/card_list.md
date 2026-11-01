@@ -87,7 +87,7 @@ save()
 
 `CardList` renders vertical feature stacks (`direction="vertical"`) or horizontal step sequences (`direction="horizontal"`) built incrementally via `.add(...)`, anchoring at the **Bottom-Left `(x, y)`** bounding-box corner by default (or centered via `align="center"`). You can switch leading badges between `"rounded_rect"`, `"circle"`, and `"none"`, enable inter-card workflow arrows (`show_arrows=True`), and mutate or hide individual `.items[i]` cards in place while preserving sibling slots:
 
-```drawlib code=fold align=center file=card_list_parameter_tour.png caption="Basic Usage & Parameter Tour: Vertical & Horizontal Cards, Badge Shapes, Workflow Arrows, and Live Item Control (APNG Animation)"
+```drawlib align=center file=card_list_parameter_tour.png caption="Basic Usage & Parameter Tour: Vertical & Horizontal Cards, Badge Shapes, Workflow Arrows, and Live Item Control (APNG Animation)"
 from __future__ import annotations
 
 from drawlib.anim import Animation
@@ -924,6 +924,10 @@ for m_idx, (f_mode, dur, code_m, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) in 
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/en/04_smartarts/card_list.md" target="_blank" rel="noopener noreferrer">View animation source code on GitHub &rarr;</a>
+</div>
 
 - **Incremental Cards & Anchor (`xy`, `align`)**: Append rich cards via `.add(text, description, badge_text=..., icon=...)` and draw inside `(width, height)` anchored at **Bottom-Left** `xy` by default (`align="bottom_left"`) or centered via `align="center"`.
 - **Badge Shapes (`badge_shape`)**: Choose `"rounded_rect"` (default) or `"circle"` for framed icon/label badges, or set `"none"` to render clean borderless icons directly beside card text.

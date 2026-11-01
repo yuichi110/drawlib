@@ -2,7 +2,7 @@
 
 Drawlib で洗練されたプロフェッショナルな図解を作成するには、基盤となる **デカルト座標系（直交座標系）**、**アンカー配置（基準点揃え）**、および **2 点間コネクタ** の仕組みを理解しておくことが重要です。
 
-```drawlib code=fold align=center file=cartesian_coordinate_system.png caption="座標幾何の基本: 座標軸・アンカー配置・2 点間コネクタ（APNG アニメーション）"
+```drawlib align=center file=cartesian_coordinate_system.png caption="座標幾何の基本: 座標軸・アンカー配置・2 点間コネクタ（APNG アニメーション）"
 from __future__ import annotations
 
 from drawlib.anim import Animation
@@ -263,6 +263,10 @@ with anim.frame(duration=4.40):
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/ja/01_getting_started/core_concepts.md" target="_blank" rel="noopener noreferrer">GitHub でアニメーションのソースコードを見る &rarr;</a>
+</div>
 
 ---
 

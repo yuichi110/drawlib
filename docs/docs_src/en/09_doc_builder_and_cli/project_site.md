@@ -96,7 +96,7 @@ save()
 
 From initial `drawlib init site` scaffolding and `navbar.md` sidebar setup to `-g` grid inspection, headless link validation (`drawlib serve --check`), and Day-2 incremental page additions backed by `.drawlib/cache.db`:
 
-```drawlib code=fold align=center file=project_site_workflow_tour.png caption="Multi-Page Website Project Lifecycle: Scaffolding, Navbar & Pages, Link Audit, and Day-2 Page Addition (APNG Animation)"
+```drawlib align=center file=project_site_workflow_tour.png caption="Multi-Page Website Project Lifecycle: Scaffolding, Navbar & Pages, Link Audit, and Day-2 Page Addition (APNG Animation)"
 from __future__ import annotations
 
 from drawlib.anim import Animation
@@ -843,6 +843,10 @@ with anim.frame(duration=3.3):
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/en/09_doc_builder_and_cli/project_site.md" target="_blank" rel="noopener noreferrer">View animation source code on GitHub &rarr;</a>
+</div>
 
 ---
 

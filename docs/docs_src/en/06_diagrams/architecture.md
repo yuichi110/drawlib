@@ -70,7 +70,7 @@ save()
 
 `ArchitectureDiagram` places each `Node` by its **card center `(cx, cy)`** while anchoring `NodeGroup` containers and `d.draw(xy)` at their **Bottom-Left `(x0, y0)`** origin (or diagram midpoint via `align="center"`). You can nest `NodeGroup` boundaries with automatic child bounding boxes, attach edges directly to group perimeters, switch between `"orthogonal"`, `"direct"`, `"curved"`, and `.via()` waypoint routes, and split 1-to-N branches via `.fork()`:
 
-```drawlib code=fold align=center file=architecture_parameter_tour.png caption="Basic Usage & Parameter Tour: Node & Group Anchors, Nested VPC Auto-Bounds, Edge Routing & Waypoints, and 1-to-N Fork & Alignment (APNG Animation)"
+```drawlib align=center file=architecture_parameter_tour.png caption="Basic Usage & Parameter Tour: Node & Group Anchors, Nested VPC Auto-Bounds, Edge Routing & Waypoints, and 1-to-N Fork & Alignment (APNG Animation)"
 from __future__ import annotations
 
 from drawlib.anim import Animation
@@ -1073,6 +1073,10 @@ for p4_idx, (mode_4, dur, code_4, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) in
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/en/06_diagrams/architecture.md" target="_blank" rel="noopener noreferrer">View animation source code on GitHub &rarr;</a>
+</div>
 
 - **Card-Centric `Node` vs. Bottom-Left `NodeGroup` / `draw(xy)`**: `d.add(Node, xy)` places the card center `(cx, cy)` with any of 34 built-in `*Icon` enums (`GcpIcon`, `AwsIcon`, `AzureIcon`, `PhosphorIcon`, etc.), whereas `NodeGroup` and `d.draw(xy)` anchor at their bottom-left `(x0, y0)` origin.
 - **Hierarchical `NodeGroup` Auto-Bounding & Perimeter Edges**: Nested `NodeGroup` containers automatically expand around child nodes and sub-groups with configurable `padding`, and accept direct perimeter connections (`client.connect(vpc)`).

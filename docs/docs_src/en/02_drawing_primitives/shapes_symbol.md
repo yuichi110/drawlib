@@ -75,7 +75,7 @@ save()
 
 All 8 symbol primitives anchor cleanly at their center coordinate `xy`, combining semantic `variant` presets with expressive geometric parameters that adapt personas, clocks, celestial icons, cogwheels, and operators without manual path math. Watch how `face` and `heart` cycle through SLO/threat states, `clock` advances analog `hour` & `minute` hands or switches to font-free 7-segment `digital`, `sun`, `moon`, and `lightning` morph ray counts, lunar phases, and `mirror` direction, and `gear` and `math_symbol` sculpt cog teeth, center holes, and operator bar thickness:
 
-```drawlib code=fold align=center file=shapes_symbol_parameter_tour.png caption="Parameter & Geometry Tour: Live Morphing of face, clock, sun, moon, lightning, gear, and math_symbol (APNG Animation)"
+```drawlib align=center file=shapes_symbol_parameter_tour.png caption="Parameter & Geometry Tour: Live Morphing of face, clock, sun, moon, lightning, gear, and math_symbol (APNG Animation)"
 from __future__ import annotations
 
 import math
@@ -763,6 +763,10 @@ for sym, tr, m_st_name, dur, footer_txt in MATH_STEPS:
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/en/02_drawing_primitives/shapes_symbol.md" target="_blank" rel="noopener noreferrer">View animation source code on GitHub &rarr;</a>
+</div>
 
 - **Persona & Health Presets (`face` & `heart`)**: Semantic `variant` presets switch facial expressions (`"smile"`..`"devil"`) and toggle `"standard"` vs. `"broken"` liveness hearts at `xy`.
 - **Analog Hands & Font-Free Digital (`clock`)**: `hour` and `minute` smoothly advance analog dial/stopwatch hands clockwise from `90°` (`12:00`), or render pure-vector 7-segment `HH:MM` digits on `variant="digital"`.

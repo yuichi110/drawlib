@@ -95,7 +95,7 @@ save()
 
 各 ````drawlib```` ブロックは、宣言的なフェンスヘッダーオプション（`code=`、`file=`、`caption=`、`align=`、`width=`、`anim_trigger=`、`anim_pause=`）と、分離された Python 実行サンドボックス（`canvas.clear()`）を組み合わせて動作します。フェンス属性が HTML 図表の出力、ベクター／アニメーション形式、および 1 秒未満で動作する `drawlib show -g` 座標プレビューをどのように制御するかを確認してみましょう。
 
-```drawlib code=fold align=center file=code_blocks_parameter_tour.png caption="埋め込み Drawlib フェンスツアー: コード表示モード、ファイル出力とレイアウトサイズ、出力フォーマットとアニメーション制御、サンドボックスプレビュー (APNG アニメーション)"
+```drawlib align=center file=code_blocks_parameter_tour.png caption="埋め込み Drawlib フェンスツアー: コード表示モード、ファイル出力とレイアウトサイズ、出力フォーマットとアニメーション制御、サンドボックスプレビュー (APNG アニメーション)"
 from __future__ import annotations
 
 from drawlib.anim import Animation
@@ -1091,6 +1091,10 @@ for p4_idx, (mode_4, dur, code_4, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2, ur
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/ja/09_doc_builder_and_cli/code_blocks.md" target="_blank" rel="noopener noreferrer">GitHub でアニメーションのソースコードを見る &rarr;</a>
+</div>
 
 ---
 

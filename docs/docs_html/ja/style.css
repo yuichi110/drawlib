@@ -314,6 +314,13 @@ details.drawlib-code-details pre {
     border-radius: 0 !important;
 }
 
+.drawlib-source-link {
+    text-align: center;
+    margin-top: -1.25rem;
+    margin-bottom: 2rem;
+    font-size: 0.88rem;
+}
+
 /* Admonition / Callout boxes */
 .admonition {
     margin: 1.5rem 0;
@@ -946,7 +953,8 @@ html[data-theme="dark"] .lang-dropdown-menu {
 @media print {
     #theme-toggle,
     #menu-toggle,
-    .lang-switcher {
+    .lang-switcher,
+    .drawlib-source-link {
         display: none !important;
     }
 

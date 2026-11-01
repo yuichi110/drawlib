@@ -68,7 +68,7 @@ save()
 
 Every slide combines a **Top-Left `1920 × 1080` HTML stage** (`::: block xy=(x, y) width=W height=H` and `z_index` layers) with **Bottom-Left Cartesian ````drawlib```` canvases**, hidden **`::: note` presenter scripts** (rendered in `?presenter=1` and native PowerPoint `.pptx` speaker notes), and the **`drawlib.slide` Python runtime** (`current_slide`, `BoundingBox`, `build_slide`, `build_pptx`):
 
-```drawlib code=fold align=center file=slide_layout_parameter_tour.png caption="16:9 Slide Stage & API Tour: Dual Coordinate Spaces, ::: block Grid Positioning, ::: note Presenter Layer, and current_slide Context (APNG Animation)"
+```drawlib align=center file=slide_layout_parameter_tour.png caption="16:9 Slide Stage & API Tour: Dual Coordinate Spaces, ::: block Grid Positioning, ::: note Presenter Layer, and current_slide Context (APNG Animation)"
 from __future__ import annotations
 
 from drawlib.anim import Animation
@@ -976,6 +976,10 @@ for p4_idx, (m4, dur, flbl, clang, code_4, hl_rng, badge, foot, st_t, s_1, s_2) 
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/en/09_doc_builder_and_cli/slide_layout_and_api.md" target="_blank" rel="noopener noreferrer">View animation source code on GitHub &rarr;</a>
+</div>
 
 ---
 

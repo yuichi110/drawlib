@@ -143,7 +143,7 @@ save()
 
 `Panel` は、デフォルトで**左下 `(x, y)`** をアンカーとする（`align="bottom_left"`）、または `align="center"` で中央揃えにしたタイトル付きコンテナカードを描画し、4 種類のヘッダースタイル（`"filled"`、`"underline"`、`"floating"`、`"window"`）をサポートします。`panel.get_content_box(xy, width, height, padding=..., content_align=...)` を呼び出すと、`header_height` の差し引きと `padding` の内側余白が自動適用され、ネストするコンポーネントや中央アンカー図形にそのまま渡せる安全な内部領域 `(inner_xy, inner_width, inner_height)` を取得できます。
 
-```drawlib code=fold align=center file=panel_parameter_tour.png caption="基本的な使い方とパラメータツアー: コンテナアンカー・ヘッダーバリアント・内部コンテンツボックス・中央揃え（APNG アニメーション）"
+```drawlib align=center file=panel_parameter_tour.png caption="基本的な使い方とパラメータツアー: コンテナアンカー・ヘッダーバリアント・内部コンテンツボックス・中央揃え（APNG アニメーション）"
 from __future__ import annotations
 
 from collections.abc import Callable
@@ -1117,6 +1117,10 @@ for a_idx, (a_mode, dur, code_a, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) in 
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/ja/04_smartarts/panel.md" target="_blank" rel="noopener noreferrer">GitHub でアニメーションのソースコードを見る &rarr;</a>
+</div>
 
 - **外側アンカーと明示的なヘッダースタイル（`xy`, `header_align`, `header_height`）**: デフォルトでコンテナを**左下 `xy`** にアンカーし（`align="bottom_left"`）、`header_height` や `header_align="center"` を調整します。有効なすべての要素に対して明示的な `Style` トークン（`style`、`header_style`、`text_style` に加え、必要に応じて `description_style`、`icon_style`、`dot_styles`）を指定します。
 - **4 種類のヘッダーバリアント（`header_variant`）**: `"filled"`（塗りつぶし上部帯）、`"underline"`（落ち着いた内側区切り線）、`"floating"`（上辺にまたがるカプセル型バッジ）、`"window"`（ウィンドウクローム風の 3 点コントロール）をシームレスに切り替えられます。

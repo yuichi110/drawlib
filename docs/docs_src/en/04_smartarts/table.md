@@ -78,7 +78,7 @@ save()
 
 `Table` renders 2D `list[list[Any]]` matrices anchored by default at **Top-Left `(x, y)`** (`align="top_left"`, expanding rightward along `+X` and downward along `-Y`), while applying cell and header styling rules sequentially in exact call order. You can customize outer perimeter frames alongside header/row-header divider lines (`top2`, `left2`), and switch between uniform grid sizing (`draw`) and explicit per-column/per-row dimensions (`draw_flexible`):
 
-```drawlib code=fold align=center file=table_parameter_tour.png caption="Basic Usage & Parameter Tour: Top-Left Anchor, Sequential Cell Styling, Custom Borders, and Flexible Sizing (APNG Animation)"
+```drawlib align=center file=table_parameter_tour.png caption="Basic Usage & Parameter Tour: Top-Left Anchor, Sequential Cell Styling, Custom Borders, and Flexible Sizing (APNG Animation)"
 from __future__ import annotations
 
 from drawlib.anim import Animation
@@ -1075,6 +1075,10 @@ with anim.frame(duration=3.5):
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/en/04_smartarts/table.md" target="_blank" rel="noopener noreferrer">View animation source code on GitHub &rarr;</a>
+</div>
 
 - **Top-Left Anchor & Header Band (`align`, `has_header`)**: Anchors `xy` at `(row=0, col=0)` by default (`align="top_left"`, or `"bottom_left"` / `"center"`), styling row `0` automatically when `has_header=True`.
 - **Sequential Style Layering (`evenodd` -> `rowheader` -> `cell`)**: Applies cell background and text rules in call order—register broad `set_style_cell_evenodd` rules first, then `set_style_cell_rowheader` / `set_style_cell_header` and targeted `[rows, columns]` overrides.

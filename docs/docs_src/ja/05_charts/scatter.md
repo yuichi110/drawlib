@@ -67,7 +67,7 @@ save()
 
 `ScatterChart` は独立した X 軸・Y 軸上に連続数値データをプロットし、デフォルトでコンテナの**左下 `(x, y)`** を基準にアンカーします（`align="center"` で中央揃えも可）。`.add_series(...)` による複数形状のデータ系列登録、3 要素タプル `(x, y, radius)` を用いた第 3 指標のマーカー半径エンコーディング、`.add(...)` による個別外れ値・基準点のピンポイント注釈、線形軸／対数軸の調整、および `draw_ratio` や `show` による段階的表示アニメーションに対応しています。
 
-```drawlib code=fold align=center file=scatter_parameter_tour.png caption="基本的な使い方とパラメータツアー：2 軸系列、3D バブルサイズ、ポイント注釈と対数軸、段階的スイープ表示（APNG アニメーション）"
+```drawlib align=center file=scatter_parameter_tour.png caption="基本的な使い方とパラメータツアー：2 軸系列、3D バブルサイズ、ポイント注釈と対数軸、段階的スイープ表示（APNG アニメーション）"
 from __future__ import annotations
 
 from drawlib.anim import Animation
@@ -957,6 +957,10 @@ for p4_idx, (mode_p4, dur, code_4, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) i
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/ja/05_charts/scatter.md" target="_blank" rel="noopener noreferrer">GitHub でアニメーションのソースコードを見る &rarr;</a>
+</div>
 
 - **2 軸連続値系列とマーカー形状（`xy`, `PointShape`, `draw_legend`）**: デフォルトで**左下** `xy` にアンカーされた連続 `(x, y)` 系列をプロットし、`"circle"`、`"square"`、`"triangle"`、`"rhombus"` で実験系統を区別し、`draw_legend(...)` で分離配置された凡例を描画します。
 - **3 次元比例バブルサイズ（`(x, y, radius)`）**: `add_series(...)` に 3 要素タプル `(x, y, r)` と落ち着いた半透明スタイル（`Styles.PrimaryNeutral`、`Styles.SecondaryNeutral`）を渡すことで、画面を煩雑にせずマーカー半径で第 3 の変数を表現できます。

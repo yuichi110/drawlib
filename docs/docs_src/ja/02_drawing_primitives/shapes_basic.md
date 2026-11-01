@@ -91,7 +91,7 @@ save()
 
 全 6 種類のプリミティブは、Drawlib のデカルト座標空間と中心基準配置の規約（`xy`、ただし `fan` はコーンの頂点基準）を共有しつつ、手動の三角関数計算なしで各図形を直感的に変形できるパラメータを備えています。角丸（`shape_r`）、同心の中抜き（`hole_ratio`）、軸回転（`angle`）、反時計回りの角度スイープ（`angle_start`..`angle_end`）、およびリングの肉厚（`width`）によって各プリミティブがどのように変化するかを以下のアニメーションで確認できます。
 
-```drawlib code=fold align=center file=shapes_basic_parameter_tour.png caption="パラメータ・ジオメトリツアー: rectangle, circle, ellipse, wedge, fan, arc のライブ変形（APNG アニメーション）"
+```drawlib align=center file=shapes_basic_parameter_tour.png caption="パラメータ・ジオメトリツアー: rectangle, circle, ellipse, wedge, fan, arc のライブ変形（APNG アニメーション）"
 from __future__ import annotations
 
 import math
@@ -780,6 +780,10 @@ for a_end, dur in ((170, 0.45), (315, 3.6)):
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/ja/02_drawing_primitives/shapes_basic.md" target="_blank" rel="noopener noreferrer">GitHub でアニメーションのソースコードを見る &rarr;</a>
+</div>
 
 - **中心基準と頂点基準の配置 (`xy`)**: `rectangle`, `circle`, `ellipse`, `wedge`, `arc` は `xy` を中心として配置されるのに対し、`fan` はコーンの頂点（要）を `xy` に固定します。
 - **角丸フィレット (`style.shape_r`)**: `rectangle` の四隅をスカラー `float` で均等に丸めるほか、4 要素タプル `(bl, tl, tr, br)` で特定の角のみを選択的に丸められます。

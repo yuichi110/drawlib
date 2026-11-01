@@ -117,7 +117,7 @@ save()
 
 Almost all polygon primitives share Drawlib's Cartesian coordinate space and center-anchoring contract (`xy`, with `polygon` taking explicit canvas `xys`), while exposing concise geometric parameters that morph planar and radial contours without manual trigonometry. Watch how apex offsets (`topvertex_x`), shear angles (`corner_angle`), dual edge widths (`topedge_width` / `bottomedge_width`), concentric cutouts (`hole_ratio`), vertex counts (`num_vertex`), star radii (`radius_ext` / `radius_int`), plaque corner styles (`variant`), and Bézier control points (`path_points`) reshape each primitive:
 
-```drawlib code=fold align=center file=shapes_polygon_parameter_tour.png caption="Parameter & Geometry Tour: Live Morphing of Polygons, Stars, Plaques, and Custom Bézier Paths (APNG Animation)"
+```drawlib align=center file=shapes_polygon_parameter_tour.png caption="Parameter & Geometry Tour: Live Morphing of Polygons, Stars, Plaques, and Custom Bézier Paths (APNG Animation)"
 from __future__ import annotations
 
 import math
@@ -960,6 +960,10 @@ with anim.frame(duration=3.2):
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/en/02_drawing_primitives/shapes_polygon.md" target="_blank" rel="noopener noreferrer">View animation source code on GitHub &rarr;</a>
+</div>
 
 - **Apex Offset & Shear Slant (`topvertex_x`, `corner_angle`)**: `topvertex_x` shifts a `triangle` apex horizontally relative to its bottom-left corner (`None` centers at `width / 2`; `0` forms a `90°` right triangle), while `corner_angle` (`0°`..`90°`) sets the interior slant of a `parallelogram`.
 - **Dual Edge Widths & Concentric Cutouts (`topedge_width`, `hole_ratio`, `shape_r`)**: `trapezoid` pairs independent `topedge_width` and `bottomedge_width` spans, and planar/regular polygons combine `hole_ratio` transparent cutouts with `style.shape_r` vertex filleting.

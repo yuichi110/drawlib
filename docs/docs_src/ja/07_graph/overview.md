@@ -4,7 +4,7 @@
 
 複雑なトポロジを設計する際にすべての頂点やコンテナの `(x, y)` 座標を手計算する代わりに、ノード・エッジ・クラスタといった**構造的な関係**を宣言して `layout = g.get_layout(width=..., height=...)` を呼び出すだけで、Drawlib の純粋 Python レイアウトアルゴリズムが整然とした座標、コンテナのバウンディングボックス、直交または放射状のエッジ経路を自動計算します。以下のステップアニメーションが示すとおり、各ソルバーは固有のトポロジ座標モデル（5 ゾーンのネスト VPC コンテナ、ランク付き DAG のファンアウト／マージ列、厳密なツリー階層、360 度の同心円軌道リング、スマートチャネル付き 2D マトリクススロット）に沿って段階的に展開されます。計算された座標は、[`drawlib.diagrams`](../06_diagrams/overview.md) や [`drawlib.shapes`](../02_drawing_primitives/shapes_overview.md)、[`drawlib.lines`](../02_drawing_primitives/lines.md) を使って描画します。
 
-```drawlib code=fold align=center file=graph_five_solvers_hero.png caption="トポロジ座標モデルに沿って展開する 5 つの専用自動レイアウト座標ソルバー（APNG アニメーション）"
+```drawlib align=center file=graph_five_solvers_hero.png caption="トポロジ座標モデルに沿って展開する 5 つの専用自動レイアウト座標ソルバー（APNG アニメーション）"
 from __future__ import annotations
 
 import math
@@ -801,6 +801,10 @@ for frame_idx, dur_sec, banner_stage in FRAME_SPECS:
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/ja/07_graph/overview.md" target="_blank" rel="noopener noreferrer">GitHub でアニメーションのソースコードを見る &rarr;</a>
+</div>
 
 ---
 

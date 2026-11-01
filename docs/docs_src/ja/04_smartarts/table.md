@@ -78,7 +78,7 @@ save()
 
 `Table` は 2 次元の `list[list[Any]]` マトリクスを描画し、デフォルトでは**左上 `(x, y)`**（`align="top_left"`、右方向 `+X` および下方向 `-Y` に展開）をアンカーとしながら、セルおよびヘッダーのスタイリングルールを呼び出し順に順次適用します。外周フレームに加えてヘッダー行・行ヘッダー列の区切り線（`top2`, `left2`）を個別に指定でき、均等グリッド配置（`draw`）と列幅・行高の個別指定（`draw_flexible`）を自在に切り替えられます。
 
-```drawlib code=fold align=center file=table_parameter_tour.png caption="基本的な使い方とパラメータツアー: 左上アンカー、順次セルスタイリング、カスタム罫線、可変サイズ指定（APNG アニメーション）"
+```drawlib align=center file=table_parameter_tour.png caption="基本的な使い方とパラメータツアー: 左上アンカー、順次セルスタイリング、カスタム罫線、可変サイズ指定（APNG アニメーション）"
 from __future__ import annotations
 
 from drawlib.anim import Animation
@@ -1075,6 +1075,10 @@ with anim.frame(duration=3.5):
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/ja/04_smartarts/table.md" target="_blank" rel="noopener noreferrer">GitHub でアニメーションのソースコードを見る &rarr;</a>
+</div>
 
 - **左上アンカーとヘッダー帯 (`align`, `has_header`)**: デフォルト（`align="top_left"`、他に `"bottom_left"`／`"center"` も可）では `xy` を `(row=0, col=0)` の左上角に固定し、`has_header=True` の場合は行 `0` に自動でヘッダースタイルを適用します。
 - **順次適用のスタイルレイヤリング (`evenodd` -> `rowheader` -> `cell`)**: セル背景色とテキストスタイルのルールは呼び出し順に上書き適用されます。まず広範な `set_style_cell_evenodd` を登録し、その後に `set_style_cell_rowheader`／`set_style_cell_header` や個別セルの `[rows, columns]` 指定を重ねます。

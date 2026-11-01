@@ -2,7 +2,7 @@
 
 To create clean, professional illustrations with Drawlib, it is important to understand its underlying **Cartesian coordinate space**, **anchor alignments**, and **endpoint connectors**:
 
-```drawlib code=fold align=center file=cartesian_coordinate_system.png caption="Core Coordinate Geometry: Axes, Anchor Alignment, and Point-to-Point Lines (APNG Animation)"
+```drawlib align=center file=cartesian_coordinate_system.png caption="Core Coordinate Geometry: Axes, Anchor Alignment, and Point-to-Point Lines (APNG Animation)"
 from __future__ import annotations
 
 from drawlib.anim import Animation
@@ -263,6 +263,10 @@ with anim.frame(duration=4.40):
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/en/01_getting_started/core_concepts.md" target="_blank" rel="noopener noreferrer">View animation source code on GitHub &rarr;</a>
+</div>
 
 ---
 

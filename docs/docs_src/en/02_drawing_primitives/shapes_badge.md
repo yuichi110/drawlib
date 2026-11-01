@@ -100,7 +100,7 @@ save()
 
 While `pin`, `tag`, `ribbon`, `shield`, `forbidden`, `checkmark`, and `explosion` follow Drawlib's standard center-anchoring convention (`xy`), `bubblespeech` anchors its rectangular body at the bottom-left corner `(x0, y0)` so its pointer tail can track an exact target coordinate (`tail_vertex_xy`). Watch how edge attachment ratios (`tail_start_ratio`..`tail_end_ratio`), head/collar cutouts (`hole_ratio`) and horizontal mirroring (`mirror`), 3D ribbon step offsets (`drop_ratio`), and compound status/burst silhouettes (`variant` & `thickness_ratio`) reshape each primitive:
 
-```drawlib code=fold align=center file=shapes_badge_parameter_tour.png caption="Parameter & Geometry Tour: Live Morphing of bubblespeech, pin, tag, ribbon, shield, forbidden, checkmark, and explosion (APNG Animation)"
+```drawlib align=center file=shapes_badge_parameter_tour.png caption="Parameter & Geometry Tour: Live Morphing of bubblespeech, pin, tag, ribbon, shield, forbidden, checkmark, and explosion (APNG Animation)"
 from __future__ import annotations
 
 from drawlib import shapes as sh
@@ -825,6 +825,10 @@ for var, ew, eh, st_lines, st_obj, txt_val, txt_st, note_top, dur in (
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/en/02_drawing_primitives/shapes_badge.md" target="_blank" rel="noopener noreferrer">View animation source code on GitHub &rarr;</a>
+</div>
 
 - **Callout Anchoring & Pointer Ratios (`bubblespeech`)**: Anchors the rectangular body at its bottom-left corner `xy = (x0, y0)` while `tail_start_ratio`..`tail_end_ratio` attach a pointer along `tail_edge` aimed at `tail_vertex_xy`.
 - **Head Cutouts & Collar Mirroring (`pin`, `tag`)**: `hole_ratio` punches transparent circular rings in pin heads and tag collars, while `mirror=True` flips `tag` horizontally from `+X` to `-X`.

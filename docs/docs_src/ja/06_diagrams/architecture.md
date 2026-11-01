@@ -70,7 +70,7 @@ save()
 
 `ArchitectureDiagram` は、各 `Node` を**カード中心 `(cx, cy)`** で配置する一方、`NodeGroup` コンテナおよび `d.draw(xy)` は**左下 `(x0, y0)`** 原点（または `align="center"` 指定時はダイアグラム中央）を基準に配置します。子要素の外接境界を自動算出する `NodeGroup` のネスト、グループ外周への直接エッジ接続、`"orthogonal"`・`"direct"`・`"curved"` ルーティングや `.via()` 中継点ルートの切り替え、さらに `.fork()` による 1 対 N 分岐を利用できます。
 
-```drawlib code=fold align=center file=architecture_parameter_tour.png caption="基本的な使い方とパラメータツアー: ノードとグループのアンカー、ネストされた VPC の自動境界、エッジルーティングと中継点、1 対 N 分岐と配置揃え (APNG アニメーション)"
+```drawlib align=center file=architecture_parameter_tour.png caption="基本的な使い方とパラメータツアー: ノードとグループのアンカー、ネストされた VPC の自動境界、エッジルーティングと中継点、1 対 N 分岐と配置揃え (APNG アニメーション)"
 from __future__ import annotations
 
 from drawlib.anim import Animation
@@ -1073,6 +1073,10 @@ for p4_idx, (mode_4, dur, code_4, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) in
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/ja/06_diagrams/architecture.md" target="_blank" rel="noopener noreferrer">GitHub でアニメーションのソースコードを見る &rarr;</a>
+</div>
 
 - **カード中心基準の `Node` と左下基準の `NodeGroup` / `draw(xy)`**: `d.add(Node, xy)` は 34 種類の組み込み `*Icon` 列挙型（`GcpIcon`、`AwsIcon`、`AzureIcon`、`PhosphorIcon` など）を備えたカードの中心 `(cx, cy)` を配置する一方、`NodeGroup` と `d.draw(xy)` は左下原点 `(x0, y0)` を基準に配置します。
 - **階層的な `NodeGroup` の自動境界算出と外周エッジ接続**: ネストされた `NodeGroup` コンテナは指定された `padding` で子ノードやサブグループを自動的に囲むよう拡張され、グループ外周への直接接続（`client.connect(vpc)`）もサポートします。

@@ -77,7 +77,7 @@ save()
 
 Cartesian and multi-series charts follow Drawlib's presence-based styling model: `axis_line_style` anchors the coordinate baseline while tick labels (`axis_text_style`) and gridlines (`grid_style`) activate cleanly on opt-in. Domain bounds, formatters, `"linear"` vs. `"log"` scales (`configure_y_axis` / `configure_x_axis`), and decoupled legends (`draw_legend` + `get_size`) compose orthogonally without shifting plot geometry:
 
-```drawlib code=fold align=center file=axes_and_legends_parameter_tour.png caption="Basic Usage & Parameter Tour: Presence Styling, Axis Bounds & Formatting, Linear vs. Log Scaling, and Decoupled Legends (APNG Animation)"
+```drawlib align=center file=axes_and_legends_parameter_tour.png caption="Basic Usage & Parameter Tour: Presence Styling, Axis Bounds & Formatting, Linear vs. Log Scaling, and Decoupled Legends (APNG Animation)"
 from __future__ import annotations
 
 from drawlib.anim import Animation
@@ -895,6 +895,10 @@ for p4_idx, (l_mode, dur, code_4, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) in
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/en/05_charts/axes_and_legends.md" target="_blank" rel="noopener noreferrer">View animation source code on GitHub &rarr;</a>
+</div>
 
 - **Presence-Based Axis Styling (`axis_text_style`, `grid_style`, `unit`)**: Omit optional styles for sparkline-clean baselines, opt into `axis_text_style` and `grid_style` for ticks and gridlines, and append suffixes via `configure_y_axis(label=..., unit=...)`.
 - **Domain Bounds, Step & Format (`min_value`, `max_value`, `tick_step`, `format`)**: Override automatic Nice Numbers intervals with explicit bounds, fixed `tick_step` or `ticks=[...]` lists, and Python format strings (`"{:.0f}%"`) or callables.

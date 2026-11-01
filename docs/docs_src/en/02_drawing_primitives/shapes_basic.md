@@ -91,7 +91,7 @@ save()
 
 All 6 primitives share Drawlib's Cartesian coordinate space and center-anchoring conventions (`xy`, with `fan` anchored at its cone apex), while exposing intuitive parameters that morph each shape cleanly without manual trigonometry. Watch how corner rounding (`shape_r`), concentric cutouts (`hole_ratio`), axis rotation (`angle`), counterclockwise angular sweeps (`angle_start`..`angle_end`), and annular wall thickness (`width`) reshape each primitive:
 
-```drawlib code=fold align=center file=shapes_basic_parameter_tour.png caption="Parameter & Geometry Tour: Live Morphing of rectangle, circle, ellipse, wedge, fan, and arc (APNG Animation)"
+```drawlib align=center file=shapes_basic_parameter_tour.png caption="Parameter & Geometry Tour: Live Morphing of rectangle, circle, ellipse, wedge, fan, and arc (APNG Animation)"
 from __future__ import annotations
 
 import math
@@ -780,6 +780,10 @@ for a_end, dur in ((170, 0.45), (315, 3.6)):
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/en/02_drawing_primitives/shapes_basic.md" target="_blank" rel="noopener noreferrer">View animation source code on GitHub &rarr;</a>
+</div>
 
 - **Center vs. Apex Anchoring (`xy`)**: `rectangle`, `circle`, `ellipse`, `wedge`, and `arc` center on `xy`, whereas `fan` anchors its cone apex at `xy`.
 - **Corner Filleting (`style.shape_r`)**: Rounds `rectangle` corners uniformly with a scalar `float` or selectively per corner via `(bl, tl, tr, br)`.

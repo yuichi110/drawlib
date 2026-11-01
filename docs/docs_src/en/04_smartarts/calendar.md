@@ -88,7 +88,7 @@ save()
 
 `MonthCalendar`, `WeekCalendar`, and `DayCalendar` build schedule grids from strict ISO 8601 strings (`"YYYY-MM-DD"` for all-day spans and `"YYYY-MM-DD HH:MM"` for timed slots), anchoring by default at the **Bottom-Left `(x, y)`** corner of the calendar frame (or `align="center"` / `"top_left"`). Events added via `.add(...)` automatically wrap across weeks, route between the top All-Day band and hourly grid, split overlapping slots into parallel lanes, and expose mutable `.items[i]` entries:
 
-```drawlib code=fold align=center file=calendar_parameter_tour.png caption="Basic Usage & Parameter Tour: MonthCalendar, WeekCalendar, Multi-Day Span Modes, and DayCalendar Orientations (APNG Animation)"
+```drawlib align=center file=calendar_parameter_tour.png caption="Basic Usage & Parameter Tour: MonthCalendar, WeekCalendar, Multi-Day Span Modes, and DayCalendar Orientations (APNG Animation)"
 from __future__ import annotations
 
 from drawlib.anim import Animation
@@ -888,6 +888,10 @@ for d_idx, (d_mode, dur, code_d, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) in 
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/en/04_smartarts/calendar.md" target="_blank" rel="noopener noreferrer">View animation source code on GitHub &rarr;</a>
+</div>
 
 - **Strict ISO Dates & Anchor (`MonthCalendar`, `xy`, `align`)**: Pass `"YYYY-MM-DD"` dates to `MonthCalendar` (anchored at **Bottom-Left `xy`** by default, or `align="center"` / `"top_left"`) to auto-wrap multi-day spans across weeks and stack overlaps into tracks.
 - **Automatic All-Day vs. Hourly Routing (`WeekCalendar`)**: Date-only strings (`"YYYY-MM-DD"`) automatically open and populate the top All-Day band, while datetime strings (`"YYYY-MM-DD HH:MM"`) render on the hourly grid.

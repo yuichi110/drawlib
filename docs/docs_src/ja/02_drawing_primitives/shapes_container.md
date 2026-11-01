@@ -89,7 +89,7 @@ save()
 
 このカテゴリの全 6 プリミティブは、外接バウンディングボックスの中心座標 `xy` を基準（アンカー）とし、3D 投影・波形・クラウドのローブ・括弧のスパインをすべて厳密に `(width, height)` の内側へ正規化します。マルチプラッタの `disks` や `angle=-90` 回転、3 面自動陰影の `depth_ratio`、`document` の各バリエーションとシート積層、`funnel` のネック比率、正規化された `cloud` ローブ、そして先端位置をスライドできる `brace` が各コンポーネントをどのように変形させるかを確認してみましょう。
 
-```drawlib code=fold align=center file=shapes_container_parameter_tour.png caption="パラメータ＆ジオメトリツアー: cylinder・cube・document・funnel・cloud・brace のライブ変形（APNG アニメーション）"
+```drawlib align=center file=shapes_container_parameter_tour.png caption="パラメータ＆ジオメトリツアー: cylinder・cube・document・funnel・cloud・brace のライブ変形（APNG アニメーション）"
 from __future__ import annotations
 
 from drawlib.anim import Animation
@@ -718,6 +718,10 @@ for sym, tpr, dur, hl in BRACE_STATES:
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/ja/02_drawing_primitives/shapes_container.md" target="_blank" rel="noopener noreferrer">GitHub でアニメーションのソースコードを見る &rarr;</a>
+</div>
 
 - **3D の奥行きとプラッタ段数（`cylinder`, `cube`）**: `cylinder` は `disks` によって円弧状のディスク継ぎ目線を追加し（`angle=-90` で水平キューに回転可能）、`cube` は `depth_ratio` に応じて 3 面の陰影を自動付与します。
 - **ドキュメント形状とシート積層（`document`）**: 波状の底辺や暗色化された右上の角折れフラップ（`"wave"`, `"folded"`, `"folded_wave"`）を組み合わせ、`stacked > 1` では明度を上げた背面シートをカスケード積層します。

@@ -63,7 +63,7 @@ save()
 
 `PieChart` は `.add_slice(...)` で構成比に応じた扇形（スライス）を登録し、デフォルトでコンテナボックスの**左下 `(x, y)`** を基準にアンカーします（`align="center"` を指定すると円の中心に直接ピン留めされます）。通常の円グラフから中空のドーナツリング（`hole_ratio`、`center_text`）への変更、注目スライスの放射状切り出し（`explode`）、狭小な `4%` 未満のスライスにおけるインラインラベルの自動抑止、さらに角度スイープ（`draw_ratio`）や全体比率を保った表示切り替え（`show=False`）に対応しています。
 
-```drawlib code=fold align=center file=pie_parameter_tour.png caption="基本的な使い方とパラメータツアー：スライスとアンカー、ドーナツ中央 KPI、切り出しと 4% 未満ルール、スイープと中央配置（APNG アニメーション）"
+```drawlib align=center file=pie_parameter_tour.png caption="基本的な使い方とパラメータツアー：スライスとアンカー、ドーナツ中央 KPI、切り出しと 4% 未満ルール、スイープと中央配置（APNG アニメーション）"
 from __future__ import annotations
 
 import math
@@ -1043,6 +1043,10 @@ for p4_idx, (p4_mode, dur, code_4, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) i
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/ja/05_charts/pie.md" target="_blank" rel="noopener noreferrer">GitHub でアニメーションのソースコードを見る &rarr;</a>
+</div>
 
 - **スライス登録・アンカー・凡例（`xy`, `add_slice`, `draw_legend`）**: `.add_slice(name, value, style=...)` で比例扇形を登録し、インラインのパーセンテージバッジ（`value_text_style`、`value_format`）を描画し、`chart.draw(xy=...)`（デフォルトは `align="bottom_left"`）と `chart.draw_legend(...)` を組み合わせます。
 - **塗りつぶし円グラフとドーナツ中央 KPI（`hole_ratio`, `center_text`）**: 扇形全体を描画する場合は `hole_ratio=0.0` のままにし、複数行の `center_text` + `center_text_style` による KPI バッジを配置するドーナツリングを開くには `hole_ratio` を `(0.0, 0.9]`（通常は `0.5`〜`0.7`）に設定します。

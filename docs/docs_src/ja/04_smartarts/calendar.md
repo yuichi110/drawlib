@@ -88,7 +88,7 @@ save()
 
 `MonthCalendar`、`WeekCalendar`、`DayCalendar` は、厳格な ISO 8601 文字列（全日スパンには `"YYYY-MM-DD"`、時間指定スロットには `"YYYY-MM-DD HH:MM"`）からスケジュールグリッドを構築し、デフォルトでカレンダーフレームの**左下 `(x, y)`** をアンカーとして配置します（`align="center"` / `"top_left"` も指定可能）。`.add(...)` で追加されたイベントは、週をまたぐ自動折り返し、上部全日帯と時間割グリッドへの自動振り分け、重複する時間帯スロットの並列レーン分割を行い、変更可能な `.items[i]` エントリとして公開されます。
 
-```drawlib code=fold align=center file=calendar_parameter_tour.png caption="基本的な使い方とパラメータツアー: MonthCalendar・WeekCalendar・複数日スパンモード・DayCalendar の向き（APNG アニメーション）"
+```drawlib align=center file=calendar_parameter_tour.png caption="基本的な使い方とパラメータツアー: MonthCalendar・WeekCalendar・複数日スパンモード・DayCalendar の向き（APNG アニメーション）"
 from __future__ import annotations
 
 from drawlib.anim import Animation
@@ -888,6 +888,10 @@ for d_idx, (d_mode, dur, code_d, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) in 
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/ja/04_smartarts/calendar.md" target="_blank" rel="noopener noreferrer">GitHub でアニメーションのソースコードを見る &rarr;</a>
+</div>
 
 - **厳格な ISO 日付とアンカー（`MonthCalendar`, `xy`, `align`）**: `MonthCalendar`（デフォルトは**左下 `xy`** アンカー、`align="center"` / `"top_left"` も指定可）に `"YYYY-MM-DD"` 形式の日付を渡すことで、週をまたぐ複数日スパンの自動折り返しや重複予定のトラック積み上げを行えます。
 - **全日フィールドと時間割グリッドの自動振り分け（`WeekCalendar`）**: 日付のみの文字列（`"YYYY-MM-DD"`）は上部の全日（All-Day）帯を自動的に開いて配置され、日時文字列（`"YYYY-MM-DD HH:MM"`）は時間割グリッド上に描画されます。

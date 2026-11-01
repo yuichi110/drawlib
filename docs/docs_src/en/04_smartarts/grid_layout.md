@@ -71,7 +71,7 @@ save()
 
 `GridLayout` arranges cards across a zero-indexed **Bottom-Up `(col, row)`** matrix anchored by default at the **Bottom-Left `(x, y)`** corner (`align="bottom_left"`) or centered via `align="center"`. Cells added with `.add((col, row), width, height, ...)` can span multiple columns and rows, render inside an `outer_style` container with equal or `draw_flexible(...)` proportions, and toggle `.items[i].show = False` without shifting sibling coordinates:
 
-```drawlib code=fold align=center file=grid_layout_parameter_tour.png caption="Basic Usage & Parameter Tour: Bottom-Up Matrix Indexing, Multi-Cell Spanning, Flexible Proportions, and Visibility (APNG Animation)"
+```drawlib align=center file=grid_layout_parameter_tour.png caption="Basic Usage & Parameter Tour: Bottom-Up Matrix Indexing, Multi-Cell Spanning, Flexible Proportions, and Visibility (APNG Animation)"
 from __future__ import annotations
 
 from collections.abc import Callable
@@ -952,6 +952,10 @@ for h_idx, (h_mode, dur, code_h, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) in 
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/en/04_smartarts/grid_layout.md" target="_blank" rel="noopener noreferrer">View animation source code on GitHub &rarr;</a>
+</div>
 
 - **Bottom-Up `(col, row)` Matrix (`xy`, `num_column`, `num_row`)**: Anchor at **Bottom-Left `xy`** by default (`align="bottom_left"`), where `col = 0` starts at the left edge (`+X` rightward) and `row = 0` starts at the bottom edge (`+Y` upward).
 - **Multi-Cell Spanning (`.add((col, row), width, height)`)**: Merge `width` columns rightward and `height` rows upward seamlessly across internal gutters to compose banner headers, sidebars, and multi-slot cores.

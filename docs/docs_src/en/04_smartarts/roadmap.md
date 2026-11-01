@@ -96,7 +96,7 @@ save()
 
 `Roadmap` builds chronological timelines and milestone agendas step-by-step via `.add(text, description, badge_text=..., icon=...)`, anchoring by default at the **Bottom-Left `(x, y)`** corner of the overall `(width, height)` bounding box (or its center via `align="center"`). You can bend vertical spines into smooth Bezier arcs (`curve_bend`, `card_shape="pill"`), switch to `direction="horizontal"` with `alternating=True`, and spotlight or hide individual `.items[i]` milestones in place without shifting remaining entries:
 
-```drawlib code=fold align=center file=roadmap_parameter_tour.png caption="Basic Usage & Parameter Tour: Spine & Milestones, Bezier Curve & Pill Cards, Horizontal Alternating Layout, and Focus & Center Alignment (APNG Animation)"
+```drawlib align=center file=roadmap_parameter_tour.png caption="Basic Usage & Parameter Tour: Spine & Milestones, Bezier Curve & Pill Cards, Horizontal Alternating Layout, and Focus & Center Alignment (APNG Animation)"
 from __future__ import annotations
 
 from drawlib.anim import Animation
@@ -924,6 +924,10 @@ for f_idx, (f_mode, dur, code_f, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) in 
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/en/04_smartarts/roadmap.md" target="_blank" rel="noopener noreferrer">View animation source code on GitHub &rarr;</a>
+</div>
 
 - **Spine & Milestone Construction (`.add()`, `xy`)**: Append milestones in order with `text`, `description`, `badge_text`, and optional `icon`, then render inside `(width, height)` anchored at **Bottom-Left `xy`** by default.
 - **Bezier Curve & Card Shape (`curve_bend`, `card_shape`)**: Keep `curve_bend=0.0` for a straight arrow spine with `"rounded_rect"` cards, or pass `curve_bend` in `[-0.5, 0.5]` with `card_shape="pill"` for smooth quadratic Bezier agendas.

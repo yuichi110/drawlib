@@ -65,7 +65,7 @@ save()
 
 `BoxList` constructs contiguous zero-gap sequences of rectangular cells step-by-step via `.add(...)`, anchoring by default at the **Bottom-Left `(x, y)`** corner of the overall multi-box bounding box (or its center via `align="center"`). You can orient sequences across all four axis directions (`"left"`, `"right"`, `"bottom"`, `"top"`), rely on automatic two-pass Z-ordering so custom focal borders cleanly overlay shared neighbor edges, and hide or scale `.items[i]` cells in place without shifting sibling slots:
 
-```drawlib code=fold align=center file=box_list_parameter_tour.png caption="Basic Usage & Parameter Tour: Contiguous Construction, 4 Layout Directions, Two-Pass Border Z-Order, and Slot-Preserving Hide & Center Alignment (APNG Animation)"
+```drawlib align=center file=box_list_parameter_tour.png caption="Basic Usage & Parameter Tour: Contiguous Construction, 4 Layout Directions, Two-Pass Border Z-Order, and Slot-Preserving Hide & Center Alignment (APNG Animation)"
 from __future__ import annotations
 
 from drawlib.anim import Animation
@@ -934,6 +934,10 @@ for a_idx, (a_mode, dur, code_a, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) in 
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/en/04_smartarts/box_list.md" target="_blank" rel="noopener noreferrer">View animation source code on GitHub &rarr;</a>
+</div>
 
 - **Contiguous Construction & Anchor (`.add()`, `xy`)**: Append boxes in order to build zero-gap sequences of exact `N * box_width` span, anchored at **Bottom-Left `xy`** by default.
 - **Four Axis Directions (`direction`)**: Flow horizontally via `"left"` (`+X`, default) or `"right"` (`-X`), or stack vertically via `"bottom"` (`+Y` upward) or `"top"` (`-Y` downward).

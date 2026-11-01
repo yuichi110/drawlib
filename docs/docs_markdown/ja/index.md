@@ -11,7 +11,7 @@ Drawlib は、**「Illustration as Code（コードとしての図解）」** �
 
 
 
-<div style="text-align: center; margin-top: -1.25rem; margin-bottom: 2rem; font-size: 0.88rem;">
+<div class="drawlib-source-link">
   <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/ja/index.md" target="_blank" rel="noopener noreferrer">GitHub でアニメーションのソースコードを見る &rarr;</a>
 </div>
 

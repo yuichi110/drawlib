@@ -79,7 +79,7 @@ save()
 
 `HeatmapChart` constructs categorical 2D grid matrices via `.add_row(...)` and `.set_cell(...)` anchored by default at the **Bottom-Left `(x, y)`** corner, automatically switching cell labels between dark and white (`auto_contrast_text=True`) across interpolated `Style` color stops. Complementing matrix grids, `HeatmapOverlay` projects `"smooth"` 2D Gaussian thermal fields or `"contour"` concentric vector isoline rings directly over existing diagrams and canvas coordinates (`add_spot(...)`), pairing with decoupled `.draw_colorbar(...)` scales and `"bottom_left"` or `"center"` alignment:
 
-```drawlib code=fold align=center file=heatmap_parameter_tour.png caption="Basic Usage & Parameter Tour: HeatmapChart 2D Matrices, Cell Overrides, and HeatmapOverlay Thermal & Contour Hotspots (APNG Animation)"
+```drawlib align=center file=heatmap_parameter_tour.png caption="Basic Usage & Parameter Tour: HeatmapChart 2D Matrices, Cell Overrides, and HeatmapOverlay Thermal & Contour Hotspots (APNG Animation)"
 from __future__ import annotations
 
 from drawlib.anim import Animation
@@ -939,6 +939,10 @@ for k_idx, (k_mode, dur, code_k, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) in 
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/en/05_charts/heatmap.md" target="_blank" rel="noopener noreferrer">View animation source code on GitHub &rarr;</a>
+</div>
 
 - **`HeatmapChart` vs. `HeatmapOverlay` Roles**: Use `HeatmapChart` for tabular 2D categorical matrices (`x_categories` × `y_categories`), and use `HeatmapOverlay` to project spatial thermal hotspots (`add_spot(xy_or_node, value, radius)`) directly over existing diagrams (`ClassDiagram`, `ArchitectureDiagram`, `GeoMap`, or custom cards).
 - **Style Color-Stop Interpolation & Colorbars (`styles`, `draw_colorbar`)**: Both classes interpolate colors across `styles=[Style, ...]` (or `min_style` / `max_style`) and expose decoupled `.draw_colorbar(xy, text_style, length=...)` and `.draw_legend(...)` helpers; `HeatmapChart` also auto-flips dark/light cell labels when `auto_contrast_text=True`.

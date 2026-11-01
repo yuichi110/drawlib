@@ -61,7 +61,7 @@ save()
 
 `StateDiagram` places states (`State`) and UML pseudo-states (`InitialState`, `FinalState`, `ChoiceState`, `ForkJoinState`) by their **Center `(cx, cy)`** coordinates inside a container anchored at **Bottom-Left `(x0, y0)`** (or `align="center"`). `State` cards support automatic UML action compartments (`entry`, `do`, `exit`, `.add_action()`), while `sd.connect(...)` formats `event [guard] / action` labels, curved `bend` arcs, and self-transition loops:
 
-```drawlib code=fold align=center file=state_diagram_parameter_tour.png caption="Basic Usage & Parameter Tour: State Anchors & Compartments, Transitions & Curved Arcs, Shapes & Pseudo-States, and Visibility & Center Align (APNG Animation)"
+```drawlib align=center file=state_diagram_parameter_tour.png caption="Basic Usage & Parameter Tour: State Anchors & Compartments, Transitions & Curved Arcs, Shapes & Pseudo-States, and Visibility & Center Align (APNG Animation)"
 from __future__ import annotations
 
 from drawlib.anim import Animation
@@ -1042,6 +1042,10 @@ for p4_idx, (p4_mode, dur, code_4, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) i
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/en/06_diagrams/state_diagram.md" target="_blank" rel="noopener noreferrer">View animation source code on GitHub &rarr;</a>
+</div>
 
 - **5 State Shapes & Center Placement (`State`, `xy=(cx, cy)`)**: States register by center `(cx, cy)` inside `sd.draw(xy)` and support `"box"` (rounded card), `"ellipse"`, `"circle"`, `"double_circle"` (FSM accepting state), and `"text_only"`.
 - **UML Action Compartments (`entry`, `do`, `exit`, `.add_action()`)**: Box states with internal triggers automatically draw a header divider and expand vertically to list `entry / ...`, `do / ...`, `exit / ...`, and custom `.add_action(kind, action)` rows.

@@ -65,7 +65,7 @@ save()
 
 `BoxList` は `.add(...)` によって隙間なく連続する矩形セル列を構築し、デフォルトで複数ボックス全体のバウンディングボックスの**左下角 `(x, y)`**（`align="center"` の場合は中央）を基準に配置します。4 つの軸方向（`"left"`, `"right"`, `"bottom"`, `"top"`）への展開、カスタム強調枠が隣接エッジ上にきれいに重なる自動 2 パス Z オーダー描画、および他のスロット位置をずらさない `.items[i]` の非表示化やスケーリングに対応しています。
 
-```drawlib code=fold align=center file=box_list_parameter_tour.png caption="基本的な使い方とパラメータツアー: 連続セル構築、4 つの配置方向、2 パス枠線 Z オーダー、スロット維持の非表示化と中央配置（APNG アニメーション）"
+```drawlib align=center file=box_list_parameter_tour.png caption="基本的な使い方とパラメータツアー: 連続セル構築、4 つの配置方向、2 パス枠線 Z オーダー、スロット維持の非表示化と中央配置（APNG アニメーション）"
 from __future__ import annotations
 
 from drawlib.anim import Animation
@@ -934,6 +934,10 @@ for a_idx, (a_mode, dur, code_a, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) in 
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/ja/04_smartarts/box_list.md" target="_blank" rel="noopener noreferrer">GitHub でアニメーションのソースコードを見る &rarr;</a>
+</div>
 
 - **隙間なしの連続構築とアンカー（`.add()`, `xy`）**: ボックスを順に追加することで、デフォルトで**左下 `xy`** を基準とする正確な `N * box_width` 幅の隙間なしシーケンスを構築します。
 - **4 つの軸方向（`direction`）**: `"left"`（`+X`、デフォルト）または `"right"`（`-X`）による水平フロー、および `"bottom"`（上方向 `+Y`）または `"top"`（下方向 `-Y`）による垂直スタックに対応します。

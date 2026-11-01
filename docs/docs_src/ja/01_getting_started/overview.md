@@ -4,7 +4,7 @@
 
 Drawlib は **「Illustration as Code（コードとしての図解）」** と **「Illustrated Documentation as Code（コードとしての図解ドキュメント）」** によってこの分断を解消し、Python コード・図版・マルチフォーマットのドキュメント出力を単一の Git リポジトリ内で常に同期させます。
 
-```drawlib code=fold align=center file=overview_paradigm_shift.png caption="従来のワークフローと Drawlib ワークフローの比較（APNG アニメーション）"
+```drawlib align=center file=overview_paradigm_shift.png caption="従来のワークフローと Drawlib ワークフローの比較（APNG アニメーション）"
 from __future__ import annotations
 
 import os
@@ -247,6 +247,10 @@ with anim.frame(duration=3.20):
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/ja/01_getting_started/overview.md" target="_blank" rel="noopener noreferrer">GitHub でアニメーションのソースコードを見る &rarr;</a>
+</div>
 
 ---
 

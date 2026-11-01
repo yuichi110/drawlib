@@ -45,7 +45,7 @@ save()
 
 `SourceCode.draw(...)` (or `sourcecode(...)`) statelessly renders Pygments-tokenized code blocks anchored by default at **Top-Left `xy=(x, y)`** (`align="top_left"`, spanning `width` rightward along `+X` and auto-computing container height downward along `-Y` from line count and `text_size`). Use `SourceCodeStyles.get(...)` and `.patch(...)` to switch built-in themes (`"default"`, `"google"`, `"dark"`, `"monochrome"`), highlight 20+ languages, toggle line-number gutters (`show_linenum`), or switch anchor alignment (`"bottom_left"`, `"center"`):
 
-```drawlib code=fold align=center file=source_code_parameter_tour.png caption="Basic Usage & Parameter Tour: Stateless Top-Left Draw, Built-In Themes, Lexers & .patch(), and Anchor Alignment & Line Callouts (APNG Animation)"
+```drawlib align=center file=source_code_parameter_tour.png caption="Basic Usage & Parameter Tour: Stateless Top-Left Draw, Built-In Themes, Lexers & .patch(), and Anchor Alignment & Line Callouts (APNG Animation)"
 from __future__ import annotations
 
 from drawlib.anim import Animation
@@ -1029,6 +1029,10 @@ with anim.frame(duration=3.5):
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/en/04_smartarts/source_code.md" target="_blank" rel="noopener noreferrer">View animation source code on GitHub &rarr;</a>
+</div>
 
 - **Stateless Top-Left Rendering (`SourceCode.draw` / `sourcecode`)**: Draws directly from `code` or `file` without instance state, pinning `xy` at Top-Left by default while computing height downward along `-Y` and reserving gutter space when `show_linenum=True`.
 - **Built-In Themes & CJK Fonts (`SourceCodeStyles.get`)**: Selects `"default"`, `"google"`, `"dark"`, or `"monochrome"` presets at any `text_size`, automatically switching to CJK-safe monospace fonts when `font_lang` is `"ja"`, `"zh-cn"`, `"zh-tw"`, or `"ko"`.

@@ -96,7 +96,7 @@ save()
 
 `drawlib init site` による初期スキャフォールディングと `navbar.md` サイドバーの構築から、`-g` グリッド検証、ヘッドレスのリンク検証（`drawlib serve --check`）、そして `.drawlib/cache.db` を活用した Day-2 の差分ページ追加までの流れを確認しましょう。
 
-```drawlib code=fold align=center file=project_site_workflow_tour.png caption="マルチページ Web サイトプロジェクトのライフサイクル: スキャフォールディング、ナビゲーションとページ作成、リンク監査、Day-2 ページ追加 (APNG アニメーション)"
+```drawlib align=center file=project_site_workflow_tour.png caption="マルチページ Web サイトプロジェクトのライフサイクル: スキャフォールディング、ナビゲーションとページ作成、リンク監査、Day-2 ページ追加 (APNG アニメーション)"
 from __future__ import annotations
 
 from drawlib.anim import Animation
@@ -843,6 +843,10 @@ with anim.frame(duration=3.3):
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/ja/09_doc_builder_and_cli/project_site.md" target="_blank" rel="noopener noreferrer">GitHub でアニメーションのソースコードを見る &rarr;</a>
+</div>
 
 ---
 

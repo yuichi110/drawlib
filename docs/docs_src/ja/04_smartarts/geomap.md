@@ -45,7 +45,7 @@ for label, pt, dy in [
 
 `GeoMap` は、世界・大陸・国・都市のベクタープリセット（`GeoMap.World.*`、`GeoMap.Countries.*`、`GeoMap.Cities.*`）またはカスタム GeoJSON ファイルをキャンバス上に直接描画します。デフォルトでは指定ボックスの**左下 `(x, y)`** をアンカーとし、`align="center"` を指定すると中央基準で配置します。`set_area_styles()` による特定地域のハイライトや抽出、`lon_range` と `lat_range` によるビューポートの切り抜きに加え、`.draw()` の実行後に `get_area_xy()` や `lonlat_to_xy()` を使って投影後のキャンバス座標を取得できます。
 
-```drawlib code=fold align=center file=geomap_parameter_tour.png caption="基本的な使い方とパラメータツアー: マッププリセット・エリアスタイル・ビューポート切り抜き・座標ピン（APNG アニメーション）"
+```drawlib align=center file=geomap_parameter_tour.png caption="基本的な使い方とパラメータツアー: マッププリセット・エリアスタイル・ビューポート切り抜き・座標ピン（APNG アニメーション）"
 from __future__ import annotations
 
 from drawlib.anim import Animation
@@ -832,6 +832,10 @@ for pin_idx, (p_mode, dur, code_pin, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2)
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/ja/04_smartarts/geomap.md" target="_blank" rel="noopener noreferrer">GitHub でアニメーションのソースコードを見る &rarr;</a>
+</div>
 
 - **プリセットとアンカー（`xy`, `align`）**: `GeoMap.World.*`、`GeoMap.Countries.*`、`GeoMap.Cities.*`、または `.geojson` パスを渡し、デフォルトの**左下 `xy`** アンカー（または `align="center"` による中央基準）で `width × height` の領域内に描画します。
 - **エリア別スタイルと自動フィット（`set_area_styles`, `Styles.Transparent`）**: 英語名・ISO コード・日本語エイリアスで特定の地域をハイライトできます。`area_style=Styles.Transparent` を渡すと、`.draw()` が未指定エリアを非表示にし、表示対象エリアの境界に合わせて自動フィットします。

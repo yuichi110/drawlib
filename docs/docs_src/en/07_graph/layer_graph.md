@@ -74,7 +74,7 @@ save()
 
 `LayerGraph` separates **topological rank solving** from rendering: declare directed edges (`g.edge(src, dst)`), optional explicit rank pins (`layer=...` or `g.tier(...)`), and stage containers (`g.cluster(...)`), then call `layout = g.get_layout()` to obtain overlap-free node centers (`layout[id].xy`), routed edge polylines (`e.points`), and cluster bounds (`layout.clusters[cid]`). Render the solved coordinates directly with primitives or pass `layout[id].xy` into [`FlowDiagram`](../06_diagrams/flow.md) and fine-tune individual branches via `layout.offset()`:
 
-```drawlib code=fold align=center file=layer_graph_parameter_tour.png caption="Basic Usage & Parameter Tour: Sugiyama Ranked DAG Growth, Explicit Layer Pinning & Clusters, Direction & Edge Routing, and FlowDiagram Rendering (APNG Animation)"
+```drawlib align=center file=layer_graph_parameter_tour.png caption="Basic Usage & Parameter Tour: Sugiyama Ranked DAG Growth, Explicit Layer Pinning & Clusters, Direction & Edge Routing, and FlowDiagram Rendering (APNG Animation)"
 from __future__ import annotations
 
 from drawlib.anim import Animation
@@ -1019,6 +1019,10 @@ for p4_idx, (m4, dur, code_4, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) in enu
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/en/07_graph/layer_graph.md" target="_blank" rel="noopener noreferrer">View animation source code on GitHub &rarr;</a>
+</div>
 
 - **Automatic Sugiyama Ranking & Crossing Minimization**: `LayerGraph` assigns topological ranks (`0, 1, 2, ...`) via longest incoming dependency path and orders sibling nodes with barycenter heuristics so fan-out and many-to-one DAG joins stay clean.
 - **Explicit Rank Pinning & Stage Clusters**: Lock specific nodes or parallel stages into exact ranks via `g.node(id, layer=...)` and `g.tier(name, nodes, layer=...)`, and compute stage container boxes via `g.cluster(id, nodes, padding=..., header_height=...)`.

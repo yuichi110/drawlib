@@ -132,7 +132,7 @@ save()
 
 `Cycle` は `.add(...)` で円周上のステップを等間隔に配置し、デフォルトでは**軌道中心 `xy=(cx, cy)`**（`align="center"`、任意の `.set_center(...)` 中央ハブ付き）を基準とし、`align="bottom_left"` 指定時は外接バウンディングボックスの左下角を基準にします。回転方向と開始角度（`clockwise`, `start_angle`）の制御、円形ノードと長方形カードおよび `inside`／`outside` 説明配置の切り替え、矢印の配色カスタマイズ、さらに他のステップの軌道角度を維持したまま `.items[i]` を非表示化する操作が可能です。
 
-```drawlib code=fold align=center file=cycle_parameter_tour.png caption="基本的な使い方とパラメータツアー: 軌道中心と中央ハブ、回転方向・角度、ノード形状・ラベル配置、ライブ表示制御（APNG アニメーション）"
+```drawlib align=center file=cycle_parameter_tour.png caption="基本的な使い方とパラメータツアー: 軌道中心と中央ハブ、回転方向・角度、ノード形状・ラベル配置、ライブ表示制御（APNG アニメーション）"
 from __future__ import annotations
 
 import math
@@ -965,6 +965,10 @@ for p4_idx, (p4_mode, dur, code_p4, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) 
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/ja/04_smartarts/cycle.md" target="_blank" rel="noopener noreferrer">GitHub でアニメーションのソースコードを見る &rarr;</a>
+</div>
 
 - **軌道中心アンカーと中央ハブ (`xy`, `align="center"`, `.set_center()`)**: `xy=(cx, cy)`（デフォルト `align="center"`）の周囲に `.add(text, description=..., style=...)` で円周ステップを追加し、必要に応じて `.set_center(...)` で中央ハブ円を配置します。
 - **回転方向と開始角度 (`clockwise`, `start_angle`)**: デフォルトの `clockwise=True, start_angle=90.0` では第 1 ステップを 12 時方向に配置して時計回りに進みます。`start_angle`（例: `180.0`）の変更や、`clockwise=False` による反時計回りループへの切り替えが可能です。

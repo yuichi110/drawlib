@@ -67,7 +67,7 @@ save()
 
 `ChevronProcess` constructs sequential interlocking pipelines step-by-step via `.add(...)`, anchoring by default at the **Bottom-Left `(x, y)`** corner of the overall process bounding box (or its center when `align="center"`). You can customize start-edge and arrowhead tip geometry (`flat_left_end`, `corner_angle`, `spacing`), switch between auto-divided `width` and fixed per-stage `item_width`, and mutate or hide individual `.items[i]` stages in place without shifting sibling coordinates:
 
-```drawlib code=fold align=center file=chevron_process_parameter_tour.png caption="Basic Usage & Parameter Tour: Step-by-Step Construction, Tip Geometry, Sizing, and Live Item Mutation (APNG Animation)"
+```drawlib align=center file=chevron_process_parameter_tour.png caption="Basic Usage & Parameter Tour: Step-by-Step Construction, Tip Geometry, Sizing, and Live Item Mutation (APNG Animation)"
 from __future__ import annotations
 
 import math
@@ -976,6 +976,10 @@ for m_idx, (m_mode, dur, code_m, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) in 
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/en/04_smartarts/chevron_process.md" target="_blank" rel="noopener noreferrer">View animation source code on GitHub &rarr;</a>
+</div>
 
 - **Step-by-Step Construction & Anchor (`xy`, `align`)**: Append stages in sequence via `.add(text, description=..., style=...)` and render at `xy=(x, y)`—anchored at the **Bottom-Left** bounding-box corner by default (`align="bottom_left"`) or centered via `align="center"`.
 - **Start Edge & Tip Geometry (`flat_left_end`, `corner_angle`, `spacing`)**: Set `flat_left_end=True` for a clean vertical left border on Stage 1 (or `False` for a classic indented notch), and tune `corner_angle` (`10.0°`–`80.0°`) and `spacing` to control arrowhead depth and inter-stage gaps.

@@ -79,7 +79,7 @@ save()
 
 `HeatmapChart` は `.add_row(...)` や `.set_cell(...)` でカテゴリ型の 2D グリッドマトリクスを構築し、デフォルトで**左下 `(x, y)`** を基準にアンカーします。補間された `Style` カラーストップの明度に応じてセルラベルの文字色を濃色・白色へ自動切り替え（`auto_contrast_text=True`）できるのが特徴です。一方、マトリクスグリッドを補完する `HeatmapOverlay` は、既存のダイアグラムやキャンバス座標（`add_spot(...)`）の上に `"smooth"`（2D ガウス熱分布フィールド）または `"contour"`（同心ベクター等高線リング）を直接投影し、分離配置型の `.draw_colorbar(...)` スケールや `"bottom_left"`／`"center"` 配置と柔軟に組み合わせられます。
 
-```drawlib code=fold align=center file=heatmap_parameter_tour.png caption="基本的な使い方とパラメータツアー：HeatmapChart の 2D マトリクス、セル個別設定、HeatmapOverlay の熱分布と等高線ホットスポット（APNG アニメーション）"
+```drawlib align=center file=heatmap_parameter_tour.png caption="基本的な使い方とパラメータツアー：HeatmapChart の 2D マトリクス、セル個別設定、HeatmapOverlay の熱分布と等高線ホットスポット（APNG アニメーション）"
 from __future__ import annotations
 
 from drawlib.anim import Animation
@@ -939,6 +939,10 @@ for k_idx, (k_mode, dur, code_k, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) in 
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/ja/05_charts/heatmap.md" target="_blank" rel="noopener noreferrer">GitHub でアニメーションのソースコードを見る &rarr;</a>
+</div>
 
 - **`HeatmapChart` と `HeatmapOverlay` の役割分担**: 表形式の 2D カテゴリマトリクス（`x_categories` × `y_categories`）には `HeatmapChart` を使用し、既存の図（`ClassDiagram`、`ArchitectureDiagram`、`GeoMap`、またはカスタムカード）の上に空間的なサーマルホットスポット（`add_spot(xy_or_node, value, radius)`）を投影する場合には `HeatmapOverlay` を使用します。
 - **スタイルのカラーストップ補間とカラーバー（`styles`, `draw_colorbar`）**: 両クラスとも `styles=[Style, ...]`（または `min_style` / `max_style`）に沿って色を補間し、分離配置可能な `.draw_colorbar(xy, text_style, length=...)` と `.draw_legend(...)` ヘルパーを備えています。さらに `HeatmapChart` では、`auto_contrast_text=True` の際にセル背景の明暗に応じて暗色／明色ラベルを自動反転します。

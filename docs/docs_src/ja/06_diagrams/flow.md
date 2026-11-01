@@ -64,7 +64,7 @@ save()
 
 `FlowDiagram` は、ISO 5807 準拠の記号ノード（`Start`、`Data`、`Process`、`Decision`、`End`）を**図形の中心 `(cx, cy)`** で配置する一方、`flow.draw(xy)` はコンテナの**左下 `(x0, y0)`** 角（または `align="center"` 指定時は中央）を基準に配置します。明示的な側面ポート（`start_side`、`end_side`）、`flow.junction()` によるループバック、`.fork()` によるファンアウトバスを使って条件分岐を配線できるほか、単一の統一座標平面上に部門横断の `"vertical"`（垂直列）や `"horizontal"`（水平行）スイムレーン（`add_lane`）を重ねて描画できます。
 
-```drawlib code=fold align=center file=flow_parameter_tour.png caption="基本的な使い方とパラメータツアー: ISO 記号のアンカー、条件分岐ポートとジャンクション、部門横断スイムレーン、表示制御と中央配置 (APNG アニメーション)"
+```drawlib align=center file=flow_parameter_tour.png caption="基本的な使い方とパラメータツアー: ISO 記号のアンカー、条件分岐ポートとジャンクション、部門横断スイムレーン、表示制御と中央配置 (APNG アニメーション)"
 from __future__ import annotations
 
 from drawlib.anim import Animation
@@ -1012,6 +1012,10 @@ for p4_idx, (mode_4, dur, code_4, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) in
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/ja/06_diagrams/flow.md" target="_blank" rel="noopener noreferrer">GitHub でアニメーションのソースコードを見る &rarr;</a>
+</div>
 
 - **中心基準の ISO 記号と左下基準のコンテナ (`add`, `draw`)**: `flow.add(node, xy)` は `Start`、`Data`、`Process`、`Decision`、`End` を図形の中心 `(cx, cy)` で配置する一方、`flow.draw(xy)` はコンテナの左下角 `(x0, y0)` を基準に配置します。
 - **明示的な側面ポート・`Junction` ループバック・`.fork()`**: `start_side` / `end_side`（`"left"`、`"right"`、`"top"`、`"bottom"`、`"auto"`）による分岐接続位置の制御、`flow.junction(xy)` を使った整然としたリトライループ、または `node.fork(targets, at_x=..., at_y=...)` による 1 対 N 分岐を行えます。

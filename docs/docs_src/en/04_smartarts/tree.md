@@ -90,7 +90,7 @@ save()
 
 `TreeNode` builds hierarchical directory and taxonomy trees anchored at **Top-Left `xy=(x, y)`** (the root label's left edge and vertical center), automatically stepping child levels `+2 * line_horizontal_margin` rightward and `-line_vertical_margin` downward with orthogonal branch connectors. Style and spacing overrides on any intermediate node cascade to its subtree, while `register_drawing_item` attaches `"before"` icons or `"after"` status badges and `show` / `scale` control visibility and proportional sizing:
 
-```drawlib code=fold align=center file=tree_parameter_tour.png caption="Basic Usage & Parameter Tour: Top-Left Anchor, Connector Margins & Cascading, Icons & Badges, and Visibility & Scaling (APNG Animation)"
+```drawlib align=center file=tree_parameter_tour.png caption="Basic Usage & Parameter Tour: Top-Left Anchor, Connector Margins & Cascading, Icons & Badges, and Visibility & Scaling (APNG Animation)"
 from __future__ import annotations
 
 from drawlib.anim import Animation
@@ -1021,6 +1021,10 @@ for idx_p4, (sh_routes, sc_val, dur, hl_rng, c_lines, badge, foot, s_t, s_1, s_2
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/en/04_smartarts/tree.md" target="_blank" rel="noopener noreferrer">View animation source code on GitHub &rarr;</a>
+</div>
 
 - **Top-Left Anchor & Imperative `.add()` (`xy`, `add`)**: Pins the root label's left edge and vertical center at `xy=(x, y)`, stepping child levels `+2 * line_horizontal_margin` rightward and `-line_vertical_margin` downward.
 - **Connector Margins & Cascading Overrides**: Tunes trunk offset (`line_horizontal_margin`), horizontal tick span (`line_horizontal_length`), and row step (`line_vertical_margin`), cascading any intermediate node's overrides to its descendants.

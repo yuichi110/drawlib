@@ -2,7 +2,7 @@
 
 Drawlib v0.3 is engineered from the ground up for **autonomous AI coding agents** (such as Claude Code, Cursor, Gemini, and GitHub Copilot). Instead of requiring human engineers to manually craft technical specifications and draw architecture diagrams, Drawlib makes it possible to delegate the **entire documentation lifecycle** to AI agents.
 
-```drawlib code=fold align=center file=agent_collaboration_model.png caption="Autonomous AI Documentation Lifecycle: Repo & Rules Lookup, Markdown Authoring & Inner/Outer Loops (APNG Animation)"
+```drawlib align=center file=agent_collaboration_model.png caption="Autonomous AI Documentation Lifecycle: Repo & Rules Lookup, Markdown Authoring & Inner/Outer Loops (APNG Animation)"
 from __future__ import annotations
 
 from drawlib.anim import Animation
@@ -1085,6 +1085,10 @@ add_scene_7_user_approval(anim)
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/en/01_getting_started/agent_quicklook.md" target="_blank" rel="noopener noreferrer">View animation source code on GitHub &rarr;</a>
+</div>
 
 ---
 

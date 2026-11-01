@@ -83,7 +83,7 @@ save()
 
 `MindMapNode` は**ルート中央 `xy=(cx, cy)`** をアンカーとして放射状マインドマップや多方向階層図を描画し、2 パスのレイアウト計算でサブツリーの外接サイズを自動計測したうえで、`line_length / 2` の位置で直交フォーク接続線をルーティングします。ブランチは `"right"`・`"left"`・`"bottom"`・`"top"` を自由に組み合わせて展開でき、`"rectangle"`・`"ellipse"`・枠線なし自動サイズ調整の `"none"` 形状の混在や、`xy_shift`・`show`・`scale` による位置微調整とアニメーション制御が可能です。
 
-```drawlib code=fold align=center file=mindmap_parameter_tour.png caption="基本的な使い方とパラメータツアー: ルート中央アンカー、多方向ブランチ展開、ノード形状と余白、位置シフト・表示制御・スケーリング（APNG アニメーション）"
+```drawlib align=center file=mindmap_parameter_tour.png caption="基本的な使い方とパラメータツアー: ルート中央アンカー、多方向ブランチ展開、ノード形状と余白、位置シフト・表示制御・スケーリング（APNG アニメーション）"
 from __future__ import annotations
 
 from drawlib.anim import Animation
@@ -1000,6 +1000,10 @@ for idx_p4, (p4_mode, dur, hl_rng, c_lines, badge, foot, s_t, s_1, s_2) in enume
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/ja/04_smartarts/mindmap.md" target="_blank" rel="noopener noreferrer">GitHub でアニメーションのソースコードを見る &rarr;</a>
+</div>
 
 - **ルート中央アンカーと `.add()` (`xy`, `add`)**: ルートノードの中心を `xy=(cx, cy)` に固定し、サブツリーの高さ・幅を自動計測して `line_length / 2` の位置で直交フォーク接続線をルーティングします。
 - **多方向ブランチ展開 (`branch`)**: ツリー全体を右（`"right"`）・左（`"left"`）・下（`"bottom"`）・上（`"top"`）へ展開できるほか、同じルートの子ノードごとに方向を変えて左右対称のマインドマップも構築できます。

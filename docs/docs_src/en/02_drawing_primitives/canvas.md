@@ -4,7 +4,7 @@ The `canvas` is the foundational drawing surface of Drawlib.
 Under the "Illustration as Code" paradigm, canvas dimensions, resolution, background coloring, coordinate grids, and export formats are managed entirely through declarative Python function calls.
 Drawlib maintains an active `canvas` singleton where declarative calls configure dimensions, backgrounds, alignment grids, local coordinate transforms, multi-format exports, and state resets:
 
-```drawlib code=fold align=center file=canvas_lifecycle_model.png caption="Drawlib Canvas Tour: Dimensions, Background & Alpha, Grid, Transform, Export & Clear (APNG Animation)"
+```drawlib align=center file=canvas_lifecycle_model.png caption="Drawlib Canvas Tour: Dimensions, Background & Alpha, Grid, Transform, Export & Clear (APNG Animation)"
 from __future__ import annotations
 
 from drawlib.anim import Animation
@@ -787,6 +787,10 @@ with anim.frame(duration=3.75):
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/en/02_drawing_primitives/canvas.md" target="_blank" rel="noopener noreferrer">View animation source code on GitHub &rarr;</a>
+</div>
 
 ---
 

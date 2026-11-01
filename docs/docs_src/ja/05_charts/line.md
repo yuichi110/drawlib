@@ -64,7 +64,7 @@ save()
 
 `LineChart` は `.add_series(...)` によって複数系列のカテゴリトレンドを段階的に構築し、デフォルトで `(width, height)` コンテナの**左下 `(x, y)`** を基準にアンカーします（`align="center"` で中央揃えも可）。直線セグメント（`smooth=False`）と 3 次スプライン曲線（`smooth=True`）の切り替え、線種パターン・頂点マーカー・インライン数値ラベルのカスタマイズに加え、Y 軸の自動スケール範囲を固定したまま系列をスイープ描画したり非表示にしたりできます。
 
-```drawlib code=fold align=center file=line_parameter_tour.png caption="基本的な使い方とパラメータツアー：アンカーと系列、スプライン曲線と線種、頂点マーカーとラベル、スイープと配置制御（APNG アニメーション）"
+```drawlib align=center file=line_parameter_tour.png caption="基本的な使い方とパラメータツアー：アンカーと系列、スプライン曲線と線種、頂点マーカーとラベル、スイープと配置制御（APNG アニメーション）"
 from __future__ import annotations
 
 from drawlib.anim import Animation
@@ -922,6 +922,10 @@ for sw_idx, (sw_mode, dur, code_sw, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) 
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/ja/05_charts/line.md" target="_blank" rel="noopener noreferrer">GitHub でアニメーションのソースコードを見る &rarr;</a>
+</div>
 
 - **左下アンカー・系列・凡例（`xy`, `add_series`, `draw_legend`）**: デフォルトで `(width, height)` チャートコンテナを左下 `xy` にアンカーし（`align="bottom_left"`）、`.add_series(...)` のトレンド線と自由配置可能な `draw_legend(...)` を組み合わせます。
 - **直線セグメントと滑らかなスプライン・線種（`smooth`, `line_style`, `line_width`）**: シャープな直線折れ線（`smooth=False`）と滑らかな 3 次スプライン曲線（`smooth=True`、3 点以上）を切り替えられるほか、系列ごとに `"solid"`、`"dashed"`、`"dotted"`、`"dashdot"` の線種を指定できます。

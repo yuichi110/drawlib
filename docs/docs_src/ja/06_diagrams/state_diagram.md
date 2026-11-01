@@ -61,7 +61,7 @@ save()
 
 `StateDiagram` は、**左下 `(x0, y0)`**（または `align="center"`）を基準とするコンテナ内に、各状態（`State`）および UML 擬似状態（`InitialState`、`FinalState`、`ChoiceState`、`ForkJoinState`）を**中心 `(cx, cy)`** 座標で配置します。`State` カードは UML アクション区画（`entry`、`do`、`exit`、`.add_action()`）の自動描画をサポートし、`sd.connect(...)` は `event [guard] / action` ラベルの自動整形、曲線の `bend` アーク、および自己遷移ループを描画します。
 
-```drawlib code=fold align=center file=state_diagram_parameter_tour.png caption="基本的な使い方とパラメータツアー: 状態アンカーと区画、状態遷移と曲線アーク、シェイプと擬似状態、表示制御と中央配置 (APNG アニメーション)"
+```drawlib align=center file=state_diagram_parameter_tour.png caption="基本的な使い方とパラメータツアー: 状態アンカーと区画、状態遷移と曲線アーク、シェイプと擬似状態、表示制御と中央配置 (APNG アニメーション)"
 from __future__ import annotations
 
 from drawlib.anim import Animation
@@ -1042,6 +1042,10 @@ for p4_idx, (p4_mode, dur, code_4, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) i
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/ja/06_diagrams/state_diagram.md" target="_blank" rel="noopener noreferrer">GitHub でアニメーションのソースコードを見る &rarr;</a>
+</div>
 
 - **5 種類の状態シェイプと中心配置 (`State`, `xy=(cx, cy)`)**: 各状態は `sd.draw(xy)` 内に中心座標 `(cx, cy)` で登録され、`"box"`（角丸カード）、`"ellipse"`、`"circle"`、`"double_circle"`（FSM の受理状態）、および `"text_only"` をサポートします。
 - **UML アクション区画 (`entry`, `do`, `exit`, `.add_action()`)**: 内部トリガーを持つ `"box"` 状態は、自動的にヘッダー区切り線を描画して縦方向に拡張し、`entry / ...`、`do / ...`、`exit / ...` やカスタムの `.add_action(kind, action)` 行を一覧表示します。

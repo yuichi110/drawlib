@@ -76,7 +76,7 @@ save()
 
 `RadarChart` plots closed multivariate polygons across three or more symmetric spokes (`categories`, `axis_line_style`), anchoring by default at the **Bottom-Left `(x, y)`** corner of its container box (or directly on the radar hub when `align="center"`). You can switch between straight spider webs (`grid_shape="polygon"`) and polar rings (`grid_shape="circle"`), customize scale ticks (`configure_axis`), vertex markers (`point_shape`), and stroke patterns (`line_style`), and animate radial bloom (`draw_ratio`):
 
-```drawlib code=fold align=center file=radar_parameter_tour.png caption="Basic Usage & Parameter Tour: Spokes & Series, Contours & Scale, Markers & Strokes, and Bloom & Align (APNG Animation)"
+```drawlib align=center file=radar_parameter_tour.png caption="Basic Usage & Parameter Tour: Spokes & Series, Contours & Scale, Markers & Strokes, and Bloom & Align (APNG Animation)"
 from __future__ import annotations
 
 import math
@@ -1029,6 +1029,10 @@ for p4_idx, (p4_mode, dur, code_4, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) i
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/en/05_charts/radar.md" target="_blank" rel="noopener noreferrer">View animation source code on GitHub &rarr;</a>
+</div>
 
 - **Spokes, Overlaid Series & Anchor (`categories`, `add_series`, `fill_alpha`)**: Define `3+` symmetric radial dimensions (`90°` top spoke progressing clockwise), overlay translucent series polygons (`fill_alpha=0.25`) anchored at bottom-left `xy`, and pair with `chart.draw_legend(...)`.
 - **Polygonal vs. Circular Contours & Scale (`grid_shape`, `configure_axis`, `scale_text_style`)**: Choose `"polygon"` spider webs or `"circle"` polar contours across `levels` rings, and tune radial bounds (`min_value`, `max_value`, `scale_format`) via `configure_axis(...)`.

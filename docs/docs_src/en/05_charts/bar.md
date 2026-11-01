@@ -58,7 +58,7 @@ save()
 
 `BarChart` anchors by default at its **Bottom-Left `(x, y)`** container corner (or center via `align="center"`) and registers categorical data series step-by-step via `.add_series(...)`. You can switch seamlessly between clustered (`bar_mode="group"`), cumulative (`bar_mode="stack"`), and `"horizontal"` topologies, tune slot width (`bar_width_ratio`), outer-tip rounding (`bar_r`), and inline value labels, or animate partial growth (`draw_ratio`) and series visibility (`.show`):
 
-```drawlib code=fold align=center file=bar_parameter_tour.png caption="Basic Usage & Parameter Tour: Anchor & Series, Group/Stack/Horizontal Topologies, Bar Geometry, and Reveal & Alignment (APNG Animation)"
+```drawlib align=center file=bar_parameter_tour.png caption="Basic Usage & Parameter Tour: Anchor & Series, Group/Stack/Horizontal Topologies, Bar Geometry, and Reveal & Alignment (APNG Animation)"
 from __future__ import annotations
 
 from drawlib.anim import Animation
@@ -959,6 +959,10 @@ for p4_idx, (r_mode, dur, code_4, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) in
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/en/05_charts/bar.md" target="_blank" rel="noopener noreferrer">View animation source code on GitHub &rarr;</a>
+</div>
 
 - **Bottom-Left Anchor & Multi-Series (`xy`, `add_series`, `draw_legend`)**: `BarChart.draw(xy)` pins the **Bottom-Left** container corner by default (`align="bottom_left"`), clustering each registered `Series` per category alongside an independently placed `draw_legend(...)`.
 - **Topologies & Orientation (`bar_mode`, `orientation`)**: Switch `bar_mode` between side-by-side `"group"` clusters and cumulative `"stack"` totals, or set `orientation="horizontal"` to grow rightward from the left Y-axis (`value_axis` swaps automatically from `y_axis` to `x_axis`).

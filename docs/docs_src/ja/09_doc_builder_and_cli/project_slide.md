@@ -92,7 +92,7 @@ save()
 
 `drawlib init slide` による初期スキャフォールディングとストーリー構成の設計から、2 層構造の執筆（`::: block` ステージ＋`::: note` スピーカー台本）、HTML／PDF／`.pptx` へのコンパイル、ライブ発表者ツール（`?presenter=1`）、そしてキャッシュを活用した Day-2 の高速編集までの流れを確認しましょう。
 
-```drawlib code=fold align=center file=project_slide_workflow_tour.png caption="16:9 スライドデッキのライフサイクル: スキャフォールディング、2 層構造の執筆、HTML/PDF/PPTX エクスポート、発表者ツール (APNG アニメーション)"
+```drawlib align=center file=project_slide_workflow_tour.png caption="16:9 スライドデッキのライフサイクル: スキャフォールディング、2 層構造の執筆、HTML/PDF/PPTX エクスポート、発表者ツール (APNG アニメーション)"
 from __future__ import annotations
 
 from drawlib.anim import Animation
@@ -882,6 +882,10 @@ with anim.frame(duration=3.3):
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/ja/09_doc_builder_and_cli/project_slide.md" target="_blank" rel="noopener noreferrer">GitHub でアニメーションのソースコードを見る &rarr;</a>
+</div>
 
 ---
 

@@ -143,7 +143,7 @@ save()
 
 `Panel` draws titled container cards anchored at the **Bottom-Left `(x, y)`** corner by default (`align="bottom_left"`) or centered via `align="center"`, supporting four header treatments (`"filled"`, `"underline"`, `"floating"`, and `"window"`). Calling `panel.get_content_box(xy, width, height, padding=..., content_align=...)` automatically subtracts `header_height` and insets `padding` to return the safe inner `(inner_xy, inner_width, inner_height)` for nested components or center-anchored shapes:
 
-```drawlib code=fold align=center file=panel_parameter_tour.png caption="Basic Usage & Parameter Tour: Container Anchor, Header Variants, Inner Content Box, and Center Alignment (APNG Animation)"
+```drawlib align=center file=panel_parameter_tour.png caption="Basic Usage & Parameter Tour: Container Anchor, Header Variants, Inner Content Box, and Center Alignment (APNG Animation)"
 from __future__ import annotations
 
 from collections.abc import Callable
@@ -1117,6 +1117,10 @@ for a_idx, (a_mode, dur, code_a, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) in 
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/en/04_smartarts/panel.md" target="_blank" rel="noopener noreferrer">View animation source code on GitHub &rarr;</a>
+</div>
 
 - **Outer Anchor & Explicit Header Styles (`xy`, `header_align`, `header_height`)**: Anchor the container at **Bottom-Left `xy`** by default (`align="bottom_left"`), tune `header_height` or `header_align="center"`, and supply explicit `Style` tokens for every active element (`style`, `header_style`, `text_style`, plus `description_style`, `icon_style`, or `dot_styles`).
 - **Four Header Variants (`header_variant`)**: Switch seamlessly between `"filled"` (solid top band), `"underline"` (calm inset rule), `"floating"` (straddling capsule badge), and `"window"` (three window-chrome control dots).

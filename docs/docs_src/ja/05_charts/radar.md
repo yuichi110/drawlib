@@ -76,7 +76,7 @@ save()
 
 `RadarChart` は 3 本以上の対称な放射軸（`categories`、`axis_line_style`）にわたって閉じた多変量ポリゴンを描画し、デフォルトでコンテナボックスの**左下 `(x, y)`** を基準にアンカーします（`align="center"` でレーダーの中心ハブに直接ピン留めも可）。直線的なスパイダーウェブ（`grid_shape="polygon"`）と同心円リング（`grid_shape="circle"`）の切り替え、スケール目盛り（`configure_axis`）・頂点マーカー（`point_shape`）・線種パターン（`line_style`）の調整、および中心から外側へ広がる放射アニメーション（`draw_ratio`）をサポートしています。
 
-```drawlib code=fold align=center file=radar_parameter_tour.png caption="基本的な使い方とパラメータツアー：放射軸と系列、コンター形状とスケール、マーカーと線種、放射展開と中央配置（APNG アニメーション）"
+```drawlib align=center file=radar_parameter_tour.png caption="基本的な使い方とパラメータツアー：放射軸と系列、コンター形状とスケール、マーカーと線種、放射展開と中央配置（APNG アニメーション）"
 from __future__ import annotations
 
 import math
@@ -1029,6 +1029,10 @@ for p4_idx, (p4_mode, dur, code_4, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) i
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/ja/05_charts/radar.md" target="_blank" rel="noopener noreferrer">GitHub でアニメーションのソースコードを見る &rarr;</a>
+</div>
 
 - **放射スポーク・重ね合わせ系列・アンカー（`categories`, `add_series`, `fill_alpha`）**: `3` 軸以上の対称な放射軸（`90°` の上端スポークから時計回りに配置）を定義し、左下 `xy` にアンカーされた半透明の系列ポリゴン（`fill_alpha=0.25`）を重ね合わせ、`chart.draw_legend(...)` と組み合わせます。
 - **多角形／円形の等高線グリッドとスケール（`grid_shape`, `configure_axis`, `scale_text_style`）**: `levels` 個の同心リングに対して `"polygon"` のクモの巣グリッドまたは `"circle"` の極座標リングを選択でき、`configure_axis(...)` で放射スケールの範囲（`min_value`、`max_value`、`scale_format`）を調整できます。

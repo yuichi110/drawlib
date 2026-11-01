@@ -74,7 +74,7 @@ save()
 
 `BulletPoints` は、**左上 `xy=(x, y)`** を起点として多段階の箇条書きリストを構築し、後続の行を下方向 `-Y` へ `vertical_margin` ずつ送り、ネストした階層を右方向 `+X` へ `indent_width * indent` 分だけインデントします。`set_indent(0..2)` による階層深さの切り替え、`set_bullet_style(...)` による幾何学記号からベクターアイコンへの置き換え、さらに `draw(...)` を呼び出す前の個別 `BulletPointItem` のスタイル変更やレイアウトを崩さない非表示化（`show=False`）に対応しています。
 
-```drawlib code=fold align=center file=bullet_points_parameter_tour.png caption="基本的な使い方とパラメータツアー: 左上アンカー・ネストインデント・ベクターアイコン記号・項目別の動的変更（APNG アニメーション）"
+```drawlib align=center file=bullet_points_parameter_tour.png caption="基本的な使い方とパラメータツアー: 左上アンカー・ネストインデント・ベクターアイコン記号・項目別の動的変更（APNG アニメーション）"
 from __future__ import annotations
 
 from drawlib.anim import Animation
@@ -920,6 +920,10 @@ for p4_idx, (mode, dur, hl_rng, c_lines, badge, foot, s_t, s_1, s_2) in enumerat
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/ja/04_smartarts/bullet_points.md" target="_blank" rel="noopener noreferrer">GitHub でアニメーションのソースコードを見る &rarr;</a>
+</div>
 
 - **左上原点と行送り間隔（`xy`, `vertical_margin`）**: 1 行目の垂直ベースラインとレベル `0` の左端を `xy=(x, y)` に固定し、後続の項目を下方向 `-Y` へ `vertical_margin` ずつ配置します。
 - **多段階インデント（`set_indent`, `indent_width`）**: 項目のテキストを右方向 `x + indent_width * indent` へシフトし、組み込み記号（`0` = 記号なし見出し、`1` = 塗りつぶし円、`2` = 白抜き円）を描画します。

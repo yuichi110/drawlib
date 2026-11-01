@@ -89,7 +89,7 @@ save()
 
 すべてのビルドコマンドは決定論的な 4 ステージのパイプラインを実行します。すなわち、`*_src/` から Markdown 本文・共有ヘルパー（`styles.py` / `utils.py`）・メディア資産（`_assets/`）を解決し、`.drawlib/cache.db` に対してコンテンツアドレス指定の SHA-256 ダイジェストを照合し、キャッシュミス時のみ分離された `canvas.clear()` Python サンドボックス内で描画を実行し（キャッシュヒット時は 1 ミリ秒未満で復元）、単一のソースから Web、GitHub Markdown、ベクター PDF、編集可能な MS Office ドキュメントを一括出力します。
 
-```drawlib code=fold align=center file=doc_builder_compilation_tour.png caption="コードとしての図解ドキュメントのライフサイクル: ソース抽出、SHA-256 キャッシュ照合、Python サンドボックス実行、マルチターゲット出力 (APNG アニメーション)"
+```drawlib align=center file=doc_builder_compilation_tour.png caption="コードとしての図解ドキュメントのライフサイクル: ソース抽出、SHA-256 キャッシュ照合、Python サンドボックス実行、マルチターゲット出力 (APNG アニメーション)"
 from __future__ import annotations
 
 from drawlib.anim import Animation
@@ -874,6 +874,10 @@ for active_idx, dur, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2 in PART4_STATES:
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/ja/09_doc_builder_and_cli/overview.md" target="_blank" rel="noopener noreferrer">GitHub でアニメーションのソースコードを見る &rarr;</a>
+</div>
 
 ---
 

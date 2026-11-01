@@ -2,7 +2,7 @@
 
 Drawlib makes creating publication-ready technical diagrams intuitive and reproducible—whether authored as **standalone Python scripts** (`.py`) or **embedded Markdown blocks** (` ```drawlib `). Every illustration follows a predictable **5-step lifecycle**:
 
-```drawlib code=fold align=center file=quickstart_five_step_workflow.png caption="The Standard 5-Step Drawlib Drawing Workflow: Code to Canvas (APNG Animation)"
+```drawlib align=center file=quickstart_five_step_workflow.png caption="The Standard 5-Step Drawlib Drawing Workflow: Code to Canvas (APNG Animation)"
 from __future__ import annotations
 
 from drawlib.anim import Animation
@@ -360,6 +360,10 @@ with anim.frame(duration=2.80):
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/en/01_getting_started/quick_start.md" target="_blank" rel="noopener noreferrer">View animation source code on GitHub &rarr;</a>
+</div>
 
 1. **Import APIs**: Import canvas management, drawing primitives, and styling presets.
 2. **Setup Canvas**: Initialize canvas dimensions (`width`, `height`) via `setup()`.

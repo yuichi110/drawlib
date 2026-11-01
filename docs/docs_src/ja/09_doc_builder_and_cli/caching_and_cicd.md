@@ -65,7 +65,7 @@ save()
 
 レイヤー 1 の SHA-256 SQLite キャッシュ、キャッシュキーの自動無効化、レイヤー 2 のオフラインアセット事前取得、そして GitHub Actions やエアギャップ Docker パイプラインがエンドツーエンドでどのように連携するかを確認しましょう。
 
-```drawlib code=fold align=center file=caching_cicd_workflow_tour.png caption="2 層キャッシュ機構と CI/CD ライフサイクル: レイヤー 1 SHA-256 差分キャッシュ、キャッシュ無効化、レイヤー 2 オフラインアセット取得、GitHub Actions & Docker パイプライン (APNG アニメーション)"
+```drawlib align=center file=caching_cicd_workflow_tour.png caption="2 層キャッシュ機構と CI/CD ライフサイクル: レイヤー 1 SHA-256 差分キャッシュ、キャッシュ無効化、レイヤー 2 オフラインアセット取得、GitHub Actions & Docker パイプライン (APNG アニメーション)"
 from __future__ import annotations
 
 from drawlib.anim import Animation
@@ -848,6 +848,10 @@ for p4_idx, (mode, dur, ftitle, hicon, clang, clines, hl_rng, badge, foot, s_t, 
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/ja/09_doc_builder_and_cli/caching_and_cicd.md" target="_blank" rel="noopener noreferrer">GitHub でアニメーションのソースコードを見る &rarr;</a>
+</div>
 
 ---
 

@@ -4,7 +4,7 @@
 
 Instead of manually computing `(x, y)` coordinates for every vertex and container when drafting a complex topology, you declare **structural relationships**—nodes, edges, and clusters—and call `layout = g.get_layout(width=..., height=...)` so Drawlib's pure-Python layout algorithms calculate clean coordinates, container bounding boxes, and orthogonal or radial edge routes automatically. As shown in the step-by-step animation below, each solver sprouts outward along its own topological coordinate model—5-zone nested VPC containers, ranked DAG fan-out/merge columns, strict tree depth tiers, 360-degree concentric orbit rings, and smart-channel 2D matrix slots—before you render the solved coordinates using [`drawlib.diagrams`](../06_diagrams/overview.md) or [`drawlib.shapes`](../02_drawing_primitives/shapes_overview.md) and [`drawlib.lines`](../02_drawing_primitives/lines.md).
 
-```drawlib code=fold align=center file=graph_five_solvers_hero.png caption="The Five Specialized Auto-Layout Coordinate Solvers Sprouting Along Their Topological Coordinate Models (APNG Animation)"
+```drawlib align=center file=graph_five_solvers_hero.png caption="The Five Specialized Auto-Layout Coordinate Solvers Sprouting Along Their Topological Coordinate Models (APNG Animation)"
 from __future__ import annotations
 
 import math
@@ -801,6 +801,10 @@ for frame_idx, dur_sec, banner_stage in FRAME_SPECS:
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/en/07_graph/overview.md" target="_blank" rel="noopener noreferrer">View animation source code on GitHub &rarr;</a>
+</div>
 
 ---
 

@@ -96,7 +96,7 @@ save()
 
 `Roadmap` は `.add(text, description, badge_text=..., icon=...)` によって時系列タイムラインやマイルストーンアジェンダを段階的に構築し、デフォルトで `(width, height)` バウンディングボックス全体の**左下角 `(x, y)`**（`align="center"` の場合は中央）を基準に配置します。垂直スパインを滑らかなベジェ曲線へ湾曲させる表現（`curve_bend`, `card_shape="pill"`）や、`alternating=True` を伴う `direction="horizontal"` への切り替え、残りの要素の位置をずらさない `.items[i]` の強調・非表示化に対応しています。
 
-```drawlib code=fold align=center file=roadmap_parameter_tour.png caption="基本的な使い方とパラメータツアー: スパインとマイルストーン、ベジェ曲線とピル型カード、水平交互レイアウト、強調と中央配置（APNG アニメーション）"
+```drawlib align=center file=roadmap_parameter_tour.png caption="基本的な使い方とパラメータツアー: スパインとマイルストーン、ベジェ曲線とピル型カード、水平交互レイアウト、強調と中央配置（APNG アニメーション）"
 from __future__ import annotations
 
 from drawlib.anim import Animation
@@ -924,6 +924,10 @@ for f_idx, (f_mode, dur, code_f, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) in 
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/ja/04_smartarts/roadmap.md" target="_blank" rel="noopener noreferrer">GitHub でアニメーションのソースコードを見る &rarr;</a>
+</div>
 
 - **スパインとマイルストーンの構築（`.add()`, `xy`）**: `text`・`description`・`badge_text`・オプションの `icon` を持つマイルストーンを順に追加し、デフォルトで**左下 `xy`** を基準とする `(width, height)` 領域内に描画します。
 - **ベジェ曲線とカード形状（`curve_bend`, `card_shape`）**: 直線矢印スパインと `"rounded_rect"` カードの組み合わせには `curve_bend=0.0` を維持し、滑らかな 2 次ベジェ曲線のアジェンダには `[-0.5, 0.5]` の範囲の `curve_bend` と `card_shape="pill"` を指定します。

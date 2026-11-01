@@ -64,7 +64,7 @@ save()
 
 `ClassDiagram` は、`cd.add(node, xy=(cx, cy))` によって 3 区画構造の `ClassNode` カードを**中心 `(cx, cy)`** 基準で配置し、UML 可視性修飾子（`+`、`-`、`#`、`~`）付きの属性やメソッドが登録されるにつれて `effective_height` を動的に拡張します。ヘッダーへのギュメ付き `stereotype` バッジ・`is_abstract`・カスタム `header_style` 塗りつぶしの付与、多重度を備えた全 6 種類の標準 UML `relationship_type` マーカーによるクラス接続、および接続面・`show=False` 表示制御・`align="center"` 配置の制御をサポートします。
 
-```drawlib code=fold align=center file=class_diagram_parameter_tour.png caption="基本的な使い方とパラメータツアー: 3 区画カードとアンカー、ステレオタイプと修飾子、UML リレーションシップと多重度、ルーティングと段階的表示 (APNG アニメーション)"
+```drawlib align=center file=class_diagram_parameter_tour.png caption="基本的な使い方とパラメータツアー: 3 区画カードとアンカー、ステレオタイプと修飾子、UML リレーションシップと多重度、ルーティングと段階的表示 (APNG アニメーション)"
 from __future__ import annotations
 
 from drawlib.anim import Animation
@@ -974,6 +974,10 @@ for p4_idx, (p4_mode, dur, code_4, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) i
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/ja/06_diagrams/class_diagram.md" target="_blank" rel="noopener noreferrer">GitHub でアニメーションのソースコードを見る &rarr;</a>
+</div>
 
 - **3 区画の `ClassNode` と動的な高さ (`xy`, `effective_height`)**: `cd.add(node, xy=(cx, cy))` は各クラスカードを中心座標で配置し、`add_attribute(...)` および `add_method(...)` が区画にメンバを追加するにつれて `node.effective_height` を自動的に拡張します。
 - **可視性・ステレオタイプ・ヘッダースタイル (`+`/`-`/`#`/`~`, `stereotype`, `is_abstract`, `header_style`)**: UML アクセス修飾子付きでメンバを整形し、ギュメ付きヘッダー（`«interface»`、`«abstract»`）を表示するほか、`header_style` で注目クラスのヘッダーを装飾できます。

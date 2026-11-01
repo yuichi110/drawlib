@@ -128,7 +128,7 @@ save()
 
 `images` プロジェクトは無駄のない 4 フェーズのライフサイクルで進行します。すなわち、プロジェクトのスキャフォールディングとスターターサンプルの整理、`-g` 座標グリッドによるジオメトリ検証、AST 衝突保護を備えたバッチコンパイラの実行、そして Day-2 更新時における 1 ミリ秒未満の SQLite キャッシュヒットです。
 
-```drawlib code=fold align=center file=project_image_workflow_tour.png caption="単体画像プロジェクトのライフサイクル: スキャフォールディング、グリッドプレビュー、バッチビルド、差分キャッシュヒット (APNG アニメーション)"
+```drawlib align=center file=project_image_workflow_tour.png caption="単体画像プロジェクトのライフサイクル: スキャフォールディング、グリッドプレビュー、バッチビルド、差分キャッシュヒット (APNG アニメーション)"
 from __future__ import annotations
 
 from drawlib.anim import Animation
@@ -894,6 +894,10 @@ with anim.frame(duration=DURATIONS[11]):
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/ja/09_doc_builder_and_cli/project_image.md" target="_blank" rel="noopener noreferrer">GitHub でアニメーションのソースコードを見る &rarr;</a>
+</div>
 
 ---
 

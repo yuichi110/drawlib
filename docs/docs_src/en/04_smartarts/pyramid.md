@@ -42,7 +42,7 @@ save()
 
 `Pyramid` builds tiered hierarchies and conversion funnels step-by-step via `.add(...)`, anchoring by default at the **Bottom-Left `xy=(x, y)`** bounding-box corner (or its center when `align="center"`). You can rotate the wide base across all 4 `direction` orientations (`"bottom"`, `"top"`, `"left"`, `"right"`), choose `"vertex_to_base"` vs. `"base_to_vertex"` ordering, and pass custom per-tier heights via `draw_flexible(...)` or hide `.items[i]` slices without shifting sibling geometry:
 
-```drawlib code=fold align=center file=pyramid_parameter_tour.png caption="Basic Usage & Parameter Tour: Step-by-Step Tiers, 4 Base Directions, Vertex vs. Base Ordering, and Flexible Sizing (APNG Animation)"
+```drawlib align=center file=pyramid_parameter_tour.png caption="Basic Usage & Parameter Tour: Step-by-Step Tiers, 4 Base Directions, Vertex vs. Base Ordering, and Flexible Sizing (APNG Animation)"
 from __future__ import annotations
 
 from drawlib.anim import Animation
@@ -773,6 +773,10 @@ for p4_idx, (p4_mode, dur, code_p4, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) 
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/en/04_smartarts/pyramid.md" target="_blank" rel="noopener noreferrer">View animation source code on GitHub &rarr;</a>
+</div>
 
 - **Step-by-Step Tiers & Anchor (`xy`, `align`)**: Append hierarchical slices via `.add(text, style=...)` and draw within `width × height` separated by `margin`—anchored at the **Bottom-Left** corner (`align="bottom_left"`, default) or centered via `align="center"`.
 - **Four Base Directions (`direction`)**: `direction` names where the wide base sits: `"bottom"` (upright hierarchy), `"top"` (inverted funnel), `"left"` (base left, apex right), or `"right"` (base right, apex left, where `width` sets vertical base span and `height` sets horizontal altitude).

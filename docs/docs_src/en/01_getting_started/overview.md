@@ -4,7 +4,7 @@ Traditional technical documentation fragments **source code** (Git), **diagrams*
 
 Drawlib eliminates this fragmentation through **"Illustration as Code"** and **"Illustrated Documentation as Code"**, keeping Python code, diagrams, and multi-format publications synchronized inside a single Git repository.
 
-```drawlib code=fold align=center file=overview_paradigm_shift.png caption="Traditional Workflow vs. Drawlib Workflow (APNG Animation)"
+```drawlib align=center file=overview_paradigm_shift.png caption="Traditional Workflow vs. Drawlib Workflow (APNG Animation)"
 from __future__ import annotations
 
 import os
@@ -247,6 +247,10 @@ with anim.frame(duration=3.20):
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/en/01_getting_started/overview.md" target="_blank" rel="noopener noreferrer">View animation source code on GitHub &rarr;</a>
+</div>
 
 ---
 

@@ -128,7 +128,7 @@ save()
 
 An `images` project follows a streamlined four-phase lifecycle: scaffold the project and clean starter samples, verify geometry with the `-g` coordinate grid, run the batch compiler with AST collision protection, and enjoy sub-millisecond SQLite cache hits on Day-2 updates.
 
-```drawlib code=fold align=center file=project_image_workflow_tour.png caption="Standalone Image Project Lifecycle: Scaffolding, Grid Preview, Batch Build, and Incremental Cache Hit (APNG Animation)"
+```drawlib align=center file=project_image_workflow_tour.png caption="Standalone Image Project Lifecycle: Scaffolding, Grid Preview, Batch Build, and Incremental Cache Hit (APNG Animation)"
 from __future__ import annotations
 
 from drawlib.anim import Animation
@@ -894,6 +894,10 @@ with anim.frame(duration=DURATIONS[11]):
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/en/09_doc_builder_and_cli/project_image.md" target="_blank" rel="noopener noreferrer">View animation source code on GitHub &rarr;</a>
+</div>
 
 ---
 

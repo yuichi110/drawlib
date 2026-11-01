@@ -4,7 +4,7 @@
 「Illustration as Code（コードとしての図解）」のパラダイムのもと、キャンバスのサイズ、解像度、背景色、座標グリッド、および出力フォーマットはすべて宣言的な Python 関数呼び出しによって管理されます。
 Drawlib はアクティブな `canvas` シングルトンを保持しており、宣言的な API 呼び出しを通じてサイズ設定、背景色と透過度、位置合わせグリッド、ローカル座標変換、マルチフォーマット出力、そして状態リセットを行います。
 
-```drawlib code=fold align=center file=canvas_lifecycle_model.png caption="Drawlib キャンバスツアー: サイズ・背景色と透過・グリッド・座標変換・出力とリセット（APNG アニメーション）"
+```drawlib align=center file=canvas_lifecycle_model.png caption="Drawlib キャンバスツアー: サイズ・背景色と透過・グリッド・座標変換・出力とリセット（APNG アニメーション）"
 from __future__ import annotations
 
 from drawlib.anim import Animation
@@ -787,6 +787,10 @@ with anim.frame(duration=3.75):
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/ja/02_drawing_primitives/canvas.md" target="_blank" rel="noopener noreferrer">GitHub でアニメーションのソースコードを見る &rarr;</a>
+</div>
 
 ---
 

@@ -129,7 +129,7 @@ save()
 
 `ArchitectureGraph` は、クラウドのレイアウト計算と視覚的なレンダリングを分離します。最初に `layout = g.get_layout()` を 1 回呼び出して、重なりのないコンテナ枠（`c.xy`、`c.bottom_left`、`c.local_bottom_left`）、ノード中心座標（`n.xy`、`n.local_xy`）、および直交経路（`e.points`）を計算し、その後は背面から前面への厳密な Z オーダー（クラスタ → エッジ → ノード）で描画するか、[`ArchitectureDiagram`](../06_diagrams/architecture.md) へ直接マッピングします。`parent` と `order` を使って親 `g.group()` 内にマルチティアのサブネットをネストしたり、`container_sep` 回廊間隔を調整しながら 5 ゾーンコンパス（`pos="top" | "left" | "center" | "right" | "bottom"`）上に周辺サービスを配置したり、接続エッジのポートを同期させたまま `layout.offset(id, dx, dy)` でレイアウト後の個別ノード位置を微調整したりできます。
 
-```drawlib code=fold align=center file=architecture_graph_parameter_tour.png caption="基本的な使い方とパラメータツアー: 座標計算と段階的展開、ネストされたミクロ／マクログループ、5 ゾーンコンパス配置、レイアウト後のオフセット微調整（APNG アニメーション）"
+```drawlib align=center file=architecture_graph_parameter_tour.png caption="基本的な使い方とパラメータツアー: 座標計算と段階的展開、ネストされたミクロ／マクログループ、5 ゾーンコンパス配置、レイアウト後のオフセット微調整（APNG アニメーション）"
 from __future__ import annotations
 
 from drawlib.anim import Animation
@@ -1155,6 +1155,10 @@ for p4_idx, (_, dur, code_4, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) in enum
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/ja/07_graph/architecture_graph.md" target="_blank" rel="noopener noreferrer">GitHub でアニメーションのソースコードを見る &rarr;</a>
+</div>
 
 ---
 

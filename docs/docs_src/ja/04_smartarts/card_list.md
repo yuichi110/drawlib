@@ -87,7 +87,7 @@ save()
 
 `CardList` は `.add(...)` で段階的に構築した垂直方向の機能スタック（`direction="vertical"`）または水平方向のステップシーケンス（`direction="horizontal"`）を描画し、デフォルトでバウンディングボックスの**左下角 `(x, y)`**（`align="center"` の場合は中央）を基準に配置します。先頭バッジを `"rounded_rect"`・`"circle"`・`"none"` から選択できるほか、カード間のワークフロー矢印（`show_arrows=True`）の有効化や、他のカードのスロット位置を保ったまま `.items[i]` を個別変更・非表示化する操作に対応しています。
 
-```drawlib code=fold align=center file=card_list_parameter_tour.png caption="基本的な使い方とパラメータツアー: 垂直・水平カード、バッジ形状、ワークフロー矢印、動的なアイテム制御（APNG アニメーション）"
+```drawlib align=center file=card_list_parameter_tour.png caption="基本的な使い方とパラメータツアー: 垂直・水平カード、バッジ形状、ワークフロー矢印、動的なアイテム制御（APNG アニメーション）"
 from __future__ import annotations
 
 from drawlib.anim import Animation
@@ -924,6 +924,10 @@ for m_idx, (f_mode, dur, code_m, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) in 
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/ja/04_smartarts/card_list.md" target="_blank" rel="noopener noreferrer">GitHub でアニメーションのソースコードを見る &rarr;</a>
+</div>
 
 - **段階的なカード追加とアンカー（`xy`, `align`）**: `.add(text, description, badge_text=..., icon=...)` でリッチなカードを追加し、デフォルトの**左下** `xy`（`align="bottom_left"`）または中央（`align="center"`）を基準に `(width, height)` 領域内へ描画します。
 - **バッジ形状（`badge_shape`）**: 枠付きのアイコン／ラベルバッジには `"rounded_rect"`（デフォルト）または `"circle"` を選び、枠なしのアイコンをカードテキストの横に直接並べる場合は `"none"` を設定します。

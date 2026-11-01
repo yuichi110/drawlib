@@ -45,7 +45,7 @@ save()
 
 `ERDiagram` は、`er.add(entity, xy=(cx, cy))` によってリレーショナルな `Entity` テーブルを**中心 `(cx, cy)`** 基準で配置し、すべてのカラムが収まるよう `effective_height` を自動拡張しながら、自動 `PK` / `FK` キーバッジ付きの型付きスキーマ行を描画します。リレーションシップは業界標準の Information Engineering (IE) 方式 Crow's Foot の `cardinality` マーカーを描画し、`start_column` と `end_column` で主キー行・外部キー行へ直接スナップ接続できるほか、カスタムの `header_style` バンド、`show=False` による非表示、`align="center"` 配置をサポートします。
 
-```drawlib code=fold align=center file=er_parameter_tour.png caption="基本的な使い方とパラメータツアー: エンティティテーブルとキーバッジ、Crow's Foot カーディナリティ、行レベルのカラムアンカー、ヘッダースタイルと段階的表示 (APNG アニメーション)"
+```drawlib align=center file=er_parameter_tour.png caption="基本的な使い方とパラメータツアー: エンティティテーブルとキーバッジ、Crow's Foot カーディナリティ、行レベルのカラムアンカー、ヘッダースタイルと段階的表示 (APNG アニメーション)"
 from __future__ import annotations
 
 from drawlib.anim import Animation
@@ -989,6 +989,10 @@ for p4_idx, (p4_mode, dur, code_4, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) i
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/ja/06_diagrams/er.md" target="_blank" rel="noopener noreferrer">GitHub でアニメーションのソースコードを見る &rarr;</a>
+</div>
 
 - **中心基準の `Entity` カードとキーバッジ (`xy`, `pk`, `fk`, `nullable`)**: `er.add(entity, xy=(cx, cy))` は各テーブルを中心座標で配置し、`.add_column(...)` がアンバー色の `PK` タグや青色の `FK` タグを付与しながら `effective_height` を自動的に拡張します。
 - **IE 方式 Crow's Foot カーディナリティ (`cardinality`)**: `entity.connect(...)` と `er.connect(...)` は、全 7 種類の多重度（`"1:*"`、`"1:1"`、`"1:1..*"`、`"1:0..1"`、`"0..1:1"`、`"0..1:*"`、`"*:*"`）にわたる Information Engineering ベクターマーカーを描画します。

@@ -79,7 +79,7 @@ save()
 
 `GridGraph` は、`(0, 0)` を左上スロットとして行インデックスが下方向に増加する整然とした 2D `(row, col)` マトリクスにノードを配置します。`g.cell(id, row, col)` でセル位置を明示的に固定するか、未固定ノードを `"row-major"`（行優先）／`"column-major"`（列優先）順で自動流し込みでき、`edge_routing="smart"` によって非隣接クロスエッジを行間回廊へ迂回させて隣接セルとの重なりを回避できます。さらに `g.cluster_row(...)`、`g.cluster_column(...)`、`layout.offset(...)` を組み合わせることで、マトリクスの行や列を `ArchitectureDiagram` の `NodeGroup` コンテナで囲むことができます。
 
-```drawlib code=fold align=center file=grid_graph_parameter_tour.png caption="基本的な使い方とパラメータツアー: 明示的な (row, col) マトリクス展開、行優先と列優先の自動流し込み、スマートチャネル回廊ルーティング、行・列クラスタ（APNG アニメーション）"
+```drawlib align=center file=grid_graph_parameter_tour.png caption="基本的な使い方とパラメータツアー: 明示的な (row, col) マトリクス展開、行優先と列優先の自動流し込み、スマートチャネル回廊ルーティング、行・列クラスタ（APNG アニメーション）"
 from __future__ import annotations
 
 from drawlib.anim import Animation
@@ -1238,6 +1238,10 @@ for p4_idx, (mode_4, dur, code_4, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) in
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/ja/07_graph/grid_graph.md" target="_blank" rel="noopener noreferrer">GitHub でアニメーションのソースコードを見る &rarr;</a>
+</div>
 
 - **明示的な `(row, col)` マトリクス配置**: `(0, 0)` が左上スロットの基点となり、`row` は下方向、`col` は右方向へ増加します。水平・垂直に隣接するエッジはカードの境界同士を直接結びます。
 - **`"row-major"` と `"column-major"` の自動流し込み**: 座標未指定の `g.node()`／`g.cell()` は、各行を左から右へ埋める行優先（`order="row-major"`）または各列を上から下へ埋める列優先（`order="column-major", rows=...`）で自動配置され、`col_sep` と `row_sep` で回廊幅を制御できます。

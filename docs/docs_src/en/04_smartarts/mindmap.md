@@ -83,7 +83,7 @@ save()
 
 `MindMapNode` renders radial mindmaps and multi-directional hierarchies anchored at the **Root Center `xy=(cx, cy)`**, automatically measuring subtree bounding boxes in a two-pass layout and routing orthogonal fork connectors at `line_length / 2`. You can project branches in any combination of `"right"`, `"left"`, `"bottom"`, or `"top"`, mix `"rectangle"`, `"ellipse"`, and borderless auto-sized `"none"` shapes, and fine-tune placement or animations via `xy_shift`, `show`, and `scale`:
 
-```drawlib code=fold align=center file=mindmap_parameter_tour.png caption="Basic Usage & Parameter Tour: Root Center Anchor, Multi-Directional Branching, Node Shapes & Spacing, and Shift/Visibility/Scale (APNG Animation)"
+```drawlib align=center file=mindmap_parameter_tour.png caption="Basic Usage & Parameter Tour: Root Center Anchor, Multi-Directional Branching, Node Shapes & Spacing, and Shift/Visibility/Scale (APNG Animation)"
 from __future__ import annotations
 
 from drawlib.anim import Animation
@@ -1000,6 +1000,10 @@ for idx_p4, (p4_mode, dur, hl_rng, c_lines, badge, foot, s_t, s_1, s_2) in enume
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/en/04_smartarts/mindmap.md" target="_blank" rel="noopener noreferrer">View animation source code on GitHub &rarr;</a>
+</div>
 
 - **Root Center Anchor & `.add()` (`xy`, `add`)**: Pins the root node's exact center at `xy=(cx, cy)`, automatically measuring subtree heights/widths and routing orthogonal fork junctions at `line_length / 2`.
 - **Multi-Directional Branching (`branch`)**: Directs trees rightward (`"right"`), leftward (`"left"`), downward (`"bottom"`), or upward (`"top"`), or combines per-child directions on the same root for bilateral mindmaps.

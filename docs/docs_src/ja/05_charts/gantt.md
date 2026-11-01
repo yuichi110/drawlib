@@ -79,7 +79,7 @@ save()
 
 `GanttChart` は順序付きの `columns` に沿って横向きのタイムラインロードマップを構築します。デフォルトで**左下 `(x, y)`** を基準にアンカーし（`align="center"` で中央揃えも可）、`height=None` の場合は登録された行数からコンテナの `height` を自動算出します。列名または浮動小数点オフセットを使って `.add_section(...)` バナー配下に `.add_task(...)` バーをグループ化できるほか、2 トーンの進捗率塗り分け（`progress`）や交互の行ストライプ（`zebra_style`）、`.add_dependency(...)` 矢印、`.add_milestone(...)` ひし形マーカー、`.add_marker(...)` 基準線、さらに `draw_ratio` と `show` による部分描画アニメーションをサポートしています。
 
-```drawlib code=fold align=center file=gantt_parameter_tour.png caption="基本的な使い方とパラメータツアー：セクションとタスク、進捗率とゼブラストライプ、依存関係とマイルストーン、部分スイープ（APNG アニメーション）"
+```drawlib align=center file=gantt_parameter_tour.png caption="基本的な使い方とパラメータツアー：セクションとタスク、進捗率とゼブラストライプ、依存関係とマイルストーン、部分スイープ（APNG アニメーション）"
 from __future__ import annotations
 
 from drawlib.anim import Animation
@@ -887,6 +887,10 @@ for p4_idx, (mode_p4, dur, code_4, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) i
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/ja/05_charts/gantt.md" target="_blank" rel="noopener noreferrer">GitHub でアニメーションのソースコードを見る &rarr;</a>
+</div>
 
 - **セクション・タスク・時間インデックス指定（`columns`, `add_task`, `xy`）**: スケジュールを**左下** `xy` にアンカーし（`height=None` の場合は行数から高さを自動算出）、列名文字列（`"W1"`）または浮動小数点オフセット（`1.5`..`3.5`）で `start`/`end` を指定します。
 - **2 トーンの進捗表示とゼブラストライプ（`progress`, `zebra_style`）**: `progress`（`0.0`〜`1.0`）と `progress_text_style` ラベルで濃淡 2 トーンの完了バーを描画し、`header_style` と交互の行背景 `zebra_style` でスケジュール表を整えます。

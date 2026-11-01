@@ -117,7 +117,7 @@ save()
 
 ほぼすべての多角形プリミティブは、Drawlib のデカルト座標空間と中心基準配置の規約（`xy`、ただし `polygon` は明示的なキャンバス座標リスト `xys` を指定）を共有しつつ、手動の三角関数計算なしで平面・放射状の輪郭を自在に変形できる簡潔なジオメトリパラメータを備えています。頂点オフセット（`topvertex_x`）、せん断角（`corner_angle`）、上下辺の個別幅（`topedge_width` / `bottomedge_width`）、同心の中抜き（`hole_ratio`）、頂点数（`num_vertex`）、星形の内外半径（`radius_ext` / `radius_int`）、プラークのコーナー形状（`variant`）、およびベジェ制御点（`path_points`）によって各プリミティブがどのように変化するかを以下のアニメーションで確認できます。
 
-```drawlib code=fold align=center file=shapes_polygon_parameter_tour.png caption="パラメータ・ジオメトリツアー: 多角形・星形・プラーク・カスタムベジェパスのライブ変形（APNG アニメーション）"
+```drawlib align=center file=shapes_polygon_parameter_tour.png caption="パラメータ・ジオメトリツアー: 多角形・星形・プラーク・カスタムベジェパスのライブ変形（APNG アニメーション）"
 from __future__ import annotations
 
 import math
@@ -960,6 +960,10 @@ with anim.frame(duration=3.2):
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/ja/02_drawing_primitives/shapes_polygon.md" target="_blank" rel="noopener noreferrer">GitHub でアニメーションのソースコードを見る &rarr;</a>
+</div>
 
 - **頂点オフセットと傾斜角 (`topvertex_x`, `corner_angle`)**: `topvertex_x` は `triangle` の上頂点を左下隅から水平方向にオフセットし（`None` で `width / 2` の二等辺三角形、`0` で `90°` の直角三角形）、`corner_angle`（`0°`..`90°`）は `parallelogram` の内角の傾きを設定します。
 - **上下辺の個別幅指定と中抜きカットアウト (`topedge_width`, `hole_ratio`, `shape_r`)**: `trapezoid` は `topedge_width` と `bottomedge_width` を独立して指定でき、平面多角形および正多角形では `hole_ratio` による透明カットアウトと `style.shape_r` による頂点フィレットを併用できます。

@@ -79,7 +79,7 @@ save()
 
 `GanttChart` builds horizontal timeline roadmaps across ordered `columns`, anchoring by default at the **Bottom-Left `(x, y)`** corner (or centered via `align="center"`) while dynamically sizing container `height` from the registered row count when `height=None`. You can group `.add_task(...)` bars under `.add_section(...)` banners using column names or float offsets, style two-tone `progress` fills and `zebra_style` stripes, attach `.add_dependency(...)` arrows, `.add_milestone(...)` diamonds, and `.add_marker(...)` lines, or animate sweeps with `draw_ratio` and `show`:
 
-```drawlib code=fold align=center file=gantt_parameter_tour.png caption="Basic Usage & Parameter Tour: Sections & Tasks, Progress & Zebra Striping, Dependencies & Milestones, and Partial Sweeps (APNG Animation)"
+```drawlib align=center file=gantt_parameter_tour.png caption="Basic Usage & Parameter Tour: Sections & Tasks, Progress & Zebra Striping, Dependencies & Milestones, and Partial Sweeps (APNG Animation)"
 from __future__ import annotations
 
 from drawlib.anim import Animation
@@ -887,6 +887,10 @@ for p4_idx, (mode_p4, dur, code_4, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) i
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/en/05_charts/gantt.md" target="_blank" rel="noopener noreferrer">View animation source code on GitHub &rarr;</a>
+</div>
 
 - **Sections, Tasks & Time Indexing (`columns`, `add_task`, `xy`)**: Anchor schedules at **Bottom-Left** `xy` (auto-computing `height` from rows when `height=None`) and specify `start`/`end` via column strings (`"W1"`) or fractional floats (`1.5`..`3.5`).
 - **Two-Tone Completion & Row Striping (`progress`, `zebra_style`)**: Set `progress` (`0.0`–`1.0`) for solid-plus-tinted completion bars with `progress_text_style` labels, and frame schedules with `header_style` and alternating `zebra_style` stripes.

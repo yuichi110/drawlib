@@ -77,7 +77,7 @@ save()
 
 直交座標系チャートや複数系列チャートは Drawlib の存在ベース（Style-as-Presence）のスタイリングモデルに従います。`axis_line_style` が座標ベースラインの基準となり、目盛りラベル（`axis_text_style`）やグリッド線（`grid_style`）は明示したときだけクリーンに有効化されます。また、定義域の範囲やフォーマッタ、`"linear"` と `"log"` のスケール切り替え（`configure_y_axis` / `configure_x_axis`）、分離配置された凡例（`draw_legend` + `get_size`）は、プロット領域のジオメトリを崩すことなく直交的に組み合わせられます。
 
-```drawlib code=fold align=center file=axes_and_legends_parameter_tour.png caption="基本的な使い方とパラメータツアー：存在ベースのスタイル、軸範囲とフォーマット、線形／対数スケール、分離配置された凡例（APNG アニメーション）"
+```drawlib align=center file=axes_and_legends_parameter_tour.png caption="基本的な使い方とパラメータツアー：存在ベースのスタイル、軸範囲とフォーマット、線形／対数スケール、分離配置された凡例（APNG アニメーション）"
 from __future__ import annotations
 
 from drawlib.anim import Animation
@@ -895,6 +895,10 @@ for p4_idx, (l_mode, dur, code_4, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) in
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/ja/05_charts/axes_and_legends.md" target="_blank" rel="noopener noreferrer">GitHub でアニメーションのソースコードを見る &rarr;</a>
+</div>
 
 - **存在ベースの軸スタイリング（`axis_text_style`, `grid_style`, `unit`）**: 任意のスタイル引数を省略すればスパークラインのようなミニマルなベースラインだけを描画でき、`axis_text_style` や `grid_style` を指定して目盛りやグリッド線を有効化できます。また `configure_y_axis(label=..., unit=...)` で軸ラベルや単位サフィックスを付加できます。
 - **定義域の範囲・目盛り間隔・フォーマット（`min_value`, `max_value`, `tick_step`, `format`）**: 自動の Nice Numbers 目盛りを明示的な上下限、固定 `tick_step` や `ticks=[...]` リスト、Python フォーマット文字列（`"{:.0f}%"`）や呼び出し可能オブジェクト（callable）で上書きできます。

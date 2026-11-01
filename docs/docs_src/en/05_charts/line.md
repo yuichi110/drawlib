@@ -64,7 +64,7 @@ save()
 
 `LineChart` constructs multi-series categorical trends step-by-step via `.add_series(...)`, anchoring by default at the **Bottom-Left `(x, y)`** corner of its `(width, height)` container (or centered via `align="center"`). You can switch between straight polygonal segments (`smooth=False`) and cubic splines (`smooth=True`), customize stroke patterns, vertex markers, and inline value labels, and sweep or hide series in place while keeping Y-axis bounds locked:
 
-```drawlib code=fold align=center file=line_parameter_tour.png caption="Basic Usage & Parameter Tour: Anchor & Series, Smooth Splines & Strokes, Vertex Markers & Labels, and Sweep/Align Controls (APNG Animation)"
+```drawlib align=center file=line_parameter_tour.png caption="Basic Usage & Parameter Tour: Anchor & Series, Smooth Splines & Strokes, Vertex Markers & Labels, and Sweep/Align Controls (APNG Animation)"
 from __future__ import annotations
 
 from drawlib.anim import Animation
@@ -922,6 +922,10 @@ for sw_idx, (sw_mode, dur, code_sw, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) 
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/en/05_charts/line.md" target="_blank" rel="noopener noreferrer">View animation source code on GitHub &rarr;</a>
+</div>
 
 - **Bottom-Left Anchor, Series & Legend (`xy`, `add_series`, `draw_legend`)**: Anchors the `(width, height)` chart container at bottom-left `xy` by default (`align="bottom_left"`) and pairs `.add_series(...)` trend lines with a freely positioned `draw_legend(...)`.
 - **Straight Segments vs. Smooth Splines & Strokes (`smooth`, `line_style`, `line_width`)**: Switch between crisp polygonal segments (`smooth=False`) and rounded cubic splines (`smooth=True`, for 3+ points), with per-series `"solid"`, `"dashed"`, `"dotted"`, or `"dashdot"` stroke patterns.

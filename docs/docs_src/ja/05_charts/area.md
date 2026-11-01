@@ -68,7 +68,7 @@ save()
 
 `AreaChart` は `.add_series(...)` で登録されたカテゴリ輪郭線の下部に幾何ポリゴンの面塗りを施し、デフォルトで `(width, height)` コンテナの**左下 `(x, y)`** を基準にアンカーします（`align="center"` で中央揃えも可）。ベースライン基準の独立した半透明重なり表示（`mode="overlap"`、`fill_alpha`）と累積ストリーム積み上げ表示（`mode="stack"`）の切り替え、頂点マーカーや破線の閾値バンドの追加、さらに Y 軸範囲を維持したままでのスイープ描画や表示／非表示の切り替えが可能です。
 
-```drawlib code=fold align=center file=area_parameter_tour.png caption="基本的な使い方とパラメータツアー：ベースラインと不透明度、重なり／積み上げモード、頂点とバンドスタイル、スイープと配置制御（APNG アニメーション）"
+```drawlib align=center file=area_parameter_tour.png caption="基本的な使い方とパラメータツアー：ベースラインと不透明度、重なり／積み上げモード、頂点とバンドスタイル、スイープと配置制御（APNG アニメーション）"
 from __future__ import annotations
 
 from drawlib.anim import Animation
@@ -898,6 +898,10 @@ for sw_idx, (sw_mode, dur, code_sw, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) 
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/ja/05_charts/area.md" target="_blank" rel="noopener noreferrer">GitHub でアニメーションのソースコードを見る &rarr;</a>
+</div>
 
 - **左下アンカー・`Y=0` ベースライン・不透明度（`xy`, `fill_alpha`, `draw_legend`）**: デフォルトで `(width, height)` コンテナを左下 `xy` にアンカーし、`Y=0` まで塗りつぶした面ポリゴンを設定可能な `fill_alpha`（`0.0`〜`1.0`）で描画し、`draw_legend(...)` と組み合わせます。
 - **重複モードと累積積み上げモード（`mode="overlap"` vs. `"stack"`, `smooth`）**: 各系列を `Y=0` から独立して半透明合成（`fill_alpha=0.25`〜`0.45`）する `mode="overlap"` *（デフォルト）* と、系列を累積的に積み上げる `mode="stack"`（オプションで `smooth=True` の滑らかな輪郭にも対応）を使い分けられます。

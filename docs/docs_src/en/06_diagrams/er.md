@@ -45,7 +45,7 @@ save()
 
 `ERDiagram` places relational `Entity` tables by their **Center `(cx, cy)`** via `er.add(entity, xy=(cx, cy))`, rendering typed schema rows with automatic `PK` and `FK` key badges as `effective_height` expands to fit every column. Relationships draw industry-standard Information Engineering (IE) Crow's Foot `cardinality` markers, snap directly to primary and foreign key rows via `start_column` and `end_column`, and support custom `header_style` bands, `show=False` hiding, and `align="center"` placement:
 
-```drawlib code=fold align=center file=er_parameter_tour.png caption="Basic Usage & Parameter Tour: Entity Tables & Key Badges, Crow's Foot Cardinalities, Row-Level Column Anchoring, and Header Styles & Reveal (APNG Animation)"
+```drawlib align=center file=er_parameter_tour.png caption="Basic Usage & Parameter Tour: Entity Tables & Key Badges, Crow's Foot Cardinalities, Row-Level Column Anchoring, and Header Styles & Reveal (APNG Animation)"
 from __future__ import annotations
 
 from drawlib.anim import Animation
@@ -989,6 +989,10 @@ for p4_idx, (p4_mode, dur, code_4, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) i
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/en/06_diagrams/er.md" target="_blank" rel="noopener noreferrer">View animation source code on GitHub &rarr;</a>
+</div>
 
 - **Center-Anchored `Entity` Cards & Key Badges (`xy`, `pk`, `fk`, `nullable`)**: `er.add(entity, xy=(cx, cy))` places each table by its center while `.add_column(...)` adds amber `PK` and blue `FK` tags and expands `effective_height` automatically.
 - **IE Crow's Foot Cardinalities (`cardinality`)**: `entity.connect(...)` and `er.connect(...)` draw Information Engineering vector markers across all 7 multiplicities (`"1:*"`, `"1:1"`, `"1:1..*"`, `"1:0..1"`, `"0..1:1"`, `"0..1:*"`, `"*:*"`).

@@ -2,7 +2,7 @@
 
 Drawlib v0.3 は、Claude Code、Cursor、Gemini、GitHub Copilot などの **自律型 AI コーディングエージェント** のために一から設計されています。人間のエンジニアが手作業で技術仕様書を執筆したりアーキテクチャ図を描いたりする代わりに、**ドキュメントのライフサイクル全体** を AI エージェントへ委譲できます。
 
-```drawlib code=fold align=center file=agent_collaboration_model.png caption="自律型 AI ドキュメントライフサイクル: リポジトリ・ルール参照、Markdown 執筆、内側・外側ループ（APNG アニメーション）"
+```drawlib align=center file=agent_collaboration_model.png caption="自律型 AI ドキュメントライフサイクル: リポジトリ・ルール参照、Markdown 執筆、内側・外側ループ（APNG アニメーション）"
 from __future__ import annotations
 
 from drawlib.anim import Animation
@@ -1085,6 +1085,10 @@ add_scene_7_user_approval(anim)
 
 save()
 ```
+
+<div class="drawlib-source-link">
+  <a href="https://github.com/yuichi110/drawlib/blob/main/docs/docs_src/ja/01_getting_started/agent_quicklook.md" target="_blank" rel="noopener noreferrer">GitHub でアニメーションのソースコードを見る &rarr;</a>
+</div>
 
 ---
 
