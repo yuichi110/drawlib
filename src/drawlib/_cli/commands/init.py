@@ -129,7 +129,7 @@ def cmd_init_doc(
         typer.Option(
             "-l",
             "--lang",
-            help="Language code for starter templates and font config ('en', 'ja', 'zh-cn', 'ko', etc.).",
+            help="Language code ('en', 'ja', etc.) or comma-separated codes for multi-locale doc ('en,ja').",
         ),
     ] = "en",
     force: Annotated[

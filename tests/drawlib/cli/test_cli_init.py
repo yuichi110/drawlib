@@ -340,23 +340,48 @@ def test_cli_init_lang_invalid(tmp_path: Path) -> None:
     assert "Unsupported language 'unknown_lang'" in res.stderr
 
 
-def test_cli_init_site_multi_lang(tmp_path: Path) -> None:
-    """Test `drawlib init site sub/portal -l en,ja` scaffolds an i18n site and rejects non-site multi-lang."""
+def test_cli_init_site_and_doc_multi_lang(tmp_path: Path) -> None:
+    """Test multi-locale `drawlib init site` and `drawlib init doc` with drawlib.toml and reject slide/images."""
+    for single_type, folder in [("doc", "s_doc"), ("site", "s_site"), ("slide", "s_slide"), ("images", "s_imgs")]:
+        res_single = run_drawlib_cli(["init", single_type, folder], cwd=str(tmp_path))
+        assert res_single.returncode == 0
+        manifest_text = (tmp_path / f"{folder}_src" / "drawlib.toml").read_text(encoding="utf-8")
+        assert f'type = "{single_type}"' in manifest_text
+        assert 'lang = "en"' in manifest_text
+        assert "[i18n]" not in manifest_text
+
     res = run_drawlib_cli(["init", "site", "sub/portal", "-l", "en,ja"], cwd=str(tmp_path))
     assert res.returncode == 0
     assert "sub/portal_src/" in res.stdout
 
     src_dir = tmp_path / "sub" / "portal_src"
-    assert (src_dir / "i18n.toml").is_file()
-    i18n_toml = (src_dir / "i18n.toml").read_text(encoding="utf-8")
-    assert 'default_lang = "en"' in i18n_toml
-    assert 'langs = ["en", "ja"]' in i18n_toml
+    assert (src_dir / "drawlib.toml").is_file()
+    site_toml = (src_dir / "drawlib.toml").read_text(encoding="utf-8")
+    assert 'type = "site"' in site_toml
+    assert "[i18n]" in site_toml
+    assert 'default_lang = "en"' in site_toml
+    assert 'langs = ["en", "ja"]' in site_toml
     assert (src_dir / "en" / "index.md").is_file()
     assert (src_dir / "ja" / "index.md").is_file()
     assert (src_dir / "en" / "navbar.md").is_file()
     assert (src_dir / "ja" / "navbar.md").is_file()
 
-    # Non-site multi-lang should fail cleanly
-    res_doc = run_drawlib_cli(["init", "doc", "-l", "en,ja"], cwd=str(tmp_path))
-    assert res_doc.returncode != 0
-    assert "only supported for 'site' projects" in res_doc.stderr
+    res_doc = run_drawlib_cli(["init", "doc", "sub/whitepaper", "-l", "en,ja", "-s", "google"], cwd=str(tmp_path))
+    assert res_doc.returncode == 0
+    doc_dir = tmp_path / "sub" / "whitepaper_src"
+    assert (doc_dir / "drawlib.toml").is_file()
+    doc_toml = (doc_dir / "drawlib.toml").read_text(encoding="utf-8")
+    assert 'type = "doc"' in doc_toml
+    assert 'style = "google"' in doc_toml
+    assert "[i18n]" in doc_toml
+    assert 'default_lang = "en"' in doc_toml
+    assert 'langs = ["en", "ja"]' in doc_toml
+    assert (doc_dir / "en" / "00_cover.md").is_file()
+    assert (doc_dir / "ja" / "00_cover.md").is_file()
+    assert not (doc_dir / "en" / "navbar.md").exists()
+
+    # Slide and images multi-lang should fail cleanly
+    for unsupported in ("slide", "images"):
+        res_bad = run_drawlib_cli(["init", unsupported, "-l", "en,ja"], cwd=str(tmp_path))
+        assert res_bad.returncode != 0
+        assert "only supported for 'site' and 'doc' projects" in res_bad.stderr

@@ -45,8 +45,8 @@ def test_load_i18n_config_absent_and_valid(tmp_path: Path) -> None:
     (i18n_dir / "en").mkdir(parents=True)
     (i18n_dir / "ja").mkdir(parents=True)
     (i18n_dir / "zh-cn").mkdir(parents=True)
-    (i18n_dir / "i18n.toml").write_text(
-        'default_lang = "EN"\nlangs = ["en", "jp", "zh"]\n',
+    (i18n_dir / "drawlib.toml").write_text(
+        '[project]\ntype = "site"\n\n[i18n]\ndefault_lang = "EN"\nlangs = ["en", "jp", "zh"]\n',
         encoding="utf-8",
     )
 
@@ -57,29 +57,38 @@ def test_load_i18n_config_absent_and_valid(tmp_path: Path) -> None:
 
 
 def test_load_i18n_config_validation_errors(tmp_path: Path) -> None:
-    """Verify malformed i18n.toml, duplicate langs, missing default_lang, and missing folders error."""
+    """Verify malformed drawlib.toml, duplicate langs, missing default_lang, and missing folders error."""
     base = tmp_path / "bad_src"
     base.mkdir()
 
     # Invalid TOML syntax
-    (base / "i18n.toml").write_text("default_lang = [unclosed", encoding="utf-8")
+    (base / "drawlib.toml").write_text("[project]\ntype = [unclosed", encoding="utf-8")
     with pytest.raises(ValueError, match="Failed to parse"):
         load_i18n_config(str(base))
 
     # Duplicate normalized language codes
     (base / "en").mkdir(exist_ok=True)
     (base / "ja").mkdir(exist_ok=True)
-    (base / "i18n.toml").write_text('default_lang = "en"\nlangs = ["en", "ja", "jp"]\n', encoding="utf-8")
+    (base / "drawlib.toml").write_text(
+        '[project]\ntype = "site"\n\n[i18n]\ndefault_lang = "en"\nlangs = ["en", "ja", "jp"]\n',
+        encoding="utf-8",
+    )
     with pytest.raises(ValueError, match="duplicate language"):
         load_i18n_config(str(base))
 
     # default_lang not in langs
-    (base / "i18n.toml").write_text('default_lang = "ko"\nlangs = ["en", "ja"]\n', encoding="utf-8")
+    (base / "drawlib.toml").write_text(
+        '[project]\ntype = "site"\n\n[i18n]\ndefault_lang = "ko"\nlangs = ["en", "ja"]\n',
+        encoding="utf-8",
+    )
     with pytest.raises(ValueError, match="must be included in langs"):
         load_i18n_config(str(base))
 
     # Missing locale directory on disk
-    (base / "i18n.toml").write_text('default_lang = "en"\nlangs = ["en", "fr"]\n', encoding="utf-8")
+    (base / "drawlib.toml").write_text(
+        '[project]\ntype = "site"\n\n[i18n]\ndefault_lang = "en"\nlangs = ["en", "fr"]\n',
+        encoding="utf-8",
+    )
     with pytest.raises(ValueError, match="Missing locale directory"):
         load_i18n_config(str(base))
 

@@ -183,7 +183,7 @@ def get_css(
     if name and os.path.exists(name):
         with open(name, "r", encoding="utf-8") as f:
             raw_css = f.read()
-        return _apply_css_font_replacements(raw_css, lang=lang)
+        return localize_css_for_language(raw_css, lang=lang)
 
     theme_name = (name or "default").strip().lower()
     if theme_name == "google-pdf":

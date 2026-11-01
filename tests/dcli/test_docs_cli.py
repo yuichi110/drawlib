@@ -43,7 +43,7 @@ def test_target_definitions() -> None:
     assert "ddos" in TARGET_MAP
     assert "readme" in TARGET_MAP
     assert "logo" in TARGET_MAP
-    assert len(ALL_TARGETS) == 9
+    assert len(ALL_TARGETS) == 8
 
 
 def test_docs_build_unknown_target() -> None:

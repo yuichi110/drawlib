@@ -322,6 +322,15 @@ def build_slide(
     if not os.path.isdir(input_abs):
         raise ValueError(f"Input directory does not exist: '{input_dir}'")
 
+    from drawlib._builder._common import load_project_manifest  # noqa: PLC0415
+
+    manifest = load_project_manifest(input_abs)
+    if manifest is not None and manifest.project.type != "slide":
+        raise ValueError(
+            f'Input directory "{input_abs}" is a "{manifest.project.type}" project (drawlib.toml), '
+            'not a "slide" presentation project.'
+        )
+
     output_abs = _resolve_output_dir(input_abs, output_dir)
     _clean_output_dir(output_abs, input_abs)
     candidate_files = _collect_slide_files(input_abs)
@@ -339,8 +348,10 @@ def build_slide(
         extra_config_hash=f"total_slides:{total_slides}",
     )
 
-    deck_title = title or "Drawlib Presentation"
-    deck_theme = theme or "google"
+    deck_title = (
+        title or (manifest.project.title if manifest and manifest.project.title else None) or "Drawlib Presentation"
+    )
+    deck_theme = theme or (manifest.project.style if manifest and manifest.project.style else None) or "google"
 
     slides_html_list: list[str] = []
     thumbs_html_list: list[str] = []

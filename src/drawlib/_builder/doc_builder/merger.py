@@ -28,6 +28,7 @@ from drawlib._builder.doc_builder.progress import (
     check_document_output_duplicates,
     format_duplicate_output_error,
 )
+from drawlib._templates.langs import get_language_config
 
 
 def _extract_title(content: str, filename: str, is_md: bool) -> str:
@@ -57,7 +58,7 @@ def _extract_html_body(html_text: str) -> str:
     return html_text.strip()
 
 
-def _inline_local_images(html_body: str, src_dir: str) -> str:
+def _inline_local_images(html_body: str, src_dir: str, project_root: str | None = None) -> str:
     """Convert relative <img src="..."> file references into Data URLs so merged chapters resolve assets."""
     pattern = re.compile(r'(<img\b[^>]*?\bsrc=["\'])([^"\']+)(["\'][^>]*>)', re.IGNORECASE)
 
@@ -67,6 +68,10 @@ def _inline_local_images(html_body: str, src_dir: str) -> str:
             return match.group(0)
         clean_ref = img_src.split("#")[0].split("?")[0]
         abs_img = os.path.abspath(os.path.join(src_dir, clean_ref))
+        if not os.path.isfile(abs_img) and project_root is not None:
+            alt_img = os.path.abspath(os.path.join(project_root, clean_ref))
+            if os.path.isfile(alt_img):
+                abs_img = alt_img
         if not os.path.isfile(abs_img):
             return match.group(0)
         mime, _ = mimetypes.guess_type(abs_img)
@@ -144,6 +149,11 @@ def build_merged_html(
     css_path: str | None = None,
     template_path: str | None = None,
     no_cache: bool = False,
+    *,
+    lang: str = "en",
+    toc_title: str | None = None,
+    project_root: str | None = None,
+    cache: BuildImageCache | None = None,
 ) -> tuple[str, list[str]]:
     """Compile and merge one or more Markdown/HTML inputs into a single standalone HTML document.
 
@@ -158,6 +168,10 @@ def build_merged_html(
         css_path (Optional[str]): Optional CSS preset name or file path.
         template_path (Optional[str]): Optional Jinja2 HTML template path.
         no_cache (bool): If True, disable reading/writing the SQLite build image cache.
+        lang (str): Canonical language code for CSS fonts, HTML metadata, and TOC heading.
+        toc_title (Optional[str]): Optional explicit TOC heading override.
+        project_root (Optional[str]): Optional root project directory for asset hashing/lookup.
+        cache (Optional[BuildImageCache]): Optional shared build image cache across locales.
 
     Returns:
         tuple[str, List[str]]: (merged_full_html_string, ordered_source_files).
@@ -203,7 +217,7 @@ def build_merged_html(
                 break
 
     file_list = expand_input_files(inputs)
-    cache = BuildImageCache(enabled=not no_cache)
+    active_cache = cache if cache is not None else BuildImageCache(enabled=not no_cache)
     processor: DrawlibBlockProcessor | None = None
 
     chapter_anchors: dict[str, str] = {}
@@ -227,6 +241,8 @@ def build_merged_html(
         base_root = common if os.path.isdir(common) else os.path.dirname(common)
     else:
         base_root = os.path.dirname(file_list[0]) if file_list else ""
+    eff_project_root = project_root or base_root
+
     display_names = ["/" + os.path.relpath(s_abs, base_root).replace(os.sep, "/") for s_abs in file_list]
     seen_sources: dict[str, str] = {}
     for s_abs, disp_name in zip(file_list, display_names):
@@ -273,8 +289,8 @@ def build_merged_html(
                 styles_path=styles_path,
                 utils_path=utils_path,
                 no_cache=no_cache,
-                cache=cache,
-                project_root=base_root,
+                cache=active_cache,
+                project_root=eff_project_root,
             )
 
         orig_cwd = os.getcwd()
@@ -291,8 +307,8 @@ def build_merged_html(
                         styles_path=styles_path,
                         utils_path=utils_path,
                         no_cache=no_cache,
-                        cache=cache,
-                        project_root=base_root,
+                        cache=active_cache,
+                        project_root=eff_project_root,
                     )
                 processed_md = processor.process_markdown(
                     content,
@@ -311,8 +327,8 @@ def build_merged_html(
                         styles_path=styles_path,
                         utils_path=utils_path,
                         no_cache=no_cache,
-                        cache=cache,
-                        project_root=base_root,
+                        cache=active_cache,
+                        project_root=eff_project_root,
                     )
                 processed_html = processor.process_html(
                     content,
@@ -330,7 +346,7 @@ def build_merged_html(
             if sys_path_added and src_dir in sys.path:
                 sys.path.remove(src_dir)
 
-        chapter_body = _inline_local_images(chapter_body, src_dir)
+        chapter_body = _inline_local_images(chapter_body, src_dir, project_root=eff_project_root)
 
         # Rewrite internal cross-file links to merged chapter anchors
         def _rewrite_link(match: re.Match[str]) -> str:
@@ -354,6 +370,7 @@ def build_merged_html(
     body_parts: list[str] = []
     index_entries = toc_entries[1:]
     if generate_index and len(index_entries) > 0:
+        resolved_toc_title = toc_title or get_language_config(lang).toc_title
         toc_items = "\n".join(f'    <li><a href="#{anc}">{t_title}</a></li>' for anc, t_title in index_entries)
         toc_break = (
             ' style="page-break-before: always; break-before: page; page-break-after: always; break-after: page;"'
@@ -361,7 +378,10 @@ def build_merged_html(
             else ""
         )
         toc_html = (
-            f'<nav class="pdf-toc"{toc_break}>\n  <h2>Table of Contents</h2>\n  <ul>\n{toc_items}\n  </ul>\n</nav>'
+            f'<nav class="pdf-toc"{toc_break}>\n'
+            f"  <h2>{resolved_toc_title}</h2>\n"
+            f"  <ul>\n{toc_items}\n  </ul>\n"
+            f"</nav>"
         )
         body_parts.append(chapters_html[0])
         body_parts.append(toc_html)
@@ -375,6 +395,7 @@ def build_merged_html(
         title=inferred_title or "Drawlib Document",
         custom_css_path=css_path,
         template_path=template_path or "default",
+        lang=lang,
     )
 
     return full_html, file_list

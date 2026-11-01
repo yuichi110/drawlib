@@ -193,6 +193,29 @@ def cmd_build_html(
         _handle_build_error("Build HTML Error", e)
 
 
+def _format_multi_locale_build_summary(input_path: str, output: str | None, default_out: str, ext: str) -> str:
+    """Return comma-separated paths for all locales when building a multi-locale doc directory."""
+    import os  # noqa: PLC0415
+
+    if not os.path.isdir(input_path):
+        return default_out
+    from drawlib._builder._common import load_project_manifest  # noqa: PLC0415
+    from drawlib._builder.doc_builder.compiler.base import resolve_multi_locale_dest  # noqa: PLC0415
+
+    input_abs = os.path.abspath(input_path)
+    manifest = load_project_manifest(input_abs)
+    if manifest is None or manifest.i18n is None or manifest.project.type != "doc":
+        return default_out
+
+    dir_name = os.path.basename(input_abs.rstrip(os.sep))
+    base_name = dir_name[:-4] if dir_name.endswith("_src") else dir_name
+    if not base_name:
+        base_name = "document"
+    default_parent = os.path.dirname(input_abs)
+    paths = [resolve_multi_locale_dest(default_parent, base_name, output, lc, ext) for lc in manifest.i18n.langs]
+    return ", ".join(paths)
+
+
 @build_app.command("pdf", epilog=HELP_EPILOG)
 def cmd_build_pdf(
     input_path: Annotated[
@@ -204,7 +227,7 @@ def cmd_build_pdf(
     ],
     output: Annotated[
         str | None,
-        typer.Option("-o", "--output", help="Output PDF file path."),
+        typer.Option("-o", "--output", help="Output PDF file path (or base path/directory for multi-locale doc)."),
     ] = None,
     page_break: Annotated[
         bool,
@@ -256,7 +279,8 @@ def cmd_build_pdf(
             no_cache=no_cache,
             timestamp=timestamp,
         )
-        print(f"Successfully compiled PDF document: {out_file}")
+        summary = _format_multi_locale_build_summary(input_path, output, out_file, ".pdf")
+        print(f"Successfully compiled PDF document: {summary}")
     except Exception as e:
         _handle_build_error("Build PDF Error", e)
 
@@ -272,7 +296,11 @@ def cmd_build_docx(
     ],
     output: Annotated[
         str | None,
-        typer.Option("-o", "--output", help="Output MS Word (.docx) file path."),
+        typer.Option(
+            "-o",
+            "--output",
+            help="Output MS Word (.docx) file path (or base path/directory for multi-locale doc).",
+        ),
     ] = None,
     page_break: Annotated[
         bool,
@@ -329,7 +357,8 @@ def cmd_build_docx(
             no_cache=no_cache,
             timestamp=timestamp,
         )
-        print(f"Successfully compiled Word document: {out_file}")
+        summary = _format_multi_locale_build_summary(input_path, output, out_file, ".docx")
+        print(f"Successfully compiled Word document: {summary}")
     except Exception as e:
         _handle_build_error("Build Word Error", e)
 

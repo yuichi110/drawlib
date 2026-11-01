@@ -4,7 +4,7 @@ Drawlib は、技術文書（`doc`）やWebサイト（`site`）だけでなく�
 
 PowerPoint や Google Slides などの GUI ツールを使わずに、Markdown と Python 作図コードだけで、学会発表・カンファレンス・社内勉強会向けの美しいスライドデッキをコード管理できます。
 
-```drawlib align=center file=fig_slide_layout.png caption="図 12.1: Drawlib スライド生成アーキテクチャとマルチ出力"
+```drawlib align=center file=fig_slide_layout_ja.png caption="図 12.1: Drawlib スライド生成アーキテクチャとマルチ出力"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line

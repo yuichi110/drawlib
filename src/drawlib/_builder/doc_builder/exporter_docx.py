@@ -853,6 +853,7 @@ def _emit_toc_section(
     toc_entries: list[tuple[str, str]],
     *,
     page_break: bool,
+    toc_title: str = "Table of Contents",
 ) -> None:
     """Insert a clickable Table of Contents section linking to chapter bookmarks."""
     from drawlib._builder.doc_builder._docx_xml import add_hyperlink_run
@@ -864,7 +865,7 @@ def _emit_toc_section(
         doc.add_page_break()
 
     toc_h = doc.add_paragraph(style="Heading 2")
-    run_h = toc_h.add_run("Table of Contents")
+    run_h = toc_h.add_run(toc_title)
     from drawlib._builder.doc_builder._docx_xml import set_run_fonts
 
     set_run_fonts(run_h, theme.heading_font, theme.east_asia_font)
@@ -893,6 +894,10 @@ def export_chapters_to_docx(
     css_path: str | None = None,
     no_cache: bool = False,
     timestamp: bool = False,
+    lang: str = "en",
+    toc_title: str | None = None,
+    project_root: str | None = None,
+    cache: BuildImageCache | None = None,
 ) -> list[str]:
     """Compile and merge Markdown inputs into a single native MS Word (.docx) document.
 
@@ -908,6 +913,10 @@ def export_chapters_to_docx(
         css_path: Optional project style.css path for theme extraction.
         no_cache: Disable reading/writing the SQLite build image cache.
         timestamp: Preserve current build timestamp instead of normalizing it.
+        lang: Canonical language code for TOC heading and CJK theme font resolution.
+        toc_title: Optional explicit TOC heading override.
+        project_root: Optional root project directory for asset hashing/lookup.
+        cache: Optional shared build image cache across locales.
 
     Returns:
         list[str]: Ordered list of compiled absolute Markdown file paths.
@@ -917,6 +926,7 @@ def export_chapters_to_docx(
         import_docx,
         parse_docx_theme,
     )
+    from drawlib._templates.langs import get_language_config
 
     if not inputs:
         raise ValueError("At least one input file or directory must be specified.")
@@ -937,11 +947,16 @@ def export_chapters_to_docx(
         base_root = common if os.path.isdir(common) else os.path.dirname(common)
     else:
         base_root = os.path.dirname(file_list[0])
+    eff_project_root = project_root or base_root
 
     if css_path is None:
-        c_cand = os.path.join(base_root, "style.css")
+        c_cand = os.path.join(eff_project_root, "style.css")
         if os.path.isfile(c_cand):
             css_path = c_cand
+        else:
+            c_local = os.path.join(base_root, "style.css")
+            if os.path.isfile(c_local):
+                css_path = c_local
 
     display_names = ["/" + os.path.relpath(s_abs, base_root).replace(os.sep, "/") for s_abs in file_list]
     seen_sources: dict[str, str] = {}
@@ -986,7 +1001,7 @@ def export_chapters_to_docx(
         for src_abs, _, content, bm_name, _ in chapters_meta[1:]
     ]
 
-    theme = parse_docx_theme(css_path)
+    theme = parse_docx_theme(css_path, lang=lang)
     doc = docx.Document()
     configure_docx_document(doc, theme)
 
@@ -995,9 +1010,10 @@ def export_chapters_to_docx(
     doc.core_properties.created = meta_dt
     doc.core_properties.modified = meta_dt
 
-    cache = BuildImageCache(enabled=not no_cache)
+    active_cache = cache if cache is not None else BuildImageCache(enabled=not no_cache)
     processor: DrawlibBlockProcessor | None = None
     total_files = len(chapters_meta)
+    resolved_toc_title = toc_title or get_language_config(lang).toc_title
 
     with tempfile.TemporaryDirectory() as scratch_dir:
         renderer = _DocxChapterRenderer(
@@ -1026,8 +1042,8 @@ def export_chapters_to_docx(
                     styles_path=styles_path,
                     utils_path=utils_path,
                     no_cache=no_cache,
-                    cache=cache,
-                    project_root=base_root,
+                    cache=active_cache,
+                    project_root=eff_project_root,
                 )
 
             src_dir = os.path.dirname(src_abs)
@@ -1055,7 +1071,7 @@ def export_chapters_to_docx(
             progress.update(total_steps, total_steps, done=True)
 
             if idx == 1 and generate_index and toc_entries:
-                _emit_toc_section(doc, theme, toc_entries, page_break=page_break)
+                _emit_toc_section(doc, theme, toc_entries, page_break=page_break, toc_title=resolved_toc_title)
 
         abs_output = os.path.abspath(output_path)
         out_dir = os.path.dirname(abs_output)

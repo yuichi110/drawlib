@@ -152,6 +152,7 @@ drawlib init doc my_report -s google -l en
 ## 3. ディレクトリ構成と構造
 
 ### 編集対象のソースディレクトリ (`doc_src/`)
+- **`drawlib.toml`**: `type = "doc"`、言語（`lang`、自動目次の見出しローカライズに使用）、テーマメタデータ、および任意の `[i18n]` 多言語設定を宣言するプロジェクトマニフェストです。
 - **`00_cover.md`, `01_overview.md`, `02_design.md`, ...**: 本文と埋め込み ````drawlib```` ブロックを含む番号付きの Markdown 章ファイルです。ファイル名の辞書順でソートされて結合されます。
 - **`styles.py` & `utils.py`**: 共有の Python スタイル設定（`Colors`、`Styles`、言語フォント）および再利用可能な図解ヘルパー関数です。
 - **`template.html` & `style.css`**: ブラウザプレビューおよびベクター PDF 生成に使用される Jinja2 シングルページ HTML レイアウトと印刷対応 CSS（`@media print` / `@page A4`）です。
@@ -238,3 +239,35 @@ drawlib build image doc_src/ -o doc_images/
 1. **フェーズ 1（親エージェントによる初期設定）**: `doc_src/` をスキャフォールディング（`drawlib init doc`）し、`styles.py`、`utils.py`、`00_cover.md` を確定させたうえで、番号付きの章ファイル名一覧を決定します。
 2. **フェーズ 2（サブエージェントによる並列執筆）**: 個別の章（`doc_src/0N_<topic>.md`）を並列サブエージェントに割り当てます。各サブエージェントは担当の章（各章 2 つ以上の図解、5〜15 行目に章のヒーロー図解を配置）を執筆し、一意なグリッドプレビューパス（`-o .drawlib/scratch/0N_<diagram>_grid.png`）で図解を検証します。
 3. **フェーズ 3（統合コンパイル）**: すべてのサブエージェントが章の執筆を完了した後、親エージェントが `./doc_src/build.sh`（および必要に応じて `drawlib build docx`）を 1 回実行し、全章を `doc_html/index.html`、`doc.pdf`、`doc.docx` に統合します。
+
+---
+
+## 9. 多言語（`i18n`）リニアドキュメント (`drawlib.toml`)
+
+`drawlib init doc` にカンマ区切りのロケールを指定するか、`doc_src/drawlib.toml` に `[i18n]` セクションを設定することで、単一の `doc_src/` プロジェクト内で複数言語版（英語と日本語のホワイトペーパーなど）を並べて管理・一括コンパイルできます。
+
+```bash
+uv run drawlib init doc whitepaper -l en,ja -s google
+```
+
+```toml
+[project]
+name = "whitepaper"
+type = "doc"
+style = "google"
+
+[i18n]
+default_lang = "en"
+langs = ["en", "ja"]
+
+[i18n.labels]
+en = "English"
+ja = "日本語"
+```
+
+- **対称なロケール別章ディレクトリ (`doc_src/<lang>/`)**: 番号付きの章ファイル（`00_cover.md`、`01_overview.md` など）を各ロケールディレクトリ（`doc_src/en/`、`doc_src/ja/`）内に配置します。ビルド前の事前検証により、全ロケール間で章ファイルセットの一致、Markdown の構造スケルトン一致、および相対リンクの整合性が自動的にチェックされます。
+- **ロケール別 `styles.py` と共有図解の重複排除**: 言語に依存しない共通図解（`file=fig_pipeline.png`）はルートの `doc_src/styles.py` を用いて共有の `images/` に 1 回だけレンダリングされます。日本語フォントや翻訳ラベルが必要な図解には、`doc_src/<lang>/styles.py`（例: `FontJapanese` を設定した `ja/styles.py`）を配置し、ロケール固有のファイル名（`file=fig_pipeline_ja.png`）を割り当てます。
+- **ロケール別の PDF・MS Word 成果物 (`<base>_<lang>.pdf` / `.docx`)**: `drawlib build pdf doc_src/ -o whitepaper.pdf --toc` や `drawlib build docx doc_src/ -o whitepaper.docx --generate-index` を実行すると、各言語にローカライズされた目次見出し（`"Table of Contents"`、`"目次"` など）を備えた `whitepaper_en.pdf` / `whitepaper_ja.pdf`（および `.docx`）が自動生成されます。
+- **印刷セーフな HTML 言語スイッチャー**: 結合 HTML プレビュー（`whitepaper_html/<lang>/index.html`）にはブラウザ上で即座に言語を切り替えられる右上ドロップダウンが表示され、ベクター PDF 生成時には `@media print` によって自動的に非表示になります。
+- **同期された GitHub Markdown (`whitepaper_markdown/<lang>/`)**: `build_markdown.sh` は、画像ファイルを重複させることなく共有の `../images/` アセットを参照するロケール別の Markdown 章ファイルを出力します。
+

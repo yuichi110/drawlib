@@ -1,0 +1,7 @@
+[project]
+name = "quickstart"
+type = "doc"
+title = ""
+description = "Drawlib Quickstart Onboarding Guide & PDF"
+lang = "en"
+style = "google"

@@ -15,18 +15,17 @@ All documentation, guides, slides, and README illustrations in this repository a
 
 | Build Target (`./dcli docs build <target>`) | Source Directory (`docs/*_src/`) | Template Type (`drawlib init`) | Generated Outputs (Do NOT edit directly) | Description |
 | :--- | :--- | :--- | :--- | :--- |
-| **`site`** | `docs/docs_src/` (`i18n.toml`: `en/`, `ja/`) | `site` | `docs/docs_markdown/`, `docs/docs_html/`, `docs/docs_images/` | Official multi-language (`en`/`ja`) documentation website & GitHub Markdown |
+| **`site`** | `docs/docs_src/` (`drawlib.toml`: `en/`, `ja/`) | `site` | `docs/docs_markdown/`, `docs/docs_html/`, `docs/docs_images/` | Official multi-language (`en`/`ja`) documentation website & GitHub Markdown |
 | **`architecture`** | `docs/architecture_src/` | `site` | `docs/architecture_markdown/`, `docs/architecture_html/`, `docs/architecture_images/` | Software architecture specification site |
 | **`quickstart`** | `docs/quickstart_src/` | `doc` | `docs/quickstart_html/`, `docs/quickstart.pdf`, `docs/quickstart_markdown/`, `docs/quickstart_images/` | Linear quickstart guide & PDF |
-| **`dogfooding`** | `docs/drawlib-dogfooding_src/` | `doc` | `docs/drawlib-dogfooding_html/`, `docs/drawlib-dogfooding.pdf`, `docs/drawlib-dogfooding_markdown/`, `docs/drawlib-dogfooding_images/` | Dogfooding technical whitepaper (Japanese) |
-| **`dogfooding-en`** | `docs/drawlib-dogfooding-en_src/` | `doc` | `docs/drawlib-dogfooding-en_html/`, `docs/drawlib-dogfooding-en.pdf`, `docs/drawlib-dogfooding-en_markdown/`, `docs/drawlib-dogfooding-en_images/` | Dogfooding technical whitepaper (English) |
+| **`dogfooding`** | `docs/drawlib-dogfooding_src/` (`drawlib.toml`: `en/`, `ja/`) | `doc` | `docs/drawlib-dogfooding_html/`, `docs/drawlib-dogfooding_en.pdf`, `docs/drawlib-dogfooding_ja.pdf`, `docs/drawlib-dogfooding_markdown/`, `docs/drawlib-dogfooding_images/` | Bilingual (`en`/`ja`) Dogfooding technical whitepaper |
 | **`slide`** | `docs/slide_about_drawlib_src/` | `slide` | `docs/slide_about_drawlib_html/`, `docs/slide_about_drawlib.pdf`, `docs/slide_about_drawlib_images/` | 16:9 presentation slide deck (About Drawlib) |
 | **`slide-ddos`** | `docs/slide_ddos_incident_response_src/` | `slide` | `docs/slide_ddos_incident_response_html/`, `docs/slide_ddos_incident_response.pdf`, `docs/slide_ddos_incident_response_images/` | 16:9 presentation slide deck (DDoS Incident Response) |
 | **`readme`** | `docs/readme_src/` | `image` | `docs/readme_images/` | Standalone Python scripts generating illustrations for `README.md` |
 | **`logo`** | `docs/logo_src/` | `image` | `docs/logo_images/` | Drawlib brand logo & favicon asset generator scripts |
 
-- **Source of Truth**: Always edit files inside `docs/<name>_src/` (and `build.sh` / `navbar.md` within it). Never manually edit generated output folders or PDFs.
-- **Multi-Language Parity in `docs/docs_src/` (`en/` & `ja/`)**: `docs/docs_src/` uses `i18n.toml` (`default_lang = "en"`, `langs = ["en", "ja"]`) with shared `styles.py`, `utils.py`, `_assets/`, `style.css`, and `template.html` at root and localized Markdown trees in `docs/docs_src/en/` and `docs/docs_src/ja/`. Whenever adding, renaming, or editing a page or `drawlib` block in `docs/docs_src/en/`, apply the corresponding update to `docs/docs_src/ja/` so file paths, `navbar.md` structure, `H1`–`H3` skeleton sequence, and `drawlib` code blocks remain 100% in parity (`caption="..."` and prose localized per language).
+- **Source of Truth**: Always edit files inside `docs/<name>_src/` (and `drawlib.toml`, `build.sh`, `navbar.md` within it). Never manually edit generated output folders or PDFs.
+- **Multi-Language Parity in `docs/docs_src/` & `docs/drawlib-dogfooding_src/` (`en/` & `ja/`)**: Multi-language projects declare `[i18n]` (`default_lang = "en"`, `langs = ["en", "ja"]`) inside `drawlib.toml` with shared `styles.py` (optional per-locale `<lang>/styles.py` override), `utils.py`, `_assets/`, `style.css`, and `template.html` at root and localized Markdown trees in `en/` and `ja/`. Whenever adding, renaming, or editing a page/chapter or `drawlib` block in `en/`, apply the corresponding update to `ja/` so file paths, `navbar.md` structure (for `site`), `H1`–`H3` skeleton sequence, and `drawlib` code blocks remain 100% in parity (`caption="..."` and prose localized per language; localized diagram labels use `file=<stem>_<lang>.png`).
 - **Build & Preview**:
   ```bash
   ./dcli docs build <target>          # e.g. ./dcli docs build site (or --all)

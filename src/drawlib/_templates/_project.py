@@ -264,30 +264,44 @@ def _parse_init_languages(lang: str, canonical_type: str) -> list[str]:
             raise ValueError(f"Duplicate language code '{norm_code}' in --lang '{lang}'.")
         normalized.append(norm_code)
 
-    if len(normalized) > 1 and canonical_type != "site":
+    if len(normalized) > 1 and canonical_type not in {"site", "doc"}:
         raise ValueError(
-            f"Multi-language initialization ('{lang}') is only supported for 'site' projects, not '{canonical_type}'."
+            f"Multi-language initialization ('{lang}') is only supported for 'site' and 'doc' projects, "
+            f"not '{canonical_type}'."
         )
     return normalized
 
 
-def _deploy_i18n_config(
+def _deploy_project_manifest(
     src_dir: Path,
-    default_lang: str,
-    langs: list[str],
+    canonical_type: Literal["images", "doc", "site", "slide"],
+    target_name: str,
+    style: str,
+    primary_lang: str,
+    parsed_langs: list[str],
     created_files: list[Path],
 ) -> None:
-    """Write i18n.toml configuration file for multi-locale site projects."""
-    langs_literal = ", ".join(f'"{lc}"' for lc in langs)
-    toml_text = f'default_lang = "{default_lang}"\nlangs = [{langs_literal}]\n'
-    target_path = src_dir / "i18n.toml"
+    """Write ``drawlib.toml`` project manifest file for any initialized project archetype."""
+    from drawlib._builder._common.manifest import format_project_manifest_toml  # noqa: PLC0415
+
+    project_name = target_name or canonical_type
+    manifest_style = "custom" if Path(style).exists() else style
+    toml_text = format_project_manifest_toml(
+        name=project_name,
+        project_type=canonical_type,
+        style=manifest_style,
+        lang=primary_lang,
+        langs=parsed_langs if len(parsed_langs) > 1 else None,
+    )
+
+    target_path = src_dir / "drawlib.toml"
     target_path.parent.mkdir(parents=True, exist_ok=True)
     target_path.write_text(toml_text, encoding="utf-8")
     if target_path not in created_files:
         created_files.append(target_path)
 
 
-def _deploy_i18n_site_locales(
+def _deploy_i18n_locales(
     type_root: Traversable,
     src_dir: Path,
     langs: list[str],
@@ -336,7 +350,7 @@ def init_project(
         target: Custom base name for the project (e.g. 'spec', 'report', 'docs').
         output: Legacy alias for target (e.g. 'rbac' creates 'rbac_src/').
         force: If True, overwrite existing files and directories.
-        lang: Language code ('en', 'ja', etc.) or comma-separated codes for i18n 'site' ('en,ja').
+        lang: Language code ('en', 'ja', etc.) or comma-separated codes for i18n 'site'/'doc' ('en,ja').
         style: Style preset theme ('default', 'google', 'monochrome', etc.) or custom CSS file path.
         here: Deprecated legacy option. Ignored when target_src is always created.
 
@@ -393,9 +407,22 @@ def init_project(
     created_files: list[Path] = []
     _deploy_shared_templates(project_base, paths.src_dir, replacements, created_files)
     _deploy_type_root_files(type_root, paths.src_dir, replacements, created_files)
+    archetype_lit: Literal["images", "doc", "site", "slide"] = (
+        "doc"
+        if canonical_type == "doc"
+        else ("site" if canonical_type == "site" else ("slide" if canonical_type == "slide" else "images"))
+    )
+    _deploy_project_manifest(
+        src_dir=paths.src_dir,
+        canonical_type=archetype_lit,
+        target_name=paths.target,
+        style=resolved_style,
+        primary_lang=primary_lang,
+        parsed_langs=parsed_langs,
+        created_files=created_files,
+    )
     if is_multi_lang:
-        _deploy_i18n_config(paths.src_dir, primary_lang, parsed_langs, created_files)
-        _deploy_i18n_site_locales(type_root, paths.src_dir, parsed_langs, replacements, created_files)
+        _deploy_i18n_locales(type_root, paths.src_dir, parsed_langs, replacements, created_files)
     else:
         _deploy_localized_docs(type_root, paths.src_dir, primary_lang, replacements, created_files)
     _copy_shared_assets(paths.src_dir, replacements, created_files)

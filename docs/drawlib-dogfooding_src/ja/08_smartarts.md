@@ -20,7 +20,7 @@
 
 ## 8.2 パイプラインと機能比較の作成例
 
-```drawlib align=center file=fig_smartarts_sample.png caption="図 8.1: ChevronProcess と Table を組み合わせたリリースフロー"
+```drawlib align=center file=fig_smartarts_sample_ja.png caption="図 8.1: ChevronProcess と Table を組み合わせたリリースフロー"
 from drawlib.canvas import save, setup
 from drawlib.smartarts import ChevronProcess, Table
 from drawlib.styles import Styles

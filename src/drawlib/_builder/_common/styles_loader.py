@@ -183,23 +183,28 @@ def load_styles_and_utils(
 
 
 def _find_project_search_dirs(base_dir: str) -> list[str]:
-    """Return base_dir and any ancestor project root directory (up to 4 levels up)."""
+    """Return base_dir and candidate ancestor directories up to the project root (max 4 levels up)."""
     dirs = [base_dir]
     curr = base_dir
     for _ in range(4):
         parent = os.path.dirname(curr)
         if not parent or parent == curr:
             break
-        is_project_root = (
-            os.path.basename(parent).endswith("_src")
-            or os.path.isfile(os.path.join(parent, "i18n.toml"))
+        has_root_manifest = os.path.isfile(os.path.join(parent, "drawlib.toml")) or os.path.basename(parent).endswith(
+            "_src"
+        )
+        has_project_marker = (
+            has_root_manifest
+            or os.path.isfile(os.path.join(parent, "styles.py"))
+            or os.path.isfile(os.path.join(parent, "utils.py"))
             or os.path.isfile(os.path.join(parent, "style.css"))
             or os.path.isfile(os.path.join(parent, "build.sh"))
             or os.path.isfile(os.path.join(parent, "navbar.md"))
             or os.path.isdir(os.path.join(parent, "_assets"))
         )
-        if is_project_root:
+        if has_project_marker:
             dirs.append(parent)
+        if has_root_manifest:
             break
         curr = parent
     return dirs

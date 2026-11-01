@@ -1,0 +1,7 @@
+[project]
+name = "slide_ddos_incident_response"
+type = "slide"
+title = ""
+description = "DDoS Incident Response 16:9 Presentation Deck"
+lang = "en"
+style = "google"

@@ -420,20 +420,21 @@ drawlib init list
 | Option | Shorthand | Type | Default | Description |
 | :--- | :--- | :--- | :--- | :--- |
 | `--style` | `-s` | `<theme>` | `default` | Style preset theme (`default`, `google`, `monochrome`, etc.) or custom CSS path. Synchronously configures both `style.css` and `styles.py`. |
-| `--lang` | `-l` | `<lang>` | `en` | Starter content and font configuration language (`en`, `ja`, `zh-cn`, `ko`, `th`, `hi`, etc.). |
+| `--lang` | `-l` | `<lang>` | `en` | Starter content and font configuration language (`en`, `ja`, `zh-cn`, `ko`, `th`, `hi`, etc.), or comma-separated locales (`-l en,ja`) for multi-language `doc` and `site` projects. |
 | `--force` | `-f` | flag | `False` | Overwrite existing files if destination directory is not empty. |
 
-> **Note on Initial Build**: `drawlib init` is dedicated to pure, deterministic scaffolding and does not run compilation automatically. To build the scaffolded project, run `./<target>_src/build.sh` (or any of the specific `./<target>_src/build_*.sh` scripts).
+> **Note on Initial Build & `drawlib.toml`**: Every `drawlib init` command generates `<target>_src/drawlib.toml` (`[project]` metadata, plus `[i18n]` when `-l en,ja` is passed). `drawlib init` performs pure scaffolding without running compilation automatically; run `./<target>_src/build.sh` to compile.
 
 ---
 
 ### Project Types & Generated Directory Structures
 
 #### 1. `doc`: Linear Document Project (HTML, PDF, Markdown, Images + Optional `.docx`)
-Designed for technical specifications, RFCs, design docs, whitepapers, formal reports, and thesis papers. *(Scaffolded `build.sh` compiles HTML, PDF, Markdown, and Images; run `drawlib build docx doc_src/ -o doc.docx` on demand for editable MS Word export.)*
+Designed for technical specifications, RFCs, design docs, whitepapers, formal reports, and thesis papers. *(Supports multi-locale `-l en,ja`, compiling `<target>_<lang>.pdf` and `<target>_<lang>.docx` with localized TOC headings.)*
 ```text
 .
 ├── doc_src/                   # [SOURCE OF TRUTH] Edit ONLY files here!
+│   ├── drawlib.toml           # Project manifest (type = "doc", lang / [i18n])
 │   ├── 00_cover.md            # Cover page (title, author, metadata)
 │   ├── 01_overview.md         # Executive overview chapter
 │   ├── 02_design.md           # Technical design chapter
@@ -453,10 +454,11 @@ Designed for technical specifications, RFCs, design docs, whitepapers, formal re
 ```
 
 #### 2. `site`: Multi-page Website with Navigation Sidebar
-Designed for technical documentation, library user guides, and architecture wikis.
+Designed for technical documentation, library user guides, and architecture wikis. *(Supports multi-locale `-l en,ja`.)*
 ```text
 .
 ├── docs_src/
+│   ├── drawlib.toml           # Project manifest (type = "site", lang / [i18n])
 │   ├── index.md               # [MANDATORY] Root landing page
 │   ├── navbar.md              # [MANDATORY] Sidebar categories and links definition
 │   ├── template.html          # [MANDATORY] Jinja2 HTML layout template
@@ -483,6 +485,7 @@ Designed for technical presentations, conference talks, and pitch decks with emb
 ```text
 .
 ├── slide_src/
+│   ├── drawlib.toml           # Project manifest (type = "slide")
 │   ├── 01_title.md            # Title slide
 │   ├── 02_agenda.md           # Agenda slide
 │   ├── 03_architecture.md     # Architecture slide with diagrams
@@ -505,6 +508,7 @@ Designed for illustration asset repositories, diagrams for slides, or article ba
 ```text
 .
 ├── images_src/
+│   ├── drawlib.toml           # Project manifest (type = "images")
 │   ├── _assets/               # Static project assets (images, icons)
 │   ├── sample1.py             # Basic diagram script (primitives)
 │   ├── sample2.py             # Advanced diagram script (utils & assets)
@@ -521,8 +525,9 @@ Designed for illustration asset repositories, diagrams for slides, or article ba
 drawlib init list                              # List available project types (site, doc, slide, images)
 drawlib init doc                               # Scaffold a linear document project (doc_src/)
 drawlib init doc rbac -s google                # Scaffold doc with custom target name: creates rbac_src/ and targets rbac.pdf
+drawlib init doc whitepaper -l en,ja -s google # Scaffold bilingual EN/JA linear document (whitepaper_en.pdf, whitepaper_ja.pdf)
 drawlib init site                              # Scaffold a multi-page documentation website (docs_src/)
-drawlib init site -s google                    # Scaffold site with Google theme (style.css & styles.py)
+drawlib init site -l en,ja -s default          # Scaffold multi-language documentation website (en/, ja/)
 drawlib init site --lang ja                    # Scaffold site with Japanese starter content & fonts
 drawlib init slide -s google                   # Scaffold 16:9 slide deck with Google styling (slide_src/)
 drawlib init images                            # Scaffold standalone illustration project (images_src/)

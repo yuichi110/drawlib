@@ -23,6 +23,7 @@ class HtmlLangConfig:
         code: Normalized ISO 639 / BCP-47 language tag (e.g. 'en', 'ja', 'th', 'zh-CN').
         name: Human-readable English name of the language (e.g. 'English', 'Japanese').
         native_name: Native display label for UI switchers (e.g. 'English', '日本語').
+        toc_title: Localized heading for generated Table of Contents (e.g. 'Table of Contents', '目次').
         direction: Writing direction ('ltr' or 'rtl').
         google_font_family: Google Fonts family query parameter.
     """
@@ -30,6 +31,7 @@ class HtmlLangConfig:
     code: str
     name: str
     native_name: str = ""
+    toc_title: str = "Table of Contents"
     direction: Literal["ltr", "rtl"] = "ltr"
     google_font_family: str = ""
 
@@ -74,6 +76,7 @@ class LanguageConfig:
         code: Normalized ISO 639 / BCP-47 language tag (e.g. 'en', 'ja', 'th', 'zh-CN').
         name: Human-readable English name of the language (e.g. 'English', 'Japanese').
         native_name: Native display label for UI switchers (e.g. 'English', '日本語').
+        toc_title: Localized heading for generated Table of Contents (e.g. 'Table of Contents', '目次').
         direction: Writing direction ('ltr' or 'rtl').
         google_font_family: Google Fonts family query parameter (e.g. 'Noto+Sans+JP:wght@400;500;700').
         font_family: Primary CSS font-family stack for HTML/PDF stylesheets.
@@ -88,6 +91,7 @@ class LanguageConfig:
     code: str
     name: str
     native_name: str = ""
+    toc_title: str = "Table of Contents"
     direction: Literal["ltr", "rtl"] = "ltr"
     google_font_family: str = ""
     font_family: str = ""

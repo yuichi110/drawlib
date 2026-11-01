@@ -14,6 +14,11 @@ from __future__ import annotations
 from drawlib._builder._common import (
     BuildImageCache,
     FileBuildProgress,
+    I18nConfig,
+    ProjectManifest,
+    ProjectMetadata,
+    find_project_manifest,
+    load_project_manifest,
     load_styles_and_utils,
     resolve_styles_and_utils,
 )
@@ -35,9 +40,9 @@ from drawlib._builder.doc_builder.exporter_html import (
 from drawlib._builder.doc_builder.exporter_md import write_rendered_markdown
 from drawlib._builder.doc_builder.exporter_pdf import export_html_to_pdf
 from drawlib._builder.doc_builder.i18n import (
-    I18nConfig,
     extract_markdown_skeleton,
     load_i18n_config,
+    validate_i18n_project,
     validate_i18n_site,
 )
 from drawlib._builder.doc_builder.merger import build_merged_html, expand_input_files
@@ -152,6 +157,8 @@ __all__ = [
     "I18nConfig",
     "NavbarItem",
     "NavbarSection",
+    "ProjectManifest",
+    "ProjectMetadata",
     "build_document",
     "build_docx",
     "build_html",
@@ -166,12 +173,14 @@ __all__ = [
     "export_html_to_pdf",
     "extract_code_blocks",
     "extract_markdown_skeleton",
+    "find_project_manifest",
     "format_duplicate_output_error",
     "get_default_css",
     "list_css",
     "list_html_css",
     "list_pdf_css",
     "load_i18n_config",
+    "load_project_manifest",
     "load_styles_and_utils",
     "parse_markdown_to_html",
     "parse_navbar_markdown",
@@ -179,6 +188,7 @@ __all__ = [
     "resolve_navbar_for_page",
     "resolve_styles_and_utils",
     "show_code_block",
+    "validate_i18n_project",
     "validate_i18n_site",
     "write_rendered_markdown",
 ]

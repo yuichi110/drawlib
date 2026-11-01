@@ -102,6 +102,6 @@ h1, h2, h3, h4, h5, h6 {
     page-break-after: avoid;
 }
 
-.sidebar, .top-bar, .footer, .drawlib-code-details summary {
+.sidebar, .top-bar, .doc-topbar, .lang-switcher, .footer, .drawlib-code-details summary {
     display: none !important;
 }

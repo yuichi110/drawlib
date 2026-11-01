@@ -15,7 +15,7 @@ This directory contains the source Markdown files, drawing code, and configurati
 ## 1. Directory Structure
 
 - `docs_src/`: Source documents and drawing code (**Source of Truth**).
-  - `i18n.toml`: Multi-language site manifest (`default_lang = "en"`, `langs = ["en", "ja"]`).
+  - `drawlib.toml`: Project manifest (`type = "site"`, `[i18n]` `default_lang = "en"`, `langs = ["en", "ja"]`).
   - `en/`: English documentation pages (`navbar.md`, `index.md`, `01_getting_started/`..`10_ai_agents_and_advanced/`).
   - `ja/`: Japanese documentation pages (`navbar.md`, `index.md`, `01_getting_started/`..`10_ai_agents_and_advanced/`).
   - `_assets/`: Shared logos, favicons, GeoJSON, and custom fonts across all locales.

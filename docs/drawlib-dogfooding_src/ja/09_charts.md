@@ -6,7 +6,7 @@
 
 開発スケジュールやマイルストーン、タスク間の依存関係（先行タスクと後続タスクの矢印）を視覚化できます。
 
-```drawlib align=center file=fig_gantt_roadmap.png caption="図 9.1: エンジニアリング開発ロードマップ"
+```drawlib align=center file=fig_gantt_roadmap_ja.png caption="図 9.1: エンジニアリング開発ロードマップ"
 from drawlib.canvas import save, setup
 from drawlib.charts.gantt import GanttChart
 from drawlib.styles import Styles

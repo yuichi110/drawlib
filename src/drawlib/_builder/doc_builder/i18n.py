@@ -7,25 +7,27 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Multi-locale (i18n) configuration, parity validation, and link helpers for site projects."""
+"""Multi-locale (i18n) configuration, parity validation, and link helpers for site and doc projects."""
 
 from __future__ import annotations
 
 import os
 import re
-import tomllib
 from dataclasses import dataclass
 from typing import Any, Literal
 
-from pydantic import BaseModel, ConfigDict
-
+from drawlib._builder._common.manifest import (
+    PROJECT_MANIFEST_FILENAME,
+    I18nConfig,
+    load_project_manifest,
+)
 from drawlib._builder.doc_builder.detector import preserve_outer_fences
 from drawlib._builder.doc_builder.navbar import NavbarItem, NavbarSection, parse_navbar_markdown
 from drawlib._builder.doc_builder.processor.options import parse_block_info
 from drawlib._builder.doc_builder.processor.parser import extract_code_blocks
-from drawlib._templates.langs import get_language_config, normalize_language
+from drawlib._templates.langs import get_language_config
 
-I18N_CONFIG_FILENAME = "i18n.toml"
+I18N_CONFIG_FILENAME = PROJECT_MANIFEST_FILENAME
 
 _IGNORED_DOC_FILENAMES: frozenset[str] = frozenset(
     {
@@ -46,20 +48,6 @@ _OUTER_FENCE_INFO_RE = re.compile(r"^[ \t]{0,3}(?:`{4,}|~{4,})([^\n\r]*)")
 _FENCE_OPEN_RE = re.compile(r"^[ \t]{0,3}(`{3}|~{3})([^\n\r]*)$")
 _HEADING_1_TO_3_RE = re.compile(r"^[ \t]{0,3}(#{1,3})[ \t]+(.+?)[ \t]*#*[ \t\r]*$")
 _SKIP_URL_PREFIXES: tuple[str, ...] = ("http://", "https://", "//", "mailto:", "javascript:", "data:", "#")
-
-
-class I18nConfig(BaseModel):
-    """Parsed multi-locale site configuration from ``i18n.toml``.
-
-    Attributes:
-        default_lang: Canonical default language key (e.g. ``'en'``).
-        langs: Ordered list of canonical language keys enabled for the site (e.g. ``['en', 'ja']``).
-    """
-
-    model_config = ConfigDict(frozen=True)
-
-    default_lang: str
-    langs: list[str]
 
 
 @dataclass(frozen=True)
@@ -122,56 +110,19 @@ SkeletonToken = HeadingToken | MarkdownTextToken | DrawlibBlockToken | CodeBlock
 
 
 def load_i18n_config(input_dir: str) -> I18nConfig | None:
-    """Load and validate ``i18n.toml`` from ``input_dir`` if present.
+    """Load and validate ``[i18n]`` configuration from ``drawlib.toml`` in ``input_dir`` if present.
 
     Args:
         input_dir: Root source directory of a documentation project.
 
     Returns:
-        I18nConfig | None: Validated multi-locale config, or ``None`` if ``i18n.toml`` is absent.
+        I18nConfig | None: Validated multi-locale config, or ``None`` if ``drawlib.toml`` or ``[i18n]`` is absent.
 
     Raises:
-        ValueError: If ``i18n.toml`` is malformed, specifies unsupported languages, or lacks directories.
+        ValueError: If ``drawlib.toml`` is malformed, specifies unsupported languages, or lacks directories.
     """
-    input_abs = os.path.abspath(input_dir)
-    cfg_path = os.path.join(input_abs, I18N_CONFIG_FILENAME)
-    if not os.path.isfile(cfg_path):
-        return None
-
-    try:
-        with open(cfg_path, "rb") as f:
-            raw = tomllib.load(f)
-    except Exception as exc:
-        raise ValueError(f'Failed to parse "{cfg_path}": {exc}') from exc
-
-    raw_default = raw.get("default_lang")
-    raw_langs = raw.get("langs")
-    if not isinstance(raw_default, str) or not raw_default.strip():
-        raise ValueError(f'Invalid "{cfg_path}": "default_lang" must be a non-empty string.')
-    if not isinstance(raw_langs, list) or len(raw_langs) == 0 or not all(isinstance(x, str) for x in raw_langs):
-        raise ValueError(f'Invalid "{cfg_path}": "langs" must be a non-empty list of language code strings.')
-
-    norm_default = normalize_language(raw_default)
-    norm_langs: list[str] = []
-    for code in raw_langs:
-        norm_code = normalize_language(code)
-        if norm_code in norm_langs:
-            raise ValueError(f'Invalid "{cfg_path}": duplicate language "{norm_code}" in "langs".')
-        norm_langs.append(norm_code)
-
-    if norm_default not in norm_langs:
-        raise ValueError(
-            f'Invalid "{cfg_path}": default_lang "{norm_default}" must be included in langs {norm_langs}.'
-        )
-
-    for lang_code in norm_langs:
-        lang_dir = os.path.join(input_abs, lang_code)
-        if not os.path.isdir(lang_dir):
-            raise ValueError(
-                f'Missing locale directory "{lang_dir}" required by "{cfg_path}" (lang="{lang_code}").'
-            )
-
-    return I18nConfig(default_lang=norm_default, langs=norm_langs)
+    manifest = load_project_manifest(input_dir)
+    return manifest.i18n if manifest is not None else None
 
 
 def resolve_locale_navbar_path(lang_dir_abs: str) -> str | None:
@@ -586,22 +537,25 @@ def _check_html_page_parity(
         _validate_drawlib_block_pair(rel_path, default_lang, lang, def_tok, lang_tok)
 
 
-def validate_i18n_site(
+def validate_i18n_project(
     input_dir: str,
     config: I18nConfig,
+    *,
+    project_type: Literal["site", "doc"] = "site",
     default_format: str = "png",
 ) -> dict[str, list[str]]:
-    """Run all 4 mechanical consistency checks across every locale in ``config``.
+    """Run mechanical consistency checks across every locale in ``config``.
 
     Checks performed:
     1. File set parity across ``<input_dir>/<lang>/``.
-    2. ``navbar.md`` section and link target parity.
+    2. ``navbar.md`` section and link target parity (for ``project_type='site'``; rejected for ``'doc'``).
     3. Markdown skeleton sequence parity (``H1..H3``, ``MarkdownText``, ``DrawlibBlock``, ``CodeBlock``).
     4. ``DrawlibBlock`` Python code parity (exact match for shared filenames, ``<stem>_<lang>.<ext>`` for localized).
 
     Args:
-        input_dir: Root source directory containing ``i18n.toml``.
+        input_dir: Root source directory containing ``drawlib.toml``.
         config: Loaded ``I18nConfig`` instance.
+        project_type: ``'site'`` (multi-page sidebar site) or ``'doc'`` (linear multi-chapter document).
         default_format: Default image output format (``'png'`` or ``'webp'``).
 
     Returns:
@@ -618,7 +572,18 @@ def validate_i18n_site(
     if not default_files:
         raise ValueError(f'No Markdown or HTML documentation files found in "{default_dir}".')
 
-    default_navbar_path = resolve_locale_navbar_path(default_dir)
+    if project_type == "doc":
+        for lang in config.langs:
+            lang_nav = resolve_locale_navbar_path(os.path.join(input_abs, lang))
+            if lang_nav is not None:
+                raise ValueError(
+                    f'[i18n doc structure error] Found "{lang_nav}" inside a "doc" project. '
+                    'Navigation sidebars ("navbar.md") are only supported in "site" projects.'
+                )
+        default_navbar_path: str | None = None
+    else:
+        default_navbar_path = resolve_locale_navbar_path(default_dir)
+
     default_sections: list[NavbarSection] = []
     if default_navbar_path is not None:
         default_sections, _ = parse_navbar_markdown(default_navbar_path, default_dir)
@@ -677,6 +642,20 @@ def validate_i18n_site(
                 )
 
     return locale_files
+
+
+def validate_i18n_site(
+    input_dir: str,
+    config: I18nConfig,
+    default_format: str = "png",
+) -> dict[str, list[str]]:
+    """Run all 4 mechanical consistency checks across every locale in a ``site`` project."""
+    return validate_i18n_project(
+        input_dir=input_dir,
+        config=config,
+        project_type="site",
+        default_format=default_format,
+    )
 
 
 def _rebase_single_url(

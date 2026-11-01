@@ -171,7 +171,7 @@ def _pick_latin_font(fonts: list[str], default: str = "Segoe UI") -> str:
     return default
 
 
-def parse_docx_theme(css_path: str | None) -> DocxTheme:
+def parse_docx_theme(css_path: str | None, lang: str = "en") -> DocxTheme:
     """Extract DocxTheme colors and fonts from a project's style.css file."""
     default = DocxTheme()
     if not css_path or not os.path.isfile(css_path):
@@ -182,6 +182,11 @@ def parse_docx_theme(css_path: str | None) -> DocxTheme:
             css_text = f.read()
     except OSError:
         return default
+
+    if lang and lang != "en":
+        from drawlib._templates import localize_css_for_language  # noqa: PLC0415
+
+        css_text = localize_css_for_language(css_text, lang=lang)
 
     vars_map: dict[str, str] = {}
     for match in re.finditer(r"--([a-zA-Z0-9_-]+)\s*:\s*([^;\}]+)", css_text):

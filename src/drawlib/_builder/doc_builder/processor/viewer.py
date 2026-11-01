@@ -30,9 +30,18 @@ def render_code_with_context(
     no_cache: bool = False,
 ) -> None:
     """Execute code block and render directly to destination path under directory context."""
+    from drawlib._builder._common import find_project_manifest, resolve_styles_and_utils
     from drawlib._builder.doc_builder.processor.processor import DrawlibBlockProcessor
 
-    processor = DrawlibBlockProcessor(styles_path=styles_path, utils_path=utils_path, no_cache=no_cache)
+    resolved_styles, resolved_utils = resolve_styles_and_utils(file_dir, styles_path, utils_path)
+    found_manifest = find_project_manifest(file_dir, max_up=4)
+    proj_root = found_manifest[0] if found_manifest is not None else None
+    processor = DrawlibBlockProcessor(
+        styles_path=resolved_styles,
+        utils_path=resolved_utils,
+        no_cache=no_cache,
+        project_root=proj_root,
+    )
     exec_dir = file_dir
     if (
         processor.project_root

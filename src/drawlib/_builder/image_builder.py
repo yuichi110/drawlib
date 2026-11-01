@@ -30,6 +30,7 @@ from drawlib._builder._common import (
     FileBuildProgress,
     format_duplicate_output_error,
     hash_file,
+    load_project_manifest,
     load_styles_and_utils,
     resolve_styles_and_utils,
 )
@@ -47,7 +48,7 @@ from drawlib._builder._image_ast import (
     resolve_effective_output_dir,
     resolve_static_save_target,
 )
-from drawlib._builder.doc_builder.i18n import load_i18n_config, validate_i18n_site
+from drawlib._builder.doc_builder.i18n import validate_i18n_project
 from drawlib._builder.doc_builder.processor import DrawlibBlockProcessor
 from drawlib._core.l1_core import drawlib_settings, get_script_relative_path, logger, validate_call
 from drawlib._core.l4_canvas import clear
@@ -659,6 +660,8 @@ def build_image(
             resolved_targets=resolved_targets,
             output_dir=output_dir,
             image_format=str(format or "png"),
+            styles_path=styles_path,
+            utils_path=utils_path,
             styles_abs=styles_abs,
             utils_abs=utils_abs,
             no_cache=no_cache,
@@ -677,6 +680,8 @@ def _execute_markdown_image_targets(
     resolved_targets: list[str],
     output_dir: str | None,
     image_format: str,
+    styles_path: str | None,
+    utils_path: str | None,
     styles_abs: str | None,
     utils_abs: str | None,
     no_cache: bool,
@@ -695,20 +700,32 @@ def _execute_markdown_image_targets(
     root_target_dir = (
         resolved_targets[0] if (len(resolved_targets) == 1 and os.path.isdir(resolved_targets[0])) else None
     )
-    i18n_cfg = load_i18n_config(root_target_dir) if root_target_dir else None
+    manifest = load_project_manifest(root_target_dir) if root_target_dir else None
 
-    md_jobs: list[tuple[str, str, str | None]] = []
-    if root_target_dir and i18n_cfg is not None:
-        locale_files = validate_i18n_site(root_target_dir, i18n_cfg, default_format=image_format)
+    md_jobs: list[tuple[str, str, str | None, str | None, str | None]] = []
+    if root_target_dir and manifest is not None and manifest.i18n is not None:
+        i18n_cfg = manifest.i18n
+        proj_type: Literal["site", "doc"] = "doc" if manifest.project.type == "doc" else "site"
+        locale_files = validate_i18n_project(
+            root_target_dir,
+            i18n_cfg,
+            project_type=proj_type,
+            default_format=image_format,
+        )
         ordered_langs = [i18n_cfg.default_lang] + [lc for lc in i18n_cfg.langs if lc != i18n_cfg.default_lang]
         for lang in ordered_langs:
+            loc_styles, loc_utils = resolve_styles_and_utils(
+                os.path.join(root_target_dir, lang),
+                styles_path,
+                utils_path,
+            )
             for rel_path in locale_files[lang]:
                 if not rel_path.lower().endswith((".md", ".markdown")):
                     continue
                 md_abs = os.path.join(root_target_dir, lang, *rel_path.split("/"))
                 rel_stem = os.path.splitext(rel_path)[0]
                 shared_dir = os.path.join(out_img_dir, *rel_stem.split("/"))
-                md_jobs.append((md_abs, rel_stem, shared_dir))
+                md_jobs.append((md_abs, rel_stem, shared_dir, loc_styles, loc_utils))
     else:
         for md_file in all_md_files:
             if root_target_dir:
@@ -716,19 +733,14 @@ def _execute_markdown_image_targets(
                 stem = os.path.splitext(rel_md)[0].replace(os.sep, "/")
             else:
                 stem = os.path.splitext(os.path.basename(md_file))[0]
-            md_jobs.append((md_file, stem, None))
+            md_jobs.append((md_file, stem, None, styles_abs, utils_abs))
 
-    processor = DrawlibBlockProcessor(
-        styles_path=styles_abs,
-        utils_path=utils_abs,
-        no_cache=no_cache,
-        require_file=False,
-        project_root=root_target_dir,
-    )
+    cache = BuildImageCache(enabled=not no_cache)
+    processors_by_cfg: dict[tuple[str | None, str | None], DrawlibBlockProcessor] = {}
     md_pattern = re.compile(r"(?:^|\n)[ \t]*```drawlib\b", re.IGNORECASE)
     orig_cwd = os.getcwd()
     try:
-        for md_file, stem, shared_dir in md_jobs:
+        for md_file, stem, shared_dir, job_styles, job_utils in md_jobs:
             try:
                 with open(md_file, "r", encoding="utf-8") as f:
                     content = f.read()
@@ -736,6 +748,19 @@ def _execute_markdown_image_targets(
                 continue
             if not md_pattern.search(content):
                 continue
+
+            cfg_key = (job_styles, job_utils)
+            processor = processors_by_cfg.get(cfg_key)
+            if processor is None:
+                processor = DrawlibBlockProcessor(
+                    styles_path=job_styles,
+                    utils_path=job_utils,
+                    no_cache=no_cache,
+                    cache=cache,
+                    require_file=False,
+                    project_root=root_target_dir,
+                )
+                processors_by_cfg[cfg_key] = processor
 
             os.chdir(os.path.dirname(md_file))
             processor.process_markdown(

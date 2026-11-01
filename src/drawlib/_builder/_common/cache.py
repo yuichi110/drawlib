@@ -71,16 +71,19 @@ def _hash_referenced_local_assets(
     if eff_root is None and context_dir and os.path.isdir(context_dir):
         curr = os.path.abspath(context_dir)
         while True:
+            parent = os.path.dirname(curr)
+            if parent and parent != curr and os.path.isfile(os.path.join(parent, "drawlib.toml")):
+                eff_root = parent
+                break
             if (
-                os.path.isdir(os.path.join(curr, "_assets"))
-                or os.path.isfile(os.path.join(curr, "i18n.toml"))
+                os.path.isfile(os.path.join(curr, "drawlib.toml"))
+                or os.path.isdir(os.path.join(curr, "_assets"))
+                or os.path.isfile(os.path.join(curr, "template.html"))
                 or os.path.isfile(os.path.join(curr, "styles.py"))
                 or os.path.isfile(os.path.join(curr, "utils.py"))
-                or os.path.isfile(os.path.join(curr, "template.html"))
             ):
                 eff_root = curr
                 break
-            parent = os.path.dirname(curr)
             if parent == curr or not parent:
                 break
             curr = parent
@@ -160,6 +163,7 @@ class BuildImageCache:
         )
         resolved_path = db_path or DEFAULT_CACHE_REL_PATH
         self._db_path = os.path.abspath(resolved_path)
+        self.rendered_targets: set[str] = set()
 
         if self._enabled:
             self._init_db_and_evict()

@@ -26,10 +26,10 @@ The `drawlib` repository is simultaneously the library codebase (`src/drawlib/`)
 ./dcli docs serve site --check
 ```
 
-### Six Live Dogfooding Targets in `docs/`
-1. **`site` (`docs/docs_src/`)**: Multi-page documentation website (`docs_html/` & `docs_markdown/`).
+### Live Dogfooding Targets in `docs/`
+1. **`site` (`docs/docs_src/`)**: Bilingual (`en`/`ja`) documentation website (`docs_html/` & `docs_markdown/`).
 2. **`quickstart` (`docs/quickstart_src/`)**: Quickstart guide & vector PDF (`doc` archetype).
-3. **`dogfooding` & `dogfooding-en`**: Japanese & English architectural whitepapers (`doc` + `pdf`).
+3. **`dogfooding` (`docs/drawlib-dogfooding_src/`)**: Bilingual (`en`/`ja`) architectural whitepapers (`doc` + `_en.pdf`/`_ja.pdf`).
 4. **`slide` (`docs/slide_about_drawlib_src/`)**: This 64-slide 16:9 showcase presentation deck!
 5. **`readme` (`docs/readme_src/`)**: Standalone hero illustrations for `README.md`.
 :::

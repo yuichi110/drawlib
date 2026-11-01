@@ -13,7 +13,7 @@ Drawlib は、数学的な **直交座標系（デカルト座標系）** を採
 
 **43 種類**の図形プリミティブ（`rectangle`, `circle`, `ellipse`, `polygon`, `star`, `donuts`, `fan`, `bubblespeech`, `cylinder`, `parallelogram`, `trapezoid`, `chevron`、およびブロック矢印 `arrow_polyline`, `arrow_l`, `arrow_u`, `arrow_arc` など）が用意されています。
 
-```drawlib align=center file=fig_basic_drawing.png caption="図 7.1: 基本図形・矢印・アイコンを組み合わせたサービス連携図"
+```drawlib align=center file=fig_basic_drawing_ja.png caption="図 7.1: 基本図形・矢印・アイコンを組み合わせたサービス連携図"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line

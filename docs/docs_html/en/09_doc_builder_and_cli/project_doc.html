@@ -757,6 +757,7 @@ drawlib<span class="w"> </span>init<span class="w"> </span>doc<span class="w"> <
 <h2>3. Directory Layout &amp; Anatomy</h2>
 <h3>Editable Source Directory (<code>doc_src/</code>)</h3>
 <ul>
+<li><strong><code>drawlib.toml</code></strong>: Project manifest declaring <code>type = &quot;doc&quot;</code>, language (<code>lang</code>, used to localize Table of Contents headings), theme metadata, and optional <code>[i18n]</code> multi-locale settings.</li>
 <li><strong><code>00_cover.md</code>, <code>01_overview.md</code>, <code>02_design.md</code>, ...</strong>: Numbered Markdown chapter files containing prose and embedded <code>drawlib</code> blocks, merged in sorted lexicographical order.</li>
 <li><strong><code>styles.py</code> &amp; <code>utils.py</code></strong>: Shared Python styling configuration (<code>Colors</code>, <code>Styles</code>, language fonts) and reusable diagram helper functions.</li>
 <li><strong><code>template.html</code> &amp; <code>style.css</code></strong>: Jinja2 single-page HTML layout and print-aware CSS (<code>@media print</code> / <code>@page A4</code>) for browser preview and vector PDF generation.</li>
@@ -868,6 +869,31 @@ drawlib<span class="w"> </span>build<span class="w"> </span>image<span class="w"
 <li><strong>Phase 2 (Parallel Subagents)</strong>: Delegate individual chapters (<code>doc_src/0N_&lt;topic&gt;.md</code>) to parallel subagents. Each subagent authors its assigned chapter (<code>2+</code> diagrams, Chapter Hero at <code>Lines 5–15</code>) and verifies its diagrams with unique grid preview paths (<code>-o .drawlib/scratch/0N_&lt;diagram&gt;_grid.png</code>).</li>
 <li><strong>Phase 3 (Unified Compilation)</strong>: After all subagents complete their chapters, the parent agent runs <code>./doc_src/build.sh</code> (and <code>drawlib build docx</code> when needed) once to merge all chapters into <code>doc_html/index.html</code>, <code>doc.pdf</code>, and <code>doc.docx</code>.</li>
 </ol>
+<hr />
+<h2>9. Multi-Language (<code>i18n</code>) Linear Documents (<code>drawlib.toml</code>)</h2>
+<p>A single <code>doc_src/</code> project can maintain and compile multiple language editions (such as English and Japanese whitepapers) side by side by passing comma-separated locales to <code>drawlib init doc</code> or configuring <code>[i18n]</code> in <code>doc_src/drawlib.toml</code>:</p>
+<pre><code class="language-bash">uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>doc<span class="w"> </span>whitepaper<span class="w"> </span>-l<span class="w"> </span>en,ja<span class="w"> </span>-s<span class="w"> </span>google
+</code></pre>
+<pre><code class="language-toml"><span class="k">[project]</span>
+<span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"whitepaper"</span>
+<span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"doc"</span>
+<span class="n">style</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"google"</span>
+
+<span class="k">[i18n]</span>
+<span class="n">default_lang</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"en"</span>
+<span class="n">langs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">"en"</span><span class="p">,</span><span class="w"> </span><span class="s2">"ja"</span><span class="p">]</span>
+
+<span class="k">[i18n.labels]</span>
+<span class="n">en</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"English"</span>
+<span class="n">ja</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"日本語"</span>
+</code></pre>
+<ul>
+<li><strong>Symmetric Locale Chapter Directories (<code>doc_src/&lt;lang&gt;/</code>)</strong>: Place numbered chapter files (<code>00_cover.md</code>, <code>01_overview.md</code>, ...) inside each locale directory (<code>doc_src/en/</code>, <code>doc_src/ja/</code>). Pre-flight checks verify chapter file-set parity, Markdown structural skeleton parity, and relative link integrity across all locales.</li>
+<li><strong>Per-Locale <code>styles.py</code> &amp; Shared Figure Deduplication</strong>: Language-neutral diagrams (<code>file=fig_pipeline.png</code>) use root <code>doc_src/styles.py</code> and render once into shared <code>images/</code>. For localized figures requiring CJK typography, place <code>doc_src/&lt;lang&gt;/styles.py</code> (for example <code>ja/styles.py</code> with <code>FontJapanese</code>) and assign a locale-specific filename (<code>file=fig_pipeline_ja.png</code>).</li>
+<li><strong>Per-Locale PDF &amp; MS Word Deliverables (<code>&lt;base&gt;_&lt;lang&gt;.pdf</code> / <code>.docx</code>)</strong>: Running <code>drawlib build pdf doc_src/ -o whitepaper.pdf --toc</code> or <code>drawlib build docx doc_src/ -o whitepaper.docx --generate-index</code> automatically emits <code>whitepaper_en.pdf</code> / <code>whitepaper_ja.pdf</code> (and <code>.docx</code>) with localized Table of Contents headings (<code>&quot;Table of Contents&quot;</code>, <code>&quot;目次&quot;</code>, etc.).</li>
+<li><strong>Print-Safe HTML Language Switcher</strong>: Merged HTML previews (<code>whitepaper_html/&lt;lang&gt;/index.html</code>) include a top-right language dropdown for instant browser switching while <code>@media print</code> hides the toolbar cleanly during vector PDF generation.</li>
+<li><strong>Synchronized GitHub Markdown (<code>whitepaper_markdown/&lt;lang&gt;/</code>)</strong>: <code>build_markdown.sh</code> outputs per-locale Markdown chapters referencing shared <code>../images/</code> assets without duplicating raster files.</li>
+</ul>
 
             </main>
         </div>

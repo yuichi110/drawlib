@@ -13,8 +13,14 @@ from __future__ import annotations
 
 import os
 import sys
+from typing import Literal
 
-from drawlib._builder._common import BuildImageCache, FileBuildProgress, resolve_styles_and_utils
+from drawlib._builder._common import (
+    BuildImageCache,
+    FileBuildProgress,
+    load_project_manifest,
+    resolve_styles_and_utils,
+)
 from drawlib._builder.doc_builder.compiler.base import (
     copy_directory_assets,
     require_directory,
@@ -25,9 +31,8 @@ from drawlib._builder.doc_builder.detector import detect_document_type
 from drawlib._builder.doc_builder.exporter_md import write_rendered_markdown
 from drawlib._builder.doc_builder.i18n import (
     I18nConfig,
-    load_i18n_config,
     rebase_markdown_relative_urls,
-    validate_i18n_site,
+    validate_i18n_project,
 )
 from drawlib._builder.doc_builder.processor import DrawlibBlockProcessor
 from drawlib._builder.doc_builder.progress import check_document_output_duplicates
@@ -66,17 +71,30 @@ def build_markdown(
             f'Refusing to overwrite input source directory "{input_abs}". Please specify a different output directory.'
         )
 
-    i18n_cfg = load_i18n_config(input_abs)
-    if i18n_cfg is not None:
-        return _build_i18n_markdown(
-            input_abs=input_abs,
-            out_dir_abs=out_dir_abs,
-            i18n_cfg=i18n_cfg,
-            image_format=image_format,
-            styles_path=styles_path,
-            utils_path=utils_path,
-            no_cache=no_cache,
-        )
+    manifest = load_project_manifest(input_abs)
+    if manifest is not None:
+        if manifest.project.type == "slide":
+            raise ValueError(
+                f'Input directory "{input_abs}" is a slide presentation project (drawlib.toml). '
+                'Please use "drawlib build slide" instead of "drawlib build markdown".'
+            )
+        if manifest.project.type == "images":
+            raise ValueError(
+                f'Input directory "{input_abs}" is an "images" script project (drawlib.toml). '
+                'Please use "drawlib build image" instead of "drawlib build markdown".'
+            )
+        if manifest.i18n is not None:
+            proj_type: Literal["site", "doc"] = "doc" if manifest.project.type == "doc" else "site"
+            return _build_i18n_markdown(
+                input_abs=input_abs,
+                out_dir_abs=out_dir_abs,
+                i18n_cfg=manifest.i18n,
+                project_type=proj_type,
+                image_format=image_format,
+                styles_path=styles_path,
+                utils_path=utils_path,
+                no_cache=no_cache,
+            )
 
     styles_abs, utils_abs = resolve_styles_and_utils(input_abs, styles_path, utils_path)
     cache = BuildImageCache(enabled=not no_cache)
@@ -165,9 +183,9 @@ def _build_i18n_markdown_tasks(
     ordered_langs: list[str],
     locale_files: dict[str, list[str]],
     image_format: str,
-) -> tuple[list[tuple[str, str, str]], list[str], int]:
-    """Build ordered (src_abs, dest_abs, shared_dir) tasks across locales and validate per-locale duplicates."""
-    all_tasks: list[tuple[str, str, str]] = []
+) -> tuple[list[tuple[str, str, str, str]], list[str], int]:
+    """Build ordered (lang, src_abs, dest_abs, shared_dir) tasks across locales and validate duplicates."""
+    all_tasks: list[tuple[str, str, str, str]] = []
     display_names: list[str] = []
     max_blocks = 0
 
@@ -184,7 +202,7 @@ def _build_i18n_markdown_tasks(
             shared_dir = os.path.join(out_dir_abs, "images", *rel_stem.split("/"))
             disp = f"/{lang}/{rel_path}"
 
-            all_tasks.append((src_abs, dest_abs, shared_dir))
+            all_tasks.append((lang, src_abs, dest_abs, shared_dir))
             display_names.append(disp)
             lang_tasks.append((src_abs, dest_abs, True))
             lang_disp.append(disp)
@@ -207,17 +225,26 @@ def _build_i18n_markdown(
     input_abs: str,
     out_dir_abs: str,
     i18n_cfg: I18nConfig,
+    project_type: Literal["site", "doc"],
     image_format: str,
     styles_path: str | None,
     utils_path: str | None,
     no_cache: bool,
 ) -> str:
-    """Compile a multi-locale (i18n) site directory into rendered Markdown."""
-    styles_abs, utils_abs = resolve_styles_and_utils(input_abs, styles_path, utils_path)
-    locale_files = validate_i18n_site(input_abs, i18n_cfg, default_format=image_format)
+    """Compile a multi-locale (i18n) site or doc directory into rendered Markdown."""
+    locale_files = validate_i18n_project(
+        input_abs,
+        i18n_cfg,
+        project_type=project_type,
+        default_format=image_format,
+    )
 
     default_lang = i18n_cfg.default_lang
     ordered_langs = [default_lang] + [lc for lc in i18n_cfg.langs if lc != default_lang]
+    locale_styles_utils: dict[str, tuple[str | None, str | None]] = {
+        lang: resolve_styles_and_utils(os.path.join(input_abs, lang), styles_path, utils_path) for lang in ordered_langs
+    }
+
     all_tasks, display_names, max_blocks = _build_i18n_markdown_tasks(
         input_abs=input_abs,
         out_dir_abs=out_dir_abs,
@@ -226,23 +253,25 @@ def _build_i18n_markdown(
         image_format=image_format,
     )
 
-    def_index_src = _find_locale_index_md(os.path.join(input_abs, default_lang))
+    def_index_src = _find_locale_index_md(os.path.join(input_abs, default_lang)) if project_type == "site" else None
     extra_names = [*display_names, "/index.md"] if def_index_src else display_names
     total_files = len(extra_names)
     name_width = max((len(n) for n in extra_names), default=0)
     image_width = len(str(max(max_blocks, 0)))
 
     cache = BuildImageCache(enabled=not no_cache)
-    processor: DrawlibBlockProcessor | None = None
+    processors_by_cfg: dict[tuple[str | None, str | None], DrawlibBlockProcessor | None] = {}
 
-    for idx, ((src_abs, dest_abs, shared_dir), disp_name) in enumerate(zip(all_tasks, display_names), start=1):
-        processor = _compile_single_markdown_file(
+    for idx, ((lang, src_abs, dest_abs, shared_dir), disp_name) in enumerate(zip(all_tasks, display_names), start=1):
+        loc_styles, loc_utils = locale_styles_utils[lang]
+        cfg_key = (loc_styles, loc_utils)
+        proc = _compile_single_markdown_file(
             src_abs=src_abs,
             dest_abs=dest_abs,
             image_format=image_format,
-            styles_path=styles_abs,
-            utils_path=utils_abs,
-            processor=processor,
+            styles_path=loc_styles,
+            utils_path=loc_utils,
+            processor=processors_by_cfg.get(cfg_key),
             progress=FileBuildProgress(
                 idx,
                 total_files,
@@ -255,15 +284,18 @@ def _build_i18n_markdown(
             project_root=input_abs,
             shared_images_dir=shared_dir,
         )
+        processors_by_cfg[cfg_key] = proc
 
     if def_index_src is not None:
+        def_styles, def_utils = locale_styles_utils[default_lang]
+        def_cfg_key = (def_styles, def_utils)
         _compile_single_markdown_file(
             src_abs=def_index_src,
             dest_abs=os.path.join(out_dir_abs, "index.md"),
             image_format=image_format,
-            styles_path=styles_abs,
-            utils_path=utils_abs,
-            processor=processor,
+            styles_path=def_styles,
+            utils_path=def_utils,
+            processor=processors_by_cfg.get(def_cfg_key),
             progress=FileBuildProgress(
                 total_files,
                 total_files,

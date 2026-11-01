@@ -67,8 +67,7 @@ The documentation projects in `docs/` cover the four primary architectural arche
 | :--- | :--- | :--- | :--- |
 | **`docs/docs_src/`** | `site` | HTML website | Full user guide, API documentation, and AI case studies. |
 | **`docs/quickstart_src/`** | `doc` | HTML & A4 PDF | Concise linear onboarding guide and vector PDF book export. |
-| **`docs/drawlib-dogfooding_src/`** | `doc` | HTML & A4 PDF | In-depth architectural whitepaper in Japanese. |
-| **`docs/drawlib-dogfooding-en_src/`**| `doc` | HTML & A4 PDF | In-depth architectural whitepaper in English. |
+| **`docs/drawlib-dogfooding_src/`** | `doc` (`i18n`) | HTML & A4 PDF (`_en`/`_ja`) | In-depth bilingual (EN/JP) architectural whitepaper. |
 | **`docs/slide_about_drawlib_src/`**| `slide` | 16:9 Presentation | Slide deck with presenter view and widescreen graphics. |
 | **`docs/architecture_src/`** | `site` | HTML website | This comprehensive software architecture specification. |
 

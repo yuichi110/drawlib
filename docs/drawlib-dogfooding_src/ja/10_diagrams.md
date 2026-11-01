@@ -6,7 +6,7 @@
 
 VPC やサブネットなどの境界グループ（`NodeGroup`）、コンポーネント（`Node`）、サービス間の直交配線を直感的に定義できます。
 
-```drawlib align=center file=fig_architecture_diagram.png caption="図 10.1: クラウドマイクロサービス構成図"
+```drawlib align=center file=fig_architecture_diagram_ja.png caption="図 10.1: クラウドマイクロサービス構成図"
 from drawlib.canvas import save, setup
 from drawlib.diagrams.architecture import ArchitectureDiagram, GcpIcon, Node, NodeGroup, PhosphorIcon
 from drawlib.styles import Styles
@@ -82,7 +82,7 @@ save()
 
 Drawlib の `drawlib.graph` は、外部バイナリ（Graphviz 等）に依存しない **Pure Python の座標・レイアウト計算エンジン（`get_layout()`）** です。描画スタイルやラベル属性を持たず、Step 1 でトポロジーから座標（`xy`, `local_xy`, `bottom_left`, `local_bottom_left`, `points`）を算出し、Step 2 で `drawlib.diagrams` や `drawlib.shapes` に渡して描画する **2 段階ワークフロー** を実現します。
 
-```drawlib align=center file=fig_architecture_graph.png caption="図 10.2: ArchitectureGraph.get_layout() と ArchitectureDiagram の 2 段階連携"
+```drawlib align=center file=fig_architecture_graph_ja.png caption="図 10.2: ArchitectureGraph.get_layout() と ArchitectureDiagram の 2 段階連携"
 from drawlib.canvas import save, setup
 from drawlib.diagrams.architecture import (
     ArchitectureDiagram,

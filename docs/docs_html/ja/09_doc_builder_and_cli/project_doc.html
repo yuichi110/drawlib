@@ -757,6 +757,7 @@ drawlib<span class="w"> </span>init<span class="w"> </span>doc<span class="w"> <
 <h2>3. ディレクトリ構成と構造</h2>
 <h3>編集対象のソースディレクトリ (<code>doc_src/</code>)</h3>
 <ul>
+<li><strong><code>drawlib.toml</code></strong>: <code>type = &quot;doc&quot;</code>、言語（<code>lang</code>、自動目次の見出しローカライズに使用）、テーマメタデータ、および任意の <code>[i18n]</code> 多言語設定を宣言するプロジェクトマニフェストです。</li>
 <li><strong><code>00_cover.md</code>, <code>01_overview.md</code>, <code>02_design.md</code>, ...</strong>: 本文と埋め込み <code>drawlib</code> ブロックを含む番号付きの Markdown 章ファイルです。ファイル名の辞書順でソートされて結合されます。</li>
 <li><strong><code>styles.py</code> &amp; <code>utils.py</code></strong>: 共有の Python スタイル設定（<code>Colors</code>、<code>Styles</code>、言語フォント）および再利用可能な図解ヘルパー関数です。</li>
 <li><strong><code>template.html</code> &amp; <code>style.css</code></strong>: ブラウザプレビューおよびベクター PDF 生成に使用される Jinja2 シングルページ HTML レイアウトと印刷対応 CSS（<code>@media print</code> / <code>@page A4</code>）です。</li>
@@ -868,6 +869,31 @@ drawlib<span class="w"> </span>build<span class="w"> </span>image<span class="w"
 <li><strong>フェーズ 2（サブエージェントによる並列執筆）</strong>: 個別の章（<code>doc_src/0N_&lt;topic&gt;.md</code>）を並列サブエージェントに割り当てます。各サブエージェントは担当の章（各章 2 つ以上の図解、5〜15 行目に章のヒーロー図解を配置）を執筆し、一意なグリッドプレビューパス（<code>-o .drawlib/scratch/0N_&lt;diagram&gt;_grid.png</code>）で図解を検証します。</li>
 <li><strong>フェーズ 3（統合コンパイル）</strong>: すべてのサブエージェントが章の執筆を完了した後、親エージェントが <code>./doc_src/build.sh</code>（および必要に応じて <code>drawlib build docx</code>）を 1 回実行し、全章を <code>doc_html/index.html</code>、<code>doc.pdf</code>、<code>doc.docx</code> に統合します。</li>
 </ol>
+<hr />
+<h2>9. 多言語（<code>i18n</code>）リニアドキュメント (<code>drawlib.toml</code>)</h2>
+<p><code>drawlib init doc</code> にカンマ区切りのロケールを指定するか、<code>doc_src/drawlib.toml</code> に <code>[i18n]</code> セクションを設定することで、単一の <code>doc_src/</code> プロジェクト内で複数言語版（英語と日本語のホワイトペーパーなど）を並べて管理・一括コンパイルできます。</p>
+<pre><code class="language-bash">uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>doc<span class="w"> </span>whitepaper<span class="w"> </span>-l<span class="w"> </span>en,ja<span class="w"> </span>-s<span class="w"> </span>google
+</code></pre>
+<pre><code class="language-toml"><span class="k">[project]</span>
+<span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"whitepaper"</span>
+<span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"doc"</span>
+<span class="n">style</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"google"</span>
+
+<span class="k">[i18n]</span>
+<span class="n">default_lang</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"en"</span>
+<span class="n">langs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">"en"</span><span class="p">,</span><span class="w"> </span><span class="s2">"ja"</span><span class="p">]</span>
+
+<span class="k">[i18n.labels]</span>
+<span class="n">en</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"English"</span>
+<span class="n">ja</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"日本語"</span>
+</code></pre>
+<ul>
+<li><strong>対称なロケール別章ディレクトリ (<code>doc_src/&lt;lang&gt;/</code>)</strong>: 番号付きの章ファイル（<code>00_cover.md</code>、<code>01_overview.md</code> など）を各ロケールディレクトリ（<code>doc_src/en/</code>、<code>doc_src/ja/</code>）内に配置します。ビルド前の事前検証により、全ロケール間で章ファイルセットの一致、Markdown の構造スケルトン一致、および相対リンクの整合性が自動的にチェックされます。</li>
+<li><strong>ロケール別 <code>styles.py</code> と共有図解の重複排除</strong>: 言語に依存しない共通図解（<code>file=fig_pipeline.png</code>）はルートの <code>doc_src/styles.py</code> を用いて共有の <code>images/</code> に 1 回だけレンダリングされます。日本語フォントや翻訳ラベルが必要な図解には、<code>doc_src/&lt;lang&gt;/styles.py</code>（例: <code>FontJapanese</code> を設定した <code>ja/styles.py</code>）を配置し、ロケール固有のファイル名（<code>file=fig_pipeline_ja.png</code>）を割り当てます。</li>
+<li><strong>ロケール別の PDF・MS Word 成果物 (<code>&lt;base&gt;_&lt;lang&gt;.pdf</code> / <code>.docx</code>)</strong>: <code>drawlib build pdf doc_src/ -o whitepaper.pdf --toc</code> や <code>drawlib build docx doc_src/ -o whitepaper.docx --generate-index</code> を実行すると、各言語にローカライズされた目次見出し（<code>&quot;Table of Contents&quot;</code>、<code>&quot;目次&quot;</code> など）を備えた <code>whitepaper_en.pdf</code> / <code>whitepaper_ja.pdf</code>（および <code>.docx</code>）が自動生成されます。</li>
+<li><strong>印刷セーフな HTML 言語スイッチャー</strong>: 結合 HTML プレビュー（<code>whitepaper_html/&lt;lang&gt;/index.html</code>）にはブラウザ上で即座に言語を切り替えられる右上ドロップダウンが表示され、ベクター PDF 生成時には <code>@media print</code> によって自動的に非表示になります。</li>
+<li><strong>同期された GitHub Markdown (<code>whitepaper_markdown/&lt;lang&gt;/</code>)</strong>: <code>build_markdown.sh</code> は、画像ファイルを重複させることなく共有の <code>../images/</code> アセットを参照するロケール別の Markdown 章ファイルを出力します。</li>
+</ul>
 
             </main>
         </div>

@@ -144,6 +144,7 @@ drawlib init site my_docs --style google --lang en
 A `site` project strictly separates editable source files (`docs_src/`) from generated publishing artifacts:
 
 - **`docs_src/` (Single Source of Truth)**:
+  - **`drawlib.toml`**: Project manifest declaring `type = "site"`, default language/theme metadata, and optional `[i18n]` multi-locale settings.
   - **`index.md`**: Site landing page rendered as the root entry document (`index.html`).
   - **`navbar.md`**: Declarative sidebar navigation manifest defining brand title, collapsible sections, and page links.
   - **Nested Section Sub-Folders (`guide/`, `api/`, `01_architecture/`, etc.)**: Hierarchical Markdown pages with embedded ```` ```drawlib ```` diagram blocks.
@@ -226,3 +227,35 @@ Multi-page `site` projects (`docs_src/**/*.md`) scale naturally across parallel 
 1. **Phase 1 (Parent Setup)**: Scaffold `docs_src/` (`drawlib init site`) and finalize shared files (`styles.py`, `utils.py`, `_assets/`, `index.md`, and the complete `navbar.md` sidebar tree) before launching subagents.
 2. **Phase 2 (Parallel Subagents)**: Assign each subagent a disjoint page or section directory (e.g., `01_architecture/*.md` vs. `02_services/*.md`). Each subagent treats `styles.py`, `utils.py`, and `navbar.md` as read-only, authors its assigned pages, and runs `-g` grid previews using unique scratch filenames (`-o .drawlib/scratch/<page>_<block>_grid.png`).
 3. **Phase 3 (Unified Build & Link Audit)**: Once all subagents finish, the parent agent runs `./docs_src/build.sh` once and verifies site-wide link integrity with `uv run drawlib serve docs_html/ --check`.
+
+---
+
+## 8. Multi-Language (`i18n`) Websites (`drawlib.toml`)
+
+A single `docs_src/` project can publish a synchronized multi-language documentation portal by passing comma-separated language codes to `drawlib init site` or configuring `[i18n]` in `docs_src/drawlib.toml`:
+
+```bash
+uv run drawlib init site docs -l en,ja -s default
+```
+
+```toml
+[project]
+name = "docs"
+type = "site"
+style = "default"
+
+[i18n]
+default_lang = "en"
+langs = ["en", "ja"]
+
+[i18n.labels]
+en = "English"
+ja = "日本語"
+```
+
+- **Symmetric Locale Subtrees (`docs_src/<lang>/`)**: Each configured locale (`en/`, `ja/`, ...) maintains its own `navbar.md`, `index.md`, and mirrored section subdirectories.
+- **Shared Diagram Deduplication & Per-Locale `styles.py`**: Identical diagrams (`file=vpc_arch.png`) are compiled once into the root `docs_html/images/` directory and shared across all locales. If a locale requires CJK fonts or localized figure text, add `docs_src/<lang>/styles.py` and use a locale-suffixed filename (`file=vpc_arch_ja.png`).
+- **Automatic Locale Switcher & Root Redirect**: Compiled HTML pages include a header language dropdown linking directly to the corresponding page in every other locale, while `docs_html/index.html` redirects visitors to their preferred locale (`default_lang` fallback).
+- **Pre-Flight Parity Enforcement**: Every build automatically verifies file-set parity, `navbar.md` structure parity, Markdown structural skeleton parity, and internal link targets across all configured locales before rendering.
+- **Unified Link Verification**: Running `uv run drawlib serve docs_html/ --check` validates internal navigation, shared image references, and cross-locale switcher links across all locales in one pass.
+

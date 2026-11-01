@@ -61,24 +61,13 @@ ALL_TARGETS: tuple[BuildTarget, ...] = (
         name="dogfooding",
         src_dir="docs/drawlib-dogfooding_src",
         script_rel_path="docs/drawlib-dogfooding_src/build.sh",
-        description="Dogfooding Document (JP)",
+        description="Dogfooding Whitepaper (EN/JP)",
         clean_paths=(
             "docs/drawlib-dogfooding_markdown",
             "docs/drawlib-dogfooding_html",
-            "docs/drawlib-dogfooding.pdf",
+            "docs/drawlib-dogfooding_en.pdf",
+            "docs/drawlib-dogfooding_ja.pdf",
             "docs/drawlib-dogfooding_images",
-        ),
-    ),
-    BuildTarget(
-        name="dogfooding-en",
-        src_dir="docs/drawlib-dogfooding-en_src",
-        script_rel_path="docs/drawlib-dogfooding-en_src/build.sh",
-        description="Dogfooding Document (EN)",
-        clean_paths=(
-            "docs/drawlib-dogfooding-en_markdown",
-            "docs/drawlib-dogfooding-en_html",
-            "docs/drawlib-dogfooding-en.pdf",
-            "docs/drawlib-dogfooding-en_images",
         ),
     ),
     BuildTarget(
@@ -127,6 +116,7 @@ TARGET_MAP: dict[str, BuildTarget] = {target.name: target for target in ALL_TARG
 # Convenience aliases
 TARGET_MAP["docs"] = TARGET_MAP["site"]
 TARGET_MAP["doc"] = TARGET_MAP["site"]
+TARGET_MAP["dogfooding-en"] = TARGET_MAP["dogfooding"]
 TARGET_MAP["slide_about_drawlib"] = TARGET_MAP["slide"]
 TARGET_MAP["slide-about-drawlib"] = TARGET_MAP["slide"]
 TARGET_MAP["slide_ddos_incident_response"] = TARGET_MAP["slide-ddos"]
@@ -175,7 +165,7 @@ def build_docs(
     """Build specified documentation targets or all targets.
 
     Args:
-        target_name: Specific target name ('site', 'quickstart', 'readme', 'dogfooding', 'dogfooding-en', 'slide').
+        target_name: Specific target name ('site', 'quickstart', 'readme', 'dogfooding', 'slide', etc.).
         build_all: If True, build all available targets in sequence.
         clean: If True, remove previous build artifacts before building.
     """

@@ -1,0 +1,7 @@
+[project]
+name = "logo"
+type = "images"
+title = ""
+description = "Drawlib Brand Logo & Favicon Assets"
+lang = "en"
+style = "default"

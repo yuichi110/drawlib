@@ -2,7 +2,7 @@
 
 AI時代の "Illustrated Documentation as Code"
 
-```drawlib align=center file=fig_cover_autonomous_loop.png caption="AI Agent による作図・視覚的自律検証ループ"
+```drawlib align=center file=fig_cover_autonomous_loop_ja.png caption="AI Agent による作図・視覚的自律検証ループ"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line

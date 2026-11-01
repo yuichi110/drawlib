@@ -749,6 +749,7 @@ drawlib<span class="w"> </span>init<span class="w"> </span>site<span class="w"> 
 <ul>
 <li><strong><code>docs_src/</code> (Single Source of Truth)</strong>:
 <ul>
+<li><strong><code>drawlib.toml</code></strong>: Project manifest declaring <code>type = &quot;site&quot;</code>, default language/theme metadata, and optional <code>[i18n]</code> multi-locale settings.</li>
 <li><strong><code>index.md</code></strong>: Site landing page rendered as the root entry document (<code>index.html</code>).</li>
 <li><strong><code>navbar.md</code></strong>: Declarative sidebar navigation manifest defining brand title, collapsible sections, and page links.</li>
 <li><strong>Nested Section Sub-Folders (<code>guide/</code>, <code>api/</code>, <code>01_architecture/</code>, etc.)</strong>: Hierarchical Markdown pages with embedded <code>```drawlib</code> diagram blocks.</li>
@@ -819,6 +820,31 @@ drawlib<span class="w"> </span>init<span class="w"> </span>site<span class="w"> 
 <li><strong>Phase 2 (Parallel Subagents)</strong>: Assign each subagent a disjoint page or section directory (e.g., <code>01_architecture/*.md</code> vs. <code>02_services/*.md</code>). Each subagent treats <code>styles.py</code>, <code>utils.py</code>, and <code>navbar.md</code> as read-only, authors its assigned pages, and runs <code>-g</code> grid previews using unique scratch filenames (<code>-o .drawlib/scratch/&lt;page&gt;_&lt;block&gt;_grid.png</code>).</li>
 <li><strong>Phase 3 (Unified Build &amp; Link Audit)</strong>: Once all subagents finish, the parent agent runs <code>./docs_src/build.sh</code> once and verifies site-wide link integrity with <code>uv run drawlib serve docs_html/ --check</code>.</li>
 </ol>
+<hr />
+<h2>8. Multi-Language (<code>i18n</code>) Websites (<code>drawlib.toml</code>)</h2>
+<p>A single <code>docs_src/</code> project can publish a synchronized multi-language documentation portal by passing comma-separated language codes to <code>drawlib init site</code> or configuring <code>[i18n]</code> in <code>docs_src/drawlib.toml</code>:</p>
+<pre><code class="language-bash">uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>site<span class="w"> </span>docs<span class="w"> </span>-l<span class="w"> </span>en,ja<span class="w"> </span>-s<span class="w"> </span>default
+</code></pre>
+<pre><code class="language-toml"><span class="k">[project]</span>
+<span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"docs"</span>
+<span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"site"</span>
+<span class="n">style</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"default"</span>
+
+<span class="k">[i18n]</span>
+<span class="n">default_lang</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"en"</span>
+<span class="n">langs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">"en"</span><span class="p">,</span><span class="w"> </span><span class="s2">"ja"</span><span class="p">]</span>
+
+<span class="k">[i18n.labels]</span>
+<span class="n">en</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"English"</span>
+<span class="n">ja</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"日本語"</span>
+</code></pre>
+<ul>
+<li><strong>Symmetric Locale Subtrees (<code>docs_src/&lt;lang&gt;/</code>)</strong>: Each configured locale (<code>en/</code>, <code>ja/</code>, ...) maintains its own <code>navbar.md</code>, <code>index.md</code>, and mirrored section subdirectories.</li>
+<li><strong>Shared Diagram Deduplication &amp; Per-Locale <code>styles.py</code></strong>: Identical diagrams (<code>file=vpc_arch.png</code>) are compiled once into the root <code>docs_html/images/</code> directory and shared across all locales. If a locale requires CJK fonts or localized figure text, add <code>docs_src/&lt;lang&gt;/styles.py</code> and use a locale-suffixed filename (<code>file=vpc_arch_ja.png</code>).</li>
+<li><strong>Automatic Locale Switcher &amp; Root Redirect</strong>: Compiled HTML pages include a header language dropdown linking directly to the corresponding page in every other locale, while <code>docs_html/index.html</code> redirects visitors to their preferred locale (<code>default_lang</code> fallback).</li>
+<li><strong>Pre-Flight Parity Enforcement</strong>: Every build automatically verifies file-set parity, <code>navbar.md</code> structure parity, Markdown structural skeleton parity, and internal link targets across all configured locales before rendering.</li>
+<li><strong>Unified Link Verification</strong>: Running <code>uv run drawlib serve docs_html/ --check</code> validates internal navigation, shared image references, and cross-locale switcher links across all locales in one pass.</li>
+</ul>
 
             </main>
         </div>

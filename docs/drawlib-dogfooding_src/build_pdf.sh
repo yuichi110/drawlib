@@ -28,4 +28,4 @@ fi
 echo "Using Drawlib command: $DRAWLIB_CMD"
 echo "Building PDF document..."
 $DRAWLIB_CMD build pdf drawlib-dogfooding_src/ -o drawlib-dogfooding.pdf --generate-index
-echo "PDF build complete: drawlib-dogfooding.pdf"
+echo "PDF build complete: drawlib-dogfooding_en.pdf, drawlib-dogfooding_ja.pdf"

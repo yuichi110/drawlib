@@ -1,0 +1,7 @@
+[project]
+name = "architecture"
+type = "site"
+title = ""
+description = "Drawlib Software Architecture Specification Site"
+lang = "en"
+style = "default"

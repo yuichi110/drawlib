@@ -1,0 +1,10 @@
+[project]
+name = "docs"
+type = "site"
+title = ""
+description = "Drawlib Official Documentation Website"
+style = "default"
+
+[i18n]
+default_lang = "en"
+langs = ["en", "ja"]

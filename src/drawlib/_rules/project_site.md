@@ -222,7 +222,7 @@ Never deliver changes to `docs_src/` without executing all 3 verification stages
 
 ---
 
-## 6. Multi-Language (`i18n`) Documentation Websites (`i18n.toml`)
+## 6. Multi-Language (`i18n`) Documentation Websites (`drawlib.toml`)
 
 Scaffold a multi-locale `site` project by passing comma-separated language codes to `-l` / `--lang` (first language becomes `default_lang`):
 
@@ -231,7 +231,7 @@ uv run drawlib init site [target] -l en,ja [-s <default|google|monochrome>]
 ```
 
 - **Source Layout (`<target>_src/`)**:
-  - `i18n.toml` (`default_lang = "en"`, `langs = ["en", "ja"]`) + shared root `styles.py`, `utils.py`, `style.css`, `template.html`, `_assets/`, and `build*.sh`.
+  - `drawlib.toml` (`[project]` `type = "site"` + `[i18n]` `default_lang = "en"`, `langs = ["en", "ja"]`) + shared root `styles.py`, `utils.py`, `style.css`, `template.html`, `_assets/`, and `build*.sh` (with optional per-locale `<lang>/styles.py` or `<lang>/utils.py` overrides).
   - Symmetric locale directories (`en/navbar.md`, `en/index.md`, `ja/navbar.md`, `ja/index.md`, ...).
 - **Compiled Output Layout (`<target>_html/` & `<target>_markdown/`)**:
   - Root `index.html` / `index.md` rendered directly from `<default_lang>/index.md` with relative links automatically rebased (`images/index/...`, `<default_lang>/...`, `_assets/...`).
@@ -241,6 +241,7 @@ uv run drawlib init site [target] -l en,ja [-s <default|google|monochrome>]
   1. **File Set Parity**: Relative `.md`/`.html` paths in every `<lang>/` must match `<default_lang>/`.
   2. **`navbar.md` Parity**: Section count, heading presence, item count, and normalized link targets must match `<default_lang>/navbar.md`.
   3. **Markdown Skeleton Sequence Parity**: Ordered sequence of `[Heading(H1..H3), MarkdownText, DrawlibBlock(file, code, align, has_caption), CodeBlock(lang)]` must match `<default_lang>` (consecutive paragraphs/lists/tables/blockquotes/H4+ collapse into a single `MarkdownText` token for natural translation freedom).
-  4. **Drawlib Code Parity**: Shared `file=<name>.png` blocks must have identical Python code across locales; intentionally localized diagrams must use `file=<stem>_<lang>.<ext>` (e.g. `file=overview_ja.png` with explicit `FontJapanese`).
+  4. **Drawlib Code Parity**: Shared `file=<name>.png` blocks must have identical Python code across locales; intentionally localized diagrams must use `file=<stem>_<lang>.<ext>` (e.g. `file=overview_ja.png` with explicit `FontJapanese` or `<lang>/styles.py`).
+
 
 

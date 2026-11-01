@@ -40,7 +40,7 @@ uv run drawlib init slide pitch -l ja -s google
 | Option | Shorthand | Type | Default | Description |
 | :--- | :--- | :--- | :--- | :--- |
 | `--style` | `-s` | `<theme>` | `default` | Style preset theme (`default`, `google`, `monochrome`) or custom CSS path. Synchronously configures both `style.css` and `styles.py`. |
-| `--lang` | `-l` | `<lang>` | `en` | Starter template language code (`en`, `ja`, `zh-cn`, `ko`, `th`, `hi`, etc.). Configures regional font fallbacks in `styles.py`. |
+| `--lang` | `-l` | `<lang>` | `en` | Starter template language code (`en`, `ja`, `zh-cn`, `ko`, `th`, `hi`, etc.), or comma-separated locales (`-l en,ja`) for multi-language `doc` and `site` projects. |
 | `--force` | `-f` | flag | `False` | Overwrite existing files if the destination directory is not empty. |
 
 > **Pure Scaffolding Principle**: `drawlib init` only creates template and configuration files; it never runs compilation automatically. To compile your project, run `./<target>_src/build.sh` (or `./<target>_src/build_*.sh`).
@@ -54,7 +54,7 @@ Drawlib features 4 project starter templates tailored to distinct authoring and 
 | Project Type | Source Folder | Generated Deliverables | When AI Agents Should Choose This | Dedicated Guide |
 | :--- | :--- | :--- | :--- | :--- |
 | **`images`** | `images_src/*.py` | `images/*.png` (or `.webp`) | User wants **diagram image(s) only** (architecture figures, README illustrations, standalone assets). | `project-images` |
-| **`doc`** | `doc_src/*.md` | `doc_html/` (Web preview)<br>`doc.pdf` (A4 vector PDF)<br>`doc_markdown/` (GitHub MD)<br>`doc_images/` (Extracted PNGs)<br>*(+ on-demand `doc.docx` via `build docx`)* | User wants a **single linear technical document** (RFCs, design specs, whitepapers, quickstarts, printable PDFs, or editable MS Word `.docx`). | `project-doc` |
+| **`doc`** | `doc_src/*.md`<br>*(or `<lang>/*.md`)* | `doc_html/` (Web preview)<br>`doc.pdf` / `doc_<lang>.pdf`<br>`doc_markdown/` (GitHub MD)<br>`doc_images/` (Extracted PNGs)<br>*(+ on-demand `.docx` via `build docx`)* | User wants a **single linear technical document** (RFCs, design specs, whitepapers, quickstarts, printable PDFs, or editable MS Word `.docx`). | `project-doc` |
 | **`site`** | `docs_src/**/*.md`<br>+ `navbar.md` | `docs_html/` (Multi-page site)<br>`docs_markdown/` (GitHub MD)<br>`docs_images/` (Extracted PNGs) | User wants a **multi-page documentation website** with a persistent navigation sidebar (portals, guides, wikis). | `project-site` |
 | **`slide`** | `slide_src/*.md` | `slide_html/index.html` (Deck)<br>`slide.pdf` (16:9 vector PDF)<br>`slide_images/` (Extracted SVGs)<br>*(+ on-demand `slide.pptx` via `build pptx`)* | User wants a **16:9 widescreen presentation deck** with `1920×1080` stage blocks, speaker notes, Presenter View, or editable MS PowerPoint `.pptx`. | `project-slide` |
 
@@ -97,41 +97,58 @@ save()
 
 ---
 
-## 3. Shared Project Architecture (`styles.py`, `utils.py`, `_assets/`, `build.sh`)
+## 3. Shared Project Architecture (`drawlib.toml`, `styles.py`, `utils.py`, `_assets/`, `build.sh`)
 
-Every scaffolded `<target>_src/` directory shares four foundational mechanisms:
+Every scaffolded `<target>_src/` directory shares foundational configuration and build conventions:
 
 ### 3.1. Golden Rule: `<target>_src/` Is the Single Source of Truth
 - **Author & Edit Strictly Inside `<target>_src/`**: All Markdown documents, Python scripts, stylesheets, and assets live inside `images_src/`, `doc_src/`, `docs_src/`, or `slide_src/`.
 - **Never Manually Edit Output Directories**: Generated folders and artifacts (`images/`, `doc_html/`, `docs_html/`, `docs_markdown/`, `slide_html/`, `*.pdf`, `*.docx`, `*.pptx`) are overwritten on build.
 - **Overwrite Protection**: `drawlib build` strictly refuses to execute if the source and destination paths resolve to the same directory (`src_abs == dest_abs`).
 
-### 3.2. Global Theme & Font Configuration (`styles.py`)
-`styles.py` defines project-wide `Styles` and `Colors` overrides (including regional CJK font patching when initialized with `--lang`).
+### 3.2. Unified Project Manifest (`drawlib.toml`)
+`drawlib init` automatically writes `<target>_src/drawlib.toml` to record canonical project metadata:
+```toml
+[project]
+name = "whitepaper"
+type = "doc"                  # "images" | "doc" | "site" | "slide"
+title = ""                    # Optional explicit title override (empty = auto-infer from # H1 / navbar.md)
+description = ""              # Human & AI agent project summary
+style = "google"
+
+[i18n]                        # Present when initialized with multi-locale `-l en,ja` (doc or site)
+default_lang = "en"
+langs = ["en", "ja"]
+```
+- **Explicit Archetype Priority**: When `drawlib.toml` is present, `[project].type` deterministically governs compiler dispatch and guardrails (preventing accidental cross-archetype builds), while legacy directories without `drawlib.toml` remain 100% backward-compatible via file heuristics.
+- **Single-Locale Metadata**: Single-language projects omit `[i18n]` and set `lang = "ja"` under `[project]`, automatically localizing HTML `lang`/`dir`, fonts, and generated Table of Contents headings (`toc_title`, e.g. `"目次"`).
+
+### 3.3. Global Theme & Font Configuration (`styles.py` & `<lang>/styles.py`)
+`styles.py` defines project-wide `Styles` and `Colors` overrides (including regional CJK font patching when initialized with `--lang`). In multi-language `doc` and `site` projects, an optional per-locale `<target>_src/<lang>/styles.py` overrides the root `styles.py` for that locale's localized diagrams (`file=<stem>_<lang>.png`).
 Inside any drawing script or embedded ````drawlib```` block, always import uppercase `Styles` and `Colors`:
 ```python
 from drawlib.styles import Colors, Styles
 ```
 Never import lowercase `styles` or `colors`, which shadows the module namespace.
 
-### 3.3. Reusable Drawing Macros (`utils.py`)
+### 3.4. Reusable Drawing Macros (`utils.py`)
 `utils.py` holds project-specific helper functions, recurring diagram sub-components (e.g., `draw_service_card()`, `draw_page_number()`), and layout constants. Any top-level function or constant in `utils.py` can be imported via:
 ```python
 from drawlib.utils import draw_service_card
 ```
 
-### 3.4. Local Static Assets (`_assets/`)
+### 3.5. Local Static Assets (`_assets/`)
 Place static logos, custom `.ttf`/`.otf` font files, or reference screenshots inside `<target>_src/_assets/`.
 - During HTML/Markdown/Slide builds, `_assets/` is automatically copied to the output directory.
 - `drawlib init` automatically provisions `_assets/favicon.png` so HTML pages, documentation websites, and slide presentations display the brand favicon out-of-the-box (customizable by replacing `_assets/favicon.png`).
 - Inside drawing code, reference files as `"_assets/logo.png"` or `FontFile("_assets/brand.ttf")`—Drawlib automatically resolves paths relative to the document or project root and hashes them in `.drawlib/cache.db`.
 - **Strictly Relative Referencing (No Absolute Paths or `file://` URLs)**: Always reference assets relatively (e.g. `_assets/logo.png` or `../_assets/logo.png`). Never use machine-specific absolute paths (`/usr/...`, `/home/...`, `C:\...`) or `file:///` URLs. The compiler validates link hygiene at build time and rejects prohibited paths.
 
-### 3.5. Link & Path Hygiene in Markdown Documents
+### 3.6. Link & Path Hygiene in Markdown Documents
 - **Relative Links Only**: All internal page links, cross-chapter references, and asset links in Markdown source files (`*_src/**/*.md`) must be written as relative paths (e.g. `../architecture/overview.md`) or inline code format.
 - **Prohibition of `file://` and Local Absolute Paths**: Never write `file:///` URIs or local filesystem roots (`/usr/...`, `/home/...`, `/Users/...`, `C:\...`) into documentation files. While AI assistants use `file:///` links for chat UI navigation, committed documentation files must remain 100% portable.
 
-### 3.6. Modular Build Scripts (`build_*.sh`) & On-Demand Office Exports
+### 3.7. Modular Build Scripts (`build_*.sh`) & On-Demand Office Exports
 Each project scaffolds focused shell scripts alongside the master `build.sh`:
 - **`build_html.sh`**: Fast HTML compilation for rapid browser verification.
 - **`build_pdf.sh`**: Headless Chromium print to vector PDF (`doc` and `slide`).

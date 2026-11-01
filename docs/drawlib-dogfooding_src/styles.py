@@ -11,7 +11,6 @@
 
 from __future__ import annotations
 
-from drawlib.fonts import FontJapanese
 from drawlib.preset_colors import GoogleColors
 from drawlib.preset_styles import GoogleStyles
 
@@ -33,9 +32,4 @@ from drawlib.preset_styles import GoogleStyles
 # Styles = GoogleStyles()
 
 Colors = GoogleColors()
-# Apply Japanese fonts to google drawing styles
-Styles = GoogleStyles().patch_font(
-    regular=FontJapanese.SANSSERIF_REGULAR,
-    bold=FontJapanese.SANSSERIF_BOLD,
-    thin=FontJapanese.SANSSERIF_THIN,
-)
+Styles = GoogleStyles()

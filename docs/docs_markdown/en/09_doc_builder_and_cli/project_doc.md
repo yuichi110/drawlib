@@ -152,6 +152,7 @@ drawlib init doc my_report -s google -l en
 ## 3. Directory Layout & Anatomy
 
 ### Editable Source Directory (`doc_src/`)
+- **`drawlib.toml`**: Project manifest declaring `type = "doc"`, language (`lang`, used to localize Table of Contents headings), theme metadata, and optional `[i18n]` multi-locale settings.
 - **`00_cover.md`, `01_overview.md`, `02_design.md`, ...**: Numbered Markdown chapter files containing prose and embedded ````drawlib```` blocks, merged in sorted lexicographical order.
 - **`styles.py` & `utils.py`**: Shared Python styling configuration (`Colors`, `Styles`, language fonts) and reusable diagram helper functions.
 - **`template.html` & `style.css`**: Jinja2 single-page HTML layout and print-aware CSS (`@media print` / `@page A4`) for browser preview and vector PDF generation.
@@ -238,3 +239,35 @@ Because a `doc` project separates chapters into numbered Markdown files (`00_cov
 1. **Phase 1 (Parent Setup)**: Scaffold `doc_src/` (`drawlib init doc`), finalize `styles.py`, `utils.py`, and `00_cover.md`, and establish the numbered chapter filenames.
 2. **Phase 2 (Parallel Subagents)**: Delegate individual chapters (`doc_src/0N_<topic>.md`) to parallel subagents. Each subagent authors its assigned chapter (`2+` diagrams, Chapter Hero at `Lines 5–15`) and verifies its diagrams with unique grid preview paths (`-o .drawlib/scratch/0N_<diagram>_grid.png`).
 3. **Phase 3 (Unified Compilation)**: After all subagents complete their chapters, the parent agent runs `./doc_src/build.sh` (and `drawlib build docx` when needed) once to merge all chapters into `doc_html/index.html`, `doc.pdf`, and `doc.docx`.
+
+---
+
+## 9. Multi-Language (`i18n`) Linear Documents (`drawlib.toml`)
+
+A single `doc_src/` project can maintain and compile multiple language editions (such as English and Japanese whitepapers) side by side by passing comma-separated locales to `drawlib init doc` or configuring `[i18n]` in `doc_src/drawlib.toml`:
+
+```bash
+uv run drawlib init doc whitepaper -l en,ja -s google
+```
+
+```toml
+[project]
+name = "whitepaper"
+type = "doc"
+style = "google"
+
+[i18n]
+default_lang = "en"
+langs = ["en", "ja"]
+
+[i18n.labels]
+en = "English"
+ja = "日本語"
+```
+
+- **Symmetric Locale Chapter Directories (`doc_src/<lang>/`)**: Place numbered chapter files (`00_cover.md`, `01_overview.md`, ...) inside each locale directory (`doc_src/en/`, `doc_src/ja/`). Pre-flight checks verify chapter file-set parity, Markdown structural skeleton parity, and relative link integrity across all locales.
+- **Per-Locale `styles.py` & Shared Figure Deduplication**: Language-neutral diagrams (`file=fig_pipeline.png`) use root `doc_src/styles.py` and render once into shared `images/`. For localized figures requiring CJK typography, place `doc_src/<lang>/styles.py` (for example `ja/styles.py` with `FontJapanese`) and assign a locale-specific filename (`file=fig_pipeline_ja.png`).
+- **Per-Locale PDF & MS Word Deliverables (`<base>_<lang>.pdf` / `.docx`)**: Running `drawlib build pdf doc_src/ -o whitepaper.pdf --toc` or `drawlib build docx doc_src/ -o whitepaper.docx --generate-index` automatically emits `whitepaper_en.pdf` / `whitepaper_ja.pdf` (and `.docx`) with localized Table of Contents headings (`"Table of Contents"`, `"目次"`, etc.).
+- **Print-Safe HTML Language Switcher**: Merged HTML previews (`whitepaper_html/<lang>/index.html`) include a top-right language dropdown for instant browser switching while `@media print` hides the toolbar cleanly during vector PDF generation.
+- **Synchronized GitHub Markdown (`whitepaper_markdown/<lang>/`)**: `build_markdown.sh` outputs per-locale Markdown chapters referencing shared `../images/` assets without duplicating raster files.
+

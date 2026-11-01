@@ -15,6 +15,10 @@ import os
 import re
 import shutil
 import sys
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from drawlib._builder._common.manifest import ProjectManifest
 
 EXCLUDED_ASSET_NAMES: set[str] = {
     "build.sh",
@@ -24,7 +28,7 @@ EXCLUDED_ASSET_NAMES: set[str] = {
     "style.css",
     "template.html.j2",
     "template.html",
-    "i18n.toml",
+    "drawlib.toml",
 }
 EXCLUDED_ASSET_EXTENSIONS: tuple[str, ...] = (".py", ".pyc", ".sh", ".j2", ".template")
 
@@ -55,7 +59,7 @@ def require_directory(path: str, caller_name: str) -> str:
 
 
 def resolve_template_and_css(search_dir: str) -> tuple[str, str]:
-    """Resolve required template.html and style.css in the target directory.
+    """Resolve required template.html and style.css in search_dir or parent drawlib.toml project root.
 
     Args:
         search_dir (str): Directory where project assets reside.
@@ -66,15 +70,31 @@ def resolve_template_and_css(search_dir: str) -> tuple[str, str]:
     Raises:
         ValueError: If template.html or style.css does not exist.
     """
-    template_cand = os.path.join(search_dir, "template.html")
-    if not os.path.isfile(template_cand):
+    candidate_dirs = [search_dir]
+    parent_dir = os.path.dirname(os.path.abspath(search_dir))
+    if parent_dir and parent_dir != os.path.abspath(search_dir):
+        if os.path.isfile(os.path.join(parent_dir, "drawlib.toml")):
+            candidate_dirs.append(parent_dir)
+
+    template_cand: str | None = None
+    for d in candidate_dirs:
+        cand = os.path.join(d, "template.html")
+        if os.path.isfile(cand):
+            template_cand = cand
+            break
+    if template_cand is None:
         raise ValueError(
             f'Missing required "template.html" in "{search_dir}". '
             'Please run "drawlib init" to initialize your project, or provide "template.html".'
         )
 
-    css_cand = os.path.join(search_dir, "style.css")
-    if not os.path.isfile(css_cand):
+    css_cand: str | None = None
+    for d in candidate_dirs:
+        cand = os.path.join(d, "style.css")
+        if os.path.isfile(cand):
+            css_cand = cand
+            break
+    if css_cand is None:
         raise ValueError(
             f'Missing required "style.css" in "{search_dir}". '
             'Please run "drawlib init" to initialize your project, or provide "style.css".'
@@ -227,3 +247,53 @@ def copy_directory_assets(
             dest_abs = os.path.join(out_dir_abs, rel_path)
             os.makedirs(os.path.dirname(dest_abs), exist_ok=True)
             shutil.copy2(src_abs, dest_abs)
+
+
+def resolve_multi_locale_dest(
+    default_base_dir: str,
+    default_stem: str,
+    output_file: str | None,
+    lang: str,
+    ext: str,
+) -> str:
+    """Resolve ``<stem>_<lang><ext>`` output path for multi-locale PDF/DOCX builds.
+
+    Args:
+        default_base_dir: Default directory when ``output_file`` is omitted.
+        default_stem: Base project stem (e.g. ``'drawlib-dogfooding'``).
+        output_file: Optional CLI ``-o`` file or directory path.
+        lang: Canonical language code (e.g. ``'en'``, ``'ja'``).
+        ext: Target extension with leading dot (e.g. ``'.pdf'`` or ``'.docx'``).
+
+    Returns:
+        str: Resolved absolute path ending in ``_<lang><ext>``.
+    """
+    if output_file:
+        if os.path.isdir(output_file) or output_file.endswith(os.sep) or output_file.endswith("/"):
+            return os.path.abspath(os.path.join(output_file, f"{default_stem}_{lang}{ext}"))
+        out_abs = os.path.abspath(output_file)
+        stem_prefix, out_ext = os.path.splitext(out_abs)
+        if out_ext.lower() == ext.lower():
+            return f"{stem_prefix}_{lang}{out_ext}"
+        return f"{out_abs}_{lang}{ext}"
+    return os.path.abspath(os.path.join(default_base_dir, f"{default_stem}_{lang}{ext}"))
+
+
+def resolve_doc_locale_and_root(path_abs: str) -> tuple[str, ProjectManifest | None, str]:
+    """Resolve ``(lang, manifest, project_root_abs)`` for a single file or single-locale directory."""
+    from drawlib._builder._common.manifest import find_project_manifest
+
+    search_dir = path_abs if os.path.isdir(path_abs) else os.path.dirname(path_abs)
+    found = find_project_manifest(path_abs, max_up=2)
+    if found is None:
+        return "en", None, search_dir
+
+    proj_root, manifest = found
+    if manifest.i18n is not None:
+        rel = os.path.relpath(path_abs, proj_root)
+        first_part = rel.split(os.sep)[0]
+        if first_part in manifest.i18n.langs:
+            return first_part, manifest, proj_root
+        return manifest.i18n.default_lang, manifest, proj_root
+
+    return manifest.project.lang, manifest, proj_root

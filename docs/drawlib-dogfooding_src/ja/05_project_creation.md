@@ -19,7 +19,7 @@ Drawlib には、目的別のドキュメントプロジェクトを瞬時にス
 uv run drawlib init doc report -l ja -s google
 ```
 
-```drawlib align=center file=fig_project_lifecycle.png caption="図 5.1: プロジェクト作成から成果物生成までのライフサイクル"
+```drawlib align=center file=fig_project_lifecycle_ja.png caption="図 5.1: プロジェクト作成から成果物生成までのライフサイクル"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line

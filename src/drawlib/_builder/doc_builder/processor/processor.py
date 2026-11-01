@@ -26,6 +26,7 @@ import drawlib._core.l4_canvas
 import drawlib.canvas
 from drawlib._builder._common import (
     BuildImageCache,
+    find_project_manifest,
     hash_file,
     load_styles_and_utils,
 )
@@ -68,13 +69,19 @@ class DrawlibBlockProcessor:
         self.no_cache = no_cache
         self.require_file = require_file
         self._cache: BuildImageCache = cache if cache is not None else BuildImageCache(enabled=not no_cache)
-        self._rendered_targets: set[str] = set()
+        self._rendered_targets: set[str] = self._cache.rendered_targets
         self.project_root: str | None = os.path.abspath(project_root) if project_root else None
         if self.project_root is None:
-            if styles_path and os.path.isfile(styles_path):
-                self.project_root = os.path.dirname(os.path.abspath(styles_path))
-            elif utils_path and os.path.isfile(utils_path):
-                self.project_root = os.path.dirname(os.path.abspath(utils_path))
+            cand_cfg = styles_path or utils_path
+            if cand_cfg:
+                found = find_project_manifest(cand_cfg, max_up=3)
+                if found is not None:
+                    self.project_root = found[0]
+            if self.project_root is None:
+                if styles_path and os.path.isfile(styles_path):
+                    self.project_root = os.path.dirname(os.path.abspath(styles_path))
+                elif utils_path and os.path.isfile(utils_path):
+                    self.project_root = os.path.dirname(os.path.abspath(utils_path))
 
         load_styles_and_utils(
             styles_path=styles_path,

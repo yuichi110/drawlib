@@ -869,6 +869,7 @@ drawlib init site my_docs --style google --lang en
 `site` プロジェクトでは、編集対象のソースファイル（`docs_src/`）と生成される公開用成果物を厳密に分離します。
 
 - **`docs_src/`（信頼できる唯一の情報源）**:
+  - **`drawlib.toml`**: `type = "site"`、既定の言語・テーマメタデータ、および任意の `[i18n]` 多言語設定を宣言するプロジェクトマニフェストです。
   - **`index.md`**: ルートエントリドキュメント（`index.html`）としてレンダリングされるサイトのランディングページです。
   - **`navbar.md`**: ブランドタイトル、折りたたみ可能なセクション、およびページリンクを宣言的に定義するサイドバーナビゲーションマニフェストです。
   - **ネストされたセクションサブフォルダ (`guide/`, `api/`, `01_architecture/` など)**: ```` ```drawlib ```` 図解ブロックを埋め込んだ階層構造の Markdown ページ群です。
@@ -951,3 +952,35 @@ uv run drawlib serve docs_html/ --check
 1. **フェーズ 1（親エージェントによる初期設定）**: サブエージェントを起動する前に、`docs_src/` をスキャフォールディング（`drawlib init site`）し、共有ファイル（`styles.py`、`utils.py`、`_assets/`、`index.md`、および完全な `navbar.md` サイドバーツリー）を確定させます。
 2. **フェーズ 2（サブエージェントによる並列執筆）**: 各サブエージェントに重複しないページまたはセクションディレクトリ（例: `01_architecture/*.md` と `02_services/*.md`）を割り当てます。各サブエージェントは `styles.py`、`utils.py`、`navbar.md` を読み取り専用として扱い、担当ページを執筆して一意なスクラッチファイル名（`-o .drawlib/scratch/<page>_<block>_grid.png`）で `-g` グリッドプレビューを実行します。
 3. **フェーズ 3（統合ビルドとリンク監査）**: すべてのサブエージェントが完了したら、親エージェントが `./docs_src/build.sh` を 1 回実行し、`uv run drawlib serve docs_html/ --check` でサイト全体のリンク整合性を検証します。
+
+---
+
+## 8. 多言語（`i18n`）ドキュメントサイト (`drawlib.toml`)
+
+`drawlib init site` にカンマ区切りの言語コードを指定するか、`docs_src/drawlib.toml` に `[i18n]` セクションを設定することで、単一の `docs_src/` プロジェクトから同期された多言語ドキュメントポータルを公開できます。
+
+```bash
+uv run drawlib init site docs -l en,ja -s default
+```
+
+```toml
+[project]
+name = "docs"
+type = "site"
+style = "default"
+
+[i18n]
+default_lang = "en"
+langs = ["en", "ja"]
+
+[i18n.labels]
+en = "English"
+ja = "日本語"
+```
+
+- **対称なロケールサブツリー (`docs_src/<lang>/`)**: 設定された各ロケール（`en/`、`ja/` など）は、それぞれ固有の `navbar.md`、`index.md`、および同一構成のセクションサブディレクトリを保持します。
+- **共有図解の重複排除とロケール別 `styles.py`**: 言語間で共通の図解（`file=vpc_arch.png`）はルートの `docs_html/images/` ディレクトリに 1 回だけコンパイルされ、全ロケールで共有されます。日本語フォントや翻訳ラベルを含む図解が必要な場合は、`docs_src/<lang>/styles.py` を配置してロケール接尾辞付きのファイル名（`file=vpc_arch_ja.png`）を指定します。
+- **自動言語スイッチャーとルートリダイレクト**: コンパイルされた各 HTML ページのヘッダーには他言語の同一ページへ直接遷移する言語切り替えドロップダウンが生成され、ルートの `docs_html/index.html` は訪問者を優先ロケール（既定は `default_lang`）へリダイレクトします。
+- **ビルド前の厳格なパリティ検証**: ビルド実行時には、全ロケール間でファイルセットの一致、`navbar.md` の構造一致、Markdown の構造スケルトン一致、および内部リンク先の存在がレンダリング前に自動検証されます。
+- **統合リンク監査**: `uv run drawlib serve docs_html/ --check` を実行すると、すべてのロケールにわたる内部ナビゲーション、共有画像参照、および言語切り替えリンクを 1 パスで一括検証できます。
+

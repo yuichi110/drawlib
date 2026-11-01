@@ -15,10 +15,11 @@ Choose `drawlib init doc` when the user wants a **linear, end-to-end technical d
 
 ```bash
 # Scaffold a linear document project (default target 'doc', or custom name e.g. 'spec'):
-uv run drawlib init doc [target] [-l <lang>] [-s <default|google|monochrome>]
+uv run drawlib init doc [target] [-l <lang[,lang...]>] [-s <default|google|monochrome>]
 
 # Examples:
 uv run drawlib init doc --lang ja -s google
+uv run drawlib init doc whitepaper -l en,ja -s google
 uv run drawlib init doc rbac_spec -s default
 ```
 
@@ -29,6 +30,7 @@ uv run drawlib init doc rbac_spec -s default
 ```text
 .
 ├── doc_src/                   # [SOURCE OF TRUTH] Edit ONLY files here!
+│   ├── drawlib.toml           # Project manifest (type = "doc", lang/title/style, optional [i18n])
 │   ├── 00_cover.md            # Cover chapter (H1 Document Title, subtitle, hero figure, metadata)
 │   ├── 01_overview.md         # Chapter 1: Executive Overview
 │   ├── 02_architecture.md     # Chapter 2: System Architecture
@@ -198,4 +200,37 @@ Always verify linear documents across all three stages before finishing:
    - **Phase 1 (Parent)**: Scaffold `doc_src/`, configure `styles.py`, `utils.py`, and `00_cover.md`, and define the numbered chapter filenames.
    - **Phase 2 (Parallel Subagents)**: Assign each subagent its own `doc_src/0N_<chapter>.md` file(s). Each subagent writes the chapter (`2+` diagrams, Chapter Hero at `Lines 5–15`) and executes Stage 1 & Stage 2 using a **unique scratch filename** (`-o .drawlib/scratch/0N_<diagram>_grid.png`).
    - **Phase 3 (Parent)**: Run `./doc_src/build.sh` once after all subagents finish, verify links (`drawlib serve doc_html/ --check`), and perform Stage 3 inspection of `doc.pdf` and `doc_html/index.html`.
+
+---
+
+## 5. Multi-Language (`i18n`) Linear Documents (`drawlib.toml`)
+
+A single `doc_src/` directory can compile synchronized multi-locale HTML, PDF, Word (`.docx`), and Markdown deliverables by passing comma-separated locales to `drawlib init doc` (or adding an `[i18n]` table to `doc_src/drawlib.toml`):
+
+```bash
+uv run drawlib init doc whitepaper -l en,ja -s google
+```
+
+```toml
+[project]
+name = "whitepaper"
+type = "doc"
+style = "google"
+
+[i18n]
+default_lang = "en"
+langs = ["en", "ja"]
+
+[i18n.labels]
+en = "English"
+ja = "日本語"
+```
+
+- **Symmetric Locale Chapter Trees (`doc_src/<lang>/`)**: Every locale directory (`en/`, `ja/`, ...) must contain the exact same relative set of numbered Markdown chapters (`00_cover.md`, `01_overview.md`, ...) with matching Markdown structural skeletons (headings, fenced code blocks, tables, lists, blockquotes).
+- **Per-Locale `styles.py` / `utils.py` Overrides**: Shared language-neutral diagrams (`file=fig_arch.png`) use root `doc_src/styles.py` and render once into shared `images/` (`default_lang` authoritative). When a locale needs CJK typography or translated diagram labels, place a locale-specific override at `doc_src/<lang>/styles.py` (e.g., `ja/styles.py` with `FontJapanese`) and give localized fences a distinct filename (`file=fig_arch_ja.png`).
+- **Synchronized Per-Locale Deliverables**:
+  - **HTML (`whitepaper_html/`)**: Generates `<lang>/index.html`, a root `index.html` browser-language redirector, shared `images/` + `_assets/`, and a top-right `.lang-switcher` dropdown (automatically hidden in `@media print`).
+  - **PDF & MS Word (`whitepaper_<lang>.pdf` / `whitepaper_<lang>.docx`)**: Compiles one A4 vector PDF and/or `.docx` per locale (`whitepaper_en.pdf`, `whitepaper_ja.pdf`), automatically localizing the injected Table of Contents heading (`"Table of Contents"`, `"目次"`, etc.) for each locale.
+  - **Markdown (`whitepaper_markdown/<lang>/`)**: Emits per-locale GitHub Markdown chapters referencing shared `../images/...`.
+
 

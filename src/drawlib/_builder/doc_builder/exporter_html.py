@@ -18,6 +18,7 @@ from typing import Any, Literal
 from jinja2 import Environment, FileSystemLoader
 
 from drawlib._templates import get_css, localize_css_for_language
+from drawlib._templates.langs import get_language_config
 
 
 def get_default_css(
@@ -191,6 +192,7 @@ def render_pdf_document(
     title: str = "Drawlib Document",
     custom_css_path: str | None = None,
     template_path: str | None = None,
+    lang: str = "en",
 ) -> str:
     """Render merged HTML document for PDF compilation using template and pdf_css.
 
@@ -199,6 +201,7 @@ def render_pdf_document(
         title (str): Document title.
         custom_css_path (Optional[str]): PDF CSS preset or path to custom CSS file.
         template_path (Optional[str]): File path to template.html.
+        lang (str): Canonical language code for CSS font localization and HTML metadata.
 
     Returns:
         str: Complete HTML string ready for headless PDF export.
@@ -233,12 +236,26 @@ def render_pdf_document(
             "</html>"
         )
 
-    custom_css_content = get_pdf_css(custom_css_path=custom_css_path)
+    lang_cfg = get_language_config(lang)
+    custom_css_content = get_pdf_css(custom_css_path=custom_css_path, lang=lang)
 
-    return template.render(
+    rendered = template.render(
         title=title,
         body=body_html,
         custom_css=custom_css_content,
         css_href=None,
         nav_items=[],
+        nav_sections=[],
+        languages=[],
+        alternate_links=[],
+        html_lang=lang_cfg.code,
+        html_dir=lang_cfg.direction,
+        font_link_html=lang_cfg.font_link_html,
+    )
+    return _ensure_i18n_head_metadata(
+        rendered=rendered,
+        html_lang=lang_cfg.code,
+        html_dir=lang_cfg.direction,
+        font_link_html=lang_cfg.font_link_html,
+        alternate_links=None,
     )

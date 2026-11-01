@@ -36,7 +36,7 @@ def build(
         None,
         help=(
             "Target to build ('site', 'architecture', 'quickstart', 'readme', 'logo', "
-            "'dogfooding', 'dogfooding-en', 'slide', 'slide-ddos', or 'all'). Default: 'site'."
+            "'dogfooding', 'slide', 'slide-ddos', or 'all'). Default: 'site'."
         ),
     ),
     all_targets: bool = typer.Option(
@@ -64,7 +64,7 @@ SERVE_TARGET_MAP: dict[str, str] = {
     "docs": "docs/docs_html",
     "docs_html": "docs/docs_html",
     "dogfooding": "docs/drawlib-dogfooding_html",
-    "dogfooding-en": "docs/drawlib-dogfooding-en_html",
+    "dogfooding-en": "docs/drawlib-dogfooding_html",
     "quickstart": "docs/quickstart_html",
     "slide": "docs/slide_about_drawlib_html",
     "slide_about_drawlib": "docs/slide_about_drawlib_html",
@@ -83,7 +83,7 @@ def serve(
         "site",
         help=(
             "Directory or target alias to serve ('site', 'architecture', 'dogfooding', "
-            "'dogfooding-en', 'quickstart', 'slide', 'slide-ddos', or path)."
+            "'quickstart', 'slide', 'slide-ddos', or path)."
         ),
     ),
     port: int = typer.Option(8000, "--port", "-p", help="Port to serve the documentation on."),

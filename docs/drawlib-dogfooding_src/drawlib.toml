@@ -1,0 +1,10 @@
+[project]
+name = "drawlib-dogfooding"
+type = "doc"
+title = ""
+description = "Drawlib Dogfooding Architectural Whitepaper"
+style = "google"
+
+[i18n]
+default_lang = "en"
+langs = ["en", "ja"]
