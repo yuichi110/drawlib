@@ -2,11 +2,11 @@
 
 **Pure-Python Library for "Illustration as Code" & "Illustrated Documentation as Code"**
 
-Drawlib is a declarative Python drawing library and integrated documentation compiler designed for software engineers and **autonomous AI coding agents**. Instead of maintaining brittle diagrams in external GUI tools (draw.io, Visio, PowerPoint) and manually pasting exported images into wikis, Drawlib lets you author, version-control, and build architectural diagrams, data charts, technical documents, and presentation slide decks entirely from code in Git.
+Drawlib is a declarative Python drawing library and integrated multi-format documentation compiler engineered for software developers and **autonomous AI coding agents**. Instead of maintaining brittle diagrams in external GUI tools (draw.io, Visio, PowerPoint) and manually pasting exported screenshots into wikis, Drawlib lets you author, animate, localize, version-control, and compile architectural diagrams, quantitative charts, technical documents, and 16:9 slide decks entirely from code in Git.
 
-![Drawlib Hero Concept](docs/readme_images/01_hero_concept.png)
+![Autonomous AI Documentation Workflow](docs/readme_images/01_hero_ai_doc_loop.png)
 
-- **Official Website & Documentation**: [https://www.drawlib.com/](https://www.drawlib.com/)
+- **Official Website & Documentation**: [English (`www.drawlib.com`)](https://www.drawlib.com/) | [日本語 (`www.drawlib.com/ja/`)](https://www.drawlib.com/ja/)
 - **Repository Guides & Whitepapers**:
   - [Quickstart Guide (PDF)](docs/quickstart_en.pdf)
   - [16:9 Presentation Slide Deck (PDF)](docs/slide_about_drawlib_en.pdf)
@@ -14,87 +14,86 @@ Drawlib is a declarative Python drawing library and integrated documentation com
 
 ---
 
-## Why Drawlib v0.3?
+## Why Drawlib?
 
-### 1. Cloud & Software Engineering Diagrams
-Stop assembling complex architectures out of raw coordinates. Drawlib provides high-level diagramming engines (`drawlib.diagrams`, `drawlib.graph`) and standardized icon sets (`drawlib.icons.gcp`, `phosphor`, `fontawesome`):
+### 1. SmartArt Infographics, Quantitative Charts & Declarative Animations
 
-![Cloud Architecture Showcase](docs/readme_images/02_showcase_diagrams.png)
+Compose executive-ready infographics (`drawlib.smartarts`), quantitative data plots (`drawlib.charts`), and multi-frame **APNG / WebP / GIF** animations (`drawlib.anim`) on the exact same coordinate canvas:
 
-- **Auto-Layout Graphs (`drawlib.graph`)**: Declarative graph layout solvers (`ArchitectureGraph`, `LayerGraph`, `TreeGraph`, `RadialGraph`, `GridGraph`) that compute overlap-free coordinates (`get_layout()`), nested cluster bounds, and `offset()` fine-tuning for rendering with `drawlib.diagrams` and `drawlib.shapes`.
-- **Technical Diagrams (`drawlib.diagrams`)**:
-  - **Cloud Architecture (`ArchitectureDiagram`)**: VPC boundaries, subnets, tiers, and official cloud service icons.
-  - **Flowcharts (`FlowDiagram`)**: Process stages, decision branches, and orthogonal connectors.
-  - **Sequence Diagrams (`SequenceDiagram`)**: Client/server lifelines, synchronous/asynchronous messages, and activation bars.
-  - **UML Class, ER & State Diagrams (`ClassDiagram`, `ERDiagram`, `StateDiagram`)**: Object-oriented models, database schemas, and state machines.
+![SmartArts Visual Showcase](docs/readme_images/02_smartarts_showcase.png)
 
----
+- **18 SmartArt Components (`drawlib.smartarts`)**: High-level structured layouts including `ChevronProcess`, `Cycle`, `Table`, `TreeNode`, `MindMapNode`, `Pyramid`, `BoxList`, `CardList`, `KpiCards`, `Roadmap`, `Panel`, `BulletPoints`, `GridLayout`, syntax-highlighted `SourceCode`, offline vector maps (`GeoMap`), and `MonthCalendar` / `WeekCalendar` / `DayCalendar`.
 
-### 2. Quantitative Charts & SmartArt Infographics
-Compose presentation-ready infographics (`drawlib.smartarts`) and quantitative data plots (`drawlib.charts`) side by side on the same canvas:
+![Animated Quantitative Charts](docs/readme_images/03_anim_charts_hero.png)
 
-![Charts and SmartArts Showcase](docs/readme_images/03_showcase_charts_smartarts.png)
-
-- **SmartArts (`drawlib.smartarts`)**: `ChevronProcess`, `Cycle`, `Table`, `TreeNode`, `MindMapNode`, `Pyramid`, `BoxList`, `BulletPoints`, `GridLayout`, and syntax-highlighted `SourceCode`.
-- **Charts (`drawlib.charts`)**: Pure-Python `BarChart`, `LineChart`, `AreaChart`, `PieChart`, `RadarChart`, `ScatterChart`, `GanttChart`, and `HeatmapChart` / `HeatmapOverlay` styled with the same design tokens as your diagrams.
+- **9 Quantitative Charts (`drawlib.charts`)**: Pure-Python `BarChart`, `LineChart`, `AreaChart`, `PieChart`, `RadarChart`, `ScatterChart`, `GanttChart`, and `HeatmapChart` / `HeatmapOverlay` styled with the same design tokens as surrounding diagrams—no low-level Matplotlib boilerplate required.
+- **Declarative Animations (`drawlib.anim`)**: Turn any diagram, chart, or workflow into a crisp multi-frame **APNG**, **WebP**, or **GIF** animation (`Animation(fps=..., loop=0)`) that plays natively inside GitHub `README.md` files, pull requests, and HTML documentation sites.
 
 ---
 
-### 3. Rich Primitives & Semantic Design System
-At its foundation, Drawlib separates **Content** (geometry, coordinates, structure) from **Style** (colors, typography, borders, themes)—just like HTML and CSS:
+### 2. Auto-Layout Graphs & Software Engineering Diagrams
 
-![Primitives and Styles Showcase](docs/readme_images/04_showcase_primitives.png)
+Stop hand-tuning complex node coordinates. Combine automatic graph layout solvers (`drawlib.graph`) with domain-specific software engineering diagrams (`drawlib.diagrams`):
 
-- **5 Core Primitive Categories**:
-  - **Icons (`drawlib.icons`)**: 1,500+ Phosphor icons (5 weights), FontAwesome, and official Google Cloud (GCP) icons.
-  - **Images (`drawlib.images`)**: Non-destructive `Dimage` processing pipeline (`sepia()`, `grayscale()`, `mosaic()`, `mirror()`, `crop()`, borders, rotation).
-  - **Lines (`drawlib.lines`)**: Straight, curved (`bend`), quadratic/cubic Bezier, and rounded multi-point polylines with customizable arrowheads (`"->"`, `"<-"`, `"<->"`).
-  - **Shapes (`drawlib.shapes`)**: 23 geometric primitives (`rectangle`, `circle`, `ellipse`, `rhombus`, `star`, `arrow`, `chevron`, `bubblespeech`, `polygon`, etc.).
-  - **Text (`drawlib.text`, `drawlib.fonts`)**: Multilingual typography with automatic on-demand font caching (`FontRoboto`, `FontSansSerif`, `FontSerif`, `FontSourceCode`, `FontJapanese`, `FontChinese`, `FontKorean`, `FontArabic`, etc.).
+![Five Auto-Layout Graph Solvers](docs/readme_images/04_graph_five_solvers_hero.png)
+
+- **5 Auto-Layout Coordinate Solvers (`drawlib.graph`)**: Pure coordinate calculators (`ArchitectureGraph`, `LayerGraph`, `TreeGraph`, `RadialGraph`, `GridGraph`) that compute overlap-free node centers (`.xy`), nested cluster bounds, and `offset()` fine-tuning via `get_layout()` for seamless rendering with `drawlib.diagrams` and `drawlib.shapes`.
+
+![Six Software Engineering Diagram Families](docs/readme_images/05_diagrams_six_families_hero.png)
+
+- **6 Technical Diagram Engines (`drawlib.diagrams`)**:
+  - **Cloud Architecture (`ArchitectureDiagram`)**: Nested VPC/subnet boundaries, multi-tier service cards, and official cloud provider icons.
+  - **Flowcharts (`FlowDiagram`)**: Process steps, decision branches, and orthogonal connectors.
+  - **Sequence Diagrams (`SequenceDiagram`)**: Client/server lifelines, synchronous/asynchronous calls, activation bars, and loop/alt frames.
+  - **State, UML Class & ER Diagrams (`StateDiagram`, `ClassDiagram`, `ERDiagram`)**: State lifecycles, object-oriented class hierarchies, and relational database schemas.
+
+---
+
+### 3. 34 Icon Suites (4,500+ Icons), 43 Primitives & Semantic Design System
+
+At its core, Drawlib cleanly separates **Content** (geometry, coordinates, structure) from **Style** (colors, typography, borders, themes)—just like HTML and CSS:
+
+![34 Standardized Icon Suites Overview](docs/readme_images/06_icons_overview_hero.png)
+
+- **34 Standardized Icon Suites (`drawlib.icons`)**: Over **4,500 offline-cached vector icons** spanning **Phosphor** (`1,512` icons across `5` weights), **Cloud Providers** (`gcp`, `aws`, `azure`), **15 Official Tech Brand Suites** (`ai`, `cicd`, `cloud`, `code`, `compute`, `container`, `data`, `database`, `k8s`, `linux`, `mobile`, `monitoring`, `network`, `security`, `workspace`), and **15 Flat 2D Suites** (`original_*`).
+- **Rich Primitives (`drawlib.shapes`, `lines`, `images`, `text`, `fonts`)**:
+  - **43 Geometric Shapes**: Spanning `basic`, `polygon`, `arrow`, `badge`, `container`, and `symbol` primitives.
+  - **Lines & Connectors**: Straight, curved (`bend`), quadratic/cubic Bezier, and rounded polylines with rich arrowheads (`"->"`, `"<-"`, `"<->"`).
+  - **Images & Nested Canvases**: Non-destructive `Dimage` transformations (`crop()`, `sepia()`, `grayscale()`, `mosaic()`, `mirror()`) plus in-memory diagram nesting via `get_dimage_from_code()`.
+  - **Multilingual Typography**: Automatic on-demand font caching (`FontRoboto`, `FontSansSerif`, `FontSerif`, `FontSourceCode`, `FontJapanese`, `FontChinese`, `FontKorean`, `FontArabic`, etc.).
 - **7-Role Semantic Style System (`drawlib.styles`)**:
-  - Built-in presets (`default`, `google`, `essentials`, `monochrome`, ` warm`, `cold`) accessed via `Styles.<Token>` (`Styles.PrimaryFlat`, `Styles.Neutral`, `Styles.SecondaryNeutral`, `Styles.MutedDashed`, `Styles.SuccessNeutral`, `Styles.WarningNeutral`, `Styles.DangerNeutral`).
+  - 6 built-in themes (`default`, `google`, `essentials`, `monochrome`, `warm`, `cold`) accessed via `Styles.<Token>` (`Styles.Neutral`, `Styles.PrimaryFlat`, `Styles.SecondaryNeutral`, `Styles.MutedDashed`, `Styles.SuccessNeutral`, `Styles.WarningNeutral`, `Styles.DangerNeutral`).
 
 ---
 
-### 4. Illustrated Documentation & Slide as Code
-Write Markdown files with embedded ```` ```drawlib ```` code blocks. A single `drawlib build` command compiles your repository into multiple publication formats:
+### 4. Illustrated Documentation & 16:9 Slide Deck as Code (Multi-Locale Ready)
 
-![Documentation as Code Workflow](docs/readme_images/05_workflow_doc_as_code.png)
+Author Markdown files with embedded ```` ```drawlib ```` code fences inside a unified `drawlib.toml` project. A single build compiles your repository into web portals, GitHub Markdown, PDFs, editable Word documents, HTML slide decks, and PowerPoint files:
 
+![Multi-Locale Documentation and Slide Build Pipeline](docs/readme_images/07_doc_build_pipeline.png)
+
+- **Unified `drawlib.toml` & Multi-Locale (`<lang>/`) Architecture**: Configure project metadata, `[build]` flags, and `[i18n]` locales (`langs = ["en", "ja"]`) in `drawlib.toml` with built-in structural parity checks across `<src_dir>/<lang>/` trees and locale-suffixed deliverables (`*_<lang>.pdf`, `*_<lang>.docx`, `*_<lang>.pptx`).
 - **4 Project Scaffolds (`drawlib init <type>`)**:
-  - `drawlib init site`: Multi-page documentation website (`docs_html/`) and GitHub Markdown (`docs_markdown/`) with built-in multi-locale (`<lang>/`) support.
-  - `drawlib init doc`: Linear technical specification / whitepaper (`*_html/`, `*_markdown/`, `*_<lang>.pdf`, plus on-demand editable MS Word `*_<lang>.docx` via `drawlib build docx`).
-  - `drawlib init slide`: 16:9 presentation slide deck with native SVG text, Presenter View, multi-locale (`<lang>/`) support, and keyboard navigation (`slide_html/`, `slide_<lang>.pdf`, plus on-demand editable MS PowerPoint `slide_<lang>.pptx` via `drawlib build pptx`).
-  - `drawlib init images`: Standalone batch Python illustration scripts (`images_src/` -> `images/`).
-
----
-
-### 5. AI Inner Loop & Human Outer Loop
-Drawlib is engineered from the ground up for **AI-native documentation and diagram engineering** (Claude Code, Cursor, Gemini, Codex), separating high-frequency visual self-correction from high-level human review:
-
-![AI Inner Loop and Human Outer Loop](docs/readme_images/06_ai_agent_loop.png)
-
-- **AI Inner Loop (Autonomous Visual Self-Correction)**:
-  1. **On-Demand Spec & Codebase Lookup**: The AI agent autonomously queries **`drawlib rules show <topic>`** for detailed API specifications and design best practices, while directly inspecting **repository source code, schemas, and design docs** as the single source of truth.
-  2. **Code Synthesis & Grid Preview (`drawlib show -g`)**: The agent writes Python drawing blocks and Markdown prose, then renders a headless preview with a coordinate grid overlay.
-  3. **Multimodal Inspection & Self-Repair**: The agent visually inspects the rendered PNG for text clipping, overlapping labels, or style imbalances, repairing coordinates and styles autonomously until the diagram passes inspection.
-- **Human Outer Loop (Intent & Review)**:
-  - The developer stays focused on high-level architecture and intent—providing initial goals, reviewing the compiled **Published Docs** (HTML / PDF / MS Word / GitHub MD / Slide / MS PowerPoint), and iterating on direction without ever nudging pixels in a GUI tool.
+  - `drawlib init site [-l en,ja]`: Multi-page documentation website (`docs_html/` with language switcher, search, and sidebar TOC) and GitHub Markdown (`docs_markdown/`).
+  - `drawlib init doc [-l en,ja]`: Linear technical specification or whitepaper (`*_html/`, `*_markdown/`, vector `*_<lang>.pdf`, plus editable MS Word `*_<lang>.docx` via `drawlib build docx`).
+  - `drawlib init slide [-l en,ja]`: 16:9 presentation slide deck (`::: block` + `::: note` speaker notes) with native SVG typography, Presenter View, keyboard navigation (`slide_html/`), vector `slide_<lang>.pdf`, and editable MS PowerPoint `slide_<lang>.pptx` via `drawlib build pptx`.
+  - `drawlib init images`: Standalone batch Python illustration scripts (`images_src/` -> `images/`) backed by sub-millisecond `.drawlib/cache.db` incremental caching.
+- **AI Inner Loop & Human Outer Loop**: Built from the ground up for AI coding agents (Claude Code, Cursor, Gemini, Codex). Agents query `drawlib rules show <topic>` on demand, render headless coordinate-grid previews via `drawlib show -g`, and multimodally self-correct text clipping or layout defects—freeing engineers to focus on high-level architecture and review.
 
 ---
 
 ## Installation
 
-Install `drawlib` from PyPI using `pip` or `uv`:
+Install `drawlib` from PyPI using `pip` or `uv` (Python `>= 3.11`):
 
 ```bash
 pip install drawlib
 # or: uv add drawlib
 ```
 
-PDF, MS Word (`.docx`), and MS PowerPoint (`.pptx`) export work out of the box—`playwright`, `python-docx`, and `python-pptx` are standard dependencies, and headless Chromium (`chromium-headless-shell`) is downloaded automatically on your first `drawlib build pdf` or `drawlib build pptx` run.
+PDF, MS Word (`.docx`), and MS PowerPoint (`.pptx`) export work out of the box—`playwright`, `python-docx`, and `python-pptx` are standard dependencies, and headless Chromium (`chromium-headless-shell`) downloads automatically on your first `drawlib build pdf` or `drawlib build pptx` run.
 
-- **Offline / Air-Gapped / CI Environments**: Pre-download all fonts, icons, maps, and headless Chromium ahead of time with `drawlib cache download --all` (or headless Chromium only with `drawlib cache download --browser`).
+- **Offline / Air-Gapped / CI Environments**: Pre-download all fonts, icons, maps, and headless Chromium ahead of time with `drawlib cache download --all` (or Chromium only with `drawlib cache download --browser`).
 - **Minimal Linux Containers** (e.g., `python:3.12-slim` lacking OS shared libraries such as `libnss3` or `libgbm1`): Install OS browser dependencies once via `playwright install-deps chromium` (or `playwright install --with-deps --only-shell chromium`).
 
 Verify the installation:
@@ -107,71 +106,58 @@ drawlib --version
 
 ## Quick Start
 
-### 1. Standalone Python Script
+### 1. Standalone Python Script (5-Step Drawing Workflow)
 
-Create a file named `architecture.py`:
+Every Drawlib script follows a clean 5-step pattern: **Import -> Setup Canvas -> Draw Zones (Optional) -> Shapes & Lines -> Save**:
+
+![5-Step Standalone Python Drawing Workflow](docs/readme_images/08_quickstart_five_step_workflow.png)
+
+Create `client_server.py`:
 
 ```python
 from drawlib.canvas import save, setup
 from drawlib.lines import line
-from drawlib.shapes import rectangle
+from drawlib.shapes import circle, rectangle
 from drawlib.styles import Styles
 from drawlib.text import text
 
-setup(width=120, height=50)
-
-# 1. Structural Boundary (Muted)
-rectangle((60, 25), width=112, height=42, r=3, style=Styles.MutedDashed)
-text((22, 42.5), "Production VPC", style=Styles.MutedBold.patch(text_size=9))
-
-# 2. Entrypoint & Hero Service
-rectangle((22, 24), width=24, height=16, r=2, style=Styles.Neutral, text="Client App")
-rectangle(
-    (58, 24),
-    width=26,
-    height=16,
-    r=2,
-    style=Styles.PrimaryFlat,
-    text="API Gateway",
-    text_style=Styles.WhiteBold,
-)
-
-# 3. Downstream Services (Tinted Neutral Cards)
-rectangle((96, 33), width=24, height=12, r=2, style=Styles.SecondaryNeutral, text="Auth Service")
-rectangle((96, 15), width=24, height=12, r=2, style=Styles.SuccessNeutral, text="Audit Log DB")
-
-# 4. Directional Connectors
-line((34, 24), (45, 24), arrow_head="->", style=Styles.DarkBold)
-line((71, 28), (84, 33), arrow_head="->", style=Styles.DarkBold)
-line((71, 20), (84, 15), arrow_head="->", style=Styles.DarkBold)
-
+setup(width=100, height=44)
+# Optional: boundary zone
+rectangle((50, 22), 92, 36, style=Styles.MutedDashed)
+circle((25, 22), 12,
+       style=Styles.Neutral, text="Client")
+rectangle((75, 22), 26, 20,
+          style=Styles.PrimaryFlat, text="Server")
+line((37, 22), (62, 22),
+     arrow_head="->", style=Styles.DarkBold)
+text((49.5, 27), "REST API", style=Styles.DarkBold)
 save()
 ```
 
-Run the script with Python or `drawlib` to generate `architecture.png`:
+Run the script with Python to generate `client_server.png`:
 
 ```bash
-python architecture.py
+python client_server.py
 ```
 
 #### Core Principles at a Glance
-- **Bottom-Left Origin `(0, 0)`**: `setup(width=120, height=50)` defines a Cartesian coordinate canvas where `x` spans `0..120` (left to right) and `y` spans `0..50` (bottom to top).
-- **Center Alignment by Default**: Shapes (`rectangle`, `circle`, `icon`, `image`, `text`) are positioned by their center `(x, y)`, making horizontal and vertical alignment effortless.
-- **50%+ Neutral Baseline**: Ground supporting nodes in calm neutral styles (`Styles.Neutral`, `Styles.SecondaryNeutral`, `Styles.SuccessNeutral`) and reserve saturated fills (`Styles.PrimaryFlat`) for primary focal points.
-- **Style Patching (`.patch()`)**: Customize any preset token non-destructively via `Styles.MutedBold.patch(text_size=9)` or `Styles.Primary.patch(shape_line_width=2)`.
+- **Bottom-Left Origin `(0, 0)`**: `setup(width=100, height=44)` defines a Cartesian coordinate canvas where `x` spans `0..100` (left to right) and `y` spans `0..44` (bottom to top).
+- **Predictable Coordinate Anchors**: Core primitives (`rectangle`, `circle`, `icon`, `image`, `text`) anchor at their **center `(cx, cy)`** for effortless alignment, while high-level `Charts` and `Diagrams` anchor at **bottom-left `(x0, y0)`**.
+- **50%+ Neutral Baseline**: Ground supporting shapes in calm neutral tokens (`Styles.Neutral`, `Styles.SecondaryNeutral`, `Styles.MutedDashed`) and reserve saturated fills (`Styles.PrimaryFlat`) for 1–2 focal elements.
+- **Non-Destructive Style Patching (`.patch()`)**: Customize any preset token cleanly via `Styles.MutedBold.patch(text_size=10)` or `Styles.Primary.patch(shape_line_width=2)`.
 
 ---
 
 ### 2. Illustrated Documentation & Slide Deck Workflow
 
-Scaffold a new documentation website, technical spec, or 16:9 slide deck in seconds:
+Scaffold a multi-page documentation site, linear whitepaper, or 16:9 slide deck in seconds (pass `-l en,ja` for multi-locale `<src_dir>/<lang>/` projects):
 
 ```bash
-# Initialize a multi-page documentation site in docs_src/ (with en/ locale tree)
-drawlib init site
+# Initialize a bilingual multi-page documentation site in docs_src/ (en/ & ja/)
+drawlib init site -l en,ja
 
-# Or initialize a 16:9 presentation slide deck in slide_src/ (supports -l en,ja too)
-drawlib init slide
+# Or initialize a 16:9 presentation slide deck in slide_src/
+drawlib init slide -l en,ja
 ```
 
 Inside your Markdown files (`docs_src/en/index.md`), embed Python drawing blocks using the ```` ```drawlib ```` fence:
@@ -181,33 +167,34 @@ Inside your Markdown files (`docs_src/en/index.md`), embed Python drawing blocks
 
 Below is our core request routing pipeline:
 
-```drawlib align=center file=service_routing.png caption="Service Routing Pipeline"
-from drawlib.canvas import setup
-from drawlib.shapes import rectangle
+```drawlib code=fold align=center file=service_routing.png caption="Service Routing Pipeline"
+from drawlib.canvas import save, setup
 from drawlib.lines import line
+from drawlib.shapes import rectangle
 from drawlib.styles import Styles
 
 setup(width=100, height=40)
 rectangle((25, 20), width=30, height=16, r=2, style=Styles.Neutral, text="Ingress")
 rectangle((75, 20), width=30, height=16, r=2, style=Styles.PrimaryFlat, text="Core API", text_style=Styles.WhiteBold)
 line((40, 20), (60, 20), arrow_head="->", style=Styles.DarkBold)
+save()
 ```
 ````
 
-Compile or preview with the `drawlib` CLI:
+Compile, export, and preview with the `drawlib` CLI:
 
 ```bash
-# Build HTML site, GitHub Markdown, or PDF
+# Build HTML site, GitHub Markdown, or PDF via generated build script
 ./docs_src/build.sh
 
-# Optional on-demand export to editable MS Word (.docx) or MS PowerPoint (.pptx)
-drawlib build docx doc_src/ -o spec.docx --generate-index   # -> spec_en.docx
-drawlib build pptx slide_src/ -o deck.pptx                  # -> deck_en.pptx
+# Export editable MS Word (.docx) or MS PowerPoint (.pptx) per locale
+drawlib build docx doc_src/ -o spec.docx --generate-index   # -> spec_en.docx, spec_ja.docx
+drawlib build pptx slide_src/ -o deck.pptx                  # -> deck_en.pptx, deck_ja.pptx
 
-# Launch local HTTP server with broken-link check at http://localhost:8000
-drawlib serve docs_html/
+# Launch local HTTP server with pre-flight broken-link verification
+drawlib serve docs_html/ --check
 
-# Render a single diagram with coordinate grid (-g) for layout inspection
+# Render a single diagram with coordinate grid (-g) for visual layout inspection
 drawlib show docs_src/en/index.md service_routing.png -g -o preview_grid.png
 ```
 
@@ -217,18 +204,18 @@ drawlib show docs_src/en/index.md service_routing.png -g -o preview_grid.png
 
 | Command | Description |
 | :--- | :--- |
-| `drawlib init <site\|doc\|slide\|images>` | Scaffold a new documentation, slide deck, or image project |
-| `drawlib build <html\|markdown\|pdf\|docx\|slide\|pptx\|image>` | Compile source files into HTML, Markdown, PDF, MS Word (`.docx`), HTML Slides, MS PowerPoint (`.pptx`), or PNG/WebP images |
-| `drawlib serve <html_dir> [--check]` | Start a local HTTP server for built HTML docs/slides with pre-flight link checks |
-| `drawlib show <file> [target] [-g]` | Render and inspect a single script or embedded Markdown diagram (with optional grid) |
-| `drawlib rules show [topic]` | On-demand CLI reference for AI agents to look up detailed API specs & best practices (`overview`, `style-guide`, `api`, `lib-*`) |
-| `drawlib cache <list\|download\|clear>` | Manage local font, icon, map, and headless Chromium caches (supports offline pre-caching via `--all` or `--browser`) |
+| `drawlib init <site\|doc\|slide\|images> [-l <langs>]` | Scaffold a documentation site, linear spec, 16:9 slide deck, or image project (`drawlib.toml`) |
+| `drawlib build <html\|markdown\|pdf\|docx\|slide\|pptx\|image>` | Compile sources into HTML, Markdown, PDF, MS Word (`.docx`), HTML Slides, MS PowerPoint (`.pptx`), or PNG/APNG/WebP images |
+| `drawlib serve <html_dir> [--check]` | Start a local HTTP server for built HTML docs/slides with broken-link verification |
+| `drawlib show <file> [target] [-g]` | Render and inspect a single script or embedded Markdown diagram (with optional coordinate grid) |
+| `drawlib rules show [topic]` | On-demand CLI manual for AI coding agents (`overview`, `style-guide`, `review-guide`, `api`, `lib-*`) |
+| `drawlib cache <list\|download\|clear>` | Manage local font, icon, map, and headless Chromium caches (`--all`, `--browser`, `--images`) |
 
 ---
 
 ## Links & Resources
 
-- **Official Website & Documentation**: [https://www.drawlib.com/](https://www.drawlib.com/)
+- **Official Documentation**: [English (`https://www.drawlib.com/`)](https://www.drawlib.com/) | [日本語 (`https://www.drawlib.com/ja/`)](https://www.drawlib.com/ja/)
 - **PyPI Package**: [https://pypi.org/project/drawlib/](https://pypi.org/project/drawlib/)
 - **GitHub Repository**: [https://github.com/yuichi110/drawlib](https://github.com/yuichi110/drawlib)
 - **License**: Apache License 2.0
