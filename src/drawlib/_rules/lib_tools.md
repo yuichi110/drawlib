@@ -44,111 +44,120 @@ from drawlib.tools import (
 The compilation tools compile Markdown documents, multi-page document sites, presentation slides, MS Word/PowerPoint Office files, and standalone Python illustration scripts into production outputs.
 
 ### 2.1. HTML Build (`build_html`)
-Compiles a single Markdown file or a documentation source directory (`docs_src/`) into responsive HTML pages with navigation and styling:
+Compiles an `i18n`-native `site` or `doc` project directory (`docs_src/` or `doc_src/` containing `drawlib.toml` and `<lang>/` subdirectories) into responsive HTML pages with localized stylesheets, shared deduplicated `images/`, a language switcher (when 2+ locales are configured), and a root default-locale `index.html`:
 
 ```python
 from drawlib.tools import build_html
 
 build_html(
-    input_path="docs_src/",
-    output="docs_html/",
-    styles="styles.py",  # Optional Python styles script
-    utils="utils.py",  # Optional Python utils script
-    css_mode="external",  # "external" (default) or "embed"
-    no_cache=False,  # Force re-rendering all code blocks
-    image_format="png",  # "png" or "webp"
+    input_dir="docs_src/",
+    output_dir="docs_html/",
+    image_format="png",      # "png" or "webp"
+    styles_path=None,        # Optional custom styles.py override
+    utils_path=None,         # Optional custom utils.py override
+    no_cache=False,          # Force re-rendering all code blocks
+    css_mode="external",     # "external" (default) or "embed"
 )
 ```
 
 ### 2.2. Markdown Build (`build_markdown`)
-Compiles Markdown documents for GitHub repository browsing. ````drawlib```` code blocks are replaced with syntax-highlighted Python code followed by relative image links:
+Compiles an `i18n`-native `site` or `doc` project directory into GitHub-ready Markdown (`<output_dir>/<lang>/` + shared `<output_dir>/images/`). ````drawlib```` code blocks are replaced with syntax-highlighted Python code (according to `code=` options) and relative image links:
 
 ```python
 from drawlib.tools import build_markdown
 
 build_markdown(
-    input_path="docs_src/",
-    output="docs/",
-    styles="styles.py",
-    utils="utils.py",
+    input_dir="docs_src/",
+    output_dir="docs_markdown/",
     image_format="png",
+    styles_path=None,
+    utils_path=None,
+    no_cache=False,
 )
 ```
 
 ### 2.3. PDF Build (`build_pdf`)
-Compiles documents or slide decks directly to print-ready vector PDF using headless Chromium via Playwright (`playwright` is a standard dependency, and `chromium-headless-shell` downloads automatically on first `build_pdf` or `build_pptx` run):
+Compiles a `doc` project directory, `slide` project directory, or standalone Markdown/HTML file directly to print-ready vector PDF(s) using headless Chromium via Playwright (`playwright` is a standard dependency, and `chromium-headless-shell` downloads automatically on first `build_pdf` or `build_pptx` run). For `doc` and `slide` project directories, emits `<base>_<lang>.pdf` per configured locale and returns the `default_lang` PDF path:
 
 ```python
 from drawlib.tools import build_pdf
 
+# Compile all locales of a doc project -> emits doc_<lang>.pdf:
+pdf_path = build_pdf(
+    input_path="doc_src/",
+    output_file="doc.pdf",
+    generate_index=True,
+    styles_path=None,
+    utils_path=None,
+)
+
+# Or compile a single Markdown page -> writes exact output.pdf:
 build_pdf(
-    inputs="docs_src/index.md",
-    output="output.pdf",
-    styles="styles.py",
-    utils="utils.py",
+    input_path="docs_src/en/index.md",
+    output_file="output.pdf",
 )
 ```
 
 *(Note: In minimal Linux containers such as `python:3.12-slim` lacking OS shared libraries like `libnss3` or `libgbm1`, run `playwright install-deps chromium` or `playwright install --with-deps --only-shell chromium`.)*
 
 ### 2.4. MS Word Build (`build_docx`)
-Compiles a linear document directory (`doc_src/`) or a single Markdown file (`.md`) into a native editable Microsoft Word (`.docx`) document (`python-docx`). Outputs native editable Word headings, prose, lists, tables, blockquotes, and syntax-highlighted code blocks, with ````drawlib```` diagrams embedded as high-DPI static PNGs (default `dpi=200`):
+Compiles a linear `doc` project directory (`doc_src/` -> emits `manual_<lang>.docx` per locale and returns the `default_lang` `.docx` path) or a single Markdown file (`.md` -> writes exact `output_file`) into a native editable Microsoft Word (`.docx`) document (`python-docx`). Outputs native editable Word headings, prose, lists, tables, blockquotes, and syntax-highlighted code blocks, with ````drawlib```` diagrams embedded as high-DPI static PNGs (default `dpi=200`):
 
 ```python
 from drawlib.tools import build_docx
 
 output_docx = build_docx(
     input_path="doc_src/",       # Or pass keyword input_dir="doc_src/"
-    output_file="manual.docx",
+    output_file="manual.docx",   # Emits manual_<lang>.docx per locale for doc projects
     title=None,
     page_break=True,
     generate_index=False,
     dpi=200,
-    styles_path="doc_src/styles.py",
-    utils_path="doc_src/utils.py",
+    styles_path=None,
+    utils_path=None,
     no_cache=False,
     timestamp=False,
 )
 ```
 
 ### 2.5. HTML Slide Deck & MS PowerPoint Build (`build_slide` & `build_pptx`)
-Compiles a slide deck directory (`slide_src/`) into an interactive 16:9 HTML presentation (`build_slide`) or measures the `1920x1080` slide DOM via headless Chromium to write native editable 16:9 (`960x540 pt`) Microsoft PowerPoint slides (`build_pptx`, embedding `::: block` cards with `rgba` alpha, text boxes, bullet/numbered lists, tables, code blocks, `::: note` speaker notes, and high-DPI static PNG diagrams):
+Compiles an `i18n`-native `slide` project directory (`slide_src/` containing `drawlib.toml` and `<lang>/` slides) into an interactive multi-locale 16:9 HTML presentation (`build_slide`, returning `<output_dir>/<default_lang>/index.html`) or measures the `1920x1080` slide DOM via headless Chromium to write native editable 16:9 (`960x540 pt`) Microsoft PowerPoint slides (`build_pptx`, emitting `<stem>_<lang>.pptx` per locale with `::: block` cards, `rgba` alpha, text boxes, lists, tables, code blocks, `::: note` speaker notes, and high-DPI static PNG diagrams):
 
 ```python
 from drawlib.tools import build_pptx, build_slide
 
-build_slide(
+default_index_html = build_slide(
     input_dir="slide_src/",
     output_dir="slide_html/",
-    styles_path="slide_src/styles.py",
-    utils_path="slide_src/utils.py",
+    styles_path=None,
+    utils_path=None,
 )
 
 output_pptx = build_pptx(
     input_dir="slide_src/",
-    output_file="deck.pptx",
+    output_file="deck.pptx",     # Emits deck_<lang>.pptx per locale
     title=None,
     theme=None,
     dpi=240,
-    anim_frame="last",  # "first" or "last" for animated blocks
-    styles_path="slide_src/styles.py",
-    utils_path="slide_src/utils.py",
+    anim_frame="last",           # "first" or "last" for animated blocks
+    styles_path=None,
+    utils_path=None,
     no_cache=False,
     timestamp=False,
 )
 ```
 
 ### 2.6. Python Image Batch Build (`build_image`)
-Executes standalone Python drawing scripts in batch mode:
+Executes standalone Python drawing scripts (`images_src/*.py`) or extracts diagrams from `doc` / `site` / `slide` Markdown projects in batch mode:
 
 ```python
 from drawlib.tools import build_image
 
 build_image(
-    inputs="drawings/",
-    output="dist/images/",
-    styles="styles.py",
-    utils="utils.py",
+    input_path="images_src/",
+    output_path="images/",
+    styles_path="images_src/styles.py",
+    utils_path="images_src/utils.py",
     grid=False,
 )
 ```
@@ -163,19 +172,19 @@ Extracts and renders a single ````drawlib```` illustration from a Markdown file 
 ```python
 from drawlib.tools import export_code_block
 
-# Export block 1 from a Markdown document:
+# Export block 1 (or named file) from a Markdown document:
 export_code_block(
-    file_path="docs_src/architecture.md",
+    file_path="docs_src/en/architecture.md",
     target="1",  # 1-based index or target filename (e.g. "arch.png")
     output_path=".drawlib/scratch/arch.png",
     grid=True,  # Overlay coordinate grid lines (-g)
-    styles_path="styles.py",
-    utils_path="utils.py",
+    styles_path="docs_src/styles.py",
+    utils_path="docs_src/utils.py",
 )
 
 # Export directly from a standalone Python script:
 export_code_block(
-    file_path=".drawlib/scratch/my_diagram.py",
+    file_path="images_src/my_diagram.py",
     output_path=".drawlib/scratch/output.png",
     grid=False,
 )
@@ -188,11 +197,11 @@ Displays the rendered illustration in a local GUI window for interactive alignme
 from drawlib.tools import show_code_block
 
 show_code_block(
-    file_path="docs_src/architecture.md",
+    file_path="docs_src/en/architecture.md",
     target="1",
     grid=True,
-    styles_path="styles.py",
-    utils_path="utils.py",
+    styles_path="docs_src/styles.py",
+    utils_path="docs_src/utils.py",
 )
 ```
 
@@ -200,7 +209,7 @@ show_code_block(
 
 ## 4. Project Scaffolding
 
-Automates initial project creation with pre-configured directories, sample Markdown files, and build scripts:
+Automates initial project creation with `drawlib.toml`, pre-configured `<lang>/` directories (for `doc`, `site`, `slide`), `styles.py`, `utils.py`, and `build.sh`:
 
 ```python
 from drawlib.tools import init_project, list_project_types
@@ -209,12 +218,13 @@ from drawlib.tools import init_project, list_project_types
 types = list_project_types()
 # Returns: {"site": "Multi-page documentation...", "doc": "...", "slide": "...", "images": "..."}
 
-# Scaffold a multi-page documentation website:
+# Scaffold a bilingual EN/JA multi-page documentation website:
 init_project(
     project_type="site",
     target="docs",
     destination=".",
-    style="default",
+    lang="en,ja",
+    style="google",
     force=False,
 )
 ```
@@ -285,17 +295,17 @@ from drawlib.tools import build_html, build_markdown, export_code_block
 def run_documentation_pipeline() -> None:
     src_dir = Path("docs_src")
     html_dir = Path("docs_html")
-    md_dir = Path("docs")
+    md_dir = Path("docs_markdown")
 
     print("[1/3] Compiling GitHub Markdown documentation...")
-    build_markdown(input_path=str(src_dir), output=str(md_dir))
+    build_markdown(input_dir=str(src_dir), output_dir=str(md_dir))
 
     print("[2/3] Compiling Responsive HTML static site...")
-    build_html(input_path=str(src_dir), output=str(html_dir))
+    build_html(input_dir=str(src_dir), output_dir=str(html_dir))
 
     print("[3/3] Exporting hero diagram for release badge...")
     export_code_block(
-        file_path=str(src_dir / "index.md"),
+        file_path=str(src_dir / "en" / "index.md"),
         target="1",
         output_path="assets/hero_diagram.png",
     )
@@ -318,7 +328,7 @@ def test_architecture_diagram_generation(tmp_path: Path) -> None:
 
     # Export diagram block 1 to temporary directory
     export_code_block(
-        file_path="docs_src/architecture.md",
+        file_path="docs_src/en/architecture.md",
         target="1",
         output_path=str(output_png),
         grid=False,

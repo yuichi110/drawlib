@@ -833,8 +833,8 @@ Drawlib presentation slides operate on a universal **16:9 widescreen stage (`192
 | `draw_section_header(...)` | Renders a full-bleed 16:9 section header slide (`192×108`) with 4 variants (`"split"`, `"centered"`, `"banner"`, `"minimal"`). | `draw_section_header(1, "Intro", "Overview", ["A", "B"], total_sections=4)` |
 | `BoundingBox` | Dataclass representing rectangular stage bounds `(x, y, width, height)` in `1920×1080` pixels. | `box = BoundingBox(x=100, y=200, width=800, height=600)` |
 | `SlideContext` | Slide execution state container (`index`, `total`). | Internal slide runtime context |
-| `build_slide(...)` | Programmatic slide deck compiler (`input_dir`, `output_dir`, `image_format`). | `build_slide("slide_src/", "slide_html/")` |
-| `build_pptx(...)` | Programmatic 16:9 editable MS PowerPoint (`.pptx`) exporter (`input_dir`, `output_file`, `dpi=240`, `anim_frame="last"`). | `build_pptx("slide_src/", "slide.pptx")` |
+| `build_slide(...)` | Programmatic multi-locale slide deck compiler (`input_dir`, `output_dir`, `image_format`). | `build_slide("slide_src/", "slide_html/")` |
+| `build_pptx(...)` | Programmatic 16:9 editable MS PowerPoint (`<stem>_<lang>.pptx`) exporter (`input_dir`, `output_file`, `dpi=240`, `anim_frame="last"`). | `build_pptx("slide_src/", "slide.pptx")` |
 
 ```python
 from drawlib.slide import draw_page_number, draw_section_header
@@ -878,8 +878,8 @@ Programmatic Python tools for compilation, diagram extraction, project scaffoldi
 | Category | Functions | Primary Usage |
 | :--- | :--- | :--- |
 | **Compilation** | `build_document`, `build_html`, `build_markdown`, `build_pdf`, `build_docx`, `build_slide`, `build_pptx`, `build_image`, `detect_document_type` | `build_html(input_dir="docs_src/", output_dir="docs_html/")`, `build_docx("doc_src/", "doc.docx")`, `build_slide("slide_src/", "slide_html/")`, `build_pptx("slide_src/", "slide.pptx")` |
-| **Diagram Export** | `export_code_block`, `show_code_block` | `export_code_block("docs_src/arch.md", "arch.png", ".drawlib/scratch/preview.png", grid=True)` |
-| **Scaffolding** | `init_project`, `list_project_types` | `init_project("site", target="docs", style="google")` |
+| **Diagram Export** | `export_code_block`, `show_code_block` | `export_code_block("docs_src/en/arch.md", "arch.png", ".drawlib/scratch/preview.png", grid=True)` |
+| **Scaffolding** | `init_project`, `list_project_types` | `init_project("site", target="docs", lang="en,ja", style="google")` |
 | **Server & Links** | `serve_docs`, `scan_broken_links` | `serve_docs("docs_html", port=8000)`, `scan_broken_links("docs_html")` |
 | **Cache** | `list_cache`, `download_cache`, `clear_cache` | `download_cache(all_assets=True)`, `download_cache(all_assets=False, browser=True)`, `clear_cache(images=True)` |
 | **CSS Presets** | `list_css`, `list_html_css`, `list_pdf_css`, `list_slide_css`, `export_css`, `get_css` | `export_css("google", "style.css", target="html", force=True)` |
@@ -901,6 +901,6 @@ Programmatic Python tools for compilation, diagram extraction, project scaffoldi
 6. **Headless Verification with Coordinate Grid**:
    For terminal/agent workflows, always use headless export:
    ```bash
-   uv run drawlib show docs_src/doc.md file_name.png -g -o .drawlib/scratch/preview.png
+   uv run drawlib show docs_src/en/doc.md file_name.png -g -o .drawlib/scratch/preview.png
    ```
 

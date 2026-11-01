@@ -54,5 +54,5 @@ save()
 
 **Author**: Drawlib Core Team  
 **Audience**: Software Engineers, Architects, and AI Pair Programmers  
-**Version**: 0.3.0  
-**Date**: October 2026
+**Version**: 0.3.3  
+**Date**: November 2026

@@ -29,8 +29,8 @@ from drawlib.slide import (
 | `draw_section_header` | Stage Helper | Renders a full-bleed 16:9 section header slide (`192×108`) with 4 selectable layout variants (`"split"`, `"centered"`, `"banner"`, `"minimal"`). |
 | `SlideContext` | Frozen Dataclass | Immutable context model (`index: int = 1`, `total: int = 1`) holding slide numbering state. |
 | `BoundingBox` | Frozen Dataclass | Immutable stage geometry model (`x: float`, `y: float`, `width: float`, `height: float`) in 1920×1080 stage pixels. |
-| `build_slide` | Compiler Function | Programmatically compiles a `slide_src/` Markdown directory into a standalone HTML presentation deck. |
-| `build_pptx` | Compiler Function | Programmatically compiles a `slide_src/` Markdown directory into a native editable 16:9 MS PowerPoint (`.pptx`) presentation deck. |
+| `build_slide` | Compiler Function | Programmatically compiles an `i18n`-native `slide_src/` project directory into a multi-locale HTML presentation deck. |
+| `build_pptx` | Compiler Function | Programmatically compiles an `i18n`-native `slide_src/` project directory into native editable 16:9 MS PowerPoint (`<stem>_<lang>.pptx`) decks. |
 
 ---
 
@@ -167,16 +167,16 @@ box = BoundingBox(x=80.0, y=140.0, width=740.0, height=840.0)
 
 ## 6. Programmatic Slide Compilation API (`build_slide`)
 
-`build_slide()` compiles a directory of slide Markdown files (`01_title.md`, `02_agenda.md`, etc.) into a standalone interactive HTML presentation deck:
+`build_slide()` compiles an `i18n`-native `slide` project directory (`slide_src/` containing `drawlib.toml` with `[i18n]` and `<lang>/` slide Markdown files such as `en/01_title.md`, `ja/01_title.md`) into an interactive multi-locale HTML presentation deck:
 
 ```python
 from drawlib.slide import build_slide
 
-output_index_html = build_slide(
+default_index_html = build_slide(
     input_dir="docs/slide_about_drawlib_src",
     output_dir="docs/slide_about_drawlib_html",
     title="Drawlib Presentation",
-    theme="default",
+    theme="google",
     image_format="svg",
     styles_path=None,
     utils_path=None,
@@ -188,39 +188,39 @@ output_index_html = build_slide(
 
 | Parameter | Type | Default | Description |
 | :--- | :--- | :--- | :--- |
-| `input_dir` | `str` | *(required)* | Source directory containing slide `.md` files, `_assets/`, `style.css`, `slide.js`, `styles.py`, and `utils.py`. |
-| `output_dir` | `str \| None` | `None` | Target output directory. If `None` and `input_dir` ends with `_src`, resolves to `input_dir[:-4]`; otherwise `<input_dir>/slide`. |
-| `title` | `str \| None` | `None` | Optional HTML `<title>` override. If `None`, automatically extracted from the first `# Heading` of the first slide. |
-| `theme` | `str \| None` | `None` | Optional presentation theme identifier (`data-theme` attribute on `<body>`). |
+| `input_dir` | `str` | *(required)* | Project root directory containing `drawlib.toml` (`type = "slide"`, `[i18n]`), `<lang>/` slide `.md` files, `_assets/`, `style.css`, `styles.py`, and `utils.py`. |
+| `output_dir` | `str \| None` | `None` | Target output directory. If `None` and `input_dir` ends with `_src`, resolves to `<base>_html`; otherwise `<input_dir>_html`. |
+| `title` | `str \| None` | `None` | Optional HTML `<title>` override. If `None`, uses `project.title` in `drawlib.toml` or the first `# Heading` of each locale's first slide. |
+| `theme` | `str \| None` | `None` | Optional presentation CSS theme preset (`"google"`, `"default"`, `"google-dark"`, `"monochrome"`, etc.; falls back to `project.style` in `drawlib.toml`). |
 | `image_format` | `str` | `"svg"` | Default output format (`"svg"`, `"webp"`, `"png"`) for ````drawlib```` blocks that do not specify an explicit file extension. |
-| `styles_path` | `str \| None` | `None` | Optional path to a custom `styles.py` file (defaults to `<input_dir>/styles.py` if present). |
-| `utils_path` | `str \| None` | `None` | Optional path to a custom `utils.py` file (defaults to `<input_dir>/utils.py` if present). |
+| `styles_path` | `str \| None` | `None` | Optional path to a custom `styles.py` file (defaults to `<input_dir>/<lang>/styles.py` if present, else `<input_dir>/styles.py`). |
+| `utils_path` | `str \| None` | `None` | Optional path to a custom `utils.py` file (defaults to `<input_dir>/<lang>/utils.py` if present, else `<input_dir>/utils.py`). |
 | `no_cache` | `bool` | `False` | When `True`, bypasses the SQLite diagram build cache and forces re-execution of all ````drawlib```` blocks. |
 
-**Returns**: `str` — Absolute filesystem path to the generated `index.html` file.
+**Returns**: `str` — Absolute filesystem path to `<output_dir>/<default_lang>/index.html` (an automatic root redirect `<output_dir>/index.html` is also generated).
 
 ### 6.2. Compilation Pipeline & Output Artifacts
 When `build_slide()` runs, it performs the following steps automatically:
-1. **Slide Discovery**: Collects and sorts all `.md` / `.markdown` files in `input_dir`, automatically excluding files and subdirectories starting with `_` or `.` (e.g., `_planning.md`, `_drafts/`, `_assets/`) as well as special files (`README.md`, `navbar.md`).
-2. **Slide Context Binding**: Iterates through slides `1..N`, setting `SlideContext(index=idx, total=N)` so `current_slide` resolves accurately inside every ````drawlib```` block.
-3. **Diagram Rendering & Inline SVG Embedding**: Compiles ````drawlib```` blocks into `images/<slide_stem>/` (with SQLite hash caching) and inlines `.svg` diagrams or attaches interactive `<canvas>` players for `.webp` / `.png` animations.
-4. **Speaker Notes & Container Blocks**: Extracts `::: note` blocks into `<aside class="slide-notes" hidden>` and transforms `::: block xy=(x, y) width=W height=H` into positioned `<div class="slide-block">` stage elements.
-5. **Asset Deployment & SVG Font Auto-Bundling**: Copies `_assets/`, `slide.js`, and `style.css` to `output_dir`, and automatically bundles any TTF/OTF text or icon fonts referenced by inline SVGs into `_assets/fonts/` with `@font-face` rules injected into `style.css`.
+1. **Manifest & Structural Parity Validation**: Reads `drawlib.toml` (`[i18n]`), collects sorted `.md` / `.markdown` files under each `<input_dir>/<lang>/` (excluding `_`-prefixed files/folders, `README.md`, and `navbar.md`), and verifies identical relative slide file paths across all configured locales.
+2. **Slide Context Binding**: Iterates through slides `1..N` per locale, setting `SlideContext(index=idx, total=N)` so `current_slide` resolves accurately inside every ````drawlib```` block.
+3. **Shared Diagram Deduplication & Inline SVG Embedding**: Compiles shared `file=<name>.svg` blocks once in `default_lang` into `<output_dir>/images/<slide_stem>/` (reusing them across secondary locales whose blocks omit Python code) while allowing localized `file=<name>_<lang>.svg` diagrams, inlining `.svg` vectors or attaching interactive `<canvas>` players for `.webp` / `.png` animations.
+4. **Speaker Notes, Container Blocks & Language Switcher**: Extracts `::: note` blocks into `<aside class="slide-notes" hidden>`, transforms `::: block xy=(x, y) width=W height=H` into positioned `<div class="slide-block">` stage elements, and injects `hreflang` links plus an upward-opening `.slide-lang-dropdown` HUD button (`L` keyboard shortcut, preserving the `#N` slide hash) when 2+ locales are configured.
+5. **Asset Deployment & Per-Locale Font Auto-Bundling**: Copies shared `_assets/` and `slide.js` to `output_dir`, writes localized `<lang>/style.css` (with CJK/RTL font stacks and `<html dir="rtl">` when applicable), and bundles any TTF/OTF text or icon fonts referenced by inline SVGs into `_assets/fonts/` with `@font-face` rules.
 
 ---
 
 ## 7. Programmatic MS PowerPoint Export API (`build_pptx`)
 
-`build_pptx()` (also re-exported from `drawlib.tools`) measures the `1920x1080` slide DOM via headless Chromium and writes native editable 16:9 (`960x540 pt`) Microsoft PowerPoint (`.pptx`) slides (`::: block` cards including `rgba` alpha, text boxes, bullet/numbered lists, tables, code blocks, and `::: note` speaker notes), with ````drawlib```` diagrams embedded as high-DPI static PNGs (default `dpi=240`, `anim_frame="last"`):
+`build_pptx()` (also re-exported from `drawlib.tools`) compiles each configured locale in `drawlib.toml`, measures the `1920x1080` slide DOM via headless Chromium, and writes native editable 16:9 (`960x540 pt`) Microsoft PowerPoint (`<stem>_<lang>.pptx`) slides (`::: block` cards including `rgba` alpha, text boxes, bullet/numbered lists, tables, code blocks, and `::: note` speaker notes), with ````drawlib```` diagrams embedded as high-DPI static PNGs (default `dpi=240`, `anim_frame="last"`):
 
 ```python
 from drawlib.slide import build_pptx
 
 output_pptx = build_pptx(
     input_dir="docs/slide_about_drawlib_src",
-    output_file="docs/slide_about_drawlib.pptx",
+    output_file="docs/slide_about_drawlib.pptx",  # Emits slide_about_drawlib_<lang>.pptx
     title="Drawlib Presentation",
-    theme="default",
+    theme="google",
     dpi=240,
     anim_frame="last",
     styles_path=None,
@@ -234,18 +234,18 @@ output_pptx = build_pptx(
 
 | Parameter | Type | Default | Description |
 | :--- | :--- | :--- | :--- |
-| `input_dir` | `str` | *(required)* | Source directory containing slide `.md` files, `_assets/`, `style.css`, `styles.py`, and `utils.py`. |
-| `output_file` | `str \| None` | `None` | Target `.pptx` file path. If `None`, resolves to `<stem>.pptx` alongside `input_dir`. |
-| `title` | `str \| None` | `None` | Optional presentation title override in `.pptx` core properties (extracted from first `# Heading` if `None`). |
+| `input_dir` | `str` | *(required)* | Project root directory containing `drawlib.toml` (`type = "slide"`, `[i18n]`), `<lang>/` slide `.md` files, `_assets/`, `style.css`, `styles.py`, and `utils.py`. |
+| `output_file` | `str \| None` | `None` | Target base `.pptx` path or directory. Emits `<stem>_<lang>.pptx` for every locale in `[i18n].langs` (defaults to `<base>_<lang>.pptx` alongside `input_dir`). |
+| `title` | `str \| None` | `None` | Optional presentation title override in `.pptx` core properties (extracted from `drawlib.toml` or first `# Heading` if `None`). |
 | `theme` | `str \| None` | `None` | Optional CSS theme preset override (`data-theme` / built-in slide stylesheet). |
 | `dpi` | `int` | `240` | Rasterization DPI for embedded ````drawlib```` static PNG diagrams. |
 | `anim_frame` | `Literal["first", "last"]` | `"last"` | Frame extracted as a static PNG when a slide block uses `Animation()`. |
-| `styles_path` | `str \| None` | `None` | Optional path to a custom `styles.py` file (defaults to `<input_dir>/styles.py` if present). |
-| `utils_path` | `str \| None` | `None` | Optional path to a custom `utils.py` file (defaults to `<input_dir>/utils.py` if present). |
+| `styles_path` | `str \| None` | `None` | Optional path to a custom `styles.py` file (defaults to `<input_dir>/<lang>/styles.py` if present, else `<input_dir>/styles.py`). |
+| `utils_path` | `str \| None` | `None` | Optional path to a custom `utils.py` file (defaults to `<input_dir>/<lang>/utils.py` if present, else `<input_dir>/utils.py`). |
 | `no_cache` | `bool` | `False` | When `True`, bypasses the SQLite diagram build cache and forces re-execution of all ````drawlib```` blocks. |
 | `timestamp` | `bool` | `False` | When `True`, writes the current build timestamp into `.pptx` metadata instead of deterministic normalization. |
 
-**Returns**: `str` — Filesystem path to the generated `.pptx` file.
+**Returns**: `str` — Absolute filesystem path to the generated `default_lang` `.pptx` file (`<stem>_<default_lang>.pptx`).
 
 *(Note: `playwright` and `python-pptx` are standard dependencies of `drawlib`. Headless Chromium (`chromium-headless-shell`) downloads automatically on first `build_pdf` or `build_pptx` run, or can be pre-cached offline via `drawlib cache download --browser` / `--all`. In minimal Linux containers such as `python:3.12-slim` lacking OS shared libraries, run `playwright install-deps chromium`.)*
 

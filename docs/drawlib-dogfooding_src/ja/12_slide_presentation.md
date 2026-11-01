@@ -69,35 +69,37 @@ save()
 
 ## 12.1 スライドプロジェクトの作成 (`drawlib init slide`)
 
-スライドプロジェクトは `uv run drawlib init slide` コマンドで一発で足場生成できます:
+スライドプロジェクトは `uv run drawlib init slide` コマンドで一発で足場生成できます（`-l en,ja` で多言語デッキも同時生成可能）:
 
 ```bash
 # 標準のスライドプロジェクトを生成 (slide_src/ が作成されます)
 uv run drawlib init slide
 
-# プロジェクト名やテーマ、言語を指定する場合
+# プロジェクト名やテーマ、言語を指定する場合 (-l en,ja で多言語デッキも作成可能)
 uv run drawlib init slide my_presentation -s google -l ja
 ```
 
 ### 生成されるディレクトリ構成
-`uv run drawlib init slide my_presentation -s google -l ja` を実行すると、以下のディレクトリ構成が構築されます:
+`uv run drawlib init slide my_presentation -s google -l ja` を実行すると、`i18n` ネイティブな以下のディレクトリ構成が構築されます:
 
 ```text
 .
 ├── my_presentation_src/           # [正本] スライドの Markdown ソース
+│   ├── drawlib.toml               # プロジェクトマニフェスト ([project] + [i18n] langs)
 │   ├── _assets/                   # スライド内で参照する静的画像・ロゴ
-│   ├── 01_title.md                # タイトルスライド
-│   ├── 02_agenda.md               # アジェンダ
-│   ├── 03_architecture.md         # アーキテクチャ図解スライド
-│   ├── styles.py                  # スライド全体のスタイル・テーマ定義
+│   ├── ja/                        # ロケール別スライドフォルダ (多言語化時は en/ 等を追加)
+│   │   ├── 01_title.md            # タイトルスライド
+│   │   ├── 02_agenda.md           # アジェンダ
+│   │   └── 03_architecture.md     # アーキテクチャ図解スライド
+│   ├── styles.py                  # スライド全体のスタイル・テーマ定義 (<lang>/styles.py も可)
 │   ├── utils.py                   # スライド専用のレイアウト補助関数
-│   ├── slide.js                   # プレゼン再生・発表者ビュー制御エンジン
+│   ├── slide.js                   # プレゼン再生・言語切替・発表者ビュー制御エンジン
 │   ├── build.sh                   # 全ターゲット一括ビルドスクリプト
 │   ├── build_html.sh              # Web プレゼン生成スクリプト
 │   ├── build_pdf.sh               # 1スライド1ページの PDF 生成スクリプト
 │   └── serve.sh                   # プレゼン用ローカルサーバー起動スクリプト
-├── my_presentation_html/          # [成果物] Web プレゼンテーション (index.html)
-├── my_presentation.pdf            # [成果物] 16:9 ベクター PDF プレゼンテーション
+├── my_presentation_html/          # [成果物] Web プレゼンテーション (ja/index.html + ルートリダイレクト)
+├── my_presentation_ja.pdf         # [成果物] ロケール別 16:9 ベクター PDF プレゼンテーション
 └── my_presentation_images/        # [成果物] 抽出された高解像度図面画像
 ```
 
@@ -155,19 +157,20 @@ save()
 
 スライドプロジェクトからは、標準ビルドの Web・PDF に加え、オプションで編集可能な MS PowerPoint ファイルも出力できます:
 
-1. **インタラクティブ Web プレゼンテーション (`my_presentation_html/index.html`)**:
-   - 会場での登壇やオンライン勉強会向けの HTML5 プレゼンテーション。
-   - **キーボードナビゲーション & 発表者ビュー**:
+1. **インタラクティブ Web プレゼンテーション (`my_presentation_html/<lang>/index.html`)**:
+   - 会場での登壇やオンライン勉強会向けの HTML5 プレゼンテーション（`my_presentation_html/index.html` から自動的に既定ロケールへリダイレクトされます）。
+   - **キーボードナビゲーション・言語切替 & 発表者ビュー**:
      - `Space` / `→` / `PageDown`: 次のスライドへ進む
      - `←` / `PageUp`: 前のスライドへ戻る
      - `P` キー（または URL に `?presenter=1` を付与）: **発表者ビュー（Presenter View）** を起動。現在のスライド、次のスライドのプレビュー、経過タイマー、および `::: note` に記述したスピーカーノートが一画面に表示され、別ウィンドウの聴衆向けスクリーンとリアルタイム同期します。
+     - `L`: 多言語デッキで `.slide-lang-dropdown` 言語メニューを開閉し、現在の `#N` スライド番号を維持したまま言語を切り替えます。
      - `F`: フルスクリーン（全画面）表示の切り替え
      - `O` / `Esc`: スライド全体をグリッド一覧表示するオーバービューモード
-2. **1 スライド 1 ページのベクター PDF (`my_presentation.pdf`)**:
+2. **1 スライド 1 ページのベクター PDF (`my_presentation_<lang>.pdf`)**:
    - 参加者への事前配布、SpeakerDeck / DocSend へのアップロード、印刷向けの PDF。
    - 初回実行時に自動取得されるヘッドレス Chromium（Playwright）により、各スライドが 1 ページずつ欠けのない 16:9 ベクター PDF として忠実に焼き込まれます。
 3. **編集可能な 16:9 MS PowerPoint エクスポート (`drawlib build pptx`・オプション)**:
-   - カンファレンス事務局への `.pptx` 提出やチーム内での共同編集が必要な場合は、CLI から 16:9 MS PowerPoint デッキ（`::: note` のスピーカーノート付き）を直接生成できます（なお、技術文書 `doc` プロジェクト向けには `uv run drawlib build docx <src> -o <out.docx> --generate-index` による編集可能な MS Word 出力も用意されています）:
+   - カンファレンス事務局への `.pptx` 提出やチーム内での共同編集が必要な場合は、CLI からロケール別の 16:9 MS PowerPoint デッキ（`my_presentation_<lang>.pptx`、`::: note` のスピーカーノート付き）を直接生成できます（なお、技術文書 `doc` プロジェクト向けには `uv run drawlib build docx <src> -o <out.docx> --generate-index` による編集可能な MS Word 出力も用意されています）:
    ```bash
    uv run drawlib build pptx my_presentation_src/ -o my_presentation.pptx
    ```

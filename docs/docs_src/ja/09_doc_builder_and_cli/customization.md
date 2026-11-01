@@ -1036,7 +1036,9 @@ save()
 - `{{ nav_sections }}` / `{{ nav_items }}`: サイドバー用の構造化ナビゲーションツリー（`site` プロジェクト用）。
 - `{{ toc_items }}`: 右側目次用の構造化された見出しアウトライン（`site` プロジェクト用）。
 - `{{ css_href }}`: `style.css` への相対パス。
-- `{{ custom_css }}`: 注入されるインライン CSS オーバーライド。
+- `{{ custom_css }}`: 注入されるインライン CSS オーバーライド（CJK / RTL 向け自動組版ルールを含む）。
+- `{{ html_lang }}` & `{{ html_dir }}`: `drawlib.toml` から解決された現在のロケールコード（`en`, `ja`, `ar` 等）と書字方向（`ltr` または `rtl`）。
+- `{{ lang_switcher }}` & `{{ alternate_links }}`: `[i18n]` で `len(langs) > 1` の場合に自動生成される言語スイッチャー HTML と `<link rel="alternate" hreflang="...">` メタデータ。
 
 ---
 
@@ -1122,8 +1124,11 @@ setup(width=80, height=40)
 rectangle((40, 20), width=50, height=25, style=Styles.PrimaryFlat, text="Unified Themed Card", text_style=Styles.WhiteBold)
 ```
 
-### `style.css` との一貫したデザイン統合
-`drawlib init <type> --style google`（または `monochrome`、`default`、`default-dark`、`google-dark`）を使用してプロジェクトをスキャフォールディングすると、Drawlib は Python 図解用の `styles.py` と HTML／PDF／スライドのタイポグラフィ・カード背景用の `style.css` の両方を自動的に同期させます。これにより、**ドキュメントの本文と埋め込まれたアーキテクチャ図解が 100% 統一されたビジュアルアイデンティティを共有します**。
+### `style.css` および `drawlib.toml` との一貫したデザイン統合
+`drawlib init <type> --style google`（または `monochrome`、`default`、`default-dark`、`google-dark`）を使用してプロジェクトをスキャフォールディングすると、Drawlib は選択された `style` と `[i18n]` ロケール設定を `drawlib.toml` に記録しつつ、Python 図解用の `styles.py` と HTML／PDF／スライド用の `style.css` の両方を自動的に同期させます。これにより、**ドキュメントの本文と埋め込まれたアーキテクチャ図解が 100% 統一されたビジュアルアイデンティティを共有します**。
+
+### ロケール別の `styles.py` / `utils.py` オーバーライド (`<src_dir>/<lang>/`)
+多言語構成の `doc`・`site`・`slide` プロジェクト（`drawlib.toml` で `langs = ["en", "ja"]` 等を指定）では、既定でルート直下の `styles.py` と `utils.py` が全ロケールに適用されます。特定のロケールで CJK フォント（`ja/` における `FontJapanese` など）や言語固有のヘルパー関数を使用したい場合は、`<src_dir>/<lang>/styles.py` や `<src_dir>/<lang>/utils.py` を配置してください。該当ロケールの図解ビルド時にロケール別ファイルが優先解決され、未配置時はルートの `styles.py` / `utils.py` へ自動フォールバックします。
 
 ---
 

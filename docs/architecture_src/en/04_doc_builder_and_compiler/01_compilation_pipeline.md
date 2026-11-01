@@ -212,5 +212,20 @@ If a Python exception occurs inside a drawing block:
 - Drawlib catches the exception, inspects the traceback, and calculates the exact physical line number within the Markdown source file (`file.md:L142`).
 - The build terminates immediately with an informative terminal message showing the offending code line, avoiding mysterious stack traces inside `exec()`.
 
+---
+
+## 4. Project Manifest (`drawlib.toml`) & Multi-Locale `i18n` Compilation
+
+Directory builds across `doc`, `site`, and `slide` archetypes are governed by a declarative **`drawlib.toml`** manifest (`_builder/_common/manifest.py` and `doc_builder/i18n.py`):
+
+1. **Manifest Validation (`ProjectManifest` & `I18nConfig`)**:
+   - `doc`, `site`, and `slide` projects require an `[i18n]` table specifying `default_lang` and `langs` (`len >= 1`, plus optional `[i18n.labels]`), and organize Markdown sources under `<src_dir>/<lang>/`.
+   - `images` projects specify `type = "images"` and `lang` under `[project]` without `[i18n]`.
+2. **Pre-Flight Structural Parity Validation (`validate_i18n_project`)**:
+   - Before executing any drawing block, the compiler verifies that every configured locale directory (`<src_dir>/<lang>/`) contains the exact same relative `.md` file set, `navbar.md` structure (for `site`), Markdown heading hierarchy (`#`–`######`, ignoring speaker `::: note` prose on `slide`), and ````drawlib```` block layout.
+3. **Shared Diagram Deduplication & Per-Locale Overrides**:
+   - Language-neutral diagrams (`file=arch.png`) compile once using root `<src_dir>/styles.py` and `<src_dir>/utils.py`, writing to a shared `<output>/images/` directory referenced across all locales (`../images/` or `../../images/`).
+   - Locale-specific diagrams can override typography or helper logic via optional `<src_dir>/<lang>/styles.py` and `<src_dir>/<lang>/utils.py` files while writing to locale-suffixed filenames (`file=arch_ja.png`).
+
 Next, explore how the AST compiles into multiple formats in **[Multi-Target Exporters](02_multi_target_exporters.md)**.
 

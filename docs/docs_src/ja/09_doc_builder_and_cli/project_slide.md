@@ -445,7 +445,7 @@ def draw_workspace(
         )
         text(
             (36.0, 13.7),
-            "styles.py, utils.py & style.css stay untouched",
+            "drawlib.toml, styles.py & style.css stay untouched",
             style=Styles.MutedBold.patch(text_size=9.6),
         )
         text(
@@ -486,21 +486,21 @@ def draw_workspace(
     tree_rows: list[tuple[str, int, str, str, float]] = [
         ("root", 0, "folder_open", "my_deck/", 59.50),
         ("slide_src", 1, "folder_open", "slide_src/", 55.30),
-        ("styles", 2, "py", "styles.py", 51.10),
-        ("utils", 2, "py", "utils.py", 46.90),
+        ("toml", 2, "sh", "drawlib.toml", 51.10),
+        ("styles", 2, "py", "styles.py, utils.py", 46.90),
         ("css", 2, "css", "style.css", 42.70),
         ("scripts", 2, "sh", "build.sh, serve.sh", 38.50),
-        ("s01", 2, "md", "01_title.md", 34.30),
-        ("s02", 2, "md", "02_arch.md", 30.10),
+        ("s01", 2, "md", "en/01_title.md", 34.30),
+        ("s02", 2, "md", "en/02_arch.md", 30.10),
     ]
     if show_flow:
-        tree_rows.append(("s03", 2, "md", "03_flow.md", 25.90))
+        tree_rows.append(("s03", 2, "md", "en/03_flow.md", 25.90))
     if show_outputs:
         tree_rows.extend(
             [
-                ("out_html", 1, "globe", "slide_html/", 19.60),
-                ("out_pdf", 1, "pdf", "slide.pdf", 15.20),
-                ("out_pptx", 1, "pptx", "slide.pptx", 10.80),
+                ("out_html", 1, "globe", "slide_html/en/", 19.60),
+                ("out_pdf", 1, "pdf", "slide_en.pdf", 15.20),
+                ("out_pptx", 1, "pptx", "slide_en.pptx", 10.80),
             ]
         )
 
@@ -584,7 +584,7 @@ with anim.frame(duration=3.1):
         active_part=1,
         actor="user",
         actor_title="$ drawlib init slide -s google",
-        actor_sub="Scaffold 16:9 slide_src/ deck & scripts",
+        actor_sub="Scaffold 16:9 slide_src/en/, config & scripts",
         actor_optional=False,
         ops=[
             ("user", "$ drawlib init slide -s google", "active_user"),
@@ -594,8 +594,8 @@ with anim.frame(duration=3.1):
         show_outputs=False,
         row_states={
             "slide_src": ("new", "Created"),
+            "toml": ("new", "Created"),
             "styles": ("new", "Created"),
-            "utils": ("new", "Created"),
             "css": ("new", "Created"),
             "scripts": ("new", "Created"),
             "s01": ("new", "Created"),
@@ -621,7 +621,6 @@ with anim.frame(duration=3.1):
         show_outputs=False,
         row_states={
             "styles": ("active", "Updated"),
-            "utils": ("active", "Updated"),
         },
         committed=False,
         pulse_arrow=True,
@@ -632,12 +631,12 @@ with anim.frame(duration=3.3):
         active_part=1,
         actor="gemini",
         actor_title="Gemini: Plan slide deck story arc",
-        actor_sub="Structure numbered slides 01_title..03_flow",
+        actor_sub="Structure numbered slides en/01_title..03_flow",
         actor_optional=False,
         ops=[
             ("user", "$ drawlib init slide -s google", "done"),
             ("gemini", "Edit slide_src/styles.py, utils.py", "done"),
-            ("gemini", "Plan story arc (01_title..03_flow.md)", "active_gemini"),
+            ("gemini", "Plan story arc (en/01_title..03_flow.md)", "active_gemini"),
         ],
         show_day2_note=False,
         show_flow=True,
@@ -661,7 +660,7 @@ with anim.frame(duration=3.1):
         actor_optional=False,
         ops=[
             ("user", "$ drawlib init slide -s google", "done"),
-            ("gemini", "Configure styles.py & 01..03 story arc", "done"),
+            ("gemini", "Configure styles.py & en/01..03 story arc", "done"),
             ("gemini", "Author ::: block stage + .svg / .webp", "active_gemini"),
         ],
         show_day2_note=False,
@@ -685,7 +684,7 @@ with anim.frame(duration=3.1):
         actor_optional=False,
         ops=[
             ("user", "$ drawlib init slide -s google", "done"),
-            ("gemini", "Configure styles.py & 01..03 story arc", "done"),
+            ("gemini", "Configure styles.py & en/01..03 story arc", "done"),
             ("gemini", "Author ::: block stage + .svg / .webp", "done"),
             ("gemini", "Add ::: note speaker notes to slides", "active_gemini"),
         ],
@@ -705,14 +704,14 @@ with anim.frame(duration=3.3):
     draw_workspace(
         active_part=2,
         actor="gemini",
-        actor_title="$ drawlib show .../02_arch.md arch.svg -g",
+        actor_title="$ drawlib show .../en/02_arch.md arch.svg -g",
         actor_sub="Verify diagram coordinates & stage margins",
         actor_optional=False,
         ops=[
             ("user", "$ drawlib init slide -s google", "done"),
-            ("gemini", "Configure styles.py & 01..03 story arc", "done"),
+            ("gemini", "Configure styles.py & en/01..03 story arc", "done"),
             ("gemini", "Author ::: block stage & ::: note", "done"),
-            ("gemini", "$ drawlib show .../02_arch.md arch.svg -g", "active_gemini"),
+            ("gemini", "$ drawlib show .../en/02_arch.md arch.svg -g", "active_gemini"),
         ],
         show_day2_note=False,
         show_flow=True,
@@ -732,11 +731,11 @@ with anim.frame(duration=3.1):
         active_part=3,
         actor="gemini",
         actor_title="$ ./slide_src/build.sh",
-        actor_sub="Compile interactive slide_html/ & vector PDF",
+        actor_sub="Compile slide_html/en/ & vector slide_en.pdf",
         actor_optional=False,
         ops=[
             ("user", "$ drawlib init slide -s google", "done"),
-            ("gemini", "Configure styles.py & 01..03 story arc", "done"),
+            ("gemini", "Configure styles.py & en/01..03 story arc", "done"),
             ("gemini", "Author & grid-verify slides + notes", "done"),
             ("gemini", "$ ./slide_src/build.sh  (HTML + PDF)", "active_gemini"),
         ],
@@ -757,12 +756,12 @@ with anim.frame(duration=3.1):
     draw_workspace(
         active_part=3,
         actor="gemini",
-        actor_title="$ drawlib build pptx slide_src/ -o slide.pptx",
-        actor_sub="Export editable 16:9 PowerPoint + notes",
+        actor_title="$ drawlib build pptx slide_src/",
+        actor_sub="Export editable 16:9 slide_en.pptx + notes",
         actor_optional=True,
         ops=[
             ("user", "$ drawlib init slide -s google", "done"),
-            ("gemini", "Configure styles.py & 01..03 story arc", "done"),
+            ("gemini", "Configure styles.py & en/01..03 story arc", "done"),
             ("gemini", "Author & grid-verify slides + notes", "done"),
             ("gemini", "$ ./slide_src/build.sh  (HTML + PDF)", "done"),
             ("gemini", "$ drawlib build pptx slide_src/", "optional"),
@@ -788,7 +787,7 @@ with anim.frame(duration=3.3):
         actor_optional=False,
         ops=[
             ("user", "$ drawlib init slide -s google", "done"),
-            ("gemini", "Configure styles.py & 01..03 story arc", "done"),
+            ("gemini", "Configure styles.py & en/01..03 story arc", "done"),
             ("gemini", "Author & grid-verify slides + notes", "done"),
             ("gemini", "$ ./slide_src/build.sh  (HTML + PDF)", "done"),
             ("gemini", "$ drawlib build pptx slide_src/", "optional_done"),
@@ -828,20 +827,20 @@ with anim.frame(duration=3.1):
     draw_workspace(
         active_part=4,
         actor="gemini",
-        actor_title="1 day later: Tweak 02_arch.md & rebuild",
+        actor_title="1 day later: Tweak en/02_arch.md & rebuild",
         actor_sub="Unchanged slides hit .drawlib/cache.db (<1ms)",
         actor_optional=False,
         ops=[
             ("user", "$ ./slide_src/serve.sh  (?presenter=1)", "done"),
-            ("user", '1 day later: "Refine 02_arch.md"', "done"),
-            ("gemini", "Edit 02_arch.md & ./slide_src/build.sh", "active_gemini"),
+            ("user", '1 day later: "Refine en/02_arch.md"', "done"),
+            ("gemini", "Edit en/02_arch.md & ./slide_src/build.sh", "active_gemini"),
         ],
         show_day2_note=True,
         show_flow=True,
         show_outputs=True,
         row_states={
+            "toml": ("muted", ""),
             "styles": ("muted", ""),
-            "utils": ("muted", ""),
             "css": ("muted", ""),
             "s01": ("cached", "Cached <1ms"),
             "s02": ("active", "Modified"),
@@ -863,8 +862,8 @@ with anim.frame(duration=3.3):
         actor_optional=False,
         ops=[
             ("user", "$ ./slide_src/serve.sh  (?presenter=1)", "done"),
-            ("user", '1 day later: "Refine 02_arch.md"', "done"),
-            ("gemini", "Edit 02_arch.md & ./slide_src/build.sh", "done"),
+            ("user", '1 day later: "Refine en/02_arch.md"', "done"),
+            ("gemini", "Edit en/02_arch.md & ./slide_src/build.sh", "done"),
             ("gemini", "$ drawlib build pptx slide_src/", "optional_done"),
             ("user_git", '$ git commit -m "Update arch slide"', "active_user"),
         ],
@@ -914,7 +913,7 @@ drawlib init slide my_deck -s google -l en,ja
   - **`_` 始まりのファイルと `README.md`**: 構成案や下書きスライド（`_planning.md`、`_drafts/`）および `README.md` は、スライドデッキのコンパイル対象から自動的に除外されます。
   - **`_assets/`**: 出力先フォルダへ同期される静的なロゴ、フォント、参照メディアです（`<lang>/` のスライドからは `../_assets/...`、`<lang>/<section>/` からは `../../_assets/...` で参照します）。
   - **`styles.py` & `utils.py`**: プレゼンテーション全体で共有されるカラートークン、タイポグラフィ既定値（任意のロケール別 `<lang>/styles.py` による上書きも可能）、スライドヘッダー／フッターヘルパー、KPI／カードユーティリティです。
-  - **`style.css` & `slide.js`**: 16:9 ビューポート自動スケーリング用スタイルシート、キーボードナビゲーションコントローラー、`.lang-switcher` コントロール、および `BroadcastChannel` による発表者ツール（Presenter View）ランタイムです。
+  - **`style.css` & `slide.js`**: 16:9 ビューポート自動スケーリング用スタイルシート、キーボードナビゲーションコントローラー、`.slide-lang-dropdown` 言語メニュー（`L` ショートカット対応）、および `BroadcastChannel` による発表者ツール（Presenter View）ランタイムです。
   - **`build.sh`, `build_html.sh`, `build_pdf.sh`, `build_image.sh`, `serve.sh`**: モジュール化されたビルドスクリプトおよびローカルプレゼンテーションプレビューランチャーです。
 - **生成される出力先（直接編集しないでください）**:
   - **`slide_html/`**: フルスクリーン表示、一覧グリッド表示、および `?presenter=1` 発表者ツールをサポートするインタラクティブなブラウザ用スライドデッキ群（`slide_html/<lang>/index.html`、`?presenter=1` と `#N` を保持するルートリダイレクト `slide_html/index.html`、および共有の `slide_html/images/`、`style.css`、`slide.js`）です。
@@ -930,7 +929,7 @@ drawlib init slide my_deck -s google -l en,ja
 
 | 出力先 | 想定シーン・環境 | 主な特徴 | ビルドスクリプト / コマンド |
 | :--- | :--- | :--- | :--- |
-| **`slide_html/<lang>/index.html`** | インタラクティブな発表 | 1920x1080 固定ステージ、ビューポート自動スケーリング、キーボード操作（`Space`, `矢印キー`, `F`）、発表者ツール（`?presenter=1`）、スライド一覧グリッド、言語スイッチャー | `build_html.sh` (`drawlib build slide`) |
+| **`slide_html/<lang>/index.html`** | インタラクティブな発表 | 1920x1080 固定ステージ、ビューポート自動スケーリング、キーボード操作（`Space`, `矢印キー`, `F`, `L`）、発表者ツール（`?presenter=1`）、スライド一覧グリッド、言語スイッチャー | `build_html.sh` (`drawlib build slide`) |
 | **`slide_<lang>.pdf`** | 印刷・閲覧専用配布 | ロケールごとに 1 ページ 1 スライド、鮮明なベクターグラフィックス、正確な 16:9 アスペクト比（`@page { size: 1920px 1080px; margin: 0; }`） | `build_pdf.sh` (`drawlib build pdf`) |
 | **`slide_<lang>.pptx`** | 共同編集・エグゼクティブ向け資料 | ロケール別のネイティブ編集可能な 16:9（`960×540 pt`）MS PowerPoint デッキ（`rgba` 透過対応の `::: block` カード、テキストボックス、リスト、表、`::: note` スピーカーノート、高 DPI 図解 PNG） | `drawlib build pptx` |
 | **`slide_images/`** | 外部スライド・SNS 共有 | 外部資料やチャット共有に使える単体抽出されたスライド図解画像 | `build_image.sh` (`drawlib build image`) |
@@ -1010,6 +1009,7 @@ uv run drawlib serve slide_html/
 - **`O` / `Esc`**: スライド一覧グリッド表示の切り替え
 - **`P` / `S`**: 同期された別ウィンドウで **発表者ツール（Presenter View）** を開く
 - **`A`**: 現在のスライド上のアニメーションを再生／一時停止／再開
+- **`L`**: 多言語デッキ（`len(langs) > 1`）で `.slide-lang-dropdown` 言語メニューを開閉し、現在の `#N` スライド番号を維持したまま言語を切り替え
 - **URL ハッシュによるディープリンク (`#1`, `#2`, ...)**: `index.html#4` にアクセスするとスライド 4 に直接ジャンプし、スライドを送ると URL ハッシュもリアルタイムに更新されるため、ブックマークやリンク共有が容易です。
 - **発表者ツールの直接 URL (`?presenter=1`)**: `?presenter=1#1` を付与すると発表者ツールモードで直接起動し、`BroadcastChannel` / `localStorage` を介してウィンドウ間でスライド遷移やアニメーション再生を同期します。
 
@@ -1081,6 +1081,6 @@ ja = "日本語"
 - **対称なロケール別スライドツリーと柔軟なスピーカーノート (`slide_src/<lang>/`)**: 各ロケールディレクトリ（`en/`、`ja/`）は同一のソート順スライドパスと `::: block` ステージ構造を保持します。一方、`::: note` スピーカーノートは構造スケルトン検証の前に除外されるため、言語ごとに自然な口頭説明や補足台本を自由に記述してもパリティエラーは発生しません。
 - **共有図解の重複排除とロケール別 `styles.py`**: 言語非依存の図解（`file=arch_flow.svg`）は共有の `slide_html/images/` に 1 回だけコンパイルされます。翻訳ラベルや日本語タイポグラフィが必要な図解には、`slide_src/<lang>/styles.py`（例: `FontJapanese` を設定した `ja/styles.py`）を追加し、ロケール接尾辞付きのファイル名（`file=arch_flow_ja.svg`）を指定します。
 - **一貫したロケール接尾辞付き PDF・PowerPoint 成果物 (`<base>_<lang>.pdf` / `.pptx`)**: `drawlib build pdf` および `drawlib build pptx` は、ロケール別のプレゼンテーションファイル（`keynote_en.pdf`, `keynote_ja.pdf`, `keynote_en.pptx`, `keynote_ja.pptx`）を出力します。
-- **スライド番号ハッシュを維持する言語スイッチャー**: `len(langs) > 1` の場合、`.slide-controls` 内にコンパクトな `.lang-switcher` ドロップダウン（`@media print` 時は非表示）が表示され、現在のスライド番号ハッシュを維持したまま他言語の同一スライド（`../ja/index.html#4`）へ即座に切り替えられます。また、ルートの `slide_html/index.html` は `?presenter=1` と `#N` の両方を維持して `default_lang` へリダイレクトします。
+- **スライド番号ハッシュを維持する言語スイッチャー**: `len(langs) > 1` の場合、`.slide-controls` 内にコンパクトな `.slide-lang-dropdown` セレクター（`@media print` 時は非表示、`L` キーボードショートカットでも切り替え可能）が表示され、現在のスライド番号ハッシュを維持したまま他言語の同一スライド（`../ja/index.html#4`）へ即座に切り替えられます。また、ルートの `slide_html/index.html` は `?presenter=1` と `#N` の両方を維持して `default_lang` へリダイレクトします。
 - **ロケール単位の発表者ツール同期と一括リンク監査**: `BroadcastChannel` 同期はロケールごとにスコープ分離されるため、`en` と `ja` のデッキを同時に開いても干渉せず、`uv run drawlib serve slide_html/ --check` により全ロケールのアセットとリンクを 1 パスで検証できます。
 

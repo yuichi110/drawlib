@@ -61,7 +61,7 @@ z
    </g>
    <g id="text_2">
     <g clip-path="url(#pecbf88852a)">
-     <text style="font-size: 9.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #4862da" x="135.918367" y="146.424056" transform="rotate(-0 135.918367 146.424056)">doc_src/ Chapters</text>
+     <text style="font-size: 9.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #4862da" x="135.918367" y="146.291205" transform="rotate(-0 135.918367 146.291205)">doc_src/&lt;lang&gt;/</text>
     </g>
    </g>
    <g id="patch_4">
@@ -226,16 +226,16 @@ z
    </g>
    <g id="text_9">
     <g clip-path="url(#pecbf88852a)">
-     <text style="font-size: 7.8px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(538.033897 214.440101)">doc_html/index.html</text>
+     <text style="font-size: 7.6px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(525.63835 214.417758)">doc_html/&lt;lang&gt;/index.html</text>
     </g>
     <g clip-path="url(#pecbf88852a)">
-     <text style="font-size: 7.8px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(533.837741 222.700789)">• Centered 900px layout</text>
+     <text style="font-size: 7.6px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(534.937663 223.005758)">• Centered 900px layout</text>
     </g>
     <g clip-path="url(#pecbf88852a)">
-     <text style="font-size: 7.8px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(537.987585 231.390476)">• Interactive ToC links</text>
+     <text style="font-size: 7.6px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(538.9811 231.472633)">• Interactive ToC links</text>
     </g>
     <g clip-path="url(#pecbf88852a)">
-     <text style="font-size: 7.8px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(546.458506 239.190476)">• Works via file://</text>
+     <text style="font-size: 7.6px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(547.234819 239.072633)">• Works via file://</text>
     </g>
    </g>
    <g id="patch_12">
@@ -253,7 +253,7 @@ z
    </g>
    <g id="text_10">
     <g clip-path="url(#pecbf88852a)">
-     <text style="font-size: 9px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="576.734694" y="359.319031" transform="rotate(-0 576.734694 359.319031)">2. Vector PDF Export</text>
+     <text style="font-size: 9px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="576.734694" y="359.319031" transform="rotate(-0 576.734694 359.319031)">2. PDF &amp; Word Export</text>
     </g>
    </g>
    <g id="patch_13">
@@ -271,16 +271,16 @@ z
    </g>
    <g id="text_11">
     <g clip-path="url(#pecbf88852a)">
-     <text style="font-size: 7.8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #ffffff" transform="translate(531.233272 441.400578)">Playwright + Chromium</text>
+     <text style="font-size: 7.6px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #ffffff" transform="translate(529.906819 441.633735)">Chromium / python-docx</text>
     </g>
     <g clip-path="url(#pecbf88852a)">
-     <text style="font-size: 7.8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #ffffff" transform="translate(547.277506 450.159735)">--&gt; doc.pdf (A4)</text>
+     <text style="font-size: 7.6px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #ffffff" transform="translate(530.062381 450.02461)">--&gt; doc_&lt;lang&gt;.pdf/.docx</text>
     </g>
     <g clip-path="url(#pecbf88852a)">
-     <text style="font-size: 7.8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #ffffff" transform="translate(533.538538 458.700735)">• Crisp Vector Graphics</text>
+     <text style="font-size: 7.6px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #ffffff" transform="translate(534.646131 458.559172)">• Crisp Vector Graphics</text>
     </g>
     <g clip-path="url(#pecbf88852a)">
-     <text style="font-size: 7.8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #ffffff" transform="translate(539.053991 467.241735)">• CSS @page Breaks</text>
+     <text style="font-size: 7.6px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #ffffff" transform="translate(535.553975 466.881172)">• CSS @page &amp; OOXML</text>
     </g>
    </g>
    <g id="patch_14">

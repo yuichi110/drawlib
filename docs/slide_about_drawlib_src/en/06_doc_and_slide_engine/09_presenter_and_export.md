@@ -19,12 +19,13 @@ Compiled Drawlib slide decks (`slide_html/`) include a zero-dependency presentat
 | **`P` / `S`** | **Presenter View** | Opens dual-window `?presenter=1` synced via `BroadcastChannel` + `postMessage`. |
 | **`O` / `Esc`** | **Overview Grid** | Interactive 16:9 thumbnail grid of all slides for instant navigation. |
 | **`A`** | **Animation Step** | Plays, pauses, resumes, or resets `<canvas>` animations on the current slide. |
+| **`L`** | **Language Switch** | Cycles multi-locale decks (`<lang>/index.html#N`) preserving slide number. |
 | **`F`** | **Fullscreen** | Toggles native widescreen browser fullscreen mode. |
 | **`→` / `Space`** | **Next Slide** | Advances slides (`←` / `Home` / `End` for navigation). |
 
-### 100% Standalone `file://` & Vector PDF Portability
+### 100% Standalone `file://`, PDF & PowerPoint Portability
 - **Auto-Bundled SVG Fonts (`_assets/fonts/`)**: Copies used `.ttf`/`.otf` text & icon fonts and injects `@font-face` rules into `style.css`.
-- **Double-Click Ready**: Zip and share the output folder—anyone can open `index.html` directly from disk (`file://`) or print to `slide.pdf`.
+- **Double-Click Ready**: Zip and share the output folder—anyone can open `<lang>/index.html` directly from disk (`file://`) or export `slide_<lang>.pdf` / `.pptx`.
 :::
 
 ::: block xy=(860, 140) width=980 height=840
@@ -48,8 +49,8 @@ rectangle(
     width=39.0,
     height=5.0,
     style=Styles.DarkFlat.patch(shape_r=1.0),
-    text="Audience Screen (index.html — Fullscreen 'F')",
-    text_style=Styles.WhiteBold.patch(text_size=7.8),
+    text="Audience Screen (<lang>/index.html — Fullscreen 'F')",
+    text_style=Styles.WhiteBold.patch(text_size=7.6),
 )
 rectangle(
     (26.5, 52.5),
@@ -85,9 +86,9 @@ rectangle((49.0, 21.5), width=84.0, height=29.0, style=Styles.PrimaryNeutral.pat
 text((49.0, 32.5), "Zero-Dependency Output Bundle (Works Offline via file:// & Headless PDF)", style=Styles.PrimaryBold.patch(text_size=9.2))
 
 bundle_items = [
-    (20.5, "index.html + slide.js", "Inline SVGs + Base64\nAPNG/WebP + Overview ('O')", Styles.White, Styles.DarkBold),
+    (20.5, "<lang>/index.html + JS", "Inline SVGs + Base64\nAPNG/WebP + 'O' / 'L'", Styles.White, Styles.DarkBold),
     (49.0, "_assets/fonts/*.ttf", "Auto-Bundled SVG Fonts\n+ @font-face in style.css", Styles.PrimaryFlat, Styles.WhiteBold),
-    (77.5, "slide.pdf + README.md", "1920x1080 Vector PDF\n+ Quickstart Guide", Styles.SecondaryNeutral, Styles.DarkBold),
+    (77.5, "slide_<lang>.pdf/.pptx", "1920x1080 Vector PDF\n+ Editable PowerPoint", Styles.SecondaryNeutral, Styles.DarkBold),
 ]
 for bx, b_title, b_sub, b_st, b_tst in bundle_items:
     rectangle((bx, 18.5), width=25.5, height=16.5, style=b_st.patch(shape_r=1.5))

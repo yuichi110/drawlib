@@ -72,7 +72,7 @@
                 
                 <a href="../01_getting_started/release_notes.html" class="sidebar-version-badge" title="View Release Notes">
                     <span class="sidebar-version-dot" aria-hidden="true"></span>
-                    <span class="sidebar-version-text">v0.3.2</span>
+                    <span class="sidebar-version-text">v0.3.3</span>
                 </a>
                 <a href="https://github.com/yuichi110/drawlib" target="_blank" rel="noopener noreferrer" class="sidebar-github-link" aria-label="GitHub Repository" title="GitHub Repository">
                     <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
@@ -631,6 +631,54 @@
             </header>
             <main class="main-content">
                 <h1>Release Notes &amp; Migration Guide</h1>
+<h2>Version 0.3.3</h2>
+<p><em>Release Date: 2026/11/01</em></p>
+<p>Version 0.3.3 introduces a unified <strong><code>drawlib.toml</code> project manifest</strong> and <strong><code>i18n</code>-native <code>&lt;src_dir&gt;/&lt;lang&gt;/</code> multi-locale architecture</strong> across all documentation (<code>doc</code>), website (<code>site</code>), and presentation (<code>slide</code>) projects, alongside full <strong>English/Japanese (<code>en</code>/<code>ja</code>) official documentation</strong> and <strong>animated parameter tours</strong>.</p>
+<hr />
+<h3>Highlights &amp; New Features</h3>
+<h4>1. Unified Project Manifest (<code>drawlib.toml</code>) &amp; Multi-Locale <code>i18n</code> Architecture</h4>
+<ul>
+<li><strong>Declarative <code>drawlib.toml</code> Manifest</strong>: Unifies <code>[project]</code> metadata and <code>[i18n]</code> locale configuration (<code>default_lang</code>, <code>langs</code>, and optional <code>[i18n.labels]</code>) across <code>doc</code>, <code>site</code>, and <code>slide</code> archetypes (and <code>[project].lang</code> on <code>images</code>). Scaffold single- or multi-locale projects directly via <code>drawlib init &lt;doc|site|slide&gt; [-l en,ja]</code> or <code>drawlib.tools.init_project(..., lang=&quot;en,ja&quot;)</code>.</li>
+<li><strong>Unified <code>&lt;src_dir&gt;/&lt;lang&gt;/</code> Layout &amp; Structural Parity Validation</strong>: Every <code>doc</code>, <code>site</code>, and <code>slide</code> project organizes Markdown sources under <code>&lt;src_dir&gt;/&lt;lang&gt;/</code> with optional per-locale <code>&lt;lang&gt;/styles.py</code> and <code>&lt;lang&gt;/utils.py</code> overrides. Pre-flight validation verifies identical relative file paths, Markdown heading hierarchies (<code>#</code>–<code>######</code>), and <code>drawlib</code> <code>file=</code> blocks across all configured locales, while language-neutral diagrams render once and share <code>&lt;output&gt;/images/</code> across locales.</li>
+<li><strong>Multi-Locale 16:9 Slide Decks (<code>drawlib build slide</code>, <code>drawlib build pptx</code>, <code>drawlib build pdf</code>)</strong>: Interactive HTML slide decks now include an upward-opening <code>.slide-lang-dropdown</code> language switcher in the bottom controls bar (<code>L</code> keyboard shortcut) that preserves the current <code>#N</code> slide hash across locales, a browser-language root <code>index.html</code> redirector, and per-locale PDF / PPTX deliverables.</li>
+<li><strong>Locale-Aware Typography, <code>hreflang</code> SEO &amp; Consistent Output Naming</strong>: Automatically injects <code>&lt;html lang=&quot;...&quot; dir=&quot;ltr|rtl&quot;&gt;</code>, <code>&lt;link rel=&quot;alternate&quot; hreflang=&quot;...&quot;&gt;</code> tags, CJK/RTL CSS typography rules (<code>line-break: strict</code>, zero heading letter-spacing), localized font presets (<code>FontJapanese</code>, <code>FontChinese</code>, <code>FontKorean</code>, <code>FontArabic</code>, etc.), and unified <code>&lt;stem&gt;_&lt;lang&gt;.{pdf,docx,pptx}</code> deliverable filenames.</li>
+</ul>
+<h4>2. Bilingual EN/JA Official Documentation &amp; Animated Parameter Tours</h4>
+<ul>
+<li><strong>Bilingual Official Documentation &amp; Dogfooding Whitepaper</strong>: Published complete English (<code>en/</code>) and Japanese (<code>ja/</code>) editions of the official documentation portal and the Dogfooding whitepaper with in-page language switching.</li>
+<li><strong>Animated Parameter Tours (<code>drawlib.anim</code>)</strong>: Added lossless APNG parameter tour animations across geometric primitives, icons, SmartArts, quantitative charts, domain diagrams, auto-layout graphs, and builder workflows.</li>
+</ul>
+<h4>3. Bug Fixes &amp; Internal Improvements</h4>
+<ul>
+<li>Fixed a circular import between <code>drawlib._release_assets</code> and <code>drawlib._core.l3_external</code> when <code>drawlib._release_assets</code> was imported prior to <code>drawlib._core</code>.</li>
+</ul>
+<hr />
+<h3>Breaking Changes &amp; Migration from v0.3.2</h3>
+<p>If you have existing <code>doc</code>, <code>site</code>, or <code>slide</code> directory projects created in v0.3.2 or earlier, migrate them to the unified <code>i18n</code>-native layout:</p>
+<ol>
+<li><strong>Add <code>drawlib.toml</code> with <code>[i18n]</code> &amp; Move Markdown Sources Under <code>&lt;src_dir&gt;/&lt;lang&gt;/</code></strong>:
+<ul>
+<li>Legacy flat directory layouts (<code>doc_src/*.md</code>, <code>docs_src/*.md</code>, <code>slide_src/*.md</code>) and standalone <code>i18n.toml</code> / <code>i18nsite</code> configurations have been replaced by <code>drawlib.toml</code> + <code>&lt;src_dir&gt;/&lt;lang&gt;/</code> (even for single-locale <code>langs = [&quot;en&quot;]</code> projects). Single <code>.md</code> file builds (e.g., <code>drawlib build html report.md</code>, <code>drawlib build pdf report.md</code>) remain unchanged.</li>
+</ul>
+<pre><code class="language-toml"><span class="k">[project]</span>
+<span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"site"</span><span class="w"> </span><span class="c1"># or "doc" / "slide"</span>
+<span class="n">style</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"default"</span>
+
+<span class="k">[i18n]</span>
+<span class="n">default_lang</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"en"</span>
+<span class="n">langs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">"en"</span><span class="p">]</span><span class="w"> </span><span class="c1"># or ["en", "ja"]</span>
+</code></pre>
+<ul>
+<li>Move <code>*.md</code> (including <code>navbar.md</code> for <code>site</code>) into <code>&lt;src_dir&gt;/en/</code>, while keeping shared <code>styles.py</code>, <code>utils.py</code>, <code>_assets/</code>, <code>template.html</code>, <code>style.css</code>, and <code>slide.js</code> at the <code>&lt;src_dir&gt;/</code> root.</li>
+</ul>
+</li>
+<li><strong>Locale-Suffixed Deliverable Paths (<code>&lt;stem&gt;_&lt;lang&gt;.{pdf,docx,pptx}</code> &amp; <code>&lt;output_dir&gt;/&lt;lang&gt;/</code>)</strong>:
+<ul>
+<li>Directory builds of <code>doc</code>, <code>site</code>, and <code>slide</code> now always emit locale-suffixed files—for example, <code>doc_en.pdf</code>, <code>doc_en.docx</code>, <code>slide_en.pdf</code>, and <code>slide_en.pptx</code>—and place HTML / Markdown pages under <code>&lt;output_dir&gt;/&lt;lang&gt;/</code> with an automatic root <code>index.html</code> redirector at <code>&lt;output_dir&gt;/index.html</code>.</li>
+</ul>
+</li>
+</ol>
+<hr />
 <h2>Version 0.3.2</h2>
 <p><em>Release Date: 2026/10/30</em></p>
 <p>Version 0.3.2 introduces native editable <strong>MS Word (<code>.docx</code>)</strong> and <strong>MS PowerPoint (<code>.pptx</code>)</strong> exporters, promotes <strong>headless Chromium, <code>python-docx</code>, and <code>python-pptx</code></strong> into unified zero-config standard dependencies, and reorganizes embedded AI agent rules into modular category directories.</p>

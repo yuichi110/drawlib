@@ -25,9 +25,9 @@ text((43, 50.5), "Version-Controlled Repository (Single Source of Truth)", style
 
 # 1. Left Column: Authoring & Source Files (Neutral cards)
 rectangle((22, 37), width=28, height=14, style=Styles.Neutral.patch(shape_r=2))
-phosphor.file_md((12, 37), width=5.5, style=Styles.Primary)
-text((24.5, 39), "docs_src/*.md", style=Styles.DarkBold.patch(text_size=9))
-text((24.5, 34.5), "Markdown + ```drawlib", style=Styles.Muted.patch(text_size=7.5))
+phosphor.file_md((11.5, 37), width=5.0, style=Styles.Primary)
+text((24.2, 39), "docs_src/<lang>/", style=Styles.DarkBold.patch(text_size=8.6))
+text((24.2, 34.5), "drawlib.toml + *.md", style=Styles.Muted.patch(text_size=7.5))
 
 rectangle((22, 18), width=28, height=14, style=Styles.SecondaryNeutral.patch(shape_r=2))
 phosphor.robot((12, 18), width=5.5, style=Styles.Secondary)
@@ -50,10 +50,10 @@ for start_y, target_y in [(33.5, 43.0), (29.5, 32.5), (25.5, 22.0), (21.5, 11.5)
 
 # 3. Right Column: Publication Outputs (Neutral & SuccessNeutral cards)
 outputs = [
-    (43.0, "HTML Doc Site", "docs_html/ (Search & Nav)", Styles.Neutral, phosphor.globe),
-    (32.5, "GitHub Markdown", "docs/ (Markdown + PNG)", Styles.Neutral, phosphor.file_md),
-    (22.0, "Publication PDF", "docs.pdf (Vector Print)", Styles.SuccessNeutral, phosphor.file_pdf),
-    (11.5, "16:9 Slide Deck", "slide/ (HTML & PDF Deck)", Styles.SecondaryNeutral, phosphor.presentation_chart),
+    (43.0, "HTML Doc Site", "docs_html/<lang>/ (Nav & i18n)", Styles.Neutral, phosphor.globe),
+    (32.5, "GitHub Markdown", "docs_markdown/<lang>/ (*.md)", Styles.Neutral, phosphor.file_md),
+    (22.0, "PDF & MS Word", "doc_<lang>.pdf / .docx", Styles.SuccessNeutral, phosphor.file_pdf),
+    (11.5, "16:9 Slide Deck", "slide_html/<lang>/, .pdf/.pptx", Styles.SecondaryNeutral, phosphor.presentation_chart),
 ]
 
 for y_pos, title, desc, card_style, icon_fn in outputs:

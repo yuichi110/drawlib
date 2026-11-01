@@ -33,10 +33,10 @@ line((38, 31), (53, 31), arrow_head="->", style=Styles.DarkBold)
 text((45.5, 36.2), "build html", style=Styles.PrimaryBold.patch(text_size=10.5))
 text((45.5, 25.5), "Link Audit", style=Styles.Muted.patch(text_size=10.0))
 
-# Right: Compiled Two-Column Site UI (docs_html/)
+# Right: Compiled Two-Column Site UI (docs_html/<lang>/)
 rectangle((88, 31), width=70, height=54, style=Styles.SecondaryNeutral.patch(shape_r=2.0))
 phosphor.browsers((60.5, 54.2), width=4.6, style=Styles.PrimaryBold)
-text((91.0, 54.2), "Compiled Two-Column Site UI (docs_html/)", style=Styles.DarkBold.patch(text_size=10.8))
+text((91.0, 54.2), "Compiled Two-Column Site UI (docs_html/<lang>/)", style=Styles.DarkBold.patch(text_size=10.8))
 
 # Left Sticky Sidebar
 rectangle((69.5, 28.0), width=27, height=44, style=Styles.Neutral.patch(shape_r=1.5))
@@ -404,7 +404,7 @@ def draw_workspace(
         )
         text(
             (36.0, 13.7),
-            "styles.py, utils.py & template.html stay untouched",
+            "drawlib.toml, styles.py & template.html stay untouched",
             style=Styles.MutedBold.patch(text_size=9.6),
         )
         text(
@@ -445,27 +445,27 @@ def draw_workspace(
     tree_rows: list[tuple[str, int, str, str, float]] = [
         ("root", 0, "folder_open", "my_repo/", 59.50),
         ("docs_src", 1, "folder_open", "docs_src/", 55.50),
-        ("styles", 2, "py", "styles.py", 51.50),
-        ("utils_assets", 2, "py", "utils.py, _assets/", 47.50),
+        ("toml", 2, "sh", "drawlib.toml", 51.50),
+        ("styles", 2, "py", "styles.py, utils.py, _assets/", 47.50),
         ("template", 2, "html", "template.html, style.css", 43.50),
         ("build_sh", 2, "sh", "build.sh", 39.50),
-        ("index", 2, "md", "index.md", 35.50),
-        ("navbar", 2, "md", "navbar.md", 31.50),
+        ("index", 2, "md", "en/index.md", 35.50),
+        ("navbar", 2, "md", "en/navbar.md", 31.50),
     ]
     if show_pages:
         tree_rows.extend(
             [
-                ("arch", 2, "md", "guide/arch.md", 27.50),
-                ("ref", 2, "md", "api/ref.md", 23.50),
+                ("arch", 2, "md", "en/guide/arch.md", 27.50),
+                ("ref", 2, "md", "en/api/ref.md", 23.50),
             ]
         )
     if show_deploy:
-        tree_rows.append(("deploy", 2, "md", "guide/deploy.md", 19.50))
+        tree_rows.append(("deploy", 2, "md", "en/guide/deploy.md", 19.50))
     if show_outputs:
         tree_rows.extend(
             [
-                ("out_html", 1, "globe", "docs_html/", 13.80),
-                ("out_md", 1, "folder_out", "docs_markdown/", 9.50),
+                ("out_html", 1, "globe", "docs_html/en/", 13.80),
+                ("out_md", 1, "folder_out", "docs_markdown/en/", 9.50),
             ]
         )
 
@@ -545,7 +545,7 @@ with anim.frame(duration=3.1):
         active_part=1,
         actor="user",
         actor_title="$ drawlib init site docs -s google",
-        actor_sub="Scaffold docs_src/ config, navbar & scripts",
+        actor_sub="Scaffold docs_src/en/, drawlib.toml & scripts",
         ops=[
             ("user", "$ drawlib init site docs -s google", "active_user"),
         ],
@@ -555,8 +555,8 @@ with anim.frame(duration=3.1):
         show_outputs=False,
         row_states={
             "docs_src": ("new", "Created"),
+            "toml": ("new", "Created"),
             "styles": ("new", "Created"),
-            "utils_assets": ("new", "Created"),
             "template": ("new", "Created"),
             "build_sh": ("new", "Created"),
             "index": ("new", "Created"),
@@ -582,7 +582,6 @@ with anim.frame(duration=3.1):
         show_outputs=False,
         row_states={
             "styles": ("active", "Updated"),
-            "utils_assets": ("active", "Updated"),
         },
         committed=False,
         pulse_arrow=True,
@@ -592,12 +591,12 @@ with anim.frame(duration=3.3):
     draw_workspace(
         active_part=1,
         actor="gemini",
-        actor_title="Gemini: Organize sidebar in navbar.md",
+        actor_title="Gemini: Organize sidebar in en/navbar.md",
         actor_sub="Define category headings & relative links",
         ops=[
             ("user", "$ drawlib init site docs -s google", "done"),
             ("gemini", "Edit docs_src/styles.py, utils.py", "done"),
-            ("gemini", "Edit docs_src/navbar.md (sidebar)", "active_gemini"),
+            ("gemini", "Edit docs_src/en/navbar.md (sidebar)", "active_gemini"),
         ],
         show_day2_note=False,
         show_pages=False,
@@ -615,12 +614,12 @@ with anim.frame(duration=3.1):
     draw_workspace(
         active_part=2,
         actor="gemini",
-        actor_title="Gemini: Author guide/arch.md & api/ref.md",
+        actor_title="Gemini: Author en/guide/arch.md & api/ref.md",
         actor_sub="Write pages with Top Hero ```drawlib blocks",
         ops=[
             ("user", "$ drawlib init site docs -s google", "done"),
-            ("gemini", "Configure styles.py & navbar.md", "done"),
-            ("gemini", "Author guide/arch.md & api/ref.md", "active_gemini"),
+            ("gemini", "Configure styles.py & en/navbar.md", "done"),
+            ("gemini", "Author en/guide/arch.md & en/api/ref.md", "active_gemini"),
         ],
         show_day2_note=False,
         show_pages=True,
@@ -642,8 +641,8 @@ with anim.frame(duration=3.1):
         actor_sub="Export -o .drawlib/scratch/grid.png preview",
         ops=[
             ("user", "$ drawlib init site docs -s google", "done"),
-            ("gemini", "Configure styles.py & navbar.md", "done"),
-            ("gemini", "Author guide/arch.md & api/ref.md", "done"),
+            ("gemini", "Configure styles.py & en/navbar.md", "done"),
+            ("gemini", "Author en/guide/arch.md & en/api/ref.md", "done"),
             ("gemini", "$ drawlib show .../arch.md hero.png -g", "active_gemini"),
         ],
         show_day2_note=False,
@@ -665,8 +664,8 @@ with anim.frame(duration=3.3):
         actor_sub="Zero clipping, clean margins & legible text",
         ops=[
             ("user", "$ drawlib init site docs -s google", "done"),
-            ("gemini", "Configure styles.py & navbar.md", "done"),
-            ("gemini", "Author guide/arch.md & api/ref.md", "done"),
+            ("gemini", "Configure styles.py & en/navbar.md", "done"),
+            ("gemini", "Author en/guide/arch.md & en/api/ref.md", "done"),
             ("gemini", "$ drawlib show .../arch.md hero.png -g", "done"),
             ("gemini", "Confirm clean layout & 16px parity", "active_gemini"),
         ],
@@ -689,10 +688,10 @@ with anim.frame(duration=3.1):
         active_part=3,
         actor="gemini",
         actor_title="$ ./docs_src/build.sh",
-        actor_sub="Compile docs_html/, docs_markdown/ & _assets/",
+        actor_sub="Compile docs_html/en/ & docs_markdown/en/",
         ops=[
             ("user", "$ drawlib init site docs -s google", "done"),
-            ("gemini", "Configure styles.py & navbar.md", "done"),
+            ("gemini", "Configure styles.py & en/navbar.md", "done"),
             ("gemini", "Author & grid-verify site pages", "done"),
             ("gemini", "$ ./docs_src/build.sh", "active_gemini"),
         ],
@@ -702,7 +701,6 @@ with anim.frame(duration=3.1):
         show_outputs=True,
         row_states={
             "build_sh": ("active", "Running"),
-            "utils_assets": ("output", "Synced"),
             "out_html": ("output", "Output"),
             "out_md": ("output", "Output"),
         },
@@ -718,7 +716,7 @@ with anim.frame(duration=3.1):
         actor_sub="Headless audit verifies 0 broken links",
         ops=[
             ("user", "$ drawlib init site docs -s google", "done"),
-            ("gemini", "Configure styles.py & navbar.md", "done"),
+            ("gemini", "Configure styles.py & en/navbar.md", "done"),
             ("gemini", "Author & grid-verify site pages", "done"),
             ("gemini", "$ ./docs_src/build.sh", "done"),
             ("gemini", "$ drawlib serve docs_html/ --check", "active_gemini"),
@@ -743,7 +741,7 @@ with anim.frame(duration=3.3):
         actor_sub="Source Markdown & built portals versioned",
         ops=[
             ("user", "$ drawlib init site docs -s google", "done"),
-            ("gemini", "Configure styles.py & navbar.md", "done"),
+            ("gemini", "Configure styles.py & en/navbar.md", "done"),
             ("gemini", "Author & grid-verify site pages", "done"),
             ("gemini", "$ ./docs_src/build.sh", "done"),
             ("gemini", "$ drawlib serve docs_html/ --check", "done"),
@@ -763,19 +761,19 @@ with anim.frame(duration=3.1):
     draw_workspace(
         active_part=4,
         actor="gemini",
-        actor_title='1 day later: Add guide/deploy.md',
-        actor_sub="Create new page & register link in navbar.md",
+        actor_title="1 day later: Add en/guide/deploy.md",
+        actor_sub="Create new page & register link in en/navbar.md",
         ops=[
             ("user", '1 day later: "Add deployment guide"', "done"),
-            ("gemini", "Add guide/deploy.md & link navbar.md", "active_gemini"),
+            ("gemini", "Add en/guide/deploy.md & link navbar.md", "active_gemini"),
         ],
         show_day2_note=True,
         show_pages=True,
         show_deploy=True,
         show_outputs=True,
         row_states={
+            "toml": ("muted", ""),
             "styles": ("muted", ""),
-            "utils_assets": ("muted", ""),
             "template": ("muted", ""),
             "navbar": ("active", "Modified"),
             "deploy": ("new", "Created"),
@@ -794,7 +792,7 @@ with anim.frame(duration=3.1):
         actor_sub="Unchanged pages cached; render only deploy.md",
         ops=[
             ("user", '1 day later: "Add deployment guide"', "done"),
-            ("gemini", "Add guide/deploy.md & link navbar.md", "done"),
+            ("gemini", "Add en/guide/deploy.md & link navbar.md", "done"),
             ("gemini", "$ ./docs_src/build.sh  (SQLite cache)", "active_gemini"),
         ],
         show_day2_note=True,
@@ -802,8 +800,8 @@ with anim.frame(duration=3.1):
         show_deploy=True,
         show_outputs=True,
         row_states={
+            "toml": ("muted", ""),
             "styles": ("muted", ""),
-            "utils_assets": ("muted", ""),
             "template": ("muted", ""),
             "index": ("cached", "Cached <1ms"),
             "arch": ("cached", "Cached <1ms"),
@@ -824,7 +822,7 @@ with anim.frame(duration=3.3):
         actor_sub="0 broken links — updated site committed",
         ops=[
             ("user", '1 day later: "Add deployment guide"', "done"),
-            ("gemini", "Add guide/deploy.md & link navbar.md", "done"),
+            ("gemini", "Add en/guide/deploy.md & link navbar.md", "done"),
             ("gemini", "$ ./docs_src/build.sh  (SQLite cache)", "done"),
             ("gemini", "$ drawlib serve docs_html/ --check", "done"),
             ("user_git", '$ git commit -m "Add deploy guide"', "active_user"),

@@ -12,10 +12,10 @@ utils.draw_page_number()
 ::: block xy=(80, 140) width=740 height=840 font_size=20px
 ## Technical Portals & GitHub Mirrors
 
-A `site` project (`docs_src/`) compiles nested Markdown folders into both a responsive HTML documentation portal (`docs_html/`) and a GitHub-browsable Markdown mirror (`docs_markdown/`).
+A `site` project (`docs_src/<lang>/` + `drawlib.toml`) compiles nested Markdown folders into both a responsive HTML documentation portal (`docs_html/<lang>/`) and a GitHub-browsable Markdown mirror (`docs_markdown/<lang>/`).
 
 ### Core `site` Capabilities
-- **Declarative Sidebar (`navbar.md`)**:
+- **Declarative Sidebar (`<lang>/navbar.md`)**:
   - `# Brand Title` sets the top-left header; `## Section` groups links into collapsible categories; every internal `.md` link is validated at build time.
 - **Interactive Code Tabs (`show-code` / `fold-code`)**:
   - Adding `show-code` to a ```` ```drawlib ```` fence renders an interactive UI card allowing readers to toggle between the **Rendered Diagram** and **Copyable Python Source**.
@@ -43,7 +43,7 @@ rectangle(
     width=24.0,
     height=13.0,
     style=Styles.PrimaryNeutral.patch(shape_r=1.5),
-    text="docs_src/\n• index.md & navbar.md\n• Nested */*.md pages",
+    text="docs_src/<lang>/\n• index.md & navbar.md\n• Nested */*.md pages",
     text_style=Styles.DarkBold.patch(text_size=8.2),
 )
 rectangle(
@@ -59,16 +59,16 @@ rectangle(
     width=24.0,
     height=6.0,
     style=Styles.SecondaryNeutral.patch(shape_r=1.2),
-    text="docs_html/ (Web Portal)",
-    text_style=Styles.DarkBold.patch(text_size=8.2),
+    text="docs_html/<lang>/ (Web)",
+    text_style=Styles.DarkBold.patch(text_size=8.0),
 )
 rectangle(
     (78.5, 59.0),
     width=24.0,
     height=6.0,
     style=Styles.BlueNeutral.patch(shape_r=1.2),
-    text="docs_markdown/ (GitHub)",
-    text_style=Styles.DarkBold.patch(text_size=8.2),
+    text="docs_markdown/<lang>/",
+    text_style=Styles.DarkBold.patch(text_size=8.0),
 )
 line((31.0, 62.5), (38.0, 62.5), arrow_head="->", style=Styles.DarkBold)
 line((60.0, 64.5), (66.5, 66.0), arrow_head="->", style=Styles.DarkBold)
@@ -81,13 +81,13 @@ rectangle(
     width=86.0,
     height=6.0,
     style=Styles.DarkFlat.patch(shape_r=1.0),
-    text="Browser Preview:  http://localhost:8000/architecture/index.html   [drawlib serve --check: 0 broken links]",
-    text_style=Styles.WhiteBold.patch(text_size=8.2),
+    text="Browser Preview:  http://localhost:8000/en/architecture/index.html   [serve --check: 0 broken links]",
+    text_style=Styles.WhiteBold.patch(text_size=8.0),
 )
 
 # Left Sidebar from navbar.md
 rectangle((19.5, 26.0), width=23.0, height=34.0, style=Styles.PrimaryNeutral.patch(shape_r=1.2))
-text((19.5, 39.5), "navbar.md Sidebar", style=Styles.PrimaryBold.patch(text_size=8.5))
+text((19.5, 39.5), "<lang>/navbar.md", style=Styles.PrimaryBold.patch(text_size=8.5))
 rectangle((19.5, 34.0), width=19.5, height=4.2, style=Styles.White.patch(shape_r=0.8), text="Home (index.md)", text_style=Styles.Dark.patch(text_size=7.8))
 rectangle((19.5, 28.5), width=19.5, height=4.2, style=Styles.PrimaryFlat.patch(shape_r=0.8), text="• Cloud Architecture", text_style=Styles.WhiteBold.patch(text_size=7.8))
 rectangle((19.5, 23.0), width=19.5, height=4.2, style=Styles.White.patch(shape_r=0.8), text="API Sequence Flows", text_style=Styles.Dark.patch(text_size=7.8))

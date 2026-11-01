@@ -420,6 +420,28 @@
 <li>Drawlib catches the exception, inspects the traceback, and calculates the exact physical line number within the Markdown source file (<code>file.md:L142</code>).</li>
 <li>The build terminates immediately with an informative terminal message showing the offending code line, avoiding mysterious stack traces inside <code>exec()</code>.</li>
 </ul>
+<hr />
+<h2>4. Project Manifest (<code>drawlib.toml</code>) &amp; Multi-Locale <code>i18n</code> Compilation</h2>
+<p>Directory builds across <code>doc</code>, <code>site</code>, and <code>slide</code> archetypes are governed by a declarative <strong><code>drawlib.toml</code></strong> manifest (<code>_builder/_common/manifest.py</code> and <code>doc_builder/i18n.py</code>):</p>
+<ol>
+<li><strong>Manifest Validation (<code>ProjectManifest</code> &amp; <code>I18nConfig</code>)</strong>:
+<ul>
+<li><code>doc</code>, <code>site</code>, and <code>slide</code> projects require an <code>[i18n]</code> table specifying <code>default_lang</code> and <code>langs</code> (<code>len &gt;= 1</code>, plus optional <code>[i18n.labels]</code>), and organize Markdown sources under <code>&lt;src_dir&gt;/&lt;lang&gt;/</code>.</li>
+<li><code>images</code> projects specify <code>type = &quot;images&quot;</code> and <code>lang</code> under <code>[project]</code> without <code>[i18n]</code>.</li>
+</ul>
+</li>
+<li><strong>Pre-Flight Structural Parity Validation (<code>validate_i18n_project</code>)</strong>:
+<ul>
+<li>Before executing any drawing block, the compiler verifies that every configured locale directory (<code>&lt;src_dir&gt;/&lt;lang&gt;/</code>) contains the exact same relative <code>.md</code> file set, <code>navbar.md</code> structure (for <code>site</code>), Markdown heading hierarchy (<code>#</code>–<code>######</code>, ignoring speaker <code>::: note</code> prose on <code>slide</code>), and <code>drawlib</code> block layout.</li>
+</ul>
+</li>
+<li><strong>Shared Diagram Deduplication &amp; Per-Locale Overrides</strong>:
+<ul>
+<li>Language-neutral diagrams (<code>file=arch.png</code>) compile once using root <code>&lt;src_dir&gt;/styles.py</code> and <code>&lt;src_dir&gt;/utils.py</code>, writing to a shared <code>&lt;output&gt;/images/</code> directory referenced across all locales (<code>../images/</code> or <code>../../images/</code>).</li>
+<li>Locale-specific diagrams can override typography or helper logic via optional <code>&lt;src_dir&gt;/&lt;lang&gt;/styles.py</code> and <code>&lt;src_dir&gt;/&lt;lang&gt;/utils.py</code> files while writing to locale-suffixed filenames (<code>file=arch_ja.png</code>).</li>
+</ul>
+</li>
+</ol>
 <p>Next, explore how the AST compiles into multiple formats in <strong><a href="02_multi_target_exporters.html">Multi-Target Exporters</a></strong>.</p>
 
             </main>

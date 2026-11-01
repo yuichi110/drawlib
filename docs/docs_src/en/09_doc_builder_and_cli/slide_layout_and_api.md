@@ -954,7 +954,7 @@ for p4_idx, (m4, dur, flbl, clang, code_4, hl_rng, badge, foot, st_t, s_1, s_2) 
             # Left input
             rectangle((83.5, 35.0), width=15.6, height=15.0, style=Styles.Neutral.patch(shape_r=1.2))
             phosphor.folder_open((83.5, 39.2), width=4.0, style=Styles.PrimaryBold)
-            text((83.5, 31.8), "slide_src/\n*.md", style=Styles.DarkBold.patch(text_size=9.5))
+            text((83.5, 31.8), "slide_src/\n<lang>/*.md", style=Styles.DarkBold.patch(text_size=9.0))
 
             # Center compiler
             rectangle((102.5, 35.0), width=15.6, height=16.5, style=Styles.PrimaryFlat.patch(shape_r=1.4))
@@ -964,11 +964,11 @@ for p4_idx, (m4, dur, flbl, clang, code_4, hl_rng, badge, foot, st_t, s_1, s_2) 
             # Right outputs (HTML + PPTX)
             rectangle((121.2, 42.6), width=15.8, height=11.5, style=Styles.PrimaryNeutral.patch(shape_r=1.2))
             phosphor.globe((116.2, 42.6), width=3.4, style=Styles.PrimaryBold)
-            text((123.2, 42.6), "HTML\nDeck", style=Styles.DarkBold.patch(text_size=9.5))
+            text((123.2, 42.6), "<lang>/\nHTML", style=Styles.DarkBold.patch(text_size=9.5))
 
             rectangle((121.2, 27.4), width=15.8, height=11.5, style=Styles.SecondaryNeutral.patch(shape_r=1.2))
             workspace.powerpoint((116.2, 27.4), width=3.4, style=Styles.Primary)
-            text((123.2, 27.4), "Native\n.pptx", style=Styles.DarkBold.patch(text_size=9.5))
+            text((123.2, 27.4), "*_<lang>\n.pptx", style=Styles.DarkBold.patch(text_size=9.2))
 
             line((91.3, 35.0), (94.7, 35.0), arrow_head="->", style=Styles.DarkBold)
             line((110.3, 38.5), (113.3, 42.6), arrow_head="->", style=Styles.PrimaryBold)

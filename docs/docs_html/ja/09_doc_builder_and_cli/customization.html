@@ -72,7 +72,7 @@
                 
                 <a href="../01_getting_started/release_notes.html" class="sidebar-version-badge" title="View Release Notes">
                     <span class="sidebar-version-dot" aria-hidden="true"></span>
-                    <span class="sidebar-version-text">v0.3.2</span>
+                    <span class="sidebar-version-text">v0.3.3</span>
                 </a>
                 <a href="https://github.com/yuichi110/drawlib" target="_blank" rel="noopener noreferrer" class="sidebar-github-link" aria-label="GitHub Repository" title="GitHub Repository">
                     <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
@@ -748,7 +748,9 @@
 <li><code>{{ nav_sections }}</code> / <code>{{ nav_items }}</code>: サイドバー用の構造化ナビゲーションツリー（<code>site</code> プロジェクト用）。</li>
 <li><code>{{ toc_items }}</code>: 右側目次用の構造化された見出しアウトライン（<code>site</code> プロジェクト用）。</li>
 <li><code>{{ css_href }}</code>: <code>style.css</code> への相対パス。</li>
-<li><code>{{ custom_css }}</code>: 注入されるインライン CSS オーバーライド。</li>
+<li><code>{{ custom_css }}</code>: 注入されるインライン CSS オーバーライド（CJK / RTL 向け自動組版ルールを含む）。</li>
+<li><code>{{ html_lang }}</code> &amp; <code>{{ html_dir }}</code>: <code>drawlib.toml</code> から解決された現在のロケールコード（<code>en</code>, <code>ja</code>, <code>ar</code> 等）と書字方向（<code>ltr</code> または <code>rtl</code>）。</li>
+<li><code>{{ lang_switcher }}</code> &amp; <code>{{ alternate_links }}</code>: <code>[i18n]</code> で <code>len(langs) &gt; 1</code> の場合に自動生成される言語スイッチャー HTML と <code>&lt;link rel=&quot;alternate&quot; hreflang=&quot;...&quot;&gt;</code> メタデータ。</li>
 </ul>
 <hr />
 <h2>3. CSS スタイルシートのカスタマイズ (<code>style.css</code>)</h2>
@@ -883,8 +885,10 @@ drawlib<span class="w"> </span>css<span class="w"> </span>show<span class="w"> <
 <span class="c1"># Automatically rendered using the GoogleStyles theme and Roboto fonts configured in styles.py</span>
 <span class="n">rectangle</span><span class="p">((</span><span class="mi">40</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"Unified Themed Card"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">)</span>
 </code></pre>
-<h3><code>style.css</code> との一貫したデザイン統合</h3>
-<p><code>drawlib init &lt;type&gt; --style google</code>（または <code>monochrome</code>、<code>default</code>、<code>default-dark</code>、<code>google-dark</code>）を使用してプロジェクトをスキャフォールディングすると、Drawlib は Python 図解用の <code>styles.py</code> と HTML／PDF／スライドのタイポグラフィ・カード背景用の <code>style.css</code> の両方を自動的に同期させます。これにより、<strong>ドキュメントの本文と埋め込まれたアーキテクチャ図解が 100% 統一されたビジュアルアイデンティティを共有します</strong>。</p>
+<h3><code>style.css</code> および <code>drawlib.toml</code> との一貫したデザイン統合</h3>
+<p><code>drawlib init &lt;type&gt; --style google</code>（または <code>monochrome</code>、<code>default</code>、<code>default-dark</code>、<code>google-dark</code>）を使用してプロジェクトをスキャフォールディングすると、Drawlib は選択された <code>style</code> と <code>[i18n]</code> ロケール設定を <code>drawlib.toml</code> に記録しつつ、Python 図解用の <code>styles.py</code> と HTML／PDF／スライド用の <code>style.css</code> の両方を自動的に同期させます。これにより、<strong>ドキュメントの本文と埋め込まれたアーキテクチャ図解が 100% 統一されたビジュアルアイデンティティを共有します</strong>。</p>
+<h3>ロケール別の <code>styles.py</code> / <code>utils.py</code> オーバーライド (<code>&lt;src_dir&gt;/&lt;lang&gt;/</code>)</h3>
+<p>多言語構成の <code>doc</code>・<code>site</code>・<code>slide</code> プロジェクト（<code>drawlib.toml</code> で <code>langs = [&quot;en&quot;, &quot;ja&quot;]</code> 等を指定）では、既定でルート直下の <code>styles.py</code> と <code>utils.py</code> が全ロケールに適用されます。特定のロケールで CJK フォント（<code>ja/</code> における <code>FontJapanese</code> など）や言語固有のヘルパー関数を使用したい場合は、<code>&lt;src_dir&gt;/&lt;lang&gt;/styles.py</code> や <code>&lt;src_dir&gt;/&lt;lang&gt;/utils.py</code> を配置してください。該当ロケールの図解ビルド時にロケール別ファイルが優先解決され、未配置時はルートの <code>styles.py</code> / <code>utils.py</code> へ自動フォールバックします。</p>
 <hr />
 <h2>5. 共通ヘルパー関数の注入 (<code>utils.py</code>)</h2>
 <p>専用のサーバーラック、ステータスバッジ、複合アイコンといった再利用可能な複合描画要素については、<code>utils.py</code> 内にカスタム関数を作成します。</p>

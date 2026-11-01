@@ -63,8 +63,8 @@ targets = [
     (19.0, 41.5, "1. docs_src/ (site)", "Official Multi-Page\nDocs Portal + Markdown", Styles.PrimaryNeutral, Styles.DarkBold),
     (49.0, 41.5, "2. quickstart_src/ (doc)", "Quickstart Manual\nHTML + A4 Vector PDF", Styles.SecondaryNeutral, Styles.DarkBold),
     (79.0, 41.5, "3. dogfooding_src/ (doc)", "JP & EN Whitepapers\nHTML + A4 Vector PDF", Styles.BlueNeutral, Styles.DarkBold),
-    (33.0, 21.5, "4. slide_about_drawlib_src/", "This 64-Slide 16:9 Deck!\nHTML + Vector slide.pdf", Styles.AccentFlat, Styles.WhiteBold),
-    (65.0, 21.5, "5. readme_src/ (image)", "GitHub README.md\nHero Banner Scripts", Styles.TealNeutral, Styles.DarkBold),
+    (33.0, 21.5, "4. slide_about_drawlib_src/", "This 64-Slide 16:9 Deck!\nHTML + *_en.pdf Deck", Styles.AccentFlat, Styles.WhiteBold),
+    (65.0, 21.5, "5. readme_src/ (images)", "GitHub README.md\nHero Banner Scripts", Styles.TealNeutral, Styles.DarkBold),
 ]
 
 for cx, cy, title_s, sub_s, st_c, st_t in targets:

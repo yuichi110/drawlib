@@ -279,35 +279,36 @@
 <tr>
 <td style="text-align:left"><strong>HTML</strong></td>
 <td style="text-align:left"><code>compiler/html.py</code></td>
-<td style="text-align:left"><code>docs_html/</code>, <code>slide_html/</code></td>
-<td style="text-align:left">VitePress-inspired theme, sidebar navigation, instant dark mode, 16:9 interactive slide stage.</td>
+<td style="text-align:left"><code>docs_html/&lt;lang&gt;/</code>, <code>slide_html/&lt;lang&gt;/</code> (+ root <code>index.html</code>)</td>
+<td style="text-align:left">VitePress-inspired theme, sidebar navigation, language switcher, instant dark mode, 16:9 interactive slide stage.</td>
 </tr>
 <tr>
 <td style="text-align:left"><strong>Markdown</strong></td>
 <td style="text-align:left"><code>compiler/markdown.py</code></td>
-<td style="text-align:left"><code>docs_markdown/</code></td>
-<td style="text-align:left">Clean GitHub Flavored Markdown with relative image links for native Git viewing.</td>
+<td style="text-align:left"><code>docs_markdown/&lt;lang&gt;/</code></td>
+<td style="text-align:left">Clean GitHub Flavored Markdown with relative shared <code>images/</code> links for native Git viewing.</td>
 </tr>
 <tr>
 <td style="text-align:left"><strong>PDF</strong></td>
 <td style="text-align:left"><code>compiler/pdf.py</code></td>
-<td style="text-align:left"><code>document.pdf</code>, <code>slide.pdf</code></td>
+<td style="text-align:left"><code>&lt;base&gt;_&lt;lang&gt;.pdf</code></td>
 <td style="text-align:left">Vector graphic embedding, automated pagination, TOC injection, auto-provisioned headless Chromium print.</td>
 </tr>
 <tr>
 <td style="text-align:left"><strong>Word (<code>.docx</code>)</strong></td>
 <td style="text-align:left"><code>compiler/docx.py</code></td>
-<td style="text-align:left"><code>document.docx</code></td>
+<td style="text-align:left"><code>&lt;base&gt;_&lt;lang&gt;.docx</code></td>
 <td style="text-align:left">Pure-Python editable OOXML headings, prose, lists, tables, syntax-highlighted code blocks, TOC, and 200 DPI PNG diagrams.</td>
 </tr>
 <tr>
 <td style="text-align:left"><strong>PowerPoint (<code>.pptx</code>)</strong></td>
 <td style="text-align:left"><code>_slide/compiler_pptx.py</code></td>
-<td style="text-align:left"><code>slide.pptx</code></td>
+<td style="text-align:left"><code>&lt;base&gt;_&lt;lang&gt;.pptx</code></td>
 <td style="text-align:left">Headless Chromium <code>1920×1080</code> CSS layout measurement mapped to native 16:9 (<code>960×540 pt</code>) OOXML cards, text, tables, speaker notes, and 240 DPI PNG diagrams.</td>
 </tr>
 </tbody>
 </table>
+<p>For multi-locale projects (<code>[i18n]</code> in <code>drawlib.toml</code>), every directory build emits locale-scoped subdirectories (<code>&lt;output_dir&gt;/&lt;lang&gt;/</code> sharing a deduplicated <code>&lt;output_dir&gt;/images/</code> folder) or locale-suffixed document deliverables (<code>&lt;base&gt;_&lt;lang&gt;.pdf</code>, <code>&lt;base&gt;_&lt;lang&gt;.docx</code>, <code>&lt;base&gt;_&lt;lang&gt;.pptx</code>), even when <code>langs = [&quot;en&quot;]</code> contains a single locale.</p>
 <hr />
 <h2>2. Positioning: HTML Theme Engine &amp; Design Tokens</h2>
 <p>The HTML exporter (<code>compiler/html.py</code>) combines Jinja2 HTML templates (<code>template.html</code>) and responsive CSS variables (<code>style.css</code>):</p>

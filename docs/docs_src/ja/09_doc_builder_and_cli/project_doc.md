@@ -192,8 +192,8 @@ ROW_DONE = Styles.Neutral.patch(
 )
 
 PART_ITEMS = [
-    ("1. Init & Theme", "Scaffold & cover setup"),
-    ("2. Chapters & Grid", "01..02.md & -g check"),
+    ("1. Init & Theme", "drawlib.toml & cover"),
+    ("2. Chapters & Grid", "en/01..02.md & -g"),
     ("3. Multi-Target Out", "HTML, PDF, MD & DOCX"),
     ("4. Day-2 Update", "Cache hit & TOC sync"),
 ]
@@ -297,53 +297,59 @@ def draw_tree_icon(kind: str, xy: tuple[float, float], *, muted: bool = False) -
     if kind == "folder_open":
         phosphor.folder_open(
             xy,
-            width=3.0,
+            width=2.9,
             style=Styles.Muted if muted else Styles.PrimaryBold,
         )
     elif kind == "folder_out":
         phosphor.folder(
             xy,
-            width=3.0,
+            width=2.9,
             style=Styles.Muted if muted else Styles.SecondaryBold,
         )
+    elif kind == "toml":
+        phosphor.gear_six(
+            xy,
+            width=2.8,
+            style=Styles.Muted if muted else Styles.PrimaryBold,
+        )
     elif kind == "py":
-        code.python(xy, width=2.8, style=Styles.Neutral)
+        code.python(xy, width=2.7, style=Styles.Neutral)
     elif kind == "html":
         phosphor.file_html(
             xy,
-            width=2.9,
+            width=2.8,
             style=Styles.Muted if muted else Styles.Dark,
         )
     elif kind == "md":
         phosphor.file_text(
             xy,
-            width=2.9,
+            width=2.8,
             style=Styles.Muted if muted else Styles.Dark,
         )
     elif kind == "sh":
         phosphor.file_code(
             xy,
-            width=2.9,
+            width=2.8,
             style=Styles.Muted if muted else Styles.Dark,
         )
     elif kind == "globe":
         phosphor.globe(
             xy,
-            width=2.9,
+            width=2.8,
             style=Styles.Muted if muted else Styles.PrimaryBold,
         )
     elif kind == "pdf":
         phosphor.file_pdf(
             xy,
-            width=2.9,
+            width=2.8,
             style=Styles.Muted if muted else Styles.Danger,
         )
     elif kind == "word":
-        workspace.word(xy, width=2.8, style=Styles.Neutral)
+        workspace.word(xy, width=2.7, style=Styles.Neutral)
     elif kind == "grid":
         phosphor.grid_four(
             xy,
-            width=2.9,
+            width=2.8,
             style=Styles.Muted if muted else Styles.PrimaryBold,
         )
 
@@ -458,8 +464,8 @@ def draw_workspace_frame(
         )
         text(
             (36.0, 13.2),
-            "1 day later — 00_cover.md & 01_overview.md untouched",
-            style=Styles.MutedBold.patch(text_size=9.6),
+            "1 day later — en/00_cover & en/01_overview untouched",
+            style=Styles.MutedBold.patch(text_size=9.5),
         )
         text(
             (36.0, 9.6),
@@ -498,7 +504,7 @@ def draw_workspace_frame(
         )
 
     tree_rows = [
-        (key, lvl, ik, lbl, 59.35 - idx * 4.35)
+        (key, lvl, ik, lbl, 59.45 - idx * 3.98)
         for idx, (key, lvl, ik, lbl) in enumerate(tree_items)
     ]
 
@@ -529,64 +535,55 @@ def draw_workspace_frame(
             b_txt = None
 
         if rst is not None:
-            rectangle((103.1, ry), width=57.8, height=3.68, style=rst)
+            rectangle((103.1, ry), width=57.8, height=3.48, style=rst)
         if badge_txt and b_st is not None and b_txt is not None:
             bw = 15.8 if len(badge_txt) >= 9 else 12.8
             bx = 131.3 - bw / 2.0
             rectangle(
                 (bx, ry),
                 width=bw,
-                height=3.05,
+                height=2.95,
                 style=b_st,
                 text=badge_txt,
                 text_style=b_txt,
             )
 
-    # Geometric tree guide lines
+    # Geometric tree guide lines (supports levels 0..3)
+    icon_xs = [77.2, 81.6, 85.8, 90.0]
+    label_xs = [79.8, 84.2, 88.3, 92.5]
     guide_st = Styles.MutedThin.patch(line_color=(180, 194, 212), line_width=1.0)
-    lvl1_ys = [ry for _k, lvl, _ik, _lb, ry in tree_rows if lvl == 1]
-    if lvl1_ys:
-        line((77.2, tree_rows[0][4] - 1.7), (77.2, min(lvl1_ys)), style=guide_st)
-
-    idx_r = 0
-    while idx_r < len(tree_rows):
-        _k, lvl, _ik, _lb, ry = tree_rows[idx_r]
-        if lvl == 1:
-            j = idx_r + 1
-            last_child_y = None
-            while j < len(tree_rows) and tree_rows[j][1] == 2:
+    for idx_p, (_kp, lvl_p, _ikp, _lblp, ry_p) in enumerate(tree_rows):
+        last_child_y: float | None = None
+        for j in range(idx_p + 1, len(tree_rows)):
+            lvl_j = tree_rows[j][1]
+            if lvl_j <= lvl_p:
+                break
+            if lvl_j == lvl_p + 1:
                 last_child_y = tree_rows[j][4]
-                j += 1
-            if last_child_y is not None:
-                line((81.6, ry - 1.7), (81.6, last_child_y), style=guide_st)
-            idx_r = j
-        else:
-            idx_r += 1
+        if last_child_y is not None:
+            px = icon_xs[lvl_p]
+            line((px, ry_p - 1.6), (px, last_child_y), style=guide_st)
 
     for key, lvl, ik, lbl, ry in tree_rows:
         rstate = row_states.get(key, ("normal", ""))[0]
         is_muted = rstate == "muted"
-        if lvl == 0:
-            ix, lx = 77.2, 79.8
-        elif lvl == 1:
-            line((77.2, ry), (79.5, ry), style=guide_st)
-            ix, lx = 81.6, 84.2
-        else:
-            line((81.6, ry), (83.9, ry), style=guide_st)
-            ix, lx = 86.0, 88.5
+        ix = icon_xs[lvl]
+        lx = label_xs[lvl]
+        if lvl >= 1:
+            line((icon_xs[lvl - 1], ry), (ix - 2.0, ry), style=guide_st)
 
         draw_tree_icon(ik, (ix, ry), muted=is_muted)
 
         if rstate in {"new", "active", "optional", "cached"}:
-            t_st = Styles.PrimaryBold.patch(text_size=9.8, halign="left")
+            t_st = Styles.PrimaryBold.patch(text_size=9.7, halign="left")
         elif rstate in {"output", "verified"}:
-            t_st = Styles.SecondaryBold.patch(text_size=9.8, halign="left")
+            t_st = Styles.SecondaryBold.patch(text_size=9.7, halign="left")
         elif is_muted:
-            t_st = Styles.Muted.patch(text_size=9.6, halign="left")
+            t_st = Styles.Muted.patch(text_size=9.5, halign="left")
         elif lvl <= 1:
-            t_st = Styles.DarkBold.patch(text_size=9.8, halign="left")
+            t_st = Styles.DarkBold.patch(text_size=9.7, halign="left")
         else:
-            t_st = Styles.Dark.patch(text_size=9.7, halign="left")
+            t_st = Styles.Dark.patch(text_size=9.6, halign="left")
 
         text((lx, ry), lbl, style=t_st)
 
@@ -594,23 +591,25 @@ def draw_workspace_frame(
 TREE_STARTER = [
     ("root", 0, "folder_open", "my_repo/"),
     ("doc_src", 1, "folder_open", "doc_src/"),
-    ("styles", 2, "py", "styles.py"),
-    ("utils", 2, "py", "utils.py"),
+    ("toml", 2, "toml", "drawlib.toml"),
+    ("styles", 2, "py", "styles.py, utils.py"),
     ("template", 2, "html", "template.html, style.css"),
-    ("cover", 2, "md", "00_cover.md"),
-    ("overview", 2, "md", "01_overview.md"),
+    ("en_dir", 2, "folder_open", "en/"),
+    ("cover", 3, "md", "00_cover.md"),
+    ("overview", 3, "md", "01_overview.md"),
     ("build_sh", 2, "sh", "build.sh"),
 ]
 
 TREE_CHAPTERS = [
     ("root", 0, "folder_open", "my_repo/"),
     ("doc_src", 1, "folder_open", "doc_src/"),
-    ("styles", 2, "py", "styles.py"),
-    ("utils", 2, "py", "utils.py"),
+    ("toml", 2, "toml", "drawlib.toml"),
+    ("styles", 2, "py", "styles.py, utils.py"),
     ("template", 2, "html", "template.html, style.css"),
-    ("cover", 2, "md", "00_cover.md"),
-    ("overview", 2, "md", "01_overview.md"),
-    ("design", 2, "md", "02_design.md"),
+    ("en_dir", 2, "folder_open", "en/"),
+    ("cover", 3, "md", "00_cover.md"),
+    ("overview", 3, "md", "01_overview.md"),
+    ("design", 3, "md", "02_design.md"),
     ("build_sh", 2, "sh", "build.sh"),
 ]
 
@@ -622,10 +621,10 @@ TREE_GRID_PREVIEW = [
 
 TREE_FULL = [
     *TREE_CHAPTERS,
-    ("out_html", 1, "globe", "doc_html/"),
-    ("out_pdf", 1, "pdf", "doc.pdf"),
-    ("out_md", 1, "folder_out", "doc_markdown/"),
-    ("out_docx", 1, "word", "doc.docx"),
+    ("out_html", 1, "globe", "doc_html/en/"),
+    ("out_pdf", 1, "pdf", "doc_en.pdf"),
+    ("out_md", 1, "folder_out", "doc_markdown/en/"),
+    ("out_docx", 1, "word", "doc_en.docx"),
 ]
 
 DURATIONS = [3.1, 3.1, 3.3] * 4
@@ -638,7 +637,7 @@ with anim.frame(duration=DURATIONS[0]):
         active_phase=1,
         actor="gemini",
         actor_title="Gemini: Run drawlib init doc -s google",
-        actor_sub="Scaffold doc_src/, templates & build.sh",
+        actor_sub="Scaffold doc_src/en/, drawlib.toml & build.sh",
         actor_optional=False,
         ops=[
             ("user", 'Prompt: "Create architecture RFC spec"', "done"),
@@ -648,9 +647,10 @@ with anim.frame(duration=DURATIONS[0]):
         tree_items=TREE_STARTER,
         row_states={
             "doc_src": ("new", "Created"),
+            "toml": ("new", "Created"),
             "styles": ("new", "Created"),
-            "utils": ("new", "Created"),
             "template": ("new", "Created"),
+            "en_dir": ("new", "Created"),
             "cover": ("new", "Created"),
             "overview": ("new", "Created"),
             "build_sh": ("new", "Created"),
@@ -663,19 +663,19 @@ with anim.frame(duration=DURATIONS[1]):
     draw_workspace_frame(
         active_phase=1,
         actor="gemini",
-        actor_title="Gemini: Configure styles.py typography",
-        actor_sub="Set shared brand palette & document fonts",
+        actor_title="Gemini: Configure drawlib.toml & styles.py",
+        actor_sub="Set i18n manifest, brand palette & fonts",
         actor_optional=False,
         ops=[
             ("user", 'Prompt: "Create architecture RFC spec"', "done"),
             ("gemini", "$ drawlib init doc -s google", "done"),
-            ("gemini", "Edit doc_src/styles.py & utils.py", "active_gemini"),
+            ("gemini", "Edit drawlib.toml, styles.py & utils.py", "active_gemini"),
         ],
         show_day2_note=False,
         tree_items=TREE_STARTER,
         row_states={
+            "toml": ("active", "Updated"),
             "styles": ("active", "Updated"),
-            "utils": ("active", "Updated"),
         },
         committed=False,
         pulse_arrow=True,
@@ -685,14 +685,14 @@ with anim.frame(duration=DURATIONS[2]):
     draw_workspace_frame(
         active_phase=1,
         actor="gemini",
-        actor_title="Gemini: Customize 00_cover.md metadata",
+        actor_title="Gemini: Customize en/00_cover.md metadata",
         actor_sub="Set document title, abstract & cover hero",
         actor_optional=False,
         ops=[
             ("user", 'Prompt: "Create architecture RFC spec"', "done"),
             ("gemini", "$ drawlib init doc -s google", "done"),
-            ("gemini", "Edit doc_src/styles.py & utils.py", "done"),
-            ("gemini", "Edit doc_src/00_cover.md", "active_gemini"),
+            ("gemini", "Edit drawlib.toml, styles.py & utils.py", "done"),
+            ("gemini", "Edit doc_src/en/00_cover.md", "active_gemini"),
         ],
         show_day2_note=False,
         tree_items=TREE_STARTER,
@@ -710,13 +710,13 @@ with anim.frame(duration=DURATIONS[3]):
     draw_workspace_frame(
         active_phase=2,
         actor="gemini",
-        actor_title="Gemini: Author 01_overview & 02_design",
+        actor_title="Gemini: Author en/01_overview & 02_design",
         actor_sub="Numbered chapters with ```drawlib blocks",
         actor_optional=False,
         ops=[
             ("gemini", "$ drawlib init doc -s google", "done"),
-            ("gemini", "Edit doc_src/styles.py & 00_cover.md", "done"),
-            ("gemini", "Write 01_overview.md & 02_design.md", "active_gemini"),
+            ("gemini", "Edit styles.py & en/00_cover.md", "done"),
+            ("gemini", "Write en/01_overview.md & en/02_design.md", "active_gemini"),
         ],
         show_day2_note=False,
         tree_items=TREE_CHAPTERS,
@@ -733,13 +733,13 @@ with anim.frame(duration=DURATIONS[4]):
         active_phase=2,
         actor="gemini",
         actor_title="Gemini: Stage 2 -g coordinate grid check",
-        actor_sub="Preview 02_design.md arch.png with grid",
+        actor_sub="Preview en/02_design.md arch.png with grid",
         actor_optional=False,
         ops=[
             ("gemini", "$ drawlib init doc -s google", "done"),
-            ("gemini", "Edit doc_src/styles.py & 00_cover.md", "done"),
-            ("gemini", "Write 01_overview.md & 02_design.md", "done"),
-            ("gemini", "$ drawlib show 02_design.md arch.png -g", "active_gemini"),
+            ("gemini", "Edit styles.py & en/00_cover.md", "done"),
+            ("gemini", "Write en/01_overview.md & en/02_design.md", "done"),
+            ("gemini", "$ drawlib show en/02_design.md arch.png -g", "active_gemini"),
         ],
         show_day2_note=False,
         tree_items=TREE_GRID_PREVIEW,
@@ -760,9 +760,9 @@ with anim.frame(duration=DURATIONS[5]):
         actor_optional=False,
         ops=[
             ("gemini", "$ drawlib init doc -s google", "done"),
-            ("gemini", "Edit doc_src/styles.py & 00_cover.md", "done"),
-            ("gemini", "Write 01_overview.md & 02_design.md", "done"),
-            ("gemini", "$ drawlib show 02_design.md arch.png -g", "done"),
+            ("gemini", "Edit styles.py & en/00_cover.md", "done"),
+            ("gemini", "Write en/01_overview.md & en/02_design.md", "done"),
+            ("gemini", "$ drawlib show en/02_design.md arch.png -g", "done"),
             ("gemini", "Verify chapter diagrams & anchors", "active_gemini"),
         ],
         show_day2_note=False,
@@ -783,12 +783,12 @@ with anim.frame(duration=DURATIONS[6]):
         active_phase=3,
         actor="gemini",
         actor_title="Gemini: Run ./doc_src/build.sh",
-        actor_sub="Compiles doc_html/, doc.pdf (--toc) & MD",
+        actor_sub="Compiles doc_html/en/, doc_en.pdf & MD",
         actor_optional=False,
         ops=[
             ("gemini", "$ drawlib init doc -s google", "done"),
-            ("gemini", "Write 01_overview.md & 02_design.md", "done"),
-            ("gemini", "$ drawlib show 02_design.md arch.png -g", "done"),
+            ("gemini", "Write en/01_overview.md & en/02_design.md", "done"),
+            ("gemini", "$ drawlib show en/02_design.md arch.png -g", "done"),
             ("gemini", "$ ./doc_src/build.sh  (HTML, PDF, MD)", "active_gemini"),
         ],
         show_day2_note=False,
@@ -807,15 +807,15 @@ with anim.frame(duration=DURATIONS[7]):
     draw_workspace_frame(
         active_phase=3,
         actor="gemini",
-        actor_title="Gemini: On-demand MS Word (.docx) export",
+        actor_title="Gemini: On-demand MS Word (doc_en.docx)",
         actor_sub="Editable Word doc with Cover, TOC & 200 DPI",
         actor_optional=True,
         ops=[
             ("gemini", "$ drawlib init doc -s google", "done"),
-            ("gemini", "Write 01_overview.md & 02_design.md", "done"),
-            ("gemini", "$ drawlib show 02_design.md arch.png -g", "done"),
+            ("gemini", "Write en/01_overview.md & en/02_design.md", "done"),
+            ("gemini", "$ drawlib show en/02_design.md arch.png -g", "done"),
             ("gemini", "$ ./doc_src/build.sh  (HTML, PDF, MD)", "done"),
-            ("gemini", "$ drawlib build docx -o doc.docx", "optional"),
+            ("gemini", "$ drawlib build docx -> doc_en.docx", "optional"),
         ],
         show_day2_note=False,
         tree_items=TREE_FULL,
@@ -838,9 +838,9 @@ with anim.frame(duration=DURATIONS[8]):
         actor_optional=False,
         ops=[
             ("gemini", "$ drawlib init doc -s google", "done"),
-            ("gemini", "Write 01_overview.md & 02_design.md", "done"),
+            ("gemini", "Write en/01_overview.md & en/02_design.md", "done"),
             ("gemini", "$ ./doc_src/build.sh  (HTML, PDF, MD)", "done"),
-            ("gemini", "$ drawlib build docx -o doc.docx", "optional_done"),
+            ("gemini", "$ drawlib build docx -> doc_en.docx", "optional_done"),
             ("user_git", '$ git add . && git commit -m "Add RFC"', "active_user"),
         ],
         show_day2_note=False,
@@ -857,18 +857,18 @@ with anim.frame(duration=DURATIONS[9]):
     draw_workspace_frame(
         active_phase=4,
         actor="user",
-        actor_title='1 day later — "Update 02_design.md"',
-        actor_sub="00_cover.md & 01_overview.md stay untouched",
+        actor_title='1 day later — "Update en/02_design.md"',
+        actor_sub="en/00_cover.md & en/01_overview.md untouched",
         actor_optional=False,
         ops=[
             ("user", 'Prompt: "Add caching section to Ch 2"', "done"),
-            ("gemini", "Edit doc_src/02_design.md", "active_gemini"),
+            ("gemini", "Edit doc_src/en/02_design.md", "active_gemini"),
         ],
         show_day2_note=True,
         tree_items=TREE_FULL,
         row_states={
+            "toml": ("muted", ""),
             "styles": ("muted", ""),
-            "utils": ("muted", ""),
             "template": ("muted", ""),
             "cover": ("muted", ""),
             "overview": ("muted", ""),
@@ -887,18 +887,18 @@ with anim.frame(duration=DURATIONS[10]):
         active_phase=4,
         actor="gemini",
         actor_title="Gemini: Incremental rebuild & TOC sync",
-        actor_sub="01_overview cached (<1ms); HTML & PDF update",
+        actor_sub="01_overview cached (<1ms); doc_en.pdf updates",
         actor_optional=False,
         ops=[
             ("user", 'Prompt: "Add caching section to Ch 2"', "done"),
-            ("gemini", "Edit doc_src/02_design.md", "done"),
+            ("gemini", "Edit doc_src/en/02_design.md", "done"),
             ("gemini", "$ ./doc_src/build.sh  (cache.db hit)", "active_gemini"),
         ],
         show_day2_note=True,
         tree_items=TREE_FULL,
         row_states={
+            "toml": ("muted", ""),
             "styles": ("muted", ""),
-            "utils": ("muted", ""),
             "template": ("muted", ""),
             "cover": ("muted", ""),
             "overview": ("cached", "Cached <1ms"),
@@ -921,7 +921,7 @@ with anim.frame(duration=DURATIONS[11]):
         actor_optional=False,
         ops=[
             ("user", 'Prompt: "Add caching section to Ch 2"', "done"),
-            ("gemini", "Edit doc_src/02_design.md", "done"),
+            ("gemini", "Edit doc_src/en/02_design.md", "done"),
             ("gemini", "$ ./doc_src/build.sh  (cache.db hit)", "done"),
             ("user_git", '$ git commit -am "Update Ch 2 design"', "active_user"),
         ],

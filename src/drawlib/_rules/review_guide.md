@@ -129,7 +129,7 @@ Run this one-liner via `uv run python` to scan all Markdown files in a project f
 uv run python -c '
 import glob, re
 for path in sorted(glob.glob("docs_src/**/*.md", recursive=True)):
-    if path.endswith("navbar.md"): continue
+    if path.endswith(("navbar.md", "README.md")) or "/_" in path: continue
     text = open(path, encoding="utf-8").read()
     fences = list(re.finditer(r"^```drawlib([^\n]*)", text, re.M))
     first_line = text[:fences[0].start()].count("\n") + 1 if fences else 999
@@ -150,7 +150,7 @@ Export individual diagrams with the `-g` (`--grid`) flag into `.drawlib/scratch/
 
 ```bash
 # Export a specific named block from a Markdown document with the coordinate grid:
-uv run drawlib show docs_src/architecture/overview.md hero_arch.png \
+uv run drawlib show docs_src/en/architecture/overview.md hero_arch.png \
     -s docs_src/styles.py -u docs_src/utils.py \
     -g -o .drawlib/scratch/preview_grid.png
 
@@ -183,7 +183,7 @@ uv run python -c '
 from pathlib import Path
 from playwright.sync_api import sync_playwright
 
-html_file = Path("docs_html/index.html").resolve()
+html_file = Path("docs_html/en/index.html").resolve()
 out_png = Path(".drawlib/scratch/browser_check.png").resolve()
 out_png.parent.mkdir(parents=True, exist_ok=True)
 
@@ -229,7 +229,7 @@ $$\text{Rendered CSS Font Size (px)} = \text{text\_size} \times \text{scale} \ti
 #### 1B. 16:9 Presentation Slide Decks (`slide` — `26px` Markdown Prose on `1920×1080` Stage)
 
 In **16:9 Slide Decks (`project-slide` / `slide-guide`)**, the stage is **`1920px × 1080px`** and Markdown body text inside `::: block` is **`26px`** (`h2` is `34px`, `h1` is `52px`).
-> **CRITICAL SLIDE REVIEW RULE**: Checking only for "zero overlapping text" is **not sufficient** on slides! A diagram with `text_size = 9.5` inside a `1000px`-wide 2-column block renders at **`~13px`** on the `1920×1080` stage—half the size of the `26px` Markdown bullets beside it! Always compare in-diagram text height directly against adjacent `26px` slide prose when reviewing the compiled PDF (`slide.pdf`) or HTML stage (`slide_html/index.html`).
+> **CRITICAL SLIDE REVIEW RULE**: Checking only for "zero overlapping text" is **not sufficient** on slides! A diagram with `text_size = 9.5` inside a `1000px`-wide 2-column block renders at **`~13px`** on the `1920×1080` stage—half the size of the `26px` Markdown bullets beside it! Always compare in-diagram text height directly against adjacent `26px` slide prose when reviewing the compiled PDF (`slide_<lang>.pdf`) or HTML stage (`slide_html/<lang>/index.html`).
 
 Scale `text_size` inversely with the enclosing `::: block xy=(x, y) width=W_block height=H_block` width so rendered diagram labels stay **`>= 18px–24px`** on the `1920×1080` stage:
 
@@ -290,7 +290,7 @@ Avoid **"Rainbow Color Chaos"** (assigning a different saturated fill to every n
 
 ### 4.1. Scaling the 3-Stage Loop Across Parallel Subagents
 When authoring or reviewing multiple scripts, chapters, pages, or slides, **distribute Stage 1 and Stage 2 across parallel subagents** to prevent multimodal image inspection from filling a single agent's context window:
-1. **Parent Sets Up Shared Config First**: Initialize the project (`drawlib init`) and finalize `styles.py`, `utils.py`, `_assets/`, and `navbar.md` before spawning subagents.
+1. **Parent Sets Up Shared Config First**: Initialize the project (`drawlib init`) and finalize `drawlib.toml`, `styles.py`, `utils.py`, `_assets/`, and `<lang>/navbar.md` before spawning subagents.
 2. **Subagents Run Stage 1 & Stage 2 on Disjoint Files with Unique Scratch Names**: Each subagent edits only its assigned `.py` or `.md` file(s) and exports grid previews to a **unique filename** (`-o .drawlib/scratch/<file_or_block>_grid.png`, never a shared `preview.png`) before inspecting with `view_file`. Subagents must not run full `./build.sh` builds concurrently.
 3. **Parent Runs Stage 3 Unified Build & Macro Review**: After all subagents finish, the parent orchestrator runs `./build.sh` once, checks links (`drawlib serve --check`), and inspects the rendered HTML/PDF output.
 

@@ -16,17 +16,18 @@ The `doc` archetype (`doc_src/`) is purpose-built for linear technical documents
 
 ```text
 doc_src/
-├── 00_cover.md          # Title, subtitle, author metadata
-├── 01_introduction.md   # Chapter 1
-├── 02_architecture.md   # Chapter 2 (with ```drawlib blocks)
-└── 03_benchmarks.md     # Chapter 3
+├── drawlib.toml         # [project] + [i18n] manifest
+└── en/                  # Locale chapter tree (-l en,ja)
+    ├── 00_cover.md      # Title, subtitle, author metadata
+    ├── 01_overview.md   # Chapter 1
+    └── 02_design.md     # Chapter 2 (with ```drawlib blocks)
 ```
 
-### Dual Publication Outputs from One Source
-1. **Unified Standalone Web Document (`doc_html/index.html`)**:
-   - Merges all numbered `.md` chapters in sorted order into a single `index.html` with an auto-generated **Table of Contents**, a centered **900px reading container**, and full `file://` portability.
-2. **Print-Ready Vector PDF (`doc.pdf`)**:
-   - `drawlib build pdf --toc --page-break` launches headless **Playwright / Chromium** (`page.pdf()`) to render crisp vector diagrams, web fonts, and A4 page breaks with deterministic metadata.
+### Multi-Format Publication Outputs from One Source
+1. **Unified Standalone Web Document (`doc_html/<lang>/index.html`)**:
+   - Merges all numbered `.md` chapters in sorted order into a per-locale `index.html` with an auto-generated **Table of Contents**, a centered **900px reading container**, and full `file://` portability.
+2. **Print-Ready Vector PDF & Word (`doc_<lang>.pdf` / `.docx`)**:
+   - `drawlib build pdf --toc` renders crisp vector A4 PDFs via headless Chromium, while `drawlib build docx` exports native editable MS Word documents.
 :::
 
 ::: block xy=(860, 140) width=980 height=840
@@ -45,7 +46,7 @@ text((49, 75), "Linear Document & Headless Vector PDF Pipeline", style=Styles.Da
 
 # Left Column: Ordered Markdown Chapters
 rectangle((18.5, 42.0), width=23.0, height=54.0, style=Styles.PrimaryNeutral.patch(shape_r=2.0))
-text((18.5, 64.5), "doc_src/ Chapters", style=Styles.PrimaryBold.patch(text_size=9.5))
+text((18.5, 64.5), "doc_src/<lang>/", style=Styles.PrimaryBold.patch(text_size=9.5))
 
 ch_files = [
     ("00_cover.md", "Cover & Metadata"),
@@ -83,20 +84,20 @@ rectangle(
     width=21.0,
     height=15.0,
     style=Styles.White.patch(shape_r=1.2),
-    text="doc_html/index.html\n• Centered 900px layout\n• Interactive ToC links\n• Works via file://",
-    text_style=Styles.Dark.patch(text_size=7.8),
+    text="doc_html/<lang>/index.html\n• Centered 900px layout\n• Interactive ToC links\n• Works via file://",
+    text_style=Styles.Dark.patch(text_size=7.6),
 )
 
 # Right Bottom: Headless Chromium Vector PDF
 rectangle((78.5, 25.5), width=25.0, height=27.0, style=Styles.BlueNeutral.patch(shape_r=2.0))
-text((78.5, 35.5), "2. Vector PDF Export", style=Styles.DarkBold.patch(text_size=9.0))
+text((78.5, 35.5), "2. PDF & Word Export", style=Styles.DarkBold.patch(text_size=9.0))
 rectangle(
     (78.5, 22.5),
     width=21.0,
     height=16.5,
     style=Styles.AccentFlat.patch(shape_r=1.2),
-    text="Playwright + Chromium\n--> doc.pdf (A4)\n• Crisp Vector Graphics\n• CSS @page Breaks",
-    text_style=Styles.WhiteBold.patch(text_size=7.8),
+    text="Chromium / python-docx\n--> doc_<lang>.pdf/.docx\n• Crisp Vector Graphics\n• CSS @page & OOXML",
+    text_style=Styles.WhiteBold.patch(text_size=7.6),
 )
 
 line((58.5, 48.0), (66.0, 56.5), arrow_head="->", style=Styles.DarkBold)

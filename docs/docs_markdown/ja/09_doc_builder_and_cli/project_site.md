@@ -43,10 +43,10 @@ line((38, 31), (53, 31), arrow_head="->", style=Styles.DarkBold)
 text((45.5, 36.2), "build html", style=Styles.PrimaryBold.patch(text_size=10.5))
 text((45.5, 25.5), "Link Audit", style=Styles.Muted.patch(text_size=10.0))
 
-# Right: Compiled Two-Column Site UI (docs_html/)
+# Right: Compiled Two-Column Site UI (docs_html/<lang>/)
 rectangle((88, 31), width=70, height=54, style=Styles.SecondaryNeutral.patch(shape_r=2.0))
 phosphor.browsers((60.5, 54.2), width=4.6, style=Styles.PrimaryBold)
-text((91.0, 54.2), "Compiled Two-Column Site UI (docs_html/)", style=Styles.DarkBold.patch(text_size=10.8))
+text((91.0, 54.2), "Compiled Two-Column Site UI (docs_html/<lang>/)", style=Styles.DarkBold.patch(text_size=10.8))
 
 # Left Sticky Sidebar
 rectangle((69.5, 28.0), width=27, height=44, style=Styles.Neutral.patch(shape_r=1.5))

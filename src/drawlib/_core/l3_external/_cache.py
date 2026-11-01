@@ -22,14 +22,12 @@ from drawlib._core.l1_core import (
     RULES_DIR_PATH,
     logger,
 )
-from drawlib._release_assets import (
-    RELEASE_ASSET_PACKAGES,
-    download_all_release_assets,
-)
 
 
 def download_all_fonts() -> None:
     """Download all fonts from GitHub Releases."""
+    from drawlib._release_assets import RELEASE_ASSET_PACKAGES  # noqa: PLC0415
+
     for pkg in RELEASE_ASSET_PACKAGES.values():
         if pkg.category == "font":
             pkg.download_and_extract()
@@ -37,6 +35,8 @@ def download_all_fonts() -> None:
 
 def download_all_icons() -> None:
     """Download all icon fonts from GitHub Releases."""
+    from drawlib._release_assets import RELEASE_ASSET_PACKAGES  # noqa: PLC0415
+
     for pkg in RELEASE_ASSET_PACKAGES.values():
         if pkg.category == "icon":
             pkg.download_and_extract()
@@ -44,6 +44,8 @@ def download_all_icons() -> None:
 
 def download_all_maps() -> None:
     """Download all map GeoJSON packages from GitHub Releases."""
+    from drawlib._release_assets import RELEASE_ASSET_PACKAGES  # noqa: PLC0415
+
     for pkg in RELEASE_ASSET_PACKAGES.values():
         if pkg.category == "map":
             pkg.download_and_extract()
@@ -51,6 +53,8 @@ def download_all_maps() -> None:
 
 def download_all_assets() -> None:
     """Download all fonts, icons, and maps from GitHub Releases."""
+    from drawlib._release_assets import download_all_release_assets  # noqa: PLC0415
+
     download_all_release_assets()
 
 

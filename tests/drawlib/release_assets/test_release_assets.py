@@ -12,6 +12,8 @@
 from __future__ import annotations
 
 import hashlib
+import subprocess
+import sys
 from pathlib import Path
 
 import pytest
@@ -267,3 +269,16 @@ def test_deterministic_zip_hashes_match_all_packages() -> None:
         assert calculated_sha == pkg.archive_sha256, (
             f"SHA-256 mismatch for {pkg.name}: expected {pkg.archive_sha256}, got {calculated_sha}"
         )
+
+
+def test_release_assets_first_import_no_circular_error() -> None:
+    """Verify drawlib._release_assets imports cleanly in a fresh interpreter before drawlib._core."""
+    stmt = "from drawlib._release_assets import RELEASE_ASSET_PACKAGES; assert len(RELEASE_ASSET_PACKAGES) > 0"
+    proc = subprocess.run(  # noqa: S603
+        [sys.executable, "-c", stmt],
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    assert proc.returncode == 0, proc.stderr
+

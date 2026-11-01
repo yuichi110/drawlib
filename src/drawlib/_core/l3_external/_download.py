@@ -16,7 +16,6 @@ import os
 
 from drawlib._core.l1_core import logger
 from drawlib._core.l3_external._package import ReleaseAssetPackage
-from drawlib._release_assets import find_package_for_resource_path
 
 
 def _find_package_for_file_path(file_path: str) -> ReleaseAssetPackage | None:
@@ -28,6 +27,8 @@ def _find_package_for_file_path(file_path: str) -> ReleaseAssetPackage | None:
     Returns:
         ReleaseAssetPackage | None: Matching package if matched, otherwise None.
     """
+    from drawlib._release_assets import find_package_for_resource_path  # noqa: PLC0415
+
     normalized = file_path.replace("\\", "/").strip("/")
     if "/fonts/" in normalized:
         sub = "fonts/" + normalized.split("/fonts/", 1)[1]

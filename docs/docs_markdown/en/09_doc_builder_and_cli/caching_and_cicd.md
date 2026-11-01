@@ -29,7 +29,7 @@ rectangle((64, 29), width=120, height=50, style=Styles.MutedDashed.patch(shape_r
 rectangle((21, 29), width=26, height=40, style=Styles.Neutral.patch(shape_r=1.8))
 phosphor.git_merge((21, 42.5), width=4.8, style=Styles.PrimaryBold)
 text((21, 34.5), "Project Source", style=Styles.DarkBold.patch(text_size=10.8))
-text((21, 22.0), "docs_src/*.md\nstyles.py\nutils.py\n_assets/*", style=Styles.Dark.patch(text_size=10.0))
+text((21, 22.0), "docs_src/<lang>/*.md\nstyles.py\nutils.py\n_assets/*", style=Styles.Dark.patch(text_size=9.6))
 
 # Center: Drawlib Compiler (Hero focal point)
 rectangle((64, 41.5), width=36, height=14.5, style=Styles.PrimaryFlat.patch(shape_r=1.8))
@@ -193,7 +193,7 @@ If a drawing script imports a custom external Python module *outside* `styles.py
 ```bash
 # Force full re-rendering for a single build or preview command:
 uv run drawlib build html docs_src/ -o docs_html/ --no-cache
-uv run drawlib show docs_src/index.md arch.png -g -o .drawlib/scratch/preview.png --no-cache
+uv run drawlib show docs_src/en/index.md arch.png -g -o .drawlib/scratch/preview.png --no-cache
 
 # Or purge all cached diagram binaries from .drawlib/cache.db:
 uv run drawlib cache clear --images

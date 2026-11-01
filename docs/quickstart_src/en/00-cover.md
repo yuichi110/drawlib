@@ -55,7 +55,7 @@ This guide serves as a comprehensive handbook for developers and AI agents adopt
 
 | Document Metadata | Value |
 | :--- | :--- |
-| **Document Version** | `0.2.0` |
+| **Document Version** | `0.3.3` |
 | **Theme** | GoogleStyles & GoogleColors |
 | **Source Repository** | `https://github.com/yuichi110/drawlib` |
 | **Author** | Yuichi Ito |

@@ -18,7 +18,7 @@ Drawlib enforces a strict **Dual-Layer Separation Principle**:
 2. **Layer 2 — Presenter Notes (`::: note`): Complete Technical Explanation (Mandatory)**
    - **Standard on Every Content Slide**: Every content slide must include a `::: note` block containing the full technical narrative, background context, step-by-step walkthrough of the diagram, and talking points.
    - **Offload Complexity to `::: note`**: Whenever you need to explain *why* an architecture works, detailed incident timelines, edge cases, or exact formulas, write that explanation inside `::: note` instead of crowding `::: block`.
-   - **Dual Benefit**: During live delivery, `::: note` renders cleanly in **Presenter View (`?presenter=1`, `P` / `S` key)** while staying hidden from the audience screen and vector PDF (`slide.pdf`). In Git, anyone reading the `.md` source file gets a complete, self-contained technical document.
+   - **Dual Benefit**: During live delivery, `::: note` renders cleanly in **Presenter View (`?presenter=1`, `P` / `S` key)** while staying hidden from the audience screen and vector PDF (`slide_<lang>.pdf`). In Git, anyone reading the `.md` source file gets a complete, self-contained technical document.
 
 ```drawlib align=center code=fold file=slide_guide_dual_layer.png caption="Dual-Layer Slide Principle: Visual-First Audience Stage (::: block) + Deep Explanation in Speaker Notes (::: note)"
 from drawlib.canvas import save, setup
@@ -203,9 +203,9 @@ save()
 ### 2.3. Section / Chapter Divider Slides (`01_section.md` per Chapter)
 - **Purpose**: Signal major topic transitions (every 3–6 slides) so the audience always knows where they are in the story.
 - **Strict Rules**:
-  - Organize decks of 8+ slides into numbered chapter subdirectories (e.g., `00_opening/`, `01_incident_overview/`, `02_root_cause/`, `03_defense_architecture/`, `04_closing/`).
+  - Organize decks of 8+ slides into numbered chapter subdirectories under `slide_src/<lang>/` (e.g., `00_opening/`, `01_incident_overview/`, `02_root_cause/`, `03_defense_architecture/`, `04_closing/`).
   - Begin each chapter subdirectory with a dedicated **Section Header slide** (`01_section.md`) using `from drawlib.slide import draw_section_header` (choose from `variant="split"`, `"centered"`, `"banner"`, or `"minimal"`).
-  - **Exclude Planning & Draft Files with `_`**: Store any deck outlines, storyboards, or scratch notes inside `slide_src/` with a leading underscore (e.g., `_CONTENTS_PLANNING.md`, `_drafts/`). Files/directories starting with `_` and `README.md` are automatically excluded from compilation.
+  - **Exclude Planning & Draft Files with `_`**: Store any deck outlines, storyboards, or scratch notes inside `slide_src/` or `slide_src/<lang>/` with a leading underscore (e.g., `_CONTENTS_PLANNING.md`, `_drafts/`). Files/directories starting with `_` and `README.md` are automatically excluded from compilation.
 
 ### 2.4. Dedicated Closing Section (`XX_closing/`) & Optional Appendix (`99_appendix/`)
 To prevent the overall presentation conclusion from blending into the final technical chapter, organize the end of multi-chapter decks into a dedicated **Closing section** (followed by an optional **Appendix**):
@@ -291,7 +291,7 @@ Always calibrate `text_size` according to the enclosing **`::: block` width ($W_
 
 ### 5.3. Vertical Safe Zones & Language Consistency
 - **Respect the Footer Safe Zone (`Y <= 960`)**: The slide footer and page counter live at `Y: 995..1040`. Ensure main content blocks end at or above `Y = 960` (`y + h <= 960`) so text and diagrams never collide with the footer.
-- **Language & Terminology Consistency**: Match the language of slide headers (`# Title`), footer text, and diagram labels to the presentation's target language (e.g., in a Japanese deck initialized with `--lang ja`, write slide titles and footers in natural Japanese rather than leaving English template placeholders).
+- **Language & Multi-Locale Consistency**: Match the language of slide headers (`# Title`), footer text, and diagram labels to each locale's target language (e.g., `--lang ja` or multi-locale `--lang en,ja` under `slide_src/{en,ja}/`, keeping slide file paths 1:1 across locales so the `L` language switcher preserves exact `#N` slide positions).
 
 ---
 
@@ -303,7 +303,7 @@ Always calibrate `text_size` according to the enclosing **`::: block` width ($W_
 | **Cover Slide** | Starting problem statements, bullet lists, or page numbers on `01_title.md` | Keep `01_title.md` strictly to **Title, Subtitle, Speaker/Date, and Hero Visual** (no header/page #) |
 | **Navigation** | Jumping straight from Cover into technical details without a roadmap | Place an **Agenda slide (`02_agenda.md`)** and insert **Section Dividers (`01_section.md`)** between chapters |
 | **Closing & Appendix** | Putting Summary inside the last chapter, cramming KPIs/bullets onto the Thank You slide, or placing Appendix before Thank You | Create a **Closing section** (`01_section.md` with `topics=()` -> `02_summary.md` -> **message-only `03_thank_you.md`**) and place any **Appendix (`99_appendix/`) after Thank You** |
-| **Non-Slide Files**| Leaving `PLANNING.md` or `notes.md` unprefixed in `slide_src/` so they compile as slides | Prefix non-slide files/folders with **`_`** (e.g., `_CONTENTS_PLANNING.md`, `_drafts/`) |
+| **Non-Slide Files**| Leaving `PLANNING.md` or `notes.md` unprefixed in `slide_src/<lang>/` so they compile as slides | Prefix non-slide files/folders with **`_`** (e.g., `_CONTENTS_PLANNING.md`, `_drafts/`) |
 | **Diagrams** | Drawing every slide with primitive `rectangle()` + `line()` boxes | Use **`SmartArts`**, **`Diagrams`**, **`Graphs`**, **`Charts`**, **`utils.py` helpers**, and **`phosphor`/`gcp` icons** |
 | **Layout Rhythm** | Using identical Left-Text / Right-Diagram split on all 15+ slides | Alternate among **2-Column Split**, **Top-Bottom Wide Split**, **Full-Stage Visual**, and **KPI + Chart** layouts |
 | **Color Balance** | Coloring all nodes `DangerFlat` / `WarningFlat` / `PrimaryFlat` | Maintain **50%+ Neutral** cards (`Styles.Neutral`, `PrimaryNeutral`) and highlight only **1–2 focal nodes** |

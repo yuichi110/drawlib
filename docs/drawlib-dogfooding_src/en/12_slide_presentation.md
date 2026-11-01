@@ -69,35 +69,37 @@ save()
 
 ## 12.1 Scaffolding a Slide Project (`drawlib init slide`)
 
-Initialize a slide presentation project with a single command:
+Initialize a slide presentation project with a single command (pass `-l en,ja` to scaffold multi-language decks):
 
 ```bash
 # Standard slide deck in current directory (creates slide_src/)
 uv run drawlib init slide
 
-# With custom project name, theme, and language:
+# With custom project name, theme, and language (supports -l en,ja for multi-locale):
 uv run drawlib init slide my_presentation -s google -l en
 ```
 
 ### Directory Anatomy
-Running `uv run drawlib init slide my_presentation -s google -l en` creates the following workspace layout:
+Running `uv run drawlib init slide my_presentation -s google -l en` creates the following `i18n`-native workspace layout:
 
 ```text
 .
 ├── my_presentation_src/           # [SOURCE] Slide Markdown sources and drawing code
+│   ├── drawlib.toml               # Project manifest ([project] + [i18n] langs)
 │   ├── _assets/                   # Static images and logos referenced in slides
-│   ├── 01_title.md                # Title slide
-│   ├── 02_agenda.md               # Agenda slide
-│   ├── 03_architecture.md         # Architecture diagram slide
-│   ├── styles.py                  # Presentation-wide styling overrides
+│   ├── en/                        # Locale slide folder (add ja/, etc. for multi-locale)
+│   │   ├── 01_title.md            # Title slide
+│   │   ├── 02_agenda.md           # Agenda slide
+│   │   └── 03_architecture.md     # Architecture diagram slide
+│   ├── styles.py                  # Presentation-wide styling overrides (optional <lang>/styles.py)
 │   ├── utils.py                   # Slide layout helpers and components
-│   ├── slide.js                   # Keyboard navigation and presenter view engine
+│   ├── slide.js                   # Keyboard navigation, language switcher & presenter view engine
 │   ├── build.sh                   # Master sequential build script
 │   ├── build_html.sh              # Web presentation build script
 │   ├── build_pdf.sh               # 16:9 vector PDF export script
 │   └── serve.sh                   # Local live-reload presentation server
-├── my_presentation_html/          # [OUTPUT] Interactive web presentation (index.html)
-├── my_presentation.pdf            # [OUTPUT] Multi-page 16:9 vector presentation PDF
+├── my_presentation_html/          # [OUTPUT] Interactive web presentation (en/index.html + root redirect)
+├── my_presentation_en.pdf         # [OUTPUT] Multi-page 16:9 vector presentation PDF per locale
 └── my_presentation_images/        # [OUTPUT] Standalone extracted slide diagrams
 ```
 
@@ -155,19 +157,20 @@ Highlight how horizontal scaling on the Order Worker eliminates checkout latency
 
 In addition to the standard HTML and vector PDF builds, `slide` projects can also export editable MS PowerPoint decks on demand:
 
-1. **Interactive Web Presentation (`my_presentation_html/index.html`)**:
-   - Designed for live presenting on projectors, external displays, or browser screen-shares.
-   - **Keyboard Navigation & Presenter View**:
+1. **Interactive Web Presentation (`my_presentation_html/<lang>/index.html`)**:
+   - Designed for live presenting on projectors, external displays, or browser screen-shares (with `my_presentation_html/index.html` automatically redirecting to the preferred locale).
+   - **Keyboard Navigation, Language Switcher & Presenter View**:
      - `Space` / `→` / `PageDown`: Advance to the next slide
      - `←` / `PageUp`: Go back to the previous slide
      - `P` key (or append `?presenter=1` to the URL): Launch **Presenter View**, displaying the current slide, next slide preview, elapsed timer, and `::: note` speaker notes while staying synchronized in real time with the audience display window.
+     - `L`: Toggle the `.slide-lang-dropdown` language menu on multi-locale decks, switching locales while preserving the active `#N` slide hash.
      - `F`: Toggle full screen
      - `O` / `Esc`: Toggle slide overview grid
-2. **1-Slide-1-Page Vector PDF (`my_presentation.pdf`)**:
+2. **1-Slide-1-Page Vector PDF (`my_presentation_<lang>.pdf`)**:
    - Designed for attendee distribution, printing, or uploading to slide hosting platforms (SpeakerDeck, DocSend).
    - Captured via automatically managed headless Chromium (Playwright), ensuring every slide is rendered with vector sharpness at true 16:9 dimensions (`@page { size: 1920px 1080px; margin: 0; }`).
 3. **Optional Editable 16:9 MS PowerPoint Export (`drawlib build pptx`)**:
-   - When conference organizers or stakeholders require an editable `.pptx` deck, export a 16:9 MS PowerPoint file (with `::: note` content mapped directly to PowerPoint speaker notes) via the CLI (similarly, `doc` projects support editable MS Word export via `uv run drawlib build docx <src> -o <out.docx> --generate-index`):
+   - When conference organizers or stakeholders require an editable `.pptx` deck, export a 16:9 MS PowerPoint file per locale (`my_presentation_<lang>.pptx`, with `::: note` content mapped directly to PowerPoint speaker notes) via the CLI (similarly, `doc` projects support editable MS Word export via `uv run drawlib build docx <src> -o <out.docx> --generate-index`):
    ```bash
    uv run drawlib build pptx my_presentation_src/ -o my_presentation.pptx
    ```

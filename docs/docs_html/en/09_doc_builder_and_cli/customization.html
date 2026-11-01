@@ -72,7 +72,7 @@
                 
                 <a href="../01_getting_started/release_notes.html" class="sidebar-version-badge" title="View Release Notes">
                     <span class="sidebar-version-dot" aria-hidden="true"></span>
-                    <span class="sidebar-version-text">v0.3.2</span>
+                    <span class="sidebar-version-text">v0.3.3</span>
                 </a>
                 <a href="https://github.com/yuichi110/drawlib" target="_blank" rel="noopener noreferrer" class="sidebar-github-link" aria-label="GitHub Repository" title="GitHub Repository">
                     <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
@@ -748,7 +748,9 @@
 <li><code>{{ nav_sections }}</code> / <code>{{ nav_items }}</code>: Structured navigation tree for the sidebar (in <code>site</code> projects).</li>
 <li><code>{{ toc_items }}</code>: Structured heading outline for the right-hand table of contents (in <code>site</code> projects).</li>
 <li><code>{{ css_href }}</code>: Relative path to <code>style.css</code>.</li>
-<li><code>{{ custom_css }}</code>: Injected inline CSS overrides.</li>
+<li><code>{{ custom_css }}</code>: Injected inline CSS overrides (including automatic CJK/RTL typography rules).</li>
+<li><code>{{ html_lang }}</code> &amp; <code>{{ html_dir }}</code>: Active locale code (e.g. <code>en</code>, <code>ja</code>, <code>ar</code>) and text direction (<code>ltr</code> or <code>rtl</code>) resolved from <code>drawlib.toml</code>.</li>
+<li><code>{{ lang_switcher }}</code> &amp; <code>{{ alternate_links }}</code>: Pre-rendered multi-locale switcher dropdown HTML and <code>&lt;link rel=&quot;alternate&quot; hreflang=&quot;...&quot;&gt;</code> metadata when <code>len(langs) &gt; 1</code> in <code>[i18n]</code>.</li>
 </ul>
 <hr />
 <h2>3. Customizing CSS Stylesheets (<code>style.css</code>)</h2>
@@ -883,8 +885,10 @@ drawlib<span class="w"> </span>css<span class="w"> </span>show<span class="w"> <
 <span class="c1"># Automatically rendered using the GoogleStyles theme and Roboto fonts configured in styles.py</span>
 <span class="n">rectangle</span><span class="p">((</span><span class="mi">40</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"Unified Themed Card"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">)</span>
 </code></pre>
-<h3>Cohesive Design with <code>style.css</code></h3>
-<p>When scaffolding projects using <code>drawlib init &lt;type&gt; --style google</code> (or <code>monochrome</code>, <code>default</code>, <code>default-dark</code>, <code>google-dark</code>), Drawlib automatically synchronizes both <code>styles.py</code> (for Python illustrations) and <code>style.css</code> (for HTML/PDF/Slide typography and card backgrounds). This ensures that <strong>editorial prose and embedded architectural diagrams share a 100% unified visual identity</strong>.</p>
+<h3>Cohesive Design with <code>style.css</code> &amp; <code>drawlib.toml</code></h3>
+<p>When scaffolding projects using <code>drawlib init &lt;type&gt; --style google</code> (or <code>monochrome</code>, <code>default</code>, <code>default-dark</code>, <code>google-dark</code>), Drawlib records the active <code>style</code> and <code>[i18n]</code> locale settings in <code>drawlib.toml</code> and synchronizes both <code>styles.py</code> (for Python illustrations) and <code>style.css</code> (for HTML/PDF/Slide typography and card backgrounds). This ensures that <strong>editorial prose and embedded architectural diagrams share a 100% unified visual identity</strong>.</p>
+<h3>Per-Locale <code>styles.py</code> &amp; <code>utils.py</code> Overrides (<code>&lt;src_dir&gt;/&lt;lang&gt;/</code>)</h3>
+<p>In multi-locale <code>doc</code>, <code>site</code>, and <code>slide</code> projects (<code>langs = [&quot;en&quot;, &quot;ja&quot;]</code> in <code>drawlib.toml</code>), root <code>styles.py</code> and <code>utils.py</code> apply by default across all locales. When a specific locale requires localized fonts (such as <code>FontJapanese</code> in <code>ja/</code>) or locale-specific helper functions, place <code>&lt;src_dir&gt;/&lt;lang&gt;/styles.py</code> and/or <code>&lt;src_dir&gt;/&lt;lang&gt;/utils.py</code> inside that locale folder—diagrams rendered for <code>&lt;lang&gt;/</code> automatically resolve the per-locale override first and fall back to root <code>styles.py</code> / <code>utils.py</code>.</p>
 <hr />
 <h2>5. Injected Helper Functions (<code>utils.py</code>)</h2>
 <p>For reusable composite drawing elements (such as specialized server racks, status badges, or complex icons), author custom functions in <code>utils.py</code>:</p>

@@ -72,7 +72,7 @@
                 
                 <a href="../01_getting_started/release_notes.html" class="sidebar-version-badge" title="View Release Notes">
                     <span class="sidebar-version-dot" aria-hidden="true"></span>
-                    <span class="sidebar-version-text">v0.3.2</span>
+                    <span class="sidebar-version-text">v0.3.3</span>
                 </a>
                 <a href="https://github.com/yuichi110/drawlib" target="_blank" rel="noopener noreferrer" class="sidebar-github-link" aria-label="GitHub Repository" title="GitHub Repository">
                     <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
@@ -631,6 +631,54 @@
             </header>
             <main class="main-content">
                 <h1>リリースノートと移行ガイド</h1>
+<h2>バージョン 0.3.3</h2>
+<p><em>リリース日: 2026/11/01</em></p>
+<p>バージョン 0.3.3 では、すべてのドキュメント（<code>doc</code>）・Web サイト（<code>site</code>）・プレゼンテーション（<code>slide</code>）プロジェクトに共通の <strong><code>drawlib.toml</code> プロジェクトマニフェスト</strong> と <strong><code>i18n</code> ネイティブな <code>&lt;src_dir&gt;/&lt;lang&gt;/</code> 多言語ディレクトリ構成</strong> を導入するとともに、<strong>日英バイリンガル（<code>en</code>/<code>ja</code>）公式ドキュメント</strong> および <strong>パラメータツアーアニメーション</strong> を全面拡充しました。</p>
+<hr />
+<h3>ハイライトと新機能</h3>
+<h4>1. 統一プロジェクトマニフェスト（<code>drawlib.toml</code>）と多言語 <code>i18n</code> ネイティブ構成</h4>
+<ul>
+<li><strong>宣言的マニフェスト <code>drawlib.toml</code></strong>: <code>doc</code>・<code>site</code>・<code>slide</code> の 3 アーキタイプすべてで <code>[project]</code> メタデータと <code>[i18n]</code> 言語設定（<code>default_lang</code>, <code>langs</code>, および任意の <code>[i18n.labels]</code>）を一元管理します（<code>images</code> プロジェクトでは <code>[project].lang</code> を使用）。<code>drawlib init &lt;doc|site|slide&gt; [-l en,ja]</code> または <code>drawlib.tools.init_project(..., lang=&quot;en,ja&quot;)</code> から単一言語・多言語プロジェクトを即座に生成できます。</li>
+<li><strong>統一 <code>&lt;src_dir&gt;/&lt;lang&gt;/</code> 構成とビルド前の構造パリティ検証</strong>: すべての <code>doc</code>・<code>site</code>・<code>slide</code> プロジェクトで Markdown 原稿を <code>&lt;src_dir&gt;/&lt;lang&gt;/</code> 配下に配置し、必要に応じてロケール別の <code>&lt;lang&gt;/styles.py</code>・<code>&lt;lang&gt;/utils.py</code> オーバーライドも利用できます。ビルド時には全ロケール間で相対ファイルパス・見出し階層（<code>#</code>〜<code>######</code>）・<code>drawlib</code> の <code>file=</code> ターゲット一覧が一致しているかを自動検証し、言語非依存の共通図版は 1 度だけレンダリングして <code>&lt;output&gt;/images/</code> で全言語から共有します。</li>
+<li><strong>多言語 16:9 スライドデッキ対応（<code>drawlib build slide</code>, <code>drawlib build pptx</code>, <code>drawlib build pdf</code>）</strong>: インタラクティブ HTML スライドの下部コントロールバーに上方向展開の言語切り替えメニュー <code>.slide-lang-dropdown</code>（キーボードショートカット <code>L</code> 対応）を追加し、表示中の <code>#N</code> スライド番号を維持したまま言語を切り替えられるようになりました。ブラウザ言語に応じたルート <code>index.html</code> 自動リダイレクトと、言語別の PDF / PPTX 出力にも対応しています。</li>
+<li><strong>ロケール対応タイポグラフィ・<code>hreflang</code> SEO・出力ファイル名の統一</strong>: <code>&lt;html lang=&quot;...&quot; dir=&quot;ltr|rtl&quot;&gt;</code> 属性や <code>&lt;link rel=&quot;alternate&quot; hreflang=&quot;...&quot;&gt;</code> タグの自動出力、CJK / RTL 向け CSS 組版最適化（<code>line-break: strict</code> や見出し字間の自動調整）、言語別フォントの自動構成（<code>FontJapanese</code>, <code>FontChinese</code>, <code>FontKorean</code>, <code>FontArabic</code> 等）、および単一言語・多言語を問わない <code>&lt;stem&gt;_&lt;lang&gt;.{pdf,docx,pptx}</code> 形式の統一ファイル名を採用しました。</li>
+</ul>
+<h4>2. 日英バイリンガル公式ドキュメントとパラメータツアーアニメーション</h4>
+<ul>
+<li><strong>公式ドキュメントサイト・Dogfooding ホワイトペーパーの日英完全対応</strong>: 公式ドキュメントポータルおよび Dogfooding ホワイトペーパーの英語版（<code>en/</code>）・日本語版（<code>ja/</code>）を完全公開し、ページ内スイッチャーから即座に言語を切り替えられるようになりました。</li>
+<li><strong>パラメータツアーアニメーション（<code>drawlib.anim</code>）</strong>: 基本図形・アイコン・SmartArts・定量チャート・各種ダイアグラム・自動レイアウトグラフ・ビルドワークフローにわたるロスレス APNG パラメータツアーアニメーションを追加しました。</li>
+</ul>
+<h4>3. バグ修正と内部改善</h4>
+<ul>
+<li><code>drawlib._core</code> より先に <code>drawlib._release_assets</code> をインポートした際に発生していた <code>drawlib._release_assets</code> と <code>drawlib._core.l3_external</code> 間の循環インポートを解消しました。</li>
+</ul>
+<hr />
+<h3>破壊的変更と v0.3.2 からの移行ガイド</h3>
+<p>v0.3.2 以前で作成した既存の <code>doc</code>・<code>site</code>・<code>slide</code> ディレクトリプロジェクトをアップグレードする場合は、以下の手順で <code>i18n</code> ネイティブ構成へ移行してください。</p>
+<ol>
+<li><strong><code>[i18n]</code> を含む <code>drawlib.toml</code> の配置と <code>&lt;src_dir&gt;/&lt;lang&gt;/</code> への Markdown 移動</strong>:
+<ul>
+<li>従来のフラットディレクトリ構成（<code>doc_src/*.md</code>, <code>docs_src/*.md</code>, <code>slide_src/*.md</code>）および個別の <code>i18n.toml</code> / <code>i18nsite</code> 指定は、<code>drawlib.toml</code> + <code>&lt;src_dir&gt;/&lt;lang&gt;/</code> 構成へ統合されました（1 言語のみの <code>langs = [&quot;en&quot;]</code> や <code>langs = [&quot;ja&quot;]</code> でも共通です）。なお、単一 <code>.md</code> ファイル指定のビルド（<code>drawlib build html report.md</code>, <code>drawlib build pdf report.md</code> 等）は従来どおりそのまま動作します。</li>
+</ul>
+<pre><code class="language-toml"><span class="k">[project]</span>
+<span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"site"</span><span class="w"> </span><span class="c1"># または "doc" / "slide"</span>
+<span class="n">style</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"default"</span>
+
+<span class="k">[i18n]</span>
+<span class="n">default_lang</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"en"</span>
+<span class="n">langs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">"en"</span><span class="p">]</span><span class="w"> </span><span class="c1"># または ["en", "ja"]</span>
+</code></pre>
+<ul>
+<li><code>*.md</code> ファイル（<code>site</code> の <code>navbar.md</code> を含む）を <code>&lt;src_dir&gt;/en/</code> 等へ移動し、共通の <code>styles.py</code>・<code>utils.py</code>・<code>_assets/</code>・<code>template.html</code>・<code>style.css</code>・<code>slide.js</code> は <code>&lt;src_dir&gt;/</code> 直下に維持してください。</li>
+</ul>
+</li>
+<li><strong>ロケールサフィックス付き出力パスへの統一（<code>&lt;stem&gt;_&lt;lang&gt;.{pdf,docx,pptx}</code> と <code>&lt;output_dir&gt;/&lt;lang&gt;/</code>）</strong>:
+<ul>
+<li><code>doc</code>・<code>site</code>・<code>slide</code> のディレクトリビルドでは、常に言語コード付きの成果物（例: <code>doc_en.pdf</code>, <code>doc_en.docx</code>, <code>slide_en.pdf</code>, <code>slide_en.pptx</code>）が出力され、HTML / Markdown ページは <code>&lt;output_dir&gt;/&lt;lang&gt;/</code> 配下（ルート <code>&lt;output_dir&gt;/index.html</code> は自動リダイレクトページ）に出力されます。</li>
+</ul>
+</li>
+</ol>
+<hr />
 <h2>バージョン 0.3.2</h2>
 <p><em>リリース日: 2026/10/30</em></p>
 <p>バージョン 0.3.2 では、ネイティブで編集可能な <strong>MS Word（<code>.docx</code>）</strong> および <strong>MS PowerPoint（<code>.pptx</code>）</strong> エクスポーターを新搭載し、<strong>ヘッドレス Chromium・<code>python-docx</code>・<code>python-pptx</code></strong> を追加設定不要の標準依存パッケージへと統合したほか、組み込みの AI エージェントルールをカテゴリ別のモジュールディレクトリ構成へ再編成しました。</p>

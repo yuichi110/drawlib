@@ -137,7 +137,9 @@ Every Drawlib site and PDF project contains a Jinja2 template (`template.html`) 
 - `{{ nav_sections }}` / `{{ nav_items }}`: Structured navigation tree for the sidebar (in `site` projects).
 - `{{ toc_items }}`: Structured heading outline for the right-hand table of contents (in `site` projects).
 - `{{ css_href }}`: Relative path to `style.css`.
-- `{{ custom_css }}`: Injected inline CSS overrides.
+- `{{ custom_css }}`: Injected inline CSS overrides (including automatic CJK/RTL typography rules).
+- `{{ html_lang }}` & `{{ html_dir }}`: Active locale code (e.g. `en`, `ja`, `ar`) and text direction (`ltr` or `rtl`) resolved from `drawlib.toml`.
+- `{{ lang_switcher }}` & `{{ alternate_links }}`: Pre-rendered multi-locale switcher dropdown HTML and `<link rel="alternate" hreflang="...">` metadata when `len(langs) > 1` in `[i18n]`.
 
 ---
 
@@ -223,8 +225,11 @@ setup(width=80, height=40)
 rectangle((40, 20), width=50, height=25, style=Styles.PrimaryFlat, text="Unified Themed Card", text_style=Styles.WhiteBold)
 ```
 
-### Cohesive Design with `style.css`
-When scaffolding projects using `drawlib init <type> --style google` (or `monochrome`, `default`, `default-dark`, `google-dark`), Drawlib automatically synchronizes both `styles.py` (for Python illustrations) and `style.css` (for HTML/PDF/Slide typography and card backgrounds). This ensures that **editorial prose and embedded architectural diagrams share a 100% unified visual identity**.
+### Cohesive Design with `style.css` & `drawlib.toml`
+When scaffolding projects using `drawlib init <type> --style google` (or `monochrome`, `default`, `default-dark`, `google-dark`), Drawlib records the active `style` and `[i18n]` locale settings in `drawlib.toml` and synchronizes both `styles.py` (for Python illustrations) and `style.css` (for HTML/PDF/Slide typography and card backgrounds). This ensures that **editorial prose and embedded architectural diagrams share a 100% unified visual identity**.
+
+### Per-Locale `styles.py` & `utils.py` Overrides (`<src_dir>/<lang>/`)
+In multi-locale `doc`, `site`, and `slide` projects (`langs = ["en", "ja"]` in `drawlib.toml`), root `styles.py` and `utils.py` apply by default across all locales. When a specific locale requires localized fonts (such as `FontJapanese` in `ja/`) or locale-specific helper functions, place `<src_dir>/<lang>/styles.py` and/or `<src_dir>/<lang>/utils.py` inside that locale folder—diagrams rendered for `<lang>/` automatically resolve the per-locale override first and fall back to root `styles.py` / `utils.py`.
 
 ---
 

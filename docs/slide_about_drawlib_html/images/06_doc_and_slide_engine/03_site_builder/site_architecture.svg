@@ -61,13 +61,13 @@ z
    </g>
    <g id="text_2">
     <g clip-path="url(#pecbf88852a)">
-     <text style="font-size: 8.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(120.354509 152.121168)">docs_src/</text>
+     <text style="font-size: 8.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(105.139665 151.86684)">docs_src/&lt;lang&gt;/</text>
     </g>
     <g clip-path="url(#pecbf88852a)">
-     <text style="font-size: 8.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(91.457196 160.820856)">• index.md &amp; navbar.md</text>
+     <text style="font-size: 8.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(91.457196 161.075184)">• index.md &amp; navbar.md</text>
     </g>
     <g clip-path="url(#pecbf88852a)">
-     <text style="font-size: 8.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(95.734009 169.020856)">• Nested */*.md pages</text>
+     <text style="font-size: 8.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(95.734009 169.275184)">• Nested */*.md pages</text>
     </g>
    </g>
    <g id="patch_4">
@@ -109,7 +109,7 @@ z
    </g>
    <g id="text_4">
     <g clip-path="url(#pecbf88852a)">
-     <text style="font-size: 8.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="576.734694" y="135.02457" transform="rotate(-0 576.734694 135.02457)">docs_html/ (Web Portal)</text>
+     <text style="font-size: 8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="576.734694" y="134.793023" transform="rotate(-0 576.734694 134.793023)">docs_html/&lt;lang&gt;/ (Web)</text>
     </g>
    </g>
    <g id="patch_6">
@@ -127,7 +127,7 @@ z
    </g>
    <g id="text_5">
     <g clip-path="url(#pecbf88852a)">
-     <text style="font-size: 8.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="576.734694" y="186.453141" transform="rotate(-0 576.734694 186.453141)">docs_markdown/ (GitHub)</text>
+     <text style="font-size: 8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="576.734694" y="186.221594" transform="rotate(-0 576.734694 186.221594)">docs_markdown/&lt;lang&gt;/</text>
     </g>
    </g>
    <g id="patch_7">
@@ -185,7 +185,7 @@ z
    </g>
    <g id="text_6">
     <g clip-path="url(#pecbf88852a)">
-     <text style="font-size: 8.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #ffffff" x="360" y="267.216296" transform="rotate(-0 360 267.216296)">Browser Preview:  http://localhost:8000/architecture/index.html   [drawlib serve --check: 0 broken links]</text>
+     <text style="font-size: 8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #ffffff" x="360" y="267.149796" transform="rotate(-0 360 267.149796)">Browser Preview:  http://localhost:8000/en/architecture/index.html   [serve --check: 0 broken links]</text>
     </g>
    </g>
    <g id="patch_12">
@@ -203,7 +203,7 @@ z
    </g>
    <g id="text_7">
     <g clip-path="url(#pecbf88852a)">
-     <text style="font-size: 8.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #4862da" x="143.265306" y="330.168776" transform="rotate(-0 143.265306 330.168776)">navbar.md Sidebar</text>
+     <text style="font-size: 8.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #4862da" x="143.265306" y="329.646158" transform="rotate(-0 143.265306 329.646158)">&lt;lang&gt;/navbar.md</text>
     </g>
    </g>
    <g id="patch_13">

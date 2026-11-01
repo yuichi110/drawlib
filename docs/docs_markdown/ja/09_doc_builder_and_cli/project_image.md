@@ -50,8 +50,8 @@ text((13.2, 31.8), "arch.py, flow.py, ...", style=Styles.Dark.patch(text_size=9.
 
 rectangle((22.0, 21.8), width=31.6, height=9.8, style=Styles.PrimaryNeutral.patch(shape_r=1.3))
 code.python((10.0, 21.8), width=3.6, style=Styles.Neutral)
-text((13.2, 23.6), "styles.py & utils.py", style=Styles.DarkBold.patch(text_size=10.2, halign="left"))
-text((13.2, 19.6), "Shared theme & macros", style=Styles.Dark.patch(text_size=9.6, halign="left"))
+text((13.2, 23.6), "drawlib.toml, styles.py", style=Styles.DarkBold.patch(text_size=10.0, halign="left"))
+text((13.2, 19.6), "Manifest, theme & utils.py", style=Styles.Dark.patch(text_size=9.5, halign="left"))
 
 rectangle((22.0, 10.4), width=31.6, height=8.4, style=CARD_WHITE)
 phosphor.folder_open((10.0, 10.4), width=3.6, style=Styles.PrimaryBold)
@@ -174,6 +174,7 @@ drawlib init images my_assets -s google -l en
 ## 3. ディレクトリ構成と構造
 
 ### 編集対象のソースディレクトリ (`images_src/`)
+- **`drawlib.toml`**: `[project]` メタデータ（`type = "images"`、`style`、および `"en"` や `"ja"` などのフォント構成用 `lang`。`images` プロジェクトでは `[i18n]` は使用しません）を宣言するプロジェクトマニフェストです。
 - **`styles.py` & `utils.py`**: `drawlib show` および `drawlib build image` の実行時に自動的に読み込まれる、プロジェクト全体のスタイル設定（`Colors`、`Styles`、CJK フォント）と再利用可能なコンポーネントヘルパーです。
 - **`_assets/`**: 相対パス（例: `"_assets/logo.png"`）で参照される静的なラスターロゴ、背景画像、またはカスタム `.ttf` フォントです。
 - **`*.py` 描画スクリプト**: `save()` を呼び出して画像を出力するスタンドアロンの Python スクリプト群です（`network/vpc_peering.py` のようなネストされたサブディレクトリ構成にも対応しています）。

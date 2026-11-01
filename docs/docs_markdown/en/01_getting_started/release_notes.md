@@ -1,5 +1,51 @@
 # Release Notes & Migration Guide
 
+## Version 0.3.3
+
+*Release Date: 2026/11/01*
+
+Version 0.3.3 introduces a unified **`drawlib.toml` project manifest** and **`i18n`-native `<src_dir>/<lang>/` multi-locale architecture** across all documentation (`doc`), website (`site`), and presentation (`slide`) projects, alongside full **English/Japanese (`en`/`ja`) official documentation** and **animated parameter tours**.
+
+---
+
+### Highlights & New Features
+
+#### 1. Unified Project Manifest (`drawlib.toml`) & Multi-Locale `i18n` Architecture
+- **Declarative `drawlib.toml` Manifest**: Unifies `[project]` metadata and `[i18n]` locale configuration (`default_lang`, `langs`, and optional `[i18n.labels]`) across `doc`, `site`, and `slide` archetypes (and `[project].lang` on `images`). Scaffold single- or multi-locale projects directly via `drawlib init <doc|site|slide> [-l en,ja]` or `drawlib.tools.init_project(..., lang="en,ja")`.
+- **Unified `<src_dir>/<lang>/` Layout & Structural Parity Validation**: Every `doc`, `site`, and `slide` project organizes Markdown sources under `<src_dir>/<lang>/` with optional per-locale `<lang>/styles.py` and `<lang>/utils.py` overrides. Pre-flight validation verifies identical relative file paths, Markdown heading hierarchies (`#`–`######`), and ````drawlib```` `file=` blocks across all configured locales, while language-neutral diagrams render once and share `<output>/images/` across locales.
+- **Multi-Locale 16:9 Slide Decks (`drawlib build slide`, `drawlib build pptx`, `drawlib build pdf`)**: Interactive HTML slide decks now include an upward-opening `.slide-lang-dropdown` language switcher in the bottom controls bar (`L` keyboard shortcut) that preserves the current `#N` slide hash across locales, a browser-language root `index.html` redirector, and per-locale PDF / PPTX deliverables.
+- **Locale-Aware Typography, `hreflang` SEO & Consistent Output Naming**: Automatically injects `<html lang="..." dir="ltr|rtl">`, `<link rel="alternate" hreflang="...">` tags, CJK/RTL CSS typography rules (`line-break: strict`, zero heading letter-spacing), localized font presets (`FontJapanese`, `FontChinese`, `FontKorean`, `FontArabic`, etc.), and unified `<stem>_<lang>.{pdf,docx,pptx}` deliverable filenames.
+
+#### 2. Bilingual EN/JA Official Documentation & Animated Parameter Tours
+- **Bilingual Official Documentation & Dogfooding Whitepaper**: Published complete English (`en/`) and Japanese (`ja/`) editions of the official documentation portal and the Dogfooding whitepaper with in-page language switching.
+- **Animated Parameter Tours (`drawlib.anim`)**: Added lossless APNG parameter tour animations across geometric primitives, icons, SmartArts, quantitative charts, domain diagrams, auto-layout graphs, and builder workflows.
+
+#### 3. Bug Fixes & Internal Improvements
+- Fixed a circular import between `drawlib._release_assets` and `drawlib._core.l3_external` when `drawlib._release_assets` was imported prior to `drawlib._core`.
+
+---
+
+### Breaking Changes & Migration from v0.3.2
+
+If you have existing `doc`, `site`, or `slide` directory projects created in v0.3.2 or earlier, migrate them to the unified `i18n`-native layout:
+
+1. **Add `drawlib.toml` with `[i18n]` & Move Markdown Sources Under `<src_dir>/<lang>/`**:
+   - Legacy flat directory layouts (`doc_src/*.md`, `docs_src/*.md`, `slide_src/*.md`) and standalone `i18n.toml` / `i18nsite` configurations have been replaced by `drawlib.toml` + `<src_dir>/<lang>/` (even for single-locale `langs = ["en"]` projects). Single `.md` file builds (e.g., `drawlib build html report.md`, `drawlib build pdf report.md`) remain unchanged.
+   ```toml
+   [project]
+   type = "site" # or "doc" / "slide"
+   style = "default"
+
+   [i18n]
+   default_lang = "en"
+   langs = ["en"] # or ["en", "ja"]
+   ```
+   - Move `*.md` (including `navbar.md` for `site`) into `<src_dir>/en/`, while keeping shared `styles.py`, `utils.py`, `_assets/`, `template.html`, `style.css`, and `slide.js` at the `<src_dir>/` root.
+2. **Locale-Suffixed Deliverable Paths (`<stem>_<lang>.{pdf,docx,pptx}` & `<output_dir>/<lang>/`)**:
+   - Directory builds of `doc`, `site`, and `slide` now always emit locale-suffixed files—for example, `doc_en.pdf`, `doc_en.docx`, `slide_en.pdf`, and `slide_en.pptx`—and place HTML / Markdown pages under `<output_dir>/<lang>/` with an automatic root `index.html` redirector at `<output_dir>/index.html`.
+
+---
+
 ## Version 0.3.2
 
 *Release Date: 2026/10/30*

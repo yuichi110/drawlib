@@ -40,8 +40,8 @@ text((13.2, 31.8), "arch.py, flow.py, ...", style=Styles.Dark.patch(text_size=9.
 
 rectangle((22.0, 21.8), width=31.6, height=9.8, style=Styles.PrimaryNeutral.patch(shape_r=1.3))
 code.python((10.0, 21.8), width=3.6, style=Styles.Neutral)
-text((13.2, 23.6), "styles.py & utils.py", style=Styles.DarkBold.patch(text_size=10.2, halign="left"))
-text((13.2, 19.6), "Shared theme & macros", style=Styles.Dark.patch(text_size=9.6, halign="left"))
+text((13.2, 23.6), "drawlib.toml, styles.py", style=Styles.DarkBold.patch(text_size=10.0, halign="left"))
+text((13.2, 19.6), "Manifest, theme & utils.py", style=Styles.Dark.patch(text_size=9.5, halign="left"))
 
 rectangle((22.0, 10.4), width=31.6, height=8.4, style=CARD_WHITE)
 phosphor.folder_open((10.0, 10.4), width=3.6, style=Styles.PrimaryBold)
@@ -428,7 +428,7 @@ def draw_workspace_frame(
         )
         text(
             (36.0, 13.2),
-            "1 day later — styles.py, utils.py & arch.py untouched",
+            "1 day later — drawlib.toml, styles.py & arch.py untouched",
             style=Styles.MutedBold.patch(text_size=9.6),
         )
         text(
@@ -571,9 +571,9 @@ def draw_workspace_frame(
 TREE_STARTER = [
     ("root", 0, "folder_open", "my_repo/"),
     ("src", 1, "folder_open", "images_src/"),
+    ("toml", 2, "sh", "drawlib.toml"),
     ("assets", 2, "folder_open", "_assets/"),
-    ("styles", 2, "py", "styles.py"),
-    ("utils", 2, "py", "utils.py"),
+    ("styles", 2, "py", "styles.py, utils.py"),
     ("sample1", 2, "py", "sample1.py"),
     ("build_sh", 2, "sh", "build.sh"),
 ]
@@ -581,9 +581,9 @@ TREE_STARTER = [
 TREE_AUTHORED = [
     ("root", 0, "folder_open", "my_repo/"),
     ("src", 1, "folder_open", "images_src/"),
+    ("toml", 2, "sh", "drawlib.toml"),
     ("assets", 2, "folder_open", "_assets/"),
-    ("styles", 2, "py", "styles.py"),
-    ("utils", 2, "py", "utils.py"),
+    ("styles", 2, "py", "styles.py, utils.py"),
     ("arch", 2, "py", "arch.py"),
     ("flow", 2, "py", "flow.py"),
     ("build_sh", 2, "sh", "build.sh"),
@@ -613,7 +613,7 @@ with anim.frame(duration=DURATIONS[0]):
         active_phase=1,
         actor="gemini",
         actor_title="Gemini: Run drawlib init images -s google",
-        actor_sub="Scaffold images_src/, theme & build.sh",
+        actor_sub="Scaffold images_src/, drawlib.toml & build.sh",
         ops=[
             ("user", 'Prompt: "Create architecture diagrams"', "done"),
             ("gemini", "$ drawlib init images -s google", "active_gemini"),
@@ -622,9 +622,9 @@ with anim.frame(duration=DURATIONS[0]):
         tree_items=TREE_STARTER,
         row_states={
             "src": ("new", "Created"),
+            "toml": ("new", "Created"),
             "assets": ("new", "Created"),
             "styles": ("new", "Created"),
-            "utils": ("new", "Created"),
             "sample1": ("new", "Created"),
             "build_sh": ("new", "Created"),
         },
@@ -647,7 +647,6 @@ with anim.frame(duration=DURATIONS[1]):
         tree_items=TREE_STARTER,
         row_states={
             "styles": ("active", "Updated"),
-            "utils": ("active", "Updated"),
         },
         committed=False,
         pulse_arrow=True,
@@ -835,9 +834,9 @@ with anim.frame(duration=DURATIONS[9]):
         show_day2_note=True,
         tree_items=TREE_BUILT,
         row_states={
+            "toml": ("muted", ""),
             "assets": ("muted", ""),
             "styles": ("muted", ""),
-            "utils": ("muted", ""),
             "arch": ("muted", ""),
             "flow": ("active", "Modified"),
             "arch_png": ("muted", ""),
@@ -861,9 +860,9 @@ with anim.frame(duration=DURATIONS[10]):
         show_day2_note=True,
         tree_items=TREE_BUILT,
         row_states={
+            "toml": ("muted", ""),
             "assets": ("muted", ""),
             "styles": ("muted", ""),
-            "utils": ("muted", ""),
             "arch": ("muted", ""),
             "arch_png": ("cached", "Cached <1ms"),
             "flow_png": ("output", "Updated"),
@@ -918,6 +917,7 @@ drawlib init images my_assets -s google -l en
 ## 3. Directory Layout & Anatomy
 
 ### Editable Source Directory (`images_src/`)
+- **`drawlib.toml`**: Project manifest declaring `[project]` metadata (`type = "images"`, `style`, and single-language `lang` such as `"en"` or `"ja"` for CJK font setup; `[i18n]` is not used on `images` projects).
 - **`styles.py` & `utils.py`**: Project-wide styling overrides (`Colors`, `Styles`, CJK fonts) and reusable component helpers automatically loaded during `drawlib show` and `drawlib build image`.
 - **`_assets/`**: Static raster logos, background images, or custom `.ttf` fonts referenced via relative paths (for example, `"_assets/logo.png"`).
 - **`*.py` Drawing Scripts**: Standalone Python scripts (including nested subdirectories such as `network/vpc_peering.py`) that call `save()` to emit images.

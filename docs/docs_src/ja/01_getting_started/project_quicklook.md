@@ -150,7 +150,7 @@ def draw_scene_init_patterns(highlight_doc: bool) -> None:
             "doc",
             "drawlib init doc",
             "Linear Document / Spec / RFC",
-            "Out: MD, HTML, PDF, DOCX",
+            "Out: doc_html/<lang>/, doc_<lang>.pdf/.docx",
             phosphor.file_pdf,
         ),
         (
@@ -159,7 +159,7 @@ def draw_scene_init_patterns(highlight_doc: bool) -> None:
             "site",
             "drawlib init site",
             "Multi-Page Docs Website",
-            "Out: docs_html/, docs_markdown/",
+            "Out: docs_html/<lang>/, docs_markdown/",
             phosphor.globe,
         ),
         (
@@ -168,7 +168,7 @@ def draw_scene_init_patterns(highlight_doc: bool) -> None:
             "slide",
             "drawlib init slide",
             "16:9 Presentation Deck",
-            "Out: slide_html/, PDF, PPTX",
+            "Out: slide_html/<lang>/, slide_<lang>.pdf/.pptx",
             phosphor.presentation_chart,
         ),
         (
@@ -197,7 +197,7 @@ def draw_scene_init_patterns(highlight_doc: bool) -> None:
             hdr_txt = Styles.WhiteBold.patch(text_size=11.5)
             icon_st = Styles.PrimaryBold
             l1_st = Styles.DarkBold.patch(text_size=11.0, halign="left")
-            l2_st = Styles.Dark.patch(text_size=10.2, halign="left")
+            l2_st = Styles.Dark.patch(text_size=9.8, halign="left")
         elif is_dimmed:
             card_st = Styles.Neutral.patch(
                 shape_fill_color=(248, 250, 252),
@@ -213,7 +213,7 @@ def draw_scene_init_patterns(highlight_doc: bool) -> None:
             hdr_txt = Styles.MutedBold.patch(text_size=11.2)
             icon_st = Styles.Muted
             l1_st = Styles.MutedBold.patch(text_size=10.8, halign="left")
-            l2_st = Styles.Muted.patch(text_size=10.0, halign="left")
+            l2_st = Styles.Muted.patch(text_size=9.7, halign="left")
         else:
             card_st = Styles.Neutral.patch(
                 shape_fill_color=(250, 252, 255),
@@ -230,7 +230,7 @@ def draw_scene_init_patterns(highlight_doc: bool) -> None:
             hdr_txt = Styles.DarkBold.patch(text_size=11.2)
             icon_st = Styles.Primary
             l1_st = Styles.DarkBold.patch(text_size=10.8, halign="left")
-            l2_st = Styles.Dark.patch(text_size=10.0, halign="left")
+            l2_st = Styles.Dark.patch(text_size=9.7, halign="left")
 
         rectangle((cx, cy), width=59.0, height=25.0, style=card_st)
         rectangle(
@@ -311,49 +311,55 @@ def draw_tree_icon(kind: str, xy: tuple[float, float], *, muted: bool = False) -
     if kind == "folder_open":
         phosphor.folder_open(
             xy,
-            width=3.1,
+            width=3.0,
             style=Styles.Muted if muted else Styles.PrimaryBold,
         )
     elif kind == "folder_out":
         phosphor.folder(
             xy,
-            width=3.1,
+            width=3.0,
             style=Styles.Muted if muted else Styles.SecondaryBold,
         )
+    elif kind == "toml":
+        phosphor.gear_six(
+            xy,
+            width=2.9,
+            style=Styles.Muted if muted else Styles.PrimaryBold,
+        )
     elif kind == "py":
-        code.python(xy, width=2.9, style=Styles.Neutral)
+        code.python(xy, width=2.8, style=Styles.Neutral)
     elif kind == "html":
         phosphor.file_html(
             xy,
-            width=3.0,
+            width=2.9,
             style=Styles.Muted if muted else Styles.Dark,
         )
     elif kind == "md":
         phosphor.file_text(
             xy,
-            width=3.0,
+            width=2.9,
             style=Styles.Muted if muted else Styles.Dark,
         )
     elif kind == "sh":
         phosphor.file_code(
             xy,
-            width=3.0,
+            width=2.9,
             style=Styles.Muted if muted else Styles.Dark,
         )
     elif kind == "globe":
         phosphor.globe(
             xy,
-            width=3.0,
+            width=2.9,
             style=Styles.Muted if muted else Styles.PrimaryBold,
         )
     elif kind == "pdf":
         phosphor.file_pdf(
             xy,
-            width=3.0,
+            width=2.9,
             style=Styles.Muted if muted else Styles.Danger,
         )
     elif kind == "word":
-        workspace.word(xy, width=2.9, style=Styles.Neutral)
+        workspace.word(xy, width=2.8, style=Styles.Neutral)
 
 
 def draw_split_workspace(
@@ -497,8 +503,8 @@ def draw_split_workspace(
         )
         text(
             (36.0, 13.7),
-            "styles.py, utils.py & template.html stay untouched",
-            style=Styles.MutedBold.patch(text_size=9.6),
+            "drawlib.toml, styles.py & template.html stay untouched",
+            style=Styles.MutedBold.patch(text_size=9.5),
         )
         text(
             (36.0, 10.1),
@@ -543,31 +549,37 @@ def draw_split_workspace(
             style=Styles.SecondaryBold.patch(text_size=9.5, halign="left"),
         )
 
-    # Tree item definitions: (key, level, icon_kind, label, y)
-    tree_rows: list[tuple[str, int, str, str, float]] = [
-        ("root", 0, "folder_open", "my_repo/", 59.00),
+    # Tree item definitions: (key, level, icon_kind, label)
+    tree_items: list[tuple[str, int, str, str]] = [
+        ("root", 0, "folder_open", "my_repo/"),
     ]
     if show_src:
-        tree_rows.extend(
+        tree_items.extend(
             [
-                ("doc_src", 1, "folder_open", "doc_src/", 54.45),
-                ("styles", 2, "py", "styles.py", 49.90),
-                ("utils", 2, "py", "utils.py", 45.35),
-                ("template", 2, "html", "template.html, style.css", 40.80),
-                ("cover", 2, "md", "00_cover.md", 36.25),
-                ("overview", 2, "md", "01_overview.md", 31.70),
-                ("build_sh", 2, "sh", "build.sh", 27.15),
+                ("doc_src", 1, "folder_open", "doc_src/"),
+                ("toml", 2, "toml", "drawlib.toml"),
+                ("styles", 2, "py", "styles.py, utils.py"),
+                ("template", 2, "html", "template.html, style.css"),
+                ("en_dir", 2, "folder_open", "en/"),
+                ("cover", 3, "md", "00_cover.md"),
+                ("overview", 3, "md", "01_overview.md"),
+                ("build_sh", 2, "sh", "build.sh"),
             ]
         )
     if show_outputs:
-        tree_rows.extend(
+        tree_items.extend(
             [
-                ("out_md", 1, "folder_out", "doc_markdown/", 22.00),
-                ("out_html", 1, "globe", "doc_html/", 17.45),
-                ("out_pdf", 1, "pdf", "doc.pdf", 12.90),
-                ("out_docx", 1, "word", "doc.docx", 8.35),
+                ("out_md", 1, "folder_out", "doc_markdown/en/"),
+                ("out_html", 1, "globe", "doc_html/en/"),
+                ("out_pdf", 1, "pdf", "doc_en.pdf"),
+                ("out_docx", 1, "word", "doc_en.docx"),
             ]
         )
+
+    tree_rows: list[tuple[str, int, str, str, float]] = [
+        (key, lvl, ik, lbl, 59.25 - idx * 4.25)
+        for idx, (key, lvl, ik, lbl) in enumerate(tree_items)
+    ]
 
     # Draw row highlight pills first (behind tree lines & text)
     for key, _lvl, _ik, _lbl, ry in tree_rows:
@@ -592,49 +604,54 @@ def draw_split_workspace(
             b_txt = None
 
         if rst is not None:
-            rectangle((103.1, ry), width=57.8, height=3.95, style=rst)
+            rectangle((103.1, ry), width=57.8, height=3.70, style=rst)
         if badge_txt and b_st is not None and b_txt is not None:
             rectangle(
                 (125.0, ry),
                 width=12.6,
-                height=3.2,
+                height=3.1,
                 style=b_st,
                 text=badge_txt,
                 text_style=b_txt,
             )
 
-    # Draw crisp geometric tree guide lines
+    # Draw crisp geometric tree guide lines (supports levels 0..3)
+    icon_xs = [77.2, 81.6, 85.8, 90.0]
+    label_xs = [79.8, 84.2, 88.3, 92.5]
     guide_st = Styles.MutedThin.patch(line_color=(180, 194, 212), line_width=1.0)
-    if show_src:
-        trunk_bottom = 8.35 if show_outputs else 54.45
-        line((77.2, 57.2), (77.2, trunk_bottom), style=guide_st)
-        line((81.6, 52.6), (81.6, 27.15), style=guide_st)
+    for idx_p, (_kp, lvl_p, _ikp, _lblp, ry_p) in enumerate(tree_rows):
+        last_child_y: float | None = None
+        for j in range(idx_p + 1, len(tree_rows)):
+            lvl_j = tree_rows[j][1]
+            if lvl_j <= lvl_p:
+                break
+            if lvl_j == lvl_p + 1:
+                last_child_y = tree_rows[j][4]
+        if last_child_y is not None:
+            px = icon_xs[lvl_p]
+            line((px, ry_p - 1.65), (px, last_child_y), style=guide_st)
 
     for key, lvl, ik, lbl, ry in tree_rows:
         rstate = row_states.get(key, ("normal", ""))[0]
         is_muted = rstate == "muted"
 
-        if lvl == 0:
-            ix, lx = 77.2, 79.8
-        elif lvl == 1:
-            line((77.2, ry), (79.5, ry), style=guide_st)
-            ix, lx = 81.6, 84.2
-        else:
-            line((81.6, ry), (83.9, ry), style=guide_st)
-            ix, lx = 86.0, 88.5
+        ix = icon_xs[lvl]
+        lx = label_xs[lvl]
+        if lvl >= 1:
+            line((icon_xs[lvl - 1], ry), (ix - 2.0, ry), style=guide_st)
 
         draw_tree_icon(ik, (ix, ry), muted=is_muted)
 
         if rstate in {"new", "active", "optional"}:
-            t_st = Styles.PrimaryBold.patch(text_size=10.0, halign="left")
+            t_st = Styles.PrimaryBold.patch(text_size=9.9, halign="left")
         elif rstate == "output":
-            t_st = Styles.SecondaryBold.patch(text_size=10.0, halign="left")
+            t_st = Styles.SecondaryBold.patch(text_size=9.9, halign="left")
         elif is_muted:
-            t_st = Styles.Muted.patch(text_size=9.8, halign="left")
+            t_st = Styles.Muted.patch(text_size=9.7, halign="left")
         elif lvl <= 1:
-            t_st = Styles.DarkBold.patch(text_size=10.0, halign="left")
+            t_st = Styles.DarkBold.patch(text_size=9.9, halign="left")
         else:
-            t_st = Styles.Dark.patch(text_size=9.9, halign="left")
+            t_st = Styles.Dark.patch(text_size=9.8, halign="left")
 
         text((lx, ry), lbl, style=t_st)
 
@@ -685,7 +702,7 @@ with anim.frame(duration=2.2):
         step_heading="2. Gemini — Run drawlib init doc",
         actor="gemini",
         actor_title="Gemini: Initialize 'doc' project",
-        actor_sub="Scaffold source folder, theme & build scripts",
+        actor_sub="Scaffold doc_src/en/, config & build scripts",
         actor_optional=False,
         ops=[
             ("user", 'Ask Gemini: "Create initial doc project"', "done"),
@@ -706,7 +723,7 @@ with anim.frame(duration=2.5):
         step_heading="3. Gemini — Starter Files Created",
         actor="gemini",
         actor_title="Gemini: Starter template generated",
-        actor_sub="doc_src/ holds config, templates & chapters",
+        actor_sub="doc_src/ holds drawlib.toml, theme & en/",
         actor_optional=False,
         ops=[
             ("user", 'Ask Gemini: "Create initial doc project"', "done"),
@@ -717,9 +734,10 @@ with anim.frame(duration=2.5):
         show_outputs=False,
         row_states={
             "doc_src": ("new", "Created"),
+            "toml": ("new", ""),
             "styles": ("new", ""),
-            "utils": ("new", ""),
             "template": ("new", ""),
+            "en_dir": ("new", ""),
             "cover": ("new", ""),
             "overview": ("new", ""),
             "build_sh": ("new", ""),
@@ -747,7 +765,6 @@ with anim.frame(duration=2.4):
         show_outputs=False,
         row_states={
             "styles": ("active", "Updated"),
-            "utils": ("active", "Updated"),
         },
         committed=False,
         pulse_arrow=True,
@@ -802,14 +819,14 @@ with anim.frame(duration=2.4):
         pulse_arrow=False,
     )
 
-# Day 1 - 7. [Gemini] Edit Markdown chapters inside doc_src/
+# Day 1 - 7. [Gemini] Edit Markdown chapters inside doc_src/en/
 with anim.frame(duration=2.4):
     draw_split_workspace(
         phase_badge="Day 1: Initial Project Setup",
         step_heading="7. Gemini — Author Markdown & Diagrams",
         actor="gemini",
         actor_title="Gemini: Write chapters & ```drawlib",
-        actor_sub="Prose and Python diagrams live together",
+        actor_sub="Prose and Python diagrams live in doc_src/en/",
         actor_optional=False,
         ops=[
             ("user", 'Ask Gemini: "Create initial doc project"', "done"),
@@ -817,7 +834,7 @@ with anim.frame(duration=2.4):
             ("gemini", "Edit doc_src/styles.py, utils.py", "done"),
             ("gemini", "Edit template.html, style.css", "optional_done"),
             ("user", 'Ask Gemini: "Update project docs"', "done"),
-            ("gemini", "Edit 00_cover.md, 01_overview.md", "active_gemini"),
+            ("gemini", "Edit en/00_cover.md, en/01_overview.md", "active_gemini"),
         ],
         show_day2_note=False,
         show_src=True,
@@ -845,7 +862,7 @@ with anim.frame(duration=2.2):
             ("gemini", "Edit doc_src/styles.py, utils.py", "done"),
             ("gemini", "Edit template.html, style.css", "optional_done"),
             ("user", 'Ask Gemini: "Update project docs"', "done"),
-            ("gemini", "Edit 00_cover.md, 01_overview.md", "done"),
+            ("gemini", "Edit en/00_cover.md, en/01_overview.md", "done"),
             ("gemini", "$ ./doc_src/build.sh  (+ build docx)", "active_gemini"),
         ],
         show_day2_note=False,
@@ -865,7 +882,7 @@ with anim.frame(duration=2.8):
         step_heading="9. Gemini — Outputs Generated",
         actor="gemini",
         actor_title="Gemini: Built MD, HTML, PDF & DOCX",
-        actor_sub="All 4 formats compiled from doc_src/",
+        actor_sub="Locale outputs compiled from doc_src/en/",
         actor_optional=False,
         ops=[
             ("user", 'Ask Gemini: "Create initial doc project"', "done"),
@@ -873,7 +890,7 @@ with anim.frame(duration=2.8):
             ("gemini", "Edit doc_src/styles.py, utils.py", "done"),
             ("gemini", "Edit template.html, style.css", "optional_done"),
             ("user", 'Ask Gemini: "Update project docs"', "done"),
-            ("gemini", "Edit 00_cover.md, 01_overview.md", "done"),
+            ("gemini", "Edit en/00_cover.md, en/01_overview.md", "done"),
             ("gemini", "$ ./doc_src/build.sh  (+ build docx)", "active_gemini"),
         ],
         show_day2_note=False,
@@ -904,7 +921,7 @@ with anim.frame(duration=2.8):
             ("gemini", "Edit doc_src/styles.py, utils.py", "done"),
             ("gemini", "Edit template.html, style.css", "optional_done"),
             ("user", 'Ask Gemini: "Update project docs"', "done"),
-            ("gemini", "Edit 00_cover.md, 01_overview.md", "done"),
+            ("gemini", "Edit en/00_cover.md, en/01_overview.md", "done"),
             ("gemini", "$ ./doc_src/build.sh  (+ build docx)", "done"),
             ("user_git", '$ git add . && git commit -m "Init doc"', "active_user"),
         ],
@@ -941,8 +958,8 @@ with anim.frame(duration=2.4):
         show_src=True,
         show_outputs=True,
         row_states={
+            "toml": ("muted", ""),
             "styles": ("muted", ""),
-            "utils": ("muted", ""),
             "template": ("muted", ""),
             "out_md": ("muted", ""),
             "out_html": ("muted", ""),
@@ -959,19 +976,19 @@ with anim.frame(duration=2.6):
         phase_badge="Day 2: Incremental Update",
         step_heading="2. Gemini — Update Markdown Only",
         actor="gemini",
-        actor_title="Gemini: Edit 01_overview.md",
-        actor_sub="Shared styles & templates stay untouched",
+        actor_title="Gemini: Edit en/01_overview.md",
+        actor_sub="drawlib.toml, styles & templates untouched",
         actor_optional=False,
         ops=[
             ("user", 'Ask Gemini: "Update project docs"', "done"),
-            ("gemini", "Edit doc_src/01_overview.md", "active_gemini"),
+            ("gemini", "Edit doc_src/en/01_overview.md", "active_gemini"),
         ],
         show_day2_note=True,
         show_src=True,
         show_outputs=True,
         row_states={
+            "toml": ("muted", ""),
             "styles": ("muted", ""),
-            "utils": ("muted", ""),
             "template": ("muted", ""),
             "overview": ("active", "Modified"),
             "out_md": ("muted", ""),
@@ -994,15 +1011,15 @@ with anim.frame(duration=2.2):
         actor_optional=False,
         ops=[
             ("user", 'Ask Gemini: "Update project docs"', "done"),
-            ("gemini", "Edit doc_src/01_overview.md", "done"),
+            ("gemini", "Edit doc_src/en/01_overview.md", "done"),
             ("gemini", "$ ./doc_src/build.sh  (+ build docx)", "active_gemini"),
         ],
         show_day2_note=True,
         show_src=True,
         show_outputs=True,
         row_states={
+            "toml": ("muted", ""),
             "styles": ("muted", ""),
-            "utils": ("muted", ""),
             "template": ("muted", ""),
             "build_sh": ("active", "Running"),
             "out_md": ("muted", ""),
@@ -1025,15 +1042,15 @@ with anim.frame(duration=2.6):
         actor_optional=False,
         ops=[
             ("user", 'Ask Gemini: "Update project docs"', "done"),
-            ("gemini", "Edit doc_src/01_overview.md", "done"),
+            ("gemini", "Edit doc_src/en/01_overview.md", "done"),
             ("gemini", "$ ./doc_src/build.sh  (+ build docx)", "active_gemini"),
         ],
         show_day2_note=True,
         show_src=True,
         show_outputs=True,
         row_states={
+            "toml": ("muted", ""),
             "styles": ("muted", ""),
-            "utils": ("muted", ""),
             "template": ("muted", ""),
             "out_md": ("output", "Updated"),
             "out_html": ("output", "Updated"),
@@ -1055,7 +1072,7 @@ with anim.frame(duration=3.8):
         actor_optional=False,
         ops=[
             ("user", 'Ask Gemini: "Update project docs"', "done"),
-            ("gemini", "Edit doc_src/01_overview.md", "done"),
+            ("gemini", "Edit doc_src/en/01_overview.md", "done"),
             ("gemini", "$ ./doc_src/build.sh  (+ build docx)", "done"),
             ("user_git", '$ git add . && git commit -m "Update spec"', "active_user"),
         ],

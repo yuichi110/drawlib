@@ -298,10 +298,10 @@ Drawlib integrates a complete, standalone documentation compilation pipeline (`d
 
 ### 4.1. Project-First Rule (`drawlib init`)
 > **CRITICAL (No Bare `.py` Files)**: Never create standalone `.py` drawing files directly in an uninitialized directory, and never create project directories by hand from scratch.  
-> Even if the user only asks for a single diagram image, check if a Drawlib project (`*_src/`) exists in the workspace. If not, **always scaffold a project first using `drawlib init`** so that `styles.py` (theme & language fonts), `utils.py`, `_assets/`, and `build.sh` are properly configured:
+> Even if the user only asks for a single diagram image, check if a Drawlib project (`*_src/`) exists in the workspace. If not, **always scaffold a project first using `drawlib init`** so that `drawlib.toml`, `styles.py` (theme & language fonts), `utils.py`, `_assets/`, and `build.sh` are properly configured:
 > - **Diagram image(s) only** -> **`images`** project (`drawlib init images [-l <lang>] [-s <style>]`, author in `images_src/*.py`)
-> - **Illustrated document / website / slide deck** -> **`doc`**, **`site`**, or **`slide`** project (`drawlib init <doc|site|slide> [-l <lang>] [-s <style>]`)
-> - **Language & Sample Cleanup**: Pass `--lang ja` (or target language code) when non-English text is needed so `styles.py` configures CJK-safe fonts, and replace or remove the generated starter sample files (`sample1.py`, `sample2.py`, etc.) after scaffolding.
+> - **Illustrated document / website / slide deck** -> **`doc`**, **`site`**, or **`slide`** project (`drawlib init <doc|site|slide> [-l <langs>] [-s <style>]`, author in `<src_dir>/<lang>/*.md`)
+> - **Language & Sample Cleanup**: Pass `--lang ja` when non-English text is needed (or `--lang en,ja` for multi-locale `doc`, `site`, or `slide` projects), and replace or remove the generated starter sample files (`sample1.py`, `sample2.py`, etc.) after scaffolding.
 
 ```bash
 # List available starter templates:
@@ -311,47 +311,51 @@ drawlib init list
 drawlib init images
 drawlib init images --lang ja -s google
 
-# If the user wants a multi-page documentation website:
+# If the user wants a multi-page documentation website (single or multi-locale):
 drawlib init site
+drawlib init site -l en,ja -s google
 
-# If the user wants a linear document (HTML, PDF, MD, images + optional .docx):
+# If the user wants a linear document (HTML, <base>_<lang>.pdf, MD + optional <base>_<lang>.docx):
 drawlib init doc
-drawlib init doc rbac -s google
+drawlib init doc rbac -l en,ja -s google
 
-# If the user wants a 16:9 presentation slide deck (HTML, PDF, images + optional .pptx):
-drawlib init slide -s google
+# If the user wants a 16:9 presentation slide deck (HTML, <base>_<lang>.pdf + optional <base>_<lang>.pptx):
+drawlib init slide -l en,ja -s google
 ```
 
 ### 4.2. Standard Project Structure & Lifecycle
-A standard documentation project initialized via `drawlib init site` follows this structure:
+A standard documentation project initialized via `drawlib init site` follows this `i18n`-native structure:
 
 ```text
 my_project/
 ├── docs_src/                  # [SOURCE OF TRUTH] Only author/edit files here!
-│   ├── index.md               # [MANDATORY] Root landing page
-│   ├── navbar.md              # [MANDATORY] Sidebar navigation menu definition
-│   ├── architecture/          # Chapter / topic subdirectories
-│   │   └── index.md
-│   └── workflow/
-│       └── index.md
-├── styles.py                  # Global custom styles and palette theming
-├── utils.py                   # User-defined helper functions and constants
-├── build.sh                   # Unified build automation script
-├── docs/                      # [GENERATED] Rendered Markdown site for GitHub browsing
-└── docs_html/                 # [GENERATED] Responsive static HTML site with sidebar
+│   ├── drawlib.toml           # [MANDATORY] Project manifest ([project] & [i18n])
+│   ├── en/                    # Default locale directory (add ja/, etc. for multi-locale)
+│   │   ├── index.md           # [MANDATORY] Root landing page
+│   │   ├── navbar.md          # [MANDATORY] Sidebar navigation menu definition
+│   │   ├── architecture/      # Chapter / topic subdirectories
+│   │   │   └── index.md
+│   │   └── workflow/
+│   │       └── index.md
+│   ├── _assets/               # Shared logos, favicons, and static media
+│   ├── styles.py              # Global custom styles and palette theming
+│   ├── utils.py               # User-defined helper functions and constants
+│   └── build.sh               # Unified build automation script
+├── docs_markdown/             # [GENERATED] Rendered Markdown (<lang>/ + shared images/)
+└── docs_html/                 # [GENERATED] Responsive static HTML site (<lang>/ + root redirect)
 ```
 
-**The Golden Rule of Documentation**: Never manually edit files in `docs/` or `docs_html/`. All manual edits, additions, and updates must take place inside `docs_src/`. Build outputs are regenerated automatically.
+**The Golden Rule of Documentation**: Never manually edit files in `docs_markdown/` or `docs_html/`. All manual edits, additions, and updates must take place inside `docs_src/`. Build outputs are regenerated automatically.
 
 ### 4.3. Navigation Bar (`navbar.md`) Rules
-For multi-page documentation sites, `docs_src/navbar.md` defines the navigation sidebar:
+For multi-page documentation sites, `docs_src/<lang>/navbar.md` defines each locale's navigation sidebar:
 1. **Site Title (Brand Name)**: The first `# Heading 1` (e.g. `# Drawlib Docs`) defines the brand title shown in the top-left sidebar header.
 2. **Category Headings**: `## Heading 2` defines categorized sections (e.g. `## 1. Architecture`). Bullets before any `##` heading are top-level items.
-3. **Links**: Bullet items `- [Title](path/to/file.md)` define page links. Anchors (`#sec`) and external URLs are supported.
-4. **Build-Time Link Validation**: Every local link is strictly validated at build time. If any target file is missing, the build halts with an informative error detailing the exact line number.
+3. **Links**: Bullet items `- [Title](path/to/file.md)` define page links relative to `docs_src/<lang>/`. Anchors (`#sec`) and external URLs are supported.
+4. **Build-Time Link & Parity Validation**: Every local link is strictly validated at build time, and multi-locale sites verify structural parity across all locales in `drawlib.toml`.
 
 ### 4.4. Embedded Drawing Code Blocks (` ```drawlib `)
-In Markdown source files under `docs_src/`, embed illustrations using the ````drawlib```` language fence:
+In Markdown source files under `docs_src/<lang>/`, embed illustrations using the ````drawlib```` language fence:
 
 ````markdown
 ```drawlib align=center code=show file=system_architecture.png caption="System Architecture Overview"
@@ -372,7 +376,7 @@ save()
 - **Code Visibility**: `code=hide` (default, image only), `code=show` (code + image), `code=fold` (image + collapsed `<details>` dropdown). Always use **`code=fold`** on the **Top Hero diagram (`Lines 5–15`)** so the illustration appears immediately above the fold.
 - **Dimensions & `720pt` Typography Scaling**: Drawlib maps every canvas width to `720pt` (`10 inches`), meaning rendered HTML font size equals $\text{text\_size} \times \frac{\text{Displayed Width}}{720}$. **Omit narrow pixel width caps** (such as `width=400px` or `width=600px`) on standard documentation diagrams so figures expand to `100%` of `.drawlib-image`, and set **`text_size >= 10.0`** (standard `10.5`–`12.0`, titles `12.0`–`14.0`, floor `9.5`) so diagram text matches `16px` HTML body prose.
 - **Alignment**: `align=center`, `align=left`, `align=right`.
-- **Caption & Filename**: `caption="Figure Title"`, `file=custom_name.png`. **Always specify `file=<name>.png`** so blocks are uniquely addressable by name across builds and prevent off-by-one errors from content shifts.
+- **Caption & Filename**: `caption="Figure Title"`, `file=custom_name.png`. **Always specify `file=<name>.png`** so blocks are uniquely addressable by name across builds and shared across locales without re-rendering.
 
 **Handling `save()` in Embedded Blocks**:
 - **Tolerant Execution Engine**: The build engine automatically captures the canvas and renders the companion image to disk upon block completion. Calling `save()` is optional. If `save()` is explicitly called within an embedded block, the engine treats it safely as a no-op to prevent duplicate file writes or collisions.
@@ -383,18 +387,18 @@ save()
 ### 4.5. Build & Preview Commands
 ```bash
 # Run full documentation build via script:
-./build.sh
+./docs_src/build.sh
 
 # Preview or test a specific diagram block by name with coordinate grid (Recommended):
 # (Always pass -o <path> in headless environments to write images to disk for AI inspection)
-drawlib show docs_src/index.md system_architecture.png -g -o .drawlib/scratch/test.png
+drawlib show docs_src/en/index.md system_architecture.png -g -o .drawlib/scratch/test.png
 
 # Or compile manually via CLI:
-drawlib build html docs_src/ -o docs_html/ -s styles.py -u utils.py
-drawlib build markdown docs_src/ -o docs/ -s styles.py -u utils.py
-drawlib build pdf docs_src/index.md -o output.pdf -s styles.py -u utils.py
-drawlib build docx doc_src/ -o output.docx -s styles.py -u utils.py
-drawlib build pptx slide_src/ -o deck.pptx -s styles.py -u utils.py
+drawlib build html docs_src/ -o docs_html/
+drawlib build markdown docs_src/ -o docs_markdown/
+drawlib build pdf doc_src/ -o doc.pdf        # Emits doc_<lang>.pdf per locale
+drawlib build docx doc_src/ -o doc.docx      # Emits doc_<lang>.docx per locale
+drawlib build pptx slide_src/ -o deck.pptx   # Emits deck_<lang>.pptx per locale
 
 # Bypass SQLite build cache to force clean re-rendering:
 drawlib build html docs_src/ -o docs_html/ --no-cache
@@ -419,7 +423,7 @@ from drawlib.tools import build_html, build_markdown, export_code_block
 
 # Export a single diagram from a Markdown file by name (recommended)
 image_path = export_code_block(
-    file_path="docs_src/architecture.md",
+    file_path="docs_src/en/architecture/index.md",
     target="system_architecture.png",
     output_path=".drawlib/scratch/preview.png",
     grid=True,
@@ -429,25 +433,23 @@ image_path = export_code_block(
 build_html(
     input_dir="docs_src/",
     output_dir="docs_html/",
-    styles_path="styles.py",
-    utils_path="utils.py",
 )
 ```
 
 | Function | Equivalent CLI Command | Primary Use Case |
 | :--- | :--- | :--- |
-| `build_document()` | `drawlib build <html\|markdown\|pdf>` | Unified dispatcher for compiling documentation directories into HTML, Markdown, or PDF. |
-| `build_html()` | `drawlib build html` | Compile static documentation sites or merged HTML documents (`input_dir`, `output_dir`). |
-| `build_markdown()` | `drawlib build markdown` | Render documentation for GitHub viewing with linked images (`input_dir`, `output_dir`). |
-| `build_pdf()` | `drawlib build pdf` | Export print-ready PDFs via headless Chromium (`input_dir`, `output_file`). |
-| `build_docx()` | `drawlib build docx` | Export native editable MS Word (`.docx`) documents with high-DPI PNG diagrams (`input_path`, `output_file`, `dpi=200`). |
-| `build_slide()` | `drawlib build slide` | Compile 16:9 widescreen HTML presentation slide decks (`input_dir`, `output_dir`). |
-| `build_pptx()` | `drawlib build pptx` | Export native editable 16:9 MS PowerPoint (`.pptx`) decks via headless Chromium DOM measurement (`input_dir`, `output_file`, `dpi=240`). |
-| `build_image()` | `drawlib build image` | Execute standalone Python drawing scripts in batch mode (`inputs`, `output`). |
+| `build_document()` | `drawlib build <html\|markdown\|pdf\|docx>` | Unified dispatcher for compiling `doc` or `site` project directories into HTML, Markdown, PDF, or Word. |
+| `build_html()` | `drawlib build html` | Compile `site` or `doc` projects into multi-locale HTML (`input_dir`, `output_dir`). |
+| `build_markdown()` | `drawlib build markdown` | Render `site` or `doc` projects into GitHub Markdown with shared images (`input_dir`, `output_dir`). |
+| `build_pdf()` | `drawlib build pdf` | Export print-ready `<base>_<lang>.pdf` files via headless Chromium (`input_path`, `output_file`). |
+| `build_docx()` | `drawlib build docx` | Export native editable MS Word `<base>_<lang>.docx` documents with high-DPI PNG diagrams (`input_path`, `output_file`, `dpi=200`). |
+| `build_slide()` | `drawlib build slide` | Compile 16:9 widescreen multi-locale HTML presentation slide decks (`input_dir`, `output_dir`). |
+| `build_pptx()` | `drawlib build pptx` | Export native editable 16:9 MS PowerPoint `<base>_<lang>.pptx` decks via headless Chromium DOM measurement (`input_dir`, `output_file`, `dpi=240`). |
+| `build_image()` | `drawlib build image` | Execute standalone Python drawing scripts or Markdown diagram extraction in batch mode (`input_path`, `output_path`). |
 | `detect_document_type()` | *(auto-detection)* | Inspect a source path and return its `DocType` (`SITE`, `DOC`, `SLIDE`, `SINGLE_MD`). |
 | `export_code_block()` | `drawlib show -o` | Fast illustration rendering to disk for AI self-verification and tests. |
 | `show_code_block()` | `drawlib show` | Open an interactive desktop GUI window for a specific code block or `.py` script. |
-| `init_project()` / `list_project_types()` | `drawlib init` / `drawlib init list` | Programmatic repository scaffolding and archetype discovery. |
+| `init_project()` / `list_project_types()` | `drawlib init` / `drawlib init list` | Programmatic repository scaffolding (`lang="en,ja"`) and archetype discovery. |
 | `serve_docs()` / `scan_broken_links()` | `drawlib serve` / `drawlib serve --check` | Local preview server and broken hyperlink/image scanner. |
 | `list_cache()` / `download_cache()` / `clear_cache()` | `drawlib cache <list\|download\|clear>` | Inspect, pre-download, and purge cached font, icon, map, and headless Chromium assets (`--all` / `--browser`). |
 | `list_css()` / `list_html_css()` / `list_pdf_css()` / `list_slide_css()` / `export_css()` / `get_css()` | `drawlib css <list\|show>` | Inspect and export built-in CSS stylesheets for HTML, PDF, and Slide targets. |
@@ -778,7 +780,7 @@ drawlib rules show <topic> --rebuild
   from drawlib.tools import build_html, export_code_block
 
   build_html(input_dir="docs_src/", output_dir="docs_html/")
-  export_code_block("docs_src/arch.md", "system_arch.png", ".drawlib/scratch/output.png")
+  export_code_block("docs_src/en/arch.md", "system_arch.png", ".drawlib/scratch/output.png")
   ```
 - **When to read**: Refer to this rule when automating build scripts in Python, writing test assertions with pytest, or triggering on-demand diagram exports from custom automation sidecars.
 
@@ -867,9 +869,9 @@ Never deliver unverified drawing code or documentation pages to the user. Always
 1. **Step 1: Understand Requirements & Scaffold Project (`drawlib init`)**:
    - Check if a Drawlib project (`*_src/`) already exists in the workspace. Never create bare `.py` files in an uninitialized directory:
      - **Diagram image(s) only** -> `uv run drawlib init images [-l ja] [-s google]` (remove starter `sample1.py`, `sample2.py`).
-     - **Illustrated document / website / slide deck** -> `uv run drawlib init <doc|site|slide> [-l ja] [-s google]`.
+     - **Illustrated document / website / slide deck** -> `uv run drawlib init <doc|site|slide> [-l en,ja] [-s google]`.
 2. **Step 2: Author Rich Declarative Code (`Stage 1 — Static & Anchor Check`)**:
-   - In documentation (`docs_src/` / `doc_src/`), place a **Top Hero diagram at Lines 5–15** with `code=fold`, include **`2+` diagrams per page**, omit narrow `px` width caps on fences, and keep **`text_size >= 10.0`** (standard `10.5`–`12.0`, headers `12.0`–`14.0`).
+   - In documentation (`docs_src/<lang>/` / `doc_src/<lang>/`), place a **Top Hero diagram at Lines 5–15** with `code=fold`, include **`2+` diagrams per page**, omit narrow `px` width caps on fences, and keep **`text_size >= 10.0`** (standard `10.5`–`12.0`, headers `12.0`–`14.0`).
    - Combine standardized icons (`phosphor`, `gcp`) with high-level components (`SmartArts`, `Diagrams`, `Graphs`, `Charts`), respecting **Center `(cx, cy)`** anchors for primitives vs. **Bottom-Left `(x0, y0)`** (or component-default `Top-Left` / `Center`) anchors for composite components.
 3. **Step 3: Micro-Geometry Grid Review (`Stage 2 — drawlib show -g` + `view_file`)**:
    - Render each diagram with the 10-unit/5-unit coordinate grid to `.drawlib/scratch/preview.png`:
@@ -878,11 +880,11 @@ Never deliver unverified drawing code or documentation pages to the user. Always
      uv run drawlib show images_src/architecture.py -s images_src/styles.py -u images_src/utils.py -g -o .drawlib/scratch/preview.png
 
      # Named block in Markdown:
-     uv run drawlib show docs_src/my_doc.md system_arch.png -s docs_src/styles.py -u docs_src/utils.py -g -o .drawlib/scratch/preview.png
+     uv run drawlib show docs_src/en/my_doc.md system_arch.png -s docs_src/styles.py -u docs_src/utils.py -g -o .drawlib/scratch/preview.png
      ```
    - Inspect `.drawlib/scratch/preview.png` via `view_file`. Fix any overlapping labels, clipped borders, off-center `Bottom-Left` anchors, cramped perimeter margins (`< 4–6` units), or Rainbow Color Chaos (`50%+` of nodes must use calm `*Neutral` styles; limit saturated `*Flat` fills to 1–2 focal nodes).
 4. **Step 4: Macro-Page Browser HTML Verification (`Stage 3 — Playwright 1280×920` + `view_file`)**:
-   - For `site`, `doc`, or `slide` projects, build HTML (`./<target>_src/build.sh`), run link validation (`uv run drawlib serve <target>_html/ --check`), and capture a `1280×920` headless Chromium screenshot of the rendered HTML page.
+   - For `site`, `doc`, or `slide` projects, build HTML (`./<target>_src/build.sh`), run link validation (`uv run drawlib serve <target>_html/ --check`), and capture a `1280×920` headless Chromium screenshot of the rendered HTML page (`<target>_html/<lang>/index.html`).
    - Inspect the browser screenshot via `view_file` to verify that the **Top Hero diagram is immediately visible above the fold** and that **in-diagram labels match the surrounding `16px` HTML body prose** in visual size. Clean up `.drawlib/scratch/` when done.
 
 ---
@@ -890,7 +892,7 @@ Never deliver unverified drawing code or documentation pages to the user. Always
 ### 6.2. Project-First Authoring & Scratch Grid Previews
 
 1. **Always Author Inside a Scaffolded Project (`*_src/`)**:
-   - Do **not** create bare `.py` scripts in the workspace root. Author scripts inside `images_src/` (for image-only workflows) or Markdown documents inside `doc_src/`, `docs_src/`, or `slide_src/` so that `styles.py` (including language fonts and themes), `utils.py`, `_assets/`, and `build.sh` are always active.
+   - Do **not** create bare `.py` scripts in the workspace root. Author scripts inside `images_src/` (for image-only workflows) or Markdown documents inside `doc_src/<lang>/`, `docs_src/<lang>/`, or `slide_src/<lang>/` so that `drawlib.toml`, `styles.py` (including language fonts and themes), `utils.py`, `_assets/`, and `build.sh` are always active.
    - Use `.drawlib/scratch/` strictly as the temporary output destination for `-g` grid preview and browser verification images.
 2. **Show the Rendered Image to the User**:
    - Present the rendered visual illustration directly to the user along with your explanation.

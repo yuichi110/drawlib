@@ -67,11 +67,13 @@ Drawlib eliminates this fragmentation by executing drawing code blocks once and 
 
 | Exporter | Compiler Module | Primary Output | Key Capabilities |
 | :--- | :--- | :--- | :--- |
-| **HTML** | `compiler/html.py` | `docs_html/`, `slide_html/` | VitePress-inspired theme, sidebar navigation, instant dark mode, 16:9 interactive slide stage. |
-| **Markdown** | `compiler/markdown.py` | `docs_markdown/` | Clean GitHub Flavored Markdown with relative image links for native Git viewing. |
-| **PDF** | `compiler/pdf.py` | `document.pdf`, `slide.pdf` | Vector graphic embedding, automated pagination, TOC injection, auto-provisioned headless Chromium print. |
-| **Word (`.docx`)** | `compiler/docx.py` | `document.docx` | Pure-Python editable OOXML headings, prose, lists, tables, syntax-highlighted code blocks, TOC, and 200 DPI PNG diagrams. |
-| **PowerPoint (`.pptx`)** | `_slide/compiler_pptx.py` | `slide.pptx` | Headless Chromium `1920×1080` CSS layout measurement mapped to native 16:9 (`960×540 pt`) OOXML cards, text, tables, speaker notes, and 240 DPI PNG diagrams. |
+| **HTML** | `compiler/html.py` | `docs_html/<lang>/`, `slide_html/<lang>/` (+ root `index.html`) | VitePress-inspired theme, sidebar navigation, language switcher, instant dark mode, 16:9 interactive slide stage. |
+| **Markdown** | `compiler/markdown.py` | `docs_markdown/<lang>/` | Clean GitHub Flavored Markdown with relative shared `images/` links for native Git viewing. |
+| **PDF** | `compiler/pdf.py` | `<base>_<lang>.pdf` | Vector graphic embedding, automated pagination, TOC injection, auto-provisioned headless Chromium print. |
+| **Word (`.docx`)** | `compiler/docx.py` | `<base>_<lang>.docx` | Pure-Python editable OOXML headings, prose, lists, tables, syntax-highlighted code blocks, TOC, and 200 DPI PNG diagrams. |
+| **PowerPoint (`.pptx`)** | `_slide/compiler_pptx.py` | `<base>_<lang>.pptx` | Headless Chromium `1920×1080` CSS layout measurement mapped to native 16:9 (`960×540 pt`) OOXML cards, text, tables, speaker notes, and 240 DPI PNG diagrams. |
+
+For multi-locale projects (`[i18n]` in `drawlib.toml`), every directory build emits locale-scoped subdirectories (`<output_dir>/<lang>/` sharing a deduplicated `<output_dir>/images/` folder) or locale-suffixed document deliverables (`<base>_<lang>.pdf`, `<base>_<lang>.docx`, `<base>_<lang>.pptx`), even when `langs = ["en"]` contains a single locale.
 
 ---
 

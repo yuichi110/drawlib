@@ -50,8 +50,8 @@ text((13.2, 31.8), "arch.py, flow.py, ...", style=Styles.Dark.patch(text_size=9.
 
 rectangle((22.0, 21.8), width=31.6, height=9.8, style=Styles.PrimaryNeutral.patch(shape_r=1.3))
 code.python((10.0, 21.8), width=3.6, style=Styles.Neutral)
-text((13.2, 23.6), "styles.py & utils.py", style=Styles.DarkBold.patch(text_size=10.2, halign="left"))
-text((13.2, 19.6), "Shared theme & macros", style=Styles.Dark.patch(text_size=9.6, halign="left"))
+text((13.2, 23.6), "drawlib.toml, styles.py", style=Styles.DarkBold.patch(text_size=10.0, halign="left"))
+text((13.2, 19.6), "Manifest, theme & utils.py", style=Styles.Dark.patch(text_size=9.5, halign="left"))
 
 rectangle((22.0, 10.4), width=31.6, height=8.4, style=CARD_WHITE)
 phosphor.folder_open((10.0, 10.4), width=3.6, style=Styles.PrimaryBold)
@@ -174,6 +174,7 @@ drawlib init images my_assets -s google -l en
 ## 3. Directory Layout & Anatomy
 
 ### Editable Source Directory (`images_src/`)
+- **`drawlib.toml`**: Project manifest declaring `[project]` metadata (`type = "images"`, `style`, and single-language `lang` such as `"en"` or `"ja"` for CJK font setup; `[i18n]` is not used on `images` projects).
 - **`styles.py` & `utils.py`**: Project-wide styling overrides (`Colors`, `Styles`, CJK fonts) and reusable component helpers automatically loaded during `drawlib show` and `drawlib build image`.
 - **`_assets/`**: Static raster logos, background images, or custom `.ttf` fonts referenced via relative paths (for example, `"_assets/logo.png"`).
 - **`*.py` Drawing Scripts**: Standalone Python scripts (including nested subdirectories such as `network/vpc_peering.py`) that call `save()` to emit images.

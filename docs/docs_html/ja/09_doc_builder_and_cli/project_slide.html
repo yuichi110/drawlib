@@ -72,7 +72,7 @@
                 
                 <a href="../01_getting_started/release_notes.html" class="sidebar-version-badge" title="View Release Notes">
                     <span class="sidebar-version-dot" aria-hidden="true"></span>
-                    <span class="sidebar-version-text">v0.3.2</span>
+                    <span class="sidebar-version-text">v0.3.3</span>
                 </a>
                 <a href="https://github.com/yuichi110/drawlib" target="_blank" rel="noopener noreferrer" class="sidebar-github-link" aria-label="GitHub Repository" title="GitHub Repository">
                     <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
@@ -751,7 +751,7 @@ drawlib<span class="w"> </span>init<span class="w"> </span>slide<span class="w">
 <li><strong><code>_</code> 始まりのファイルと <code>README.md</code></strong>: 構成案や下書きスライド（<code>_planning.md</code>、<code>_drafts/</code>）および <code>README.md</code> は、スライドデッキのコンパイル対象から自動的に除外されます。</li>
 <li><strong><code>_assets/</code></strong>: 出力先フォルダへ同期される静的なロゴ、フォント、参照メディアです（<code>&lt;lang&gt;/</code> のスライドからは <code>../_assets/...</code>、<code>&lt;lang&gt;/&lt;section&gt;/</code> からは <code>../../_assets/...</code> で参照します）。</li>
 <li><strong><code>styles.py</code> &amp; <code>utils.py</code></strong>: プレゼンテーション全体で共有されるカラートークン、タイポグラフィ既定値（任意のロケール別 <code>&lt;lang&gt;/styles.py</code> による上書きも可能）、スライドヘッダー／フッターヘルパー、KPI／カードユーティリティです。</li>
-<li><strong><code>style.css</code> &amp; <code>slide.js</code></strong>: 16:9 ビューポート自動スケーリング用スタイルシート、キーボードナビゲーションコントローラー、<code>.lang-switcher</code> コントロール、および <code>BroadcastChannel</code> による発表者ツール（Presenter View）ランタイムです。</li>
+<li><strong><code>style.css</code> &amp; <code>slide.js</code></strong>: 16:9 ビューポート自動スケーリング用スタイルシート、キーボードナビゲーションコントローラー、<code>.slide-lang-dropdown</code> 言語メニュー（<code>L</code> ショートカット対応）、および <code>BroadcastChannel</code> による発表者ツール（Presenter View）ランタイムです。</li>
 <li><strong><code>build.sh</code>, <code>build_html.sh</code>, <code>build_pdf.sh</code>, <code>build_image.sh</code>, <code>serve.sh</code></strong>: モジュール化されたビルドスクリプトおよびローカルプレゼンテーションプレビューランチャーです。</li>
 </ul>
 </li>
@@ -780,7 +780,7 @@ drawlib<span class="w"> </span>init<span class="w"> </span>slide<span class="w">
 <tr>
 <td style="text-align:left"><strong><code>slide_html/&lt;lang&gt;/index.html</code></strong></td>
 <td style="text-align:left">インタラクティブな発表</td>
-<td style="text-align:left">1920x1080 固定ステージ、ビューポート自動スケーリング、キーボード操作（<code>Space</code>, <code>矢印キー</code>, <code>F</code>）、発表者ツール（<code>?presenter=1</code>）、スライド一覧グリッド、言語スイッチャー</td>
+<td style="text-align:left">1920x1080 固定ステージ、ビューポート自動スケーリング、キーボード操作（<code>Space</code>, <code>矢印キー</code>, <code>F</code>, <code>L</code>）、発表者ツール（<code>?presenter=1</code>）、スライド一覧グリッド、言語スイッチャー</td>
 <td style="text-align:left"><code>build_html.sh</code> (<code>drawlib build slide</code>)</td>
 </tr>
 <tr>
@@ -865,6 +865,7 @@ HTML、PDF、画像のビルドを順番に実行します。</li>
 <li><strong><code>O</code> / <code>Esc</code></strong>: スライド一覧グリッド表示の切り替え</li>
 <li><strong><code>P</code> / <code>S</code></strong>: 同期された別ウィンドウで <strong>発表者ツール（Presenter View）</strong> を開く</li>
 <li><strong><code>A</code></strong>: 現在のスライド上のアニメーションを再生／一時停止／再開</li>
+<li><strong><code>L</code></strong>: 多言語デッキ（<code>len(langs) &gt; 1</code>）で <code>.slide-lang-dropdown</code> 言語メニューを開閉し、現在の <code>#N</code> スライド番号を維持したまま言語を切り替え</li>
 <li><strong>URL ハッシュによるディープリンク (<code>#1</code>, <code>#2</code>, ...)</strong>: <code>index.html#4</code> にアクセスするとスライド 4 に直接ジャンプし、スライドを送ると URL ハッシュもリアルタイムに更新されるため、ブックマークやリンク共有が容易です。</li>
 <li><strong>発表者ツールの直接 URL (<code>?presenter=1</code>)</strong>: <code>?presenter=1#1</code> を付与すると発表者ツールモードで直接起動し、<code>BroadcastChannel</code> / <code>localStorage</code> を介してウィンドウ間でスライド遷移やアニメーション再生を同期します。</li>
 </ul>
@@ -925,7 +926,7 @@ HTML、PDF、画像のビルドを順番に実行します。</li>
 <li><strong>対称なロケール別スライドツリーと柔軟なスピーカーノート (<code>slide_src/&lt;lang&gt;/</code>)</strong>: 各ロケールディレクトリ（<code>en/</code>、<code>ja/</code>）は同一のソート順スライドパスと <code>::: block</code> ステージ構造を保持します。一方、<code>::: note</code> スピーカーノートは構造スケルトン検証の前に除外されるため、言語ごとに自然な口頭説明や補足台本を自由に記述してもパリティエラーは発生しません。</li>
 <li><strong>共有図解の重複排除とロケール別 <code>styles.py</code></strong>: 言語非依存の図解（<code>file=arch_flow.svg</code>）は共有の <code>slide_html/images/</code> に 1 回だけコンパイルされます。翻訳ラベルや日本語タイポグラフィが必要な図解には、<code>slide_src/&lt;lang&gt;/styles.py</code>（例: <code>FontJapanese</code> を設定した <code>ja/styles.py</code>）を追加し、ロケール接尾辞付きのファイル名（<code>file=arch_flow_ja.svg</code>）を指定します。</li>
 <li><strong>一貫したロケール接尾辞付き PDF・PowerPoint 成果物 (<code>&lt;base&gt;_&lt;lang&gt;.pdf</code> / <code>.pptx</code>)</strong>: <code>drawlib build pdf</code> および <code>drawlib build pptx</code> は、ロケール別のプレゼンテーションファイル（<code>keynote_en.pdf</code>, <code>keynote_ja.pdf</code>, <code>keynote_en.pptx</code>, <code>keynote_ja.pptx</code>）を出力します。</li>
-<li><strong>スライド番号ハッシュを維持する言語スイッチャー</strong>: <code>len(langs) &gt; 1</code> の場合、<code>.slide-controls</code> 内にコンパクトな <code>.lang-switcher</code> ドロップダウン（<code>@media print</code> 時は非表示）が表示され、現在のスライド番号ハッシュを維持したまま他言語の同一スライド（<code>../ja/index.html#4</code>）へ即座に切り替えられます。また、ルートの <code>slide_html/index.html</code> は <code>?presenter=1</code> と <code>#N</code> の両方を維持して <code>default_lang</code> へリダイレクトします。</li>
+<li><strong>スライド番号ハッシュを維持する言語スイッチャー</strong>: <code>len(langs) &gt; 1</code> の場合、<code>.slide-controls</code> 内にコンパクトな <code>.slide-lang-dropdown</code> セレクター（<code>@media print</code> 時は非表示、<code>L</code> キーボードショートカットでも切り替え可能）が表示され、現在のスライド番号ハッシュを維持したまま他言語の同一スライド（<code>../ja/index.html#4</code>）へ即座に切り替えられます。また、ルートの <code>slide_html/index.html</code> は <code>?presenter=1</code> と <code>#N</code> の両方を維持して <code>default_lang</code> へリダイレクトします。</li>
 <li><strong>ロケール単位の発表者ツール同期と一括リンク監査</strong>: <code>BroadcastChannel</code> 同期はロケールごとにスコープ分離されるため、<code>en</code> と <code>ja</code> のデッキを同時に開いても干渉せず、<code>uv run drawlib serve slide_html/ --check</code> により全ロケールのアセットとリンクを 1 パスで検証できます。</li>
 </ul>
 

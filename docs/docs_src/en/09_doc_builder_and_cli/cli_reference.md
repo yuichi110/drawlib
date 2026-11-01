@@ -336,7 +336,7 @@ PART1_STATES = [
         "4 Starter Archetypes: images, doc, site & slide",
         "1a. Project Archetype Catalog",
         "4 built-in project templates for any format",
-        "Configures styles.py, utils.py & build.sh",
+        "Configures drawlib.toml, styles.py & build.sh",
     ),
     (
         "1b",
@@ -345,7 +345,7 @@ PART1_STATES = [
         "init site -s",
         "Scaffolds docs_src/ With Google Theme & Fonts",
         "1b. Zero-Config Project Bootstrap",
-        "Creates docs_src/, navbar.md & _assets/",
+        "Creates drawlib.toml, en/navbar.md & _assets/",
         "-s google syncs style.css and styles.py",
     ),
     (
@@ -388,13 +388,13 @@ for p1_idx, (mode, dur, hl_rng, badge, foot, s_t, s_1, s_2) in enumerate(PART1_S
             )
             phosphor.folder_open((79.8, 44.5), width=3.6, style=Styles.WhiteBold)
             text((82.6, 44.5), "docs_src/", style=Styles.WhiteBold.patch(text_size=10.2, halign="left"))
-            text((124.8, 44.5), "-s google", style=Styles.White.patch(text_size=9.5, halign="right"))
+            text((124.8, 44.5), "-s google -l en", style=Styles.White.patch(text_size=9.5, halign="right"))
 
             rows = [
-                (37.6, "styles.py & utils.py", "Tokens & helpers", "py", Styles.PrimaryNeutral),
-                (31.6, "navbar.md & index.md", "Sidebar & hero", "md", Styles.Neutral),
-                (25.6, "_assets/ & style.css", "Media & CSS", "folder", Styles.Neutral),
-                (19.6, "build.sh", "1-cmd compiler", "sh", Styles.SecondaryNeutral),
+                (37.6, "drawlib.toml & styles.py", "Manifest & tokens", "py", Styles.PrimaryNeutral),
+                (31.6, "en/navbar.md & index.md", "Locale tree & hero", "md", Styles.Neutral),
+                (25.6, "utils.py & _assets/", "Helpers & media", "folder", Styles.Neutral),
+                (19.6, "build.sh & style.css", "1-cmd compiler", "sh", Styles.SecondaryNeutral),
             ]
             for ry, rname, rdesc, rkind, rst in rows:
                 rectangle((scx, ry), width=50.0, height=5.0, style=rst.patch(shape_r=1.1))
@@ -617,7 +617,7 @@ PART3_STATES = [
         "Compiles Static Website + GitHub-Flavored Markdown",
         "3a. Web & Repository Targets",
         "build html generates searchable static site",
-        "build markdown exports GFM + <doc>_images/",
+        "build markdown exports GFM + shared images/",
     ),
     (
         "3b",
@@ -652,55 +652,55 @@ for p3_idx, (mode, dur, hl_rng, badge, foot, s_t, s_1, s_2) in enumerate(PART3_S
             rectangle((83.6, 33.4), width=15.0, height=19.0, style=Styles.Neutral.patch(shape_r=1.4))
             phosphor.folder_open((83.6, 38.2), width=4.0, style=Styles.PrimaryBold)
             text((83.6, 32.2), "docs_src/", style=Styles.DarkBold.patch(text_size=9.7))
-            text((83.6, 27.6), "*.md", style=Styles.Dark.patch(text_size=9.5))
+            text((83.6, 27.6), "<lang>/*.md", style=Styles.Dark.patch(text_size=9.1))
 
             line((91.1, 37.5), (98.4, 40.8), arrow_head="->", style=Styles.DarkBold)
             line((91.1, 29.5), (98.4, 26.0), arrow_head="->", style=Styles.DarkBold)
 
             rectangle((113.0, 40.8), width=29.0, height=11.6, style=Styles.PrimaryNeutral.patch(shape_r=1.4))
             phosphor.globe((102.5, 40.8), width=4.2, style=Styles.PrimaryBold)
-            text((106.2, 42.8), "docs_html/", style=Styles.DarkBold.patch(text_size=10.2, halign="left"))
-            text((106.2, 38.4), "Sidebar & Search", style=Styles.Dark.patch(text_size=9.5, halign="left"))
+            text((106.2, 42.8), "docs_html/<lang>/", style=Styles.DarkBold.patch(text_size=9.7, halign="left"))
+            text((106.2, 38.4), "Nav, Search & i18n", style=Styles.Dark.patch(text_size=9.5, halign="left"))
 
             rectangle((113.0, 26.0), width=29.0, height=11.6, style=Styles.SecondaryNeutral.patch(shape_r=1.4))
             devops.github((102.5, 26.0), width=3.9, style=Styles.Neutral)
-            text((106.2, 28.0), "docs/ (*.md)", style=Styles.DarkBold.patch(text_size=10.2, halign="left"))
-            text((106.2, 23.6), "GFM + _images/", style=Styles.Dark.patch(text_size=9.5, halign="left"))
+            text((106.2, 28.0), "docs_markdown/", style=Styles.DarkBold.patch(text_size=9.7, halign="left"))
+            text((106.2, 23.6), "<lang>/*.md + img", style=Styles.Dark.patch(text_size=9.5, halign="left"))
         elif mode == "3b":
             rectangle((83.6, 33.4), width=15.0, height=19.0, style=Styles.Neutral.patch(shape_r=1.4))
             phosphor.folder_open((83.6, 38.2), width=4.0, style=Styles.PrimaryBold)
             text((83.6, 32.2), "doc_src/", style=Styles.DarkBold.patch(text_size=9.7))
-            text((83.6, 27.6), "chapters", style=Styles.Dark.patch(text_size=9.5))
+            text((83.6, 27.6), "<lang>/*.md", style=Styles.Dark.patch(text_size=9.1))
 
             line((91.1, 37.5), (98.4, 40.8), arrow_head="->", style=Styles.DarkBold)
             line((91.1, 29.5), (98.4, 26.0), arrow_head="->", style=Styles.DarkBold)
 
             rectangle((113.0, 40.8), width=29.0, height=11.6, style=Styles.PrimaryNeutral.patch(shape_r=1.4))
             phosphor.file_pdf((102.5, 40.8), width=4.2, style=Styles.PrimaryBold)
-            text((106.2, 42.8), "manual.pdf", style=Styles.DarkBold.patch(text_size=10.2, halign="left"))
+            text((106.2, 42.8), "doc_<lang>.pdf", style=Styles.DarkBold.patch(text_size=9.9, halign="left"))
             text((106.2, 38.4), "Vector A4 + TOC", style=Styles.Dark.patch(text_size=9.5, halign="left"))
 
             rectangle((113.0, 26.0), width=29.0, height=11.6, style=Styles.Neutral.patch(shape_r=1.4))
             workspace.word((102.5, 26.0), width=4.0, style=Styles.Neutral)
-            text((106.2, 28.0), "manual.docx", style=Styles.DarkBold.patch(text_size=10.2, halign="left"))
+            text((106.2, 28.0), "doc_<lang>.docx", style=Styles.DarkBold.patch(text_size=9.9, halign="left"))
             text((106.2, 23.6), "Editable MS Word", style=Styles.Dark.patch(text_size=9.5, halign="left"))
         else:
             rectangle((83.6, 36.2), width=15.0, height=16.5, style=Styles.Neutral.patch(shape_r=1.4))
             phosphor.presentation_chart((83.6, 40.2), width=4.0, style=Styles.PrimaryBold)
             text((83.6, 34.6), "slide_src/", style=Styles.DarkBold.patch(text_size=9.6))
-            text((83.6, 30.6), "16:9 *.md", style=Styles.Dark.patch(text_size=9.5))
+            text((83.6, 30.6), "<lang>/*.md", style=Styles.Dark.patch(text_size=9.1))
 
             line((91.1, 39.8), (98.4, 42.2), arrow_head="->", style=Styles.DarkBold)
             line((91.1, 32.8), (98.4, 30.2), arrow_head="->", style=Styles.DarkBold)
 
             rectangle((113.0, 42.2), width=29.0, height=10.0, style=Styles.PrimaryNeutral.patch(shape_r=1.3))
             phosphor.globe((102.5, 42.2), width=3.9, style=Styles.PrimaryBold)
-            text((106.2, 44.0), "slide_html/", style=Styles.DarkBold.patch(text_size=10.0, halign="left"))
+            text((106.2, 44.0), "slide_html/<lang>/", style=Styles.DarkBold.patch(text_size=9.6, halign="left"))
             text((106.2, 40.0), "16:9 + ?presenter=1", style=Styles.Dark.patch(text_size=9.5, halign="left"))
 
             rectangle((113.0, 30.2), width=29.0, height=10.0, style=Styles.SecondaryNeutral.patch(shape_r=1.3))
             workspace.powerpoint((102.5, 30.2), width=3.9, style=Styles.Neutral)
-            text((106.2, 32.0), "deck.pptx", style=Styles.DarkBold.patch(text_size=10.0, halign="left"))
+            text((106.2, 32.0), "slide_<lang>.pptx", style=Styles.DarkBold.patch(text_size=9.6, halign="left"))
             text((106.2, 28.0), "960x540pt + Notes", style=Styles.Dark.patch(text_size=9.5, halign="left"))
 
             rectangle((scx, 20.4), width=50.0, height=5.2, style=Styles.Neutral.patch(shape_r=1.1))

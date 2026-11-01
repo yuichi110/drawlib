@@ -1,5 +1,51 @@
 # リリースノートと移行ガイド
 
+## バージョン 0.3.3
+
+*リリース日: 2026/11/01*
+
+バージョン 0.3.3 では、すべてのドキュメント（`doc`）・Web サイト（`site`）・プレゼンテーション（`slide`）プロジェクトに共通の **`drawlib.toml` プロジェクトマニフェスト** と **`i18n` ネイティブな `<src_dir>/<lang>/` 多言語ディレクトリ構成** を導入するとともに、**日英バイリンガル（`en`/`ja`）公式ドキュメント** および **パラメータツアーアニメーション** を全面拡充しました。
+
+---
+
+### ハイライトと新機能
+
+#### 1. 統一プロジェクトマニフェスト（`drawlib.toml`）と多言語 `i18n` ネイティブ構成
+- **宣言的マニフェスト `drawlib.toml`**: `doc`・`site`・`slide` の 3 アーキタイプすべてで `[project]` メタデータと `[i18n]` 言語設定（`default_lang`, `langs`, および任意の `[i18n.labels]`）を一元管理します（`images` プロジェクトでは `[project].lang` を使用）。`drawlib init <doc|site|slide> [-l en,ja]` または `drawlib.tools.init_project(..., lang="en,ja")` から単一言語・多言語プロジェクトを即座に生成できます。
+- **統一 `<src_dir>/<lang>/` 構成とビルド前の構造パリティ検証**: すべての `doc`・`site`・`slide` プロジェクトで Markdown 原稿を `<src_dir>/<lang>/` 配下に配置し、必要に応じてロケール別の `<lang>/styles.py`・`<lang>/utils.py` オーバーライドも利用できます。ビルド時には全ロケール間で相対ファイルパス・見出し階層（`#`〜`######`）・````drawlib```` の `file=` ターゲット一覧が一致しているかを自動検証し、言語非依存の共通図版は 1 度だけレンダリングして `<output>/images/` で全言語から共有します。
+- **多言語 16:9 スライドデッキ対応（`drawlib build slide`, `drawlib build pptx`, `drawlib build pdf`）**: インタラクティブ HTML スライドの下部コントロールバーに上方向展開の言語切り替えメニュー `.slide-lang-dropdown`（キーボードショートカット `L` 対応）を追加し、表示中の `#N` スライド番号を維持したまま言語を切り替えられるようになりました。ブラウザ言語に応じたルート `index.html` 自動リダイレクトと、言語別の PDF / PPTX 出力にも対応しています。
+- **ロケール対応タイポグラフィ・`hreflang` SEO・出力ファイル名の統一**: `<html lang="..." dir="ltr|rtl">` 属性や `<link rel="alternate" hreflang="...">` タグの自動出力、CJK / RTL 向け CSS 組版最適化（`line-break: strict` や見出し字間の自動調整）、言語別フォントの自動構成（`FontJapanese`, `FontChinese`, `FontKorean`, `FontArabic` 等）、および単一言語・多言語を問わない `<stem>_<lang>.{pdf,docx,pptx}` 形式の統一ファイル名を採用しました。
+
+#### 2. 日英バイリンガル公式ドキュメントとパラメータツアーアニメーション
+- **公式ドキュメントサイト・Dogfooding ホワイトペーパーの日英完全対応**: 公式ドキュメントポータルおよび Dogfooding ホワイトペーパーの英語版（`en/`）・日本語版（`ja/`）を完全公開し、ページ内スイッチャーから即座に言語を切り替えられるようになりました。
+- **パラメータツアーアニメーション（`drawlib.anim`）**: 基本図形・アイコン・SmartArts・定量チャート・各種ダイアグラム・自動レイアウトグラフ・ビルドワークフローにわたるロスレス APNG パラメータツアーアニメーションを追加しました。
+
+#### 3. バグ修正と内部改善
+- `drawlib._core` より先に `drawlib._release_assets` をインポートした際に発生していた `drawlib._release_assets` と `drawlib._core.l3_external` 間の循環インポートを解消しました。
+
+---
+
+### 破壊的変更と v0.3.2 からの移行ガイド
+
+v0.3.2 以前で作成した既存の `doc`・`site`・`slide` ディレクトリプロジェクトをアップグレードする場合は、以下の手順で `i18n` ネイティブ構成へ移行してください。
+
+1. **`[i18n]` を含む `drawlib.toml` の配置と `<src_dir>/<lang>/` への Markdown 移動**:
+   - 従来のフラットディレクトリ構成（`doc_src/*.md`, `docs_src/*.md`, `slide_src/*.md`）および個別の `i18n.toml` / `i18nsite` 指定は、`drawlib.toml` + `<src_dir>/<lang>/` 構成へ統合されました（1 言語のみの `langs = ["en"]` や `langs = ["ja"]` でも共通です）。なお、単一 `.md` ファイル指定のビルド（`drawlib build html report.md`, `drawlib build pdf report.md` 等）は従来どおりそのまま動作します。
+   ```toml
+   [project]
+   type = "site" # または "doc" / "slide"
+   style = "default"
+
+   [i18n]
+   default_lang = "en"
+   langs = ["en"] # または ["en", "ja"]
+   ```
+   - `*.md` ファイル（`site` の `navbar.md` を含む）を `<src_dir>/en/` 等へ移動し、共通の `styles.py`・`utils.py`・`_assets/`・`template.html`・`style.css`・`slide.js` は `<src_dir>/` 直下に維持してください。
+2. **ロケールサフィックス付き出力パスへの統一（`<stem>_<lang>.{pdf,docx,pptx}` と `<output_dir>/<lang>/`）**:
+   - `doc`・`site`・`slide` のディレクトリビルドでは、常に言語コード付きの成果物（例: `doc_en.pdf`, `doc_en.docx`, `slide_en.pdf`, `slide_en.pptx`）が出力され、HTML / Markdown ページは `<output_dir>/<lang>/` 配下（ルート `<output_dir>/index.html` は自動リダイレクトページ）に出力されます。
+
+---
+
 ## バージョン 0.3.2
 
 *リリース日: 2026/10/30*

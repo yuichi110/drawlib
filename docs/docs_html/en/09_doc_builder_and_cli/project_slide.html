@@ -72,7 +72,7 @@
                 
                 <a href="../01_getting_started/release_notes.html" class="sidebar-version-badge" title="View Release Notes">
                     <span class="sidebar-version-dot" aria-hidden="true"></span>
-                    <span class="sidebar-version-text">v0.3.2</span>
+                    <span class="sidebar-version-text">v0.3.3</span>
                 </a>
                 <a href="https://github.com/yuichi110/drawlib" target="_blank" rel="noopener noreferrer" class="sidebar-github-link" aria-label="GitHub Repository" title="GitHub Repository">
                     <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
@@ -751,7 +751,7 @@ drawlib<span class="w"> </span>init<span class="w"> </span>slide<span class="w">
 <li><strong><code>_</code>-Prefixed Files &amp; <code>README.md</code></strong>: Planning outlines, draft slides (<code>_planning.md</code>, <code>_drafts/</code>), and <code>README.md</code> are automatically excluded from deck compilation.</li>
 <li><strong><code>_assets/</code></strong>: Static logos, fonts, and reference media synchronized into output folders (referenced from <code>&lt;lang&gt;/</code> slides via <code>../_assets/...</code>, or <code>../../_assets/...</code> from <code>&lt;lang&gt;/&lt;section&gt;/</code>).</li>
 <li><strong><code>styles.py</code> &amp; <code>utils.py</code></strong>: Shared presentation color tokens, typography defaults (plus optional per-locale <code>&lt;lang&gt;/styles.py</code> overrides), slide header/footer helpers, and KPI/card utilities.</li>
-<li><strong><code>style.css</code> &amp; <code>slide.js</code></strong>: 16:9 viewport scaling stylesheet, keyboard navigation controller, <code>.lang-switcher</code> control, and <code>BroadcastChannel</code> Presenter View runtime.</li>
+<li><strong><code>style.css</code> &amp; <code>slide.js</code></strong>: 16:9 viewport scaling stylesheet, keyboard navigation controller, <code>.slide-lang-dropdown</code> language menu (<code>L</code> shortcut), and <code>BroadcastChannel</code> Presenter View runtime.</li>
 <li><strong><code>build.sh</code>, <code>build_html.sh</code>, <code>build_pdf.sh</code>, <code>build_image.sh</code>, <code>serve.sh</code></strong>: Modular build scripts and local presentation preview launcher.</li>
 </ul>
 </li>
@@ -780,7 +780,7 @@ drawlib<span class="w"> </span>init<span class="w"> </span>slide<span class="w">
 <tr>
 <td style="text-align:left"><strong><code>slide_html/&lt;lang&gt;/index.html</code></strong></td>
 <td style="text-align:left">Interactive Presenting</td>
-<td style="text-align:left">1920x1080 fixed stage, auto-scaling viewport, keyboard navigation (<code>Space</code>, <code>Arrows</code>, <code>F</code>), Presenter View (<code>?presenter=1</code>), overview grid, locale switcher</td>
+<td style="text-align:left">1920x1080 fixed stage, auto-scaling viewport, keyboard navigation (<code>Space</code>, <code>Arrows</code>, <code>F</code>, <code>L</code>), Presenter View (<code>?presenter=1</code>), overview grid, locale switcher</td>
 <td style="text-align:left"><code>build_html.sh</code> (<code>drawlib build slide</code>)</td>
 </tr>
 <tr>
@@ -865,6 +865,7 @@ Measures the <code>1920x1080</code> slide DOM and computed CSS styles via headle
 <li><strong><code>O</code> / <code>Esc</code></strong>: Toggle slide overview grid</li>
 <li><strong><code>P</code> / <code>S</code></strong>: Open <strong>Presenter View</strong> in a synchronized companion window</li>
 <li><strong><code>A</code></strong>: Play / pause / resume animation on the current slide</li>
+<li><strong><code>L</code></strong>: Toggle the <code>.slide-lang-dropdown</code> language menu on multi-locale decks (<code>len(langs) &gt; 1</code>), switching locales while preserving the current <code>#N</code> slide hash</li>
 <li><strong>URL Hash Deep-Linking (<code>#1</code>, <code>#2</code>, ...)</strong>: Navigating to <code>index.html#4</code> jumps directly to Slide 4, and advancing slides updates the URL hash in real time for bookmarking and sharing.</li>
 <li><strong>Direct Presenter URL (<code>?presenter=1</code>)</strong>: Appending <code>?presenter=1#1</code> launches the window directly in Presenter View mode, synchronizing slide changes and animation playback across windows via <code>BroadcastChannel</code> / <code>localStorage</code>.</li>
 </ul>
@@ -925,7 +926,7 @@ Measures the <code>1920x1080</code> slide DOM and computed CSS styles via headle
 <li><strong>Symmetric Locale Slide Trees &amp; Flexible Speaker Notes (<code>slide_src/&lt;lang&gt;/</code>)</strong>: Each locale directory (<code>en/</code>, <code>ja/</code>) contains the exact same sorted slide paths and <code>::: block</code> stage structure. <code>::: note</code> speaker scripts are stripped prior to structural skeleton checks so presenters can freely tailor spoken explanations per language without triggering false parity errors.</li>
 <li><strong>Shared Diagram Deduplication &amp; Per-Locale <code>styles.py</code></strong>: Language-neutral diagrams (<code>file=arch_flow.svg</code>) compile once into shared <code>slide_html/images/</code>. For slides with localized labels or CJK typography, add <code>slide_src/&lt;lang&gt;/styles.py</code> (e.g. <code>ja/styles.py</code> with <code>FontJapanese</code>) and use a locale-suffixed filename (<code>file=arch_flow_ja.svg</code>).</li>
 <li><strong>Consistent Locale-Suffixed PDF &amp; PowerPoint Deliverables (<code>&lt;base&gt;_&lt;lang&gt;.pdf</code> / <code>.pptx</code>)</strong>: <code>drawlib build pdf</code> and <code>drawlib build pptx</code> emit per-locale presentation files (<code>keynote_en.pdf</code>, <code>keynote_ja.pdf</code>, <code>keynote_en.pptx</code>, <code>keynote_ja.pptx</code>).</li>
-<li><strong>Hash-Preserving In-Deck Language Switcher</strong>: When <code>len(langs) &gt; 1</code>, <code>.slide-controls</code> renders a compact <code>.lang-switcher</code> dropdown (<code>@media print</code> hidden) that switches directly to the corresponding slide number in the target language (<code>../ja/index.html#4</code>), while root <code>slide_html/index.html</code> redirects to <code>default_lang</code> preserving both <code>?presenter=1</code> and <code>#N</code>.</li>
+<li><strong>Hash-Preserving In-Deck Language Switcher</strong>: When <code>len(langs) &gt; 1</code>, <code>.slide-controls</code> renders a compact <code>.slide-lang-dropdown</code> selector (<code>@media print</code> hidden, also toggled via the <code>L</code> keyboard shortcut) that switches directly to the corresponding slide number in the target language (<code>../ja/index.html#4</code>), while root <code>slide_html/index.html</code> redirects to <code>default_lang</code> preserving both <code>?presenter=1</code> and <code>#N</code>.</li>
 <li><strong>Locale-Scoped Presenter Sync &amp; Link Audit</strong>: <code>BroadcastChannel</code> synchronization is scoped per locale so concurrent <code>en</code> and <code>ja</code> decks never cross-interfere, and <code>uv run drawlib serve slide_html/ --check</code> verifies all slide assets and locale links in one pass.</li>
 </ul>
 

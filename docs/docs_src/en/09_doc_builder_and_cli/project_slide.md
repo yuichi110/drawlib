@@ -445,7 +445,7 @@ def draw_workspace(
         )
         text(
             (36.0, 13.7),
-            "styles.py, utils.py & style.css stay untouched",
+            "drawlib.toml, styles.py & style.css stay untouched",
             style=Styles.MutedBold.patch(text_size=9.6),
         )
         text(
@@ -486,21 +486,21 @@ def draw_workspace(
     tree_rows: list[tuple[str, int, str, str, float]] = [
         ("root", 0, "folder_open", "my_deck/", 59.50),
         ("slide_src", 1, "folder_open", "slide_src/", 55.30),
-        ("styles", 2, "py", "styles.py", 51.10),
-        ("utils", 2, "py", "utils.py", 46.90),
+        ("toml", 2, "sh", "drawlib.toml", 51.10),
+        ("styles", 2, "py", "styles.py, utils.py", 46.90),
         ("css", 2, "css", "style.css", 42.70),
         ("scripts", 2, "sh", "build.sh, serve.sh", 38.50),
-        ("s01", 2, "md", "01_title.md", 34.30),
-        ("s02", 2, "md", "02_arch.md", 30.10),
+        ("s01", 2, "md", "en/01_title.md", 34.30),
+        ("s02", 2, "md", "en/02_arch.md", 30.10),
     ]
     if show_flow:
-        tree_rows.append(("s03", 2, "md", "03_flow.md", 25.90))
+        tree_rows.append(("s03", 2, "md", "en/03_flow.md", 25.90))
     if show_outputs:
         tree_rows.extend(
             [
-                ("out_html", 1, "globe", "slide_html/", 19.60),
-                ("out_pdf", 1, "pdf", "slide.pdf", 15.20),
-                ("out_pptx", 1, "pptx", "slide.pptx", 10.80),
+                ("out_html", 1, "globe", "slide_html/en/", 19.60),
+                ("out_pdf", 1, "pdf", "slide_en.pdf", 15.20),
+                ("out_pptx", 1, "pptx", "slide_en.pptx", 10.80),
             ]
         )
 
@@ -584,7 +584,7 @@ with anim.frame(duration=3.1):
         active_part=1,
         actor="user",
         actor_title="$ drawlib init slide -s google",
-        actor_sub="Scaffold 16:9 slide_src/ deck & scripts",
+        actor_sub="Scaffold 16:9 slide_src/en/, config & scripts",
         actor_optional=False,
         ops=[
             ("user", "$ drawlib init slide -s google", "active_user"),
@@ -594,8 +594,8 @@ with anim.frame(duration=3.1):
         show_outputs=False,
         row_states={
             "slide_src": ("new", "Created"),
+            "toml": ("new", "Created"),
             "styles": ("new", "Created"),
-            "utils": ("new", "Created"),
             "css": ("new", "Created"),
             "scripts": ("new", "Created"),
             "s01": ("new", "Created"),
@@ -621,7 +621,6 @@ with anim.frame(duration=3.1):
         show_outputs=False,
         row_states={
             "styles": ("active", "Updated"),
-            "utils": ("active", "Updated"),
         },
         committed=False,
         pulse_arrow=True,
@@ -632,12 +631,12 @@ with anim.frame(duration=3.3):
         active_part=1,
         actor="gemini",
         actor_title="Gemini: Plan slide deck story arc",
-        actor_sub="Structure numbered slides 01_title..03_flow",
+        actor_sub="Structure numbered slides en/01_title..03_flow",
         actor_optional=False,
         ops=[
             ("user", "$ drawlib init slide -s google", "done"),
             ("gemini", "Edit slide_src/styles.py, utils.py", "done"),
-            ("gemini", "Plan story arc (01_title..03_flow.md)", "active_gemini"),
+            ("gemini", "Plan story arc (en/01_title..03_flow.md)", "active_gemini"),
         ],
         show_day2_note=False,
         show_flow=True,
@@ -661,7 +660,7 @@ with anim.frame(duration=3.1):
         actor_optional=False,
         ops=[
             ("user", "$ drawlib init slide -s google", "done"),
-            ("gemini", "Configure styles.py & 01..03 story arc", "done"),
+            ("gemini", "Configure styles.py & en/01..03 story arc", "done"),
             ("gemini", "Author ::: block stage + .svg / .webp", "active_gemini"),
         ],
         show_day2_note=False,
@@ -685,7 +684,7 @@ with anim.frame(duration=3.1):
         actor_optional=False,
         ops=[
             ("user", "$ drawlib init slide -s google", "done"),
-            ("gemini", "Configure styles.py & 01..03 story arc", "done"),
+            ("gemini", "Configure styles.py & en/01..03 story arc", "done"),
             ("gemini", "Author ::: block stage + .svg / .webp", "done"),
             ("gemini", "Add ::: note speaker notes to slides", "active_gemini"),
         ],
@@ -705,14 +704,14 @@ with anim.frame(duration=3.3):
     draw_workspace(
         active_part=2,
         actor="gemini",
-        actor_title="$ drawlib show .../02_arch.md arch.svg -g",
+        actor_title="$ drawlib show .../en/02_arch.md arch.svg -g",
         actor_sub="Verify diagram coordinates & stage margins",
         actor_optional=False,
         ops=[
             ("user", "$ drawlib init slide -s google", "done"),
-            ("gemini", "Configure styles.py & 01..03 story arc", "done"),
+            ("gemini", "Configure styles.py & en/01..03 story arc", "done"),
             ("gemini", "Author ::: block stage & ::: note", "done"),
-            ("gemini", "$ drawlib show .../02_arch.md arch.svg -g", "active_gemini"),
+            ("gemini", "$ drawlib show .../en/02_arch.md arch.svg -g", "active_gemini"),
         ],
         show_day2_note=False,
         show_flow=True,
@@ -732,11 +731,11 @@ with anim.frame(duration=3.1):
         active_part=3,
         actor="gemini",
         actor_title="$ ./slide_src/build.sh",
-        actor_sub="Compile interactive slide_html/ & vector PDF",
+        actor_sub="Compile slide_html/en/ & vector slide_en.pdf",
         actor_optional=False,
         ops=[
             ("user", "$ drawlib init slide -s google", "done"),
-            ("gemini", "Configure styles.py & 01..03 story arc", "done"),
+            ("gemini", "Configure styles.py & en/01..03 story arc", "done"),
             ("gemini", "Author & grid-verify slides + notes", "done"),
             ("gemini", "$ ./slide_src/build.sh  (HTML + PDF)", "active_gemini"),
         ],
@@ -757,12 +756,12 @@ with anim.frame(duration=3.1):
     draw_workspace(
         active_part=3,
         actor="gemini",
-        actor_title="$ drawlib build pptx slide_src/ -o slide.pptx",
-        actor_sub="Export editable 16:9 PowerPoint + notes",
+        actor_title="$ drawlib build pptx slide_src/",
+        actor_sub="Export editable 16:9 slide_en.pptx + notes",
         actor_optional=True,
         ops=[
             ("user", "$ drawlib init slide -s google", "done"),
-            ("gemini", "Configure styles.py & 01..03 story arc", "done"),
+            ("gemini", "Configure styles.py & en/01..03 story arc", "done"),
             ("gemini", "Author & grid-verify slides + notes", "done"),
             ("gemini", "$ ./slide_src/build.sh  (HTML + PDF)", "done"),
             ("gemini", "$ drawlib build pptx slide_src/", "optional"),
@@ -788,7 +787,7 @@ with anim.frame(duration=3.3):
         actor_optional=False,
         ops=[
             ("user", "$ drawlib init slide -s google", "done"),
-            ("gemini", "Configure styles.py & 01..03 story arc", "done"),
+            ("gemini", "Configure styles.py & en/01..03 story arc", "done"),
             ("gemini", "Author & grid-verify slides + notes", "done"),
             ("gemini", "$ ./slide_src/build.sh  (HTML + PDF)", "done"),
             ("gemini", "$ drawlib build pptx slide_src/", "optional_done"),
@@ -828,20 +827,20 @@ with anim.frame(duration=3.1):
     draw_workspace(
         active_part=4,
         actor="gemini",
-        actor_title="1 day later: Tweak 02_arch.md & rebuild",
+        actor_title="1 day later: Tweak en/02_arch.md & rebuild",
         actor_sub="Unchanged slides hit .drawlib/cache.db (<1ms)",
         actor_optional=False,
         ops=[
             ("user", "$ ./slide_src/serve.sh  (?presenter=1)", "done"),
-            ("user", '1 day later: "Refine 02_arch.md"', "done"),
-            ("gemini", "Edit 02_arch.md & ./slide_src/build.sh", "active_gemini"),
+            ("user", '1 day later: "Refine en/02_arch.md"', "done"),
+            ("gemini", "Edit en/02_arch.md & ./slide_src/build.sh", "active_gemini"),
         ],
         show_day2_note=True,
         show_flow=True,
         show_outputs=True,
         row_states={
+            "toml": ("muted", ""),
             "styles": ("muted", ""),
-            "utils": ("muted", ""),
             "css": ("muted", ""),
             "s01": ("cached", "Cached <1ms"),
             "s02": ("active", "Modified"),
@@ -863,8 +862,8 @@ with anim.frame(duration=3.3):
         actor_optional=False,
         ops=[
             ("user", "$ ./slide_src/serve.sh  (?presenter=1)", "done"),
-            ("user", '1 day later: "Refine 02_arch.md"', "done"),
-            ("gemini", "Edit 02_arch.md & ./slide_src/build.sh", "done"),
+            ("user", '1 day later: "Refine en/02_arch.md"', "done"),
+            ("gemini", "Edit en/02_arch.md & ./slide_src/build.sh", "done"),
             ("gemini", "$ drawlib build pptx slide_src/", "optional_done"),
             ("user_git", '$ git commit -m "Update arch slide"', "active_user"),
         ],
@@ -914,7 +913,7 @@ A `slide` project keeps all authoring source files inside `slide_src/` and compi
   - **`_`-Prefixed Files & `README.md`**: Planning outlines, draft slides (`_planning.md`, `_drafts/`), and `README.md` are automatically excluded from deck compilation.
   - **`_assets/`**: Static logos, fonts, and reference media synchronized into output folders (referenced from `<lang>/` slides via `../_assets/...`, or `../../_assets/...` from `<lang>/<section>/`).
   - **`styles.py` & `utils.py`**: Shared presentation color tokens, typography defaults (plus optional per-locale `<lang>/styles.py` overrides), slide header/footer helpers, and KPI/card utilities.
-  - **`style.css` & `slide.js`**: 16:9 viewport scaling stylesheet, keyboard navigation controller, `.lang-switcher` control, and `BroadcastChannel` Presenter View runtime.
+  - **`style.css` & `slide.js`**: 16:9 viewport scaling stylesheet, keyboard navigation controller, `.slide-lang-dropdown` language menu (`L` shortcut), and `BroadcastChannel` Presenter View runtime.
   - **`build.sh`, `build_html.sh`, `build_pdf.sh`, `build_image.sh`, `serve.sh`**: Modular build scripts and local presentation preview launcher.
 - **Generated Outputs (Do Not Edit Directly)**:
   - **`slide_html/`**: Interactive browser slide decks (`slide_html/<lang>/index.html`, root `slide_html/index.html` redirect preserving `?presenter=1` and `#N`, and shared `slide_html/images/`, `style.css`, `slide.js`).
@@ -930,7 +929,7 @@ A `slide` project produces presentation artifacts tailored for every scenario:
 
 | Output | Audience & Environment | Key Features | Build Script / Command |
 | :--- | :--- | :--- | :--- |
-| **`slide_html/<lang>/index.html`** | Interactive Presenting | 1920x1080 fixed stage, auto-scaling viewport, keyboard navigation (`Space`, `Arrows`, `F`), Presenter View (`?presenter=1`), overview grid, locale switcher | `build_html.sh` (`drawlib build slide`) |
+| **`slide_html/<lang>/index.html`** | Interactive Presenting | 1920x1080 fixed stage, auto-scaling viewport, keyboard navigation (`Space`, `Arrows`, `F`, `L`), Presenter View (`?presenter=1`), overview grid, locale switcher | `build_html.sh` (`drawlib build slide`) |
 | **`slide_<lang>.pdf`** | Print & Read-Only Distribution | 1 slide per page per locale, vector-sharp graphics, exact 16:9 aspect ratio (`@page { size: 1920px 1080px; margin: 0; }`) | `build_pdf.sh` (`drawlib build pdf`) |
 | **`slide_<lang>.pptx`** | Collaborative Editing & Executive Decks | Native editable 16:9 (`960×540 pt`) MS PowerPoint deck per locale (`::: block` cards with `rgba` alpha, text boxes, lists, tables, `::: note` speaker notes, high-DPI diagram PNGs) | `drawlib build pptx` |
 | **`slide_images/`** | Slides & Social Media | Extracted standalone slide illustrations for external decks and sharing | `build_image.sh` (`drawlib build image`) |
@@ -1010,6 +1009,7 @@ uv run drawlib serve slide_html/
 - **`O` / `Esc`**: Toggle slide overview grid
 - **`P` / `S`**: Open **Presenter View** in a synchronized companion window
 - **`A`**: Play / pause / resume animation on the current slide
+- **`L`**: Toggle the `.slide-lang-dropdown` language menu on multi-locale decks (`len(langs) > 1`), switching locales while preserving the current `#N` slide hash
 - **URL Hash Deep-Linking (`#1`, `#2`, ...)**: Navigating to `index.html#4` jumps directly to Slide 4, and advancing slides updates the URL hash in real time for bookmarking and sharing.
 - **Direct Presenter URL (`?presenter=1`)**: Appending `?presenter=1#1` launches the window directly in Presenter View mode, synchronizing slide changes and animation playback across windows via `BroadcastChannel` / `localStorage`.
 
@@ -1081,6 +1081,6 @@ ja = "日本語"
 - **Symmetric Locale Slide Trees & Flexible Speaker Notes (`slide_src/<lang>/`)**: Each locale directory (`en/`, `ja/`) contains the exact same sorted slide paths and `::: block` stage structure. `::: note` speaker scripts are stripped prior to structural skeleton checks so presenters can freely tailor spoken explanations per language without triggering false parity errors.
 - **Shared Diagram Deduplication & Per-Locale `styles.py`**: Language-neutral diagrams (`file=arch_flow.svg`) compile once into shared `slide_html/images/`. For slides with localized labels or CJK typography, add `slide_src/<lang>/styles.py` (e.g. `ja/styles.py` with `FontJapanese`) and use a locale-suffixed filename (`file=arch_flow_ja.svg`).
 - **Consistent Locale-Suffixed PDF & PowerPoint Deliverables (`<base>_<lang>.pdf` / `.pptx`)**: `drawlib build pdf` and `drawlib build pptx` emit per-locale presentation files (`keynote_en.pdf`, `keynote_ja.pdf`, `keynote_en.pptx`, `keynote_ja.pptx`).
-- **Hash-Preserving In-Deck Language Switcher**: When `len(langs) > 1`, `.slide-controls` renders a compact `.lang-switcher` dropdown (`@media print` hidden) that switches directly to the corresponding slide number in the target language (`../ja/index.html#4`), while root `slide_html/index.html` redirects to `default_lang` preserving both `?presenter=1` and `#N`.
+- **Hash-Preserving In-Deck Language Switcher**: When `len(langs) > 1`, `.slide-controls` renders a compact `.slide-lang-dropdown` selector (`@media print` hidden, also toggled via the `L` keyboard shortcut) that switches directly to the corresponding slide number in the target language (`../ja/index.html#4`), while root `slide_html/index.html` redirects to `default_lang` preserving both `?presenter=1` and `#N`.
 - **Locale-Scoped Presenter Sync & Link Audit**: `BroadcastChannel` synchronization is scoped per locale so concurrent `en` and `ja` decks never cross-interfere, and `uv run drawlib serve slide_html/ --check` verifies all slide assets and locale links in one pass.
 
