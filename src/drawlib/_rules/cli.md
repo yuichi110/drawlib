@@ -245,7 +245,7 @@ drawlib build pdf doc_src/ -o comprehensive_guide.pdf --page-break --generate-in
 
 Compiles a linear `doc` project directory (`doc_src/`, emitting `<stem>_<lang>.docx` per locale) or a standalone Markdown file (`.md`) into a native editable Microsoft Word (`.docx`) document using `python-docx` (installed automatically as a standard dependency). Outputs native editable Word headings, prose, lists, tables, blockquotes, and syntax-highlighted code blocks, with ````drawlib```` diagrams embedded as high-DPI static PNGs (default `dpi=200`).
 
-*(Note: Scaffolded `build.sh` in `drawlib init doc` continues to build HTML, PDF, Markdown, and Images; `drawlib build docx` is an on-demand optional export command.)*
+*(Note: `drawlib init doc` scaffolds an executable `./doc_src/build_docx.sh` script for on-demand `.docx` export, while master `build.sh` builds HTML, PDF, Markdown, and Images.)*
 
 #### Syntax:
 ```bash
@@ -317,7 +317,7 @@ drawlib build pptx slide_src/ -o slide.pptx -s slide_src/styles.py -u slide_src/
 
 Measures the `1920x1080` slide DOM via headless Chromium for each locale in `[i18n].langs` and writes native editable 16:9 (`960x540 pt`) Microsoft PowerPoint (`<stem>_<lang>.pptx`) decks using `python-pptx` (installed automatically as a standard dependency). Converts `::: block` cards (including `rgba` alpha backgrounds/borders), text boxes, bullet/numbered lists, tables, code blocks, and `::: note` speaker notes into native PowerPoint shapes, with ````drawlib```` diagrams embedded as high-DPI static PNGs (default `dpi=240`, `anim_frame="last"`).
 
-*(Note: Headless Chromium auto-downloads on first `drawlib build pdf` or `drawlib build pptx` run. Scaffolded `build.sh` in `drawlib init slide` remains unchanged; `drawlib build pptx` is an on-demand optional export command.)*
+*(Note: Headless Chromium auto-downloads on first `drawlib build pdf` or `drawlib build pptx` run. `drawlib init slide` scaffolds an executable `./slide_src/build_pptx.sh` script for on-demand `.pptx` export, while master `build.sh` compiles HTML, PDF, and Images.)*
 
 #### Syntax:
 ```bash
@@ -445,9 +445,10 @@ Designed for technical specifications, RFCs, design docs, whitepapers, formal re
 │   ├── utils.py               # Custom helper drawing functions
 │   ├── style.css              # Screen + print A4 stylesheet
 │   ├── template.html          # Jinja2 linear document HTML template
-│   ├── build.sh               # Master build script (runs all target builds)
+│   ├── build.sh               # Master build script (runs standard target builds)
 │   ├── build_html.sh          # Standalone HTML build (doc_html/)
 │   ├── build_pdf.sh           # Headless Chromium vector PDF build (doc_en.pdf)
+│   ├── build_docx.sh          # On-demand editable MS Word export (doc_en.docx)
 │   ├── build_markdown.sh      # Rendered Markdown for GitHub browsing (doc_markdown/en/)
 │   ├── build_image.sh         # Extract embedded drawlib blocks to doc_images/
 │   ├── serve.sh               # Local preview server script
@@ -488,7 +489,7 @@ Designed for technical documentation, library user guides, and architecture wiki
 ```
 
 #### 3. `slide`: 16:9 Presentation Slide Deck (HTML & Vector PDF + Optional `.pptx`)
-Designed for technical presentations, conference talks, and pitch decks with embedded diagrams. *(Supports single- or multi-locale `-l en,ja`. Scaffolded `build.sh` compiles HTML, PDF, and Images; run `drawlib build pptx slide_src/ -o slide.pptx` on demand for editable 16:9 MS PowerPoint `slide_<lang>.pptx` export.)*
+Designed for technical presentations, conference talks, and pitch decks with embedded diagrams. *(Supports single- or multi-locale `-l en,ja`. Scaffolded `build.sh` compiles HTML, PDF, and Images; run `./slide_src/build_pptx.sh` on demand for editable 16:9 MS PowerPoint `slide_<lang>.pptx` export.)*
 ```text
 .
 ├── slide_src/
@@ -505,6 +506,7 @@ Designed for technical presentations, conference talks, and pitch decks with emb
 │   ├── build.sh               # Master build script (HTML + PDF + Images)
 │   ├── build_html.sh          # HTML presentation deck build (slide_html/)
 │   ├── build_pdf.sh           # 16:9 vector PDF presentation export (slide_en.pdf)
+│   ├── build_pptx.sh          # On-demand editable 16:9 MS PowerPoint export (slide_en.pptx)
 │   ├── build_image.sh         # Extract embedded drawlib blocks to slide_images/
 │   ├── serve.sh               # Local preview server script
 │   └── README.md              # Slide authoring guide

@@ -46,6 +46,7 @@ Every `doc` project uses the unified `<src_dir>/<lang>/` locale directory struct
 │   ├── build.sh               # Master build script (HTML + PDF + Markdown + Images)
 │   ├── build_html.sh          # Compiles merged HTML preview (doc_html/)
 │   ├── build_pdf.sh           # Compiles headless Chromium vector PDF (doc_en.pdf)
+│   ├── build_docx.sh          # Exports editable MS Word on demand (doc_en.docx)
 │   ├── build_markdown.sh      # Compiles GitHub-ready Markdown chapters (doc_markdown/en/)
 │   ├── build_image.sh         # Extracts standalone diagram PNGs (doc_images/)
 │   └── serve.sh               # Local preview server for doc_html/
@@ -59,10 +60,13 @@ Every `doc` project uses the unified `<src_dir>/<lang>/` locale directory struct
 
 ### 2.1. Zero-Config PDF Compilation & On-Demand MS Word (`.docx`) Export
 - **Standard Out-of-the-Box Dependencies**: `playwright` and `python-docx` are standard dependencies of `drawlib` (no optional extras required). Headless Chromium (`chromium-headless-shell`) downloads automatically on your first `drawlib build pdf` run (or pre-download offline via `uv run drawlib cache download --browser` / `--all`; in minimal Linux containers such as `python:3.12-slim` lacking OS shared libraries, run `playwright install-deps chromium`).
-- **On-Demand MS Word Export (`drawlib build docx` / `drawlib.tools.build_docx`)**:
-  While scaffolded `build.sh` continues to build HTML, PDF, Markdown, and Images, you can compile `doc_src/` (producing `doc_<lang>.docx` for every locale in `[i18n].langs`, e.g., `doc_en.docx`) or any standalone `.md` file into a native editable `.docx` document with headings, prose, lists, tables, blockquotes, syntax-highlighted code blocks, and high-DPI static PNG diagrams (`dpi=200` default):
+- **On-Demand MS Word Export (`./doc_src/build_docx.sh` / `drawlib build docx` / `drawlib.tools.build_docx`)**:
+  While scaffolded `build.sh` builds HTML, PDF, Markdown, and Images, `drawlib init doc` also scaffolds an executable `./doc_src/build_docx.sh` script. You can run it directly (producing `doc_<lang>.docx` for every locale in `[i18n].langs`, e.g., `doc_en.docx`) or invoke `drawlib build docx` on `doc_src/` or any standalone `.md` file to emit a native editable `.docx` document with headings, prose, lists, tables, blockquotes, syntax-highlighted code blocks, and high-DPI static PNG diagrams (`dpi=200` default):
   ```bash
-  # CLI export (directory produces doc_<lang>.docx; single .md writes directly to target path):
+  # Pre-scaffolded executable script (+x permissions already set by drawlib init):
+  ./doc_src/build_docx.sh
+
+  # Or direct CLI export (directory produces doc_<lang>.docx; single .md writes directly to target path):
   uv run drawlib build docx doc_src/ -o doc.docx --page-break --generate-index \
       --dpi 200 -s doc_src/styles.py -u doc_src/utils.py
   ```

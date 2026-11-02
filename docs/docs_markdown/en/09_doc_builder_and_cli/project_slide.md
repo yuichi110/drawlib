@@ -147,11 +147,11 @@ A `slide` project keeps all authoring source files inside `slide_src/` and compi
   - **`_assets/`**: Static logos, fonts, and reference media synchronized into output folders (referenced from `<lang>/` slides via `../_assets/...`, or `../../_assets/...` from `<lang>/<section>/`).
   - **`styles.py` & `utils.py`**: Shared presentation color tokens, typography defaults (plus optional per-locale `<lang>/styles.py` overrides), slide header/footer helpers, and KPI/card utilities.
   - **`style.css` & `slide.js`**: 16:9 viewport scaling stylesheet, keyboard navigation controller, `.slide-lang-dropdown` language menu (`L` shortcut), and `BroadcastChannel` Presenter View runtime.
-  - **`build.sh`, `build_html.sh`, `build_pdf.sh`, `build_image.sh`, `serve.sh`**: Modular build scripts and local presentation preview launcher.
+  - **`build.sh`, `build_html.sh`, `build_pdf.sh`, `build_pptx.sh`, `build_image.sh`, `serve.sh`**: Modular build scripts and local presentation preview launcher.
 - **Generated Outputs (Do Not Edit Directly)**:
   - **`slide_html/`**: Interactive browser slide decks (`slide_html/<lang>/index.html`, root `slide_html/index.html` redirect preserving `?presenter=1` and `#N`, and shared `slide_html/images/`, `style.css`, `slide.js`).
   - **`slide_<lang>.pdf`** *(e.g. `slide_en.pdf`)*: Multi-page vector-sharp 16:9 PDF (`1920px × 1080px` per page) per locale rendered via headless Chromium.
-  - **`slide_<lang>.pptx`** *(e.g. `slide_en.pptx`)*: Native editable 16:9 (`960×540 pt`) MS PowerPoint deck per locale exported on demand via `drawlib build pptx`, preserving stage cards, text runs, diagrams, and speaker notes.
+  - **`slide_<lang>.pptx`** *(e.g. `slide_en.pptx`, On-Demand)*: Native editable 16:9 (`960×540 pt`) MS PowerPoint deck per locale exported via `build_pptx.sh` (`drawlib build pptx`), preserving stage cards, text runs, diagrams, and speaker notes.
   - **`slide_images/`**: Standalone extracted illustrations when running `build_image.sh`.
 
 ---
@@ -164,7 +164,7 @@ A `slide` project produces presentation artifacts tailored for every scenario:
 | :--- | :--- | :--- | :--- |
 | **`slide_html/<lang>/index.html`** | Interactive Presenting | 1920x1080 fixed stage, auto-scaling viewport, keyboard navigation (`Space`, `Arrows`, `F`, `L`), Presenter View (`?presenter=1`), overview grid, locale switcher | `build_html.sh` (`drawlib build slide`) |
 | **`slide_<lang>.pdf`** | Print & Read-Only Distribution | 1 slide per page per locale, vector-sharp graphics, exact 16:9 aspect ratio (`@page { size: 1920px 1080px; margin: 0; }`) | `build_pdf.sh` (`drawlib build pdf`) |
-| **`slide_<lang>.pptx`** | Collaborative Editing & Executive Decks | Native editable 16:9 (`960×540 pt`) MS PowerPoint deck per locale (`::: block` cards with `rgba` alpha, text boxes, lists, tables, `::: note` speaker notes, high-DPI diagram PNGs) | `drawlib build pptx` |
+| **`slide_<lang>.pptx`** | Collaborative Editing & Executive Decks | Native editable 16:9 (`960×540 pt`) MS PowerPoint deck per locale (`::: block` cards with `rgba` alpha, text boxes, lists, tables, `::: note` speaker notes, high-DPI diagram PNGs) | `build_pptx.sh` (`drawlib build pptx`) |
 | **`slide_images/`** | Slides & Social Media | Extracted standalone slide illustrations for external decks and sharing | `build_image.sh` (`drawlib build image`) |
 
 ---
@@ -209,15 +209,17 @@ save()
   Compiles slides per locale into the web presentation deck in `slide_html/<lang>/index.html` plus root `slide_html/index.html` redirect (`drawlib build slide`).
 - **`build_pdf.sh`**:
   Uses headless Chromium to capture each locale's slides into a multi-page vector PDF (`slide_<lang>.pdf`, e.g. `slide_en.pdf`).
+- **`build_pptx.sh` *(On-Demand)***:
+  Measures the `1920x1080` slide DOM and computed CSS styles via headless Chromium and exports a native editable 16:9 (`960x540 pt`) `.pptx` file per locale (`slide_<lang>.pptx`, such as `slide_en.pptx`). Pre-scaffolded with `+x` permissions:
+  ```bash
+  ./slide_src/build_pptx.sh
+  # Or with custom CLI options:
+  uv run drawlib build pptx slide_src/ -o slide.pptx --dpi 240 --anim-frame last
+  ```
 - **`build_image.sh`**:
   Extracts embedded ````drawlib```` blocks into standalone diagram images in `slide_images/`.
 - **`build.sh` (Master Script)**:
-  Runs HTML, PDF, and Image builds in sequence.
-- **Editable MS PowerPoint Export (`drawlib build pptx`)**:
-  Measures the `1920x1080` slide DOM and computed CSS styles via headless Chromium and exports a native editable 16:9 (`960x540 pt`) `.pptx` file per locale (`slide_<lang>.pptx`, such as `slide_en.pptx`):
-  ```bash
-  uv run drawlib build pptx slide_src/ -o slide.pptx --dpi 240 --anim-frame last
-  ```
+  Runs standard HTML, PDF, and Image builds in sequence.
 
 ---
 

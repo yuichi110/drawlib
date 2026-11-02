@@ -116,6 +116,7 @@ slide_src/
 ├── build.sh               # Master build script (HTML + PDF + Images)
 ├── build_html.sh          # Compile HTML slide deck (slide_html/)
 ├── build_pdf.sh           # Export 1920×1080 vector PDF (slide_en.pdf)
+├── build_pptx.sh          # Export editable 16:9 MS PowerPoint on demand (slide_en.pptx)
 ├── build_image.sh         # Extract standalone slide diagram assets (slide_images/)
 └── serve.sh               # Local preview server (drawlib serve)
 ```
@@ -392,12 +393,15 @@ uv run drawlib serve slide_html/
 - **Minimal Linux Containers**: On minimal container images (such as `python:3.12-slim`) lacking OS shared libraries (`libnss3`, `libgbm1`, etc.), install system dependencies once via `uv run playwright install-deps chromium` (or `uv run playwright install --with-deps --only-shell chromium`).
 
 ### 7.3. On-Demand Editable 16:9 MS PowerPoint (`slide_<lang>.pptx`) Export
-While the scaffolded `slide_src/build.sh` compiles HTML, PDF, and standalone images by default, `python-pptx` is installed out of the box so any `slide` project can be exported on demand to native editable 16:9 (`960×540 pt`) PowerPoint presentations (`slide_<lang>.pptx` for every locale in `[i18n].langs`) via CLI or Python.
+While the scaffolded `slide_src/build.sh` compiles HTML, PDF, and standalone images by default, `drawlib init slide` also scaffolds an executable `./slide_src/build_pptx.sh` script (`python-pptx` is installed out of the box) so any `slide` project can be exported on demand to native editable 16:9 (`960×540 pt`) PowerPoint presentations (`slide_<lang>.pptx` for every locale in `[i18n].langs`) via script, CLI, or Python.
 
 Drawlib renders and measures the `1920×1080` slide DOM via headless Chromium and translates it into native editable PowerPoint shapes (`::: block` cards including `rgba` alpha fills/borders, text boxes, bullet/numbered lists, tables, syntax-highlighted code blocks, and `::: note` speaker notes), while ````drawlib```` diagrams are embedded as crisp high-DPI static PNGs (`dpi=240`, `anim_frame="last"` by default):
 
 ```bash
-# Export editable 16:9 PowerPoint deck(s) on demand (emits slide_<lang>.pptx):
+# Pre-scaffolded executable script (+x permissions already set by drawlib init):
+./slide_src/build_pptx.sh
+
+# Or direct CLI export (emits slide_<lang>.pptx):
 uv run drawlib build pptx slide_src/ -o slide.pptx -s slide_src/styles.py -u slide_src/utils.py
 
 # Customize theme preset, deck title, raster DPI, or animation frame ("first" | "last"):

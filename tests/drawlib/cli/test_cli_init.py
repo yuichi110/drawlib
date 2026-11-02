@@ -80,6 +80,7 @@ def test_cli_init_doc_default(tmp_path: Path) -> None:
         "build.sh",
         "build_html.sh",
         "build_pdf.sh",
+        "build_docx.sh",
         "build_markdown.sh",
         "build_image.sh",
         "serve.sh",
@@ -89,12 +90,16 @@ def test_cli_init_doc_default(tmp_path: Path) -> None:
         if sys.platform != "win32":
             assert os.stat(s).st_mode & 0o111 != 0
 
+    assert "./doc_src/build_docx.sh" in res.stdout
+
     # No automatic initial build outputs
     assert not (tmp_path / "doc_markdown").exists()
     assert not (tmp_path / "doc_images").exists()
     assert not (tmp_path / "doc_html").exists()
     assert not (tmp_path / "doc_en.pdf").exists()
     assert not (tmp_path / "doc.pdf").exists()
+    assert not (tmp_path / "doc_en.docx").exists()
+    assert not (tmp_path / "doc.docx").exists()
 
 
 def test_cli_init_site_default(tmp_path: Path) -> None:
@@ -149,16 +154,20 @@ def test_cli_init_slide_default(tmp_path: Path) -> None:
     assert (tmp_path / "slide_src" / "_assets" / "linux.png").is_file()
     assert (tmp_path / "slide_src" / "_assets" / "favicon.png").is_file()
 
-    for script in ["build.sh", "build_html.sh", "build_pdf.sh", "build_image.sh", "serve.sh"]:
+    for script in ["build.sh", "build_html.sh", "build_pdf.sh", "build_pptx.sh", "build_image.sh", "serve.sh"]:
         s = tmp_path / "slide_src" / script
         assert s.is_file()
         if sys.platform != "win32":
             assert os.stat(s).st_mode & 0o111 != 0
 
+    assert "./slide_src/build_pptx.sh" in res.stdout
+
     assert not (tmp_path / "slide_html").exists()
     assert not (tmp_path / "slide_images").exists()
     assert not (tmp_path / "slide_en.pdf").exists()
     assert not (tmp_path / "slide.pdf").exists()
+    assert not (tmp_path / "slide_en.pptx").exists()
+    assert not (tmp_path / "slide.pptx").exists()
 
 
 def test_cli_init_images_default(tmp_path: Path) -> None:
@@ -224,7 +233,7 @@ def _is_playwright_available() -> bool:
 
 @pytest.mark.skipif(sys.platform == "win32", reason="POSIX bash script execution")
 def test_cli_init_run_build_sh(tmp_path: Path) -> None:
-    """Test executing the scaffolded build_html.sh and build_pdf.sh scripts compiles the documentation."""
+    """Test executing the scaffolded build_html.sh, build_docx.sh, and build_pdf.sh scripts."""
     res = run_drawlib_cli(["init", "doc"], cwd=str(tmp_path))
     assert res.returncode == 0
 
@@ -246,6 +255,20 @@ def test_cli_init_run_build_sh(tmp_path: Path) -> None:
     assert not (tmp_path / "doc_html" / "01_overview.html").exists()
     assert not (tmp_path / "doc_html" / "en" / "01_overview.html").exists()
 
+    # Execute build_docx.sh directly via its executable bit (+x) without bash prefix
+    build_docx_sh = tmp_path / "doc_src" / "build_docx.sh"
+    assert build_docx_sh.is_file()
+    docx_res = subprocess.run(
+        [str(build_docx_sh)],
+        cwd=str(tmp_path),
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    assert docx_res.returncode == 0, docx_res.stderr
+    assert (tmp_path / "doc_en.docx").is_file()
+    assert not (tmp_path / "doc.docx").exists()
+
     if _is_playwright_available():
         build_pdf_sh = tmp_path / "doc_src" / "build_pdf.sh"
         assert build_pdf_sh.is_file()
@@ -259,6 +282,21 @@ def test_cli_init_run_build_sh(tmp_path: Path) -> None:
         assert pdf_res.returncode == 0
         assert (tmp_path / "doc_en.pdf").is_file()
         assert not (tmp_path / "doc.pdf").exists()
+
+        res_slide = run_drawlib_cli(["init", "slide"], cwd=str(tmp_path))
+        assert res_slide.returncode == 0
+        build_pptx_sh = tmp_path / "slide_src" / "build_pptx.sh"
+        assert build_pptx_sh.is_file()
+        pptx_res = subprocess.run(
+            [str(build_pptx_sh)],
+            cwd=str(tmp_path),
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        assert pptx_res.returncode == 0, pptx_res.stderr
+        assert (tmp_path / "slide_en.pptx").is_file()
+        assert not (tmp_path / "slide.pptx").exists()
 
 
 def test_cli_init_conflict_and_force(tmp_path: Path) -> None:

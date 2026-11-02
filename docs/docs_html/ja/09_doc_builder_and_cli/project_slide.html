@@ -752,14 +752,14 @@ drawlib<span class="w"> </span>init<span class="w"> </span>slide<span class="w">
 <li><strong><code>_assets/</code></strong>: 出力先フォルダへ同期される静的なロゴ、フォント、参照メディアです（<code>&lt;lang&gt;/</code> のスライドからは <code>../_assets/...</code>、<code>&lt;lang&gt;/&lt;section&gt;/</code> からは <code>../../_assets/...</code> で参照します）。</li>
 <li><strong><code>styles.py</code> &amp; <code>utils.py</code></strong>: プレゼンテーション全体で共有されるカラートークン、タイポグラフィ既定値（任意のロケール別 <code>&lt;lang&gt;/styles.py</code> による上書きも可能）、スライドヘッダー／フッターヘルパー、KPI／カードユーティリティです。</li>
 <li><strong><code>style.css</code> &amp; <code>slide.js</code></strong>: 16:9 ビューポート自動スケーリング用スタイルシート、キーボードナビゲーションコントローラー、<code>.slide-lang-dropdown</code> 言語メニュー（<code>L</code> ショートカット対応）、および <code>BroadcastChannel</code> による発表者ツール（Presenter View）ランタイムです。</li>
-<li><strong><code>build.sh</code>, <code>build_html.sh</code>, <code>build_pdf.sh</code>, <code>build_image.sh</code>, <code>serve.sh</code></strong>: モジュール化されたビルドスクリプトおよびローカルプレゼンテーションプレビューランチャーです。</li>
+<li><strong><code>build.sh</code>, <code>build_html.sh</code>, <code>build_pdf.sh</code>, <code>build_pptx.sh</code>, <code>build_image.sh</code>, <code>serve.sh</code></strong>: モジュール化されたビルドスクリプトおよびローカルプレゼンテーションプレビューランチャーです。</li>
 </ul>
 </li>
 <li><strong>生成される出力先（直接編集しないでください）</strong>:
 <ul>
 <li><strong><code>slide_html/</code></strong>: フルスクリーン表示、一覧グリッド表示、および <code>?presenter=1</code> 発表者ツールをサポートするインタラクティブなブラウザ用スライドデッキ群（<code>slide_html/&lt;lang&gt;/index.html</code>、<code>?presenter=1</code> と <code>#N</code> を保持するルートリダイレクト <code>slide_html/index.html</code>、および共有の <code>slide_html/images/</code>、<code>style.css</code>、<code>slide.js</code>）です。</li>
 <li><strong><code>slide_&lt;lang&gt;.pdf</code></strong> <em>（例: <code>slide_en.pdf</code>）</em>: ヘッドレス Chromium によってロケールごとにレンダリングされる、1 ページあたり <code>1920px × 1080px</code> のマルチページベクター PDF です。</li>
-<li><strong><code>slide_&lt;lang&gt;.pptx</code></strong> <em>（例: <code>slide_en.pptx</code>）</em>: <code>drawlib build pptx</code> でロケールごとにオンデマンド出力されるネイティブ編集可能な 16:9（<code>960×540 pt</code>）MS PowerPoint デッキです。ステージカード、テキストラン、図解、スピーカーノートがそのまま保持されます。</li>
+<li><strong><code>slide_&lt;lang&gt;.pptx</code></strong> <em>（例: <code>slide_en.pptx</code>、オンデマンド生成）</em>: <code>build_pptx.sh</code>（<code>drawlib build pptx</code>）でロケールごとにエクスポートされるネイティブ編集可能な 16:9（<code>960×540 pt</code>）MS PowerPoint デッキです。ステージカード、テキストラン、図解、スピーカーノートがそのまま保持されます。</li>
 <li><strong><code>slide_images/</code></strong>: <code>build_image.sh</code> 実行時に単体ファイルとして抽出される図解画像群です。</li>
 </ul>
 </li>
@@ -793,7 +793,7 @@ drawlib<span class="w"> </span>init<span class="w"> </span>slide<span class="w">
 <td style="text-align:left"><strong><code>slide_&lt;lang&gt;.pptx</code></strong></td>
 <td style="text-align:left">共同編集・エグゼクティブ向け資料</td>
 <td style="text-align:left">ロケール別のネイティブ編集可能な 16:9（<code>960×540 pt</code>）MS PowerPoint デッキ（<code>rgba</code> 透過対応の <code>::: block</code> カード、テキストボックス、リスト、表、<code>::: note</code> スピーカーノート、高 DPI 図解 PNG）</td>
-<td style="text-align:left"><code>drawlib build pptx</code></td>
+<td style="text-align:left"><code>build_pptx.sh</code> (<code>drawlib build pptx</code>)</td>
 </tr>
 <tr>
 <td style="text-align:left"><strong><code>slide_images/</code></strong></td>
@@ -840,14 +840,16 @@ drawlib<span class="w"> </span>init<span class="w"> </span>slide<span class="w">
 ロケールごとに各スライドを <code>slide_html/&lt;lang&gt;/index.html</code> の Web プレゼンテーションデッキおよびルートの <code>slide_html/index.html</code> リダイレクトへコンパイルします（<code>drawlib build slide</code>）。</li>
 <li><strong><code>build_pdf.sh</code></strong>:
 ヘッドレス Chromium を使用して各ロケールのスライドをキャプチャし、マルチページのベクター PDF（<code>slide_&lt;lang&gt;.pdf</code>、例: <code>slide_en.pdf</code>）を生成します。</li>
+<li><strong><code>build_pptx.sh</code> <em>（オンデマンド）</em></strong>:
+ヘッドレス Chromium で <code>1920x1080</code> スライド DOM と計算済み CSS スタイルを計測し、ロケールごとにネイティブ編集可能な 16:9（<code>960x540 pt</code>）の <code>.pptx</code> ファイル（<code>slide_&lt;lang&gt;.pptx</code>、例: <code>slide_en.pptx</code>）をエクスポートします。実行権限（<code>+x</code>）付きで初期配置されています。<pre><code class="language-bash">./slide_src/build_pptx.sh
+<span class="c1"># または任意の CLI オプションを指定して実行:</span>
+uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>build<span class="w"> </span>pptx<span class="w"> </span>slide_src/<span class="w"> </span>-o<span class="w"> </span>slide.pptx<span class="w"> </span>--dpi<span class="w"> </span><span class="m">240</span><span class="w"> </span>--anim-frame<span class="w"> </span>last
+</code></pre>
+</li>
 <li><strong><code>build_image.sh</code></strong>:
 埋め込まれた <code>drawlib</code> ブロックを抽出し、<code>slide_images/</code> に単体の図解画像として出力します。</li>
 <li><strong><code>build.sh</code>（マスタースクリプト）</strong>:
-HTML、PDF、画像のビルドを順番に実行します。</li>
-<li><strong>編集可能な MS PowerPoint エクスポート (<code>drawlib build pptx</code>)</strong>:
-ヘッドレス Chromium で <code>1920x1080</code> スライド DOM と計算済み CSS スタイルを計測し、ロケールごとにネイティブ編集可能な 16:9（<code>960x540 pt</code>）の <code>.pptx</code> ファイル（<code>slide_&lt;lang&gt;.pptx</code>、例: <code>slide_en.pptx</code>）をエクスポートします。<pre><code class="language-bash">uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>build<span class="w"> </span>pptx<span class="w"> </span>slide_src/<span class="w"> </span>-o<span class="w"> </span>slide.pptx<span class="w"> </span>--dpi<span class="w"> </span><span class="m">240</span><span class="w"> </span>--anim-frame<span class="w"> </span>last
-</code></pre>
-</li>
+標準の HTML、PDF、画像のビルドを順番に実行します。</li>
 </ul>
 <hr />
 <h2>7. ローカルプレビューとプレゼンテーション実行</h2>

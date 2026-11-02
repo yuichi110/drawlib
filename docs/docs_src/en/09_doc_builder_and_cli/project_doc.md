@@ -964,12 +964,12 @@ drawlib init doc my_report -s google -l en,ja
 - **`styles.py` & `utils.py`**: Shared Python styling configuration (`Colors`, `Styles`, language fonts; plus optional per-locale `<lang>/styles.py` overrides) and reusable diagram helper functions.
 - **`template.html` & `style.css`**: Jinja2 single-page HTML layout and print-aware CSS (`@media print` / `@page A4`) for browser preview and vector PDF generation.
 - **`_assets/`**: Static logos, raster screenshots, or custom `.ttf` fonts (referenced from Markdown prose in `<lang>/` via `../_assets/...`).
-- **`build.sh` & Target Scripts**: Master orchestrator (`build.sh`) alongside modular scripts (`build_html.sh`, `build_pdf.sh`, `build_markdown.sh`, `build_image.sh`, and `serve.sh`).
+- **`build.sh` & Target Scripts**: Master orchestrator (`build.sh`) alongside modular scripts (`build_html.sh`, `build_pdf.sh`, `build_docx.sh`, `build_markdown.sh`, `build_image.sh`, and `serve.sh`).
 
 ### Generated Output Artifacts
 - **`doc_html/`**: Merged single-page HTML document per locale (`doc_html/<lang>/index.html`, plus root redirect `doc_html/index.html` and shared `doc_html/images/`) for fast browser preview and internal web hosting.
 - **`doc_<lang>.pdf`** *(e.g. `doc_en.pdf`)*: Print-ready A4 vector PDF per locale rendered via headless Chromium with cover page, localized Table of Contents (`--toc`), and chapter page breaks (`--page-break`).
-- **`doc_<lang>.docx`** *(e.g. `doc_en.docx`, On-Demand)*: Native editable Microsoft Word document per locale exported via `drawlib build docx` with cover page, localized Table of Contents (`--generate-index`), and high-DPI PNG figures.
+- **`doc_<lang>.docx`** *(e.g. `doc_en.docx`, On-Demand)*: Native editable Microsoft Word document per locale exported via `build_docx.sh` (`drawlib build docx`) with cover page, localized Table of Contents (`--generate-index`), and high-DPI PNG figures.
 - **`doc_markdown/`**: GitHub-ready Markdown chapters per locale (`doc_markdown/<lang>/`) referencing shared `../images/` assets.
 - **`doc_images/`**: Extracted standalone diagram images organized per chapter.
 
@@ -985,7 +985,7 @@ A `doc` project compiles into 5 distinct target artifacts:
 | :--- | :--- | :--- | :--- |
 | **`doc_html/`** | Web Browsers | Fast local preview (`<lang>/index.html`), web publishing, internal documentation wikis | `build_html.sh` |
 | **`doc_<lang>.pdf`** | Print & Distribution | Formal whitepapers, client deliverables, printable reports with localized Table of Contents | `build_pdf.sh` |
-| **`doc_<lang>.docx`** | Collaborative Editing & Review | Native editable MS Word documents per locale (headings, lists, tables, syntax-highlighted code blocks, cover + TOC, high-DPI PNG diagrams) | `drawlib build docx` |
+| **`doc_<lang>.docx`** | Collaborative Editing & Review | Native editable MS Word documents per locale (headings, lists, tables, syntax-highlighted code blocks, cover + TOC, high-DPI PNG diagrams) | `build_docx.sh` (`drawlib build docx`) |
 | **`doc_markdown/`** | GitHub & Version Control | Direct viewing in GitHub/GitLab repositories (`<lang>/*.md`) with rendered image links | `build_markdown.sh` |
 | **`doc_images/`** | Presentations & Messaging | Drag-and-drop into Google Slides, Keynote, PowerPoint, Slack, or PRs | `build_image.sh` |
 
@@ -1008,12 +1008,14 @@ Each project contains specialized scripts alongside a master orchestrator:
    Compiles and merges Markdown chapters per locale into standalone HTML documents (`doc_html/<lang>/index.html` + root `doc_html/index.html` redirect). Extremely fast for local verification.
 2. **`build_pdf.sh`**:
    Renders each locale's merged document into an A4 vector PDF (`doc_<lang>.pdf`) via headless Chromium (`page.pdf()`). Supports automatic localized Table of Contents (`--toc`) and clean chapter page breaks (`--page-break`).
-3. **`build_markdown.sh`**:
+3. **`build_docx.sh` *(On-Demand)***:
+   Exports each locale's merged chapters into a native editable Microsoft Word document (`doc_<lang>.docx`) with cover page, localized Table of Contents (`--generate-index`), and high-DPI PNG figures. Pre-scaffolded with `+x` permissions; run on demand (`./doc_src/build_docx.sh`).
+4. **`build_markdown.sh`**:
    Converts inline ````drawlib```` blocks into standard Markdown image tags in `doc_markdown/<lang>/` pointing to shared rendered diagrams in `doc_markdown/images/`.
-4. **`build_image.sh`**:
+5. **`build_image.sh`**:
    Scans all Markdown files, extracts embedded ````drawlib```` blocks, and renders them cleanly into `doc_images/` without risk of name collisions.
-5. **`build.sh` (Master Script)**:
-   Runs all of the above target builds in sequence to produce a complete set of release artifacts.
+6. **`build.sh` (Master Script)**:
+   Runs the standard target builds (HTML, PDF, Markdown, Images) in sequence to produce release artifacts quickly.
 
 ---
 

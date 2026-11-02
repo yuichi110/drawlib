@@ -100,6 +100,8 @@ def resolve_project_paths(
     out_images_dir_name = base_name if canonical_type == "images" else f"{base_name}_images"
     out_html_dir_name = f"{base_name}_html"
     out_pdf_name = f"{base_name}.pdf"
+    out_docx_name = f"{base_name}.docx"
+    out_pptx_name = f"{base_name}.pptx"
 
     return ProjectPaths(
         project_type=canonical_type,
@@ -111,6 +113,8 @@ def resolve_project_paths(
         out_images_dir_name=out_images_dir_name,
         out_html_dir_name=out_html_dir_name,
         out_pdf_name=out_pdf_name,
+        out_docx_name=out_docx_name,
+        out_pptx_name=out_pptx_name,
     )
 
 
@@ -412,6 +416,8 @@ def init_project(
         "__OUT_IMAGES_DIR__": paths.out_images_dir_name,
         "__OUT_HTML_DIR__": paths.out_html_dir_name,
         "__OUT_PDF__": paths.out_pdf_name,
+        "__OUT_DOCX__": paths.out_docx_name,
+        "__OUT_PPTX__": paths.out_pptx_name,
         **get_font_replacements(primary_lang, style_theme=resolved_style),
     }
 

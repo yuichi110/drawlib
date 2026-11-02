@@ -964,12 +964,12 @@ drawlib init doc my_report -s google -l en,ja
 - **`styles.py` & `utils.py`**: 共有の Python スタイル設定（`Colors`、`Styles`、言語フォント。任意のロケール別 `<lang>/styles.py` による上書きも可能）および再利用可能な図解ヘルパー関数です。
 - **`template.html` & `style.css`**: ブラウザプレビューおよびベクター PDF 生成に使用される Jinja2 シングルページ HTML レイアウトと印刷対応 CSS（`@media print` / `@page A4`）です。
 - **`_assets/`**: 静的なロゴ画像、ラスタースクリーンショット、またはカスタム `.ttf` フォントを格納します（`<lang>/` 内の Markdown 本文からは `../_assets/...` で参照します）。
-- **`build.sh` & 各種ターゲットスクリプト**: マスターオーケストレーター（`build.sh`）と、モジュール分割された個別スクリプト（`build_html.sh`、`build_pdf.sh`、`build_markdown.sh`、`build_image.sh`、`serve.sh`）です。
+- **`build.sh` & 各種ターゲットスクリプト**: マスターオーケストレーター（`build.sh`）と、モジュール分割された個別スクリプト（`build_html.sh`、`build_pdf.sh`、`build_docx.sh`、`build_markdown.sh`、`build_image.sh`、`serve.sh`）です。
 
 ### 生成される出力成果物
 - **`doc_html/`**: 高速なブラウザプレビューや社内 Web ホスティング向けのロケール別結合シングルページ HTML ドキュメント（`doc_html/<lang>/index.html`、ルートリダイレクト `doc_html/index.html`、および共有の `doc_html/images/`）です。
 - **`doc_<lang>.pdf`** *（例: `doc_en.pdf`）*: ヘッドレス Chromium によってロケールごとにレンダリングされる印刷対応の A4 ベクター PDF です。表紙、ローカライズされた自動目次（`--toc`）、章ごとの改ページ（`--page-break`）を備えています。
-- **`doc_<lang>.docx`** *（例: `doc_en.docx`、オンデマンド生成）*: `drawlib build docx` でロケールごとにエクスポートされるネイティブ編集可能な Microsoft Word ドキュメントです。表紙、ローカライズされた目次（`--generate-index`）、高 DPI の PNG 図解を含みます。
+- **`doc_<lang>.docx`** *（例: `doc_en.docx`、オンデマンド生成）*: `build_docx.sh`（`drawlib build docx`）でロケールごとにエクスポートされるネイティブ編集可能な Microsoft Word ドキュメントです。表紙、ローカライズされた目次（`--generate-index`）、高 DPI の PNG 図解を含みます。
 - **`doc_markdown/`**: 共有の `../images/` アセットを参照する、ロケール別の GitHub 表示対応 Markdown 章ファイル群（`doc_markdown/<lang>/`）です。
 - **`doc_images/`**: 章ごとに整理して抽出されたスタンドアロンの図解画像です。
 
@@ -985,7 +985,7 @@ drawlib init doc my_report -s google -l en,ja
 | :--- | :--- | :--- | :--- |
 | **`doc_html/`** | Web ブラウザ | 高速なローカルプレビュー（`<lang>/index.html`）、Web 公開、社内ドキュメント Wiki | `build_html.sh` |
 | **`doc_<lang>.pdf`** | 印刷・配布 | 公式ホワイトペーパー、顧客向け納品資料、ローカライズされた目次付きの印刷用レポート | `build_pdf.sh` |
-| **`doc_<lang>.docx`** | 共同編集・レビュー | ロケール別のネイティブ編集可能な MS Word ドキュメント（見出し、リスト、表、シンタックスハイライト付きコードブロック、表紙＋目次、高 DPI PNG 図解） | `drawlib build docx` |
+| **`doc_<lang>.docx`** | 共同編集・レビュー | ロケール別のネイティブ編集可能な MS Word ドキュメント（見出し、リスト、表、シンタックスハイライト付きコードブロック、表紙＋目次、高 DPI PNG 図解） | `build_docx.sh` (`drawlib build docx`) |
 | **`doc_markdown/`** | GitHub・バージョン管理 | レンダリング済み画像リンク付きでの GitHub / GitLab リポジトリ上での直接閲覧（`<lang>/*.md`） | `build_markdown.sh` |
 | **`doc_images/`** | プレゼン・チャット共有 | Google スライド、Keynote、PowerPoint、Slack、PR へのドラッグ＆ドロップ貼り付け | `build_image.sh` |
 
@@ -1008,12 +1008,14 @@ drawlib init doc my_report -s google -l en,ja
    ロケールごとに Markdown の各章をコンパイル・結合し、単体の HTML ドキュメント（`doc_html/<lang>/index.html`＋ルートの `doc_html/index.html` リダイレクト）を生成します。ローカルでの素早い確認に最適です。
 2. **`build_pdf.sh`**:
    各ロケールの結合ドキュメントをヘッドレス Chromium（`page.pdf()`）経由で A4 ベクター PDF（`doc_<lang>.pdf`）にレンダリングします。ローカライズされた自動目次（`--toc`）と章ごとの改ページ（`--page-break`）をサポートしています。
-3. **`build_markdown.sh`**:
+3. **`build_docx.sh` *（オンデマンド）***:
+   各ロケールの結合された章を、表紙・ローカライズされた目次（`--generate-index`）・高 DPI PNG 図解付きのネイティブ編集可能な Microsoft Word ドキュメント（`doc_<lang>.docx`）にエクスポートします。実行権限（`+x`）付きで初期配置されており、オンデマンドで実行できます（`./doc_src/build_docx.sh`）。
+4. **`build_markdown.sh`**:
    インラインの ````drawlib```` ブロックを、共有の `doc_markdown/images/` 内のレンダリング済み図解を参照する `doc_markdown/<lang>/` 配下の標準 Markdown 画像タグに変換します。
-4. **`build_image.sh`**:
+5. **`build_image.sh`**:
    すべての Markdown ファイルを走査して埋め込み ````drawlib```` ブロックを抽出し、ファイル名の衝突を防ぎながら `doc_images/` に出力します。
-5. **`build.sh`（マスタースクリプト）**:
-   上記のすべてのターゲットビルドを順番に実行し、リリース成果物一式を生成します。
+6. **`build.sh`（マスタースクリプト）**:
+   標準ターゲットビルド（HTML、PDF、Markdown、画像）を順番に実行し、リリース成果物一式を高速に生成します。
 
 ---
 

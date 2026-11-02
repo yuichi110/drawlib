@@ -29,6 +29,8 @@ class ProjectPaths:
         out_images_dir_name: Target images export directory name.
         out_html_dir_name: Target HTML export directory name.
         out_pdf_name: Target PDF export filename.
+        out_docx_name: Target MS Word (.docx) export filename.
+        out_pptx_name: Target MS PowerPoint (.pptx) export filename.
     """
 
     project_type: str
@@ -40,3 +42,5 @@ class ProjectPaths:
     out_images_dir_name: str
     out_html_dir_name: str
     out_pdf_name: str
+    out_docx_name: str = ""
+    out_pptx_name: str = ""

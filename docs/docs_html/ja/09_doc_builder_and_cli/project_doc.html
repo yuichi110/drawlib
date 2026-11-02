@@ -763,13 +763,13 @@ drawlib<span class="w"> </span>init<span class="w"> </span>doc<span class="w"> <
 <li><strong><code>styles.py</code> &amp; <code>utils.py</code></strong>: 共有の Python スタイル設定（<code>Colors</code>、<code>Styles</code>、言語フォント。任意のロケール別 <code>&lt;lang&gt;/styles.py</code> による上書きも可能）および再利用可能な図解ヘルパー関数です。</li>
 <li><strong><code>template.html</code> &amp; <code>style.css</code></strong>: ブラウザプレビューおよびベクター PDF 生成に使用される Jinja2 シングルページ HTML レイアウトと印刷対応 CSS（<code>@media print</code> / <code>@page A4</code>）です。</li>
 <li><strong><code>_assets/</code></strong>: 静的なロゴ画像、ラスタースクリーンショット、またはカスタム <code>.ttf</code> フォントを格納します（<code>&lt;lang&gt;/</code> 内の Markdown 本文からは <code>../_assets/...</code> で参照します）。</li>
-<li><strong><code>build.sh</code> &amp; 各種ターゲットスクリプト</strong>: マスターオーケストレーター（<code>build.sh</code>）と、モジュール分割された個別スクリプト（<code>build_html.sh</code>、<code>build_pdf.sh</code>、<code>build_markdown.sh</code>、<code>build_image.sh</code>、<code>serve.sh</code>）です。</li>
+<li><strong><code>build.sh</code> &amp; 各種ターゲットスクリプト</strong>: マスターオーケストレーター（<code>build.sh</code>）と、モジュール分割された個別スクリプト（<code>build_html.sh</code>、<code>build_pdf.sh</code>、<code>build_docx.sh</code>、<code>build_markdown.sh</code>、<code>build_image.sh</code>、<code>serve.sh</code>）です。</li>
 </ul>
 <h3>生成される出力成果物</h3>
 <ul>
 <li><strong><code>doc_html/</code></strong>: 高速なブラウザプレビューや社内 Web ホスティング向けのロケール別結合シングルページ HTML ドキュメント（<code>doc_html/&lt;lang&gt;/index.html</code>、ルートリダイレクト <code>doc_html/index.html</code>、および共有の <code>doc_html/images/</code>）です。</li>
 <li><strong><code>doc_&lt;lang&gt;.pdf</code></strong> <em>（例: <code>doc_en.pdf</code>）</em>: ヘッドレス Chromium によってロケールごとにレンダリングされる印刷対応の A4 ベクター PDF です。表紙、ローカライズされた自動目次（<code>--toc</code>）、章ごとの改ページ（<code>--page-break</code>）を備えています。</li>
-<li><strong><code>doc_&lt;lang&gt;.docx</code></strong> <em>（例: <code>doc_en.docx</code>、オンデマンド生成）</em>: <code>drawlib build docx</code> でロケールごとにエクスポートされるネイティブ編集可能な Microsoft Word ドキュメントです。表紙、ローカライズされた目次（<code>--generate-index</code>）、高 DPI の PNG 図解を含みます。</li>
+<li><strong><code>doc_&lt;lang&gt;.docx</code></strong> <em>（例: <code>doc_en.docx</code>、オンデマンド生成）</em>: <code>build_docx.sh</code>（<code>drawlib build docx</code>）でロケールごとにエクスポートされるネイティブ編集可能な Microsoft Word ドキュメントです。表紙、ローカライズされた目次（<code>--generate-index</code>）、高 DPI の PNG 図解を含みます。</li>
 <li><strong><code>doc_markdown/</code></strong>: 共有の <code>../images/</code> アセットを参照する、ロケール別の GitHub 表示対応 Markdown 章ファイル群（<code>doc_markdown/&lt;lang&gt;/</code>）です。</li>
 <li><strong><code>doc_images/</code></strong>: 章ごとに整理して抽出されたスタンドアロンの図解画像です。</li>
 </ul>
@@ -805,7 +805,7 @@ drawlib<span class="w"> </span>init<span class="w"> </span>doc<span class="w"> <
 <td style="text-align:left"><strong><code>doc_&lt;lang&gt;.docx</code></strong></td>
 <td style="text-align:left">共同編集・レビュー</td>
 <td style="text-align:left">ロケール別のネイティブ編集可能な MS Word ドキュメント（見出し、リスト、表、シンタックスハイライト付きコードブロック、表紙＋目次、高 DPI PNG 図解）</td>
-<td style="text-align:left"><code>drawlib build docx</code></td>
+<td style="text-align:left"><code>build_docx.sh</code> (<code>drawlib build docx</code>)</td>
 </tr>
 <tr>
 <td style="text-align:left"><strong><code>doc_markdown/</code></strong></td>
@@ -837,12 +837,14 @@ drawlib<span class="w"> </span>init<span class="w"> </span>doc<span class="w"> <
 ロケールごとに Markdown の各章をコンパイル・結合し、単体の HTML ドキュメント（<code>doc_html/&lt;lang&gt;/index.html</code>＋ルートの <code>doc_html/index.html</code> リダイレクト）を生成します。ローカルでの素早い確認に最適です。</li>
 <li><strong><code>build_pdf.sh</code></strong>:
 各ロケールの結合ドキュメントをヘッドレス Chromium（<code>page.pdf()</code>）経由で A4 ベクター PDF（<code>doc_&lt;lang&gt;.pdf</code>）にレンダリングします。ローカライズされた自動目次（<code>--toc</code>）と章ごとの改ページ（<code>--page-break</code>）をサポートしています。</li>
+<li><strong><code>build_docx.sh</code> <em>（オンデマンド）</em></strong>:
+各ロケールの結合された章を、表紙・ローカライズされた目次（<code>--generate-index</code>）・高 DPI PNG 図解付きのネイティブ編集可能な Microsoft Word ドキュメント（<code>doc_&lt;lang&gt;.docx</code>）にエクスポートします。実行権限（<code>+x</code>）付きで初期配置されており、オンデマンドで実行できます（<code>./doc_src/build_docx.sh</code>）。</li>
 <li><strong><code>build_markdown.sh</code></strong>:
 インラインの <code>drawlib</code> ブロックを、共有の <code>doc_markdown/images/</code> 内のレンダリング済み図解を参照する <code>doc_markdown/&lt;lang&gt;/</code> 配下の標準 Markdown 画像タグに変換します。</li>
 <li><strong><code>build_image.sh</code></strong>:
 すべての Markdown ファイルを走査して埋め込み <code>drawlib</code> ブロックを抽出し、ファイル名の衝突を防ぎながら <code>doc_images/</code> に出力します。</li>
 <li><strong><code>build.sh</code>（マスタースクリプト）</strong>:
-上記のすべてのターゲットビルドを順番に実行し、リリース成果物一式を生成します。</li>
+標準ターゲットビルド（HTML、PDF、Markdown、画像）を順番に実行し、リリース成果物一式を高速に生成します。</li>
 </ol>
 <hr />
 <h2>7. 直接実行する CLI コマンド（MS Word <code>.docx</code> を含む）</h2>

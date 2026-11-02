@@ -763,13 +763,13 @@ drawlib<span class="w"> </span>init<span class="w"> </span>doc<span class="w"> <
 <li><strong><code>styles.py</code> &amp; <code>utils.py</code></strong>: Shared Python styling configuration (<code>Colors</code>, <code>Styles</code>, language fonts; plus optional per-locale <code>&lt;lang&gt;/styles.py</code> overrides) and reusable diagram helper functions.</li>
 <li><strong><code>template.html</code> &amp; <code>style.css</code></strong>: Jinja2 single-page HTML layout and print-aware CSS (<code>@media print</code> / <code>@page A4</code>) for browser preview and vector PDF generation.</li>
 <li><strong><code>_assets/</code></strong>: Static logos, raster screenshots, or custom <code>.ttf</code> fonts (referenced from Markdown prose in <code>&lt;lang&gt;/</code> via <code>../_assets/...</code>).</li>
-<li><strong><code>build.sh</code> &amp; Target Scripts</strong>: Master orchestrator (<code>build.sh</code>) alongside modular scripts (<code>build_html.sh</code>, <code>build_pdf.sh</code>, <code>build_markdown.sh</code>, <code>build_image.sh</code>, and <code>serve.sh</code>).</li>
+<li><strong><code>build.sh</code> &amp; Target Scripts</strong>: Master orchestrator (<code>build.sh</code>) alongside modular scripts (<code>build_html.sh</code>, <code>build_pdf.sh</code>, <code>build_docx.sh</code>, <code>build_markdown.sh</code>, <code>build_image.sh</code>, and <code>serve.sh</code>).</li>
 </ul>
 <h3>Generated Output Artifacts</h3>
 <ul>
 <li><strong><code>doc_html/</code></strong>: Merged single-page HTML document per locale (<code>doc_html/&lt;lang&gt;/index.html</code>, plus root redirect <code>doc_html/index.html</code> and shared <code>doc_html/images/</code>) for fast browser preview and internal web hosting.</li>
 <li><strong><code>doc_&lt;lang&gt;.pdf</code></strong> <em>(e.g. <code>doc_en.pdf</code>)</em>: Print-ready A4 vector PDF per locale rendered via headless Chromium with cover page, localized Table of Contents (<code>--toc</code>), and chapter page breaks (<code>--page-break</code>).</li>
-<li><strong><code>doc_&lt;lang&gt;.docx</code></strong> <em>(e.g. <code>doc_en.docx</code>, On-Demand)</em>: Native editable Microsoft Word document per locale exported via <code>drawlib build docx</code> with cover page, localized Table of Contents (<code>--generate-index</code>), and high-DPI PNG figures.</li>
+<li><strong><code>doc_&lt;lang&gt;.docx</code></strong> <em>(e.g. <code>doc_en.docx</code>, On-Demand)</em>: Native editable Microsoft Word document per locale exported via <code>build_docx.sh</code> (<code>drawlib build docx</code>) with cover page, localized Table of Contents (<code>--generate-index</code>), and high-DPI PNG figures.</li>
 <li><strong><code>doc_markdown/</code></strong>: GitHub-ready Markdown chapters per locale (<code>doc_markdown/&lt;lang&gt;/</code>) referencing shared <code>../images/</code> assets.</li>
 <li><strong><code>doc_images/</code></strong>: Extracted standalone diagram images organized per chapter.</li>
 </ul>
@@ -805,7 +805,7 @@ drawlib<span class="w"> </span>init<span class="w"> </span>doc<span class="w"> <
 <td style="text-align:left"><strong><code>doc_&lt;lang&gt;.docx</code></strong></td>
 <td style="text-align:left">Collaborative Editing &amp; Review</td>
 <td style="text-align:left">Native editable MS Word documents per locale (headings, lists, tables, syntax-highlighted code blocks, cover + TOC, high-DPI PNG diagrams)</td>
-<td style="text-align:left"><code>drawlib build docx</code></td>
+<td style="text-align:left"><code>build_docx.sh</code> (<code>drawlib build docx</code>)</td>
 </tr>
 <tr>
 <td style="text-align:left"><strong><code>doc_markdown/</code></strong></td>
@@ -837,12 +837,14 @@ drawlib<span class="w"> </span>init<span class="w"> </span>doc<span class="w"> <
 Compiles and merges Markdown chapters per locale into standalone HTML documents (<code>doc_html/&lt;lang&gt;/index.html</code> + root <code>doc_html/index.html</code> redirect). Extremely fast for local verification.</li>
 <li><strong><code>build_pdf.sh</code></strong>:
 Renders each locale's merged document into an A4 vector PDF (<code>doc_&lt;lang&gt;.pdf</code>) via headless Chromium (<code>page.pdf()</code>). Supports automatic localized Table of Contents (<code>--toc</code>) and clean chapter page breaks (<code>--page-break</code>).</li>
+<li><strong><code>build_docx.sh</code> <em>(On-Demand)</em></strong>:
+Exports each locale's merged chapters into a native editable Microsoft Word document (<code>doc_&lt;lang&gt;.docx</code>) with cover page, localized Table of Contents (<code>--generate-index</code>), and high-DPI PNG figures. Pre-scaffolded with <code>+x</code> permissions; run on demand (<code>./doc_src/build_docx.sh</code>).</li>
 <li><strong><code>build_markdown.sh</code></strong>:
 Converts inline <code>drawlib</code> blocks into standard Markdown image tags in <code>doc_markdown/&lt;lang&gt;/</code> pointing to shared rendered diagrams in <code>doc_markdown/images/</code>.</li>
 <li><strong><code>build_image.sh</code></strong>:
 Scans all Markdown files, extracts embedded <code>drawlib</code> blocks, and renders them cleanly into <code>doc_images/</code> without risk of name collisions.</li>
 <li><strong><code>build.sh</code> (Master Script)</strong>:
-Runs all of the above target builds in sequence to produce a complete set of release artifacts.</li>
+Runs the standard target builds (HTML, PDF, Markdown, Images) in sequence to produce release artifacts quickly.</li>
 </ol>
 <hr />
 <h2>7. Direct CLI Commands (Including MS Word <code>.docx</code>)</h2>

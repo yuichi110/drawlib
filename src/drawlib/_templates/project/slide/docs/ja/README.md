@@ -13,9 +13,10 @@
     - `02_agenda.md`: アジェンダスライド。
     - `03_architecture.md`: アーキテクチャ・図版スライド。
   - `_assets/`: 全言語で共有される画像アセット (`favicon.png`, `linux.png`)。
-  - `build.sh`: 全ビルドを一括実行するマスタービルドスクリプト。
+  - `build.sh`: 標準ビルド（HTML, PDF, Images）を一括実行するマスタービルドスクリプト。
   - `build_html.sh`: HTML スライドデッキの高速ビルド。
   - `build_pdf.sh`: 提出・配布用ベクター PDF ビルド (1スライド1ページ)。
+  - `build_pptx.sh`: 編集可能な 16:9 MS PowerPoint（`.pptx`）のオンデマンド出力スクリプト。
   - `build_image.sh`: 単体図解画像の抽出スクリプト。
   - `serve.sh`: ローカルプレビューサーバーの起動。
   - `styles.py`: 全体スタイル設定 (テーマ、カラー、フォント。言語別の `<lang>/styles.py` 上書きも可能)。
@@ -24,6 +25,7 @@
   - `README.md`: このカスタマイズガイド。
 - `__OUT_HTML_DIR__/`: 生成されたインタラクティブ HTML スライド (`__OUT_HTML_DIR__/index.html`, `__OUT_HTML_DIR__/<lang>/index.html`)。
 - `__TARGET___<lang>.pdf` (例: `__TARGET_____DEFAULT_LANG__.pdf`): 言語ごとに生成されたベクター PDF プレゼンテーション。
+- `__TARGET___<lang>.pptx` (例: `__TARGET_____DEFAULT_LANG__.pptx`): 言語ごとにオンデマンド出力される編集可能な 16:9 MS PowerPoint プレゼンテーション。
 - `__OUT_IMAGES_DIR__/`: 抽出された図解画像群。
 
 ---
@@ -34,8 +36,9 @@
 ```bash
 ./build_html.sh   # HTML スライドデッキの生成
 ./build_pdf.sh    # ベクター PDF (<base>_<lang>.pdf) の生成
+./build_pptx.sh   # 編集可能な 16:9 MS PowerPoint (<base>_<lang>.pptx) のオンデマンド出力
 ./build_image.sh  # 単体図解画像の抽出
-./build.sh        # 全ビルドの順次実行
+./build.sh        # 標準ビルド（HTML + PDF + Images）の順次実行
 ```
 
 ### プレビュー

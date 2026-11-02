@@ -168,11 +168,13 @@ Place static logos, custom `.ttf`/`.otf` font files, or reference screenshots in
 Each project scaffolds focused shell scripts alongside the master `build.sh`:
 - **`build_html.sh`**: Fast HTML compilation for rapid browser verification.
 - **`build_pdf.sh`**: Headless Chromium print to vector PDF (`doc` -> `<target>_<lang>.pdf` and `slide` -> `<target>_<lang>.pdf`).
+- **`build_docx.sh`**: On-demand editable MS Word export (`doc` -> `<target>_<lang>.docx`; pre-scaffolded with `+x`, not invoked by `build.sh`).
+- **`build_pptx.sh`**: On-demand editable 16:9 MS PowerPoint export (`slide` -> `<target>_<lang>.pptx`; pre-scaffolded with `+x`, not invoked by `build.sh`).
 - **`build_markdown.sh`**: GitHub-Flavored Markdown compilation (`doc` and `site`).
 - **`build_image.sh`**: Standalone diagram image compilation/extraction.
 - **`build.sh`**: Master script that runs the standard target builds for the project sequentially (HTML, PDF, Markdown, Images).
 - **`serve.sh`**: Local preview HTTP server (`drawlib serve`).
-- **On-Demand Office Exports (`docx` & `pptx`)**: Editable MS Word (`uv run drawlib build docx doc_src/ -o doc.docx` -> `doc_<lang>.docx`) and editable 16:9 MS PowerPoint (`uv run drawlib build pptx slide_src/ -o slide.pptx` -> `slide_<lang>.pptx`) are available as optional on-demand CLI commands without changing scaffolded `build.sh` pipelines.
+- **On-Demand Office Exports (`docx` & `pptx`)**: Run `./doc_src/build_docx.sh` (`uv run drawlib build docx doc_src/ -o doc.docx` -> `doc_<lang>.docx`) or `./slide_src/build_pptx.sh` (`uv run drawlib build pptx slide_src/ -o slide.pptx` -> `slide_<lang>.pptx`) on demand without slowing down standard `build.sh` pipelines.
 
 ---
 

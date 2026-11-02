@@ -914,11 +914,11 @@ drawlib init slide my_deck -s google -l en,ja
   - **`_assets/`**: 出力先フォルダへ同期される静的なロゴ、フォント、参照メディアです（`<lang>/` のスライドからは `../_assets/...`、`<lang>/<section>/` からは `../../_assets/...` で参照します）。
   - **`styles.py` & `utils.py`**: プレゼンテーション全体で共有されるカラートークン、タイポグラフィ既定値（任意のロケール別 `<lang>/styles.py` による上書きも可能）、スライドヘッダー／フッターヘルパー、KPI／カードユーティリティです。
   - **`style.css` & `slide.js`**: 16:9 ビューポート自動スケーリング用スタイルシート、キーボードナビゲーションコントローラー、`.slide-lang-dropdown` 言語メニュー（`L` ショートカット対応）、および `BroadcastChannel` による発表者ツール（Presenter View）ランタイムです。
-  - **`build.sh`, `build_html.sh`, `build_pdf.sh`, `build_image.sh`, `serve.sh`**: モジュール化されたビルドスクリプトおよびローカルプレゼンテーションプレビューランチャーです。
+  - **`build.sh`, `build_html.sh`, `build_pdf.sh`, `build_pptx.sh`, `build_image.sh`, `serve.sh`**: モジュール化されたビルドスクリプトおよびローカルプレゼンテーションプレビューランチャーです。
 - **生成される出力先（直接編集しないでください）**:
   - **`slide_html/`**: フルスクリーン表示、一覧グリッド表示、および `?presenter=1` 発表者ツールをサポートするインタラクティブなブラウザ用スライドデッキ群（`slide_html/<lang>/index.html`、`?presenter=1` と `#N` を保持するルートリダイレクト `slide_html/index.html`、および共有の `slide_html/images/`、`style.css`、`slide.js`）です。
   - **`slide_<lang>.pdf`** *（例: `slide_en.pdf`）*: ヘッドレス Chromium によってロケールごとにレンダリングされる、1 ページあたり `1920px × 1080px` のマルチページベクター PDF です。
-  - **`slide_<lang>.pptx`** *（例: `slide_en.pptx`）*: `drawlib build pptx` でロケールごとにオンデマンド出力されるネイティブ編集可能な 16:9（`960×540 pt`）MS PowerPoint デッキです。ステージカード、テキストラン、図解、スピーカーノートがそのまま保持されます。
+  - **`slide_<lang>.pptx`** *（例: `slide_en.pptx`、オンデマンド生成）*: `build_pptx.sh`（`drawlib build pptx`）でロケールごとにエクスポートされるネイティブ編集可能な 16:9（`960×540 pt`）MS PowerPoint デッキです。ステージカード、テキストラン、図解、スピーカーノートがそのまま保持されます。
   - **`slide_images/`**: `build_image.sh` 実行時に単体ファイルとして抽出される図解画像群です。
 
 ---
@@ -931,7 +931,7 @@ drawlib init slide my_deck -s google -l en,ja
 | :--- | :--- | :--- | :--- |
 | **`slide_html/<lang>/index.html`** | インタラクティブな発表 | 1920x1080 固定ステージ、ビューポート自動スケーリング、キーボード操作（`Space`, `矢印キー`, `F`, `L`）、発表者ツール（`?presenter=1`）、スライド一覧グリッド、言語スイッチャー | `build_html.sh` (`drawlib build slide`) |
 | **`slide_<lang>.pdf`** | 印刷・閲覧専用配布 | ロケールごとに 1 ページ 1 スライド、鮮明なベクターグラフィックス、正確な 16:9 アスペクト比（`@page { size: 1920px 1080px; margin: 0; }`） | `build_pdf.sh` (`drawlib build pdf`) |
-| **`slide_<lang>.pptx`** | 共同編集・エグゼクティブ向け資料 | ロケール別のネイティブ編集可能な 16:9（`960×540 pt`）MS PowerPoint デッキ（`rgba` 透過対応の `::: block` カード、テキストボックス、リスト、表、`::: note` スピーカーノート、高 DPI 図解 PNG） | `drawlib build pptx` |
+| **`slide_<lang>.pptx`** | 共同編集・エグゼクティブ向け資料 | ロケール別のネイティブ編集可能な 16:9（`960×540 pt`）MS PowerPoint デッキ（`rgba` 透過対応の `::: block` カード、テキストボックス、リスト、表、`::: note` スピーカーノート、高 DPI 図解 PNG） | `build_pptx.sh` (`drawlib build pptx`) |
 | **`slide_images/`** | 外部スライド・SNS 共有 | 外部資料やチャット共有に使える単体抽出されたスライド図解画像 | `build_image.sh` (`drawlib build image`) |
 
 ---
@@ -976,15 +976,17 @@ save()
   ロケールごとに各スライドを `slide_html/<lang>/index.html` の Web プレゼンテーションデッキおよびルートの `slide_html/index.html` リダイレクトへコンパイルします（`drawlib build slide`）。
 - **`build_pdf.sh`**:
   ヘッドレス Chromium を使用して各ロケールのスライドをキャプチャし、マルチページのベクター PDF（`slide_<lang>.pdf`、例: `slide_en.pdf`）を生成します。
+- **`build_pptx.sh` *（オンデマンド）***:
+  ヘッドレス Chromium で `1920x1080` スライド DOM と計算済み CSS スタイルを計測し、ロケールごとにネイティブ編集可能な 16:9（`960x540 pt`）の `.pptx` ファイル（`slide_<lang>.pptx`、例: `slide_en.pptx`）をエクスポートします。実行権限（`+x`）付きで初期配置されています。
+  ```bash
+  ./slide_src/build_pptx.sh
+  # または任意の CLI オプションを指定して実行:
+  uv run drawlib build pptx slide_src/ -o slide.pptx --dpi 240 --anim-frame last
+  ```
 - **`build_image.sh`**:
   埋め込まれた ````drawlib```` ブロックを抽出し、`slide_images/` に単体の図解画像として出力します。
 - **`build.sh`（マスタースクリプト）**:
-  HTML、PDF、画像のビルドを順番に実行します。
-- **編集可能な MS PowerPoint エクスポート (`drawlib build pptx`)**:
-  ヘッドレス Chromium で `1920x1080` スライド DOM と計算済み CSS スタイルを計測し、ロケールごとにネイティブ編集可能な 16:9（`960x540 pt`）の `.pptx` ファイル（`slide_<lang>.pptx`、例: `slide_en.pptx`）をエクスポートします。
-  ```bash
-  uv run drawlib build pptx slide_src/ -o slide.pptx --dpi 240 --anim-frame last
-  ```
+  標準の HTML、PDF、画像のビルドを順番に実行します。
 
 ---
 

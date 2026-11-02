@@ -752,14 +752,14 @@ drawlib<span class="w"> </span>init<span class="w"> </span>slide<span class="w">
 <li><strong><code>_assets/</code></strong>: Static logos, fonts, and reference media synchronized into output folders (referenced from <code>&lt;lang&gt;/</code> slides via <code>../_assets/...</code>, or <code>../../_assets/...</code> from <code>&lt;lang&gt;/&lt;section&gt;/</code>).</li>
 <li><strong><code>styles.py</code> &amp; <code>utils.py</code></strong>: Shared presentation color tokens, typography defaults (plus optional per-locale <code>&lt;lang&gt;/styles.py</code> overrides), slide header/footer helpers, and KPI/card utilities.</li>
 <li><strong><code>style.css</code> &amp; <code>slide.js</code></strong>: 16:9 viewport scaling stylesheet, keyboard navigation controller, <code>.slide-lang-dropdown</code> language menu (<code>L</code> shortcut), and <code>BroadcastChannel</code> Presenter View runtime.</li>
-<li><strong><code>build.sh</code>, <code>build_html.sh</code>, <code>build_pdf.sh</code>, <code>build_image.sh</code>, <code>serve.sh</code></strong>: Modular build scripts and local presentation preview launcher.</li>
+<li><strong><code>build.sh</code>, <code>build_html.sh</code>, <code>build_pdf.sh</code>, <code>build_pptx.sh</code>, <code>build_image.sh</code>, <code>serve.sh</code></strong>: Modular build scripts and local presentation preview launcher.</li>
 </ul>
 </li>
 <li><strong>Generated Outputs (Do Not Edit Directly)</strong>:
 <ul>
 <li><strong><code>slide_html/</code></strong>: Interactive browser slide decks (<code>slide_html/&lt;lang&gt;/index.html</code>, root <code>slide_html/index.html</code> redirect preserving <code>?presenter=1</code> and <code>#N</code>, and shared <code>slide_html/images/</code>, <code>style.css</code>, <code>slide.js</code>).</li>
 <li><strong><code>slide_&lt;lang&gt;.pdf</code></strong> <em>(e.g. <code>slide_en.pdf</code>)</em>: Multi-page vector-sharp 16:9 PDF (<code>1920px × 1080px</code> per page) per locale rendered via headless Chromium.</li>
-<li><strong><code>slide_&lt;lang&gt;.pptx</code></strong> <em>(e.g. <code>slide_en.pptx</code>)</em>: Native editable 16:9 (<code>960×540 pt</code>) MS PowerPoint deck per locale exported on demand via <code>drawlib build pptx</code>, preserving stage cards, text runs, diagrams, and speaker notes.</li>
+<li><strong><code>slide_&lt;lang&gt;.pptx</code></strong> <em>(e.g. <code>slide_en.pptx</code>, On-Demand)</em>: Native editable 16:9 (<code>960×540 pt</code>) MS PowerPoint deck per locale exported via <code>build_pptx.sh</code> (<code>drawlib build pptx</code>), preserving stage cards, text runs, diagrams, and speaker notes.</li>
 <li><strong><code>slide_images/</code></strong>: Standalone extracted illustrations when running <code>build_image.sh</code>.</li>
 </ul>
 </li>
@@ -793,7 +793,7 @@ drawlib<span class="w"> </span>init<span class="w"> </span>slide<span class="w">
 <td style="text-align:left"><strong><code>slide_&lt;lang&gt;.pptx</code></strong></td>
 <td style="text-align:left">Collaborative Editing &amp; Executive Decks</td>
 <td style="text-align:left">Native editable 16:9 (<code>960×540 pt</code>) MS PowerPoint deck per locale (<code>::: block</code> cards with <code>rgba</code> alpha, text boxes, lists, tables, <code>::: note</code> speaker notes, high-DPI diagram PNGs)</td>
-<td style="text-align:left"><code>drawlib build pptx</code></td>
+<td style="text-align:left"><code>build_pptx.sh</code> (<code>drawlib build pptx</code>)</td>
 </tr>
 <tr>
 <td style="text-align:left"><strong><code>slide_images/</code></strong></td>
@@ -840,14 +840,16 @@ drawlib<span class="w"> </span>init<span class="w"> </span>slide<span class="w">
 Compiles slides per locale into the web presentation deck in <code>slide_html/&lt;lang&gt;/index.html</code> plus root <code>slide_html/index.html</code> redirect (<code>drawlib build slide</code>).</li>
 <li><strong><code>build_pdf.sh</code></strong>:
 Uses headless Chromium to capture each locale's slides into a multi-page vector PDF (<code>slide_&lt;lang&gt;.pdf</code>, e.g. <code>slide_en.pdf</code>).</li>
+<li><strong><code>build_pptx.sh</code> <em>(On-Demand)</em></strong>:
+Measures the <code>1920x1080</code> slide DOM and computed CSS styles via headless Chromium and exports a native editable 16:9 (<code>960x540 pt</code>) <code>.pptx</code> file per locale (<code>slide_&lt;lang&gt;.pptx</code>, such as <code>slide_en.pptx</code>). Pre-scaffolded with <code>+x</code> permissions:<pre><code class="language-bash">./slide_src/build_pptx.sh
+<span class="c1"># Or with custom CLI options:</span>
+uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>build<span class="w"> </span>pptx<span class="w"> </span>slide_src/<span class="w"> </span>-o<span class="w"> </span>slide.pptx<span class="w"> </span>--dpi<span class="w"> </span><span class="m">240</span><span class="w"> </span>--anim-frame<span class="w"> </span>last
+</code></pre>
+</li>
 <li><strong><code>build_image.sh</code></strong>:
 Extracts embedded <code>drawlib</code> blocks into standalone diagram images in <code>slide_images/</code>.</li>
 <li><strong><code>build.sh</code> (Master Script)</strong>:
-Runs HTML, PDF, and Image builds in sequence.</li>
-<li><strong>Editable MS PowerPoint Export (<code>drawlib build pptx</code>)</strong>:
-Measures the <code>1920x1080</code> slide DOM and computed CSS styles via headless Chromium and exports a native editable 16:9 (<code>960x540 pt</code>) <code>.pptx</code> file per locale (<code>slide_&lt;lang&gt;.pptx</code>, such as <code>slide_en.pptx</code>):<pre><code class="language-bash">uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>build<span class="w"> </span>pptx<span class="w"> </span>slide_src/<span class="w"> </span>-o<span class="w"> </span>slide.pptx<span class="w"> </span>--dpi<span class="w"> </span><span class="m">240</span><span class="w"> </span>--anim-frame<span class="w"> </span>last
-</code></pre>
-</li>
+Runs standard HTML, PDF, and Image builds in sequence.</li>
 </ul>
 <hr />
 <h2>7. Local Preview &amp; Presenting</h2>

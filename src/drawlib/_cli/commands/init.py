@@ -65,6 +65,10 @@ def _print_init_success(
 
     print("\nNext steps:")
     print(f"  ./{rel_src_dir}/build.sh")
+    if project_type == "doc":
+        print(f"  ./{rel_src_dir}/build_docx.sh")
+    elif project_type == "slide":
+        print(f"  ./{rel_src_dir}/build_pptx.sh")
 
     if project_type in {"site", "doc", "slide"}:
         print(f"  ./{rel_src_dir}/serve.sh")
