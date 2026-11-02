@@ -1,5 +1,46 @@
 # Release Notes & Migration Guide
 
+## Version 0.3.4
+
+*Release Date: 2026/11/02*
+
+Version 0.3.4 introduces a one-command **AI Agent Workspace Instruction Initializer (`drawlib init agent`)** supporting 9 major AI coding assistants, reorganizes `drawlib init` into a symmetrical **`drawlib init project` / `drawlib init agent`** CLI hierarchy, and adds executable **MS Word (`build_docx.sh`)** and **MS PowerPoint (`build_pptx.sh`)** build scripts to project scaffolds.
+
+---
+
+### Highlights & New Features
+
+#### 1. AI Agent Workspace Instruction Initializer (`drawlib init agent`, `drawlib.tools.init_agent_instruction`)
+- **9 Native AI Coding Agent Targets**: Generate ready-to-use workspace instruction files in one command via `drawlib init agent <target...|all|list>` for **Antigravity** (`.agents/rules/drawlib.md`), **Claude Code** (`.claude/rules/drawlib.md`), **Cursor** (`.cursor/rules/drawlib.mdc`), **GitHub Copilot** (`.github/instructions/drawlib.instructions.md`), **Windsurf** (`.windsurf/rules/drawlib.md`), **Cline** (`.clinerules/drawlib.md`), **Roo Code** (`.roo/rules/drawlib.md`), **OpenAI Codex** (`AGENTS.md`), and **Gemini CLI** (`GEMINI.md`).
+- **Context-Aware Trigger Modes & Idempotent Root File Merging**: Supports `--mode auto|always` (defaulting to context-aware `auto` with `.py`, `drawlib.toml`, and `.md` file globs while staying compact under `< 10 KB` for strict IDE limits), safe overwrite protection (`--force`), and non-destructive `<!-- drawlib:begin -->` / `<!-- drawlib:end -->` marker updates when appending to existing `AGENTS.md` or `GEMINI.md` files.
+- **Programmatic Python API (`drawlib.tools`)**: Added `init_agent_instruction()`, `list_agent_targets()`, `detect_agent_targets()`, and `AgentTargetInfo` for automated workspace tooling.
+
+#### 2. Symmetrical `drawlib init` CLI Hierarchy & Executable Office Build Scripts
+- **Symmetrical `drawlib init project` & `drawlib init agent` Subcommands**: Unified initialization workflows under `drawlib init project <doc|site|slide|images|list>` for project scaffolding and `drawlib init agent <agent...|all|list>` for AI agent configuration.
+- **Executable `build_docx.sh` & `build_pptx.sh` Template Scripts**: Scaffolding `doc` (`drawlib init project doc`) and `slide` (`drawlib init project slide`) projects now generates executable (`chmod +x`) `build_docx.sh` and `build_pptx.sh` helper scripts alongside `build.sh` for turnkey `.docx` and `.pptx` generation.
+
+#### 3. Documentation, README & Asset Enhancements
+- **Refreshed GitHub & PyPI READMEs and Installation Guide**: Added animated APNG/PNG feature showcases, post-installation AI agent setup guidance (`Optional — Strongly Recommended`), and OGP / GitHub Social Preview banner generation (`docs/ogp_src/`).
+
+---
+
+### Breaking Changes & Migration from v0.3.3
+
+1. **Project Scaffolding CLI Subcommands Moved Under `drawlib init project`**:
+   - Top-level `drawlib init <doc|site|slide|images|list>` commands have moved to `drawlib init project <doc|site|slide|images|list>`:
+   ```bash
+   # Before (v0.3.3 and earlier)
+   drawlib init site -l en,ja
+   drawlib init list
+
+   # Now (v0.3.4+)
+   drawlib init project site -l en,ja
+   drawlib init project list
+   ```
+   - The programmatic Python API `drawlib.tools.init_project()` remains unchanged.
+
+---
+
 ## Version 0.3.3
 
 *Release Date: 2026/11/01*

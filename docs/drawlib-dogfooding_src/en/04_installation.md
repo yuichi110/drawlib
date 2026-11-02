@@ -1,6 +1,6 @@
 # Chapter 4: Installation and Environment Setup
 
-Drawlib (`v0.3.3`) is published on the official Python Package Index (PyPI) and can be installed in seconds using `uv` or `pip`.
+Drawlib (`v0.3.4`) is published on the official Python Package Index (PyPI) and can be installed in seconds using `uv` or `pip`.
 
 ## 4.1 Prerequisites
 
@@ -69,7 +69,7 @@ uv run drawlib cache clear --all
 Once installed, verify that the CLI and project templates are available:
 
 ```bash
-# Check installed version (0.3.3)
+# Check installed version (0.3.4)
 uv run drawlib --version
 
 # List available project templates

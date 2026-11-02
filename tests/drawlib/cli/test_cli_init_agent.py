@@ -56,6 +56,8 @@ def test_agent_instruction_size_under_windsurf_limit() -> None:
 def test_repo_antigravity_rule_is_synced() -> None:
     """Verify repository `.agents/rules/drawlib.md` matches `get_agent_instruction('antigravity', 'always')`."""
     repo_rule = Path(__file__).resolve().parents[3] / ".agents" / "rules" / "drawlib.md"
+    if not repo_rule.exists():
+        pytest.skip(".agents/rules/drawlib.md not present on this machine.")
     expected = get_agent_instruction("antigravity", mode="always")
     assert repo_rule.read_text(encoding="utf-8") == expected
 

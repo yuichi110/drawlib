@@ -75,8 +75,8 @@ Author Markdown files with embedded ```` ```drawlib ```` code fences inside a un
 - **Unified `drawlib.toml` & Multi-Locale (`<lang>/`) Architecture**: Configure project metadata, `[build]` flags, and `[i18n]` locales (`langs = ["en", "ja"]`) in `drawlib.toml` with built-in structural parity checks across `<src_dir>/<lang>/` trees and locale-suffixed deliverables (`*_<lang>.pdf`, `*_<lang>.docx`, `*_<lang>.pptx`).
 - **4 Project Scaffolds (`drawlib init project <type>`)**:
   - `drawlib init project site [-l en,ja]`: Multi-page documentation website (`docs_html/` with language switcher, search, and sidebar TOC) and GitHub Markdown (`docs_markdown/`).
-  - `drawlib init project doc [-l en,ja]`: Linear technical specification or whitepaper (`*_html/`, `*_markdown/`, vector `*_<lang>.pdf`, plus editable MS Word `*_<lang>.docx` via `drawlib build docx`).
-  - `drawlib init project slide [-l en,ja]`: 16:9 presentation slide deck (`::: block` + `::: note` speaker notes) with native SVG typography, Presenter View, keyboard navigation (`slide_html/`), vector `slide_<lang>.pdf`, and editable MS PowerPoint `slide_<lang>.pptx` via `drawlib build pptx`.
+  - `drawlib init project doc [-l en,ja]`: Linear technical specification or whitepaper (`*_html/`, `*_markdown/`, vector `*_<lang>.pdf`, plus editable MS Word `*_<lang>.docx` via `./<target>_src/build_docx.sh` or `drawlib build docx`).
+  - `drawlib init project slide [-l en,ja]`: 16:9 presentation slide deck (`::: block` + `::: note` speaker notes) with native SVG typography, Presenter View, keyboard navigation (`slide_html/`), vector `slide_<lang>.pdf`, and editable MS PowerPoint `slide_<lang>.pptx` via `./<target>_src/build_pptx.sh` or `drawlib build pptx`.
   - `drawlib init project images`: Standalone batch Python illustration scripts (`images_src/` -> `images/`) backed by sub-millisecond `.drawlib/cache.db` incremental caching.
 - **AI Inner Loop & Human Outer Loop (`drawlib init agent <agent>`)**: Built from the ground up for AI coding agents (Claude Code, Cursor, Antigravity, Copilot, Windsurf, Cline, Roo, Codex, Gemini). Generate native workspace instruction files in one command (`drawlib init agent claude`), while agents query `drawlib rules show <topic>` on demand, render headless coordinate-grid previews via `drawlib show -g`, and multimodally self-correct text clipping or layout defects—freeing engineers to focus on high-level architecture and review.
 
@@ -84,12 +84,28 @@ Author Markdown files with embedded ```` ```drawlib ```` code fences inside a un
 
 ## Installation
 
-Install `drawlib` from PyPI using `pip` or `uv` (Python `>= 3.11`):
+![Drawlib Environment & AI Agent Setup Workflow](https://www.drawlib.com/images/01_getting_started/installation/installation_setup_workflow.png)
+
+Install `drawlib` from PyPI using `uv` (recommended) or `pip` (Python `>= 3.11`):
 
 ```bash
-pip install drawlib
-# or: uv add drawlib
+uv add drawlib
+# or: pip install drawlib
 ```
+
+### Configure AI Agent Instructions *(Optional — Strongly Recommended)*
+
+If you author code or documentation with an AI coding agent (**Claude Code**, **Cursor**, **Antigravity**, **GitHub Copilot**, **Windsurf**, **Cline**, **Roo Code**, **OpenAI Codex**, or **Gemini CLI**), initialize workspace agent instructions right after installation so your agent automatically follows Drawlib's bottom-left `(0, 0)` coordinate space, `50%+` neutral style discipline, `drawlib init project` scaffolding, and 3-stage visual self-correction loop:
+
+```bash
+drawlib init agent list                   # List supported agents & target file paths
+drawlib init agent claude                 # -> .claude/rules/drawlib.md
+drawlib init agent cursor                 # -> .cursor/rules/drawlib.mdc
+drawlib init agent antigravity            # -> .agents/rules/drawlib.md
+drawlib init agent claude cursor copilot  # Initialize multiple agents (or 'all')
+```
+
+### Zero-Config Export & Offline Caching
 
 PDF, MS Word (`.docx`), and MS PowerPoint (`.pptx`) export work out of the box—`playwright`, `python-docx`, and `python-pptx` are standard dependencies, and headless Chromium (`chromium-headless-shell`) downloads automatically on your first `drawlib build pdf` or `drawlib build pptx` run.
 
@@ -191,8 +207,8 @@ Compile, export, and preview with the `drawlib` CLI:
 ./docs_src/build.sh
 
 # Export editable MS Word (.docx) or MS PowerPoint (.pptx) per locale
-drawlib build docx doc_src/ -o spec.docx --generate-index   # -> spec_en.docx, spec_ja.docx
-drawlib build pptx slide_src/ -o deck.pptx                  # -> deck_en.pptx, deck_ja.pptx
+./doc_src/build_docx.sh      # or: drawlib build docx doc_src/ -o spec.docx --generate-index
+./slide_src/build_pptx.sh    # or: drawlib build pptx slide_src/ -o deck.pptx
 
 # Launch local HTTP server with pre-flight broken-link verification
 drawlib serve docs_html/ --check
@@ -220,6 +236,7 @@ drawlib show docs_src/en/index.md service_routing.png -g -o preview_grid.png
 ## Links & Resources
 
 - **Official Documentation**: [English (`https://www.drawlib.com/`)](https://www.drawlib.com/) | [日本語 (`https://www.drawlib.com/ja/`)](https://www.drawlib.com/ja/)
+- **Release Notes & Changelog**: [English](https://www.drawlib.com/en/01_getting_started/release_notes.html) | [日本語](https://www.drawlib.com/ja/01_getting_started/release_notes.html)
 - **PyPI Package**: [https://pypi.org/project/drawlib/](https://pypi.org/project/drawlib/)
 - **GitHub Repository**: [https://github.com/yuichi110/drawlib](https://github.com/yuichi110/drawlib)
 - **License**: Apache License 2.0

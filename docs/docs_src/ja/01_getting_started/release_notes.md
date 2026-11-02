@@ -1,5 +1,46 @@
 # リリースノートと移行ガイド
 
+## バージョン 0.3.4
+
+*リリース日: 2026/11/02*
+
+バージョン 0.3.4 では、主要 9 種の AI コーディングアシスタントに対応した **AI エージェント向けワークスペースルール初期化機能（`drawlib init agent`）** を新搭載し、`drawlib init` を対称的な **`drawlib init project` / `drawlib init agent`** のサブコマンド階層へ再編成したほか、プロジェクトテンプレートに実行権限付きの **MS Word（`build_docx.sh`）** および **MS PowerPoint（`build_pptx.sh`）** ビルドスクリプトを追加しました。
+
+---
+
+### ハイライトと新機能
+
+#### 1. AI エージェント向けワークスペースルール初期化（`drawlib init agent`, `drawlib.tools.init_agent_instruction`）
+- **9 種の AI コーディングエージェントへのネイティブ対応**: `drawlib init agent <target...|all|list>` により、**Antigravity**（`.agents/rules/drawlib.md`）・**Claude Code**（`.claude/rules/drawlib.md`）・**Cursor**（`.cursor/rules/drawlib.mdc`）・**GitHub Copilot**（`.github/instructions/drawlib.instructions.md`）・**Windsurf**（`.windsurf/rules/drawlib.md`）・**Cline**（`.clinerules/drawlib.md`）・**Roo Code**（`.roo/rules/drawlib.md`）・**OpenAI Codex**（`AGENTS.md`）・**Gemini CLI**（`GEMINI.md`）向けの最適化済みルールファイルをワンコマンドで生成できます。
+- **コンテキスト連動トリガーモードと既存ファイルへの安全なマージ**: `--mode auto|always`（標準は `.py`・`drawlib.toml`・`.md` 編集時に自動適用される `auto` モード、`< 10 KB` の軽量設計）や上書き保護（`--force`）に対応し、共有ルートファイル（`AGENTS.md` / `GEMINI.md`）では既存の記述を保持したまま `<!-- drawlib:begin -->` 〜 `<!-- drawlib:end -->` ブロックのみを冪等に更新します。
+- **Python プログラム API（`drawlib.tools`）**: 自動化ツール連携向けに `init_agent_instruction()`・`list_agent_targets()`・`detect_agent_targets()`・`AgentTargetInfo` を追加しました。
+
+#### 2. 対称的な `drawlib init` CLI 階層と実行可能な Office 出力スクリプト
+- **`drawlib init project` と `drawlib init agent` の 2 階層構成**: プロジェクト雛形生成を `drawlib init project <doc|site|slide|images|list>`、AI エージェント設定生成を `drawlib init agent <agent...|all|list>` へと明確に整理しました。
+- **実行権限付き `build_docx.sh` / `build_pptx.sh` テンプレートの追加**: `doc`（`drawlib init project doc`）および `slide`（`drawlib init project slide`）の初期生成ファイルに、実行可能権限（`chmod +x`）が付与された `build_docx.sh` および `build_pptx.sh` を追加しました。
+
+#### 3. ドキュメント・README・アセットの拡充
+- **GitHub / PyPI README とインストールガイドの刷新**: APNG / PNG ショーケース図版の刷新、インストール直後の AI エージェント設定ガイド（任意・強く推奨）の追加、および OGP / GitHub Social Preview バナー生成ターゲット（`docs/ogp_src/`）を追加しました。
+
+---
+
+### 破壊的変更と v0.3.3 からの移行ガイド
+
+1. **プロジェクト初期化 CLI サブコマンドの `drawlib init project` 配下への移行**:
+   - 従来の `drawlib init <doc|site|slide|images|list>` コマンドは、`drawlib init project <doc|site|slide|images|list>` 配下へ移動しました。
+   ```bash
+   # 従来 (v0.3.3 以前)
+   drawlib init site -l en,ja
+   drawlib init list
+
+   # 新構文 (v0.3.4 以降)
+   drawlib init project site -l en,ja
+   drawlib init project list
+   ```
+   - なお、Python API の `drawlib.tools.init_project()` に変更はありません。
+
+---
+
 ## バージョン 0.3.3
 
 *リリース日: 2026/11/01*

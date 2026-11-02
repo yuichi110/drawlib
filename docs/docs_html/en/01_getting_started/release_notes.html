@@ -72,7 +72,7 @@
                 
                 <a href="../01_getting_started/release_notes.html" class="sidebar-version-badge" title="View Release Notes">
                     <span class="sidebar-version-dot" aria-hidden="true"></span>
-                    <span class="sidebar-version-text">v0.3.3</span>
+                    <span class="sidebar-version-text">v0.3.4</span>
                 </a>
                 <a href="https://github.com/yuichi110/drawlib" target="_blank" rel="noopener noreferrer" class="sidebar-github-link" aria-label="GitHub Repository" title="GitHub Repository">
                     <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
@@ -631,6 +631,47 @@
             </header>
             <main class="main-content">
                 <h1>Release Notes &amp; Migration Guide</h1>
+<h2>Version 0.3.4</h2>
+<p><em>Release Date: 2026/11/02</em></p>
+<p>Version 0.3.4 introduces a one-command <strong>AI Agent Workspace Instruction Initializer (<code>drawlib init agent</code>)</strong> supporting 9 major AI coding assistants, reorganizes <code>drawlib init</code> into a symmetrical <strong><code>drawlib init project</code> / <code>drawlib init agent</code></strong> CLI hierarchy, and adds executable <strong>MS Word (<code>build_docx.sh</code>)</strong> and <strong>MS PowerPoint (<code>build_pptx.sh</code>)</strong> build scripts to project scaffolds.</p>
+<hr />
+<h3>Highlights &amp; New Features</h3>
+<h4>1. AI Agent Workspace Instruction Initializer (<code>drawlib init agent</code>, <code>drawlib.tools.init_agent_instruction</code>)</h4>
+<ul>
+<li><strong>9 Native AI Coding Agent Targets</strong>: Generate ready-to-use workspace instruction files in one command via <code>drawlib init agent &lt;target...|all|list&gt;</code> for <strong>Antigravity</strong> (<code>.agents/rules/drawlib.md</code>), <strong>Claude Code</strong> (<code>.claude/rules/drawlib.md</code>), <strong>Cursor</strong> (<code>.cursor/rules/drawlib.mdc</code>), <strong>GitHub Copilot</strong> (<code>.github/instructions/drawlib.instructions.md</code>), <strong>Windsurf</strong> (<code>.windsurf/rules/drawlib.md</code>), <strong>Cline</strong> (<code>.clinerules/drawlib.md</code>), <strong>Roo Code</strong> (<code>.roo/rules/drawlib.md</code>), <strong>OpenAI Codex</strong> (<code>AGENTS.md</code>), and <strong>Gemini CLI</strong> (<code>GEMINI.md</code>).</li>
+<li><strong>Context-Aware Trigger Modes &amp; Idempotent Root File Merging</strong>: Supports <code>--mode auto|always</code> (defaulting to context-aware <code>auto</code> with <code>.py</code>, <code>drawlib.toml</code>, and <code>.md</code> file globs while staying compact under <code>&lt; 10 KB</code> for strict IDE limits), safe overwrite protection (<code>--force</code>), and non-destructive <code>&lt;!-- drawlib:begin --&gt;</code> / <code>&lt;!-- drawlib:end --&gt;</code> marker updates when appending to existing <code>AGENTS.md</code> or <code>GEMINI.md</code> files.</li>
+<li><strong>Programmatic Python API (<code>drawlib.tools</code>)</strong>: Added <code>init_agent_instruction()</code>, <code>list_agent_targets()</code>, <code>detect_agent_targets()</code>, and <code>AgentTargetInfo</code> for automated workspace tooling.</li>
+</ul>
+<h4>2. Symmetrical <code>drawlib init</code> CLI Hierarchy &amp; Executable Office Build Scripts</h4>
+<ul>
+<li><strong>Symmetrical <code>drawlib init project</code> &amp; <code>drawlib init agent</code> Subcommands</strong>: Unified initialization workflows under <code>drawlib init project &lt;doc|site|slide|images|list&gt;</code> for project scaffolding and <code>drawlib init agent &lt;agent...|all|list&gt;</code> for AI agent configuration.</li>
+<li><strong>Executable <code>build_docx.sh</code> &amp; <code>build_pptx.sh</code> Template Scripts</strong>: Scaffolding <code>doc</code> (<code>drawlib init project doc</code>) and <code>slide</code> (<code>drawlib init project slide</code>) projects now generates executable (<code>chmod +x</code>) <code>build_docx.sh</code> and <code>build_pptx.sh</code> helper scripts alongside <code>build.sh</code> for turnkey <code>.docx</code> and <code>.pptx</code> generation.</li>
+</ul>
+<h4>3. Documentation, README &amp; Asset Enhancements</h4>
+<ul>
+<li><strong>Refreshed GitHub &amp; PyPI READMEs and Installation Guide</strong>: Added animated APNG/PNG feature showcases, post-installation AI agent setup guidance (<code>Optional — Strongly Recommended</code>), and OGP / GitHub Social Preview banner generation (<code>docs/ogp_src/</code>).</li>
+</ul>
+<hr />
+<h3>Breaking Changes &amp; Migration from v0.3.3</h3>
+<ol>
+<li><strong>Project Scaffolding CLI Subcommands Moved Under <code>drawlib init project</code></strong>:
+<ul>
+<li>Top-level <code>drawlib init &lt;doc|site|slide|images|list&gt;</code> commands have moved to <code>drawlib init project &lt;doc|site|slide|images|list&gt;</code>:</li>
+</ul>
+<pre><code class="language-bash"><span class="c1"># Before (v0.3.3 and earlier)</span>
+drawlib<span class="w"> </span>init<span class="w"> </span>site<span class="w"> </span>-l<span class="w"> </span>en,ja
+drawlib<span class="w"> </span>init<span class="w"> </span>list
+
+<span class="c1"># Now (v0.3.4+)</span>
+drawlib<span class="w"> </span>init<span class="w"> </span>project<span class="w"> </span>site<span class="w"> </span>-l<span class="w"> </span>en,ja
+drawlib<span class="w"> </span>init<span class="w"> </span>project<span class="w"> </span>list
+</code></pre>
+<ul>
+<li>The programmatic Python API <code>drawlib.tools.init_project()</code> remains unchanged.</li>
+</ul>
+</li>
+</ol>
+<hr />
 <h2>Version 0.3.3</h2>
 <p><em>Release Date: 2026/11/01</em></p>
 <p>Version 0.3.3 introduces a unified <strong><code>drawlib.toml</code> project manifest</strong> and <strong><code>i18n</code>-native <code>&lt;src_dir&gt;/&lt;lang&gt;/</code> multi-locale architecture</strong> across all documentation (<code>doc</code>), website (<code>site</code>), and presentation (<code>slide</code>) projects, alongside full <strong>English/Japanese (<code>en</code>/<code>ja</code>) official documentation</strong> and <strong>animated parameter tours</strong>.</p>

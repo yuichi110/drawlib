@@ -72,7 +72,7 @@
                 
                 <a href="../01_getting_started/release_notes.html" class="sidebar-version-badge" title="View Release Notes">
                     <span class="sidebar-version-dot" aria-hidden="true"></span>
-                    <span class="sidebar-version-text">v0.3.3</span>
+                    <span class="sidebar-version-text">v0.3.4</span>
                 </a>
                 <a href="https://github.com/yuichi110/drawlib" target="_blank" rel="noopener noreferrer" class="sidebar-github-link" aria-label="GitHub Repository" title="GitHub Repository">
                     <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
@@ -631,6 +631,47 @@
             </header>
             <main class="main-content">
                 <h1>リリースノートと移行ガイド</h1>
+<h2>バージョン 0.3.4</h2>
+<p><em>リリース日: 2026/11/02</em></p>
+<p>バージョン 0.3.4 では、主要 9 種の AI コーディングアシスタントに対応した <strong>AI エージェント向けワークスペースルール初期化機能（<code>drawlib init agent</code>）</strong> を新搭載し、<code>drawlib init</code> を対称的な <strong><code>drawlib init project</code> / <code>drawlib init agent</code></strong> のサブコマンド階層へ再編成したほか、プロジェクトテンプレートに実行権限付きの <strong>MS Word（<code>build_docx.sh</code>）</strong> および <strong>MS PowerPoint（<code>build_pptx.sh</code>）</strong> ビルドスクリプトを追加しました。</p>
+<hr />
+<h3>ハイライトと新機能</h3>
+<h4>1. AI エージェント向けワークスペースルール初期化（<code>drawlib init agent</code>, <code>drawlib.tools.init_agent_instruction</code>）</h4>
+<ul>
+<li><strong>9 種の AI コーディングエージェントへのネイティブ対応</strong>: <code>drawlib init agent &lt;target...|all|list&gt;</code> により、<strong>Antigravity</strong>（<code>.agents/rules/drawlib.md</code>）・<strong>Claude Code</strong>（<code>.claude/rules/drawlib.md</code>）・<strong>Cursor</strong>（<code>.cursor/rules/drawlib.mdc</code>）・<strong>GitHub Copilot</strong>（<code>.github/instructions/drawlib.instructions.md</code>）・<strong>Windsurf</strong>（<code>.windsurf/rules/drawlib.md</code>）・<strong>Cline</strong>（<code>.clinerules/drawlib.md</code>）・<strong>Roo Code</strong>（<code>.roo/rules/drawlib.md</code>）・<strong>OpenAI Codex</strong>（<code>AGENTS.md</code>）・<strong>Gemini CLI</strong>（<code>GEMINI.md</code>）向けの最適化済みルールファイルをワンコマンドで生成できます。</li>
+<li><strong>コンテキスト連動トリガーモードと既存ファイルへの安全なマージ</strong>: <code>--mode auto|always</code>（標準は <code>.py</code>・<code>drawlib.toml</code>・<code>.md</code> 編集時に自動適用される <code>auto</code> モード、<code>&lt; 10 KB</code> の軽量設計）や上書き保護（<code>--force</code>）に対応し、共有ルートファイル（<code>AGENTS.md</code> / <code>GEMINI.md</code>）では既存の記述を保持したまま <code>&lt;!-- drawlib:begin --&gt;</code> 〜 <code>&lt;!-- drawlib:end --&gt;</code> ブロックのみを冪等に更新します。</li>
+<li><strong>Python プログラム API（<code>drawlib.tools</code>）</strong>: 自動化ツール連携向けに <code>init_agent_instruction()</code>・<code>list_agent_targets()</code>・<code>detect_agent_targets()</code>・<code>AgentTargetInfo</code> を追加しました。</li>
+</ul>
+<h4>2. 対称的な <code>drawlib init</code> CLI 階層と実行可能な Office 出力スクリプト</h4>
+<ul>
+<li><strong><code>drawlib init project</code> と <code>drawlib init agent</code> の 2 階層構成</strong>: プロジェクト雛形生成を <code>drawlib init project &lt;doc|site|slide|images|list&gt;</code>、AI エージェント設定生成を <code>drawlib init agent &lt;agent...|all|list&gt;</code> へと明確に整理しました。</li>
+<li><strong>実行権限付き <code>build_docx.sh</code> / <code>build_pptx.sh</code> テンプレートの追加</strong>: <code>doc</code>（<code>drawlib init project doc</code>）および <code>slide</code>（<code>drawlib init project slide</code>）の初期生成ファイルに、実行可能権限（<code>chmod +x</code>）が付与された <code>build_docx.sh</code> および <code>build_pptx.sh</code> を追加しました。</li>
+</ul>
+<h4>3. ドキュメント・README・アセットの拡充</h4>
+<ul>
+<li><strong>GitHub / PyPI README とインストールガイドの刷新</strong>: APNG / PNG ショーケース図版の刷新、インストール直後の AI エージェント設定ガイド（任意・強く推奨）の追加、および OGP / GitHub Social Preview バナー生成ターゲット（<code>docs/ogp_src/</code>）を追加しました。</li>
+</ul>
+<hr />
+<h3>破壊的変更と v0.3.3 からの移行ガイド</h3>
+<ol>
+<li><strong>プロジェクト初期化 CLI サブコマンドの <code>drawlib init project</code> 配下への移行</strong>:
+<ul>
+<li>従来の <code>drawlib init &lt;doc|site|slide|images|list&gt;</code> コマンドは、<code>drawlib init project &lt;doc|site|slide|images|list&gt;</code> 配下へ移動しました。</li>
+</ul>
+<pre><code class="language-bash"><span class="c1"># 従来 (v0.3.3 以前)</span>
+drawlib<span class="w"> </span>init<span class="w"> </span>site<span class="w"> </span>-l<span class="w"> </span>en,ja
+drawlib<span class="w"> </span>init<span class="w"> </span>list
+
+<span class="c1"># 新構文 (v0.3.4 以降)</span>
+drawlib<span class="w"> </span>init<span class="w"> </span>project<span class="w"> </span>site<span class="w"> </span>-l<span class="w"> </span>en,ja
+drawlib<span class="w"> </span>init<span class="w"> </span>project<span class="w"> </span>list
+</code></pre>
+<ul>
+<li>なお、Python API の <code>drawlib.tools.init_project()</code> に変更はありません。</li>
+</ul>
+</li>
+</ol>
+<hr />
 <h2>バージョン 0.3.3</h2>
 <p><em>リリース日: 2026/11/01</em></p>
 <p>バージョン 0.3.3 では、すべてのドキュメント（<code>doc</code>）・Web サイト（<code>site</code>）・プレゼンテーション（<code>slide</code>）プロジェクトに共通の <strong><code>drawlib.toml</code> プロジェクトマニフェスト</strong> と <strong><code>i18n</code> ネイティブな <code>&lt;src_dir&gt;/&lt;lang&gt;/</code> 多言語ディレクトリ構成</strong> を導入するとともに、<strong>日英バイリンガル（<code>en</code>/<code>ja</code>）公式ドキュメント</strong> および <strong>パラメータツアーアニメーション</strong> を全面拡充しました。</p>

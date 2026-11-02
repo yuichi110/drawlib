@@ -19,7 +19,7 @@ After installation, verify that both the Python library and the CLI tool are acc
 ```bash
 # Check installed CLI version
 uv run drawlib --version
-# Output: 0.3.3
+# Output: 0.3.4
 
 # Or execute via Python module launcher
 python3 -m drawlib --version
