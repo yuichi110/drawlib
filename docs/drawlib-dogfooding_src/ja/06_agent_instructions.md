@@ -103,13 +103,13 @@ uv run drawlib rules show lib-graph-overview
 uv run drawlib rules show lib-charts-overview
 ```
 
-## 6.2 プロジェクトルールファイルへの設定
+## 6.2 プロジェクトルールファイルへの設定 (`drawlib init agent`)
 
-Cursor（`.cursorrules`）や Claude Code / Gemini（`.agents/rules/`）に以下の基本ルールを登録しておくと、AI が自動的に Drawlib `v0.3.0` の作図原則に従うようになります:
+`uv run drawlib init agent <claude|cursor|antigravity|copilot|windsurf|cline|roo|codex|gemini|all>` コマンドで各エージェント専用のルールファイルを自動生成するか、以下の基本ルールを登録しておくと、AI が自動的に Drawlib の作図原則に従うようになります:
 
 ```markdown
 # Drawlib 作図ルール
-- Project-First Rule: 裸の `.py` ファイルを直接作らず、必ず `uv run drawlib init <doc|site|slide|images>` でプロジェクトを初期化すること。
+- Project-First Rule: 裸の `.py` ファイルを直接作らず、必ず `uv run drawlib init project <doc|site|slide|images>` でプロジェクトを初期化すること。
 - 生 SVG や低レベル matplotlib は書かず、drawlib の高レベルモジュール（smartarts, diagrams, graph, charts）を使用すること。
 - キャンバスの原点 (0, 0) は「左下」である。
 - スタイルとカラーは常に PascalCase（`Styles`, `Colors`）でインポート・参照すること。

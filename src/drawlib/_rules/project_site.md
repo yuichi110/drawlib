@@ -1,6 +1,6 @@
 # Drawlib Multi-Page Documentation Website Guidelines (`project-site`)
 
-A **`site` project** (`drawlib init site`) compiles a locale-structured directory tree of Markdown files (`docs_src/<lang>/**/*.md`) governed by a sidebar definition (`docs_src/<lang>/navbar.md`) into a **responsive multi-page static HTML documentation website (`docs_html/`)**, **GitHub-Flavored Markdown (`docs_markdown/`)**, and **extracted diagram assets (`docs_images/`)**.
+A **`site` project** (`drawlib init project site`) compiles a locale-structured directory tree of Markdown files (`docs_src/<lang>/**/*.md`) governed by a sidebar definition (`docs_src/<lang>/navbar.md`) into a **responsive multi-page static HTML documentation website (`docs_html/`)**, **GitHub-Flavored Markdown (`docs_markdown/`)**, and **extracted diagram assets (`docs_images/`)**.
 
 *(For general project scaffolding, see `uv run drawlib rules show project-overview`. For single-file linear documents/PDFs, see `uv run drawlib rules show project-doc`. For the 3-stage review loop, see `uv run drawlib rules show review-guide`.)*
 
@@ -8,18 +8,18 @@ A **`site` project** (`drawlib init site`) compiles a locale-structured director
 
 ## 1. When to Choose a `site` Project
 
-Choose `drawlib init site` when the user wants a **multi-page documentation website with a navigation sidebar**:
+Choose `drawlib init project site` when the user wants a **multi-page documentation website with a navigation sidebar**:
 - Official library or product documentation portals (such as Drawlib's own `docs/docs_src/`).
 - Multi-chapter architecture handbooks, onboarding portals, and internal engineering wikis.
 - Any documentation set with 4+ distinct topic pages organized into sidebar categories.
 
 ```bash
 # Scaffold a multi-page documentation site (default target 'docs', creates 'docs_src/'):
-uv run drawlib init site [target] [-l <lang[,lang...]>] [-s <default|google|monochrome>]
+uv run drawlib init project site [target] [-l <lang[,lang...]>] [-s <default|google|monochrome>]
 
 # Examples:
-uv run drawlib init site --lang ja -s google
-uv run drawlib init site docs -l en,ja -s default
+uv run drawlib init project site --lang ja -s google
+uv run drawlib init project site docs -l en,ja -s default
 ```
 
 ---
@@ -220,7 +220,7 @@ Never deliver changes to `docs_src/` without executing all 3 verification stages
    - Clean up `.drawlib/scratch/` when finished.
 4. **Parallel Multi-Agent Page & Section Delegation (For Multi-Page Sites)**:
    When authoring or overhauling multiple pages across `docs_src/<lang>/**/*.md`, **actively parallelize work across subagents** rather than editing every page sequentially in one context window:
-   - **Phase 1 (Parent)**: Scaffold `docs_src/` (`drawlib init site`) and finalize `drawlib.toml`, `styles.py`, `utils.py`, `_assets/`, `<lang>/index.md`, and the complete `<lang>/navbar.md` link tree first.
+   - **Phase 1 (Parent)**: Scaffold `docs_src/` (`drawlib init project site`) and finalize `drawlib.toml`, `styles.py`, `utils.py`, `_assets/`, `<lang>/index.md`, and the complete `<lang>/navbar.md` link tree first.
    - **Phase 2 (Parallel Subagents)**: Assign each subagent a disjoint page or section directory (e.g. `en/01_getting_started/*.md` to Subagent A, `en/02_architecture/*.md` to Subagent B). Each subagent treats `drawlib.toml`, `styles.py`, `utils.py`, and `<lang>/navbar.md` as read-only, authors its assigned `.md` files (`2+` diagrams, Top Hero at `Lines 5–15`), and runs Stage 1 & Stage 2 using **unique scratch filenames** (`-o .drawlib/scratch/<page>_<diagram>_grid.png`).
    - **Phase 3 (Parent)**: After all subagents report back, run `./docs_src/build.sh` once, run `uv run drawlib serve docs_html/ --check`, and perform Stage 3 `1280×920` browser verification.
 
@@ -231,7 +231,7 @@ Never deliver changes to `docs_src/` without executing all 3 verification stages
 Every `site` project uses `<target>_src/<lang>/` and `[i18n]` in `drawlib.toml` (no `[project].lang`). Scaffold a bilingual/multilingual site directly with comma-separated language codes (first language becomes `default_lang`), or expand an existing single-locale site later with zero `git mv` file moves:
 
 ```bash
-uv run drawlib init site [target] -l en,ja [-s <default|google|monochrome>]
+uv run drawlib init project site [target] -l en,ja [-s <default|google|monochrome>]
 ```
 
 ```toml

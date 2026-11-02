@@ -1,6 +1,6 @@
 # スライドステージレイアウトと API
 
-16:9 ワイドスクリーンのプレゼンテーションデッキ（`drawlib init slide`）を執筆する際、Drawlib は高精度な **1920 × 1080 ピクセルの仮想ステージ**（`::: block`、`::: note`）、組み込みレイアウトパターン、インラインベクター SVG へのフォントバンドル、およびプログラマティックな [`drawlib.slide`](../10_ai_agents_and_advanced/programmatic_api.md) Python ランタイム API（`current_slide`、`SlideContext`、`BoundingBox`、`build_slide`、`build_pptx`）を提供します。*（スライドデッキプロジェクトの初期化やビルド手順については、[スライドデッキプロジェクトガイド](./project_slide.md) を参照してください。）*
+16:9 ワイドスクリーンのプレゼンテーションデッキ（`drawlib init project slide`）を執筆する際、Drawlib は高精度な **1920 × 1080 ピクセルの仮想ステージ**（`::: block`、`::: note`）、組み込みレイアウトパターン、インラインベクター SVG へのフォントバンドル、およびプログラマティックな [`drawlib.slide`](../10_ai_agents_and_advanced/programmatic_api.md) Python ランタイム API（`current_slide`、`SlideContext`、`BoundingBox`、`build_slide`、`build_pptx`）を提供します。*（スライドデッキプロジェクトの初期化やビルド手順については、[スライドデッキプロジェクトガイド](./project_slide.md) を参照してください。）*
 
 
 

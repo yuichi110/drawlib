@@ -1,4 +1,4 @@
-# Slide Deck Project Guide (`drawlib init slide`)
+# Slide Deck Project Guide (`drawlib init project slide`)
 
 The `slide` starter template creates 16:9 presentation slide decks with rich architectural diagrams, metrics cards, badges, and structured layouts.
 
@@ -104,7 +104,7 @@ save()
 
 ## 1. End-to-End Project Workflow
 
-From initial `drawlib init slide` scaffolding and story-arc planning to dual-layer authoring (`::: block` stage + `::: note` speaker scripts), HTML/PDF/`.pptx` compilation, live Presenter View (`?presenter=1`), and Day-2 cached edits:
+From initial `drawlib init project slide` scaffolding and story-arc planning to dual-layer authoring (`::: block` stage + `::: note` speaker scripts), HTML/PDF/`.pptx` compilation, live Presenter View (`?presenter=1`), and Day-2 cached edits:
 
 
 
@@ -123,15 +123,15 @@ From initial `drawlib init slide` scaffolding and story-arc planning to dual-lay
 
 ## 2. Project Initialization
 
-Scaffold a presentation project using `drawlib init` (every `slide` project uses the unified `<src_dir>/<lang>/` locale layout, even for a single language):
+Scaffold a presentation project using `drawlib init project` (every `slide` project uses the unified `<src_dir>/<lang>/` locale layout, even for a single language):
 
 ```bash
 # Scaffold standard slide project in current directory (creates 'slide_src/en/'):
-drawlib init slide
+drawlib init project slide
 
 # With custom target name, theme, and single or multiple locales (creates 'my_deck_src/<lang>/'):
-drawlib init slide my_deck -s google -l en
-drawlib init slide my_deck -s google -l en,ja
+drawlib init project slide my_deck -s google -l en
+drawlib init project slide my_deck -s google -l en,ja
 ```
 
 ---
@@ -147,7 +147,7 @@ A `slide` project keeps all authoring source files inside `slide_src/` and compi
   - **`_assets/`**: Static logos, fonts, and reference media synchronized into output folders (referenced from `<lang>/` slides via `../_assets/...`, or `../../_assets/...` from `<lang>/<section>/`).
   - **`styles.py` & `utils.py`**: Shared presentation color tokens, typography defaults (plus optional per-locale `<lang>/styles.py` overrides), slide header/footer helpers, and KPI/card utilities.
   - **`style.css` & `slide.js`**: 16:9 viewport scaling stylesheet, keyboard navigation controller, `.slide-lang-dropdown` language menu (`L` shortcut), and `BroadcastChannel` Presenter View runtime.
-  - **`build.sh`, `build_html.sh`, `build_pdf.sh`, `build_pptx.sh`, `build_image.sh`, `serve.sh`**: Modular build scripts and local presentation preview launcher.
+  - **`build.sh`, `build_html.sh`, `build_pdf.sh`, `build_pptx.sh`, `build_image.sh`, `serve.sh`**: Executable (`+x`) modular build scripts (including `build_pptx.sh` for PowerPoint `.pptx` export) and local presentation preview launcher scaffolded by `drawlib init project slide`.
 - **Generated Outputs (Do Not Edit Directly)**:
   - **`slide_html/`**: Interactive browser slide decks (`slide_html/<lang>/index.html`, root `slide_html/index.html` redirect preserving `?presenter=1` and `#N`, and shared `slide_html/images/`, `style.css`, `slide.js`).
   - **`slide_<lang>.pdf`** *(e.g. `slide_en.pdf`)*: Multi-page vector-sharp 16:9 PDF (`1920px × 1080px` per page) per locale rendered via headless Chromium.
@@ -284,18 +284,18 @@ When embedding APNG (`.png` / `.apng`) or Animated WebP (`.webp`) diagrams insid
 ## 8. Parallel Multi-Agent Slide Deck Authoring
 
 Because each slide in `slide_src/<lang>/` is an isolated Markdown file (`01_title.md`, `02_agenda.md`, `03_arch.md`, or organized in section folders), AI coding agents can construct or overhaul multi-slide presentations in parallel:
-1. **Phase 1 (Parent Setup)**: Scaffold `slide_src/` (`drawlib init slide`), configure `drawlib.toml`, `styles.py`, and `utils.py`, and define the slide deck story arc and numbered filenames first.
+1. **Phase 1 (Parent Setup)**: Scaffold `slide_src/` (`drawlib init project slide`), configure `drawlib.toml`, `styles.py`, and `utils.py`, and define the slide deck story arc and numbered filenames first.
 2. **Phase 2 (Parallel Subagents)**: Delegate disjoint slide files (or section directories) inside `slide_src/<lang>/` to parallel subagents. Each subagent authors its assigned slides (`::: block` stage layout + `::: note` speaker script) and runs `-g` grid previews using unique scratch paths (`-o .drawlib/scratch/<slide>_<block>_grid.png`).
-3. **Phase 3 (Unified Deck Build & Review)**: After all subagents complete their slides, the parent agent runs `./slide_src/build.sh` (and `drawlib build pptx` if needed) once and inspects the compiled `slide_<lang>.pdf` and `slide_html/<lang>/index.html`.
+3. **Phase 3 (Unified Deck Build & Review)**: After all subagents complete their slides, the parent agent runs `./slide_src/build.sh` (and `./slide_src/build_pptx.sh` if needed) once and inspects the compiled `slide_<lang>.pdf` and `slide_html/<lang>/index.html`.
 
 ---
 
 ## 9. Unified `i18n` & Multi-Language Slide Decks (`drawlib.toml`)
 
-Every `slide_src/` project uses the unified `i18n`-native `<src_dir>/<lang>/` directory layout (`langs = ["en"]` by default). Maintaining synchronized multi-language conference or executive decks (such as English and Japanese editions) requires zero `git mv` restructuring—pass comma-separated locales to `drawlib init slide` or add `slide_src/ja/` and update `[i18n]` in `slide_src/drawlib.toml`:
+Every `slide_src/` project uses the unified `i18n`-native `<src_dir>/<lang>/` directory layout (`langs = ["en"]` by default). Maintaining synchronized multi-language conference or executive decks (such as English and Japanese editions) requires zero `git mv` restructuring—pass comma-separated locales to `drawlib init project slide` or add `slide_src/ja/` and update `[i18n]` in `slide_src/drawlib.toml`:
 
 ```bash
-uv run drawlib init slide keynote -l en,ja -s google
+uv run drawlib init project slide keynote -l en,ja -s google
 ```
 
 ```toml

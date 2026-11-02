@@ -13,7 +13,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Slide Deck Project Guide (`drawlib init slide`)</title>
+    <title>Slide Deck Project Guide (`drawlib init project slide`)</title>
     <script>
         (function() {
             const saved = localStorage.getItem('drawlib-theme');
@@ -600,7 +600,7 @@
                 <div class="breadcrumbs">
                     <span class="crumb">Docs</span>
                     <span class="crumb-separator">&raquo;</span>
-                    <span class="crumb active">Slide Deck Project Guide (`drawlib init slide`)</span>
+                    <span class="crumb active">Slide Deck Project Guide (`drawlib init project slide`)</span>
                 </div>
                 
                 <div class="lang-switcher">
@@ -630,7 +630,7 @@
                 
             </header>
             <main class="main-content">
-                <h1>Slide Deck Project Guide (<code>drawlib init slide</code>)</h1>
+                <h1>Slide Deck Project Guide (<code>drawlib init project slide</code>)</h1>
 <p>The <code>slide</code> starter template creates 16:9 presentation slide decks with rich architectural diagrams, metrics cards, badges, and structured layouts.</p>
 <p>Drawlib compiles your slide deck into an <strong>interactive HTML web presentation</strong>, a <strong>1-slide-per-page vector PDF</strong>, and a <strong>native editable 16:9 MS PowerPoint (<code>.pptx</code>) deck</strong>, perfectly sized for conferences, client briefings, and team reviews.</p>
 <figure class="drawlib-image" style="text-align: center;">
@@ -722,7 +722,7 @@
 </details>
 <hr />
 <h2>1. End-to-End Project Workflow</h2>
-<p>From initial <code>drawlib init slide</code> scaffolding and story-arc planning to dual-layer authoring (<code>::: block</code> stage + <code>::: note</code> speaker scripts), HTML/PDF/<code>.pptx</code> compilation, live Presenter View (<code>?presenter=1</code>), and Day-2 cached edits:</p>
+<p>From initial <code>drawlib init project slide</code> scaffolding and story-arc planning to dual-layer authoring (<code>::: block</code> stage + <code>::: note</code> speaker scripts), HTML/PDF/<code>.pptx</code> compilation, live Presenter View (<code>?presenter=1</code>), and Day-2 cached edits:</p>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="../../images/09_doc_builder_and_cli/project_slide/project_slide_workflow_tour.png" alt="project_slide_2" />
   <figcaption class="drawlib-caption">16:9 Slide Deck Lifecycle: Scaffolding, Dual-Layer Authoring, HTML/PDF/PPTX Export, and Presenter View (APNG Animation)</figcaption>
@@ -732,13 +732,13 @@
 </div>
 <hr />
 <h2>2. Project Initialization</h2>
-<p>Scaffold a presentation project using <code>drawlib init</code> (every <code>slide</code> project uses the unified <code>&lt;src_dir&gt;/&lt;lang&gt;/</code> locale layout, even for a single language):</p>
+<p>Scaffold a presentation project using <code>drawlib init project</code> (every <code>slide</code> project uses the unified <code>&lt;src_dir&gt;/&lt;lang&gt;/</code> locale layout, even for a single language):</p>
 <pre><code class="language-bash"><span class="c1"># Scaffold standard slide project in current directory (creates 'slide_src/en/'):</span>
-drawlib<span class="w"> </span>init<span class="w"> </span>slide
+drawlib<span class="w"> </span>init<span class="w"> </span>project<span class="w"> </span>slide
 
 <span class="c1"># With custom target name, theme, and single or multiple locales (creates 'my_deck_src/&lt;lang&gt;/'):</span>
-drawlib<span class="w"> </span>init<span class="w"> </span>slide<span class="w"> </span>my_deck<span class="w"> </span>-s<span class="w"> </span>google<span class="w"> </span>-l<span class="w"> </span>en
-drawlib<span class="w"> </span>init<span class="w"> </span>slide<span class="w"> </span>my_deck<span class="w"> </span>-s<span class="w"> </span>google<span class="w"> </span>-l<span class="w"> </span>en,ja
+drawlib<span class="w"> </span>init<span class="w"> </span>project<span class="w"> </span>slide<span class="w"> </span>my_deck<span class="w"> </span>-s<span class="w"> </span>google<span class="w"> </span>-l<span class="w"> </span>en
+drawlib<span class="w"> </span>init<span class="w"> </span>project<span class="w"> </span>slide<span class="w"> </span>my_deck<span class="w"> </span>-s<span class="w"> </span>google<span class="w"> </span>-l<span class="w"> </span>en,ja
 </code></pre>
 <hr />
 <h2>3. Directory Layout &amp; Anatomy</h2>
@@ -752,7 +752,7 @@ drawlib<span class="w"> </span>init<span class="w"> </span>slide<span class="w">
 <li><strong><code>_assets/</code></strong>: Static logos, fonts, and reference media synchronized into output folders (referenced from <code>&lt;lang&gt;/</code> slides via <code>../_assets/...</code>, or <code>../../_assets/...</code> from <code>&lt;lang&gt;/&lt;section&gt;/</code>).</li>
 <li><strong><code>styles.py</code> &amp; <code>utils.py</code></strong>: Shared presentation color tokens, typography defaults (plus optional per-locale <code>&lt;lang&gt;/styles.py</code> overrides), slide header/footer helpers, and KPI/card utilities.</li>
 <li><strong><code>style.css</code> &amp; <code>slide.js</code></strong>: 16:9 viewport scaling stylesheet, keyboard navigation controller, <code>.slide-lang-dropdown</code> language menu (<code>L</code> shortcut), and <code>BroadcastChannel</code> Presenter View runtime.</li>
-<li><strong><code>build.sh</code>, <code>build_html.sh</code>, <code>build_pdf.sh</code>, <code>build_pptx.sh</code>, <code>build_image.sh</code>, <code>serve.sh</code></strong>: Modular build scripts and local presentation preview launcher.</li>
+<li><strong><code>build.sh</code>, <code>build_html.sh</code>, <code>build_pdf.sh</code>, <code>build_pptx.sh</code>, <code>build_image.sh</code>, <code>serve.sh</code></strong>: Executable (<code>+x</code>) modular build scripts (including <code>build_pptx.sh</code> for PowerPoint <code>.pptx</code> export) and local presentation preview launcher scaffolded by <code>drawlib init project slide</code>.</li>
 </ul>
 </li>
 <li><strong>Generated Outputs (Do Not Edit Directly)</strong>:
@@ -902,14 +902,14 @@ Runs standard HTML, PDF, and Image builds in sequence.</li>
 <h2>8. Parallel Multi-Agent Slide Deck Authoring</h2>
 <p>Because each slide in <code>slide_src/&lt;lang&gt;/</code> is an isolated Markdown file (<code>01_title.md</code>, <code>02_agenda.md</code>, <code>03_arch.md</code>, or organized in section folders), AI coding agents can construct or overhaul multi-slide presentations in parallel:</p>
 <ol>
-<li><strong>Phase 1 (Parent Setup)</strong>: Scaffold <code>slide_src/</code> (<code>drawlib init slide</code>), configure <code>drawlib.toml</code>, <code>styles.py</code>, and <code>utils.py</code>, and define the slide deck story arc and numbered filenames first.</li>
+<li><strong>Phase 1 (Parent Setup)</strong>: Scaffold <code>slide_src/</code> (<code>drawlib init project slide</code>), configure <code>drawlib.toml</code>, <code>styles.py</code>, and <code>utils.py</code>, and define the slide deck story arc and numbered filenames first.</li>
 <li><strong>Phase 2 (Parallel Subagents)</strong>: Delegate disjoint slide files (or section directories) inside <code>slide_src/&lt;lang&gt;/</code> to parallel subagents. Each subagent authors its assigned slides (<code>::: block</code> stage layout + <code>::: note</code> speaker script) and runs <code>-g</code> grid previews using unique scratch paths (<code>-o .drawlib/scratch/&lt;slide&gt;_&lt;block&gt;_grid.png</code>).</li>
-<li><strong>Phase 3 (Unified Deck Build &amp; Review)</strong>: After all subagents complete their slides, the parent agent runs <code>./slide_src/build.sh</code> (and <code>drawlib build pptx</code> if needed) once and inspects the compiled <code>slide_&lt;lang&gt;.pdf</code> and <code>slide_html/&lt;lang&gt;/index.html</code>.</li>
+<li><strong>Phase 3 (Unified Deck Build &amp; Review)</strong>: After all subagents complete their slides, the parent agent runs <code>./slide_src/build.sh</code> (and <code>./slide_src/build_pptx.sh</code> if needed) once and inspects the compiled <code>slide_&lt;lang&gt;.pdf</code> and <code>slide_html/&lt;lang&gt;/index.html</code>.</li>
 </ol>
 <hr />
 <h2>9. Unified <code>i18n</code> &amp; Multi-Language Slide Decks (<code>drawlib.toml</code>)</h2>
-<p>Every <code>slide_src/</code> project uses the unified <code>i18n</code>-native <code>&lt;src_dir&gt;/&lt;lang&gt;/</code> directory layout (<code>langs = [&quot;en&quot;]</code> by default). Maintaining synchronized multi-language conference or executive decks (such as English and Japanese editions) requires zero <code>git mv</code> restructuring—pass comma-separated locales to <code>drawlib init slide</code> or add <code>slide_src/ja/</code> and update <code>[i18n]</code> in <code>slide_src/drawlib.toml</code>:</p>
-<pre><code class="language-bash">uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>slide<span class="w"> </span>keynote<span class="w"> </span>-l<span class="w"> </span>en,ja<span class="w"> </span>-s<span class="w"> </span>google
+<p>Every <code>slide_src/</code> project uses the unified <code>i18n</code>-native <code>&lt;src_dir&gt;/&lt;lang&gt;/</code> directory layout (<code>langs = [&quot;en&quot;]</code> by default). Maintaining synchronized multi-language conference or executive decks (such as English and Japanese editions) requires zero <code>git mv</code> restructuring—pass comma-separated locales to <code>drawlib init project slide</code> or add <code>slide_src/ja/</code> and update <code>[i18n]</code> in <code>slide_src/drawlib.toml</code>:</p>
+<pre><code class="language-bash">uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>project<span class="w"> </span>slide<span class="w"> </span>keynote<span class="w"> </span>-l<span class="w"> </span>en,ja<span class="w"> </span>-s<span class="w"> </span>google
 </code></pre>
 <pre><code class="language-toml"><span class="k">[project]</span>
 <span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"keynote"</span>

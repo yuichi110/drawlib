@@ -746,7 +746,7 @@
 </ol>
 <hr />
 <h2>3. プロジェクトスターターテンプレート</h2>
-<p>ドキュメント用ディレクトリを手動で一から構築しないでください。<code>drawlib init</code> でスキャフォールディングすることで、適切なディレクトリ構成と設定スクリプトが確実にセットアップされます。</p>
+<p>ドキュメント用ディレクトリを手動で一から構築しないでください。<code>drawlib init project</code> でスキャフォールディングすることで、適切なディレクトリ構成と設定スクリプトが確実にセットアップされます。</p>
 <table>
 <thead>
 <tr>
@@ -889,28 +889,28 @@
 <tr>
 <td style="text-align:left"><strong><code>doc</code></strong></td>
 <td style="text-align:left">連番付きの章ファイル（<code>doc_src/&lt;lang&gt;/01_*.md</code>、<code>02_*.md</code> など）</td>
-<td style="text-align:left"><code>drawlib init doc</code>、<code>styles.py</code>、<code>utils.py</code>、<code>&lt;lang&gt;/00_cover.md</code>、章構成の作成</td>
+<td style="text-align:left"><code>drawlib init project doc</code>、<code>styles.py</code>、<code>utils.py</code>、<code>&lt;lang&gt;/00_cover.md</code>、章構成の作成</td>
 <td style="text-align:left">担当章の執筆と <code>drawlib show ... -g -o .drawlib/scratch/0N_&lt;fig&gt;_grid.png</code> の実行</td>
 <td style="text-align:left"><code>./doc_src/build.sh</code>（または <code>build docx</code>）を実行し、<code>doc_&lt;lang&gt;.pdf</code> / <code>doc_html/</code> を確認</td>
 </tr>
 <tr>
 <td style="text-align:left"><strong><code>site</code></strong></td>
 <td style="text-align:left">トピックページまたはセクションフォルダ（<code>docs_src/&lt;lang&gt;/01_arch/*.md</code> など）</td>
-<td style="text-align:left"><code>drawlib init site</code>、<code>styles.py</code>、<code>utils.py</code>、<code>&lt;lang&gt;/navbar.md</code>、<code>&lt;lang&gt;/index.md</code> の設定</td>
+<td style="text-align:left"><code>drawlib init project site</code>、<code>styles.py</code>、<code>utils.py</code>、<code>&lt;lang&gt;/navbar.md</code>、<code>&lt;lang&gt;/index.md</code> の設定</td>
 <td style="text-align:left">担当ページの執筆と、一意のスクラッチファイル名を用いた Stage 1 + Stage 2 グリッド検証</td>
 <td style="text-align:left"><code>./docs_src/build.sh</code>、<code>serve --check</code>、およびブラウザ確認を実行</td>
 </tr>
 <tr>
 <td style="text-align:left"><strong><code>slide</code></strong></td>
 <td style="text-align:left">スライドファイル（<code>slide_src/&lt;lang&gt;/02_*.md</code> など）またはセクションディレクトリ</td>
-<td style="text-align:left"><code>drawlib init slide</code>、<code>styles.py</code>、<code>utils.py</code>、ストーリー構成とスライド連番の設計</td>
+<td style="text-align:left"><code>drawlib init project slide</code>、<code>styles.py</code>、<code>utils.py</code>、ストーリー構成とスライド連番の設計</td>
 <td style="text-align:left">担当スライド（<code>::: block</code> + <code>::: note</code>）の執筆と Stage 1 + Stage 2 グリッド検証</td>
 <td style="text-align:left"><code>./slide_src/build.sh</code>（または <code>build pptx</code>）を実行し、<code>slide_&lt;lang&gt;.pdf</code> / <code>1920x1080</code> ステージを確認</td>
 </tr>
 <tr>
 <td style="text-align:left"><strong><code>images</code></strong></td>
 <td style="text-align:left">スタンドアロン Python スクリプト（<code>images_src/&lt;name&gt;.py</code>）</td>
-<td style="text-align:left"><code>drawlib init images</code>、<code>styles.py</code>、<code>utils.py</code>、<code>_assets/</code> の準備</td>
+<td style="text-align:left"><code>drawlib init project images</code>、<code>styles.py</code>、<code>utils.py</code>、<code>_assets/</code> の準備</td>
 <td style="text-align:left">担当 <code>.py</code> スクリプトの作成と <code>drawlib show ... -g -o .drawlib/scratch/&lt;script&gt;_grid.png</code> の実行</td>
 <td style="text-align:left"><code>./images_src/build.sh</code> を実行し、<code>images/*.png</code> を確認</td>
 </tr>
@@ -927,7 +927,7 @@
 <p>各ビルダサブシステムの詳細は、以下のページを参照してください。</p>
 <ul>
 <li><a href="./code_blocks.html">Markdown コードブロック構文</a>: コードフェンス構文、表示モード（<code>code=show</code>、<code>code=fold</code>）、配置、キャプション指定。</li>
-<li><a href="./cli_reference.html">CLI リファレンス</a>: <code>build</code>（<code>html</code>、<code>markdown</code>、<code>pdf</code>、<code>docx</code>、<code>slide</code>、<code>pptx</code>、<code>image</code>）、<code>serve</code>、<code>show</code>、<code>init</code>、<code>cache</code>、<code>css</code>、<code>colors</code>、<code>styles</code>、<code>rules</code> の完全リファレンス。</li>
+<li><a href="./cli_reference.html">CLI リファレンス</a>: <code>build</code>（<code>html</code>、<code>markdown</code>、<code>pdf</code>、<code>docx</code>、<code>slide</code>、<code>pptx</code>、<code>image</code>）、<code>serve</code>、<code>show</code>、<code>init</code>（<code>project</code>、<code>agent</code>）、<code>cache</code>、<code>css</code>、<code>colors</code>、<code>styles</code>、<code>rules</code> の完全リファレンス。</li>
 <li><a href="./project_doc.html">リニアドキュメントプロジェクト (<code>doc</code>)</a>: RFC、仕様書、ホワイトペーパーなどのリニアドキュメント作成と、HTML / PDF / Word（<code>.docx</code>）出力。</li>
 <li><a href="./project_site.html">ドキュメントサイトプロジェクト (<code>site</code>)</a>: マルチページ構成のドキュメントサイト執筆、サイドバーカテゴリ設計、リンク検証。</li>
 <li><a href="./project_slide.html">スライドデッキプロジェクト (<code>slide</code>)</a>: インタラクティブ Web スライド、ベクター PDF、PowerPoint（<code>.pptx</code>）出力に対応した 16:9 プレゼンテーションスライドの作成。</li>

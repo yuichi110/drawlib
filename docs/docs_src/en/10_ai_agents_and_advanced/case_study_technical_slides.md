@@ -25,7 +25,7 @@ text(
 
 # Row 1: Steps 1 to 5 (Scaffolding -> Planning -> Generation -> AI Self-Review)
 row1 = [
-    (17.0, "1. Init Project", "drawlib init slide\nTheme & utils.py", phosphor.terminal_window, Styles.PrimaryNeutral, Styles.PrimaryBold),
+    (17.0, "1. Init Project", "drawlib init project\nslide & utils.py", phosphor.terminal_window, Styles.PrimaryNeutral, Styles.PrimaryBold),
     (44.0, "2. AI Discussion", "Brainstorm story\n4-Act narrative arc", phosphor.chats_circle, Styles.White, Styles.DarkBold),
     (71.0, "3. _PLAN File", "_CONTENTS_PLANNING\nIgnored by build", phosphor.file_dashed, Styles.SecondaryNeutral, Styles.SecondaryBold),
     (98.0, "4. Draft Slides", "::: block (visuals)\n::: note (details)", phosphor.presentation_chart, Styles.White, Styles.DarkBold),
@@ -88,7 +88,7 @@ Rather than expecting a single "one-shot" prompt to produce a finished 27-slide 
 
 | Step | Actor | Phase | Key Action & Deliverable |
 | :---: | :---: | :--- | :--- |
-| **1** | Human / AI | **Project Creation** | Scaffold `slide` project (`drawlib init slide`) with theme, `styles.py`, and `utils.py` helpers. |
+| **1** | Human / AI | **Project Creation** | Scaffold `slide` project (`drawlib init project slide`) with theme, `styles.py`, and `utils.py` helpers. |
 | **2** | Human + AI | **Content Discussion** | Discuss the raw incident facts, technical bottlenecks, and target audience takeaways. |
 | **3** | AI Agent | **`_PLAN` Specification** | Write `_CONTENTS_PLANNING.md` (prefixed with `_` so the slide compiler ignores it). |
 | **4** | AI Agent | **Initial Slide Generation** | Author multi-act `.md` slides using Dual-Layer separation (`::: block` visuals vs. `::: note` prose). |
@@ -102,11 +102,11 @@ Rather than expecting a single "one-shot" prompt to produce a finished 27-slide 
 
 ## 2. Steps 1–3: Scaffolding, Discussion & The `_` Planning File Pattern
 
-### 2.1. Step 1: Scaffolding the Slide Project (`drawlib init slide`)
+### 2.1. Step 1: Scaffolding the Slide Project (`drawlib init project slide`)
 Every slide deck starts by initializing a structured Drawlib `slide` project:
 
 ```bash
-uv run drawlib init slide docs/slide_ddos_incident_response_src --style google
+uv run drawlib init project slide docs/slide_ddos_incident_response_src --style google
 ```
 
 This generates the complete presentation infrastructure:

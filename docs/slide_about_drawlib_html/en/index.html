@@ -24515,7 +24515,7 @@ z
    </g>
    <g id="text_7">
     <g clip-path="url(#p6494dea2b6)">
-     <text style="font-size: 11px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #323a48" x="351.24" y="231.503672" transform="rotate(-0 351.24 231.503672)">Four Project Archetypes via drawlib init (site, doc, slide, image)</text>
+     <text style="font-size: 11px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #323a48" x="351.24" y="231.503672" transform="rotate(-0 351.24 231.503672)">Four Project Archetypes via drawlib init project (site, doc, slide, images)</text>
     </g>
    </g>
    <g id="patch_18">
@@ -24646,7 +24646,7 @@ z
 <ul>
 <li>Welcome to Chapter 6: Documentation &amp; Slide Engine.</li>
 <li>Drawlib is not just a diagramming library—it is a complete &quot;Illustrated Documentation as Code&quot; compiler.</li>
-<li>In this chapter, we explore the four project archetypes scaffolded by <code>drawlib init</code>, how multi-page sites and vector PDFs are built, and how the 16:9 widescreen slide engine powers the very presentation you are viewing right now.</li>
+<li>In this chapter, we explore the four project archetypes scaffolded by <code>drawlib init project</code>, how multi-page sites and vector PDFs are built, and how the 16:9 widescreen slide engine powers the very presentation you are viewing right now.</li>
 </ul>
       </aside>
     </section>
@@ -24701,25 +24701,25 @@ z
 
 
 <div class="slide-block slide-text-box" style="position: absolute; left: 80.0px; top: 40.0px; width: 1760.0px; height: 60.0px;">
-<h1>Four Project Archetypes (<code>drawlib init</code>)</h1>
+<h1>Four Project Archetypes (<code>drawlib init project</code>)</h1>
 
 </div>
 
 
 <div class="slide-block slide-text-box" style="position: absolute; left: 80.0px; top: 140.0px; width: 740.0px; height: 840.0px; font-size: 20px;">
 <h2>Zero-Config Project Scaffolding</h2>
-<p>Never assemble documentation directories or build scripts manually. <code>drawlib init</code> scaffolds production-ready project structures with synchronized themes (<code>styles.py</code> + <code>style.css</code>) and modular <code>build_*.sh</code> scripts:</p>
+<p>Never assemble documentation directories or build scripts manually. <code>drawlib init project</code> scaffolds production-ready project structures with synchronized themes (<code>styles.py</code> + <code>style.css</code>) and modular <code>build_*.sh</code> scripts:</p>
 <pre><code class="language-bash"><span class="c1"># 1. Multi-page documentation website with sidebar</span>
-uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>site<span class="w"> </span>-s<span class="w"> </span>default
+uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>project<span class="w"> </span>site<span class="w"> </span>-s<span class="w"> </span>default
 
 <span class="c1"># 2. Linear technical specification / RFC / whitepaper</span>
-uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>doc<span class="w"> </span>-s<span class="w"> </span>google
+uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>project<span class="w"> </span>doc<span class="w"> </span>-s<span class="w"> </span>google
 
 <span class="c1"># 3. 16:9 widescreen presentation slide deck</span>
-uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>slide<span class="w"> </span>-s<span class="w"> </span>default
+uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>project<span class="w"> </span>slide<span class="w"> </span>-s<span class="w"> </span>default
 
 <span class="c1"># 4. Standalone batch Python illustration repository</span>
-uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>image<span class="w"> </span>-s<span class="w"> </span>monochrome
+uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>project<span class="w"> </span>images<span class="w"> </span>-s<span class="w"> </span>monochrome
 </code></pre>
 <h3>Strict Source-of-Truth Separation</h3>
 <ul>
@@ -24774,7 +24774,7 @@ z
    </g>
    <g id="text_1">
     <g clip-path="url(#pecbf88852a)">
-     <text style="font-size: 12px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="360" y="69.944636" transform="rotate(-0 360 69.944636)">Drawlib Project Scaffolding Matrix (drawlib init)</text>
+     <text style="font-size: 12px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="360" y="69.944636" transform="rotate(-0 360 69.944636)">Drawlib Project Scaffolding Matrix (drawlib init project)</text>
     </g>
    </g>
    <g id="patch_3">
@@ -24792,7 +24792,7 @@ z
    </g>
    <g id="text_2">
     <g clip-path="url(#pecbf88852a)">
-     <text style="font-size: 9.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #ffffff" x="360" y="146.006619" transform="rotate(-0 360 146.006619)">CLI Entrypoint:   uv run drawlib init &lt;site | doc | slide | image&gt; [target] [-s theme] [-l lang]</text>
+     <text style="font-size: 9.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #ffffff" x="360" y="146.006619" transform="rotate(-0 360 146.006619)">CLI:  uv run drawlib init project &lt;site | doc | slide | images&gt; [target] [-s theme] [-l lang]</text>
     </g>
    </g>
    <g id="patch_4">
@@ -24920,12 +24920,12 @@ z
       </div>
       <aside class="slide-notes" hidden>
 <ul>
-<li>Drawlib provides four specialized project archetypes out of the box via <code>drawlib init</code>:
+<li>Drawlib provides four specialized project archetypes out of the box via <code>drawlib init project</code>:
 <ol>
 <li><code>site</code> for multi-page technical documentation websites with a navigation sidebar (<code>navbar.md</code>).</li>
 <li><code>doc</code> for single-page specifications, whitepapers, and RFCs with automatic Table of Contents and A4 vector PDF export.</li>
 <li><code>slide</code> for 16:9 widescreen presentation decks (<code>1920x1080</code>).</li>
-<li><code>image</code> (<code>images</code>) for standalone batch Python illustration scripts.</li>
+<li><code>images</code> for standalone batch Python illustration scripts.</li>
 </ol>
 </li>
 </ul>
@@ -25876,7 +25876,7 @@ z
 
 <div class="slide-block slide-text-box" style="position: absolute; left: 80.0px; top: 140.0px; width: 740.0px; height: 840.0px; font-size: 20px;">
 <h2>Dual Coordinate Systems Working in Harmony</h2>
-<p>Drawlib slides (<code>drawlib init slide</code>) combine pixel-accurate stage containers with Cartesian vector canvases:</p>
+<p>Drawlib slides (<code>drawlib init project slide</code>) combine pixel-accurate stage containers with Cartesian vector canvases:</p>
 <ol>
 <li><strong>Slide Stage (<code>::: block xy=(x, y) width=W height=H</code>) — Top-Left <code>(0, 0)</code></strong>:
 <ul>
@@ -29918,9 +29918,9 @@ z
 <h2>One Unified CLI (<code>drawlib</code>)</h2>
 <p>From initial project scaffolding to headless visual inspection and PDF / Office publishing, every workflow runs via <code>uv run drawlib</code>:</p>
 <h3>1. Scaffold &amp; Author</h3>
-<pre><code class="language-bash">uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>&lt;site<span class="p">|</span>doc<span class="p">|</span>slide<span class="p">|</span>images&gt;
+<pre><code class="language-bash">uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>project<span class="w"> </span>&lt;site<span class="p">|</span>doc<span class="p">|</span>slide<span class="p">|</span>images&gt;
+uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>agent<span class="w"> </span>&lt;claude<span class="p">|</span>cursor<span class="p">|</span>antigravity&gt;
 uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>rules<span class="w"> </span>show<span class="w"> </span>overview
-uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>rules<span class="w"> </span>show<span class="w"> </span>api
 </code></pre>
 <h3>2. Inspect &amp; Verify Headlessly</h3>
 <pre><code class="language-bash"><span class="c1"># Render single block with coordinate grid</span>
@@ -30039,7 +30039,7 @@ z
    </g>
    <g id="text_5">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 7.9px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #4862da" x="135.849057" y="159.836236" transform="rotate(-0 135.849057 159.836236)">drawlib init &lt;type&gt;</text>
+     <text style="font-size: 7.9px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #4862da" x="135.849057" y="159.599236" transform="rotate(-0 135.849057 159.599236)">drawlib init project|agent</text>
     </g>
    </g>
    <g id="patch_7">
@@ -30052,7 +30052,7 @@ z
    </g>
    <g id="text_6">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 7.9px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="366.792453" y="159.733783" transform="rotate(-0 366.792453 159.733783)">Scaffold site, doc, slide, or images project</text>
+     <text style="font-size: 7.9px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="366.792453" y="159.733783" transform="rotate(-0 366.792453 159.733783)">Scaffold project or AI agent rules</text>
     </g>
    </g>
    <g id="patch_8">
@@ -30065,7 +30065,7 @@ z
    </g>
    <g id="text_7">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 7.9px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="590.943396" y="159.733783" transform="rotate(-0 590.943396 159.733783)">-s &lt;theme&gt;, -l &lt;lang&gt;, --force</text>
+     <text style="font-size: 7.9px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="590.943396" y="159.733783" transform="rotate(-0 590.943396 159.733783)">-s &lt;theme&gt;, -l &lt;lang&gt;, -m &lt;mode&gt;</text>
     </g>
    </g>
    <g id="patch_9">
@@ -30475,7 +30475,7 @@ L 679.245283 520.981132
       <aside class="slide-notes" hidden>
 <ul>
 <li>This <code>Table</code> SmartArt summarizes the entire <code>drawlib</code> CLI surface on a single slide, including optional editable MS Word (<code>drawlib build docx &lt;src&gt; -o &lt;out.docx&gt; --generate-index</code>) and 16:9 MS PowerPoint (<code>drawlib build pptx &lt;src&gt; -o &lt;out.pptx&gt;</code>) exports.</li>
-<li>Whether you are scaffolding a new deck (<code>drawlib init slide</code>), inspecting a single diagram with a coordinate grid (<code>drawlib show -g -o</code>), checking for broken links (<code>drawlib serve --check</code>), or pre-fetching fonts, icons, maps, and headless Chromium (<code>drawlib cache download --all</code>), everything follows a consistent, ergonomic CLI design.</li>
+<li>Whether you are scaffolding a new deck (<code>drawlib init project slide</code>), generating AI agent rules (<code>drawlib init agent claude</code>), inspecting a single diagram with a coordinate grid (<code>drawlib show -g -o</code>), checking for broken links (<code>drawlib serve --check</code>), or pre-fetching fonts, icons, maps, and headless Chromium (<code>drawlib cache download --all</code>), everything follows a consistent, ergonomic CLI design.</li>
 </ul>
       </aside>
     </section>
@@ -30543,7 +30543,7 @@ z
 uv<span class="w"> </span>add<span class="w"> </span>drawlib<span class="w">   </span><span class="c1"># or: pip install drawlib</span>
 
 <span class="c1"># 2. Scaffold a 16:9 slide deck, doc, or site</span>
-uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>slide<span class="w"> </span>my_deck<span class="w"> </span>-s<span class="w"> </span>default
+uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>project<span class="w"> </span>slide<span class="w"> </span>my_deck<span class="w"> </span>-s<span class="w"> </span>default
 
 <span class="c1"># 3. Build HTML + PDF (auto Chromium) &amp; preview</span>
 ./my_deck_src/build.sh
@@ -30552,7 +30552,7 @@ uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </s
 <h3>Core Takeaways</h3>
 <ul>
 <li><strong>Batteries Included</strong>: PDF (<code>build pdf</code>), MS Word (<code>build docx</code>), and 16:9 PowerPoint (<code>build pptx</code>) work out of the box—headless Chromium auto-downloads on first build (<code>cache download --all</code> / <code>--browser</code> for CI; <code>playwright install-deps chromium</code> on minimal Linux containers).</li>
-<li><strong>AI-Native Source of Truth</strong>: Diagrams, docs, and slides live in Git with <code>drawlib rules</code> + headless grid review (<code>drawlib show -g</code>).</li>
+<li><strong>AI-Native Source of Truth</strong>: Diagrams, docs, and slides live in Git with <code>drawlib init agent</code>, <code>drawlib rules</code>, and headless grid review (<code>drawlib show -g</code>).</li>
 <li><strong>Explore &amp; Contribute</strong>: <code>https://github.com/yuichi110/drawlib</code></li>
 </ul>
 
@@ -30660,7 +30660,7 @@ z
    </g>
    <g id="text_6">
     <g clip-path="url(#pecbf88852a)">
-     <text style="font-size: 7.8px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="360" y="294.637469" transform="rotate(-0 360 294.637469)">drawlib init slide</text>
+     <text style="font-size: 7.8px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="360" y="294.161548" transform="rotate(-0 360 294.161548)">drawlib init project slide</text>
     </g>
    </g>
    <g id="patch_6">

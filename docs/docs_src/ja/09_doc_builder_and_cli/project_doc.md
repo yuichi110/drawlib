@@ -1,4 +1,4 @@
-# リニアドキュメントプロジェクトガイド (`drawlib init doc`)
+# リニアドキュメントプロジェクトガイド (`drawlib init project doc`)
 
 `doc` スターターテンプレートは、仕様書、RFC（Request for Comments）、システムアーキテクチャ提案書、ホワイトペーパー、学位論文、公式エンジニアリングレポートといったリニアな技術文書の執筆向けに設計されています。
 
@@ -597,7 +597,7 @@ TREE_STARTER = [
     ("en_dir", 2, "folder_open", "en/"),
     ("cover", 3, "md", "00_cover.md"),
     ("overview", 3, "md", "01_overview.md"),
-    ("build_sh", 2, "sh", "build.sh"),
+    ("build_sh", 2, "sh", "build.sh, build_docx.sh"),
 ]
 
 TREE_CHAPTERS = [
@@ -610,7 +610,7 @@ TREE_CHAPTERS = [
     ("cover", 3, "md", "00_cover.md"),
     ("overview", 3, "md", "01_overview.md"),
     ("design", 3, "md", "02_design.md"),
-    ("build_sh", 2, "sh", "build.sh"),
+    ("build_sh", 2, "sh", "build.sh, build_docx.sh"),
 ]
 
 TREE_GRID_PREVIEW = [
@@ -636,12 +636,12 @@ with anim.frame(duration=DURATIONS[0]):
     draw_workspace_frame(
         active_phase=1,
         actor="gemini",
-        actor_title="Gemini: Run drawlib init doc -s google",
-        actor_sub="Scaffold doc_src/en/, drawlib.toml & build.sh",
+        actor_title="$ drawlib init project doc -s google",
+        actor_sub="Scaffold doc_src/en/, drawlib.toml & build*.sh",
         actor_optional=False,
         ops=[
             ("user", 'Prompt: "Create architecture RFC spec"', "done"),
-            ("gemini", "$ drawlib init doc -s google", "active_gemini"),
+            ("gemini", "$ drawlib init project doc -s google", "active_gemini"),
         ],
         show_day2_note=False,
         tree_items=TREE_STARTER,
@@ -668,7 +668,7 @@ with anim.frame(duration=DURATIONS[1]):
         actor_optional=False,
         ops=[
             ("user", 'Prompt: "Create architecture RFC spec"', "done"),
-            ("gemini", "$ drawlib init doc -s google", "done"),
+            ("gemini", "$ drawlib init project doc -s google", "done"),
             ("gemini", "Edit drawlib.toml, styles.py & utils.py", "active_gemini"),
         ],
         show_day2_note=False,
@@ -690,7 +690,7 @@ with anim.frame(duration=DURATIONS[2]):
         actor_optional=False,
         ops=[
             ("user", 'Prompt: "Create architecture RFC spec"', "done"),
-            ("gemini", "$ drawlib init doc -s google", "done"),
+            ("gemini", "$ drawlib init project doc -s google", "done"),
             ("gemini", "Edit drawlib.toml, styles.py & utils.py", "done"),
             ("gemini", "Edit doc_src/en/00_cover.md", "active_gemini"),
         ],
@@ -714,7 +714,7 @@ with anim.frame(duration=DURATIONS[3]):
         actor_sub="Numbered chapters with ```drawlib blocks",
         actor_optional=False,
         ops=[
-            ("gemini", "$ drawlib init doc -s google", "done"),
+            ("gemini", "$ drawlib init project doc -s google", "done"),
             ("gemini", "Edit styles.py & en/00_cover.md", "done"),
             ("gemini", "Write en/01_overview.md & en/02_design.md", "active_gemini"),
         ],
@@ -736,7 +736,7 @@ with anim.frame(duration=DURATIONS[4]):
         actor_sub="Preview en/02_design.md arch.png with grid",
         actor_optional=False,
         ops=[
-            ("gemini", "$ drawlib init doc -s google", "done"),
+            ("gemini", "$ drawlib init project doc -s google", "done"),
             ("gemini", "Edit styles.py & en/00_cover.md", "done"),
             ("gemini", "Write en/01_overview.md & en/02_design.md", "done"),
             ("gemini", "$ drawlib show en/02_design.md arch.png -g", "active_gemini"),
@@ -759,7 +759,7 @@ with anim.frame(duration=DURATIONS[5]):
         actor_sub="Labels match 16px body prose; margins clean",
         actor_optional=False,
         ops=[
-            ("gemini", "$ drawlib init doc -s google", "done"),
+            ("gemini", "$ drawlib init project doc -s google", "done"),
             ("gemini", "Edit styles.py & en/00_cover.md", "done"),
             ("gemini", "Write en/01_overview.md & en/02_design.md", "done"),
             ("gemini", "$ drawlib show en/02_design.md arch.png -g", "done"),
@@ -786,7 +786,7 @@ with anim.frame(duration=DURATIONS[6]):
         actor_sub="Compiles doc_html/en/, doc_en.pdf & MD",
         actor_optional=False,
         ops=[
-            ("gemini", "$ drawlib init doc -s google", "done"),
+            ("gemini", "$ drawlib init project doc -s google", "done"),
             ("gemini", "Write en/01_overview.md & en/02_design.md", "done"),
             ("gemini", "$ drawlib show en/02_design.md arch.png -g", "done"),
             ("gemini", "$ ./doc_src/build.sh  (HTML, PDF, MD)", "active_gemini"),
@@ -811,11 +811,11 @@ with anim.frame(duration=DURATIONS[7]):
         actor_sub="Editable Word doc with Cover, TOC & 200 DPI",
         actor_optional=True,
         ops=[
-            ("gemini", "$ drawlib init doc -s google", "done"),
+            ("gemini", "$ drawlib init project doc -s google", "done"),
             ("gemini", "Write en/01_overview.md & en/02_design.md", "done"),
             ("gemini", "$ drawlib show en/02_design.md arch.png -g", "done"),
             ("gemini", "$ ./doc_src/build.sh  (HTML, PDF, MD)", "done"),
-            ("gemini", "$ drawlib build docx -> doc_en.docx", "optional"),
+            ("gemini", "$ ./doc_src/build_docx.sh -> doc_en.docx", "optional"),
         ],
         show_day2_note=False,
         tree_items=TREE_FULL,
@@ -837,10 +837,10 @@ with anim.frame(duration=DURATIONS[8]):
         actor_sub="Source chapters & all exports committed",
         actor_optional=False,
         ops=[
-            ("gemini", "$ drawlib init doc -s google", "done"),
+            ("gemini", "$ drawlib init project doc -s google", "done"),
             ("gemini", "Write en/01_overview.md & en/02_design.md", "done"),
             ("gemini", "$ ./doc_src/build.sh  (HTML, PDF, MD)", "done"),
-            ("gemini", "$ drawlib build docx -> doc_en.docx", "optional_done"),
+            ("gemini", "$ ./doc_src/build_docx.sh -> doc_en.docx", "optional_done"),
             ("user_git", '$ git add . && git commit -m "Add RFC"', "active_user"),
         ],
         show_day2_note=False,
@@ -943,15 +943,15 @@ save()
 
 ## 2. プロジェクトの初期化
 
-`drawlib init` を使用してリニアドキュメントプロジェクトをスキャフォールディングします（すべての `doc` プロジェクトは、単一言語であっても統一された `<src_dir>/<lang>/` ロケール構成を使用します）。
+`drawlib init project` を使用してリニアドキュメントプロジェクトをスキャフォールディングします（すべての `doc` プロジェクトは、単一言語であっても統一された `<src_dir>/<lang>/` ロケール構成を使用します）。
 
 ```bash
 # Scaffold standard doc project in current directory (creates 'doc_src/en/'):
-drawlib init doc
+drawlib init project doc
 
 # With custom target name, theme, and single or multiple locales (creates 'my_report_src/<lang>/'):
-drawlib init doc my_report -s google -l en
-drawlib init doc my_report -s google -l en,ja
+drawlib init project doc my_report -s google -l en
+drawlib init project doc my_report -s google -l en,ja
 ```
 
 ---
@@ -964,7 +964,7 @@ drawlib init doc my_report -s google -l en,ja
 - **`styles.py` & `utils.py`**: 共有の Python スタイル設定（`Colors`、`Styles`、言語フォント。任意のロケール別 `<lang>/styles.py` による上書きも可能）および再利用可能な図解ヘルパー関数です。
 - **`template.html` & `style.css`**: ブラウザプレビューおよびベクター PDF 生成に使用される Jinja2 シングルページ HTML レイアウトと印刷対応 CSS（`@media print` / `@page A4`）です。
 - **`_assets/`**: 静的なロゴ画像、ラスタースクリーンショット、またはカスタム `.ttf` フォントを格納します（`<lang>/` 内の Markdown 本文からは `../_assets/...` で参照します）。
-- **`build.sh` & 各種ターゲットスクリプト**: マスターオーケストレーター（`build.sh`）と、モジュール分割された個別スクリプト（`build_html.sh`、`build_pdf.sh`、`build_docx.sh`、`build_markdown.sh`、`build_image.sh`、`serve.sh`）です。
+- **`build.sh` & 各種ターゲットスクリプト**: `drawlib init project doc` により実行権限（`+x`）付きで生成されるマスターオーケストレーター（`build.sh`）と、モジュール分割された個別スクリプト（`build_html.sh`、`build_pdf.sh`、Word `.docx` エクスポート用の `build_docx.sh`、`build_markdown.sh`、`build_image.sh`、`serve.sh`）です。
 
 ### 生成される出力成果物
 - **`doc_html/`**: 高速なブラウザプレビューや社内 Web ホスティング向けのロケール別結合シングルページ HTML ドキュメント（`doc_html/<lang>/index.html`、ルートリダイレクト `doc_html/index.html`、および共有の `doc_html/images/`）です。
@@ -1045,18 +1045,18 @@ drawlib build image doc_src/ -o doc_images/
 ## 8. マルチエージェントによる章単位の並列執筆
 
 `doc` プロジェクトでは章が番号付きの Markdown ファイル（`<lang>/00_cover.md`、`<lang>/01_overview.md`、`<lang>/02_architecture.md`、`<lang>/03_security.md` など）に分割されているため、AI コーディングエージェントは複数章からなるホワイトペーパーや仕様書を並列に執筆できます。
-1. **フェーズ 1（親エージェントによる初期設定）**: `doc_src/` をスキャフォールディング（`drawlib init doc`）し、`drawlib.toml`、`styles.py`、`utils.py`、`<lang>/00_cover.md` を確定させたうえで、番号付きの章ファイル名一覧を決定します。
+1. **フェーズ 1（親エージェントによる初期設定）**: `doc_src/` をスキャフォールディング（`drawlib init project doc`）し、`drawlib.toml`、`styles.py`、`utils.py`、`<lang>/00_cover.md` を確定させたうえで、番号付きの章ファイル名一覧を決定します。
 2. **フェーズ 2（サブエージェントによる並列執筆）**: 個別の章（`doc_src/<lang>/0N_<topic>.md`）を並列サブエージェントに割り当てます。各サブエージェントは担当の章（各章 2 つ以上の図解、5〜15 行目に章のヒーロー図解を配置）を執筆し、一意なグリッドプレビューパス（`-o .drawlib/scratch/0N_<diagram>_grid.png`）で図解を検証します。
-3. **フェーズ 3（統合コンパイル）**: すべてのサブエージェントが章の執筆を完了した後、親エージェントが `./doc_src/build.sh`（および必要に応じて `drawlib build docx`）を 1 回実行し、全章を `doc_html/<lang>/index.html`、`doc_<lang>.pdf`、`doc_<lang>.docx` に統合します。
+3. **フェーズ 3（統合コンパイル）**: すべてのサブエージェントが章の執筆を完了した後、親エージェントが `./doc_src/build.sh`（および必要に応じて `./doc_src/build_docx.sh`）を 1 回実行し、全章を `doc_html/<lang>/index.html`、`doc_<lang>.pdf`、`doc_<lang>.docx` に統合します。
 
 ---
 
 ## 9. 統一 `i18n` アーキテクチャと多言語リニアドキュメント (`drawlib.toml`)
 
-すべての `doc_src/` プロジェクトは標準で `i18n` ネイティブ構成（既定は `langs = ["en"]`）を採用しています。後から第 2 言語版を追加する場合でも、`git mv` によるファイル移動やビルドスクリプトの書き換えは一切不要です。`init` 時にカンマ区切りのロケールを指定するか、ロケールディレクトリ（`doc_src/ja/`）を追加して `doc_src/drawlib.toml` の `[i18n]` を更新するだけで多言語ビルドが有効になります。
+すべての `doc_src/` プロジェクトは標準で `i18n` ネイティブ構成（既定は `langs = ["en"]`）を採用しています。後から第 2 言語版を追加する場合でも、`git mv` によるファイル移動やビルドスクリプトの書き換えは一切不要です。`drawlib init project doc` 実行時にカンマ区切りのロケールを指定するか、ロケールディレクトリ（`doc_src/ja/`）を追加して `doc_src/drawlib.toml` の `[i18n]` を更新するだけで多言語ビルドが有効になります。
 
 ```bash
-uv run drawlib init doc whitepaper -l en,ja -s google
+uv run drawlib init project doc whitepaper -l en,ja -s google
 ```
 
 ```toml

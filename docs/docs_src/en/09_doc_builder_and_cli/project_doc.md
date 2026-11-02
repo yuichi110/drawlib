@@ -1,4 +1,4 @@
-# Linear Document Project Guide (`drawlib init doc`)
+# Linear Document Project Guide (`drawlib init project doc`)
 
 The `doc` starter template is designed for authoring linear technical documents — such as specifications, Request for Comments (RFCs), system architecture proposals, whitepapers, thesis papers, and formal engineering reports.
 
@@ -597,7 +597,7 @@ TREE_STARTER = [
     ("en_dir", 2, "folder_open", "en/"),
     ("cover", 3, "md", "00_cover.md"),
     ("overview", 3, "md", "01_overview.md"),
-    ("build_sh", 2, "sh", "build.sh"),
+    ("build_sh", 2, "sh", "build.sh, build_docx.sh"),
 ]
 
 TREE_CHAPTERS = [
@@ -610,7 +610,7 @@ TREE_CHAPTERS = [
     ("cover", 3, "md", "00_cover.md"),
     ("overview", 3, "md", "01_overview.md"),
     ("design", 3, "md", "02_design.md"),
-    ("build_sh", 2, "sh", "build.sh"),
+    ("build_sh", 2, "sh", "build.sh, build_docx.sh"),
 ]
 
 TREE_GRID_PREVIEW = [
@@ -636,12 +636,12 @@ with anim.frame(duration=DURATIONS[0]):
     draw_workspace_frame(
         active_phase=1,
         actor="gemini",
-        actor_title="Gemini: Run drawlib init doc -s google",
-        actor_sub="Scaffold doc_src/en/, drawlib.toml & build.sh",
+        actor_title="$ drawlib init project doc -s google",
+        actor_sub="Scaffold doc_src/en/, drawlib.toml & build*.sh",
         actor_optional=False,
         ops=[
             ("user", 'Prompt: "Create architecture RFC spec"', "done"),
-            ("gemini", "$ drawlib init doc -s google", "active_gemini"),
+            ("gemini", "$ drawlib init project doc -s google", "active_gemini"),
         ],
         show_day2_note=False,
         tree_items=TREE_STARTER,
@@ -668,7 +668,7 @@ with anim.frame(duration=DURATIONS[1]):
         actor_optional=False,
         ops=[
             ("user", 'Prompt: "Create architecture RFC spec"', "done"),
-            ("gemini", "$ drawlib init doc -s google", "done"),
+            ("gemini", "$ drawlib init project doc -s google", "done"),
             ("gemini", "Edit drawlib.toml, styles.py & utils.py", "active_gemini"),
         ],
         show_day2_note=False,
@@ -690,7 +690,7 @@ with anim.frame(duration=DURATIONS[2]):
         actor_optional=False,
         ops=[
             ("user", 'Prompt: "Create architecture RFC spec"', "done"),
-            ("gemini", "$ drawlib init doc -s google", "done"),
+            ("gemini", "$ drawlib init project doc -s google", "done"),
             ("gemini", "Edit drawlib.toml, styles.py & utils.py", "done"),
             ("gemini", "Edit doc_src/en/00_cover.md", "active_gemini"),
         ],
@@ -714,7 +714,7 @@ with anim.frame(duration=DURATIONS[3]):
         actor_sub="Numbered chapters with ```drawlib blocks",
         actor_optional=False,
         ops=[
-            ("gemini", "$ drawlib init doc -s google", "done"),
+            ("gemini", "$ drawlib init project doc -s google", "done"),
             ("gemini", "Edit styles.py & en/00_cover.md", "done"),
             ("gemini", "Write en/01_overview.md & en/02_design.md", "active_gemini"),
         ],
@@ -736,7 +736,7 @@ with anim.frame(duration=DURATIONS[4]):
         actor_sub="Preview en/02_design.md arch.png with grid",
         actor_optional=False,
         ops=[
-            ("gemini", "$ drawlib init doc -s google", "done"),
+            ("gemini", "$ drawlib init project doc -s google", "done"),
             ("gemini", "Edit styles.py & en/00_cover.md", "done"),
             ("gemini", "Write en/01_overview.md & en/02_design.md", "done"),
             ("gemini", "$ drawlib show en/02_design.md arch.png -g", "active_gemini"),
@@ -759,7 +759,7 @@ with anim.frame(duration=DURATIONS[5]):
         actor_sub="Labels match 16px body prose; margins clean",
         actor_optional=False,
         ops=[
-            ("gemini", "$ drawlib init doc -s google", "done"),
+            ("gemini", "$ drawlib init project doc -s google", "done"),
             ("gemini", "Edit styles.py & en/00_cover.md", "done"),
             ("gemini", "Write en/01_overview.md & en/02_design.md", "done"),
             ("gemini", "$ drawlib show en/02_design.md arch.png -g", "done"),
@@ -786,7 +786,7 @@ with anim.frame(duration=DURATIONS[6]):
         actor_sub="Compiles doc_html/en/, doc_en.pdf & MD",
         actor_optional=False,
         ops=[
-            ("gemini", "$ drawlib init doc -s google", "done"),
+            ("gemini", "$ drawlib init project doc -s google", "done"),
             ("gemini", "Write en/01_overview.md & en/02_design.md", "done"),
             ("gemini", "$ drawlib show en/02_design.md arch.png -g", "done"),
             ("gemini", "$ ./doc_src/build.sh  (HTML, PDF, MD)", "active_gemini"),
@@ -811,11 +811,11 @@ with anim.frame(duration=DURATIONS[7]):
         actor_sub="Editable Word doc with Cover, TOC & 200 DPI",
         actor_optional=True,
         ops=[
-            ("gemini", "$ drawlib init doc -s google", "done"),
+            ("gemini", "$ drawlib init project doc -s google", "done"),
             ("gemini", "Write en/01_overview.md & en/02_design.md", "done"),
             ("gemini", "$ drawlib show en/02_design.md arch.png -g", "done"),
             ("gemini", "$ ./doc_src/build.sh  (HTML, PDF, MD)", "done"),
-            ("gemini", "$ drawlib build docx -> doc_en.docx", "optional"),
+            ("gemini", "$ ./doc_src/build_docx.sh -> doc_en.docx", "optional"),
         ],
         show_day2_note=False,
         tree_items=TREE_FULL,
@@ -837,10 +837,10 @@ with anim.frame(duration=DURATIONS[8]):
         actor_sub="Source chapters & all exports committed",
         actor_optional=False,
         ops=[
-            ("gemini", "$ drawlib init doc -s google", "done"),
+            ("gemini", "$ drawlib init project doc -s google", "done"),
             ("gemini", "Write en/01_overview.md & en/02_design.md", "done"),
             ("gemini", "$ ./doc_src/build.sh  (HTML, PDF, MD)", "done"),
-            ("gemini", "$ drawlib build docx -> doc_en.docx", "optional_done"),
+            ("gemini", "$ ./doc_src/build_docx.sh -> doc_en.docx", "optional_done"),
             ("user_git", '$ git add . && git commit -m "Add RFC"', "active_user"),
         ],
         show_day2_note=False,
@@ -943,15 +943,15 @@ save()
 
 ## 2. Project Initialization
 
-Scaffold a linear document project using `drawlib init` (every `doc` project uses the unified `<src_dir>/<lang>/` locale layout, even for a single language):
+Scaffold a linear document project using `drawlib init project` (every `doc` project uses the unified `<src_dir>/<lang>/` locale layout, even for a single language):
 
 ```bash
 # Scaffold standard doc project in current directory (creates 'doc_src/en/'):
-drawlib init doc
+drawlib init project doc
 
 # With custom target name, theme, and single or multiple locales (creates 'my_report_src/<lang>/'):
-drawlib init doc my_report -s google -l en
-drawlib init doc my_report -s google -l en,ja
+drawlib init project doc my_report -s google -l en
+drawlib init project doc my_report -s google -l en,ja
 ```
 
 ---
@@ -964,7 +964,7 @@ drawlib init doc my_report -s google -l en,ja
 - **`styles.py` & `utils.py`**: Shared Python styling configuration (`Colors`, `Styles`, language fonts; plus optional per-locale `<lang>/styles.py` overrides) and reusable diagram helper functions.
 - **`template.html` & `style.css`**: Jinja2 single-page HTML layout and print-aware CSS (`@media print` / `@page A4`) for browser preview and vector PDF generation.
 - **`_assets/`**: Static logos, raster screenshots, or custom `.ttf` fonts (referenced from Markdown prose in `<lang>/` via `../_assets/...`).
-- **`build.sh` & Target Scripts**: Master orchestrator (`build.sh`) alongside modular scripts (`build_html.sh`, `build_pdf.sh`, `build_docx.sh`, `build_markdown.sh`, `build_image.sh`, and `serve.sh`).
+- **`build.sh` & Target Scripts**: Executable (`+x`) master orchestrator (`build.sh`) alongside modular scripts (`build_html.sh`, `build_pdf.sh`, `build_docx.sh` for Word `.docx` export, `build_markdown.sh`, `build_image.sh`, and `serve.sh`) scaffolded by `drawlib init project doc`.
 
 ### Generated Output Artifacts
 - **`doc_html/`**: Merged single-page HTML document per locale (`doc_html/<lang>/index.html`, plus root redirect `doc_html/index.html` and shared `doc_html/images/`) for fast browser preview and internal web hosting.
@@ -1045,18 +1045,18 @@ drawlib build image doc_src/ -o doc_images/
 ## 8. Parallel Multi-Agent Chapter Authoring
 
 Because a `doc` project separates chapters into numbered Markdown files (`<lang>/00_cover.md`, `<lang>/01_overview.md`, `<lang>/02_architecture.md`, `<lang>/03_security.md`, etc.), AI coding agents can author multi-chapter whitepapers and specifications in parallel:
-1. **Phase 1 (Parent Setup)**: Scaffold `doc_src/` (`drawlib init doc`), finalize `drawlib.toml`, `styles.py`, `utils.py`, and `<lang>/00_cover.md`, and establish the numbered chapter filenames.
+1. **Phase 1 (Parent Setup)**: Scaffold `doc_src/` (`drawlib init project doc`), finalize `drawlib.toml`, `styles.py`, `utils.py`, and `<lang>/00_cover.md`, and establish the numbered chapter filenames.
 2. **Phase 2 (Parallel Subagents)**: Delegate individual chapters (`doc_src/<lang>/0N_<topic>.md`) to parallel subagents. Each subagent authors its assigned chapter (`2+` diagrams, Chapter Hero at `Lines 5–15`) and verifies its diagrams with unique grid preview paths (`-o .drawlib/scratch/0N_<diagram>_grid.png`).
-3. **Phase 3 (Unified Compilation)**: After all subagents complete their chapters, the parent agent runs `./doc_src/build.sh` (and `drawlib build docx` when needed) once to merge all chapters into `doc_html/<lang>/index.html`, `doc_<lang>.pdf`, and `doc_<lang>.docx`.
+3. **Phase 3 (Unified Compilation)**: After all subagents complete their chapters, the parent agent runs `./doc_src/build.sh` (and `./doc_src/build_docx.sh` when needed) once to merge all chapters into `doc_html/<lang>/index.html`, `doc_<lang>.pdf`, and `doc_<lang>.docx`.
 
 ---
 
 ## 9. Unified `i18n` & Multi-Language Linear Documents (`drawlib.toml`)
 
-Every `doc_src/` project is `i18n`-native out of the box (`langs = ["en"]` by default). Adding a second language edition later requires zero `git mv` file moves or build-script changes—simply pass comma-separated locales at `init` time or append a locale directory (`doc_src/ja/`) and update `[i18n]` in `doc_src/drawlib.toml`:
+Every `doc_src/` project is `i18n`-native out of the box (`langs = ["en"]` by default). Adding a second language edition later requires zero `git mv` file moves or build-script changes—simply pass comma-separated locales to `drawlib init project doc` or append a locale directory (`doc_src/ja/`) and update `[i18n]` in `doc_src/drawlib.toml`:
 
 ```bash
-uv run drawlib init doc whitepaper -l en,ja -s google
+uv run drawlib init project doc whitepaper -l en,ja -s google
 ```
 
 ```toml

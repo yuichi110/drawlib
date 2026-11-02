@@ -959,7 +959,7 @@ Instead, <code>drawlib.fonts</code> provides <strong>14 curated font classes</st
     <span class="n">size</span><span class="o">=</span><span class="mf">14.0</span><span class="p">,</span>
 <span class="p">)</span>
 </code></pre>
-<p>When scaffolding a new project with <code>drawlib init</code>, pass <code>--lang ja</code> (or <code>zh</code>, <code>ko</code>) to generate this <code>styles.py</code> configuration automatically.</p>
+<p>When scaffolding a new project with <code>drawlib init project</code>, pass <code>--lang ja</code> (or <code>zh</code>, <code>ko</code>) to generate this <code>styles.py</code> configuration automatically.</p>
 <h3>5.2. Offline &amp; CI Font Asset Caching (<code>drawlib cache</code>)</h3>
 <p>To keep the core <code>drawlib</code> wheel lightweight, font files are downloaded on first use and cached locally. For air-gapped environments, Docker builds, or CI pipelines, pre-download font packages using the CLI (see <a href="../09_doc_builder_and_cli/caching_and_cicd.html">Caching Architecture &amp; CI/CD</a>):</p>
 <pre><code class="language-bash"><span class="c1"># Inspect cached font and icon packages</span>

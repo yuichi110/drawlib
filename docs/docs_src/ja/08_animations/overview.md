@@ -266,7 +266,7 @@ save()
 
 ## 7. プレゼンテーションスライド (`slide`) におけるインタラクティブ再生制御
 
-16:9 プレゼンテーションスライドデッキ（`drawlib init slide`）では、````drawlib```` フェンスの `<canvas>` 再生オプションを指定することで、アニメーション `.png`（APNG）や `.webp` ブロックをインタラクティブに制御できます。
+16:9 プレゼンテーションスライドデッキ（`drawlib init project slide`）では、````drawlib```` フェンスの `<canvas>` 再生オプションを指定することで、アニメーション `.png`（APNG）や `.webp` ブロックをインタラクティブに制御できます。
 
 ````markdown
 ```drawlib file=pipeline.webp anim_trigger=click anim_loop=once anim_pause=(2, 4)

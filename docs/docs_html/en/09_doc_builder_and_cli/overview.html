@@ -746,7 +746,7 @@
 </ol>
 <hr />
 <h2>3. Project Starter Templates</h2>
-<p>Never construct documentation directories manually. Scaffolding them with <code>drawlib init</code> guarantees the correct directory layout and configuration scripts:</p>
+<p>Never construct documentation directories manually. Scaffolding them with <code>drawlib init project</code> guarantees the correct directory layout and configuration scripts:</p>
 <table>
 <thead>
 <tr>
@@ -889,28 +889,28 @@
 <tr>
 <td style="text-align:left"><strong><code>doc</code></strong></td>
 <td style="text-align:left">Numbered chapter file (<code>doc_src/&lt;lang&gt;/01_*.md</code>, <code>02_*.md</code>, ...)</td>
-<td style="text-align:left"><code>drawlib init doc</code>, <code>styles.py</code>, <code>utils.py</code>, <code>&lt;lang&gt;/00_cover.md</code>, chapter outline</td>
+<td style="text-align:left"><code>drawlib init project doc</code>, <code>styles.py</code>, <code>utils.py</code>, <code>&lt;lang&gt;/00_cover.md</code>, chapter outline</td>
 <td style="text-align:left">Author assigned chapter(s) &amp; run <code>drawlib show ... -g -o .drawlib/scratch/0N_&lt;fig&gt;_grid.png</code></td>
 <td style="text-align:left">Run <code>./doc_src/build.sh</code> (or <code>build docx</code>) &amp; inspect <code>doc_&lt;lang&gt;.pdf</code> / <code>doc_html/</code></td>
 </tr>
 <tr>
 <td style="text-align:left"><strong><code>site</code></strong></td>
 <td style="text-align:left">Topic page or section folder (<code>docs_src/&lt;lang&gt;/01_arch/*.md</code>, ...)</td>
-<td style="text-align:left"><code>drawlib init site</code>, <code>styles.py</code>, <code>utils.py</code>, <code>&lt;lang&gt;/navbar.md</code>, <code>&lt;lang&gt;/index.md</code></td>
+<td style="text-align:left"><code>drawlib init project site</code>, <code>styles.py</code>, <code>utils.py</code>, <code>&lt;lang&gt;/navbar.md</code>, <code>&lt;lang&gt;/index.md</code></td>
 <td style="text-align:left">Author assigned page(s) &amp; run Stage 1 + Stage 2 grid review with unique scratch filenames</td>
 <td style="text-align:left">Run <code>./docs_src/build.sh</code>, <code>serve --check</code>, &amp; browser check</td>
 </tr>
 <tr>
 <td style="text-align:left"><strong><code>slide</code></strong></td>
 <td style="text-align:left">Slide file (<code>slide_src/&lt;lang&gt;/02_*.md</code>, ...) or section directory</td>
-<td style="text-align:left"><code>drawlib init slide</code>, <code>styles.py</code>, <code>utils.py</code>, deck story arc &amp; slide numbering</td>
+<td style="text-align:left"><code>drawlib init project slide</code>, <code>styles.py</code>, <code>utils.py</code>, deck story arc &amp; slide numbering</td>
 <td style="text-align:left">Author assigned slide(s) (<code>::: block</code> + <code>::: note</code>) &amp; run Stage 1 + Stage 2 grid review</td>
 <td style="text-align:left">Run <code>./slide_src/build.sh</code> (or <code>build pptx</code>) &amp; inspect <code>slide_&lt;lang&gt;.pdf</code> / <code>1920x1080</code> stage</td>
 </tr>
 <tr>
 <td style="text-align:left"><strong><code>images</code></strong></td>
 <td style="text-align:left">Standalone Python script (<code>images_src/&lt;name&gt;.py</code>)</td>
-<td style="text-align:left"><code>drawlib init images</code>, <code>styles.py</code>, <code>utils.py</code>, <code>_assets/</code></td>
+<td style="text-align:left"><code>drawlib init project images</code>, <code>styles.py</code>, <code>utils.py</code>, <code>_assets/</code></td>
 <td style="text-align:left">Author assigned <code>.py</code> script(s) &amp; run <code>drawlib show ... -g -o .drawlib/scratch/&lt;script&gt;_grid.png</code></td>
 <td style="text-align:left">Run <code>./images_src/build.sh</code> &amp; inspect <code>images/*.png</code></td>
 </tr>
@@ -927,7 +927,7 @@
 <p>Dive deeper into each builder subsystem:</p>
 <ul>
 <li><a href="./code_blocks.html">Embedded Code Blocks</a>: Code fence syntax, display modes (<code>code=show</code>, <code>code=fold</code>), alignment, and captions.</li>
-<li><a href="./cli_reference.html">CLI Reference</a>: Complete guide to <code>build</code> (<code>html</code>, <code>markdown</code>, <code>pdf</code>, <code>docx</code>, <code>slide</code>, <code>pptx</code>, <code>image</code>), <code>serve</code>, <code>show</code>, <code>init</code>, <code>cache</code>, <code>css</code>, <code>colors</code>, <code>styles</code>, and <code>rules</code>.</li>
+<li><a href="./cli_reference.html">CLI Reference</a>: Complete guide to <code>build</code> (<code>html</code>, <code>markdown</code>, <code>pdf</code>, <code>docx</code>, <code>slide</code>, <code>pptx</code>, <code>image</code>), <code>serve</code>, <code>show</code>, <code>init</code> (<code>project</code>, <code>agent</code>), <code>cache</code>, <code>css</code>, <code>colors</code>, <code>styles</code>, and <code>rules</code>.</li>
 <li><a href="./project_doc.html">Linear Document Project Guide</a>: Linear document RFCs, specifications, whitepapers, and HTML / PDF / Word (<code>.docx</code>) publishing.</li>
 <li><a href="./project_site.html">Doc Site Project Guide</a>: Multi-page website authoring, sidebar categories, and link validation.</li>
 <li><a href="./project_slide.html">Slide Deck Project Guide</a>: 16:9 presentation slide decks with interactive web deck, vector PDF, and PowerPoint (<code>.pptx</code>) export.</li>

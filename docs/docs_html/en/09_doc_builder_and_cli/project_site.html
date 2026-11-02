@@ -13,7 +13,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Site Project Guide (`drawlib init site`)</title>
+    <title>Site Project Guide (`drawlib init project site`)</title>
     <script>
         (function() {
             const saved = localStorage.getItem('drawlib-theme');
@@ -600,7 +600,7 @@
                 <div class="breadcrumbs">
                     <span class="crumb">Docs</span>
                     <span class="crumb-separator">&raquo;</span>
-                    <span class="crumb active">Site Project Guide (`drawlib init site`)</span>
+                    <span class="crumb active">Site Project Guide (`drawlib init project site`)</span>
                 </div>
                 
                 <div class="lang-switcher">
@@ -630,7 +630,7 @@
                 
             </header>
             <main class="main-content">
-                <h1>Site Project Guide (<code>drawlib init site</code>)</h1>
+                <h1>Site Project Guide (<code>drawlib init project site</code>)</h1>
 <p>The <code>site</code> starter template builds a responsive multi-page technical documentation website with hierarchical sidebar navigation, mobile-responsive layout, syntax highlighting, and dual publishing to static HTML and GitHub-ready Markdown.</p>
 <p>Drawlib compiles <code>docs_src/&lt;lang&gt;/navbar.md</code> and your Markdown pages into a two-column documentation portal with strict build-time link validation:</p>
 <figure class="drawlib-image" style="text-align: center;">
@@ -726,7 +726,7 @@
 </details>
 <hr />
 <h2>1. End-to-End Project Workflow</h2>
-<p>From initial <code>drawlib init site</code> scaffolding and <code>navbar.md</code> sidebar setup to <code>-g</code> grid inspection, headless link validation (<code>drawlib serve --check</code>), and Day-2 incremental page additions backed by <code>.drawlib/cache.db</code>:</p>
+<p>From initial <code>drawlib init project site</code> scaffolding and <code>navbar.md</code> sidebar setup to <code>-g</code> grid inspection, headless link validation (<code>drawlib serve --check</code>), and Day-2 incremental page additions backed by <code>.drawlib/cache.db</code>:</p>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="../../images/09_doc_builder_and_cli/project_site/project_site_workflow_tour.png" alt="project_site_2" />
   <figcaption class="drawlib-caption">Multi-Page Website Project Lifecycle: Scaffolding, Navbar & Pages, Link Audit, and Day-2 Page Addition (APNG Animation)</figcaption>
@@ -736,13 +736,13 @@
 </div>
 <hr />
 <h2>2. Project Initialization</h2>
-<p>Scaffold a documentation website using <code>drawlib init</code> (every <code>site</code> project uses the unified <code>&lt;src_dir&gt;/&lt;lang&gt;/</code> locale layout, even for a single language):</p>
+<p>Scaffold a documentation website using <code>drawlib init project</code> (every <code>site</code> project uses the unified <code>&lt;src_dir&gt;/&lt;lang&gt;/</code> locale layout, even for a single language):</p>
 <pre><code class="language-bash"><span class="c1"># Scaffold default 'docs_src/en/' in the current directory:</span>
-drawlib<span class="w"> </span>init<span class="w"> </span>site
+drawlib<span class="w"> </span>init<span class="w"> </span>project<span class="w"> </span>site
 
 <span class="c1"># Or specify a custom target prefix and single or multiple locales (creates 'my_docs_src/&lt;lang&gt;/'):</span>
-drawlib<span class="w"> </span>init<span class="w"> </span>site<span class="w"> </span>my_docs<span class="w"> </span>--style<span class="w"> </span>google<span class="w"> </span>--lang<span class="w"> </span>en
-drawlib<span class="w"> </span>init<span class="w"> </span>site<span class="w"> </span>my_docs<span class="w"> </span>--style<span class="w"> </span>google<span class="w"> </span>--lang<span class="w"> </span>en,ja
+drawlib<span class="w"> </span>init<span class="w"> </span>project<span class="w"> </span>site<span class="w"> </span>my_docs<span class="w"> </span>--style<span class="w"> </span>google<span class="w"> </span>--lang<span class="w"> </span>en
+drawlib<span class="w"> </span>init<span class="w"> </span>project<span class="w"> </span>site<span class="w"> </span>my_docs<span class="w"> </span>--style<span class="w"> </span>google<span class="w"> </span>--lang<span class="w"> </span>en,ja
 </code></pre>
 <hr />
 <h2>3. Directory Layout &amp; Architecture</h2>
@@ -817,14 +817,14 @@ drawlib<span class="w"> </span>init<span class="w"> </span>site<span class="w"> 
 <h2>7. Parallel Multi-Agent Site Authoring</h2>
 <p>Multi-page <code>site</code> projects (<code>docs_src/&lt;lang&gt;/**/*.md</code>) scale naturally across parallel AI subagents:</p>
 <ol>
-<li><strong>Phase 1 (Parent Setup)</strong>: Scaffold <code>docs_src/</code> (<code>drawlib init site</code>) and finalize shared files (<code>drawlib.toml</code>, <code>styles.py</code>, <code>utils.py</code>, <code>_assets/</code>, <code>&lt;lang&gt;/index.md</code>, and the complete <code>&lt;lang&gt;/navbar.md</code> sidebar tree) before launching subagents.</li>
+<li><strong>Phase 1 (Parent Setup)</strong>: Scaffold <code>docs_src/</code> (<code>drawlib init project site</code>) and finalize shared files (<code>drawlib.toml</code>, <code>styles.py</code>, <code>utils.py</code>, <code>_assets/</code>, <code>&lt;lang&gt;/index.md</code>, and the complete <code>&lt;lang&gt;/navbar.md</code> sidebar tree) before launching subagents.</li>
 <li><strong>Phase 2 (Parallel Subagents)</strong>: Assign each subagent a disjoint page or section directory (e.g., <code>&lt;lang&gt;/01_architecture/*.md</code> vs. <code>&lt;lang&gt;/02_services/*.md</code>). Each subagent treats <code>drawlib.toml</code>, <code>styles.py</code>, <code>utils.py</code>, and <code>&lt;lang&gt;/navbar.md</code> as read-only, authors its assigned pages, and runs <code>-g</code> grid previews using unique scratch filenames (<code>-o .drawlib/scratch/&lt;page&gt;_&lt;block&gt;_grid.png</code>).</li>
 <li><strong>Phase 3 (Unified Build &amp; Link Audit)</strong>: Once all subagents finish, the parent agent runs <code>./docs_src/build.sh</code> once and verifies site-wide link integrity with <code>uv run drawlib serve docs_html/ --check</code>.</li>
 </ol>
 <hr />
 <h2>8. Unified <code>i18n</code> &amp; Multi-Language Websites (<code>drawlib.toml</code>)</h2>
-<p>Every <code>docs_src/</code> project is <code>i18n</code>-native out of the box (<code>langs = [&quot;en&quot;]</code> by default). Expanding a single-language portal into a multi-language site later requires zero <code>git mv</code> restructuring—pass comma-separated language codes to <code>drawlib init site</code> or add a locale directory (<code>docs_src/ja/</code>) and update <code>[i18n]</code> in <code>docs_src/drawlib.toml</code>:</p>
-<pre><code class="language-bash">uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>site<span class="w"> </span>docs<span class="w"> </span>-l<span class="w"> </span>en,ja<span class="w"> </span>-s<span class="w"> </span>default
+<p>Every <code>docs_src/</code> project is <code>i18n</code>-native out of the box (<code>langs = [&quot;en&quot;]</code> by default). Expanding a single-language portal into a multi-language site later requires zero <code>git mv</code> restructuring—pass comma-separated language codes to <code>drawlib init project site</code> or add a locale directory (<code>docs_src/ja/</code>) and update <code>[i18n]</code> in <code>docs_src/drawlib.toml</code>:</p>
+<pre><code class="language-bash">uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>project<span class="w"> </span>site<span class="w"> </span>docs<span class="w"> </span>-l<span class="w"> </span>en,ja<span class="w"> </span>-s<span class="w"> </span>default
 </code></pre>
 <pre><code class="language-toml"><span class="k">[project]</span>
 <span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"docs"</span>

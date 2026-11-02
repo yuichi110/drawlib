@@ -1,6 +1,6 @@
 # Slide Stage Layout & API
 
-When authoring 16:9 widescreen presentation decks (`drawlib init slide`), Drawlib provides a precision **1920 × 1080 pixel virtual stage** (`::: block`, `::: note`), built-in layout patterns, inline vector SVG font bundling, and the programmatic [`drawlib.slide`](../10_ai_agents_and_advanced/programmatic_api.md) Python runtime API (`current_slide`, `SlideContext`, `BoundingBox`, `build_slide`, `build_pptx`). *(For initializing and building a slide deck project, see [Slide Deck Project Guide](./project_slide.md).)*
+When authoring 16:9 widescreen presentation decks (`drawlib init project slide`), Drawlib provides a precision **1920 × 1080 pixel virtual stage** (`::: block`, `::: note`), built-in layout patterns, inline vector SVG font bundling, and the programmatic [`drawlib.slide`](../10_ai_agents_and_advanced/programmatic_api.md) Python runtime API (`current_slide`, `SlideContext`, `BoundingBox`, `build_slide`, `build_pptx`). *(For initializing and building a slide deck project, see [Slide Deck Project Guide](./project_slide.md).)*
 
 ```drawlib code=fold align=center file=slide_stage_layout_zones.png caption="1920x1080 Virtual Slide Stage Zones and ::: block xy=(x, y) width=W height=H Layout Grid"
 from drawlib.canvas import save, setup

@@ -1,4 +1,4 @@
-# Site Project Guide (`drawlib init site`)
+# Site Project Guide (`drawlib init project site`)
 
 The `site` starter template builds a responsive multi-page technical documentation website with hierarchical sidebar navigation, mobile-responsive layout, syntax highlighting, and dual publishing to static HTML and GitHub-ready Markdown.
 
@@ -108,7 +108,7 @@ save()
 
 ## 1. End-to-End Project Workflow
 
-From initial `drawlib init site` scaffolding and `navbar.md` sidebar setup to `-g` grid inspection, headless link validation (`drawlib serve --check`), and Day-2 incremental page additions backed by `.drawlib/cache.db`:
+From initial `drawlib init project site` scaffolding and `navbar.md` sidebar setup to `-g` grid inspection, headless link validation (`drawlib serve --check`), and Day-2 incremental page additions backed by `.drawlib/cache.db`:
 
 
 
@@ -127,15 +127,15 @@ From initial `drawlib init site` scaffolding and `navbar.md` sidebar setup to `-
 
 ## 2. Project Initialization
 
-Scaffold a documentation website using `drawlib init` (every `site` project uses the unified `<src_dir>/<lang>/` locale layout, even for a single language):
+Scaffold a documentation website using `drawlib init project` (every `site` project uses the unified `<src_dir>/<lang>/` locale layout, even for a single language):
 
 ```bash
 # Scaffold default 'docs_src/en/' in the current directory:
-drawlib init site
+drawlib init project site
 
 # Or specify a custom target prefix and single or multiple locales (creates 'my_docs_src/<lang>/'):
-drawlib init site my_docs --style google --lang en
-drawlib init site my_docs --style google --lang en,ja
+drawlib init project site my_docs --style google --lang en
+drawlib init project site my_docs --style google --lang en,ja
 ```
 
 ---
@@ -225,7 +225,7 @@ uv run drawlib serve docs_html/ --check
 ## 7. Parallel Multi-Agent Site Authoring
 
 Multi-page `site` projects (`docs_src/<lang>/**/*.md`) scale naturally across parallel AI subagents:
-1. **Phase 1 (Parent Setup)**: Scaffold `docs_src/` (`drawlib init site`) and finalize shared files (`drawlib.toml`, `styles.py`, `utils.py`, `_assets/`, `<lang>/index.md`, and the complete `<lang>/navbar.md` sidebar tree) before launching subagents.
+1. **Phase 1 (Parent Setup)**: Scaffold `docs_src/` (`drawlib init project site`) and finalize shared files (`drawlib.toml`, `styles.py`, `utils.py`, `_assets/`, `<lang>/index.md`, and the complete `<lang>/navbar.md` sidebar tree) before launching subagents.
 2. **Phase 2 (Parallel Subagents)**: Assign each subagent a disjoint page or section directory (e.g., `<lang>/01_architecture/*.md` vs. `<lang>/02_services/*.md`). Each subagent treats `drawlib.toml`, `styles.py`, `utils.py`, and `<lang>/navbar.md` as read-only, authors its assigned pages, and runs `-g` grid previews using unique scratch filenames (`-o .drawlib/scratch/<page>_<block>_grid.png`).
 3. **Phase 3 (Unified Build & Link Audit)**: Once all subagents finish, the parent agent runs `./docs_src/build.sh` once and verifies site-wide link integrity with `uv run drawlib serve docs_html/ --check`.
 
@@ -233,10 +233,10 @@ Multi-page `site` projects (`docs_src/<lang>/**/*.md`) scale naturally across pa
 
 ## 8. Unified `i18n` & Multi-Language Websites (`drawlib.toml`)
 
-Every `docs_src/` project is `i18n`-native out of the box (`langs = ["en"]` by default). Expanding a single-language portal into a multi-language site later requires zero `git mv` restructuring—pass comma-separated language codes to `drawlib init site` or add a locale directory (`docs_src/ja/`) and update `[i18n]` in `docs_src/drawlib.toml`:
+Every `docs_src/` project is `i18n`-native out of the box (`langs = ["en"]` by default). Expanding a single-language portal into a multi-language site later requires zero `git mv` restructuring—pass comma-separated language codes to `drawlib init project site` or add a locale directory (`docs_src/ja/`) and update `[i18n]` in `docs_src/drawlib.toml`:
 
 ```bash
-uv run drawlib init site docs -l en,ja -s default
+uv run drawlib init project site docs -l en,ja -s default
 ```
 
 ```toml

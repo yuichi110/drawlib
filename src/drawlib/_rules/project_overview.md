@@ -11,30 +11,31 @@ This document covers the **universal project architecture, template selection, s
 
 ---
 
-## 1. Project-First Rule (`drawlib init` — No Bare `.py` Files)
+## 1. Project-First Rule (`drawlib init project` — No Bare `.py` Files)
 
 > **CRITICAL for AI Agents & Developers**: Never create standalone `.py` drawing scripts directly in an uninitialized directory, and never construct project folders from scratch manually.  
-> Before writing any drawing code, check if a Drawlib project (`*_src/`) already exists in the workspace. If not, **always scaffold a project first using `drawlib init`** (or guide the user to choose one) so that `styles.py` (theme & language fonts), `utils.py`, `_assets/`, and `build.sh` are properly configured:
-> - **Diagram image(s) only** -> Scaffold an **`images`** project (`uv run drawlib init images [-l <lang>] [-s <style>]`).
-> - **Linear technical spec / whitepaper / PDF / Word (`.docx`)** -> Scaffold a **`doc`** project (`uv run drawlib init doc [-l <lang[,lang...]>] [-s <style>]`).
-> - **Multi-page documentation website** -> Scaffold a **`site`** project (`uv run drawlib init site [-l <lang[,lang...]>] [-s <style>]`).
-> - **16:9 presentation slide deck / PowerPoint (`.pptx`)** -> Scaffold a **`slide`** project (`uv run drawlib init slide [-l <lang[,lang...]>] [-s <style>]`).
-> - **Pass `--lang` for Non-English Labels**: When the user prompts in Japanese (or requires CJK/multilingual typography), pass `--lang ja` (or comma-separated `-l en,ja` for bilingual projects) to `drawlib init` so `styles.py` automatically configures CJK-safe fonts.
+> Before writing any drawing code, check if a Drawlib project (`*_src/`) already exists in the workspace. If not, **always scaffold a project first using `drawlib init project`** (or guide the user to choose one) so that `styles.py` (theme & language fonts), `utils.py`, `_assets/`, and `build.sh` are properly configured:
+> - **Diagram image(s) only** -> Scaffold an **`images`** project (`uv run drawlib init project images [-l <lang>] [-s <style>]`).
+> - **Linear technical spec / whitepaper / PDF / Word (`.docx`)** -> Scaffold a **`doc`** project (`uv run drawlib init project doc [-l <lang[,lang...]>] [-s <style>]`).
+> - **Multi-page documentation website** -> Scaffold a **`site`** project (`uv run drawlib init project site [-l <lang[,lang...]>] [-s <style>]`).
+> - **16:9 presentation slide deck / PowerPoint (`.pptx`)** -> Scaffold a **`slide`** project (`uv run drawlib init project slide [-l <lang[,lang...]>] [-s <style>]`).
+> - **Pass `--lang` for Non-English Labels**: When the user prompts in Japanese (or requires CJK/multilingual typography), pass `--lang ja` (or comma-separated `-l en,ja` for bilingual projects) to `drawlib init project` so `styles.py` automatically configures CJK-safe fonts.
 > - **Clean Up Starter Samples**: After scaffolding, replace or delete the generated starter sample files (`sample1.py`, `sample2.py`, etc.) so only the user's requested diagrams are built.
 
 ### Scaffolding CLI Syntax & Options:
 ```bash
 # List available starter templates:
-uv run drawlib init list
+uv run drawlib init project list
 
 # Scaffold a project in the current directory:
-uv run drawlib init <images|doc|site|slide> [target] [-l <lang[,lang...]>] [-s <style>] [-f]
+uv run drawlib init project <images|doc|site|slide> [target] [-l <lang[,lang...]>] [-s <style>] [-f]
 
 # Examples:
-uv run drawlib init images --lang ja -s google
-uv run drawlib init doc rbac -s google
-uv run drawlib init site docs -l en,ja -s default
-uv run drawlib init slide pitch -l en,ja -s google
+uv run drawlib init project images --lang ja -s google
+uv run drawlib init project doc rbac -s google
+uv run drawlib init project site docs -l en,ja -s default
+uv run drawlib init project slide pitch -l en,ja -s google
+uv run drawlib init agent antigravity          # Generate per-agent AI rules (.agents/rules/drawlib.md, etc.)
 ```
 
 | Option | Shorthand | Type | Default | Description |
@@ -43,7 +44,7 @@ uv run drawlib init slide pitch -l en,ja -s google
 | `--lang` | `-l` | `<lang>` | `en` | Starter template language code (`en`, `ja`, `zh-cn`, `ko`, `th`, `hi`, etc.), or comma-separated locales (`-l en,ja`) for multi-language `doc`, `site`, and `slide` projects (`images` is single-language only). |
 | `--force` | `-f` | flag | `False` | Overwrite existing files if the destination directory is not empty. |
 
-> **Pure Scaffolding Principle**: `drawlib init` only creates template and configuration files; it never runs compilation automatically. To compile your project, run `./<target>_src/build.sh` (or `./<target>_src/build_*.sh`).
+> **Pure Scaffolding Principle**: `drawlib init project` only creates template and configuration files; it never runs compilation automatically. To compile your project, run `./<target>_src/build.sh` (or `./<target>_src/build_*.sh`).
 
 ---
 
@@ -71,7 +72,7 @@ setup(width=152, height=62, dpi=150)
 rectangle((76, 31), width=146, height=56, style=Styles.MutedDashed.patch(shape_r=2.5))
 text(
     (76, 53.5),
-    "Four Drawlib Project Archetypes (drawlib init <type>)",
+    "Four Drawlib Project Archetypes (drawlib init project <type>)",
     style=Styles.DarkBold.patch(text_size=13.0),
 )
 
@@ -223,7 +224,7 @@ Drawlib projects are intentionally structured as **modular collections of indepe
 ### 5.2. The 3-Phase Orchestrator–Subagent Protocol & Concurrency Guardrails
 
 1. **Phase 1 — Parent Orchestrator Establishes Shared Foundation First**:
-   - Run `drawlib init <type>` and configure `drawlib.toml`, `styles.py` (theme, language fonts), `utils.py` (shared helpers/macros), `_assets/`, and the structural index (`<lang>/navbar.md` for `site`, chapter numbering for `doc`, or slide numbering/story arc for `slide`) **before** launching subagents.
+   - Run `drawlib init project <type>` and configure `drawlib.toml`, `styles.py` (theme, language fonts), `utils.py` (shared helpers/macros), `_assets/`, and the structural index (`<lang>/navbar.md` for `site`, chapter numbering for `doc`, or slide numbering/story arc for `slide`) **before** launching subagents.
    - Subagents must treat `drawlib.toml`, `styles.py`, `utils.py`, and `<lang>/navbar.md` as **read-only** so parallel workers never overwrite shared configuration.
 2. **Phase 2 — Parallel Subagents Author Disjoint Files & Run Stage 1 + Stage 2**:
    - **Strict Disjoint File Ownership**: Never assign the same `.py` or `.md` file to two subagents concurrently.

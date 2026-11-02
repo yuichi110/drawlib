@@ -226,7 +226,7 @@ rectangle((40, 20), width=50, height=25, style=Styles.PrimaryFlat, text="Unified
 ```
 
 ### Cohesive Design with `style.css` & `drawlib.toml`
-When scaffolding projects using `drawlib init <type> --style google` (or `monochrome`, `default`, `default-dark`, `google-dark`), Drawlib records the active `style` and `[i18n]` locale settings in `drawlib.toml` and synchronizes both `styles.py` (for Python illustrations) and `style.css` (for HTML/PDF/Slide typography and card backgrounds). This ensures that **editorial prose and embedded architectural diagrams share a 100% unified visual identity**.
+When scaffolding projects using `drawlib init project <type> --style google` (or `monochrome`, `default`, `default-dark`, `google-dark`), Drawlib records the active `style` and `[i18n]` locale settings in `drawlib.toml` and synchronizes both `styles.py` (for Python illustrations) and `style.css` (for HTML/PDF/Slide typography and card backgrounds). This ensures that **editorial prose and embedded architectural diagrams share a 100% unified visual identity**.
 
 ### Per-Locale `styles.py` & `utils.py` Overrides (`<src_dir>/<lang>/`)
 In multi-locale `doc`, `site`, and `slide` projects (`langs = ["en", "ja"]` in `drawlib.toml`), root `styles.py` and `utils.py` apply by default across all locales. When a specific locale requires localized fonts (such as `FontJapanese` in `ja/`) or locale-specific helper functions, place `<src_dir>/<lang>/styles.py` and/or `<src_dir>/<lang>/utils.py` inside that locale folder—diagrams rendered for `<lang>/` automatically resolve the per-locale override first and fall back to root `styles.py` / `utils.py`.

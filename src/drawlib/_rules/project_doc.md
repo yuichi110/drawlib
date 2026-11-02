@@ -1,6 +1,6 @@
 # Drawlib Linear Document, PDF & MS Word Project Guidelines (`project-doc`)
 
-A **`doc` project** (`drawlib init doc`) compiles a sequential series of Markdown chapter files (`doc_src/<lang>/*.md`) containing embedded ````drawlib```` blocks into a **merged HTML document (`doc_html/<lang>/index.html` + root `doc_html/index.html` redirect)**, a **print-ready A4 vector PDF (`doc_<lang>.pdf`)**, **GitHub-Flavored Markdown (`doc_markdown/<lang>/`)**, and **extracted diagram images (`doc_images/`)**, with optional on-demand export to a **native editable Microsoft Word document (`doc_<lang>.docx`)** via `drawlib build docx`.
+A **`doc` project** (`drawlib init project doc`) compiles a sequential series of Markdown chapter files (`doc_src/<lang>/*.md`) containing embedded ````drawlib```` blocks into a **merged HTML document (`doc_html/<lang>/index.html` + root `doc_html/index.html` redirect)**, a **print-ready A4 vector PDF (`doc_<lang>.pdf`)**, **GitHub-Flavored Markdown (`doc_markdown/<lang>/`)**, and **extracted diagram images (`doc_images/`)**, with optional on-demand export to a **native editable Microsoft Word document (`doc_<lang>.docx`)** via `drawlib build docx`.
 
 *(For general project scaffolding, see `uv run drawlib rules show project-overview`. For multi-page websites with a sidebar, see `uv run drawlib rules show project-site`. For the 3-stage review loop, see `uv run drawlib rules show review-guide`.)*
 
@@ -8,19 +8,19 @@ A **`doc` project** (`drawlib init doc`) compiles a sequential series of Markdow
 
 ## 1. When to Choose a `doc` Project
 
-Choose `drawlib init doc` when the user wants a **linear, end-to-end technical document, printable PDF report, or editable MS Word (`.docx`) deliverable**:
+Choose `drawlib init project doc` when the user wants a **linear, end-to-end technical document, printable PDF report, or editable MS Word (`.docx`) deliverable**:
 - Architecture whitepapers, technical reports, and case studies (e.g., `drawlib-dogfooding`).
 - Engineering RFCs, design specifications, and security threat models (including `.docx` exports for stakeholder redlining).
 - Step-by-step quickstart manuals (`quickstart`) intended to be read linearly or exported as a single PDF or Word book.
 
 ```bash
 # Scaffold a linear document project (default target 'doc', or custom name e.g. 'spec'):
-uv run drawlib init doc [target] [-l <lang[,lang...]>] [-s <default|google|monochrome>]
+uv run drawlib init project doc [target] [-l <lang[,lang...]>] [-s <default|google|monochrome>]
 
 # Examples:
-uv run drawlib init doc --lang ja -s google
-uv run drawlib init doc whitepaper -l en,ja -s google
-uv run drawlib init doc rbac_spec -s default
+uv run drawlib init project doc --lang ja -s google
+uv run drawlib init project doc whitepaper -l en,ja -s google
+uv run drawlib init project doc rbac_spec -s default
 ```
 
 ---
@@ -61,9 +61,9 @@ Every `doc` project uses the unified `<src_dir>/<lang>/` locale directory struct
 ### 2.1. Zero-Config PDF Compilation & On-Demand MS Word (`.docx`) Export
 - **Standard Out-of-the-Box Dependencies**: `playwright` and `python-docx` are standard dependencies of `drawlib` (no optional extras required). Headless Chromium (`chromium-headless-shell`) downloads automatically on your first `drawlib build pdf` run (or pre-download offline via `uv run drawlib cache download --browser` / `--all`; in minimal Linux containers such as `python:3.12-slim` lacking OS shared libraries, run `playwright install-deps chromium`).
 - **On-Demand MS Word Export (`./doc_src/build_docx.sh` / `drawlib build docx` / `drawlib.tools.build_docx`)**:
-  While scaffolded `build.sh` builds HTML, PDF, Markdown, and Images, `drawlib init doc` also scaffolds an executable `./doc_src/build_docx.sh` script. You can run it directly (producing `doc_<lang>.docx` for every locale in `[i18n].langs`, e.g., `doc_en.docx`) or invoke `drawlib build docx` on `doc_src/` or any standalone `.md` file to emit a native editable `.docx` document with headings, prose, lists, tables, blockquotes, syntax-highlighted code blocks, and high-DPI static PNG diagrams (`dpi=200` default):
+  While scaffolded `build.sh` builds HTML, PDF, Markdown, and Images, `drawlib init project doc` also scaffolds an executable `./doc_src/build_docx.sh` script. You can run it directly (producing `doc_<lang>.docx` for every locale in `[i18n].langs`, e.g., `doc_en.docx`) or invoke `drawlib build docx` on `doc_src/` or any standalone `.md` file to emit a native editable `.docx` document with headings, prose, lists, tables, blockquotes, syntax-highlighted code blocks, and high-DPI static PNG diagrams (`dpi=200` default):
   ```bash
-  # Pre-scaffolded executable script (+x permissions already set by drawlib init):
+  # Pre-scaffolded executable script (+x permissions already set by drawlib init project doc):
   ./doc_src/build_docx.sh
 
   # Or direct CLI export (directory produces doc_<lang>.docx; single .md writes directly to target path):
@@ -215,7 +215,7 @@ Always verify linear documents across all three stages before finishing:
 Because every `doc` project uses `<src_dir>/<lang>/` from day one, scaling a single-language document (`langs = ["en"]`) to a multi-language whitepaper requires **zero `git mv` file moves**—simply add `doc_src/ja/` and append `"ja"` to `langs` in `doc_src/drawlib.toml` (or initialize directly with `-l en,ja`):
 
 ```bash
-uv run drawlib init doc whitepaper -l en,ja -s google
+uv run drawlib init project doc whitepaper -l en,ja -s google
 ```
 
 ```toml

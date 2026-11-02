@@ -274,7 +274,7 @@ from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line
 from drawlib.shapes import rectangle
-from drawlib.styles import Colors, Styles
+from drawlib.styles import Styles
 from drawlib.text import text
 
 setup(width=135, height=64)
@@ -288,38 +288,38 @@ text(
 )
 
 # Left Column: Production Site Customization
-rectangle((34.0, 27.5), width=56, height=45, style=Styles.Neutral.patch(shape_r=2.0))
-phosphor.browser((34.0, 43.5), width=4.5, style=Styles.PrimaryBold)
-text((34.0, 38.0), "Production UI Tuning", style=Styles.DarkBold.patch(text_size=10.5))
-text((34.0, 34.0), "docs/docs_src/", style=Styles.Muted.patch(text_size=8.5))
+rectangle((33.5, 27.5), width=57, height=45, style=Styles.Neutral.patch(shape_r=2.0))
+phosphor.browser((33.5, 44.0), width=4.5, style=Styles.PrimaryBold)
+text((33.5, 38.2), "Production UI Tuning", style=Styles.DarkBold.patch(text_size=10.8))
+text((33.5, 33.8), "docs/docs_src/", style=Styles.Muted.patch(text_size=9.5))
 
 bullets_left = [
-    "• Dual vector/raster logos with auto light/dark switching",
-    "• Instant theme toggle button (Sun/Moon) with memory",
-    "• Zero-flicker FOUC prevention via inline head script",
-    "• Tuned Slate-700 (#334155) borders for dark contrast",
-    "• @media print immunity: PDF locked to white paper",
+    "• Dual light/dark logos with auto CSS switching",
+    "• Instant theme toggle (Sun/Moon) with memory",
+    "• Zero-flicker FOUC guard via inline head script",
+    "• Slate-700 (#334155) borders for dark contrast",
+    "• @media print immunity: PDF stays on white paper",
 ]
-text((11.0, 20.0), "\n".join(bullets_left), style=Styles.Dark.patch(text_size=8.5, halign="left"))
+text((7.5, 18.5), "\n".join(bullets_left), style=Styles.Dark.patch(text_size=9.5, halign="left"))
 
 # Center Upstream Feedback Arrow
-line((64.0, 27.5), (71.0, 27.5), arrow_head="->", style=Styles.DarkBold)
-text((67.5, 31.5), "Upstream\nSync", style=Styles.PrimaryBold.patch(text_size=8.0))
+line((63.2, 27.5), (71.8, 27.5), arrow_head="->", style=Styles.DarkBold)
+text((67.5, 32.2), "Upstream\nSync", style=Styles.PrimaryBold.patch(text_size=9.5))
 
 # Right Column: Core Template Library
-rectangle((101.0, 27.5), width=56, height=45, style=Styles.PrimaryNeutral.patch(shape_r=2.0))
-phosphor.package((101.0, 43.5), width=4.5, style=Styles.PrimaryBold)
-text((101.0, 38.0), "Core Template Feedback", style=Styles.DarkBold.patch(text_size=10.5))
-text((101.0, 34.0), "src/drawlib/_templates/", style=Styles.Primary.patch(text_size=8.5))
+rectangle((101.5, 27.5), width=57, height=45, style=Styles.PrimaryNeutral.patch(shape_r=2.0))
+phosphor.package((101.5, 44.0), width=4.5, style=Styles.PrimaryBold)
+text((101.5, 38.2), "Core Template Feedback", style=Styles.DarkBold.patch(text_size=10.8))
+text((101.5, 33.8), "src/drawlib/_templates/", style=Styles.Primary.patch(text_size=9.5))
 
 bullets_right = [
-    "• template.html.template: Injected toggle UI & script",
-    "• site.css & pdf.css: Dual logo & print protection rules",
-    "• default*.css.template: Standardized #334155 dark border",
-    "• _assets/: Bundled 500px transparent light & dark logos",
-    "• drawlib init site: Enterprise UX out-of-the-box!",
+    "• template.html.template: Toggle UI & head script",
+    "• site.css & pdf.css: Dual logo & print rules",
+    "• default*.css.template: #334155 dark borders",
+    "• _assets/: Bundled light & dark brand logos",
+    "• drawlib init project site: Enterprise UX ready!",
 ]
-text((78.0, 20.0), "\n".join(bullets_right), style=Styles.Dark.patch(text_size=8.5, halign="left"))
+text((75.5, 18.5), "\n".join(bullets_right), style=Styles.Dark.patch(text_size=9.5, halign="left"))
 
 save()
 ```
@@ -339,7 +339,7 @@ Crucially, these refinements were not left as one-off hacks inside `docs/docs_sr
 - `css/themes/default*.css.template`: Standardized Slate-700 dark borders.
 - `_assets/`: Pre-bundled 500px transparent light and dark logos.
 
-As a result, any developer running `uv run drawlib init site` immediately receives a production-ready, dark-mode-enabled documentation portal out of the box.
+As a result, any developer running `uv run drawlib init project site` immediately receives a production-ready, dark-mode-enabled documentation portal out of the box.
 
 ---
 

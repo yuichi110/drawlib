@@ -95,7 +95,7 @@ z
    </g>
    <g id="text_5">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 7.9px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #4862da" x="135.849057" y="159.836236" transform="rotate(-0 135.849057 159.836236)">drawlib init &lt;type&gt;</text>
+     <text style="font-size: 7.9px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #4862da" x="135.849057" y="159.599236" transform="rotate(-0 135.849057 159.599236)">drawlib init project|agent</text>
     </g>
    </g>
    <g id="patch_7">
@@ -108,7 +108,7 @@ z
    </g>
    <g id="text_6">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 7.9px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="366.792453" y="159.733783" transform="rotate(-0 366.792453 159.733783)">Scaffold site, doc, slide, or images project</text>
+     <text style="font-size: 7.9px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="366.792453" y="159.733783" transform="rotate(-0 366.792453 159.733783)">Scaffold project or AI agent rules</text>
     </g>
    </g>
    <g id="patch_8">
@@ -121,7 +121,7 @@ z
    </g>
    <g id="text_7">
     <g clip-path="url(#pf77f305f56)">
-     <text style="font-size: 7.9px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="590.943396" y="159.733783" transform="rotate(-0 590.943396 159.733783)">-s &lt;theme&gt;, -l &lt;lang&gt;, --force</text>
+     <text style="font-size: 7.9px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="590.943396" y="159.733783" transform="rotate(-0 590.943396 159.733783)">-s &lt;theme&gt;, -l &lt;lang&gt;, -m &lt;mode&gt;</text>
     </g>
    </g>
    <g id="patch_9">

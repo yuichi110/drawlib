@@ -11,9 +11,9 @@ This document describes the documentation projects hosted in this repository and
 
 ## 1. Documentation Projects in This Repository
 
-All documentation, guides, slides, and README illustrations in this repository are standard Drawlib projects scaffolded via `drawlib init`:
+All documentation, guides, slides, and README illustrations in this repository are standard Drawlib projects scaffolded via `drawlib init project`:
 
-| Build Target (`./dcli docs build <target>`) | Source Directory (`docs/*_src/`) | Template Type (`drawlib init`) | Generated Outputs (Do NOT edit directly) | Description |
+| Build Target (`./dcli docs build <target>`) | Source Directory (`docs/*_src/`) | Template Type (`drawlib init project`) | Generated Outputs (Do NOT edit directly) | Description |
 | :--- | :--- | :--- | :--- | :--- |
 | **`site`** | `docs/docs_src/` (`drawlib.toml`: `en/`, `ja/`) | `site` | `docs/docs_markdown/`, `docs/docs_html/`, `docs/docs_images/` | Official multi-language (`en`/`ja`) documentation website & GitHub Markdown |
 | **`architecture`** | `docs/architecture_src/` (`drawlib.toml`: `en/`) | `site` | `docs/architecture_markdown/`, `docs/architecture_html/`, `docs/architecture_images/` | Software architecture specification site |
@@ -38,7 +38,7 @@ All documentation, guides, slides, and README illustrations in this repository a
 
 ## 2. Follow `drawlib rules` & Style Guide
 
-Because all documentation projects are built with `drawlib init`, always inspect and follow the embedded Drawlib rules before authoring content or diagrams:
+Because all documentation projects are built with `drawlib init project`, always inspect and follow the embedded Drawlib rules before authoring content or diagrams:
 
 ```bash
 uv run drawlib rules show project-overview # Project structure, drawlib.toml, navbar.md, code fence attributes

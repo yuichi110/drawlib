@@ -67,20 +67,20 @@ text((91.25, 31.0), text="生成", style=ts_arrow)
 save()
 ```
 
-## 12.1 スライドプロジェクトの作成 (`drawlib init slide`)
+## 12.1 スライドプロジェクトの作成 (`drawlib init project slide`)
 
-スライドプロジェクトは `uv run drawlib init slide` コマンドで一発で足場生成できます（`-l en,ja` で多言語デッキも同時生成可能）:
+スライドプロジェクトは `uv run drawlib init project slide` コマンドで一発で足場生成できます（`-l en,ja` で多言語デッキも同時生成可能）:
 
 ```bash
 # 標準のスライドプロジェクトを生成 (slide_src/ が作成されます)
-uv run drawlib init slide
+uv run drawlib init project slide
 
 # プロジェクト名やテーマ、言語を指定する場合 (-l en,ja で多言語デッキも作成可能)
-uv run drawlib init slide my_presentation -s google -l ja
+uv run drawlib init project slide my_presentation -s google -l ja
 ```
 
 ### 生成されるディレクトリ構成
-`uv run drawlib init slide my_presentation -s google -l ja` を実行すると、`i18n` ネイティブな以下のディレクトリ構成が構築されます:
+`uv run drawlib init project slide my_presentation -s google -l ja` を実行すると、`i18n` ネイティブな以下のディレクトリ構成が構築されます:
 
 ```text
 .

@@ -188,7 +188,7 @@ Canvas appearance and project-wide typography are configured via `setup()` and `
 - **`background_color`**: Any `Color`, RGB/RGBA tuple, hex code (`"#ffffff"`, `"#1e1e1e"`), or named CSS color passed to `setup()`.
 - **`background_alpha`**: Background opacity (`0.0` for transparent PNG/WebP badges, `1.0` for opaque).
 - **`dpi`**: Output rasterization resolution in `setup()` (default `100`; use `150`–`300` for high-density print exports).
-- **Project Typography (`styles.py`)**: Default font families (such as `Font.SANS_SERIF`, `FontRoboto`, or `FontJapanese`) are configured on `Styles` inside the project's `styles.py` (automatically generated when you run `drawlib init --lang <lang>`).
+- **Project Typography (`styles.py`)**: Default font families (such as `Font.SANS_SERIF`, `FontRoboto`, or `FontJapanese`) are configured on `Styles` inside the project's `styles.py` (automatically generated when you run `drawlib init project <type> --lang <lang>`).
 
 ### 2.8. Coordinate Geometry Helpers (`drawlib.math`)
 Drawlib provides built-in geometric math utilities in `drawlib.math` so developers and agents do not need to implement manual trigonometry:
@@ -296,35 +296,35 @@ Drawlib allows seamless integration of raster graphic assets into diagrams:
 
 Drawlib integrates a complete, standalone documentation compilation pipeline (`drawlib.tools`). It compiles Markdown documents containing embedded ````drawlib```` code blocks into publication-ready static websites, GitHub-flavored Markdown, headless vector PDFs, editable Microsoft Word (`.docx`) documents, and editable 16:9 Microsoft PowerPoint (`.pptx`) slide decks (`playwright`, `python-docx`, and `python-pptx` are standard dependencies, and headless Chromium auto-downloads on first `pdf` or `pptx` build).
 
-### 4.1. Project-First Rule (`drawlib init`)
+### 4.1. Project-First Rule (`drawlib init project`)
 > **CRITICAL (No Bare `.py` Files)**: Never create standalone `.py` drawing files directly in an uninitialized directory, and never create project directories by hand from scratch.  
-> Even if the user only asks for a single diagram image, check if a Drawlib project (`*_src/`) exists in the workspace. If not, **always scaffold a project first using `drawlib init`** so that `drawlib.toml`, `styles.py` (theme & language fonts), `utils.py`, `_assets/`, and `build.sh` are properly configured:
-> - **Diagram image(s) only** -> **`images`** project (`drawlib init images [-l <lang>] [-s <style>]`, author in `images_src/*.py`)
-> - **Illustrated document / website / slide deck** -> **`doc`**, **`site`**, or **`slide`** project (`drawlib init <doc|site|slide> [-l <langs>] [-s <style>]`, author in `<src_dir>/<lang>/*.md`)
+> Even if the user only asks for a single diagram image, check if a Drawlib project (`*_src/`) exists in the workspace. If not, **always scaffold a project first using `drawlib init project`** so that `drawlib.toml`, `styles.py` (theme & language fonts), `utils.py`, `_assets/`, and `build.sh` are properly configured:
+> - **Diagram image(s) only** -> **`images`** project (`drawlib init project images [-l <lang>] [-s <style>]`, author in `images_src/*.py`)
+> - **Illustrated document / website / slide deck** -> **`doc`**, **`site`**, or **`slide`** project (`drawlib init project <doc|site|slide> [-l <langs>] [-s <style>]`, author in `<src_dir>/<lang>/*.md`)
 > - **Language & Sample Cleanup**: Pass `--lang ja` when non-English text is needed (or `--lang en,ja` for multi-locale `doc`, `site`, or `slide` projects), and replace or remove the generated starter sample files (`sample1.py`, `sample2.py`, etc.) after scaffolding.
 
 ```bash
 # List available starter templates:
-drawlib init list
+drawlib init project list
 
 # If the user wants standalone diagram image(s) only:
-drawlib init images
-drawlib init images --lang ja -s google
+drawlib init project images
+drawlib init project images --lang ja -s google
 
 # If the user wants a multi-page documentation website (single or multi-locale):
-drawlib init site
-drawlib init site -l en,ja -s google
+drawlib init project site
+drawlib init project site -l en,ja -s google
 
 # If the user wants a linear document (HTML, <base>_<lang>.pdf, MD + optional <base>_<lang>.docx):
-drawlib init doc
-drawlib init doc rbac -l en,ja -s google
+drawlib init project doc
+drawlib init project doc rbac -l en,ja -s google
 
 # If the user wants a 16:9 presentation slide deck (HTML, <base>_<lang>.pdf + optional <base>_<lang>.pptx):
-drawlib init slide -l en,ja -s google
+drawlib init project slide -l en,ja -s google
 ```
 
 ### 4.2. Standard Project Structure & Lifecycle
-A standard documentation project initialized via `drawlib init site` follows this `i18n`-native structure:
+A standard documentation project initialized via `drawlib init project site` follows this `i18n`-native structure:
 
 ```text
 my_project/
@@ -449,7 +449,8 @@ build_html(
 | `detect_document_type()` | *(auto-detection)* | Inspect a source path and return its `DocType` (`SITE`, `DOC`, `SLIDE`, `SINGLE_MD`). |
 | `export_code_block()` | `drawlib show -o` | Fast illustration rendering to disk for AI self-verification and tests. |
 | `show_code_block()` | `drawlib show` | Open an interactive desktop GUI window for a specific code block or `.py` script. |
-| `init_project()` / `list_project_types()` | `drawlib init` / `drawlib init list` | Programmatic repository scaffolding (`lang="en,ja"`) and archetype discovery. |
+| `init_project()` / `list_project_types()` | `drawlib init project` / `drawlib init project list` | Programmatic repository scaffolding (`lang="en,ja"`) and archetype discovery. |
+| `init_agent_instruction()` / `list_agent_targets()` | `drawlib init agent` / `drawlib init agent list` | Generate per-agent Drawlib rule files (`.agents/rules/`, `.claude/rules/`, `.cursor/rules/`, etc.). |
 | `serve_docs()` / `scan_broken_links()` | `drawlib serve` / `drawlib serve --check` | Local preview server and broken hyperlink/image scanner. |
 | `list_cache()` / `download_cache()` / `clear_cache()` | `drawlib cache <list\|download\|clear>` | Inspect, pre-download, and purge cached font, icon, map, and headless Chromium assets (`--all` / `--browser`). |
 | `list_css()` / `list_html_css()` / `list_pdf_css()` / `list_slide_css()` / `export_css()` / `get_css()` | `drawlib css <list\|show>` | Inspect and export built-in CSS stylesheets for HTML, PDF, and Slide targets. |
@@ -492,12 +493,13 @@ drawlib rules show <topic> --rebuild
 
 ### 5.1. CLI & Build Commands (`cli`)
 - **Command**: `drawlib rules show cli`
-- **Scope**: Document compilation (`build`), desktop preview and illustration export (`show`), project scaffolding (`init`), local documentation server (`serve`), and cache management (`cache`).
+- **Scope**: Document compilation (`build`), desktop preview and illustration export (`show`), project & AI agent scaffolding (`init`), local documentation server (`serve`), and cache management (`cache`).
 - **Key Syntax**:
   ```bash
   drawlib build html docs_src/ -o docs_html/
   drawlib show script.py -g -o .drawlib/scratch/preview.png
-  drawlib init site
+  drawlib init project site
+  drawlib init agent antigravity
   ```
 - **When to read**: Refer to this rule when automating build pipelines, setting up CI/CD, configuring custom themes/templates, or debugging CLI flags.
 
@@ -505,17 +507,17 @@ drawlib rules show <topic> --rebuild
 
 ### 5.2. Project Architecture & Template-Specific Guides (`project-*`)
 - **Commands**:
-  - `drawlib rules show project-overview` (Scaffolding with `drawlib init`, choosing among the 4 archetypes, `styles.py`/`utils.py`, and cache architecture)
+  - `drawlib rules show project-overview` (Scaffolding with `drawlib init project`, choosing among the 4 archetypes, `styles.py`/`utils.py`, and cache architecture)
   - `drawlib rules show project-images` (Standalone `.py` diagram scripts in `images_src/`, `clear()` lifecycle, and AST collision checks)
   - `drawlib rules show project-doc` (Linear documents, whitepapers, `00_cover.md` + `--generate-index`, A4 vector PDF, and editable MS Word `.docx` export in `doc_src/`)
   - `drawlib rules show project-site` (Multi-page documentation websites, `navbar.md` sidebar rules, and Top Hero layout in `docs_src/`)
   - `drawlib rules show project-slide` (16:9 widescreen presentation decks, `1920×1080` `::: block` / `::: note` syntax, Presenter View, and `.pdf` / `.pptx` export in `slide_src/`)
 - **Key Syntax**:
   ```bash
-  drawlib init site
-  drawlib init doc
-  drawlib init slide
-  drawlib init images
+  drawlib init project site
+  drawlib init project doc
+  drawlib init project slide
+  drawlib init project images
   ```
 - **When to read**: Refer to `project-overview` and the matching `project-<type>` guide when initializing or authoring any Drawlib project.
 
@@ -866,10 +868,10 @@ Never deliver unverified drawing code or documentation pages to the user. Always
    4. Deliver <── 3. Stage 3: Browser HTML Review (1280x920 + view_file)
 ```
 
-1. **Step 1: Understand Requirements & Scaffold Project (`drawlib init`)**:
+1. **Step 1: Understand Requirements & Scaffold Project (`drawlib init project`)**:
    - Check if a Drawlib project (`*_src/`) already exists in the workspace. Never create bare `.py` files in an uninitialized directory:
-     - **Diagram image(s) only** -> `uv run drawlib init images [-l ja] [-s google]` (remove starter `sample1.py`, `sample2.py`).
-     - **Illustrated document / website / slide deck** -> `uv run drawlib init <doc|site|slide> [-l en,ja] [-s google]`.
+     - **Diagram image(s) only** -> `uv run drawlib init project images [-l ja] [-s google]` (remove starter `sample1.py`, `sample2.py`).
+     - **Illustrated document / website / slide deck** -> `uv run drawlib init project <doc|site|slide> [-l en,ja] [-s google]`.
 2. **Step 2: Author Rich Declarative Code (`Stage 1 — Static & Anchor Check`)**:
    - In documentation (`docs_src/<lang>/` / `doc_src/<lang>/`), place a **Top Hero diagram at Lines 5–15** with `code=fold`, include **`2+` diagrams per page**, omit narrow `px` width caps on fences, and keep **`text_size >= 10.0`** (standard `10.5`–`12.0`, headers `12.0`–`14.0`).
    - Combine standardized icons (`phosphor`, `gcp`) with high-level components (`SmartArts`, `Diagrams`, `Graphs`, `Charts`), respecting **Center `(cx, cy)`** anchors for primitives vs. **Bottom-Left `(x0, y0)`** (or component-default `Top-Left` / `Center`) anchors for composite components.
@@ -920,7 +922,7 @@ Avoid manually placing dozens of low-level `rectangle`, `circle`, and `line` pri
 
 ### 6.4. Implementation Checklist
 
-- [ ] **Project Initialized (`drawlib init`)**: Scaffolded `images` (for standalone images) or `doc`/`site`/`slide` (for illustrated documents) with appropriate `--lang` and `--style`, and removed starter sample files.
+- [ ] **Project Initialized (`drawlib init project`)**: Scaffolded `images` (for standalone images) or `doc`/`site`/`slide` (for illustrated documents) with appropriate `--lang` and `--style`, and removed starter sample files.
 - [ ] **Top Hero & `720pt` Typography (`Stage 1`)**: `2+` diagrams per page, Top Hero at `Lines 5–15` with `code=fold`, no narrow `px` width caps on fences, and `text_size >= 10.0`.
 - [ ] **Palette & Neutral Baseline**: `from drawlib.styles import Colors, Styles` with `50%+` neutral cards (`Styles.Neutral`, `Styles.PrimaryNeutral`, `Styles.SecondaryNeutral`) and `1–2` focal hero nodes (`Styles.PrimaryFlat`).
 - [ ] **Grid Overlay Validation (`Stage 2`)**: Exported with `-g` to `.drawlib/scratch/` and inspected via `view_file` for anchor accuracy, margins (`>= 4–6` units), and zero text collisions.

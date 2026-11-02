@@ -85,7 +85,8 @@ def resolve_template_and_css(search_dir: str) -> tuple[str, str]:
     if template_cand is None:
         raise ValueError(
             f'Missing required "template.html" in "{search_dir}". '
-            'Please run "drawlib init" to initialize your project, or provide "template.html".'
+            'Please run "drawlib init project <doc|site>" to initialize your project, '
+            'or provide "template.html".'
         )
 
     css_cand: str | None = None
@@ -97,7 +98,8 @@ def resolve_template_and_css(search_dir: str) -> tuple[str, str]:
     if css_cand is None:
         raise ValueError(
             f'Missing required "style.css" in "{search_dir}". '
-            'Please run "drawlib init" to initialize your project, or provide "style.css".'
+            'Please run "drawlib init project <doc|site>" to initialize your project, '
+            'or provide "style.css".'
         )
 
     return template_cand, css_cand

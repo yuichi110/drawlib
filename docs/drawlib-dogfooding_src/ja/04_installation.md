@@ -19,7 +19,7 @@ uv run drawlib --version
 
 # プロジェクトに追加せず、一時環境で単発実行する場合 (uvx)
 uvx drawlib --version
-uvx drawlib init site
+uvx drawlib init project site
 
 # pip を使用する場合
 pip install drawlib
@@ -73,7 +73,7 @@ uv run drawlib cache clear --all
 uv run drawlib --version
 
 # 利用可能なプロジェクトテンプレート一覧の表示
-uv run drawlib init list
+uv run drawlib init project list
 ```
 
 `doc`、`site`、`slide`、`images` の 4 種類のプロジェクトテンプレートが表示されれば環境構築は完了です。

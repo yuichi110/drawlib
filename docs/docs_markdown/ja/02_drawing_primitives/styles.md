@@ -62,7 +62,7 @@ from drawlib.styles import Colors, Styles
 
 ### `styles.py` によるプロジェクト全体のデフォルトカスタマイズ
 
-`drawlib init` で生成されたすべてのプロジェクトには、ルートに `styles.py` ファイルが含まれています。`drawlib build` や `drawlib show` の実行時、Drawlib は `styles.py` を読み込み、その `Styles` オブジェクトと `Colors` オブジェクトを `drawlib.styles` にバインドします。
+`drawlib init project` で生成されたすべてのプロジェクトには、ルートに `styles.py` ファイルが含まれています。`drawlib build` や `drawlib show` の実行時、Drawlib は `styles.py` を読み込み、その `Styles` オブジェクトと `Colors` オブジェクトを `drawlib.styles` にバインドします。
 
 ```python
 # styles.py

@@ -37,35 +37,41 @@ Unlike traditional libraries where agents often hallucinate outdated APIs or str
 
 To enable your AI agent to author Drawlib illustrations and documentation, configure your environment with Drawlib's core guidelines.
 
-### 1. Configure Workspace Rules
-Add the Drawlib agent instructions to your project's rule file:
+### 1. Configure Workspace Rules (`drawlib init agent`)
+Generate Drawlib's official AI agent rule files directly into your workspace using `drawlib init agent` (`antigravity`, `claude`, `cursor`, `copilot`, `windsurf`, `cline`, `roo`, `codex`, `gemini`, or `all`):
 
-- **Cursor**: Paste the instructions into `.cursorrules` or `.cursor/rules/drawlib.md`.
-- **Claude Code**: Add instructions to your project's `CLAUDE.md`.
-- **Gemini / Generic Agents**: Place instructions in `.agents/rules/drawlib.md`.
-
-You can dump the official agent instruction template directly using the CLI:
+- **Antigravity**: Generates `.agents/rules/drawlib.md`.
+- **Claude Code / Cursor / GitHub Copilot**: Generates `.claude/rules/drawlib.md`, `.cursor/rules/drawlib.mdc`, or `.github/instructions/drawlib.instructions.md`.
+- **Codex / Gemini (`AGENTS.md` / `GEMINI.md`)**: Non-destructively merges a Drawlib rule section into `AGENTS.md` or `GEMINI.md`.
 
 ```bash
-# Display the bootstrap agent manual
+# List supported AI coding agents and target rule paths
+$ uv run drawlib init agent list
+
+# Auto-detect configured AI agents in your repository (or specify targets explicitly)
+$ uv run drawlib init agent --detect
+$ uv run drawlib init agent antigravity
+$ uv run drawlib init agent claude cursor copilot
+
+# Display the bootstrap agent manual directly in stdout
 $ uv run drawlib rules show agent-instruction
 ```
 
-### 2. Project-First Rule (`drawlib init`)
-Teach your agent to **never create bare `.py` files in an uninitialized directory** or build project folders manually. Always scaffold a Drawlib project first so `styles.py` (theme & language fonts), `utils.py`, `_assets/`, and `build.sh` are properly configured:
+### 2. Project-First Rule (`drawlib init project`)
+Teach your agent to **never create bare `.py` files in an uninitialized directory** or build project folders manually. Always scaffold a Drawlib project first so `drawlib.toml`, `styles.py` (theme & language fonts), `utils.py`, `_assets/`, and `build.sh` are properly configured:
 
 ```bash
 # Standalone diagram image(s) only -> images_src/*.py -> images/*.png
-$ uv run drawlib init images [-l <lang>] [-s <style>]
+$ uv run drawlib init project images [-l <lang>] [-s <style>]
 
-# Linear technical document / RFC / PDF -> doc_src/*.md
-$ uv run drawlib init doc [target] [-l <lang>] [-s <style>]
+# Linear technical document / RFC / PDF / Word -> doc_src/<lang>/*.md
+$ uv run drawlib init project doc [target] [-l <langs>] [-s <style>]
 
-# Multi-page documentation website -> docs_src/**/*.md
-$ uv run drawlib init site [target] [-l <lang>] [-s <style>]
+# Multi-page documentation website -> docs_src/<lang>/**/*.md
+$ uv run drawlib init project site [target] [-l <langs>] [-s <style>]
 
-# 16:9 presentation slide deck -> slide_src/*.md
-$ uv run drawlib init slide [target] [-l <lang>] [-s <style>]
+# 16:9 presentation slide deck / PowerPoint -> slide_src/<lang>/*.md
+$ uv run drawlib init project slide [target] [-l <langs>] [-s <style>]
 ```
 
 ### 3. Essential Commands & On-Demand Rules Catalog
@@ -80,7 +86,7 @@ Ensure your agent knows how to query on-demand rule topics and preview drawings 
 | **Autonomous 3-Stage Review & Font Math** | `uv run drawlib rules show review-guide` |
 | **Project Overview (4 Archetypes)** | `uv run drawlib rules show project-overview` |
 | **Project Guides (`images`, `doc`, `site`, `slide`)** | `uv run drawlib rules show project-<images\|doc\|site\|slide>` |
-| **CLI Reference (`build`, `show`, `cache`)** | `uv run drawlib rules show cli` |
+| **CLI Reference (`build`, `init`, `show`, `cache`)** | `uv run drawlib rules show cli` |
 | **Unified API Cheat Sheet** | `uv run drawlib rules show api` |
 | **Auto-Layout Graphs (`drawlib.graph`)** | `uv run drawlib rules show lib-graph-overview` |
 | **Domain Diagrams (`drawlib.diagrams`)** | `uv run drawlib rules show lib-diagrams-overview` |
@@ -158,7 +164,7 @@ save()
 
 
 1. **Inspect Context**: The agent inspects actual repository files (models, API routers, database schemas) to understand the architecture.
-2. **Draft Illustration**: The agent scaffolds a project via `drawlib init` (if not already present) and authors the drawing code in `images_src/<name>.py` or an embedded ````drawlib```` Markdown block with `file:<diagram.png>`.
+2. **Draft Illustration**: The agent scaffolds a project via `drawlib init project` (if not already present) and authors the drawing code in `images_src/<name>.py` or an embedded ````drawlib```` Markdown block with `file=<diagram.png>`.
 3. **Render Image with Grid (`-g`)**:  
    `uv run drawlib show <md_path> <diagram.png> -g -o .drawlib/scratch/preview.png` (or `uv run drawlib show images_src/<name>.py -g -o .drawlib/scratch/preview.png`).
 4. **Multimodal Self-Review**: The agent inspects the rendered PNG with its vision/file viewing tool, checking for:

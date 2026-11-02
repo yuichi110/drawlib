@@ -775,10 +775,10 @@ $$\text{dot}_r = 0.1125 \times \text{unit_scale}$$</p>
 <h2>4. フレームワークへの統合: デフォルトのプロジェクトファビコン</h2>
 <p>ブランドアセットをデザイン用リポジトリに閉じ込めるのではなく、Drawlib ではこの公式ファビコンをフレームワーク本体へ直接統合しています。</p>
 <ol>
-<li><strong>プロジェクト雛形への自動同梱 (<code>drawlib init</code>)</strong>:
+<li><strong>プロジェクト雛形への自動同梱 (<code>drawlib init project</code>)</strong>:
 <ul>
 <li>マスターとなる $512 \times 512$ のファビコンが <code>src/drawlib/_templates/project/_assets/favicon.png</code> にパッケージングされています。</li>
-<li>開発者が新しいプロジェクトを生成すると（<code>drawlib init site</code>、<code>drawlib init doc</code>、<code>drawlib init slide</code>）、<code>_assets/favicon.png</code> が自動的に <code>&lt;target&gt;_src/_assets/</code> へコピーされます。</li>
+<li>開発者が新しいプロジェクトを生成すると（<code>drawlib init project site</code>、<code>drawlib init project doc</code>、<code>drawlib init project slide</code>）、<code>_assets/favicon.png</code> が自動的に <code>&lt;target&gt;_src/_assets/</code> へコピーされます。</li>
 </ul>
 </li>
 <li><strong>相対パスの自動解決</strong>:

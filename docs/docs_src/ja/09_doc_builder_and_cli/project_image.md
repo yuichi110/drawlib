@@ -1,4 +1,4 @@
-# 画像プロジェクトガイド (`drawlib init images`)
+# 画像プロジェクトガイド (`drawlib init project images`)
 
 `images` スターターテンプレート（CLI 別名: `image`）は、バッチ Python スクリプトから単体のイラストアセット、プレゼンテーション用図解、記事のヒーローバナー、ソーシャルプレビューカードを直接一括生成するために設計されています。
 
@@ -612,11 +612,11 @@ with anim.frame(duration=DURATIONS[0]):
     draw_workspace_frame(
         active_phase=1,
         actor="gemini",
-        actor_title="Gemini: Run drawlib init images -s google",
+        actor_title="$ drawlib init project images -s google",
         actor_sub="Scaffold images_src/, drawlib.toml & build.sh",
         ops=[
             ("user", 'Prompt: "Create architecture diagrams"', "done"),
-            ("gemini", "$ drawlib init images -s google", "active_gemini"),
+            ("gemini", "$ drawlib init project images -s google", "active_gemini"),
         ],
         show_day2_note=False,
         tree_items=TREE_STARTER,
@@ -640,7 +640,7 @@ with anim.frame(duration=DURATIONS[1]):
         actor_sub="Set shared brand palette, fonts & macros",
         ops=[
             ("user", 'Prompt: "Create architecture diagrams"', "done"),
-            ("gemini", "$ drawlib init images -s google", "done"),
+            ("gemini", "$ drawlib init project images -s google", "done"),
             ("gemini", "Edit images_src/styles.py & utils.py", "active_gemini"),
         ],
         show_day2_note=False,
@@ -660,7 +660,7 @@ with anim.frame(duration=DURATIONS[2]):
         actor_sub="Remove boilerplate so only real scripts build",
         ops=[
             ("user", 'Prompt: "Create architecture diagrams"', "done"),
-            ("gemini", "$ drawlib init images -s google", "done"),
+            ("gemini", "$ drawlib init project images -s google", "done"),
             ("gemini", "Edit images_src/styles.py & utils.py", "done"),
             ("gemini", "$ rm -f images_src/sample1.py", "active_gemini"),
         ],
@@ -683,7 +683,7 @@ with anim.frame(duration=DURATIONS[3]):
         actor_title="Gemini: Author arch.py & flow.py",
         actor_sub="Write declarative Python drawing scripts",
         ops=[
-            ("gemini", "$ drawlib init images -s google", "done"),
+            ("gemini", "$ drawlib init project images -s google", "done"),
             ("gemini", "Edit images_src/styles.py & utils.py", "done"),
             ("gemini", "$ rm -f images_src/sample1.py", "done"),
             ("gemini", "Create images_src/arch.py & flow.py", "active_gemini"),
@@ -705,7 +705,7 @@ with anim.frame(duration=DURATIONS[4]):
         actor_title="Gemini: Preview with -g coordinate grid",
         actor_sub="Multimodal review of scratch/arch_grid.png",
         ops=[
-            ("gemini", "$ drawlib init images -s google", "done"),
+            ("gemini", "$ drawlib init project images -s google", "done"),
             ("gemini", "Edit images_src/styles.py & utils.py", "done"),
             ("gemini", "$ rm -f images_src/sample1.py", "done"),
             ("gemini", "Create images_src/arch.py & flow.py", "done"),
@@ -728,7 +728,7 @@ with anim.frame(duration=DURATIONS[5]):
         actor_title="Gemini: Refine coordinates in arch.py",
         actor_sub="Zero clipping, 4u+ margins & 50%+ neutral",
         ops=[
-            ("gemini", "$ drawlib init images -s google", "done"),
+            ("gemini", "$ drawlib init project images -s google", "done"),
             ("gemini", "Edit images_src/styles.py & utils.py", "done"),
             ("gemini", "$ rm -f images_src/sample1.py", "done"),
             ("gemini", "Create images_src/arch.py & flow.py", "done"),
@@ -755,7 +755,7 @@ with anim.frame(duration=DURATIONS[6]):
         actor_title="Gemini: Run ./images_src/build.sh",
         actor_sub="Pre-exec AST target check passes (0 collisions)",
         ops=[
-            ("gemini", "$ drawlib init images -s google", "done"),
+            ("gemini", "$ drawlib init project images -s google", "done"),
             ("gemini", "Create images_src/arch.py & flow.py", "done"),
             ("gemini", "$ drawlib show arch.py -g -o ...grid.png", "done"),
             ("gemini", "Verify & refine arch.py, flow.py", "done"),
@@ -779,7 +779,7 @@ with anim.frame(duration=DURATIONS[7]):
         actor_title="Gemini: Batch outputs written to images/",
         actor_sub="Rendered arch.png & flow.png + SQLite hashes",
         ops=[
-            ("gemini", "$ drawlib init images -s google", "done"),
+            ("gemini", "$ drawlib init project images -s google", "done"),
             ("gemini", "Create images_src/arch.py & flow.py", "done"),
             ("gemini", "$ drawlib show arch.py -g -o ...grid.png", "done"),
             ("gemini", "Verify & refine arch.py, flow.py", "done"),
@@ -804,7 +804,7 @@ with anim.frame(duration=DURATIONS[8]):
         actor_title="User: Commit scripts & rendered images",
         actor_sub="Source code and PNGs versioned together",
         ops=[
-            ("gemini", "$ drawlib init images -s google", "done"),
+            ("gemini", "$ drawlib init project images -s google", "done"),
             ("gemini", "Create images_src/arch.py & flow.py", "done"),
             ("gemini", "$ drawlib show arch.py -g -o ...grid.png", "done"),
             ("gemini", "Verify & refine arch.py, flow.py", "done"),
@@ -902,14 +902,14 @@ save()
 
 ## 2. プロジェクトの初期化
 
-`drawlib init` を使用して新しい画像プロジェクトをスキャフォールディングします。
+`drawlib init project` を使用して新しい画像プロジェクトをスキャフォールディングします。
 
 ```bash
 # Scaffold standard images project in current directory (creates 'images_src/'):
-drawlib init images
+drawlib init project images
 
 # Or with custom target name, theme, and language (creates 'my_assets_src/'):
-drawlib init images my_assets -s google -l en
+drawlib init project images my_assets -s google -l en
 ```
 
 ---
@@ -1000,6 +1000,6 @@ drawlib build image images_src/ -o images/ -s images_src/styles.py -u images_src
 ## 6. マルチエージェントによる並列スクリプト執筆
 
 `images_src/` 内の各 `.py` スクリプトは互いに独立しているため、AI コーディングエージェントはサブエージェント間でスクリプトを分担して複数の図解を並列に生成できます。
-1. **フェーズ 1（親エージェントによる初期設定）**: 最初に `drawlib init images` を実行し、共有の `images_src/styles.py`、`images_src/utils.py`、および `_assets/` を設定します。
+1. **フェーズ 1（親エージェントによる初期設定）**: 最初に `drawlib init project images` を実行し、共有の `images_src/styles.py`、`images_src/utils.py`、および `_assets/` を設定します。
 2. **フェーズ 2（サブエージェントによる並列執筆）**: 各サブエージェントに重複しないスクリプト（`images_src/<name>.py`）を割り当てます。各サブエージェントは担当スクリプトを執筆し、他のサブエージェントと衝突しない **一意なスクラッチファイル名**（`uv run drawlib show images_src/<name>.py -s images_src/styles.py -u images_src/utils.py -g -o .drawlib/scratch/<name>_grid.png`）でグリッドプレビューを実行してレイアウトを検証します。
 3. **フェーズ 3（統合バッチビルド）**: すべてのサブエージェントが完了したら、親エージェントが `./images_src/build.sh` を 1 回実行し、全スクリプトを `images/` へ一括コンパイルします。

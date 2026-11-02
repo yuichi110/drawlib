@@ -284,6 +284,8 @@ def test_cli_show_rules_fallback() -> None:
     [
         ["--help"],
         ["init", "--help"],
+        ["init", "project", "--help"],
+        ["init", "agent", "--help"],
         ["serve", "--help"],
         ["show", "--help"],
         ["build", "--help"],

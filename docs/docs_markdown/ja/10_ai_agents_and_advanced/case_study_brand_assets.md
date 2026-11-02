@@ -220,9 +220,9 @@ $$\text{dot}_r = 0.1125 \times \text{unit\_scale}$$
 
 ブランドアセットをデザイン用リポジトリに閉じ込めるのではなく、Drawlib ではこの公式ファビコンをフレームワーク本体へ直接統合しています。
 
-1. **プロジェクト雛形への自動同梱 (`drawlib init`)**:
+1. **プロジェクト雛形への自動同梱 (`drawlib init project`)**:
    - マスターとなる $512 \times 512$ のファビコンが `src/drawlib/_templates/project/_assets/favicon.png` にパッケージングされています。
-   - 開発者が新しいプロジェクトを生成すると（`drawlib init site`、`drawlib init doc`、`drawlib init slide`）、`_assets/favicon.png` が自動的に `<target>_src/_assets/` へコピーされます。
+   - 開発者が新しいプロジェクトを生成すると（`drawlib init project site`、`drawlib init project doc`、`drawlib init project slide`）、`_assets/favicon.png` が自動的に `<target>_src/_assets/` へコピーされます。
 2. **相対パスの自動解決**:
    - HTML ドキュメントコンパイラ（`drawlib build html`）は出力先のディレクトリ階層を自動判定します。
    - ルートページ（`index.html`）では `_assets/favicon.png` をリンクします。

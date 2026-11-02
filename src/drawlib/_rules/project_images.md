@@ -1,6 +1,6 @@
 # Drawlib Standalone Images Project Guidelines (`project-images`)
 
-An **`images` project** (`drawlib init images`) is designed for authoring standalone Python illustration scripts (`images_src/*.py`) and compiling them in batch mode into raster or vector image files (`images/*.png`, `.webp`, `.svg`, `.pdf`).
+An **`images` project** (`drawlib init project images`) is designed for authoring standalone Python illustration scripts (`images_src/*.py`) and compiling them in batch mode into raster or vector image files (`images/*.png`, `.webp`, `.svg`, `.pdf`).
 
 *(For general project scaffolding and cache architecture, see `uv run drawlib rules show project-overview`. For the 3-stage visual verification loop, see `uv run drawlib rules show review-guide`.)*
 
@@ -8,7 +8,7 @@ An **`images` project** (`drawlib init images`) is designed for authoring standa
 
 ## 1. When to Choose an `images` Project
 
-Choose `drawlib init images` whenever the user wants **diagram image file(s) only** rather than a Markdown document, website, or slide deck:
+Choose `drawlib init project images` whenever the user wants **diagram image file(s) only** rather than a Markdown document, website, or slide deck:
 - Standalone architecture diagrams for README files, pull requests, or external wikis.
 - Batch generation of technical figures, charts, or visual catalogs from data scripts.
 - Even when the user asks for a **single diagram image**, never create a bare `.py` file in an uninitialized folder—always scaffold `images_src/` first so `styles.py` (theme & CJK fonts), `utils.py`, `_assets/`, and `build.sh` are properly configured.
@@ -16,7 +16,7 @@ Choose `drawlib init images` whenever the user wants **diagram image file(s) onl
 ### Scaffolding & Initial Cleanup:
 ```bash
 # 1. Scaffold an images project (pass --lang ja if Japanese/CJK labels are needed):
-uv run drawlib init images [target] [-l <lang>] [-s <default|google|monochrome>]
+uv run drawlib init project images [target] [-l <lang>] [-s <default|google|monochrome>]
 
 # 2. Remove the generated starter samples so only the user's diagrams are built:
 rm -f images_src/sample1.py images_src/sample2.py

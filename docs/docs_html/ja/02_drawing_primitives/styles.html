@@ -692,7 +692,7 @@ Drawlib は <code>drawlib.styles</code> と <code>drawlib.preset_styles</code> �
 <code>drawlib.styles</code> からは必ず PascalCase の <code>Styles</code> と <code>Colors</code> をインポートしてください。小文字の <code>styles</code> や <code>colors</code> 変数を使うと、<code>drawlib.styles</code> モジュール自体をシャドーイングしてしまうため避けてください。</p>
 </blockquote>
 <h3><code>styles.py</code> によるプロジェクト全体のデフォルトカスタマイズ</h3>
-<p><code>drawlib init</code> で生成されたすべてのプロジェクトには、ルートに <code>styles.py</code> ファイルが含まれています。<code>drawlib build</code> や <code>drawlib show</code> の実行時、Drawlib は <code>styles.py</code> を読み込み、その <code>Styles</code> オブジェクトと <code>Colors</code> オブジェクトを <code>drawlib.styles</code> にバインドします。</p>
+<p><code>drawlib init project</code> で生成されたすべてのプロジェクトには、ルートに <code>styles.py</code> ファイルが含まれています。<code>drawlib build</code> や <code>drawlib show</code> の実行時、Drawlib は <code>styles.py</code> を読み込み、その <code>Styles</code> オブジェクトと <code>Colors</code> オブジェクトを <code>drawlib.styles</code> にバインドします。</p>
 <pre><code class="language-python"><span class="c1"># styles.py</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.fonts</span><span class="w"> </span><span class="kn">import</span> <span class="n">FontRoboto</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.preset_colors</span><span class="w"> </span><span class="kn">import</span> <span class="n">GoogleColors</span>

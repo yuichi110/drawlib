@@ -658,30 +658,37 @@
 <li><strong>Deterministic Geometry</strong>: Agents do not have to guess rendering outcomes; they run <code>drawlib show -g</code> to render images with absolute millimeter grids and verify their work visually.</li>
 </ol>
 <p>To enable your AI agent to author Drawlib illustrations and documentation, configure your environment with Drawlib's core guidelines.</p>
-<h3>1. Configure Workspace Rules</h3>
-<p>Add the Drawlib agent instructions to your project's rule file:</p>
+<h3>1. Configure Workspace Rules (<code>drawlib init agent</code>)</h3>
+<p>Generate Drawlib's official AI agent rule files directly into your workspace using <code>drawlib init agent</code> (<code>antigravity</code>, <code>claude</code>, <code>cursor</code>, <code>copilot</code>, <code>windsurf</code>, <code>cline</code>, <code>roo</code>, <code>codex</code>, <code>gemini</code>, or <code>all</code>):</p>
 <ul>
-<li><strong>Cursor</strong>: Paste the instructions into <code>.cursorrules</code> or <code>.cursor/rules/drawlib.md</code>.</li>
-<li><strong>Claude Code</strong>: Add instructions to your project's <code>CLAUDE.md</code>.</li>
-<li><strong>Gemini / Generic Agents</strong>: Place instructions in <code>.agents/rules/drawlib.md</code>.</li>
+<li><strong>Antigravity</strong>: Generates <code>.agents/rules/drawlib.md</code>.</li>
+<li><strong>Claude Code / Cursor / GitHub Copilot</strong>: Generates <code>.claude/rules/drawlib.md</code>, <code>.cursor/rules/drawlib.mdc</code>, or <code>.github/instructions/drawlib.instructions.md</code>.</li>
+<li><strong>Codex / Gemini (<code>AGENTS.md</code> / <code>GEMINI.md</code>)</strong>: Non-destructively merges a Drawlib rule section into <code>AGENTS.md</code> or <code>GEMINI.md</code>.</li>
 </ul>
-<p>You can dump the official agent instruction template directly using the CLI:</p>
-<pre><code class="language-bash"><span class="c1"># Display the bootstrap agent manual</span>
+<pre><code class="language-bash"><span class="c1"># List supported AI coding agents and target rule paths</span>
+$<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>agent<span class="w"> </span>list
+
+<span class="c1"># Auto-detect configured AI agents in your repository (or specify targets explicitly)</span>
+$<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>agent<span class="w"> </span>--detect
+$<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>agent<span class="w"> </span>antigravity
+$<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>agent<span class="w"> </span>claude<span class="w"> </span>cursor<span class="w"> </span>copilot
+
+<span class="c1"># Display the bootstrap agent manual directly in stdout</span>
 $<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>rules<span class="w"> </span>show<span class="w"> </span>agent-instruction
 </code></pre>
-<h3>2. Project-First Rule (<code>drawlib init</code>)</h3>
-<p>Teach your agent to <strong>never create bare <code>.py</code> files in an uninitialized directory</strong> or build project folders manually. Always scaffold a Drawlib project first so <code>styles.py</code> (theme &amp; language fonts), <code>utils.py</code>, <code>_assets/</code>, and <code>build.sh</code> are properly configured:</p>
+<h3>2. Project-First Rule (<code>drawlib init project</code>)</h3>
+<p>Teach your agent to <strong>never create bare <code>.py</code> files in an uninitialized directory</strong> or build project folders manually. Always scaffold a Drawlib project first so <code>drawlib.toml</code>, <code>styles.py</code> (theme &amp; language fonts), <code>utils.py</code>, <code>_assets/</code>, and <code>build.sh</code> are properly configured:</p>
 <pre><code class="language-bash"><span class="c1"># Standalone diagram image(s) only -&gt; images_src/*.py -&gt; images/*.png</span>
-$<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>images<span class="w"> </span><span class="o">[</span>-l<span class="w"> </span>&lt;lang&gt;<span class="o">]</span><span class="w"> </span><span class="o">[</span>-s<span class="w"> </span>&lt;style&gt;<span class="o">]</span>
+$<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>project<span class="w"> </span>images<span class="w"> </span><span class="o">[</span>-l<span class="w"> </span>&lt;lang&gt;<span class="o">]</span><span class="w"> </span><span class="o">[</span>-s<span class="w"> </span>&lt;style&gt;<span class="o">]</span>
 
-<span class="c1"># Linear technical document / RFC / PDF -&gt; doc_src/*.md</span>
-$<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>doc<span class="w"> </span><span class="o">[</span>target<span class="o">]</span><span class="w"> </span><span class="o">[</span>-l<span class="w"> </span>&lt;lang&gt;<span class="o">]</span><span class="w"> </span><span class="o">[</span>-s<span class="w"> </span>&lt;style&gt;<span class="o">]</span>
+<span class="c1"># Linear technical document / RFC / PDF / Word -&gt; doc_src/&lt;lang&gt;/*.md</span>
+$<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>project<span class="w"> </span>doc<span class="w"> </span><span class="o">[</span>target<span class="o">]</span><span class="w"> </span><span class="o">[</span>-l<span class="w"> </span>&lt;langs&gt;<span class="o">]</span><span class="w"> </span><span class="o">[</span>-s<span class="w"> </span>&lt;style&gt;<span class="o">]</span>
 
-<span class="c1"># Multi-page documentation website -&gt; docs_src/**/*.md</span>
-$<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>site<span class="w"> </span><span class="o">[</span>target<span class="o">]</span><span class="w"> </span><span class="o">[</span>-l<span class="w"> </span>&lt;lang&gt;<span class="o">]</span><span class="w"> </span><span class="o">[</span>-s<span class="w"> </span>&lt;style&gt;<span class="o">]</span>
+<span class="c1"># Multi-page documentation website -&gt; docs_src/&lt;lang&gt;/**/*.md</span>
+$<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>project<span class="w"> </span>site<span class="w"> </span><span class="o">[</span>target<span class="o">]</span><span class="w"> </span><span class="o">[</span>-l<span class="w"> </span>&lt;langs&gt;<span class="o">]</span><span class="w"> </span><span class="o">[</span>-s<span class="w"> </span>&lt;style&gt;<span class="o">]</span>
 
-<span class="c1"># 16:9 presentation slide deck -&gt; slide_src/*.md</span>
-$<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>slide<span class="w"> </span><span class="o">[</span>target<span class="o">]</span><span class="w"> </span><span class="o">[</span>-l<span class="w"> </span>&lt;lang&gt;<span class="o">]</span><span class="w"> </span><span class="o">[</span>-s<span class="w"> </span>&lt;style&gt;<span class="o">]</span>
+<span class="c1"># 16:9 presentation slide deck / PowerPoint -&gt; slide_src/&lt;lang&gt;/*.md</span>
+$<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>project<span class="w"> </span>slide<span class="w"> </span><span class="o">[</span>target<span class="o">]</span><span class="w"> </span><span class="o">[</span>-l<span class="w"> </span>&lt;langs&gt;<span class="o">]</span><span class="w"> </span><span class="o">[</span>-s<span class="w"> </span>&lt;style&gt;<span class="o">]</span>
 </code></pre>
 <h3>3. Essential Commands &amp; On-Demand Rules Catalog</h3>
 <p>Ensure your agent knows how to query on-demand rule topics and preview drawings with a coordinate grid:</p>
@@ -722,7 +729,7 @@ $<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>dr
 <td style="text-align:left"><code>uv run drawlib rules show project-&lt;images|doc|site|slide&gt;</code></td>
 </tr>
 <tr>
-<td style="text-align:left"><strong>CLI Reference (<code>build</code>, <code>show</code>, <code>cache</code>)</strong></td>
+<td style="text-align:left"><strong>CLI Reference (<code>build</code>, <code>init</code>, <code>show</code>, <code>cache</code>)</strong></td>
 <td style="text-align:left"><code>uv run drawlib rules show cli</code></td>
 </tr>
 <tr>
@@ -816,7 +823,7 @@ $<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>dr
 </details>
 <ol>
 <li><strong>Inspect Context</strong>: The agent inspects actual repository files (models, API routers, database schemas) to understand the architecture.</li>
-<li><strong>Draft Illustration</strong>: The agent scaffolds a project via <code>drawlib init</code> (if not already present) and authors the drawing code in <code>images_src/&lt;name&gt;.py</code> or an embedded <code>drawlib</code> Markdown block with <code>file:&lt;diagram.png&gt;</code>.</li>
+<li><strong>Draft Illustration</strong>: The agent scaffolds a project via <code>drawlib init project</code> (if not already present) and authors the drawing code in <code>images_src/&lt;name&gt;.py</code> or an embedded <code>drawlib</code> Markdown block with <code>file=&lt;diagram.png&gt;</code>.</li>
 <li><strong>Render Image with Grid (<code>-g</code>)</strong>:<br />
 <code>uv run drawlib show &lt;md_path&gt; &lt;diagram.png&gt; -g -o .drawlib/scratch/preview.png</code> (or <code>uv run drawlib show images_src/&lt;name&gt;.py -g -o .drawlib/scratch/preview.png</code>).</li>
 <li><strong>Multimodal Self-Review</strong>: The agent inspects the rendered PNG with its vision/file viewing tool, checking for:

@@ -134,7 +134,7 @@ save()
 
 ## 3. プロジェクトスターターテンプレート
 
-ドキュメント用ディレクトリを手動で一から構築しないでください。`drawlib init` でスキャフォールディングすることで、適切なディレクトリ構成と設定スクリプトが確実にセットアップされます。
+ドキュメント用ディレクトリを手動で一から構築しないでください。`drawlib init project` でスキャフォールディングすることで、適切なディレクトリ構成と設定スクリプトが確実にセットアップされます。
 
 | テンプレート | ソースディレクトリ | 主な出力先 | 主な用途 |
 |---|---|---|---|
@@ -249,10 +249,10 @@ save()
 
 | プロジェクトテンプレート | 並列サブエージェントの担当単位 | フェーズ 1: 親オーケストレータの初期構築 | フェーズ 2: 並列サブエージェントの実行 | フェーズ 3: 親エージェントの統合完了処理 |
 | :--- | :--- | :--- | :--- | :--- |
-| **`doc`** | 連番付きの章ファイル（`doc_src/<lang>/01_*.md`、`02_*.md` など） | `drawlib init doc`、`styles.py`、`utils.py`、`<lang>/00_cover.md`、章構成の作成 | 担当章の執筆と `drawlib show ... -g -o .drawlib/scratch/0N_<fig>_grid.png` の実行 | `./doc_src/build.sh`（または `build docx`）を実行し、`doc_<lang>.pdf` / `doc_html/` を確認 |
-| **`site`** | トピックページまたはセクションフォルダ（`docs_src/<lang>/01_arch/*.md` など） | `drawlib init site`、`styles.py`、`utils.py`、`<lang>/navbar.md`、`<lang>/index.md` の設定 | 担当ページの執筆と、一意のスクラッチファイル名を用いた Stage 1 + Stage 2 グリッド検証 | `./docs_src/build.sh`、`serve --check`、およびブラウザ確認を実行 |
-| **`slide`** | スライドファイル（`slide_src/<lang>/02_*.md` など）またはセクションディレクトリ | `drawlib init slide`、`styles.py`、`utils.py`、ストーリー構成とスライド連番の設計 | 担当スライド（`::: block` + `::: note`）の執筆と Stage 1 + Stage 2 グリッド検証 | `./slide_src/build.sh`（または `build pptx`）を実行し、`slide_<lang>.pdf` / `1920x1080` ステージを確認 |
-| **`images`** | スタンドアロン Python スクリプト（`images_src/<name>.py`） | `drawlib init images`、`styles.py`、`utils.py`、`_assets/` の準備 | 担当 `.py` スクリプトの作成と `drawlib show ... -g -o .drawlib/scratch/<script>_grid.png` の実行 | `./images_src/build.sh` を実行し、`images/*.png` を確認 |
+| **`doc`** | 連番付きの章ファイル（`doc_src/<lang>/01_*.md`、`02_*.md` など） | `drawlib init project doc`、`styles.py`、`utils.py`、`<lang>/00_cover.md`、章構成の作成 | 担当章の執筆と `drawlib show ... -g -o .drawlib/scratch/0N_<fig>_grid.png` の実行 | `./doc_src/build.sh`（または `build docx`）を実行し、`doc_<lang>.pdf` / `doc_html/` を確認 |
+| **`site`** | トピックページまたはセクションフォルダ（`docs_src/<lang>/01_arch/*.md` など） | `drawlib init project site`、`styles.py`、`utils.py`、`<lang>/navbar.md`、`<lang>/index.md` の設定 | 担当ページの執筆と、一意のスクラッチファイル名を用いた Stage 1 + Stage 2 グリッド検証 | `./docs_src/build.sh`、`serve --check`、およびブラウザ確認を実行 |
+| **`slide`** | スライドファイル（`slide_src/<lang>/02_*.md` など）またはセクションディレクトリ | `drawlib init project slide`、`styles.py`、`utils.py`、ストーリー構成とスライド連番の設計 | 担当スライド（`::: block` + `::: note`）の執筆と Stage 1 + Stage 2 グリッド検証 | `./slide_src/build.sh`（または `build pptx`）を実行し、`slide_<lang>.pdf` / `1920x1080` ステージを確認 |
+| **`images`** | スタンドアロン Python スクリプト（`images_src/<name>.py`） | `drawlib init project images`、`styles.py`、`utils.py`、`_assets/` の準備 | 担当 `.py` スクリプトの作成と `drawlib show ... -g -o .drawlib/scratch/<script>_grid.png` の実行 | `./images_src/build.sh` を実行し、`images/*.png` を確認 |
 
 ### サブエージェント並列実行時のガードレール:
 1. **共有ファイルは読み取り専用として扱う**: サブエージェントは `drawlib.toml`、`styles.py`、`utils.py`、`<lang>/navbar.md` を読み取り専用として扱い、自身に割り当てられた `.md` または `.py` ファイルのみを編集します。
@@ -265,7 +265,7 @@ save()
 
 各ビルダサブシステムの詳細は、以下のページを参照してください。
 - [Markdown コードブロック構文](./code_blocks.md): コードフェンス構文、表示モード（`code=show`、`code=fold`）、配置、キャプション指定。
-- [CLI リファレンス](./cli_reference.md): `build`（`html`、`markdown`、`pdf`、`docx`、`slide`、`pptx`、`image`）、`serve`、`show`、`init`、`cache`、`css`、`colors`、`styles`、`rules` の完全リファレンス。
+- [CLI リファレンス](./cli_reference.md): `build`（`html`、`markdown`、`pdf`、`docx`、`slide`、`pptx`、`image`）、`serve`、`show`、`init`（`project`、`agent`）、`cache`、`css`、`colors`、`styles`、`rules` の完全リファレンス。
 - [リニアドキュメントプロジェクト (`doc`)](./project_doc.md): RFC、仕様書、ホワイトペーパーなどのリニアドキュメント作成と、HTML / PDF / Word（`.docx`）出力。
 - [ドキュメントサイトプロジェクト (`site`)](./project_site.md): マルチページ構成のドキュメントサイト執筆、サイドバーカテゴリ設計、リンク検証。
 - [スライドデッキプロジェクト (`slide`)](./project_slide.md): インタラクティブ Web スライド、ベクター PDF、PowerPoint（`.pptx`）出力に対応した 16:9 プレゼンテーションスライドの作成。

@@ -1,4 +1,4 @@
-# 画像プロジェクトガイド (`drawlib init images`)
+# 画像プロジェクトガイド (`drawlib init project images`)
 
 `images` スターターテンプレート（CLI 別名: `image`）は、バッチ Python スクリプトから単体のイラストアセット、プレゼンテーション用図解、記事のヒーローバナー、ソーシャルプレビューカードを直接一括生成するために設計されています。
 
@@ -159,14 +159,14 @@ save()
 
 ## 2. プロジェクトの初期化
 
-`drawlib init` を使用して新しい画像プロジェクトをスキャフォールディングします。
+`drawlib init project` を使用して新しい画像プロジェクトをスキャフォールディングします。
 
 ```bash
 # Scaffold standard images project in current directory (creates 'images_src/'):
-drawlib init images
+drawlib init project images
 
 # Or with custom target name, theme, and language (creates 'my_assets_src/'):
-drawlib init images my_assets -s google -l en
+drawlib init project images my_assets -s google -l en
 ```
 
 ---
@@ -266,6 +266,6 @@ drawlib build image images_src/ -o images/ -s images_src/styles.py -u images_src
 ## 6. マルチエージェントによる並列スクリプト執筆
 
 `images_src/` 内の各 `.py` スクリプトは互いに独立しているため、AI コーディングエージェントはサブエージェント間でスクリプトを分担して複数の図解を並列に生成できます。
-1. **フェーズ 1（親エージェントによる初期設定）**: 最初に `drawlib init images` を実行し、共有の `images_src/styles.py`、`images_src/utils.py`、および `_assets/` を設定します。
+1. **フェーズ 1（親エージェントによる初期設定）**: 最初に `drawlib init project images` を実行し、共有の `images_src/styles.py`、`images_src/utils.py`、および `_assets/` を設定します。
 2. **フェーズ 2（サブエージェントによる並列執筆）**: 各サブエージェントに重複しないスクリプト（`images_src/<name>.py`）を割り当てます。各サブエージェントは担当スクリプトを執筆し、他のサブエージェントと衝突しない **一意なスクラッチファイル名**（`uv run drawlib show images_src/<name>.py -s images_src/styles.py -u images_src/utils.py -g -o .drawlib/scratch/<name>_grid.png`）でグリッドプレビューを実行してレイアウトを検証します。
 3. **フェーズ 3（統合バッチビルド）**: すべてのサブエージェントが完了したら、親エージェントが `./images_src/build.sh` を 1 回実行し、全スクリプトを `images/` へ一括コンパイルします。

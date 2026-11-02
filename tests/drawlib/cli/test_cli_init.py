@@ -25,40 +25,54 @@ from tests.drawlib.cli.common import run_drawlib_cli
 
 
 def test_cli_init_list(tmp_path: Path) -> None:
-    """Test `drawlib init list` displays available project types and `-l`/`--list` are rejected."""
-    res1 = run_drawlib_cli(["init", "list"], cwd=str(tmp_path))
+    """Test `drawlib init project list` displays available project types and `-l`/`--list` are rejected."""
+    res1 = run_drawlib_cli(["init", "project", "list"], cwd=str(tmp_path))
     assert res1.returncode == 0
     assert "Available Drawlib Project Types:" in res1.stdout
     assert "doc" in res1.stdout
     assert "site" in res1.stdout
     assert "slide" in res1.stdout
     assert "images" in res1.stdout
+    assert "drawlib init project <type>" in res1.stdout
 
-    # Verify -l and --list are rejected
-    res2 = run_drawlib_cli(["init", "--list"], cwd=str(tmp_path))
-    assert res2.returncode != 0
-
-    res3 = run_drawlib_cli(["init", "-l"], cwd=str(tmp_path))
-    assert res3.returncode != 0
+    # Verify -l and --list are rejected on `init` and `init project`
+    for bad_args in (["init", "--list"], ["init", "-l"], ["init", "project", "--list"], ["init", "project", "-l"]):
+        res_bad = run_drawlib_cli(bad_args, cwd=str(tmp_path))
+        assert res_bad.returncode != 0
 
 
 def test_cli_init_no_args_shows_help(tmp_path: Path) -> None:
-    """Test `drawlib init` without arguments displays usage help."""
+    """Test `drawlib init` and `drawlib init project` without arguments display usage help."""
     res = run_drawlib_cli(["init"], cwd=str(tmp_path))
     assert res.returncode in {0, 2}
-    assert "Usage: drawlib init" in res.stdout or "Usage: drawlib init" in res.stderr
+    combined = res.stdout + res.stderr
+    assert "Usage: drawlib init" in combined
+    assert "project" in combined
+    assert "agent" in combined
+
+    res_proj = run_drawlib_cli(["init", "project"], cwd=str(tmp_path))
+    assert res_proj.returncode in {0, 2}
+    assert "Usage: drawlib init project" in (res_proj.stdout + res_proj.stderr)
+
+
+def test_cli_init_legacy_root_commands_rejected(tmp_path: Path) -> None:
+    """Verify abolished legacy root `drawlib init <doc|site|slide|images|image|list>` commands fail."""
+    for legacy_cmd in ("doc", "site", "slide", "images", "image", "list", "unknown"):
+        res = run_drawlib_cli(["init", legacy_cmd], cwd=str(tmp_path))
+        assert res.returncode != 0, f"Expected `drawlib init {legacy_cmd}` to fail"
+        assert "No such command" in res.stderr or "Error" in res.stderr
 
 
 def test_cli_init_unknown_type(tmp_path: Path) -> None:
-    """Test `drawlib init unknown` exits with error."""
-    res = run_drawlib_cli(["init", "unknown"], cwd=str(tmp_path))
+    """Test `drawlib init project unknown` exits with error."""
+    res = run_drawlib_cli(["init", "project", "unknown"], cwd=str(tmp_path))
     assert res.returncode != 0
     assert "No such command" in res.stderr or "Error" in res.stderr
 
 
 def test_cli_init_doc_default(tmp_path: Path) -> None:
     """Test scaffolding a doc project with default target ('doc_src/')."""
-    res = run_drawlib_cli(["init", "doc"], cwd=str(tmp_path))
+    res = run_drawlib_cli(["init", "project", "doc"], cwd=str(tmp_path))
     assert res.returncode == 0
     assert "Initialized 'doc' project ('doc_src/')" in res.stdout
 
@@ -104,7 +118,7 @@ def test_cli_init_doc_default(tmp_path: Path) -> None:
 
 def test_cli_init_site_default(tmp_path: Path) -> None:
     """Test scaffolding a documentation site project with default target ('docs_src/')."""
-    res = run_drawlib_cli(["init", "site"], cwd=str(tmp_path))
+    res = run_drawlib_cli(["init", "project", "site"], cwd=str(tmp_path))
     assert res.returncode == 0
     assert "Initialized 'site' project ('docs_src/')" in res.stdout
 
@@ -137,7 +151,7 @@ def test_cli_init_site_default(tmp_path: Path) -> None:
 
 def test_cli_init_slide_default(tmp_path: Path) -> None:
     """Test scaffolding a slide presentation project with default target ('slide_src/')."""
-    res = run_drawlib_cli(["init", "slide"], cwd=str(tmp_path))
+    res = run_drawlib_cli(["init", "project", "slide"], cwd=str(tmp_path))
     assert res.returncode == 0
     assert "Initialized 'slide' project ('slide_src/')" in res.stdout
 
@@ -172,7 +186,7 @@ def test_cli_init_slide_default(tmp_path: Path) -> None:
 
 def test_cli_init_images_default(tmp_path: Path) -> None:
     """Test scaffolding an images project with canonical name 'images'."""
-    res = run_drawlib_cli(["init", "images"], cwd=str(tmp_path))
+    res = run_drawlib_cli(["init", "project", "images"], cwd=str(tmp_path))
     assert res.returncode == 0
     assert "Initialized 'images' project ('images_src/')" in res.stdout
 
@@ -196,15 +210,15 @@ def test_cli_init_images_default(tmp_path: Path) -> None:
 
 
 def test_cli_init_image_alias(tmp_path: Path) -> None:
-    """Test legacy 'init image' alias creates images_src/ seamlessly."""
-    res = run_drawlib_cli(["init", "image"], cwd=str(tmp_path))
+    """Test singular 'init project image' alias creates images_src/ seamlessly."""
+    res = run_drawlib_cli(["init", "project", "image"], cwd=str(tmp_path))
     assert res.returncode == 0
     assert (tmp_path / "images_src" / "sample1.py").is_file()
 
 
 def test_cli_init_custom_target(tmp_path: Path) -> None:
     """Test scaffolding with custom target name."""
-    res = run_drawlib_cli(["init", "site", "manual"], cwd=str(tmp_path))
+    res = run_drawlib_cli(["init", "project", "site", "manual"], cwd=str(tmp_path))
     assert res.returncode == 0
     assert "Initialized 'site' project ('manual_src/')" in res.stdout
 
@@ -234,7 +248,7 @@ def _is_playwright_available() -> bool:
 @pytest.mark.skipif(sys.platform == "win32", reason="POSIX bash script execution")
 def test_cli_init_run_build_sh(tmp_path: Path) -> None:
     """Test executing the scaffolded build_html.sh, build_docx.sh, and build_pdf.sh scripts."""
-    res = run_drawlib_cli(["init", "doc"], cwd=str(tmp_path))
+    res = run_drawlib_cli(["init", "project", "doc"], cwd=str(tmp_path))
     assert res.returncode == 0
 
     build_sh = tmp_path / "doc_src" / "build_html.sh"
@@ -283,7 +297,7 @@ def test_cli_init_run_build_sh(tmp_path: Path) -> None:
         assert (tmp_path / "doc_en.pdf").is_file()
         assert not (tmp_path / "doc.pdf").exists()
 
-        res_slide = run_drawlib_cli(["init", "slide"], cwd=str(tmp_path))
+        res_slide = run_drawlib_cli(["init", "project", "slide"], cwd=str(tmp_path))
         assert res_slide.returncode == 0
         build_pptx_sh = tmp_path / "slide_src" / "build_pptx.sh"
         assert build_pptx_sh.is_file()
@@ -301,16 +315,16 @@ def test_cli_init_run_build_sh(tmp_path: Path) -> None:
 
 def test_cli_init_conflict_and_force(tmp_path: Path) -> None:
     """Test conflict detection and --force overwrite flag."""
-    res1 = run_drawlib_cli(["init", "doc"], cwd=str(tmp_path))
+    res1 = run_drawlib_cli(["init", "project", "doc"], cwd=str(tmp_path))
     assert res1.returncode == 0
 
     # Second run without force triggers FileExistsError because doc_src exists
-    res2 = run_drawlib_cli(["init", "doc"], cwd=str(tmp_path))
+    res2 = run_drawlib_cli(["init", "project", "doc"], cwd=str(tmp_path))
     assert res2.returncode == 1
     assert "already exists" in res2.stderr
 
     # With force succeeds
-    res3 = run_drawlib_cli(["init", "doc", "--force"], cwd=str(tmp_path))
+    res3 = run_drawlib_cli(["init", "project", "doc", "--force"], cwd=str(tmp_path))
     assert res3.returncode == 0
 
 
@@ -329,8 +343,8 @@ def test_python_api_init(tmp_path: Path) -> None:
 
 
 def test_cli_init_lang_ja(tmp_path: Path) -> None:
-    """Test `drawlib init site --lang ja` generates Japanese template assets."""
-    res = run_drawlib_cli(["init", "site", "--lang", "ja"], cwd=str(tmp_path))
+    """Test `drawlib init project site --lang ja` generates Japanese template assets."""
+    res = run_drawlib_cli(["init", "project", "site", "--lang", "ja"], cwd=str(tmp_path))
     assert res.returncode == 0
     assert "Initialized 'site' project" in res.stdout
 
@@ -357,8 +371,8 @@ def test_cli_init_lang_ja(tmp_path: Path) -> None:
 
 
 def test_cli_init_style_option_google(tmp_path: Path) -> None:
-    """Test `drawlib init site --style google` configures both style.css and styles.py."""
-    res = run_drawlib_cli(["init", "site", "--style", "google"], cwd=str(tmp_path))
+    """Test `drawlib init project site --style google` configures both style.css and styles.py."""
+    res = run_drawlib_cli(["init", "project", "site", "--style", "google"], cwd=str(tmp_path))
     assert res.returncode == 0
     assert "Initialized 'site' project" in res.stdout
 
@@ -376,8 +390,8 @@ def test_cli_init_style_option_google(tmp_path: Path) -> None:
 
 
 def test_cli_init_style_option_monochrome(tmp_path: Path) -> None:
-    """Test `drawlib init site -s monochrome` configures Monochrome styles."""
-    res = run_drawlib_cli(["init", "site", "-s", "monochrome"], cwd=str(tmp_path))
+    """Test `drawlib init project site -s monochrome` configures Monochrome styles."""
+    res = run_drawlib_cli(["init", "project", "site", "-s", "monochrome"], cwd=str(tmp_path))
     assert res.returncode == 0
 
     src_dir = tmp_path / "docs_src"
@@ -389,8 +403,8 @@ def test_cli_init_style_option_monochrome(tmp_path: Path) -> None:
 
 
 def test_cli_init_lang_ja_style_google(tmp_path: Path) -> None:
-    """Test `drawlib init site --lang ja -s google` applies font patch to GoogleStyles."""
-    res = run_drawlib_cli(["init", "site", "--lang", "ja", "-s", "google"], cwd=str(tmp_path))
+    """Test `drawlib init project site --lang ja -s google` applies font patch to GoogleStyles."""
+    res = run_drawlib_cli(["init", "project", "site", "--lang", "ja", "-s", "google"], cwd=str(tmp_path))
     assert res.returncode == 0
 
     src_dir = tmp_path / "docs_src"
@@ -403,8 +417,8 @@ def test_cli_init_lang_ja_style_google(tmp_path: Path) -> None:
 
 
 def test_cli_init_lang_th(tmp_path: Path) -> None:
-    """Test `drawlib init site --lang th` configures Thai locale, CSS font, and Jinja template."""
-    res = run_drawlib_cli(["init", "site", "--lang", "th"], cwd=str(tmp_path))
+    """Test `drawlib init project site --lang th` configures Thai locale, CSS font, and Jinja template."""
+    res = run_drawlib_cli(["init", "project", "site", "--lang", "th"], cwd=str(tmp_path))
     assert res.returncode == 0
     assert "Initialized 'site' project" in res.stdout
 
@@ -427,8 +441,8 @@ def test_cli_init_lang_th(tmp_path: Path) -> None:
 
 
 def test_cli_init_lang_invalid(tmp_path: Path) -> None:
-    """Test `drawlib init site --lang invalid` fails with helpful error."""
-    res = run_drawlib_cli(["init", "site", "--lang", "unknown_lang"], cwd=str(tmp_path))
+    """Test `drawlib init project site --lang invalid` fails with helpful error."""
+    res = run_drawlib_cli(["init", "project", "site", "--lang", "unknown_lang"], cwd=str(tmp_path))
     assert res.returncode != 0
     assert "Unsupported language 'unknown_lang'" in res.stderr
 
@@ -436,7 +450,7 @@ def test_cli_init_lang_invalid(tmp_path: Path) -> None:
 def test_cli_init_site_and_doc_multi_lang(tmp_path: Path) -> None:
     """Test unified i18n manifest/layout for doc, site, slide (single & multi-locale) and flat images."""
     for single_type, folder in [("doc", "s_doc"), ("site", "s_site"), ("slide", "s_slide")]:
-        res_single = run_drawlib_cli(["init", single_type, folder], cwd=str(tmp_path))
+        res_single = run_drawlib_cli(["init", "project", single_type, folder], cwd=str(tmp_path))
         assert res_single.returncode == 0
         manifest_text = (tmp_path / f"{folder}_src" / "drawlib.toml").read_text(encoding="utf-8")
         assert f'type = "{single_type}"' in manifest_text
@@ -446,7 +460,7 @@ def test_cli_init_site_and_doc_multi_lang(tmp_path: Path) -> None:
         assert '\nlang = "en"' not in manifest_text
         assert "[i18n.labels]" not in manifest_text
 
-    res_imgs = run_drawlib_cli(["init", "images", "s_imgs"], cwd=str(tmp_path))
+    res_imgs = run_drawlib_cli(["init", "project", "images", "s_imgs"], cwd=str(tmp_path))
     assert res_imgs.returncode == 0
     imgs_manifest = (tmp_path / "s_imgs_src" / "drawlib.toml").read_text(encoding="utf-8")
     assert 'type = "images"' in imgs_manifest
@@ -454,7 +468,7 @@ def test_cli_init_site_and_doc_multi_lang(tmp_path: Path) -> None:
     assert "[i18n]" not in imgs_manifest
     assert (tmp_path / "s_imgs_src" / "sample1.py").is_file()
 
-    res = run_drawlib_cli(["init", "site", "sub/portal", "-l", "en,ja"], cwd=str(tmp_path))
+    res = run_drawlib_cli(["init", "project", "site", "sub/portal", "-l", "en,ja"], cwd=str(tmp_path))
     assert res.returncode == 0
     assert "sub/portal_src/" in res.stdout
 
@@ -471,7 +485,10 @@ def test_cli_init_site_and_doc_multi_lang(tmp_path: Path) -> None:
     assert (src_dir / "en" / "navbar.md").is_file()
     assert (src_dir / "ja" / "navbar.md").is_file()
 
-    res_doc = run_drawlib_cli(["init", "doc", "sub/whitepaper", "-l", "en,ja", "-s", "google"], cwd=str(tmp_path))
+    res_doc = run_drawlib_cli(
+        ["init", "project", "doc", "sub/whitepaper", "-l", "en,ja", "-s", "google"],
+        cwd=str(tmp_path),
+    )
     assert res_doc.returncode == 0
     doc_dir = tmp_path / "sub" / "whitepaper_src"
     assert (doc_dir / "drawlib.toml").is_file()
@@ -486,7 +503,7 @@ def test_cli_init_site_and_doc_multi_lang(tmp_path: Path) -> None:
     assert (doc_dir / "ja" / "00_cover.md").is_file()
     assert not (doc_dir / "en" / "navbar.md").exists()
 
-    res_slide = run_drawlib_cli(["init", "slide", "sub/deck", "-l", "en,ja"], cwd=str(tmp_path))
+    res_slide = run_drawlib_cli(["init", "project", "slide", "sub/deck", "-l", "en,ja"], cwd=str(tmp_path))
     assert res_slide.returncode == 0
     slide_dir = tmp_path / "sub" / "deck_src"
     assert (slide_dir / "drawlib.toml").is_file()
@@ -506,6 +523,6 @@ def test_cli_init_site_and_doc_multi_lang(tmp_path: Path) -> None:
     assert (slide_dir / "ja" / "03_architecture.md").is_file()
 
     # Images multi-lang should fail cleanly
-    res_bad = run_drawlib_cli(["init", "images", "-l", "en,ja"], cwd=str(tmp_path))
+    res_bad = run_drawlib_cli(["init", "project", "images", "-l", "en,ja"], cwd=str(tmp_path))
     assert res_bad.returncode != 0
     assert "supported for 'doc', 'site', and 'slide' projects, not 'images'" in res_bad.stderr

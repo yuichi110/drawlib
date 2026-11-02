@@ -73,12 +73,12 @@ Author Markdown files with embedded ```` ```drawlib ```` code fences inside a un
 ![Multi-Locale Documentation and Slide Build Pipeline](docs/readme_images/07_doc_build_pipeline.png)
 
 - **Unified `drawlib.toml` & Multi-Locale (`<lang>/`) Architecture**: Configure project metadata, `[build]` flags, and `[i18n]` locales (`langs = ["en", "ja"]`) in `drawlib.toml` with built-in structural parity checks across `<src_dir>/<lang>/` trees and locale-suffixed deliverables (`*_<lang>.pdf`, `*_<lang>.docx`, `*_<lang>.pptx`).
-- **4 Project Scaffolds (`drawlib init <type>`)**:
-  - `drawlib init site [-l en,ja]`: Multi-page documentation website (`docs_html/` with language switcher, search, and sidebar TOC) and GitHub Markdown (`docs_markdown/`).
-  - `drawlib init doc [-l en,ja]`: Linear technical specification or whitepaper (`*_html/`, `*_markdown/`, vector `*_<lang>.pdf`, plus editable MS Word `*_<lang>.docx` via `drawlib build docx`).
-  - `drawlib init slide [-l en,ja]`: 16:9 presentation slide deck (`::: block` + `::: note` speaker notes) with native SVG typography, Presenter View, keyboard navigation (`slide_html/`), vector `slide_<lang>.pdf`, and editable MS PowerPoint `slide_<lang>.pptx` via `drawlib build pptx`.
-  - `drawlib init images`: Standalone batch Python illustration scripts (`images_src/` -> `images/`) backed by sub-millisecond `.drawlib/cache.db` incremental caching.
-- **AI Inner Loop & Human Outer Loop**: Built from the ground up for AI coding agents (Claude Code, Cursor, Gemini, Codex). Agents query `drawlib rules show <topic>` on demand, render headless coordinate-grid previews via `drawlib show -g`, and multimodally self-correct text clipping or layout defects—freeing engineers to focus on high-level architecture and review.
+- **4 Project Scaffolds (`drawlib init project <type>`)**:
+  - `drawlib init project site [-l en,ja]`: Multi-page documentation website (`docs_html/` with language switcher, search, and sidebar TOC) and GitHub Markdown (`docs_markdown/`).
+  - `drawlib init project doc [-l en,ja]`: Linear technical specification or whitepaper (`*_html/`, `*_markdown/`, vector `*_<lang>.pdf`, plus editable MS Word `*_<lang>.docx` via `drawlib build docx`).
+  - `drawlib init project slide [-l en,ja]`: 16:9 presentation slide deck (`::: block` + `::: note` speaker notes) with native SVG typography, Presenter View, keyboard navigation (`slide_html/`), vector `slide_<lang>.pdf`, and editable MS PowerPoint `slide_<lang>.pptx` via `drawlib build pptx`.
+  - `drawlib init project images`: Standalone batch Python illustration scripts (`images_src/` -> `images/`) backed by sub-millisecond `.drawlib/cache.db` incremental caching.
+- **AI Inner Loop & Human Outer Loop (`drawlib init agent <agent>`)**: Built from the ground up for AI coding agents (Claude Code, Cursor, Antigravity, Copilot, Windsurf, Cline, Roo, Codex, Gemini). Generate native workspace instruction files in one command (`drawlib init agent claude`), while agents query `drawlib rules show <topic>` on demand, render headless coordinate-grid previews via `drawlib show -g`, and multimodally self-correct text clipping or layout defects—freeing engineers to focus on high-level architecture and review.
 
 ---
 
@@ -154,10 +154,13 @@ Scaffold a multi-page documentation site, linear whitepaper, or 16:9 slide deck 
 
 ```bash
 # Initialize a bilingual multi-page documentation site in docs_src/ (en/ & ja/)
-drawlib init site -l en,ja
+drawlib init project site -l en,ja
 
 # Or initialize a 16:9 presentation slide deck in slide_src/
-drawlib init slide -l en,ja
+drawlib init project slide -l en,ja
+
+# Generate AI coding agent instructions for your IDE / CLI agent
+drawlib init agent claude
 ```
 
 Inside your Markdown files (`docs_src/en/index.md`), embed Python drawing blocks using the ```` ```drawlib ```` fence:
@@ -204,7 +207,8 @@ drawlib show docs_src/en/index.md service_routing.png -g -o preview_grid.png
 
 | Command | Description |
 | :--- | :--- |
-| `drawlib init <site\|doc\|slide\|images> [-l <langs>]` | Scaffold a documentation site, linear spec, 16:9 slide deck, or image project (`drawlib.toml`) |
+| `drawlib init project <site\|doc\|slide\|images\|list> [-l <langs>]` | Scaffold a documentation site, linear spec, 16:9 slide deck, or image project (`drawlib.toml`) |
+| `drawlib init agent <agent...\|all\|list> [-m <auto\|always>]` | Generate workspace rule/instruction files for AI coding agents (`claude`, `cursor`, `antigravity`, `copilot`, `windsurf`, `cline`, `roo`, `codex`, `gemini`) |
 | `drawlib build <html\|markdown\|pdf\|docx\|slide\|pptx\|image>` | Compile sources into HTML, Markdown, PDF, MS Word (`.docx`), HTML Slides, MS PowerPoint (`.pptx`), or PNG/APNG/WebP images |
 | `drawlib serve <html_dir> [--check]` | Start a local HTTP server for built HTML docs/slides with broken-link verification |
 | `drawlib show <file> [target] [-g]` | Render and inspect a single script or embedded Markdown diagram (with optional coordinate grid) |

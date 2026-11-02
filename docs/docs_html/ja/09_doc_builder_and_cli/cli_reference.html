@@ -649,7 +649,7 @@
 
 <span class="c1"># Top Row: Primary 4-Stage Authoring &amp; Publishing Pipeline</span>
 <span class="n">stages</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="p">(</span><span class="mf">18.5</span><span class="p">,</span> <span class="s2">"1. init"</span><span class="p">,</span> <span class="s2">"doc / site / slide"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">rocket_launch</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">18.5</span><span class="p">,</span> <span class="s2">"1. init"</span><span class="p">,</span> <span class="s2">"project / agent"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">rocket_launch</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">),</span>
     <span class="p">(</span><span class="mf">48.8</span><span class="p">,</span> <span class="s2">"2. show"</span><span class="p">,</span> <span class="s2">"-g grid / -o export"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">grid_four</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">),</span>
     <span class="p">(</span><span class="mf">79.2</span><span class="p">,</span> <span class="s2">"3. build"</span><span class="p">,</span> <span class="s2">"html / pdf / office"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">hammer</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">),</span>
     <span class="p">(</span><span class="mf">109.5</span><span class="p">,</span> <span class="s2">"4. serve"</span><span class="p">,</span> <span class="s2">"--check link audit"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">eye</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">),</span>
@@ -703,12 +703,15 @@ drawlib<span class="w"> </span>build<span class="w"> </span>slide<span class="w"
 drawlib<span class="w"> </span>build<span class="w"> </span>pptx<span class="w"> </span>slide_src/<span class="w"> </span>-o<span class="w"> </span>deck.pptx<span class="w">                  </span><span class="c1"># Editable 16:9 MS PowerPoint (.pptx) deck</span>
 drawlib<span class="w"> </span>build<span class="w"> </span>image<span class="w"> </span>scripts/<span class="w"> </span>-o<span class="w"> </span>assets/<span class="w"> </span>-g<span class="w">                  </span><span class="c1"># Batch Python image rendering</span>
 
-<span class="c1"># Scaffolding</span>
-drawlib<span class="w"> </span>init<span class="w"> </span>list<span class="w">                                          </span><span class="c1"># List starter project templates (site, doc, slide, images)</span>
-drawlib<span class="w"> </span>init<span class="w"> </span>doc<span class="w"> </span>my_doc<span class="w">                                    </span><span class="c1"># Scaffold linear document project (HTML, PDF, DOCX, MD, images)</span>
-drawlib<span class="w"> </span>init<span class="w"> </span>site<span class="w"> </span>my_site<span class="w">                                  </span><span class="c1"># Scaffold documentation site</span>
-drawlib<span class="w"> </span>init<span class="w"> </span>slide<span class="w"> </span>my_deck<span class="w"> </span>-s<span class="w"> </span>google<span class="w">                       </span><span class="c1"># Scaffold 16:9 presentation slide deck</span>
-drawlib<span class="w"> </span>init<span class="w"> </span>images<span class="w"> </span>my_images<span class="w">                              </span><span class="c1"># Scaffold standalone images project (alias: image)</span>
+<span class="c1"># Scaffolding &amp; AI Agent Rules</span>
+drawlib<span class="w"> </span>init<span class="w"> </span>project<span class="w"> </span>list<span class="w">                                  </span><span class="c1"># List starter project templates (site, doc, slide, images)</span>
+drawlib<span class="w"> </span>init<span class="w"> </span>project<span class="w"> </span>doc<span class="w"> </span>my_doc<span class="w">                            </span><span class="c1"># Scaffold linear document project (HTML, PDF, DOCX, MD, images)</span>
+drawlib<span class="w"> </span>init<span class="w"> </span>project<span class="w"> </span>site<span class="w"> </span>my_site<span class="w">                          </span><span class="c1"># Scaffold documentation site</span>
+drawlib<span class="w"> </span>init<span class="w"> </span>project<span class="w"> </span>slide<span class="w"> </span>my_deck<span class="w"> </span>-s<span class="w"> </span>google<span class="w">               </span><span class="c1"># Scaffold 16:9 presentation slide deck</span>
+drawlib<span class="w"> </span>init<span class="w"> </span>project<span class="w"> </span>images<span class="w"> </span>my_images<span class="w">                      </span><span class="c1"># Scaffold standalone images project (alias: image)</span>
+drawlib<span class="w"> </span>init<span class="w"> </span>agent<span class="w"> </span>list<span class="w">                                    </span><span class="c1"># List supported AI coding agent targets and output paths</span>
+drawlib<span class="w"> </span>init<span class="w"> </span>agent<span class="w"> </span>antigravity<span class="w">                             </span><span class="c1"># Generate AI agent rules (.agents/rules/drawlib.md, mode: auto)</span>
+drawlib<span class="w"> </span>init<span class="w"> </span>agent<span class="w"> </span>--detect<span class="w">                                </span><span class="c1"># Auto-detect configured AI agents in repo and generate rules</span>
 
 <span class="c1"># Inspection &amp; Preview</span>
 drawlib<span class="w"> </span>show<span class="w"> </span>doc.md<span class="w">                                        </span><span class="c1"># List all drawlib code blocks in doc.md</span>
@@ -1186,9 +1189,11 @@ drawlib<span class="w"> </span>rules<span class="w"> </span>list<span class="w">
 </ul>
 <hr />
 <h2>5. スキャフォールディングサブシステム（<code>drawlib init</code>）</h2>
-<p>標準化されたフォルダ構成、設定スクリプト、ビルド自動化スクリプトを備えた新規プロジェクトを初期生成します。</p>
-<pre><code class="language-bash">drawlib<span class="w"> </span>init<span class="w"> </span>&lt;TYPE&gt;<span class="w"> </span><span class="o">[</span>target<span class="o">]</span><span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span>
-drawlib<span class="w"> </span>init<span class="w"> </span>list
+<p>スタータープロジェクトの初期構築（<code>drawlib init project</code>）と、AI コーディングエージェント向け指示ファイルの生成（<code>drawlib init agent</code>）を提供します。両サブコマンドグループは、<a href="../10_ai_agents_and_advanced/programmatic_api.html"><code>drawlib.tools</code></a> モジュール（<code>init_project()</code>、<code>list_project_types()</code>、<code>init_agent_instruction()</code>、<code>list_agent_targets()</code>、<code>detect_agent_targets()</code>）からプログラマティックに呼び出すことも可能です。</p>
+<h3>5.1 プロジェクトのスキャフォールディング（<code>drawlib init project</code>）</h3>
+<p>標準化されたフォルダ構成、設定マニフェスト（<code>drawlib.toml</code>）、実行可能なビルドスクリプトを備えた新規プロジェクトを初期生成します。</p>
+<pre><code class="language-bash">drawlib<span class="w"> </span>init<span class="w"> </span>project<span class="w"> </span>&lt;TYPE&gt;<span class="w"> </span><span class="o">[</span>target<span class="o">]</span><span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span>
+drawlib<span class="w"> </span>init<span class="w"> </span>project<span class="w"> </span>list
 </code></pre>
 <ul>
 <li><code>&lt;TYPE&gt;</code>: プロジェクト種別を選択するサブコマンド: <code>doc</code>、<code>site</code>、<code>slide</code>（すべて統一された <code>&lt;src_dir&gt;/&lt;lang&gt;/</code> ロケールディレクトリと <code>drawlib.toml</code> の <code>[i18n]</code> で初期化）、<code>images</code>（エイリアス: <code>image</code>）、または <code>list</code>。</li>
@@ -1196,6 +1201,22 @@ drawlib<span class="w"> </span>init<span class="w"> </span>list
 <li><code>-s</code>, <code>--style &lt;theme&gt;</code>: スタイルプリセットテーマ（<code>default</code>、<code>google</code>、<code>monochrome</code> など）。<code>style.css</code> と <code>styles.py</code> の両方を同期して設定します。</li>
 <li><code>-l</code>, <code>--lang &lt;code&gt;</code>: スターターコンテンツおよびフォント設定の言語（<code>en</code>、<code>ja</code>、<code>zh-cn</code>、<code>ko</code>、<code>th</code>、<code>hi</code> など。<code>doc</code>、<code>site</code>、<code>slide</code> では <code>-l en,ja</code> のようなカンマ区切りの複数ロケール指定に対応）。デフォルト: <code>en</code>。</li>
 <li><code>-f</code>, <code>--force</code>: 出力先ディレクトリが既に存在する場合に既存ファイルを上書きします。</li>
+</ul>
+<h3>5.2 AI コーディングエージェント指示ファイル生成（<code>drawlib init agent</code>）</h3>
+<p>各 AI コーディングエージェント固有の YAML / MDC フロントマターや非破壊マーカーブロックを備えた Drawlib 指示ファイルを生成します（エイリアスサブコマンド: <code>agents</code>）。</p>
+<pre><code class="language-bash">drawlib<span class="w"> </span>init<span class="w"> </span>agent<span class="w"> </span>&lt;AGENT...&gt;<span class="w"> </span><span class="o">[</span>-m<span class="w"> </span>auto<span class="p">|</span>always<span class="o">]</span><span class="w"> </span><span class="o">[</span>-g<span class="o">]</span><span class="w"> </span><span class="o">[</span>-d<span class="w"> </span>&lt;dir&gt;<span class="o">]</span><span class="w"> </span><span class="o">[</span>-o<span class="w"> </span>&lt;file&gt;<span class="o">]</span><span class="w"> </span><span class="o">[</span>-f<span class="o">]</span>
+drawlib<span class="w"> </span>init<span class="w"> </span>agent<span class="w"> </span>--detect<span class="w"> </span><span class="o">[</span>-m<span class="w"> </span>auto<span class="p">|</span>always<span class="o">]</span><span class="w"> </span><span class="o">[</span>-d<span class="w"> </span>&lt;dir&gt;<span class="o">]</span><span class="w"> </span><span class="o">[</span>-f<span class="o">]</span>
+drawlib<span class="w"> </span>init<span class="w"> </span>agent<span class="w"> </span>list
+</code></pre>
+<ul>
+<li><code>&lt;AGENT...&gt;</code>: 対応ターゲット: <code>antigravity</code>（<code>.agents/rules/drawlib.md</code>）、<code>claude</code>（<code>.claude/rules/drawlib.md</code>）、<code>cursor</code>（<code>.cursor/rules/drawlib.mdc</code>）、<code>copilot</code>（<code>.github/instructions/drawlib.instructions.md</code>）、<code>windsurf</code>（<code>.windsurf/rules/drawlib.md</code>）、<code>cline</code>（<code>.clinerules/drawlib.md</code>）、<code>roo</code>（<code>.roo/rules/drawlib.md</code>）、<code>codex</code> / <code>agents-md</code>（<code>AGENTS.md</code>）、<code>gemini</code> / <code>gemini-md</code>（<code>GEMINI.md</code>）、<code>all</code>（モジュール分離型7種を一括生成）、または <code>list</code>。</li>
+<li><code>-m</code>, <code>--mode &lt;auto|always&gt;</code>: トリガーモード（<code>auto</code>［既定］: タスクに応じたオンデマンド読込、<code>always</code>: 常時読込）。</li>
+<li><code>-g</code>, <code>--global</code>: プロジェクト配下ではなくユーザーホーム配下のグローバル設定ディレクトリへ出力します。</li>
+<li><code>--detect</code>: ワークスペース内の既存 AI エージェント設定ディレクトリやファイルを自動検出して生成します。</li>
+<li><code>--list</code>（または <code>list</code>）: 対応 AI エージェント一覧、出力先パス、フォーマットを表示します。</li>
+<li><code>-d</code>, <code>--dir &lt;dir&gt;</code>: 対象プロジェクトのワークスペースルートディレクトリ（既定: <code>.</code>）。</li>
+<li><code>-o</code>, <code>--output &lt;file&gt;</code>: 明示的な出力先ファイルパス（単一エージェント指定時のみ有効）。</li>
+<li><code>-f</code>, <code>--force</code>: 既存のルールファイルを上書き、または既存の Drawlib マーカーブロックを更新します。</li>
 </ul>
 <hr />
 <h2>6. 単一図解の抽出とプレビュー（<code>drawlib show</code>）</h2>

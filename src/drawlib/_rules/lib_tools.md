@@ -23,9 +23,13 @@ from drawlib.tools import (
     detect_document_type,
     export_code_block,
     show_code_block,
-    # Project Scaffolding, Local Server, Cache, & CSS Presets
+    # Project Scaffolding, AI Agent Rules, Local Server, Cache, & CSS Presets
     init_project,
     list_project_types,
+    init_agent_instruction,
+    list_agent_targets,
+    detect_agent_targets,
+    get_agent_instruction,
     serve_docs,
     scan_broken_links,
     list_cache,
@@ -227,6 +231,36 @@ init_project(
     style="google",
     force=False,
 )
+```
+
+### 4.2. AI Coding Agent Instructions (`init_agent_instruction`)
+Generates tool-idiomatic Drawlib instruction files (with YAML/MDC frontmatter or non-destructive HTML comment markers) for Antigravity, Claude Code, Cursor, GitHub Copilot, Windsurf, Cline, Roo Code, OpenAI Codex (`AGENTS.md`), and Gemini CLI (`GEMINI.md`):
+
+```python
+from drawlib.tools import (
+    detect_agent_targets,
+    get_agent_instruction,
+    init_agent_instruction,
+    list_agent_targets,
+)
+
+# Inspect supported AI coding agent targets:
+targets = list_agent_targets()
+
+# Detect existing agent config directories/files in a workspace:
+detected = detect_agent_targets(".")  # e.g. ["antigravity", "claude"]
+
+# Generate .agents/rules/drawlib.md (default mode="auto" for on-demand loading):
+written = init_agent_instruction(
+    agent=["antigravity", "claude"],
+    destination=".",
+    mode="auto",      # "auto" (on-demand) or "always" (always-on)
+    global_scope=False,
+    force=False,
+)
+
+# Render instruction Markdown string in memory:
+md_text = get_agent_instruction("cursor", mode="auto")
 ```
 
 ---

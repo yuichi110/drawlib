@@ -562,9 +562,9 @@ save()
 
 Rather than keeping brand assets isolated in a design repository, Drawlib integrates the official favicon into the framework itself:
 
-1. **Automatic Scaffolding (`drawlib init`)**:
+1. **Automatic Scaffolding (`drawlib init project`)**:
    - The master $512 \times 512$ favicon is packaged inside `src/drawlib/_templates/project/_assets/favicon.png`.
-   - When developers scaffold a new project (`drawlib init site`, `drawlib init doc`, or `drawlib init slide`), `_assets/favicon.png` is automatically copied into `<target>_src/_assets/`.
+   - When developers scaffold a new project (`drawlib init project site`, `drawlib init project doc`, or `drawlib init project slide`), `_assets/favicon.png` is automatically copied into `<target>_src/_assets/`.
 2. **Automated Relative Path Resolution**:
    - The HTML documentation compiler (`drawlib build html`) automatically inspects the destination hierarchy.
    - For root pages (`index.html`), it links `_assets/favicon.png`.

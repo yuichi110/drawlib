@@ -1,4 +1,4 @@
-# Site Project Guide (`drawlib init site`)
+# Site Project Guide (`drawlib init project site`)
 
 The `site` starter template builds a responsive multi-page technical documentation website with hierarchical sidebar navigation, mobile-responsive layout, syntax highlighting, and dual publishing to static HTML and GitHub-ready Markdown.
 
@@ -94,7 +94,7 @@ save()
 
 ## 1. End-to-End Project Workflow
 
-From initial `drawlib init site` scaffolding and `navbar.md` sidebar setup to `-g` grid inspection, headless link validation (`drawlib serve --check`), and Day-2 incremental page additions backed by `.drawlib/cache.db`:
+From initial `drawlib init project site` scaffolding and `navbar.md` sidebar setup to `-g` grid inspection, headless link validation (`drawlib serve --check`), and Day-2 incremental page additions backed by `.drawlib/cache.db`:
 
 ```drawlib align=center file=project_site_workflow_tour.png caption="Multi-Page Website Project Lifecycle: Scaffolding, Navbar & Pages, Link Audit, and Day-2 Page Addition (APNG Animation)"
 from __future__ import annotations
@@ -544,10 +544,10 @@ with anim.frame(duration=3.1):
     draw_workspace(
         active_part=1,
         actor="user",
-        actor_title="$ drawlib init site docs -s google",
+        actor_title="$ drawlib init project site docs -s google",
         actor_sub="Scaffold docs_src/en/, drawlib.toml & scripts",
         ops=[
-            ("user", "$ drawlib init site docs -s google", "active_user"),
+            ("user", "$ drawlib init project site docs -s google", "active_user"),
         ],
         show_day2_note=False,
         show_pages=False,
@@ -573,7 +573,7 @@ with anim.frame(duration=3.1):
         actor_title="Gemini: Configure theme in styles.py",
         actor_sub="Set Google brand palette, fonts & helpers",
         ops=[
-            ("user", "$ drawlib init site docs -s google", "done"),
+            ("user", "$ drawlib init project site docs -s google", "done"),
             ("gemini", "Edit docs_src/styles.py, utils.py", "active_gemini"),
         ],
         show_day2_note=False,
@@ -594,7 +594,7 @@ with anim.frame(duration=3.3):
         actor_title="Gemini: Organize sidebar in en/navbar.md",
         actor_sub="Define category headings & relative links",
         ops=[
-            ("user", "$ drawlib init site docs -s google", "done"),
+            ("user", "$ drawlib init project site docs -s google", "done"),
             ("gemini", "Edit docs_src/styles.py, utils.py", "done"),
             ("gemini", "Edit docs_src/en/navbar.md (sidebar)", "active_gemini"),
         ],
@@ -617,7 +617,7 @@ with anim.frame(duration=3.1):
         actor_title="Gemini: Author en/guide/arch.md & api/ref.md",
         actor_sub="Write pages with Top Hero ```drawlib blocks",
         ops=[
-            ("user", "$ drawlib init site docs -s google", "done"),
+            ("user", "$ drawlib init project site docs -s google", "done"),
             ("gemini", "Configure styles.py & en/navbar.md", "done"),
             ("gemini", "Author en/guide/arch.md & en/api/ref.md", "active_gemini"),
         ],
@@ -640,7 +640,7 @@ with anim.frame(duration=3.1):
         actor_title="$ drawlib show .../arch.md hero.png -g",
         actor_sub="Export -o .drawlib/scratch/grid.png preview",
         ops=[
-            ("user", "$ drawlib init site docs -s google", "done"),
+            ("user", "$ drawlib init project site docs -s google", "done"),
             ("gemini", "Configure styles.py & en/navbar.md", "done"),
             ("gemini", "Author en/guide/arch.md & en/api/ref.md", "done"),
             ("gemini", "$ drawlib show .../arch.md hero.png -g", "active_gemini"),
@@ -663,7 +663,7 @@ with anim.frame(duration=3.3):
         actor_title="Gemini: Layout & 16px parity verified",
         actor_sub="Zero clipping, clean margins & legible text",
         ops=[
-            ("user", "$ drawlib init site docs -s google", "done"),
+            ("user", "$ drawlib init project site docs -s google", "done"),
             ("gemini", "Configure styles.py & en/navbar.md", "done"),
             ("gemini", "Author en/guide/arch.md & en/api/ref.md", "done"),
             ("gemini", "$ drawlib show .../arch.md hero.png -g", "done"),
@@ -690,7 +690,7 @@ with anim.frame(duration=3.1):
         actor_title="$ ./docs_src/build.sh",
         actor_sub="Compile docs_html/en/ & docs_markdown/en/",
         ops=[
-            ("user", "$ drawlib init site docs -s google", "done"),
+            ("user", "$ drawlib init project site docs -s google", "done"),
             ("gemini", "Configure styles.py & en/navbar.md", "done"),
             ("gemini", "Author & grid-verify site pages", "done"),
             ("gemini", "$ ./docs_src/build.sh", "active_gemini"),
@@ -715,7 +715,7 @@ with anim.frame(duration=3.1):
         actor_title="$ drawlib serve docs_html/ --check",
         actor_sub="Headless audit verifies 0 broken links",
         ops=[
-            ("user", "$ drawlib init site docs -s google", "done"),
+            ("user", "$ drawlib init project site docs -s google", "done"),
             ("gemini", "Configure styles.py & en/navbar.md", "done"),
             ("gemini", "Author & grid-verify site pages", "done"),
             ("gemini", "$ ./docs_src/build.sh", "done"),
@@ -740,7 +740,7 @@ with anim.frame(duration=3.3):
         actor_title='User: $ git commit -m "Launch docs site"',
         actor_sub="Source Markdown & built portals versioned",
         ops=[
-            ("user", "$ drawlib init site docs -s google", "done"),
+            ("user", "$ drawlib init project site docs -s google", "done"),
             ("gemini", "Configure styles.py & en/navbar.md", "done"),
             ("gemini", "Author & grid-verify site pages", "done"),
             ("gemini", "$ ./docs_src/build.sh", "done"),
@@ -850,15 +850,15 @@ save()
 
 ## 2. Project Initialization
 
-Scaffold a documentation website using `drawlib init` (every `site` project uses the unified `<src_dir>/<lang>/` locale layout, even for a single language):
+Scaffold a documentation website using `drawlib init project` (every `site` project uses the unified `<src_dir>/<lang>/` locale layout, even for a single language):
 
 ```bash
 # Scaffold default 'docs_src/en/' in the current directory:
-drawlib init site
+drawlib init project site
 
 # Or specify a custom target prefix and single or multiple locales (creates 'my_docs_src/<lang>/'):
-drawlib init site my_docs --style google --lang en
-drawlib init site my_docs --style google --lang en,ja
+drawlib init project site my_docs --style google --lang en
+drawlib init project site my_docs --style google --lang en,ja
 ```
 
 ---
@@ -948,7 +948,7 @@ uv run drawlib serve docs_html/ --check
 ## 7. Parallel Multi-Agent Site Authoring
 
 Multi-page `site` projects (`docs_src/<lang>/**/*.md`) scale naturally across parallel AI subagents:
-1. **Phase 1 (Parent Setup)**: Scaffold `docs_src/` (`drawlib init site`) and finalize shared files (`drawlib.toml`, `styles.py`, `utils.py`, `_assets/`, `<lang>/index.md`, and the complete `<lang>/navbar.md` sidebar tree) before launching subagents.
+1. **Phase 1 (Parent Setup)**: Scaffold `docs_src/` (`drawlib init project site`) and finalize shared files (`drawlib.toml`, `styles.py`, `utils.py`, `_assets/`, `<lang>/index.md`, and the complete `<lang>/navbar.md` sidebar tree) before launching subagents.
 2. **Phase 2 (Parallel Subagents)**: Assign each subagent a disjoint page or section directory (e.g., `<lang>/01_architecture/*.md` vs. `<lang>/02_services/*.md`). Each subagent treats `drawlib.toml`, `styles.py`, `utils.py`, and `<lang>/navbar.md` as read-only, authors its assigned pages, and runs `-g` grid previews using unique scratch filenames (`-o .drawlib/scratch/<page>_<block>_grid.png`).
 3. **Phase 3 (Unified Build & Link Audit)**: Once all subagents finish, the parent agent runs `./docs_src/build.sh` once and verifies site-wide link integrity with `uv run drawlib serve docs_html/ --check`.
 
@@ -956,10 +956,10 @@ Multi-page `site` projects (`docs_src/<lang>/**/*.md`) scale naturally across pa
 
 ## 8. Unified `i18n` & Multi-Language Websites (`drawlib.toml`)
 
-Every `docs_src/` project is `i18n`-native out of the box (`langs = ["en"]` by default). Expanding a single-language portal into a multi-language site later requires zero `git mv` restructuring—pass comma-separated language codes to `drawlib init site` or add a locale directory (`docs_src/ja/`) and update `[i18n]` in `docs_src/drawlib.toml`:
+Every `docs_src/` project is `i18n`-native out of the box (`langs = ["en"]` by default). Expanding a single-language portal into a multi-language site later requires zero `git mv` restructuring—pass comma-separated language codes to `drawlib init project site` or add a locale directory (`docs_src/ja/`) and update `[i18n]` in `docs_src/drawlib.toml`:
 
 ```bash
-uv run drawlib init site docs -l en,ja -s default
+uv run drawlib init project site docs -l en,ja -s default
 ```
 
 ```toml

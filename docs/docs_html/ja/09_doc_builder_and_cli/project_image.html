@@ -13,7 +13,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>画像プロジェクトガイド (`drawlib init images`)</title>
+    <title>画像プロジェクトガイド (`drawlib init project images`)</title>
     <script>
         (function() {
             const saved = localStorage.getItem('drawlib-theme');
@@ -600,7 +600,7 @@
                 <div class="breadcrumbs">
                     <span class="crumb">Docs</span>
                     <span class="crumb-separator">&raquo;</span>
-                    <span class="crumb active">画像プロジェクトガイド (`drawlib init images`)</span>
+                    <span class="crumb active">画像プロジェクトガイド (`drawlib init project images`)</span>
                 </div>
                 
                 <div class="lang-switcher">
@@ -630,7 +630,7 @@
                 
             </header>
             <main class="main-content">
-                <h1>画像プロジェクトガイド (<code>drawlib init images</code>)</h1>
+                <h1>画像プロジェクトガイド (<code>drawlib init project images</code>)</h1>
 <p><code>images</code> スターターテンプレート（CLI 別名: <code>image</code>）は、バッチ Python スクリプトから単体のイラストアセット、プレゼンテーション用図解、記事のヒーローバナー、ソーシャルプレビューカードを直接一括生成するために設計されています。</p>
 <p>各プロジェクトでは、編集対象の Python ソーススクリプト（<code>images_src/</code>）と生成される画像成果物（<code>images/</code>）を明確に分離し、実行前の AST 重複衝突チェックと SHA-256 差分キャッシュによって保護します。</p>
 <figure class="drawlib-image" style="text-align: center;">
@@ -768,12 +768,12 @@
 </div>
 <hr />
 <h2>2. プロジェクトの初期化</h2>
-<p><code>drawlib init</code> を使用して新しい画像プロジェクトをスキャフォールディングします。</p>
+<p><code>drawlib init project</code> を使用して新しい画像プロジェクトをスキャフォールディングします。</p>
 <pre><code class="language-bash"><span class="c1"># Scaffold standard images project in current directory (creates 'images_src/'):</span>
-drawlib<span class="w"> </span>init<span class="w"> </span>images
+drawlib<span class="w"> </span>init<span class="w"> </span>project<span class="w"> </span>images
 
 <span class="c1"># Or with custom target name, theme, and language (creates 'my_assets_src/'):</span>
-drawlib<span class="w"> </span>init<span class="w"> </span>images<span class="w"> </span>my_assets<span class="w"> </span>-s<span class="w"> </span>google<span class="w"> </span>-l<span class="w"> </span>en
+drawlib<span class="w"> </span>init<span class="w"> </span>project<span class="w"> </span>images<span class="w"> </span>my_assets<span class="w"> </span>-s<span class="w"> </span>google<span class="w"> </span>-l<span class="w"> </span>en
 </code></pre>
 <hr />
 <h2>3. ディレクトリ構成と構造</h2>
@@ -856,7 +856,7 @@ drawlib<span class="w"> </span>init<span class="w"> </span>images<span class="w"
 <h2>6. マルチエージェントによる並列スクリプト執筆</h2>
 <p><code>images_src/</code> 内の各 <code>.py</code> スクリプトは互いに独立しているため、AI コーディングエージェントはサブエージェント間でスクリプトを分担して複数の図解を並列に生成できます。</p>
 <ol>
-<li><strong>フェーズ 1（親エージェントによる初期設定）</strong>: 最初に <code>drawlib init images</code> を実行し、共有の <code>images_src/styles.py</code>、<code>images_src/utils.py</code>、および <code>_assets/</code> を設定します。</li>
+<li><strong>フェーズ 1（親エージェントによる初期設定）</strong>: 最初に <code>drawlib init project images</code> を実行し、共有の <code>images_src/styles.py</code>、<code>images_src/utils.py</code>、および <code>_assets/</code> を設定します。</li>
 <li><strong>フェーズ 2（サブエージェントによる並列執筆）</strong>: 各サブエージェントに重複しないスクリプト（<code>images_src/&lt;name&gt;.py</code>）を割り当てます。各サブエージェントは担当スクリプトを執筆し、他のサブエージェントと衝突しない <strong>一意なスクラッチファイル名</strong>（<code>uv run drawlib show images_src/&lt;name&gt;.py -s images_src/styles.py -u images_src/utils.py -g -o .drawlib/scratch/&lt;name&gt;_grid.png</code>）でグリッドプレビューを実行してレイアウトを検証します。</li>
 <li><strong>フェーズ 3（統合バッチビルド）</strong>: すべてのサブエージェントが完了したら、親エージェントが <code>./images_src/build.sh</code> を 1 回実行し、全スクリプトを <code>images/</code> へ一括コンパイルします。</li>
 </ol>

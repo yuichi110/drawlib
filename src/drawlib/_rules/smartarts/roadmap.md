@@ -167,7 +167,7 @@ rm_h = Roadmap(
     spacing=2.5,
 )
 rm_h.add("Audit & Discovery", "Map legacy Visio diagrams", badge_text="P1", icon=phosphor.magnifying_glass)
-rm_h.add("Scaffold Repo", "Run drawlib init site", badge_text="P2", icon=phosphor.folder_open)
+rm_h.add("Scaffold Repo", "drawlib init project site", badge_text="P2", icon=phosphor.folder_open)
 rm_h.add("CI/CD Pipeline", "Automate build & checks", badge_text="P3", icon=phosphor.git_branch)
 rm_h.add(
     "Production Launch",

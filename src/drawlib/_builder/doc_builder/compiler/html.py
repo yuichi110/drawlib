@@ -144,7 +144,8 @@ def build_html(
             )
         raise ValueError(
             f'Missing required "drawlib.toml" in "{input_abs}". '
-            'HTML directory builds require a Drawlib project manifest (run "drawlib init site" or "drawlib init doc").'
+            "HTML directory builds require a Drawlib project manifest "
+            '(run "drawlib init project site" or "drawlib init project doc").'
         )
 
     if manifest.project.type == "slide":

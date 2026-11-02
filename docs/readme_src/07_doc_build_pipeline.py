@@ -20,7 +20,7 @@ from drawlib.styles import Styles
 from drawlib.text import text
 
 W, H = 138.0, 82.0
-setup(width=W, height=H)
+setup(width=138, height=82)
 anim = Animation(fps=10.0, loop=0)
 
 # Shared styles
@@ -131,14 +131,14 @@ def draw_gemini_avatar(xy: tuple[float, float], radius: float = 4.3) -> None:
 
 
 def draw_scene_init_patterns(highlight_doc: bool) -> None:
-    """Scene 1: Show 4 drawlib init archetypes and select 'doc'."""
+    """Scene 1: Show 4 drawlib init project archetypes and select 'doc'."""
     text(
         (69.0, 76.2),
-        "Project Scaffolding Patterns — drawlib init <type>",
+        "Project Scaffolding Patterns — drawlib init project <type>",
         style=Styles.DarkBold.patch(text_size=13.5),
     )
     sub_msg = (
-        "2. Sample walkthrough: Linear Document (drawlib init doc)"
+        "2. Sample walkthrough: Linear Document (drawlib init project doc)"
         if highlight_doc
         else "1. Choose from 4 starter project archetypes"
     )
@@ -154,7 +154,7 @@ def draw_scene_init_patterns(highlight_doc: bool) -> None:
             37.5,
             51.5,
             "doc",
-            "drawlib init doc",
+            "drawlib init project doc",
             "Linear Document / Spec / RFC",
             "Out: doc_html/<lang>/, doc_<lang>.pdf/.docx",
             phosphor.file_pdf,
@@ -163,7 +163,7 @@ def draw_scene_init_patterns(highlight_doc: bool) -> None:
             100.5,
             51.5,
             "site",
-            "drawlib init site",
+            "drawlib init project site",
             "Multi-Page Docs Website",
             "Out: docs_html/<lang>/, docs_markdown/",
             phosphor.globe,
@@ -172,7 +172,7 @@ def draw_scene_init_patterns(highlight_doc: bool) -> None:
             37.5,
             21.5,
             "slide",
-            "drawlib init slide",
+            "drawlib init project slide",
             "16:9 Presentation Deck",
             "Out: slide_html/<lang>/, slide_<lang>.pdf/.pptx",
             phosphor.presentation_chart,
@@ -181,7 +181,7 @@ def draw_scene_init_patterns(highlight_doc: bool) -> None:
             100.5,
             21.5,
             "images",
-            "drawlib init images",
+            "drawlib init project images",
             "Standalone Python Scripts",
             "Out: images/*.png, *.svg, *.webp",
             phosphor.images,
@@ -664,7 +664,7 @@ def draw_split_workspace(
     if not show_src:
         text(
             (103.0, 35.0),
-            "(Empty repository — waiting for drawlib init)",
+            "(Empty repository — waiting for drawlib init project)",
             style=Styles.Muted.patch(text_size=10.0),
         )
 
@@ -701,18 +701,18 @@ with anim.frame(duration=2.4):
         pulse_arrow=False,
     )
 
-# Day 1 - 2. [Gemini] Run drawlib init doc
+# Day 1 - 2. [Gemini] Run drawlib init project doc
 with anim.frame(duration=2.2):
     draw_split_workspace(
         phase_badge="Day 1: Initial Project Setup",
-        step_heading="2. Gemini — Run drawlib init doc",
+        step_heading="2. Gemini — Run drawlib init project doc",
         actor="gemini",
         actor_title="Gemini: Initialize 'doc' project",
         actor_sub="Scaffold doc_src/en/, config & build scripts",
         actor_optional=False,
         ops=[
             ("user", 'Ask Gemini: "Create initial doc project"', "done"),
-            ("gemini", "$ drawlib init doc", "active_gemini"),
+            ("gemini", "$ drawlib init project doc", "active_gemini"),
         ],
         show_day2_note=False,
         show_src=False,
@@ -733,7 +733,7 @@ with anim.frame(duration=2.5):
         actor_optional=False,
         ops=[
             ("user", 'Ask Gemini: "Create initial doc project"', "done"),
-            ("gemini", "$ drawlib init doc", "active_gemini"),
+            ("gemini", "$ drawlib init project doc", "active_gemini"),
         ],
         show_day2_note=False,
         show_src=True,
@@ -763,7 +763,7 @@ with anim.frame(duration=2.4):
         actor_optional=False,
         ops=[
             ("user", 'Ask Gemini: "Create initial doc project"', "done"),
-            ("gemini", "$ drawlib init doc", "done"),
+            ("gemini", "$ drawlib init project doc", "done"),
             ("gemini", "Edit doc_src/styles.py, utils.py", "active_gemini"),
         ],
         show_day2_note=False,
@@ -787,7 +787,7 @@ with anim.frame(duration=2.4):
         actor_optional=True,
         ops=[
             ("user", 'Ask Gemini: "Create initial doc project"', "done"),
-            ("gemini", "$ drawlib init doc", "done"),
+            ("gemini", "$ drawlib init project doc", "done"),
             ("gemini", "Edit doc_src/styles.py, utils.py", "done"),
             ("gemini", "Edit template.html, style.css", "optional"),
         ],
@@ -812,7 +812,7 @@ with anim.frame(duration=2.4):
         actor_optional=False,
         ops=[
             ("user", 'Ask Gemini: "Create initial doc project"', "done"),
-            ("gemini", "$ drawlib init doc", "done"),
+            ("gemini", "$ drawlib init project doc", "done"),
             ("gemini", "Edit doc_src/styles.py, utils.py", "done"),
             ("gemini", "Edit template.html, style.css", "optional_done"),
             ("user", 'Ask Gemini: "Update project docs"', "active_user"),
@@ -836,7 +836,7 @@ with anim.frame(duration=2.4):
         actor_optional=False,
         ops=[
             ("user", 'Ask Gemini: "Create initial doc project"', "done"),
-            ("gemini", "$ drawlib init doc", "done"),
+            ("gemini", "$ drawlib init project doc", "done"),
             ("gemini", "Edit doc_src/styles.py, utils.py", "done"),
             ("gemini", "Edit template.html, style.css", "optional_done"),
             ("user", 'Ask Gemini: "Update project docs"', "done"),
@@ -864,7 +864,7 @@ with anim.frame(duration=2.2):
         actor_optional=False,
         ops=[
             ("user", 'Ask Gemini: "Create initial doc project"', "done"),
-            ("gemini", "$ drawlib init doc", "done"),
+            ("gemini", "$ drawlib init project doc", "done"),
             ("gemini", "Edit doc_src/styles.py, utils.py", "done"),
             ("gemini", "Edit template.html, style.css", "optional_done"),
             ("user", 'Ask Gemini: "Update project docs"', "done"),
@@ -892,7 +892,7 @@ with anim.frame(duration=2.8):
         actor_optional=False,
         ops=[
             ("user", 'Ask Gemini: "Create initial doc project"', "done"),
-            ("gemini", "$ drawlib init doc", "done"),
+            ("gemini", "$ drawlib init project doc", "done"),
             ("gemini", "Edit doc_src/styles.py, utils.py", "done"),
             ("gemini", "Edit template.html, style.css", "optional_done"),
             ("user", 'Ask Gemini: "Update project docs"', "done"),
@@ -923,7 +923,7 @@ with anim.frame(duration=2.8):
         actor_optional=False,
         ops=[
             ("user", 'Ask Gemini: "Create initial doc project"', "done"),
-            ("gemini", "$ drawlib init doc", "done"),
+            ("gemini", "$ drawlib init project doc", "done"),
             ("gemini", "Edit doc_src/styles.py, utils.py", "done"),
             ("gemini", "Edit template.html, style.css", "optional_done"),
             ("user", 'Ask Gemini: "Update project docs"', "done"),

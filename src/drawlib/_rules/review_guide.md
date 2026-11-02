@@ -290,7 +290,7 @@ Avoid **"Rainbow Color Chaos"** (assigning a different saturated fill to every n
 
 ### 4.1. Scaling the 3-Stage Loop Across Parallel Subagents
 When authoring or reviewing multiple scripts, chapters, pages, or slides, **distribute Stage 1 and Stage 2 across parallel subagents** to prevent multimodal image inspection from filling a single agent's context window:
-1. **Parent Sets Up Shared Config First**: Initialize the project (`drawlib init`) and finalize `drawlib.toml`, `styles.py`, `utils.py`, `_assets/`, and `<lang>/navbar.md` before spawning subagents.
+1. **Parent Sets Up Shared Config First**: Initialize the project (`drawlib init project`) and finalize `drawlib.toml`, `styles.py`, `utils.py`, `_assets/`, and `<lang>/navbar.md` before spawning subagents.
 2. **Subagents Run Stage 1 & Stage 2 on Disjoint Files with Unique Scratch Names**: Each subagent edits only its assigned `.py` or `.md` file(s) and exports grid previews to a **unique filename** (`-o .drawlib/scratch/<file_or_block>_grid.png`, never a shared `preview.png`) before inspecting with `view_file`. Subagents must not run full `./build.sh` builds concurrently.
 3. **Parent Runs Stage 3 Unified Build & Macro Review**: After all subagents finish, the parent orchestrator runs `./build.sh` once, checks links (`drawlib serve --check`), and inspects the rendered HTML/PDF output.
 

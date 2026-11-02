@@ -1,4 +1,4 @@
-# Images Project Guide (`drawlib init images`)
+# Images Project Guide (`drawlib init project images`)
 
 The `images` starter template (CLI alias: `image`) is designed for generating standalone illustration assets, presentation diagrams, article hero banners, and social preview cards directly from batch Python scripts.
 
@@ -159,14 +159,14 @@ An `images` project follows a streamlined four-phase lifecycle: scaffold the pro
 
 ## 2. Project Initialization
 
-Scaffold a new images project using `drawlib init`:
+Scaffold a new images project using `drawlib init project`:
 
 ```bash
 # Scaffold standard images project in current directory (creates 'images_src/'):
-drawlib init images
+drawlib init project images
 
 # Or with custom target name, theme, and language (creates 'my_assets_src/'):
-drawlib init images my_assets -s google -l en
+drawlib init project images my_assets -s google -l en
 ```
 
 ---
@@ -266,6 +266,6 @@ drawlib build image images_src/ -o images/ -s images_src/styles.py -u images_src
 ## 6. Parallel Multi-Agent Script Authoring
 
 Because each `.py` script in `images_src/` is independent, AI coding agents can generate multiple illustrations in parallel by delegating scripts across subagents:
-1. **Phase 1 (Parent Setup)**: Run `drawlib init images` and configure shared `images_src/styles.py`, `images_src/utils.py`, and `_assets/` first.
+1. **Phase 1 (Parent Setup)**: Run `drawlib init project images` and configure shared `images_src/styles.py`, `images_src/utils.py`, and `_assets/` first.
 2. **Phase 2 (Parallel Subagents)**: Assign each subagent a disjoint script (`images_src/<name>.py`). Each subagent authors its script and runs a grid preview with a **unique scratch filename** (`uv run drawlib show images_src/<name>.py -s images_src/styles.py -u images_src/utils.py -g -o .drawlib/scratch/<name>_grid.png`) to verify layout without colliding with other subagents.
 3. **Phase 3 (Unified Batch Build)**: Once all subagents finish, the parent agent runs `./images_src/build.sh` once to compile all scripts into `images/`.

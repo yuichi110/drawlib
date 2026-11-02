@@ -273,12 +273,16 @@ from drawlib.tools import (
     build_pptx,
     build_slide,
     clear_cache,
+    detect_agent_targets,
     detect_document_type,
     download_cache,
     export_code_block,
     export_css,
+    get_agent_instruction,
     get_css,
+    init_agent_instruction,
     init_project,
+    list_agent_targets,
     list_cache,
     list_css,
     list_html_css,
@@ -880,6 +884,7 @@ Programmatic Python tools for compilation, diagram extraction, project scaffoldi
 | **Compilation** | `build_document`, `build_html`, `build_markdown`, `build_pdf`, `build_docx`, `build_slide`, `build_pptx`, `build_image`, `detect_document_type` | `build_html(input_dir="docs_src/", output_dir="docs_html/")`, `build_docx("doc_src/", "doc.docx")`, `build_slide("slide_src/", "slide_html/")`, `build_pptx("slide_src/", "slide.pptx")` |
 | **Diagram Export** | `export_code_block`, `show_code_block` | `export_code_block("docs_src/en/arch.md", "arch.png", ".drawlib/scratch/preview.png", grid=True)` |
 | **Scaffolding** | `init_project`, `list_project_types` | `init_project("site", target="docs", lang="en,ja", style="google")` |
+| **AI Agent Rules** | `init_agent_instruction`, `list_agent_targets`, `detect_agent_targets`, `get_agent_instruction` | `init_agent_instruction("antigravity", mode="auto")` |
 | **Server & Links** | `serve_docs`, `scan_broken_links` | `serve_docs("docs_html", port=8000)`, `scan_broken_links("docs_html")` |
 | **Cache** | `list_cache`, `download_cache`, `clear_cache` | `download_cache(all_assets=True)`, `download_cache(all_assets=False, browser=True)`, `clear_cache(images=True)` |
 | **CSS Presets** | `list_css`, `list_html_css`, `list_pdf_css`, `list_slide_css`, `export_css`, `get_css` | `export_css("google", "style.css", target="html", force=True)` |

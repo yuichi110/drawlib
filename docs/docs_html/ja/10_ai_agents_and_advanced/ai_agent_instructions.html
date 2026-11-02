@@ -668,7 +668,7 @@
     <span class="n">spacing</span><span class="o">=</span><span class="mf">1.6</span><span class="p">,</span>
     <span class="n">flat_left_end</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="n">workflow</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"1. Init Project"</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">"drawlib init"</span><span class="p">)</span>
+<span class="n">workflow</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"1. Init Project"</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">"drawlib init project"</span><span class="p">)</span>
 <span class="n">workflow</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"2. Query Rules"</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">"rules show"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">)</span>
 <span class="n">workflow</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
     <span class="s2">"3. High-Level"</span><span class="p">,</span>
@@ -691,53 +691,104 @@
 <li><strong>オンデマンドの知識取得機構</strong>: Drawlib にはターミナルから参照できるルールカタログ（<code>drawlib rules show &lt;topic&gt;</code>）が組み込まれています。巨大なマニュアルを最初からプロンプトに詰め込んで貴重なコンテキストウィンドウを消費することなく、必要な API 仕様だけをオンデマンドで取得できます。</li>
 </ol>
 <hr />
-<h2>2. 推奨エージェント指示テンプレート</h2>
-<p>以下のスニペットをリポジトリ内の AI 指示ファイル（<code>.cursorrules</code>、<code>.agents/rules/drawlib.md</code>、または Claude / Gemini のシステムプロンプトなど）にコピー＆ペーストして活用してください。</p>
-<pre><code class="language-markdown"><span class="gh"># Drawlib Agent Directives</span>
+<h2>2. コマンド1行でのエージェント指示セットアップ（<code>drawlib init agent</code>）</h2>
+<p>プロンプトスニペットを手動でコピー＆ペーストしたり、ツールごとの YAML フロントマターを手書きしたりする必要はありません。<code>drawlib init agent</code> コマンドで、各 AI コーディングエージェントに最適化された Drawlib 指示ファイルを直接生成できます。</p>
+<pre><code class="language-bash"><span class="c1"># 構文:</span>
+<span class="c1"># uv run drawlib init agent &lt;antigravity|claude|cursor|copilot|windsurf|cline|roo|codex|gemini|all|list&gt; [-m &lt;auto|always&gt;] [-d &lt;dir&gt;] [-f]</span>
 
-Drawlib is a pure-Python library for "Illustration as Code" and "Illustrated Documentation as Code".
-When tasked with creating diagrams, architectures, flowcharts, or charts, follow these rules:
+<span class="c1"># 対応 AI コーディングエージェント・出力先・フォーマット一覧を表示:</span>
+uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>agent<span class="w"> </span>list
 
-<span class="k">1.</span> Project-First Rule (<span class="sb">`drawlib init`</span> — No Bare <span class="sb">`.py`</span> Files):
-   Never create standalone <span class="sb">`.py`</span> drawing files in an uninitialized directory. If a <span class="sb">`*_src/`</span> project does not exist, scaffold one first so <span class="sb">`styles.py`</span>, <span class="sb">`utils.py`</span>, <span class="sb">`_assets/`</span>, and <span class="sb">`build.sh`</span> are configured:
-<span class="w">   </span><span class="k">-</span><span class="w"> </span>Diagram image(s) only: <span class="sb">`uv run drawlib init images [-l &lt;lang&gt;] [-s &lt;style&gt;]`</span> (author in <span class="sb">`images_src/*.py`</span>)
-<span class="w">   </span><span class="k">-</span><span class="w"> </span>Linear spec / RFC / PDF: <span class="sb">`uv run drawlib init doc [-l &lt;lang&gt;] [-s &lt;style&gt;]`</span> (author in <span class="sb">`doc_src/*.md`</span>)
-<span class="w">   </span><span class="k">-</span><span class="w"> </span>Multi-page website: <span class="sb">`uv run drawlib init site [-l &lt;lang&gt;] [-s &lt;style&gt;]`</span> (author in <span class="sb">`docs_src/**/*.md`</span>)
-<span class="w">   </span><span class="k">-</span><span class="w"> </span>16:9 slide deck: <span class="sb">`uv run drawlib init slide [-l &lt;lang&gt;] [-s &lt;style&gt;]`</span> (author in <span class="sb">`slide_src/*.md`</span>)
-<span class="w">   </span><span class="k">-</span><span class="w"> </span>Pass <span class="sb">`--lang ja`</span> (or target language code) for non-English labels, and delete starter <span class="sb">`sample*.py`</span> files.
+<span class="c1"># 指定した AI エージェント向けにルールを生成（既定は --mode auto）:</span>
+uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>agent<span class="w"> </span>antigravity
+uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>agent<span class="w"> </span>claude<span class="w"> </span>cursor<span class="w"> </span>copilot
 
-<span class="k">2.</span> High-Level Over Low-Level:
-   Always favor high-level components over assembling raw rectangles and lines:
-<span class="w">   </span><span class="k">-</span><span class="w"> </span>Auto-Layout Graphs: <span class="sb">`drawlib.graph`</span> (ArchitectureGraph, LayerGraph, TreeGraph, RadialGraph, GridGraph)
-<span class="w">   </span><span class="k">-</span><span class="w"> </span>Cloud Topologies: <span class="sb">`drawlib.diagrams.architecture.ArchitectureDiagram`</span>
-<span class="w">   </span><span class="k">-</span><span class="w"> </span>Flowcharts &amp; Swimlanes: <span class="sb">`drawlib.diagrams.flow.FlowDiagram`</span>
-<span class="w">   </span><span class="k">-</span><span class="w"> </span>API Sequences: <span class="sb">`drawlib.diagrams.sequence.SequenceDiagram`</span>
-<span class="w">   </span><span class="k">-</span><span class="w"> </span>UML Class Hierarchies: <span class="sb">`drawlib.diagrams.class_diagram.ClassDiagram`</span>
-<span class="w">   </span><span class="k">-</span><span class="w"> </span>Relational Database Schemas: <span class="sb">`drawlib.diagrams.er.ERDiagram`</span>
-<span class="w">   </span><span class="k">-</span><span class="w"> </span>State Machines: <span class="sb">`drawlib.diagrams.state.StateDiagram`</span>
-<span class="w">   </span><span class="k">-</span><span class="w"> </span>Pipelines, Trees &amp; Tables: <span class="sb">`drawlib.smartarts`</span> (ChevronProcess, TreeNode, MindMapNode, Table)
-<span class="w">   </span><span class="k">-</span><span class="w"> </span>Quantitative Charts: <span class="sb">`drawlib.charts`</span> (BarChart, LineChart, AreaChart, PieChart, RadarChart, ScatterChart, GanttChart, HeatmapChart, HeatmapOverlay)
+<span class="c1"># リポジトリ内の既存エージェント設定フォルダ・ファイルを自動検出して生成:</span>
+uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>agent<span class="w"> </span>--detect
 
-<span class="k">3.</span> Coordinate System &amp; Style Discipline:
-<span class="w">   </span><span class="k">-</span><span class="w"> </span><span class="sb">`(0, 0)`</span> is the BOTTOM-LEFT corner of the canvas (X increases rightward, Y increases upward).
-<span class="w">   </span><span class="k">-</span><span class="w"> </span>Always import PascalCase tokens: <span class="sb">`from drawlib.styles import Colors, Styles`</span>.
-<span class="w">   </span><span class="k">-</span><span class="w"> </span>Ground at least 50% of nodes in calm neutral styles (<span class="sb">`Styles.Neutral`</span>, <span class="sb">`Styles.PrimaryNeutral`</span>, <span class="sb">`Styles.SecondaryNeutral`</span>) and reserve saturated fills (<span class="sb">`Styles.PrimaryFlat`</span>, <span class="sb">`Styles.AccentFlat`</span>) for 1–2 focal points.
+<span class="c1"># ドキュメント・図解専用リポジトリ向けに常時読込（always）モードで生成:</span>
+uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>agent<span class="w"> </span>antigravity<span class="w"> </span>--mode<span class="w"> </span>always
 
-<span class="k">4.</span> The 3-Stage Multimodal Self-Correction Loop:
-<span class="w">   </span><span class="k">-</span><span class="w"> </span>Always include an explicit <span class="sb">`file:&lt;name&gt;.png`</span> and <span class="sb">`caption:"..."`</span> on every embedded ```drawlib block, place a Top Hero at Lines 5–15 with <span class="sb">`fold-code`</span>, omit narrow <span class="sb">`px`</span> width caps, and keep <span class="sb">`text_size &gt;= 10.0`</span>.
-<span class="w">   </span><span class="k">-</span><span class="w"> </span>Render headlessly with the coordinate grid (<span class="sb">`-g`</span>):
-     <span class="sb">`uv run drawlib show docs_src/page.md &lt;name&gt;.png -g -o .drawlib/scratch/&lt;unique_name&gt;_grid.png`</span>
-<span class="w">   </span><span class="k">-</span><span class="w"> </span>Visually inspect <span class="sb">`.drawlib/scratch/&lt;unique_name&gt;_grid.png`</span> for text clipping, overlapping labels, or cramped margins, and verify the built HTML page in a <span class="sb">`1280×920`</span> headless browser viewport.
+<span class="c1"># 既存のルールファイルやマーカーブロックを上書き更新（-f / --force）、または別ワークスペースを指定（-d）:</span>
+uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>agent<span class="w"> </span>antigravity<span class="w"> </span>--force
+uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>agent<span class="w"> </span>codex<span class="w"> </span>-d<span class="w"> </span>./my-service<span class="w"> </span>--force
 
-<span class="k">5.</span> Parallel Multi-Agent Delegation (Distribute Work Across Subagents):
-<span class="w">   </span><span class="k">-</span><span class="w"> </span>When creating or updating multiple scripts (<span class="sb">`images_src/*.py`</span>), chapters (<span class="sb">`doc_src/*.md`</span>), pages (<span class="sb">`docs_src/**/*.md`</span>), or slides (<span class="sb">`slide_src/*.md`</span>), actively distribute work across parallel subagents:
-<span class="w">     </span><span class="k">*</span><span class="w"> </span>Phase 1 (Parent): Run <span class="sb">`drawlib init`</span> and finalize shared <span class="sb">`styles.py`</span>, <span class="sb">`utils.py`</span>, <span class="sb">`_assets/`</span>, and <span class="sb">`navbar.md`</span> first.
-<span class="w">     </span><span class="k">*</span><span class="w"> </span>Phase 2 (Subagents): Assign disjoint <span class="sb">`.py`</span> or <span class="sb">`.md`</span> files to each subagent. Each subagent authors its files and runs Stage 1 &amp; Stage 2 grid review using a unique scratch filename (<span class="sb">`-o .drawlib/scratch/&lt;file_or_block&gt;_grid.png`</span>).
-<span class="w">     </span><span class="k">*</span><span class="w"> </span>Phase 3 (Parent): Run <span class="sb">`./build.sh`</span> once after all subagents finish, run <span class="sb">`drawlib serve --check`</span>, and perform Stage 3 HTML/PDF verification.
-
-<span class="k">6.</span> Fetch Rules on Demand:
-   Run <span class="sb">`uv run drawlib rules show &lt;topic&gt;`</span> (e.g. <span class="sb">`overview`</span>, <span class="sb">`style-guide`</span>, <span class="sb">`review-guide`</span>, <span class="sb">`project-overview`</span>, <span class="sb">`project-site`</span>, <span class="sb">`lib-graph`</span>, <span class="sb">`lib-diagrams`</span>, <span class="sb">`lib-charts`</span>, <span class="sb">`lib-smartarts`</span>, <span class="sb">`anim-guide`</span>).
+<span class="c1"># モジュール分離型7種を一括生成、または個人グローバル設定へ配置:</span>
+uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>agent<span class="w"> </span>all
+uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>agent<span class="w"> </span>antigravity<span class="w"> </span>--global
 </code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">ターゲット（<code>&lt;agent&gt;</code>）</th>
+<th style="text-align:left">プロジェクト出力先</th>
+<th style="text-align:left">グローバル出力先（<code>-g</code>）</th>
+<th style="text-align:left">フォーマット・フロントマター仕様</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong><code>antigravity</code></strong></td>
+<td style="text-align:left"><code>.agents/rules/drawlib.md</code> <em>（既存 <code>.agent/</code> がある場合は <code>.agent/rules/drawlib.md</code>）</em></td>
+<td style="text-align:left"><code>~/.gemini/config/rules/drawlib.md</code></td>
+<td style="text-align:left">YAML フロントマター必須（<code>auto</code> は <code>trigger: model_decision</code>、<code>always</code> は <code>always_on</code>）</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>claude</code></strong></td>
+<td style="text-align:left"><code>.claude/rules/drawlib.md</code></td>
+<td style="text-align:left"><code>~/.claude/rules/drawlib.md</code></td>
+<td style="text-align:left">ルートの <code>CLAUDE.md</code> を汚さず安全に共存するモジュール式 Markdown</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>cursor</code></strong></td>
+<td style="text-align:left"><code>.cursor/rules/drawlib.mdc</code></td>
+<td style="text-align:left"><em>（IDE 設定画面管理）</em></td>
+<td style="text-align:left">MDC フロントマター（<code>description</code>、<code>auto</code> は <code>alwaysApply: false</code> / <code>always</code> は <code>true</code>）</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>copilot</code></strong></td>
+<td style="text-align:left"><code>.github/instructions/drawlib.instructions.md</code></td>
+<td style="text-align:left"><em>（IDE / GitHub 設定）</em></td>
+<td style="text-align:left">YAML フロントマター（<code>description</code>、<code>auto</code> は対象 glob の <code>applyTo</code> / <code>always</code> は <code>&quot;**&quot;</code>）</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>windsurf</code></strong></td>
+<td style="text-align:left"><code>.windsurf/rules/drawlib.md</code></td>
+<td style="text-align:left"><code>~/.codeium/windsurf/memories/global_rules.md</code></td>
+<td style="text-align:left">12,000文字上限に準拠した YAML <code>trigger</code> 付きルール（グローバルはマーカーマージ）</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>cline</code></strong></td>
+<td style="text-align:left"><code>.clinerules/drawlib.md</code></td>
+<td style="text-align:left"><code>~/Documents/Cline/Rules/drawlib.md</code></td>
+<td style="text-align:left">Cline の Rules UI から個別 ON/OFF 可能なモジュール式 Markdown</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>roo</code></strong></td>
+<td style="text-align:left"><code>.roo/rules/drawlib.md</code></td>
+<td style="text-align:left"><code>~/.roo/rules/drawlib.md</code></td>
+<td style="text-align:left">Roo Code 用モジュール式 Markdown ルール</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>codex</code></strong> <em>（別名 <code>agents-md</code>）</em></td>
+<td style="text-align:left"><code>AGENTS.md</code></td>
+<td style="text-align:left"><code>~/.codex/AGENTS.md</code></td>
+<td style="text-align:left"><code>&lt;!-- drawlib-agent-instruction:start/end --&gt;</code> で非破壊マージされる共有 Markdown</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>gemini</code></strong> <em>（別名 <code>gemini-md</code>）</em></td>
+<td style="text-align:left"><code>GEMINI.md</code></td>
+<td style="text-align:left"><code>~/.gemini/GEMINI.md</code></td>
+<td style="text-align:left"><code>&lt;!-- drawlib-agent-instruction:start/end --&gt;</code> で非破壊マージされる共有 Markdown</td>
+</tr>
+</tbody>
+</table>
+<h3>2.1 トリガーモード切替と共有ファイルの非破壊マージ</h3>
+<ul>
+<li><strong>省トークンな <code>auto</code> モード（既定）と <code>always</code> モード</strong>: 既定の <code>--mode auto</code> では、フロントマター対応ツール（<code>antigravity</code>、<code>cursor</code>、<code>copilot</code>、<code>windsurf</code>）において「図解・チャート・スライド・<code>*_src/</code> ドキュメントの作成や編集」に関わるタスクの時だけオンデマンドでルールを読み込み、通常のアプリケーション実装時のコンテキスト消費（約 2,500 トークン）を抑えます。ドキュメント・図解専用リポジトリでは <code>--mode always</code>（<code>-m always</code>）を指定してください。</li>
+<li><strong><code>AGENTS.md</code> / <code>GEMINI.md</code> の安全なマーカーブロック更新</strong>: モジュール分離ファイル（<code>.agents/rules/drawlib.md</code> や <code>.claude/rules/drawlib.md</code> など）は既存の <code>CLAUDE.md</code> や <code>.github/copilot-instructions.md</code> に一切影響を与えません。また、ルート共有ファイル（<code>codex</code> -&gt; <code>AGENTS.md</code>、<code>gemini</code> -&gt; <code>GEMINI.md</code>）へ出力する際は <code>&lt;!-- drawlib-agent-instruction:start --&gt;</code> 〜 <code>&lt;!-- drawlib-agent-instruction:end --&gt;</code> のマーカーで囲んで既存ファイル末尾へ安全に追記し、<code>--force</code>（<code>-f</code>）再実行時は Drawlib ブロックのみをインプレース更新します。</li>
+<li><strong>Python API（<code>drawlib.tools</code>）</strong>: 自動化スクリプトや CI からは <code>drawlib.tools</code> の <code>init_agent_instruction()</code>、<code>detect_agent_targets()</code>、<code>get_agent_instruction()</code>、<code>list_agent_targets()</code> を直接呼び出せます。</li>
+</ul>
 <hr />
 <h2>3. 動的な知識取得 (<code>drawlib rules</code>)</h2>
 <p>ドキュメントマニュアル全体をプロンプトへ貼り付ける代わりに、必要に応じて <code>drawlib rules</code> を実行して仕様を取得するようエージェントを訓練しましょう。Drawlib には<strong>全31種類のモジュール別ルールマニュアル</strong>（全般ガイドライン12項目 ＋ ライブラリモジュール仕様19項目）が内蔵されています。</p>
@@ -976,7 +1027,7 @@ uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </s
 <tr>
 <td style="text-align:left"><strong><code>lib-tools</code></strong></td>
 <td style="text-align:left"><code>drawlib.tools</code></td>
-<td style="text-align:left"><code>build_*</code>、<code>export_code_block</code>、<code>init_project</code>、<code>serve_docs</code>、<code>list_cache</code> などのプログラマティック Python API。</td>
+<td style="text-align:left"><code>build_*</code>、<code>export_code_block</code>、<code>init_project</code>、<code>init_agent_instruction</code>、<code>serve_docs</code>、<code>list_cache</code> などのプログラマティック Python API。</td>
 </tr>
 <tr>
 <td style="text-align:left"><strong><code>lib-slide</code></strong></td>
@@ -994,7 +1045,7 @@ uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </s
 <li><strong>マルチモーダル検証を指示する</strong>: 完了前に <code>-g</code> 付きで <code>.drawlib/scratch/</code> へ出力し、生成画像を目視検証するようエージェントに促します。</li>
 <li><strong>複数ファイルの作業は並列サブエージェントへ分散する</strong>: マルチモーダルな <code>drawlib show -g</code> と画像検査のサイクルはコンテキストウィンドウのトークンを消費するため、複数章のドキュメント（<code>doc_src/*.md</code>）、マルチページサイト（<code>docs_src/**/*.md</code>）、スライドデッキ（<code>slide_src/*.md</code>）、一括画像スクリプト（<code>images_src/*.py</code>）の作成では、<strong>3フェーズのオーケストレータ・サブエージェント協調プロトコル</strong>を実行します。
 <ol>
-<li><strong>フェーズ 1（親オーケストレータ）</strong>: <code>drawlib init</code> を実行し、共通の <code>styles.py</code>、<code>utils.py</code>、<code>_assets/</code>、および <code>navbar.md</code>（または章・スライド構成案）を確定します。</li>
+<li><strong>フェーズ 1（親オーケストレータ）</strong>: <code>drawlib init project &lt;doc|site|slide|images&gt;</code> を実行し、共通の <code>drawlib.toml</code>、<code>styles.py</code>、<code>utils.py</code>、<code>_assets/</code>、および <code>navbar.md</code>（または章・スライド構成案）を確定します。</li>
 <li><strong>フェーズ 2（並列サブエージェント）</strong>: 重複しない <code>.py</code> または <code>.md</code> ファイル群を各サブエージェントへ割り当てます。各サブエージェントは担当ファイルを執筆し、<strong>一意なスクラッチファイル名</strong>（<code>-o .drawlib/scratch/&lt;file_or_block&gt;_grid.png</code>）を使ってステージ 1・ステージ 2 のグリッド検証を完了させます。</li>
 <li><strong>フェーズ 3（親オーケストレータ）</strong>: 全サブエージェントの完了後に <code>./build.sh</code> を1回だけ実行し、リンク検証（<code>drawlib serve --check</code>）およびステージ 3 の HTML / PDF 外観検証を行います。</li>
 </ol>

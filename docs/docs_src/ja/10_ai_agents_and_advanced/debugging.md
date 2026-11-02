@@ -169,7 +169,7 @@ uv run drawlib --verbose build html docs_src/ -o docs_html/
 ### 症状: 日本語・中国語・韓国語（CJK）などのテキストが四角記号（「豆腐」`□`）になる
 - **原因**: 現在適用されているフォントに、日本語・中国語・韓国語や特殊な Unicode 文字のグリフが含まれていません。
 - **解決策**:
-  1. CJK 対応のフォントファミリーを設定します（またはプロジェクト作成時に `drawlib init <type> --lang ja` を指定します）。
+  1. CJK 対応のフォントファミリーを設定します（またはプロジェクト作成時に `drawlib init project <type> --lang ja` を指定します）。
      ```python
      from drawlib.fonts import FontJapanese
      from drawlib.types import Style
@@ -221,7 +221,7 @@ Drawlib はコンパイル済みのすべての HTML ページを走査し、以
 | エラーメッセージ | 原因 | 対処法 |
 | :--- | :--- | :--- |
 | **`Missing required 'file=...' option in drawlib code block`** | `doc`、`site`、`slide` の Markdown ファイル内に埋め込まれた ````drawlib```` ブロックに `file=<name>` 属性が指定されていません。 | 開始コードフェンスに明示的なファイル名を追加します（例: ```` ```drawlib code=fold align=center file=service_arch.png caption="..." ````）。 |
-| **`Directory build requires "index.md" / "navbar.md"`** | 必須ルートファイル（`index.md` / `navbar.md`）や `template.html` / `style.css` が不足している `site` ディレクトリに対して `drawlib build html` を実行しています。 | `docs_src/` 内に `index.md`、`navbar.md`、`template.html`、`style.css` が揃っていることを確認するか、`drawlib init site` で雛形を生成します。 |
+| **`Directory build requires "index.md" / "navbar.md"`** | 必須ルートファイル（`index.md` / `navbar.md`）や `template.html` / `style.css` が不足している `site` ディレクトリに対して `drawlib build html` を実行しています。 | `docs_src/` 内に `index.md`、`navbar.md`、`template.html`、`style.css` が揃っていることを確認するか、`drawlib init project site` で雛形を生成します。 |
 | **`Refusing to overwrite input source directory / file`** | `-o` の出力先パスが入力元のソースパスと完全に一致しています（`src_abs == dest_abs`）。 | 入力元とは別の出力ディレクトリを指定します（例: `drawlib build markdown docs_src/ -o docs_markdown/`）。 |
 | **`Duplicate output image file detected`** | 同一 Markdown ファイル内の2つの埋め込みブロックが同じ `file=<name>` を共有しているか、`images_src/` 内の2つの `.py` スクリプトが同一パスで `save()` を呼んでいます。 | 各ブロックまたは各スクリプトに一意な `file=<name>.png` を割り当てます。 |
 | **`Chromium launch failed / error while loading shared libraries`** | オフライン環境や、OS 共有ライブラリ（`libnss3`、`libgbm1`、`libasound2`）が不足した最小構成 Linux コンテナ（`python:3.12-slim` など）で `drawlib build pdf` または `drawlib build pptx` を実行しています。 | ヘッドレス Chromium（`chromium-headless-shell`）はネットワーク接続時の初回実行で自動取得されますが、オフライン環境向けには事前に `uv run drawlib cache download --browser` を実行し、最小構成 Linux コンテナでは `uv run playwright install-deps chromium` で OS 共有ライブラリを導入します。 |

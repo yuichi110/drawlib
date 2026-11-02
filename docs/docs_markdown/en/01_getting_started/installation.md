@@ -1,13 +1,13 @@
 # Installation Guide
 
 Drawlib is published on PyPI and can be installed using `uv` (recommended) or standard `pip`.
-A single `drawlib` installation includes built-in HTML, Markdown, vector PDF, MS Word (`.docx`), and MS PowerPoint (`.pptx`) exporters, automatic headless Chromium provisioning, and offline asset caching.
+A single `drawlib` installation includes one-command AI agent rule setup (`drawlib init agent`), built-in HTML, Markdown, vector PDF, MS Word (`.docx`), and MS PowerPoint (`.pptx`) exporters, automatic headless Chromium provisioning, and offline asset caching.
 
 
 
 <figure class="drawlib-image" style="text-align: center;">
   <img src="../../images/01_getting_started/installation/installation_setup_workflow.png" alt="installation_1" />
-  <figcaption class="drawlib-caption">Three-Step Drawlib Environment Setup Workflow</figcaption>
+  <figcaption class="drawlib-caption">Drawlib Environment & AI Agent Setup Workflow</figcaption>
 </figure>
 
 <details class="drawlib-code-details">
@@ -16,48 +16,68 @@ A single `drawlib` installation includes built-in HTML, Markdown, vector PDF, MS
 ```python
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
-from drawlib.shapes import circle
+from drawlib.lines import line
+from drawlib.shapes import circle, rectangle
 from drawlib.smartarts import ChevronProcess
 from drawlib.styles import Styles
 
-setup(width=124, height=40)
+setup(width=136, height=50)
 
 workflow = ChevronProcess(
     style=Styles.Neutral,
-    text_style=Styles.DarkBold.patch(text_size=11.5),
-    description_style=Styles.Dark.patch(text_size=10.5),
-    corner_angle=65.0,
-    spacing=2.0,
+    text_style=Styles.DarkBold.patch(text_size=11.0),
+    description_style=Styles.Dark.patch(text_size=10.0),
+    corner_angle=68.0,
+    spacing=1.6,
     flat_left_end=True,
 )
 workflow.add(
     "1. Install Drawlib",
     description="uv add drawlib\npip install drawlib",
     style=Styles.PrimaryFlat,
-    text_style=Styles.WhiteBold.patch(text_size=11.5),
-    description_style=Styles.White.patch(text_size=10.5),
+    text_style=Styles.WhiteBold.patch(text_size=11.0),
+    description_style=Styles.White.patch(text_size=10.0),
 )
 workflow.add(
-    "2. Zero-Config Export",
+    "2. AI Agent Setup",
+    description="drawlib init agent\n<claude | cursor>",
+    style=Styles.PrimaryNeutral.patch(shape_line_width=1.8),
+)
+workflow.add(
+    "3. Zero-Config Export",
     description="PDF, .docx & .pptx\nAuto Headless Chrome",
     style=Styles.Neutral,
 )
 workflow.add(
-    "3. Offline Assets",
+    "4. Offline Assets",
     description="drawlib cache\ndownload --all",
     style=Styles.SecondaryNeutral,
 )
-workflow.draw(xy=(4.0, 3.5), width=116.0, height=22.0)
+workflow.draw(xy=(3.0, 3.5), width=130.0, height=23.5)
 
 # Step icons above each chevron stage
-circle((22.0, 32.2), radius=4.2, style=Styles.PrimaryNeutral)
-phosphor.package((22.0, 32.2), width=5.2, style=Styles.Primary)
+circle((18.0, 33.8), radius=4.0, style=Styles.PrimaryNeutral)
+phosphor.package((18.0, 33.8), width=5.0, style=Styles.Primary)
 
-circle((62.0, 32.2), radius=4.2, style=Styles.Neutral)
-phosphor.file_pdf((62.0, 32.2), width=5.2, style=Styles.Primary)
+circle((51.5, 33.8), radius=4.0, style=Styles.PrimaryNeutral.patch(shape_line_width=1.6))
+phosphor.robot((51.5, 33.8), width=5.0, style=Styles.Accent)
 
-circle((101.0, 32.2), radius=4.2, style=Styles.SecondaryNeutral)
-phosphor.download_simple((101.0, 32.2), width=5.2, style=Styles.Primary)
+# Optional / Strongly Recommended callout badge above Step 2
+line((51.5, 37.8), (51.5, 40.3), style=Styles.AccentBold)
+rectangle(
+    (51.5, 43.0),
+    width=46.0,
+    height=5.4,
+    style=Styles.AccentFlat.patch(shape_r=2.7),
+    text="Optional  •  Strongly Recommended",
+    text_style=Styles.WhiteBold.patch(text_size=10.0),
+)
+
+circle((84.4, 33.8), radius=4.0, style=Styles.Neutral)
+phosphor.file_pdf((84.4, 33.8), width=5.0, style=Styles.Primary)
+
+circle((117.3, 33.8), radius=4.0, style=Styles.SecondaryNeutral)
+phosphor.download_simple((117.3, 33.8), width=5.0, style=Styles.Primary)
 
 save()
 ```
@@ -92,7 +112,7 @@ If you want to run the Drawlib CLI tool without adding it to a project:
 
 ```bash
 $ uvx drawlib --version
-$ uvx drawlib init site
+$ uvx drawlib init project site
 ```
 
 ---
@@ -110,7 +130,33 @@ $ drawlib --version
 
 ---
 
-## 3. Built-In PDF, Word (`.docx`) & PowerPoint (`.pptx`) Export
+## 3. Configure AI Agent Instructions *(Optional — Strongly Recommended)*
+
+Drawlib works out of the box as a standalone Python library and CLI without any AI assistant. However, if you author code or documentation with an AI coding agent (**Claude Code**, **Cursor**, **Antigravity**, **GitHub Copilot**, **Windsurf**, **Cline**, **Roo Code**, **OpenAI Codex**, or **Gemini CLI**), initializing workspace agent instructions right after installation is **strongly recommended**.
+
+Running `drawlib init agent` generates the native rule file for your IDE or CLI agent so it automatically follows Drawlib's bottom-left `(0, 0)` coordinate space, `50%+` neutral style discipline, `drawlib init project` scaffolding workflow, and 3-stage visual self-correction loop:
+
+```bash
+# List all supported AI agents and their target rule file paths
+$ uv run drawlib init agent list
+
+# Generate workspace instructions for your AI coding agent
+$ uv run drawlib init agent claude        # -> .claude/rules/drawlib.md
+$ uv run drawlib init agent cursor        # -> .cursor/rules/drawlib.mdc
+$ uv run drawlib init agent antigravity   # -> .agents/rules/drawlib.md
+
+# Or initialize multiple agents at once (pass 'all' for all 9 agents)
+$ uv run drawlib init agent claude cursor copilot
+
+# Optional: switch frontmatter-capable agents from contextual 'auto' (default) to 'always'
+$ uv run drawlib init agent antigravity --mode always
+```
+
+See [AI Agent Quicklook](./agent_quicklook.md) and [AI Agent Instructions](../10_ai_agents_and_advanced/ai_agent_instructions.md) for full details on supported agents and trigger modes.
+
+---
+
+## 4. Built-In PDF, Word (`.docx`) & PowerPoint (`.pptx`) Export
 
 Drawlib includes `playwright`, `python-docx`, and `python-pptx` as standard dependencies—no optional package extras or manual browser installation steps are required:
 
@@ -125,7 +171,7 @@ Drawlib includes `playwright`, `python-docx`, and `python-pptx` as standard depe
 
 ---
 
-## 4. Asset & Build Cache Management (`drawlib cache`)
+## 5. Asset & Build Cache Management (`drawlib cache`)
 
 To maintain a minimal PyPI package size, high-resolution icon sets (Phosphor, FontAwesome, and official cloud/domain icons), multilingual fonts, geographic map datasets, and headless Chromium are downloaded on demand upon first use (or pre-fetched via `drawlib cache download`). Meanwhile, project-local incremental diagram builds are cached separately in `.drawlib/cache.db`.
 
@@ -208,11 +254,13 @@ $ uv run drawlib cache clear --all
 
 ---
 
-## 5. Verifying Installation
+## 6. Verifying Installation
 
-Verify that the Drawlib CLI commands and rule guides are accessible:
+Verify that the Drawlib CLI commands, project templates, and rule guides are accessible:
 
 ```bash
 $ uv run drawlib --help
+$ uv run drawlib init project list
+$ uv run drawlib init agent list
 $ uv run drawlib rules list
 ```

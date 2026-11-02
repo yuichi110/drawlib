@@ -13,7 +13,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Linear Document Project Guide (`drawlib init doc`)</title>
+    <title>Linear Document Project Guide (`drawlib init project doc`)</title>
     <script>
         (function() {
             const saved = localStorage.getItem('drawlib-theme');
@@ -600,7 +600,7 @@
                 <div class="breadcrumbs">
                     <span class="crumb">Docs</span>
                     <span class="crumb-separator">&raquo;</span>
-                    <span class="crumb active">Linear Document Project Guide (`drawlib init doc`)</span>
+                    <span class="crumb active">Linear Document Project Guide (`drawlib init project doc`)</span>
                 </div>
                 
                 <div class="lang-switcher">
@@ -630,7 +630,7 @@
                 
             </header>
             <main class="main-content">
-                <h1>Linear Document Project Guide (<code>drawlib init doc</code>)</h1>
+                <h1>Linear Document Project Guide (<code>drawlib init project doc</code>)</h1>
 <p>The <code>doc</code> starter template is designed for authoring linear technical documents — such as specifications, Request for Comments (RFCs), system architecture proposals, whitepapers, thesis papers, and formal engineering reports.</p>
 <p>By unifying single-page specs and multi-chapter reports into a single archetype, Drawlib allows you to compile <strong>HTML, vector PDF, editable MS Word (<code>.docx</code>), Markdown, and standalone images</strong> from the same Markdown source files.</p>
 <figure class="drawlib-image" style="text-align: center;">
@@ -746,13 +746,13 @@
 </div>
 <hr />
 <h2>2. Project Initialization</h2>
-<p>Scaffold a linear document project using <code>drawlib init</code> (every <code>doc</code> project uses the unified <code>&lt;src_dir&gt;/&lt;lang&gt;/</code> locale layout, even for a single language):</p>
+<p>Scaffold a linear document project using <code>drawlib init project</code> (every <code>doc</code> project uses the unified <code>&lt;src_dir&gt;/&lt;lang&gt;/</code> locale layout, even for a single language):</p>
 <pre><code class="language-bash"><span class="c1"># Scaffold standard doc project in current directory (creates 'doc_src/en/'):</span>
-drawlib<span class="w"> </span>init<span class="w"> </span>doc
+drawlib<span class="w"> </span>init<span class="w"> </span>project<span class="w"> </span>doc
 
 <span class="c1"># With custom target name, theme, and single or multiple locales (creates 'my_report_src/&lt;lang&gt;/'):</span>
-drawlib<span class="w"> </span>init<span class="w"> </span>doc<span class="w"> </span>my_report<span class="w"> </span>-s<span class="w"> </span>google<span class="w"> </span>-l<span class="w"> </span>en
-drawlib<span class="w"> </span>init<span class="w"> </span>doc<span class="w"> </span>my_report<span class="w"> </span>-s<span class="w"> </span>google<span class="w"> </span>-l<span class="w"> </span>en,ja
+drawlib<span class="w"> </span>init<span class="w"> </span>project<span class="w"> </span>doc<span class="w"> </span>my_report<span class="w"> </span>-s<span class="w"> </span>google<span class="w"> </span>-l<span class="w"> </span>en
+drawlib<span class="w"> </span>init<span class="w"> </span>project<span class="w"> </span>doc<span class="w"> </span>my_report<span class="w"> </span>-s<span class="w"> </span>google<span class="w"> </span>-l<span class="w"> </span>en,ja
 </code></pre>
 <hr />
 <h2>3. Directory Layout &amp; Anatomy</h2>
@@ -763,7 +763,7 @@ drawlib<span class="w"> </span>init<span class="w"> </span>doc<span class="w"> <
 <li><strong><code>styles.py</code> &amp; <code>utils.py</code></strong>: Shared Python styling configuration (<code>Colors</code>, <code>Styles</code>, language fonts; plus optional per-locale <code>&lt;lang&gt;/styles.py</code> overrides) and reusable diagram helper functions.</li>
 <li><strong><code>template.html</code> &amp; <code>style.css</code></strong>: Jinja2 single-page HTML layout and print-aware CSS (<code>@media print</code> / <code>@page A4</code>) for browser preview and vector PDF generation.</li>
 <li><strong><code>_assets/</code></strong>: Static logos, raster screenshots, or custom <code>.ttf</code> fonts (referenced from Markdown prose in <code>&lt;lang&gt;/</code> via <code>../_assets/...</code>).</li>
-<li><strong><code>build.sh</code> &amp; Target Scripts</strong>: Master orchestrator (<code>build.sh</code>) alongside modular scripts (<code>build_html.sh</code>, <code>build_pdf.sh</code>, <code>build_docx.sh</code>, <code>build_markdown.sh</code>, <code>build_image.sh</code>, and <code>serve.sh</code>).</li>
+<li><strong><code>build.sh</code> &amp; Target Scripts</strong>: Executable (<code>+x</code>) master orchestrator (<code>build.sh</code>) alongside modular scripts (<code>build_html.sh</code>, <code>build_pdf.sh</code>, <code>build_docx.sh</code> for Word <code>.docx</code> export, <code>build_markdown.sh</code>, <code>build_image.sh</code>, and <code>serve.sh</code>) scaffolded by <code>drawlib init project doc</code>.</li>
 </ul>
 <h3>Generated Output Artifacts</h3>
 <ul>
@@ -868,14 +868,14 @@ drawlib<span class="w"> </span>build<span class="w"> </span>image<span class="w"
 <h2>8. Parallel Multi-Agent Chapter Authoring</h2>
 <p>Because a <code>doc</code> project separates chapters into numbered Markdown files (<code>&lt;lang&gt;/00_cover.md</code>, <code>&lt;lang&gt;/01_overview.md</code>, <code>&lt;lang&gt;/02_architecture.md</code>, <code>&lt;lang&gt;/03_security.md</code>, etc.), AI coding agents can author multi-chapter whitepapers and specifications in parallel:</p>
 <ol>
-<li><strong>Phase 1 (Parent Setup)</strong>: Scaffold <code>doc_src/</code> (<code>drawlib init doc</code>), finalize <code>drawlib.toml</code>, <code>styles.py</code>, <code>utils.py</code>, and <code>&lt;lang&gt;/00_cover.md</code>, and establish the numbered chapter filenames.</li>
+<li><strong>Phase 1 (Parent Setup)</strong>: Scaffold <code>doc_src/</code> (<code>drawlib init project doc</code>), finalize <code>drawlib.toml</code>, <code>styles.py</code>, <code>utils.py</code>, and <code>&lt;lang&gt;/00_cover.md</code>, and establish the numbered chapter filenames.</li>
 <li><strong>Phase 2 (Parallel Subagents)</strong>: Delegate individual chapters (<code>doc_src/&lt;lang&gt;/0N_&lt;topic&gt;.md</code>) to parallel subagents. Each subagent authors its assigned chapter (<code>2+</code> diagrams, Chapter Hero at <code>Lines 5–15</code>) and verifies its diagrams with unique grid preview paths (<code>-o .drawlib/scratch/0N_&lt;diagram&gt;_grid.png</code>).</li>
-<li><strong>Phase 3 (Unified Compilation)</strong>: After all subagents complete their chapters, the parent agent runs <code>./doc_src/build.sh</code> (and <code>drawlib build docx</code> when needed) once to merge all chapters into <code>doc_html/&lt;lang&gt;/index.html</code>, <code>doc_&lt;lang&gt;.pdf</code>, and <code>doc_&lt;lang&gt;.docx</code>.</li>
+<li><strong>Phase 3 (Unified Compilation)</strong>: After all subagents complete their chapters, the parent agent runs <code>./doc_src/build.sh</code> (and <code>./doc_src/build_docx.sh</code> when needed) once to merge all chapters into <code>doc_html/&lt;lang&gt;/index.html</code>, <code>doc_&lt;lang&gt;.pdf</code>, and <code>doc_&lt;lang&gt;.docx</code>.</li>
 </ol>
 <hr />
 <h2>9. Unified <code>i18n</code> &amp; Multi-Language Linear Documents (<code>drawlib.toml</code>)</h2>
-<p>Every <code>doc_src/</code> project is <code>i18n</code>-native out of the box (<code>langs = [&quot;en&quot;]</code> by default). Adding a second language edition later requires zero <code>git mv</code> file moves or build-script changes—simply pass comma-separated locales at <code>init</code> time or append a locale directory (<code>doc_src/ja/</code>) and update <code>[i18n]</code> in <code>doc_src/drawlib.toml</code>:</p>
-<pre><code class="language-bash">uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>doc<span class="w"> </span>whitepaper<span class="w"> </span>-l<span class="w"> </span>en,ja<span class="w"> </span>-s<span class="w"> </span>google
+<p>Every <code>doc_src/</code> project is <code>i18n</code>-native out of the box (<code>langs = [&quot;en&quot;]</code> by default). Adding a second language edition later requires zero <code>git mv</code> file moves or build-script changes—simply pass comma-separated locales to <code>drawlib init project doc</code> or append a locale directory (<code>doc_src/ja/</code>) and update <code>[i18n]</code> in <code>doc_src/drawlib.toml</code>:</p>
+<pre><code class="language-bash">uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>project<span class="w"> </span>doc<span class="w"> </span>whitepaper<span class="w"> </span>-l<span class="w"> </span>en,ja<span class="w"> </span>-s<span class="w"> </span>google
 </code></pre>
 <pre><code class="language-toml"><span class="k">[project]</span>
 <span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"whitepaper"</span>

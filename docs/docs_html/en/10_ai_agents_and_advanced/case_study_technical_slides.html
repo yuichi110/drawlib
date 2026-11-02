@@ -658,7 +658,7 @@
 
 <span class="c1"># Row 1: Steps 1 to 5 (Scaffolding -&gt; Planning -&gt; Generation -&gt; AI Self-Review)</span>
 <span class="n">row1</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="p">(</span><span class="mf">17.0</span><span class="p">,</span> <span class="s2">"1. Init Project"</span><span class="p">,</span> <span class="s2">"drawlib init slide</span><span class="se">\n</span><span class="s2">Theme &amp; utils.py"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">terminal_window</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">17.0</span><span class="p">,</span> <span class="s2">"1. Init Project"</span><span class="p">,</span> <span class="s2">"drawlib init project</span><span class="se">\n</span><span class="s2">slide &amp; utils.py"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">terminal_window</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">),</span>
     <span class="p">(</span><span class="mf">44.0</span><span class="p">,</span> <span class="s2">"2. AI Discussion"</span><span class="p">,</span> <span class="s2">"Brainstorm story</span><span class="se">\n</span><span class="s2">4-Act narrative arc"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">chats_circle</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">),</span>
     <span class="p">(</span><span class="mf">71.0</span><span class="p">,</span> <span class="s2">"3. _PLAN File"</span><span class="p">,</span> <span class="s2">"_CONTENTS_PLANNING</span><span class="se">\n</span><span class="s2">Ignored by build"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">file_dashed</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">),</span>
     <span class="p">(</span><span class="mf">98.0</span><span class="p">,</span> <span class="s2">"4. Draft Slides"</span><span class="p">,</span> <span class="s2">"::: block (visuals)</span><span class="se">\n</span><span class="s2">::: note (details)"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">presentation_chart</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">),</span>
@@ -730,7 +730,7 @@
 <td style="text-align:center"><strong>1</strong></td>
 <td style="text-align:center">Human / AI</td>
 <td style="text-align:left"><strong>Project Creation</strong></td>
-<td style="text-align:left">Scaffold <code>slide</code> project (<code>drawlib init slide</code>) with theme, <code>styles.py</code>, and <code>utils.py</code> helpers.</td>
+<td style="text-align:left">Scaffold <code>slide</code> project (<code>drawlib init project slide</code>) with theme, <code>styles.py</code>, and <code>utils.py</code> helpers.</td>
 </tr>
 <tr>
 <td style="text-align:center"><strong>2</strong></td>
@@ -784,9 +784,9 @@
 </table>
 <hr />
 <h2>2. Steps 1–3: Scaffolding, Discussion &amp; The <code>_</code> Planning File Pattern</h2>
-<h3>2.1. Step 1: Scaffolding the Slide Project (<code>drawlib init slide</code>)</h3>
+<h3>2.1. Step 1: Scaffolding the Slide Project (<code>drawlib init project slide</code>)</h3>
 <p>Every slide deck starts by initializing a structured Drawlib <code>slide</code> project:</p>
-<pre><code class="language-bash">uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>slide<span class="w"> </span>docs/slide_ddos_incident_response_src<span class="w"> </span>--style<span class="w"> </span>google
+<pre><code class="language-bash">uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>project<span class="w"> </span>slide<span class="w"> </span>docs/slide_ddos_incident_response_src<span class="w"> </span>--style<span class="w"> </span>google
 </code></pre>
 <p>This generates the complete presentation infrastructure:</p>
 <ul>

@@ -1,15 +1,15 @@
 # 14. Project Scaffolding & Standard Templates
 
-Drawlib enforces a clean, predictable project structure for all documentation and illustration repositories. Never construct project folders manually; always scaffold them using `drawlib init`.
+Drawlib enforces a clean, predictable project structure for all documentation and illustration repositories. Never construct project folders manually; always scaffold them using `drawlib init project`.
 
 ## The 4 Standard Project Templates
 
 | Template | Scaffold Command | Best Suited For | Output Deliverables |
 | :--- | :--- | :--- | :--- |
-| **`doc`** | `drawlib init doc` | Linear technical document, spec, RFC, or formal report | `doc_src/` -> `doc_html/`, `doc_en.pdf`, `doc_en.docx`, `doc_markdown/` |
-| **`site`** | `drawlib init site` | Complete documentation website with sidebar navigation | `docs_src/` -> `docs_html/` & `docs_markdown/` |
-| **`slide`** | `drawlib init slide` | 16:9 presentation slide deck (web, PDF & PowerPoint) | `slide_src/` -> `slide_html/`, `slide_en.pdf` & `slide_en.pptx` |
-| **`images`** | `drawlib init images` | Standalone Python drawing batch scripts | `images_src/` -> `images/` |
+| **`doc`** | `drawlib init project doc` | Linear technical document, spec, RFC, or formal report | `doc_src/` -> `doc_html/`, `doc_en.pdf`, `doc_en.docx`, `doc_markdown/` |
+| **`site`** | `drawlib init project site` | Complete documentation website with sidebar navigation | `docs_src/` -> `docs_html/` & `docs_markdown/` |
+| **`slide`** | `drawlib init project slide` | 16:9 presentation slide deck (web, PDF & PowerPoint) | `slide_src/` -> `slide_html/`, `slide_en.pdf` & `slide_en.pptx` |
+| **`images`** | `drawlib init project images` | Standalone Python drawing batch scripts | `images_src/` -> `images/` |
 
 ```drawlib width=640px align=center file=project_templates.png caption="Figure 14.1: The Four Standard Drawlib Project Templates"
 from drawlib.canvas import setup

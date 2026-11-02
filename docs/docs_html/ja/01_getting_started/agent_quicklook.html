@@ -658,30 +658,37 @@
 <li><strong>決定論的なジオメトリ検証</strong>: 描画結果を推測に頼るのではなく、<code>drawlib show -g</code> で絶対座標グリッド付きの画像を出力し、視覚的に結果を検証できます。</li>
 </ol>
 <p>AI エージェントに Drawlib で図解やドキュメントを作成させるには、ワークスペースに Drawlib の基本ガイドラインを設定してください。</p>
-<h3>1. ワークスペースルールの設定</h3>
-<p>プロジェクトのルールファイルに Drawlib のエージェント指示を追加します。</p>
+<h3>1. ワークスペースルールの設定（<code>drawlib init agent</code>）</h3>
+<p><code>drawlib init agent</code>（<code>antigravity</code>, <code>claude</code>, <code>cursor</code>, <code>copilot</code>, <code>windsurf</code>, <code>cline</code>, <code>roo</code>, <code>codex</code>, <code>gemini</code>, または <code>all</code>）を実行し、Drawlib 公式の AI エージェント用ルールファイルをワークスペースへ直接生成します。</p>
 <ul>
-<li><strong>Cursor</strong>: <code>.cursorrules</code> または <code>.cursor/rules/drawlib.md</code> に指示を貼り付けます。</li>
-<li><strong>Claude Code</strong>: プロジェクトの <code>CLAUDE.md</code> に指示を追加します。</li>
-<li><strong>Gemini / 汎用エージェント</strong>: <code>.agents/rules/drawlib.md</code> に指示を配置します。</li>
+<li><strong>Antigravity</strong>: <code>.agents/rules/drawlib.md</code> を生成します。</li>
+<li><strong>Claude Code / Cursor / GitHub Copilot</strong>: <code>.claude/rules/drawlib.md</code>、<code>.cursor/rules/drawlib.mdc</code>、または <code>.github/instructions/drawlib.instructions.md</code> を生成します。</li>
+<li><strong>Codex / Gemini（<code>AGENTS.md</code> / <code>GEMINI.md</code>）</strong>: <code>AGENTS.md</code> または <code>GEMINI.md</code> に Drawlib ルールセクションを非破壊マージします。</li>
 </ul>
-<p>公式のエージェント指示テンプレートは CLI から直接出力できます。</p>
-<pre><code class="language-bash"><span class="c1"># Display the bootstrap agent manual</span>
+<pre><code class="language-bash"><span class="c1"># List supported AI coding agents and target rule paths</span>
+$<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>agent<span class="w"> </span>list
+
+<span class="c1"># Auto-detect configured AI agents in your repository (or specify targets explicitly)</span>
+$<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>agent<span class="w"> </span>--detect
+$<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>agent<span class="w"> </span>antigravity
+$<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>agent<span class="w"> </span>claude<span class="w"> </span>cursor<span class="w"> </span>copilot
+
+<span class="c1"># Display the bootstrap agent manual directly in stdout</span>
 $<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>rules<span class="w"> </span>show<span class="w"> </span>agent-instruction
 </code></pre>
-<h3>2. プロジェクトファーストの原則（<code>drawlib init</code>）</h3>
-<p>エージェントに対して、<strong>未初期化のディレクトリに裸の <code>.py</code> ファイルを作成したり、プロジェクトフォルダを手動で組み立てたりしない</strong> よう徹底させます。テーマ・言語フォント設定（<code>styles.py</code>）、<code>utils.py</code>、<code>_assets/</code>、<code>build.sh</code> が適切に構成されるよう、必ず最初に Drawlib プロジェクトをスキャフォールディングさせてください。</p>
+<h3>2. プロジェクトファーストの原則（<code>drawlib init project</code>）</h3>
+<p>エージェントに対して、<strong>未初期化のディレクトリに裸の <code>.py</code> ファイルを作成したり、プロジェクトフォルダを手動で組み立てたりしない</strong> よう徹底させます。<code>drawlib.toml</code>、テーマ・言語フォント設定（<code>styles.py</code>）、<code>utils.py</code>、<code>_assets/</code>、<code>build.sh</code> が適切に構成されるよう、必ず最初に Drawlib プロジェクトをスキャフォールディングさせてください。</p>
 <pre><code class="language-bash"><span class="c1"># Standalone diagram image(s) only -&gt; images_src/*.py -&gt; images/*.png</span>
-$<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>images<span class="w"> </span><span class="o">[</span>-l<span class="w"> </span>&lt;lang&gt;<span class="o">]</span><span class="w"> </span><span class="o">[</span>-s<span class="w"> </span>&lt;style&gt;<span class="o">]</span>
+$<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>project<span class="w"> </span>images<span class="w"> </span><span class="o">[</span>-l<span class="w"> </span>&lt;lang&gt;<span class="o">]</span><span class="w"> </span><span class="o">[</span>-s<span class="w"> </span>&lt;style&gt;<span class="o">]</span>
 
-<span class="c1"># Linear technical document / RFC / PDF -&gt; doc_src/*.md</span>
-$<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>doc<span class="w"> </span><span class="o">[</span>target<span class="o">]</span><span class="w"> </span><span class="o">[</span>-l<span class="w"> </span>&lt;lang&gt;<span class="o">]</span><span class="w"> </span><span class="o">[</span>-s<span class="w"> </span>&lt;style&gt;<span class="o">]</span>
+<span class="c1"># Linear technical document / RFC / PDF / Word -&gt; doc_src/&lt;lang&gt;/*.md</span>
+$<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>project<span class="w"> </span>doc<span class="w"> </span><span class="o">[</span>target<span class="o">]</span><span class="w"> </span><span class="o">[</span>-l<span class="w"> </span>&lt;langs&gt;<span class="o">]</span><span class="w"> </span><span class="o">[</span>-s<span class="w"> </span>&lt;style&gt;<span class="o">]</span>
 
-<span class="c1"># Multi-page documentation website -&gt; docs_src/**/*.md</span>
-$<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>site<span class="w"> </span><span class="o">[</span>target<span class="o">]</span><span class="w"> </span><span class="o">[</span>-l<span class="w"> </span>&lt;lang&gt;<span class="o">]</span><span class="w"> </span><span class="o">[</span>-s<span class="w"> </span>&lt;style&gt;<span class="o">]</span>
+<span class="c1"># Multi-page documentation website -&gt; docs_src/&lt;lang&gt;/**/*.md</span>
+$<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>project<span class="w"> </span>site<span class="w"> </span><span class="o">[</span>target<span class="o">]</span><span class="w"> </span><span class="o">[</span>-l<span class="w"> </span>&lt;langs&gt;<span class="o">]</span><span class="w"> </span><span class="o">[</span>-s<span class="w"> </span>&lt;style&gt;<span class="o">]</span>
 
-<span class="c1"># 16:9 presentation slide deck -&gt; slide_src/*.md</span>
-$<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>slide<span class="w"> </span><span class="o">[</span>target<span class="o">]</span><span class="w"> </span><span class="o">[</span>-l<span class="w"> </span>&lt;lang&gt;<span class="o">]</span><span class="w"> </span><span class="o">[</span>-s<span class="w"> </span>&lt;style&gt;<span class="o">]</span>
+<span class="c1"># 16:9 presentation slide deck / PowerPoint -&gt; slide_src/&lt;lang&gt;/*.md</span>
+$<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>project<span class="w"> </span>slide<span class="w"> </span><span class="o">[</span>target<span class="o">]</span><span class="w"> </span><span class="o">[</span>-l<span class="w"> </span>&lt;langs&gt;<span class="o">]</span><span class="w"> </span><span class="o">[</span>-s<span class="w"> </span>&lt;style&gt;<span class="o">]</span>
 </code></pre>
 <h3>3. 基本コマンドとオンデマンドルールカタログ</h3>
 <p>オンデマンドのルールトピックの参照方法と、座標グリッド付きプレビューの出力方法をエージェントに把握させます。</p>
@@ -722,7 +729,7 @@ $<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>dr
 <td style="text-align:left"><code>uv run drawlib rules show project-&lt;images|doc|site|slide&gt;</code></td>
 </tr>
 <tr>
-<td style="text-align:left"><strong>CLI リファレンス（<code>build</code>, <code>show</code>, <code>cache</code>）</strong></td>
+<td style="text-align:left"><strong>CLI リファレンス（<code>build</code>, <code>init</code>, <code>show</code>, <code>cache</code>）</strong></td>
 <td style="text-align:left"><code>uv run drawlib rules show cli</code></td>
 </tr>
 <tr>
@@ -816,7 +823,7 @@ $<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>dr
 </details>
 <ol>
 <li><strong>コンテキストの調査</strong>: エージェントはリポジトリ内の実際のファイル（モデル、API ルーター、データベーススキーマなど）を調査し、アーキテクチャを正確に把握します。</li>
-<li><strong>図解コードの作成</strong>: エージェントは（未作成の場合は）<code>drawlib init</code> でプロジェクトをスキャフォールディングし、<code>images_src/&lt;name&gt;.py</code> または <code>file:&lt;diagram.png&gt;</code> を指定した埋め込み <code>drawlib</code> Markdown ブロック内に描画コードを記述します。</li>
+<li><strong>図解コードの作成</strong>: エージェントは（未作成の場合は）<code>drawlib init project</code> でプロジェクトをスキャフォールディングし、<code>images_src/&lt;name&gt;.py</code> または <code>file=&lt;diagram.png&gt;</code> を指定した埋め込み <code>drawlib</code> Markdown ブロック内に描画コードを記述します。</li>
 <li><strong>グリッド付き画像のレンダリング（<code>-g</code>）</strong>:<br />
 <code>uv run drawlib show &lt;md_path&gt; &lt;diagram.png&gt; -g -o .drawlib/scratch/preview.png</code>（または <code>uv run drawlib show images_src/&lt;name&gt;.py -g -o .drawlib/scratch/preview.png</code>）を実行します。</li>
 <li><strong>マルチモーダル自己レビュー</strong>: エージェントはレンダリングされた PNG 画像を視覚ツール（ファイル閲覧ツール）で確認し、以下の項目をチェックします。

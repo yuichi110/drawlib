@@ -73,4 +73,4 @@ draw_titled_card((50, 25), width=40, height=30, title="Auth Service")
 
 ## 11.4 Harmonizing with Document CSS (`style.css`)
 
-When you run `drawlib init --style google`, both `styles.py` and `style.css` are configured with the Google theme. This ensures **complete visual harmony between technical text, tables, and embedded diagrams**.
+When you run `drawlib init project <type> --style google`, both `styles.py` and `style.css` are configured with the Google theme. This ensures **complete visual harmony between technical text, tables, and embedded diagrams**.

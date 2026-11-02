@@ -226,7 +226,7 @@ Styles = Styles.patch_font(
 )
 ```
 
-`drawlib init` で新規プロジェクトを作成する際に `--lang ja`（または `zh`、`ko`）を渡すと、この `styles.py` 設定が自動生成されます。
+`drawlib init project` で新規プロジェクトを作成する際に `--lang ja`（または `zh`、`ko`）を渡すと、この `styles.py` 設定が自動生成されます。
 
 ### 5.2. オフライン・CI 向けのフォントアセットキャッシュ (`drawlib cache`)
 

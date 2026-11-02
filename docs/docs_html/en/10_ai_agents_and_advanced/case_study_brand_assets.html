@@ -775,10 +775,10 @@ $$\text{dot}_r = 0.1125 \times \text{unit_scale}$$</p>
 <h2>4. Framework Integration: Default Project Favicon</h2>
 <p>Rather than keeping brand assets isolated in a design repository, Drawlib integrates the official favicon into the framework itself:</p>
 <ol>
-<li><strong>Automatic Scaffolding (<code>drawlib init</code>)</strong>:
+<li><strong>Automatic Scaffolding (<code>drawlib init project</code>)</strong>:
 <ul>
 <li>The master $512 \times 512$ favicon is packaged inside <code>src/drawlib/_templates/project/_assets/favicon.png</code>.</li>
-<li>When developers scaffold a new project (<code>drawlib init site</code>, <code>drawlib init doc</code>, or <code>drawlib init slide</code>), <code>_assets/favicon.png</code> is automatically copied into <code>&lt;target&gt;_src/_assets/</code>.</li>
+<li>When developers scaffold a new project (<code>drawlib init project site</code>, <code>drawlib init project doc</code>, or <code>drawlib init project slide</code>), <code>_assets/favicon.png</code> is automatically copied into <code>&lt;target&gt;_src/_assets/</code>.</li>
 </ul>
 </li>
 <li><strong>Automated Relative Path Resolution</strong>:

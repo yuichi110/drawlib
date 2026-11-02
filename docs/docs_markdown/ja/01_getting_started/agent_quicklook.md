@@ -37,35 +37,41 @@ Drawlib は相補的な 2 つのループを組み合わせて機能します。
 
 AI エージェントに Drawlib で図解やドキュメントを作成させるには、ワークスペースに Drawlib の基本ガイドラインを設定してください。
 
-### 1. ワークスペースルールの設定
-プロジェクトのルールファイルに Drawlib のエージェント指示を追加します。
+### 1. ワークスペースルールの設定（`drawlib init agent`）
+`drawlib init agent`（`antigravity`, `claude`, `cursor`, `copilot`, `windsurf`, `cline`, `roo`, `codex`, `gemini`, または `all`）を実行し、Drawlib 公式の AI エージェント用ルールファイルをワークスペースへ直接生成します。
 
-- **Cursor**: `.cursorrules` または `.cursor/rules/drawlib.md` に指示を貼り付けます。
-- **Claude Code**: プロジェクトの `CLAUDE.md` に指示を追加します。
-- **Gemini / 汎用エージェント**: `.agents/rules/drawlib.md` に指示を配置します。
-
-公式のエージェント指示テンプレートは CLI から直接出力できます。
+- **Antigravity**: `.agents/rules/drawlib.md` を生成します。
+- **Claude Code / Cursor / GitHub Copilot**: `.claude/rules/drawlib.md`、`.cursor/rules/drawlib.mdc`、または `.github/instructions/drawlib.instructions.md` を生成します。
+- **Codex / Gemini（`AGENTS.md` / `GEMINI.md`）**: `AGENTS.md` または `GEMINI.md` に Drawlib ルールセクションを非破壊マージします。
 
 ```bash
-# Display the bootstrap agent manual
+# List supported AI coding agents and target rule paths
+$ uv run drawlib init agent list
+
+# Auto-detect configured AI agents in your repository (or specify targets explicitly)
+$ uv run drawlib init agent --detect
+$ uv run drawlib init agent antigravity
+$ uv run drawlib init agent claude cursor copilot
+
+# Display the bootstrap agent manual directly in stdout
 $ uv run drawlib rules show agent-instruction
 ```
 
-### 2. プロジェクトファーストの原則（`drawlib init`）
-エージェントに対して、**未初期化のディレクトリに裸の `.py` ファイルを作成したり、プロジェクトフォルダを手動で組み立てたりしない** よう徹底させます。テーマ・言語フォント設定（`styles.py`）、`utils.py`、`_assets/`、`build.sh` が適切に構成されるよう、必ず最初に Drawlib プロジェクトをスキャフォールディングさせてください。
+### 2. プロジェクトファーストの原則（`drawlib init project`）
+エージェントに対して、**未初期化のディレクトリに裸の `.py` ファイルを作成したり、プロジェクトフォルダを手動で組み立てたりしない** よう徹底させます。`drawlib.toml`、テーマ・言語フォント設定（`styles.py`）、`utils.py`、`_assets/`、`build.sh` が適切に構成されるよう、必ず最初に Drawlib プロジェクトをスキャフォールディングさせてください。
 
 ```bash
 # Standalone diagram image(s) only -> images_src/*.py -> images/*.png
-$ uv run drawlib init images [-l <lang>] [-s <style>]
+$ uv run drawlib init project images [-l <lang>] [-s <style>]
 
-# Linear technical document / RFC / PDF -> doc_src/*.md
-$ uv run drawlib init doc [target] [-l <lang>] [-s <style>]
+# Linear technical document / RFC / PDF / Word -> doc_src/<lang>/*.md
+$ uv run drawlib init project doc [target] [-l <langs>] [-s <style>]
 
-# Multi-page documentation website -> docs_src/**/*.md
-$ uv run drawlib init site [target] [-l <lang>] [-s <style>]
+# Multi-page documentation website -> docs_src/<lang>/**/*.md
+$ uv run drawlib init project site [target] [-l <langs>] [-s <style>]
 
-# 16:9 presentation slide deck -> slide_src/*.md
-$ uv run drawlib init slide [target] [-l <lang>] [-s <style>]
+# 16:9 presentation slide deck / PowerPoint -> slide_src/<lang>/*.md
+$ uv run drawlib init project slide [target] [-l <langs>] [-s <style>]
 ```
 
 ### 3. 基本コマンドとオンデマンドルールカタログ
@@ -80,7 +86,7 @@ $ uv run drawlib init slide [target] [-l <lang>] [-s <style>]
 | **自律 3 段階レビューとフォントサイズ計算** | `uv run drawlib rules show review-guide` |
 | **プロジェクト概要（4 つのアーキタイプ）** | `uv run drawlib rules show project-overview` |
 | **各プロジェクトガイド（`images`, `doc`, `site`, `slide`）** | `uv run drawlib rules show project-<images\|doc\|site\|slide>` |
-| **CLI リファレンス（`build`, `show`, `cache`）** | `uv run drawlib rules show cli` |
+| **CLI リファレンス（`build`, `init`, `show`, `cache`）** | `uv run drawlib rules show cli` |
 | **統合 API チートシート** | `uv run drawlib rules show api` |
 | **自動レイアウトグラフ（`drawlib.graph`）** | `uv run drawlib rules show lib-graph-overview` |
 | **ドメインダイアグラム（`drawlib.diagrams`）** | `uv run drawlib rules show lib-diagrams-overview` |
@@ -158,7 +164,7 @@ save()
 
 
 1. **コンテキストの調査**: エージェントはリポジトリ内の実際のファイル（モデル、API ルーター、データベーススキーマなど）を調査し、アーキテクチャを正確に把握します。
-2. **図解コードの作成**: エージェントは（未作成の場合は）`drawlib init` でプロジェクトをスキャフォールディングし、`images_src/<name>.py` または `file:<diagram.png>` を指定した埋め込み ````drawlib```` Markdown ブロック内に描画コードを記述します。
+2. **図解コードの作成**: エージェントは（未作成の場合は）`drawlib init project` でプロジェクトをスキャフォールディングし、`images_src/<name>.py` または `file=<diagram.png>` を指定した埋め込み ````drawlib```` Markdown ブロック内に描画コードを記述します。
 3. **グリッド付き画像のレンダリング（`-g`）**:  
    `uv run drawlib show <md_path> <diagram.png> -g -o .drawlib/scratch/preview.png`（または `uv run drawlib show images_src/<name>.py -g -o .drawlib/scratch/preview.png`）を実行します。
 4. **マルチモーダル自己レビュー**: エージェントはレンダリングされた PNG 画像を視覚ツール（ファイル閲覧ツール）で確認し、以下の項目をチェックします。

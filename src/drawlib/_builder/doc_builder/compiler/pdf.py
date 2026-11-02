@@ -250,7 +250,8 @@ def build_pdf(
             )
         raise ValueError(
             f'Missing required "drawlib.toml" in "{input_dir_abs}". '
-            'PDF directory builds require a Drawlib project manifest (run "drawlib init doc" or "drawlib init slide").'
+            "PDF directory builds require a Drawlib project manifest "
+            '(run "drawlib init project doc" or "drawlib init project slide").'
         )
 
     if manifest.project.type == "site":

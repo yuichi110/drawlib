@@ -1,4 +1,4 @@
-# スライドデッキプロジェクトガイド (`drawlib init slide`)
+# スライドデッキプロジェクトガイド (`drawlib init project slide`)
 
 `slide` スターターテンプレートは、リッチなアーキテクチャ図解、メトリクスカード、バッジ、および構造化レイアウトを備えた 16:9 プレゼンテーションスライドデッキを作成します。
 
@@ -104,7 +104,7 @@ save()
 
 ## 1. エンドツーエンドのプロジェクトワークフロー
 
-`drawlib init slide` による初期スキャフォールディングとストーリー構成の設計から、2 層構造の執筆（`::: block` ステージ＋`::: note` スピーカー台本）、HTML／PDF／`.pptx` へのコンパイル、ライブ発表者ツール（`?presenter=1`）、そしてキャッシュを活用した Day-2 の高速編集までの流れを確認しましょう。
+`drawlib init project slide` による初期スキャフォールディングとストーリー構成の設計から、2 層構造の執筆（`::: block` ステージ＋`::: note` スピーカー台本）、HTML／PDF／`.pptx` へのコンパイル、ライブ発表者ツール（`?presenter=1`）、そしてキャッシュを活用した Day-2 の高速編集までの流れを確認しましょう。
 
 
 
@@ -123,15 +123,15 @@ save()
 
 ## 2. プロジェクトの初期化
 
-`drawlib init` を使用してプレゼンテーションプロジェクトをスキャフォールディングします（すべての `slide` プロジェクトは、単一言語であっても統一された `<src_dir>/<lang>/` ロケール構成を使用します）。
+`drawlib init project` を使用してプレゼンテーションプロジェクトをスキャフォールディングします（すべての `slide` プロジェクトは、単一言語であっても統一された `<src_dir>/<lang>/` ロケール構成を使用します）。
 
 ```bash
 # Scaffold standard slide project in current directory (creates 'slide_src/en/'):
-drawlib init slide
+drawlib init project slide
 
 # With custom target name, theme, and single or multiple locales (creates 'my_deck_src/<lang>/'):
-drawlib init slide my_deck -s google -l en
-drawlib init slide my_deck -s google -l en,ja
+drawlib init project slide my_deck -s google -l en
+drawlib init project slide my_deck -s google -l en,ja
 ```
 
 ---
@@ -147,7 +147,7 @@ drawlib init slide my_deck -s google -l en,ja
   - **`_assets/`**: 出力先フォルダへ同期される静的なロゴ、フォント、参照メディアです（`<lang>/` のスライドからは `../_assets/...`、`<lang>/<section>/` からは `../../_assets/...` で参照します）。
   - **`styles.py` & `utils.py`**: プレゼンテーション全体で共有されるカラートークン、タイポグラフィ既定値（任意のロケール別 `<lang>/styles.py` による上書きも可能）、スライドヘッダー／フッターヘルパー、KPI／カードユーティリティです。
   - **`style.css` & `slide.js`**: 16:9 ビューポート自動スケーリング用スタイルシート、キーボードナビゲーションコントローラー、`.slide-lang-dropdown` 言語メニュー（`L` ショートカット対応）、および `BroadcastChannel` による発表者ツール（Presenter View）ランタイムです。
-  - **`build.sh`, `build_html.sh`, `build_pdf.sh`, `build_pptx.sh`, `build_image.sh`, `serve.sh`**: モジュール化されたビルドスクリプトおよびローカルプレゼンテーションプレビューランチャーです。
+  - **`build.sh`, `build_html.sh`, `build_pdf.sh`, `build_pptx.sh`, `build_image.sh`, `serve.sh`**: `drawlib init project slide` により実行権限（`+x`）付きで生成されるモジュール化されたビルドスクリプト（PowerPoint `.pptx` エクスポート用の `build_pptx.sh` を含む）およびローカルプレゼンテーションプレビューランチャーです。
 - **生成される出力先（直接編集しないでください）**:
   - **`slide_html/`**: フルスクリーン表示、一覧グリッド表示、および `?presenter=1` 発表者ツールをサポートするインタラクティブなブラウザ用スライドデッキ群（`slide_html/<lang>/index.html`、`?presenter=1` と `#N` を保持するルートリダイレクト `slide_html/index.html`、および共有の `slide_html/images/`、`style.css`、`slide.js`）です。
   - **`slide_<lang>.pdf`** *（例: `slide_en.pdf`）*: ヘッドレス Chromium によってロケールごとにレンダリングされる、1 ページあたり `1920px × 1080px` のマルチページベクター PDF です。
@@ -284,18 +284,18 @@ uv run drawlib serve slide_html/
 ## 8. マルチエージェントによる並列スライドデッキ執筆
 
 `slide_src/<lang>/` 内の各スライドは独立した Markdown ファイル（`01_title.md`、`02_agenda.md`、`03_arch.md`、またはセクションフォルダ単位）であるため、AI コーディングエージェントは複数枚のプレゼンテーションを並列に構築・刷新できます。
-1. **フェーズ 1（親エージェントによる初期設定）**: 最初に `slide_src/` をスキャフォールディング（`drawlib init slide`）し、`drawlib.toml`、`styles.py`、`utils.py` を設定したうえで、スライドデッキ全体のストーリー構成と番号付きファイル名を定義します。
+1. **フェーズ 1（親エージェントによる初期設定）**: 最初に `slide_src/` をスキャフォールディング（`drawlib init project slide`）し、`drawlib.toml`、`styles.py`、`utils.py` を設定したうえで、スライドデッキ全体のストーリー構成と番号付きファイル名を定義します。
 2. **フェーズ 2（サブエージェントによる並列執筆）**: `slide_src/<lang>/` 内の重複しないスライドファイル（またはセクションディレクトリ）を並列サブエージェントに割り当てます。各サブエージェントは担当スライド（`::: block` ステージレイアウト＋`::: note` スピーカー台本）を執筆し、一意なスクラッチパス（`-o .drawlib/scratch/<slide>_<block>_grid.png`）で `-g` グリッドプレビューを実行します。
-3. **フェーズ 3（統合デッキビルドとレビュー）**: すべてのサブエージェントがスライドを完了した後、親エージェントが `./slide_src/build.sh`（および必要に応じて `drawlib build pptx`）を 1 回実行し、コンパイルされた `slide_<lang>.pdf` と `slide_html/<lang>/index.html` を検証します。
+3. **フェーズ 3（統合デッキビルドとレビュー）**: すべてのサブエージェントがスライドを完了した後、親エージェントが `./slide_src/build.sh`（および必要に応じて `./slide_src/build_pptx.sh`）を 1 回実行し、コンパイルされた `slide_<lang>.pdf` と `slide_html/<lang>/index.html` を検証します。
 
 ---
 
 ## 9. 統一 `i18n` アーキテクチャと多言語スライドデッキ (`drawlib.toml`)
 
-すべての `slide_src/` プロジェクトは統一された `i18n` ネイティブの `<src_dir>/<lang>/` ディレクトリ構成（既定は `langs = ["en"]`）を採用しています。カンファレンス登壇やエグゼクティブ報告向けに英語・日本語などの多言語デッキを並行維持する場合も、`git mv` によるファイル移動は不要です。`drawlib init slide` にカンマ区切りのロケールを指定するか、`slide_src/ja/` を追加して `slide_src/drawlib.toml` の `[i18n]` を更新するだけで多言語デッキを構築できます。
+すべての `slide_src/` プロジェクトは統一された `i18n` ネイティブの `<src_dir>/<lang>/` ディレクトリ構成（既定は `langs = ["en"]`）を採用しています。カンファレンス登壇やエグゼクティブ報告向けに英語・日本語などの多言語デッキを並行維持する場合も、`git mv` によるファイル移動は不要です。`drawlib init project slide` にカンマ区切りのロケールを指定するか、`slide_src/ja/` を追加して `slide_src/drawlib.toml` の `[i18n]` を更新するだけで多言語デッキを構築できます。
 
 ```bash
-uv run drawlib init slide keynote -l en,ja -s google
+uv run drawlib init project slide keynote -l en,ja -s google
 ```
 
 ```toml

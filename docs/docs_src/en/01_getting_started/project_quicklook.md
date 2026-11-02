@@ -125,14 +125,14 @@ def draw_gemini_avatar(xy: tuple[float, float], radius: float = 4.3) -> None:
 
 
 def draw_scene_init_patterns(highlight_doc: bool) -> None:
-    """Scene 1: Show 4 drawlib init archetypes and select 'doc'."""
+    """Scene 1: Show 4 drawlib init project archetypes and select 'doc'."""
     text(
         (69.0, 76.2),
-        "Project Scaffolding Patterns — drawlib init <type>",
+        "Project Scaffolding Patterns — drawlib init project <type>",
         style=Styles.DarkBold.patch(text_size=13.5),
     )
     sub_msg = (
-        "2. Sample walkthrough: Linear Document (drawlib init doc)"
+        "2. Sample walkthrough: Linear Document (drawlib init project doc)"
         if highlight_doc
         else "1. Choose from 4 starter project archetypes"
     )
@@ -148,7 +148,7 @@ def draw_scene_init_patterns(highlight_doc: bool) -> None:
             37.5,
             51.5,
             "doc",
-            "drawlib init doc",
+            "drawlib init project doc",
             "Linear Document / Spec / RFC",
             "Out: doc_html/<lang>/, doc_<lang>.pdf/.docx",
             phosphor.file_pdf,
@@ -157,7 +157,7 @@ def draw_scene_init_patterns(highlight_doc: bool) -> None:
             100.5,
             51.5,
             "site",
-            "drawlib init site",
+            "drawlib init project site",
             "Multi-Page Docs Website",
             "Out: docs_html/<lang>/, docs_markdown/",
             phosphor.globe,
@@ -166,7 +166,7 @@ def draw_scene_init_patterns(highlight_doc: bool) -> None:
             37.5,
             21.5,
             "slide",
-            "drawlib init slide",
+            "drawlib init project slide",
             "16:9 Presentation Deck",
             "Out: slide_html/<lang>/, slide_<lang>.pdf/.pptx",
             phosphor.presentation_chart,
@@ -175,7 +175,7 @@ def draw_scene_init_patterns(highlight_doc: bool) -> None:
             100.5,
             21.5,
             "images",
-            "drawlib init images",
+            "drawlib init project images",
             "Standalone Python Scripts",
             "Out: images/*.png, *.svg, *.webp",
             phosphor.images,
@@ -658,7 +658,7 @@ def draw_split_workspace(
     if not show_src:
         text(
             (103.0, 35.0),
-            "(Empty repository — waiting for drawlib init)",
+            "(Empty repo — waiting for drawlib init project)",
             style=Styles.Muted.patch(text_size=10.0),
         )
 
@@ -695,18 +695,18 @@ with anim.frame(duration=2.4):
         pulse_arrow=False,
     )
 
-# Day 1 - 2. [Gemini] Run drawlib init doc
+# Day 1 - 2. [Gemini] Run drawlib init project doc
 with anim.frame(duration=2.2):
     draw_split_workspace(
         phase_badge="Day 1: Initial Project Setup",
-        step_heading="2. Gemini — Run drawlib init doc",
+        step_heading="2. Gemini — Run drawlib init project doc",
         actor="gemini",
         actor_title="Gemini: Initialize 'doc' project",
         actor_sub="Scaffold doc_src/en/, config & build scripts",
         actor_optional=False,
         ops=[
             ("user", 'Ask Gemini: "Create initial doc project"', "done"),
-            ("gemini", "$ drawlib init doc", "active_gemini"),
+            ("gemini", "$ drawlib init project doc", "active_gemini"),
         ],
         show_day2_note=False,
         show_src=False,
@@ -727,7 +727,7 @@ with anim.frame(duration=2.5):
         actor_optional=False,
         ops=[
             ("user", 'Ask Gemini: "Create initial doc project"', "done"),
-            ("gemini", "$ drawlib init doc", "active_gemini"),
+            ("gemini", "$ drawlib init project doc", "active_gemini"),
         ],
         show_day2_note=False,
         show_src=True,
@@ -757,7 +757,7 @@ with anim.frame(duration=2.4):
         actor_optional=False,
         ops=[
             ("user", 'Ask Gemini: "Create initial doc project"', "done"),
-            ("gemini", "$ drawlib init doc", "done"),
+            ("gemini", "$ drawlib init project doc", "done"),
             ("gemini", "Edit doc_src/styles.py, utils.py", "active_gemini"),
         ],
         show_day2_note=False,
@@ -781,7 +781,7 @@ with anim.frame(duration=2.4):
         actor_optional=True,
         ops=[
             ("user", 'Ask Gemini: "Create initial doc project"', "done"),
-            ("gemini", "$ drawlib init doc", "done"),
+            ("gemini", "$ drawlib init project doc", "done"),
             ("gemini", "Edit doc_src/styles.py, utils.py", "done"),
             ("gemini", "Edit template.html, style.css", "optional"),
         ],
@@ -806,7 +806,7 @@ with anim.frame(duration=2.4):
         actor_optional=False,
         ops=[
             ("user", 'Ask Gemini: "Create initial doc project"', "done"),
-            ("gemini", "$ drawlib init doc", "done"),
+            ("gemini", "$ drawlib init project doc", "done"),
             ("gemini", "Edit doc_src/styles.py, utils.py", "done"),
             ("gemini", "Edit template.html, style.css", "optional_done"),
             ("user", 'Ask Gemini: "Update project docs"', "active_user"),
@@ -830,7 +830,7 @@ with anim.frame(duration=2.4):
         actor_optional=False,
         ops=[
             ("user", 'Ask Gemini: "Create initial doc project"', "done"),
-            ("gemini", "$ drawlib init doc", "done"),
+            ("gemini", "$ drawlib init project doc", "done"),
             ("gemini", "Edit doc_src/styles.py, utils.py", "done"),
             ("gemini", "Edit template.html, style.css", "optional_done"),
             ("user", 'Ask Gemini: "Update project docs"', "done"),
@@ -858,7 +858,7 @@ with anim.frame(duration=2.2):
         actor_optional=False,
         ops=[
             ("user", 'Ask Gemini: "Create initial doc project"', "done"),
-            ("gemini", "$ drawlib init doc", "done"),
+            ("gemini", "$ drawlib init project doc", "done"),
             ("gemini", "Edit doc_src/styles.py, utils.py", "done"),
             ("gemini", "Edit template.html, style.css", "optional_done"),
             ("user", 'Ask Gemini: "Update project docs"', "done"),
@@ -886,7 +886,7 @@ with anim.frame(duration=2.8):
         actor_optional=False,
         ops=[
             ("user", 'Ask Gemini: "Create initial doc project"', "done"),
-            ("gemini", "$ drawlib init doc", "done"),
+            ("gemini", "$ drawlib init project doc", "done"),
             ("gemini", "Edit doc_src/styles.py, utils.py", "done"),
             ("gemini", "Edit template.html, style.css", "optional_done"),
             ("user", 'Ask Gemini: "Update project docs"', "done"),
@@ -917,7 +917,7 @@ with anim.frame(duration=2.8):
         actor_optional=False,
         ops=[
             ("user", 'Ask Gemini: "Create initial doc project"', "done"),
-            ("gemini", "$ drawlib init doc", "done"),
+            ("gemini", "$ drawlib init project doc", "done"),
             ("gemini", "Edit doc_src/styles.py, utils.py", "done"),
             ("gemini", "Edit template.html, style.css", "optional_done"),
             ("user", 'Ask Gemini: "Update project docs"', "done"),
@@ -1097,7 +1097,7 @@ save()
 
 Instead of writing documentation in static wikis and manually copying and pasting PNG screenshots, Drawlib establishes a clean, repeatable human-in-the-loop workflow with AI coding agents:
 
-1. **Day 1 — Initialize, Author & Commit**: Ask your AI agent to create the initial project (`drawlib init doc`, configuring `drawlib.toml`, `styles.py`, `utils.py`, and optional `template.html` / `style.css`), then ask it to author and compile your specification (`doc_src/<lang>/*.md` with ```` ```drawlib ```` blocks -> `doc_markdown/`, `doc_html/`, `doc_<lang>.pdf`, `doc_<lang>.docx`), and review & commit to Git.
+1. **Day 1 — Initialize, Author & Commit**: Ask your AI agent to create the initial project (`drawlib init project doc`, configuring `drawlib.toml`, `styles.py`, `utils.py`, and optional `template.html` / `style.css`), then ask it to author and compile your specification (`doc_src/<lang>/*.md` with ```` ```drawlib ```` blocks -> `doc_markdown/`, `doc_html/`, `doc_<lang>.pdf`, `doc_<lang>.docx`), and review & commit to Git.
 2. **Day 2+ — Daily Incremental Updates**: Whenever application code evolves, simply ask the AI agent to update the project docs (editing `.md` chapters and running `./doc_src/build.sh` with `.drawlib/cache.db` caching) and commit the refreshed deliverables alongside your code.
 
 ### The Golden Rule: `<name>_src/` is the Single Source of Truth
@@ -1106,22 +1106,22 @@ Instead of writing documentation in static wikis and manually copying and pastin
 
 ---
 
-## 1. Project Scaffolding (`drawlib init`)
+## 1. Project Scaffolding (`drawlib init project`)
 
 Scaffold a complete project template with a single command:
 
 ```bash
 # List available starter project templates
-$ uv run drawlib init list
+$ uv run drawlib init project list
 
 # Initialize a multi-page documentation website (creates docs_src/)
-$ uv run drawlib init site
+$ uv run drawlib init project site
 
 # Or scaffold into a custom target name (positional argument, e.g., mybook_src/ -> mybook_html/):
-$ uv run drawlib init site mybook
+$ uv run drawlib init project site mybook
 
 # Optional flags: --style (-s) for theme and --lang (-l) for single or multi-locale (e.g. en,ja)
-$ uv run drawlib init doc rbac -s google -l en,ja
+$ uv run drawlib init project doc rbac -s google -l en,ja
 ```
 
 Drawlib supports four starter project types (`doc`, `site`, and `slide` natively use `<src_dir>/<lang>/` and `[i18n]` in `drawlib.toml`):
@@ -1130,7 +1130,7 @@ Drawlib supports four starter project types (`doc`, `site`, and `slide` natively
 - **`slide`**: 16:9 presentation slide deck compiled to web deck (`slide_html/`), vector PDF (`slide_<lang>.pdf`), editable MS PowerPoint (`slide_<lang>.pptx`), and diagrams (`slide_images/`).
 - **`images`**: Standalone Python illustration scripts (`images_src/*.py`) batch-compiled to image files (`images/*.png`).
 
-```drawlib code=fold align=center file=project_scaffolding_types.png caption="The Four Drawlib Project Scaffolding Archetypes (drawlib init)"
+```drawlib code=fold align=center file=project_scaffolding_types.png caption="The Four Drawlib Project Scaffolding Archetypes (drawlib init project)"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.shapes import rectangle
@@ -1139,35 +1139,35 @@ from drawlib.text import text
 
 setup(width=126, height=48)
 
-hdr_white = Styles.WhiteBold.patch(text_size=11.5)
-hdr_dark = Styles.DarkBold.patch(text_size=11.5)
+hdr_white = Styles.WhiteBold.patch(text_size=11.0)
+hdr_dark = Styles.DarkBold.patch(text_size=11.0)
 body_bold = Styles.DarkBold.patch(text_size=10.5, halign="left")
 body_sub = Styles.Dark.patch(text_size=10.0, halign="left")
 
-# 1. Top-Left: drawlib init site (Hero header)
+# 1. Top-Left: drawlib init project site (Hero header)
 rectangle((32.0, 35.5), width=58.0, height=19.0, style=Styles.Neutral.patch(shape_r=2.0))
-rectangle((32.0, 41.0), width=55.0, height=5.5, style=Styles.PrimaryFlat.patch(shape_r=1.2), text="1. drawlib init site (Multi-Page Website)", text_style=hdr_white)
+rectangle((32.0, 41.0), width=55.0, height=5.5, style=Styles.PrimaryFlat.patch(shape_r=1.2), text="1. drawlib init project site (Website)", text_style=hdr_white)
 phosphor.globe((9.5, 32.0), width=5.2, style=Styles.Primary)
 text((14.0, 34.0), "Source: docs_src/<lang>/**/*.md + navbar.md", style=body_bold)
 text((14.0, 29.8), "Output: docs_html/ + docs_markdown/", style=body_sub)
 
-# 2. Top-Right: drawlib init doc
+# 2. Top-Right: drawlib init project doc
 rectangle((94.0, 35.5), width=58.0, height=19.0, style=Styles.Neutral.patch(shape_r=2.0))
-rectangle((94.0, 41.0), width=55.0, height=5.5, style=Styles.SecondaryNeutral.patch(shape_r=1.2), text="2. drawlib init doc (Linear Spec & PDF/Word)", text_style=hdr_dark)
+rectangle((94.0, 41.0), width=55.0, height=5.5, style=Styles.SecondaryNeutral.patch(shape_r=1.2), text="2. drawlib init project doc (Linear Doc)", text_style=hdr_dark)
 phosphor.file_pdf((71.5, 32.0), width=5.2, style=Styles.Primary)
 text((76.0, 34.0), "Source: doc_src/<lang>/00_cover.md, ...", style=body_bold)
 text((76.0, 29.8), "Output: doc_<lang>.pdf/.docx + doc_html/", style=body_sub)
 
-# 3. Bottom-Left: drawlib init slide
+# 3. Bottom-Left: drawlib init project slide
 rectangle((32.0, 12.5), width=58.0, height=19.0, style=Styles.Neutral.patch(shape_r=2.0))
-rectangle((32.0, 18.0), width=55.0, height=5.5, style=Styles.SecondaryNeutral.patch(shape_r=1.2), text="3. drawlib init slide (16:9 Slide Deck)", text_style=hdr_dark)
+rectangle((32.0, 18.0), width=55.0, height=5.5, style=Styles.SecondaryNeutral.patch(shape_r=1.2), text="3. drawlib init project slide (16:9 Deck)", text_style=hdr_dark)
 phosphor.presentation_chart((9.5, 9.0), width=5.2, style=Styles.Primary)
 text((14.0, 11.0), "Source: slide_src/<lang>/*.md (16:9 Stage)", style=body_bold)
 text((14.0, 6.8), "Output: slide_html/ + slide_<lang>.pdf/.pptx", style=body_sub)
 
-# 4. Bottom-Right: drawlib init images
+# 4. Bottom-Right: drawlib init project images
 rectangle((94.0, 12.5), width=58.0, height=19.0, style=Styles.Neutral.patch(shape_r=2.0))
-rectangle((94.0, 18.0), width=55.0, height=5.5, style=Styles.SecondaryNeutral.patch(shape_r=1.2), text="4. drawlib init images (Batch Scripts)", text_style=hdr_dark)
+rectangle((94.0, 18.0), width=55.0, height=5.5, style=Styles.SecondaryNeutral.patch(shape_r=1.2), text="4. drawlib init project images (Scripts)", text_style=hdr_dark)
 phosphor.images((71.5, 9.0), width=5.2, style=Styles.Primary)
 text((76.0, 11.0), "Source: images_src/*.py + styles.py", style=body_bold)
 text((76.0, 6.8), "Output: images/*.png / *.webp / *.svg", style=body_sub)

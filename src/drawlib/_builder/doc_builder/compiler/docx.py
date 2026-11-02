@@ -213,7 +213,8 @@ def build_docx(
             )
         raise ValueError(
             f'Missing required "drawlib.toml" in "{input_dir_abs}". '
-            'Word (.docx) directory builds require a Drawlib "doc" project manifest (run "drawlib init doc").'
+            'Word (.docx) directory builds require a Drawlib "doc" project manifest '
+            '(run "drawlib init project doc").'
         )
 
     if manifest.project.type == "slide":

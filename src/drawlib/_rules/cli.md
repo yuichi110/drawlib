@@ -18,13 +18,15 @@ drawlib build slide slide_src/ -o slide_html/               # 16:9 HTML presenta
 drawlib build pptx slide_src/ -o slide.pptx                 # Editable 16:9 MS PowerPoint per locale (slide_<lang>.pptx)
 drawlib build image scripts/ -o assets/ -g                  # Batch Python illustration rendering
 
-# Project scaffolding
-drawlib init list                                          # List available starter project templates (site, doc, slide, images)
-drawlib init site                                          # Scaffold multi-page documentation website (docs_src/en/)
-drawlib init doc                                           # Scaffold linear document project (doc_src/en/)
-drawlib init doc rbac -s google                            # Scaffold doc project with custom target name & theme (rbac_src/en/)
-drawlib init slide -l en,ja -s google                      # Scaffold bilingual 16:9 presentation slide deck (slide_src/{en,ja}/)
-drawlib init images                                        # Scaffold standalone Python illustrations repository (images_src/)
+# Project scaffolding & AI agent instructions
+drawlib init project list                                  # List available starter project templates (site, doc, slide, images)
+drawlib init project site                                  # Scaffold multi-page documentation website (docs_src/en/)
+drawlib init project doc                                   # Scaffold linear document project (doc_src/en/)
+drawlib init project doc rbac -s google                    # Scaffold doc project with custom target name & theme (rbac_src/en/)
+drawlib init project slide -l en,ja -s google              # Scaffold bilingual 16:9 presentation slide deck (slide_src/{en,ja}/)
+drawlib init project images                                # Scaffold standalone Python illustrations repository (images_src/)
+drawlib init agent antigravity                             # Generate AI agent rules (.agents/rules/drawlib.md, mode: auto)
+drawlib init agent --detect                                # Auto-detect configured AI agents in repo and generate rules
 
 # Inspection, visual preview, and extraction
 drawlib show doc_src/en/01_arch.md arch.png -o .drawlib/scratch/arch.png         # Export named block without GUI (Recommended)
@@ -130,7 +132,7 @@ drawlib build html <DIR> [OPTIONS]
 | `--utils` | `-u` | `<path>` | `None` | Path to Python utils script (e.g. `utils.py`). |
 | `--no-cache` | | flag | `False` | Disable reading and writing the SQLite image build cache (forces clean re-rendering). |
 
-> **Mandatory Files**: `drawlib.toml` (with `[i18n]`), `template.html`, and `style.css` must exist in the input directory. Run `drawlib init <site|doc>` to scaffold them.
+> **Mandatory Files**: `drawlib.toml` (with `[i18n]`), `template.html`, and `style.css` must exist in the input directory. Run `drawlib init project <site|doc>` to scaffold them.
 
 #### Directory Compilation Rules:
 When `<DIR>` is compiled by `drawlib build html`:
@@ -222,7 +224,7 @@ drawlib build pdf <INPUT> [OPTIONS]
 | `--no-cache` | | flag | `False` | Force clean diagram generation ignoring SQLite cache. |
 | `--timestamp` | | flag | `False` | Include current build timestamp in PDF metadata instead of normalizing for deterministic builds. |
 
-> **Mandatory Files**: `doc` and `slide` directory builds require `drawlib.toml` (with `[i18n]`), plus `template.html` and `style.css` for `doc` projects. Run `drawlib init` to scaffold them.
+> **Mandatory Files**: `doc` and `slide` directory builds require `drawlib.toml` (with `[i18n]`), plus `template.html` and `style.css` for `doc` projects. Run `drawlib init project <doc|slide>` to scaffold them.
 
 #### Zero-Config Headless Chromium Engine:
 Drawlib renders PDFs using Playwright (installed automatically as a standard dependency of `drawlib`) and a headless Chromium browser instance (`chromium-headless-shell`, `page.pdf()`). This guarantees identical layout across all operating systems, accurate web font loading, and background CSS rendering:
@@ -245,7 +247,7 @@ drawlib build pdf doc_src/ -o comprehensive_guide.pdf --page-break --generate-in
 
 Compiles a linear `doc` project directory (`doc_src/`, emitting `<stem>_<lang>.docx` per locale) or a standalone Markdown file (`.md`) into a native editable Microsoft Word (`.docx`) document using `python-docx` (installed automatically as a standard dependency). Outputs native editable Word headings, prose, lists, tables, blockquotes, and syntax-highlighted code blocks, with ````drawlib```` diagrams embedded as high-DPI static PNGs (default `dpi=200`).
 
-*(Note: `drawlib init doc` scaffolds an executable `./doc_src/build_docx.sh` script for on-demand `.docx` export, while master `build.sh` builds HTML, PDF, Markdown, and Images.)*
+*(Note: `drawlib init project doc` scaffolds an executable `./doc_src/build_docx.sh` script for on-demand `.docx` export, while master `build.sh` builds HTML, PDF, Markdown, and Images.)*
 
 #### Syntax:
 ```bash
@@ -317,7 +319,7 @@ drawlib build pptx slide_src/ -o slide.pptx -s slide_src/styles.py -u slide_src/
 
 Measures the `1920x1080` slide DOM via headless Chromium for each locale in `[i18n].langs` and writes native editable 16:9 (`960x540 pt`) Microsoft PowerPoint (`<stem>_<lang>.pptx`) decks using `python-pptx` (installed automatically as a standard dependency). Converts `::: block` cards (including `rgba` alpha backgrounds/borders), text boxes, bullet/numbered lists, tables, code blocks, and `::: note` speaker notes into native PowerPoint shapes, with ````drawlib```` diagrams embedded as high-DPI static PNGs (default `dpi=240`, `anim_frame="last"`).
 
-*(Note: Headless Chromium auto-downloads on first `drawlib build pdf` or `drawlib build pptx` run. `drawlib init slide` scaffolds an executable `./slide_src/build_pptx.sh` script for on-demand `.pptx` export, while master `build.sh` compiles HTML, PDF, and Images.)*
+*(Note: Headless Chromium auto-downloads on first `drawlib build pdf` or `drawlib build pptx` run. `drawlib init project slide` scaffolds an executable `./slide_src/build_pptx.sh` script for on-demand `.pptx` export, while master `build.sh` compiles HTML, PDF, and Images.)*
 
 #### Syntax:
 ```bash
@@ -398,19 +400,21 @@ drawlib build image scripts/ -o assets/ -f webp
 
 ---
 
-## 2. Project Scaffolding (`drawlib init`)
+## 2. Project & AI Agent Scaffolding (`drawlib init`)
 
-Bootstraps new documentation projects with production-ready file layouts, sample illustrations, navigation configurations, and automated build scripts.
+Bootstraps new documentation projects (`drawlib init project`) and per-agent AI coding instructions (`drawlib init agent`).
 
-> **Project-First Guideline for AI Agents & Developers**: Never create standalone `.py` drawing scripts directly in an uninitialized directory, and never craft project directory structures manually. Always scaffold a project first using `drawlib init`:
-> - If the user wants **diagram image(s) only**, run `drawlib init images [-l <lang>] [-s <style>]` and author scripts inside `images_src/`.
-> - If the user wants an **illustrated document, website, or slide deck**, run `drawlib init <doc|site|slide> [-l <lang[,lang...]>] [-s <style>]`.
+### 2.1 Project Scaffolding (`drawlib init project`)
+
+> **Project-First Guideline for AI Agents & Developers**: Never create standalone `.py` drawing scripts directly in an uninitialized directory, and never craft project directory structures manually. Always scaffold a project first using `drawlib init project`:
+> - If the user wants **diagram image(s) only**, run `drawlib init project images [-l <lang>] [-s <style>]` and author scripts inside `images_src/`.
+> - If the user wants an **illustrated document, website, or slide deck**, run `drawlib init project <doc|site|slide> [-l <lang[,lang...]>] [-s <style>]`.
 > - After scaffolding, replace or remove the starter sample files (`sample1.py`, `sample2.py`, etc.).
 
 ### Syntax:
 ```bash
-drawlib init <type> [target] [options]
-drawlib init list
+drawlib init project <type> [target] [options]
+drawlib init project list
 ```
 
 ### Arguments:
@@ -424,7 +428,7 @@ drawlib init list
 | `--lang` | `-l` | `<lang>` | `en` | Starter content and font configuration language (`en`, `ja`, `zh-cn`, `ko`, `th`, `hi`, etc.), or comma-separated locales (`-l en,ja`) for multi-language `doc`, `site`, and `slide` projects (`images` is single-language only). |
 | `--force` | `-f` | flag | `False` | Overwrite existing files if destination directory is not empty. |
 
-> **Note on Initial Build & `drawlib.toml`**: Every `drawlib init` command generates `<target>_src/drawlib.toml`. For `doc`, `site`, and `slide`, `drawlib.toml` always includes `[i18n]` (`default_lang`, `langs`) and places Markdown inside `<target>_src/<lang>/` (even for single-language projects); for `images`, `lang` is recorded directly under `[project]`. `drawlib init` performs pure scaffolding without running compilation automatically; run `./<target>_src/build.sh` to compile.
+> **Note on Initial Build & `drawlib.toml`**: Every `drawlib init project` command generates `<target>_src/drawlib.toml`. For `doc`, `site`, and `slide`, `drawlib.toml` always includes `[i18n]` (`default_lang`, `langs`) and places Markdown inside `<target>_src/<lang>/` (even for single-language projects); for `images`, `lang` is recorded directly under `[project]`. `drawlib init project` performs pure scaffolding without running compilation automatically; run `./<target>_src/build.sh` to compile.
 
 ---
 
@@ -534,18 +538,36 @@ Designed for illustration asset repositories, diagrams for slides, or article ba
 
 ### Scaffolding Examples:
 ```bash
-drawlib init list                              # List available project types (site, doc, slide, images)
-drawlib init doc                               # Scaffold a linear document project (doc_src/en/)
-drawlib init doc rbac -s google                # Scaffold doc with custom target name: creates rbac_src/en/ -> rbac_en.pdf
-drawlib init doc whitepaper -l en,ja -s google # Scaffold bilingual EN/JA linear document (whitepaper_en.pdf, whitepaper_ja.pdf)
-drawlib init site                              # Scaffold a multi-page documentation website (docs_src/en/)
-drawlib init site -l en,ja -s default          # Scaffold multi-language documentation website (docs_src/{en,ja}/)
-drawlib init site --lang ja                    # Scaffold site with Japanese starter content & fonts (docs_src/ja/)
-drawlib init slide -s google                   # Scaffold 16:9 slide deck with Google styling (slide_src/en/ -> slide_en.pdf)
-drawlib init slide pitch -l en,ja -s google    # Scaffold bilingual 16:9 slide deck (pitch_en.pdf, pitch_ja.pdf)
-drawlib init images                            # Scaffold standalone illustration project (images_src/)
-drawlib init doc --force                       # Force overwrite existing doc_src/ directory
+drawlib init project list                              # List available project types (site, doc, slide, images)
+drawlib init project doc                               # Scaffold a linear document project (doc_src/en/)
+drawlib init project doc rbac -s google                # Scaffold doc with custom target name: creates rbac_src/en/ -> rbac_en.pdf
+drawlib init project doc whitepaper -l en,ja -s google # Scaffold bilingual EN/JA linear document (whitepaper_en.pdf, whitepaper_ja.pdf)
+drawlib init project site                              # Scaffold a multi-page documentation website (docs_src/en/)
+drawlib init project site -l en,ja -s default          # Scaffold multi-language documentation website (docs_src/{en,ja}/)
+drawlib init project site --lang ja                    # Scaffold site with Japanese starter content & fonts (docs_src/ja/)
+drawlib init project slide -s google                   # Scaffold 16:9 slide deck with Google styling (slide_src/en/ -> slide_en.pdf)
+drawlib init project slide pitch -l en,ja -s google    # Scaffold bilingual 16:9 slide deck (pitch_en.pdf, pitch_ja.pdf)
+drawlib init project images                            # Scaffold standalone illustration project (images_src/)
+drawlib init project doc --force                       # Force overwrite existing doc_src/ directory
 ```
+
+### 2.2 AI Coding Agent Instructions (`drawlib init agent`)
+
+Generates per-agent Drawlib instruction files with tool-specific YAML/MDC frontmatter or non-destructive marker blocks:
+
+```bash
+drawlib init agent list                        # List supported AI coding agents and output paths
+drawlib init agent antigravity                 # Create .agents/rules/drawlib.md (or .agent/rules/drawlib.md)
+drawlib init agent antigravity -m always       # Always-on rule (trigger: always_on) for dedicated doc repos
+drawlib init agent claude cursor copilot       # Generate multiple modular rule files at once
+drawlib init agent all                         # Generate all 7 modular per-agent rule files
+drawlib init agent --detect                    # Auto-detect existing agent folders/files in workspace
+drawlib init agent antigravity --global        # Install into user home global config (~/.gemini/config/rules/)
+drawlib init agent codex                       # Append or merge Drawlib block into shared root AGENTS.md
+```
+
+- **Supported `<agent>` targets**: `antigravity` (`.agents/rules/drawlib.md`), `claude` (`.claude/rules/drawlib.md`), `cursor` (`.cursor/rules/drawlib.mdc`), `copilot` (`.github/instructions/drawlib.instructions.md`), `windsurf` (`.windsurf/rules/drawlib.md`), `cline` (`.clinerules/drawlib.md`), `roo` (`.roo/rules/drawlib.md`), `codex` / `agents-md` (`AGENTS.md`, marker-merged), `gemini` / `gemini-md` (`GEMINI.md`, marker-merged), and `all` (all 7 modular targets).
+- **Options**: `-m / --mode <auto|always>` (default `auto` for on-demand token-saving activation), `-g / --global`, `--detect`, `--list`, `-d / --dir <DIR>`, `-o / --output <FILE>`, and `-f / --force`.
 
 ---
 
@@ -1226,7 +1248,7 @@ repos:
 
 #### 1. Missing `drawlib.toml` or `[i18n]` Table on Directory Build
 - **Cause**: Running `drawlib build <html|markdown|pdf|docx|slide|pptx>` on a project directory lacking `drawlib.toml` or missing `[i18n]` (`default_lang`, `langs`).
-- **Fix**: Scaffold the project with `drawlib init <site|doc|slide>` or add `drawlib.toml` with `[project]` (`type = "site" | "doc" | "slide"`) and `[i18n]` (`default_lang`, `langs`), placing Markdown sources inside `<target>_src/<lang>/`.
+- **Fix**: Scaffold the project with `drawlib init project <site|doc|slide>` or add `drawlib.toml` with `[project]` (`type = "site" | "doc" | "slide"`) and `[i18n]` (`default_lang`, `langs`), placing Markdown sources inside `<target>_src/<lang>/`.
 
 #### 2. Missing `<lang>/index.md` or `<lang>/navbar.md` in a `site` Project
 - **Cause**: Multi-page website (`type = "site"`) builds require `index.md` and `navbar.md` at the root of every configured locale directory (`docs_src/<lang>/`).

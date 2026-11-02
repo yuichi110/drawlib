@@ -692,7 +692,7 @@ Drawlib solves this with a <strong>unified design token system</strong> in <code
 Always import PascalCase <code>Styles</code> and <code>Colors</code> from <code>drawlib.styles</code>. Never use lowercase <code>styles</code> or <code>colors</code> variables, which would shadow the <code>drawlib.styles</code> module.</p>
 </blockquote>
 <h3>Customizing Project-Wide Defaults in <code>styles.py</code></h3>
-<p>Every project scaffolded with <code>drawlib init</code> includes a root <code>styles.py</code> file. When <code>drawlib build</code> or <code>drawlib show</code> runs, Drawlib loads <code>styles.py</code> and binds its <code>Styles</code> and <code>Colors</code> objects into <code>drawlib.styles</code>:</p>
+<p>Every project scaffolded with <code>drawlib init project</code> includes a root <code>styles.py</code> file. When <code>drawlib build</code> or <code>drawlib show</code> runs, Drawlib loads <code>styles.py</code> and binds its <code>Styles</code> and <code>Colors</code> objects into <code>drawlib.styles</code>:</p>
 <pre><code class="language-python"><span class="c1"># styles.py</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.fonts</span><span class="w"> </span><span class="kn">import</span> <span class="n">FontRoboto</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.preset_colors</span><span class="w"> </span><span class="kn">import</span> <span class="n">GoogleColors</span>

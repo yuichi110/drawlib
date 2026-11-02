@@ -266,7 +266,7 @@ save()
 
 ## 7. Interactive Playback Control in Presentation Slides (`slide`)
 
-In 16:9 presentation slide decks (`drawlib init slide`), animated `.png` (APNG) and `.webp` blocks can be controlled interactively via `<canvas>` playback options on the ````drawlib```` fence:
+In 16:9 presentation slide decks (`drawlib init project slide`), animated `.png` (APNG) and `.webp` blocks can be controlled interactively via `<canvas>` playback options on the ````drawlib```` fence:
 
 ````markdown
 ```drawlib file=pipeline.webp anim_trigger=click anim_loop=once anim_pause=(2, 4)

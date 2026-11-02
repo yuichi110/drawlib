@@ -26,11 +26,11 @@ Drawlib makes creating publication-ready technical diagrams intuitive and reprod
 ## 1. Standalone Python Script (`images` Project)
 
 > [!IMPORTANT]
-> **Project-First Rule (`drawlib init`)**:  
+> **Project-First Rule (`drawlib init project`)**:  
 > Rather than creating bare `.py` files in an uninitialized directory, always scaffold a Drawlib project first so `styles.py` (theme & language fonts), `utils.py`, `_assets/`, and `build.sh` are properly configured:
 > ```bash
 > # Scaffold a standalone illustration project (creates images_src/ -> images/)
-> $ uv run drawlib init images
+> $ uv run drawlib init project images
 > ```
 
 Create a Python script named `images_src/client_server.py`:

@@ -632,57 +632,77 @@
             <main class="main-content">
                 <h1>インストールガイド</h1>
 <p>Drawlib は PyPI で公開されており、<code>uv</code>（推奨）または標準の <code>pip</code> を使用してインストールできます。
-単一の <code>drawlib</code> パッケージをインストールするだけで、HTML・Markdown・ベクター PDF・MS Word（<code>.docx</code>）・MS PowerPoint（<code>.pptx</code>）の出力機能、ヘッドレス Chromium の自動セットアップ、およびオフラインアセットキャッシュがすべて標準で利用できます。</p>
+単一の <code>drawlib</code> パッケージをインストールするだけで、AI エージェント用ルールのワンコマンド生成（<code>drawlib init agent</code>）、HTML・Markdown・ベクター PDF・MS Word（<code>.docx</code>）・MS PowerPoint（<code>.pptx</code>）の出力機能、ヘッドレス Chromium の自動セットアップ、およびオフラインアセットキャッシュがすべて標準で利用できます。</p>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="../../images/01_getting_started/installation/installation_setup_workflow.png" alt="installation_1" />
-  <figcaption class="drawlib-caption">3 ステップで完了する Drawlib 環境セットアップワークフロー</figcaption>
+  <figcaption class="drawlib-caption">Drawlib 環境・AI エージェントのセットアップワークフロー</figcaption>
 </figure>
 <details class="drawlib-code-details">
 <summary>Source Code</summary>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">circle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">circle</span><span class="p">,</span> <span class="n">rectangle</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.smartarts</span><span class="w"> </span><span class="kn">import</span> <span class="n">ChevronProcess</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">124</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">40</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">136</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
 
 <span class="n">workflow</span> <span class="o">=</span> <span class="n">ChevronProcess</span><span class="p">(</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.5</span><span class="p">),</span>
-    <span class="n">description_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
-    <span class="n">corner_angle</span><span class="o">=</span><span class="mf">65.0</span><span class="p">,</span>
-    <span class="n">spacing</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">),</span>
+    <span class="n">description_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">corner_angle</span><span class="o">=</span><span class="mf">68.0</span><span class="p">,</span>
+    <span class="n">spacing</span><span class="o">=</span><span class="mf">1.6</span><span class="p">,</span>
     <span class="n">flat_left_end</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="n">workflow</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
     <span class="s2">"1. Install Drawlib"</span><span class="p">,</span>
     <span class="n">description</span><span class="o">=</span><span class="s2">"uv add drawlib</span><span class="se">\n</span><span class="s2">pip install drawlib"</span><span class="p">,</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
-    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.5</span><span class="p">),</span>
-    <span class="n">description_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">),</span>
+    <span class="n">description_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
 <span class="p">)</span>
 <span class="n">workflow</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
-    <span class="s2">"2. Zero-Config Export"</span><span class="p">,</span>
+    <span class="s2">"2. AI Agent Setup"</span><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="s2">"drawlib init agent</span><span class="se">\n</span><span class="s2">&lt;claude | cursor&gt;"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.8</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">workflow</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="s2">"3. Zero-Config Export"</span><span class="p">,</span>
     <span class="n">description</span><span class="o">=</span><span class="s2">"PDF, .docx &amp; .pptx</span><span class="se">\n</span><span class="s2">Auto Headless Chrome"</span><span class="p">,</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="n">workflow</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
-    <span class="s2">"3. Offline Assets"</span><span class="p">,</span>
+    <span class="s2">"4. Offline Assets"</span><span class="p">,</span>
     <span class="n">description</span><span class="o">=</span><span class="s2">"drawlib cache</span><span class="se">\n</span><span class="s2">download --all"</span><span class="p">,</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="n">workflow</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">116.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">22.0</span><span class="p">)</span>
+<span class="n">workflow</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">130.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">23.5</span><span class="p">)</span>
 
 <span class="c1"># Step icons above each chevron stage</span>
-<span class="n">circle</span><span class="p">((</span><span class="mf">22.0</span><span class="p">,</span> <span class="mf">32.2</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">4.2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
-<span class="n">phosphor</span><span class="o">.</span><span class="n">package</span><span class="p">((</span><span class="mf">22.0</span><span class="p">,</span> <span class="mf">32.2</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">5.2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">)</span>
+<span class="n">circle</span><span class="p">((</span><span class="mf">18.0</span><span class="p">,</span> <span class="mf">33.8</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">package</span><span class="p">((</span><span class="mf">18.0</span><span class="p">,</span> <span class="mf">33.8</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">)</span>
 
-<span class="n">circle</span><span class="p">((</span><span class="mf">62.0</span><span class="p">,</span> <span class="mf">32.2</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">4.2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
-<span class="n">phosphor</span><span class="o">.</span><span class="n">file_pdf</span><span class="p">((</span><span class="mf">62.0</span><span class="p">,</span> <span class="mf">32.2</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">5.2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">)</span>
+<span class="n">circle</span><span class="p">((</span><span class="mf">51.5</span><span class="p">,</span> <span class="mf">33.8</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.6</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">robot</span><span class="p">((</span><span class="mf">51.5</span><span class="p">,</span> <span class="mf">33.8</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Accent</span><span class="p">)</span>
 
-<span class="n">circle</span><span class="p">((</span><span class="mf">101.0</span><span class="p">,</span> <span class="mf">32.2</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">4.2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">)</span>
-<span class="n">phosphor</span><span class="o">.</span><span class="n">download_simple</span><span class="p">((</span><span class="mf">101.0</span><span class="p">,</span> <span class="mf">32.2</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">5.2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">)</span>
+<span class="c1"># Optional / Strongly Recommended callout badge above Step 2</span>
+<span class="n">line</span><span class="p">((</span><span class="mf">51.5</span><span class="p">,</span> <span class="mf">37.8</span><span class="p">),</span> <span class="p">(</span><span class="mf">51.5</span><span class="p">,</span> <span class="mf">40.3</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">AccentBold</span><span class="p">)</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mf">51.5</span><span class="p">,</span> <span class="mf">43.0</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mf">46.0</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">5.4</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">AccentFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.7</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Optional  •  Strongly Recommended"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">circle</span><span class="p">((</span><span class="mf">84.4</span><span class="p">,</span> <span class="mf">33.8</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">file_pdf</span><span class="p">((</span><span class="mf">84.4</span><span class="p">,</span> <span class="mf">33.8</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">)</span>
+
+<span class="n">circle</span><span class="p">((</span><span class="mf">117.3</span><span class="p">,</span> <span class="mf">33.8</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">)</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">download_simple</span><span class="p">((</span><span class="mf">117.3</span><span class="p">,</span> <span class="mf">33.8</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">)</span>
 
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
@@ -705,7 +725,7 @@ $<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>dr
 <h3>スタンドアロン CLI 実行（<code>uvx</code>）</h3>
 <p>プロジェクトに追加せず、Drawlib CLI ツールを直接実行したい場合は以下のように実行します。</p>
 <pre><code class="language-bash">$<span class="w"> </span>uvx<span class="w"> </span>drawlib<span class="w"> </span>--version
-$<span class="w"> </span>uvx<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>site
+$<span class="w"> </span>uvx<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>project<span class="w"> </span>site
 </code></pre>
 <hr />
 <h2>2. <code>pip</code> を使用する場合</h2>
@@ -716,7 +736,26 @@ $<span class="w"> </span>uvx<span class="w"> </span>drawlib<span class="w"> </sp
 $<span class="w"> </span>drawlib<span class="w"> </span>--version
 </code></pre>
 <hr />
-<h2>3. 標準組み込みの PDF・Word（<code>.docx</code>）・PowerPoint（<code>.pptx</code>）出力</h2>
+<h2>3. AI エージェント設定の初期化 <em>（任意・強く推奨）</em></h2>
+<p>Drawlib は AI エージェントを使わない通常の Python ライブラリおよび CLI としてもそのまま動作しますが、<strong>Claude Code</strong>・<strong>Cursor</strong>・<strong>Antigravity</strong>・<strong>GitHub Copilot</strong>・<strong>Windsurf</strong>・<strong>Cline</strong>・<strong>Roo Code</strong>・<strong>OpenAI Codex</strong>・<strong>Gemini CLI</strong> などの AI コーディングエージェントを利用する場合は、インストール直後にワークスペース用のエージェントルールを初期化しておくことを <strong>強く推奨</strong> します。</p>
+<p><code>drawlib init agent</code> を実行すると、各 IDE / CLI エージェント固有のルールファイルが自動生成され、左下原点 <code>(0, 0)</code> の座標系・<code>50%+</code> ニュートラル配色ルール・<code>drawlib init project</code> によるプロジェクト初期化・3 ステージ視覚自己検証ループを AI が自律的に遵守するようになります。</p>
+<pre><code class="language-bash"><span class="c1"># 対応している AI エージェントと出力先パスの一覧を表示</span>
+$<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>agent<span class="w"> </span>list
+
+<span class="c1"># 使用している AI エージェント向けのルールファイルを生成</span>
+$<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>agent<span class="w"> </span>claude<span class="w">        </span><span class="c1"># -&gt; .claude/rules/drawlib.md</span>
+$<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>agent<span class="w"> </span>cursor<span class="w">        </span><span class="c1"># -&gt; .cursor/rules/drawlib.mdc</span>
+$<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>agent<span class="w"> </span>antigravity<span class="w">   </span><span class="c1"># -&gt; .agents/rules/drawlib.md</span>
+
+<span class="c1"># 複数のエージェントを一括で初期化（全 9 種を一括生成する場合は 'all'）</span>
+$<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>agent<span class="w"> </span>claude<span class="w"> </span>cursor<span class="w"> </span>copilot
+
+<span class="c1"># 任意: フロントマター対応エージェントの読込モードを標準の 'auto' から常時読込 'always' に変更</span>
+$<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>agent<span class="w"> </span>antigravity<span class="w"> </span>--mode<span class="w"> </span>always
+</code></pre>
+<p>対応エージェント一覧やトリガーモードの詳細は、<a href="./agent_quicklook.html">AI エージェント クイックルック</a> および <a href="../10_ai_agents_and_advanced/ai_agent_instructions.html">AI エージェント向け指示書</a> を参照してください。</p>
+<hr />
+<h2>4. 標準組み込みの PDF・Word（<code>.docx</code>）・PowerPoint（<code>.pptx</code>）出力</h2>
 <p>Drawlib は <code>playwright</code>、<code>python-docx</code>、<code>python-pptx</code> を標準の依存パッケージとして含んでいるため、追加のオプションパッケージ指定や手動でのブラウザ導入手順は不要です。</p>
 <ul>
 <li><strong>MS Word (<code>drawlib build docx</code>)</strong>: ブラウザ依存なしのピュア Python で動作します。</li>
@@ -729,7 +768,7 @@ $<span class="w"> </span>drawlib<span class="w"> </span>--version
 </code></pre>
 </blockquote>
 <hr />
-<h2>4. アセット・ビルドキャッシュ管理（<code>drawlib cache</code>）</h2>
+<h2>5. アセット・ビルドキャッシュ管理（<code>drawlib cache</code>）</h2>
 <p>PyPI パッケージのサイズを最小限に抑えるため、高解像度アイコンセット（Phosphor、FontAwesome、各種公式クラウド／ドメインアイコン）、多言語フォント、地理マップデータセット、およびヘッドレス Chromium は初回利用時にオンデマンドでダウンロードされます（<code>drawlib cache download</code> による事前取得も可能）。一方、プロジェクト単位の図版差分ビルド結果は <code>.drawlib/cache.db</code> に個別にキャッシュされます。</p>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="../../images/01_getting_started/installation/installation_two_tier_cache.png" alt="installation_2" />
@@ -797,9 +836,11 @@ $<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>dr
 $<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>cache<span class="w"> </span>clear<span class="w"> </span>--all
 </code></pre>
 <hr />
-<h2>5. インストールの確認</h2>
-<p>Drawlib の CLI コマンドとルールガイドが正常に利用できることを確認します。</p>
+<h2>6. インストールの確認</h2>
+<p>Drawlib の CLI コマンド、テンプレート一覧、およびルールガイドが正常に利用できることを確認します。</p>
 <pre><code class="language-bash">$<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>--help
+$<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>project<span class="w"> </span>list
+$<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>agent<span class="w"> </span>list
 $<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>rules<span class="w"> </span>list
 </code></pre>
 

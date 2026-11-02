@@ -226,7 +226,7 @@ Styles = Styles.patch_font(
 )
 ```
 
-When scaffolding a new project with `drawlib init`, pass `--lang ja` (or `zh`, `ko`) to generate this `styles.py` configuration automatically.
+When scaffolding a new project with `drawlib init project`, pass `--lang ja` (or `zh`, `ko`) to generate this `styles.py` configuration automatically.
 
 ### 5.2. Offline & CI Font Asset Caching (`drawlib cache`)
 

@@ -20,7 +20,7 @@ Stop context-switching between Git, GUI drawing tools, wikis, and slide editors.
 uv add drawlib   # or: pip install drawlib
 
 # 2. Scaffold a 16:9 slide deck, doc, or site
-uv run drawlib init slide my_deck -s default
+uv run drawlib init project slide my_deck -s default
 
 # 3. Build HTML + PDF (auto Chromium) & preview
 ./my_deck_src/build.sh
@@ -29,7 +29,7 @@ uv run drawlib init slide my_deck -s default
 
 ### Core Takeaways
 - **Batteries Included**: PDF (`build pdf`), MS Word (`build docx`), and 16:9 PowerPoint (`build pptx`) work out of the box—headless Chromium auto-downloads on first build (`cache download --all` / `--browser` for CI; `playwright install-deps chromium` on minimal Linux containers).
-- **AI-Native Source of Truth**: Diagrams, docs, and slides live in Git with `drawlib rules` + headless grid review (`drawlib show -g`).
+- **AI-Native Source of Truth**: Diagrams, docs, and slides live in Git with `drawlib init agent`, `drawlib rules`, and headless grid review (`drawlib show -g`).
 - **Explore & Contribute**: `https://github.com/yuichi110/drawlib`
 :::
 
@@ -81,7 +81,7 @@ proc.add(
 )
 proc.add(
     "2. Scaffold",
-    description="drawlib init slide",
+    description="drawlib init project slide",
     style=Styles.SecondaryNeutral,
 )
 proc.add(

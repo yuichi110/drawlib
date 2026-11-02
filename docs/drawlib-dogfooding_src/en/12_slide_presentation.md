@@ -67,20 +67,20 @@ text((91.25, 31.0), text="Export", style=ts_arrow)
 save()
 ```
 
-## 12.1 Scaffolding a Slide Project (`drawlib init slide`)
+## 12.1 Scaffolding a Slide Project (`drawlib init project slide`)
 
 Initialize a slide presentation project with a single command (pass `-l en,ja` to scaffold multi-language decks):
 
 ```bash
 # Standard slide deck in current directory (creates slide_src/)
-uv run drawlib init slide
+uv run drawlib init project slide
 
 # With custom project name, theme, and language (supports -l en,ja for multi-locale):
-uv run drawlib init slide my_presentation -s google -l en
+uv run drawlib init project slide my_presentation -s google -l en
 ```
 
 ### Directory Anatomy
-Running `uv run drawlib init slide my_presentation -s google -l en` creates the following `i18n`-native workspace layout:
+Running `uv run drawlib init project slide my_presentation -s google -l en` creates the following `i18n`-native workspace layout:
 
 ```text
 .

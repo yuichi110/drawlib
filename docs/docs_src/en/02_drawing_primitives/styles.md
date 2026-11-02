@@ -48,7 +48,7 @@ from drawlib.styles import Colors, Styles
 
 ### Customizing Project-Wide Defaults in `styles.py`
 
-Every project scaffolded with `drawlib init` includes a root `styles.py` file. When `drawlib build` or `drawlib show` runs, Drawlib loads `styles.py` and binds its `Styles` and `Colors` objects into `drawlib.styles`:
+Every project scaffolded with `drawlib init project` includes a root `styles.py` file. When `drawlib build` or `drawlib show` runs, Drawlib loads `styles.py` and binds its `Styles` and `Colors` objects into `drawlib.styles`:
 
 ```python
 # styles.py

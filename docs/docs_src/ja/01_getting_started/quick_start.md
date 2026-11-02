@@ -376,11 +376,11 @@ save()
 ## 1. スタンドアロン Python スクリプト（`images` プロジェクト）
 
 > [!IMPORTANT]
-> **プロジェクトファースト原則（`drawlib init`）**:  
+> **プロジェクトファースト原則（`drawlib init project`）**:  
 > 未初期化のディレクトリに単体の `.py` ファイルを直接作成するのではなく、`styles.py`（テーマ・多言語フォント設定）、`utils.py`、`_assets/`、`build.sh` が適切に構成されるよう、必ず最初に Drawlib プロジェクトをスキャフォールドしてください。
 > ```bash
 > # Scaffold a standalone illustration project (creates images_src/ -> images/)
-> $ uv run drawlib init images
+> $ uv run drawlib init project images
 > ```
 
 `images_src/client_server.py` という名前の Python スクリプトを作成します。

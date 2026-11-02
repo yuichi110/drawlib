@@ -650,10 +650,10 @@
 <h2>1. スタンドアロン Python スクリプト（<code>images</code> プロジェクト）</h2>
 <blockquote>
 <p>[!IMPORTANT]
-<strong>プロジェクトファースト原則（<code>drawlib init</code>）</strong>:<br />
+<strong>プロジェクトファースト原則（<code>drawlib init project</code>）</strong>:<br />
 未初期化のディレクトリに単体の <code>.py</code> ファイルを直接作成するのではなく、<code>styles.py</code>（テーマ・多言語フォント設定）、<code>utils.py</code>、<code>_assets/</code>、<code>build.sh</code> が適切に構成されるよう、必ず最初に Drawlib プロジェクトをスキャフォールドしてください。</p>
 <pre><code class="language-bash"><span class="c1"># Scaffold a standalone illustration project (creates images_src/ -&gt; images/)</span>
-$<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>images
+$<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>project<span class="w"> </span>images
 </code></pre>
 </blockquote>
 <p><code>images_src/client_server.py</code> という名前の Python スクリプトを作成します。</p>

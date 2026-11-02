@@ -1020,7 +1020,7 @@ workflow = CardList(
 )
 workflow.add(
     "1. Scaffold",
-    "Run drawlib init\nsite or doc",
+    "drawlib init project\nsite or doc",
     icon=phosphor.folder_open,
 )
 workflow.add(

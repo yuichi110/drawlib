@@ -13,7 +13,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>スライドデッキプロジェクトガイド (`drawlib init slide`)</title>
+    <title>スライドデッキプロジェクトガイド (`drawlib init project slide`)</title>
     <script>
         (function() {
             const saved = localStorage.getItem('drawlib-theme');
@@ -600,7 +600,7 @@
                 <div class="breadcrumbs">
                     <span class="crumb">Docs</span>
                     <span class="crumb-separator">&raquo;</span>
-                    <span class="crumb active">スライドデッキプロジェクトガイド (`drawlib init slide`)</span>
+                    <span class="crumb active">スライドデッキプロジェクトガイド (`drawlib init project slide`)</span>
                 </div>
                 
                 <div class="lang-switcher">
@@ -630,7 +630,7 @@
                 
             </header>
             <main class="main-content">
-                <h1>スライドデッキプロジェクトガイド (<code>drawlib init slide</code>)</h1>
+                <h1>スライドデッキプロジェクトガイド (<code>drawlib init project slide</code>)</h1>
 <p><code>slide</code> スターターテンプレートは、リッチなアーキテクチャ図解、メトリクスカード、バッジ、および構造化レイアウトを備えた 16:9 プレゼンテーションスライドデッキを作成します。</p>
 <p>Drawlib はスライドデッキを <strong>インタラクティブな HTML Web プレゼンテーション</strong>、<strong>1 ページ 1 スライドのベクター PDF</strong>、および <strong>ネイティブ編集可能な 16:9 MS PowerPoint（<code>.pptx</code>）デッキ</strong> へコンパイルし、カンファレンス登壇、顧客向けブリーフィング、チーム内レビューに最適なサイズで出力します。</p>
 <figure class="drawlib-image" style="text-align: center;">
@@ -722,7 +722,7 @@
 </details>
 <hr />
 <h2>1. エンドツーエンドのプロジェクトワークフロー</h2>
-<p><code>drawlib init slide</code> による初期スキャフォールディングとストーリー構成の設計から、2 層構造の執筆（<code>::: block</code> ステージ＋<code>::: note</code> スピーカー台本）、HTML／PDF／<code>.pptx</code> へのコンパイル、ライブ発表者ツール（<code>?presenter=1</code>）、そしてキャッシュを活用した Day-2 の高速編集までの流れを確認しましょう。</p>
+<p><code>drawlib init project slide</code> による初期スキャフォールディングとストーリー構成の設計から、2 層構造の執筆（<code>::: block</code> ステージ＋<code>::: note</code> スピーカー台本）、HTML／PDF／<code>.pptx</code> へのコンパイル、ライブ発表者ツール（<code>?presenter=1</code>）、そしてキャッシュを活用した Day-2 の高速編集までの流れを確認しましょう。</p>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="../../images/09_doc_builder_and_cli/project_slide/project_slide_workflow_tour.png" alt="project_slide_2" />
   <figcaption class="drawlib-caption">16:9 スライドデッキのライフサイクル: スキャフォールディング、2 層構造の執筆、HTML/PDF/PPTX エクスポート、発表者ツール (APNG アニメーション)</figcaption>
@@ -732,13 +732,13 @@
 </div>
 <hr />
 <h2>2. プロジェクトの初期化</h2>
-<p><code>drawlib init</code> を使用してプレゼンテーションプロジェクトをスキャフォールディングします（すべての <code>slide</code> プロジェクトは、単一言語であっても統一された <code>&lt;src_dir&gt;/&lt;lang&gt;/</code> ロケール構成を使用します）。</p>
+<p><code>drawlib init project</code> を使用してプレゼンテーションプロジェクトをスキャフォールディングします（すべての <code>slide</code> プロジェクトは、単一言語であっても統一された <code>&lt;src_dir&gt;/&lt;lang&gt;/</code> ロケール構成を使用します）。</p>
 <pre><code class="language-bash"><span class="c1"># Scaffold standard slide project in current directory (creates 'slide_src/en/'):</span>
-drawlib<span class="w"> </span>init<span class="w"> </span>slide
+drawlib<span class="w"> </span>init<span class="w"> </span>project<span class="w"> </span>slide
 
 <span class="c1"># With custom target name, theme, and single or multiple locales (creates 'my_deck_src/&lt;lang&gt;/'):</span>
-drawlib<span class="w"> </span>init<span class="w"> </span>slide<span class="w"> </span>my_deck<span class="w"> </span>-s<span class="w"> </span>google<span class="w"> </span>-l<span class="w"> </span>en
-drawlib<span class="w"> </span>init<span class="w"> </span>slide<span class="w"> </span>my_deck<span class="w"> </span>-s<span class="w"> </span>google<span class="w"> </span>-l<span class="w"> </span>en,ja
+drawlib<span class="w"> </span>init<span class="w"> </span>project<span class="w"> </span>slide<span class="w"> </span>my_deck<span class="w"> </span>-s<span class="w"> </span>google<span class="w"> </span>-l<span class="w"> </span>en
+drawlib<span class="w"> </span>init<span class="w"> </span>project<span class="w"> </span>slide<span class="w"> </span>my_deck<span class="w"> </span>-s<span class="w"> </span>google<span class="w"> </span>-l<span class="w"> </span>en,ja
 </code></pre>
 <hr />
 <h2>3. ディレクトリ構成と構造</h2>
@@ -752,7 +752,7 @@ drawlib<span class="w"> </span>init<span class="w"> </span>slide<span class="w">
 <li><strong><code>_assets/</code></strong>: 出力先フォルダへ同期される静的なロゴ、フォント、参照メディアです（<code>&lt;lang&gt;/</code> のスライドからは <code>../_assets/...</code>、<code>&lt;lang&gt;/&lt;section&gt;/</code> からは <code>../../_assets/...</code> で参照します）。</li>
 <li><strong><code>styles.py</code> &amp; <code>utils.py</code></strong>: プレゼンテーション全体で共有されるカラートークン、タイポグラフィ既定値（任意のロケール別 <code>&lt;lang&gt;/styles.py</code> による上書きも可能）、スライドヘッダー／フッターヘルパー、KPI／カードユーティリティです。</li>
 <li><strong><code>style.css</code> &amp; <code>slide.js</code></strong>: 16:9 ビューポート自動スケーリング用スタイルシート、キーボードナビゲーションコントローラー、<code>.slide-lang-dropdown</code> 言語メニュー（<code>L</code> ショートカット対応）、および <code>BroadcastChannel</code> による発表者ツール（Presenter View）ランタイムです。</li>
-<li><strong><code>build.sh</code>, <code>build_html.sh</code>, <code>build_pdf.sh</code>, <code>build_pptx.sh</code>, <code>build_image.sh</code>, <code>serve.sh</code></strong>: モジュール化されたビルドスクリプトおよびローカルプレゼンテーションプレビューランチャーです。</li>
+<li><strong><code>build.sh</code>, <code>build_html.sh</code>, <code>build_pdf.sh</code>, <code>build_pptx.sh</code>, <code>build_image.sh</code>, <code>serve.sh</code></strong>: <code>drawlib init project slide</code> により実行権限（<code>+x</code>）付きで生成されるモジュール化されたビルドスクリプト（PowerPoint <code>.pptx</code> エクスポート用の <code>build_pptx.sh</code> を含む）およびローカルプレゼンテーションプレビューランチャーです。</li>
 </ul>
 </li>
 <li><strong>生成される出力先（直接編集しないでください）</strong>:
@@ -902,14 +902,14 @@ uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </s
 <h2>8. マルチエージェントによる並列スライドデッキ執筆</h2>
 <p><code>slide_src/&lt;lang&gt;/</code> 内の各スライドは独立した Markdown ファイル（<code>01_title.md</code>、<code>02_agenda.md</code>、<code>03_arch.md</code>、またはセクションフォルダ単位）であるため、AI コーディングエージェントは複数枚のプレゼンテーションを並列に構築・刷新できます。</p>
 <ol>
-<li><strong>フェーズ 1（親エージェントによる初期設定）</strong>: 最初に <code>slide_src/</code> をスキャフォールディング（<code>drawlib init slide</code>）し、<code>drawlib.toml</code>、<code>styles.py</code>、<code>utils.py</code> を設定したうえで、スライドデッキ全体のストーリー構成と番号付きファイル名を定義します。</li>
+<li><strong>フェーズ 1（親エージェントによる初期設定）</strong>: 最初に <code>slide_src/</code> をスキャフォールディング（<code>drawlib init project slide</code>）し、<code>drawlib.toml</code>、<code>styles.py</code>、<code>utils.py</code> を設定したうえで、スライドデッキ全体のストーリー構成と番号付きファイル名を定義します。</li>
 <li><strong>フェーズ 2（サブエージェントによる並列執筆）</strong>: <code>slide_src/&lt;lang&gt;/</code> 内の重複しないスライドファイル（またはセクションディレクトリ）を並列サブエージェントに割り当てます。各サブエージェントは担当スライド（<code>::: block</code> ステージレイアウト＋<code>::: note</code> スピーカー台本）を執筆し、一意なスクラッチパス（<code>-o .drawlib/scratch/&lt;slide&gt;_&lt;block&gt;_grid.png</code>）で <code>-g</code> グリッドプレビューを実行します。</li>
-<li><strong>フェーズ 3（統合デッキビルドとレビュー）</strong>: すべてのサブエージェントがスライドを完了した後、親エージェントが <code>./slide_src/build.sh</code>（および必要に応じて <code>drawlib build pptx</code>）を 1 回実行し、コンパイルされた <code>slide_&lt;lang&gt;.pdf</code> と <code>slide_html/&lt;lang&gt;/index.html</code> を検証します。</li>
+<li><strong>フェーズ 3（統合デッキビルドとレビュー）</strong>: すべてのサブエージェントがスライドを完了した後、親エージェントが <code>./slide_src/build.sh</code>（および必要に応じて <code>./slide_src/build_pptx.sh</code>）を 1 回実行し、コンパイルされた <code>slide_&lt;lang&gt;.pdf</code> と <code>slide_html/&lt;lang&gt;/index.html</code> を検証します。</li>
 </ol>
 <hr />
 <h2>9. 統一 <code>i18n</code> アーキテクチャと多言語スライドデッキ (<code>drawlib.toml</code>)</h2>
-<p>すべての <code>slide_src/</code> プロジェクトは統一された <code>i18n</code> ネイティブの <code>&lt;src_dir&gt;/&lt;lang&gt;/</code> ディレクトリ構成（既定は <code>langs = [&quot;en&quot;]</code>）を採用しています。カンファレンス登壇やエグゼクティブ報告向けに英語・日本語などの多言語デッキを並行維持する場合も、<code>git mv</code> によるファイル移動は不要です。<code>drawlib init slide</code> にカンマ区切りのロケールを指定するか、<code>slide_src/ja/</code> を追加して <code>slide_src/drawlib.toml</code> の <code>[i18n]</code> を更新するだけで多言語デッキを構築できます。</p>
-<pre><code class="language-bash">uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>slide<span class="w"> </span>keynote<span class="w"> </span>-l<span class="w"> </span>en,ja<span class="w"> </span>-s<span class="w"> </span>google
+<p>すべての <code>slide_src/</code> プロジェクトは統一された <code>i18n</code> ネイティブの <code>&lt;src_dir&gt;/&lt;lang&gt;/</code> ディレクトリ構成（既定は <code>langs = [&quot;en&quot;]</code>）を採用しています。カンファレンス登壇やエグゼクティブ報告向けに英語・日本語などの多言語デッキを並行維持する場合も、<code>git mv</code> によるファイル移動は不要です。<code>drawlib init project slide</code> にカンマ区切りのロケールを指定するか、<code>slide_src/ja/</code> を追加して <code>slide_src/drawlib.toml</code> の <code>[i18n]</code> を更新するだけで多言語デッキを構築できます。</p>
+<pre><code class="language-bash">uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>project<span class="w"> </span>slide<span class="w"> </span>keynote<span class="w"> </span>-l<span class="w"> </span>en,ja<span class="w"> </span>-s<span class="w"> </span>google
 </code></pre>
 <pre><code class="language-toml"><span class="k">[project]</span>
 <span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"keynote"</span>

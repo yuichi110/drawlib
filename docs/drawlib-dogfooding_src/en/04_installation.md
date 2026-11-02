@@ -19,7 +19,7 @@ uv run drawlib --version
 
 # Run ephemerally without adding to a project (uvx)
 uvx drawlib --version
-uvx drawlib init site
+uvx drawlib init project site
 
 # Using pip
 pip install drawlib
@@ -73,7 +73,7 @@ Once installed, verify that the CLI and project templates are available:
 uv run drawlib --version
 
 # List available project templates
-uv run drawlib init list
+uv run drawlib init project list
 ```
 
 When the four project archetypes—`doc`, `site`, `slide`, and `images`—are displayed, your environment is ready.

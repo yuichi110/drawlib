@@ -35,7 +35,7 @@ text(
 
 # Row 1: Steps 1 to 5 (Scaffolding -> Planning -> Generation -> AI Self-Review)
 row1 = [
-    (17.0, "1. Init Project", "drawlib init slide\nTheme & utils.py", phosphor.terminal_window, Styles.PrimaryNeutral, Styles.PrimaryBold),
+    (17.0, "1. Init Project", "drawlib init project\nslide & utils.py", phosphor.terminal_window, Styles.PrimaryNeutral, Styles.PrimaryBold),
     (44.0, "2. AI Discussion", "Brainstorm story\n4-Act narrative arc", phosphor.chats_circle, Styles.White, Styles.DarkBold),
     (71.0, "3. _PLAN File", "_CONTENTS_PLANNING\nIgnored by build", phosphor.file_dashed, Styles.SecondaryNeutral, Styles.SecondaryBold),
     (98.0, "4. Draft Slides", "::: block (visuals)\n::: note (details)", phosphor.presentation_chart, Styles.White, Styles.DarkBold),
@@ -102,7 +102,7 @@ save()
 
 | ステップ | 担当 | フェーズ | 主なアクションと成果物 |
 | :---: | :---: | :--- | :--- |
-| **1** | 人間 / AI | **プロジェクト作成** | テーマ、`styles.py`、`utils.py` ヘルパーを備えた `slide` プロジェクトを `drawlib init slide` で初期化します。 |
+| **1** | 人間 / AI | **プロジェクト作成** | テーマ、`styles.py`、`utils.py` ヘルパーを備えた `slide` プロジェクトを `drawlib init project slide` で初期化します。 |
 | **2** | 人間 + AI | **構成ディスカッション** | インシデントの事実関係、技術的ボトルネック、聴衆に持ち帰ってほしい学びを議論して整理します。 |
 | **3** | AI エージェント | **`_PLAN` 構成案の作成** | `_CONTENTS_PLANNING.md` を作成します（先頭に `_` を付けることでスライドコンパイラの対象外にします）。 |
 | **4** | AI エージェント | **初回スライド一式の生成** | 2層分離構造（視覚ステージ `::: block` と発表者ノート `::: note`）を用いて全章の `.md` スライドを執筆します。 |
@@ -116,11 +116,11 @@ save()
 
 ## 2. ステップ 1〜3: プロジェクト初期化・構成議論・`_` プレフィックス計画ファイル
 
-### 2.1. ステップ 1: スライドプロジェクトの初期化 (`drawlib init slide`)
+### 2.1. ステップ 1: スライドプロジェクトの初期化 (`drawlib init project slide`)
 すべてのスライドデッキ制作は、構造化された Drawlib の `slide` プロジェクトを初期化することから始まります。
 
 ```bash
-uv run drawlib init slide docs/slide_ddos_incident_response_src --style google
+uv run drawlib init project slide docs/slide_ddos_incident_response_src --style google
 ```
 
 これにより、プレゼンテーション制作に必要な基盤一式が自動生成されます。

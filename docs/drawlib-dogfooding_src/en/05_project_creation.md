@@ -1,6 +1,6 @@
 # Chapter 5: Project Scaffolding and Build Workflows
 
-Drawlib provides the `drawlib init` command to scaffold purpose-built documentation projects in seconds.
+Drawlib provides the `drawlib init project` command to scaffold purpose-built documentation projects in seconds.
 
 ## 5.1 Project Template Types
 
@@ -16,7 +16,7 @@ Drawlib provides the `drawlib init` command to scaffold purpose-built documentat
 Create a Google-style document project in one command (pass `-l en,ja` to scaffold multiple locales at once):
 
 ```bash
-uv run drawlib init doc report -l en -s google
+uv run drawlib init project doc report -l en -s google
 ```
 
 ```drawlib align=center file=fig_project_lifecycle.png caption="Figure 5.1: Project Lifecycle from Scaffolding to Final Artifact"
@@ -33,12 +33,12 @@ header_ts = Styles.WhiteBold.patch(text_size=11.0)
 ts_body = Styles.Dark.patch(text_size=10.0, halign="left")
 ts_arrow = Styles.DarkBold.patch(text_size=10.0)
 
-# 1. Scaffold: drawlib init
+# 1. Scaffold: drawlib init project
 rectangle((22.5, 26.0), width=37.0, height=42.0, style=Styles.SecondaryNeutral.patch(shape_r=2.0))
-rectangle((22.5, 43.2), width=35.0, height=6.0, style=Styles.SecondaryFlat.patch(shape_r=1.5), text="1. drawlib init", text_style=header_ts)
+rectangle((22.5, 43.2), width=35.0, height=6.0, style=Styles.SecondaryFlat.patch(shape_r=1.5), text="1. drawlib init project", text_style=header_ts)
 
 phosphor.terminal_window(xy=(8.0, 33.5), width=4.4, style=Styles.Secondary)
-text((11.2, 33.5), text="init doc report\nProject scaffold", style=ts_body)
+text((11.2, 33.5), text="init project doc report\nProject scaffold", style=ts_body)
 
 phosphor.palette(xy=(8.0, 22.5), width=4.4, style=Styles.Secondary)
 text((11.2, 22.5), text="-s google\nCSS & Python theme", style=ts_body)
@@ -85,7 +85,7 @@ save()
 
 ### Automatic Path Resolution via Target Argument
 
-Specifying `drawlib init doc report` establishes a synchronized, `i18n`-native pipeline:
+Specifying `drawlib init project doc report` establishes a synchronized, `i18n`-native pipeline:
 - **Source Directory**: Creates `report_src/` with `drawlib.toml` (`[project]` + `[i18n]`) and locale folder `report_src/en/` (or `en/`, `ja/` when `-l en,ja` is passed).
 - **Build Output**: Configures `report_en.pdf` (`report_<lang>.pdf`), `report_html/`, `report_markdown/`, and `report_images/` as output targets (plus optional `report_<lang>.docx` via `drawlib build docx`).
 

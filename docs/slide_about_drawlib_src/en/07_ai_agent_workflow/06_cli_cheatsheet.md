@@ -16,9 +16,9 @@ From initial project scaffolding to headless visual inspection and PDF / Office 
 
 ### 1. Scaffold & Author
 ```bash
-uv run drawlib init <site|doc|slide|images>
+uv run drawlib init project <site|doc|slide|images>
+uv run drawlib init agent <claude|cursor|antigravity>
 uv run drawlib rules show overview
-uv run drawlib rules show api
 ```
 
 ### 2. Inspect & Verify Headlessly
@@ -87,7 +87,7 @@ table.set_style_cell(
 
 cli_data = [
     ["CLI Command", "Primary Purpose", "Key Flags & Options"],
-    ["drawlib init <type>", "Scaffold site, doc, slide, or images project", "-s <theme>, -l <lang>, --force"],
+    ["drawlib init project|agent", "Scaffold project or AI agent rules", "-s <theme>, -l <lang>, -m <mode>"],
     ["drawlib build html", "Compile Markdown to multi-page or doc HTML", "-o <dir>, -s styles.py, --no-cache"],
     ["drawlib build pdf", "Export A4 or 16:9 vector PDF (auto Chromium)", "-o <pdf>, --generate-index"],
     ["drawlib build docx", "Export editable MS Word (.docx) document", "-o <docx>, --generate-index"],
@@ -115,5 +115,5 @@ save()
 
 ::: note
 - This `Table` SmartArt summarizes the entire `drawlib` CLI surface on a single slide, including optional editable MS Word (`drawlib build docx <src> -o <out.docx> --generate-index`) and 16:9 MS PowerPoint (`drawlib build pptx <src> -o <out.pptx>`) exports.
-- Whether you are scaffolding a new deck (`drawlib init slide`), inspecting a single diagram with a coordinate grid (`drawlib show -g -o`), checking for broken links (`drawlib serve --check`), or pre-fetching fonts, icons, maps, and headless Chromium (`drawlib cache download --all`), everything follows a consistent, ergonomic CLI design.
+- Whether you are scaffolding a new deck (`drawlib init project slide`), generating AI agent rules (`drawlib init agent claude`), inspecting a single diagram with a coordinate grid (`drawlib show -g -o`), checking for broken links (`drawlib serve --check`), or pre-fetching fonts, icons, maps, and headless Chromium (`drawlib cache download --all`), everything follows a consistent, ergonomic CLI design.
 :::

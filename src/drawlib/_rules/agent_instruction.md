@@ -1,74 +1,67 @@
 # Drawlib AI Agent Instructions
 
 Drawlib is a pure-Python library for **"Illustration as Code"** and **"Illustrated Documentation as Code"**.
-AI coding agents must use Drawlib to create all architectural diagrams, workflows, and technical documentation.
+AI coding agents must use Drawlib to create architectural diagrams, workflows, charts, slides, and technical documentation.
 
 ---
 
-## 1. Why Drawlib? (Illustration & Illustrated Documentation as Code)
+## 1. Why Drawlib?
 
-Traditional technical documentation suffers from severe tool fragmentation:
-- **The Fragmentation Problem**: Writing code in Git, drawing diagrams in external GUI tools (e.g. draw.io, Visio), exporting images, and manually pasting them into external documents (Word, Confluence, wikis). Diagrams quickly become outdated, inconsistent, and disconnected from the real codebase because maintenance requires tedious multi-tool handoffs.
-- **The Drawlib Solution**: Unifies source code, documentation, and technical diagrams inside your Git repository as version-controlled code.
-  - **Single Source of Truth (SoT)**: Markdown and declarative Python drawing blocks live alongside the codebase. Updating an architecture or database diagram is as painless and maintainable as editing code.
-  - **Autonomous AI Feedback Loop**: AI coding agents can inspect repository code, generate diagrams, render them headlessly, review images multimodally, and iterate autonomously to continually elevate documentation quality.
+GUI diagram tools (draw.io, Visio) decouple visuals from Git, causing diagrams to go stale. Drawlib unifies code, Markdown, and declarative Python diagrams in Git as a **Single Source of Truth**, enabling an **autonomous AI loop** (inspect code -> author diagram -> render headlessly -> review multimodally -> self-correct).
 
 ---
 
 ## 2. Core Principles for AI Agents
 
 1. **Draw with Drawlib (No Raw SVGs or Matplotlib Boilerplate)**:
-   Never generate raw SVG files or complex low-level matplotlib boilerplate. Always use Drawlib's declarative Python API and high-level components.
-2. **Project-First Rule: Always Start with `drawlib init` (No Bare `.py` Files)**:
-   Never create standalone `.py` drawing files directly in an uninitialized directory, and never construct project folders from scratch. Even if the user only asks for a single diagram image, check if a Drawlib project (`*_src/`) exists in the workspace; if not, **always scaffold a project first using `drawlib init`** (or guide the user to choose one) so `drawlib.toml`, `styles.py` (theme & language fonts), `utils.py`, `_assets/`, and `build.sh` are properly configured:
-   - **Diagram image(s) only** -> **`images`** project: `uv run drawlib init images [target] [-l <lang>] [-s <style>]` (see `project-images`)
-   - **Linear document / spec / RFC / PDF / Word (`.docx`)** -> **`doc`** project: `uv run drawlib init doc [target] [-l <langs>] [-s <style>]` (see `project-doc`; emits `<base>_<lang>.pdf` and optional `<base>_<lang>.docx` via `./<target>_src/build_docx.sh` or `uv run drawlib build docx <dir>`)
-   - **Multi-page documentation website** -> **`site`** project: `uv run drawlib init site [target] [-l <langs>] [-s <style>]` (see `project-site`)
-   - **16:9 presentation slide deck / PowerPoint (`.pptx`)** -> **`slide`** project: `uv run drawlib init slide [target] [-l <langs>] [-s <style>]` (see `project-slide`; emits `<base>_<lang>.pdf` and optional `<base>_<lang>.pptx` via `./<target>_src/build_pptx.sh` or `uv run drawlib build pptx <dir>`)
-   - **Pass `--lang` for Non-English or Multilingual Projects**: Pass `--lang ja` when the user prompts in Japanese so `styles.py` configures CJK-safe fonts, or pass comma-separated locales (`--lang en,ja`) on `doc`, `site`, or `slide` to scaffold multi-locale `<src_dir>/<lang>/` directories with `[i18n]` in `drawlib.toml`.
-   - **Clean Up Starter Samples**: After scaffolding, replace or delete the generated starter sample files (`sample1.py`, `sample2.py`, etc.) so only the user's requested diagrams are built.
-3. **Start with Overview**:
-   Before writing drawing code, inspect canvas geometry, coordinates, and lifecycle rules:
-   `uv run drawlib rules show overview`
-   *(Canvas origin (0,0) is at bottom-left; Cartesian coordinate system).*
+   Never emit raw SVG strings or matplotlib boilerplate. Use Drawlib's declarative Python API and high-level components.
+2. **Project-First Rule: Always Start with `drawlib init project` (No Bare `.py` Files)**:
+   Never write bare `.py` scripts or hand-craft folders. If no `*_src/` project exists, **scaffold one first with `drawlib init project`** so `drawlib.toml`, `styles.py`, `utils.py`, `_assets/`, and `build.sh` are configured:
+   - **Images only** -> `uv run drawlib init project images [target] [-l <lang>] [-s <style>]` (`project-images`)
+   - **Linear doc / PDF / `.docx`** -> `uv run drawlib init project doc [target] [-l <langs>] [-s <style>]` (`project-doc`; `./<target>_src/build_docx.sh` for Word)
+   - **Multi-page website** -> `uv run drawlib init project site [target] [-l <langs>] [-s <style>]` (`project-site`)
+   - **16:9 slide deck / `.pptx`** -> `uv run drawlib init project slide [target] [-l <langs>] [-s <style>]` (`project-slide`; `./<target>_src/build_pptx.sh` for PowerPoint)
+   - **Localization (`--lang`)**: Pass `-l ja` for CJK fonts, or `-l en,ja` on `doc`/`site`/`slide` for multi-locale `<src_dir>/<lang>/` with `[i18n]` in `drawlib.toml`.
+   - **Clean Up Samples**: Delete or replace starter `sample*.py` files after scaffolding.
+3. **Cartesian Coordinates (`(0, 0)` at Bottom-Left)**:
+   Run `uv run drawlib rules show overview` before coding *(origin `(0, 0)` is bottom-left; X right, Y up)*.
 4. **Follow the Style Guide**:
-   Always obey design token discipline:
-   `uv run drawlib rules show style-guide`
-   - **50%+ Neutral Baseline**: Ground at least 50% of shapes in calm neutral cards (`Styles.Neutral`, `Styles.PrimaryNeutral`, `Styles.SecondaryNeutral`). Never produce rainbow diagrams.
-   - **Reserved Saturated Fills**: Use `Styles.PrimaryFlat` or `Styles.AccentFlat` strictly for 1–2 primary focal points.
+   Obey design token discipline (`uv run drawlib rules show style-guide`):
+   - **50%+ Neutral Baseline**: Ground >=50% of nodes in `Styles.Neutral`, `Styles.PrimaryNeutral`, or `Styles.SecondaryNeutral`. Never build rainbow diagrams.
+   - **Reserved Saturated Fills**: Reserve `Styles.PrimaryFlat` / `Styles.AccentFlat` strictly for 1–2 primary focal points.
    - **PascalCase Tokens**: Always import `from drawlib.styles import Colors, Styles` (never lowercase `styles` or `colors`).
-5. **Parallel Multi-Agent Delegation (Distribute Work Across Subagents)**:
-   Whenever a task involves multiple diagrams, scripts (`images_src/*.py`), chapters (`doc_src/<lang>/*.md`), pages (`docs_src/<lang>/**/*.md`), or slides (`slide_src/<lang>/*.md`), **actively delegate and parallelize the work across multiple subagents** (when subagent tools are available) instead of authoring every file sequentially in a single context window:
-   - **Phase 1 (Parent Orchestrator — Shared Foundation First)**: Run `drawlib init` and finalize shared files (`drawlib.toml`, `styles.py`, `utils.py`, `_assets/`, `<lang>/navbar.md`, or slide deck outline) *before* spawning subagents.
-   - **Phase 2 (Parallel Subagents — Disjoint Files + Stage 1 & 2 Grid Review)**: Assign each subagent a strictly disjoint set of `.py` or `.md` files. Each subagent authors its assigned files and performs **Stage 1 (Static Check)** and **Stage 2 (`drawlib show ... -g -o .drawlib/scratch/<unique_name>_grid.png` + `view_file`)** in its own isolated context window. Always use a **unique scratch filename** per diagram so concurrent subagents never overwrite each other's preview images.
-   - **Phase 3 (Parent Orchestrator — Unified Build & Stage 3 Macro Review)**: After all subagents report completion, the parent agent runs `./build.sh` once (avoiding concurrent `.drawlib/cache.db` SQLite write contention), runs `drawlib serve --check`, and performs **Stage 3 (Macro-Page Browser HTML / PDF Review)**.
+5. **Parallel Multi-Agent Delegation**:
+   For multi-file tasks (`images_src/*.py`, `doc_src/<lang>/*.md`, `docs_src/<lang>/**/*.md`, `slide_src/<lang>/*.md`), parallelize across subagents when available:
+   - **Phase 1 (Parent)**: Run `drawlib init project` and finalize shared `drawlib.toml`, `styles.py`, `utils.py`, `_assets/`, and `<lang>/navbar.md` or outline first.
+   - **Phase 2 (Subagents)**: Assign disjoint `.py`/`.md` files. Each subagent runs Stage 1 & Stage 2 (`drawlib show ... -g -o .drawlib/scratch/<unique_name>_grid.png` + visual inspection) with a **unique scratch filename**.
+   - **Phase 3 (Parent)**: Run `./build.sh` once after subagents finish (avoiding `.drawlib/cache.db` write contention), run `drawlib serve --check`, and perform Stage 3 review.
 
 ---
 
 ## 3. What Drawlib Can Do (Favor High-Level Components)
 
-Never manually assemble diagrams out of dozens of primitive rectangles and lines. Always favor tailored high-level components:
+Always prefer tailored high-level components over manual primitive rectangles and lines:
 
 | Category | Recommended Module | Primary Use Cases |
 | :--- | :--- | :--- |
-| **Auto-Layout Graphs** | `drawlib.graph` | Pure coordinate calculators (`get_layout()`) for DAGs, clusters & topologies (render via `diagrams` / `shapes`) |
-| **Cloud Architecture** | `drawlib.diagrams.architecture` | VPCs, microservices, cloud topologies, official icons |
-| **Workflows & Pipelines** | `drawlib.diagrams.flow`, `smartarts.ChevronProcess` | Decision trees, CI/CD pipelines, linear stages |
-| **API Sequences** | `drawlib.diagrams.sequence` | Client/server lifelines, message exchanges, sync/async calls |
-| **Data & Relational Models**| `drawlib.diagrams.er`, `smartarts.Table` | Database schemas, entity relationships, matrix comparisons |
+| **Auto-Layout Graphs** | `drawlib.graph` | Coordinate solvers (`get_layout()`) for DAGs, clusters & topologies |
+| **Cloud Architecture** | `drawlib.diagrams.architecture` | VPCs, microservices, cloud topologies, official cloud icons |
+| **Workflows & Pipelines** | `drawlib.diagrams.flow`, `smartarts.ChevronProcess` | Decision trees, swimlanes, CI/CD pipelines, linear stages |
+| **API Sequences** | `drawlib.diagrams.sequence` | Lifelines, sync/async calls, activation blocks, notes |
+| **Data & Schemas** | `drawlib.diagrams.er`, `smartarts.Table` | Database ER schemas, comparison matrices |
 | **Code & State Models** | `drawlib.diagrams.class_diagram`, `diagrams.state` | OOP UML class models, state machine lifecycles |
-| **Hierarchy & Organization**| `drawlib.smartarts.TreeNode`, `smartarts.MindMapNode` | Directory trees, org charts, radial brainstorming maps |
-| **Structured SmartArts** | `drawlib.smartarts` | `Cycle`, `GridLayout`, `Pyramid`, `BoxList`, `CardList`, `KpiCards`, `Roadmap`, `Panel`, `BulletPoints`, `SourceCode`, `GeoMap`, `MonthCalendar`/`WeekCalendar`/`DayCalendar` |
-| **Quantitative Charts** | `drawlib.charts` | `BarChart`, `LineChart`, `AreaChart`, `PieChart`, `RadarChart`, `ScatterChart`, `GanttChart`, `HeatmapChart`, and `HeatmapOverlay` |
-| **Standardized Icons** | `drawlib.icons` | 34 icon suites (`phosphor`, `gcp`, `aws`, `azure`, 15 domain suites `ai`..`workspace`, and 15 `original_*` 2D flat suites) |
-| **Images & Media** | `drawlib.images` | Raster image embedding (`image()`), `Dimage` transformations, and in-memory diagram nesting (`get_dimage_from_code()`) |
-| **Drawing Primitives** | `drawlib.shapes`, `lines`, `text` | 43 geometric primitives, curved lines, bezier curves, styled text |
+| **Hierarchy & Trees** | `drawlib.smartarts.TreeNode`, `smartarts.MindMapNode` | Directory trees, org charts, radial mind maps |
+| **Structured SmartArts** | `drawlib.smartarts` | `Cycle`, `GridLayout`, `Pyramid`, `BoxList`, `CardList`, `KpiCards`, `Roadmap`, `Panel`, `BulletPoints`, `SourceCode`, `GeoMap`, `*Calendar` |
+| **Quantitative Charts** | `drawlib.charts` | `BarChart`, `LineChart`, `AreaChart`, `PieChart`, `RadarChart`, `ScatterChart`, `GanttChart`, `HeatmapChart`, `HeatmapOverlay` |
+| **Standardized Icons** | `drawlib.icons` | 34 icon suites (`phosphor`, `gcp`, `aws`, `azure`, 15 domain `ai`..`workspace`, 15 `original_*` flat suites) |
+| **Images & Media** | `drawlib.images` | Raster `image()`, `Dimage` transforms, nested `get_dimage_from_code()` |
+| **Drawing Primitives** | `drawlib.shapes`, `lines`, `text` | 43 geometric shapes, curved/bezier lines, arrowheads, styled text |
 
 ---
 
 ## 4. Illustrated Documentation as Code (Embedded Markdown Blocks)
 
-In technical documentation (`docs_src/<lang>/`), embed diagrams directly within markdown files using the ````drawlib```` code fence:
+Embed Python diagrams inside Markdown (`*_src/<lang>/*.md`) using the ````drawlib```` fence:
 
 ````markdown
 ```drawlib align=center code=fold file=service_architecture.png caption="Service Architecture"
@@ -81,47 +74,44 @@ rectangle((50, 20), width=60, height=20, style=Styles.Neutral, text="Service")
 save()
 ```
 ````
-- **Top Hero & Visual Density**: Place a **Top Hero diagram at Lines 5–15** (right after `# Title` and lead paragraph) using `code=fold` so the visual is immediately visible above the fold. Include **`2+` diagrams per page**, pairing icons (`phosphor`, `gcp`) with high-level components (`SmartArts`, `Diagrams`, `Graphs`, `Charts`).
-- **Attributes & `720pt` Typography Sizing**: Always specify `file=<name>.png` and `caption="..."`. Omit narrow pixel widths (`width=500px`, `width=600px`) so the image fills `100%` of `.drawlib-image`, and keep in-image `text_size >= 10.0` (standard `10.5`–`12.0`, headers `12.0`–`14.0`, floor `9.5`) so rendered labels ($\text{text\_size} \times \text{Width} / 720$) match `16px` HTML body text.
-- **Source of Truth**: Always edit `<base>_src/` (e.g. `docs_src/<lang>/`). Never manually edit generated output directories (`docs_markdown/`, `docs_html/`).
-- **No Absolute Paths or file:// URLs (Relative Links Only)**: Never write local filesystem absolute paths (`/usr/...`, `/home/...`, `/Users/...`, `C:\...`) or `file:///` URLs inside documentation Markdown source files (`docs/*_src/**/*.md`). All links must use relative paths (e.g. `../foo.md`) or inline code format. While the AI assistant uses `file:///` links when conversing with the user in chat responses for clickable IDE navigation, repository documentation files published on the web or GitHub must never contain `file:///` or machine-specific absolute paths.
-- **Incremental Build Cache (`.drawlib/cache.db`)**: `drawlib build` and `drawlib show` cache rendered images by hashing the code block, `styles.py`, `utils.py`, and referenced local assets (`_assets/`). If you edit an external imported Python module outside `styles.py`/`utils.py`, pass `--no-cache` or run `uv run drawlib cache clear --images` to force re-rendering.
-- **Font, Icon, Map & Headless Browser Cache**: `playwright`, `python-docx`, and `python-pptx` are standard dependencies (no optional extras required), and headless Chromium (`chromium-headless-shell`) auto-downloads on first `drawlib build pdf` or `drawlib build pptx` run. Pre-download all font, icon, map packages, and headless Chromium for offline or CI builds via `uv run drawlib cache download --all` (or Chromium only via `uv run drawlib cache download --browser`; inspect with `uv run drawlib cache list`, clear all with `uv run drawlib cache clear --all`; in minimal Linux containers lacking OS shared libraries, run `playwright install-deps chromium`).
+- **Top Hero & Density**: Place a **Top Hero diagram at Lines 5–15** with `code=fold` for above-the-fold visibility; include `2+` diagrams/page pairing icons (`phosphor`, `gcp`) with high-level components.
+- **Attributes & `720pt` Typography**: Always set `file=<name>.png` and `caption="..."`. Omit narrow pixel caps (`width=500px`/`600px`), and keep `text_size >= 10.0` (body `10.5`–`12.0`, headers `12.0`–`14.0`, floor `9.5`) so labels ($\text{text\_size} \times \text{Width} / 720$) match `16px` HTML prose.
+- **Source of Truth & Relative Links**: Edit only `<base>_src/` (never `*_markdown/` or `*_html/`). Never put local absolute paths (`/usr/...`, `C:\...`) or `file:///` URLs in Markdown sources; use relative links only.
+- **Caches & Dependencies**: `playwright`, `python-docx`, and `python-pptx` are standard dependencies; headless Chromium auto-downloads on first PDF/PPTX build (pre-download via `uv run drawlib cache download --all`; run `playwright install-deps chromium` on minimal Linux containers). Pass `--no-cache` or `uv run drawlib cache clear --images` if editing external Python helpers.
 
 ---
 
 ## 5. Autonomous 3-Stage Review & Self-Correction Loop
 
-Never deliver unverified diagrams or documentation. Always execute this 3-stage verification loop (details: `uv run drawlib rules show review-guide`):
-1. **Stage 1 — Static & Anchor Check**: Verify `2+` diagrams/page, Top Hero at `Lines 5–15` with `code=fold`, no narrow `px` fence caps, `text_size >= 10.0`, and accurate coordinate anchors (`shapes`/`text`/`icons`/`images` = **Center `(cx, cy)`** vs. `Charts`/`Diagrams` and most `SmartArts` = **Bottom-Left `(x0, y0)`**, while `Table`, `TreeNode`, `BulletPoints`, `SourceCode` default to **Top-Left** and `MindMapNode`, `Cycle` default to **Center**; `graph.get_layout()` provides `.xy`/`.local_xy` centers and `.bottom_left`/`.local_bottom_left` corners).
-2. **Stage 2 — Micro-Geometry Grid Review (`-g`)**: Export each diagram with the 10-unit/5-unit coordinate grid (`uv run drawlib show <file> [block.png] -s styles.py -u utils.py -g -o .drawlib/scratch/<unique_name>_grid.png`) and inspect via `view_file` to fix text clipping, arrow routing, margins (`>= 4–6` units), and `50%+` neutral balance in 1 shot. *(When delegating to parallel subagents, each subagent runs Stage 1 & Stage 2 on its own files using unique scratch filenames.)*
-3. **Stage 3 — Macro-Page Browser HTML Review**: Build HTML (`./build.sh` once after all subagents finish), verify zero broken links (`uv run drawlib serve docs_html/ --check`), and inspect a `1280×920` headless browser screenshot of `docs_html/<lang>/*.html` via `view_file` to confirm above-the-fold Hero visibility and prose-to-diagram font size parity.
+Never deliver unverified diagrams or docs (`uv run drawlib rules show review-guide`):
+1. **Stage 1 — Static & Anchor Check**: Verify `2+` diagrams/page, Top Hero at Lines 5–15 (`code=fold`), no narrow `px` caps, `text_size >= 10.0`, and coordinate anchors (`shapes`/`text`/`icons`/`images` = **Center `(cx, cy)`**; `Charts`/`Diagrams`/most `SmartArts` = **Bottom-Left `(x0, y0)`**; `Table`/`TreeNode`/`BulletPoints`/`SourceCode` = **Top-Left**; `MindMapNode`/`Cycle` = **Center**; `graph.get_layout()` exposes `.xy` centers & `.bottom_left` corners).
+2. **Stage 2 — Micro-Geometry Grid Review (`-g`)**: Export with the 10/5-unit grid (`uv run drawlib show <file> [block.png] -s styles.py -u utils.py -g -o .drawlib/scratch/<unique_name>_grid.png`) and visually inspect to fix clipping, overlaps, margins (`>= 4–6` units), and `50%+` neutral balance.
+3. **Stage 3 — Macro-Page Review**: Run `./build.sh`, check links (`uv run drawlib serve <out_html>/ --check`), and inspect a `1280×920` browser screenshot of built HTML (or PDF/PPTX/DOCX) for Hero placement and font parity.
 
 ---
 
 ## 6. On-Demand Rules Catalog
 
-Query specific detailed rule manuals as needed:
+Fetch detailed module manuals on demand:
 
 ```bash
-uv run drawlib rules show overview               # Geometry, coordinate space (0,0 at bottom-left), lifecycle
-uv run drawlib rules show style-guide            # Color tokens, typography, 50%+ neutral rule
-uv run drawlib rules show review-guide           # 3-stage multimodal review loop, 720pt font math, anchor table
-uv run drawlib rules show anim-guide             # Animation loop idioms and component animation patterns
-uv run drawlib rules show slide-guide            # Slide deck story arc, Dual-Layer (::: block vs. ::: note) & visual best practices
-uv run drawlib rules show project-overview       # Project scaffolding (init), 4 archetypes, shared config & cache
-uv run drawlib rules show project-images         # Standalone Python scripts (images_src/*.py) best practices
-uv run drawlib rules show project-doc            # Linear documents, whitepapers, A4 PDFs & .docx (doc_src/)
-uv run drawlib rules show project-site           # Multi-page websites, navbar.md & Top Hero layout (docs_src/)
-uv run drawlib rules show project-slide          # 16:9 slide decks, ::: block/note, Presenter View & .pptx
-uv run drawlib rules show cli                    # CLI commands (build, show, init, serve, cache)
-uv run drawlib rules show api                    # Complete API index & symbol cheat sheet
-uv run drawlib rules show lib-<module>           # Core modules (lib-canvas, lib-lines, lib-text, lib-styles, lib-preset-styles, lib-preset-colors, lib-fonts, lib-images, lib-math, lib-types, lib-tools, lib-anim, lib-slide)
-uv run drawlib rules show lib-shapes-overview    # 43 geometric shapes (+ lib-shapes-basic, -polygon, -arrow, -badge, -container, -symbol)
-uv run drawlib rules show lib-icons-overview     # 34 icon suites (+ lib-icons-phosphor, -gcp, -aws, -azure, -ai .. -workspace)
-uv run drawlib rules show lib-smartarts-overview # 18 SmartArt components (+ lib-smartarts-table, -tree, -mindmap, -chevron-process, -geomap, -calendar, ...)
-uv run drawlib rules show lib-charts-overview    # 9 Charts (+ lib-charts-bar, -line, -area, -pie, -radar, -scatter, -gantt, -heatmap)
-uv run drawlib rules show lib-diagrams-overview  # 6 Domain diagrams (+ lib-diagrams-architecture, -flow, -sequence, -state, -class, -er)
-uv run drawlib rules show lib-graph-overview     # 5 Graph layout solvers (+ lib-graph-architecture, -layer, -tree, -radial, -grid)
+uv run drawlib rules show overview # Geometry, bottom-left (0,0), lifecycle
+uv run drawlib rules show style-guide # Color tokens, typography, 50%+ neutral rule
+uv run drawlib rules show review-guide # 3-stage multimodal review, 720pt math, anchors
+uv run drawlib rules show anim-guide # Animation loop idioms & component patterns
+uv run drawlib rules show slide-guide # Slide story arc, ::: block/note & visuals
+uv run drawlib rules show project-overview # Scaffolding (init), 4 archetypes & cache
+uv run drawlib rules show project-images # Standalone Python scripts (images_src/*.py)
+uv run drawlib rules show project-doc # Linear docs, A4 PDFs & .docx (doc_src/)
+uv run drawlib rules show project-site # Multi-page sites, navbar.md & Top Hero
+uv run drawlib rules show project-slide # 16:9 slides, ::: block/note & .pptx
+uv run drawlib rules show cli # CLI commands (build, show, init, serve, cache)
+uv run drawlib rules show api # Complete API index & symbol cheat sheet
+uv run drawlib rules show lib-<module> # Core (canvas, lines, text, styles, preset-styles, preset-colors, fonts, images, math, types, tools, anim, slide)
+uv run drawlib rules show lib-shapes-overview # 43 shapes (+ basic, polygon, arrow, badge, container, symbol)
+uv run drawlib rules show lib-icons-overview # 34 icon suites (+ phosphor, gcp, aws, azure, ai..workspace)
+uv run drawlib rules show lib-smartarts-overview # 18 SmartArts (+ table, tree, mindmap, chevron-process, geomap, calendar, ...)
+uv run drawlib rules show lib-charts-overview # 9 Charts (+ bar, line, area, pie, radar, scatter, gantt, heatmap)
+uv run drawlib rules show lib-diagrams-overview # 6 Diagrams (+ architecture, flow, sequence, state, class, er)
+uv run drawlib rules show lib-graph-overview # 5 Graph solvers (+ architecture, layer, tree, radial, grid)
 ```
-

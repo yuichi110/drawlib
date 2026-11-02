@@ -11,6 +11,16 @@
 
 from __future__ import annotations
 
+from drawlib._templates._agent import (
+    AGENT_TARGET_SPECS,
+    ALL_MODULAR_AGENTS,
+    AgentTargetSpec,
+    AgentTriggerMode,
+    detect_agent_targets,
+    get_agent_instruction,
+    init_agent_instruction,
+    list_agent_targets,
+)
 from drawlib._templates._css import (
     BUILTIN_CSS_PRESETS,
     BUILTIN_HTML_CSS_PRESETS,
@@ -37,19 +47,27 @@ from drawlib._templates._project import (
 )
 
 __all__ = [
+    "AGENT_TARGET_SPECS",
+    "ALL_MODULAR_AGENTS",
     "BUILTIN_CSS_PRESETS",
     "BUILTIN_HTML_CSS_PRESETS",
     "BUILTIN_PDF_CSS_PRESETS",
     "BUILTIN_SLIDE_CSS_PRESETS",
     "BUILTIN_THEMES",
     "PROJECT_TYPES",
+    "AgentTargetSpec",
+    "AgentTriggerMode",
     "ProjectPaths",
+    "detect_agent_targets",
     "export_css",
+    "get_agent_instruction",
     "get_css",
     "get_html_readme",
     "get_slide_js",
     "get_slide_readme",
+    "init_agent_instruction",
     "init_project",
+    "list_agent_targets",
     "list_css",
     "list_html_css",
     "list_pdf_css",

@@ -179,7 +179,7 @@ print("Default Background:", DefaultStyles.background_color)
 Designed around Google Workspace, Material Design, and Google Cloud presentation aesthetics. It pairs Google Blue, Teal/Green, Yellow/Amber, and Red with clean Slate neutrals.
 
 - **Primary Colors**: Google Blue (`#1A73E8`), Google Green (`#1E8E3E`), Google Yellow/Amber (`#F9AB00`), Google Red (`#D93025`), and Slate grays (`Gray1` to `Gray8`).
-- **Visual Design**: Exposes the exact same 8 semantic roles, 17 orthogonal variants, and `*Neutral` card tokens as `DefaultStyles`, allowing zero-code-change theme switching via `drawlib init -s google`.
+- **Visual Design**: Exposes the exact same 8 semantic roles, 17 orthogonal variants, and `*Neutral` card tokens as `DefaultStyles`, allowing zero-code-change theme switching via `drawlib init project <type> -s google`.
 
 ```python
 from drawlib.preset_styles import GoogleStyles

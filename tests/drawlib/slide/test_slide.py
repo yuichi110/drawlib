@@ -511,10 +511,10 @@ class TestSlideCli:
         assert "Presenter View" in (out_dir / "README.md").read_text(encoding="utf-8")
 
     def test_cli_init_slide(self, tmp_path: Path) -> None:
-        """Verify `drawlib init slide` scaffolding."""
+        """Verify `drawlib init project slide` scaffolding."""
         target_dir = tmp_path / "my_presentation"
         target_dir.mkdir()
-        res = run_drawlib_cli(["init", "slide"], cwd=str(target_dir))
+        res = run_drawlib_cli(["init", "project", "slide"], cwd=str(target_dir))
         assert res.returncode == 0
 
         src_dir = target_dir / "slide_src"
@@ -536,10 +536,10 @@ class TestSlideCli:
         ["default", "default-dark", "google", "google-dark", "monochrome"],
     )
     def test_cli_init_slide_styles(self, tmp_path: Path, style_name: str) -> None:
-        """Verify `drawlib init slide --style <style>` deploys shared utils.py and matching style.css/styles.py."""
+        """Verify `drawlib init project slide --style <style>` deploys shared utils.py and matching style.css."""
         target_dir = tmp_path / f"deck_{style_name}"
         target_dir.mkdir()
-        res = run_drawlib_cli(["init", "slide", "--style", style_name], cwd=str(target_dir))
+        res = run_drawlib_cli(["init", "project", "slide", "--style", style_name], cwd=str(target_dir))
         assert res.returncode == 0
 
         src_dir = target_dir / "slide_src"
@@ -567,10 +567,10 @@ class TestSlideCli:
             assert "DefaultColors" in styles_content
 
     def test_cli_init_slide_unsupported_style(self, tmp_path: Path) -> None:
-        """Verify `drawlib init slide --style invalid` fails with a helpful error."""
+        """Verify `drawlib init project slide --style invalid` fails with a helpful error."""
         target_dir = tmp_path / "deck_invalid"
         target_dir.mkdir()
-        res = run_drawlib_cli(["init", "slide", "--style", "unsupported_theme"], cwd=str(target_dir))
+        res = run_drawlib_cli(["init", "project", "slide", "--style", "unsupported_theme"], cwd=str(target_dir))
         assert res.returncode != 0
         error_output = res.stderr + res.stdout
         assert "Unknown CSS preset 'unsupported_theme'" in error_output
@@ -979,10 +979,10 @@ utils.draw_page_number()
             build_slide(str(src_dir), str(out_dir), no_cache=True)
 
     def test_cli_init_slide_multi_locale_and_default_output(self, tmp_path: Path) -> None:
-        """Verify `drawlib init slide -l en,ja` scaffolds multi-locale slides that build with zero broken links."""
+        """Verify `drawlib init project slide -l en,ja` scaffolds multi-locale slides with zero broken links."""
         target_dir = tmp_path / "bilingual_deck"
         target_dir.mkdir()
-        res = run_drawlib_cli(["init", "slide", "-l", "en,ja"], cwd=str(target_dir))
+        res = run_drawlib_cli(["init", "project", "slide", "-l", "en,ja"], cwd=str(target_dir))
         assert res.returncode == 0
 
         src_dir = target_dir / "slide_src"

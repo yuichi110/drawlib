@@ -668,7 +668,7 @@
     <span class="n">spacing</span><span class="o">=</span><span class="mf">1.6</span><span class="p">,</span>
     <span class="n">flat_left_end</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="n">workflow</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"1. Init Project"</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">"drawlib init"</span><span class="p">)</span>
+<span class="n">workflow</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"1. Init Project"</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">"drawlib init project"</span><span class="p">)</span>
 <span class="n">workflow</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"2. Query Rules"</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">"rules show"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">)</span>
 <span class="n">workflow</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
     <span class="s2">"3. High-Level"</span><span class="p">,</span>
@@ -691,53 +691,104 @@
 <li><strong>On-Demand Knowledge Retrieval</strong>: Drawlib includes a built-in terminal rules catalog (<code>drawlib rules show &lt;topic&gt;</code>). Agents can fetch targeted API specifications on demand without consuming valuable context window space with massive upfront manuals.</li>
 </ol>
 <hr />
-<h2>2. Recommended Agent Instruction Template</h2>
-<p>Copy and paste the following snippet into your repository's AI instruction file (e.g. <code>.cursorrules</code>, <code>.agents/rules/drawlib.md</code>, or Claude/Gemini system prompts):</p>
-<pre><code class="language-markdown"><span class="gh"># Drawlib Agent Directives</span>
+<h2>2. One-Command Agent Instruction Setup (<code>drawlib init agent</code>)</h2>
+<p>Instead of manually copying prompt snippets or hand-crafting tool-specific YAML frontmatter, generate ready-to-use Drawlib instruction files directly for your AI coding assistant using <code>drawlib init agent</code>:</p>
+<pre><code class="language-bash"><span class="c1"># Synopsis:</span>
+<span class="c1"># uv run drawlib init agent &lt;antigravity|claude|cursor|copilot|windsurf|cline|roo|codex|gemini|all|list&gt; [-m &lt;auto|always&gt;] [-d &lt;dir&gt;] [-f]</span>
 
-Drawlib is a pure-Python library for "Illustration as Code" and "Illustrated Documentation as Code".
-When tasked with creating diagrams, architectures, flowcharts, or charts, follow these rules:
+<span class="c1"># List all supported AI coding agents, output paths, and formats:</span>
+uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>agent<span class="w"> </span>list
 
-<span class="k">1.</span> Project-First Rule (<span class="sb">`drawlib init`</span> — No Bare <span class="sb">`.py`</span> Files):
-   Never create standalone <span class="sb">`.py`</span> drawing files in an uninitialized directory. If a <span class="sb">`*_src/`</span> project does not exist, scaffold one first so <span class="sb">`styles.py`</span>, <span class="sb">`utils.py`</span>, <span class="sb">`_assets/`</span>, and <span class="sb">`build.sh`</span> are configured:
-<span class="w">   </span><span class="k">-</span><span class="w"> </span>Diagram image(s) only: <span class="sb">`uv run drawlib init images [-l &lt;lang&gt;] [-s &lt;style&gt;]`</span> (author in <span class="sb">`images_src/*.py`</span>)
-<span class="w">   </span><span class="k">-</span><span class="w"> </span>Linear spec / RFC / PDF: <span class="sb">`uv run drawlib init doc [-l &lt;lang&gt;] [-s &lt;style&gt;]`</span> (author in <span class="sb">`doc_src/*.md`</span>)
-<span class="w">   </span><span class="k">-</span><span class="w"> </span>Multi-page website: <span class="sb">`uv run drawlib init site [-l &lt;lang&gt;] [-s &lt;style&gt;]`</span> (author in <span class="sb">`docs_src/**/*.md`</span>)
-<span class="w">   </span><span class="k">-</span><span class="w"> </span>16:9 slide deck: <span class="sb">`uv run drawlib init slide [-l &lt;lang&gt;] [-s &lt;style&gt;]`</span> (author in <span class="sb">`slide_src/*.md`</span>)
-<span class="w">   </span><span class="k">-</span><span class="w"> </span>Pass <span class="sb">`--lang ja`</span> (or target language code) for non-English labels, and delete starter <span class="sb">`sample*.py`</span> files.
+<span class="c1"># Generate rules for specific AI coding agent(s) (default --mode auto):</span>
+uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>agent<span class="w"> </span>antigravity
+uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>agent<span class="w"> </span>claude<span class="w"> </span>cursor<span class="w"> </span>copilot
 
-<span class="k">2.</span> High-Level Over Low-Level:
-   Always favor high-level components over assembling raw rectangles and lines:
-<span class="w">   </span><span class="k">-</span><span class="w"> </span>Auto-Layout Graphs: <span class="sb">`drawlib.graph`</span> (ArchitectureGraph, LayerGraph, TreeGraph, RadialGraph, GridGraph)
-<span class="w">   </span><span class="k">-</span><span class="w"> </span>Cloud Topologies: <span class="sb">`drawlib.diagrams.architecture.ArchitectureDiagram`</span>
-<span class="w">   </span><span class="k">-</span><span class="w"> </span>Flowcharts &amp; Swimlanes: <span class="sb">`drawlib.diagrams.flow.FlowDiagram`</span>
-<span class="w">   </span><span class="k">-</span><span class="w"> </span>API Sequences: <span class="sb">`drawlib.diagrams.sequence.SequenceDiagram`</span>
-<span class="w">   </span><span class="k">-</span><span class="w"> </span>UML Class Hierarchies: <span class="sb">`drawlib.diagrams.class_diagram.ClassDiagram`</span>
-<span class="w">   </span><span class="k">-</span><span class="w"> </span>Relational Database Schemas: <span class="sb">`drawlib.diagrams.er.ERDiagram`</span>
-<span class="w">   </span><span class="k">-</span><span class="w"> </span>State Machines: <span class="sb">`drawlib.diagrams.state.StateDiagram`</span>
-<span class="w">   </span><span class="k">-</span><span class="w"> </span>Pipelines, Trees &amp; Tables: <span class="sb">`drawlib.smartarts`</span> (ChevronProcess, TreeNode, MindMapNode, Table)
-<span class="w">   </span><span class="k">-</span><span class="w"> </span>Quantitative Charts: <span class="sb">`drawlib.charts`</span> (BarChart, LineChart, AreaChart, PieChart, RadarChart, ScatterChart, GanttChart, HeatmapChart, HeatmapOverlay)
+<span class="c1"># Auto-detect existing agent directories/files in your repository:</span>
+uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>agent<span class="w"> </span>--detect
 
-<span class="k">3.</span> Coordinate System &amp; Style Discipline:
-<span class="w">   </span><span class="k">-</span><span class="w"> </span><span class="sb">`(0, 0)`</span> is the BOTTOM-LEFT corner of the canvas (X increases rightward, Y increases upward).
-<span class="w">   </span><span class="k">-</span><span class="w"> </span>Always import PascalCase tokens: <span class="sb">`from drawlib.styles import Colors, Styles`</span>.
-<span class="w">   </span><span class="k">-</span><span class="w"> </span>Ground at least 50% of nodes in calm neutral styles (<span class="sb">`Styles.Neutral`</span>, <span class="sb">`Styles.PrimaryNeutral`</span>, <span class="sb">`Styles.SecondaryNeutral`</span>) and reserve saturated fills (<span class="sb">`Styles.PrimaryFlat`</span>, <span class="sb">`Styles.AccentFlat`</span>) for 1–2 focal points.
+<span class="c1"># Use unconditional ("always-on") loading for dedicated documentation repositories:</span>
+uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>agent<span class="w"> </span>antigravity<span class="w"> </span>--mode<span class="w"> </span>always
 
-<span class="k">4.</span> The 3-Stage Multimodal Self-Correction Loop:
-<span class="w">   </span><span class="k">-</span><span class="w"> </span>Always include an explicit <span class="sb">`file:&lt;name&gt;.png`</span> and <span class="sb">`caption:"..."`</span> on every embedded ```drawlib block, place a Top Hero at Lines 5–15 with <span class="sb">`fold-code`</span>, omit narrow <span class="sb">`px`</span> width caps, and keep <span class="sb">`text_size &gt;= 10.0`</span>.
-<span class="w">   </span><span class="k">-</span><span class="w"> </span>Render headlessly with the coordinate grid (<span class="sb">`-g`</span>):
-     <span class="sb">`uv run drawlib show docs_src/page.md &lt;name&gt;.png -g -o .drawlib/scratch/&lt;unique_name&gt;_grid.png`</span>
-<span class="w">   </span><span class="k">-</span><span class="w"> </span>Visually inspect <span class="sb">`.drawlib/scratch/&lt;unique_name&gt;_grid.png`</span> for text clipping, overlapping labels, or cramped margins, and verify the built HTML page in a <span class="sb">`1280×920`</span> headless browser viewport.
+<span class="c1"># Overwrite/refresh existing rule files or marker blocks (-f / --force), or target another workspace (-d):</span>
+uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>agent<span class="w"> </span>antigravity<span class="w"> </span>--force
+uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>agent<span class="w"> </span>codex<span class="w"> </span>-d<span class="w"> </span>./my-service<span class="w"> </span>--force
 
-<span class="k">5.</span> Parallel Multi-Agent Delegation (Distribute Work Across Subagents):
-<span class="w">   </span><span class="k">-</span><span class="w"> </span>When creating or updating multiple scripts (<span class="sb">`images_src/*.py`</span>), chapters (<span class="sb">`doc_src/*.md`</span>), pages (<span class="sb">`docs_src/**/*.md`</span>), or slides (<span class="sb">`slide_src/*.md`</span>), actively distribute work across parallel subagents:
-<span class="w">     </span><span class="k">*</span><span class="w"> </span>Phase 1 (Parent): Run <span class="sb">`drawlib init`</span> and finalize shared <span class="sb">`styles.py`</span>, <span class="sb">`utils.py`</span>, <span class="sb">`_assets/`</span>, and <span class="sb">`navbar.md`</span> first.
-<span class="w">     </span><span class="k">*</span><span class="w"> </span>Phase 2 (Subagents): Assign disjoint <span class="sb">`.py`</span> or <span class="sb">`.md`</span> files to each subagent. Each subagent authors its files and runs Stage 1 &amp; Stage 2 grid review using a unique scratch filename (<span class="sb">`-o .drawlib/scratch/&lt;file_or_block&gt;_grid.png`</span>).
-<span class="w">     </span><span class="k">*</span><span class="w"> </span>Phase 3 (Parent): Run <span class="sb">`./build.sh`</span> once after all subagents finish, run <span class="sb">`drawlib serve --check`</span>, and perform Stage 3 HTML/PDF verification.
-
-<span class="k">6.</span> Fetch Rules on Demand:
-   Run <span class="sb">`uv run drawlib rules show &lt;topic&gt;`</span> (e.g. <span class="sb">`overview`</span>, <span class="sb">`style-guide`</span>, <span class="sb">`review-guide`</span>, <span class="sb">`project-overview`</span>, <span class="sb">`project-site`</span>, <span class="sb">`lib-graph`</span>, <span class="sb">`lib-diagrams`</span>, <span class="sb">`lib-charts`</span>, <span class="sb">`lib-smartarts`</span>, <span class="sb">`anim-guide`</span>).
+<span class="c1"># Generate all 7 modular per-agent rule files, or install to user global config:</span>
+uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>agent<span class="w"> </span>all
+uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>agent<span class="w"> </span>antigravity<span class="w"> </span>--global
 </code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Target (<code>&lt;agent&gt;</code>)</th>
+<th style="text-align:left">Project Output Path</th>
+<th style="text-align:left">Global Path (<code>-g</code>)</th>
+<th style="text-align:left">Format &amp; Frontmatter Behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong><code>antigravity</code></strong></td>
+<td style="text-align:left"><code>.agents/rules/drawlib.md</code> <em>(or <code>.agent/rules/drawlib.md</code> if <code>.agent/</code> exists)</em></td>
+<td style="text-align:left"><code>~/.gemini/config/rules/drawlib.md</code></td>
+<td style="text-align:left">YAML frontmatter (<code>trigger: model_decision</code> in <code>auto</code>, <code>always_on</code> in <code>always</code>)</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>claude</code></strong></td>
+<td style="text-align:left"><code>.claude/rules/drawlib.md</code></td>
+<td style="text-align:left"><code>~/.claude/rules/drawlib.md</code></td>
+<td style="text-align:left">Modular Markdown rule coexisting safely with root <code>CLAUDE.md</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>cursor</code></strong></td>
+<td style="text-align:left"><code>.cursor/rules/drawlib.mdc</code></td>
+<td style="text-align:left"><em>(IDE settings)</em></td>
+<td style="text-align:left">MDC frontmatter (<code>description</code>, <code>alwaysApply: false</code> in <code>auto</code> / <code>true</code> in <code>always</code>)</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>copilot</code></strong></td>
+<td style="text-align:left"><code>.github/instructions/drawlib.instructions.md</code></td>
+<td style="text-align:left"><em>(IDE/GitHub settings)</em></td>
+<td style="text-align:left">YAML frontmatter (<code>description</code>, <code>applyTo</code> scoped globs in <code>auto</code> / <code>&quot;**&quot;</code> in <code>always</code>)</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>windsurf</code></strong></td>
+<td style="text-align:left"><code>.windsurf/rules/drawlib.md</code></td>
+<td style="text-align:left"><code>~/.codeium/windsurf/memories/global_rules.md</code></td>
+<td style="text-align:left">Compact <code>&lt; 12,000</code>-char rule with YAML <code>trigger</code> frontmatter (marker-merged in global)</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>cline</code></strong></td>
+<td style="text-align:left"><code>.clinerules/drawlib.md</code></td>
+<td style="text-align:left"><code>~/Documents/Cline/Rules/drawlib.md</code></td>
+<td style="text-align:left">Modular Markdown toggleable individually in the Cline Rules UI</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>roo</code></strong></td>
+<td style="text-align:left"><code>.roo/rules/drawlib.md</code></td>
+<td style="text-align:left"><code>~/.roo/rules/drawlib.md</code></td>
+<td style="text-align:left">Modular Roo Code Markdown rule</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>codex</code></strong> <em>(alias <code>agents-md</code>)</em></td>
+<td style="text-align:left"><code>AGENTS.md</code></td>
+<td style="text-align:left"><code>~/.codex/AGENTS.md</code></td>
+<td style="text-align:left">Shared Markdown merged non-destructively via <code>&lt;!-- drawlib-agent-instruction:start/end --&gt;</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>gemini</code></strong> <em>(alias <code>gemini-md</code>)</em></td>
+<td style="text-align:left"><code>GEMINI.md</code></td>
+<td style="text-align:left"><code>~/.gemini/GEMINI.md</code></td>
+<td style="text-align:left">Shared Markdown merged non-destructively via <code>&lt;!-- drawlib-agent-instruction:start/end --&gt;</code></td>
+</tr>
+</tbody>
+</table>
+<h3>2.1 Activation Modes &amp; Non-Destructive Shared File Merging</h3>
+<ul>
+<li><strong>Token-Efficient <code>auto</code> Mode (Default) vs. <code>always</code> Mode</strong>: By default (<code>--mode auto</code>), frontmatter-capable tools (<code>antigravity</code>, <code>cursor</code>, <code>copilot</code>, <code>windsurf</code>) load Drawlib's instructions on demand when your prompt or touched files involve diagrams, charts, slides, or <code>*_src/</code> documentation projects—saving ~2,500 tokens during unrelated application coding. Pass <code>--mode always</code> (<code>-m always</code>) in dedicated documentation or diagram repositories.</li>
+<li><strong>Safe Marker Merging for <code>AGENTS.md</code> &amp; <code>GEMINI.md</code></strong>: Dedicated modular files (such as <code>.agents/rules/drawlib.md</code> or <code>.claude/rules/drawlib.md</code>) never touch your existing root <code>CLAUDE.md</code> or <code>.github/copilot-instructions.md</code>. For shared single-file targets (<code>codex</code> -&gt; <code>AGENTS.md</code>, <code>gemini</code> -&gt; <code>GEMINI.md</code>), Drawlib wraps its section in HTML comment markers (<code>&lt;!-- drawlib-agent-instruction:start --&gt;</code> ... <code>&lt;!-- drawlib-agent-instruction:end --&gt;</code>), appending safely to existing files and updating <em>only</em> the Drawlib block when re-run with <code>--force</code> (<code>-f</code>).</li>
+<li><strong>Programmatic Python API (<code>drawlib.tools</code>)</strong>: Automation scripts can invoke <code>init_agent_instruction()</code>, <code>detect_agent_targets()</code>, <code>get_agent_instruction()</code>, and <code>list_agent_targets()</code> directly from <code>drawlib.tools</code>.</li>
+</ul>
 <hr />
 <h2>3. Dynamic Knowledge Retrieval (<code>drawlib rules</code>)</h2>
 <p>Instead of pasting entire documentation manuals into prompts, train your agent to query <code>drawlib rules</code> on demand. Drawlib ships with <strong>31 modular rule manuals</strong> (12 general guidelines + 19 library module specifications):</p>
@@ -976,7 +1027,7 @@ uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </s
 <tr>
 <td style="text-align:left"><strong><code>lib-tools</code></strong></td>
 <td style="text-align:left"><code>drawlib.tools</code></td>
-<td style="text-align:left">Programmatic Python API for <code>build_*</code>, <code>export_code_block</code>, <code>init_project</code>, <code>serve_docs</code>, <code>list_cache</code>.</td>
+<td style="text-align:left">Programmatic Python API for <code>build_*</code>, <code>export_code_block</code>, <code>init_project</code>, <code>init_agent_instruction</code>, <code>serve_docs</code>, <code>list_cache</code>.</td>
 </tr>
 <tr>
 <td style="text-align:left"><strong><code>lib-slide</code></strong></td>
@@ -994,7 +1045,7 @@ uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </s
 <li><strong>Ask for Multimodal Verification</strong>: Remind the agent to render with <code>-g</code> into <code>.drawlib/scratch/</code> and visually inspect the output image before finalizing.</li>
 <li><strong>Distribute Multi-File Tasks Across Parallel Subagents</strong>: Because each multimodal <code>drawlib show -g</code> + image review cycle consumes context window tokens, multi-chapter documents (<code>doc_src/*.md</code>), multi-page sites (<code>docs_src/**/*.md</code>), slide decks (<code>slide_src/*.md</code>), and batch scripts (<code>images_src/*.py</code>) should be executed via the <strong>3-Phase Orchestrator–Subagent Protocol</strong>:
 <ol>
-<li><strong>Phase 1 (Parent Orchestrator)</strong>: Run <code>drawlib init</code>, configure shared <code>styles.py</code>, <code>utils.py</code>, <code>_assets/</code>, and <code>navbar.md</code> (or chapter/slide outline).</li>
+<li><strong>Phase 1 (Parent Orchestrator)</strong>: Run <code>drawlib init project &lt;doc|site|slide|images&gt;</code>, configure shared <code>drawlib.toml</code>, <code>styles.py</code>, <code>utils.py</code>, <code>_assets/</code>, and <code>navbar.md</code> (or chapter/slide outline).</li>
 <li><strong>Phase 2 (Parallel Subagents)</strong>: Delegate disjoint <code>.py</code> or <code>.md</code> files to parallel subagents. Each subagent authors its assigned files and performs Stage 1 &amp; Stage 2 grid verification using a <strong>unique scratch filename</strong> (<code>-o .drawlib/scratch/&lt;file_or_block&gt;_grid.png</code>).</li>
 <li><strong>Phase 3 (Parent Orchestrator)</strong>: Run <code>./build.sh</code> once after all subagents finish, verify links (<code>drawlib serve --check</code>), and perform Stage 3 HTML/PDF visual verification.</li>
 </ol>

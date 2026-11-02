@@ -12,7 +12,7 @@ utils.draw_page_number()
 ::: block xy=(80, 140) width=740 height=840 font_size=20px
 ## Dual Coordinate Systems Working in Harmony
 
-Drawlib slides (`drawlib init slide`) combine pixel-accurate stage containers with Cartesian vector canvases:
+Drawlib slides (`drawlib init project slide`) combine pixel-accurate stage containers with Cartesian vector canvases:
 
 1. **Slide Stage (`::: block xy=(x, y) width=W height=H`) — Top-Left `(0, 0)`**:
    - Fixed **1920 × 1080** pixel widescreen stage (automatically scaled to fit any browser window or projector).

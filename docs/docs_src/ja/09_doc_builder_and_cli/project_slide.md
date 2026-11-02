@@ -1,4 +1,4 @@
-# スライドデッキプロジェクトガイド (`drawlib init slide`)
+# スライドデッキプロジェクトガイド (`drawlib init project slide`)
 
 `slide` スターターテンプレートは、リッチなアーキテクチャ図解、メトリクスカード、バッジ、および構造化レイアウトを備えた 16:9 プレゼンテーションスライドデッキを作成します。
 
@@ -90,7 +90,7 @@ save()
 
 ## 1. エンドツーエンドのプロジェクトワークフロー
 
-`drawlib init slide` による初期スキャフォールディングとストーリー構成の設計から、2 層構造の執筆（`::: block` ステージ＋`::: note` スピーカー台本）、HTML／PDF／`.pptx` へのコンパイル、ライブ発表者ツール（`?presenter=1`）、そしてキャッシュを活用した Day-2 の高速編集までの流れを確認しましょう。
+`drawlib init project slide` による初期スキャフォールディングとストーリー構成の設計から、2 層構造の執筆（`::: block` ステージ＋`::: note` スピーカー台本）、HTML／PDF／`.pptx` へのコンパイル、ライブ発表者ツール（`?presenter=1`）、そしてキャッシュを活用した Day-2 の高速編集までの流れを確認しましょう。
 
 ```drawlib align=center file=project_slide_workflow_tour.png caption="16:9 スライドデッキのライフサイクル: スキャフォールディング、2 層構造の執筆、HTML/PDF/PPTX エクスポート、発表者ツール (APNG アニメーション)"
 from __future__ import annotations
@@ -489,7 +489,7 @@ def draw_workspace(
         ("toml", 2, "sh", "drawlib.toml", 51.10),
         ("styles", 2, "py", "styles.py, utils.py", 46.90),
         ("css", 2, "css", "style.css", 42.70),
-        ("scripts", 2, "sh", "build.sh, serve.sh", 38.50),
+        ("scripts", 2, "sh", "build.sh, build_pptx.sh", 38.50),
         ("s01", 2, "md", "en/01_title.md", 34.30),
         ("s02", 2, "md", "en/02_arch.md", 30.10),
     ]
@@ -583,11 +583,11 @@ with anim.frame(duration=3.1):
     draw_workspace(
         active_part=1,
         actor="user",
-        actor_title="$ drawlib init slide -s google",
+        actor_title="$ drawlib init project slide -s google",
         actor_sub="Scaffold 16:9 slide_src/en/, config & scripts",
         actor_optional=False,
         ops=[
-            ("user", "$ drawlib init slide -s google", "active_user"),
+            ("user", "$ drawlib init project slide -s google", "active_user"),
         ],
         show_day2_note=False,
         show_flow=False,
@@ -613,7 +613,7 @@ with anim.frame(duration=3.1):
         actor_sub="Set presentation palette, cards & fonts",
         actor_optional=False,
         ops=[
-            ("user", "$ drawlib init slide -s google", "done"),
+            ("user", "$ drawlib init project slide -s google", "done"),
             ("gemini", "Edit slide_src/styles.py, utils.py", "active_gemini"),
         ],
         show_day2_note=False,
@@ -634,7 +634,7 @@ with anim.frame(duration=3.3):
         actor_sub="Structure numbered slides en/01_title..03_flow",
         actor_optional=False,
         ops=[
-            ("user", "$ drawlib init slide -s google", "done"),
+            ("user", "$ drawlib init project slide -s google", "done"),
             ("gemini", "Edit slide_src/styles.py, utils.py", "done"),
             ("gemini", "Plan story arc (en/01_title..03_flow.md)", "active_gemini"),
         ],
@@ -659,7 +659,7 @@ with anim.frame(duration=3.1):
         actor_sub="1920x1080 layout + .svg / animated .webp",
         actor_optional=False,
         ops=[
-            ("user", "$ drawlib init slide -s google", "done"),
+            ("user", "$ drawlib init project slide -s google", "done"),
             ("gemini", "Configure styles.py & en/01..03 story arc", "done"),
             ("gemini", "Author ::: block stage + .svg / .webp", "active_gemini"),
         ],
@@ -683,7 +683,7 @@ with anim.frame(duration=3.1):
         actor_sub="Hidden on stage; synced to Presenter & PPTX",
         actor_optional=False,
         ops=[
-            ("user", "$ drawlib init slide -s google", "done"),
+            ("user", "$ drawlib init project slide -s google", "done"),
             ("gemini", "Configure styles.py & en/01..03 story arc", "done"),
             ("gemini", "Author ::: block stage + .svg / .webp", "done"),
             ("gemini", "Add ::: note speaker notes to slides", "active_gemini"),
@@ -708,7 +708,7 @@ with anim.frame(duration=3.3):
         actor_sub="Verify diagram coordinates & stage margins",
         actor_optional=False,
         ops=[
-            ("user", "$ drawlib init slide -s google", "done"),
+            ("user", "$ drawlib init project slide -s google", "done"),
             ("gemini", "Configure styles.py & en/01..03 story arc", "done"),
             ("gemini", "Author ::: block stage & ::: note", "done"),
             ("gemini", "$ drawlib show .../en/02_arch.md arch.svg -g", "active_gemini"),
@@ -734,7 +734,7 @@ with anim.frame(duration=3.1):
         actor_sub="Compile slide_html/en/ & vector slide_en.pdf",
         actor_optional=False,
         ops=[
-            ("user", "$ drawlib init slide -s google", "done"),
+            ("user", "$ drawlib init project slide -s google", "done"),
             ("gemini", "Configure styles.py & en/01..03 story arc", "done"),
             ("gemini", "Author & grid-verify slides + notes", "done"),
             ("gemini", "$ ./slide_src/build.sh  (HTML + PDF)", "active_gemini"),
@@ -756,15 +756,15 @@ with anim.frame(duration=3.1):
     draw_workspace(
         active_part=3,
         actor="gemini",
-        actor_title="$ drawlib build pptx slide_src/",
+        actor_title="$ ./slide_src/build_pptx.sh",
         actor_sub="Export editable 16:9 slide_en.pptx + notes",
         actor_optional=True,
         ops=[
-            ("user", "$ drawlib init slide -s google", "done"),
+            ("user", "$ drawlib init project slide -s google", "done"),
             ("gemini", "Configure styles.py & en/01..03 story arc", "done"),
             ("gemini", "Author & grid-verify slides + notes", "done"),
             ("gemini", "$ ./slide_src/build.sh  (HTML + PDF)", "done"),
-            ("gemini", "$ drawlib build pptx slide_src/", "optional"),
+            ("gemini", "$ ./slide_src/build_pptx.sh", "optional"),
         ],
         show_day2_note=False,
         show_flow=True,
@@ -786,11 +786,11 @@ with anim.frame(duration=3.3):
         actor_sub="Markdown slides & exports versioned in Git",
         actor_optional=False,
         ops=[
-            ("user", "$ drawlib init slide -s google", "done"),
+            ("user", "$ drawlib init project slide -s google", "done"),
             ("gemini", "Configure styles.py & en/01..03 story arc", "done"),
             ("gemini", "Author & grid-verify slides + notes", "done"),
             ("gemini", "$ ./slide_src/build.sh  (HTML + PDF)", "done"),
-            ("gemini", "$ drawlib build pptx slide_src/", "optional_done"),
+            ("gemini", "$ ./slide_src/build_pptx.sh", "optional_done"),
             ("user_git", '$ git add . && git commit -m "Init deck"', "active_user"),
         ],
         show_day2_note=False,
@@ -890,15 +890,15 @@ save()
 
 ## 2. プロジェクトの初期化
 
-`drawlib init` を使用してプレゼンテーションプロジェクトをスキャフォールディングします（すべての `slide` プロジェクトは、単一言語であっても統一された `<src_dir>/<lang>/` ロケール構成を使用します）。
+`drawlib init project` を使用してプレゼンテーションプロジェクトをスキャフォールディングします（すべての `slide` プロジェクトは、単一言語であっても統一された `<src_dir>/<lang>/` ロケール構成を使用します）。
 
 ```bash
 # Scaffold standard slide project in current directory (creates 'slide_src/en/'):
-drawlib init slide
+drawlib init project slide
 
 # With custom target name, theme, and single or multiple locales (creates 'my_deck_src/<lang>/'):
-drawlib init slide my_deck -s google -l en
-drawlib init slide my_deck -s google -l en,ja
+drawlib init project slide my_deck -s google -l en
+drawlib init project slide my_deck -s google -l en,ja
 ```
 
 ---
@@ -914,7 +914,7 @@ drawlib init slide my_deck -s google -l en,ja
   - **`_assets/`**: 出力先フォルダへ同期される静的なロゴ、フォント、参照メディアです（`<lang>/` のスライドからは `../_assets/...`、`<lang>/<section>/` からは `../../_assets/...` で参照します）。
   - **`styles.py` & `utils.py`**: プレゼンテーション全体で共有されるカラートークン、タイポグラフィ既定値（任意のロケール別 `<lang>/styles.py` による上書きも可能）、スライドヘッダー／フッターヘルパー、KPI／カードユーティリティです。
   - **`style.css` & `slide.js`**: 16:9 ビューポート自動スケーリング用スタイルシート、キーボードナビゲーションコントローラー、`.slide-lang-dropdown` 言語メニュー（`L` ショートカット対応）、および `BroadcastChannel` による発表者ツール（Presenter View）ランタイムです。
-  - **`build.sh`, `build_html.sh`, `build_pdf.sh`, `build_pptx.sh`, `build_image.sh`, `serve.sh`**: モジュール化されたビルドスクリプトおよびローカルプレゼンテーションプレビューランチャーです。
+  - **`build.sh`, `build_html.sh`, `build_pdf.sh`, `build_pptx.sh`, `build_image.sh`, `serve.sh`**: `drawlib init project slide` により実行権限（`+x`）付きで生成されるモジュール化されたビルドスクリプト（PowerPoint `.pptx` エクスポート用の `build_pptx.sh` を含む）およびローカルプレゼンテーションプレビューランチャーです。
 - **生成される出力先（直接編集しないでください）**:
   - **`slide_html/`**: フルスクリーン表示、一覧グリッド表示、および `?presenter=1` 発表者ツールをサポートするインタラクティブなブラウザ用スライドデッキ群（`slide_html/<lang>/index.html`、`?presenter=1` と `#N` を保持するルートリダイレクト `slide_html/index.html`、および共有の `slide_html/images/`、`style.css`、`slide.js`）です。
   - **`slide_<lang>.pdf`** *（例: `slide_en.pdf`）*: ヘッドレス Chromium によってロケールごとにレンダリングされる、1 ページあたり `1920px × 1080px` のマルチページベクター PDF です。
@@ -1051,18 +1051,18 @@ uv run drawlib serve slide_html/
 ## 8. マルチエージェントによる並列スライドデッキ執筆
 
 `slide_src/<lang>/` 内の各スライドは独立した Markdown ファイル（`01_title.md`、`02_agenda.md`、`03_arch.md`、またはセクションフォルダ単位）であるため、AI コーディングエージェントは複数枚のプレゼンテーションを並列に構築・刷新できます。
-1. **フェーズ 1（親エージェントによる初期設定）**: 最初に `slide_src/` をスキャフォールディング（`drawlib init slide`）し、`drawlib.toml`、`styles.py`、`utils.py` を設定したうえで、スライドデッキ全体のストーリー構成と番号付きファイル名を定義します。
+1. **フェーズ 1（親エージェントによる初期設定）**: 最初に `slide_src/` をスキャフォールディング（`drawlib init project slide`）し、`drawlib.toml`、`styles.py`、`utils.py` を設定したうえで、スライドデッキ全体のストーリー構成と番号付きファイル名を定義します。
 2. **フェーズ 2（サブエージェントによる並列執筆）**: `slide_src/<lang>/` 内の重複しないスライドファイル（またはセクションディレクトリ）を並列サブエージェントに割り当てます。各サブエージェントは担当スライド（`::: block` ステージレイアウト＋`::: note` スピーカー台本）を執筆し、一意なスクラッチパス（`-o .drawlib/scratch/<slide>_<block>_grid.png`）で `-g` グリッドプレビューを実行します。
-3. **フェーズ 3（統合デッキビルドとレビュー）**: すべてのサブエージェントがスライドを完了した後、親エージェントが `./slide_src/build.sh`（および必要に応じて `drawlib build pptx`）を 1 回実行し、コンパイルされた `slide_<lang>.pdf` と `slide_html/<lang>/index.html` を検証します。
+3. **フェーズ 3（統合デッキビルドとレビュー）**: すべてのサブエージェントがスライドを完了した後、親エージェントが `./slide_src/build.sh`（および必要に応じて `./slide_src/build_pptx.sh`）を 1 回実行し、コンパイルされた `slide_<lang>.pdf` と `slide_html/<lang>/index.html` を検証します。
 
 ---
 
 ## 9. 統一 `i18n` アーキテクチャと多言語スライドデッキ (`drawlib.toml`)
 
-すべての `slide_src/` プロジェクトは統一された `i18n` ネイティブの `<src_dir>/<lang>/` ディレクトリ構成（既定は `langs = ["en"]`）を採用しています。カンファレンス登壇やエグゼクティブ報告向けに英語・日本語などの多言語デッキを並行維持する場合も、`git mv` によるファイル移動は不要です。`drawlib init slide` にカンマ区切りのロケールを指定するか、`slide_src/ja/` を追加して `slide_src/drawlib.toml` の `[i18n]` を更新するだけで多言語デッキを構築できます。
+すべての `slide_src/` プロジェクトは統一された `i18n` ネイティブの `<src_dir>/<lang>/` ディレクトリ構成（既定は `langs = ["en"]`）を採用しています。カンファレンス登壇やエグゼクティブ報告向けに英語・日本語などの多言語デッキを並行維持する場合も、`git mv` によるファイル移動は不要です。`drawlib init project slide` にカンマ区切りのロケールを指定するか、`slide_src/ja/` を追加して `slide_src/drawlib.toml` の `[i18n]` を更新するだけで多言語デッキを構築できます。
 
 ```bash
-uv run drawlib init slide keynote -l en,ja -s google
+uv run drawlib init project slide keynote -l en,ja -s google
 ```
 
 ```toml

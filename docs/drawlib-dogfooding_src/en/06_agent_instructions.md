@@ -103,13 +103,13 @@ uv run drawlib rules show lib-graph-overview
 uv run drawlib rules show lib-charts-overview
 ```
 
-## 6.2 Setting Project Rule Files
+## 6.2 Setting Project Rule Files (`drawlib init agent`)
 
-Register these essential rules in `.cursorrules` or `.agents/rules/` so agents follow Drawlib `v0.3.0` principles automatically:
+Generate native workspace instruction files automatically via `uv run drawlib init agent <claude|cursor|antigravity|copilot|windsurf|cline|roo|codex|gemini|all>`, or register these essential rules so agents follow Drawlib principles automatically:
 
 ```markdown
 # Drawlib Drawing Rules
-- Project-First Rule: Never create bare `.py` files in an uninitialized folder; always scaffold a project first via `uv run drawlib init <doc|site|slide|images>`.
+- Project-First Rule: Never create bare `.py` files in an uninitialized folder; always scaffold a project first via `uv run drawlib init project <doc|site|slide|images>`.
 - Do NOT generate raw SVG or low-level matplotlib code; always use high-level modules (smartarts, diagrams, graph, charts).
 - The canvas origin (0, 0) is at the bottom-left corner.
 - Design tokens must be imported and referenced in PascalCase: `Styles` and `Colors`.

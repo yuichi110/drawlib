@@ -13,7 +13,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>リニアドキュメントプロジェクトガイド (`drawlib init doc`)</title>
+    <title>リニアドキュメントプロジェクトガイド (`drawlib init project doc`)</title>
     <script>
         (function() {
             const saved = localStorage.getItem('drawlib-theme');
@@ -600,7 +600,7 @@
                 <div class="breadcrumbs">
                     <span class="crumb">Docs</span>
                     <span class="crumb-separator">&raquo;</span>
-                    <span class="crumb active">リニアドキュメントプロジェクトガイド (`drawlib init doc`)</span>
+                    <span class="crumb active">リニアドキュメントプロジェクトガイド (`drawlib init project doc`)</span>
                 </div>
                 
                 <div class="lang-switcher">
@@ -630,7 +630,7 @@
                 
             </header>
             <main class="main-content">
-                <h1>リニアドキュメントプロジェクトガイド (<code>drawlib init doc</code>)</h1>
+                <h1>リニアドキュメントプロジェクトガイド (<code>drawlib init project doc</code>)</h1>
 <p><code>doc</code> スターターテンプレートは、仕様書、RFC（Request for Comments）、システムアーキテクチャ提案書、ホワイトペーパー、学位論文、公式エンジニアリングレポートといったリニアな技術文書の執筆向けに設計されています。</p>
 <p>単一ページの仕様書と複数章からなるレポートを単一のアーキタイプに統合することで、同一の Markdown ソースファイル群から <strong>HTML、ベクター PDF、編集可能な MS Word（<code>.docx</code>）、Markdown、および単体の図解画像</strong> を一括コンパイルできます。</p>
 <figure class="drawlib-image" style="text-align: center;">
@@ -746,13 +746,13 @@
 </div>
 <hr />
 <h2>2. プロジェクトの初期化</h2>
-<p><code>drawlib init</code> を使用してリニアドキュメントプロジェクトをスキャフォールディングします（すべての <code>doc</code> プロジェクトは、単一言語であっても統一された <code>&lt;src_dir&gt;/&lt;lang&gt;/</code> ロケール構成を使用します）。</p>
+<p><code>drawlib init project</code> を使用してリニアドキュメントプロジェクトをスキャフォールディングします（すべての <code>doc</code> プロジェクトは、単一言語であっても統一された <code>&lt;src_dir&gt;/&lt;lang&gt;/</code> ロケール構成を使用します）。</p>
 <pre><code class="language-bash"><span class="c1"># Scaffold standard doc project in current directory (creates 'doc_src/en/'):</span>
-drawlib<span class="w"> </span>init<span class="w"> </span>doc
+drawlib<span class="w"> </span>init<span class="w"> </span>project<span class="w"> </span>doc
 
 <span class="c1"># With custom target name, theme, and single or multiple locales (creates 'my_report_src/&lt;lang&gt;/'):</span>
-drawlib<span class="w"> </span>init<span class="w"> </span>doc<span class="w"> </span>my_report<span class="w"> </span>-s<span class="w"> </span>google<span class="w"> </span>-l<span class="w"> </span>en
-drawlib<span class="w"> </span>init<span class="w"> </span>doc<span class="w"> </span>my_report<span class="w"> </span>-s<span class="w"> </span>google<span class="w"> </span>-l<span class="w"> </span>en,ja
+drawlib<span class="w"> </span>init<span class="w"> </span>project<span class="w"> </span>doc<span class="w"> </span>my_report<span class="w"> </span>-s<span class="w"> </span>google<span class="w"> </span>-l<span class="w"> </span>en
+drawlib<span class="w"> </span>init<span class="w"> </span>project<span class="w"> </span>doc<span class="w"> </span>my_report<span class="w"> </span>-s<span class="w"> </span>google<span class="w"> </span>-l<span class="w"> </span>en,ja
 </code></pre>
 <hr />
 <h2>3. ディレクトリ構成と構造</h2>
@@ -763,7 +763,7 @@ drawlib<span class="w"> </span>init<span class="w"> </span>doc<span class="w"> <
 <li><strong><code>styles.py</code> &amp; <code>utils.py</code></strong>: 共有の Python スタイル設定（<code>Colors</code>、<code>Styles</code>、言語フォント。任意のロケール別 <code>&lt;lang&gt;/styles.py</code> による上書きも可能）および再利用可能な図解ヘルパー関数です。</li>
 <li><strong><code>template.html</code> &amp; <code>style.css</code></strong>: ブラウザプレビューおよびベクター PDF 生成に使用される Jinja2 シングルページ HTML レイアウトと印刷対応 CSS（<code>@media print</code> / <code>@page A4</code>）です。</li>
 <li><strong><code>_assets/</code></strong>: 静的なロゴ画像、ラスタースクリーンショット、またはカスタム <code>.ttf</code> フォントを格納します（<code>&lt;lang&gt;/</code> 内の Markdown 本文からは <code>../_assets/...</code> で参照します）。</li>
-<li><strong><code>build.sh</code> &amp; 各種ターゲットスクリプト</strong>: マスターオーケストレーター（<code>build.sh</code>）と、モジュール分割された個別スクリプト（<code>build_html.sh</code>、<code>build_pdf.sh</code>、<code>build_docx.sh</code>、<code>build_markdown.sh</code>、<code>build_image.sh</code>、<code>serve.sh</code>）です。</li>
+<li><strong><code>build.sh</code> &amp; 各種ターゲットスクリプト</strong>: <code>drawlib init project doc</code> により実行権限（<code>+x</code>）付きで生成されるマスターオーケストレーター（<code>build.sh</code>）と、モジュール分割された個別スクリプト（<code>build_html.sh</code>、<code>build_pdf.sh</code>、Word <code>.docx</code> エクスポート用の <code>build_docx.sh</code>、<code>build_markdown.sh</code>、<code>build_image.sh</code>、<code>serve.sh</code>）です。</li>
 </ul>
 <h3>生成される出力成果物</h3>
 <ul>
@@ -868,14 +868,14 @@ drawlib<span class="w"> </span>build<span class="w"> </span>image<span class="w"
 <h2>8. マルチエージェントによる章単位の並列執筆</h2>
 <p><code>doc</code> プロジェクトでは章が番号付きの Markdown ファイル（<code>&lt;lang&gt;/00_cover.md</code>、<code>&lt;lang&gt;/01_overview.md</code>、<code>&lt;lang&gt;/02_architecture.md</code>、<code>&lt;lang&gt;/03_security.md</code> など）に分割されているため、AI コーディングエージェントは複数章からなるホワイトペーパーや仕様書を並列に執筆できます。</p>
 <ol>
-<li><strong>フェーズ 1（親エージェントによる初期設定）</strong>: <code>doc_src/</code> をスキャフォールディング（<code>drawlib init doc</code>）し、<code>drawlib.toml</code>、<code>styles.py</code>、<code>utils.py</code>、<code>&lt;lang&gt;/00_cover.md</code> を確定させたうえで、番号付きの章ファイル名一覧を決定します。</li>
+<li><strong>フェーズ 1（親エージェントによる初期設定）</strong>: <code>doc_src/</code> をスキャフォールディング（<code>drawlib init project doc</code>）し、<code>drawlib.toml</code>、<code>styles.py</code>、<code>utils.py</code>、<code>&lt;lang&gt;/00_cover.md</code> を確定させたうえで、番号付きの章ファイル名一覧を決定します。</li>
 <li><strong>フェーズ 2（サブエージェントによる並列執筆）</strong>: 個別の章（<code>doc_src/&lt;lang&gt;/0N_&lt;topic&gt;.md</code>）を並列サブエージェントに割り当てます。各サブエージェントは担当の章（各章 2 つ以上の図解、5〜15 行目に章のヒーロー図解を配置）を執筆し、一意なグリッドプレビューパス（<code>-o .drawlib/scratch/0N_&lt;diagram&gt;_grid.png</code>）で図解を検証します。</li>
-<li><strong>フェーズ 3（統合コンパイル）</strong>: すべてのサブエージェントが章の執筆を完了した後、親エージェントが <code>./doc_src/build.sh</code>（および必要に応じて <code>drawlib build docx</code>）を 1 回実行し、全章を <code>doc_html/&lt;lang&gt;/index.html</code>、<code>doc_&lt;lang&gt;.pdf</code>、<code>doc_&lt;lang&gt;.docx</code> に統合します。</li>
+<li><strong>フェーズ 3（統合コンパイル）</strong>: すべてのサブエージェントが章の執筆を完了した後、親エージェントが <code>./doc_src/build.sh</code>（および必要に応じて <code>./doc_src/build_docx.sh</code>）を 1 回実行し、全章を <code>doc_html/&lt;lang&gt;/index.html</code>、<code>doc_&lt;lang&gt;.pdf</code>、<code>doc_&lt;lang&gt;.docx</code> に統合します。</li>
 </ol>
 <hr />
 <h2>9. 統一 <code>i18n</code> アーキテクチャと多言語リニアドキュメント (<code>drawlib.toml</code>)</h2>
-<p>すべての <code>doc_src/</code> プロジェクトは標準で <code>i18n</code> ネイティブ構成（既定は <code>langs = [&quot;en&quot;]</code>）を採用しています。後から第 2 言語版を追加する場合でも、<code>git mv</code> によるファイル移動やビルドスクリプトの書き換えは一切不要です。<code>init</code> 時にカンマ区切りのロケールを指定するか、ロケールディレクトリ（<code>doc_src/ja/</code>）を追加して <code>doc_src/drawlib.toml</code> の <code>[i18n]</code> を更新するだけで多言語ビルドが有効になります。</p>
-<pre><code class="language-bash">uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>doc<span class="w"> </span>whitepaper<span class="w"> </span>-l<span class="w"> </span>en,ja<span class="w"> </span>-s<span class="w"> </span>google
+<p>すべての <code>doc_src/</code> プロジェクトは標準で <code>i18n</code> ネイティブ構成（既定は <code>langs = [&quot;en&quot;]</code>）を採用しています。後から第 2 言語版を追加する場合でも、<code>git mv</code> によるファイル移動やビルドスクリプトの書き換えは一切不要です。<code>drawlib init project doc</code> 実行時にカンマ区切りのロケールを指定するか、ロケールディレクトリ（<code>doc_src/ja/</code>）を追加して <code>doc_src/drawlib.toml</code> の <code>[i18n]</code> を更新するだけで多言語ビルドが有効になります。</p>
+<pre><code class="language-bash">uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>project<span class="w"> </span>doc<span class="w"> </span>whitepaper<span class="w"> </span>-l<span class="w"> </span>en,ja<span class="w"> </span>-s<span class="w"> </span>google
 </code></pre>
 <pre><code class="language-toml"><span class="k">[project]</span>
 <span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"whitepaper"</span>

@@ -131,7 +131,7 @@ def require_slide_manifest(input_abs: str) -> ProjectManifest:
             )
         raise ValueError(
             f'Missing required "drawlib.toml" project manifest in "{input_abs}". '
-            'Initialize a slide project with "drawlib init slide" or add a drawlib.toml manifest.'
+            'Initialize a slide project with "drawlib init project slide" or add a drawlib.toml manifest.'
         )
 
     if manifest.project.type != "slide":

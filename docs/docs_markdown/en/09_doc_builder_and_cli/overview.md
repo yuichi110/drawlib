@@ -134,7 +134,7 @@ Every build command executes a deterministic four-stage pipeline: resolving Mark
 
 ## 3. Project Starter Templates
 
-Never construct documentation directories manually. Scaffolding them with `drawlib init` guarantees the correct directory layout and configuration scripts:
+Never construct documentation directories manually. Scaffolding them with `drawlib init project` guarantees the correct directory layout and configuration scripts:
 
 | Template | Source Directory | Primary Output | Typical Use Case |
 |---|---|---|---|
@@ -249,10 +249,10 @@ Because every Drawlib project separates **shared configuration** (`drawlib.toml`
 
 | Project Template | Parallel Subagent Unit | Phase 1: Parent Orchestrator Setup | Phase 2: Parallel Subagent Execution | Phase 3: Parent Finalization |
 | :--- | :--- | :--- | :--- | :--- |
-| **`doc`** | Numbered chapter file (`doc_src/<lang>/01_*.md`, `02_*.md`, ...) | `drawlib init doc`, `styles.py`, `utils.py`, `<lang>/00_cover.md`, chapter outline | Author assigned chapter(s) & run `drawlib show ... -g -o .drawlib/scratch/0N_<fig>_grid.png` | Run `./doc_src/build.sh` (or `build docx`) & inspect `doc_<lang>.pdf` / `doc_html/` |
-| **`site`** | Topic page or section folder (`docs_src/<lang>/01_arch/*.md`, ...) | `drawlib init site`, `styles.py`, `utils.py`, `<lang>/navbar.md`, `<lang>/index.md` | Author assigned page(s) & run Stage 1 + Stage 2 grid review with unique scratch filenames | Run `./docs_src/build.sh`, `serve --check`, & browser check |
-| **`slide`** | Slide file (`slide_src/<lang>/02_*.md`, ...) or section directory | `drawlib init slide`, `styles.py`, `utils.py`, deck story arc & slide numbering | Author assigned slide(s) (`::: block` + `::: note`) & run Stage 1 + Stage 2 grid review | Run `./slide_src/build.sh` (or `build pptx`) & inspect `slide_<lang>.pdf` / `1920x1080` stage |
-| **`images`** | Standalone Python script (`images_src/<name>.py`) | `drawlib init images`, `styles.py`, `utils.py`, `_assets/` | Author assigned `.py` script(s) & run `drawlib show ... -g -o .drawlib/scratch/<script>_grid.png` | Run `./images_src/build.sh` & inspect `images/*.png` |
+| **`doc`** | Numbered chapter file (`doc_src/<lang>/01_*.md`, `02_*.md`, ...) | `drawlib init project doc`, `styles.py`, `utils.py`, `<lang>/00_cover.md`, chapter outline | Author assigned chapter(s) & run `drawlib show ... -g -o .drawlib/scratch/0N_<fig>_grid.png` | Run `./doc_src/build.sh` (or `build docx`) & inspect `doc_<lang>.pdf` / `doc_html/` |
+| **`site`** | Topic page or section folder (`docs_src/<lang>/01_arch/*.md`, ...) | `drawlib init project site`, `styles.py`, `utils.py`, `<lang>/navbar.md`, `<lang>/index.md` | Author assigned page(s) & run Stage 1 + Stage 2 grid review with unique scratch filenames | Run `./docs_src/build.sh`, `serve --check`, & browser check |
+| **`slide`** | Slide file (`slide_src/<lang>/02_*.md`, ...) or section directory | `drawlib init project slide`, `styles.py`, `utils.py`, deck story arc & slide numbering | Author assigned slide(s) (`::: block` + `::: note`) & run Stage 1 + Stage 2 grid review | Run `./slide_src/build.sh` (or `build pptx`) & inspect `slide_<lang>.pdf` / `1920x1080` stage |
+| **`images`** | Standalone Python script (`images_src/<name>.py`) | `drawlib init project images`, `styles.py`, `utils.py`, `_assets/` | Author assigned `.py` script(s) & run `drawlib show ... -g -o .drawlib/scratch/<script>_grid.png` | Run `./images_src/build.sh` & inspect `images/*.png` |
 
 ### Concurrency Guardrails for Subagents:
 1. **Read-Only Shared Files**: Subagents treat `drawlib.toml`, `styles.py`, `utils.py`, and `<lang>/navbar.md` as read-only and edit only their assigned `.md` or `.py` files.
@@ -265,7 +265,7 @@ Because every Drawlib project separates **shared configuration** (`drawlib.toml`
 
 Dive deeper into each builder subsystem:
 - [Embedded Code Blocks](./code_blocks.md): Code fence syntax, display modes (`code=show`, `code=fold`), alignment, and captions.
-- [CLI Reference](./cli_reference.md): Complete guide to `build` (`html`, `markdown`, `pdf`, `docx`, `slide`, `pptx`, `image`), `serve`, `show`, `init`, `cache`, `css`, `colors`, `styles`, and `rules`.
+- [CLI Reference](./cli_reference.md): Complete guide to `build` (`html`, `markdown`, `pdf`, `docx`, `slide`, `pptx`, `image`), `serve`, `show`, `init` (`project`, `agent`), `cache`, `css`, `colors`, `styles`, and `rules`.
 - [Linear Document Project Guide](./project_doc.md): Linear document RFCs, specifications, whitepapers, and HTML / PDF / Word (`.docx`) publishing.
 - [Doc Site Project Guide](./project_site.md): Multi-page website authoring, sidebar categories, and link validation.
 - [Slide Deck Project Guide](./project_slide.md): 16:9 presentation slide decks with interactive web deck, vector PDF, and PowerPoint (`.pptx`) export.

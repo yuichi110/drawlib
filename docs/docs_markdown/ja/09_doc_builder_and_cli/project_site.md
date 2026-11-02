@@ -1,4 +1,4 @@
-# ドキュメントサイトプロジェクトガイド (`drawlib init site`)
+# ドキュメントサイトプロジェクトガイド (`drawlib init project site`)
 
 `site` スターターテンプレートは、階層型のサイドバーナビゲーション、モバイル対応のレスポンシブレイアウト、シンタックスハイライト、および静的 HTML と GitHub 対応 Markdown へのデュアル出力を備えた、マルチページ構成の技術ドキュメントサイトを構築します。
 
@@ -108,7 +108,7 @@ save()
 
 ## 1. エンドツーエンドのプロジェクトワークフロー
 
-`drawlib init site` による初期スキャフォールディングと `navbar.md` サイドバーの構築から、`-g` グリッド検証、ヘッドレスのリンク検証（`drawlib serve --check`）、そして `.drawlib/cache.db` を活用した Day-2 の差分ページ追加までの流れを確認しましょう。
+`drawlib init project site` による初期スキャフォールディングと `navbar.md` サイドバーの構築から、`-g` グリッド検証、ヘッドレスのリンク検証（`drawlib serve --check`）、そして `.drawlib/cache.db` を活用した Day-2 の差分ページ追加までの流れを確認しましょう。
 
 
 
@@ -127,15 +127,15 @@ save()
 
 ## 2. プロジェクトの初期化
 
-`drawlib init` を使用してドキュメントサイトをスキャフォールディングします（すべての `site` プロジェクトは、単一言語であっても統一された `<src_dir>/<lang>/` ロケール構成を使用します）。
+`drawlib init project` を使用してドキュメントサイトをスキャフォールディングします（すべての `site` プロジェクトは、単一言語であっても統一された `<src_dir>/<lang>/` ロケール構成を使用します）。
 
 ```bash
 # Scaffold default 'docs_src/en/' in the current directory:
-drawlib init site
+drawlib init project site
 
 # Or specify a custom target prefix and single or multiple locales (creates 'my_docs_src/<lang>/'):
-drawlib init site my_docs --style google --lang en
-drawlib init site my_docs --style google --lang en,ja
+drawlib init project site my_docs --style google --lang en
+drawlib init project site my_docs --style google --lang en,ja
 ```
 
 ---
@@ -225,7 +225,7 @@ uv run drawlib serve docs_html/ --check
 ## 7. マルチエージェントによる並列サイト執筆
 
 マルチページ構成の `site` プロジェクト（`docs_src/<lang>/**/*.md`）は、並列 AI サブエージェントによる分担作業に自然にスケールします。
-1. **フェーズ 1（親エージェントによる初期設定）**: サブエージェントを起動する前に、`docs_src/` をスキャフォールディング（`drawlib init site`）し、共有ファイル（`drawlib.toml`、`styles.py`、`utils.py`、`_assets/`、`<lang>/index.md`、および完全な `<lang>/navbar.md` サイドバーツリー）を確定させます。
+1. **フェーズ 1（親エージェントによる初期設定）**: サブエージェントを起動する前に、`docs_src/` をスキャフォールディング（`drawlib init project site`）し、共有ファイル（`drawlib.toml`、`styles.py`、`utils.py`、`_assets/`、`<lang>/index.md`、および完全な `<lang>/navbar.md` サイドバーツリー）を確定させます。
 2. **フェーズ 2（サブエージェントによる並列執筆）**: 各サブエージェントに重複しないページまたはセクションディレクトリ（例: `<lang>/01_architecture/*.md` と `<lang>/02_services/*.md`）を割り当てます。各サブエージェントは `drawlib.toml`、`styles.py`、`utils.py`、`<lang>/navbar.md` を読み取り専用として扱い、担当ページを執筆して一意なスクラッチファイル名（`-o .drawlib/scratch/<page>_<block>_grid.png`）で `-g` グリッドプレビューを実行します。
 3. **フェーズ 3（統合ビルドとリンク監査）**: すべてのサブエージェントが完了したら、親エージェントが `./docs_src/build.sh` を 1 回実行し、`uv run drawlib serve docs_html/ --check` でサイト全体のリンク整合性を検証します。
 
@@ -233,10 +233,10 @@ uv run drawlib serve docs_html/ --check
 
 ## 8. 統一 `i18n` アーキテクチャと多言語ドキュメントサイト (`drawlib.toml`)
 
-すべての `docs_src/` プロジェクトは標準で `i18n` ネイティブ構成（既定は `langs = ["en"]`）を採用しています。単一言語のポータルを後から多言語サイトへ拡張する際も、`git mv` によるファイル移動は不要です。`drawlib init site` にカンマ区切りの言語コードを指定するか、ロケールディレクトリ（`docs_src/ja/`）を追加して `docs_src/drawlib.toml` の `[i18n]` を更新するだけで完了します。
+すべての `docs_src/` プロジェクトは標準で `i18n` ネイティブ構成（既定は `langs = ["en"]`）を採用しています。単一言語のポータルを後から多言語サイトへ拡張する際も、`git mv` によるファイル移動は不要です。`drawlib init project site` にカンマ区切りの言語コードを指定するか、ロケールディレクトリ（`docs_src/ja/`）を追加して `docs_src/drawlib.toml` の `[i18n]` を更新するだけで完了します。
 
 ```bash
-uv run drawlib init site docs -l en,ja -s default
+uv run drawlib init project site docs -l en,ja -s default
 ```
 
 ```toml

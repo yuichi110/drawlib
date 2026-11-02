@@ -24,7 +24,7 @@ setup(width=128, height=58)
 
 # Top Row: Primary 4-Stage Authoring & Publishing Pipeline
 stages = [
-    (18.5, "1. init", "doc / site / slide", Styles.Neutral, Styles.DarkBold, Styles.Dark, phosphor.rocket_launch, Styles.PrimaryBold),
+    (18.5, "1. init", "project / agent", Styles.Neutral, Styles.DarkBold, Styles.Dark, phosphor.rocket_launch, Styles.PrimaryBold),
     (48.8, "2. show", "-g grid / -o export", Styles.PrimaryNeutral, Styles.DarkBold, Styles.Dark, phosphor.grid_four, Styles.PrimaryBold),
     (79.2, "3. build", "html / pdf / office", Styles.PrimaryFlat, Styles.WhiteBold, Styles.White, phosphor.hammer, Styles.WhiteBold),
     (109.5, "4. serve", "--check link audit", Styles.SecondaryNeutral, Styles.DarkBold, Styles.Dark, phosphor.eye, Styles.PrimaryBold),
@@ -94,12 +94,15 @@ drawlib build slide slide_src/ -o slide_html/               # Interactive 16:9 H
 drawlib build pptx slide_src/ -o deck.pptx                  # Editable 16:9 MS PowerPoint (.pptx) deck
 drawlib build image scripts/ -o assets/ -g                  # Batch Python image rendering
 
-# Scaffolding
-drawlib init list                                          # List starter project templates (site, doc, slide, images)
-drawlib init doc my_doc                                    # Scaffold linear document project (HTML, PDF, DOCX, MD, images)
-drawlib init site my_site                                  # Scaffold documentation site
-drawlib init slide my_deck -s google                       # Scaffold 16:9 presentation slide deck
-drawlib init images my_images                              # Scaffold standalone images project (alias: image)
+# Scaffolding & AI Agent Rules
+drawlib init project list                                  # List starter project templates (site, doc, slide, images)
+drawlib init project doc my_doc                            # Scaffold linear document project (HTML, PDF, DOCX, MD, images)
+drawlib init project site my_site                          # Scaffold documentation site
+drawlib init project slide my_deck -s google               # Scaffold 16:9 presentation slide deck
+drawlib init project images my_images                      # Scaffold standalone images project (alias: image)
+drawlib init agent list                                    # List supported AI coding agent targets and output paths
+drawlib init agent antigravity                             # Generate AI agent rules (.agents/rules/drawlib.md, mode: auto)
+drawlib init agent --detect                                # Auto-detect configured AI agents in repo and generate rules
 
 # Inspection & Preview
 drawlib show doc.md                                        # List all drawlib code blocks in doc.md
@@ -338,11 +341,15 @@ drawlib build image images_src/ -o images/ --grid
 
 ## 5. スキャフォールディングサブシステム（`drawlib init`）
 
-標準化されたフォルダ構成、設定スクリプト、ビルド自動化スクリプトを備えた新規プロジェクトを初期生成します。
+スタータープロジェクトの初期構築（`drawlib init project`）と、AI コーディングエージェント向け指示ファイルの生成（`drawlib init agent`）を提供します。両サブコマンドグループは、[`drawlib.tools`](../10_ai_agents_and_advanced/programmatic_api.md) モジュール（`init_project()`、`list_project_types()`、`init_agent_instruction()`、`list_agent_targets()`、`detect_agent_targets()`）からプログラマティックに呼び出すことも可能です。
+
+### 5.1 プロジェクトのスキャフォールディング（`drawlib init project`）
+
+標準化されたフォルダ構成、設定マニフェスト（`drawlib.toml`）、実行可能なビルドスクリプトを備えた新規プロジェクトを初期生成します。
 
 ```bash
-drawlib init <TYPE> [target] [OPTIONS]
-drawlib init list
+drawlib init project <TYPE> [target] [OPTIONS]
+drawlib init project list
 ```
 
 - `<TYPE>`: プロジェクト種別を選択するサブコマンド: `doc`、`site`、`slide`（すべて統一された `<src_dir>/<lang>/` ロケールディレクトリと `drawlib.toml` の `[i18n]` で初期化）、`images`（エイリアス: `image`）、または `list`。
@@ -350,6 +357,25 @@ drawlib init list
 - `-s`, `--style <theme>`: スタイルプリセットテーマ（`default`、`google`、`monochrome` など）。`style.css` と `styles.py` の両方を同期して設定します。
 - `-l`, `--lang <code>`: スターターコンテンツおよびフォント設定の言語（`en`、`ja`、`zh-cn`、`ko`、`th`、`hi` など。`doc`、`site`、`slide` では `-l en,ja` のようなカンマ区切りの複数ロケール指定に対応）。デフォルト: `en`。
 - `-f`, `--force`: 出力先ディレクトリが既に存在する場合に既存ファイルを上書きします。
+
+### 5.2 AI コーディングエージェント指示ファイル生成（`drawlib init agent`）
+
+各 AI コーディングエージェント固有の YAML / MDC フロントマターや非破壊マーカーブロックを備えた Drawlib 指示ファイルを生成します（エイリアスサブコマンド: `agents`）。
+
+```bash
+drawlib init agent <AGENT...> [-m auto|always] [-g] [-d <dir>] [-o <file>] [-f]
+drawlib init agent --detect [-m auto|always] [-d <dir>] [-f]
+drawlib init agent list
+```
+
+- `<AGENT...>`: 対応ターゲット: `antigravity`（`.agents/rules/drawlib.md`）、`claude`（`.claude/rules/drawlib.md`）、`cursor`（`.cursor/rules/drawlib.mdc`）、`copilot`（`.github/instructions/drawlib.instructions.md`）、`windsurf`（`.windsurf/rules/drawlib.md`）、`cline`（`.clinerules/drawlib.md`）、`roo`（`.roo/rules/drawlib.md`）、`codex` / `agents-md`（`AGENTS.md`）、`gemini` / `gemini-md`（`GEMINI.md`）、`all`（モジュール分離型7種を一括生成）、または `list`。
+- `-m`, `--mode <auto|always>`: トリガーモード（`auto`［既定］: タスクに応じたオンデマンド読込、`always`: 常時読込）。
+- `-g`, `--global`: プロジェクト配下ではなくユーザーホーム配下のグローバル設定ディレクトリへ出力します。
+- `--detect`: ワークスペース内の既存 AI エージェント設定ディレクトリやファイルを自動検出して生成します。
+- `--list`（または `list`）: 対応 AI エージェント一覧、出力先パス、フォーマットを表示します。
+- `-d`, `--dir <dir>`: 対象プロジェクトのワークスペースルートディレクトリ（既定: `.`）。
+- `-o`, `--output <file>`: 明示的な出力先ファイルパス（単一エージェント指定時のみ有効）。
+- `-f`, `--force`: 既存のルールファイルを上書き、または既存の Drawlib マーカーブロックを更新します。
 
 ---
 

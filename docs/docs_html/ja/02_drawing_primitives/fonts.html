@@ -959,7 +959,7 @@
     <span class="n">size</span><span class="o">=</span><span class="mf">14.0</span><span class="p">,</span>
 <span class="p">)</span>
 </code></pre>
-<p><code>drawlib init</code> で新規プロジェクトを作成する際に <code>--lang ja</code>（または <code>zh</code>、<code>ko</code>）を渡すと、この <code>styles.py</code> 設定が自動生成されます。</p>
+<p><code>drawlib init project</code> で新規プロジェクトを作成する際に <code>--lang ja</code>（または <code>zh</code>、<code>ko</code>）を渡すと、この <code>styles.py</code> 設定が自動生成されます。</p>
 <h3>5.2. オフライン・CI 向けのフォントアセットキャッシュ (<code>drawlib cache</code>)</h3>
 <p><code>drawlib</code> 本体パッケージ（wheel）を軽量に保つため、フォントファイルは初回利用時にダウンロードされてローカルにキャッシュされます。エアギャップ環境、Docker イメージビルド、または CI パイプラインでは、CLI を使って事前にフォントパッケージを一括ダウンロードできます（詳細は <a href="../09_doc_builder_and_cli/caching_and_cicd.html">キャッシュ機構と CI/CD</a> を参照してください）。</p>
 <pre><code class="language-bash"><span class="c1"># Inspect cached font and icon packages</span>

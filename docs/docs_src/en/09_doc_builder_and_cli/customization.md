@@ -498,11 +498,11 @@ PART1_STATES = [
         "bash",
         [
             "# Scaffold default light site:",
-            "drawlib init site -s default",
+            "drawlib init project site \\",
+            "    -s default",
             "",
             "# Synchronizes BOTH files:",
-            "#  docs_src/style.css",
-            "#    -> Slate-Blue HTML UI",
+            "#  docs_src/style.css (UI)",
             "#  docs_src/styles.py",
             "#    -> DefaultStyles() tokens",
         ],
@@ -510,7 +510,7 @@ PART1_STATES = [
         "-s default",
         "Default Preset: Slate-Blue HTML CSS + DefaultStyles",
         "1. Built-In Default Theme",
-        "drawlib init site -s default scaffolds clean slate UI",
+        "init project site -s default scaffolds clean UI",
         "Pairs VitePress-style CSS with DefaultStyles tokens",
     ),
     (
@@ -520,11 +520,11 @@ PART1_STATES = [
         "bash",
         [
             "# Scaffold Google Material UI:",
-            "drawlib init site -s google",
+            "drawlib init project site \\",
+            "    -s google",
             "",
             "# Synchronizes BOTH files:",
-            "#  docs_src/style.css",
-            "#    -> #1A73E8 & #34A853 CSS",
+            "#  docs_src/style.css (#1A73E8)",
             "#  docs_src/styles.py",
             "#    -> GoogleColors/Styles()",
         ],
@@ -542,7 +542,7 @@ PART1_STATES = [
         "bash",
         [
             "# Scaffold Dark Mode Site:",
-            "drawlib init site \\",
+            "drawlib init project site \\",
             "    -s default-dark",
             "",
             "# High-contrast dark palette:",
@@ -1125,7 +1125,7 @@ rectangle((40, 20), width=50, height=25, style=Styles.PrimaryFlat, text="Unified
 ```
 
 ### Cohesive Design with `style.css` & `drawlib.toml`
-When scaffolding projects using `drawlib init <type> --style google` (or `monochrome`, `default`, `default-dark`, `google-dark`), Drawlib records the active `style` and `[i18n]` locale settings in `drawlib.toml` and synchronizes both `styles.py` (for Python illustrations) and `style.css` (for HTML/PDF/Slide typography and card backgrounds). This ensures that **editorial prose and embedded architectural diagrams share a 100% unified visual identity**.
+When scaffolding projects using `drawlib init project <type> --style google` (or `monochrome`, `default`, `default-dark`, `google-dark`), Drawlib records the active `style` and `[i18n]` locale settings in `drawlib.toml` and synchronizes both `styles.py` (for Python illustrations) and `style.css` (for HTML/PDF/Slide typography and card backgrounds). This ensures that **editorial prose and embedded architectural diagrams share a 100% unified visual identity**.
 
 ### Per-Locale `styles.py` & `utils.py` Overrides (`<src_dir>/<lang>/`)
 In multi-locale `doc`, `site`, and `slide` projects (`langs = ["en", "ja"]` in `drawlib.toml`), root `styles.py` and `utils.py` apply by default across all locales. When a specific locale requires localized fonts (such as `FontJapanese` in `ja/`) or locale-specific helper functions, place `<src_dir>/<lang>/styles.py` and/or `<src_dir>/<lang>/utils.py` inside that locale folder—diagrams rendered for `<lang>/` automatically resolve the per-locale override first and fall back to root `styles.py` / `utils.py`.

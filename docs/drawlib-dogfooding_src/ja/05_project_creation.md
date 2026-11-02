@@ -1,6 +1,6 @@
 # 第5章: プロジェクト作成とビルド運用
 
-Drawlib には、目的別のドキュメントプロジェクトを瞬時にスキャフォールドする `drawlib init` コマンドが用意されています。
+Drawlib には、目的別のドキュメントプロジェクトを瞬時にスキャフォールドする `drawlib init project` コマンドが用意されています。
 
 ## 5.1 プロジェクトテンプレートの種類
 
@@ -16,7 +16,7 @@ Drawlib には、目的別のドキュメントプロジェクトを瞬時にス
 以下のコマンド 1 つで、日本語対応および Google スタイルの線形ドキュメントプロジェクト（`report_src/`）を作成できます（`-l en,ja` のように複数言語を同時初期化することも可能です）:
 
 ```bash
-uv run drawlib init doc report -l ja -s google
+uv run drawlib init project doc report -l ja -s google
 ```
 
 ```drawlib align=center file=fig_project_lifecycle_ja.png caption="図 5.1: プロジェクト作成から成果物生成までのライフサイクル"
@@ -33,12 +33,12 @@ header_ts = Styles.WhiteBold.patch(text_size=11.0)
 ts_body = Styles.Dark.patch(text_size=10.0, halign="left")
 ts_arrow = Styles.DarkBold.patch(text_size=10.0)
 
-# 1. スキャフォールド: drawlib init
+# 1. スキャフォールド: drawlib init project
 rectangle((22.5, 26.0), width=37.0, height=42.0, style=Styles.SecondaryNeutral.patch(shape_r=2.0))
-rectangle((22.5, 43.2), width=35.0, height=6.0, style=Styles.SecondaryFlat.patch(shape_r=1.5), text="1. drawlib init", text_style=header_ts)
+rectangle((22.5, 43.2), width=35.0, height=6.0, style=Styles.SecondaryFlat.patch(shape_r=1.5), text="1. drawlib init project", text_style=header_ts)
 
 phosphor.terminal_window(xy=(8.0, 33.5), width=4.4, style=Styles.Secondary)
-text((11.2, 33.5), text="init doc report\nプロジェクト足場生成", style=ts_body)
+text((11.2, 33.5), text="init project doc report\nプロジェクト足場生成", style=ts_body)
 
 phosphor.palette(xy=(8.0, 22.5), width=4.4, style=Styles.Secondary)
 text((11.2, 22.5), text="-s google\nCSS・作図テーマ統一", style=ts_body)
@@ -84,7 +84,7 @@ save()
 ```
 
 ### ターゲット引数による名前の連動仕様
-`drawlib init doc report -l ja` を実行すると、`i18n` ネイティブの連動関係が自動的に構築されます:
+`drawlib init project doc report -l ja` を実行すると、`i18n` ネイティブの連動関係が自動的に構築されます:
 - **ソースフォルダ**: `report_src/` 直下に `drawlib.toml`（`[project]` + `[i18n]`）とロケールフォルダ `report_src/ja/`（`-l en,ja` の場合は `en/` と `ja/`）が作成されます。
 - **ビルド出力**: `report_ja.pdf`（`report_<lang>.pdf`）, `report_html/`, `report_markdown/`, `report_images/` が出力対象として自動設定されます（さらに `drawlib build docx` で `report_<lang>.docx` も出力可能）。
 
