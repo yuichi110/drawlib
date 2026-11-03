@@ -80,6 +80,13 @@ ALL_TARGETS: tuple[BuildTarget, ...] = (
         description="Software Architecture Specification Site (docs/architecture/)",
         clean_paths=("docs/architecture",),
     ),
+    BuildTarget(
+        name="api",
+        src_dir="docs_src/api",
+        script_rel_path="docs_src/api/build.sh",
+        description="Official API & CLI Reference Site (docs/api/)",
+        clean_paths=("docs/api",),
+    ),
 )
 
 TARGET_MAP: dict[str, BuildTarget] = {target.name: target for target in ALL_TARGETS}
@@ -129,7 +136,7 @@ def build_docs(
     """Build specified documentation targets or all targets.
 
     Args:
-        target_name: Specific target name ('site', 'architecture', 'readme', 'logo', 'ogp', or 'all').
+        target_name: Specific target name ('site', 'api', 'architecture', 'readme', 'logo', 'ogp', or 'all').
         build_all: If True, build all available targets in sequence.
         clean: If True, remove previous build artifacts before building.
     """

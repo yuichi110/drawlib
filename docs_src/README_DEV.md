@@ -84,7 +84,7 @@ drawlib/
 ├── tests/              # Test suite (tests/drawlib and tests/dcli)
 ├── tools/              # Developer CLI (dcli), release_assets/, and original_assets/
 ├── dcli                # Shell launcher & autocompletion wrapper
-├── docs_src/           # Documentation & asset sources (site/, architecture/, readme/, logo/, ogp/) & README_*.md
+├── docs_src/           # Documentation & asset sources (site/, api/, architecture/, readme/, logo/, ogp/) & README_*.md
 ├── docs/               # Generated GitHub Pages web root (www.drawlib.com) & static assets
 ├── .agents/rules/      # Living developer guidelines and AI instructions
 └── pyproject.toml      # Project metadata, dependencies, and tool configs

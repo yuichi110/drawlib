@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://www.drawlib.com/api/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.drawlib.com/api/en/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.drawlib.com/api/ja/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/api/" />
+  </url>
+  <url>
+    <loc>https://www.drawlib.com/api/en/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.drawlib.com/api/en/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.drawlib.com/api/ja/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/api/" />
+  </url>
+  <url>
+    <loc>https://www.drawlib.com/api/en/00_overview.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.drawlib.com/api/en/00_overview.html" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.drawlib.com/api/ja/00_overview.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/api/en/00_overview.html" />
+  </url>
+  <url>
+    <loc>https://www.drawlib.com/api/en/01_canvas.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.drawlib.com/api/en/01_canvas.html" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.drawlib.com/api/ja/01_canvas.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/api/en/01_canvas.html" />
+  </url>
+  <url>
+    <loc>https://www.drawlib.com/api/en/02_shapes.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.drawlib.com/api/en/02_shapes.html" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.drawlib.com/api/ja/02_shapes.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/api/en/02_shapes.html" />
+  </url>
+  <url>
+    <loc>https://www.drawlib.com/api/en/03_lines_and_text.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.drawlib.com/api/en/03_lines_and_text.html" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.drawlib.com/api/ja/03_lines_and_text.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/api/en/03_lines_and_text.html" />
+  </url>
+  <url>
+    <loc>https://www.drawlib.com/api/en/04_images_and_math.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.drawlib.com/api/en/04_images_and_math.html" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.drawlib.com/api/ja/04_images_and_math.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/api/en/04_images_and_math.html" />
+  </url>
+  <url>
+    <loc>https://www.drawlib.com/api/en/05_styles_and_types.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.drawlib.com/api/en/05_styles_and_types.html" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.drawlib.com/api/ja/05_styles_and_types.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/api/en/05_styles_and_types.html" />
+  </url>
+  <url>
+    <loc>https://www.drawlib.com/api/en/06_presets.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.drawlib.com/api/en/06_presets.html" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.drawlib.com/api/ja/06_presets.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/api/en/06_presets.html" />
+  </url>
+  <url>
+    <loc>https://www.drawlib.com/api/en/07_fonts.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.drawlib.com/api/en/07_fonts.html" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.drawlib.com/api/ja/07_fonts.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/api/en/07_fonts.html" />
+  </url>
+  <url>
+    <loc>https://www.drawlib.com/api/en/08_icons.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.drawlib.com/api/en/08_icons.html" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.drawlib.com/api/ja/08_icons.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/api/en/08_icons.html" />
+  </url>
+  <url>
+    <loc>https://www.drawlib.com/api/en/09_smartarts_lists_cards.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.drawlib.com/api/en/09_smartarts_lists_cards.html" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.drawlib.com/api/ja/09_smartarts_lists_cards.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/api/en/09_smartarts_lists_cards.html" />
+  </url>
+  <url>
+    <loc>https://www.drawlib.com/api/en/10_smartarts_flows_trees_maps.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.drawlib.com/api/en/10_smartarts_flows_trees_maps.html" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.drawlib.com/api/ja/10_smartarts_flows_trees_maps.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/api/en/10_smartarts_flows_trees_maps.html" />
+  </url>
+  <url>
+    <loc>https://www.drawlib.com/api/en/11_charts_bar.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.drawlib.com/api/en/11_charts_bar.html" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.drawlib.com/api/ja/11_charts_bar.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/api/en/11_charts_bar.html" />
+  </url>
+  <url>
+    <loc>https://www.drawlib.com/api/en/12_charts_line.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.drawlib.com/api/en/12_charts_line.html" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.drawlib.com/api/ja/12_charts_line.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/api/en/12_charts_line.html" />
+  </url>
+  <url>
+    <loc>https://www.drawlib.com/api/en/13_charts_area.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.drawlib.com/api/en/13_charts_area.html" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.drawlib.com/api/ja/13_charts_area.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/api/en/13_charts_area.html" />
+  </url>
+  <url>
+    <loc>https://www.drawlib.com/api/en/14_charts_pie.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.drawlib.com/api/en/14_charts_pie.html" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.drawlib.com/api/ja/14_charts_pie.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/api/en/14_charts_pie.html" />
+  </url>
+  <url>
+    <loc>https://www.drawlib.com/api/en/15_charts_radar.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.drawlib.com/api/en/15_charts_radar.html" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.drawlib.com/api/ja/15_charts_radar.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/api/en/15_charts_radar.html" />
+  </url>
+  <url>
+    <loc>https://www.drawlib.com/api/en/16_charts_scatter.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.drawlib.com/api/en/16_charts_scatter.html" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.drawlib.com/api/ja/16_charts_scatter.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/api/en/16_charts_scatter.html" />
+  </url>
+  <url>
+    <loc>https://www.drawlib.com/api/en/17_charts_gantt.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.drawlib.com/api/en/17_charts_gantt.html" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.drawlib.com/api/ja/17_charts_gantt.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/api/en/17_charts_gantt.html" />
+  </url>
+  <url>
+    <loc>https://www.drawlib.com/api/en/18_charts_heatmap.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.drawlib.com/api/en/18_charts_heatmap.html" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.drawlib.com/api/ja/18_charts_heatmap.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/api/en/18_charts_heatmap.html" />
+  </url>
+  <url>
+    <loc>https://www.drawlib.com/api/en/19_diagrams_architecture.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.drawlib.com/api/en/19_diagrams_architecture.html" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.drawlib.com/api/ja/19_diagrams_architecture.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/api/en/19_diagrams_architecture.html" />
+  </url>
+  <url>
+    <loc>https://www.drawlib.com/api/en/20_diagrams_flow.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.drawlib.com/api/en/20_diagrams_flow.html" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.drawlib.com/api/ja/20_diagrams_flow.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/api/en/20_diagrams_flow.html" />
+  </url>
+  <url>
+    <loc>https://www.drawlib.com/api/en/21_diagrams_sequence.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.drawlib.com/api/en/21_diagrams_sequence.html" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.drawlib.com/api/ja/21_diagrams_sequence.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/api/en/21_diagrams_sequence.html" />
+  </url>
+  <url>
+    <loc>https://www.drawlib.com/api/en/22_diagrams_class.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.drawlib.com/api/en/22_diagrams_class.html" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.drawlib.com/api/ja/22_diagrams_class.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/api/en/22_diagrams_class.html" />
+  </url>
+  <url>
+    <loc>https://www.drawlib.com/api/en/23_diagrams_er.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.drawlib.com/api/en/23_diagrams_er.html" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.drawlib.com/api/ja/23_diagrams_er.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/api/en/23_diagrams_er.html" />
+  </url>
+  <url>
+    <loc>https://www.drawlib.com/api/en/24_diagrams_state.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.drawlib.com/api/en/24_diagrams_state.html" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.drawlib.com/api/ja/24_diagrams_state.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/api/en/24_diagrams_state.html" />
+  </url>
+  <url>
+    <loc>https://www.drawlib.com/api/en/25_graph.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.drawlib.com/api/en/25_graph.html" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.drawlib.com/api/ja/25_graph.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/api/en/25_graph.html" />
+  </url>
+  <url>
+    <loc>https://www.drawlib.com/api/en/26_anim_and_slide.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.drawlib.com/api/en/26_anim_and_slide.html" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.drawlib.com/api/ja/26_anim_and_slide.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/api/en/26_anim_and_slide.html" />
+  </url>
+  <url>
+    <loc>https://www.drawlib.com/api/en/27_tools.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.drawlib.com/api/en/27_tools.html" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.drawlib.com/api/ja/27_tools.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/api/en/27_tools.html" />
+  </url>
+  <url>
+    <loc>https://www.drawlib.com/api/en/28_cli.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.drawlib.com/api/en/28_cli.html" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.drawlib.com/api/ja/28_cli.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/api/en/28_cli.html" />
+  </url>
+  <url>
+    <loc>https://www.drawlib.com/api/ja/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.drawlib.com/api/en/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.drawlib.com/api/ja/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/api/" />
+  </url>
+  <url>
+    <loc>https://www.drawlib.com/api/ja/00_overview.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.drawlib.com/api/en/00_overview.html" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.drawlib.com/api/ja/00_overview.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/api/en/00_overview.html" />
+  </url>
+  <url>
+    <loc>https://www.drawlib.com/api/ja/01_canvas.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.drawlib.com/api/en/01_canvas.html" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.drawlib.com/api/ja/01_canvas.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/api/en/01_canvas.html" />
+  </url>
+  <url>
+    <loc>https://www.drawlib.com/api/ja/02_shapes.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.drawlib.com/api/en/02_shapes.html" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.drawlib.com/api/ja/02_shapes.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/api/en/02_shapes.html" />
+  </url>
+  <url>
+    <loc>https://www.drawlib.com/api/ja/03_lines_and_text.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.drawlib.com/api/en/03_lines_and_text.html" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.drawlib.com/api/ja/03_lines_and_text.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/api/en/03_lines_and_text.html" />
+  </url>
+  <url>
+    <loc>https://www.drawlib.com/api/ja/04_images_and_math.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.drawlib.com/api/en/04_images_and_math.html" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.drawlib.com/api/ja/04_images_and_math.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/api/en/04_images_and_math.html" />
+  </url>
+  <url>
+    <loc>https://www.drawlib.com/api/ja/05_styles_and_types.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.drawlib.com/api/en/05_styles_and_types.html" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.drawlib.com/api/ja/05_styles_and_types.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/api/en/05_styles_and_types.html" />
+  </url>
+  <url>
+    <loc>https://www.drawlib.com/api/ja/06_presets.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.drawlib.com/api/en/06_presets.html" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.drawlib.com/api/ja/06_presets.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/api/en/06_presets.html" />
+  </url>
+  <url>
+    <loc>https://www.drawlib.com/api/ja/07_fonts.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.drawlib.com/api/en/07_fonts.html" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.drawlib.com/api/ja/07_fonts.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/api/en/07_fonts.html" />
+  </url>
+  <url>
+    <loc>https://www.drawlib.com/api/ja/08_icons.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.drawlib.com/api/en/08_icons.html" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.drawlib.com/api/ja/08_icons.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/api/en/08_icons.html" />
+  </url>
+  <url>
+    <loc>https://www.drawlib.com/api/ja/09_smartarts_lists_cards.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.drawlib.com/api/en/09_smartarts_lists_cards.html" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.drawlib.com/api/ja/09_smartarts_lists_cards.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/api/en/09_smartarts_lists_cards.html" />
+  </url>
+  <url>
+    <loc>https://www.drawlib.com/api/ja/10_smartarts_flows_trees_maps.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.drawlib.com/api/en/10_smartarts_flows_trees_maps.html" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.drawlib.com/api/ja/10_smartarts_flows_trees_maps.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/api/en/10_smartarts_flows_trees_maps.html" />
+  </url>
+  <url>
+    <loc>https://www.drawlib.com/api/ja/11_charts_bar.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.drawlib.com/api/en/11_charts_bar.html" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.drawlib.com/api/ja/11_charts_bar.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/api/en/11_charts_bar.html" />
+  </url>
+  <url>
+    <loc>https://www.drawlib.com/api/ja/12_charts_line.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.drawlib.com/api/en/12_charts_line.html" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.drawlib.com/api/ja/12_charts_line.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/api/en/12_charts_line.html" />
+  </url>
+  <url>
+    <loc>https://www.drawlib.com/api/ja/13_charts_area.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.drawlib.com/api/en/13_charts_area.html" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.drawlib.com/api/ja/13_charts_area.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/api/en/13_charts_area.html" />
+  </url>
+  <url>
+    <loc>https://www.drawlib.com/api/ja/14_charts_pie.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.drawlib.com/api/en/14_charts_pie.html" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.drawlib.com/api/ja/14_charts_pie.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/api/en/14_charts_pie.html" />
+  </url>
+  <url>
+    <loc>https://www.drawlib.com/api/ja/15_charts_radar.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.drawlib.com/api/en/15_charts_radar.html" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.drawlib.com/api/ja/15_charts_radar.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/api/en/15_charts_radar.html" />
+  </url>
+  <url>
+    <loc>https://www.drawlib.com/api/ja/16_charts_scatter.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.drawlib.com/api/en/16_charts_scatter.html" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.drawlib.com/api/ja/16_charts_scatter.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/api/en/16_charts_scatter.html" />
+  </url>
+  <url>
+    <loc>https://www.drawlib.com/api/ja/17_charts_gantt.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.drawlib.com/api/en/17_charts_gantt.html" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.drawlib.com/api/ja/17_charts_gantt.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/api/en/17_charts_gantt.html" />
+  </url>
+  <url>
+    <loc>https://www.drawlib.com/api/ja/18_charts_heatmap.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.drawlib.com/api/en/18_charts_heatmap.html" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.drawlib.com/api/ja/18_charts_heatmap.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/api/en/18_charts_heatmap.html" />
+  </url>
+  <url>
+    <loc>https://www.drawlib.com/api/ja/19_diagrams_architecture.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.drawlib.com/api/en/19_diagrams_architecture.html" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.drawlib.com/api/ja/19_diagrams_architecture.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/api/en/19_diagrams_architecture.html" />
+  </url>
+  <url>
+    <loc>https://www.drawlib.com/api/ja/20_diagrams_flow.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.drawlib.com/api/en/20_diagrams_flow.html" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.drawlib.com/api/ja/20_diagrams_flow.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/api/en/20_diagrams_flow.html" />
+  </url>
+  <url>
+    <loc>https://www.drawlib.com/api/ja/21_diagrams_sequence.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.drawlib.com/api/en/21_diagrams_sequence.html" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.drawlib.com/api/ja/21_diagrams_sequence.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/api/en/21_diagrams_sequence.html" />
+  </url>
+  <url>
+    <loc>https://www.drawlib.com/api/ja/22_diagrams_class.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.drawlib.com/api/en/22_diagrams_class.html" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.drawlib.com/api/ja/22_diagrams_class.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/api/en/22_diagrams_class.html" />
+  </url>
+  <url>
+    <loc>https://www.drawlib.com/api/ja/23_diagrams_er.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.drawlib.com/api/en/23_diagrams_er.html" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.drawlib.com/api/ja/23_diagrams_er.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/api/en/23_diagrams_er.html" />
+  </url>
+  <url>
+    <loc>https://www.drawlib.com/api/ja/24_diagrams_state.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.drawlib.com/api/en/24_diagrams_state.html" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.drawlib.com/api/ja/24_diagrams_state.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/api/en/24_diagrams_state.html" />
+  </url>
+  <url>
+    <loc>https://www.drawlib.com/api/ja/25_graph.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.drawlib.com/api/en/25_graph.html" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.drawlib.com/api/ja/25_graph.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/api/en/25_graph.html" />
+  </url>
+  <url>
+    <loc>https://www.drawlib.com/api/ja/26_anim_and_slide.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.drawlib.com/api/en/26_anim_and_slide.html" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.drawlib.com/api/ja/26_anim_and_slide.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/api/en/26_anim_and_slide.html" />
+  </url>
+  <url>
+    <loc>https://www.drawlib.com/api/ja/27_tools.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.drawlib.com/api/en/27_tools.html" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.drawlib.com/api/ja/27_tools.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/api/en/27_tools.html" />
+  </url>
+  <url>
+    <loc>https://www.drawlib.com/api/ja/28_cli.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.drawlib.com/api/en/28_cli.html" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.drawlib.com/api/ja/28_cli.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/api/en/28_cli.html" />
+  </url>
+</urlset>

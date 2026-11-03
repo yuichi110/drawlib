@@ -31,6 +31,10 @@ if [ -f "docs/ogp_images/social_preview.png" ]; then
         cp "docs/ogp_images/social_preview.png" "docs_src/architecture/_assets/ogp.png"
         echo "  - Synced: docs_src/architecture/_assets/ogp.png"
     fi
+    if [ -d "docs_src/api/_assets" ]; then
+        cp "docs/ogp_images/social_preview.png" "docs_src/api/_assets/ogp.png"
+        echo "  - Synced: docs_src/api/_assets/ogp.png"
+    fi
 fi
 
 echo "Build complete: docs/ogp_images/"

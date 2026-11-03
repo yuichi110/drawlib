@@ -34,7 +34,7 @@ def callback() -> None:
 def build(
     target: str | None = typer.Argument(
         None,
-        help="Target to build ('site', 'architecture', 'readme', 'logo', 'ogp', or 'all'). Default: 'site'.",
+        help="Target to build ('site', 'api', 'architecture', 'readme', 'logo', 'ogp', or 'all'). Default: 'site'.",
     ),
     all_targets: bool = typer.Option(
         False,
@@ -59,6 +59,7 @@ def build(
 SERVE_TARGET_MAP: dict[str, str] = {
     "site": "docs",
     "docs": "docs",
+    "api": "docs/api",
     "architecture": "docs/architecture",
 }
 
@@ -67,7 +68,7 @@ SERVE_TARGET_MAP: dict[str, str] = {
 def serve(
     target: str = typer.Argument(
         "site",
-        help="Directory or target alias to serve ('site', 'architecture', or path).",
+        help="Directory or target alias to serve ('site', 'api', 'architecture', or path).",
     ),
     port: int = typer.Option(8000, "--port", "-p", help="Port to serve the documentation on."),
     no_browser: bool = typer.Option(False, "--no-browser", help="Do not automatically open the browser."),

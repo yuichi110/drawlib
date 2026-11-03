@@ -23,7 +23,7 @@ source ./dcli             # Register 'dcli' alias and dynamic Tab autocompletion
 | :--- | :--- | :--- |
 | **`code-check`** | `code_check/` | Code quality & static analysis (Ruff lint/format, Ty type check, docstring check, line count) |
 | **`test`** | `test.py` | Unit & integration test execution via pytest + coverage + xdist parallelization |
-| **`docs`** | `docs/` | Building documentation projects (`site`, `architecture`, `readme`, `logo`, `ogp`) & preview server |
+| **`docs`** | `docs/` | Building documentation projects (`site`, `api`, `architecture`, `readme`, `logo`, `ogp`) & preview server |
 | **`codegen`** | `codegen/` | Code generation utilities for Phosphor and GCP icon Python bindings |
 | **`release-assets`**| `release_assets/` | Building, verifying, uploading, and syncing font/icon archives on GitHub Releases |
 | **`pypi`** | `pypi/` | Dependency auditing, version checks, `pyproject.toml` updates, and TestPyPI/PyPI publishing |
@@ -62,6 +62,7 @@ source ./dcli             # Register 'dcli' alias and dynamic Tab autocompletion
 ```
 - **Available `TARGET` names**:
   - `site` *(default)*: Main documentation site (`docs_src/site/` -> `docs/`)
+  - `api`: Official API & CLI Reference site (`docs_src/api/` -> `docs/api/`)
   - `architecture`: Software architecture specification site (`docs_src/architecture/` -> `docs/architecture/`)
   - `readme`: Standalone README illustration scripts (`docs_src/readme/` -> `docs/readme_images/`)
   - `logo`: Brand logo & favicon asset scripts (`docs_src/logo/` -> `docs/logo/`)

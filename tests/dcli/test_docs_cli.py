@@ -34,6 +34,7 @@ def test_target_definitions() -> None:
     assert "site" in TARGET_MAP
     assert "docs" in TARGET_MAP
     assert "doc" in TARGET_MAP
+    assert "api" in TARGET_MAP
     assert "architecture" in TARGET_MAP
     assert "readme" in TARGET_MAP
     assert "logo" in TARGET_MAP
@@ -42,7 +43,7 @@ def test_target_definitions() -> None:
     assert "dogfooding" not in TARGET_MAP
     assert "slide" not in TARGET_MAP
     assert "slide-ddos" not in TARGET_MAP
-    assert len(ALL_TARGETS) == 5
+    assert len(ALL_TARGETS) == 6
 
 
 def test_docs_build_unknown_target() -> None:

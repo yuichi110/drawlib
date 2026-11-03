@@ -1,0 +1,37 @@
+[project]
+name = "api"
+type = "api"
+title = "Drawlib API"
+description = "Complete Python API and CLI reference for Drawlib — Illustration as Code & Illustrated Documentation as Code."
+style = "default"
+
+[i18n]
+default_lang = "en"
+langs = ["en", "ja"]
+
+[i18n.labels]
+en = "English"
+ja = "日本語"
+
+[i18n.descriptions]
+en = "Complete Python API and CLI reference for Drawlib — every public module, class, function, style token, and CLI subcommand with visual examples."
+ja = "Drawlib 公式 Python API・CLI リファレンス — すべての公開モジュール・クラス・関数・スタイルトークン・CLI サブコマンドを図解付きで完全網羅。"
+
+[api]
+sidebar_expanded = true
+badge_text = { en = "API Reference · v0.3.4", ja = "API リファレンス · v0.3.4" }
+badge_url = "index.html"
+repo_url = "https://github.com/yuichi110/drawlib"
+header_links = [
+    { label = { en = "Docs", ja = "ガイド" }, url = "https://www.drawlib.com/" },
+    { label = { en = "Examples", ja = "サンプル集" }, url = "https://examples.drawlib.com/" },
+    { label = "Architecture", url = "https://www.drawlib.com/architecture/" },
+]
+
+[seo]
+site_url = "https://www.drawlib.com/api"
+og_image = "_assets/ogp.png"
+twitter_card = "summary_large_image"
+sitemap = true
+robots = true
+llms_txt = true
