@@ -20,7 +20,7 @@ from typing import TYPE_CHECKING, Final
 
 import drawlib
 from drawlib._builder._common import load_project_manifest
-from drawlib._builder.doc_builder.api_nav import _mask_fences_and_comments, extract_api_headings
+from drawlib._builder.doc_builder.catalog_nav import _mask_fences_and_comments, extract_catalog_headings
 from drawlib._builder.doc_builder.i18n import validate_i18n_project
 from drawlib._cli._drawlib import app as cli_root_app
 
@@ -108,7 +108,7 @@ def _discover_cli_commands(typer_app: typer.Typer, prefix: str = "drawlib") -> l
 def _extract_page_symbols_and_spans(md_path: Path) -> tuple[set[str], set[str]]:
     """Return badged H2 symbol names and non-fence inline code spans from ``md_path``."""
     md_text = md_path.read_text(encoding="utf-8")
-    headings = extract_api_headings(md_text, fallback_stem=md_path.stem)
+    headings = extract_catalog_headings(md_text, fallback_stem=md_path.stem)
     h2_symbols: set[str] = set()
     for item in headings.h2_items:
         if item.badge_kind is None:
@@ -219,7 +219,7 @@ def test_cli_commands_100_percent_documented() -> None:
     for lang in ("en", "ja"):
         cli_md = API_DOCS_DIR / lang / "28_cli.md"
         assert cli_md.is_file(), f"Missing {cli_md}"
-        headings = extract_api_headings(cli_md.read_text(encoding="utf-8"), fallback_stem="28_cli")
+        headings = extract_catalog_headings(cli_md.read_text(encoding="utf-8"), fallback_stem="28_cli")
         cmd_titles = [item.raw_title.strip() for item in headings.h2_items if item.badge_kind == "cmd"]
 
         missing_cmds = [
@@ -234,11 +234,14 @@ def test_api_reference_i18n_slug_and_hero_parity() -> None:
     """Verify bilingual manifest, skeleton/code parity, identical H2 slugs, and Top Hero diagrams."""
     manifest = load_project_manifest(str(API_DOCS_DIR))
     assert manifest is not None
-    assert manifest.project.type == "api"
+    assert manifest.project.type == "catalog"
+    assert manifest.catalog is not None
+    assert manifest.catalog.resolve_breadcrumb_root("en") == "API Reference"
+    assert manifest.catalog.resolve_breadcrumb_root("ja") == "API リファレンス"
     assert manifest.i18n is not None
     assert tuple(manifest.i18n.langs) == ("en", "ja")
 
-    files_by_lang = validate_i18n_project(str(API_DOCS_DIR), manifest.i18n, project_type="api")
+    files_by_lang = validate_i18n_project(str(API_DOCS_DIR), manifest.i18n, project_type="catalog")
     en_files = files_by_lang["en"]
     assert len(en_files) >= 29
 
@@ -249,8 +252,8 @@ def test_api_reference_i18n_slug_and_hero_parity() -> None:
         assert "```drawlib" in en_text, f"en/{rel_md} must include at least a Top Hero drawlib diagram"
         assert "```drawlib" in ja_text, f"ja/{rel_md} must include at least a Top Hero drawlib diagram"
 
-        en_h = extract_api_headings(en_text, fallback_stem=Path(rel_md).stem)
-        ja_h = extract_api_headings(ja_text, fallback_stem=Path(rel_md).stem)
+        en_h = extract_catalog_headings(en_text, fallback_stem=Path(rel_md).stem)
+        ja_h = extract_catalog_headings(ja_text, fallback_stem=Path(rel_md).stem)
         en_sig = [(item.badge_kind, item.slug) for item in en_h.h2_items]
         ja_sig = [(item.badge_kind, item.slug) for item in ja_h.h2_items]
         assert en_sig == ja_sig, f"H2 badge/slug mismatch in {rel_md}:\nEN={en_sig}\nJA={ja_sig}"

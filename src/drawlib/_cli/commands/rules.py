@@ -44,7 +44,9 @@ GENERAL_TOPICS: Final[dict[str, str]] = {
     "project-images": "Standalone Python diagram scripts (images_src/*.py), clear() lifecycle, and batch image build",
     "project-doc": "Linear technical documents, whitepapers, cover/ToC, and A4 vector PDF export (doc_src/)",
     "project-site": "Multi-page documentation websites, navbar.md sidebar rules, and Top Hero layout (docs_src/)",
-    "project-api": "Multi-page API & SDK references, H1/H2 sidebar extraction, badges, and [api] config (api_src/)",
+    "project-catalog": (
+        "Multi-page catalogs & API/CLI/schema references, H1/H2 sidebar, badges, and [catalog] config (catalog_src/)"
+    ),
     "project-slide": "16:9 presentation slide decks, 1920x1080 ::: block/note syntax, and Presenter View (slide_src/)",
     "cli": "Document compilation, export, preview, and cache CLI commands",
     "api": "Comprehensive API index and quick reference cheat sheet for all Drawlib modules",

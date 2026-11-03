@@ -2,7 +2,7 @@
 
 > Complete Python API and CLI reference for Drawlib — every public module, class, function, style token, and CLI subcommand with visual examples.
 
-## API Reference
+## Catalog
 
 - [Drawlib Package Overview](https://www.drawlib.com/api/en/00_overview.html): Drawlib is a pure-Python library for Illustration as Code and Illustrated Documentation as Code, exposing 20 lazy-loaded top-level submodules (PEP 562) under…
 - [drawlib.canvas](https://www.drawlib.com/api/en/01_canvas.html): drawlib.canvas manages the Cartesian drawing surface (origin (0, 0) at bottom-left; X right, Y up), resolution (dpi), coordinate grids, and output export…

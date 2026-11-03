@@ -1,6 +1,6 @@
 [project]
 name = "api"
-type = "api"
+type = "catalog"
 title = "Drawlib API"
 description = "Complete Python API and CLI reference for Drawlib — Illustration as Code & Illustrated Documentation as Code."
 style = "default"
@@ -17,8 +17,9 @@ ja = "日本語"
 en = "Complete Python API and CLI reference for Drawlib — every public module, class, function, style token, and CLI subcommand with visual examples."
 ja = "Drawlib 公式 Python API・CLI リファレンス — すべての公開モジュール・クラス・関数・スタイルトークン・CLI サブコマンドを図解付きで完全網羅。"
 
-[api]
+[catalog]
 sidebar_expanded = true
+breadcrumb_root = { en = "API Reference", ja = "API リファレンス" }
 badge_text = { en = "API Reference · v0.3.4", ja = "API リファレンス · v0.3.4" }
 badge_url = "index.html"
 repo_url = "https://github.com/yuichi110/drawlib"

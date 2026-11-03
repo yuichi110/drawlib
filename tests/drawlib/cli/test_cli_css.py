@@ -46,15 +46,15 @@ def test_cli_css_list(tmp_path) -> None:
     assert "google-dark" in res_pdf_list.stdout
     assert "google-auto" not in res_pdf_list.stdout
 
-    # Test api filtered list & show
-    res_api_list = run_drawlib_cli(["css", "list", "api"], cwd=str(tmp_path))
-    assert res_api_list.returncode == 0
-    assert "default" in res_api_list.stdout
-    assert "google" in res_api_list.stdout
+    # Test catalog filtered list & show
+    res_catalog_list = run_drawlib_cli(["css", "list", "catalog"], cwd=str(tmp_path))
+    assert res_catalog_list.returncode == 0
+    assert "default" in res_catalog_list.stdout
+    assert "google" in res_catalog_list.stdout
 
-    res_api_show = run_drawlib_cli(["css", "show", "api", "default"], cwd=str(tmp_path))
-    assert res_api_show.returncode == 0
-    assert ".api-nav-group" in res_api_show.stdout
+    res_catalog_show = run_drawlib_cli(["css", "show", "catalog", "default"], cwd=str(tmp_path))
+    assert res_catalog_show.returncode == 0
+    assert ".catalog-nav-group" in res_catalog_show.stdout
 
 
 def test_cli_css_show(tmp_path) -> None:

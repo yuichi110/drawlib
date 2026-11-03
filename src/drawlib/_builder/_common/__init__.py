@@ -30,8 +30,8 @@ from drawlib._builder._common.cache_manager import (
 )
 from drawlib._builder._common.manifest import (
     PROJECT_MANIFEST_FILENAME,
-    ApiConfig,
-    ApiHeaderLink,
+    CatalogConfig,
+    CatalogHeaderLink,
     I18nConfig,
     ProjectArchetype,
     ProjectManifest,
@@ -81,9 +81,9 @@ from drawlib._builder._common.styles_loader import (
 __all__ = [
     "BAR_WIDTH",
     "PROJECT_MANIFEST_FILENAME",
-    "ApiConfig",
-    "ApiHeaderLink",
     "BuildImageCache",
+    "CatalogConfig",
+    "CatalogHeaderLink",
     "CliImageCache",
     "FileBuildProgress",
     "I18nConfig",

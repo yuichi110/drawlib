@@ -548,7 +548,7 @@
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="project_api.html" >API Reference Project (`api`)</a>
+                                <a href="project_catalog.html" >Catalog Project (`catalog`)</a>
                             </li>
                             
                             <li class="nav-item ">
@@ -798,10 +798,10 @@
 <td>Multi-page documentation websites with sidebar navigation (<code>&lt;lang&gt;/navbar.md</code>).</td>
 </tr>
 <tr>
-<td><strong><code>api</code></strong> <em>(Upcoming in v0.3.5)</em></td>
-<td><code>api_src/&lt;lang&gt;/</code></td>
-<td><code>api_html/</code>, <code>api_markdown/</code>, <code>api_images/</code></td>
-<td>Dedicated REST / SDK / CLI API references (<code>1 MD = 1 HTML</code>, auto <code># H1</code> / <code>## H2</code> sidebar, semantic badges &amp; <code>/</code> filter).</td>
+<td><strong><code>catalog</code></strong> <em>(Upcoming in v0.3.5)</em></td>
+<td><code>catalog_src/&lt;lang&gt;/</code></td>
+<td><code>catalog_html/</code>, <code>catalog_markdown/</code>, <code>catalog_images/</code></td>
+<td>Structured catalogs &amp; references for APIs, CLI flags, schemas, services, and runbooks (<code>1 MD = 1 HTML</code>, auto <code># H1</code> / <code>## H2</code> sidebar, semantic badges &amp; <code>/</code> filter).</td>
 </tr>
 <tr>
 <td><strong><code>slide</code></strong></td>
@@ -847,12 +847,12 @@
     <span class="p">(</span>
         <span class="mi">93</span><span class="p">,</span>
         <span class="mf">41.5</span><span class="p">,</span>
-        <span class="s2">"2. site / api (Web &amp; API)"</span><span class="p">,</span>
+        <span class="s2">"2. site / catalog (Web &amp; Ref)"</span><span class="p">,</span>
         <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
         <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">,</span>
         <span class="n">phosphor</span><span class="o">.</span><span class="n">globe</span><span class="p">,</span>
         <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">,</span>
-        <span class="s2">"docs_src/ or api_src/</span><span class="se">\n</span><span class="s2">&lt;lang&gt;/*.md"</span><span class="p">,</span>
+        <span class="s2">"docs_src/ or catalog_src/</span><span class="se">\n</span><span class="s2">&lt;lang&gt;/*.md"</span><span class="p">,</span>
         <span class="s2">"*_html/ &amp; *_markdown/</span><span class="se">\n</span><span class="s2">navbar or Auto H1/H2"</span><span class="p">,</span>
     <span class="p">),</span>
     <span class="p">(</span>
@@ -935,11 +935,11 @@
 <td style="text-align:left">Run <code>./docs_src/build.sh</code>, <code>serve --check</code>, &amp; browser check</td>
 </tr>
 <tr>
-<td style="text-align:left"><strong><code>api</code></strong> <em>(Upcoming in v0.3.5)</em></td>
-<td style="text-align:left">Category/module page (<code>api_src/&lt;lang&gt;/01_users.md</code>, ...)</td>
-<td style="text-align:left"><code>drawlib init project api</code>, <code>[api]</code> in <code>drawlib.toml</code>, <code>styles.py</code>, <code>utils.py</code>, <code>&lt;lang&gt;/00_overview.md</code></td>
-<td style="text-align:left">Author assigned API page(s) (<code># H1</code> + <code>## H2</code> badges + diagrams) &amp; Stage 1 + Stage 2 grid review</td>
-<td style="text-align:left">Run <code>./api_src/build.sh</code>, <code>serve --check</code>, &amp; browser check</td>
+<td style="text-align:left"><strong><code>catalog</code></strong> <em>(Upcoming in v0.3.5)</em></td>
+<td style="text-align:left">Category/module page (<code>catalog_src/&lt;lang&gt;/01_users.md</code>, ...)</td>
+<td style="text-align:left"><code>drawlib init project catalog</code>, <code>[catalog]</code> in <code>drawlib.toml</code>, <code>styles.py</code>, <code>utils.py</code>, <code>&lt;lang&gt;/00_overview.md</code></td>
+<td style="text-align:left">Author assigned catalog page(s) (<code># H1</code> + <code>## H2</code> badges + diagrams) &amp; Stage 1 + Stage 2 grid review</td>
+<td style="text-align:left">Run <code>./catalog_src/build.sh</code>, <code>serve --check</code>, &amp; browser check</td>
 </tr>
 <tr>
 <td style="text-align:left"><strong><code>slide</code></strong></td>
@@ -971,7 +971,7 @@
 <li><a href="./cli_reference.html">CLI Reference</a>: Complete guide to <code>build</code> (<code>html</code>, <code>markdown</code>, <code>pdf</code>, <code>docx</code>, <code>slide</code>, <code>pptx</code>, <code>image</code>), <code>serve</code>, <code>show</code>, <code>init</code> (<code>project</code>, <code>agent</code>), <code>cache</code>, <code>css</code>, <code>colors</code>, <code>styles</code>, and <code>rules</code>.</li>
 <li><a href="./project_doc.html">Linear Document Project Guide</a>: Linear document RFCs, specifications, whitepapers, and HTML / PDF / Word (<code>.docx</code>) publishing.</li>
 <li><a href="./project_site.html">Doc Site Project Guide</a>: Multi-page website authoring, sidebar categories, and link validation.</li>
-<li><a href="./project_api.html">API Reference Project Guide</a> <em>(Upcoming in v0.3.5)</em>: Dedicated 2-column REST / SDK / CLI references with auto <code># H1</code> / <code>## H2</code> sidebars, semantic badges, and <code>[api]</code> manifest options.</li>
+<li><a href="./project_catalog.html">Catalog Project Guide</a> <em>(Upcoming in v0.3.5)</em>: Structured 2-column catalogs &amp; references (APIs, CLI flags, schemas, services, runbooks) with auto <code># H1</code> / <code>## H2</code> sidebars, semantic badges, and <code>[catalog]</code> manifest options.</li>
 <li><a href="./project_slide.html">Slide Deck Project Guide</a>: 16:9 presentation slide decks with interactive web deck, vector PDF, and PowerPoint (<code>.pptx</code>) export.</li>
 <li><a href="./slide_layout_and_api.html">Slide Stage Layout &amp; API</a>: <code>1920x1080</code> virtual stage coordinates, <code>::: block</code> / <code>::: note</code> syntax, templates, and <code>drawlib.slide</code> Python API.</li>
 <li><a href="./project_image.html">Image Project Guide</a>: Standalone script automation (<code>images_src/</code> ➔ <code>images/</code>).</li>

@@ -83,7 +83,7 @@ def _print_init_success(
     elif project_type == "slide":
         print(f"  ./{rel_src_dir}/build_pptx.sh")
 
-    if project_type in {"site", "api", "doc", "slide"}:
+    if project_type in {"site", "catalog", "doc", "slide"}:
         print(f"  ./{rel_src_dir}/serve.sh")
 
 
@@ -97,7 +97,7 @@ def _run_init(
     """Common runner for project initialization subcommands.
 
     Args:
-        project_type: Project type ('doc', 'site', 'api', 'slide', 'images').
+        project_type: Project type ('doc', 'site', 'catalog', 'slide', 'images').
         target: Base name for project folder and artifacts.
         style: Style preset theme or custom CSS path.
         lang: Starter template language code.
@@ -199,14 +199,14 @@ def cmd_init_site(
     _run_init(project_type="site", target=target, style=style, lang=lang, force=force)
 
 
-@project_app.command("api", epilog=HELP_EPILOG)
-def cmd_init_api(
+@project_app.command("catalog", epilog=HELP_EPILOG)
+def cmd_init_catalog(
     target: Annotated[
         str,
         typer.Argument(
-            help="Base name for the API reference site and source folder (creates '<target>_src/').",
+            help="Base name for the catalog site and source folder (creates '<target>_src/').",
         ),
-    ] = "api",
+    ] = "catalog",
     style: Annotated[
         str | None,
         typer.Option(
@@ -220,7 +220,7 @@ def cmd_init_api(
         typer.Option(
             "-l",
             "--lang",
-            help="Language code ('en', 'ja', etc.) or comma-separated codes for multi-locale API reference ('en,ja').",
+            help="Language code ('en', 'ja', etc.) or comma-separated codes for multi-locale catalog ('en,ja').",
         ),
     ] = "en",
     force: Annotated[
@@ -232,8 +232,8 @@ def cmd_init_api(
         ),
     ] = False,
 ) -> None:
-    """Scaffold an illustrated API & SDK reference website (H1 categories, H2 symbols) in current directory."""
-    _run_init(project_type="api", target=target, style=style, lang=lang, force=force)
+    """Scaffold an illustrated catalog & reference website (H1 categories, H2 badged items) in current directory."""
+    _run_init(project_type="catalog", target=target, style=style, lang=lang, force=force)
 
 
 @project_app.command("slide", epilog=HELP_EPILOG)

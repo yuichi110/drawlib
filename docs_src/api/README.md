@@ -1,6 +1,6 @@
 # Drawlib Official API & CLI Reference (`docs_src/api/`)
 
-Source project (`type = "api"`) for Drawlib's official bilingual (`en` / `ja`) Python API & CLI Reference published to `docs/api/` (`https://www.drawlib.com/api/`).
+Source project (`type = "catalog"`) for Drawlib's official bilingual (`en` / `ja`) Python API & CLI Reference published to `docs/api/` (`https://www.drawlib.com/api/`).
 
 ## Build & Preview
 

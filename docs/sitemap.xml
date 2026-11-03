@@ -577,10 +577,10 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/en/09_doc_builder_and_cli/overview.html" />
   </url>
   <url>
-    <loc>https://www.drawlib.com/en/09_doc_builder_and_cli/project_api.html</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.drawlib.com/en/09_doc_builder_and_cli/project_api.html" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://www.drawlib.com/ja/09_doc_builder_and_cli/project_api.html" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/en/09_doc_builder_and_cli/project_api.html" />
+    <loc>https://www.drawlib.com/en/09_doc_builder_and_cli/project_catalog.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.drawlib.com/en/09_doc_builder_and_cli/project_catalog.html" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.drawlib.com/ja/09_doc_builder_and_cli/project_catalog.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/en/09_doc_builder_and_cli/project_catalog.html" />
   </url>
   <url>
     <loc>https://www.drawlib.com/en/09_doc_builder_and_cli/project_doc.html</loc>
@@ -1237,10 +1237,10 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/en/09_doc_builder_and_cli/overview.html" />
   </url>
   <url>
-    <loc>https://www.drawlib.com/ja/09_doc_builder_and_cli/project_api.html</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.drawlib.com/en/09_doc_builder_and_cli/project_api.html" />
-    <xhtml:link rel="alternate" hreflang="ja" href="https://www.drawlib.com/ja/09_doc_builder_and_cli/project_api.html" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/en/09_doc_builder_and_cli/project_api.html" />
+    <loc>https://www.drawlib.com/ja/09_doc_builder_and_cli/project_catalog.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.drawlib.com/en/09_doc_builder_and_cli/project_catalog.html" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.drawlib.com/ja/09_doc_builder_and_cli/project_catalog.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/en/09_doc_builder_and_cli/project_catalog.html" />
   </url>
   <url>
     <loc>https://www.drawlib.com/ja/09_doc_builder_and_cli/project_doc.html</loc>

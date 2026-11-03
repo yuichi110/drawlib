@@ -1077,10 +1077,10 @@ drawlib init project <TYPE> [target] [OPTIONS]
 drawlib init project list
 ```
 
-- `<TYPE>`: プロジェクト種別を選択するサブコマンド: `doc`、`site`、`api` *(Upcoming in v0.3.5)*、`slide`（すべて統一された `<src_dir>/<lang>/` ロケールディレクトリと `drawlib.toml` の `[i18n]` で初期化）、`images`（エイリアス: `image`）、または `list`。
-- `[target]`: プロジェクトおよびソースフォルダのベース名（`<target>_src/` を作成します）。デフォルト値: `doc` は `doc`、`site` は `docs`、`api` は `api`、`slide` は `slide`、`images` は `images`。
+- `<TYPE>`: プロジェクト種別を選択するサブコマンド: `doc`、`site`、`catalog` *(Upcoming in v0.3.5)*、`slide`（すべて統一された `<src_dir>/<lang>/` ロケールディレクトリと `drawlib.toml` の `[i18n]` で初期化）、`images`（エイリアス: `image`）、または `list`。
+- `[target]`: プロジェクトおよびソースフォルダのベース名（`<target>_src/` を作成します）。デフォルト値: `doc` は `doc`、`site` は `docs`、`catalog` は `catalog`、`slide` は `slide`、`images` は `images`。
 - `-s`, `--style <theme>`: スタイルプリセットテーマ（`default`、`google`、`monochrome` など）。`style.css` と `styles.py` の両方を同期して設定します。
-- `-l`, `--lang <code>`: スターターコンテンツおよびフォント設定の言語（`en`、`ja`、`zh-cn`、`ko`、`th`、`hi` など。`doc`、`site`、`api`、`slide` では `-l en,ja` のようなカンマ区切りの複数ロケール指定に対応）。デフォルト: `en`。
+- `-l`, `--lang <code>`: スターターコンテンツおよびフォント設定の言語（`en`、`ja`、`zh-cn`、`ko`、`th`、`hi` など。`doc`、`site`、`catalog`、`slide` では `-l en,ja` のようなカンマ区切りの複数ロケール指定に対応）。デフォルト: `en`。
 - `-f`, `--force`: 出力先ディレクトリが既に存在する場合に既存ファイルを上書きします。
 
 ### 5.2 AI コーディングエージェント指示ファイル生成（`drawlib init agent`）

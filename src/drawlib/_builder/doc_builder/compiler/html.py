@@ -17,8 +17,8 @@ import sys
 from typing import Any
 
 from drawlib._builder._common import (
-    ApiConfig,
     BuildImageCache,
+    CatalogConfig,
     FileBuildProgress,
     LlmsLink,
     LlmsSection,
@@ -38,12 +38,12 @@ from drawlib._builder._common import (
     write_robots_txt,
     write_sitemap_xml,
 )
-from drawlib._builder.doc_builder.api_nav import (
-    CompiledApiPage,
-    build_api_page_navigation_context,
-    inject_api_heading_ids_and_badges,
-    order_api_locale_files,
-    resolve_api_chrome_context,
+from drawlib._builder.doc_builder.catalog_nav import (
+    CompiledCatalogPage,
+    build_catalog_page_navigation_context,
+    inject_catalog_heading_ids_and_badges,
+    order_catalog_locale_files,
+    resolve_catalog_chrome_context,
 )
 from drawlib._builder.doc_builder.compiler.base import (
     copy_directory_assets,
@@ -131,7 +131,7 @@ def build_html(
     no_cache: bool = False,
     css_mode: str = "external",
 ) -> str:
-    """Compile an i18n-native ``site``, ``doc``, or ``api`` project directory into static HTML.
+    """Compile an i18n-native ``site``, ``doc``, or ``catalog`` project directory into static HTML.
 
     Builds all configured locales in ``drawlib.toml`` ``[i18n]`` with shared diagram
     deduplication, per-locale stylesheets, language switcher navigation (when 2+ locales
@@ -150,7 +150,7 @@ def build_html(
         str: Absolute path of generated HTML output directory.
 
     Raises:
-        ValueError: If input_dir is not a valid ``doc``, ``site``, or ``api`` project root directory.
+        ValueError: If input_dir is not a valid ``doc``, ``site``, or ``catalog`` project root directory.
     """
     input_abs = require_directory(input_dir, "build_html")
     out_dir_abs = _resolve_default_html_out_dir(input_abs, output_dir)
@@ -167,7 +167,7 @@ def build_html(
         raise ValueError(
             f'Missing required "drawlib.toml" in "{input_abs}". '
             "HTML directory builds require a Drawlib project manifest "
-            '(run "drawlib init project site", "drawlib init project doc", or "drawlib init project api").'
+            '(run "drawlib init project site", "drawlib init project doc", or "drawlib init project catalog").'
         )
 
     if manifest.project.type == "slide":
@@ -195,8 +195,8 @@ def build_html(
             no_cache=no_cache,
             css_mode=css_mode,
         )
-    if manifest.project.type == "api":
-        return _build_i18n_api_html(
+    if manifest.project.type == "catalog":
+        return _build_i18n_catalog_html(
             input_abs=input_abs,
             out_dir_abs=out_dir_abs,
             manifest=manifest,
@@ -1510,7 +1510,7 @@ def _emit_doc_seo_files(
         write_llms_txt(out_dir_abs, title=llms_title, summary=llms_summary, sections=sections)
 
 
-def _prepare_i18n_api_locales(
+def _prepare_i18n_catalog_locales(
     *,
     input_abs: str,
     out_dir_abs: str,
@@ -1526,7 +1526,7 @@ def _prepare_i18n_api_locales(
     list[str],
     int,
 ]:
-    """Order per-locale API files, emit localized ``style.css``, and run duplicate diagram checks."""
+    """Order per-locale catalog files, emit localized ``style.css``, and run duplicate diagram checks."""
     ordered_by_lang: dict[str, list[tuple[str, str | None]]] = {}
     nav_titles_by_lang: dict[str, str | None] = {}
     locale_css_paths: dict[str, str | None] = {}
@@ -1540,7 +1540,7 @@ def _prepare_i18n_api_locales(
 
     for lang in ordered_langs:
         lang_dir = os.path.join(input_abs, lang)
-        ordered_entries, nav_site_title = order_api_locale_files(lang_dir, locale_files[lang])
+        ordered_entries, nav_site_title = order_catalog_locale_files(lang_dir, locale_files[lang])
         ordered_by_lang[lang] = ordered_entries
         nav_titles_by_lang[lang] = nav_site_title
 
@@ -1581,7 +1581,7 @@ def _prepare_i18n_api_locales(
     return ordered_by_lang, nav_titles_by_lang, locale_css_paths, display_names, max_blocks
 
 
-def _compile_api_locale_pages(
+def _compile_catalog_locale_pages(
     *,
     lang: str,
     ordered_entries: list[tuple[str, str | None]],
@@ -1597,9 +1597,9 @@ def _compile_api_locale_pages(
     processor: DrawlibBlockProcessor | None,
     no_cache: bool,
     cache: BuildImageCache,
-) -> tuple[list[CompiledApiPage], int, DrawlibBlockProcessor | None]:
-    """Compile all Markdown/HTML pages in one ``api`` locale and upgrade ``H1``–``H4`` headings."""
-    compiled: list[CompiledApiPage] = []
+) -> tuple[list[CompiledCatalogPage], int, DrawlibBlockProcessor | None]:
+    """Compile all Markdown/HTML pages in one ``catalog`` locale and upgrade ``H1``–``H4`` headings."""
+    compiled: list[CompiledCatalogPage] = []
     step = start_step
     lang_dir = os.path.join(input_abs, lang)
 
@@ -1638,13 +1638,13 @@ def _compile_api_locale_pages(
             shared_images_dir=shared_dir,
         )
         fallback_stem = os.path.basename(rel_stem)
-        h1_title, upgraded_body, subitems = inject_api_heading_ids_and_badges(
+        h1_title, upgraded_body, subitems = inject_catalog_heading_ids_and_badges(
             body_html=body_html,
             md_text=raw_md,
             fallback_stem=fallback_stem,
         )
         compiled.append(
-            CompiledApiPage(
+            CompiledCatalogPage(
                 rel_path=rel_path,
                 rel_html=rel_html,
                 src_abs=src_abs,
@@ -1660,10 +1660,10 @@ def _compile_api_locale_pages(
     return compiled, step, processor
 
 
-def _render_single_api_page_html(
+def _render_single_catalog_page_html(
     *,
-    page: CompiledApiPage,
-    pages: list[CompiledApiPage],
+    page: CompiledCatalogPage,
+    pages: list[CompiledCatalogPage],
     active_index: int,
     dest_abs: str,
     rel_html_for_i18n: str,
@@ -1672,7 +1672,7 @@ def _render_single_api_page_html(
     out_dir_abs: str,
     manifest: ProjectManifest,
     i18n_cfg: I18nConfig,
-    api_cfg: ApiConfig,
+    catalog_cfg: CatalogConfig,
     site_title: str,
     locale_css_path: str | None,
     css_file: str,
@@ -1681,7 +1681,7 @@ def _render_single_api_page_html(
     rebase_body_from_dir: str | None = None,
     prefer_manifest_description: bool = False,
 ) -> None:
-    """Render and write a single API reference HTML document (page, locale landing, or root index)."""
+    """Render and write a single catalog HTML document (page, locale landing, or root index)."""
     body_html = page.body_html
     dest_dir = os.path.dirname(dest_abs)
     if rebase_body_from_dir is not None and os.path.abspath(rebase_body_from_dir) != os.path.abspath(dest_dir):
@@ -1692,14 +1692,14 @@ def _render_single_api_page_html(
             skip_prefixes=(),
         )
 
-    api_nav_sections, api_pager = build_api_page_navigation_context(
+    catalog_nav_sections, catalog_pager = build_catalog_page_navigation_context(
         pages=pages,
         active_index=active_index,
         current_dest_abs=dest_abs,
-        sidebar_expanded=api_cfg.sidebar_expanded,
+        sidebar_expanded=catalog_cfg.sidebar_expanded,
     )
-    chrome_ctx = resolve_api_chrome_context(
-        api_cfg=api_cfg,
+    chrome_ctx = resolve_catalog_chrome_context(
+        catalog_cfg=catalog_cfg,
         lang=lang,
         default_lang=i18n_cfg.default_lang,
         lang_out_dir=os.path.join(out_dir_abs, lang),
@@ -1707,8 +1707,8 @@ def _render_single_api_page_html(
     )
     extra_ctx: dict[str, Any] = {
         **chrome_ctx,
-        "api_nav_sections": api_nav_sections,
-        "api_pager": api_pager,
+        "catalog_nav_sections": catalog_nav_sections,
+        "catalog_pager": catalog_pager,
         "current_page_title": page.h1_title,
     }
 
@@ -1754,7 +1754,7 @@ def _render_single_api_page_html(
         alternate_links=eff_alt_links,
         css_lang=lang,
         seo_meta_html=seo_meta_html,
-        css_target="api",
+        css_target="catalog",
         extra_context=extra_ctx,
     )
     os.makedirs(dest_dir, exist_ok=True)
@@ -1762,23 +1762,23 @@ def _render_single_api_page_html(
         out_f.write(full_html)
 
 
-def _build_api_llms_sections(
+def _build_catalog_llms_sections(
     manifest: ProjectManifest,
     i18n_cfg: I18nConfig,
     site_url: str,
-    default_pages: list[CompiledApiPage],
+    default_pages: list[CompiledCatalogPage],
     landing_desc_by_lang: dict[str, str],
 ) -> list[LlmsSection]:
-    """Organize default-locale ``api`` categories and ``H2`` symbols into ``LlmsSection`` blocks."""
+    """Organize default-locale ``catalog`` categories and ``H2`` items into ``LlmsSection`` blocks."""
     default_lang = i18n_cfg.default_lang
     grouped: list[tuple[str, list[LlmsLink]]] = []
 
     for page in default_pages:
-        sec_title = page.section_title or "API Reference"
+        sec_title = page.section_title or "Catalog"
         desc = page.description
         if not desc and page.subitems:
             preview_syms = ", ".join(sub.sidebar_label for sub in page.subitems[:6])
-            desc = f"Symbols: {preview_syms}"
+            desc = f"Items: {preview_syms}"
         link = LlmsLink(
             title=page.h1_title,
             url=_format_llms_url(site_url, f"{default_lang}/{page.rel_html}"),
@@ -1796,7 +1796,7 @@ def _build_api_llms_sections(
     return sections
 
 
-def _emit_api_seo_files(
+def _emit_catalog_seo_files(
     *,
     input_abs: str,
     out_dir_abs: str,
@@ -1804,11 +1804,11 @@ def _emit_api_seo_files(
     i18n_cfg: I18nConfig,
     ordered_langs: list[str],
     rel_htmls_by_lang: dict[str, list[str]],
-    default_pages: list[CompiledApiPage],
+    default_pages: list[CompiledCatalogPage],
     default_site_title: str,
     landing_desc_by_lang: dict[str, str],
 ) -> None:
-    """Emit ``og_image`` copy, ``sitemap.xml``, ``robots.txt``, and ``llms.txt`` for an ``api`` build."""
+    """Emit ``og_image`` copy, ``sitemap.xml``, ``robots.txt``, and ``llms.txt`` for a ``catalog`` build."""
     seo = manifest.seo
     if seo is None:
         return
@@ -1829,7 +1829,7 @@ def _emit_api_seo_files(
             prefer_manifest=True,
             max_length=240,
         )
-        sections = _build_api_llms_sections(
+        sections = _build_catalog_llms_sections(
             manifest=manifest,
             i18n_cfg=i18n_cfg,
             site_url=seo.site_url,
@@ -1839,28 +1839,28 @@ def _emit_api_seo_files(
         write_llms_txt(out_dir_abs, title=llms_title, summary=llms_summary, sections=sections)
 
 
-def _render_api_locale_outputs(
+def _render_catalog_locale_outputs(
     *,
     lang: str,
-    pages: list[CompiledApiPage],
+    pages: list[CompiledCatalogPage],
     input_abs: str,
     out_dir_abs: str,
     manifest: ProjectManifest,
     i18n_cfg: I18nConfig,
-    api_cfg: ApiConfig,
+    catalog_cfg: CatalogConfig,
     site_title: str,
     locale_css_path: str | None,
     css_file: str,
     template_file: str,
 ) -> list[str]:
-    """Render all page HTMLs for one ``api`` locale plus a ``<lang>/index.html`` landing alias if needed."""
+    """Render all page HTMLs for one ``catalog`` locale plus a ``<lang>/index.html`` landing alias if needed."""
     lang_index_dest = os.path.join(out_dir_abs, lang, "index.html")
     rel_htmls: list[str] = []
     has_explicit_index = any(p.rel_html == "index.html" for p in pages)
 
     for idx, page in enumerate(pages):
         rel_index_url = os.path.relpath(lang_index_dest, os.path.dirname(page.dest_abs)).replace(os.sep, "/")
-        _render_single_api_page_html(
+        _render_single_catalog_page_html(
             page=page,
             pages=pages,
             active_index=idx,
@@ -1871,7 +1871,7 @@ def _render_api_locale_outputs(
             out_dir_abs=out_dir_abs,
             manifest=manifest,
             i18n_cfg=i18n_cfg,
-            api_cfg=api_cfg,
+            catalog_cfg=catalog_cfg,
             site_title=site_title,
             locale_css_path=locale_css_path,
             css_file=css_file,
@@ -1883,7 +1883,7 @@ def _render_api_locale_outputs(
 
     if not has_explicit_index and pages:
         first_page = pages[0]
-        _render_single_api_page_html(
+        _render_single_catalog_page_html(
             page=first_page,
             pages=pages,
             active_index=0,
@@ -1894,7 +1894,7 @@ def _render_api_locale_outputs(
             out_dir_abs=out_dir_abs,
             manifest=manifest,
             i18n_cfg=i18n_cfg,
-            api_cfg=api_cfg,
+            catalog_cfg=catalog_cfg,
             site_title=site_title,
             locale_css_path=locale_css_path,
             css_file=css_file,
@@ -1908,7 +1908,7 @@ def _render_api_locale_outputs(
     return rel_htmls
 
 
-def _build_i18n_api_html(
+def _build_i18n_catalog_html(
     *,
     input_abs: str,
     out_dir_abs: str,
@@ -1920,7 +1920,7 @@ def _build_i18n_api_html(
     no_cache: bool,
     css_mode: str,
 ) -> str:
-    """Compile an i18n-native ``api`` reference directory into multi-page HTML."""
+    """Compile an i18n-native ``catalog`` directory into multi-page HTML."""
     if out_dir_abs == input_abs:
         raise ValueError(
             f'Refusing to build HTML in-place inside source directory "{input_abs}". '
@@ -1928,12 +1928,12 @@ def _build_i18n_api_html(
         )
 
     template_file, css_file = resolve_template_and_css(input_abs)
-    locale_files = validate_i18n_project(input_abs, i18n_cfg, project_type="api", default_format=image_format)
-    api_cfg = manifest.api if manifest.api is not None else ApiConfig()
+    locale_files = validate_i18n_project(input_abs, i18n_cfg, project_type="catalog", default_format=image_format)
+    catalog_cfg = manifest.catalog if manifest.catalog is not None else CatalogConfig()
 
     default_lang = i18n_cfg.default_lang
     ordered_langs = [default_lang] + [lc for lc in i18n_cfg.langs if lc != default_lang]
-    ordered_by_lang, nav_titles_by_lang, locale_css_paths, display_names, max_blocks = _prepare_i18n_api_locales(
+    ordered_by_lang, nav_titles_by_lang, locale_css_paths, display_names, max_blocks = _prepare_i18n_catalog_locales(
         input_abs=input_abs,
         out_dir_abs=out_dir_abs,
         ordered_langs=ordered_langs,
@@ -1950,7 +1950,7 @@ def _build_i18n_api_html(
     cache = BuildImageCache(enabled=not no_cache)
     processors_by_cfg: dict[tuple[str | None, str | None], DrawlibBlockProcessor | None] = {}
 
-    pages_by_lang: dict[str, list[CompiledApiPage]] = {}
+    pages_by_lang: dict[str, list[CompiledCatalogPage]] = {}
     rel_htmls_by_lang: dict[str, list[str]] = {}
     landing_desc_by_lang: dict[str, str] = {}
     step_idx = 0
@@ -1958,7 +1958,7 @@ def _build_i18n_api_html(
     for lang in ordered_langs:
         loc_styles, loc_utils = resolve_styles_and_utils(os.path.join(input_abs, lang), styles_path, utils_path)
         cfg_key = (loc_styles, loc_utils)
-        pages, step_idx, next_proc = _compile_api_locale_pages(
+        pages, step_idx, next_proc = _compile_catalog_locale_pages(
             lang=lang,
             ordered_entries=ordered_by_lang[lang],
             input_abs=input_abs,
@@ -1977,15 +1977,15 @@ def _build_i18n_api_html(
         processors_by_cfg[cfg_key] = next_proc
         pages_by_lang[lang] = pages
         landing_desc_by_lang[lang] = pages[0].description if pages else ""
-        loc_site_title = manifest.project.title.strip() or nav_titles_by_lang[lang] or "API Reference"
-        rel_htmls_by_lang[lang] = _render_api_locale_outputs(
+        loc_site_title = manifest.project.title.strip() or nav_titles_by_lang[lang] or "Catalog"
+        rel_htmls_by_lang[lang] = _render_catalog_locale_outputs(
             lang=lang,
             pages=pages,
             input_abs=input_abs,
             out_dir_abs=out_dir_abs,
             manifest=manifest,
             i18n_cfg=i18n_cfg,
-            api_cfg=api_cfg,
+            catalog_cfg=catalog_cfg,
             site_title=loc_site_title,
             locale_css_path=locale_css_paths[lang],
             css_file=css_file,
@@ -1993,7 +1993,7 @@ def _build_i18n_api_html(
         )
 
     default_pages = pages_by_lang[default_lang]
-    default_site_title = manifest.project.title.strip() or nav_titles_by_lang[default_lang] or "API Reference"
+    default_site_title = manifest.project.title.strip() or nav_titles_by_lang[default_lang] or "Catalog"
     root_progress = FileBuildProgress(
         total_files,
         total_files,
@@ -2004,7 +2004,7 @@ def _build_i18n_api_html(
     root_progress.update(0, 0, done=False)
     if default_pages:
         first_def_page = default_pages[0]
-        _render_single_api_page_html(
+        _render_single_catalog_page_html(
             page=first_def_page,
             pages=default_pages,
             active_index=0,
@@ -2015,7 +2015,7 @@ def _build_i18n_api_html(
             out_dir_abs=out_dir_abs,
             manifest=manifest,
             i18n_cfg=i18n_cfg,
-            api_cfg=api_cfg,
+            catalog_cfg=catalog_cfg,
             site_title=default_site_title,
             locale_css_path=locale_css_paths[default_lang],
             css_file=css_file,
@@ -2031,7 +2031,7 @@ def _build_i18n_api_html(
         if css_out is not None:
             bundle_svg_fonts(out_dir_abs, css_file_path=css_out)
 
-    _emit_api_seo_files(
+    _emit_catalog_seo_files(
         input_abs=input_abs,
         out_dir_abs=out_dir_abs,
         manifest=manifest,
@@ -2050,5 +2050,6 @@ def _build_i18n_api_html(
             f.write(get_html_readme())
 
     return out_dir_abs
+
 
 

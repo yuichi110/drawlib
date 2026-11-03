@@ -548,7 +548,7 @@
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="project_api.html" >API リファレンスプロジェクト (`api`)</a>
+                                <a href="project_catalog.html" >カタログプロジェクト (`catalog`)</a>
                             </li>
                             
                             <li class="nav-item ">
@@ -798,10 +798,10 @@
 <td>サイドバーナビゲーション（<code>&lt;lang&gt;/navbar.md</code>）を備えたマルチページ構成のドキュメントサイト</td>
 </tr>
 <tr>
-<td><strong><code>api</code></strong> <em>(Upcoming in v0.3.5)</em></td>
-<td><code>api_src/&lt;lang&gt;/</code></td>
-<td><code>api_html/</code>, <code>api_markdown/</code>, <code>api_images/</code></td>
-<td>REST / SDK / CLI 専用の API リファレンス（<code>1 MD = 1 HTML</code>、<code># H1</code> / <code>## H2</code> 自動サイドバー、バッジ、<code>/</code> フィルタ）</td>
+<td><strong><code>catalog</code></strong> <em>(Upcoming in v0.3.5)</em></td>
+<td><code>catalog_src/&lt;lang&gt;/</code></td>
+<td><code>catalog_html/</code>, <code>catalog_markdown/</code>, <code>catalog_images/</code></td>
+<td>API・CLI オプション・スキーマ・サービス台帳・ランブック向けのカタログ &amp; リファレンス（<code>1 MD = 1 HTML</code>、<code># H1</code> / <code>## H2</code> 自動サイドバー、バッジ、<code>/</code> フィルタ）</td>
 </tr>
 <tr>
 <td><strong><code>slide</code></strong></td>
@@ -847,12 +847,12 @@
     <span class="p">(</span>
         <span class="mi">93</span><span class="p">,</span>
         <span class="mf">41.5</span><span class="p">,</span>
-        <span class="s2">"2. site / api (Web &amp; API)"</span><span class="p">,</span>
+        <span class="s2">"2. site / catalog (Web &amp; Ref)"</span><span class="p">,</span>
         <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
         <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">,</span>
         <span class="n">phosphor</span><span class="o">.</span><span class="n">globe</span><span class="p">,</span>
         <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">,</span>
-        <span class="s2">"docs_src/ or api_src/</span><span class="se">\n</span><span class="s2">&lt;lang&gt;/*.md"</span><span class="p">,</span>
+        <span class="s2">"docs_src/ or catalog_src/</span><span class="se">\n</span><span class="s2">&lt;lang&gt;/*.md"</span><span class="p">,</span>
         <span class="s2">"*_html/ &amp; *_markdown/</span><span class="se">\n</span><span class="s2">navbar or Auto H1/H2"</span><span class="p">,</span>
     <span class="p">),</span>
     <span class="p">(</span>
@@ -935,11 +935,11 @@
 <td style="text-align:left"><code>./docs_src/build.sh</code>、<code>serve --check</code>、およびブラウザ確認を実行</td>
 </tr>
 <tr>
-<td style="text-align:left"><strong><code>api</code></strong> <em>(Upcoming in v0.3.5)</em></td>
-<td style="text-align:left">カテゴリ／モジュールページ（<code>api_src/&lt;lang&gt;/01_users.md</code> など）</td>
-<td style="text-align:left"><code>drawlib init project api</code>、<code>drawlib.toml</code> の <code>[api]</code>、<code>styles.py</code>、<code>utils.py</code>、<code>&lt;lang&gt;/00_overview.md</code></td>
-<td style="text-align:left">担当 API ページ（<code># H1</code> + <code>## H2</code> バッジ + 図解）の執筆と Stage 1 + Stage 2 グリッド検証</td>
-<td style="text-align:left"><code>./api_src/build.sh</code>、<code>serve --check</code>、およびブラウザ確認を実行</td>
+<td style="text-align:left"><strong><code>catalog</code></strong> <em>(Upcoming in v0.3.5)</em></td>
+<td style="text-align:left">カテゴリ／モジュールページ（<code>catalog_src/&lt;lang&gt;/01_users.md</code> など）</td>
+<td style="text-align:left"><code>drawlib init project catalog</code>、<code>drawlib.toml</code> の <code>[catalog]</code>、<code>styles.py</code>、<code>utils.py</code>、<code>&lt;lang&gt;/00_overview.md</code></td>
+<td style="text-align:left">担当カタログページ（<code># H1</code> + <code>## H2</code> バッジ + 図解）の執筆と Stage 1 + Stage 2 グリッド検証</td>
+<td style="text-align:left"><code>./catalog_src/build.sh</code>、<code>serve --check</code>、およびブラウザ確認を実行</td>
 </tr>
 <tr>
 <td style="text-align:left"><strong><code>slide</code></strong></td>
@@ -971,7 +971,7 @@
 <li><a href="./cli_reference.html">CLI リファレンス</a>: <code>build</code>（<code>html</code>、<code>markdown</code>、<code>pdf</code>、<code>docx</code>、<code>slide</code>、<code>pptx</code>、<code>image</code>）、<code>serve</code>、<code>show</code>、<code>init</code>（<code>project</code>、<code>agent</code>）、<code>cache</code>、<code>css</code>、<code>colors</code>、<code>styles</code>、<code>rules</code> の完全リファレンス。</li>
 <li><a href="./project_doc.html">リニアドキュメントプロジェクト (<code>doc</code>)</a>: RFC、仕様書、ホワイトペーパーなどのリニアドキュメント作成と、HTML / PDF / Word（<code>.docx</code>）出力。</li>
 <li><a href="./project_site.html">ドキュメントサイトプロジェクト (<code>site</code>)</a>: マルチページ構成のドキュメントサイト執筆、サイドバーカテゴリ設計、リンク検証。</li>
-<li><a href="./project_api.html">API リファレンスプロジェクト (<code>api</code>)</a> <em>(Upcoming in v0.3.5)</em>: <code># H1</code> / <code>## H2</code> 自動サイドバー・セマンティックバッジ・<code>[api]</code> 設定を備えた 2 カラム API・SDK リファレンス構築。</li>
+<li><a href="./project_catalog.html">カタログプロジェクト (<code>catalog</code>)</a> <em>(Upcoming in v0.3.5)</em>: <code># H1</code> / <code>## H2</code> 自動サイドバー・セマンティックバッジ・<code>[catalog]</code> 設定を備えた 2 カラムのカタログ・リファレンス（API・CLI・スキーマ・サービス台帳・ランブック）構築。</li>
 <li><a href="./project_slide.html">スライドデッキプロジェクト (<code>slide</code>)</a>: インタラクティブ Web スライド、ベクター PDF、PowerPoint（<code>.pptx</code>）出力に対応した 16:9 プレゼンテーションスライドの作成。</li>
 <li><a href="./slide_layout_and_api.html">スライドステージレイアウトと API</a>: <code>1920x1080</code> 仮想ステージ座標系、<code>::: block</code> / <code>::: note</code> 構文、レイアウトテンプレート、<code>drawlib.slide</code> Python API。</li>
 <li><a href="./project_image.html">画像プロジェクト (<code>images</code>)</a>: スタンドアロンスクリプトによる一括画像生成（<code>images_src/</code> ➔ <code>images/</code>）。</li>

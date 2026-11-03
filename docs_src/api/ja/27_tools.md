@@ -143,7 +143,7 @@ build_docx(
 
 ## `def` build_html(input_dir, output_dir=None, *, ...)
 
-`i18n` 対応の `site`・`doc`・`api` *(v0.3.5 で導入予定)* プロジェクトディレクトリ（`drawlib.toml` + `<lang>/` ソース）を、共有図解の重複排除・ロケール別フォントスタイルシート・言語スイッチャー（2 言語以上時）・ルート `index.html` を備えた静的 HTML へコンパイルします。
+`i18n` 対応の `site`・`doc`・`catalog` *(v0.3.5 で導入予定)* プロジェクトディレクトリ（`drawlib.toml` + `<lang>/` ソース）を、共有図解の重複排除・ロケール別フォントスタイルシート・言語スイッチャー（2 言語以上時）・ルート `index.html` を備えた静的 HTML へコンパイルします。
 
 ```python
 from drawlib.tools import build_html
@@ -162,7 +162,7 @@ build_html(
 
 | パラメータ | 型 | デフォルト | 説明 |
 | :--- | :--- | :--- | :--- |
-| `input_dir` | `str` | *(必須)* | `drawlib.toml`（`type = "site"`、`"doc"`、または `"api"` *(v0.3.5 で導入予定)*）と `<lang>/` フォルダを含むプロジェクトルート。 |
+| `input_dir` | `str` | *(必須)* | `drawlib.toml`（`type = "site"`、`"doc"`、または `"catalog"` *(v0.3.5 で導入予定)*）と `<lang>/` フォルダを含むプロジェクトルート。 |
 | `output_dir` | `str \| None` | `None` | 出力先 HTML ディレクトリ（省略時は `<base>_html`）。 |
 | `image_format` | `str` | `"png"` | 埋め込み `drawlib` ブロックの出力画像形式（`"png"` または `"webp"`）。 |
 | `styles_path` | `str \| None` | `None` | カスタム `styles.py` スクリプトへのパス。 |
@@ -209,7 +209,7 @@ build_image(
 
 ## `def` build_markdown(input_dir, output_dir=None, *, ...)
 
-`i18n` 対応の `site`・`doc`・`api` プロジェクトディレクトリを GitHub 閲覧向けのレンダリング済み Markdown（`<output_dir>/<lang>/` + 共有 `<output_dir>/images/`）へコンパイルします（入力ソースの上書きは安全に拒否されます）。
+`i18n` 対応の `site`・`doc`・`catalog` プロジェクトディレクトリを GitHub 閲覧向けのレンダリング済み Markdown（`<output_dir>/<lang>/` + 共有 `<output_dir>/images/`）へコンパイルします（入力ソースの上書きは安全に拒否されます）。
 
 ```python
 from drawlib.tools import build_markdown
@@ -457,7 +457,7 @@ export_code_block(
 
 ## `def` export_css(name, output_path=None, target="html", force=False, lang="en")
 
-組み込み CSS テーマプリセットを合成してファイルへ書き出します（`target="api"` は *(v0.3.5 で導入予定)*）。
+組み込み CSS テーマプリセットを合成してファイルへ書き出します（`target="catalog"` は *(v0.3.5 で導入予定)*）。
 
 ```python
 from drawlib.tools import export_css
@@ -475,7 +475,7 @@ export_css(
 | :--- | :--- | :--- | :--- |
 | `name` | `str` | *(必須)* | 組み込み CSS プリセット名（`"default"`、`"google"`、`"default-dark"`、`"monochrome"` など）。 |
 | `output_path` | `str \| None` | `None` | 出力先ファイルパス（省略時は `docs_src/style.css` が存在すればそちら、なければ `style.css`）。 |
-| `target` | `CssTarget` | `"html"` | 対象レイアウト形式（`"html"`、`"pdf"`、`"slide"`、`"site"`、`"doc"`、または `"api"` *(v0.3.5 で導入予定)*）。 |
+| `target` | `CssTarget` | `"html"` | 対象レイアウト形式（`"html"`、`"pdf"`、`"slide"`、`"site"`、`"doc"`、または `"catalog"` *(v0.3.5 で導入予定)*）。 |
 | `force` | `bool` | `False` | 既存ファイルを上書きします（`False` で既存ファイルがある場合は `FileExistsError`）。 |
 | `lang` | `str` | `"en"` | タイポグラフィ用フォントスタックの言語コード（`"en"`、`"ja"`、`"zh-cn"` など）。 |
 
@@ -505,7 +505,7 @@ get_agent_instruction(
 
 ## `def` get_css(name=None, target="html", lang="en")
 
-テーマトークン・UI コンポーネント・ターゲットレイアウト層を統合した自己完結型の CSS スタイルシート文字列を取得します（`target="api"` は *(v0.3.5 で導入予定)*）。
+テーマトークン・UI コンポーネント・ターゲットレイアウト層を統合した自己完結型の CSS スタイルシート文字列を取得します（`target="catalog"` は *(v0.3.5 で導入予定)*）。
 
 ```python
 from drawlib.tools import get_css
@@ -520,7 +520,7 @@ get_css(
 | パラメータ | 型 | デフォルト | 説明 |
 | :--- | :--- | :--- | :--- |
 | `name` | `str \| None` | `None` | 組み込みテーマ名またはカスタム CSS ファイルパス（省略時は `"default"`）。 |
-| `target` | `CssTarget` | `"html"` | 対象レイアウト形式（`"html"`、`"site"`、`"doc"`、`"pdf"`、`"slide"`、または `"api"` *(v0.3.5 で導入予定)*）。 |
+| `target` | `CssTarget` | `"html"` | 対象レイアウト形式（`"html"`、`"site"`、`"doc"`、`"pdf"`、`"slide"`、または `"catalog"` *(v0.3.5 で導入予定)*）。 |
 | `lang` | `str` | `"en"` | フォントスタック置換用の言語コードまたはエイリアス。 |
 
 - **戻り値（`str`）**: 合成された CSS スタイルシート文字列。
@@ -555,7 +555,7 @@ init_agent_instruction(
 
 ## `def` init_project(project_type, destination=".", target=None, ...)
 
-`drawlib.toml`・`styles.py`・`utils.py`・`_assets/`・テンプレート・`build*.sh` を備えた Drawlib スタータープロジェクト（`<target>_src/`）を自動生成します（`project_type="api"` は *(v0.3.5 で導入予定)*）。
+`drawlib.toml`・`styles.py`・`utils.py`・`_assets/`・テンプレート・`build*.sh` を備えた Drawlib スタータープロジェクト（`<target>_src/`）を自動生成します（`project_type="catalog"` は *(v0.3.5 で導入予定)*）。
 
 ```python
 from drawlib.tools import init_project
@@ -574,12 +574,12 @@ init_project(
 
 | パラメータ | 型 | デフォルト | 説明 |
 | :--- | :--- | :--- | :--- |
-| `project_type` | `str` | *(必須)* | プロジェクト種別: `"doc"`、`"site"`、`"api"` *(v0.3.5 で導入予定)*、`"slide"`、`"images"`、`"image"`。 |
+| `project_type` | `str` | *(必須)* | プロジェクト種別: `"doc"`、`"site"`、`"catalog"` *(v0.3.5 で導入予定)*、`"slide"`、`"images"`、`"image"`。 |
 | `destination` | `str \| Path` | `"."` | `<target>_src/` を作成する親ディレクトリパス。 |
-| `target` | `str \| None` | `None` | プロジェクトのベース名（省略時は `"doc"`・`"docs"`・`"api"`・`"slide"`・`"images"`）。 |
+| `target` | `str \| None` | `None` | プロジェクトのベース名（省略時は `"doc"`・`"docs"`・`"catalog"`・`"slide"`・`"images"`）。 |
 | `output` | `str \| None` | `None` | `target` の後方互換エイリアス。 |
 | `force` | `bool` | `False` | `True` の場合、出力先の競合ファイルを上書きします。 |
-| `lang` | `str` | `"en"` | 言語コード（`"en"`、`"ja"` 等）または多言語指定のカンマ区切りコード（`"en,ja"`、`doc`／`site`／`api`／`slide` 対応）。 |
+| `lang` | `str` | `"en"` | 言語コード（`"en"`、`"ja"` 等）または多言語指定のカンマ区切りコード（`"en,ja"`、`doc`／`site`／`catalog`／`slide` 対応）。 |
 | `style` | `str \| None` | `None` | スタイルプリセット（`"default"`、`"google"`、`"monochrome"` 等）またはカスタム CSS パス。 |
 | `here` | `bool` | `False` | 非推奨のレガシー引数（無視され、常に `<target>_src/` が作成されます）。 |
 
@@ -624,7 +624,7 @@ list_cache() -> list[dict[str, Any]]
 
 ## `def` list_css(target="html")
 
-指定された `target` 向けの組み込み CSS プリセット一覧をメタデータ辞書リストとして返します（`target="api"` は *(v0.3.5 で導入予定)*）。
+指定された `target` 向けの組み込み CSS プリセット一覧をメタデータ辞書リストとして返します（`target="catalog"` は *(v0.3.5 で導入予定)*）。
 
 ```python
 from drawlib.tools import list_css
@@ -636,7 +636,7 @@ list_css(
 
 | パラメータ | 型 | デフォルト | 説明 |
 | :--- | :--- | :--- | :--- |
-| `target` | `CssTarget` | `"html"` | 対象フォーマット（`"html"`、`"pdf"`、`"slide"`、`"site"`、`"doc"`、または `"api"` *(v0.3.5 で導入予定)*）。 |
+| `target` | `CssTarget` | `"html"` | 対象フォーマット（`"html"`、`"pdf"`、`"slide"`、`"site"`、`"doc"`、または `"catalog"` *(v0.3.5 で導入予定)*）。 |
 
 - **戻り値（`list[dict[str, str]]`）**: `"name"`・`"file"`・`"description"` を持つ辞書のリスト。
 
@@ -670,7 +670,7 @@ list_pdf_css() -> list[dict[str, str]]
 
 ## `def` list_project_types()
 
-利用可能なスタータープロジェクト種別名（`"site"`・`"api"`・`"doc"`・`"slide"`・`"images"`）と説明文のマッピング辞書を返します。
+利用可能なスタータープロジェクト種別名（`"site"`・`"catalog"`・`"doc"`・`"slide"`・`"images"`）と説明文のマッピング辞書を返します。
 
 ```python
 from drawlib.tools import list_project_types
@@ -710,7 +710,7 @@ scan_broken_links(
 
 | パラメータ | 型 | デフォルト | 説明 |
 | :--- | :--- | :--- | :--- |
-| `root_dir` | `str` | *(必須)* | 検査対象のビルド済み HTML ルートディレクトリ（例: `"docs_html"`、`"api_html"`）。 |
+| `root_dir` | `str` | *(必須)* | 検査対象のビルド済み HTML ルートディレクトリ（例: `"docs_html"`、`"catalog_html"`）。 |
 
 - **戻り値（`tuple[int, int, list[tuple[str, str, str]]]`）**: `(total_html_files, total_links_checked, broken_links)` を返し、`broken_links` の各要素は `(html_rel_path, tag_name, target_url)` タプルです。
 

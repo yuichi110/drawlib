@@ -101,7 +101,7 @@ uv run drawlib --developer show docs_src/en/index.md 1 -g -o preview.png
 
 ## `cmd` drawlib build
 
-ドキュメントソースディレクトリ（`site`・`api`・`doc`・`slide`）のコンパイル、または単体 Python 描画スクリプト（`images`）の実行を行うコマンドグループです。サブコマンドなしで `drawlib build` を実行するとヘルプ一覧を表示します。
+ドキュメントソースディレクトリ（`site`・`catalog`・`doc`・`slide`）のコンパイル、または単体 Python 描画スクリプト（`images`）の実行を行うコマンドグループです。サブコマンドなしで `drawlib build` を実行するとヘルプ一覧を表示します。
 
 ```bash
 drawlib build COMMAND [ARGS]...
@@ -110,7 +110,7 @@ drawlib build COMMAND [ARGS]...
 | サブコマンド | 生成される成果物 |
 | :--- | :--- |
 | [`drawlib build docx`](#drawlib-build-docx) | 高 DPI ラスタライズ図版を埋め込んだ編集可能な Microsoft Word（`.docx`）文書。 |
-| [`drawlib build html`](#drawlib-build-html) | 複数ページまたは単一ページの静的 HTML ドキュメントサイト（`site`・`api`・`doc`）。 |
+| [`drawlib build html`](#drawlib-build-html) | 複数ページまたは単一ページの静的 HTML ドキュメントサイト（`site`・`catalog`・`doc`）。 |
 | [`drawlib build image`](#drawlib-build-image) | `.py` 描画スクリプトから生成される単体 `.png`・`.webp`・`.jpg`・`.pdf` 画像。 |
 | [`drawlib build markdown`](#drawlib-build-markdown) | `drawlib` コードフェンスを画像リンクへ置換したレンダリング済み Markdown ファイル群。 |
 | [`drawlib build pdf`](#drawlib-build-pdf) | Headless Chromium で組版される印刷対応ベクター PDF（`doc`・`.md`・`slide`）。 |
@@ -147,9 +147,9 @@ uv run drawlib build docx doc_src -o doc.docx --generate-index --dpi 240
 
 ## `cmd` drawlib build html
 
-Markdown/HTML ドキュメントソースディレクトリ（`site`・`api`・`doc`）を、図版レンダリング・サイドバーナビゲーション・クライアントサイド検索インデックス・SEO メタデータ付きの静的 HTML サイトへコンパイルします。
+Markdown/HTML ドキュメントソースディレクトリ（`site`・`catalog`・`doc`）を、図版レンダリング・サイドバーナビゲーション・クライアントサイド検索インデックス・SEO メタデータ付きの静的 HTML サイトへコンパイルします。
 
-> **注記 (v0.3.5 で導入予定):** `drawlib build html` における `api` リファレンスプロジェクト（`project_type = "api"`、H1 カテゴリ＋H2 シンボルバッジ構成）のコンパイル対応は *(v0.3.5 で導入予定)* です。
+> **注記 (v0.3.5 で導入予定):** `drawlib build html` における `catalog` カタログ／リファレンスプロジェクト（`project_type = "catalog"`、H1 カテゴリ＋H2 セマンティックバッジ構成）のコンパイル対応は *(v0.3.5 で導入予定)* です。
 
 ```bash
 drawlib build html [OPTIONS] DIR
@@ -416,7 +416,7 @@ uv run drawlib colors show google --sort hsv -o google_colors.png
 
 ## `cmd` drawlib css
 
-HTML サイト・API リファレンス・スライドデッキ・PDF 文書向けの組み込み CSS テーマプリセットを一覧・表示・エクスポートするコマンドグループです。
+HTML サイト・カタログ／リファレンスサイト・スライドデッキ・PDF 文書向けの組み込み CSS テーマプリセットを一覧・表示・エクスポートするコマンドグループです。
 
 ```bash
 drawlib css COMMAND [ARGS]...
@@ -424,7 +424,7 @@ drawlib css COMMAND [ARGS]...
 
 | サブコマンド | 説明 |
 | :--- | :--- |
-| [`drawlib css list`](#drawlib-css-list) | HTML・API・Slide・PDF 向けの組み込み CSS プリセット一覧を表示します。 |
+| [`drawlib css list`](#drawlib-css-list) | HTML・Catalog・Slide・PDF 向けの組み込み CSS プリセット一覧を表示します。 |
 | [`drawlib css show`](#drawlib-css-show) | 合成された CSS スタイルシートを標準出力へ表示、または `.css` ファイルへ保存します。 |
 
 ---
@@ -433,7 +433,7 @@ drawlib css COMMAND [ARGS]...
 
 組み込み CSS プリセット（`default`・`google`・`monochrome`・`default-dark`・`google-dark` など）を、全ターゲット横断のサマリー表または特定ターゲット別のテーブルとして一覧表示します。
 
-> **注記 (v0.3.5 で導入予定):** `'api'` ターゲット指定（`drawlib css list api`）による API リファレンス向け CSS 一覧表示は *(v0.3.5 で導入予定)* です。
+> **注記 (v0.3.5 で導入予定):** `'catalog'` ターゲット指定（`drawlib css list catalog`）によるカタログ／リファレンス向け CSS 一覧表示は *(v0.3.5 で導入予定)* です。
 
 ```bash
 drawlib css list [TARGET]
@@ -443,12 +443,12 @@ uv run drawlib css list
 
 # 特定のターゲット形式のプリセット一覧を表示
 uv run drawlib css list slide
-uv run drawlib css list api
+uv run drawlib css list catalog
 ```
 
 | 引数 | 型 | デフォルト | 説明 |
 | :--- | :--- | :--- | :--- |
-| `TARGET` | `str \| None` | `None` | 絞り込み対象ターゲット：`'html'`・`'pdf'`・`'site'`・`'doc'`・`'slide'`・`'api'` *(v0.3.5 で導入予定)*・`'all'`。省略時はサマリー表を表示します。 |
+| `TARGET` | `str \| None` | `None` | 絞り込み対象ターゲット：`'html'`・`'pdf'`・`'site'`・`'doc'`・`'slide'`・`'catalog'` *(v0.3.5 で導入予定)*・`'all'`。省略時はサマリー表を表示します。 |
 
 ---
 
@@ -456,7 +456,7 @@ uv run drawlib css list api
 
 組み込み CSS プリセットの内容をターミナルへ表示（TTY 接続時はシンタックスハイライト付き）、または `-o / --output` 指定で言語別フォントスタックを反映した `.css` ファイルとして書き出します。
 
-> **注記 (v0.3.5 で導入予定):** `'api'` ターゲットのスタイルシート表示・エクスポート（`drawlib css show api <PRESET>`）は *(v0.3.5 で導入予定)* です。
+> **注記 (v0.3.5 で導入予定):** `'catalog'` ターゲットのスタイルシート表示・エクスポート（`drawlib css show catalog <PRESET>`）は *(v0.3.5 で導入予定)* です。
 
 ```bash
 drawlib css show [OPTIONS] [TARGET] PRESET
@@ -467,13 +467,13 @@ uv run drawlib css show google
 # 日本語フォントスタック付きの PDF 用スタイルシートを書き出し
 uv run drawlib css show pdf google -l ja -o doc_src/pdf_style.css --force
 
-# API リファレンス用スタイルシートを書き出し（v0.3.5 で導入予定）
-uv run drawlib css show api google -o api_src/style.css --force
+# カタログ／リファレンス用スタイルシートを書き出し（v0.3.5 で導入予定）
+uv run drawlib css show catalog google -o catalog_src/style.css --force
 ```
 
 | 引数 / オプション | 型 | デフォルト | 説明 |
 | :--- | :--- | :--- | :--- |
-| `[TARGET] PRESET` | `str` *(必須)* | — | `<PRESET>` 単体指定（`TARGET` は `'html'` 扱い）、または `<TARGET> <PRESET>` の 2 引数指定。`TARGET` は `'html'`・`'api'` *(v0.3.5 で導入予定)*・`'site'`・`'doc'`・`'slide'`・`'pdf'`。 |
+| `[TARGET] PRESET` | `str` *(必須)* | — | `<PRESET>` 単体指定（`TARGET` は `'html'` 扱い）、または `<TARGET> <PRESET>` の 2 引数指定。`TARGET` は `'html'`・`'catalog'` *(v0.3.5 で導入予定)*・`'site'`・`'doc'`・`'slide'`・`'pdf'`。 |
 | `PRESET` | `str \| None` | `None` | 第 1 引数に `TARGET` を指定した場合の CSS プリセット名（`'default'`・`'google'`・`'monochrome'`・`'default-dark'`・`'google-dark'` 等）。 |
 | `-o, --output` | `str \| None` | `None` | 保存先 `.css` ファイルパス。省略時は標準出力へ CSS 全文を出力します。 |
 | `-f, --force` | `bool` | `False` | 保存先ファイルが既に存在する場合に上書きします。 |
@@ -483,7 +483,7 @@ uv run drawlib css show api google -o api_src/style.css --force
 
 ## `cmd` drawlib init
 
-Drawlib スタータープロジェクト（`doc`・`site`・`api`・`slide`・`images`）のスキャフォールド生成、および AI コーディングエージェント向けルール定義ファイルの生成を行うコマンドグループです。
+Drawlib スタータープロジェクト（`doc`・`site`・`catalog`・`slide`・`images`）のスキャフォールド生成、および AI コーディングエージェント向けルール定義ファイルの生成を行うコマンドグループです。
 
 ```bash
 drawlib init COMMAND [ARGS]...
@@ -558,7 +558,7 @@ drawlib init project COMMAND [ARGS]...
 
 | サブコマンド | 既定フォルダ | プロジェクトアーキタイプ |
 | :--- | :--- | :--- |
-| [`drawlib init project api`](#drawlib-init-project-api) | `api_src/` | 図解付き API & SDK リファレンスサイト *(v0.3.5 で導入予定)*。 |
+| [`drawlib init project catalog`](#drawlib-init-project-catalog) | `catalog_src/` | 図解付きカタログ & リファレンスサイト（API・CLI・スキーマ・サービス台帳・ランブック） *(v0.3.5 で導入予定)*。 |
 | [`drawlib init project doc`](#drawlib-init-project-doc) | `doc_src/` | 章立て技術ドキュメント（`HTML`・`PDF`・`.docx`・`Markdown`）。 |
 | [`drawlib init project image`](#drawlib-init-project-image) | `images_src/` | `drawlib init project images` の単数形エイリアス。 |
 | [`drawlib init project images`](#drawlib-init-project-images) | `images_src/` | 単体 Python イラストレーションスクリプト集。 |
@@ -568,22 +568,22 @@ drawlib init project COMMAND [ARGS]...
 
 ---
 
-## `cmd` drawlib init project api
+## `cmd` drawlib init project catalog
 
-H1 カテゴリと H2 シンボル見出しで構成される図解付き API & SDK リファレンスサイト（`project_type = "api"`）を `<target>_src/` にスキャフォールド生成します（`drawlib.toml`・`styles.py`・`utils.py`・`style.css`・`template.html`・`build.sh`・`serve.sh` を作成） *(v0.3.5 で導入予定)*。
+H1 カテゴリと H2 セマンティックバッジ見出しで構成される図解付きカタログ & リファレンスサイト（`project_type = "catalog"`、API・CLI オプション・データスキーマ・サービス台帳・エラー辞書などに対応）を `<target>_src/` にスキャフォールド生成します（`drawlib.toml`・`styles.py`・`utils.py`・`style.css`・`template.html`・`build.sh`・`serve.sh` を作成） *(v0.3.5 で導入予定)*。
 
-> **注記 (v0.3.5 で導入予定):** `drawlib init project api` スキャフォールドサブコマンドは *(v0.3.5 で導入予定)* です。
+> **注記 (v0.3.5 で導入予定):** `drawlib init project catalog` スキャフォールドサブコマンドは *(v0.3.5 で導入予定)* です。
 
 ```bash
-drawlib init project api [OPTIONS] [TARGET]
+drawlib init project catalog [OPTIONS] [TARGET]
 
-# 日英バイリンガルの API リファレンスを Google テーマで api_src/ に作成
-uv run drawlib init project api api -l en,ja -s google
+# 日英バイリンガルの API／サービスカタログを Google テーマで api_src/ に作成
+uv run drawlib init project catalog api -l en,ja -s google
 ```
 
 | 引数 / オプション | 型 | デフォルト | 説明 |
 | :--- | :--- | :--- | :--- |
-| `TARGET` | `str` | `'api'` | API リファレンスプロジェクトのベース名（`<target>_src/` を作成し、`<target>_html/` へ出力）。 |
+| `TARGET` | `str` | `'catalog'` | カタログプロジェクトのベース名（`<target>_src/` を作成し、`<target>_html/` へ出力）。 |
 | `-s, --style` | `str \| None` | `None` | 組み込みテーマプリセット（`'default'`・`'google'`・`'monochrome'`）またはカスタム CSS パス。 |
 | `-l, --lang` | `str` | `'en'` | 単一言語コード（`'en'`・`'ja'` 等）またはカンマ区切りの多言語指定（`'en,ja'`）。 |
 | `-f, --force` | `bool` | `False` | `<target>_src/` 内の既存ファイルを上書きします。 |
@@ -647,7 +647,7 @@ uv run drawlib init project images arch_diagrams -l ja -s google
 
 ## `cmd` drawlib init project list
 
-利用可能な Drawlib プロジェクトアーキタイプ（`doc`・`site`・`api`・`slide`・`images`）、既定のソースディレクトリ名、および出力フォーマット一覧を表示します。
+利用可能な Drawlib プロジェクトアーキタイプ（`doc`・`site`・`catalog`・`slide`・`images`）、既定のソースディレクトリ名、および出力フォーマット一覧を表示します。
 
 ```bash
 uv run drawlib init project list
@@ -759,7 +759,7 @@ uv run drawlib rules list
 
 ## `cmd` drawlib rules show
 
-指定したルールトピック（`overview`・`style-guide`・`review-guide`・`project-api`・`cli`・`lib-graph-overview` など）の Markdown マニュアルとローカル図版パスを表示します。
+指定したルールトピック（`overview`・`style-guide`・`review-guide`・`project-catalog`・`cli`・`lib-graph-overview` など）の Markdown マニュアルとローカル図版パスを表示します。
 
 ```bash
 drawlib rules show [OPTIONS] TOPIC
@@ -778,7 +778,7 @@ uv run drawlib rules show lib-diagrams-overview --raw
 
 ## `cmd` drawlib serve
 
-ビルド済み HTML ドキュメント（`docs_html/`・`api_html/`・`slide_html/`）を確認するためのローカル HTTP プレビューサーバーを起動します。また `--check` を指定すると、サーバーを起動せずにリンク切れ・欠損アセット検証のみをヘッドレス実行できます（CI/CD や Stage 3 レビューに最適）。
+ビルド済み HTML ドキュメント（`docs_html/`・`catalog_html/`・`slide_html/`）を確認するためのローカル HTTP プレビューサーバーを起動します。また `--check` を指定すると、サーバーを起動せずにリンク切れ・欠損アセット検証のみをヘッドレス実行できます（CI/CD や Stage 3 レビューに最適）。
 
 ```bash
 drawlib serve [OPTIONS] DIRECTORY

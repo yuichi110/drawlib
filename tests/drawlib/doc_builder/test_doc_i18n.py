@@ -107,7 +107,7 @@ def test_project_manifest_parsing_and_ancestor_lookup(tmp_path: Path) -> None:
         '[project]\ntype = "images"\n\n[i18n]\ndefault_lang = "en"\nlangs = ["en"]\n',
         encoding="utf-8",
     )
-    with pytest.raises(ValueError, match='only supported for "doc", "site", "slide", and "api" projects'):
+    with pytest.raises(ValueError, match='only supported for "doc", "site", "slide", and "catalog" projects'):
         load_project_manifest(str(bad_imgs))
 
     # Reject unknown project.type

@@ -582,21 +582,21 @@ def validate_i18n_project(
     input_dir: str,
     config: I18nConfig,
     *,
-    project_type: Literal["site", "doc", "slide", "api"] = "site",
+    project_type: Literal["site", "doc", "slide", "catalog"] = "site",
     default_format: str = "png",
 ) -> dict[str, list[str]]:
     """Run mechanical consistency checks across every locale in ``config``.
 
     Checks performed:
     1. File set parity across ``<input_dir>/<lang>/``.
-    2. ``navbar.md`` section and link target parity (for ``'site'``/``'api'``; rejected for ``'doc'`` and ``'slide'``).
+    2. ``navbar.md`` section and link target parity (for ``'site'``/``'catalog'``; rejected for ``'doc'``/``'slide'``).
     3. Markdown skeleton sequence parity (``H1..H3``, ``MarkdownText``, ``DrawlibBlock``, ``CodeBlock``).
     4. ``DrawlibBlock`` Python code parity (exact match for shared filenames, ``<stem>_<lang>.<ext>`` for localized).
 
     Args:
         input_dir: Root source directory containing ``drawlib.toml``.
         config: Loaded ``I18nConfig`` instance.
-        project_type: ``'site'``, ``'doc'``, ``'slide'``, or ``'api'``.
+        project_type: ``'site'``, ``'doc'``, ``'slide'``, or ``'catalog'``.
         default_format: Default image output format (``'png'``, ``'webp'``, or ``'svg'``).
 
     Returns:
@@ -622,7 +622,7 @@ def validate_i18n_project(
             if lang_nav is not None:
                 raise ValueError(
                     f'[i18n {project_type} structure error] Found "{lang_nav}" inside a "{project_type}" project. '
-                    'Navigation sidebars ("navbar.md") are only supported in "site" and "api" projects.'
+                    'Navigation sidebars ("navbar.md") are only supported in "site" and "catalog" projects.'
                 )
         default_navbar_path: str | None = None
     else:

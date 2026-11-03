@@ -40,17 +40,17 @@ css_app = typer.Typer(
 )
 
 
-_CLI_CSS_TARGETS: dict[str, Literal["html", "pdf", "site", "doc", "slide", "api"]] = {
+_CLI_CSS_TARGETS: dict[str, Literal["html", "pdf", "site", "doc", "slide", "catalog"]] = {
     "html": "html",
     "pdf": "pdf",
     "site": "site",
     "doc": "doc",
     "slide": "slide",
-    "api": "api",
+    "catalog": "catalog",
 }
 
 
-def _run_css_list(target: Literal["html", "pdf", "site", "doc", "slide", "api"]) -> None:
+def _run_css_list(target: Literal["html", "pdf", "site", "doc", "slide", "catalog"]) -> None:
     items = list_css(target=target)
     title = f"Built-in {target.upper()} CSS Presets ({target}_css)"
     table = Table(title=title, header_style="bold cyan")
@@ -67,11 +67,11 @@ def cmd_css_list(
     target: Annotated[
         str | None,
         typer.Argument(
-            help="Target document format ('html', 'pdf', 'site', 'doc', 'slide', 'api', or omitted for summary).",
+            help="Target document format ('html', 'pdf', 'site', 'doc', 'slide', 'catalog', or omitted for summary).",
         ),
     ] = None,
 ) -> None:
-    """List available built-in CSS presets for HTML, API, Slide, and PDF."""
+    """List available built-in CSS presets for HTML, Catalog, Slide, and PDF."""
     if target is not None:
         normalized = target.strip().lower()
         if normalized not in (*_CLI_CSS_TARGETS, "all"):
@@ -105,7 +105,7 @@ def cmd_css_list(
 def _resolve_css_target_and_preset(
     target_or_preset: str,
     preset: str | None,
-) -> tuple[Literal["html", "pdf", "site", "doc", "slide", "api"], str]:
+) -> tuple[Literal["html", "pdf", "site", "doc", "slide", "catalog"], str]:
     """Resolve and validate target and preset name from positional CLI arguments."""
     arg1_lower = target_or_preset.strip().lower()
     if preset is None:
@@ -123,7 +123,7 @@ def _resolve_css_target_and_preset(
 
 
 def _run_css_export(
-    target: Literal["html", "pdf", "site", "doc", "slide", "api"],
+    target: Literal["html", "pdf", "site", "doc", "slide", "catalog"],
     preset: str,
     output: str | None,
     force: bool,
@@ -162,7 +162,7 @@ def cmd_css_show(
         str,
         typer.Argument(
             metavar="[TARGET] PRESET",
-            help="Target format ('html', 'api', 'site', 'doc', 'slide', 'pdf') and/or preset name.",
+            help="Target format ('html', 'catalog', 'site', 'doc', 'slide', 'pdf') and/or preset name.",
         ),
     ],
     preset: Annotated[

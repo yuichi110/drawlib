@@ -222,7 +222,7 @@ def build_docx(
             f'Input directory "{input_dir_abs}" is a "slide" presentation project (drawlib.toml). '
             f'Please use "drawlib build pptx {resolved_input}" to export MS PowerPoint (.pptx) slides.'
         )
-    if manifest.project.type in {"site", "api"}:
+    if manifest.project.type in {"site", "catalog"}:
         raise ValueError(
             f'Input directory "{input_dir_abs}" is a multi-page "{manifest.project.type}" project (drawlib.toml). '
             'Please use "drawlib build html" instead of "drawlib build docx".'

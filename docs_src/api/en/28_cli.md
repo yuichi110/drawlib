@@ -101,7 +101,7 @@ uv run drawlib --developer show docs_src/en/index.md 1 -g -o preview.png
 
 ## `cmd` drawlib build
 
-Command group for compiling documentation source directories (`site`, `api`, `doc`, `slide`) or executing standalone Python drawing scripts (`images`). Running `drawlib build` with no subcommand prints its help table.
+Command group for compiling documentation source directories (`site`, `catalog`, `doc`, `slide`) or executing standalone Python drawing scripts (`images`). Running `drawlib build` with no subcommand prints its help table.
 
 ```bash
 drawlib build COMMAND [ARGS]...
@@ -110,7 +110,7 @@ drawlib build COMMAND [ARGS]...
 | Subcommand | Output Deliverable |
 | :--- | :--- |
 | [`drawlib build docx`](#drawlib-build-docx) | Editable Microsoft Word (`.docx`) document with high-DPI rasterized diagrams. |
-| [`drawlib build html`](#drawlib-build-html) | Static multi-page or single-page HTML documentation site (`site`, `api`, `doc`). |
+| [`drawlib build html`](#drawlib-build-html) | Static multi-page or single-page HTML documentation site (`site`, `catalog`, `doc`). |
 | [`drawlib build image`](#drawlib-build-image) | Standalone `.png`, `.webp`, `.jpg`, or `.pdf` illustrations from `.py` scripts. |
 | [`drawlib build markdown`](#drawlib-build-markdown) | Rendered Markdown files with `drawlib` code fences replaced by `<img>` / `![]()` tags. |
 | [`drawlib build pdf`](#drawlib-build-pdf) | Print-ready vector PDF compiled via Headless Chromium (`doc`, `.md`, or `slide`). |
@@ -147,9 +147,9 @@ uv run drawlib build docx doc_src -o doc.docx --generate-index --dpi 240
 
 ## `cmd` drawlib build html
 
-Compile a Markdown/HTML documentation source directory (`site`, `api`, or `doc`) into a static HTML website with rendered diagrams, sidebar navigation, client-side search index, and SEO metadata.
+Compile a Markdown/HTML documentation source directory (`site`, `catalog`, or `doc`) into a static HTML website with rendered diagrams, sidebar navigation, client-side search index, and SEO metadata.
 
-> **Note (Upcoming in v0.3.5):** Support for compiling `api` reference projects (`project_type = "api"` with H1 categories and H2 symbol badges) via `drawlib build html` is *(Upcoming in v0.3.5)*.
+> **Note (Upcoming in v0.3.5):** Support for compiling `catalog` projects (`project_type = "catalog"` with H1 categories and H2 semantic badges) via `drawlib build html` is *(Upcoming in v0.3.5)*.
 
 ```bash
 drawlib build html [OPTIONS] DIR
@@ -416,7 +416,7 @@ uv run drawlib colors show google --sort hsv -o google_colors.png
 
 ## `cmd` drawlib css
 
-Command group for listing, previewing, and exporting Drawlib's built-in CSS theme stylesheets for HTML sites, API references, slide decks, and PDF documents.
+Command group for listing, previewing, and exporting Drawlib's built-in CSS theme stylesheets for HTML sites, catalog/reference sites, slide decks, and PDF documents.
 
 ```bash
 drawlib css COMMAND [ARGS]...
@@ -424,7 +424,7 @@ drawlib css COMMAND [ARGS]...
 
 | Subcommand | Description |
 | :--- | :--- |
-| [`drawlib css list`](#drawlib-css-list) | List available built-in CSS presets across HTML, API, Slide, and PDF targets. |
+| [`drawlib css list`](#drawlib-css-list) | List available built-in CSS presets across HTML, Catalog, Slide, and PDF targets. |
 | [`drawlib css show`](#drawlib-css-show) | Print a synthesized CSS stylesheet to `stdout` or export it to a `.css` file. |
 
 ---
@@ -433,7 +433,7 @@ drawlib css COMMAND [ARGS]...
 
 List available built-in CSS presets (`default`, `google`, `monochrome`, `default-dark`, `google-dark`, etc.) either as a cross-target summary table or filtered to a single document target.
 
-> **Note (Upcoming in v0.3.5):** Filtering by the `'api'` target (`drawlib css list api`) is *(Upcoming in v0.3.5)*.
+> **Note (Upcoming in v0.3.5):** Filtering by the `'catalog'` target (`drawlib css list catalog`) is *(Upcoming in v0.3.5)*.
 
 ```bash
 drawlib css list [TARGET]
@@ -443,12 +443,12 @@ uv run drawlib css list
 
 # Show presets for a specific target format
 uv run drawlib css list slide
-uv run drawlib css list api
+uv run drawlib css list catalog
 ```
 
 | Argument | Type | Default | Description |
 | :--- | :--- | :--- | :--- |
-| `TARGET` | `str \| None` | `None` | Optional target filter: `'html'`, `'pdf'`, `'site'`, `'doc'`, `'slide'`, `'api'` *(Upcoming in v0.3.5)*, or `'all'`. Omitting prints the summary matrix. |
+| `TARGET` | `str \| None` | `None` | Optional target filter: `'html'`, `'pdf'`, `'site'`, `'doc'`, `'slide'`, `'catalog'` *(Upcoming in v0.3.5)*, or `'all'`. Omitting prints the summary matrix. |
 
 ---
 
@@ -456,7 +456,7 @@ uv run drawlib css list api
 
 Display a built-in CSS preset stylesheet in the terminal (with syntax highlighting on TTYs) or export it to a destination `.css` file via `-o / --output` with locale-appropriate `@font-face` / typography stacks.
 
-> **Note (Upcoming in v0.3.5):** Inspecting or exporting `'api'` target stylesheets (`drawlib css show api <PRESET>`) is *(Upcoming in v0.3.5)*.
+> **Note (Upcoming in v0.3.5):** Inspecting or exporting `'catalog'` target stylesheets (`drawlib css show catalog <PRESET>`) is *(Upcoming in v0.3.5)*.
 
 ```bash
 drawlib css show [OPTIONS] [TARGET] PRESET
@@ -467,13 +467,13 @@ uv run drawlib css show google
 # Export a Japanese-tuned PDF stylesheet to doc_src/pdf_style.css
 uv run drawlib css show pdf google -l ja -o doc_src/pdf_style.css --force
 
-# Export an API reference stylesheet (Upcoming in v0.3.5)
-uv run drawlib css show api google -o api_src/style.css --force
+# Export a catalog/reference stylesheet (Upcoming in v0.3.5)
+uv run drawlib css show catalog google -o catalog_src/style.css --force
 ```
 
 | Argument / Option | Type | Default | Description |
 | :--- | :--- | :--- | :--- |
-| `[TARGET] PRESET` | `str` *(required)* | — | Either `<PRESET>` alone (defaults `TARGET` to `'html'`) or `<TARGET> <PRESET>` where `TARGET` is `'html'`, `'api'` *(Upcoming in v0.3.5)*, `'site'`, `'doc'`, `'slide'`, or `'pdf'`. |
+| `[TARGET] PRESET` | `str` *(required)* | — | Either `<PRESET>` alone (defaults `TARGET` to `'html'`) or `<TARGET> <PRESET>` where `TARGET` is `'html'`, `'catalog'` *(Upcoming in v0.3.5)*, `'site'`, `'doc'`, `'slide'`, or `'pdf'`. |
 | `PRESET` | `str \| None` | `None` | Built-in CSS preset name (`'default'`, `'google'`, `'monochrome'`, `'default-dark'`, `'google-dark'`, etc.) when `TARGET` is given first. |
 | `-o, --output` | `str \| None` | `None` | Destination `.css` file path. When omitted, prints the CSS stylesheet to `stdout`. |
 | `-f, --force` | `bool` | `False` | Overwrite the destination file if it already exists. |
@@ -483,7 +483,7 @@ uv run drawlib css show api google -o api_src/style.css --force
 
 ## `cmd` drawlib init
 
-Command group for scaffolding starter Drawlib projects (`doc`, `site`, `api`, `slide`, `images`) and generating per-IDE AI coding agent rule files.
+Command group for scaffolding starter Drawlib projects (`doc`, `site`, `catalog`, `slide`, `images`) and generating per-IDE AI coding agent rule files.
 
 ```bash
 drawlib init COMMAND [ARGS]...
@@ -558,7 +558,7 @@ drawlib init project COMMAND [ARGS]...
 
 | Subcommand | Default Folder | Project Archetype |
 | :--- | :--- | :--- |
-| [`drawlib init project api`](#drawlib-init-project-api) | `api_src/` | Illustrated API & SDK reference website *(Upcoming in v0.3.5)*. |
+| [`drawlib init project catalog`](#drawlib-init-project-catalog) | `catalog_src/` | Illustrated catalog & reference website (APIs, CLI, schemas, services, runbooks) *(Upcoming in v0.3.5)*. |
 | [`drawlib init project doc`](#drawlib-init-project-doc) | `doc_src/` | Linear technical document (`HTML`, `PDF`, `.docx`, `Markdown`). |
 | [`drawlib init project image`](#drawlib-init-project-image) | `images_src/` | Singular alias for `drawlib init project images`. |
 | [`drawlib init project images`](#drawlib-init-project-images) | `images_src/` | Standalone Python illustration scripts repository. |
@@ -568,22 +568,22 @@ drawlib init project COMMAND [ARGS]...
 
 ---
 
-## `cmd` drawlib init project api
+## `cmd` drawlib init project catalog
 
-Scaffold an illustrated API & SDK reference website (`project_type = "api"`, creating `<target>_src/` with `drawlib.toml`, `styles.py`, `utils.py`, `style.css`, `template.html`, `build.sh`, `serve.sh`, and H1-category / H2-symbol starter Markdown pages) *(Upcoming in v0.3.5)*.
+Scaffold an illustrated catalog & reference website (`project_type = "catalog"`, creating `<target>_src/` with `drawlib.toml`, `styles.py`, `utils.py`, `style.css`, `template.html`, `build.sh`, `serve.sh`, and H1-category / H2-badge starter Markdown pages for APIs, CLI flags, schemas, services, or runbooks) *(Upcoming in v0.3.5)*.
 
-> **Note (Upcoming in v0.3.5):** The `drawlib init project api` scaffolding subcommand is *(Upcoming in v0.3.5)*.
+> **Note (Upcoming in v0.3.5):** The `drawlib init project catalog` scaffolding subcommand is *(Upcoming in v0.3.5)*.
 
 ```bash
-drawlib init project api [OPTIONS] [TARGET]
+drawlib init project catalog [OPTIONS] [TARGET]
 
-# Scaffold a bilingual EN/JA API reference in api_src/ with the Google theme
-uv run drawlib init project api api -l en,ja -s google
+# Scaffold a bilingual EN/JA API or service catalog in api_src/ with the Google theme
+uv run drawlib init project catalog api -l en,ja -s google
 ```
 
 | Argument / Option | Type | Default | Description |
 | :--- | :--- | :--- | :--- |
-| `TARGET` | `str` | `'api'` | Base name for the API reference project (creates `<target>_src/` and outputs to `<target>_html/`). |
+| `TARGET` | `str` | `'catalog'` | Base name for the catalog project (creates `<target>_src/` and outputs to `<target>_html/`). |
 | `-s, --style` | `str \| None` | `None` | Built-in theme preset (`'default'`, `'google'`, `'monochrome'`) or path to a custom CSS file. |
 | `-l, --lang` | `str` | `'en'` | Single locale (`'en'`, `'ja'`, etc.) or comma-separated multi-locale list (`'en,ja'`). |
 | `-f, --force` | `bool` | `False` | Overwrite existing files in `<target>_src/` if present. |
@@ -647,7 +647,7 @@ uv run drawlib init project images arch_diagrams -l ja -s google
 
 ## `cmd` drawlib init project list
 
-List all available Drawlib project archetypes (`doc`, `site`, `api`, `slide`, `images`), their default source directories, and output formats.
+List all available Drawlib project archetypes (`doc`, `site`, `catalog`, `slide`, `images`), their default source directories, and output formats.
 
 ```bash
 uv run drawlib init project list
@@ -759,7 +759,7 @@ Accepts no positional arguments or command-specific options (`-h, --help` only).
 
 ## `cmd` drawlib rules show
 
-Display the Markdown documentation and rendered local illustration paths for a given rule topic (such as `overview`, `style-guide`, `review-guide`, `project-api`, `cli`, or `lib-graph-overview`).
+Display the Markdown documentation and rendered local illustration paths for a given rule topic (such as `overview`, `style-guide`, `review-guide`, `project-catalog`, `cli`, or `lib-graph-overview`).
 
 ```bash
 drawlib rules show [OPTIONS] TOPIC
@@ -778,7 +778,7 @@ uv run drawlib rules show lib-diagrams-overview --raw
 
 ## `cmd` drawlib serve
 
-Start a local HTTP preview server for built HTML documentation (`docs_html/`, `api_html/`, `slide_html/`), or run a headless broken-link and missing-asset verification pass via `--check` for CI/CD and Stage 3 review.
+Start a local HTTP preview server for built HTML documentation (`docs_html/`, `catalog_html/`, `slide_html/`), or run a headless broken-link and missing-asset verification pass via `--check` for CI/CD and Stage 3 review.
 
 ```bash
 drawlib serve [OPTIONS] DIRECTORY

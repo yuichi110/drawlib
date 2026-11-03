@@ -24,9 +24,9 @@ GUI diagram tools (draw.io, Visio) decouple visuals from Git, causing diagrams t
    - **Images only** -> `uv run drawlib init project images [target] [-l <lang>] [-s <style>]` (`project-images`)
    - **Linear doc / PDF / `.docx`** -> `uv run drawlib init project doc [target] [-l <langs>] [-s <style>]` (`project-doc`; `build_docx.sh` for Word)
    - **Multi-page website** -> `uv run drawlib init project site [target] [-l <langs>] [-s <style>]` (`project-site`)
-   - **API / SDK reference** -> `uv run drawlib init project api [target] [-l <langs>] [-s <style>]` (`project-api`)
+   - **Catalog / API / schema ref** -> `uv run drawlib init project catalog [target] [-l <langs>] [-s <style>]` (`project-catalog`)
    - **16:9 slide deck / `.pptx`** -> `uv run drawlib init project slide [target] [-l <langs>] [-s <style>]` (`project-slide`; `build_pptx.sh` for PowerPoint)
-   - **Localization & SEO**: Pass `-l ja` for CJK fonts, or `-l en,ja` on `doc`/`site`/`api`/`slide` for multi-locale `<src_dir>/<lang>/` (`[i18n]` & `[seo]`).
+   - **Localization & SEO**: Pass `-l ja` for CJK fonts, or `-l en,ja` on `doc`/`site`/`catalog`/`slide` for multi-locale `<src_dir>/<lang>/` (`[i18n]` & `[seo]`).
    - **CLI Runner**: Use `uv run drawlib` in `uv` projects, `uvx drawlib` in zero-install/non-Python repos, or `drawlib` globally. Delete starter `sample*.py` after scaffolding.
 3. **Cartesian Coordinates (`(0, 0)` at Bottom-Left)**:
    Run `uv run drawlib rules show overview` before coding *(origin `(0, 0)` is bottom-left; X right, Y up)*.
@@ -109,7 +109,7 @@ uv run drawlib rules show project-overview # Scaffolding (init), 5 archetypes & 
 uv run drawlib rules show project-images # Standalone Python scripts (images_src/*.py)
 uv run drawlib rules show project-doc # Linear docs, A4 PDFs & .docx (doc_src/)
 uv run drawlib rules show project-site # Multi-page sites, navbar.md & Top Hero
-uv run drawlib rules show project-api # Illustrated REST/SDK API refs (api_src/)
+uv run drawlib rules show project-catalog # Catalogs & API/CLI/schema refs (catalog_src/)
 uv run drawlib rules show project-slide # 16:9 slides, ::: block/note & .pptx
 uv run drawlib rules show cli # CLI commands (build, show, init, serve, cache)
 uv run drawlib rules show api # Complete API index & symbol cheat sheet

@@ -7,7 +7,7 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Heading extraction, semantic badge post-processing, and sidebar builder for ``api`` projects."""
+"""Heading extraction, semantic badge post-processing, and sidebar builder for ``catalog`` projects."""
 
 from __future__ import annotations
 
@@ -22,29 +22,66 @@ from drawlib._builder.doc_builder.i18n import resolve_locale_navbar_path
 from drawlib._builder.doc_builder.navbar import NavbarSection, parse_navbar_markdown
 
 if TYPE_CHECKING:
-    from drawlib._builder._common.manifest import ApiConfig
+    from drawlib._builder._common.manifest import CatalogConfig
 
-KNOWN_API_BADGES: Final[dict[str, str]] = {
+KNOWN_CATALOG_BADGES: Final[dict[str, str]] = {
+    # Functions & Callables
     "def": "def",
     "fn": "def",
     "func": "def",
     "function": "def",
     "async": "def",
     "async def": "def",
+    # Classes, Schemas & Data Entities
     "class": "class",
     "interface": "class",
     "struct": "class",
+    "table": "class",
+    "view": "class",
+    "schema": "class",
+    "entity": "class",
+    "model": "class",
+    # Methods, RPCs, Services & Workloads
     "method": "method",
     "rpc": "method",
+    "service": "method",
+    "svc": "method",
+    "component": "method",
+    "module": "method",
+    "package": "method",
+    "job": "method",
+    "pipeline": "method",
+    # Constants, Configurations, Flags & Events
     "const": "const",
     "attr": "const",
     "prop": "const",
     "property": "const",
     "event": "const",
+    "config": "const",
+    "cfg": "const",
+    "env": "const",
+    "flag": "const",
+    "option": "const",
+    "param": "const",
+    "metric": "const",
+    # Types, Design Tokens, Assets & Architecture Records
     "type": "type",
     "enum": "type",
+    "token": "type",
+    "style": "type",
+    "color": "type",
+    "font": "type",
+    "icon": "type",
+    "asset": "type",
+    "template": "type",
+    "adr": "type",
+    # CLI Commands, Rules & Policies
     "cmd": "cmd",
     "cli": "cmd",
+    "rule": "cmd",
+    "policy": "cmd",
+    "check": "cmd",
+    # HTTP Methods (rendered uppercase)
     "get": "get",
     "head": "get",
     "options": "method",
@@ -52,6 +89,17 @@ KNOWN_API_BADGES: Final[dict[str, str]] = {
     "put": "put",
     "patch": "patch",
     "delete": "delete",
+    # Operational Status & Severity
+    "ok": "ok",
+    "active": "ok",
+    "stable": "ok",
+    "warn": "warn",
+    "warning": "warn",
+    "error": "error",
+    "err": "error",
+    "alert": "error",
+    "critical": "error",
+    "deprecated": "error",
 }
 
 _FENCE_OPEN_RE: Final[re.Pattern[str]] = re.compile(r"^[ \t]{0,3}(`{3,}|~{3,})")
@@ -61,15 +109,15 @@ _MD_LINK_INLINE_RE: Final[re.Pattern[str]] = re.compile(r"\[([^\]]+)\]\([^)]+\)"
 
 
 @dataclass(frozen=True)
-class ApiSubItem:
-    """Single ``## H2`` endpoint or symbol entry extracted from an API Markdown page.
+class CatalogSubItem:
+    """Single ``## H2`` item, endpoint, or symbol entry extracted from a catalog Markdown page.
 
     Attributes:
         slug: Deterministic HTML ``id`` anchor slug (unique within the page).
         raw_title: Plain-text heading content after any semantic badge token.
         sidebar_label: Compact label rendered in the left navigation pane.
-        badge_text: Original badge token text (e.g. ``'GET'``, ``'def'``) or ``None``.
-        badge_kind: Normalized CSS badge kind (e.g. ``'get'``, ``'def'``) or ``None``.
+        badge_text: Original badge token text (e.g. ``'GET'``, ``'def'``, ``'service'``) or ``None``.
+        badge_kind: Normalized CSS badge kind (e.g. ``'get'``, ``'def'``, ``'method'``) or ``None``.
     """
 
     slug: str
@@ -80,18 +128,18 @@ class ApiSubItem:
 
 
 @dataclass(frozen=True)
-class ExtractedApiHeadings:
+class ExtractedCatalogHeadings:
     """Structured headings parsed from a Markdown source file before HTML rendering."""
 
     h1_title: str
     h1_raw: str | None
-    h2_items: tuple[ApiSubItem, ...]
+    h2_items: tuple[CatalogSubItem, ...]
     sub_headings: tuple[tuple[int, str, str], ...]
 
 
 @dataclass
-class CompiledApiPage:
-    """Compiled API page metadata, HTML body, and extracted ``H2`` sub-items."""
+class CompiledCatalogPage:
+    """Compiled catalog page metadata, HTML body, and extracted ``H2`` sub-items."""
 
     rel_path: str
     rel_html: str
@@ -101,7 +149,7 @@ class CompiledApiPage:
     h1_title: str
     description: str
     body_html: str
-    subitems: list[ApiSubItem] = field(default_factory=list)
+    subitems: list[CatalogSubItem] = field(default_factory=list)
 
 
 def humanize_identifier(stem: str) -> str:
@@ -141,13 +189,13 @@ def _render_safe_inline_heading_html(raw: str) -> str:
     return "".join(out)
 
 
-def slugify_api_heading(
+def slugify_catalog_heading(
     text_after_badge: str,
     used_slugs: set[str],
     *,
     has_badge: bool = False,
 ) -> str:
-    """Generate a deterministic, collision-free URL anchor slug for an API heading.
+    """Generate a deterministic, collision-free URL anchor slug for a catalog heading.
 
     Strips parameter lists ``(...)`` on badged function/method signatures so anchors remain
     concise and stable (e.g. ``#rectangle``, ``#barchart-draw``, ``#v1-users-id``).
@@ -171,7 +219,7 @@ def slugify_api_heading(
 
 
 def compact_sidebar_label(badge_kind: str | None, text_after_badge: str) -> str:
-    """Format compact ``H2`` label for the left sidebar while preserving ``Ctrl+F`` symbol names."""
+    """Format compact ``H2`` label for the left sidebar while preserving ``Ctrl+F`` item names."""
     cleaned = text_after_badge.strip()
     if badge_kind in {"def", "method"} and "(" in cleaned:
         sym_name = cleaned.split("(", 1)[0].strip()
@@ -219,8 +267,8 @@ def _mask_fences_and_comments(md_text: str) -> list[str]:
     return result
 
 
-def extract_api_headings(md_text: str, fallback_stem: str = "overview") -> ExtractedApiHeadings:
-    """Extract ``# H1`` category title, ``## H2`` symbol items, and ``###/####`` subheadings from Markdown.
+def extract_catalog_headings(md_text: str, fallback_stem: str = "overview") -> ExtractedCatalogHeadings:
+    """Extract ``# H1`` category title, ``## H2`` catalog items, and ``###/####`` subheadings from Markdown.
 
     Ignores fenced code blocks (including ````drawlib```` blocks) and HTML comments, and preserves
     literal angle-bracket placeholders such as ``/v1/users/<id>`` or ``Result<T>`` as plain text.
@@ -230,13 +278,13 @@ def extract_api_headings(md_text: str, fallback_stem: str = "overview") -> Extra
         fallback_stem: Filename stem used if no ``# H1`` heading is present.
 
     Returns:
-        ExtractedApiHeadings: Parsed heading hierarchy with deterministic, collision-free slugs.
+        ExtractedCatalogHeadings: Parsed heading hierarchy with deterministic, collision-free slugs.
     """
     lines = _mask_fences_and_comments(md_text)
     h1_title: str | None = None
     h1_raw: str | None = None
     used_slugs: set[str] = set()
-    h2_items: list[ApiSubItem] = []
+    h2_items: list[CatalogSubItem] = []
     sub_headings: list[tuple[int, str, str]] = []
 
     for line in lines:
@@ -261,16 +309,16 @@ def extract_api_headings(md_text: str, fallback_stem: str = "overview") -> Extra
             if m_code:
                 cand_badge = m_code.group(1).strip()
                 norm_badge = cand_badge.lower()
-                if norm_badge in KNOWN_API_BADGES and m_code.group(2).strip():
+                if norm_badge in KNOWN_CATALOG_BADGES and m_code.group(2).strip():
                     badge_text = cand_badge
-                    badge_kind = KNOWN_API_BADGES[norm_badge]
+                    badge_kind = KNOWN_CATALOG_BADGES[norm_badge]
                     rest_raw = m_code.group(2).strip()
 
             rest_plain = _strip_inline_markdown_preserving_angles(rest_raw)
-            slug = slugify_api_heading(rest_plain, used_slugs, has_badge=(badge_kind is not None))
+            slug = slugify_catalog_heading(rest_plain, used_slugs, has_badge=(badge_kind is not None))
             s_label = compact_sidebar_label(badge_kind, rest_plain)
             h2_items.append(
-                ApiSubItem(
+                CatalogSubItem(
                     slug=slug,
                     raw_title=rest_plain,
                     sidebar_label=s_label,
@@ -282,11 +330,11 @@ def extract_api_headings(md_text: str, fallback_stem: str = "overview") -> Extra
 
         if level in {3, 4}:
             sub_plain = _strip_inline_markdown_preserving_angles(raw_body)
-            sub_slug = slugify_api_heading(sub_plain, used_slugs, has_badge=False)
+            sub_slug = slugify_catalog_heading(sub_plain, used_slugs, has_badge=False)
             sub_headings.append((level, sub_slug, raw_body))
 
     resolved_h1 = h1_title if h1_title else humanize_identifier(fallback_stem)
-    return ExtractedApiHeadings(
+    return ExtractedCatalogHeadings(
         h1_title=resolved_h1,
         h1_raw=h1_raw,
         h2_items=tuple(h2_items),
@@ -299,7 +347,7 @@ def _strip_html_tags_plain(fragment: str) -> str:
     return html.unescape(re.sub(r"<[^>]+>", "", fragment)).strip()
 
 
-def _format_h2_html(item: ApiSubItem, raw_h2_markdown: str | None = None) -> str:
+def _format_h2_html(item: CatalogSubItem, raw_h2_markdown: str | None = None) -> str:
     """Format an upgraded ``<h2>`` HTML element with escaped ``id``, semantic badge, signature, and permalink."""
     esc_slug = html.escape(item.slug, quote=True)
     esc_aria = html.escape(f"Permalink to {item.sidebar_label}", quote=True)
@@ -310,16 +358,16 @@ def _format_h2_html(item: ApiSubItem, raw_h2_markdown: str | None = None) -> str
         if "(" in item.raw_title:
             sym_part, params_part = item.raw_title.split("(", 1)
             sig_inner = (
-                f'<span class="api-sig-name">{html.escape(sym_part, quote=True)}</span>'
-                f'<span class="api-sig-params">({html.escape(params_part, quote=True)}</span>'
+                f'<span class="catalog-sig-name">{html.escape(sym_part, quote=True)}</span>'
+                f'<span class="catalog-sig-params">({html.escape(params_part, quote=True)}</span>'
             )
         else:
-            sig_inner = f'<span class="api-sig-name">{html.escape(item.raw_title, quote=True)}</span>'
+            sig_inner = f'<span class="catalog-sig-name">{html.escape(item.raw_title, quote=True)}</span>'
 
         return (
-            f'<h2 id="{esc_slug}" class="api-symbol-heading">'
-            f'<span class="api-badge api-badge-{esc_kind}">{esc_badge}</span>'
-            f'<code class="api-sig">{sig_inner}</code>'
+            f'<h2 id="{esc_slug}" class="catalog-symbol-heading">'
+            f'<span class="catalog-badge catalog-badge-{esc_kind}">{esc_badge}</span>'
+            f'<code class="catalog-sig">{sig_inner}</code>'
             f'<a class="header-anchor" href="#{esc_slug}" aria-label="{esc_aria}">#</a>'
             f"</h2>"
         )
@@ -330,25 +378,25 @@ def _format_h2_html(item: ApiSubItem, raw_h2_markdown: str | None = None) -> str
         else html.escape(item.raw_title, quote=True)
     )
     return (
-        f'<h2 id="{esc_slug}" class="api-section-heading">'
+        f'<h2 id="{esc_slug}" class="catalog-section-heading">'
         f"<span>{safe_inner}</span>"
         f'<a class="header-anchor" href="#{esc_slug}" aria-label="{esc_aria}">#</a>'
         f"</h2>"
     )
 
 
-def inject_api_heading_ids_and_badges(
+def inject_catalog_heading_ids_and_badges(
     body_html: str,
     md_text: str | None = None,
     *,
     fallback_stem: str = "overview",
-) -> tuple[str, str, list[ApiSubItem]]:
+) -> tuple[str, str, list[CatalogSubItem]]:
     """Upgrade ``<h1>``–``<h4>`` tags in ``body_html`` with deterministic ``id`` anchors and semantic badges.
 
     Protects ``<pre>...</pre>`` code blocks from modification, escapes all heading text and
     attribute values against XSS, and returns ``(h1_title, upgraded_html, subitems)``.
     """
-    extracted = extract_api_headings(md_text, fallback_stem=fallback_stem) if md_text is not None else None
+    extracted = extract_catalog_headings(md_text, fallback_stem=fallback_stem) if md_text is not None else None
     raw_h2_lines: list[str] = []
     if md_text is not None:
         for line in _mask_fences_and_comments(md_text):
@@ -361,7 +409,7 @@ def inject_api_heading_ids_and_badges(
     def _protect_pre(match: re.Match[str]) -> str:
         idx = len(protected_pres)
         protected_pres.append(match.group(0))
-        return f"__DRAWLIB_API_PRE_MASK_{idx}__"
+        return f"__DRAWLIB_CATALOG_PRE_MASK_{idx}__"
 
     masked_html = re.sub(r"(?is)<pre\b[^>]*>.*?</pre>", _protect_pre, body_html)
 
@@ -382,7 +430,7 @@ def inject_api_heading_ids_and_badges(
             safe_h1 = html.escape(h1_title, quote=True)
 
         is_module_name = "." in h1_title or (bool(h1_title) and h1_title.islower())
-        h1_cls = "api-page-title is-module" if is_module_name else "api-page-title"
+        h1_cls = "catalog-page-title is-module" if is_module_name else "catalog-page-title"
         return f'<h1 class="{h1_cls}">{safe_h1}</h1>'
 
     masked_html = re.sub(r"(?is)<h1\b[^>]*>(.*?)</h1>", _replace_h1, masked_html, count=1)
@@ -392,7 +440,7 @@ def inject_api_heading_ids_and_badges(
         if extracted is not None
         else set()
     )
-    final_subitems: list[ApiSubItem] = []
+    final_subitems: list[CatalogSubItem] = []
     h2_idx = 0
 
     def _replace_h2(match: re.Match[str]) -> str:
@@ -413,15 +461,15 @@ def inject_api_heading_ids_and_badges(
         if code_prefix:
             cand_badge = html.unescape(code_prefix.group(1)).strip()
             norm = cand_badge.lower()
-            if norm in KNOWN_API_BADGES and _strip_html_tags_plain(code_prefix.group(2)):
+            if norm in KNOWN_CATALOG_BADGES and _strip_html_tags_plain(code_prefix.group(2)):
                 badge_text = cand_badge
-                badge_kind = KNOWN_API_BADGES[norm]
+                badge_kind = KNOWN_CATALOG_BADGES[norm]
                 rest_html = code_prefix.group(2).strip()
 
         rest_plain = _strip_html_tags_plain(rest_html)
-        slug = slugify_api_heading(rest_plain, fallback_used_slugs, has_badge=(badge_kind is not None))
+        slug = slugify_catalog_heading(rest_plain, fallback_used_slugs, has_badge=(badge_kind is not None))
         s_label = compact_sidebar_label(badge_kind, rest_plain)
-        fallback_item = ApiSubItem(
+        fallback_item = CatalogSubItem(
             slug=slug,
             raw_title=rest_plain,
             sidebar_label=s_label,
@@ -458,7 +506,7 @@ def inject_api_heading_ids_and_badges(
         if re.search(r"\bid\s*=", attrs, flags=re.IGNORECASE):
             return match.group(0)
         txt = _strip_html_tags_plain(inner)
-        slug = slugify_api_heading(txt, fallback_used_slugs, has_badge=False)
+        slug = slugify_catalog_heading(txt, fallback_used_slugs, has_badge=False)
         esc_slug = html.escape(slug, quote=True)
         safe_txt = html.escape(txt, quote=True)
         return f'<{tag} id="{esc_slug}">{safe_txt}</{tag}>'
@@ -466,16 +514,16 @@ def inject_api_heading_ids_and_badges(
     masked_html = re.sub(r"(?is)<(h[34])([^>]*)>(.*?)</\1>", _replace_sub_h, masked_html)
 
     for idx, orig_pre in enumerate(protected_pres):
-        masked_html = masked_html.replace(f"__DRAWLIB_API_PRE_MASK_{idx}__", orig_pre)
+        masked_html = masked_html.replace(f"__DRAWLIB_CATALOG_PRE_MASK_{idx}__", orig_pre)
 
     return h1_title, masked_html, final_subitems
 
 
-def order_api_locale_files(
+def order_catalog_locale_files(
     lang_dir_abs: str,
     rel_files: list[str],
 ) -> tuple[list[tuple[str, str | None]], str | None]:
-    """Determine deterministic page ordering and optional group titles for an ``api`` locale.
+    """Determine deterministic page ordering and optional group titles for a ``catalog`` locale.
 
     If ``navbar.md`` exists in ``lang_dir_abs``, uses its section titles and file order (appending
     any unlisted files afterward). Otherwise places root ``index.*`` first (when present) followed
@@ -537,7 +585,7 @@ def _compute_category_filter_key(h1_title: str, common_pkg_prefix: str | None) -
     return h1_title
 
 
-def _detect_common_dotted_prefix(pages: list[CompiledApiPage]) -> str | None:
+def _detect_common_dotted_prefix(pages: list[CompiledCatalogPage]) -> str | None:
     """Detect a shared leading ``<pkg>.`` prefix across 2+ module-named pages."""
     prefixes: list[str] = []
     for p in pages:
@@ -550,14 +598,14 @@ def _detect_common_dotted_prefix(pages: list[CompiledApiPage]) -> str | None:
     return None
 
 
-def build_api_page_navigation_context(
+def build_catalog_page_navigation_context(
     *,
-    pages: list[CompiledApiPage],
+    pages: list[CompiledCatalogPage],
     active_index: int,
     current_dest_abs: str,
     sidebar_expanded: bool,
 ) -> tuple[list[dict[str, Any]], dict[str, Any]]:
-    """Build ``(api_nav_sections, api_pager)`` template context relative to ``current_dest_abs``."""
+    """Build ``(catalog_nav_sections, catalog_pager)`` template context relative to ``current_dest_abs``."""
     current_dir = os.path.dirname(os.path.abspath(current_dest_abs))
     common_prefix = _detect_common_dotted_prefix(pages)
 
@@ -616,9 +664,9 @@ def build_api_page_navigation_context(
     return sections, {"prev": prev_ctx, "next": next_ctx}
 
 
-def resolve_api_chrome_context(
+def resolve_catalog_chrome_context(
     *,
-    api_cfg: ApiConfig,
+    catalog_cfg: CatalogConfig,
     lang: str,
     default_lang: str,
     lang_out_dir: str,
@@ -648,12 +696,12 @@ def resolve_api_chrome_context(
         rebased = os.path.relpath(resolved_target, current_dir).replace(os.sep, "/")
         return f"{rebased}{query}{frag}"
 
-    badge_text = api_cfg.resolve_badge_text(lang, default_lang=default_lang) or None
-    badge_url = _rebase_if_rel(api_cfg.badge_url) if badge_text else None
-    repo_url = api_cfg.repo_url
+    badge_text = catalog_cfg.resolve_badge_text(lang, default_lang=default_lang) or None
+    badge_url = _rebase_if_rel(catalog_cfg.badge_url) if badge_text else None
+    repo_url = catalog_cfg.repo_url
 
     header_links_ctx: list[dict[str, Any]] = []
-    for hlink in api_cfg.header_links:
+    for hlink in catalog_cfg.header_links:
         lbl = hlink.resolve_label(lang, default_lang=default_lang)
         if not lbl:
             continue
@@ -667,35 +715,36 @@ def resolve_api_chrome_context(
         )
 
     is_ja = lang.lower().startswith("ja")
+    custom_broot = catalog_cfg.resolve_breadcrumb_root(lang, default_lang=default_lang)
     ui_labels = (
         {
-            "breadcrumb_root": "API リファレンス",
-            "filter_placeholder": "API シンボルを絞り込み...",
-            "modules_label": "カテゴリ & シンボル",
+            "breadcrumb_root": custom_broot or "カタログ",
+            "filter_placeholder": "項目を絞り込み...",
+            "modules_label": "カテゴリ & 項目",
             "expand_all": "すべて展開",
             "collapse_all": "すべて折りたたむ",
-            "no_matches": "一致するシンボルが見つかりません。",
+            "no_matches": "一致する項目が見つかりません。",
             "prev_label": "前へ",
             "next_label": "次へ",
         }
         if is_ja
         else {
-            "breadcrumb_root": "API Reference",
-            "filter_placeholder": "Filter API symbols...",
-            "modules_label": "Categories & Symbols",
+            "breadcrumb_root": custom_broot or "Catalog",
+            "filter_placeholder": "Filter items...",
+            "modules_label": "Categories & Items",
             "expand_all": "Expand All",
             "collapse_all": "Collapse All",
-            "no_matches": "No matching symbols found.",
+            "no_matches": "No matching items found.",
             "prev_label": "Previous",
             "next_label": "Next",
         }
     )
 
     return {
-        "sidebar_expanded": api_cfg.sidebar_expanded,
-        "api_badge_text": badge_text,
-        "api_badge_url": badge_url,
-        "api_repo_url": repo_url,
-        "api_header_links": header_links_ctx,
-        "api_ui": ui_labels,
+        "sidebar_expanded": catalog_cfg.sidebar_expanded,
+        "catalog_badge_text": badge_text,
+        "catalog_badge_url": badge_url,
+        "catalog_repo_url": repo_url,
+        "catalog_header_links": header_links_ctx,
+        "catalog_ui": ui_labels,
     }

@@ -903,7 +903,7 @@ Never construct documentation directories manually. Scaffolding them with `drawl
 |---|---|---|---|
 | **`doc`** | `doc_src/<lang>/` | `doc_html/`, `doc_<lang>.pdf`, `doc_<lang>.docx`, `doc_markdown/`, `doc_images/` | Linear technical documents, RFCs, specifications, whitepapers, and formal reports. |
 | **`site`** | `docs_src/<lang>/` | `docs_html/`, `docs_markdown/` (or `docs/`), `docs_images/` | Multi-page documentation websites with sidebar navigation (`<lang>/navbar.md`). |
-| **`api`** *(Upcoming in v0.3.5)* | `api_src/<lang>/` | `api_html/`, `api_markdown/`, `api_images/` | Dedicated REST / SDK / CLI API references (`1 MD = 1 HTML`, auto `# H1` / `## H2` sidebar, semantic badges & `/` filter). |
+| **`catalog`** *(Upcoming in v0.3.5)* | `catalog_src/<lang>/` | `catalog_html/`, `catalog_markdown/`, `catalog_images/` | Structured catalogs & references for APIs, CLI flags, schemas, services, and runbooks (`1 MD = 1 HTML`, auto `# H1` / `## H2` sidebar, semantic badges & `/` filter). |
 | **`slide`** | `slide_src/<lang>/` | `slide_html/`, `slide_<lang>.pdf`, `slide_<lang>.pptx`, `slide_images/` | 16:9 presentation slide decks (interactive web deck, printable vector PDF, and editable PowerPoint). |
 | **`images`** *(alias: `image`)* | `images_src/` | `images/*.png` (or `.webp`) | Batch rendering standalone Python drawing scripts to image assets. |
 
@@ -932,12 +932,12 @@ cards = [
     (
         93,
         41.5,
-        "2. site / api (Web & API)",
+        "2. site / catalog (Web & Ref)",
         Styles.PrimaryFlat,
         Styles.WhiteBold,
         phosphor.globe,
         Styles.WhiteBold,
-        "docs_src/ or api_src/\n<lang>/*.md",
+        "docs_src/ or catalog_src/\n<lang>/*.md",
         "*_html/ & *_markdown/\nnavbar or Auto H1/H2",
     ),
     (
@@ -1001,7 +1001,7 @@ Because every Drawlib project separates **shared configuration** (`drawlib.toml`
 | :--- | :--- | :--- | :--- | :--- |
 | **`doc`** | Numbered chapter file (`doc_src/<lang>/01_*.md`, `02_*.md`, ...) | `drawlib init project doc`, `styles.py`, `utils.py`, `<lang>/00_cover.md`, chapter outline | Author assigned chapter(s) & run `drawlib show ... -g -o .drawlib/scratch/0N_<fig>_grid.png` | Run `./doc_src/build.sh` (or `build docx`) & inspect `doc_<lang>.pdf` / `doc_html/` |
 | **`site`** | Topic page or section folder (`docs_src/<lang>/01_arch/*.md`, ...) | `drawlib init project site`, `styles.py`, `utils.py`, `<lang>/navbar.md`, `<lang>/index.md` | Author assigned page(s) & run Stage 1 + Stage 2 grid review with unique scratch filenames | Run `./docs_src/build.sh`, `serve --check`, & browser check |
-| **`api`** *(Upcoming in v0.3.5)* | Category/module page (`api_src/<lang>/01_users.md`, ...) | `drawlib init project api`, `[api]` in `drawlib.toml`, `styles.py`, `utils.py`, `<lang>/00_overview.md` | Author assigned API page(s) (`# H1` + `## H2` badges + diagrams) & Stage 1 + Stage 2 grid review | Run `./api_src/build.sh`, `serve --check`, & browser check |
+| **`catalog`** *(Upcoming in v0.3.5)* | Category/module page (`catalog_src/<lang>/01_users.md`, ...) | `drawlib init project catalog`, `[catalog]` in `drawlib.toml`, `styles.py`, `utils.py`, `<lang>/00_overview.md` | Author assigned catalog page(s) (`# H1` + `## H2` badges + diagrams) & Stage 1 + Stage 2 grid review | Run `./catalog_src/build.sh`, `serve --check`, & browser check |
 | **`slide`** | Slide file (`slide_src/<lang>/02_*.md`, ...) or section directory | `drawlib init project slide`, `styles.py`, `utils.py`, deck story arc & slide numbering | Author assigned slide(s) (`::: block` + `::: note`) & run Stage 1 + Stage 2 grid review | Run `./slide_src/build.sh` (or `build pptx`) & inspect `slide_<lang>.pdf` / `1920x1080` stage |
 | **`images`** | Standalone Python script (`images_src/<name>.py`) | `drawlib init project images`, `styles.py`, `utils.py`, `_assets/` | Author assigned `.py` script(s) & run `drawlib show ... -g -o .drawlib/scratch/<script>_grid.png` | Run `./images_src/build.sh` & inspect `images/*.png` |
 
@@ -1019,7 +1019,7 @@ Dive deeper into each builder subsystem:
 - [CLI Reference](./cli_reference.md): Complete guide to `build` (`html`, `markdown`, `pdf`, `docx`, `slide`, `pptx`, `image`), `serve`, `show`, `init` (`project`, `agent`), `cache`, `css`, `colors`, `styles`, and `rules`.
 - [Linear Document Project Guide](./project_doc.md): Linear document RFCs, specifications, whitepapers, and HTML / PDF / Word (`.docx`) publishing.
 - [Doc Site Project Guide](./project_site.md): Multi-page website authoring, sidebar categories, and link validation.
-- [API Reference Project Guide](./project_api.md) *(Upcoming in v0.3.5)*: Dedicated 2-column REST / SDK / CLI references with auto `# H1` / `## H2` sidebars, semantic badges, and `[api]` manifest options.
+- [Catalog Project Guide](./project_catalog.md) *(Upcoming in v0.3.5)*: Structured 2-column catalogs & references (APIs, CLI flags, schemas, services, runbooks) with auto `# H1` / `## H2` sidebars, semantic badges, and `[catalog]` manifest options.
 - [Slide Deck Project Guide](./project_slide.md): 16:9 presentation slide decks with interactive web deck, vector PDF, and PowerPoint (`.pptx`) export.
 - [Slide Stage Layout & API](./slide_layout_and_api.md): `1920x1080` virtual stage coordinates, `::: block` / `::: note` syntax, templates, and `drawlib.slide` Python API.
 - [Image Project Guide](./project_image.md): Standalone script automation (`images_src/` ➔ `images/`).

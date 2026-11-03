@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ title | default('API Reference') }}{% if site_title %} — {{ site_title }}{% endif %}</title>
+    <title>{{ title | default('Catalog') }}{% if site_title %} — {{ site_title }}{% endif %}</title>
     <script>
         (function() {
             try {
@@ -43,25 +43,25 @@
     {% endif %}
 </head>
 <body>
-    {% set ui = api_ui | default({
-        'breadcrumb_root': 'API Reference',
-        'filter_placeholder': 'Filter API symbols...',
-        'modules_label': 'Categories & Symbols',
+    {% set ui = catalog_ui | default({
+        'breadcrumb_root': 'Catalog',
+        'filter_placeholder': 'Filter items...',
+        'modules_label': 'Categories & Items',
         'expand_all': 'Expand All',
         'collapse_all': 'Collapse All',
-        'no_matches': 'No matching symbols found.',
+        'no_matches': 'No matching items found.',
         'prev_label': 'Previous',
         'next_label': 'Next'
     }) %}
     <div class="doc-layout">
-        <aside class="sidebar" id="api-sidebar">
-            <div class="sidebar-header{% if api_badge_text or api_repo_url %} has-subbar{% endif %}">
+        <aside class="sidebar" id="catalog-sidebar">
+            <div class="sidebar-header{% if catalog_badge_text or catalog_repo_url %} has-subbar{% endif %}">
                 <a href="{{ index_url | default('index.html') }}" class="site-title">
                     {% if logo_href %}
-                    <img src="{{ logo_href }}" alt="{{ site_title | default('API Reference') }}" class="sidebar-logo sidebar-logo-light">
-                    <img src="{{ logo_dark_href | default(logo_href) }}" alt="{{ site_title | default('API Reference') }}" class="sidebar-logo sidebar-logo-dark">
+                    <img src="{{ logo_href }}" alt="{{ site_title | default('Catalog') }}" class="sidebar-logo sidebar-logo-light">
+                    <img src="{{ logo_dark_href | default(logo_href) }}" alt="{{ site_title | default('Catalog') }}" class="sidebar-logo sidebar-logo-dark">
                     {% else %}
-                    {{ site_title | default('API Reference') }}
+                    {{ site_title | default('Catalog') }}
                     {% endif %}
                 </a>
                 <div class="sidebar-header-actions">
@@ -75,23 +75,23 @@
                     </button>
                 </div>
             </div>
-            {% if api_badge_text or api_repo_url %}
+            {% if catalog_badge_text or catalog_repo_url %}
             <div class="sidebar-subbar">
-                {% if api_badge_text %}
-                {% if api_badge_url %}
-                <a href="{{ api_badge_url }}" class="sidebar-version-badge">
+                {% if catalog_badge_text %}
+                {% if catalog_badge_url %}
+                <a href="{{ catalog_badge_url }}" class="sidebar-version-badge">
                     <span class="sidebar-version-dot"></span>
-                    <span>{{ api_badge_text }}</span>
+                    <span>{{ catalog_badge_text }}</span>
                 </a>
                 {% else %}
                 <span class="sidebar-version-badge">
                     <span class="sidebar-version-dot"></span>
-                    <span>{{ api_badge_text }}</span>
+                    <span>{{ catalog_badge_text }}</span>
                 </span>
                 {% endif %}
                 {% endif %}
-                {% if api_repo_url %}
-                <a href="{{ api_repo_url }}" target="_blank" rel="noopener noreferrer" class="sidebar-github-link" aria-label="Repository" title="View Source Repository">
+                {% if catalog_repo_url %}
+                <a href="{{ catalog_repo_url }}" target="_blank" rel="noopener noreferrer" class="sidebar-github-link" aria-label="Repository" title="View Source Repository">
                     <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
                 </a>
                 {% endif %}
@@ -99,41 +99,41 @@
             {% endif %}
 
             <div class="sidebar-menu">
-                <div class="api-sidebar-toolbar">
-                    <div class="api-filter-box">
-                        <svg class="api-filter-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                        <input id="api-filter-input" type="search" class="api-filter-input" placeholder="{{ ui.filter_placeholder }}" autocomplete="off" spellcheck="false" aria-label="{{ ui.filter_placeholder }}">
-                        <kbd class="api-filter-kbd">/</kbd>
+                <div class="catalog-sidebar-toolbar">
+                    <div class="catalog-filter-box">
+                        <svg class="catalog-filter-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                        <input id="catalog-filter-input" type="search" class="catalog-filter-input" placeholder="{{ ui.filter_placeholder }}" autocomplete="off" spellcheck="false" aria-label="{{ ui.filter_placeholder }}">
+                        <kbd class="catalog-filter-kbd">/</kbd>
                     </div>
-                    <div class="api-toolbar-meta">
-                        <span class="api-toolbar-label">{{ ui.modules_label }}</span>
-                        <button type="button" id="api-expand-toggle" class="api-expand-btn" data-expand-label="{{ ui.expand_all }}" data-collapse-label="{{ ui.collapse_all }}">{{ ui.collapse_all if (sidebar_expanded | default(true)) else ui.expand_all }}</button>
+                    <div class="catalog-toolbar-meta">
+                        <span class="catalog-toolbar-label">{{ ui.modules_label }}</span>
+                        <button type="button" id="catalog-expand-toggle" class="catalog-expand-btn" data-expand-label="{{ ui.expand_all }}" data-collapse-label="{{ ui.collapse_all }}">{{ ui.collapse_all if (sidebar_expanded | default(true)) else ui.expand_all }}</button>
                     </div>
                 </div>
 
-                <nav class="api-sidebar-nav" id="api-sidebar-nav" aria-label="API Navigation">
-                    {% for section in api_nav_sections | default([]) %}
+                <nav class="catalog-sidebar-nav" id="catalog-sidebar-nav" aria-label="Catalog Navigation">
+                    {% for section in catalog_nav_sections | default([]) %}
                     {% if section.title %}
-                    <div class="api-nav-section-heading">{{ section.title }}</div>
+                    <div class="catalog-nav-section-heading">{{ section.title }}</div>
                     {% endif %}
                     {% for page in section.pages %}
-                    <details class="api-nav-group{% if page.active %} is-current-page{% endif %}" data-cat="{{ page.filter_key }}"{% if page.expanded | default(sidebar_expanded | default(true)) %} open{% endif %}>
-                        <summary class="api-nav-summary">
-                            <svg class="api-nav-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-                            <a href="{{ page.url }}" class="api-nav-cat-link{% if page.is_prose %} is-prose-cat{% endif %}">{{ page.title }}</a>
+                    <details class="catalog-nav-group{% if page.active %} is-current-page{% endif %}" data-cat="{{ page.filter_key }}"{% if page.expanded | default(sidebar_expanded | default(true)) %} open{% endif %}>
+                        <summary class="catalog-nav-summary">
+                            <svg class="catalog-nav-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                            <a href="{{ page.url }}" class="catalog-nav-cat-link{% if page.is_prose %} is-prose-cat{% endif %}">{{ page.title }}</a>
                             {% if page.subitems %}
-                            <span class="api-nav-count">{{ page.subitems | length }}</span>
+                            <span class="catalog-nav-count">{{ page.subitems | length }}</span>
                             {% endif %}
                         </summary>
                         {% if page.subitems %}
-                        <ul class="api-nav-sublist">
+                        <ul class="catalog-nav-sublist">
                             {% for item in page.subitems %}
-                            <li class="api-nav-subitem" data-sym="{{ item.filter_text }}">
-                                <a href="{{ item.url }}" class="api-nav-sublink{% if page.is_prose %} is-prose-sublink{% endif %}"{% if page.active %} data-target="{{ item.slug }}"{% endif %}>
+                            <li class="catalog-nav-subitem" data-sym="{{ item.filter_text }}">
+                                <a href="{{ item.url }}" class="catalog-nav-sublink{% if page.is_prose %} is-prose-sublink{% endif %}"{% if page.active %} data-target="{{ item.slug }}"{% endif %}>
                                     {% if item.badge_kind and item.badge_text %}
-                                    <span class="api-badge api-badge-{{ item.badge_kind }}">{{ item.badge_text }}</span>
+                                    <span class="catalog-badge catalog-badge-{{ item.badge_kind }}">{{ item.badge_text }}</span>
                                     {% endif %}
-                                    <span class="api-nav-sym-text">{{ item.label }}</span>
+                                    <span class="catalog-nav-sym-text">{{ item.label }}</span>
                                 </a>
                             </li>
                             {% endfor %}
@@ -142,7 +142,7 @@
                     </details>
                     {% endfor %}
                     {% endfor %}
-                    <div id="api-nav-empty" class="api-nav-empty" hidden>{{ ui.no_matches }}</div>
+                    <div id="catalog-nav-empty" class="catalog-nav-empty" hidden>{{ ui.no_matches }}</div>
                 </nav>
             </div>
         </aside>
@@ -155,11 +155,11 @@
                     <span class="crumb-separator">/</span>
                     <span class="crumb active">{{ current_page_title | default(title) }}</span>
                 </div>
-                {% if (api_header_links and api_header_links | length > 0) or (languages and languages | length > 1) %}
+                {% if (catalog_header_links and catalog_header_links | length > 0) or (languages and languages | length > 1) %}
                 <div class="top-bar-right">
-                    {% if api_header_links and api_header_links | length > 0 %}
+                    {% if catalog_header_links and catalog_header_links | length > 0 %}
                     <div class="top-bar-links">
-                        {% for hlink in api_header_links %}
+                        {% for hlink in catalog_header_links %}
                         <a href="{{ hlink.url }}"{% if hlink.is_external %} target="_blank" rel="noopener noreferrer"{% endif %} class="top-bar-ext-link">
                             <span>{{ hlink.label }}</span>
                             {% if hlink.is_external %}
@@ -198,23 +198,23 @@
                 {% endif %}
             </div>
 
-            <main class="main-content api-main-content">
+            <main class="main-content catalog-main-content">
                 {{ body | safe }}
 
-                {% if api_pager and (api_pager.prev or api_pager.next) %}
-                <nav class="api-pager" aria-label="API Page Navigation">
-                    {% if api_pager.prev %}
-                    <a href="{{ api_pager.prev.url }}" class="api-pager-card is-prev">
-                        <span class="api-pager-dir">&larr; {{ ui.prev_label }}</span>
-                        <span class="api-pager-title">{{ api_pager.prev.title }}</span>
+                {% if catalog_pager and (catalog_pager.prev or catalog_pager.next) %}
+                <nav class="catalog-pager" aria-label="Catalog Page Navigation">
+                    {% if catalog_pager.prev %}
+                    <a href="{{ catalog_pager.prev.url }}" class="catalog-pager-card is-prev">
+                        <span class="catalog-pager-dir">&larr; {{ ui.prev_label }}</span>
+                        <span class="catalog-pager-title">{{ catalog_pager.prev.title }}</span>
                     </a>
                     {% else %}
                     <div></div>
                     {% endif %}
-                    {% if api_pager.next %}
-                    <a href="{{ api_pager.next.url }}" class="api-pager-card is-next">
-                        <span class="api-pager-dir">{{ ui.next_label }} &rarr;</span>
-                        <span class="api-pager-title">{{ api_pager.next.title }}</span>
+                    {% if catalog_pager.next %}
+                    <a href="{{ catalog_pager.next.url }}" class="catalog-pager-card is-next">
+                        <span class="catalog-pager-dir">{{ ui.next_label }} &rarr;</span>
+                        <span class="catalog-pager-title">{{ catalog_pager.next.title }}</span>
                     </a>
                     {% else %}
                     <div></div>
@@ -245,7 +245,7 @@
             }
 
             var menuBtn = document.getElementById('menu-toggle');
-            var sidebar = document.getElementById('api-sidebar');
+            var sidebar = document.getElementById('catalog-sidebar');
             var backdrop = document.getElementById('sidebar-backdrop');
             function closeMenu() {
                 if (sidebar) sidebar.classList.remove('is-open');
@@ -259,7 +259,7 @@
                 backdrop.addEventListener('click', closeMenu);
             }
 
-            document.querySelectorAll('.api-nav-cat-link').forEach(function(link) {
+            document.querySelectorAll('.catalog-nav-cat-link').forEach(function(link) {
                 link.addEventListener('click', function(e) {
                     e.stopPropagation();
                 });
@@ -267,18 +267,18 @@
 
             if (sidebar) {
                 try {
-                    var savedScroll = sessionStorage.getItem('drawlib-api-sidebar-scroll');
+                    var savedScroll = sessionStorage.getItem('drawlib-catalog-sidebar-scroll');
                     if (savedScroll !== null) {
                         sidebar.scrollTop = parseInt(savedScroll, 10) || 0;
                     }
                     sidebar.addEventListener('scroll', function() {
-                        try { sessionStorage.setItem('drawlib-api-sidebar-scroll', String(sidebar.scrollTop)); } catch (e) {}
+                        try { sessionStorage.setItem('drawlib-catalog-sidebar-scroll', String(sidebar.scrollTop)); } catch (e) {}
                     }, { passive: true });
                 } catch (e) {}
             }
 
-            var groups = Array.prototype.slice.call(document.querySelectorAll('.api-nav-group'));
-            var expandBtn = document.getElementById('api-expand-toggle');
+            var groups = Array.prototype.slice.call(document.querySelectorAll('.catalog-nav-group'));
+            var expandBtn = document.getElementById('catalog-expand-toggle');
             function updateExpandBtnLabel() {
                 if (!expandBtn || groups.length === 0) return;
                 var visibleGroups = groups.filter(function(g) { return !g.hidden; });
@@ -300,8 +300,8 @@
                 });
             }
 
-            var filterInput = document.getElementById('api-filter-input');
-            var emptyNotice = document.getElementById('api-nav-empty');
+            var filterInput = document.getElementById('catalog-filter-input');
+            var emptyNotice = document.getElementById('catalog-nav-empty');
             var savedOpenState = null;
 
             if (filterInput) {
@@ -314,7 +314,7 @@
                     groups.forEach(function(g, idx) {
                         var catText = (g.getAttribute('data-cat') || '').toLowerCase();
                         var catMatches = q !== '' && catText.indexOf(q) !== -1;
-                        var items = Array.prototype.slice.call(g.querySelectorAll('.api-nav-subitem'));
+                        var items = Array.prototype.slice.call(g.querySelectorAll('.catalog-nav-subitem'));
                         var visibleCount = 0;
 
                         items.forEach(function(li) {
@@ -371,7 +371,7 @@
                 });
             });
 
-            var activeLinks = Array.prototype.slice.call(document.querySelectorAll('.api-nav-sublink[data-target]'));
+            var activeLinks = Array.prototype.slice.call(document.querySelectorAll('.catalog-nav-sublink[data-target]'));
             if (activeLinks.length > 0 && 'IntersectionObserver' in window) {
                 var linkBySlug = {};
                 var headings = [];

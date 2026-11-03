@@ -66,7 +66,7 @@ BUILTIN_SLIDE_CSS_PRESETS: Final[dict[str, dict[str, str]]] = {
 }
 
 
-CssTarget = Literal["html", "pdf", "slide", "site", "doc", "api"]
+CssTarget = Literal["html", "pdf", "slide", "site", "doc", "catalog"]
 
 
 def list_css(
@@ -75,7 +75,7 @@ def list_css(
     """Return metadata for built-in CSS presets for the specified target.
 
     Args:
-        target: Target format ('html', 'pdf', 'slide', 'site', 'doc', 'api'). Defaults to 'html'.
+        target: Target format ('html', 'pdf', 'slide', 'site', 'doc', 'catalog'). Defaults to 'html'.
 
     Returns:
         List[Dict[str, str]]: List of dicts with keys 'name', 'file', and 'description'.
@@ -174,7 +174,7 @@ def get_css(
 
     Args:
         name: Built-in theme name or path to a custom CSS file. Defaults to 'default'.
-        target: Target document format ('html', 'site', 'doc', 'pdf', 'slide', 'api'). Defaults to 'html'.
+        target: Target document format ('html', 'site', 'doc', 'pdf', 'slide', 'catalog'). Defaults to 'html'.
         lang: Language code or alias (e.g. 'en', 'ja') for font replacements. Defaults to 'en'.
 
     Returns:
@@ -201,14 +201,14 @@ def get_css(
 
     parts: list[str] = [theme_content]
 
-    if target in {"html", "site", "doc", "pdf", "api"}:
+    if target in {"html", "site", "doc", "pdf", "catalog"}:
         parts.append(_read_template_resource("css", "components", "code.css"))
         parts.append(_read_template_resource("css", "components", "markdown.css"))
 
     if target in {"html", "site"}:
         parts.append(_read_template_resource("css", "targets", "site.css"))
-    elif target == "api":
-        parts.append(_read_template_resource("css", "targets", "api.css"))
+    elif target == "catalog":
+        parts.append(_read_template_resource("css", "targets", "catalog.css"))
     elif target == "doc":
         parts.append(_read_template_resource("css", "targets", "doc.css"))
     elif target == "pdf":
@@ -260,7 +260,7 @@ def export_css(
     Args:
         name: Built-in CSS preset name (e.g., 'google', 'default-dark').
         output_path: Destination file path. If None, auto-resolves to 'style.css'.
-        target: Target format ('html', 'pdf', 'slide', 'site', 'doc', 'api'). Defaults to 'html'.
+        target: Target format ('html', 'pdf', 'slide', 'site', 'doc', 'catalog'). Defaults to 'html'.
         force: If True, overwrite destination file if it already exists.
         lang: Language code or alias for typography. Defaults to 'en'.
 
