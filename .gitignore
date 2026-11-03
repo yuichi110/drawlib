@@ -30,7 +30,6 @@ test_build_target/**/*.png
 !test_build_target/docs/commons/images/*.png
 colors_*.png
 styles_*.png
-docs/docs_images/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

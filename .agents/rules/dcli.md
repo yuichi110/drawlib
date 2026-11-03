@@ -61,11 +61,11 @@ source ./dcli             # Register 'dcli' alias and dynamic Tab autocompletion
 ./dcli docs serve [TARGET] [--port/-p 8000] [--no-browser] [--skip-check] [--check]
 ```
 - **Available `TARGET` names**:
-  - `site` *(default)*: Main documentation site (`docs/docs_src/` -> `docs/docs_html/`, `docs/docs_markdown/`)
-  - `architecture`: Software architecture specification site (`docs/architecture_src/`)
-  - `readme`: Standalone README illustration scripts (`docs/readme_src/`)
-  - `logo`: Brand logo & favicon asset scripts (`docs/logo_src/`)
-  - `ogp`: GitHub Social Preview & OGP banner scripts (`docs/ogp_src/`)
+  - `site` *(default)*: Main documentation site (`docs_src/site/` -> `docs/`)
+  - `architecture`: Software architecture specification site (`docs_src/architecture/` -> `docs/architecture/`)
+  - `readme`: Standalone README illustration scripts (`docs_src/readme/` -> `docs/readme_images/`)
+  - `logo`: Brand logo & favicon asset scripts (`docs_src/logo/` -> `docs/logo/`)
+  - `ogp`: GitHub Social Preview & OGP banner scripts (`docs_src/ogp/` -> `docs/ogp_images/`)
   - `all`: Build all targets sequentially
 
 ### 2.4. `codegen` — Icon & Binding Code Generation

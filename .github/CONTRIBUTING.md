@@ -21,7 +21,7 @@ uv sync
 ./dcli test drawlib
 ```
 
-For the complete developer workflow, repository layout, and AI pair-programming rules, please read the **[Developer Guide (`docs/README_DEV.md`)](../docs/README_DEV.md)** and the specification files in **[`.agents/rules/`](../.agents/rules/)**.
+For the complete developer workflow, repository layout, and AI pair-programming rules, please read the **[Developer Guide (`docs_src/README_DEV.md`)](../docs_src/README_DEV.md)** and the specification files in **[`.agents/rules/`](../.agents/rules/)**.
 
 ---
 
@@ -34,7 +34,7 @@ Before opening a Pull Request, please verify:
 3. **Unit Tests**: Relevant tests pass via `./dcli test target <module_or_path>` (add unit tests under `tests/drawlib/` for new functionality or bug fixes).
 4. **Visual & Documentation Check *(when modifying rendering or public APIs)***:
    - Preview affected diagrams with `-g` (`uv run drawlib show ... -g`) to ensure crisp alignment and zero text clipping.
-   - Keep `docs/docs_src/en/` and `docs/docs_src/ja/` in structural parity if updating official documentation (`./dcli docs build site --no-clean && ./dcli docs serve site --check`).
+   - Keep `docs_src/site/en/` and `docs_src/site/ja/` in structural parity if updating official documentation (`./dcli docs build site --no-clean && ./dcli docs serve site --check`).
 
 ---
 

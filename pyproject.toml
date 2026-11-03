@@ -6,7 +6,7 @@ build-backend = "uv_build"
 name = "drawlib"
 version = "0.3.4"
 description = "Pure-Python library for Illustration, Diagrams, Documentation, and Slides as Code (HTML/PDF/DOCX/PPTX) for developers and AI agents."
-readme = "docs/README_PYPI.md"
+readme = "docs_src/README_PYPI.md"
 requires-python = ">=3.11"
 license = { text = "Apache-2.0" }
 authors = [{name = "Yuichi Ito", email = "yuichi@yuichi.com"}]
@@ -99,7 +99,7 @@ preview = false
 fix = true
 unsafe-fixes = false
 line-length = 120
-exclude = ["docs"]
+exclude = ["docs", "docs_src"]
 
 [tool.ruff.lint]
 select = [

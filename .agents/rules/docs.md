@@ -13,19 +13,19 @@ This document describes the documentation projects hosted in this repository and
 
 All documentation, guides, slides, and README illustrations in this repository are standard Drawlib projects scaffolded via `drawlib init project`:
 
-| Build Target (`./dcli docs build <target>`) | Source Directory (`docs/*_src/`) | Template Type (`drawlib init project`) | Generated Outputs (Do NOT edit directly) | Description |
+| Build Target (`./dcli docs build <target>`) | Source Directory (`docs_src/*/`) | Template Type (`drawlib init project`) | Generated Outputs (Do NOT edit directly) | Description |
 | :--- | :--- | :--- | :--- | :--- |
-| **`site`** | `docs/docs_src/` (`drawlib.toml`: `en/`, `ja/`) | `site` | `docs/docs_markdown/`, `docs/docs_html/`, `docs/docs_images/` | Official multi-language (`en`/`ja`) documentation website & GitHub Markdown |
-| **`architecture`** | `docs/architecture_src/` (`drawlib.toml`: `en/`) | `site` | `docs/architecture_markdown/`, `docs/architecture_html/`, `docs/architecture_images/` | Software architecture specification site |
-| **`readme`** | `docs/readme_src/` | `images` | `docs/readme_images/` | Standalone Python scripts generating illustrations for `README.md` |
-| **`logo`** | `docs/logo_src/` | `images` | `docs/logo/` | Drawlib brand logo & favicon asset generator scripts |
-| **`ogp`** | `docs/ogp_src/` | `images` | `docs/ogp_images/`, `docs/docs_src/_assets/ogp.png` | GitHub Social Preview & OGP banner generator scripts (`1280×640`) |
+| **`site`** | `docs_src/site/` (`drawlib.toml`: `en/`, `ja/`) | `site` | `docs/` (`index.html`, `en/`, `ja/`, `images/`, `_assets/`, `pypi_images/`) | Official multi-language (`en`/`ja`) documentation website (`https://www.drawlib.com/`) |
+| **`architecture`** | `docs_src/architecture/` (`drawlib.toml`: `en/`) | `site` | `docs/architecture/` | Software architecture specification site (`https://www.drawlib.com/architecture/`) |
+| **`readme`** | `docs_src/readme/` | `images` | `docs/readme_images/` | Standalone Python scripts generating illustrations for `README.md` |
+| **`logo`** | `docs_src/logo/` | `images` | `docs/logo/` | Drawlib brand logo & favicon asset generator scripts |
+| **`ogp`** | `docs_src/ogp/` | `images` | `docs/ogp_images/`, `docs_src/{site,architecture}/_assets/ogp.png` | GitHub Social Preview & OGP banner generator scripts (`1280×640`) |
 
-*(Note: Standalone showcase guides and slide decks—such as `quickstart`, `drawlib-dogfooding`, `slide_about_drawlib`, and `slide_ddos_incident_response`—are maintained in the companion `yuichi110/drawlib-examples` repository and published at `https://examples.drawlib.com/`).*
+*(Note: Standalone showcase guides and slide decks—such as `quickstart`, `dogfooding`, `about-drawlib`, and `ddos-incident-response`—are maintained in the companion `yuichi110/drawlib-examples` repository and published at `https://examples.drawlib.com/`).*
 
-- **Source of Truth**: Always edit files inside `docs/<name>_src/` (and `drawlib.toml`, `build.sh`, `<lang>/navbar.md` within it). Never manually edit generated output folders or PDFs.
-- **Unified `<src_dir>/<lang>/` Locale Architecture (`doc`, `site`, `slide`)**: Every `doc`, `site`, and `slide` project declares `[i18n]` (`default_lang`, `langs`, optional `[i18n.labels]`; no `[project].lang`) in `drawlib.toml` and places Markdown sources inside `<src_dir>/<lang>/` (even single-language `en/` projects), emitting locale-suffixed document/deck deliverables (`<base>_<lang>.pdf`, `<base>_<lang>.docx`, `<base>_<lang>.pptx`). Standalone `images` projects (`readme_src/`, `logo_src/`, `ogp_src/`) remain flat (`*.py`) with `lang = "en"` under `[project]`.
-- **Multi-Language Parity in `docs/docs_src/` (`en/` & `ja/`)**: Multi-language projects declare `langs = ["en", "ja"]` with shared `styles.py` (optional per-locale `<lang>/styles.py` override), `utils.py`, `_assets/`, `style.css`, and `template.html` at root and localized Markdown trees in `en/` and `ja/`. Whenever adding, renaming, or editing a page/chapter or `drawlib` block in `en/`, apply the corresponding update to `ja/` so file paths, `navbar.md` structure (for `site`), `H1`–`H3` skeleton sequence, and `drawlib` code blocks remain 100% in parity (`caption="..."` and prose localized per language; localized diagram labels use `file=<stem>_<lang>.png`).
+- **Source of Truth**: Always edit files inside `docs_src/<target>/` (and `docs_src/README_*.md`). `docs/` is 100% build artifacts deployed to GitHub Pages—never manually edit files in `docs/`.
+- **Unified `<src_dir>/<lang>/` Locale Architecture (`doc`, `site`, `slide`)**: Every `doc`, `site`, and `slide` project declares `[i18n]` (`default_lang`, `langs`, optional `[i18n.labels]`; no `[project].lang`) in `drawlib.toml` and places Markdown sources inside `<src_dir>/<lang>/` (even single-language `en/` projects), emitting locale-suffixed document/deck deliverables (`<base>_<lang>.pdf`, `<base>_<lang>.docx`, `<base>_<lang>.pptx`). Standalone `images` projects (`readme/`, `logo/`, `ogp/`) remain flat (`*.py`) with `lang = "en"` under `[project]`.
+- **Multi-Language Parity in `docs_src/site/` (`en/` & `ja/`)**: Multi-language projects declare `langs = ["en", "ja"]` with shared `styles.py` (optional per-locale `<lang>/styles.py` override), `utils.py`, `_assets/`, `style.css`, and `template.html` at root and localized Markdown trees in `en/` and `ja/`. Whenever adding, renaming, or editing a page/chapter or `drawlib` block in `en/`, apply the corresponding update to `ja/` so file paths, `navbar.md` structure (for `site`), `H1`–`H3` skeleton sequence, and `drawlib` code blocks remain 100% in parity (`caption="..."` and prose localized per language; localized diagram labels use `file=<stem>_<lang>.png`).
 - **Build & Preview**:
   ```bash
   ./dcli docs build <target>          # e.g. ./dcli docs build site (or --all)
@@ -49,11 +49,11 @@ uv run drawlib rules show style-guide      # Visual design rules, typography, an
   - **Focal Hierarchy**: Reserve saturated fills (`Styles.PrimaryFlat`, `Styles.AccentFlat` with `text_style=Styles.WhiteBold`) strictly for 1–2 hero components.
   - **PascalCase Tokens**: Always import `from drawlib.styles import Colors, Styles`.
   - **Deterministic Code Blocks**: Always specify `file=<name>.png` (or `.webp` for animations) and `caption="..."` on every ````drawlib```` block in Markdown.
-  - **Code Visibility in `docs/docs_src/` (`code=show` / `code=fold` / Animation GitHub Link)**:
+  - **Code Visibility in `docs_src/site/` (`code=show` / `code=fold` / Animation GitHub Link)**:
     - **Static Diagrams**: Use **`code=show`** for primary API tutorials and feature implementation examples, and use **`code=fold`** for static Top Hero illustrations (~60 lines), conceptual overview diagrams, or multi-item catalog showcase banners.
     - **Multi-Frame `Animation` Blocks Outside `08_animations/`**: Because multi-frame `Animation(...)` scripts (e.g. Top Hero animations and Section 1 `*_tour.png` parameter tours, ~250–1,150 lines) bloat HTML size and dilute page SEO even inside `<details>`, **omit `code=fold` / `code=show`** on `Animation(...)` fences outside `08_animations/` and place a `<div class="drawlib-source-link">` link to the GitHub `.md` source (`en/` or `ja/`) immediately below the fence. In `08_animations/` (which teaches the animation API directly), keep `code=fold` / `code=show` as usual.
   - **Top Hero Illustration Rule (Above-the-Fold Eye-Catcher)**:
-    - Every page in `docs/docs_src/` (excluding `01_getting_started/release_notes.md`) **must** begin with a **Hero illustration** placed right at the top of the page (**Lines 6–15**, immediately after `# Page Title` and a 1–2 sentence introductory paragraph, **before** any `python`/`bash` code blocks, Markdown tables, or long bullet lists).
+    - Every page in `docs_src/site/` (excluding `01_getting_started/release_notes.md`) **must** begin with a **Hero illustration** placed right at the top of the page (**Lines 6–15**, immediately after `# Page Title` and a 1–2 sentence introductory paragraph, **before** any `python`/`bash` code blocks, Markdown tables, or long bullet lists).
     - Because `code=show` renders the Python source block *above* the image in HTML, the 1st ````drawlib```` block on a page **must never use `code=show`**: use **`code=fold`** for static Hero diagrams so the illustration is immediately visible above the fold (`▶ Source Code` underneath), or omit `code=` + add `<div class="drawlib-source-link">` if the Hero is a multi-frame `Animation` outside `08_animations/`.
     - **Eye-Catching Design with Icons & High-Level Components**: Because the Hero illustration serves as the visual eye-catcher for the page, **never build Hero diagrams out of plain `rectangle()` + `line()` + `text()` alone** (except on `02_drawing_primitives/` pages specifically documenting those primitives). Actively combine **standardized icons (`drawlib.icons.phosphor` / `gcp`)** and **high-level components (`SmartArts` such as `ChevronProcess`, `Cycle`, `BoxList`, `GridLayout`, `TreeNode`, `Table`, `SourceCode`, or `Diagrams`, `Graphs`, `Charts`)**.
     - **Hero Scope**: A Hero illustration should visually summarize the page's core concept, component variants, or architecture at a glance, and **does not need to serve as a detailed code tutorial** (detailed step-by-step tutorials belong in `## 1.`, `## 2.`, etc. using `code=show`).
@@ -66,7 +66,7 @@ uv run drawlib rules show style-guide      # Visual design rules, typography, an
        - **Card Headers / Section Titles**: Use **`text_size = 12.0` to `14.0`**.
        - **Secondary Annotations / Subtitles**: **Minimum `text_size >= 9.5`–`10.0`**. **Never use `text_size < 9.5`** (ban `6.5`–`8.5`), and avoid `canvas.transform(scale < 0.8)` unless inner font sizes are scaled up proportionally to compensate.
   - **No Absolute Paths or `file://` URLs in Documentation (Relative Links Only)**:
-    - **Never** write local filesystem absolute paths (e.g. `/usr/...`, `/home/...`, `/Users/...`, `C:\...`) or `file:///` URLs inside documentation Markdown source files (`docs/*_src/**/*.md`). All links must use relative paths (e.g. `../08_doc_builder_and_cli/customization.md` or `../../.agents/rules/drawlib.md`) or inline code format (e.g. `` `drawlib.md` (`.agents/rules/drawlib.md`) ``).
+    - **Never** write local filesystem absolute paths (e.g. `/usr/...`, `/home/...`, `/Users/...`, `C:\...`) or `file:///` URLs inside documentation Markdown source files (`docs_src/*/**/*.md`). All links must use relative paths (e.g. `../09_doc_builder_and_cli/customization.md` or `../../.agents/rules/drawlib.md`) or inline code format (e.g. `` `drawlib.md` (`.agents/rules/drawlib.md`) ``).
     - **Distinction from Agent Chat**: While the AI assistant uses `file:///` links when conversing with the user in chat responses for clickable IDE navigation, repository documentation files published on the web or GitHub must **never** contain `file:///` or machine-specific absolute paths.
     - Violations are automatically caught and will fail the build (`drawlib build` / `validate_markdown_links`).
   - **Unreleased / Upcoming Features Notice (`Note (Upcoming in vX.Y.Z)`)**:
@@ -74,7 +74,7 @@ uv run drawlib rules show style-guide      # Visual design rules, typography, an
       ```markdown
       > **Note (Upcoming in vX.Y.Z):** `<module_or_feature>` is scheduled for the upcoming **vX.Y.Z** release and is not yet included in the `vA.B.C` package on PyPI.
       ```
-    - **At Release Time (Before Publishing `vX.Y.Z`)**: When preparing the official `vX.Y.Z` release (`pyproject.toml` bumped to `X.Y.Z`), **remove** all `> **Note (Upcoming in vX.Y.Z):**` callouts and `*(Upcoming in vX.Y.Z)*` badges across `docs/*_src/`, move the feature summary into `01_getting_started/release_notes.md`, and rebuild the documentation (`./dcli docs build --all`).
+    - **At Release Time (Before Publishing `vX.Y.Z`)**: When preparing the official `vX.Y.Z` release (`pyproject.toml` bumped to `X.Y.Z`), **remove** all `> **Note (Upcoming in vX.Y.Z):**` callouts and `*(Upcoming in vX.Y.Z)*` badges across `docs_src/*/`, move the feature summary into `01_getting_started/release_notes.md`, and rebuild the documentation (`./dcli docs build --all`).
 
 ---
 
@@ -85,7 +85,7 @@ Never consider a documentation or diagram update complete after only writing cod
 1. **Render with Grid (`-g`)**:
    ```bash
    # Preview a specific embedded diagram block or standalone script
-   uv run drawlib show docs/docs_src/en/path/to/page.md <diagram_file.png> -g -o .drawlib/scratch/preview.png
+   uv run drawlib show docs_src/site/en/path/to/page.md <diagram_file.png> -g -o .drawlib/scratch/preview.png
    ```
 2. **Multimodal Visual Review (`view_file`)**:
    Open the generated image using `view_file` and verify:
@@ -94,7 +94,7 @@ Never consider a documentation or diagram update complete after only writing cod
    - Arrows and connectors attach cleanly to shape edges without crossing through unrelated nodes.
    - Strict adherence to the 50%+ neutral style guide, high text contrast, and readable `text_size >= 10.0`.
 3. **Browser HTML Verification (Compare Against `16px` Body Text)**:
-   - Build the HTML output (`./dcli docs build site --no-clean`) and inspect the rendered HTML page in a browser (or capture a `1280x900` headless Playwright screenshot of `docs/docs_html/.../*.html` and view it via `view_file`).
+   - Build the HTML output (`./dcli docs build site --no-clean`) and inspect the rendered HTML page in a browser (or capture a `1280x900` headless Playwright screenshot of `docs/.../*.html` and view it via `view_file`).
    - Verify that:
      - The image fills the `.drawlib-image` card cleanly without large empty side margins.
      - The text inside the illustration is clearly legible and visually balanced next to the surrounding `16px` HTML body text.

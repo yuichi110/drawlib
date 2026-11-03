@@ -9,7 +9,7 @@ A **`site` project** (`drawlib init project site`) compiles a locale-structured 
 ## 1. When to Choose a `site` Project
 
 Choose `drawlib init project site` when the user wants a **multi-page documentation website with a navigation sidebar**:
-- Official library or product documentation portals (such as Drawlib's own `docs/docs_src/`).
+- Official library or product documentation portals (such as Drawlib's own `docs_src/site/`).
 - Multi-chapter architecture handbooks, onboarding portals, and internal engineering wikis.
 - Any documentation set with 4+ distinct topic pages organized into sidebar categories.
 

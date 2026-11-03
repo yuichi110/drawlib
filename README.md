@@ -20,7 +20,7 @@
   </p>
 
   <p>
-    <strong>English</strong> | <a href="docs/README_JA.md"><strong>日本語</strong></a>
+    <strong>English</strong> | <a href="docs_src/README_JA.md"><strong>日本語</strong></a>
   </p>
 
   <p>
@@ -40,7 +40,7 @@ Drawlib is a declarative Python drawing library and integrated multi-format docu
 
 ![Autonomous AI Documentation Workflow](docs/readme_images/01_hero_ai_doc_loop.png)
 
-- **Official Website & Documentation**: [English (`www.drawlib.com`)](https://www.drawlib.com/) | [日本語 (`www.drawlib.com/ja/`)](https://www.drawlib.com/ja/)
+- **Official Website & Documentation**: [English (`www.drawlib.com`)](https://www.drawlib.com/) | [日本語 (`www.drawlib.com/ja/`)](https://www.drawlib.com/ja/) | [Internal Architecture Spec](https://www.drawlib.com/architecture/)
 - **Live Examples Gallery**: [Browse All Showcase Projects (`examples.drawlib.com`)](https://examples.drawlib.com/) | [Source (`drawlib-examples`)](https://github.com/yuichi110/drawlib-examples)
   - **16:9 Slide Decks**: [About Drawlib (HTML / PDF / PPTX)](https://examples.drawlib.com/about-drawlib/en/) · [DDoS Incident Postmortem (HTML / PDF / PPTX)](https://examples.drawlib.com/ddos-incident-response/en/)
   - **Guides & Whitepapers**: [Dogfooding Whitepaper — English](https://examples.drawlib.com/dogfooding/en/) / [日本語版](https://examples.drawlib.com/dogfooding/ja/) · [Quickstart Guide (HTML / PDF / DOCX)](https://examples.drawlib.com/quickstart/en/)
@@ -143,7 +143,7 @@ Author Markdown files with embedded ```` ```drawlib ```` code fences inside a un
 
 ## Installation
 
-![Drawlib Environment & AI Agent Setup Workflow](docs/docs_images/01_getting_started/installation/installation_setup_workflow.png)
+![Drawlib Environment & AI Agent Setup Workflow](docs/images/01_getting_started/installation/installation_setup_workflow.png)
 
 Run `drawlib` instantly with zero installation via `uvx`, or install from PyPI into your Python project or global CLI environment (Python `>= 3.11`):
 
@@ -297,10 +297,10 @@ drawlib show docs_src/en/index.md service_routing.png -g -o preview_grid.png
 
 ## Links & Resources
 
-- **Official Documentation**: [English (`https://www.drawlib.com/`)](https://www.drawlib.com/) | [日本語 (`https://www.drawlib.com/ja/`)](https://www.drawlib.com/ja/)
+- **Official Documentation**: [English (`https://www.drawlib.com/`)](https://www.drawlib.com/) | [日本語 (`https://www.drawlib.com/ja/`)](https://www.drawlib.com/ja/) | [Internal Architecture Spec (`https://www.drawlib.com/architecture/`)](https://www.drawlib.com/architecture/)
 - **Live Examples Gallery**: [https://examples.drawlib.com/](https://examples.drawlib.com/) ([`yuichi110/drawlib-examples`](https://github.com/yuichi110/drawlib-examples))
 - **Release Notes & Changelog**: [English](https://www.drawlib.com/en/01_getting_started/release_notes.html) | [日本語](https://www.drawlib.com/ja/01_getting_started/release_notes.html)
-- **Contributor & Developer Guide**: [`.github/CONTRIBUTING.md`](.github/CONTRIBUTING.md) | [`docs/README_DEV.md`](docs/README_DEV.md)
+- **Contributor & Developer Guide**: [`.github/CONTRIBUTING.md`](.github/CONTRIBUTING.md) | [`docs_src/README_DEV.md`](docs_src/README_DEV.md)
 - **PyPI Package**: [https://pypi.org/project/drawlib/](https://pypi.org/project/drawlib/)
 - **GitHub Repository**: [https://github.com/yuichi110/drawlib](https://github.com/yuichi110/drawlib)
 - **License**: Apache License 2.0

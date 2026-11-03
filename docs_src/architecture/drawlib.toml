@@ -1,0 +1,18 @@
+[project]
+name = "architecture"
+type = "site"
+title = ""
+description = "Internal software architecture specification of Drawlib — layered drawing engine (l1–l4), AST caching, multi-target document compiler, CLI, and developer tooling."
+style = "default"
+
+[i18n]
+default_lang = "en"
+langs = ["en"]
+
+[seo]
+site_url = "https://www.drawlib.com/architecture"
+og_image = "_assets/ogp.png"
+twitter_card = "summary_large_image"
+sitemap = true
+robots = false
+llms_txt = true

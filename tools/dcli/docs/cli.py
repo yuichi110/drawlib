@@ -57,10 +57,9 @@ def build(
 
 
 SERVE_TARGET_MAP: dict[str, str] = {
-    "site": "docs/docs_html",
-    "docs": "docs/docs_html",
-    "docs_html": "docs/docs_html",
-    "architecture": "docs/architecture_html",
+    "site": "docs",
+    "docs": "docs",
+    "architecture": "docs/architecture",
 }
 
 
