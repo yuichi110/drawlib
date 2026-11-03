@@ -10,6 +10,7 @@
 - [プロジェクト構成とビルド](./01_getting_started/project_quicklook.md)
 - [AI 駆動ワークフローとエージェント設定](./01_getting_started/agent_quicklook.md)
 - [リリースノートと移行ガイド](./01_getting_started/release_notes.md)
+- [サンプル・ショーケース](https://examples.drawlib.com/)
 
 ## 2. 描画プリミティブとスタイル
 - [キャンバスと座標系](./02_drawing_primitives/canvas.md)

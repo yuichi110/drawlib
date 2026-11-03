@@ -256,6 +256,26 @@ html[data-theme="dark"] .sidebar-logo-dark,
     border-left-color: var(--rtd-brand-color);
 }
 
+.nav-external-icon {
+    display: inline-block;
+    width: 0.9em;
+    height: 0.9em;
+    margin-left: 0.25rem;
+    vertical-align: -0.12em;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2.1;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    opacity: 0.65;
+    transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.nav-item a:hover .nav-external-icon {
+    opacity: 1;
+    transform: translate(1px, -1px);
+}
+
 .content-wrapper {
     flex: 1;
     background-color: var(--rtd-content-bg);

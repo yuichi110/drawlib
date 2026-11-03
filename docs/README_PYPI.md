@@ -12,6 +12,7 @@
     <a href="https://github.com/yuichi110/drawlib/actions/workflows/ut_github.yml"><img alt="Unit Tests" src="https://github.com/yuichi110/drawlib/actions/workflows/ut_github.yml/badge.svg"></a>
     <a href="https://opensource.org/licenses/Apache-2.0"><img alt="License: Apache-2.0" src="https://img.shields.io/badge/License-Apache_2.0-blue.svg"></a>
     <a href="https://www.drawlib.com/"><img alt="Official Docs" src="https://img.shields.io/badge/Docs-www.drawlib.com-0ea5e9"></a>
+    <a href="https://examples.drawlib.com/"><img alt="Live Examples" src="https://img.shields.io/badge/Examples-examples.drawlib.com-4f46e5"></a>
   </p>
 
   <p>
@@ -26,10 +27,9 @@ Drawlib is a declarative Python drawing library and integrated multi-format docu
 ![Autonomous AI Documentation Workflow](https://www.drawlib.com/images/index/hero_ai_doc_loop.png)
 
 - **Official Website & Documentation**: [English (`www.drawlib.com`)](https://www.drawlib.com/) | [日本語 (`www.drawlib.com/ja/`)](https://www.drawlib.com/ja/)
-- **Repository Guides & Whitepapers**:
-  - [Quickstart Guide (PDF)](https://github.com/yuichi110/drawlib/blob/main/docs/quickstart_en.pdf)
-  - [16:9 Presentation Slide Deck (PDF)](https://github.com/yuichi110/drawlib/blob/main/docs/slide_about_drawlib_en.pdf)
-  - [Dogfooding Whitepaper — English (PDF)](https://github.com/yuichi110/drawlib/blob/main/docs/drawlib-dogfooding_en.pdf) | [日本語版 (PDF)](https://github.com/yuichi110/drawlib/blob/main/docs/drawlib-dogfooding_ja.pdf)
+- **Live Examples Gallery**: [Browse All Showcase Projects (`examples.drawlib.com`)](https://examples.drawlib.com/) | [Source (`drawlib-examples`)](https://github.com/yuichi110/drawlib-examples)
+  - **16:9 Slide Decks**: [About Drawlib (HTML / PDF / PPTX)](https://examples.drawlib.com/about-drawlib/en/) · [DDoS Incident Postmortem (HTML / PDF / PPTX)](https://examples.drawlib.com/ddos-incident-response/en/)
+  - **Guides & Whitepapers**: [Dogfooding Whitepaper — English](https://examples.drawlib.com/dogfooding/en/) / [日本語版](https://examples.drawlib.com/dogfooding/ja/) · [Quickstart Guide (HTML / PDF / DOCX)](https://examples.drawlib.com/quickstart/en/)
 
 ---
 
@@ -276,6 +276,7 @@ drawlib show docs_src/en/index.md service_routing.png -g -o preview_grid.png
 ## Links & Resources
 
 - **Official Documentation**: [English (`https://www.drawlib.com/`)](https://www.drawlib.com/) | [日本語 (`https://www.drawlib.com/ja/`)](https://www.drawlib.com/ja/)
+- **Live Examples Gallery**: [https://examples.drawlib.com/](https://examples.drawlib.com/) ([`yuichi110/drawlib-examples`](https://github.com/yuichi110/drawlib-examples))
 - **Release Notes & Changelog**: [English](https://www.drawlib.com/en/01_getting_started/release_notes.html) | [日本語](https://www.drawlib.com/ja/01_getting_started/release_notes.html)
 - **Contributor & Developer Guide**: [`CONTRIBUTING.md`](https://github.com/yuichi110/drawlib/blob/main/.github/CONTRIBUTING.md) | [`docs/README_DEV.md`](https://github.com/yuichi110/drawlib/blob/main/docs/README_DEV.md)
 - **PyPI Package**: [https://pypi.org/project/drawlib/](https://pypi.org/project/drawlib/)

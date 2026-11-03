@@ -1887,7 +1887,7 @@ Write your technical spec or system architecture in standard Markdown with embed
 Explore the comprehensive guides below:
 
 1. [**Getting Started**](./01_getting_started/overview.md)
-   - Core philosophy, installation, quickstart, coordinate principles, project scaffolding, and AI agent configuration.
+   - Core philosophy, installation, quickstart, coordinate principles, project scaffolding, AI agent configuration, and the live [Examples Showcase (`examples.drawlib.com`)](https://examples.drawlib.com/).
 2. [**Drawing Primitives & Styles**](./02_drawing_primitives/canvas.md)
    - Low-level vector shapes, polygons, domain primitives, block arrows, lines, typography, fonts, image processing, preset themes, and color palettes.
 3. [**Icons & Brand Suites**](./03_icons/overview.md)

@@ -16,6 +16,7 @@
     <a href="https://github.com/yuichi110/drawlib/actions/workflows/ut_github.yml"><img alt="Unit Tests" src="https://github.com/yuichi110/drawlib/actions/workflows/ut_github.yml/badge.svg"></a>
     <a href="https://opensource.org/licenses/Apache-2.0"><img alt="License: Apache-2.0" src="https://img.shields.io/badge/License-Apache_2.0-blue.svg"></a>
     <a href="https://www.drawlib.com/ja/"><img alt="Official Docs" src="https://img.shields.io/badge/Docs-www.drawlib.com%2Fja-0ea5e9"></a>
+    <a href="https://examples.drawlib.com/"><img alt="Live Examples" src="https://img.shields.io/badge/Examples-examples.drawlib.com-4f46e5"></a>
   </p>
 
   <p>
@@ -25,6 +26,7 @@
   <p>
     <a href="#quick-try">30秒で試す (<code>uvx</code>)</a> ·
     <a href="https://www.drawlib.com/ja/">公式ドキュメント</a> ·
+    <a href="https://examples.drawlib.com/">サンプル集</a> ·
     <a href="#why-drawlib">なぜ Drawlib か？</a> ·
     <a href="#installation">インストール &amp; AI 設定</a> ·
     <a href="#quick-start">クイックスタート</a> ·
@@ -39,10 +41,9 @@ Drawlib は、ソフトウェア開発者と **自律型 AI コーディング�
 ![Autonomous AI Documentation Workflow](readme_images/01_hero_ai_doc_loop.png)
 
 - **公式 Web サイト & ドキュメント**: [日本語 (`www.drawlib.com/ja/`)](https://www.drawlib.com/ja/) | [English (`www.drawlib.com`)](https://www.drawlib.com/)
-- **リポジトリ内ガイド & ホワイトペーパー**:
-  - [クイックスタートガイド — English (PDF)](quickstart_en.pdf)
-  - [16:9 紹介プレゼンスライド — English (PDF)](slide_about_drawlib_en.pdf)
-  - [Dogfooding 技術ホワイトペーパー — 日本語版 (PDF)](drawlib-dogfooding_ja.pdf) | [English (PDF)](drawlib-dogfooding_en.pdf)
+- **ライブサンプル集 (`examples.drawlib.com`)**: [全サンプル一覧を見る（HTML / PDF / DOCX / PPTX）](https://examples.drawlib.com/) | [ソース (`drawlib-examples`)](https://github.com/yuichi110/drawlib-examples)
+  - **16:9 プレゼンスライド**: [About Drawlib（HTML / PDF / PPTX）](https://examples.drawlib.com/about-drawlib/en/) · [DDoS 障害対応ポストモーテム（HTML / PDF / PPTX）](https://examples.drawlib.com/ddos-incident-response/en/)
+  - **ガイド & ホワイトペーパー**: [Dogfooding 技術ホワイトペーパー — 日本語版](https://examples.drawlib.com/dogfooding/ja/) / [English](https://examples.drawlib.com/dogfooding/en/) · [クイックスタートガイド（HTML / PDF / DOCX）](https://examples.drawlib.com/quickstart/en/)
 
 ---
 
@@ -297,6 +298,7 @@ drawlib show docs_src/ja/index.md service_routing.png -g -o preview_grid.png
 ## リンク & リソース
 
 - **公式ドキュメント**: [日本語 (`https://www.drawlib.com/ja/`)](https://www.drawlib.com/ja/) | [English (`https://www.drawlib.com/`)](https://www.drawlib.com/)
+- **ライブサンプル集**: [https://examples.drawlib.com/](https://examples.drawlib.com/) ([`yuichi110/drawlib-examples`](https://github.com/yuichi110/drawlib-examples))
 - **リリースノート & 更新履歴**: [日本語](https://www.drawlib.com/ja/01_getting_started/release_notes.html) | [English](https://www.drawlib.com/en/01_getting_started/release_notes.html)
 - **コントリビュート & 開発者ガイド**: [`.github/CONTRIBUTING.md`](../.github/CONTRIBUTING.md) | [`docs/README_DEV.md`](README_DEV.md)
 - **PyPI パッケージ**: [https://pypi.org/project/drawlib/](https://pypi.org/project/drawlib/)

@@ -13,12 +13,14 @@ import os
 
 import pytest
 
+from drawlib._builder.doc_builder import build_html
 from drawlib._builder.doc_builder.navbar import (
     NavbarItem,
     NavbarSection,
     parse_navbar_markdown,
     resolve_navbar_for_page,
 )
+from drawlib._templates import init_project
 
 
 def test_parse_navbar_valid(tmp_path) -> None:
@@ -182,3 +184,34 @@ def test_parse_navbar_custom_site_title(tmp_path) -> None:
     assert site_title == "My Amazing Library"
     assert len(sections) == 1
     assert sections[0].items[0].title == "Home"
+
+
+def test_site_template_renders_external_link_icon(tmp_path) -> None:
+    """Test that built site HTML renders .nav-external-icon SVG only on external navbar links."""
+    src_dir = tmp_path / "docs_src"
+    out_dir = tmp_path / "docs_html"
+    init_project("site", destination=tmp_path, target=src_dir.name, force=True)
+
+    (src_dir / "en" / "navbar.md").write_text(
+        """# Test Docs
+- [Welcome](index.md)
+
+## 1. Getting Started
+- [Examples](https://examples.drawlib.com/)
+""",
+        encoding="utf-8",
+    )
+
+    build_html(str(src_dir), str(out_dir))
+
+    html = (out_dir / "en" / "index.html").read_text(encoding="utf-8")
+    css = (out_dir / "en" / "style.css").read_text(encoding="utf-8")
+
+    assert (
+        'href="https://examples.drawlib.com/" target="_blank" rel="noopener noreferrer">'
+        'Examples<svg class="nav-external-icon"'
+    ) in html
+    assert 'href="index.html" >Welcome</a>' in html
+    assert ".nav-external-icon" in css
+
+

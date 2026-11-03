@@ -78,7 +78,7 @@
                         <ul class="nav-list">
                             {% for item in section["items"] %}
                             <li class="nav-item {% if item.active %}active{% endif %}">
-                                <a href="{{ item.url }}" {% if item.is_external %}target="_blank" rel="noopener noreferrer"{% endif %}>{{ item.title }}</a>
+                                <a href="{{ item.url }}" {% if item.is_external %}target="_blank" rel="noopener noreferrer"{% endif %}>{{ item.title }}{% if item.is_external %}<svg class="nav-external-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>{% endif %}</a>
                             </li>
                             {% endfor %}
                         </ul>
@@ -88,7 +88,7 @@
                     <ul class="nav-list">
                         {% for item in nav_items %}
                         <li class="nav-item {% if item.active %}active{% endif %}">
-                            <a href="{{ item.url }}" {% if item.is_external %}target="_blank" rel="noopener noreferrer"{% endif %}>{{ item.title }}</a>
+                            <a href="{{ item.url }}" {% if item.is_external %}target="_blank" rel="noopener noreferrer"{% endif %}>{{ item.title }}{% if item.is_external %}<svg class="nav-external-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>{% endif %}</a>
                         </li>
                         {% endfor %}
                     </ul>
