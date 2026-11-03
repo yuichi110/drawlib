@@ -40,7 +40,7 @@ init_app = typer.Typer(
 
 project_app = typer.Typer(
     name="project",
-    help="Scaffold starter drawlib projects (doc, site, slide, images).",
+    help="Scaffold starter drawlib projects (doc, site, api, slide, images).",
     epilog=HELP_EPILOG,
     no_args_is_help=True,
     context_settings=_HELP_CTX,
@@ -56,8 +56,8 @@ def _print_init_success(
     """Print initialization success message and next steps.
 
     Args:
-        project_type: Initialized project type ('doc', 'site', 'slide', 'images').
-        target: Target base name (e.g. 'doc', 'spec', 'docs').
+        project_type: Initialized project type ('doc', 'site', 'api', 'slide', 'images').
+        target: Target base name (e.g. 'doc', 'spec', 'docs', 'api').
         created: List of created file paths.
     """
     paths = resolve_project_paths(project_type=project_type, target=target)
@@ -83,7 +83,7 @@ def _print_init_success(
     elif project_type == "slide":
         print(f"  ./{rel_src_dir}/build_pptx.sh")
 
-    if project_type in {"site", "doc", "slide"}:
+    if project_type in {"site", "api", "doc", "slide"}:
         print(f"  ./{rel_src_dir}/serve.sh")
 
 
@@ -97,7 +97,7 @@ def _run_init(
     """Common runner for project initialization subcommands.
 
     Args:
-        project_type: Project type ('doc', 'site', 'slide', 'images').
+        project_type: Project type ('doc', 'site', 'api', 'slide', 'images').
         target: Base name for project folder and artifacts.
         style: Style preset theme or custom CSS path.
         lang: Starter template language code.
@@ -197,6 +197,43 @@ def cmd_init_site(
 ) -> None:
     """Scaffold a multi-page documentation website with sidebar navigation in current directory."""
     _run_init(project_type="site", target=target, style=style, lang=lang, force=force)
+
+
+@project_app.command("api", epilog=HELP_EPILOG)
+def cmd_init_api(
+    target: Annotated[
+        str,
+        typer.Argument(
+            help="Base name for the API reference site and source folder (creates '<target>_src/').",
+        ),
+    ] = "api",
+    style: Annotated[
+        str | None,
+        typer.Option(
+            "-s",
+            "--style",
+            help="Style preset theme ('default', 'google', 'monochrome', etc.) or custom CSS path.",
+        ),
+    ] = None,
+    lang: Annotated[
+        str,
+        typer.Option(
+            "-l",
+            "--lang",
+            help="Language code ('en', 'ja', etc.) or comma-separated codes for multi-locale API reference ('en,ja').",
+        ),
+    ] = "en",
+    force: Annotated[
+        bool,
+        typer.Option(
+            "-f",
+            "--force",
+            help="Overwrite existing files in destination directory.",
+        ),
+    ] = False,
+) -> None:
+    """Scaffold an illustrated API & SDK reference website (H1 categories, H2 symbols) in current directory."""
+    _run_init(project_type="api", target=target, style=style, lang=lang, force=force)
 
 
 @project_app.command("slide", epilog=HELP_EPILOG)

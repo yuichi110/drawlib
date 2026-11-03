@@ -114,6 +114,7 @@
 - [CLI Reference](./09_doc_builder_and_cli/cli_reference.md)
 - [Linear Document Project (`doc`)](./09_doc_builder_and_cli/project_doc.md)
 - [Doc Site Project (`site`)](./09_doc_builder_and_cli/project_site.md)
+- [API Reference Project (`api`)](./09_doc_builder_and_cli/project_api.md)
 - [Slide Deck Project (`slide`)](./09_doc_builder_and_cli/project_slide.md)
 - [Slide Stage Layout & API](./09_doc_builder_and_cli/slide_layout_and_api.md)
 - [Image Project (`images`)](./09_doc_builder_and_cli/project_image.md)

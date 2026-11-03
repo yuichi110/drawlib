@@ -40,7 +40,17 @@ css_app = typer.Typer(
 )
 
 
-def _run_css_list(target: Literal["html", "pdf"]) -> None:
+_CLI_CSS_TARGETS: dict[str, Literal["html", "pdf", "site", "doc", "slide", "api"]] = {
+    "html": "html",
+    "pdf": "pdf",
+    "site": "site",
+    "doc": "doc",
+    "slide": "slide",
+    "api": "api",
+}
+
+
+def _run_css_list(target: Literal["html", "pdf", "site", "doc", "slide", "api"]) -> None:
     items = list_css(target=target)
     title = f"Built-in {target.upper()} CSS Presets ({target}_css)"
     table = Table(title=title, header_style="bold cyan")
@@ -57,18 +67,19 @@ def cmd_css_list(
     target: Annotated[
         str | None,
         typer.Argument(
-            help="Target document format ('html', 'pdf', or omitted for both).",
+            help="Target document format ('html', 'pdf', 'site', 'doc', 'slide', 'api', or omitted for summary).",
         ),
     ] = None,
 ) -> None:
-    """List available built-in CSS presets for HTML and PDF."""
+    """List available built-in CSS presets for HTML, API, Slide, and PDF."""
     if target is not None:
         normalized = target.strip().lower()
-        if normalized not in {"html", "pdf", "all"}:
-            console.print(f"[bold red]Error:[/bold red] Invalid target '{target}'. Must be 'html' or 'pdf'.")
+        if normalized not in (*_CLI_CSS_TARGETS, "all"):
+            valid_list = ", ".join(f"'{k}'" for k in _CLI_CSS_TARGETS)
+            console.print(f"[bold red]Error:[/bold red] Invalid target '{target}'. Must be one of {valid_list}.")
             raise typer.Exit(code=1)
-        if normalized in {"html", "pdf"}:
-            _run_css_list("pdf" if normalized == "pdf" else "html")
+        if normalized in _CLI_CSS_TARGETS:
+            _run_css_list(_CLI_CSS_TARGETS[normalized])
             return
 
     all_preset_names = sorted(set(BUILTIN_HTML_CSS_PRESETS.keys()) | set(BUILTIN_PDF_CSS_PRESETS.keys()))
@@ -94,24 +105,25 @@ def cmd_css_list(
 def _resolve_css_target_and_preset(
     target_or_preset: str,
     preset: str | None,
-) -> tuple[Literal["html", "pdf"], str]:
+) -> tuple[Literal["html", "pdf", "site", "doc", "slide", "api"], str]:
     """Resolve and validate target and preset name from positional CLI arguments."""
     arg1_lower = target_or_preset.strip().lower()
     if preset is None:
-        if arg1_lower in {"html", "pdf"}:
+        if arg1_lower in _CLI_CSS_TARGETS:
             console.print(f"[bold red]Error:[/bold red] Missing preset name for target '{arg1_lower}'.")
             console.print(f"Usage: drawlib css show {arg1_lower} <PRESET> [-o OUTPUT]")
             raise typer.Exit(code=1)
         return "html", target_or_preset.strip()
 
-    if arg1_lower not in {"html", "pdf"}:
-        console.print(f"[bold red]Error:[/bold red] Invalid target '{target_or_preset}'. Must be 'html' or 'pdf'.")
+    if arg1_lower not in _CLI_CSS_TARGETS:
+        valid_list = ", ".join(f"'{k}'" for k in _CLI_CSS_TARGETS)
+        console.print(f"[bold red]Error:[/bold red] Invalid target '{target_or_preset}'. Must be one of {valid_list}.")
         raise typer.Exit(code=1)
-    return ("pdf" if arg1_lower == "pdf" else "html"), preset.strip()
+    return _CLI_CSS_TARGETS[arg1_lower], preset.strip()
 
 
 def _run_css_export(
-    target: Literal["html", "pdf"],
+    target: Literal["html", "pdf", "site", "doc", "slide", "api"],
     preset: str,
     output: str | None,
     force: bool,
@@ -150,7 +162,7 @@ def cmd_css_show(
         str,
         typer.Argument(
             metavar="[TARGET] PRESET",
-            help="Target format ('html' or 'pdf') and/or preset name (e.g. 'html google' or 'google').",
+            help="Target format ('html', 'api', 'site', 'doc', 'slide', 'pdf') and/or preset name.",
         ),
     ],
     preset: Annotated[

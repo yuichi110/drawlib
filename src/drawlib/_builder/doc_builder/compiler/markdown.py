@@ -109,7 +109,9 @@ def build_markdown(
     if manifest.i18n is None:
         raise ValueError(f'Invalid "{input_abs}/drawlib.toml": "[i18n]" configuration is required.')
 
-    proj_type: Literal["site", "doc"] = "doc" if manifest.project.type == "doc" else "site"
+    proj_type: Literal["site", "doc", "api"] = (
+        "doc" if manifest.project.type == "doc" else ("api" if manifest.project.type == "api" else "site")
+    )
     return _build_i18n_markdown(
         input_abs=input_abs,
         out_dir_abs=out_dir_abs,
@@ -179,13 +181,13 @@ def _build_i18n_markdown(
     input_abs: str,
     out_dir_abs: str,
     i18n_cfg: I18nConfig,
-    project_type: Literal["site", "doc"],
+    project_type: Literal["site", "doc", "api"],
     image_format: str,
     styles_path: str | None,
     utils_path: str | None,
     no_cache: bool,
 ) -> str:
-    """Compile a multi-locale (i18n) site or doc directory into rendered Markdown."""
+    """Compile a multi-locale (i18n) site, doc, or api directory into rendered Markdown."""
     locale_files = validate_i18n_project(
         input_abs,
         i18n_cfg,
@@ -207,7 +209,11 @@ def _build_i18n_markdown(
         image_format=image_format,
     )
 
-    def_index_src = _find_locale_index_md(os.path.join(input_abs, default_lang)) if project_type == "site" else None
+    def_index_src = (
+        _find_locale_index_md(os.path.join(input_abs, default_lang))
+        if project_type in {"site", "api"}
+        else None
+    )
     extra_names = [*display_names, "/index.md"] if def_index_src else display_names
     total_files = len(extra_names)
     name_width = max((len(n) for n in extra_names), default=0)

@@ -22,24 +22,24 @@ GUI diagram tools (draw.io, Visio) decouple visuals from Git, causing diagrams t
 2. **Project-First Rule: Always Start with `drawlib init project` (No Bare `.py` Files)**:
    Never write bare `.py` scripts or hand-craft folders. If no `*_src/` project exists, **scaffold one first with `drawlib init project`** so `drawlib.toml`, `styles.py`, `utils.py`, `_assets/`, and `build.sh` are configured:
    - **Images only** -> `uv run drawlib init project images [target] [-l <lang>] [-s <style>]` (`project-images`)
-   - **Linear doc / PDF / `.docx`** -> `uv run drawlib init project doc [target] [-l <langs>] [-s <style>]` (`project-doc`; `./<target>_src/build_docx.sh` for Word)
+   - **Linear doc / PDF / `.docx`** -> `uv run drawlib init project doc [target] [-l <langs>] [-s <style>]` (`project-doc`; `build_docx.sh` for Word)
    - **Multi-page website** -> `uv run drawlib init project site [target] [-l <langs>] [-s <style>]` (`project-site`)
-   - **16:9 slide deck / `.pptx`** -> `uv run drawlib init project slide [target] [-l <langs>] [-s <style>]` (`project-slide`; `./<target>_src/build_pptx.sh` for PowerPoint)
-   - **Localization & SEO**: Pass `-l ja` for CJK fonts, or `-l en,ja` on `doc`/`site`/`slide` for multi-locale `<src_dir>/<lang>/` (`[i18n]` & `[seo]` in `drawlib.toml`).
-   - **CLI Runner**: Use `uv run drawlib` in Python `uv` projects, `uvx drawlib` in zero-install / non-Python repos, or `drawlib` if installed globally.
-   - **Clean Up Samples**: Delete or replace starter `sample*.py` files after scaffolding.
+   - **API / SDK reference** -> `uv run drawlib init project api [target] [-l <langs>] [-s <style>]` (`project-api`)
+   - **16:9 slide deck / `.pptx`** -> `uv run drawlib init project slide [target] [-l <langs>] [-s <style>]` (`project-slide`; `build_pptx.sh` for PowerPoint)
+   - **Localization & SEO**: Pass `-l ja` for CJK fonts, or `-l en,ja` on `doc`/`site`/`api`/`slide` for multi-locale `<src_dir>/<lang>/` (`[i18n]` & `[seo]`).
+   - **CLI Runner**: Use `uv run drawlib` in `uv` projects, `uvx drawlib` in zero-install/non-Python repos, or `drawlib` globally. Delete starter `sample*.py` after scaffolding.
 3. **Cartesian Coordinates (`(0, 0)` at Bottom-Left)**:
    Run `uv run drawlib rules show overview` before coding *(origin `(0, 0)` is bottom-left; X right, Y up)*.
 4. **Follow the Style Guide**:
    Obey design token discipline (`uv run drawlib rules show style-guide`):
    - **50%+ Neutral Baseline**: Ground >=50% of nodes in `Styles.Neutral`, `Styles.PrimaryNeutral`, or `Styles.SecondaryNeutral`. Never build rainbow diagrams.
-   - **Reserved Saturated Fills**: Reserve `Styles.PrimaryFlat` / `Styles.AccentFlat` strictly for 1–2 primary focal points.
+   - **Reserved Saturated Fills**: Reserve `Styles.PrimaryFlat` / `Styles.AccentFlat` strictly for 1–2 focal points.
    - **PascalCase Tokens**: Always import `from drawlib.styles import Colors, Styles` (never lowercase `styles` or `colors`).
 5. **Parallel Multi-Agent Delegation**:
-   For multi-file tasks (`images_src/*.py`, `doc_src/<lang>/*.md`, `docs_src/<lang>/**/*.md`, `slide_src/<lang>/*.md`), parallelize across subagents when available:
+   For multi-file tasks (`*_src/*.py`, `*_src/<lang>/**/*.md`), parallelize across subagents when available:
    - **Phase 1 (Parent)**: Run `drawlib init project` and finalize shared `drawlib.toml`, `styles.py`, `utils.py`, `_assets/`, and `<lang>/navbar.md` or outline first.
    - **Phase 2 (Subagents)**: Assign disjoint `.py`/`.md` files. Each subagent runs Stage 1 & Stage 2 (`drawlib show ... -g -o .drawlib/scratch/<unique_name>_grid.png` + visual inspection) with a **unique scratch filename**.
-   - **Phase 3 (Parent)**: Run `./build.sh` once after subagents finish (avoiding `.drawlib/cache.db` write contention), run `drawlib serve --check`, and perform Stage 3 review.
+   - **Phase 3 (Parent)**: Run `./build.sh` once after subagents finish (avoiding `.drawlib/cache.db` contention), run `drawlib serve --check`, and perform Stage 3 review.
 
 ---
 
@@ -105,10 +105,11 @@ uv run drawlib rules show style-guide # Color tokens, typography, 50%+ neutral r
 uv run drawlib rules show review-guide # 3-stage multimodal review, 720pt math, anchors
 uv run drawlib rules show anim-guide # Animation loop idioms & component patterns
 uv run drawlib rules show slide-guide # Slide story arc, ::: block/note & visuals
-uv run drawlib rules show project-overview # Scaffolding (init), 4 archetypes & cache
+uv run drawlib rules show project-overview # Scaffolding (init), 5 archetypes & cache
 uv run drawlib rules show project-images # Standalone Python scripts (images_src/*.py)
 uv run drawlib rules show project-doc # Linear docs, A4 PDFs & .docx (doc_src/)
 uv run drawlib rules show project-site # Multi-page sites, navbar.md & Top Hero
+uv run drawlib rules show project-api # Illustrated REST/SDK API refs (api_src/)
 uv run drawlib rules show project-slide # 16:9 slides, ::: block/note & .pptx
 uv run drawlib rules show cli # CLI commands (build, show, init, serve, cache)
 uv run drawlib rules show api # Complete API index & symbol cheat sheet

@@ -903,10 +903,11 @@ save()
 |---|---|---|---|
 | **`doc`** | `doc_src/<lang>/` | `doc_html/`, `doc_<lang>.pdf`, `doc_<lang>.docx`, `doc_markdown/`, `doc_images/` | リニアな技術文書、RFC、仕様書、ホワイトペーパー、公式レポート |
 | **`site`** | `docs_src/<lang>/` | `docs_html/`, `docs_markdown/`（または `docs/`）, `docs_images/` | サイドバーナビゲーション（`<lang>/navbar.md`）を備えたマルチページ構成のドキュメントサイト |
+| **`api`** *(Upcoming in v0.3.5)* | `api_src/<lang>/` | `api_html/`, `api_markdown/`, `api_images/` | REST / SDK / CLI 専用の API リファレンス（`1 MD = 1 HTML`、`# H1` / `## H2` 自動サイドバー、バッジ、` / ` フィルタ） |
 | **`slide`** | `slide_src/<lang>/` | `slide_html/`, `slide_<lang>.pdf`, `slide_<lang>.pptx`, `slide_images/` | 16:9 プレゼンテーションスライドデッキ（インタラクティブ Web スライド、印刷対応ベクター PDF、編集可能な PowerPoint） |
 | **`images`** *（別名: `image`）* | `images_src/` | `images/*.png`（または `.webp`） | スタンドアロンの Python 描画スクリプトから画像アセットを一括レンダリング |
 
-```drawlib code=fold align=center file=doc_builder_four_templates_matrix.png caption="Drawlib の 4 種類のプロジェクトスターターテンプレートと出力形式の概要"
+```drawlib code=fold align=center file=doc_builder_four_templates_matrix.png caption="Drawlib のプロジェクトスターターテンプレートと出力形式の概要"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line
@@ -931,13 +932,13 @@ cards = [
     (
         93,
         41.5,
-        "2. site (Doc Website)",
+        "2. site / api (Web & API)",
         Styles.PrimaryFlat,
         Styles.WhiteBold,
         phosphor.globe,
         Styles.WhiteBold,
-        "docs_src/<lang>/\n+ navbar.md",
-        "docs_html/\ndocs_markdown/",
+        "docs_src/ or api_src/\n<lang>/*.md",
+        "*_html/ & *_markdown/\nnavbar or Auto H1/H2",
     ),
     (
         33,
@@ -1000,6 +1001,7 @@ save()
 | :--- | :--- | :--- | :--- | :--- |
 | **`doc`** | 連番付きの章ファイル（`doc_src/<lang>/01_*.md`、`02_*.md` など） | `drawlib init project doc`、`styles.py`、`utils.py`、`<lang>/00_cover.md`、章構成の作成 | 担当章の執筆と `drawlib show ... -g -o .drawlib/scratch/0N_<fig>_grid.png` の実行 | `./doc_src/build.sh`（または `build docx`）を実行し、`doc_<lang>.pdf` / `doc_html/` を確認 |
 | **`site`** | トピックページまたはセクションフォルダ（`docs_src/<lang>/01_arch/*.md` など） | `drawlib init project site`、`styles.py`、`utils.py`、`<lang>/navbar.md`、`<lang>/index.md` の設定 | 担当ページの執筆と、一意のスクラッチファイル名を用いた Stage 1 + Stage 2 グリッド検証 | `./docs_src/build.sh`、`serve --check`、およびブラウザ確認を実行 |
+| **`api`** *(Upcoming in v0.3.5)* | カテゴリ／モジュールページ（`api_src/<lang>/01_users.md` など） | `drawlib init project api`、`drawlib.toml` の `[api]`、`styles.py`、`utils.py`、`<lang>/00_overview.md` | 担当 API ページ（`# H1` + `## H2` バッジ + 図解）の執筆と Stage 1 + Stage 2 グリッド検証 | `./api_src/build.sh`、`serve --check`、およびブラウザ確認を実行 |
 | **`slide`** | スライドファイル（`slide_src/<lang>/02_*.md` など）またはセクションディレクトリ | `drawlib init project slide`、`styles.py`、`utils.py`、ストーリー構成とスライド連番の設計 | 担当スライド（`::: block` + `::: note`）の執筆と Stage 1 + Stage 2 グリッド検証 | `./slide_src/build.sh`（または `build pptx`）を実行し、`slide_<lang>.pdf` / `1920x1080` ステージを確認 |
 | **`images`** | スタンドアロン Python スクリプト（`images_src/<name>.py`） | `drawlib init project images`、`styles.py`、`utils.py`、`_assets/` の準備 | 担当 `.py` スクリプトの作成と `drawlib show ... -g -o .drawlib/scratch/<script>_grid.png` の実行 | `./images_src/build.sh` を実行し、`images/*.png` を確認 |
 
@@ -1017,6 +1019,7 @@ save()
 - [CLI リファレンス](./cli_reference.md): `build`（`html`、`markdown`、`pdf`、`docx`、`slide`、`pptx`、`image`）、`serve`、`show`、`init`（`project`、`agent`）、`cache`、`css`、`colors`、`styles`、`rules` の完全リファレンス。
 - [リニアドキュメントプロジェクト (`doc`)](./project_doc.md): RFC、仕様書、ホワイトペーパーなどのリニアドキュメント作成と、HTML / PDF / Word（`.docx`）出力。
 - [ドキュメントサイトプロジェクト (`site`)](./project_site.md): マルチページ構成のドキュメントサイト執筆、サイドバーカテゴリ設計、リンク検証。
+- [API リファレンスプロジェクト (`api`)](./project_api.md) *(Upcoming in v0.3.5)*: `# H1` / `## H2` 自動サイドバー・セマンティックバッジ・`[api]` 設定を備えた 2 カラム API・SDK リファレンス構築。
 - [スライドデッキプロジェクト (`slide`)](./project_slide.md): インタラクティブ Web スライド、ベクター PDF、PowerPoint（`.pptx`）出力に対応した 16:9 プレゼンテーションスライドの作成。
 - [スライドステージレイアウトと API](./slide_layout_and_api.md): `1920x1080` 仮想ステージ座標系、`::: block` / `::: note` 構文、レイアウトテンプレート、`drawlib.slide` Python API。
 - [画像プロジェクト (`images`)](./project_image.md): スタンドアロンスクリプトによる一括画像生成（`images_src/` ➔ `images/`）。

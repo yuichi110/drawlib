@@ -548,6 +548,10 @@
                             </li>
                             
                             <li class="nav-item ">
+                                <a href="project_api.html" >API リファレンスプロジェクト (`api`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
                                 <a href="project_slide.html" >スライドデッキプロジェクト (`slide`)</a>
                             </li>
                             
@@ -1220,10 +1224,10 @@ drawlib<span class="w"> </span>rules<span class="w"> </span>list<span class="w">
 drawlib<span class="w"> </span>init<span class="w"> </span>project<span class="w"> </span>list
 </code></pre>
 <ul>
-<li><code>&lt;TYPE&gt;</code>: プロジェクト種別を選択するサブコマンド: <code>doc</code>、<code>site</code>、<code>slide</code>（すべて統一された <code>&lt;src_dir&gt;/&lt;lang&gt;/</code> ロケールディレクトリと <code>drawlib.toml</code> の <code>[i18n]</code> で初期化）、<code>images</code>（エイリアス: <code>image</code>）、または <code>list</code>。</li>
-<li><code>[target]</code>: プロジェクトおよびソースフォルダのベース名（<code>&lt;target&gt;_src/</code> を作成します）。デフォルト値: <code>doc</code> は <code>doc</code>、<code>site</code> は <code>docs</code>、<code>slide</code> は <code>slide</code>、<code>images</code> は <code>images</code>。</li>
+<li><code>&lt;TYPE&gt;</code>: プロジェクト種別を選択するサブコマンド: <code>doc</code>、<code>site</code>、<code>api</code> <em>(Upcoming in v0.3.5)</em>、<code>slide</code>（すべて統一された <code>&lt;src_dir&gt;/&lt;lang&gt;/</code> ロケールディレクトリと <code>drawlib.toml</code> の <code>[i18n]</code> で初期化）、<code>images</code>（エイリアス: <code>image</code>）、または <code>list</code>。</li>
+<li><code>[target]</code>: プロジェクトおよびソースフォルダのベース名（<code>&lt;target&gt;_src/</code> を作成します）。デフォルト値: <code>doc</code> は <code>doc</code>、<code>site</code> は <code>docs</code>、<code>api</code> は <code>api</code>、<code>slide</code> は <code>slide</code>、<code>images</code> は <code>images</code>。</li>
 <li><code>-s</code>, <code>--style &lt;theme&gt;</code>: スタイルプリセットテーマ（<code>default</code>、<code>google</code>、<code>monochrome</code> など）。<code>style.css</code> と <code>styles.py</code> の両方を同期して設定します。</li>
-<li><code>-l</code>, <code>--lang &lt;code&gt;</code>: スターターコンテンツおよびフォント設定の言語（<code>en</code>、<code>ja</code>、<code>zh-cn</code>、<code>ko</code>、<code>th</code>、<code>hi</code> など。<code>doc</code>、<code>site</code>、<code>slide</code> では <code>-l en,ja</code> のようなカンマ区切りの複数ロケール指定に対応）。デフォルト: <code>en</code>。</li>
+<li><code>-l</code>, <code>--lang &lt;code&gt;</code>: スターターコンテンツおよびフォント設定の言語（<code>en</code>、<code>ja</code>、<code>zh-cn</code>、<code>ko</code>、<code>th</code>、<code>hi</code> など。<code>doc</code>、<code>site</code>、<code>api</code>、<code>slide</code> では <code>-l en,ja</code> のようなカンマ区切りの複数ロケール指定に対応）。デフォルト: <code>en</code>。</li>
 <li><code>-f</code>, <code>--force</code>: 出力先ディレクトリが既に存在する場合に既存ファイルを上書きします。</li>
 </ul>
 <h3>5.2 AI コーディングエージェント指示ファイル生成（<code>drawlib init agent</code>）</h3>

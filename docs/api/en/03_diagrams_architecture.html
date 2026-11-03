@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>drawlib.diagrams.architecture — Drawlib API Reference</title>
+    <meta name="description" content="High-level cloud topology and distributed system diagram engine. Combines icon-backed service cards (Node), nested network boundaries (NodeGroup), multi-way bus fan-outs (Junction)">
+    <script>
+        (function() {
+            try {
+                var saved = localStorage.getItem('drawlib-theme');
+                if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                } else {
+                    document.documentElement.setAttribute('data-theme', 'light');
+                }
+            } catch (e) {}
+        })();
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="../_assets/favicon.png">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="doc-layout">
+        <aside id="api-sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="sidebar-brand" aria-label="Drawlib API Reference">
+                    <img src="../_assets/logo.png" alt="Drawlib API Reference" class="sidebar-logo sidebar-logo-light">
+                    <img src="../_assets/logo_dark.png" alt="Drawlib API Reference" class="sidebar-logo sidebar-logo-dark">
+                </a>
+                <div class="sidebar-header-actions">
+                    <button type="button" id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle theme" title="Toggle Light / Dark Theme">
+                        <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                        <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                    </button>
+                    <button type="button" id="menu-toggle" class="menu-toggle-btn" aria-label="Toggle navigation" aria-expanded="false">
+                        <svg class="icon-hamburger" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                        <svg class="icon-close" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                    </button>
+                </div>
+            </div>
+            <div class="sidebar-subbar">
+                <a href="00_overview.html" class="sidebar-version-badge" title="Drawlib Python API Reference">
+                    <span class="sidebar-version-dot" aria-hidden="true"></span>
+                    <span class="sidebar-version-text">API Reference &middot; v0.3.4</span>
+                </a>
+                <a href="https://github.com/yuichi110/drawlib" target="_blank" rel="noopener noreferrer" class="sidebar-github-link" aria-label="GitHub Repository" title="GitHub Repository">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+                </a>
+            </div>
+            <div class="sidebar-menu" style="padding: 0;">
+                <div class="api-sidebar-toolbar">
+                    <div class="api-filter-box">
+                        <svg class="api-filter-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                        <input type="search" id="api-filter-input" class="api-filter-input" placeholder="Filter API symbols..." aria-label="Filter API symbols">
+                        <span class="api-filter-kbd" aria-hidden="true">/</span>
+                    </div>
+                    <div class="api-toolbar-meta">
+                        <span class="api-toolbar-label">Modules &amp; Symbols</span>
+                        <button type="button" id="api-expand-toggle" class="api-expand-btn">Collapse All</button>
+                    </div>
+                </div>
+                <nav class="api-sidebar-nav" aria-label="API Reference Navigation">
+                <details class="api-nav-group" data-cat-text="Python API" open>
+                    <summary class="api-nav-summary">
+                        <svg class="api-nav-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                        <a href="00_overview.html" class="api-nav-cat-link is-prose-cat">Drawlib Python API</a>
+                        <span class="api-nav-count">3</span>
+                    </summary>
+                    <ul class="api-nav-sublist">
+                        <li class="api-nav-subitem" data-filter-text="Public Module Index">
+                            <a href="00_overview.html#public-module-index" class="api-nav-sublink is-prose-sublink" data-slug="public-module-index"><span class="api-nav-sym-text">Public Module Index</span></a>
+                        </li>
+                        <li class="api-nav-subitem" data-filter-text="Coordinate &amp; Anchor Conventions">
+                            <a href="00_overview.html#coordinate-anchor-conventions" class="api-nav-sublink is-prose-sublink" data-slug="coordinate-anchor-conventions"><span class="api-nav-sym-text">Coordinate &amp; Anchor Conventions</span></a>
+                        </li>
+                        <li class="api-nav-subitem" data-filter-text="Runtime Validation">
+                            <a href="00_overview.html#runtime-validation" class="api-nav-sublink is-prose-sublink" data-slug="runtime-validation"><span class="api-nav-sym-text">Runtime Validation</span></a>
+                        </li>
+                    </ul>
+                </details>
+                <details class="api-nav-group" data-cat-text="canvas" open>
+                    <summary class="api-nav-summary">
+                        <svg class="api-nav-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                        <a href="01_canvas.html" class="api-nav-cat-link">drawlib.canvas</a>
+                        <span class="api-nav-count">6</span>
+                    </summary>
+                    <ul class="api-nav-sublist">
+                        <li class="api-nav-subitem" data-filter-text="def setup()">
+                            <a href="01_canvas.html#setup" class="api-nav-sublink" data-slug="setup"><span class="api-badge api-badge-def">def</span><span class="api-nav-sym-text">setup()</span></a>
+                        </li>
+                        <li class="api-nav-subitem" data-filter-text="def save()">
+                            <a href="01_canvas.html#save" class="api-nav-sublink" data-slug="save"><span class="api-badge api-badge-def">def</span><span class="api-nav-sym-text">save()</span></a>
+                        </li>
+                        <li class="api-nav-subitem" data-filter-text="def get_dimage()">
+                            <a href="01_canvas.html#get-dimage" class="api-nav-sublink" data-slug="get-dimage"><span class="api-badge api-badge-def">def</span><span class="api-nav-sym-text">get_dimage()</span></a>
+                        </li>
+                        <li class="api-nav-subitem" data-filter-text="def show()">
+                            <a href="01_canvas.html#show" class="api-nav-sublink" data-slug="show"><span class="api-badge api-badge-def">def</span><span class="api-nav-sym-text">show()</span></a>
+                        </li>
+                        <li class="api-nav-subitem" data-filter-text="def clear()">
+                            <a href="01_canvas.html#clear" class="api-nav-sublink" data-slug="clear"><span class="api-badge api-badge-def">def</span><span class="api-nav-sym-text">clear()</span></a>
+                        </li>
+                        <li class="api-nav-subitem" data-filter-text="const canvas">
+                            <a href="01_canvas.html#canvas" class="api-nav-sublink" data-slug="canvas"><span class="api-badge api-badge-const">const</span><span class="api-nav-sym-text">canvas</span></a>
+                        </li>
+                    </ul>
+                </details>
+                <details class="api-nav-group" data-cat-text="shapes" open>
+                    <summary class="api-nav-summary">
+                        <svg class="api-nav-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                        <a href="02_shapes.html" class="api-nav-cat-link">drawlib.shapes</a>
+                        <span class="api-nav-count">5</span>
+                    </summary>
+                    <ul class="api-nav-sublist">
+                        <li class="api-nav-subitem" data-filter-text="def rectangle()">
+                            <a href="02_shapes.html#rectangle" class="api-nav-sublink" data-slug="rectangle"><span class="api-badge api-badge-def">def</span><span class="api-nav-sym-text">rectangle()</span></a>
+                        </li>
+                        <li class="api-nav-subitem" data-filter-text="def circle()">
+                            <a href="02_shapes.html#circle" class="api-nav-sublink" data-slug="circle"><span class="api-badge api-badge-def">def</span><span class="api-nav-sym-text">circle()</span></a>
+                        </li>
+                        <li class="api-nav-subitem" data-filter-text="def ellipse()">
+                            <a href="02_shapes.html#ellipse" class="api-nav-sublink" data-slug="ellipse"><span class="api-badge api-badge-def">def</span><span class="api-nav-sym-text">ellipse()</span></a>
+                        </li>
+                        <li class="api-nav-subitem" data-filter-text="def arrow()">
+                            <a href="02_shapes.html#arrow" class="api-nav-sublink" data-slug="arrow"><span class="api-badge api-badge-def">def</span><span class="api-nav-sym-text">arrow()</span></a>
+                        </li>
+                        <li class="api-nav-subitem" data-filter-text="def cylinder()">
+                            <a href="02_shapes.html#cylinder" class="api-nav-sublink" data-slug="cylinder"><span class="api-badge api-badge-def">def</span><span class="api-nav-sym-text">cylinder()</span></a>
+                        </li>
+                    </ul>
+                </details>
+                <details class="api-nav-group is-current-page" data-cat-text="diagrams.architecture" open>
+                    <summary class="api-nav-summary">
+                        <svg class="api-nav-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                        <a href="03_diagrams_architecture.html" class="api-nav-cat-link">drawlib.diagrams.architecture</a>
+                        <span class="api-nav-count">7</span>
+                    </summary>
+                    <ul class="api-nav-sublist">
+                        <li class="api-nav-subitem" data-filter-text="class ArchitectureDiagram">
+                            <a href="#architecturediagram" class="api-nav-sublink" data-slug="architecturediagram"><span class="api-badge api-badge-class">class</span><span class="api-nav-sym-text">ArchitectureDiagram</span></a>
+                        </li>
+                        <li class="api-nav-subitem" data-filter-text="method ArchitectureDiagram.add()">
+                            <a href="#architecturediagram-add" class="api-nav-sublink" data-slug="architecturediagram-add"><span class="api-badge api-badge-method">method</span><span class="api-nav-sym-text">ArchitectureDiagram.add()</span></a>
+                        </li>
+                        <li class="api-nav-subitem" data-filter-text="method ArchitectureDiagram.connect()">
+                            <a href="#architecturediagram-connect" class="api-nav-sublink" data-slug="architecturediagram-connect"><span class="api-badge api-badge-method">method</span><span class="api-nav-sym-text">ArchitectureDiagram.connect()</span></a>
+                        </li>
+                        <li class="api-nav-subitem" data-filter-text="method ArchitectureDiagram.draw()">
+                            <a href="#architecturediagram-draw" class="api-nav-sublink" data-slug="architecturediagram-draw"><span class="api-badge api-badge-method">method</span><span class="api-nav-sym-text">ArchitectureDiagram.draw()</span></a>
+                        </li>
+                        <li class="api-nav-subitem" data-filter-text="class Node">
+                            <a href="#node" class="api-nav-sublink" data-slug="node"><span class="api-badge api-badge-class">class</span><span class="api-nav-sym-text">Node</span></a>
+                        </li>
+                        <li class="api-nav-subitem" data-filter-text="class NodeGroup">
+                            <a href="#nodegroup" class="api-nav-sublink" data-slug="nodegroup"><span class="api-badge api-badge-class">class</span><span class="api-nav-sym-text">NodeGroup</span></a>
+                        </li>
+                        <li class="api-nav-subitem" data-filter-text="class Edge">
+                            <a href="#edge" class="api-nav-sublink" data-slug="edge"><span class="api-badge api-badge-class">class</span><span class="api-nav-sym-text">Edge</span></a>
+                        </li>
+                    </ul>
+                </details>
+                <details class="api-nav-group" data-cat-text="charts.bar" open>
+                    <summary class="api-nav-summary">
+                        <svg class="api-nav-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                        <a href="04_charts_bar.html" class="api-nav-cat-link">drawlib.charts.bar</a>
+                        <span class="api-nav-count">6</span>
+                    </summary>
+                    <ul class="api-nav-sublist">
+                        <li class="api-nav-subitem" data-filter-text="class BarChart">
+                            <a href="04_charts_bar.html#barchart" class="api-nav-sublink" data-slug="barchart"><span class="api-badge api-badge-class">class</span><span class="api-nav-sym-text">BarChart</span></a>
+                        </li>
+                        <li class="api-nav-subitem" data-filter-text="method BarChart.add_series()">
+                            <a href="04_charts_bar.html#barchart-add-series" class="api-nav-sublink" data-slug="barchart-add-series"><span class="api-badge api-badge-method">method</span><span class="api-nav-sym-text">BarChart.add_series()</span></a>
+                        </li>
+                        <li class="api-nav-subitem" data-filter-text="method BarChart.configure_y_axis()">
+                            <a href="04_charts_bar.html#barchart-configure-y-axis" class="api-nav-sublink" data-slug="barchart-configure-y-axis"><span class="api-badge api-badge-method">method</span><span class="api-nav-sym-text">BarChart.configure_y_axis()</span></a>
+                        </li>
+                        <li class="api-nav-subitem" data-filter-text="method BarChart.draw()">
+                            <a href="04_charts_bar.html#barchart-draw" class="api-nav-sublink" data-slug="barchart-draw"><span class="api-badge api-badge-method">method</span><span class="api-nav-sym-text">BarChart.draw()</span></a>
+                        </li>
+                        <li class="api-nav-subitem" data-filter-text="method BarChart.draw_legend()">
+                            <a href="04_charts_bar.html#barchart-draw-legend" class="api-nav-sublink" data-slug="barchart-draw-legend"><span class="api-badge api-badge-method">method</span><span class="api-nav-sym-text">BarChart.draw_legend()</span></a>
+                        </li>
+                        <li class="api-nav-subitem" data-filter-text="class Series">
+                            <a href="04_charts_bar.html#series" class="api-nav-sublink" data-slug="series"><span class="api-badge api-badge-class">class</span><span class="api-nav-sym-text">Series</span></a>
+                        </li>
+                    </ul>
+                </details>
+                    <div id="api-nav-empty" class="api-nav-empty" hidden>No matching symbols found.</div>
+                </nav>
+            </div>
+        </aside>
+
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <nav class="breadcrumbs" aria-label="Breadcrumb">
+                    <a href="00_overview.html" class="crumb" style="text-decoration: none;">API Reference</a>
+                    <span class="crumb-separator">/</span>
+                    <span class="crumb active">drawlib.diagrams.architecture</span>
+                </nav>
+                <div class="top-bar-links">
+                    <a href="https://www.drawlib.com/" target="_blank" rel="noopener noreferrer" class="top-bar-ext-link">
+                        Official Docs
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                    </a>
+                    <a href="https://www.drawlib.com/architecture/" target="_blank" rel="noopener noreferrer" class="top-bar-ext-link">
+                        Architecture
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                    </a>
+                </div>
+            </header>
+
+            <main class="main-content api-main-content">
+<h1 class="api-page-title is-module">drawlib.diagrams.architecture</h1>
+<p>High-level cloud topology and distributed system diagram engine. Combines icon-backed service cards (<code>Node</code>), nested network boundaries (<code>NodeGroup</code>), multi-way bus fan-outs (<code>Junction</code>), and orthogonal or curved connectors (<code>Edge</code>).</p>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.diagrams.architecture</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">ArchitectureDiagram</span><span class="p">,</span>
+    <span class="n">Edge</span><span class="p">,</span>
+    <span class="n">GcpIcon</span><span class="p">,</span>
+    <span class="n">Junction</span><span class="p">,</span>
+    <span class="n">Node</span><span class="p">,</span>
+    <span class="n">NodeGroup</span><span class="p">,</span>
+    <span class="n">PhosphorIcon</span><span class="p">,</span>
+<span class="p">)</span>
+</code></pre>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="../images/arch_diagram_api_anatomy.png" alt="03_diagrams_architecture_1" />
+  <figcaption class="drawlib-caption">ArchitectureDiagram Component Anatomy: Node, NodeGroup, Junction, and Orthogonal Edges</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.diagrams.architecture</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">ArchitectureDiagram</span><span class="p">,</span>
+    <span class="n">GcpIcon</span><span class="p">,</span>
+    <span class="n">Node</span><span class="p">,</span>
+    <span class="n">NodeGroup</span><span class="p">,</span>
+    <span class="n">PhosphorIcon</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">120</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+
+<span class="n">d</span> <span class="o">=</span> <span class="n">ArchitectureDiagram</span><span class="p">(</span>
+    <span class="n">node_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="p">,</span>
+    <span class="n">node_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">edge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">1.4</span><span class="p">),</span>
+    <span class="n">edge_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Muted</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+    <span class="n">node_card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span><span class="s2">"Client"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">GLOBE</span><span class="p">,</span> <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">)),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">23</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">vpc</span> <span class="o">=</span> <span class="n">NodeGroup</span><span class="p">(</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">"VPC Network (NodeGroup)"</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">80</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.5</span><span class="p">),</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">valign</span><span class="o">=</span><span class="s2">"top"</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">vpc</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">34</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+
+<span class="n">gw</span> <span class="o">=</span> <span class="n">vpc</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span>
+        <span class="s2">"API Gateway"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
+        <span class="n">icon</span><span class="o">=</span><span class="n">GcpIcon</span><span class="o">.</span><span class="n">CLOUD_LOAD_BALANCING</span><span class="p">,</span>
+        <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">),</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="mi">19</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">app</span> <span class="o">=</span> <span class="n">vpc</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span><span class="s2">"Cloud Run"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">GcpIcon</span><span class="o">.</span><span class="n">CLOUD_RUN</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">62</span><span class="p">,</span> <span class="mi">27</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">db</span> <span class="o">=</span> <span class="n">vpc</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span><span class="s2">"Cloud SQL"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">GcpIcon</span><span class="o">.</span><span class="n">CLOUD_SQL</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">62</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">d</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">client</span><span class="p">,</span> <span class="n">gw</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"HTTPS"</span><span class="p">)</span>
+<span class="n">gw</span><span class="o">.</span><span class="n">fork</span><span class="p">([</span><span class="n">app</span><span class="p">,</span> <span class="n">db</span><span class="p">],</span> <span class="n">at_x</span><span class="o">=</span><span class="mi">74</span><span class="p">)</span>
+
+<span class="n">d</span><span class="o">.</span><span class="n">draw</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<h2 id="architecturediagram" class="api-symbol-heading"><span class="api-badge api-badge-class">class</span><code class="api-sig"><span class="api-sig-name">ArchitectureDiagram</span></code><a class="header-anchor" href="#architecturediagram" aria-label="Permalink to ArchitectureDiagram">#</a></h2>
+<p>Container orchestrating nodes, hierarchical boundary groups, junctions, and routed edges in a unified local coordinate space.</p>
+<pre><code class="language-python"><span class="k">class</span><span class="w"> </span><span class="nc">ArchitectureDiagram</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">node_style</span><span class="p">:</span> <span class="n">Style</span><span class="p">,</span>
+        <span class="n">node_text_style</span><span class="p">:</span> <span class="n">Style</span><span class="p">,</span>
+        <span class="n">edge_style</span><span class="p">:</span> <span class="n">Style</span><span class="p">,</span>
+        <span class="n">edge_text_style</span><span class="p">:</span> <span class="n">Style</span><span class="p">,</span>
+        <span class="n">node_card_style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">title</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span><span class="p">,</span>
+        <span class="n">title_style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">width</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">height</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="o">...</span>
+</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Parameter</th>
+<th style="text-align:left">Type</th>
+<th style="text-align:left">Default</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>node_style</code></td>
+<td style="text-align:left"><code>Style</code></td>
+<td style="text-align:left"><em>Required</em></td>
+<td style="text-align:left">Default tint/fill style for vector icons inside <code>Node</code> cards.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>node_text_style</code></td>
+<td style="text-align:left"><code>Style</code></td>
+<td style="text-align:left"><em>Required</em></td>
+<td style="text-align:left">Default typography style for node labels and group titles.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>edge_style</code></td>
+<td style="text-align:left"><code>Style</code></td>
+<td style="text-align:left"><em>Required</em></td>
+<td style="text-align:left">Default stroke and arrowhead style for <code>Edge</code> connectors.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>edge_text_style</code></td>
+<td style="text-align:left"><code>Style</code></td>
+<td style="text-align:left"><em>Required</em></td>
+<td style="text-align:left">Default label style for connection annotations.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>node_card_style</code></td>
+<td style="text-align:left"><code>Style | None</code></td>
+<td style="text-align:left"><code>None</code></td>
+<td style="text-align:left">Default card background/border style (<code>None</code> renders borderless icon+label nodes).</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>title</code></td>
+<td style="text-align:left"><code>str</code></td>
+<td style="text-align:left"><code>&quot;&quot;</code></td>
+<td style="text-align:left">Optional top-centered diagram title.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>width</code> / <code>height</code></td>
+<td style="text-align:left"><code>float | None</code></td>
+<td style="text-align:left"><code>None</code></td>
+<td style="text-align:left">Explicit canvas footprint override (auto-computed from children when <code>None</code>).</td>
+</tr>
+</tbody>
+</table>
+<h2 id="architecturediagram-add" class="api-symbol-heading"><span class="api-badge api-badge-method">method</span><code class="api-sig"><span class="api-sig-name">ArchitectureDiagram.add</span><span class="api-sig-params">(item, xy, *, show)</span></code><a class="header-anchor" href="#architecturediagram-add" aria-label="Permalink to ArchitectureDiagram.add()">#</a></h2>
+<p>Registers a <code>Node</code> (anchored at <strong>center</strong> <code>xy</code>), <code>NodeGroup</code> (anchored at <strong>bottom-left</strong> <code>xy</code>), or <code>Junction</code> in the diagram's coordinate frame.</p>
+<pre><code class="language-python"><span class="k">def</span><span class="w"> </span><span class="nf">add</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span>
+    <span class="n">item</span><span class="p">:</span> <span class="n">Node</span> <span class="o">|</span> <span class="n">NodeGroup</span> <span class="o">|</span> <span class="n">Junction</span><span class="p">,</span>
+    <span class="n">xy</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">),</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">show</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Node</span> <span class="o">|</span> <span class="n">NodeGroup</span> <span class="o">|</span> <span class="n">Junction</span><span class="p">:</span> <span class="o">...</span>
+</code></pre>
+<h2 id="architecturediagram-connect" class="api-symbol-heading"><span class="api-badge api-badge-method">method</span><code class="api-sig"><span class="api-sig-name">ArchitectureDiagram.connect</span><span class="api-sig-params">(start, end, ...)</span></code><a class="header-anchor" href="#architecturediagram-connect" aria-label="Permalink to ArchitectureDiagram.connect()">#</a></h2>
+<p>Creates and registers a routed <code>Edge</code> between any two connectable elements (<code>Node</code>, <code>NodeGroup</code>, or <code>Junction</code>).</p>
+<pre><code class="language-python"><span class="k">def</span><span class="w"> </span><span class="nf">connect</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span>
+    <span class="n">start</span><span class="p">:</span> <span class="n">Connectable</span><span class="p">,</span>
+    <span class="n">end</span><span class="p">:</span> <span class="n">Connectable</span><span class="p">,</span>
+    <span class="n">label</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span><span class="p">,</span>
+    <span class="n">arrow</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="s2">"&lt;-"</span><span class="p">,</span> <span class="s2">"&lt;-&gt;"</span><span class="p">,</span> <span class="s2">"-"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"-&gt;"</span><span class="p">,</span>
+    <span class="n">routing</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">"orthogonal"</span><span class="p">,</span> <span class="s2">"direct"</span><span class="p">,</span> <span class="s2">"curved"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"orthogonal"</span><span class="p">,</span>
+    <span class="n">style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">padding</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="n">show</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Edge</span><span class="p">:</span> <span class="o">...</span>
+</code></pre>
+<h2 id="architecturediagram-draw" class="api-symbol-heading"><span class="api-badge api-badge-method">method</span><code class="api-sig"><span class="api-sig-name">ArchitectureDiagram.draw</span><span class="api-sig-params">(xy, *, align, scale)</span></code><a class="header-anchor" href="#architecturediagram-draw" aria-label="Permalink to ArchitectureDiagram.draw()">#</a></h2>
+<p>Renders all visible groups, nodes, junctions, and edges onto the active canvas.</p>
+<pre><code class="language-python"><span class="k">def</span><span class="w"> </span><span class="nf">draw</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span>
+    <span class="n">xy</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">),</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">align</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">"bottom_left"</span><span class="p">,</span> <span class="s2">"center"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"bottom_left"</span><span class="p">,</span>
+    <span class="n">scale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="o">...</span>
+</code></pre>
+<h2 id="node" class="api-symbol-heading"><span class="api-badge api-badge-class">class</span><code class="api-sig"><span class="api-sig-name">Node</span></code><a class="header-anchor" href="#node" aria-label="Permalink to Node">#</a></h2>
+<p>Represents an individual service, workload, endpoint, or datastore card with an optional icon from any of Drawlib's 34 icon suites (<code>PhosphorIcon</code>, <code>GcpIcon</code>, <code>AwsIcon</code>, <code>AzureIcon</code>, etc.).</p>
+<pre><code class="language-python"><span class="k">class</span><span class="w"> </span><span class="nc">Node</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">text</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span><span class="p">,</span>
+        <span class="n">width</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">20.0</span><span class="p">,</span>
+        <span class="n">height</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">16.0</span><span class="p">,</span>
+        <span class="n">icon</span><span class="p">:</span> <span class="n">IconType</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">icon_size</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">8.0</span><span class="p">,</span>
+        <span class="n">style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">text_style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">card_style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">show</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="o">...</span>
+</code></pre>
+<h2 id="nodegroup" class="api-symbol-heading"><span class="api-badge api-badge-class">class</span><code class="api-sig"><span class="api-sig-name">NodeGroup</span></code><a class="header-anchor" href="#nodegroup" aria-label="Permalink to NodeGroup">#</a></h2>
+<p>Hierarchical boundary box (VPC, region, Kubernetes cluster, subnet) with its own bottom-left <code>(0, 0)</code> local coordinate frame for child <code>.add(item, xy)</code> calls.</p>
+<pre><code class="language-python"><span class="k">class</span><span class="w"> </span><span class="nc">NodeGroup</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">title</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span><span class="p">,</span>
+        <span class="n">width</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">height</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">padding</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">5.0</span><span class="p">,</span>
+        <span class="n">style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">text_style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">show</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="o">...</span>
+</code></pre>
+<h2 id="edge" class="api-symbol-heading"><span class="api-badge api-badge-class">class</span><code class="api-sig"><span class="api-sig-name">Edge</span></code><a class="header-anchor" href="#edge" aria-label="Permalink to Edge">#</a></h2>
+<p>Represents a directed or undirected connector supporting <code>.via(*waypoints)</code>, <code>.set_label(text, pos)</code>, and <code>.add_point(xy)</code> branching.</p>
+<pre><code class="language-python"><span class="k">class</span><span class="w"> </span><span class="nc">Edge</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">start</span><span class="p">:</span> <span class="n">Connectable</span><span class="p">,</span>
+        <span class="n">end</span><span class="p">:</span> <span class="n">Connectable</span><span class="p">,</span>
+        <span class="n">label</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span><span class="p">,</span>
+        <span class="n">label_pos</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span>
+        <span class="n">arrow</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="s2">"&lt;-"</span><span class="p">,</span> <span class="s2">"&lt;-&gt;"</span><span class="p">,</span> <span class="s2">"-"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"-&gt;"</span><span class="p">,</span>
+        <span class="n">routing</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">"orthogonal"</span><span class="p">,</span> <span class="s2">"direct"</span><span class="p">,</span> <span class="s2">"curved"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"orthogonal"</span><span class="p">,</span>
+        <span class="n">style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">text_style</span><span class="p">:</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">padding</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
+        <span class="n">show</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="o">...</span>
+</code></pre>
+
+<nav class="api-pager" aria-label="Module pagination"><a href="02_shapes.html" class="api-pager-card is-prev"><span class="api-pager-dir">&larr; Previous Module</span><span class="api-pager-title">drawlib.shapes</span></a><a href="04_charts_bar.html" class="api-pager-card is-next"><span class="api-pager-dir">Next Module &rarr;</span><span class="api-pager-title">drawlib.charts.bar</span></a></nav>
+            </main>
+
+            <footer class="footer">
+                Built with Drawlib &mdash; Illustrated API Reference as Code (<code>api</code> project archetype preview)
+            </footer>
+        </div>
+    </div>
+    <script>
+(function() {
+    var htmlEl = document.documentElement;
+    var themeBtn = document.getElementById('theme-toggle');
+    if (themeBtn) {
+        themeBtn.addEventListener('click', function() {
+            var current = htmlEl.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+            var next = current === 'dark' ? 'light' : 'dark';
+            htmlEl.setAttribute('data-theme', next);
+            try { localStorage.setItem('drawlib-theme', next); } catch (e) {}
+        });
+    }
+
+    var sidebar = document.getElementById('api-sidebar');
+    var menuBtn = document.getElementById('menu-toggle');
+    if (menuBtn && sidebar) {
+        menuBtn.addEventListener('click', function() {
+            var isOpen = sidebar.classList.toggle('is-open');
+            document.body.classList.toggle('menu-open', isOpen);
+            menuBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        });
+    }
+
+    // Preserve left sidebar scroll position across page transitions
+    var SCROLL_KEY = 'drawlib-api-sidebar-scroll';
+    if (sidebar) {
+        try {
+            var savedScroll = Number(sessionStorage.getItem(SCROLL_KEY));
+            if (Number.isFinite(savedScroll) && savedScroll > 0) {
+                sidebar.scrollTop = savedScroll;
+            }
+        } catch (e) {}
+
+        sidebar.addEventListener('scroll', function() {
+            try { sessionStorage.setItem(SCROLL_KEY, String(sidebar.scrollTop)); } catch (e) {}
+        }, { passive: true });
+    }
+
+    // Ensure clicking category link navigates cleanly without toggling <details> unexpectedly
+    var catLinks = document.querySelectorAll('.api-nav-cat-link');
+    catLinks.forEach(function(link) {
+        link.addEventListener('click', function(ev) {
+            ev.stopPropagation();
+        });
+    });
+
+    // Expand All / Collapse All toggle button
+    var expandBtn = document.getElementById('api-expand-toggle');
+    var groups = Array.prototype.slice.call(document.querySelectorAll('.api-nav-group'));
+
+    function syncExpandBtnLabel() {
+        if (!expandBtn || groups.length === 0) return;
+        var anyClosed = groups.some(function(g) { return !g.hidden && !g.open; });
+        expandBtn.textContent = anyClosed ? 'Expand All' : 'Collapse All';
+    }
+
+    groups.forEach(function(g) {
+        g.addEventListener('toggle', syncExpandBtnLabel);
+    });
+    syncExpandBtnLabel();
+
+    if (expandBtn) {
+        expandBtn.addEventListener('click', function() {
+            var anyClosed = groups.some(function(g) { return !g.hidden && !g.open; });
+            groups.forEach(function(g) {
+                if (!g.hidden) {
+                    g.open = anyClosed;
+                }
+            });
+            syncExpandBtnLabel();
+        });
+    }
+
+    // Quick symbol filter (pure DOM hidden/open updates, zero innerHTML)
+    var filterInput = document.getElementById('api-filter-input');
+    var emptyNotice = document.getElementById('api-nav-empty');
+    if (filterInput) {
+        document.addEventListener('keydown', function(ev) {
+            if (ev.key === '/' && document.activeElement !== filterInput) {
+                var tag = document.activeElement ? document.activeElement.tagName : '';
+                if (tag !== 'INPUT' && tag !== 'TEXTAREA') {
+                    ev.preventDefault();
+                    filterInput.focus();
+                }
+            } else if (ev.key === 'Escape' && document.activeElement === filterInput) {
+                filterInput.value = '';
+                filterInput.dispatchEvent(new Event('input'));
+                filterInput.blur();
+            }
+        });
+
+        filterInput.addEventListener('input', function() {
+            var q = filterInput.value.trim().toLowerCase();
+            var visibleGroups = 0;
+
+            groups.forEach(function(group) {
+                var catText = (group.getAttribute('data-cat-text') || '').toLowerCase();
+                var catMatched = q.length > 0 && catText.indexOf(q) !== -1;
+                var items = group.querySelectorAll('.api-nav-subitem');
+                var visibleItems = 0;
+
+                items.forEach(function(item) {
+                    var itemText = (item.getAttribute('data-filter-text') || '').toLowerCase();
+                    var show = q.length === 0 || catMatched || itemText.indexOf(q) !== -1;
+                    item.hidden = !show;
+                    if (show) visibleItems += 1;
+                });
+
+                var showGroup = q.length === 0 || catMatched || visibleItems > 0;
+                group.hidden = !showGroup;
+                if (showGroup) {
+                    visibleGroups += 1;
+                    if (q.length > 0) {
+                        group.open = true;
+                    }
+                }
+            });
+
+            if (emptyNotice) {
+                emptyNotice.hidden = visibleGroups > 0;
+            }
+            syncExpandBtnLabel();
+        });
+    }
+
+    // Scroll-spy highlighting active H2 symbol in current page's sidebar group
+    var currentGroup = document.querySelector('.api-nav-group.is-current-page');
+    var headings = Array.prototype.slice.call(
+        document.querySelectorAll('.api-main-content h2[id]')
+    );
+
+    function setActiveSlug(slug) {
+        if (!currentGroup) return;
+        var links = currentGroup.querySelectorAll('.api-nav-sublink');
+        links.forEach(function(a) {
+            var isMatch = a.getAttribute('data-slug') === slug;
+            a.classList.toggle('is-active', isMatch);
+            if (isMatch) {
+                a.scrollIntoView({ block: 'nearest' });
+            }
+        });
+    }
+
+    if (currentGroup && headings.length > 0 && 'IntersectionObserver' in window) {
+        var activeId = headings[0].id;
+        if (window.location.hash && window.location.hash.length > 1) {
+            activeId = decodeURIComponent(window.location.hash.slice(1));
+        }
+        setActiveSlug(activeId);
+
+        var observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    setActiveSlug(entry.target.id);
+                }
+            });
+        }, { rootMargin: '-8% 0px -78% 0px', threshold: [0, 1] });
+
+        headings.forEach(function(h) { observer.observe(h); });
+        window.addEventListener('hashchange', function() {
+            if (window.location.hash && window.location.hash.length > 1) {
+                setActiveSlug(decodeURIComponent(window.location.hash.slice(1)));
+            }
+        });
+    }
+})();
+</script>
+</body>
+</html>

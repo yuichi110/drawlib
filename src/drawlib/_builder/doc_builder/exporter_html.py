@@ -24,14 +24,14 @@ from drawlib._templates.langs import get_language_config
 
 def get_default_css(
     custom_css_path: str | None = None,
-    target: Literal["html", "pdf"] = "html",
+    target: Literal["html", "pdf", "api"] = "html",
     lang: str = "en",
 ) -> str:
-    """Get complete theme CSS content string for HTML or PDF.
+    """Get complete theme CSS content string for HTML, API, or PDF.
 
     Args:
         custom_css_path (Optional[str]): Built-in CSS preset name or path to custom CSS file.
-        target (Literal["html", "pdf"]): Target format ('html' or 'pdf'). Defaults to 'html'.
+        target (Literal["html", "pdf", "api"]): Target format ('html', 'pdf', or 'api'). Defaults to 'html'.
         lang (str): Language code or alias (e.g. 'en', 'ja', 'th'). Defaults to 'en'.
 
     Returns:
@@ -122,6 +122,8 @@ def render_html_document(
     alternate_links: list[dict[str, str]] | None = None,
     css_lang: str = "en",
     seo_meta_html: str | None = None,
+    css_target: Literal["html", "api"] = "html",
+    extra_context: dict[str, Any] | None = None,
 ) -> str:
     """Render full standalone HTML document using template and html_css.
 
@@ -145,6 +147,8 @@ def render_html_document(
         alternate_links (Optional[List[Dict[str, str]]]): ``hreflang`` alternate link entries.
         css_lang (str): Language code for embedded CSS font localization when ``css_href`` is None.
         seo_meta_html (Optional[str]): Pre-escaped SEO/OGP/Twitter ``<meta>`` and canonical ``<link>`` snippet.
+        css_target (Literal["html", "api"]): CSS target preset when embedding CSS inline.
+        extra_context (Optional[Dict[str, Any]]): Additional Jinja2 template variables (e.g. API navigation context).
 
     Returns:
         str: Complete HTML string.
@@ -163,7 +167,7 @@ def render_html_document(
 
     custom_css_content = ""
     if not css_href:
-        custom_css_content = get_default_css(custom_css_path=custom_css_path, target="html", lang=css_lang)
+        custom_css_content = get_default_css(custom_css_path=custom_css_path, target=css_target, lang=css_lang)
 
     render_kwargs: dict[str, Any] = {
         "title": title,
@@ -187,6 +191,8 @@ def render_html_document(
         render_kwargs["html_dir"] = html_dir
     if font_link_html is not None:
         render_kwargs["font_link_html"] = Markup(font_link_html)  # noqa: S704
+    if extra_context:
+        render_kwargs.update(extra_context)
 
     rendered = template.render(**render_kwargs)
     if html_lang is not None or font_link_html is not None or alternate_links or seo_meta_html:

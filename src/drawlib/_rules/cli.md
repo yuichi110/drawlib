@@ -19,8 +19,9 @@ drawlib build pptx slide_src/ -o slide.pptx                 # Editable 16:9 MS P
 drawlib build image scripts/ -o assets/ -g                  # Batch Python illustration rendering
 
 # Project scaffolding & AI agent instructions
-drawlib init project list                                  # List available starter project templates (site, doc, slide, images)
+drawlib init project list                                  # List available starter project templates (site, api, doc, slide, images)
 drawlib init project site                                  # Scaffold multi-page documentation website (docs_src/en/)
+drawlib init project api                                   # Scaffold illustrated REST/SDK API reference (api_src/en/)
 drawlib init project doc                                   # Scaffold linear document project (doc_src/en/)
 drawlib init project doc rbac -s google                    # Scaffold doc project with custom target name & theme (rbac_src/en/)
 drawlib init project slide -l en,ja -s google              # Scaffold bilingual 16:9 presentation slide deck (slide_src/{en,ja}/)
@@ -53,8 +54,9 @@ drawlib cache clear --images                               # Clear SQLite build 
 drawlib cache clear --all                                  # Clear all caches (fonts, icons, maps, and SQLite image cache)
 drawlib cache download --all                               # Pre-download all font/icon/map assets & headless Chromium
 drawlib cache download --browser                           # Pre-download headless Chromium only
-drawlib css list                                           # List built-in HTML and PDF stylesheets
+drawlib css list                                           # List built-in HTML, API, PDF, and Slide stylesheets
 drawlib css show html google -o style.css                  # Export Google styling preset
+drawlib css show api google -o api_src/style.css           # Export Google API reference stylesheet
 
 # AI agent knowledge base
 drawlib rules list                                         # List available architectural rule topics
@@ -62,6 +64,7 @@ drawlib rules show agent-instruction                       # Display AI agent bo
 drawlib rules show overview                                # Display canvas overview drawing guidelines
 drawlib rules show style-guide                             # Display design principles and color rules
 drawlib rules show project-overview                        # Display project scaffolding and build conventions
+drawlib rules show project-api                             # Display illustrated API/SDK reference guidelines
 drawlib rules show cli                                     # Display this CLI reference guide
 drawlib rules clear                                        # Delete all cached rule illustrations and docs
 ```
@@ -90,12 +93,12 @@ drawlib [GLOBAL_OPTIONS] COMMAND [SUBCOMMAND] [ARGS...]
 
 ## 1. Document & Illustration Compiler (`drawlib build`)
 
-The `drawlib build` subsystem compiles Markdown documentation directories (`doc`, `site`), slide decks (`slide`), MS Office deliverables (`.docx`, `.pptx`), and standalone Python illustration scripts (`images`) into production-ready publishing targets.
+The `drawlib build` subsystem compiles Markdown documentation directories (`doc`, `site`, `api`), slide decks (`slide`), MS Office deliverables (`.docx`, `.pptx`), and standalone Python illustration scripts (`images`) into production-ready publishing targets.
 
 ```text
 drawlib build
-├── html       Compile a documentation source directory (site or doc) into static HTML
-├── markdown   Compile a documentation source directory (site or doc) into GitHub-ready Markdown
+├── html       Compile a documentation source directory (site, api, or doc) into static HTML
+├── markdown   Compile a documentation source directory (site, api, or doc) into GitHub-ready Markdown
 ├── pdf        Compile a doc/slide project directory (<stem>_<lang>.pdf) or single Markdown file into vector PDF
 ├── docx       Compile a doc project directory (<stem>_<lang>.docx) or single Markdown file into editable MS Word
 ├── slide      Compile a slide project directory into a 16:9 HTML presentation deck (<lang>/index.html)
@@ -104,16 +107,16 @@ drawlib build
 ```
 
 Common build behavior:
-- **Required `drawlib.toml` + `[i18n]` on `doc`, `site`, and `slide` Directories**: All directory builds for `doc`, `site`, and `slide` require `drawlib.toml` with `[i18n]` (`default_lang`, `langs`) and read Markdown sources from `<DIR>/<lang>/`.
+- **Required `drawlib.toml` + `[i18n]` on `doc`, `site`, `api`, and `slide` Directories**: All directory builds for `doc`, `site`, `api`, and `slide` require `drawlib.toml` with `[i18n]` (`default_lang`, `langs`) and read Markdown sources from `<DIR>/<lang>/`.
 - **Automatic Clear / Reset**: Between separate code blocks or Python files, canvas state is automatically reset to avoid cross-diagram side effects.
 - **SQLite Build Cache**: Rendered illustrations are hashed and stored in a local SQLite database (`.drawlib/cache.db`). Unchanged code blocks skip re-rendering automatically unless `--no-cache` is specified.
 - **Working Directory Parity**: When compiling blocks, drawlib switches the current working directory (`os.chdir`) to the document's directory and prepends it to `sys.path[0]`, ensuring relative asset references and module imports resolve identically to standalone execution.
 
 ---
 
-### 1.1 `drawlib build html` (Static Site & Linear HTML)
+### 1.1 `drawlib build html` (Static Site, API Reference & Linear HTML)
 
-Compiles an `i18n`-native documentation source directory (`docs_src/` with `type = "site"` or `doc_src/` with `type = "doc"`) into responsive HTML with modern styling, sidebar navigation (`site`), dark/light theme support, and syntax highlighting.
+Compiles an `i18n`-native documentation source directory (`docs_src/` with `type = "site"`, `api_src/` with `type = "api"`, or `doc_src/` with `type = "doc"`) into responsive HTML with modern styling, sidebar navigation (`site` and `api`), dark/light theme support, and syntax highlighting.
 
 #### Syntax:
 ```bash
@@ -121,7 +124,7 @@ drawlib build html <DIR> [OPTIONS]
 ```
 
 #### Arguments:
-- `<DIR>`: Path to input project directory containing `drawlib.toml` (`type = "site"` or `"doc"`) and `<lang>/` sources.
+- `<DIR>`: Path to input project directory containing `drawlib.toml` (`type = "site"`, `"api"`, or `"doc"`) and `<lang>/` sources.
 
 #### Options:
 | Option | Shorthand | Type | Default | Description |
@@ -132,14 +135,15 @@ drawlib build html <DIR> [OPTIONS]
 | `--utils` | `-u` | `<path>` | `None` | Path to Python utils script (e.g. `utils.py`). |
 | `--no-cache` | | flag | `False` | Disable reading and writing the SQLite image build cache (forces clean re-rendering). |
 
-> **Mandatory Files**: `drawlib.toml` (with `[i18n]`), `template.html`, and `style.css` must exist in the input directory. Run `drawlib init project <site|doc>` to scaffold them.
+> **Mandatory Files**: `drawlib.toml` (with `[i18n]`), `template.html`, and `style.css` must exist in the input directory. Run `drawlib init project <site|api|doc>` to scaffold them.
 
 #### Directory Compilation Rules:
 When `<DIR>` is compiled by `drawlib build html`:
-1. **Manifest-Driven Archetype Dispatch (`site` vs. `doc`)**:
+1. **Manifest-Driven Archetype Dispatch (`site`, `api`, vs. `doc`)**:
    - **`type = "site"`**: Requires `<lang>/index.md` and `<lang>/navbar.md` inside each locale directory, compiling `<output>/<lang>/**/*.html` plus a root `<output>/index.html` landing page.
+   - **`type = "api"`**: Forbids `navbar.md`; compiles each Markdown file `1:1` into `<output>/<lang>/**/*.html`, auto-generating a 2-tier sidebar (`# H1` category `<details>` + `## H2` symbol `#slug` anchors with semantic badges, `/` filter, and `[api]` options) plus `<output>/<lang>/index.html` and root `<output>/index.html` redirects.
    - **`type = "doc"`**: Forbids `navbar.md` and merges all numbered chapters inside each `<lang>/` directory into `<output>/<lang>/index.html`, plus a root `<output>/index.html` redirector.
-2. **Navigation & Language Switcher**: For `site`, the builder parses `<lang>/navbar.md`, computes relative paths, and highlights `.active` pages. When `len(langs) >= 2`, a language switcher is rendered automatically (and omitted when `len(langs) == 1` or in `@media print`).
+2. **Navigation & Language Switcher**: For `site`, the builder parses `<lang>/navbar.md`; for `api`, the builder extracts `# H1` / `## H2` hierarchies across locale files. When `len(langs) >= 2`, a language switcher is rendered automatically (and omitted when `len(langs) == 1` or in `@media print`).
 3. **Shared Diagrams & Static Assets**: `_assets/` is mirrored to `<output>/_assets/`, and shared ````drawlib```` blocks render once into `<output>/images/` across locales.
 4. **Per-Locale Stylesheet**: Localized `<output>/<lang>/style.css` files are generated with language-appropriate font stacks.
 
@@ -147,6 +151,9 @@ When `<DIR>` is compiled by `drawlib build html`:
 ```bash
 # Compile entire documentation directory to HTML site:
 drawlib build html docs_src/ -o docs_html/
+
+# Compile an API reference project directory to HTML:
+drawlib build html api_src/ -o api_html/
 
 # Compile with custom Python styles and utils scripts:
 drawlib build html docs_src/ -o docs_html/ -s docs_src/styles.py -u docs_src/utils.py
@@ -159,7 +166,7 @@ drawlib build html docs_src/ -o docs_html/ --no-cache
 
 ### 1.2 `drawlib build markdown` (Rendered Markdown for GitHub)
 
-Compiles a `site` or `doc` project directory containing embedded ````drawlib```` blocks into standard GitHub-Flavored Markdown (`<output>/<lang>/...` plus root `index.md` for `site`, with shared diagrams in `<output>/images/`).
+Compiles a `site`, `api`, or `doc` project directory containing embedded ````drawlib```` blocks into standard GitHub-Flavored Markdown (`<output>/<lang>/...` plus root `index.md` for `site`, with shared diagrams in `<output>/images/`).
 
 #### Syntax:
 ```bash
@@ -167,7 +174,7 @@ drawlib build markdown <DIR> [OPTIONS]
 ```
 
 #### Arguments:
-- `<DIR>`: Path to input project directory (`drawlib.toml` with `type = "site"` or `"doc"`).
+- `<DIR>`: Path to input project directory (`drawlib.toml` with `type = "site"`, `"api"`, or `"doc"`).
 
 #### Options:
 | Option | Shorthand | Type | Default | Description |
@@ -536,15 +543,39 @@ Designed for illustration asset repositories, diagrams for slides, or article ba
 └── images/                    # [GENERATED] Rendered PNG/WebP output images
 ```
 
+#### 5. `api`: Illustrated REST / SDK / CLI API Reference Website
+Designed for dedicated API, SDK, CLI, and schema references (`1 Markdown = 1 HTML Page`) with auto-extracted `# H1` category / `## H2` symbol sidebars, semantic badges, and `/` quick filter.
+```text
+.
+├── api_src/
+│   ├── drawlib.toml           # Project manifest (type = "api", [i18n], [api])
+│   ├── en/                    # Locale API pages (no navbar.md required)
+│   │   ├── 00_overview.md     # Gateway architecture & authentication
+│   │   ├── 01_users.md        # REST/SDK endpoints & sequence diagrams
+│   │   └── 02_models.md       # Schemas, ER diagrams & SDK types
+│   ├── _assets/               # Static project assets (favicon.png, logos)
+│   ├── styles.py              # Global drawing styles
+│   ├── utils.py               # Reusable diagram helpers
+│   ├── style.css              # 2-column API reference stylesheet
+│   ├── template.html          # Jinja2 API reference layout
+│   ├── build.sh               # Master build script (HTML + Markdown + Images)
+│   └── serve.sh               # Local preview & link-check server script
+├── api_html/                  # [GENERATED] 2-column API reference site (index.html + en/**)
+├── api_markdown/              # [GENERATED] Rendered GitHub Markdown (en/**)
+└── api_images/                # [GENERATED] Extracted diagram images
+```
+
 ### Scaffolding Examples:
 ```bash
-drawlib init project list                              # List available project types (site, doc, slide, images)
+drawlib init project list                              # List available project types (site, api, doc, slide, images)
 drawlib init project doc                               # Scaffold a linear document project (doc_src/en/)
 drawlib init project doc rbac -s google                # Scaffold doc with custom target name: creates rbac_src/en/ -> rbac_en.pdf
 drawlib init project doc whitepaper -l en,ja -s google # Scaffold bilingual EN/JA linear document (whitepaper_en.pdf, whitepaper_ja.pdf)
 drawlib init project site                              # Scaffold a multi-page documentation website (docs_src/en/)
 drawlib init project site -l en,ja -s default          # Scaffold multi-language documentation website (docs_src/{en,ja}/)
 drawlib init project site --lang ja                    # Scaffold site with Japanese starter content & fonts (docs_src/ja/)
+drawlib init project api                               # Scaffold illustrated REST/SDK API reference (api_src/en/)
+drawlib init project api sdk_api -l en,ja -s google    # Scaffold bilingual EN/JA API reference (sdk_api_src/{en,ja}/)
 drawlib init project slide -s google                   # Scaffold 16:9 slide deck with Google styling (slide_src/en/ -> slide_en.pdf)
 drawlib init project slide pitch -l en,ja -s google    # Scaffold bilingual 16:9 slide deck (pitch_en.pdf, pitch_ja.pdf)
 drawlib init project images                            # Scaffold standalone illustration project (images_src/)
@@ -838,7 +869,7 @@ Drawlib includes professionally designed CSS presets for HTML documentation and 
 ### Subcommands:
 ```text
 drawlib css
-├── list [TARGET]                  # List available built-in CSS presets (html, pdf, or both)
+├── list [TARGET]                  # List available built-in CSS presets (html, api, pdf, slide, or all)
 └── show [TARGET] <PRESET> [OPTS]  # Display in terminal or export (-o) a built-in CSS preset
     ├── -o, --output <path>        # Destination CSS file path
     ├── -f, --force                # Overwrite destination file if it already exists
@@ -849,33 +880,35 @@ drawlib css
 
 ### 6.1 Available CSS Themes:
 
-| Theme Preset | HTML Support | PDF Support | Description |
-| :--- | :---: | :---: | :--- |
-| `default` | Yes | Yes | Clean modern typography, neutral borders, light background. |
-| `default-dark`| Yes | Yes | Inverted dark palette for dark-mode documentation and printable pages. |
-| `default-auto`| Yes | No | Automatic light/dark switching responding to `@media (prefers-color-scheme)`. |
-| `google` | Yes | Yes | Material-inspired styling, Roboto typography, Google blue accents. |
-| `google-dark` | Yes | Yes | Dark theme variant with Material palette. |
-| `google-auto` | Yes | No | Google theme with automatic system color scheme switching. |
-| `github` | Yes | Yes | GitHub Markdown style, monospace code fonts, standard alert boxes. |
-| `minimal` | Yes | Yes | Unadorned typography, high density, minimal padding. |
-| `monochrome` | Yes | Yes | High-contrast grayscale aesthetic. |
+| Theme Preset | HTML Support | API Support | PDF Support | Description |
+| :--- | :---: | :---: | :---: | :--- |
+| `default` | Yes | Yes | Yes | Clean modern typography, neutral borders, light background. |
+| `default-dark`| Yes | Yes | Yes | Inverted dark palette for dark-mode documentation and printable pages. |
+| `default-auto`| Yes | Yes | No | Automatic light/dark switching responding to `@media (prefers-color-scheme)`. |
+| `google` | Yes | Yes | Yes | Material-inspired styling, Roboto typography, Google blue accents. |
+| `google-dark` | Yes | Yes | Yes | Dark theme variant with Material palette. |
+| `google-auto` | Yes | Yes | No | Google theme with automatic system color scheme switching. |
+| `github` | Yes | Yes | Yes | GitHub Markdown style, monospace code fonts, standard alert boxes. |
+| `minimal` | Yes | Yes | Yes | Unadorned typography, high density, minimal padding. |
+| `monochrome` | Yes | Yes | Yes | High-contrast grayscale aesthetic. |
 
 ---
 
 ### 6.2 Listing and Inspecting Presets:
 ```bash
-# List all CSS presets with HTML and PDF support matrix:
+# List all CSS presets across HTML, API, PDF, and Slide targets:
 drawlib css list
 
-# List HTML CSS presets only:
+# List HTML or API CSS presets only:
 drawlib css list html
+drawlib css list api
 
 # List PDF CSS presets only:
 drawlib css list pdf
 
-# Display Google HTML CSS preset in terminal with syntax highlighting:
+# Display Google HTML or API CSS preset in terminal with syntax highlighting:
 drawlib css show html google
+drawlib css show api google
 
 # Export Google preset with Japanese typography font stack to local style.css:
 drawlib css show html google -l ja -o style.css --force
@@ -1056,10 +1089,11 @@ drawlib rules
 | `review-guide` | Autonomous 3-stage multimodal review loop, 720pt typography scaling, and quality criteria. |
 | `anim-guide` | Animation design principles, loop idioms, and component animation patterns across all modules. |
 | `slide-guide` | Slide deck storytelling, Dual-Layer (`::: block` vs. `::: note`) rule, layout variety, and visual best practices. |
-| `project-overview` | Project scaffolding (`init`), choosing among the 4 project archetypes, and cache architecture. |
+| `project-overview` | Project scaffolding (`init`), choosing among the 5 project archetypes, and cache architecture. |
 | `project-images` | Standalone Python diagram scripts (`images_src/*.py`), `clear()` lifecycle, and batch image build. |
 | `project-doc` | Linear technical documents, whitepapers, `00_cover.md` / `--generate-index`, A4 vector PDF, and MS Word (`.docx`) export (`doc_src/`). |
 | `project-site` | Multi-page documentation websites, `<lang>/navbar.md` sidebar rules, and Top Hero layout (`docs_src/`). |
+| `project-api` | Illustrated REST / SDK / CLI API references, `# H1` / `## H2` auto-sidebar, semantic badges, and `[api]` manifest (`api_src/`). |
 | `project-slide` | 16:9 presentation slide decks, `1920×1080` `::: block` / `::: note` syntax, Presenter View, vector PDF, and MS PowerPoint (`.pptx`) export (`slide_src/`). |
 | `cli` | Document compilation, export, preview, and cache CLI commands. |
 | `api` | Comprehensive API index and quick reference cheat sheet for all Drawlib modules. |

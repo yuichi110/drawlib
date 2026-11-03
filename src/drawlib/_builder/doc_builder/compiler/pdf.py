@@ -254,9 +254,9 @@ def build_pdf(
             '(run "drawlib init project doc" or "drawlib init project slide").'
         )
 
-    if manifest.project.type == "site":
+    if manifest.project.type in {"site", "api"}:
         raise ValueError(
-            f'Input directory "{input_dir_abs}" is a multi-page "site" project (drawlib.toml). '
+            f'Input directory "{input_dir_abs}" is a multi-page "{manifest.project.type}" project (drawlib.toml). '
             'Please use "drawlib build html" instead of "drawlib build pdf".'
         )
     if manifest.project.type == "images":

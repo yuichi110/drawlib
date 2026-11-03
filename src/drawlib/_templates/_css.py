@@ -66,13 +66,16 @@ BUILTIN_SLIDE_CSS_PRESETS: Final[dict[str, dict[str, str]]] = {
 }
 
 
+CssTarget = Literal["html", "pdf", "slide", "site", "doc", "api"]
+
+
 def list_css(
-    target: Literal["html", "pdf", "slide", "site", "doc"] = "html",
+    target: CssTarget = "html",
 ) -> list[dict[str, str]]:
     """Return metadata for built-in CSS presets for the specified target.
 
     Args:
-        target: Target format ('html', 'pdf', 'slide', 'site', 'doc'). Defaults to 'html'.
+        target: Target format ('html', 'pdf', 'slide', 'site', 'doc', 'api'). Defaults to 'html'.
 
     Returns:
         List[Dict[str, str]]: List of dicts with keys 'name', 'file', and 'description'.
@@ -161,7 +164,7 @@ def _read_template_resource(*subpath: str) -> str:
 
 def get_css(
     name: str | None = None,
-    target: Literal["html", "pdf", "slide", "site", "doc"] = "html",
+    target: CssTarget = "html",
     lang: str = "en",
 ) -> str:
     """Get complete synthesized theme CSS content string.
@@ -171,7 +174,7 @@ def get_css(
 
     Args:
         name: Built-in theme name or path to a custom CSS file. Defaults to 'default'.
-        target: Target document format ('html', 'site', 'doc', 'pdf', 'slide'). Defaults to 'html'.
+        target: Target document format ('html', 'site', 'doc', 'pdf', 'slide', 'api'). Defaults to 'html'.
         lang: Language code or alias (e.g. 'en', 'ja') for font replacements. Defaults to 'en'.
 
     Returns:
@@ -198,12 +201,14 @@ def get_css(
 
     parts: list[str] = [theme_content]
 
-    if target in {"html", "site", "doc", "pdf"}:
+    if target in {"html", "site", "doc", "pdf", "api"}:
         parts.append(_read_template_resource("css", "components", "code.css"))
         parts.append(_read_template_resource("css", "components", "markdown.css"))
 
     if target in {"html", "site"}:
         parts.append(_read_template_resource("css", "targets", "site.css"))
+    elif target == "api":
+        parts.append(_read_template_resource("css", "targets", "api.css"))
     elif target == "doc":
         parts.append(_read_template_resource("css", "targets", "doc.css"))
     elif target == "pdf":
@@ -246,7 +251,7 @@ def get_html_readme() -> str:
 def export_css(
     name: str,
     output_path: str | None = None,
-    target: Literal["html", "pdf", "slide", "site", "doc"] = "html",
+    target: CssTarget = "html",
     force: bool = False,
     lang: str = "en",
 ) -> str:
@@ -255,7 +260,7 @@ def export_css(
     Args:
         name: Built-in CSS preset name (e.g., 'google', 'default-dark').
         output_path: Destination file path. If None, auto-resolves to 'style.css'.
-        target: Target format ('html', 'pdf', 'slide', 'site', 'doc'). Defaults to 'html'.
+        target: Target format ('html', 'pdf', 'slide', 'site', 'doc', 'api'). Defaults to 'html'.
         force: If True, overwrite destination file if it already exists.
         lang: Language code or alias for typography. Defaults to 'en'.
 

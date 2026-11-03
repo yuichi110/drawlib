@@ -114,6 +114,7 @@
 - [CLI リファレンス](./09_doc_builder_and_cli/cli_reference.md)
 - [リニアドキュメントプロジェクト (`doc`)](./09_doc_builder_and_cli/project_doc.md)
 - [ドキュメントサイトプロジェクト (`site`)](./09_doc_builder_and_cli/project_site.md)
+- [API リファレンスプロジェクト (`api`)](./09_doc_builder_and_cli/project_api.md)
 - [スライドデッキプロジェクト (`slide`)](./09_doc_builder_and_cli/project_slide.md)
 - [スライドステージレイアウトと API](./09_doc_builder_and_cli/slide_layout_and_api.md)
 - [画像プロジェクト (`images`)](./09_doc_builder_and_cli/project_image.md)

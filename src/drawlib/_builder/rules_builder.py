@@ -34,6 +34,7 @@ TOPIC_SOURCE_MAP: Final[dict[str, tuple[str, ...]]] = {
     "project-images": ("project_images.md",),
     "project-doc": ("project_doc.md",),
     "project-site": ("project_site.md",),
+    "project-api": ("project_api.md",),
     "project-slide": ("project_slide.md",),
     "cli": ("cli.md",),
     "api": ("api.md",),

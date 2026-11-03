@@ -1077,10 +1077,10 @@ drawlib init project <TYPE> [target] [OPTIONS]
 drawlib init project list
 ```
 
-- `<TYPE>`: Subcommand choosing project type: `doc`, `site`, `slide` (all initialized with unified `<src_dir>/<lang>/` locale directories and `[i18n]` in `drawlib.toml`), `images` (alias: `image`), or `list`.
-- `[target]`: Base name for the project and source folder (creates `<target>_src/`). Defaults: `doc` for `doc`, `docs` for `site`, `slide` for `slide`, `images` for `images`.
+- `<TYPE>`: Subcommand choosing project type: `doc`, `site`, `api` *(Upcoming in v0.3.5)*, `slide` (all initialized with unified `<src_dir>/<lang>/` locale directories and `[i18n]` in `drawlib.toml`), `images` (alias: `image`), or `list`.
+- `[target]`: Base name for the project and source folder (creates `<target>_src/`). Defaults: `doc` for `doc`, `docs` for `site`, `api` for `api`, `slide` for `slide`, `images` for `images`.
 - `-s`, `--style <theme>`: Style preset theme (`default`, `google`, `monochrome`, etc.) synchronously configuring both `style.css` and `styles.py`.
-- `-l`, `--lang <code>`: Starter content and font configuration language (`en`, `ja`, `zh-cn`, `ko`, `th`, `hi`, etc.; supports comma-separated multi-locale codes such as `-l en,ja` on `doc`, `site`, and `slide`). Default: `en`.
+- `-l`, `--lang <code>`: Starter content and font configuration language (`en`, `ja`, `zh-cn`, `ko`, `th`, `hi`, etc.; supports comma-separated multi-locale codes such as `-l en,ja` on `doc`, `site`, `api`, and `slide`). Default: `en`.
 - `-f`, `--force`: Overwrite existing files if destination directory already exists.
 
 ### 5.2 AI Coding Agent Instructions (`drawlib init agent`)

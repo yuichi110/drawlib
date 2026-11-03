@@ -870,16 +870,19 @@ def _build_directory_markdown_jobs(
             "Markdown project directories require a drawlib.toml manifest with [project] and [i18n] sections."
         )
 
-    if manifest.project.type not in {"doc", "site", "slide"} or manifest.i18n is None:
+    if manifest.project.type not in {"doc", "site", "slide", "api"} or manifest.i18n is None:
         raise ValueError(
             f'Input directory "{root_target_dir}" is a "{manifest.project.type}" project; '
-            'Markdown image compilation requires a "doc", "site", or "slide" project with [i18n] in drawlib.toml.'
+            'Markdown image compilation requires a "doc", "site", "slide", or "api" project '
+            "with [i18n] in drawlib.toml."
         )
 
     if manifest.project.type == "doc":
-        proj_type: Literal["doc", "site", "slide"] = "doc"
+        proj_type: Literal["doc", "site", "slide", "api"] = "doc"
     elif manifest.project.type == "slide":
         proj_type = "slide"
+    elif manifest.project.type == "api":
+        proj_type = "api"
     else:
         proj_type = "site"
 

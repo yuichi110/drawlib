@@ -49,11 +49,20 @@ Developers frequently use native browser search (`Ctrl+F` / `Cmd+F`) to jump dir
   ```toml
   [api]
   sidebar_expanded = true  # true (default): expand all H1 sections | false: collapse inactive sections
+  # badge_text = "API Reference · v0.3.4"
+  # badge_url = "https://example.com/releases"
+  # repo_url = "https://github.com/org/repo"
+  # header_links = [
+  #     { label = "Docs", url = "https://example.com/docs" },
+  # ]
   ```
 - **Default Behavior (`sidebar_expanded = true`)**:
   - When `[api]` or `sidebar_expanded` is omitted in `drawlib.toml`, **`sidebar_expanded` defaults to `True`**.
-  - `drawlib init project api` explicitly writes `[api]\nsidebar_expanded = true` into the scaffolded `drawlib.toml` AND sets the starter `template.html` default to open.
+  - `drawlib init project api` explicitly writes `[api]\nsidebar_expanded = true` (along with commented-out `# badge_text`, `# repo_url`, `# header_links` discovery examples) into the scaffolded `drawlib.toml` AND sets the starter `template.html` default to open.
   - All `<details class="api-nav-group" open>` elements render open in static HTML so native browser `Ctrl+F` / `Cmd+F` immediately matches every `H2` across all pages.
+- **Header & Subbar Navigation (`header_links`, `badge_text`, `badge_url`, `repo_url`)**:
+  - `header_links`: Optional list of `{ label, url }` items rendered on the right side of `.top-bar` (to the left of the language switcher when `2+` locales exist). `label` accepts either a `str` or a per-locale `{ en = "...", ja = "..." }` map. External `http(s)://` URLs automatically render an external `↗` icon with `target="_blank" rel="noopener noreferrer"`.
+  - `badge_text` / `badge_url` / `repo_url`: Optional sidebar subbar items rendered directly beneath the brand logo, with a single horizontal divider separating the brand/subbar header from the symbol filter & module tree (no duplicate borders above or below the filter box). When neither `badge_text` nor `repo_url` is set, `.sidebar-subbar` is omitted cleanly and `.sidebar-header` retains the single bottom divider.
 - **Collapsed Mode (`sidebar_expanded = false`)**:
   - Inactive pages render collapsed (`<details class="api-nav-group">`), while the **currently active page's `<details>` always renders `open`** so the reader can see and jump within the current page's `H2` items.
 - **Interactive Controls & Scroll Preservation**:
@@ -68,8 +77,8 @@ Standard GFM Markdown automatically receives clean API styling via heading post-
 - **Semantic Method / Kind Badges on `H2`**:
   - Writing leading inline code in an `H2`—such as:
     - HTTP endpoints: `` ## `GET` /v1/users ``, `` ## `POST` /v1/users ``, `` ## `PUT` /v1/users/{id} ``, `` ## `PATCH` ... ``, `` ## `DELETE` ... ``
-    - Code / CLI symbols: `` ## `def` rectangle(xy, width, height, ...) ``, `` ## `class` ArchitectureDiagram ``, `` ## `async` run_task(...) ``, `` ## `cmd` drawlib build html ``
-  - Automatically renders the leading token as a color-coded semantic badge (`GET` blue, `POST` green, `PUT`/`PATCH` amber, `DELETE` red, `class`/`def`/`async`/`cmd` indigo/neutral) paired with a crisp monospace signature bar and a hover `#` permalink button.
+    - Code / CLI symbols: `` ## `def` rectangle(xy, width, height, ...) ``, `` ## `class` ArchitectureDiagram ``, `` ## `method` BarChart.draw(...) ``, `` ## `const` canvas ``, `` ## `cmd` drawlib build html ``
+  - Automatically renders the leading token as a color-coded semantic badge paired with a crisp monospace signature bar and a hover `#` permalink button.
   - Standard headings without backticks (e.g. `## Authentication`, `## Error Codes`) render cleanly as standard reference section headers with `#` permalinks.
 - **Collapsible Schemas & Payloads**:
   - Native `<details><summary>Response Schema (200 OK)</summary>...</details>` blocks receive polished card styling matching Light/Dark themes.
@@ -89,25 +98,33 @@ Standard GFM Markdown automatically receives clean API styling via heading post-
 - Update `_VALID_ARCHETYPES`:
   - Map `"api": "api"` strictly (no `ref` or `reference` aliases).
 - Add `"api"` to `_I18N_ARCHETYPES` (`frozenset({"doc", "site", "slide", "api"})`) so `[i18n]` and `[seo]` work identically on `api` projects (single-locale `langs = ["en"]` or multi-locale `langs = ["en", "ja"]`).
-- Add `ApiConfig` model:
+- Add `ApiHeaderLink` and `ApiConfig` models:
   ```python
+  class ApiHeaderLink(BaseModel):
+      """Single top-bar navigation link configured in ``[api].header_links``."""
+
+      model_config = ConfigDict(frozen=True)
+
+      label: str | dict[str, str]
+      url: str
+
+
   class ApiConfig(BaseModel):
       """Parsed configuration from the ``[api]`` section of ``drawlib.toml``."""
 
       model_config = ConfigDict(frozen=True)
 
       sidebar_expanded: bool = True
+      badge_text: str | dict[str, str] | None = None
+      badge_url: str | None = None
+      repo_url: str | None = None
+      header_links: tuple[ApiHeaderLink, ...] = ()
   ```
 - Attach `api: ApiConfig | None = None` to `ProjectManifest` (populated with `ApiConfig(sidebar_expanded=True)` by default whenever `project.type == "api"`):
   - Reject `[api]` on non-`api` project types (`images`, `doc`, `site`, `slide`) with a descriptive `ValueError`.
-  - Reject unknown keys in `[api]` and non-boolean `sidebar_expanded` values with a `ValueError`.
+  - Reject unknown keys in `[api]`, non-boolean `sidebar_expanded`, empty labels/URLs, or unsafe URL schemes (`javascript:`, `data:`, `vbscript:`) with a `ValueError`.
 - Update `format_project_manifest_toml()`:
-  - When `project_type == "api"`, emit:
-    ```toml
-    [api]
-    sidebar_expanded = true
-    ```
-    plus the commented `# [seo]` discovery template (unless active `seo` is provided).
+  - When `project_type == "api"`, emit `[api]\nsidebar_expanded = true` plus commented examples for `badge_text`, `badge_url`, `repo_url`, and `header_links`, alongside the `# [seo]` discovery template.
 
 ### 3.2. Heading Extractor, Anchor Injection & Navigation Builder (`src/drawlib/_builder/doc_builder/`)
 
@@ -216,8 +233,9 @@ Create a dedicated module `src/drawlib/_builder/doc_builder/api_nav.py` (keeping
 ### 5.2. Security Verification Plan
 
 - **XSS & Output Encoding (`api_nav.py`, `exporter_html.py`, `api/template.html.template`)**:
-  - Verify all extracted `H1`/`H2` titles, badge labels, generated `id`/`href` attributes, and SEO tags are strictly HTML-escaped (`html.escape(..., quote=True)`) and all Jinja2 template attributes are double-quoted.
-  - Add dedicated unit tests with malicious headings (e.g. `# <script>alert(1)</script>`, `` ## `GET` "><img src=x onerror=alert(1)> ``) asserting zero unescaped tags or attribute breakouts in compiled HTML.
+  - Verify all extracted `H1`/`H2` titles, badge labels, generated `id`/`href` attributes, `header_links` / `badge_text`, and SEO tags are strictly HTML-escaped (`html.escape(..., quote=True)` or Jinja2 auto-escaping) and all template attributes are double-quoted.
+  - Reject dangerous URL schemes (`javascript:`, `data:`, `vbscript:`) in `badge_url`, `repo_url`, and `header_links[*].url`.
+  - Add dedicated unit tests with malicious headings (e.g. `# <script>alert(1)</script>`, `` ## `GET` "><img src=x onerror=alert(1)> ``) and unsafe URL schemes asserting zero unescaped tags or attribute breakouts in compiled HTML.
 - **Safe Vanilla JavaScript DOM Manipulation (`api/template.html.template`)**:
   - Strictly prohibit `innerHTML`, `outerHTML`, `insertAdjacentHTML`, `document.write`, `eval`, and `alert()` in template scripts.
   - Implement sidebar filtering, expand/collapse toggling, scroll-spy highlighting, and scroll restoration exclusively via `textContent`, `hidden` / `classList`, `details.open`, and validated numeric `scrollTop`.
@@ -226,4 +244,9 @@ Create a dedicated module `src/drawlib/_builder/doc_builder/api_nav.py` (keeping
   - Local preview server (`drawlib serve`) binds strictly to `127.0.0.1` by default.
   - *Note on non-applicable web-backend controls*: Drawlib's `api` project compiler is an offline static-site generator with no user authentication, session cookies, CSRF endpoints, file upload endpoints, or application SQL user database (build cache uses local parameterized SQLite only); any future server-side extensions will document `TODO(security)` items accordingly.
 - **Path Traversal & Input Validation (`manifest.py`, `_project.py`)**:
-  - Validate `[api]` keys against a strict allow-list (`{"sidebar_expanded"}`) and enforce existing `realpath` + `commonpath` confinement on all project assets and `[seo].og_image`.
+  - Validate `[api]` keys against a strict allow-list (`{"sidebar_expanded", "badge_text", "badge_url", "repo_url", "header_links"}`) and enforce existing `realpath` + `commonpath` confinement on all project assets and `[seo].og_image`.
+
+### 5.3. Automated Security Check
+
+- **Security Scanner**: Run a scan on all newly created files (`run-security-scanner` skill) to identify common vulnerabilities (e.g., XSS, SQL injection). If findings are detected, apply the fix and document the results.
+- **Security Audit**: Audit the new code for design-level security issues (input validation, URL scheme sanitization, DOM manipulation) and document findings and remediations in `walkthrough.md` using the `generate-security-audit-report` skill.

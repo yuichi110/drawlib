@@ -22,7 +22,7 @@ from pydantic import BaseModel, ConfigDict, Field
 from drawlib._templates.langs import normalize_language
 
 PROJECT_MANIFEST_FILENAME = "drawlib.toml"
-ProjectArchetype = Literal["images", "doc", "site", "slide"]
+ProjectArchetype = Literal["images", "doc", "site", "slide", "api"]
 TwitterCardType = Literal["summary_large_image", "summary"]
 _VALID_ARCHETYPES: dict[str, ProjectArchetype] = {
     "images": "images",
@@ -30,8 +30,9 @@ _VALID_ARCHETYPES: dict[str, ProjectArchetype] = {
     "doc": "doc",
     "site": "site",
     "slide": "slide",
+    "api": "api",
 }
-_I18N_ARCHETYPES: frozenset[str] = frozenset({"doc", "site", "slide"})
+_I18N_ARCHETYPES: frozenset[str] = frozenset({"doc", "site", "slide", "api"})
 _SEO_ALLOWED_KEYS: frozenset[str] = frozenset(
     {
         "site_url",
@@ -43,10 +44,34 @@ _SEO_ALLOWED_KEYS: frozenset[str] = frozenset(
         "llms_txt",
     }
 )
+_API_ALLOWED_KEYS: frozenset[str] = frozenset(
+    {
+        "sidebar_expanded",
+        "badge_text",
+        "badge_url",
+        "repo_url",
+        "header_links",
+    }
+)
 _UNSAFE_ATTR_CHARS: tuple[str, ...] = ("\r", "\n", "\x00", '"', "'", "<", ">")
 _TWITTER_HANDLE_RE = re.compile(r"^@?[A-Za-z0-9_]{1,30}$")
-_SCHEME_PREFIX_RE = re.compile(r"^[A-Za-z][A-Za-z0-9+.-]+:")
+_SCHEME_PREFIX_RE = re.compile(r"^[A-Za-z][A-Za-z0-9+.-]*:")
 _WIN_DRIVE_RE = re.compile(r"^[A-Za-z]:[\\/]")
+
+
+def _resolve_localized_value(val: str | dict[str, str] | None, lang: str, default_lang: str = "en") -> str:
+    """Resolve a plain string or locale-keyed mapping for ``lang`` with ``default_lang`` fallback."""
+    if val is None:
+        return ""
+    if isinstance(val, str):
+        return val
+    norm_lang = normalize_language(lang)
+    if norm_lang in val:
+        return val[norm_lang]
+    norm_def = normalize_language(default_lang)
+    if norm_def in val:
+        return val[norm_def]
+    return next(iter(val.values()), "")
 
 
 class ProjectMetadata(BaseModel):
@@ -54,10 +79,10 @@ class ProjectMetadata(BaseModel):
 
     Attributes:
         name: Project identifier / base stem (e.g. ``'quickstart'``, ``'drawlib-dogfooding'``).
-        type: Canonical project archetype (``'images'``, ``'doc'``, ``'site'``, or ``'slide'``).
-        title: Optional default document/site/slide title override.
+        type: Canonical project archetype (``'images'``, ``'doc'``, ``'site'``, ``'slide'``, or ``'api'``).
+        title: Optional default document/site/slide/api title override.
         description: Optional human/agent-facing summary of the project.
-        lang: Canonical single-language code for ``images`` projects (``None`` for ``doc``/``site``/``slide``).
+        lang: Canonical single-language code for ``images`` projects (``None`` for i18n archetypes).
         style: Style preset theme or CSS path recorded at initialization.
     """
 
@@ -113,13 +138,61 @@ class SeoConfig(BaseModel):
     llms_txt: bool = True
 
 
+class ApiHeaderLink(BaseModel):
+    """Single top-bar navigation link configured under ``[api].header_links``.
+
+    Attributes:
+        label: Link text (either a plain string or localized ``{lang: text}`` mapping).
+        url: Destination ``http(s)://`` URL or relative path.
+    """
+
+    model_config = ConfigDict(frozen=True)
+
+    label: str | dict[str, str]
+    url: str
+
+    def resolve_label(self, lang: str, default_lang: str = "en") -> str:
+        """Resolve localized label string for ``lang``."""
+        return _resolve_localized_value(self.label, lang, default_lang)
+
+    @property
+    def is_external(self) -> bool:
+        """Return True if ``url`` is an external ``http://`` or ``https://`` URL."""
+        return self.url.lower().startswith(("http://", "https://"))
+
+
+class ApiConfig(BaseModel):
+    """Parsed configuration from the ``[api]`` section of ``drawlib.toml``.
+
+    Attributes:
+        sidebar_expanded: Whether all category groups in the left sidebar render open by default.
+        badge_text: Optional version/status pill text in the sidebar subbar (plain string or localized mapping).
+        badge_url: Optional URL linked from ``badge_text``.
+        repo_url: Optional repository ``http(s)://`` URL rendered as an icon link in the sidebar subbar.
+        header_links: Optional top-bar right-hand navigation links.
+    """
+
+    model_config = ConfigDict(frozen=True)
+
+    sidebar_expanded: bool = True
+    badge_text: str | dict[str, str] | None = None
+    badge_url: str | None = None
+    repo_url: str | None = None
+    header_links: tuple[ApiHeaderLink, ...] = ()
+
+    def resolve_badge_text(self, lang: str, default_lang: str = "en") -> str:
+        """Resolve localized ``badge_text`` for ``lang`` (empty string if unset)."""
+        return _resolve_localized_value(self.badge_text, lang, default_lang)
+
+
 class ProjectManifest(BaseModel):
     """Validated project manifest parsed from ``drawlib.toml``.
 
     Attributes:
         project: Core project archetype and metadata from ``[project]``.
-        i18n: Locale configuration from ``[i18n]`` (always populated for ``doc``, ``site``, ``slide``).
-        seo: Optional SEO/OGP/crawler configuration from ``[seo]`` (for ``doc``, ``site``, ``slide``).
+        i18n: Locale configuration from ``[i18n]`` (always populated for ``doc``, ``site``, ``slide``, ``api``).
+        seo: Optional SEO/OGP/crawler configuration from ``[seo]`` (for ``doc``, ``site``, ``slide``, ``api``).
+        api: API reference layout configuration from ``[api]`` (populated for ``api`` projects).
     """
 
     model_config = ConfigDict(frozen=True)
@@ -127,6 +200,7 @@ class ProjectManifest(BaseModel):
     project: ProjectMetadata
     i18n: I18nConfig | None = None
     seo: SeoConfig | None = None
+    api: ApiConfig | None = None
 
     @property
     def is_i18n(self) -> bool:
@@ -148,7 +222,7 @@ def _parse_project_section(raw_proj: object, cfg_path: str, input_abs: str) -> P
 
     raw_type = raw_proj.get("type")
     if not isinstance(raw_type, str) or raw_type.strip().lower() not in _VALID_ARCHETYPES:
-        valid_str = ", ".join(("images", "doc", "site", "slide"))
+        valid_str = ", ".join(("images", "doc", "site", "slide", "api"))
         raise ValueError(f'Invalid "{cfg_path}": "[project].type" must be one of [{valid_str}], got {raw_type!r}.')
     norm_type = _VALID_ARCHETYPES[raw_type.strip().lower()]
 
@@ -232,7 +306,7 @@ def _parse_i18n_section(
 
     if project_meta.type not in _I18N_ARCHETYPES:
         raise ValueError(
-            f'Invalid "{cfg_path}": "[i18n]" is only supported for "doc", "site", and "slide" projects, '
+            f'Invalid "{cfg_path}": "[i18n]" is only supported for "doc", "site", "slide", and "api" projects, '
             f'not "{project_meta.type}".'
         )
 
@@ -368,7 +442,7 @@ def _parse_seo_section(
 
     if project_meta.type not in _I18N_ARCHETYPES:
         raise ValueError(
-            f'Invalid "{cfg_path}": "[seo]" is only supported for "doc", "site", and "slide" projects, '
+            f'Invalid "{cfg_path}": "[seo]" is only supported for "doc", "site", "slide", and "api" projects, '
             f'not "{project_meta.type}".'
         )
 
@@ -419,6 +493,138 @@ def _parse_seo_section(
     )
 
 
+def _validate_nav_url(
+    raw_url: object,
+    cfg_path: str,
+    key_label: str,
+    *,
+    require_http: bool = False,
+) -> str:
+    """Validate a navigation link URL against unsafe characters and dangerous schemes."""
+    if not isinstance(raw_url, str) or not raw_url.strip():
+        raise ValueError(f'Invalid "{cfg_path}": "{key_label}" must be a non-empty URL string.')
+    cleaned = raw_url.strip()
+    if any(ch in cleaned for ch in (*_UNSAFE_ATTR_CHARS, " ", "\t")):
+        raise ValueError(f'Invalid "{cfg_path}": "{key_label}" contains unsafe whitespace or quote/angle characters.')
+
+    lower = cleaned.lower()
+    if lower.startswith(("http://", "https://")):
+        parsed = urllib.parse.urlsplit(cleaned)
+        if not parsed.netloc:
+            raise ValueError(f'Invalid "{cfg_path}": "{key_label}" URL is missing host: {raw_url!r}.')
+        return cleaned
+
+    if require_http:
+        raise ValueError(
+            f'Invalid "{cfg_path}": "{key_label}" must be an http:// or https:// URL, got {raw_url!r}.'
+        )
+
+    if cleaned.startswith("//") or _WIN_DRIVE_RE.match(cleaned) or _SCHEME_PREFIX_RE.match(cleaned):
+        raise ValueError(
+            f'Invalid "{cfg_path}": "{key_label}" must be an http(s):// URL or safe relative path, got {raw_url!r}.'
+        )
+
+    return cleaned
+
+
+def _parse_localized_str_or_map(
+    raw_val: object,
+    norm_langs: list[str] | None,
+    cfg_path: str,
+    key_label: str,
+) -> str | dict[str, str]:
+    """Validate a plain non-empty string or locale-keyed ``{lang: text}`` dictionary."""
+    if isinstance(raw_val, str):
+        cleaned = raw_val.strip()
+        if not cleaned:
+            raise ValueError(f'Invalid "{cfg_path}": "{key_label}" must be a non-empty string.')
+        return cleaned
+
+    if isinstance(raw_val, dict) and len(raw_val) > 0:
+        parsed: dict[str, str] = {}
+        for raw_k, raw_v in raw_val.items():
+            if not isinstance(raw_k, str) or not isinstance(raw_v, str) or not raw_v.strip():
+                raise ValueError(f'Invalid "{cfg_path}": "{key_label}" entries must be non-empty strings.')
+            norm_k = normalize_language(raw_k)
+            if norm_langs is not None and norm_k not in norm_langs:
+                raise ValueError(
+                    f'Invalid "{cfg_path}": "{key_label}" key "{norm_k}" is not listed in "[i18n].langs" {norm_langs}.'
+                )
+            parsed[norm_k] = raw_v.strip()
+        return parsed
+
+    raise ValueError(
+        f'Invalid "{cfg_path}": "{key_label}" must be a non-empty string or locale table {{ en = "...", ... }}.'
+    )
+
+
+def _parse_api_section(
+    raw_api: object,
+    project_meta: ProjectMetadata,
+    i18n_cfg: I18nConfig | None,
+    cfg_path: str,
+) -> ApiConfig:
+    """Validate and normalize the ``[api]`` table."""
+    if not isinstance(raw_api, dict):
+        raise ValueError(f'Invalid "{cfg_path}": "[api]" must be a TOML table.')
+
+    if project_meta.type != "api":
+        raise ValueError(
+            f'Invalid "{cfg_path}": "[api]" is only supported for "api" projects, not "{project_meta.type}".'
+        )
+
+    unknown_keys = sorted(set(raw_api.keys()) - _API_ALLOWED_KEYS)
+    if unknown_keys:
+        raise ValueError(f'Invalid "{cfg_path}": unknown key(s) {unknown_keys} in "[api]".')
+
+    raw_expanded = raw_api.get("sidebar_expanded", True)
+    if not isinstance(raw_expanded, bool):
+        raise ValueError(f'Invalid "{cfg_path}": "[api].sidebar_expanded" must be a boolean.')
+
+    norm_langs = i18n_cfg.langs if i18n_cfg is not None else None
+
+    raw_badge_text = raw_api.get("badge_text")
+    badge_text: str | dict[str, str] | None = None
+    if raw_badge_text is not None and raw_badge_text != "":
+        badge_text = _parse_localized_str_or_map(raw_badge_text, norm_langs, cfg_path, "[api].badge_text")
+
+    raw_badge_url = raw_api.get("badge_url")
+    badge_url: str | None = None
+    if raw_badge_url is not None and raw_badge_url != "":
+        badge_url = _validate_nav_url(raw_badge_url, cfg_path, "[api].badge_url", require_http=False)
+
+    raw_repo_url = raw_api.get("repo_url")
+    repo_url: str | None = None
+    if raw_repo_url is not None and raw_repo_url != "":
+        repo_url = _validate_nav_url(raw_repo_url, cfg_path, "[api].repo_url", require_http=True)
+
+    raw_links = raw_api.get("header_links", [])
+    if not isinstance(raw_links, list):
+        raise ValueError(f'Invalid "{cfg_path}": "[api].header_links" must be a list of {{ label, url }} tables.')
+
+    parsed_links: list[ApiHeaderLink] = []
+    for idx, item in enumerate(raw_links):
+        item_label = f"[api].header_links[{idx}]"
+        if not isinstance(item, dict):
+            raise ValueError(f'Invalid "{cfg_path}": "{item_label}" must be a table with "label" and "url".')
+        extra_item_keys = sorted(set(item.keys()) - {"label", "url"})
+        if extra_item_keys:
+            raise ValueError(f'Invalid "{cfg_path}": unknown key(s) {extra_item_keys} in "{item_label}".')
+        if "label" not in item or "url" not in item:
+            raise ValueError(f'Invalid "{cfg_path}": "{item_label}" requires both "label" and "url".')
+        lbl = _parse_localized_str_or_map(item["label"], norm_langs, cfg_path, f"{item_label}.label")
+        url = _validate_nav_url(item["url"], cfg_path, f"{item_label}.url", require_http=False)
+        parsed_links.append(ApiHeaderLink(label=lbl, url=url))
+
+    return ApiConfig(
+        sidebar_expanded=raw_expanded,
+        badge_text=badge_text,
+        badge_url=badge_url,
+        repo_url=repo_url,
+        header_links=tuple(parsed_links),
+    )
+
+
 def load_project_manifest(input_dir: str) -> ProjectManifest | None:
     """Load and validate ``drawlib.toml`` directly inside ``input_dir`` if present.
 
@@ -458,7 +664,13 @@ def load_project_manifest(input_dir: str) -> ProjectManifest | None:
     if "seo" in raw:
         seo_cfg = _parse_seo_section(raw["seo"], project_meta, cfg_path, input_abs)
 
-    return ProjectManifest(project=project_meta, i18n=i18n_cfg, seo=seo_cfg)
+    api_cfg: ApiConfig | None = None
+    if "api" in raw:
+        api_cfg = _parse_api_section(raw["api"], project_meta, i18n_cfg, cfg_path)
+    elif project_meta.type == "api":
+        api_cfg = ApiConfig()
+
+    return ProjectManifest(project=project_meta, i18n=i18n_cfg, seo=seo_cfg, api=api_cfg)
 
 
 def find_project_manifest(path: str, max_up: int = 4) -> tuple[str, ProjectManifest] | None:
@@ -496,6 +708,7 @@ def format_project_manifest_toml(
     title: str = "",
     description: str = "",
     seo: SeoConfig | None = None,
+    api: ApiConfig | None = None,
     include_seo_comment: bool = True,
 ) -> str:
     """Serialize a clean, human-readable ``drawlib.toml`` string for ``drawlib init``.
@@ -505,12 +718,13 @@ def format_project_manifest_toml(
         project_type: Canonical project archetype.
         style: Selected style preset or CSS path.
         lang: Primary / default canonical language code.
-        langs: Ordered list of canonical languages for ``doc``, ``site``, and ``slide``.
+        langs: Ordered list of canonical languages for ``doc``, ``site``, ``slide``, and ``api``.
         labels: Optional custom display labels for ``[i18n.labels]``.
         descriptions: Optional localized descriptions for ``[i18n.descriptions]``.
         title: Optional default title override.
         description: Optional project description.
         seo: Optional active ``[seo]`` configuration block.
+        api: Optional active ``[api]`` configuration block for ``api`` projects.
         include_seo_comment: If True and ``seo`` is None, append a commented ``[seo]`` template on web projects.
 
     Returns:
@@ -519,6 +733,12 @@ def format_project_manifest_toml(
 
     def _esc(val: str) -> str:
         return val.replace("\\", "\\\\").replace('"', '\\"')
+
+    def _fmt_loc(val: str | dict[str, str]) -> str:
+        if isinstance(val, str):
+            return f'"{_esc(val)}"'
+        pairs = ", ".join(f'{_esc(k)} = "{_esc(v)}"' for k, v in val.items())
+        return f"{{ {pairs} }}"
 
     lines = [
         "[project]",
@@ -551,6 +771,41 @@ def format_project_manifest_toml(
             lines.extend(["", "[i18n.descriptions]"])
             for lc, desc in descriptions.items():
                 lines.append(f'{_esc(lc)} = "{_esc(desc)}"')
+
+        if project_type == "api":
+            eff_api = api or ApiConfig()
+            lines.extend(
+                [
+                    "",
+                    "[api]",
+                    f"sidebar_expanded = {str(eff_api.sidebar_expanded).lower()}",
+                ]
+            )
+            if eff_api.badge_text is not None:
+                lines.append(f"badge_text = {_fmt_loc(eff_api.badge_text)}")
+            else:
+                lines.append('# badge_text = "API Reference · v1.0"')
+            if eff_api.badge_url is not None:
+                lines.append(f'badge_url = "{_esc(eff_api.badge_url)}"')
+            else:
+                lines.append('# badge_url = "index.html"')
+            if eff_api.repo_url is not None:
+                lines.append(f'repo_url = "{_esc(eff_api.repo_url)}"')
+            else:
+                lines.append('# repo_url = "https://github.com/org/repo"')
+            if eff_api.header_links:
+                lines.append("header_links = [")
+                for hlink in eff_api.header_links:
+                    lines.append(f'    {{ label = {_fmt_loc(hlink.label)}, url = "{_esc(hlink.url)}" }},')
+                lines.append("]")
+            else:
+                lines.extend(
+                    [
+                        "# header_links = [",
+                        '#     { label = "Docs", url = "https://example.com/docs" },',
+                        "# ]",
+                    ]
+                )
 
         if seo is not None:
             lines.extend(
@@ -586,4 +841,5 @@ def format_project_manifest_toml(
             )
 
     return "\n".join(lines) + "\n"
+
 

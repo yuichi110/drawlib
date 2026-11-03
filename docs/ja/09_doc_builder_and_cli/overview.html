@@ -548,6 +548,10 @@
                             </li>
                             
                             <li class="nav-item ">
+                                <a href="project_api.html" >API リファレンスプロジェクト (`api`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
                                 <a href="project_slide.html" >スライドデッキプロジェクト (`slide`)</a>
                             </li>
                             
@@ -794,6 +798,12 @@
 <td>サイドバーナビゲーション（<code>&lt;lang&gt;/navbar.md</code>）を備えたマルチページ構成のドキュメントサイト</td>
 </tr>
 <tr>
+<td><strong><code>api</code></strong> <em>(Upcoming in v0.3.5)</em></td>
+<td><code>api_src/&lt;lang&gt;/</code></td>
+<td><code>api_html/</code>, <code>api_markdown/</code>, <code>api_images/</code></td>
+<td>REST / SDK / CLI 専用の API リファレンス（<code>1 MD = 1 HTML</code>、<code># H1</code> / <code>## H2</code> 自動サイドバー、バッジ、<code>/</code> フィルタ）</td>
+</tr>
+<tr>
 <td><strong><code>slide</code></strong></td>
 <td><code>slide_src/&lt;lang&gt;/</code></td>
 <td><code>slide_html/</code>, <code>slide_&lt;lang&gt;.pdf</code>, <code>slide_&lt;lang&gt;.pptx</code>, <code>slide_images/</code></td>
@@ -809,7 +819,7 @@
 </table>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="../../images/09_doc_builder_and_cli/overview/doc_builder_four_templates_matrix.png" alt="overview_3" />
-  <figcaption class="drawlib-caption">Drawlib の 4 種類のプロジェクトスターターテンプレートと出力形式の概要</figcaption>
+  <figcaption class="drawlib-caption">Drawlib のプロジェクトスターターテンプレートと出力形式の概要</figcaption>
 </figure>
 <details class="drawlib-code-details">
 <summary>Source Code</summary>
@@ -837,13 +847,13 @@
     <span class="p">(</span>
         <span class="mi">93</span><span class="p">,</span>
         <span class="mf">41.5</span><span class="p">,</span>
-        <span class="s2">"2. site (Doc Website)"</span><span class="p">,</span>
+        <span class="s2">"2. site / api (Web &amp; API)"</span><span class="p">,</span>
         <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
         <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">,</span>
         <span class="n">phosphor</span><span class="o">.</span><span class="n">globe</span><span class="p">,</span>
         <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">,</span>
-        <span class="s2">"docs_src/&lt;lang&gt;/</span><span class="se">\n</span><span class="s2">+ navbar.md"</span><span class="p">,</span>
-        <span class="s2">"docs_html/</span><span class="se">\n</span><span class="s2">docs_markdown/"</span><span class="p">,</span>
+        <span class="s2">"docs_src/ or api_src/</span><span class="se">\n</span><span class="s2">&lt;lang&gt;/*.md"</span><span class="p">,</span>
+        <span class="s2">"*_html/ &amp; *_markdown/</span><span class="se">\n</span><span class="s2">navbar or Auto H1/H2"</span><span class="p">,</span>
     <span class="p">),</span>
     <span class="p">(</span>
         <span class="mi">33</span><span class="p">,</span>
@@ -925,6 +935,13 @@
 <td style="text-align:left"><code>./docs_src/build.sh</code>、<code>serve --check</code>、およびブラウザ確認を実行</td>
 </tr>
 <tr>
+<td style="text-align:left"><strong><code>api</code></strong> <em>(Upcoming in v0.3.5)</em></td>
+<td style="text-align:left">カテゴリ／モジュールページ（<code>api_src/&lt;lang&gt;/01_users.md</code> など）</td>
+<td style="text-align:left"><code>drawlib init project api</code>、<code>drawlib.toml</code> の <code>[api]</code>、<code>styles.py</code>、<code>utils.py</code>、<code>&lt;lang&gt;/00_overview.md</code></td>
+<td style="text-align:left">担当 API ページ（<code># H1</code> + <code>## H2</code> バッジ + 図解）の執筆と Stage 1 + Stage 2 グリッド検証</td>
+<td style="text-align:left"><code>./api_src/build.sh</code>、<code>serve --check</code>、およびブラウザ確認を実行</td>
+</tr>
+<tr>
 <td style="text-align:left"><strong><code>slide</code></strong></td>
 <td style="text-align:left">スライドファイル（<code>slide_src/&lt;lang&gt;/02_*.md</code> など）またはセクションディレクトリ</td>
 <td style="text-align:left"><code>drawlib init project slide</code>、<code>styles.py</code>、<code>utils.py</code>、ストーリー構成とスライド連番の設計</td>
@@ -954,6 +971,7 @@
 <li><a href="./cli_reference.html">CLI リファレンス</a>: <code>build</code>（<code>html</code>、<code>markdown</code>、<code>pdf</code>、<code>docx</code>、<code>slide</code>、<code>pptx</code>、<code>image</code>）、<code>serve</code>、<code>show</code>、<code>init</code>（<code>project</code>、<code>agent</code>）、<code>cache</code>、<code>css</code>、<code>colors</code>、<code>styles</code>、<code>rules</code> の完全リファレンス。</li>
 <li><a href="./project_doc.html">リニアドキュメントプロジェクト (<code>doc</code>)</a>: RFC、仕様書、ホワイトペーパーなどのリニアドキュメント作成と、HTML / PDF / Word（<code>.docx</code>）出力。</li>
 <li><a href="./project_site.html">ドキュメントサイトプロジェクト (<code>site</code>)</a>: マルチページ構成のドキュメントサイト執筆、サイドバーカテゴリ設計、リンク検証。</li>
+<li><a href="./project_api.html">API リファレンスプロジェクト (<code>api</code>)</a> <em>(Upcoming in v0.3.5)</em>: <code># H1</code> / <code>## H2</code> 自動サイドバー・セマンティックバッジ・<code>[api]</code> 設定を備えた 2 カラム API・SDK リファレンス構築。</li>
 <li><a href="./project_slide.html">スライドデッキプロジェクト (<code>slide</code>)</a>: インタラクティブ Web スライド、ベクター PDF、PowerPoint（<code>.pptx</code>）出力に対応した 16:9 プレゼンテーションスライドの作成。</li>
 <li><a href="./slide_layout_and_api.html">スライドステージレイアウトと API</a>: <code>1920x1080</code> 仮想ステージ座標系、<code>::: block</code> / <code>::: note</code> 構文、レイアウトテンプレート、<code>drawlib.slide</code> Python API。</li>
 <li><a href="./project_image.html">画像プロジェクト (<code>images</code>)</a>: スタンドアロンスクリプトによる一括画像生成（<code>images_src/</code> ➔ <code>images/</code>）。</li>

@@ -17,6 +17,7 @@ import sys
 from typing import Any
 
 from drawlib._builder._common import (
+    ApiConfig,
     BuildImageCache,
     FileBuildProgress,
     LlmsLink,
@@ -36,6 +37,13 @@ from drawlib._builder._common import (
     write_llms_txt,
     write_robots_txt,
     write_sitemap_xml,
+)
+from drawlib._builder.doc_builder.api_nav import (
+    CompiledApiPage,
+    build_api_page_navigation_context,
+    inject_api_heading_ids_and_badges,
+    order_api_locale_files,
+    resolve_api_chrome_context,
 )
 from drawlib._builder.doc_builder.compiler.base import (
     copy_directory_assets,
@@ -123,7 +131,7 @@ def build_html(
     no_cache: bool = False,
     css_mode: str = "external",
 ) -> str:
-    """Compile an i18n-native ``site`` or ``doc`` project directory into static HTML.
+    """Compile an i18n-native ``site``, ``doc``, or ``api`` project directory into static HTML.
 
     Builds all configured locales in ``drawlib.toml`` ``[i18n]`` with shared diagram
     deduplication, per-locale stylesheets, language switcher navigation (when 2+ locales
@@ -142,7 +150,7 @@ def build_html(
         str: Absolute path of generated HTML output directory.
 
     Raises:
-        ValueError: If input_dir is not a valid ``doc`` or ``site`` project root directory.
+        ValueError: If input_dir is not a valid ``doc``, ``site``, or ``api`` project root directory.
     """
     input_abs = require_directory(input_dir, "build_html")
     out_dir_abs = _resolve_default_html_out_dir(input_abs, output_dir)
@@ -159,7 +167,7 @@ def build_html(
         raise ValueError(
             f'Missing required "drawlib.toml" in "{input_abs}". '
             "HTML directory builds require a Drawlib project manifest "
-            '(run "drawlib init project site" or "drawlib init project doc").'
+            '(run "drawlib init project site", "drawlib init project doc", or "drawlib init project api").'
         )
 
     if manifest.project.type == "slide":
@@ -177,6 +185,18 @@ def build_html(
 
     if manifest.project.type == "doc":
         return _build_i18n_doc_html(
+            input_abs=input_abs,
+            out_dir_abs=out_dir_abs,
+            manifest=manifest,
+            i18n_cfg=manifest.i18n,
+            image_format=image_format,
+            styles_path=styles_path,
+            utils_path=utils_path,
+            no_cache=no_cache,
+            css_mode=css_mode,
+        )
+    if manifest.project.type == "api":
+        return _build_i18n_api_html(
             input_abs=input_abs,
             out_dir_abs=out_dir_abs,
             manifest=manifest,
@@ -1488,4 +1508,547 @@ def _emit_doc_seo_files(
             max_length=240,
         )
         write_llms_txt(out_dir_abs, title=llms_title, summary=llms_summary, sections=sections)
+
+
+def _prepare_i18n_api_locales(
+    *,
+    input_abs: str,
+    out_dir_abs: str,
+    ordered_langs: list[str],
+    locale_files: dict[str, list[str]],
+    css_file: str,
+    css_mode: str,
+    image_format: str,
+) -> tuple[
+    dict[str, list[tuple[str, str | None]]],
+    dict[str, str | None],
+    dict[str, str | None],
+    list[str],
+    int,
+]:
+    """Order per-locale API files, emit localized ``style.css``, and run duplicate diagram checks."""
+    ordered_by_lang: dict[str, list[tuple[str, str | None]]] = {}
+    nav_titles_by_lang: dict[str, str | None] = {}
+    locale_css_paths: dict[str, str | None] = {}
+    raw_css = ""
+    if css_mode != "embed":
+        with open(css_file, "r", encoding="utf-8") as cf:
+            raw_css = cf.read()
+
+    display_names: list[str] = []
+    max_blocks = 0
+
+    for lang in ordered_langs:
+        lang_dir = os.path.join(input_abs, lang)
+        ordered_entries, nav_site_title = order_api_locale_files(lang_dir, locale_files[lang])
+        ordered_by_lang[lang] = ordered_entries
+        nav_titles_by_lang[lang] = nav_site_title
+
+        if css_mode != "embed":
+            lang_css_out = os.path.join(out_dir_abs, lang, "style.css")
+            os.makedirs(os.path.dirname(lang_css_out), exist_ok=True)
+            with open(lang_css_out, "w", encoding="utf-8") as out_cf:
+                out_cf.write(localize_css_for_language(raw_css, lang=lang))
+            locale_css_paths[lang] = lang_css_out
+        else:
+            locale_css_paths[lang] = None
+
+        lang_tasks: list[tuple[str, str, bool]] = []
+        lang_disp: list[str] = []
+        lang_shared_dirs: list[str | None] = []
+        for rel_path, _ in ordered_entries:
+            src_abs = os.path.join(lang_dir, *rel_path.split("/"))
+            is_md = rel_path.lower().endswith((".md", ".markdown"))
+            rel_stem, _ = os.path.splitext(rel_path)
+            rel_html = f"{rel_stem}.html" if is_md else rel_path
+            dest_abs = os.path.join(out_dir_abs, lang, *rel_html.split("/"))
+            shared_dir = os.path.join(out_dir_abs, "images", *rel_stem.split("/"))
+            disp = f"/{lang}/{rel_path}"
+            display_names.append(disp)
+            lang_tasks.append((src_abs, dest_abs, is_md))
+            lang_disp.append(disp)
+            lang_shared_dirs.append(shared_dir)
+
+        loc_max = check_document_output_duplicates(
+            tasks=lang_tasks,
+            display_names=lang_disp,
+            image_format=image_format,
+            embed_images=False,
+            shared_images_dirs=lang_shared_dirs,
+        )
+        max_blocks = max(max_blocks, loc_max)
+
+    return ordered_by_lang, nav_titles_by_lang, locale_css_paths, display_names, max_blocks
+
+
+def _compile_api_locale_pages(
+    *,
+    lang: str,
+    ordered_entries: list[tuple[str, str | None]],
+    input_abs: str,
+    out_dir_abs: str,
+    start_step: int,
+    total_files: int,
+    name_width: int,
+    image_width: int,
+    image_format: str,
+    loc_styles: str | None,
+    loc_utils: str | None,
+    processor: DrawlibBlockProcessor | None,
+    no_cache: bool,
+    cache: BuildImageCache,
+) -> tuple[list[CompiledApiPage], int, DrawlibBlockProcessor | None]:
+    """Compile all Markdown/HTML pages in one ``api`` locale and upgrade ``H1``–``H4`` headings."""
+    compiled: list[CompiledApiPage] = []
+    step = start_step
+    lang_dir = os.path.join(input_abs, lang)
+
+    for rel_path, section_title in ordered_entries:
+        step += 1
+        src_abs = os.path.join(lang_dir, *rel_path.split("/"))
+        is_md = rel_path.lower().endswith((".md", ".markdown"))
+        rel_stem, _ = os.path.splitext(rel_path)
+        rel_html = f"{rel_stem}.html" if is_md else rel_path
+        dest_abs = os.path.join(out_dir_abs, lang, *rel_html.split("/"))
+        shared_dir = os.path.join(out_dir_abs, "images", *rel_stem.split("/"))
+
+        raw_md: str | None = None
+        if is_md:
+            with open(src_abs, "r", encoding="utf-8") as mf:
+                raw_md = mf.read()
+
+        progress = FileBuildProgress(
+            step,
+            total_files,
+            file_name=f"/{lang}/{rel_path}",
+            name_width=name_width,
+            image_width=image_width,
+        )
+        body_html, _, doc_desc, processor = _compile_chapter_body(
+            src_abs=src_abs,
+            dest_abs=dest_abs,
+            image_format=image_format,
+            styles_path=loc_styles,
+            utils_path=loc_utils,
+            processor=processor,
+            progress=progress,
+            no_cache=no_cache,
+            cache=cache,
+            project_root=input_abs,
+            shared_images_dir=shared_dir,
+        )
+        fallback_stem = os.path.basename(rel_stem)
+        h1_title, upgraded_body, subitems = inject_api_heading_ids_and_badges(
+            body_html=body_html,
+            md_text=raw_md,
+            fallback_stem=fallback_stem,
+        )
+        compiled.append(
+            CompiledApiPage(
+                rel_path=rel_path,
+                rel_html=rel_html,
+                src_abs=src_abs,
+                dest_abs=dest_abs,
+                section_title=section_title,
+                h1_title=h1_title,
+                description=doc_desc,
+                body_html=upgraded_body,
+                subitems=subitems,
+            )
+        )
+
+    return compiled, step, processor
+
+
+def _render_single_api_page_html(
+    *,
+    page: CompiledApiPage,
+    pages: list[CompiledApiPage],
+    active_index: int,
+    dest_abs: str,
+    rel_html_for_i18n: str,
+    lang: str,
+    input_abs: str,
+    out_dir_abs: str,
+    manifest: ProjectManifest,
+    i18n_cfg: I18nConfig,
+    api_cfg: ApiConfig,
+    site_title: str,
+    locale_css_path: str | None,
+    css_file: str,
+    template_file: str,
+    index_url: str,
+    rebase_body_from_dir: str | None = None,
+    prefer_manifest_description: bool = False,
+) -> None:
+    """Render and write a single API reference HTML document (page, locale landing, or root index)."""
+    body_html = page.body_html
+    dest_dir = os.path.dirname(dest_abs)
+    if rebase_body_from_dir is not None and os.path.abspath(rebase_body_from_dir) != os.path.abspath(dest_dir):
+        body_html = rebase_html_relative_urls(
+            html=body_html,
+            from_dir=rebase_body_from_dir,
+            to_dir=dest_dir,
+            skip_prefixes=(),
+        )
+
+    api_nav_sections, api_pager = build_api_page_navigation_context(
+        pages=pages,
+        active_index=active_index,
+        current_dest_abs=dest_abs,
+        sidebar_expanded=api_cfg.sidebar_expanded,
+    )
+    chrome_ctx = resolve_api_chrome_context(
+        api_cfg=api_cfg,
+        lang=lang,
+        default_lang=i18n_cfg.default_lang,
+        lang_out_dir=os.path.join(out_dir_abs, lang),
+        current_dest_abs=dest_abs,
+    )
+    extra_ctx: dict[str, Any] = {
+        **chrome_ctx,
+        "api_nav_sections": api_nav_sections,
+        "api_pager": api_pager,
+        "current_page_title": page.h1_title,
+    }
+
+    rel_css_href = os.path.relpath(locale_css_path, dest_dir).replace(os.sep, "/") if locale_css_path else None
+    favicon_href = resolve_favicon_href(input_abs, out_dir_abs, dest_abs)
+    logo_href, logo_dark_href = resolve_logo_hrefs(input_abs, out_dir_abs, dest_abs)
+    languages_ctx, alt_links = build_language_switcher_context(
+        config=i18n_cfg,
+        out_dir_abs=out_dir_abs,
+        rel_html_path=rel_html_for_i18n,
+        current_dest_abs=dest_abs,
+        active_lang=lang,
+    )
+    seo_meta_html, eff_alt_links = _resolve_page_seo_and_alternates(
+        manifest=manifest,
+        out_dir_abs=out_dir_abs,
+        dest_abs=dest_abs,
+        lang=lang,
+        page_title=page.h1_title,
+        site_title=site_title,
+        page_description=page.description,
+        prefer_manifest_description=prefer_manifest_description,
+        alternate_links=alt_links,
+    )
+    lang_cfg = get_language_config(lang)
+    full_html = render_html_document(
+        body_html=body_html,
+        title=page.h1_title,
+        custom_css_path=css_file,
+        css_href=rel_css_href,
+        nav_items=[],
+        nav_sections=None,
+        template_path=template_file,
+        index_url=index_url,
+        site_title=site_title,
+        favicon_href=favicon_href,
+        logo_href=logo_href,
+        logo_dark_href=logo_dark_href,
+        html_lang=lang_cfg.code,
+        html_dir=lang_cfg.direction,
+        font_link_html=lang_cfg.font_link_html,
+        languages=languages_ctx,
+        alternate_links=eff_alt_links,
+        css_lang=lang,
+        seo_meta_html=seo_meta_html,
+        css_target="api",
+        extra_context=extra_ctx,
+    )
+    os.makedirs(dest_dir, exist_ok=True)
+    with open(dest_abs, "w", encoding="utf-8") as out_f:
+        out_f.write(full_html)
+
+
+def _build_api_llms_sections(
+    manifest: ProjectManifest,
+    i18n_cfg: I18nConfig,
+    site_url: str,
+    default_pages: list[CompiledApiPage],
+    landing_desc_by_lang: dict[str, str],
+) -> list[LlmsSection]:
+    """Organize default-locale ``api`` categories and ``H2`` symbols into ``LlmsSection`` blocks."""
+    default_lang = i18n_cfg.default_lang
+    grouped: list[tuple[str, list[LlmsLink]]] = []
+
+    for page in default_pages:
+        sec_title = page.section_title or "API Reference"
+        desc = page.description
+        if not desc and page.subitems:
+            preview_syms = ", ".join(sub.sidebar_label for sub in page.subitems[:6])
+            desc = f"Symbols: {preview_syms}"
+        link = LlmsLink(
+            title=page.h1_title,
+            url=_format_llms_url(site_url, f"{default_lang}/{page.rel_html}"),
+            description=desc,
+        )
+        if not grouped or grouped[-1][0] != sec_title:
+            grouped.append((sec_title, [link]))
+        else:
+            grouped[-1][1].append(link)
+
+    sections = [LlmsSection(title=sec_name, links=links) for sec_name, links in grouped if links]
+    locales_sec = _build_locales_llms_section(manifest, i18n_cfg, site_url, landing_desc_by_lang)
+    if locales_sec is not None:
+        sections.append(locales_sec)
+    return sections
+
+
+def _emit_api_seo_files(
+    *,
+    input_abs: str,
+    out_dir_abs: str,
+    manifest: ProjectManifest,
+    i18n_cfg: I18nConfig,
+    ordered_langs: list[str],
+    rel_htmls_by_lang: dict[str, list[str]],
+    default_pages: list[CompiledApiPage],
+    default_site_title: str,
+    landing_desc_by_lang: dict[str, str],
+) -> None:
+    """Emit ``og_image`` copy, ``sitemap.xml``, ``robots.txt``, and ``llms.txt`` for an ``api`` build."""
+    seo = manifest.seo
+    if seo is None:
+        return
+
+    ensure_seo_og_image_copied(input_abs, out_dir_abs, seo)
+    if seo.sitemap and seo.site_url:
+        entries = _build_i18n_sitemap_entries(seo.site_url, i18n_cfg, ordered_langs, rel_htmls_by_lang)
+        write_sitemap_xml(out_dir_abs, entries)
+    if seo.robots:
+        write_robots_txt(out_dir_abs, seo.site_url, include_sitemap=(seo.sitemap and bool(seo.site_url)))
+    if seo.llms_txt:
+        first_desc = default_pages[0].description if default_pages else ""
+        llms_title = manifest.project.title.strip() or default_site_title
+        llms_summary = resolve_localized_description(
+            manifest=manifest,
+            lang=i18n_cfg.default_lang,
+            page_description=first_desc,
+            prefer_manifest=True,
+            max_length=240,
+        )
+        sections = _build_api_llms_sections(
+            manifest=manifest,
+            i18n_cfg=i18n_cfg,
+            site_url=seo.site_url,
+            default_pages=default_pages,
+            landing_desc_by_lang=landing_desc_by_lang,
+        )
+        write_llms_txt(out_dir_abs, title=llms_title, summary=llms_summary, sections=sections)
+
+
+def _render_api_locale_outputs(
+    *,
+    lang: str,
+    pages: list[CompiledApiPage],
+    input_abs: str,
+    out_dir_abs: str,
+    manifest: ProjectManifest,
+    i18n_cfg: I18nConfig,
+    api_cfg: ApiConfig,
+    site_title: str,
+    locale_css_path: str | None,
+    css_file: str,
+    template_file: str,
+) -> list[str]:
+    """Render all page HTMLs for one ``api`` locale plus a ``<lang>/index.html`` landing alias if needed."""
+    lang_index_dest = os.path.join(out_dir_abs, lang, "index.html")
+    rel_htmls: list[str] = []
+    has_explicit_index = any(p.rel_html == "index.html" for p in pages)
+
+    for idx, page in enumerate(pages):
+        rel_index_url = os.path.relpath(lang_index_dest, os.path.dirname(page.dest_abs)).replace(os.sep, "/")
+        _render_single_api_page_html(
+            page=page,
+            pages=pages,
+            active_index=idx,
+            dest_abs=page.dest_abs,
+            rel_html_for_i18n=page.rel_html,
+            lang=lang,
+            input_abs=input_abs,
+            out_dir_abs=out_dir_abs,
+            manifest=manifest,
+            i18n_cfg=i18n_cfg,
+            api_cfg=api_cfg,
+            site_title=site_title,
+            locale_css_path=locale_css_path,
+            css_file=css_file,
+            template_file=template_file,
+            index_url=rel_index_url,
+            prefer_manifest_description=(idx == 0 and page.rel_html == "index.html"),
+        )
+        rel_htmls.append(page.rel_html)
+
+    if not has_explicit_index and pages:
+        first_page = pages[0]
+        _render_single_api_page_html(
+            page=first_page,
+            pages=pages,
+            active_index=0,
+            dest_abs=lang_index_dest,
+            rel_html_for_i18n="index.html",
+            lang=lang,
+            input_abs=input_abs,
+            out_dir_abs=out_dir_abs,
+            manifest=manifest,
+            i18n_cfg=i18n_cfg,
+            api_cfg=api_cfg,
+            site_title=site_title,
+            locale_css_path=locale_css_path,
+            css_file=css_file,
+            template_file=template_file,
+            index_url="index.html",
+            rebase_body_from_dir=os.path.dirname(first_page.dest_abs),
+            prefer_manifest_description=True,
+        )
+        rel_htmls.insert(0, "index.html")
+
+    return rel_htmls
+
+
+def _build_i18n_api_html(
+    *,
+    input_abs: str,
+    out_dir_abs: str,
+    manifest: ProjectManifest,
+    i18n_cfg: I18nConfig,
+    image_format: str,
+    styles_path: str | None,
+    utils_path: str | None,
+    no_cache: bool,
+    css_mode: str,
+) -> str:
+    """Compile an i18n-native ``api`` reference directory into multi-page HTML."""
+    if out_dir_abs == input_abs:
+        raise ValueError(
+            f'Refusing to build HTML in-place inside source directory "{input_abs}". '
+            "Please specify a separate output directory."
+        )
+
+    template_file, css_file = resolve_template_and_css(input_abs)
+    locale_files = validate_i18n_project(input_abs, i18n_cfg, project_type="api", default_format=image_format)
+    api_cfg = manifest.api if manifest.api is not None else ApiConfig()
+
+    default_lang = i18n_cfg.default_lang
+    ordered_langs = [default_lang] + [lc for lc in i18n_cfg.langs if lc != default_lang]
+    ordered_by_lang, nav_titles_by_lang, locale_css_paths, display_names, max_blocks = _prepare_i18n_api_locales(
+        input_abs=input_abs,
+        out_dir_abs=out_dir_abs,
+        ordered_langs=ordered_langs,
+        locale_files=locale_files,
+        css_file=css_file,
+        css_mode=css_mode,
+        image_format=image_format,
+    )
+
+    root_disp = "/index.html"
+    total_files = len(display_names) + 1
+    name_width = max((len(n) for n in [*display_names, root_disp]), default=0)
+    image_width = len(str(max(max_blocks, 0)))
+    cache = BuildImageCache(enabled=not no_cache)
+    processors_by_cfg: dict[tuple[str | None, str | None], DrawlibBlockProcessor | None] = {}
+
+    pages_by_lang: dict[str, list[CompiledApiPage]] = {}
+    rel_htmls_by_lang: dict[str, list[str]] = {}
+    landing_desc_by_lang: dict[str, str] = {}
+    step_idx = 0
+
+    for lang in ordered_langs:
+        loc_styles, loc_utils = resolve_styles_and_utils(os.path.join(input_abs, lang), styles_path, utils_path)
+        cfg_key = (loc_styles, loc_utils)
+        pages, step_idx, next_proc = _compile_api_locale_pages(
+            lang=lang,
+            ordered_entries=ordered_by_lang[lang],
+            input_abs=input_abs,
+            out_dir_abs=out_dir_abs,
+            start_step=step_idx,
+            total_files=total_files,
+            name_width=name_width,
+            image_width=image_width,
+            image_format=image_format,
+            loc_styles=loc_styles,
+            loc_utils=loc_utils,
+            processor=processors_by_cfg.get(cfg_key),
+            no_cache=no_cache,
+            cache=cache,
+        )
+        processors_by_cfg[cfg_key] = next_proc
+        pages_by_lang[lang] = pages
+        landing_desc_by_lang[lang] = pages[0].description if pages else ""
+        loc_site_title = manifest.project.title.strip() or nav_titles_by_lang[lang] or "API Reference"
+        rel_htmls_by_lang[lang] = _render_api_locale_outputs(
+            lang=lang,
+            pages=pages,
+            input_abs=input_abs,
+            out_dir_abs=out_dir_abs,
+            manifest=manifest,
+            i18n_cfg=i18n_cfg,
+            api_cfg=api_cfg,
+            site_title=loc_site_title,
+            locale_css_path=locale_css_paths[lang],
+            css_file=css_file,
+            template_file=template_file,
+        )
+
+    default_pages = pages_by_lang[default_lang]
+    default_site_title = manifest.project.title.strip() or nav_titles_by_lang[default_lang] or "API Reference"
+    root_progress = FileBuildProgress(
+        total_files,
+        total_files,
+        file_name=root_disp,
+        name_width=name_width,
+        image_width=image_width,
+    )
+    root_progress.update(0, 0, done=False)
+    if default_pages:
+        first_def_page = default_pages[0]
+        _render_single_api_page_html(
+            page=first_def_page,
+            pages=default_pages,
+            active_index=0,
+            dest_abs=os.path.join(out_dir_abs, "index.html"),
+            rel_html_for_i18n="index.html",
+            lang=default_lang,
+            input_abs=input_abs,
+            out_dir_abs=out_dir_abs,
+            manifest=manifest,
+            i18n_cfg=i18n_cfg,
+            api_cfg=api_cfg,
+            site_title=default_site_title,
+            locale_css_path=locale_css_paths[default_lang],
+            css_file=css_file,
+            template_file=template_file,
+            index_url="index.html",
+            rebase_body_from_dir=os.path.dirname(first_def_page.dest_abs),
+            prefer_manifest_description=True,
+        )
+    root_progress.update(0, 0, done=True)
+
+    copy_directory_assets(input_abs, out_dir_abs, excluded_files={template_file, css_file})
+    for css_out in locale_css_paths.values():
+        if css_out is not None:
+            bundle_svg_fonts(out_dir_abs, css_file_path=css_out)
+
+    _emit_api_seo_files(
+        input_abs=input_abs,
+        out_dir_abs=out_dir_abs,
+        manifest=manifest,
+        i18n_cfg=i18n_cfg,
+        ordered_langs=ordered_langs,
+        rel_htmls_by_lang=rel_htmls_by_lang,
+        default_pages=default_pages,
+        default_site_title=default_site_title,
+        landing_desc_by_lang=landing_desc_by_lang,
+    )
+
+    readme_out = os.path.join(out_dir_abs, "README.md")
+    if not os.path.exists(readme_out):
+        os.makedirs(out_dir_abs, exist_ok=True)
+        with open(readme_out, "w", encoding="utf-8") as f:
+            f.write(get_html_readme())
+
+    return out_dir_abs
+
 

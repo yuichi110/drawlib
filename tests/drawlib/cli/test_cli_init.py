@@ -31,6 +31,7 @@ def test_cli_init_list(tmp_path: Path) -> None:
     assert "Available Drawlib Project Types:" in res1.stdout
     assert "doc" in res1.stdout
     assert "site" in res1.stdout
+    assert "api" in res1.stdout
     assert "slide" in res1.stdout
     assert "images" in res1.stdout
     assert "drawlib init project <type>" in res1.stdout
@@ -39,6 +40,24 @@ def test_cli_init_list(tmp_path: Path) -> None:
     for bad_args in (["init", "--list"], ["init", "-l"], ["init", "project", "--list"], ["init", "project", "-l"]):
         res_bad = run_drawlib_cli(bad_args, cwd=str(tmp_path))
         assert res_bad.returncode != 0
+
+
+def test_cli_init_api_default(tmp_path: Path) -> None:
+    """Test scaffolding an api project with default target ('api_src/') and rejecting ref/reference."""
+    res = run_drawlib_cli(["init", "project", "api"], cwd=str(tmp_path))
+    assert res.returncode == 0
+    assert "Initialized 'api' project ('api_src/')" in res.stdout
+    assert (tmp_path / "api_src" / "drawlib.toml").is_file()
+    assert (tmp_path / "api_src" / "template.html").is_file()
+    assert (tmp_path / "api_src" / "style.css").is_file()
+    assert (tmp_path / "api_src" / "en" / "00_overview.md").is_file()
+    assert (tmp_path / "api_src" / "en" / "01_users.md").is_file()
+    assert (tmp_path / "api_src" / "en" / "02_models.md").is_file()
+    assert "./api_src/serve.sh" in res.stdout
+
+    for rejected_alias in ("ref", "reference"):
+        res_alias = run_drawlib_cli(["init", "project", rejected_alias], cwd=str(tmp_path))
+        assert res_alias.returncode != 0
 
 
 def test_cli_init_no_args_shows_help(tmp_path: Path) -> None:
@@ -331,7 +350,7 @@ def test_cli_init_conflict_and_force(tmp_path: Path) -> None:
 def test_python_api_init(tmp_path: Path) -> None:
     """Test Python programmatic API for project initialization."""
     types = list_project_types()
-    assert set(types.keys()) == {"doc", "site", "slide", "images"}
+    assert set(types.keys()) == {"doc", "site", "api", "slide", "images"}
 
     target = tmp_path / "api_test"
     created = init_project("doc", destination=target)
@@ -448,8 +467,8 @@ def test_cli_init_lang_invalid(tmp_path: Path) -> None:
 
 
 def test_cli_init_site_and_doc_multi_lang(tmp_path: Path) -> None:
-    """Test unified i18n manifest/layout for doc, site, slide (single & multi-locale) and flat images."""
-    for single_type, folder in [("doc", "s_doc"), ("site", "s_site"), ("slide", "s_slide")]:
+    """Test unified i18n manifest/layout for doc, site, api, slide (single & multi-locale) and flat images."""
+    for single_type, folder in [("doc", "s_doc"), ("site", "s_site"), ("api", "s_api"), ("slide", "s_slide")]:
         res_single = run_drawlib_cli(["init", "project", single_type, folder], cwd=str(tmp_path))
         assert res_single.returncode == 0
         manifest_text = (tmp_path / f"{folder}_src" / "drawlib.toml").read_text(encoding="utf-8")
@@ -525,7 +544,7 @@ def test_cli_init_site_and_doc_multi_lang(tmp_path: Path) -> None:
     # Images multi-lang should fail cleanly
     res_bad = run_drawlib_cli(["init", "project", "images", "-l", "en,ja"], cwd=str(tmp_path))
     assert res_bad.returncode != 0
-    assert "supported for 'doc', 'site', and 'slide' projects, not 'images'" in res_bad.stderr
+    assert "supported for 'doc', 'site', 'slide', and 'api' projects, not 'images'" in res_bad.stderr
 
 
 def test_cli_init_scripts_support_uvx_fallback(tmp_path: Path) -> None:
@@ -534,6 +553,7 @@ def test_cli_init_scripts_support_uvx_fallback(tmp_path: Path) -> None:
         "images": ["build_image.sh"],
         "doc": ["build_html.sh", "build_pdf.sh", "build_docx.sh", "build_markdown.sh", "build_image.sh", "serve.sh"],
         "site": ["build_html.sh", "build_markdown.sh", "build_image.sh", "serve.sh"],
+        "api": ["build_html.sh", "build_markdown.sh", "build_image.sh", "serve.sh"],
         "slide": ["build_html.sh", "build_pdf.sh", "build_pptx.sh", "build_image.sh", "serve.sh"],
     }
     for proj_type, scripts in expected_scripts.items():

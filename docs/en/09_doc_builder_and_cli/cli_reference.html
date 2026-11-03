@@ -548,6 +548,10 @@
                             </li>
                             
                             <li class="nav-item ">
+                                <a href="project_api.html" >API Reference Project (`api`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
                                 <a href="project_slide.html" >Slide Deck Project (`slide`)</a>
                             </li>
                             
@@ -1220,10 +1224,10 @@ drawlib<span class="w"> </span>rules<span class="w"> </span>list<span class="w">
 drawlib<span class="w"> </span>init<span class="w"> </span>project<span class="w"> </span>list
 </code></pre>
 <ul>
-<li><code>&lt;TYPE&gt;</code>: Subcommand choosing project type: <code>doc</code>, <code>site</code>, <code>slide</code> (all initialized with unified <code>&lt;src_dir&gt;/&lt;lang&gt;/</code> locale directories and <code>[i18n]</code> in <code>drawlib.toml</code>), <code>images</code> (alias: <code>image</code>), or <code>list</code>.</li>
-<li><code>[target]</code>: Base name for the project and source folder (creates <code>&lt;target&gt;_src/</code>). Defaults: <code>doc</code> for <code>doc</code>, <code>docs</code> for <code>site</code>, <code>slide</code> for <code>slide</code>, <code>images</code> for <code>images</code>.</li>
+<li><code>&lt;TYPE&gt;</code>: Subcommand choosing project type: <code>doc</code>, <code>site</code>, <code>api</code> <em>(Upcoming in v0.3.5)</em>, <code>slide</code> (all initialized with unified <code>&lt;src_dir&gt;/&lt;lang&gt;/</code> locale directories and <code>[i18n]</code> in <code>drawlib.toml</code>), <code>images</code> (alias: <code>image</code>), or <code>list</code>.</li>
+<li><code>[target]</code>: Base name for the project and source folder (creates <code>&lt;target&gt;_src/</code>). Defaults: <code>doc</code> for <code>doc</code>, <code>docs</code> for <code>site</code>, <code>api</code> for <code>api</code>, <code>slide</code> for <code>slide</code>, <code>images</code> for <code>images</code>.</li>
 <li><code>-s</code>, <code>--style &lt;theme&gt;</code>: Style preset theme (<code>default</code>, <code>google</code>, <code>monochrome</code>, etc.) synchronously configuring both <code>style.css</code> and <code>styles.py</code>.</li>
-<li><code>-l</code>, <code>--lang &lt;code&gt;</code>: Starter content and font configuration language (<code>en</code>, <code>ja</code>, <code>zh-cn</code>, <code>ko</code>, <code>th</code>, <code>hi</code>, etc.; supports comma-separated multi-locale codes such as <code>-l en,ja</code> on <code>doc</code>, <code>site</code>, and <code>slide</code>). Default: <code>en</code>.</li>
+<li><code>-l</code>, <code>--lang &lt;code&gt;</code>: Starter content and font configuration language (<code>en</code>, <code>ja</code>, <code>zh-cn</code>, <code>ko</code>, <code>th</code>, <code>hi</code>, etc.; supports comma-separated multi-locale codes such as <code>-l en,ja</code> on <code>doc</code>, <code>site</code>, <code>api</code>, and <code>slide</code>). Default: <code>en</code>.</li>
 <li><code>-f</code>, <code>--force</code>: Overwrite existing files if destination directory already exists.</li>
 </ul>
 <h3>5.2 AI Coding Agent Instructions (<code>drawlib init agent</code>)</h3>

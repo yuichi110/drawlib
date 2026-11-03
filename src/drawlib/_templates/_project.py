@@ -23,6 +23,7 @@ from drawlib._templates.langs import get_font_replacements, get_language_config,
 PROJECT_TYPES: Final[dict[str, str]] = {
     "doc": "Single specification, RFC, or multi-chapter technical report compiled to HTML and PDF.",
     "site": "Multi-page documentation website with sidebar navigation and search.",
+    "api": "Multi-page API & SDK reference website with H1/H2 sidebar navigation and semantic badges.",
     "slide": "16:9 presentation slide deck with modular SmartArts and vector diagrams.",
     "images": "Standalone Python illustration scripts compiled into images.",
 }
@@ -30,11 +31,12 @@ PROJECT_TYPES: Final[dict[str, str]] = {
 _CANONICAL_TYPE_MAP: Final[dict[str, str]] = {
     "doc": "doc",
     "site": "site",
+    "api": "api",
     "slide": "slide",
     "images": "images",
     "image": "images",
 }
-_I18N_PROJECT_TYPES: Final[frozenset[str]] = frozenset({"doc", "site", "slide"})
+_I18N_PROJECT_TYPES: Final[frozenset[str]] = frozenset({"doc", "site", "slide", "api"})
 
 
 def list_project_types() -> dict[str, str]:
@@ -65,6 +67,7 @@ def _resolve_target_base_and_dir(
 
     default_names = {
         "site": "docs",
+        "api": "api",
         "images": "images",
         "image": "images",
         "slide": "slide",
@@ -81,9 +84,9 @@ def resolve_project_paths(
     """Resolve project directory names and output paths into a structured ProjectPaths object.
 
     Args:
-        project_type: Project type name ('doc', 'site', 'slide', 'images', 'image').
+        project_type: Project type name ('doc', 'site', 'api', 'slide', 'images', 'image').
         target: Custom base name or relative path for the project (e.g. 'spec', 'docs/mysite').
-            If None, defaults to canonical type name ('doc', 'docs', 'slide', 'images').
+            If None, defaults to canonical type name ('doc', 'docs', 'api', 'slide', 'images').
         destination: Base directory path where <target>_src will be created (defaults to current dir).
 
     Returns:
@@ -181,11 +184,15 @@ def _resolve_stylesheet(
     lang: str = "en",
 ) -> str | None:
     """Resolve and validate stylesheet content for web/slide project types."""
-    if project_type not in _I18N_PROJECT_TYPES:
+    target_map: dict[str, Literal["site", "doc", "slide", "api"]] = {
+        "site": "site",
+        "doc": "doc",
+        "slide": "slide",
+        "api": "api",
+    }
+    target = target_map.get(project_type)
+    if target is None:
         return None
-    target: Literal["site", "doc", "slide"] = (
-        "site" if project_type == "site" else ("doc" if project_type == "doc" else "slide")
-    )
     return get_css(name=style, target=target, lang=lang)
 
 
@@ -271,15 +278,26 @@ def _parse_init_languages(lang: str, canonical_type: str) -> list[str]:
 
     if len(normalized) > 1 and canonical_type not in _I18N_PROJECT_TYPES:
         raise ValueError(
-            f"Multi-language initialization ('{lang}') is supported for 'doc', 'site', and 'slide' projects, "
+            f"Multi-language initialization ('{lang}') is supported for 'doc', 'site', 'slide', and 'api' projects, "
             f"not '{canonical_type}'."
         )
     return normalized
 
 
+def _to_archetype_literal(canonical_type: str) -> Literal["images", "doc", "site", "slide", "api"]:
+    """Narrow canonical project type string to ProjectArchetype literal."""
+    mapping: dict[str, Literal["images", "doc", "site", "slide", "api"]] = {
+        "doc": "doc",
+        "site": "site",
+        "slide": "slide",
+        "api": "api",
+    }
+    return mapping.get(canonical_type, "images")
+
+
 def _deploy_project_manifest(
     src_dir: Path,
-    canonical_type: Literal["images", "doc", "site", "slide"],
+    canonical_type: Literal["images", "doc", "site", "slide", "api"],
     target_name: str,
     style: str,
     primary_lang: str,
@@ -363,12 +381,12 @@ def init_project(
     """Scaffold a starter Drawlib project in the target destination directory.
 
     Args:
-        project_type: Project type ('doc', 'site', 'slide', 'images', 'image').
+        project_type: Project type ('doc', 'site', 'api', 'slide', 'images', 'image').
         destination: Base directory path where <target>_src is created (defaults to current dir).
-        target: Custom base name for the project (e.g. 'spec', 'report', 'docs').
+        target: Custom base name for the project (e.g. 'spec', 'report', 'docs', 'api').
         output: Legacy alias for target (e.g. 'rbac' creates 'rbac_src/').
         force: If True, overwrite existing files and directories.
-        lang: Language code ('en', 'ja', etc.) or comma-separated codes for 'doc'/'site'/'slide' ('en,ja').
+        lang: Language code ('en', 'ja', etc.) or comma-separated codes for 'doc'/'site'/'api'/'slide' ('en,ja').
         style: Style preset theme ('default', 'google', 'monochrome', etc.) or custom CSS file path.
         here: Deprecated legacy option. Ignored when target_src is always created.
 
@@ -424,11 +442,7 @@ def init_project(
     created_files: list[Path] = []
     _deploy_shared_templates(project_base, paths.src_dir, replacements, created_files)
     _deploy_type_root_files(type_root, paths.src_dir, replacements, created_files)
-    archetype_lit: Literal["images", "doc", "site", "slide"] = (
-        "doc"
-        if canonical_type == "doc"
-        else ("site" if canonical_type == "site" else ("slide" if canonical_type == "slide" else "images"))
-    )
+    archetype_lit = _to_archetype_literal(canonical_type)
     _deploy_project_manifest(
         src_dir=paths.src_dir,
         canonical_type=archetype_lit,

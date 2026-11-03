@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="{{ html_lang | default('__HTML_LANG__') }}" dir="{{ html_dir | default('__HTML_DIR__') }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title | default('API Reference') }}{% if site_title %} — {{ site_title }}{% endif %}</title>
+    <script>
+        (function() {
+            try {
+                var savedTheme = localStorage.getItem('drawlib-theme');
+                if (savedTheme === 'dark' || savedTheme === 'light') {
+                    document.documentElement.setAttribute('data-theme', savedTheme);
+                } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                }
+            } catch (e) {}
+        })();
+    </script>
+    {% if favicon_href %}
+    <link rel="icon" href="{{ favicon_href }}">
+    {% endif %}
+    {% if alternate_links %}
+    {% for alt in alternate_links %}
+    <link rel="alternate" hreflang="{{ alt.hreflang }}" href="{{ alt.url }}">
+    {% endfor %}
+    {% endif %}
+    {% if seo_meta_html %}
+{{ seo_meta_html | safe }}
+    {% endif %}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    {% if font_link_html is defined %}
+    {{ font_link_html | safe }}
+    {% else %}
+    __FONT_GOOGLE_LINK__
+    {% endif %}
+    {% if css_href %}
+    <link rel="stylesheet" href="{{ css_href }}">
+    {% elif custom_css %}
+    <style>
+{{ custom_css | safe }}
+    </style>
+    {% endif %}
+</head>
+<body>
+    {% set ui = api_ui | default({
+        'breadcrumb_root': 'API Reference',
+        'filter_placeholder': 'Filter API symbols...',
+        'modules_label': 'Categories & Symbols',
+        'expand_all': 'Expand All',
+        'collapse_all': 'Collapse All',
+        'no_matches': 'No matching symbols found.',
+        'prev_label': 'Previous',
+        'next_label': 'Next'
+    }) %}
+    <div class="doc-layout">
+        <aside class="sidebar" id="api-sidebar">
+            <div class="sidebar-header{% if api_badge_text or api_repo_url %} has-subbar{% endif %}">
+                <a href="{{ index_url | default('index.html') }}" class="site-title">
+                    {% if logo_href %}
+                    <img src="{{ logo_href }}" alt="{{ site_title | default('API Reference') }}" class="sidebar-logo sidebar-logo-light">
+                    <img src="{{ logo_dark_href | default(logo_href) }}" alt="{{ site_title | default('API Reference') }}" class="sidebar-logo sidebar-logo-dark">
+                    {% else %}
+                    {{ site_title | default('API Reference') }}
+                    {% endif %}
+                </a>
+                <div class="sidebar-header-actions">
+                    <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle color theme" title="Toggle light/dark mode">
+                        <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                        <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                    </button>
+                    <button id="menu-toggle" class="menu-toggle-btn" aria-label="Toggle navigation menu">
+                        <svg class="icon-hamburger" viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                        <svg class="icon-close" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                    </button>
+                </div>
+            </div>
+            {% if api_badge_text or api_repo_url %}
+            <div class="sidebar-subbar">
+                {% if api_badge_text %}
+                {% if api_badge_url %}
+                <a href="{{ api_badge_url }}" class="sidebar-version-badge">
+                    <span class="sidebar-version-dot"></span>
+                    <span>{{ api_badge_text }}</span>
+                </a>
+                {% else %}
+                <span class="sidebar-version-badge">
+                    <span class="sidebar-version-dot"></span>
+                    <span>{{ api_badge_text }}</span>
+                </span>
+                {% endif %}
+                {% endif %}
+                {% if api_repo_url %}
+                <a href="{{ api_repo_url }}" target="_blank" rel="noopener noreferrer" class="sidebar-github-link" aria-label="Repository" title="View Source Repository">
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+                </a>
+                {% endif %}
+            </div>
+            {% endif %}
+
+            <div class="sidebar-menu">
+                <div class="api-sidebar-toolbar">
+                    <div class="api-filter-box">
+                        <svg class="api-filter-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                        <input id="api-filter-input" type="search" class="api-filter-input" placeholder="{{ ui.filter_placeholder }}" autocomplete="off" spellcheck="false" aria-label="{{ ui.filter_placeholder }}">
+                        <kbd class="api-filter-kbd">/</kbd>
+                    </div>
+                    <div class="api-toolbar-meta">
+                        <span class="api-toolbar-label">{{ ui.modules_label }}</span>
+                        <button type="button" id="api-expand-toggle" class="api-expand-btn" data-expand-label="{{ ui.expand_all }}" data-collapse-label="{{ ui.collapse_all }}">{{ ui.collapse_all if (sidebar_expanded | default(true)) else ui.expand_all }}</button>
+                    </div>
+                </div>
+
+                <nav class="api-sidebar-nav" id="api-sidebar-nav" aria-label="API Navigation">
+                    {% for section in api_nav_sections | default([]) %}
+                    {% if section.title %}
+                    <div class="api-nav-section-heading">{{ section.title }}</div>
+                    {% endif %}
+                    {% for page in section.pages %}
+                    <details class="api-nav-group{% if page.active %} is-current-page{% endif %}" data-cat="{{ page.filter_key }}"{% if page.expanded | default(sidebar_expanded | default(true)) %} open{% endif %}>
+                        <summary class="api-nav-summary">
+                            <svg class="api-nav-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                            <a href="{{ page.url }}" class="api-nav-cat-link{% if page.is_prose %} is-prose-cat{% endif %}">{{ page.title }}</a>
+                            {% if page.subitems %}
+                            <span class="api-nav-count">{{ page.subitems | length }}</span>
+                            {% endif %}
+                        </summary>
+                        {% if page.subitems %}
+                        <ul class="api-nav-sublist">
+                            {% for item in page.subitems %}
+                            <li class="api-nav-subitem" data-sym="{{ item.filter_text }}">
+                                <a href="{{ item.url }}" class="api-nav-sublink{% if page.is_prose %} is-prose-sublink{% endif %}"{% if page.active %} data-target="{{ item.slug }}"{% endif %}>
+                                    {% if item.badge_kind and item.badge_text %}
+                                    <span class="api-badge api-badge-{{ item.badge_kind }}">{{ item.badge_text }}</span>
+                                    {% endif %}
+                                    <span class="api-nav-sym-text">{{ item.label }}</span>
+                                </a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </details>
+                    {% endfor %}
+                    {% endfor %}
+                    <div id="api-nav-empty" class="api-nav-empty" hidden>{{ ui.no_matches }}</div>
+                </nav>
+            </div>
+        </aside>
+        <div class="sidebar-backdrop" id="sidebar-backdrop"></div>
+
+        <div class="content-wrapper">
+            <div class="top-bar">
+                <div class="breadcrumbs">
+                    <a href="{{ index_url | default('index.html') }}" class="crumb">{{ ui.breadcrumb_root }}</a>
+                    <span class="crumb-separator">/</span>
+                    <span class="crumb active">{{ current_page_title | default(title) }}</span>
+                </div>
+                {% if (api_header_links and api_header_links | length > 0) or (languages and languages | length > 1) %}
+                <div class="top-bar-right">
+                    {% if api_header_links and api_header_links | length > 0 %}
+                    <div class="top-bar-links">
+                        {% for hlink in api_header_links %}
+                        <a href="{{ hlink.url }}"{% if hlink.is_external %} target="_blank" rel="noopener noreferrer"{% endif %} class="top-bar-ext-link">
+                            <span>{{ hlink.label }}</span>
+                            {% if hlink.is_external %}
+                            <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                            {% endif %}
+                        </a>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                    {% if languages and languages | length > 1 %}
+                    <div class="lang-switcher" aria-label="Language switcher">
+                        <details class="lang-dropdown">
+                            <summary class="lang-dropdown-btn" aria-haspopup="listbox">
+                                <svg class="lang-globe-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                                <span class="lang-current-label">{% for lang in languages %}{% if lang.active %}{{ lang.label }}{% endif %}{% endfor %}</span>
+                                <svg class="lang-caret-icon" viewBox="0 0 24 24" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                            </summary>
+                            <div class="lang-dropdown-menu" role="listbox">
+                                {% for lang in languages %}
+                                {% if lang.active %}
+                                <span class="lang-option active" role="option" aria-selected="true">
+                                    <span>{{ lang.label }}</span>
+                                    <svg class="lang-check-icon" viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                </span>
+                                {% else %}
+                                <a href="{{ lang.url }}" class="lang-option" role="option" hreflang="{{ lang.hreflang }}">
+                                    <span>{{ lang.label }}</span>
+                                </a>
+                                {% endif %}
+                                {% endfor %}
+                            </div>
+                        </details>
+                    </div>
+                    {% endif %}
+                </div>
+                {% endif %}
+            </div>
+
+            <main class="main-content api-main-content">
+                {{ body | safe }}
+
+                {% if api_pager and (api_pager.prev or api_pager.next) %}
+                <nav class="api-pager" aria-label="API Page Navigation">
+                    {% if api_pager.prev %}
+                    <a href="{{ api_pager.prev.url }}" class="api-pager-card is-prev">
+                        <span class="api-pager-dir">&larr; {{ ui.prev_label }}</span>
+                        <span class="api-pager-title">{{ api_pager.prev.title }}</span>
+                    </a>
+                    {% else %}
+                    <div></div>
+                    {% endif %}
+                    {% if api_pager.next %}
+                    <a href="{{ api_pager.next.url }}" class="api-pager-card is-next">
+                        <span class="api-pager-dir">{{ ui.next_label }} &rarr;</span>
+                        <span class="api-pager-title">{{ api_pager.next.title }}</span>
+                    </a>
+                    {% else %}
+                    <div></div>
+                    {% endif %}
+                </nav>
+                {% endif %}
+            </main>
+
+            <footer class="footer">
+                Generated by <a href="https://github.com/yuichi110/drawlib" target="_blank" rel="noopener noreferrer">Drawlib</a>.
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            var toggleBtn = document.getElementById('theme-toggle');
+            if (toggleBtn) {
+                toggleBtn.addEventListener('click', function() {
+                    var current = document.documentElement.getAttribute('data-theme');
+                    if (!current) {
+                        current = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+                    }
+                    var next = current === 'dark' ? 'light' : 'dark';
+                    document.documentElement.setAttribute('data-theme', next);
+                    try { localStorage.setItem('drawlib-theme', next); } catch (e) {}
+                });
+            }
+
+            var menuBtn = document.getElementById('menu-toggle');
+            var sidebar = document.getElementById('api-sidebar');
+            var backdrop = document.getElementById('sidebar-backdrop');
+            function closeMenu() {
+                if (sidebar) sidebar.classList.remove('is-open');
+                if (backdrop) backdrop.classList.remove('is-open');
+            }
+            if (menuBtn && sidebar && backdrop) {
+                menuBtn.addEventListener('click', function() {
+                    sidebar.classList.toggle('is-open');
+                    backdrop.classList.toggle('is-open');
+                });
+                backdrop.addEventListener('click', closeMenu);
+            }
+
+            document.querySelectorAll('.api-nav-cat-link').forEach(function(link) {
+                link.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                });
+            });
+
+            if (sidebar) {
+                try {
+                    var savedScroll = sessionStorage.getItem('drawlib-api-sidebar-scroll');
+                    if (savedScroll !== null) {
+                        sidebar.scrollTop = parseInt(savedScroll, 10) || 0;
+                    }
+                    sidebar.addEventListener('scroll', function() {
+                        try { sessionStorage.setItem('drawlib-api-sidebar-scroll', String(sidebar.scrollTop)); } catch (e) {}
+                    }, { passive: true });
+                } catch (e) {}
+            }
+
+            var groups = Array.prototype.slice.call(document.querySelectorAll('.api-nav-group'));
+            var expandBtn = document.getElementById('api-expand-toggle');
+            function updateExpandBtnLabel() {
+                if (!expandBtn || groups.length === 0) return;
+                var visibleGroups = groups.filter(function(g) { return !g.hidden; });
+                var allOpen = visibleGroups.length > 0 && visibleGroups.every(function(g) { return g.open; });
+                var expandText = expandBtn.getAttribute('data-expand-label') || 'Expand All';
+                var collapseText = expandBtn.getAttribute('data-collapse-label') || 'Collapse All';
+                expandBtn.textContent = allOpen ? collapseText : expandText;
+            }
+            if (expandBtn) {
+                updateExpandBtnLabel();
+                expandBtn.addEventListener('click', function() {
+                    var visibleGroups = groups.filter(function(g) { return !g.hidden; });
+                    var allOpen = visibleGroups.length > 0 && visibleGroups.every(function(g) { return g.open; });
+                    visibleGroups.forEach(function(g) { g.open = !allOpen; });
+                    updateExpandBtnLabel();
+                });
+                groups.forEach(function(g) {
+                    g.addEventListener('toggle', updateExpandBtnLabel);
+                });
+            }
+
+            var filterInput = document.getElementById('api-filter-input');
+            var emptyNotice = document.getElementById('api-nav-empty');
+            var savedOpenState = null;
+
+            if (filterInput) {
+                filterInput.addEventListener('input', function() {
+                    var q = filterInput.value.trim().toLowerCase();
+                    if (q && !savedOpenState) {
+                        savedOpenState = groups.map(function(g) { return g.open; });
+                    }
+                    var anyMatch = false;
+                    groups.forEach(function(g, idx) {
+                        var catText = (g.getAttribute('data-cat') || '').toLowerCase();
+                        var catMatches = q !== '' && catText.indexOf(q) !== -1;
+                        var items = Array.prototype.slice.call(g.querySelectorAll('.api-nav-subitem'));
+                        var visibleCount = 0;
+
+                        items.forEach(function(li) {
+                            var symText = (li.getAttribute('data-sym') || '').toLowerCase();
+                            var show = (q === '') || catMatches || symText.indexOf(q) !== -1;
+                            li.hidden = !show;
+                            if (show) visibleCount += 1;
+                        });
+
+                        if (q === '') {
+                            g.hidden = false;
+                            if (savedOpenState && typeof savedOpenState[idx] === 'boolean') {
+                                g.open = savedOpenState[idx];
+                            }
+                            anyMatch = true;
+                        } else if (catMatches || visibleCount > 0) {
+                            g.hidden = false;
+                            g.open = true;
+                            anyMatch = true;
+                        } else {
+                            g.hidden = true;
+                        }
+                    });
+
+                    if (q === '') {
+                        savedOpenState = null;
+                    }
+                    if (emptyNotice) {
+                        emptyNotice.hidden = anyMatch;
+                    }
+                    updateExpandBtnLabel();
+                });
+
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === '/' && document.activeElement !== filterInput) {
+                        var tag = document.activeElement ? document.activeElement.tagName : '';
+                        if (tag !== 'INPUT' && tag !== 'TEXTAREA' && tag !== 'SELECT') {
+                            e.preventDefault();
+                            filterInput.focus();
+                        }
+                    } else if (e.key === 'Escape' && document.activeElement === filterInput) {
+                        filterInput.value = '';
+                        filterInput.dispatchEvent(new Event('input'));
+                        filterInput.blur();
+                    }
+                });
+            }
+
+            document.addEventListener('click', function(e) {
+                document.querySelectorAll('.lang-dropdown[open]').forEach(function(dd) {
+                    if (!dd.contains(e.target)) {
+                        dd.removeAttribute('open');
+                    }
+                });
+            });
+
+            var activeLinks = Array.prototype.slice.call(document.querySelectorAll('.api-nav-sublink[data-target]'));
+            if (activeLinks.length > 0 && 'IntersectionObserver' in window) {
+                var linkBySlug = {};
+                var headings = [];
+                activeLinks.forEach(function(a) {
+                    var slug = a.getAttribute('data-target');
+                    var el = slug ? document.getElementById(slug) : null;
+                    if (slug && el) {
+                        linkBySlug[slug] = a;
+                        headings.push(el);
+                    }
+                    a.addEventListener('click', closeMenu);
+                });
+
+                function setActiveSlug(slug) {
+                    activeLinks.forEach(function(a) {
+                        if (a.getAttribute('data-target') === slug) {
+                            a.classList.add('is-active');
+                        } else {
+                            a.classList.remove('is-active');
+                        }
+                    });
+                }
+
+                if (window.location.hash) {
+                    var initSlug = decodeURIComponent(window.location.hash.slice(1));
+                    if (linkBySlug[initSlug]) setActiveSlug(initSlug);
+                } else if (headings.length > 0) {
+                    setActiveSlug(headings[0].id);
+                }
+
+                var visibleIds = {};
+                var observer = new IntersectionObserver(function(entries) {
+                    entries.forEach(function(entry) {
+                        visibleIds[entry.target.id] = entry.isIntersecting;
+                    });
+                    for (var i = 0; i < headings.length; i++) {
+                        if (visibleIds[headings[i].id]) {
+                            setActiveSlug(headings[i].id);
+                            break;
+                        }
+                    }
+                }, { rootMargin: '-70px 0px -68% 0px', threshold: [0, 1] });
+
+                headings.forEach(function(h) { observer.observe(h); });
+            }
+        })();
+    </script>
+</body>
+</html>
