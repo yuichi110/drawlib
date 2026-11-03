@@ -26,7 +26,7 @@ Drawlib is a declarative Python drawing library and integrated multi-format docu
 
 ![Autonomous AI Documentation Workflow](https://www.drawlib.com/images/index/hero_ai_doc_loop.png)
 
-- **Official Website & Documentation**: [English (`www.drawlib.com`)](https://www.drawlib.com/) | [日本語 (`www.drawlib.com/ja/`)](https://www.drawlib.com/ja/) | [Internal Architecture Spec](https://www.drawlib.com/architecture/)
+- **Official Website & Documentation**: [English (`www.drawlib.com`)](https://www.drawlib.com/) | [日本語 (`www.drawlib.com/ja/`)](https://www.drawlib.com/ja/) | [API & CLI Reference (`www.drawlib.com/api/`)](https://www.drawlib.com/api/) | [Internal Architecture Spec](https://www.drawlib.com/architecture/)
 - **Live Examples Gallery**: [Browse All Showcase Projects (`examples.drawlib.com`)](https://examples.drawlib.com/) | [Source (`drawlib-examples`)](https://github.com/yuichi110/drawlib-examples)
   - **16:9 Slide Decks**: [About Drawlib (HTML / PDF / PPTX)](https://examples.drawlib.com/about-drawlib/en/) · [DDoS Incident Postmortem (HTML / PDF / PPTX)](https://examples.drawlib.com/ddos-incident-response/en/)
   - **Guides & Whitepapers**: [Dogfooding Whitepaper — English](https://examples.drawlib.com/dogfooding/en/) / [日本語版](https://examples.drawlib.com/dogfooding/ja/) · [Quickstart Guide (HTML / PDF / DOCX)](https://examples.drawlib.com/quickstart/en/)
@@ -38,7 +38,7 @@ Drawlib is a declarative Python drawing library and integrated multi-format docu
 No `pyproject.toml`, virtual environment, or package installation required—works immediately in **any directory** (including **Go, Rust, TypeScript, and Java** repositories) using [`uv`](https://docs.astral.sh/uv/):
 
 ```bash
-# 1. Scaffold a bilingual documentation site (or: doc, slide, images)
+# 1. Scaffold a bilingual documentation site (or: catalog, doc, slide, images)
 uvx drawlib init project site -l en,ja
 
 # 2. (Optional) Generate Drawlib rules for your AI coding agent (claude, cursor, antigravity, copilot, ...)
@@ -112,8 +112,9 @@ Author Markdown files with embedded ```` ```drawlib ```` code fences inside a un
 ![Multi-Locale Documentation and Slide Build Pipeline](https://www.drawlib.com/images/01_getting_started/project_quicklook/doc_build_pipeline.png)
 
 - **Unified `drawlib.toml`, Multi-Locale (`[i18n]`) & Declarative SEO (`[seo]`)**: Configure project metadata, `[build]` flags, `[i18n]` locales (`langs = ["en", "ja"]` with structural parity checks), and `[seo]` publishing (`site_url`, Open Graph / X social cards, `hreflang`, `sitemap.xml`, `robots.txt`, and AI-ready `llms.txt`) directly in `drawlib.toml`.
-- **4 Project Scaffolds (`drawlib init project <type>`)**:
+- **5 Project Scaffolds (`drawlib init project <type>`)**:
   - `drawlib init project site [-l en,ja]`: Multi-page documentation website (`docs_html/` with language switcher, search, and sidebar TOC) and GitHub Markdown (`docs_markdown/`).
+  - `drawlib init project catalog [-l en,ja]`: Illustrated catalog & reference website (`catalog_html/` with automatic `# H1` / `## H2` sidebar extraction, 50+ semantic badges, and `/` instant filter) for APIs, CLI references, schemas, and service registries.
   - `drawlib init project doc [-l en,ja]`: Linear technical specification or whitepaper (`*_html/`, `*_markdown/`, vector `*_<lang>.pdf`, plus editable MS Word `*_<lang>.docx` via `./<target>_src/build_docx.sh` or `drawlib build docx`).
   - `drawlib init project slide [-l en,ja]`: 16:9 presentation slide deck (`::: block` + `::: note` speaker notes) with native SVG typography, Presenter View, keyboard navigation (`slide_html/`), vector `slide_<lang>.pdf`, and editable MS PowerPoint `slide_<lang>.pptx` via `./<target>_src/build_pptx.sh` or `drawlib build pptx`.
   - `drawlib init project images`: Standalone batch Python illustration scripts (`images_src/` -> `images/`) backed by sub-millisecond `.drawlib/cache.db` incremental caching.
@@ -263,7 +264,7 @@ drawlib show docs_src/en/index.md service_routing.png -g -o preview_grid.png
 
 | Command | Description |
 | :--- | :--- |
-| `drawlib init project <site\|doc\|slide\|images\|list> [-l <langs>]` | Scaffold a documentation site, linear spec, 16:9 slide deck, or image project (`drawlib.toml`) |
+| `drawlib init project <site\|catalog\|doc\|slide\|images\|list> [-l <langs>]` | Scaffold a documentation site, catalog/reference, linear spec, 16:9 slide deck, or image project (`drawlib.toml`) |
 | `drawlib init agent <agent...\|all\|list> [-m <auto\|always>]` | Generate workspace rule/instruction files for AI coding agents (`claude`, `cursor`, `antigravity`, `copilot`, `windsurf`, `cline`, `roo`, `codex`, `gemini`) |
 | `drawlib build <html\|markdown\|pdf\|docx\|slide\|pptx\|image>` | Compile sources into HTML, Markdown, PDF, MS Word (`.docx`), HTML Slides, MS PowerPoint (`.pptx`), or PNG/APNG/WebP images |
 | `drawlib serve <html_dir> [--check]` | Start a local HTTP server for built HTML docs/slides with broken-link verification |
@@ -275,7 +276,7 @@ drawlib show docs_src/en/index.md service_routing.png -g -o preview_grid.png
 
 ## Links & Resources
 
-- **Official Documentation**: [English (`https://www.drawlib.com/`)](https://www.drawlib.com/) | [日本語 (`https://www.drawlib.com/ja/`)](https://www.drawlib.com/ja/) | [Internal Architecture Spec (`https://www.drawlib.com/architecture/`)](https://www.drawlib.com/architecture/)
+- **Official Documentation**: [English (`https://www.drawlib.com/`)](https://www.drawlib.com/) | [日本語 (`https://www.drawlib.com/ja/`)](https://www.drawlib.com/ja/) | [API & CLI Reference (`https://www.drawlib.com/api/`)](https://www.drawlib.com/api/) | [Internal Architecture Spec (`https://www.drawlib.com/architecture/`)](https://www.drawlib.com/architecture/)
 - **Live Examples Gallery**: [https://examples.drawlib.com/](https://examples.drawlib.com/) ([`yuichi110/drawlib-examples`](https://github.com/yuichi110/drawlib-examples))
 - **Release Notes & Changelog**: [English](https://www.drawlib.com/en/01_getting_started/release_notes.html) | [日本語](https://www.drawlib.com/ja/01_getting_started/release_notes.html)
 - **Contributor & Developer Guide**: [`CONTRIBUTING.md`](https://github.com/yuichi110/drawlib/blob/main/.github/CONTRIBUTING.md) | [`docs_src/README_DEV.md`](https://github.com/yuichi110/drawlib/blob/main/docs_src/README_DEV.md)

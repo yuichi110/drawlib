@@ -125,7 +125,7 @@ def draw_gemini_avatar(xy: tuple[float, float], radius: float = 4.3) -> None:
 
 
 def draw_scene_init_patterns(highlight_doc: bool) -> None:
-    """Scene 1: Show 4 drawlib init project archetypes and select 'doc'."""
+    """Scene 1: Show 5 drawlib init project archetypes and select 'doc'."""
     text(
         (69.0, 76.2),
         "Project Scaffolding Patterns — drawlib init project <type>",
@@ -134,7 +134,7 @@ def draw_scene_init_patterns(highlight_doc: bool) -> None:
     sub_msg = (
         "2. Sample walkthrough: Linear Document (drawlib init project doc)"
         if highlight_doc
-        else "1. Choose from 4 starter project archetypes"
+        else "1. Choose from 5 starter project archetypes"
     )
     sub_st = (
         Styles.PrimaryBold.patch(text_size=11.0)
@@ -157,9 +157,9 @@ def draw_scene_init_patterns(highlight_doc: bool) -> None:
             100.5,
             51.5,
             "site",
-            "drawlib init project site",
-            "Multi-Page Docs Website",
-            "Out: docs_html/<lang>/, docs_markdown/",
+            "drawlib init project site / catalog",
+            "Docs Website / API & Schema Ref",
+            "Out: docs_html/<lang>/, catalog_html/<lang>/",
             phosphor.globe,
         ),
         (
@@ -1124,13 +1124,14 @@ $ uv run drawlib init project site mybook
 $ uv run drawlib init project doc rbac -s google -l en,ja
 ```
 
-Drawlib は 4 種類のスタータープロジェクトタイプをサポートしています（`doc`・`site`・`slide` は標準で `<src_dir>/<lang>/` と `drawlib.toml` の `[i18n]` を使用します）。
+Drawlib は 5 種類のスタータープロジェクトタイプをサポートしています（`doc`・`site`・`catalog`・`slide` は標準で `<src_dir>/<lang>/` と `drawlib.toml` の `[i18n]` を使用します）。
 - **`doc`**: HTML（`doc_html/`）、PDF（`doc_<lang>.pdf`）、編集可能な MS Word（`doc_<lang>.docx`）、Markdown（`doc_markdown/`）、および図解画像（`doc_images/`）へコンパイルされる単一構成の技術文書・仕様書・RFC・レポート。
 - **`site`**: マルチページのドキュメントサイト（`docs_html/`）、Markdown サイト（`docs_markdown/`）、および図解画像（`docs_images/`）。
+- **`catalog`**: `# H1` / `## H2` 自動サイドバー・セマンティックバッジ・`/` リアルタイム絞り込みを備えた図解付きカタログ & リファレンスサイト（`catalog_html/`、`catalog_markdown/`、`catalog_images/`）。API・CLI リファレンスやデータスキーマ、サービス台帳に最適です。
 - **`slide`**: Web スライドデッキ（`slide_html/`）、ベクター PDF（`slide_<lang>.pdf`）、編集可能な MS PowerPoint（`slide_<lang>.pptx`）、および図解画像（`slide_images/`）へコンパイルされる 16:9 プレゼンテーションスライド。
 - **`images`**: 画像ファイル（`images/*.png` など）へ一括コンパイルされるスタンドアロンの Python 図解スクリプト群（`images_src/*.py`）。
 
-```drawlib code=fold align=center file=project_scaffolding_types.png caption="Drawlib の 4 つのプロジェクトアーキタイプ（drawlib init project）"
+```drawlib code=fold align=center file=project_scaffolding_types.png caption="Drawlib のプロジェクトスキャフォールドアーキタイプ（drawlib init project）"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.shapes import rectangle
@@ -1144,12 +1145,12 @@ hdr_dark = Styles.DarkBold.patch(text_size=11.0)
 body_bold = Styles.DarkBold.patch(text_size=10.5, halign="left")
 body_sub = Styles.Dark.patch(text_size=10.0, halign="left")
 
-# 1. Top-Left: drawlib init project site (Hero header)
+# 1. Top-Left: drawlib init project site / catalog (Hero header)
 rectangle((32.0, 35.5), width=58.0, height=19.0, style=Styles.Neutral.patch(shape_r=2.0))
-rectangle((32.0, 41.0), width=55.0, height=5.5, style=Styles.PrimaryFlat.patch(shape_r=1.2), text="1. drawlib init project site (Website)", text_style=hdr_white)
+rectangle((32.0, 41.0), width=55.0, height=5.5, style=Styles.PrimaryFlat.patch(shape_r=1.2), text="1. site / catalog (Web & Ref)", text_style=hdr_white)
 phosphor.globe((9.5, 32.0), width=5.2, style=Styles.Primary)
-text((14.0, 34.0), "Source: docs_src/<lang>/**/*.md + navbar.md", style=body_bold)
-text((14.0, 29.8), "Output: docs_html/ + docs_markdown/", style=body_sub)
+text((14.0, 34.0), "Source: docs_src/ or catalog_src/<lang>/", style=body_bold)
+text((14.0, 29.8), "Output: *_html/ (navbar or Auto H1/H2)", style=body_sub)
 
 # 2. Top-Right: drawlib init project doc
 rectangle((94.0, 35.5), width=58.0, height=19.0, style=Styles.Neutral.patch(shape_r=2.0))

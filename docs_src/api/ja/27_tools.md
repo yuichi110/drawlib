@@ -143,7 +143,7 @@ build_docx(
 
 ## `def` build_html(input_dir, output_dir=None, *, ...)
 
-`i18n` 対応の `site`・`doc`・`catalog` *(v0.3.5 で導入予定)* プロジェクトディレクトリ（`drawlib.toml` + `<lang>/` ソース）を、共有図解の重複排除・ロケール別フォントスタイルシート・言語スイッチャー（2 言語以上時）・ルート `index.html` を備えた静的 HTML へコンパイルします。
+`i18n` 対応の `site`・`doc`・`catalog` プロジェクトディレクトリ（`drawlib.toml` + `<lang>/` ソース）を、共有図解の重複排除・ロケール別フォントスタイルシート・言語スイッチャー（2 言語以上時）・ルート `index.html` を備えた静的 HTML へコンパイルします。
 
 ```python
 from drawlib.tools import build_html
@@ -162,7 +162,7 @@ build_html(
 
 | パラメータ | 型 | デフォルト | 説明 |
 | :--- | :--- | :--- | :--- |
-| `input_dir` | `str` | *(必須)* | `drawlib.toml`（`type = "site"`、`"doc"`、または `"catalog"` *(v0.3.5 で導入予定)*）と `<lang>/` フォルダを含むプロジェクトルート。 |
+| `input_dir` | `str` | *(必須)* | `drawlib.toml`（`type = "site"`、`"doc"`、または `"catalog"`）と `<lang>/` フォルダを含むプロジェクトルート。 |
 | `output_dir` | `str \| None` | `None` | 出力先 HTML ディレクトリ（省略時は `<base>_html`）。 |
 | `image_format` | `str` | `"png"` | 埋め込み `drawlib` ブロックの出力画像形式（`"png"` または `"webp"`）。 |
 | `styles_path` | `str \| None` | `None` | カスタム `styles.py` スクリプトへのパス。 |
@@ -457,7 +457,7 @@ export_code_block(
 
 ## `def` export_css(name, output_path=None, target="html", force=False, lang="en")
 
-組み込み CSS テーマプリセットを合成してファイルへ書き出します（`target="catalog"` は *(v0.3.5 で導入予定)*）。
+組み込み CSS テーマプリセットを合成してファイルへ書き出します。
 
 ```python
 from drawlib.tools import export_css
@@ -475,7 +475,7 @@ export_css(
 | :--- | :--- | :--- | :--- |
 | `name` | `str` | *(必須)* | 組み込み CSS プリセット名（`"default"`、`"google"`、`"default-dark"`、`"monochrome"` など）。 |
 | `output_path` | `str \| None` | `None` | 出力先ファイルパス（省略時は `docs_src/style.css` が存在すればそちら、なければ `style.css`）。 |
-| `target` | `CssTarget` | `"html"` | 対象レイアウト形式（`"html"`、`"pdf"`、`"slide"`、`"site"`、`"doc"`、または `"catalog"` *(v0.3.5 で導入予定)*）。 |
+| `target` | `CssTarget` | `"html"` | 対象レイアウト形式（`"html"`、`"pdf"`、`"slide"`、`"site"`、`"doc"`、または `"catalog"`）。 |
 | `force` | `bool` | `False` | 既存ファイルを上書きします（`False` で既存ファイルがある場合は `FileExistsError`）。 |
 | `lang` | `str` | `"en"` | タイポグラフィ用フォントスタックの言語コード（`"en"`、`"ja"`、`"zh-cn"` など）。 |
 
@@ -505,7 +505,7 @@ get_agent_instruction(
 
 ## `def` get_css(name=None, target="html", lang="en")
 
-テーマトークン・UI コンポーネント・ターゲットレイアウト層を統合した自己完結型の CSS スタイルシート文字列を取得します（`target="catalog"` は *(v0.3.5 で導入予定)*）。
+テーマトークン・UI コンポーネント・ターゲットレイアウト層を統合した自己完結型の CSS スタイルシート文字列を取得します。
 
 ```python
 from drawlib.tools import get_css
@@ -520,7 +520,7 @@ get_css(
 | パラメータ | 型 | デフォルト | 説明 |
 | :--- | :--- | :--- | :--- |
 | `name` | `str \| None` | `None` | 組み込みテーマ名またはカスタム CSS ファイルパス（省略時は `"default"`）。 |
-| `target` | `CssTarget` | `"html"` | 対象レイアウト形式（`"html"`、`"site"`、`"doc"`、`"pdf"`、`"slide"`、または `"catalog"` *(v0.3.5 で導入予定)*）。 |
+| `target` | `CssTarget` | `"html"` | 対象レイアウト形式（`"html"`、`"site"`、`"doc"`、`"pdf"`、`"slide"`、または `"catalog"`）。 |
 | `lang` | `str` | `"en"` | フォントスタック置換用の言語コードまたはエイリアス。 |
 
 - **戻り値（`str`）**: 合成された CSS スタイルシート文字列。
@@ -555,7 +555,7 @@ init_agent_instruction(
 
 ## `def` init_project(project_type, destination=".", target=None, ...)
 
-`drawlib.toml`・`styles.py`・`utils.py`・`_assets/`・テンプレート・`build*.sh` を備えた Drawlib スタータープロジェクト（`<target>_src/`）を自動生成します（`project_type="catalog"` は *(v0.3.5 で導入予定)*）。
+`drawlib.toml`・`styles.py`・`utils.py`・`_assets/`・テンプレート・`build*.sh` を備えた Drawlib スタータープロジェクト（`<target>_src/`）を自動生成します。
 
 ```python
 from drawlib.tools import init_project
@@ -574,7 +574,7 @@ init_project(
 
 | パラメータ | 型 | デフォルト | 説明 |
 | :--- | :--- | :--- | :--- |
-| `project_type` | `str` | *(必須)* | プロジェクト種別: `"doc"`、`"site"`、`"catalog"` *(v0.3.5 で導入予定)*、`"slide"`、`"images"`、`"image"`。 |
+| `project_type` | `str` | *(必須)* | プロジェクト種別: `"doc"`、`"site"`、`"catalog"`、`"slide"`、`"images"`、`"image"`。 |
 | `destination` | `str \| Path` | `"."` | `<target>_src/` を作成する親ディレクトリパス。 |
 | `target` | `str \| None` | `None` | プロジェクトのベース名（省略時は `"doc"`・`"docs"`・`"catalog"`・`"slide"`・`"images"`）。 |
 | `output` | `str \| None` | `None` | `target` の後方互換エイリアス。 |
@@ -624,7 +624,7 @@ list_cache() -> list[dict[str, Any]]
 
 ## `def` list_css(target="html")
 
-指定された `target` 向けの組み込み CSS プリセット一覧をメタデータ辞書リストとして返します（`target="catalog"` は *(v0.3.5 で導入予定)*）。
+指定された `target` 向けの組み込み CSS プリセット一覧をメタデータ辞書リストとして返します。
 
 ```python
 from drawlib.tools import list_css
@@ -636,7 +636,7 @@ list_css(
 
 | パラメータ | 型 | デフォルト | 説明 |
 | :--- | :--- | :--- | :--- |
-| `target` | `CssTarget` | `"html"` | 対象フォーマット（`"html"`、`"pdf"`、`"slide"`、`"site"`、`"doc"`、または `"catalog"` *(v0.3.5 で導入予定)*）。 |
+| `target` | `CssTarget` | `"html"` | 対象フォーマット（`"html"`、`"pdf"`、`"slide"`、`"site"`、`"doc"`、または `"catalog"`）。 |
 
 - **戻り値（`list[dict[str, str]]`）**: `"name"`・`"file"`・`"description"` を持つ辞書のリスト。
 

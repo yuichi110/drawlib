@@ -149,8 +149,6 @@ uv run drawlib build docx doc_src -o doc.docx --generate-index --dpi 240
 
 Markdown/HTML ドキュメントソースディレクトリ（`site`・`catalog`・`doc`）を、図版レンダリング・サイドバーナビゲーション・クライアントサイド検索インデックス・SEO メタデータ付きの静的 HTML サイトへコンパイルします。
 
-> **注記 (v0.3.5 で導入予定):** `drawlib build html` における `catalog` カタログ／リファレンスプロジェクト（`project_type = "catalog"`、H1 カテゴリ＋H2 セマンティックバッジ構成）のコンパイル対応は *(v0.3.5 で導入予定)* です。
-
 ```bash
 drawlib build html [OPTIONS] DIR
 
@@ -433,8 +431,6 @@ drawlib css COMMAND [ARGS]...
 
 組み込み CSS プリセット（`default`・`google`・`monochrome`・`default-dark`・`google-dark` など）を、全ターゲット横断のサマリー表または特定ターゲット別のテーブルとして一覧表示します。
 
-> **注記 (v0.3.5 で導入予定):** `'catalog'` ターゲット指定（`drawlib css list catalog`）によるカタログ／リファレンス向け CSS 一覧表示は *(v0.3.5 で導入予定)* です。
-
 ```bash
 drawlib css list [TARGET]
 
@@ -448,15 +444,13 @@ uv run drawlib css list catalog
 
 | 引数 | 型 | デフォルト | 説明 |
 | :--- | :--- | :--- | :--- |
-| `TARGET` | `str \| None` | `None` | 絞り込み対象ターゲット：`'html'`・`'pdf'`・`'site'`・`'doc'`・`'slide'`・`'catalog'` *(v0.3.5 で導入予定)*・`'all'`。省略時はサマリー表を表示します。 |
+| `TARGET` | `str \| None` | `None` | 絞り込み対象ターゲット：`'html'`・`'pdf'`・`'site'`・`'doc'`・`'slide'`・`'catalog'`・`'all'`。省略時はサマリー表を表示します。 |
 
 ---
 
 ## `cmd` drawlib css show
 
 組み込み CSS プリセットの内容をターミナルへ表示（TTY 接続時はシンタックスハイライト付き）、または `-o / --output` 指定で言語別フォントスタックを反映した `.css` ファイルとして書き出します。
-
-> **注記 (v0.3.5 で導入予定):** `'catalog'` ターゲットのスタイルシート表示・エクスポート（`drawlib css show catalog <PRESET>`）は *(v0.3.5 で導入予定)* です。
 
 ```bash
 drawlib css show [OPTIONS] [TARGET] PRESET
@@ -467,13 +461,13 @@ uv run drawlib css show google
 # 日本語フォントスタック付きの PDF 用スタイルシートを書き出し
 uv run drawlib css show pdf google -l ja -o doc_src/pdf_style.css --force
 
-# カタログ／リファレンス用スタイルシートを書き出し（v0.3.5 で導入予定）
+# カタログ／リファレンス用スタイルシートを書き出し
 uv run drawlib css show catalog google -o catalog_src/style.css --force
 ```
 
 | 引数 / オプション | 型 | デフォルト | 説明 |
 | :--- | :--- | :--- | :--- |
-| `[TARGET] PRESET` | `str` *(必須)* | — | `<PRESET>` 単体指定（`TARGET` は `'html'` 扱い）、または `<TARGET> <PRESET>` の 2 引数指定。`TARGET` は `'html'`・`'catalog'` *(v0.3.5 で導入予定)*・`'site'`・`'doc'`・`'slide'`・`'pdf'`。 |
+| `[TARGET] PRESET` | `str` *(必須)* | — | `<PRESET>` 単体指定（`TARGET` は `'html'` 扱い）、または `<TARGET> <PRESET>` の 2 引数指定。`TARGET` は `'html'`・`'catalog'`・`'site'`・`'doc'`・`'slide'`・`'pdf'`。 |
 | `PRESET` | `str \| None` | `None` | 第 1 引数に `TARGET` を指定した場合の CSS プリセット名（`'default'`・`'google'`・`'monochrome'`・`'default-dark'`・`'google-dark'` 等）。 |
 | `-o, --output` | `str \| None` | `None` | 保存先 `.css` ファイルパス。省略時は標準出力へ CSS 全文を出力します。 |
 | `-f, --force` | `bool` | `False` | 保存先ファイルが既に存在する場合に上書きします。 |
@@ -558,7 +552,7 @@ drawlib init project COMMAND [ARGS]...
 
 | サブコマンド | 既定フォルダ | プロジェクトアーキタイプ |
 | :--- | :--- | :--- |
-| [`drawlib init project catalog`](#drawlib-init-project-catalog) | `catalog_src/` | 図解付きカタログ & リファレンスサイト（API・CLI・スキーマ・サービス台帳・ランブック） *(v0.3.5 で導入予定)*。 |
+| [`drawlib init project catalog`](#drawlib-init-project-catalog) | `catalog_src/` | 図解付きカタログ & リファレンスサイト（API・CLI・スキーマ・サービス台帳・ランブック）。 |
 | [`drawlib init project doc`](#drawlib-init-project-doc) | `doc_src/` | 章立て技術ドキュメント（`HTML`・`PDF`・`.docx`・`Markdown`）。 |
 | [`drawlib init project image`](#drawlib-init-project-image) | `images_src/` | `drawlib init project images` の単数形エイリアス。 |
 | [`drawlib init project images`](#drawlib-init-project-images) | `images_src/` | 単体 Python イラストレーションスクリプト集。 |
@@ -570,9 +564,7 @@ drawlib init project COMMAND [ARGS]...
 
 ## `cmd` drawlib init project catalog
 
-H1 カテゴリと H2 セマンティックバッジ見出しで構成される図解付きカタログ & リファレンスサイト（`project_type = "catalog"`、API・CLI オプション・データスキーマ・サービス台帳・エラー辞書などに対応）を `<target>_src/` にスキャフォールド生成します（`drawlib.toml`・`styles.py`・`utils.py`・`style.css`・`template.html`・`build.sh`・`serve.sh` を作成） *(v0.3.5 で導入予定)*。
-
-> **注記 (v0.3.5 で導入予定):** `drawlib init project catalog` スキャフォールドサブコマンドは *(v0.3.5 で導入予定)* です。
+H1 カテゴリと H2 セマンティックバッジ見出しで構成される図解付きカタログ & リファレンスサイト（`project_type = "catalog"`、API・CLI オプション・データスキーマ・サービス台帳・エラー辞書などに対応）を `<target>_src/` にスキャフォールド生成します（`drawlib.toml`・`styles.py`・`utils.py`・`style.css`・`template.html`・`build.sh`・`serve.sh` を作成）。
 
 ```bash
 drawlib init project catalog [OPTIONS] [TARGET]

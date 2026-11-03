@@ -125,7 +125,7 @@ def draw_gemini_avatar(xy: tuple[float, float], radius: float = 4.3) -> None:
 
 
 def draw_scene_init_patterns(highlight_doc: bool) -> None:
-    """Scene 1: Show 4 drawlib init project archetypes and select 'doc'."""
+    """Scene 1: Show 5 drawlib init project archetypes and select 'doc'."""
     text(
         (69.0, 76.2),
         "Project Scaffolding Patterns — drawlib init project <type>",
@@ -134,7 +134,7 @@ def draw_scene_init_patterns(highlight_doc: bool) -> None:
     sub_msg = (
         "2. Sample walkthrough: Linear Document (drawlib init project doc)"
         if highlight_doc
-        else "1. Choose from 4 starter project archetypes"
+        else "1. Choose from 5 starter project archetypes"
     )
     sub_st = (
         Styles.PrimaryBold.patch(text_size=11.0)
@@ -157,9 +157,9 @@ def draw_scene_init_patterns(highlight_doc: bool) -> None:
             100.5,
             51.5,
             "site",
-            "drawlib init project site",
-            "Multi-Page Docs Website",
-            "Out: docs_html/<lang>/, docs_markdown/",
+            "drawlib init project site / catalog",
+            "Docs Website / API & Schema Ref",
+            "Out: docs_html/<lang>/, catalog_html/<lang>/",
             phosphor.globe,
         ),
         (
@@ -1124,13 +1124,14 @@ $ uv run drawlib init project site mybook
 $ uv run drawlib init project doc rbac -s google -l en,ja
 ```
 
-Drawlib supports four starter project types (`doc`, `site`, and `slide` natively use `<src_dir>/<lang>/` and `[i18n]` in `drawlib.toml`):
+Drawlib supports five starter project types (`doc`, `site`, `catalog`, and `slide` natively use `<src_dir>/<lang>/` and `[i18n]` in `drawlib.toml`):
 - **`doc`**: Linear technical document / spec / RFC / report compiled to HTML (`doc_html/`), PDF (`doc_<lang>.pdf`), editable MS Word (`doc_<lang>.docx`), Markdown (`doc_markdown/`), and diagrams (`doc_images/`).
 - **`site`**: Multi-page documentation website (`docs_html/`), Markdown site (`docs_markdown/`), and diagrams (`docs_images/`).
+- **`catalog`**: Illustrated catalog & reference website (`catalog_html/`, `catalog_markdown/`, `catalog_images/`) with automatic `# H1` / `## H2` sidebar extraction, semantic badges, and `/` live filtering for APIs, CLI flags, schemas, and service registries.
 - **`slide`**: 16:9 presentation slide deck compiled to web deck (`slide_html/`), vector PDF (`slide_<lang>.pdf`), editable MS PowerPoint (`slide_<lang>.pptx`), and diagrams (`slide_images/`).
 - **`images`**: Standalone Python illustration scripts (`images_src/*.py`) batch-compiled to image files (`images/*.png`).
 
-```drawlib code=fold align=center file=project_scaffolding_types.png caption="The Four Drawlib Project Scaffolding Archetypes (drawlib init project)"
+```drawlib code=fold align=center file=project_scaffolding_types.png caption="Drawlib Project Scaffolding Archetypes (drawlib init project)"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.shapes import rectangle
@@ -1144,12 +1145,12 @@ hdr_dark = Styles.DarkBold.patch(text_size=11.0)
 body_bold = Styles.DarkBold.patch(text_size=10.5, halign="left")
 body_sub = Styles.Dark.patch(text_size=10.0, halign="left")
 
-# 1. Top-Left: drawlib init project site (Hero header)
+# 1. Top-Left: drawlib init project site / catalog (Hero header)
 rectangle((32.0, 35.5), width=58.0, height=19.0, style=Styles.Neutral.patch(shape_r=2.0))
-rectangle((32.0, 41.0), width=55.0, height=5.5, style=Styles.PrimaryFlat.patch(shape_r=1.2), text="1. drawlib init project site (Website)", text_style=hdr_white)
+rectangle((32.0, 41.0), width=55.0, height=5.5, style=Styles.PrimaryFlat.patch(shape_r=1.2), text="1. site / catalog (Web & Ref)", text_style=hdr_white)
 phosphor.globe((9.5, 32.0), width=5.2, style=Styles.Primary)
-text((14.0, 34.0), "Source: docs_src/<lang>/**/*.md + navbar.md", style=body_bold)
-text((14.0, 29.8), "Output: docs_html/ + docs_markdown/", style=body_sub)
+text((14.0, 34.0), "Source: docs_src/ or catalog_src/<lang>/", style=body_bold)
+text((14.0, 29.8), "Output: *_html/ (navbar or Auto H1/H2)", style=body_sub)
 
 # 2. Top-Right: drawlib init project doc
 rectangle((94.0, 35.5), width=58.0, height=19.0, style=Styles.Neutral.patch(shape_r=2.0))
@@ -1223,4 +1224,4 @@ Open `http://localhost:8000` in your browser to inspect the full documentation s
 ---
 
 > [!NOTE]
-> For in-depth guides on code block attributes (`code=show`, `code=fold`, `caption="..."`), custom HTML templates, CSS theming, caching, and PDF / MS Word (`.docx`) / MS PowerPoint (`.pptx`) exports, see **[Chapter 8: Document Builder & CLI](../09_doc_builder_and_cli/overview.md)**.
+> For in-depth guides on code block attributes (`code=show`, `code=fold`, `caption="..."`), custom HTML templates, CSS theming, caching, and PDF / MS Word (`.docx`) / MS PowerPoint (`.pptx`) exports, see **[Chapter 9: Document Builder & CLI](../09_doc_builder_and_cli/overview.md)**.

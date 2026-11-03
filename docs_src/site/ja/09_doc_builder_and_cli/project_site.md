@@ -987,9 +987,7 @@ ja = "日本語"
 
 ## 9. プロジェクト管理型 SEO・Open Graph・`llms.txt` (`drawlib.toml`)
 
-> **Note (Upcoming in v0.3.5):** `drawlib.toml` における `[seo]` および `[i18n.descriptions]` のマニフェスト機能は次期 **v0.3.5** リリースで提供予定であり、現在 PyPI で公開されている `v0.3.4` パッケージには含まれていません。
-
-Web 出力を生成する Drawlib プロジェクト（`site`、`doc`、`slide`）では、独自のスクリプトを書かずに `drawlib.toml` の宣言だけで検索エンジン向けメタデータ、SNS シェア用の Open Graph / X (Twitter) カード、`sitemap.xml`、`robots.txt`、および AI クローラー向けインデックス（`llms.txt`）を一元管理できます。
+Web 出力を生成する Drawlib プロジェクト（`site`、`doc`、`catalog`、`slide`）では、独自のスクリプトを書かずに `drawlib.toml` の宣言だけで検索エンジン向けメタデータ、SNS シェア用の Open Graph / X (Twitter) カード、`sitemap.xml`、`robots.txt`、および AI クローラー向けインデックス（`llms.txt`）を一元管理できます。
 
 ```toml
 [project]

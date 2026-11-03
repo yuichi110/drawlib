@@ -39,19 +39,19 @@
     
     
     
-    <meta name="description" content="リリース日: 2026/11/02">
+    <meta name="description" content="リリース日: 2026/11/03">
     <link rel="canonical" href="https://www.drawlib.com/ja/01_getting_started/release_notes.html">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Drawlib ドキュメント">
     <meta property="og:title" content="リリースノートと移行ガイド — Drawlib ドキュメント">
-    <meta property="og:description" content="リリース日: 2026/11/02">
+    <meta property="og:description" content="リリース日: 2026/11/03">
     <meta property="og:url" content="https://www.drawlib.com/ja/01_getting_started/release_notes.html">
     <meta property="og:image" content="https://www.drawlib.com/_assets/ogp.png">
     <meta property="og:locale" content="ja_JP">
     <meta property="og:locale:alternate" content="en_US">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="リリースノートと移行ガイド — Drawlib ドキュメント">
-    <meta name="twitter:description" content="リリース日: 2026/11/02">
+    <meta name="twitter:description" content="リリース日: 2026/11/03">
     <meta name="twitter:image" content="https://www.drawlib.com/_assets/ogp.png">
     
     
@@ -88,7 +88,7 @@
                 
                 <a href="../01_getting_started/release_notes.html" class="sidebar-version-badge" title="View Release Notes">
                     <span class="sidebar-version-dot" aria-hidden="true"></span>
-                    <span class="sidebar-version-text">v0.3.4</span>
+                    <span class="sidebar-version-text">v0.3.5</span>
                 </a>
                 <a href="https://github.com/yuichi110/drawlib" target="_blank" rel="noopener noreferrer" class="sidebar-github-link" aria-label="GitHub Repository" title="GitHub Repository">
                     <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
@@ -137,6 +137,10 @@
                             
                             <li class="nav-item active">
                                 <a href="release_notes.html" >リリースノートと移行ガイド</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="https://www.drawlib.com/api/" target="_blank" rel="noopener noreferrer">API &amp; CLI リファレンス<svg class="nav-external-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
                             </li>
                             
                             <li class="nav-item ">
@@ -659,6 +663,28 @@
             </header>
             <main class="main-content">
                 <h1>リリースノートと移行ガイド</h1>
+<h2>バージョン 0.3.5</h2>
+<p><em>リリース日: 2026/11/03</em></p>
+<p>バージョン 0.3.5 では、API・CLI リファレンスやデータスキーマ辞書、マイクロサービス台帳、運用ランブックの構築に最適化された第 5 のプロジェクトアーキタイプ <strong>図解付きカタログ &amp; リファレンス（<code>catalog</code>, <code>drawlib init project catalog</code>）</strong> を新搭載したほか、<strong>宣言的プロジェクト SEO・Open Graph・<code>llms.txt</code> 自動生成（<code>[seo]</code>）</strong>、<strong>ゼロインストール <code>uvx</code> フォールバック対応ビルドスクリプト</strong>、および <strong>日英バイリンガル公式 Python API &amp; CLI リファレンス（<code>/api/</code>）</strong> を公開しました。</p>
+<hr />
+<h3>ハイライトと新機能</h3>
+<h4>1. 図解付きカタログ &amp; リファレンスプロジェクト（<code>catalog</code>, <code>drawlib init project catalog</code>）</h4>
+<ul>
+<li><strong><code>navbar.md</code> 不要の 2 カラム・カタログビルダ（<code>1 Markdown = 1 HTML ページ</code>）</strong>: <code>drawlib init project catalog [target] [-l en,ja] [-s google]</code>（<code>drawlib.tools.init_project(&quot;catalog&quot;, ...)</code>）で初期構築できます。<code>&lt;src_dir&gt;/&lt;lang&gt;/</code> 内の各 Markdown ファイルから <code># H1</code> カテゴリ（折りたたみ可能な <code>&lt;details class=&quot;catalog-nav-group&quot;&gt;</code>）と <code>## H2</code> エントリ（スクロールスパイ連動の <code>#slug</code> リンク）を自動抽出するため、手動の <code>navbar.md</code> 管理が不要です。</li>
+<li><strong>50 種以上のセマンティック <code>H2</code> バッジと <code>/</code> インクリメンタルフィルタ</strong>: <code>## </code> 見出し先頭にインラインコードの識別子（HTTP の <code>GET</code>・<code>POST</code>・<code>PUT</code>・<code>PATCH</code>・<code>DELETE</code>・<code>gRPC</code>、コード・CLI の <code>def</code>・<code>class</code>・<code>type</code>・<code>cmd</code>・<code>flag</code>・<code>env</code>・<code>config</code>、データ・基盤の <code>table</code>・<code>schema</code>・<code>service</code>・<code>job</code>・<code>pipeline</code>・<code>metric</code>、デザイン・規約の <code>token</code>・<code>style</code>・<code>icon</code>・<code>adr</code>・<code>rule</code>、状態の <code>ok</code>・<code>warn</code>・<code>error</code>・<code>deprecated</code> 等）を記述するだけで本文見出しとサイドバーの双方に色分けバッジを描画し、<code>/</code> キーによるリアルタイム絞り込み検索を提供します。</li>
+<li><strong>宣言的 <code>[catalog]</code> 設定と専用 CSS ターゲット</strong>: <code>drawlib.toml</code> の <code>[catalog]</code> セクション（<code>sidebar_expanded</code>・<code>badge_text</code>・<code>badge_url</code>・<code>breadcrumb_root</code>・<code>repo_url</code>・<code>[[catalog.header_links]]</code>）、専用 CSS プリセット出力 <code>drawlib css list|show catalog</code>（<code>get_css(target=&quot;catalog&quot;)</code>・<code>export_css(target=&quot;catalog&quot;)</code>）、およびエージェント規約 <code>drawlib rules show project-catalog</code> を追加しました。</li>
+</ul>
+<h4>2. 宣言的プロジェクト SEO・Open Graph・<code>llms.txt</code> 自動生成（<code>[seo]</code>, <code>[i18n.descriptions]</code>）</h4>
+<ul>
+<li><strong><code>site</code>・<code>doc</code>・<code>catalog</code>・<code>slide</code> 横断の検索・SNS メタデータ自動出力</strong>: <code>drawlib.toml</code> に <code>[seo]</code>（<code>site_url</code>・<code>og_image</code>・<code>twitter_card</code>・<code>twitter_site</code>・<code>robots</code>・<code>sitemap</code>・<code>llms_txt</code>・<code>json_ld</code>・<code>cname</code>・<code>nojekyll</code>）および <code>[i18n.descriptions]</code> を宣言するだけで、<code>&lt;link rel=&quot;canonical&quot;&gt;</code>・多言語 <code>hreflang</code>・Open Graph / X Card タグ・Schema.org JSON-LD 構造化データ・<code>sitemap.xml</code>・<code>robots.txt</code>・<code>CNAME</code>・<code>.nojekyll</code> を一括出力します。</li>
+<li><strong>AI クローラ向け <code>llms.txt</code> 自動生成</strong>: サイト構成・言語別エントリ URL・各ページ概要を整理した <code>llms.txt</code> を自動出力し、LLM エージェントや検索クローラによるドキュメント構造の正確な把握を支援します。</li>
+</ul>
+<h4>3. ゼロインストール <code>uvx</code> フォールバックスクリプトと公式 API &amp; CLI リファレンス公開（<code>/api/</code>, <code>/architecture/</code>）</h4>
+<ul>
+<li><strong>他言語リポジトリでも即実行できる <code>uvx drawlib</code> 自動フォールバック</strong>: 生成される <code>build*.sh</code> および <code>serve.sh</code> が <code>uv run drawlib</code> を優先検出しつつ、未設定環境では自動的に <code>uvx drawlib</code>（またはグローバル <code>drawlib</code>）へフォールバックするようになり、Go・Rust・TypeScript・Java 等の非 Python リポジトリでも環境構築なしで図解ビルドを実行できます。</li>
+<li><strong>日英バイリンガル公式 Python API &amp; CLI リファレンス・アーキテクチャ仕様書の公開</strong>: 新アーキタイプ <code>catalog</code> のドッグフーディングとして全 29 ページの公式 Python API &amp; CLI リファレンス（<code>https://www.drawlib.com/api/</code>、日英完全対応）および内部ソフトウェアアーキテクチャ仕様書（<code>https://www.drawlib.com/architecture/</code>）を公開しました。</li>
+</ul>
+<hr />
 <h2>バージョン 0.3.4</h2>
 <p><em>リリース日: 2026/11/02</em></p>
 <p>バージョン 0.3.4 では、主要 9 種の AI コーディングアシスタントに対応した <strong>AI エージェント向けワークスペースルール初期化機能（<code>drawlib init agent</code>）</strong> を新搭載し、<code>drawlib init</code> を対称的な <strong><code>drawlib init project</code> / <code>drawlib init agent</code></strong> のサブコマンド階層へ再編成したほか、プロジェクトテンプレートに実行権限付きの <strong>MS Word（<code>build_docx.sh</code>）</strong> および <strong>MS PowerPoint（<code>build_pptx.sh</code>）</strong> ビルドスクリプトを追加しました。</p>

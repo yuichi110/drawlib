@@ -83,7 +83,7 @@
                 
                 <a href="index.html" class="sidebar-version-badge">
                     <span class="sidebar-version-dot"></span>
-                    <span>API リファレンス · v0.3.4</span>
+                    <span>API リファレンス · v0.3.5</span>
                 </a>
                 
                 
@@ -4543,7 +4543,7 @@
 <li><strong>戻り値（<code>str</code>）</strong>: 生成された <code>.docx</code> ファイル（<code>doc</code> プロジェクト時は <code>default_lang</code> の <code>.docx</code>）の絶対パス。</li>
 </ul>
 <h2 id="build-html" class="catalog-symbol-heading"><span class="catalog-badge catalog-badge-def">def</span><code class="catalog-sig"><span class="catalog-sig-name">build_html</span><span class="catalog-sig-params">(input_dir, output_dir=None, *, ...)</span></code><a class="header-anchor" href="#build-html" aria-label="Permalink to build_html()">#</a></h2>
-<p><code>i18n</code> 対応の <code>site</code>・<code>doc</code>・<code>catalog</code> <em>(v0.3.5 で導入予定)</em> プロジェクトディレクトリ（<code>drawlib.toml</code> + <code>&lt;lang&gt;/</code> ソース）を、共有図解の重複排除・ロケール別フォントスタイルシート・言語スイッチャー（2 言語以上時）・ルート <code>index.html</code> を備えた静的 HTML へコンパイルします。</p>
+<p><code>i18n</code> 対応の <code>site</code>・<code>doc</code>・<code>catalog</code> プロジェクトディレクトリ（<code>drawlib.toml</code> + <code>&lt;lang&gt;/</code> ソース）を、共有図解の重複排除・ロケール別フォントスタイルシート・言語スイッチャー（2 言語以上時）・ルート <code>index.html</code> を備えた静的 HTML へコンパイルします。</p>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.tools</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_html</span>
 
 <span class="n">build_html</span><span class="p">(</span>
@@ -4571,7 +4571,7 @@
 <td style="text-align:left"><code>input_dir</code></td>
 <td style="text-align:left"><code>str</code></td>
 <td style="text-align:left"><em>(必須)</em></td>
-<td style="text-align:left"><code>drawlib.toml</code>（<code>type = &quot;site&quot;</code>、<code>&quot;doc&quot;</code>、または <code>&quot;catalog&quot;</code> <em>(v0.3.5 で導入予定)</em>）と <code>&lt;lang&gt;/</code> フォルダを含むプロジェクトルート。</td>
+<td style="text-align:left"><code>drawlib.toml</code>（<code>type = &quot;site&quot;</code>、<code>&quot;doc&quot;</code>、または <code>&quot;catalog&quot;</code>）と <code>&lt;lang&gt;/</code> フォルダを含むプロジェクトルート。</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>output_dir</code></td>
@@ -5266,7 +5266,7 @@
 <li><strong>戻り値（<code>str</code>）</strong>: 書き出された画像ファイルの絶対パス（一覧表示モード時は <code>&quot;&quot;</code>）。</li>
 </ul>
 <h2 id="export-css" class="catalog-symbol-heading"><span class="catalog-badge catalog-badge-def">def</span><code class="catalog-sig"><span class="catalog-sig-name">export_css</span><span class="catalog-sig-params">(name, output_path=None, target=&quot;html&quot;, force=False, lang=&quot;en&quot;)</span></code><a class="header-anchor" href="#export-css" aria-label="Permalink to export_css()">#</a></h2>
-<p>組み込み CSS テーマプリセットを合成してファイルへ書き出します（<code>target=&quot;catalog&quot;</code> は <em>(v0.3.5 で導入予定)</em>）。</p>
+<p>組み込み CSS テーマプリセットを合成してファイルへ書き出します。</p>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.tools</span><span class="w"> </span><span class="kn">import</span> <span class="n">export_css</span>
 
 <span class="n">export_css</span><span class="p">(</span>
@@ -5303,7 +5303,7 @@
 <td style="text-align:left"><code>target</code></td>
 <td style="text-align:left"><code>CssTarget</code></td>
 <td style="text-align:left"><code>&quot;html&quot;</code></td>
-<td style="text-align:left">対象レイアウト形式（<code>&quot;html&quot;</code>、<code>&quot;pdf&quot;</code>、<code>&quot;slide&quot;</code>、<code>&quot;site&quot;</code>、<code>&quot;doc&quot;</code>、または <code>&quot;catalog&quot;</code> <em>(v0.3.5 で導入予定)</em>）。</td>
+<td style="text-align:left">対象レイアウト形式（<code>&quot;html&quot;</code>、<code>&quot;pdf&quot;</code>、<code>&quot;slide&quot;</code>、<code>&quot;site&quot;</code>、<code>&quot;doc&quot;</code>、または <code>&quot;catalog&quot;</code>）。</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>force</code></td>
@@ -5366,7 +5366,7 @@
 <li><strong>戻り値（<code>str</code>）</strong>: フォーマット済みのルール文字列。</li>
 </ul>
 <h2 id="get-css" class="catalog-symbol-heading"><span class="catalog-badge catalog-badge-def">def</span><code class="catalog-sig"><span class="catalog-sig-name">get_css</span><span class="catalog-sig-params">(name=None, target=&quot;html&quot;, lang=&quot;en&quot;)</span></code><a class="header-anchor" href="#get-css" aria-label="Permalink to get_css()">#</a></h2>
-<p>テーマトークン・UI コンポーネント・ターゲットレイアウト層を統合した自己完結型の CSS スタイルシート文字列を取得します（<code>target=&quot;catalog&quot;</code> は <em>(v0.3.5 で導入予定)</em>）。</p>
+<p>テーマトークン・UI コンポーネント・ターゲットレイアウト層を統合した自己完結型の CSS スタイルシート文字列を取得します。</p>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.tools</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_css</span>
 
 <span class="n">get_css</span><span class="p">(</span>
@@ -5395,7 +5395,7 @@
 <td style="text-align:left"><code>target</code></td>
 <td style="text-align:left"><code>CssTarget</code></td>
 <td style="text-align:left"><code>&quot;html&quot;</code></td>
-<td style="text-align:left">対象レイアウト形式（<code>&quot;html&quot;</code>、<code>&quot;site&quot;</code>、<code>&quot;doc&quot;</code>、<code>&quot;pdf&quot;</code>、<code>&quot;slide&quot;</code>、または <code>&quot;catalog&quot;</code> <em>(v0.3.5 で導入予定)</em>）。</td>
+<td style="text-align:left">対象レイアウト形式（<code>&quot;html&quot;</code>、<code>&quot;site&quot;</code>、<code>&quot;doc&quot;</code>、<code>&quot;pdf&quot;</code>、<code>&quot;slide&quot;</code>、または <code>&quot;catalog&quot;</code>）。</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>lang</code></td>
@@ -5473,7 +5473,7 @@
 <li><strong>戻り値（<code>list[Path]</code>）</strong>: 生成または更新された指示書ファイルの解決済み <code>Path</code> リスト。</li>
 </ul>
 <h2 id="init-project" class="catalog-symbol-heading"><span class="catalog-badge catalog-badge-def">def</span><code class="catalog-sig"><span class="catalog-sig-name">init_project</span><span class="catalog-sig-params">(project_type, destination=&quot;.&quot;, target=None, ...)</span></code><a class="header-anchor" href="#init-project" aria-label="Permalink to init_project()">#</a></h2>
-<p><code>drawlib.toml</code>・<code>styles.py</code>・<code>utils.py</code>・<code>_assets/</code>・テンプレート・<code>build*.sh</code> を備えた Drawlib スタータープロジェクト（<code>&lt;target&gt;_src/</code>）を自動生成します（<code>project_type=&quot;catalog&quot;</code> は <em>(v0.3.5 で導入予定)</em>）。</p>
+<p><code>drawlib.toml</code>・<code>styles.py</code>・<code>utils.py</code>・<code>_assets/</code>・テンプレート・<code>build*.sh</code> を備えた Drawlib スタータープロジェクト（<code>&lt;target&gt;_src/</code>）を自動生成します。</p>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.tools</span><span class="w"> </span><span class="kn">import</span> <span class="n">init_project</span>
 
 <span class="n">init_project</span><span class="p">(</span>
@@ -5501,7 +5501,7 @@
 <td style="text-align:left"><code>project_type</code></td>
 <td style="text-align:left"><code>str</code></td>
 <td style="text-align:left"><em>(必須)</em></td>
-<td style="text-align:left">プロジェクト種別: <code>&quot;doc&quot;</code>、<code>&quot;site&quot;</code>、<code>&quot;catalog&quot;</code> <em>(v0.3.5 で導入予定)</em>、<code>&quot;slide&quot;</code>、<code>&quot;images&quot;</code>、<code>&quot;image&quot;</code>。</td>
+<td style="text-align:left">プロジェクト種別: <code>&quot;doc&quot;</code>、<code>&quot;site&quot;</code>、<code>&quot;catalog&quot;</code>、<code>&quot;slide&quot;</code>、<code>&quot;images&quot;</code>、<code>&quot;image&quot;</code>。</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>destination</code></td>
@@ -5640,7 +5640,7 @@
 </tbody>
 </table>
 <h2 id="list-css" class="catalog-symbol-heading"><span class="catalog-badge catalog-badge-def">def</span><code class="catalog-sig"><span class="catalog-sig-name">list_css</span><span class="catalog-sig-params">(target=&quot;html&quot;)</span></code><a class="header-anchor" href="#list-css" aria-label="Permalink to list_css()">#</a></h2>
-<p>指定された <code>target</code> 向けの組み込み CSS プリセット一覧をメタデータ辞書リストとして返します（<code>target=&quot;catalog&quot;</code> は <em>(v0.3.5 で導入予定)</em>）。</p>
+<p>指定された <code>target</code> 向けの組み込み CSS プリセット一覧をメタデータ辞書リストとして返します。</p>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.tools</span><span class="w"> </span><span class="kn">import</span> <span class="n">list_css</span>
 
 <span class="n">list_css</span><span class="p">(</span>
@@ -5661,7 +5661,7 @@
 <td style="text-align:left"><code>target</code></td>
 <td style="text-align:left"><code>CssTarget</code></td>
 <td style="text-align:left"><code>&quot;html&quot;</code></td>
-<td style="text-align:left">対象フォーマット（<code>&quot;html&quot;</code>、<code>&quot;pdf&quot;</code>、<code>&quot;slide&quot;</code>、<code>&quot;site&quot;</code>、<code>&quot;doc&quot;</code>、または <code>&quot;catalog&quot;</code> <em>(v0.3.5 で導入予定)</em>）。</td>
+<td style="text-align:left">対象フォーマット（<code>&quot;html&quot;</code>、<code>&quot;pdf&quot;</code>、<code>&quot;slide&quot;</code>、<code>&quot;site&quot;</code>、<code>&quot;doc&quot;</code>、または <code>&quot;catalog&quot;</code>）。</td>
 </tr>
 </tbody>
 </table>

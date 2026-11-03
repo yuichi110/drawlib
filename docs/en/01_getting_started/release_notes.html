@@ -39,19 +39,19 @@
     
     
     
-    <meta name="description" content="Release Date: 2026/11/02">
+    <meta name="description" content="Release Date: 2026/11/03">
     <link rel="canonical" href="https://www.drawlib.com/en/01_getting_started/release_notes.html">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Drawlib Documentation">
     <meta property="og:title" content="Release Notes &amp; Migration Guide — Drawlib Documentation">
-    <meta property="og:description" content="Release Date: 2026/11/02">
+    <meta property="og:description" content="Release Date: 2026/11/03">
     <meta property="og:url" content="https://www.drawlib.com/en/01_getting_started/release_notes.html">
     <meta property="og:image" content="https://www.drawlib.com/_assets/ogp.png">
     <meta property="og:locale" content="en_US">
     <meta property="og:locale:alternate" content="ja_JP">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Release Notes &amp; Migration Guide — Drawlib Documentation">
-    <meta name="twitter:description" content="Release Date: 2026/11/02">
+    <meta name="twitter:description" content="Release Date: 2026/11/03">
     <meta name="twitter:image" content="https://www.drawlib.com/_assets/ogp.png">
     
     
@@ -88,7 +88,7 @@
                 
                 <a href="../01_getting_started/release_notes.html" class="sidebar-version-badge" title="View Release Notes">
                     <span class="sidebar-version-dot" aria-hidden="true"></span>
-                    <span class="sidebar-version-text">v0.3.4</span>
+                    <span class="sidebar-version-text">v0.3.5</span>
                 </a>
                 <a href="https://github.com/yuichi110/drawlib" target="_blank" rel="noopener noreferrer" class="sidebar-github-link" aria-label="GitHub Repository" title="GitHub Repository">
                     <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
@@ -137,6 +137,10 @@
                             
                             <li class="nav-item active">
                                 <a href="release_notes.html" >Release Notes &amp; Migration</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="https://www.drawlib.com/api/" target="_blank" rel="noopener noreferrer">API &amp; CLI Reference<svg class="nav-external-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
                             </li>
                             
                             <li class="nav-item ">
@@ -659,6 +663,28 @@
             </header>
             <main class="main-content">
                 <h1>Release Notes &amp; Migration Guide</h1>
+<h2>Version 0.3.5</h2>
+<p><em>Release Date: 2026/11/03</em></p>
+<p>Version 0.3.5 introduces the 5th project archetype—<strong>Illustrated Catalog &amp; Reference (<code>catalog</code>, <code>drawlib init project catalog</code>)</strong>—designed for API/CLI references, data schemas, microservice registries, and operational runbooks, alongside <strong>Declarative Project SEO &amp; <code>llms.txt</code> generation (<code>[seo]</code>)</strong>, <strong>zero-install <code>uvx</code> build script fallbacks</strong>, and the <strong>Official Bilingual Python API &amp; CLI Reference (<code>/api/</code>)</strong>.</p>
+<hr />
+<h3>Highlights &amp; New Features</h3>
+<h4>1. Illustrated Catalog &amp; Reference Project Archetype (<code>catalog</code>, <code>drawlib init project catalog</code>)</h4>
+<ul>
+<li><strong>Zero-Navbar 2-Column Catalog Builder (<code>1 Markdown = 1 HTML Page</code>)</strong>: Scaffold <code>catalog</code> projects via <code>drawlib init project catalog [target] [-l en,ja] [-s google]</code> (<code>drawlib.tools.init_project(&quot;catalog&quot;, ...)</code>). Each Markdown file in <code>&lt;src_dir&gt;/&lt;lang&gt;/</code> automatically becomes a collapsible <code># H1</code> sidebar category (<code>&lt;details class=&quot;catalog-nav-group&quot;&gt;</code>) with <code>## H2</code> entries linked as <code>#slug</code> items and tracked via live scroll-spy—no manual <code>navbar.md</code> maintenance required.</li>
+<li><strong>50+ Semantic <code>H2</code> Badges &amp; <code>/</code> Instant Filter</strong>: Prefix <code>## </code> headings with inline backtick tokens—covering HTTP (<code>GET</code>, <code>POST</code>, <code>PUT</code>, <code>PATCH</code>, <code>DELETE</code>, <code>gRPC</code>), code/CLI (<code>def</code>, <code>class</code>, <code>type</code>, <code>cmd</code>, <code>flag</code>, <code>env</code>, <code>config</code>), data/infra (<code>table</code>, <code>schema</code>, <code>service</code>, <code>job</code>, <code>pipeline</code>, <code>metric</code>), design/governance (<code>token</code>, <code>style</code>, <code>icon</code>, <code>adr</code>, <code>rule</code>), and operational status (<code>ok</code>, <code>warn</code>, <code>error</code>, <code>deprecated</code>)—to render color-coded pills in both the page body and sidebar, paired with <code>/</code> keyboard incremental filtering.</li>
+<li><strong>Declarative <code>[catalog]</code> Customization &amp; Dedicated CSS Target</strong>: Configure <code>sidebar_expanded</code>, <code>badge_text</code>, <code>badge_url</code>, <code>breadcrumb_root</code>, <code>repo_url</code>, and <code>[[catalog.header_links]]</code> in <code>drawlib.toml</code>, inspect or export catalog stylesheets via <code>drawlib css list|show catalog</code> (<code>get_css(target=&quot;catalog&quot;)</code>, <code>export_css(target=&quot;catalog&quot;)</code>), and access authoring guidance via <code>drawlib rules show project-catalog</code>.</li>
+</ul>
+<h4>2. Declarative Project SEO, Open Graph &amp; <code>llms.txt</code> Generation (<code>[seo]</code>, <code>[i18n.descriptions]</code>)</h4>
+<ul>
+<li><strong>Turnkey Search &amp; Social Metadata Across <code>site</code>, <code>doc</code>, <code>catalog</code>, and <code>slide</code></strong>: Configure <code>[seo]</code> (<code>site_url</code>, <code>og_image</code>, <code>twitter_card</code>, <code>twitter_site</code>, <code>robots</code>, <code>sitemap</code>, <code>llms_txt</code>, <code>json_ld</code>, <code>cname</code>, <code>nojekyll</code>) and <code>[i18n.descriptions]</code> in <code>drawlib.toml</code> to automatically emit <code>&lt;link rel=&quot;canonical&quot;&gt;</code>, multi-locale <code>hreflang</code> alternates, Open Graph / X Card tags, Schema.org JSON-LD structured data, <code>sitemap.xml</code>, <code>robots.txt</code>, <code>CNAME</code>, and <code>.nojekyll</code>.</li>
+<li><strong>AI-Ready <code>llms.txt</code> Discovery Index</strong>: Automatically generates a clean <code>llms.txt</code> index summarizing site structure, localized entry URLs, and page descriptions so LLM agents and search crawlers can navigate compiled documentation sites effortlessly.</li>
+</ul>
+<h4>3. Zero-Install <code>uvx</code> Fallback Scripts &amp; Official Bilingual API Reference (<code>/api/</code>, <code>/architecture/</code>)</h4>
+<ul>
+<li><strong>Polyglot Zero-Install Build &amp; Preview Scripts (<code>uvx drawlib</code>)</strong>: Scaffolded <code>build*.sh</code> and <code>serve.sh</code> scripts now detect <code>uv run drawlib</code> first and automatically fall back to <code>uvx drawlib</code> (or global <code>drawlib</code>), enabling zero-Python-setup diagram and documentation builds inside Go, Rust, TypeScript, Java, or standalone Git repositories.</li>
+<li><strong>Official Bilingual Python API &amp; CLI Reference &amp; Architecture Portal</strong>: Published a 100% complete bilingual (<code>en</code>/<code>ja</code>, 29 modules &amp; CLI pages) API &amp; CLI Reference at <code>https://www.drawlib.com/api/</code> dogfooding the new <code>catalog</code> archetype, alongside the internal Software Architecture Specification at <code>https://www.drawlib.com/architecture/</code>.</li>
+</ul>
+<hr />
 <h2>Version 0.3.4</h2>
 <p><em>Release Date: 2026/11/02</em></p>
 <p>Version 0.3.4 introduces a one-command <strong>AI Agent Workspace Instruction Initializer (<code>drawlib init agent</code>)</strong> supporting 9 major AI coding assistants, reorganizes <code>drawlib init</code> into a symmetrical <strong><code>drawlib init project</code> / <code>drawlib init agent</code></strong> CLI hierarchy, and adds executable <strong>MS Word (<code>build_docx.sh</code>)</strong> and <strong>MS PowerPoint (<code>build_pptx.sh</code>)</strong> build scripts to project scaffolds.</p>

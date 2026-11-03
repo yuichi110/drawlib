@@ -149,8 +149,6 @@ uv run drawlib build docx doc_src -o doc.docx --generate-index --dpi 240
 
 Compile a Markdown/HTML documentation source directory (`site`, `catalog`, or `doc`) into a static HTML website with rendered diagrams, sidebar navigation, client-side search index, and SEO metadata.
 
-> **Note (Upcoming in v0.3.5):** Support for compiling `catalog` projects (`project_type = "catalog"` with H1 categories and H2 semantic badges) via `drawlib build html` is *(Upcoming in v0.3.5)*.
-
 ```bash
 drawlib build html [OPTIONS] DIR
 
@@ -433,8 +431,6 @@ drawlib css COMMAND [ARGS]...
 
 List available built-in CSS presets (`default`, `google`, `monochrome`, `default-dark`, `google-dark`, etc.) either as a cross-target summary table or filtered to a single document target.
 
-> **Note (Upcoming in v0.3.5):** Filtering by the `'catalog'` target (`drawlib css list catalog`) is *(Upcoming in v0.3.5)*.
-
 ```bash
 drawlib css list [TARGET]
 
@@ -448,15 +444,13 @@ uv run drawlib css list catalog
 
 | Argument | Type | Default | Description |
 | :--- | :--- | :--- | :--- |
-| `TARGET` | `str \| None` | `None` | Optional target filter: `'html'`, `'pdf'`, `'site'`, `'doc'`, `'slide'`, `'catalog'` *(Upcoming in v0.3.5)*, or `'all'`. Omitting prints the summary matrix. |
+| `TARGET` | `str \| None` | `None` | Optional target filter: `'html'`, `'pdf'`, `'site'`, `'doc'`, `'slide'`, `'catalog'`, or `'all'`. Omitting prints the summary matrix. |
 
 ---
 
 ## `cmd` drawlib css show
 
 Display a built-in CSS preset stylesheet in the terminal (with syntax highlighting on TTYs) or export it to a destination `.css` file via `-o / --output` with locale-appropriate `@font-face` / typography stacks.
-
-> **Note (Upcoming in v0.3.5):** Inspecting or exporting `'catalog'` target stylesheets (`drawlib css show catalog <PRESET>`) is *(Upcoming in v0.3.5)*.
 
 ```bash
 drawlib css show [OPTIONS] [TARGET] PRESET
@@ -467,13 +461,13 @@ uv run drawlib css show google
 # Export a Japanese-tuned PDF stylesheet to doc_src/pdf_style.css
 uv run drawlib css show pdf google -l ja -o doc_src/pdf_style.css --force
 
-# Export a catalog/reference stylesheet (Upcoming in v0.3.5)
+# Export a catalog/reference stylesheet
 uv run drawlib css show catalog google -o catalog_src/style.css --force
 ```
 
 | Argument / Option | Type | Default | Description |
 | :--- | :--- | :--- | :--- |
-| `[TARGET] PRESET` | `str` *(required)* | — | Either `<PRESET>` alone (defaults `TARGET` to `'html'`) or `<TARGET> <PRESET>` where `TARGET` is `'html'`, `'catalog'` *(Upcoming in v0.3.5)*, `'site'`, `'doc'`, `'slide'`, or `'pdf'`. |
+| `[TARGET] PRESET` | `str` *(required)* | — | Either `<PRESET>` alone (defaults `TARGET` to `'html'`) or `<TARGET> <PRESET>` where `TARGET` is `'html'`, `'catalog'`, `'site'`, `'doc'`, `'slide'`, or `'pdf'`. |
 | `PRESET` | `str \| None` | `None` | Built-in CSS preset name (`'default'`, `'google'`, `'monochrome'`, `'default-dark'`, `'google-dark'`, etc.) when `TARGET` is given first. |
 | `-o, --output` | `str \| None` | `None` | Destination `.css` file path. When omitted, prints the CSS stylesheet to `stdout`. |
 | `-f, --force` | `bool` | `False` | Overwrite the destination file if it already exists. |
@@ -558,7 +552,7 @@ drawlib init project COMMAND [ARGS]...
 
 | Subcommand | Default Folder | Project Archetype |
 | :--- | :--- | :--- |
-| [`drawlib init project catalog`](#drawlib-init-project-catalog) | `catalog_src/` | Illustrated catalog & reference website (APIs, CLI, schemas, services, runbooks) *(Upcoming in v0.3.5)*. |
+| [`drawlib init project catalog`](#drawlib-init-project-catalog) | `catalog_src/` | Illustrated catalog & reference website (APIs, CLI, schemas, services, runbooks). |
 | [`drawlib init project doc`](#drawlib-init-project-doc) | `doc_src/` | Linear technical document (`HTML`, `PDF`, `.docx`, `Markdown`). |
 | [`drawlib init project image`](#drawlib-init-project-image) | `images_src/` | Singular alias for `drawlib init project images`. |
 | [`drawlib init project images`](#drawlib-init-project-images) | `images_src/` | Standalone Python illustration scripts repository. |
@@ -570,9 +564,7 @@ drawlib init project COMMAND [ARGS]...
 
 ## `cmd` drawlib init project catalog
 
-Scaffold an illustrated catalog & reference website (`project_type = "catalog"`, creating `<target>_src/` with `drawlib.toml`, `styles.py`, `utils.py`, `style.css`, `template.html`, `build.sh`, `serve.sh`, and H1-category / H2-badge starter Markdown pages for APIs, CLI flags, schemas, services, or runbooks) *(Upcoming in v0.3.5)*.
-
-> **Note (Upcoming in v0.3.5):** The `drawlib init project catalog` scaffolding subcommand is *(Upcoming in v0.3.5)*.
+Scaffold an illustrated catalog & reference website (`project_type = "catalog"`, creating `<target>_src/` with `drawlib.toml`, `styles.py`, `utils.py`, `style.css`, `template.html`, `build.sh`, `serve.sh`, and H1-category / H2-badge starter Markdown pages for APIs, CLI flags, schemas, services, or runbooks).
 
 ```bash
 drawlib init project catalog [OPTIONS] [TARGET]

@@ -88,7 +88,7 @@
                 
                 <a href="../01_getting_started/release_notes.html" class="sidebar-version-badge" title="View Release Notes">
                     <span class="sidebar-version-dot" aria-hidden="true"></span>
-                    <span class="sidebar-version-text">v0.3.4</span>
+                    <span class="sidebar-version-text">v0.3.5</span>
                 </a>
                 <a href="https://github.com/yuichi110/drawlib" target="_blank" rel="noopener noreferrer" class="sidebar-github-link" aria-label="GitHub Repository" title="GitHub Repository">
                     <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
@@ -137,6 +137,10 @@
                             
                             <li class="nav-item ">
                                 <a href="../01_getting_started/release_notes.html" >リリースノートと移行ガイド</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="https://www.drawlib.com/api/" target="_blank" rel="noopener noreferrer">API &amp; CLI リファレンス<svg class="nav-external-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
                             </li>
                             
                             <li class="nav-item ">
@@ -699,7 +703,7 @@
 <span class="n">bottom_cards</span> <span class="o">=</span> <span class="p">[</span>
     <span class="p">(</span><span class="mf">25.5</span><span class="p">,</span> <span class="s2">"colors | styles | css"</span><span class="p">,</span> <span class="s2">"Design Palettes"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">palette</span><span class="p">),</span>
     <span class="p">(</span><span class="mf">64.0</span><span class="p">,</span> <span class="s2">"drawlib cache"</span><span class="p">,</span> <span class="s2">"Assets &amp; Browser"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">database</span><span class="p">),</span>
-    <span class="p">(</span><span class="mf">102.5</span><span class="p">,</span> <span class="s2">"drawlib rules"</span><span class="p">,</span> <span class="s2">"92 AI Manuals"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">book_open</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">102.5</span><span class="p">,</span> <span class="s2">"drawlib rules"</span><span class="p">,</span> <span class="s2">"93 AI Manuals"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">book_open</span><span class="p">),</span>
 <span class="p">]</span>
 <span class="k">for</span> <span class="n">bx</span><span class="p">,</span> <span class="n">btitle</span><span class="p">,</span> <span class="n">bsub</span><span class="p">,</span> <span class="n">bst</span><span class="p">,</span> <span class="n">bicon</span> <span class="ow">in</span> <span class="n">bottom_cards</span><span class="p">:</span>
     <span class="n">rectangle</span><span class="p">((</span><span class="n">bx</span><span class="p">,</span> <span class="mf">11.8</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">35</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">11.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">bst</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
@@ -757,7 +761,7 @@ drawlib<span class="w"> </span>styles<span class="w"> </span>list<span class="w"
 drawlib<span class="w"> </span>css<span class="w"> </span>list<span class="w">                                           </span><span class="c1"># List CSS presets for HTML and PDF</span>
 drawlib<span class="w"> </span>cache<span class="w"> </span>list<span class="w">                                         </span><span class="c1"># Inspect cached fonts, icons, and maps</span>
 drawlib<span class="w"> </span>cache<span class="w"> </span>download<span class="w"> </span>--all<span class="w">                               </span><span class="c1"># Pre-download fonts, icons, maps, and headless Chromium</span>
-drawlib<span class="w"> </span>rules<span class="w"> </span>list<span class="w">                                         </span><span class="c1"># List 92 AI rule instruction manuals</span>
+drawlib<span class="w"> </span>rules<span class="w"> </span>list<span class="w">                                         </span><span class="c1"># List 93 AI rule instruction manuals</span>
 </code></pre>
 <hr />
 <h2>3. グローバル CLI オプション</h2>
@@ -1224,7 +1228,7 @@ drawlib<span class="w"> </span>rules<span class="w"> </span>list<span class="w">
 drawlib<span class="w"> </span>init<span class="w"> </span>project<span class="w"> </span>list
 </code></pre>
 <ul>
-<li><code>&lt;TYPE&gt;</code>: プロジェクト種別を選択するサブコマンド: <code>doc</code>、<code>site</code>、<code>catalog</code> <em>(Upcoming in v0.3.5)</em>、<code>slide</code>（すべて統一された <code>&lt;src_dir&gt;/&lt;lang&gt;/</code> ロケールディレクトリと <code>drawlib.toml</code> の <code>[i18n]</code> で初期化）、<code>images</code>（エイリアス: <code>image</code>）、または <code>list</code>。</li>
+<li><code>&lt;TYPE&gt;</code>: プロジェクト種別を選択するサブコマンド: <code>doc</code>、<code>site</code>、<code>catalog</code>、<code>slide</code>（すべて統一された <code>&lt;src_dir&gt;/&lt;lang&gt;/</code> ロケールディレクトリと <code>drawlib.toml</code> の <code>[i18n]</code> で初期化）、<code>images</code>（エイリアス: <code>image</code>）、または <code>list</code>。</li>
 <li><code>[target]</code>: プロジェクトおよびソースフォルダのベース名（<code>&lt;target&gt;_src/</code> を作成します）。デフォルト値: <code>doc</code> は <code>doc</code>、<code>site</code> は <code>docs</code>、<code>catalog</code> は <code>catalog</code>、<code>slide</code> は <code>slide</code>、<code>images</code> は <code>images</code>。</li>
 <li><code>-s</code>, <code>--style &lt;theme&gt;</code>: スタイルプリセットテーマ（<code>default</code>、<code>google</code>、<code>monochrome</code> など）。<code>style.css</code> と <code>styles.py</code> の両方を同期して設定します。</li>
 <li><code>-l</code>, <code>--lang &lt;code&gt;</code>: スターターコンテンツおよびフォント設定の言語（<code>en</code>、<code>ja</code>、<code>zh-cn</code>、<code>ko</code>、<code>th</code>、<code>hi</code> など。<code>doc</code>、<code>site</code>、<code>catalog</code>、<code>slide</code> では <code>-l en,ja</code> のようなカンマ区切りの複数ロケール指定に対応）。デフォルト: <code>en</code>。</li>
@@ -1309,19 +1313,20 @@ drawlib<span class="w"> </span>cache<span class="w"> </span>clear<span class="w"
 <hr />
 <h2>9. AI ルールカタログ（<code>drawlib rules</code>）</h2>
 <p>組み込みのアーキテクチャ・ライブラリマニュアル（オンデマンドで <code>_cached_assets/rules/</code> に付属の図解も自動生成）をターミナルから直接参照できます。</p>
-<pre><code class="language-bash">drawlib<span class="w"> </span>rules<span class="w"> </span>list<span class="w">                            </span><span class="c1"># List all 92 rule topics and cache status</span>
+<pre><code class="language-bash">drawlib<span class="w"> </span>rules<span class="w"> </span>list<span class="w">                            </span><span class="c1"># List all 93 rule topics and cache status</span>
 drawlib<span class="w"> </span>rules<span class="w"> </span>show<span class="w"> </span>agent-instruction<span class="w">          </span><span class="c1"># View AI agent bootstrap manual</span>
 drawlib<span class="w"> </span>rules<span class="w"> </span>show<span class="w"> </span>overview<span class="w">                   </span><span class="c1"># View Cartesian geometry principles</span>
 drawlib<span class="w"> </span>rules<span class="w"> </span>show<span class="w"> </span>style-guide<span class="w">                </span><span class="c1"># View 50%+ neutral baseline &amp; semantic color rules</span>
 drawlib<span class="w"> </span>rules<span class="w"> </span>show<span class="w"> </span>review-guide<span class="w">               </span><span class="c1"># View 3-stage multimodal review loop &amp; 720pt font math</span>
 drawlib<span class="w"> </span>rules<span class="w"> </span>show<span class="w"> </span>anim-guide<span class="w">                 </span><span class="c1"># View animation idioms across all modules</span>
-drawlib<span class="w"> </span>rules<span class="w"> </span>show<span class="w"> </span>project-overview<span class="w">           </span><span class="c1"># View 4 project archetypes &amp; shared architecture</span>
+drawlib<span class="w"> </span>rules<span class="w"> </span>show<span class="w"> </span>project-overview<span class="w">           </span><span class="c1"># View 5 project archetypes &amp; shared architecture</span>
 drawlib<span class="w"> </span>rules<span class="w"> </span>show<span class="w"> </span>project-site<span class="w">               </span><span class="c1"># View multi-page website authoring &amp; navbar.md rules</span>
+drawlib<span class="w"> </span>rules<span class="w"> </span>show<span class="w"> </span>project-catalog<span class="w">            </span><span class="c1"># View 2-column catalog &amp; semantic badge rules</span>
 drawlib<span class="w"> </span>rules<span class="w"> </span>show<span class="w"> </span>project-slide<span class="w">              </span><span class="c1"># View 1920x1080 slide authoring &amp; stage rules</span>
 drawlib<span class="w"> </span>rules<span class="w"> </span>show<span class="w"> </span>lib-graph-overview<span class="w">         </span><span class="c1"># View declarative graph layout solvers overview</span>
 drawlib<span class="w"> </span>rules<span class="w"> </span>show<span class="w"> </span>lib-diagrams-overview<span class="w"> </span>--raw<span class="w"> </span><span class="c1"># Output raw Markdown without building/checking cache</span>
 drawlib<span class="w"> </span>rules<span class="w"> </span>show<span class="w"> </span>lib-shapes-overview<span class="w"> </span>--rebuild<span class="w"> </span><span class="c1"># Force regenerate companion rule illustrations</span>
-drawlib<span class="w"> </span>rules<span class="w"> </span>build<span class="w"> </span>--all<span class="w">                     </span><span class="c1"># Pre-build illustrations for all 92 rule topics</span>
+drawlib<span class="w"> </span>rules<span class="w"> </span>build<span class="w"> </span>--all<span class="w">                     </span><span class="c1"># Pre-build illustrations for all 93 rule topics</span>
 drawlib<span class="w"> </span>rules<span class="w"> </span>clear<span class="w">                           </span><span class="c1"># Delete cached rule documents and generated images</span>
 </code></pre>
 <hr />

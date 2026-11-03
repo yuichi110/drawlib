@@ -81,7 +81,7 @@
                 
                 <a href="index.html" class="sidebar-version-badge">
                     <span class="sidebar-version-dot"></span>
-                    <span>API Reference · v0.3.4</span>
+                    <span>API Reference · v0.3.5</span>
                 </a>
                 
                 
@@ -4541,7 +4541,7 @@
 <li><strong>Returns (<code>str</code>)</strong>: Absolute path to the generated <code>.docx</code> file (or <code>default_lang</code> <code>.docx</code> for <code>doc</code> projects).</li>
 </ul>
 <h2 id="build-html" class="catalog-symbol-heading"><span class="catalog-badge catalog-badge-def">def</span><code class="catalog-sig"><span class="catalog-sig-name">build_html</span><span class="catalog-sig-params">(input_dir, output_dir=None, *, ...)</span></code><a class="header-anchor" href="#build-html" aria-label="Permalink to build_html()">#</a></h2>
-<p>Compile an <code>i18n</code>-native <code>site</code>, <code>doc</code>, or <code>catalog</code> <em>(Upcoming in v0.3.5)</em> project directory (<code>drawlib.toml</code> + <code>&lt;lang&gt;/</code> sources) into static HTML with shared diagram deduplication, per-locale stylesheets, language switcher navigation (when 2+ locales are configured), and a root <code>index.html</code>.</p>
+<p>Compile an <code>i18n</code>-native <code>site</code>, <code>doc</code>, or <code>catalog</code> project directory (<code>drawlib.toml</code> + <code>&lt;lang&gt;/</code> sources) into static HTML with shared diagram deduplication, per-locale stylesheets, language switcher navigation (when 2+ locales are configured), and a root <code>index.html</code>.</p>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.tools</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_html</span>
 
 <span class="n">build_html</span><span class="p">(</span>
@@ -4569,7 +4569,7 @@
 <td style="text-align:left"><code>input_dir</code></td>
 <td style="text-align:left"><code>str</code></td>
 <td style="text-align:left"><em>(required)</em></td>
-<td style="text-align:left">Project root directory containing <code>drawlib.toml</code> (<code>type = &quot;site&quot;</code>, <code>&quot;doc&quot;</code>, or <code>&quot;catalog&quot;</code> <em>(Upcoming in v0.3.5)</em>) and <code>&lt;lang&gt;/</code> folders.</td>
+<td style="text-align:left">Project root directory containing <code>drawlib.toml</code> (<code>type = &quot;site&quot;</code>, <code>&quot;doc&quot;</code>, or <code>&quot;catalog&quot;</code>) and <code>&lt;lang&gt;/</code> folders.</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>output_dir</code></td>
@@ -5264,7 +5264,7 @@
 <li><strong>Returns (<code>str</code>)</strong>: Absolute path of the exported image file (or <code>&quot;&quot;</code> when listing blocks).</li>
 </ul>
 <h2 id="export-css" class="catalog-symbol-heading"><span class="catalog-badge catalog-badge-def">def</span><code class="catalog-sig"><span class="catalog-sig-name">export_css</span><span class="catalog-sig-params">(name, output_path=None, target=&quot;html&quot;, force=False, lang=&quot;en&quot;)</span></code><a class="header-anchor" href="#export-css" aria-label="Permalink to export_css()">#</a></h2>
-<p>Synthesize and write a built-in CSS theme preset to a file on disk (<code>target=&quot;catalog&quot;</code> is <em>(Upcoming in v0.3.5)</em>).</p>
+<p>Synthesize and write a built-in CSS theme preset to a file on disk.</p>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.tools</span><span class="w"> </span><span class="kn">import</span> <span class="n">export_css</span>
 
 <span class="n">export_css</span><span class="p">(</span>
@@ -5301,7 +5301,7 @@
 <td style="text-align:left"><code>target</code></td>
 <td style="text-align:left"><code>CssTarget</code></td>
 <td style="text-align:left"><code>&quot;html&quot;</code></td>
-<td style="text-align:left">Target layout format (<code>&quot;html&quot;</code>, <code>&quot;pdf&quot;</code>, <code>&quot;slide&quot;</code>, <code>&quot;site&quot;</code>, <code>&quot;doc&quot;</code>, or <code>&quot;catalog&quot;</code> <em>(Upcoming in v0.3.5)</em>).</td>
+<td style="text-align:left">Target layout format (<code>&quot;html&quot;</code>, <code>&quot;pdf&quot;</code>, <code>&quot;slide&quot;</code>, <code>&quot;site&quot;</code>, <code>&quot;doc&quot;</code>, or <code>&quot;catalog&quot;</code>).</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>force</code></td>
@@ -5364,7 +5364,7 @@
 <li><strong>Returns (<code>str</code>)</strong>: Complete formatted instruction string.</li>
 </ul>
 <h2 id="get-css" class="catalog-symbol-heading"><span class="catalog-badge catalog-badge-def">def</span><code class="catalog-sig"><span class="catalog-sig-name">get_css</span><span class="catalog-sig-params">(name=None, target=&quot;html&quot;, lang=&quot;en&quot;)</span></code><a class="header-anchor" href="#get-css" aria-label="Permalink to get_css()">#</a></h2>
-<p>Synthesize and return a complete standalone CSS stylesheet string combining theme tokens, UI components, and target layout rules (<code>target=&quot;catalog&quot;</code> is <em>(Upcoming in v0.3.5)</em>).</p>
+<p>Synthesize and return a complete standalone CSS stylesheet string combining theme tokens, UI components, and target layout rules.</p>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.tools</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_css</span>
 
 <span class="n">get_css</span><span class="p">(</span>
@@ -5393,7 +5393,7 @@
 <td style="text-align:left"><code>target</code></td>
 <td style="text-align:left"><code>CssTarget</code></td>
 <td style="text-align:left"><code>&quot;html&quot;</code></td>
-<td style="text-align:left">Target layout format (<code>&quot;html&quot;</code>, <code>&quot;site&quot;</code>, <code>&quot;doc&quot;</code>, <code>&quot;pdf&quot;</code>, <code>&quot;slide&quot;</code>, or <code>&quot;catalog&quot;</code> <em>(Upcoming in v0.3.5)</em>).</td>
+<td style="text-align:left">Target layout format (<code>&quot;html&quot;</code>, <code>&quot;site&quot;</code>, <code>&quot;doc&quot;</code>, <code>&quot;pdf&quot;</code>, <code>&quot;slide&quot;</code>, or <code>&quot;catalog&quot;</code>).</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>lang</code></td>
@@ -5471,7 +5471,7 @@
 <li><strong>Returns (<code>list[Path]</code>)</strong>: Resolved <code>Path</code> objects of created or updated instruction files.</li>
 </ul>
 <h2 id="init-project" class="catalog-symbol-heading"><span class="catalog-badge catalog-badge-def">def</span><code class="catalog-sig"><span class="catalog-sig-name">init_project</span><span class="catalog-sig-params">(project_type, destination=&quot;.&quot;, target=None, ...)</span></code><a class="header-anchor" href="#init-project" aria-label="Permalink to init_project()">#</a></h2>
-<p>Scaffold a starter Drawlib project (<code>&lt;target&gt;_src/</code>) pre-configured with <code>drawlib.toml</code>, <code>styles.py</code>, <code>utils.py</code>, <code>_assets/</code>, stylesheets/templates, and executable <code>build*.sh</code> scripts (<code>project_type=&quot;catalog&quot;</code> is <em>(Upcoming in v0.3.5)</em>).</p>
+<p>Scaffold a starter Drawlib project (<code>&lt;target&gt;_src/</code>) pre-configured with <code>drawlib.toml</code>, <code>styles.py</code>, <code>utils.py</code>, <code>_assets/</code>, stylesheets/templates, and executable <code>build*.sh</code> scripts.</p>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.tools</span><span class="w"> </span><span class="kn">import</span> <span class="n">init_project</span>
 
 <span class="n">init_project</span><span class="p">(</span>
@@ -5499,7 +5499,7 @@
 <td style="text-align:left"><code>project_type</code></td>
 <td style="text-align:left"><code>str</code></td>
 <td style="text-align:left"><em>(required)</em></td>
-<td style="text-align:left">Archetype name: <code>&quot;doc&quot;</code>, <code>&quot;site&quot;</code>, <code>&quot;catalog&quot;</code> <em>(Upcoming in v0.3.5)</em>, <code>&quot;slide&quot;</code>, <code>&quot;images&quot;</code>, or <code>&quot;image&quot;</code>.</td>
+<td style="text-align:left">Archetype name: <code>&quot;doc&quot;</code>, <code>&quot;site&quot;</code>, <code>&quot;catalog&quot;</code>, <code>&quot;slide&quot;</code>, <code>&quot;images&quot;</code>, or <code>&quot;image&quot;</code>.</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>destination</code></td>
@@ -5638,7 +5638,7 @@
 </tbody>
 </table>
 <h2 id="list-css" class="catalog-symbol-heading"><span class="catalog-badge catalog-badge-def">def</span><code class="catalog-sig"><span class="catalog-sig-name">list_css</span><span class="catalog-sig-params">(target=&quot;html&quot;)</span></code><a class="header-anchor" href="#list-css" aria-label="Permalink to list_css()">#</a></h2>
-<p>Return metadata dictionaries for all built-in CSS theme presets available for <code>target</code> (<code>target=&quot;catalog&quot;</code> is <em>(Upcoming in v0.3.5)</em>).</p>
+<p>Return metadata dictionaries for all built-in CSS theme presets available for <code>target</code>.</p>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.tools</span><span class="w"> </span><span class="kn">import</span> <span class="n">list_css</span>
 
 <span class="n">list_css</span><span class="p">(</span>
@@ -5659,7 +5659,7 @@
 <td style="text-align:left"><code>target</code></td>
 <td style="text-align:left"><code>CssTarget</code></td>
 <td style="text-align:left"><code>&quot;html&quot;</code></td>
-<td style="text-align:left">Target layout format (<code>&quot;html&quot;</code>, <code>&quot;pdf&quot;</code>, <code>&quot;slide&quot;</code>, <code>&quot;site&quot;</code>, <code>&quot;doc&quot;</code>, or <code>&quot;catalog&quot;</code> <em>(Upcoming in v0.3.5)</em>).</td>
+<td style="text-align:left">Target layout format (<code>&quot;html&quot;</code>, <code>&quot;pdf&quot;</code>, <code>&quot;slide&quot;</code>, <code>&quot;site&quot;</code>, <code>&quot;doc&quot;</code>, or <code>&quot;catalog&quot;</code>).</td>
 </tr>
 </tbody>
 </table>

@@ -81,7 +81,7 @@
                 
                 <a href="index.html" class="sidebar-version-badge">
                     <span class="sidebar-version-dot"></span>
-                    <span>API Reference · v0.3.4</span>
+                    <span>API Reference · v0.3.5</span>
                 </a>
                 
                 
@@ -4544,9 +4544,6 @@ uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </s
 <hr />
 <h2 id="drawlib-build-html" class="catalog-symbol-heading"><span class="catalog-badge catalog-badge-cmd">cmd</span><code class="catalog-sig"><span class="catalog-sig-name">drawlib build html</span></code><a class="header-anchor" href="#drawlib-build-html" aria-label="Permalink to drawlib build html">#</a></h2>
 <p>Compile a Markdown/HTML documentation source directory (<code>site</code>, <code>catalog</code>, or <code>doc</code>) into a static HTML website with rendered diagrams, sidebar navigation, client-side search index, and SEO metadata.</p>
-<blockquote>
-<p><strong>Note (Upcoming in v0.3.5):</strong> Support for compiling <code>catalog</code> projects (<code>project_type = &quot;catalog&quot;</code> with H1 categories and H2 semantic badges) via <code>drawlib build html</code> is <em>(Upcoming in v0.3.5)</em>.</p>
-</blockquote>
 <pre><code class="language-bash">drawlib<span class="w"> </span>build<span class="w"> </span>html<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span>DIR
 
 <span class="c1"># Compile docs_src/ into docs_html/ (or output path configured in drawlib.toml)</span>
@@ -5175,9 +5172,6 @@ uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </s
 <hr />
 <h2 id="drawlib-css-list" class="catalog-symbol-heading"><span class="catalog-badge catalog-badge-cmd">cmd</span><code class="catalog-sig"><span class="catalog-sig-name">drawlib css list</span></code><a class="header-anchor" href="#drawlib-css-list" aria-label="Permalink to drawlib css list">#</a></h2>
 <p>List available built-in CSS presets (<code>default</code>, <code>google</code>, <code>monochrome</code>, <code>default-dark</code>, <code>google-dark</code>, etc.) either as a cross-target summary table or filtered to a single document target.</p>
-<blockquote>
-<p><strong>Note (Upcoming in v0.3.5):</strong> Filtering by the <code>'catalog'</code> target (<code>drawlib css list catalog</code>) is <em>(Upcoming in v0.3.5)</em>.</p>
-</blockquote>
 <pre><code class="language-bash">drawlib<span class="w"> </span>css<span class="w"> </span>list<span class="w"> </span><span class="o">[</span>TARGET<span class="o">]</span>
 
 <span class="c1"># Show combined HTML &amp; PDF preset matrix</span>
@@ -5201,16 +5195,13 @@ uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </s
 <td style="text-align:left"><code>TARGET</code></td>
 <td style="text-align:left"><code>str | None</code></td>
 <td style="text-align:left"><code>None</code></td>
-<td style="text-align:left">Optional target filter: <code>'html'</code>, <code>'pdf'</code>, <code>'site'</code>, <code>'doc'</code>, <code>'slide'</code>, <code>'catalog'</code> <em>(Upcoming in v0.3.5)</em>, or <code>'all'</code>. Omitting prints the summary matrix.</td>
+<td style="text-align:left">Optional target filter: <code>'html'</code>, <code>'pdf'</code>, <code>'site'</code>, <code>'doc'</code>, <code>'slide'</code>, <code>'catalog'</code>, or <code>'all'</code>. Omitting prints the summary matrix.</td>
 </tr>
 </tbody>
 </table>
 <hr />
 <h2 id="drawlib-css-show" class="catalog-symbol-heading"><span class="catalog-badge catalog-badge-cmd">cmd</span><code class="catalog-sig"><span class="catalog-sig-name">drawlib css show</span></code><a class="header-anchor" href="#drawlib-css-show" aria-label="Permalink to drawlib css show">#</a></h2>
 <p>Display a built-in CSS preset stylesheet in the terminal (with syntax highlighting on TTYs) or export it to a destination <code>.css</code> file via <code>-o / --output</code> with locale-appropriate <code>@font-face</code> / typography stacks.</p>
-<blockquote>
-<p><strong>Note (Upcoming in v0.3.5):</strong> Inspecting or exporting <code>'catalog'</code> target stylesheets (<code>drawlib css show catalog &lt;PRESET&gt;</code>) is <em>(Upcoming in v0.3.5)</em>.</p>
-</blockquote>
 <pre><code class="language-bash">drawlib<span class="w"> </span>css<span class="w"> </span>show<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span><span class="o">[</span>TARGET<span class="o">]</span><span class="w"> </span>PRESET
 
 <span class="c1"># Print the Google HTML stylesheet to stdout</span>
@@ -5219,7 +5210,7 @@ uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </s
 <span class="c1"># Export a Japanese-tuned PDF stylesheet to doc_src/pdf_style.css</span>
 uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>css<span class="w"> </span>show<span class="w"> </span>pdf<span class="w"> </span>google<span class="w"> </span>-l<span class="w"> </span>ja<span class="w"> </span>-o<span class="w"> </span>doc_src/pdf_style.css<span class="w"> </span>--force
 
-<span class="c1"># Export a catalog/reference stylesheet (Upcoming in v0.3.5)</span>
+<span class="c1"># Export a catalog/reference stylesheet</span>
 uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>css<span class="w"> </span>show<span class="w"> </span>catalog<span class="w"> </span>google<span class="w"> </span>-o<span class="w"> </span>catalog_src/style.css<span class="w"> </span>--force
 </code></pre>
 <table>
@@ -5236,7 +5227,7 @@ uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </s
 <td style="text-align:left"><code>[TARGET] PRESET</code></td>
 <td style="text-align:left"><code>str</code> <em>(required)</em></td>
 <td style="text-align:left">—</td>
-<td style="text-align:left">Either <code>&lt;PRESET&gt;</code> alone (defaults <code>TARGET</code> to <code>'html'</code>) or <code>&lt;TARGET&gt; &lt;PRESET&gt;</code> where <code>TARGET</code> is <code>'html'</code>, <code>'catalog'</code> <em>(Upcoming in v0.3.5)</em>, <code>'site'</code>, <code>'doc'</code>, <code>'slide'</code>, or <code>'pdf'</code>.</td>
+<td style="text-align:left">Either <code>&lt;PRESET&gt;</code> alone (defaults <code>TARGET</code> to <code>'html'</code>) or <code>&lt;TARGET&gt; &lt;PRESET&gt;</code> where <code>TARGET</code> is <code>'html'</code>, <code>'catalog'</code>, <code>'site'</code>, <code>'doc'</code>, <code>'slide'</code>, or <code>'pdf'</code>.</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>PRESET</code></td>
@@ -5447,7 +5438,7 @@ uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </s
 <tr>
 <td style="text-align:left"><a href="#drawlib-init-project-catalog"><code>drawlib init project catalog</code></a></td>
 <td style="text-align:left"><code>catalog_src/</code></td>
-<td style="text-align:left">Illustrated catalog &amp; reference website (APIs, CLI, schemas, services, runbooks) <em>(Upcoming in v0.3.5)</em>.</td>
+<td style="text-align:left">Illustrated catalog &amp; reference website (APIs, CLI, schemas, services, runbooks).</td>
 </tr>
 <tr>
 <td style="text-align:left"><a href="#drawlib-init-project-doc"><code>drawlib init project doc</code></a></td>
@@ -5483,10 +5474,7 @@ uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </s
 </table>
 <hr />
 <h2 id="drawlib-init-project-catalog" class="catalog-symbol-heading"><span class="catalog-badge catalog-badge-cmd">cmd</span><code class="catalog-sig"><span class="catalog-sig-name">drawlib init project catalog</span></code><a class="header-anchor" href="#drawlib-init-project-catalog" aria-label="Permalink to drawlib init project catalog">#</a></h2>
-<p>Scaffold an illustrated catalog &amp; reference website (<code>project_type = &quot;catalog&quot;</code>, creating <code>&lt;target&gt;_src/</code> with <code>drawlib.toml</code>, <code>styles.py</code>, <code>utils.py</code>, <code>style.css</code>, <code>template.html</code>, <code>build.sh</code>, <code>serve.sh</code>, and H1-category / H2-badge starter Markdown pages for APIs, CLI flags, schemas, services, or runbooks) <em>(Upcoming in v0.3.5)</em>.</p>
-<blockquote>
-<p><strong>Note (Upcoming in v0.3.5):</strong> The <code>drawlib init project catalog</code> scaffolding subcommand is <em>(Upcoming in v0.3.5)</em>.</p>
-</blockquote>
+<p>Scaffold an illustrated catalog &amp; reference website (<code>project_type = &quot;catalog&quot;</code>, creating <code>&lt;target&gt;_src/</code> with <code>drawlib.toml</code>, <code>styles.py</code>, <code>utils.py</code>, <code>style.css</code>, <code>template.html</code>, <code>build.sh</code>, <code>serve.sh</code>, and H1-category / H2-badge starter Markdown pages for APIs, CLI flags, schemas, services, or runbooks).</p>
 <pre><code class="language-bash">drawlib<span class="w"> </span>init<span class="w"> </span>project<span class="w"> </span>catalog<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span><span class="w"> </span><span class="o">[</span>TARGET<span class="o">]</span>
 
 <span class="c1"># Scaffold a bilingual EN/JA API or service catalog in api_src/ with the Google theme</span>

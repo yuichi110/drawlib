@@ -88,8 +88,6 @@ rectangle(
 save()
 ```
 
-> **Note (Upcoming in v0.3.5):** The `catalog` project archetype (`drawlib init project catalog`) and `[catalog]` manifest section are scheduled for the upcoming **v0.3.5** release and are not yet included in the `v0.3.4` package on PyPI.
-
 ---
 
 ## 1. When to Use `catalog` vs. `site` (Use Cases)

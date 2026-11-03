@@ -26,6 +26,7 @@
   <p>
     <a href="#quick-try">30秒で試す (<code>uvx</code>)</a> ·
     <a href="https://www.drawlib.com/ja/">公式ドキュメント</a> ·
+    <a href="https://www.drawlib.com/api/ja/">API リファレンス</a> ·
     <a href="https://examples.drawlib.com/">サンプル集</a> ·
     <a href="#why-drawlib">なぜ Drawlib か？</a> ·
     <a href="#installation">インストール &amp; AI 設定</a> ·
@@ -40,7 +41,7 @@ Drawlib は、ソフトウェア開発者と **自律型 AI コーディング�
 
 ![Autonomous AI Documentation Workflow](../docs/readme_images/01_hero_ai_doc_loop.png)
 
-- **公式 Web サイト & ドキュメント**: [日本語 (`www.drawlib.com/ja/`)](https://www.drawlib.com/ja/) | [English (`www.drawlib.com`)](https://www.drawlib.com/) | [内部アーキテクチャ仕様書](https://www.drawlib.com/architecture/)
+- **公式 Web サイト & ドキュメント**: [日本語 (`www.drawlib.com/ja/`)](https://www.drawlib.com/ja/) | [English (`www.drawlib.com`)](https://www.drawlib.com/) | [API & CLI リファレンス (`www.drawlib.com/api/ja/`)](https://www.drawlib.com/api/ja/) | [内部アーキテクチャ仕様書](https://www.drawlib.com/architecture/)
 - **ライブサンプル集 (`examples.drawlib.com`)**: [全サンプル一覧を見る（HTML / PDF / DOCX / PPTX）](https://examples.drawlib.com/) | [ソース (`drawlib-examples`)](https://github.com/yuichi110/drawlib-examples)
   - **16:9 プレゼンスライド**: [About Drawlib（HTML / PDF / PPTX）](https://examples.drawlib.com/about-drawlib/en/) · [DDoS 障害対応ポストモーテム（HTML / PDF / PPTX）](https://examples.drawlib.com/ddos-incident-response/en/)
   - **ガイド & ホワイトペーパー**: [Dogfooding 技術ホワイトペーパー — 日本語版](https://examples.drawlib.com/dogfooding/ja/) / [English](https://examples.drawlib.com/dogfooding/en/) · [クイックスタートガイド（HTML / PDF / DOCX）](https://examples.drawlib.com/quickstart/en/)
@@ -54,7 +55,7 @@ Drawlib は、ソフトウェア開発者と **自律型 AI コーディング�
 [`uv`](https://docs.astral.sh/uv/) さえ入っていれば、`pyproject.toml` や仮想環境の作成・パッケージの事前インストールは一切不要です。**Go・Rust・TypeScript・Java などの非 Python リポジトリを含む任意のディレクトリ**ですぐに試せます。
 
 ```bash
-# 1. 日英2言語のドキュメントサイトを初期化（doc / slide / images も選択可）
+# 1. 日英2言語のドキュメントサイトを初期化（catalog / doc / slide / images も選択可）
 uvx drawlib init project site -l en,ja
 
 # 2. (任意) AI コーディングエージェント向けルールを生成（claude, cursor, antigravity, copilot 等）
@@ -130,8 +131,9 @@ HTML と CSS のように、Drawlib は **コンテンツ**（幾何形状・座
 ![Multi-Locale Documentation and Slide Build Pipeline](../docs/readme_images/07_doc_build_pipeline.png)
 
 - **統一 `drawlib.toml`・多言語 (`[i18n]`)・宣言的 SEO (`[seo]`)**: プロジェクト設定、`[build]` フラグ、`[i18n]` 多言語構成（`langs = ["en", "ja"]` と構造パリティ自動検査）、および `[seo]` 公開設定（`site_url`、OGP / X カード、`hreflang`、`sitemap.xml`、`robots.txt`、AI 向け `llms.txt`）をすべて `drawlib.toml` で宣言的に管理。
-- **4種のプロジェクトスキャフォールド (`drawlib init project <type>`)**:
+- **5種のプロジェクトスキャフォールド (`drawlib init project <type>`)**:
   - `drawlib init project site [-l en,ja]`: マルチページ Web ドキュメントサイト（言語切替・全文検索・目次サイドバー付き `docs_html/`）および GitHub Markdown（`docs_markdown/`）。
+  - `drawlib init project catalog [-l en,ja]`: 図解付きカタログ & リファレンスサイト（`# H1` / `## H2` 自動サイドバー・50種以上のセマンティックバッジ・`/` リアルタイム絞り込み付き `catalog_html/`）。API・CLI リファレンスやスキーマ辞書、サービス台帳に最適。
   - `drawlib init project doc [-l en,ja]`: 技術仕様書・ホワイトペーパー（`*_html/`、`*_markdown/`、ベクター `*_<lang>.pdf`、さらに `./<target>_src/build_docx.sh` による編集可能な MS Word `*_<lang>.docx`）。
   - `drawlib init project slide [-l en,ja]`: 16:9 プレゼンスライド（`::: block` + `::: note` スピーカーノート）、ネイティブ SVG タイポグラフィ・発表者ビュー付き `slide_html/`、ベクター `slide_<lang>.pdf`、および `./<target>_src/build_pptx.sh` による編集可能な MS PowerPoint `slide_<lang>.pptx`。
   - `drawlib init project images`: `.drawlib/cache.db` による高速差分キャッシュを備えたバッチ画像生成プロジェクト（`images_src/` -> `images/`）。
@@ -285,7 +287,7 @@ drawlib show docs_src/ja/index.md service_routing.png -g -o preview_grid.png
 
 | コマンド | 説明 |
 | :--- | :--- |
-| `drawlib init project <site\|doc\|slide\|images\|list> [-l <langs>]` | ドキュメントサイト・技術文書・16:9 スライド・画像プロジェクトの雛形を生成（`drawlib.toml`） |
+| `drawlib init project <site\|catalog\|doc\|slide\|images\|list> [-l <langs>]` | ドキュメントサイト・カタログ／リファレンス・技術文書・16:9 スライド・画像プロジェクトの雛形を生成（`drawlib.toml`） |
 | `drawlib init agent <agent...\|all\|list> [-m <auto\|always>]` | AI コーディングエージェント向けルールを生成（`claude`, `cursor`, `antigravity`, `copilot`, `windsurf`, `cline`, `roo`, `codex`, `gemini`） |
 | `drawlib build <html\|markdown\|pdf\|docx\|slide\|pptx\|image>` | ソースを HTML・Markdown・PDF・Word (`.docx`)・HTML スライド・PowerPoint (`.pptx`)・画像へコンパイル |
 | `drawlib serve <html_dir> [--check]` | ビルド済み HTML ドキュメント／スライドのローカルサーバー起動とリンク切れ検証 |
@@ -297,7 +299,7 @@ drawlib show docs_src/ja/index.md service_routing.png -g -o preview_grid.png
 
 ## リンク & リソース
 
-- **公式ドキュメント**: [日本語 (`https://www.drawlib.com/ja/`)](https://www.drawlib.com/ja/) | [English (`https://www.drawlib.com/`)](https://www.drawlib.com/) | [内部アーキテクチャ仕様書 (`https://www.drawlib.com/architecture/`)](https://www.drawlib.com/architecture/)
+- **公式ドキュメント**: [日本語 (`https://www.drawlib.com/ja/`)](https://www.drawlib.com/ja/) | [English (`https://www.drawlib.com/`)](https://www.drawlib.com/) | [API & CLI リファレンス (`https://www.drawlib.com/api/ja/`)](https://www.drawlib.com/api/ja/) | [内部アーキテクチャ仕様書 (`https://www.drawlib.com/architecture/`)](https://www.drawlib.com/architecture/)
 - **ライブサンプル集**: [https://examples.drawlib.com/](https://examples.drawlib.com/) ([`yuichi110/drawlib-examples`](https://github.com/yuichi110/drawlib-examples))
 - **リリースノート & 更新履歴**: [日本語](https://www.drawlib.com/ja/01_getting_started/release_notes.html) | [English](https://www.drawlib.com/en/01_getting_started/release_notes.html)
 - **コントリビュート & 開発者ガイド**: [`.github/CONTRIBUTING.md`](../.github/CONTRIBUTING.md) | [`docs_src/README_DEV.md`](README_DEV.md)

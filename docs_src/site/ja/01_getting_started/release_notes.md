@@ -1,5 +1,30 @@
 # リリースノートと移行ガイド
 
+## バージョン 0.3.5
+
+*リリース日: 2026/11/03*
+
+バージョン 0.3.5 では、API・CLI リファレンスやデータスキーマ辞書、マイクロサービス台帳、運用ランブックの構築に最適化された第 5 のプロジェクトアーキタイプ **図解付きカタログ & リファレンス（`catalog`, `drawlib init project catalog`）** を新搭載したほか、**宣言的プロジェクト SEO・Open Graph・`llms.txt` 自動生成（`[seo]`）**、**ゼロインストール `uvx` フォールバック対応ビルドスクリプト**、および **日英バイリンガル公式 Python API & CLI リファレンス（`/api/`）** を公開しました。
+
+---
+
+### ハイライトと新機能
+
+#### 1. 図解付きカタログ & リファレンスプロジェクト（`catalog`, `drawlib init project catalog`）
+- **`navbar.md` 不要の 2 カラム・カタログビルダ（`1 Markdown = 1 HTML ページ`）**: `drawlib init project catalog [target] [-l en,ja] [-s google]`（`drawlib.tools.init_project("catalog", ...)`）で初期構築できます。`<src_dir>/<lang>/` 内の各 Markdown ファイルから `# H1` カテゴリ（折りたたみ可能な `<details class="catalog-nav-group">`）と `## H2` エントリ（スクロールスパイ連動の `#slug` リンク）を自動抽出するため、手動の `navbar.md` 管理が不要です。
+- **50 種以上のセマンティック `H2` バッジと `/` インクリメンタルフィルタ**: `## ` 見出し先頭にインラインコードの識別子（HTTP の `GET`・`POST`・`PUT`・`PATCH`・`DELETE`・`gRPC`、コード・CLI の `def`・`class`・`type`・`cmd`・`flag`・`env`・`config`、データ・基盤の `table`・`schema`・`service`・`job`・`pipeline`・`metric`、デザイン・規約の `token`・`style`・`icon`・`adr`・`rule`、状態の `ok`・`warn`・`error`・`deprecated` 等）を記述するだけで本文見出しとサイドバーの双方に色分けバッジを描画し、`/` キーによるリアルタイム絞り込み検索を提供します。
+- **宣言的 `[catalog]` 設定と専用 CSS ターゲット**: `drawlib.toml` の `[catalog]` セクション（`sidebar_expanded`・`badge_text`・`badge_url`・`breadcrumb_root`・`repo_url`・`[[catalog.header_links]]`）、専用 CSS プリセット出力 `drawlib css list|show catalog`（`get_css(target="catalog")`・`export_css(target="catalog")`）、およびエージェント規約 `drawlib rules show project-catalog` を追加しました。
+
+#### 2. 宣言的プロジェクト SEO・Open Graph・`llms.txt` 自動生成（`[seo]`, `[i18n.descriptions]`）
+- **`site`・`doc`・`catalog`・`slide` 横断の検索・SNS メタデータ自動出力**: `drawlib.toml` に `[seo]`（`site_url`・`og_image`・`twitter_card`・`twitter_site`・`robots`・`sitemap`・`llms_txt`・`json_ld`・`cname`・`nojekyll`）および `[i18n.descriptions]` を宣言するだけで、`<link rel="canonical">`・多言語 `hreflang`・Open Graph / X Card タグ・Schema.org JSON-LD 構造化データ・`sitemap.xml`・`robots.txt`・`CNAME`・`.nojekyll` を一括出力します。
+- **AI クローラ向け `llms.txt` 自動生成**: サイト構成・言語別エントリ URL・各ページ概要を整理した `llms.txt` を自動出力し、LLM エージェントや検索クローラによるドキュメント構造の正確な把握を支援します。
+
+#### 3. ゼロインストール `uvx` フォールバックスクリプトと公式 API & CLI リファレンス公開（`/api/`, `/architecture/`）
+- **他言語リポジトリでも即実行できる `uvx drawlib` 自動フォールバック**: 生成される `build*.sh` および `serve.sh` が `uv run drawlib` を優先検出しつつ、未設定環境では自動的に `uvx drawlib`（またはグローバル `drawlib`）へフォールバックするようになり、Go・Rust・TypeScript・Java 等の非 Python リポジトリでも環境構築なしで図解ビルドを実行できます。
+- **日英バイリンガル公式 Python API & CLI リファレンス・アーキテクチャ仕様書の公開**: 新アーキタイプ `catalog` のドッグフーディングとして全 29 ページの公式 Python API & CLI リファレンス（`https://www.drawlib.com/api/`、日英完全対応）および内部ソフトウェアアーキテクチャ仕様書（`https://www.drawlib.com/architecture/`）を公開しました。
+
+---
+
 ## バージョン 0.3.4
 
 *リリース日: 2026/11/02*

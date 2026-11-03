@@ -88,8 +88,6 @@ rectangle(
 save()
 ```
 
-> **Note (Upcoming in v0.3.5):** `catalog` プロジェクトテンプレート（`drawlib init project catalog`）および `drawlib.toml` の `[catalog]` セクションは次期 **v0.3.5** リリースで提供予定であり、現在 PyPI で公開されている `v0.3.4` パッケージには含まれていません。
-
 ---
 
 ## 1. `site` と `catalog` の使い分け（主なユースケース）

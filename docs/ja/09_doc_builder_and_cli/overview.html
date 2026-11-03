@@ -88,7 +88,7 @@
                 
                 <a href="../01_getting_started/release_notes.html" class="sidebar-version-badge" title="View Release Notes">
                     <span class="sidebar-version-dot" aria-hidden="true"></span>
-                    <span class="sidebar-version-text">v0.3.4</span>
+                    <span class="sidebar-version-text">v0.3.5</span>
                 </a>
                 <a href="https://github.com/yuichi110/drawlib" target="_blank" rel="noopener noreferrer" class="sidebar-github-link" aria-label="GitHub Repository" title="GitHub Repository">
                     <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
@@ -137,6 +137,10 @@
                             
                             <li class="nav-item ">
                                 <a href="../01_getting_started/release_notes.html" >リリースノートと移行ガイド</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="https://www.drawlib.com/api/" target="_blank" rel="noopener noreferrer">API &amp; CLI リファレンス<svg class="nav-external-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
                             </li>
                             
                             <li class="nav-item ">
@@ -798,7 +802,7 @@
 <td>サイドバーナビゲーション（<code>&lt;lang&gt;/navbar.md</code>）を備えたマルチページ構成のドキュメントサイト</td>
 </tr>
 <tr>
-<td><strong><code>catalog</code></strong> <em>(Upcoming in v0.3.5)</em></td>
+<td><strong><code>catalog</code></strong></td>
 <td><code>catalog_src/&lt;lang&gt;/</code></td>
 <td><code>catalog_html/</code>, <code>catalog_markdown/</code>, <code>catalog_images/</code></td>
 <td>API・CLI オプション・スキーマ・サービス台帳・ランブック向けのカタログ &amp; リファレンス（<code>1 MD = 1 HTML</code>、<code># H1</code> / <code>## H2</code> 自動サイドバー、バッジ、<code>/</code> フィルタ）</td>
@@ -935,7 +939,7 @@
 <td style="text-align:left"><code>./docs_src/build.sh</code>、<code>serve --check</code>、およびブラウザ確認を実行</td>
 </tr>
 <tr>
-<td style="text-align:left"><strong><code>catalog</code></strong> <em>(Upcoming in v0.3.5)</em></td>
+<td style="text-align:left"><strong><code>catalog</code></strong></td>
 <td style="text-align:left">カテゴリ／モジュールページ（<code>catalog_src/&lt;lang&gt;/01_users.md</code> など）</td>
 <td style="text-align:left"><code>drawlib init project catalog</code>、<code>drawlib.toml</code> の <code>[catalog]</code>、<code>styles.py</code>、<code>utils.py</code>、<code>&lt;lang&gt;/00_overview.md</code></td>
 <td style="text-align:left">担当カタログページ（<code># H1</code> + <code>## H2</code> バッジ + 図解）の執筆と Stage 1 + Stage 2 グリッド検証</td>
@@ -971,7 +975,7 @@
 <li><a href="./cli_reference.html">CLI リファレンス</a>: <code>build</code>（<code>html</code>、<code>markdown</code>、<code>pdf</code>、<code>docx</code>、<code>slide</code>、<code>pptx</code>、<code>image</code>）、<code>serve</code>、<code>show</code>、<code>init</code>（<code>project</code>、<code>agent</code>）、<code>cache</code>、<code>css</code>、<code>colors</code>、<code>styles</code>、<code>rules</code> の完全リファレンス。</li>
 <li><a href="./project_doc.html">リニアドキュメントプロジェクト (<code>doc</code>)</a>: RFC、仕様書、ホワイトペーパーなどのリニアドキュメント作成と、HTML / PDF / Word（<code>.docx</code>）出力。</li>
 <li><a href="./project_site.html">ドキュメントサイトプロジェクト (<code>site</code>)</a>: マルチページ構成のドキュメントサイト執筆、サイドバーカテゴリ設計、リンク検証。</li>
-<li><a href="./project_catalog.html">カタログプロジェクト (<code>catalog</code>)</a> <em>(Upcoming in v0.3.5)</em>: <code># H1</code> / <code>## H2</code> 自動サイドバー・セマンティックバッジ・<code>[catalog]</code> 設定を備えた 2 カラムのカタログ・リファレンス（API・CLI・スキーマ・サービス台帳・ランブック）構築。</li>
+<li><a href="./project_catalog.html">カタログプロジェクト (<code>catalog</code>)</a>: <code># H1</code> / <code>## H2</code> 自動サイドバー・セマンティックバッジ・<code>[catalog]</code> 設定を備えた 2 カラムのカタログ・リファレンス（API・CLI・スキーマ・サービス台帳・ランブック）構築。</li>
 <li><a href="./project_slide.html">スライドデッキプロジェクト (<code>slide</code>)</a>: インタラクティブ Web スライド、ベクター PDF、PowerPoint（<code>.pptx</code>）出力に対応した 16:9 プレゼンテーションスライドの作成。</li>
 <li><a href="./slide_layout_and_api.html">スライドステージレイアウトと API</a>: <code>1920x1080</code> 仮想ステージ座標系、<code>::: block</code> / <code>::: note</code> 構文、レイアウトテンプレート、<code>drawlib.slide</code> Python API。</li>
 <li><a href="./project_image.html">画像プロジェクト (<code>images</code>)</a>: スタンドアロンスクリプトによる一括画像生成（<code>images_src/</code> ➔ <code>images/</code>）。</li>

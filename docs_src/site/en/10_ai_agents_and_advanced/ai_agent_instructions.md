@@ -169,7 +169,7 @@ save()
 ```
 
 ```bash
-# List all 31 modular rule topics and cache status:
+# List all 93 modular rule topics and cache status:
 uv run drawlib rules list
 
 # Retrieve targeted manuals:
@@ -178,17 +178,19 @@ uv run drawlib rules show overview             # Cartesian geometry & canvas lif
 uv run drawlib rules show style-guide          # 6-color semantic system & 50%+ neutral baseline
 uv run drawlib rules show review-guide         # 3-stage multimodal review loop & 720pt font math
 uv run drawlib rules show anim-guide           # Animation loop idioms & component patterns
-uv run drawlib rules show project-overview     # 4 project archetypes & decision matrix
+uv run drawlib rules show slide-guide          # Slide deck story arc & Dual-Layer rules
+uv run drawlib rules show project-overview     # 5 project archetypes & decision matrix
 uv run drawlib rules show project-images       # Standalone images project (images_src/*.py)
 uv run drawlib rules show project-doc          # Linear document & PDF project (doc_src/*.md)
 uv run drawlib rules show project-site         # Multi-page documentation website (docs_src/**/*.md)
+uv run drawlib rules show project-catalog      # 2-column reference & schema catalog (catalog_src/**/*.md)
 uv run drawlib rules show project-slide        # 1920x1080 slide stage authoring & templates (slide_src/*.md)
 uv run drawlib rules show api                  # Complete API index & symbol cheat sheet
 ```
 
 ### 3.1 Complete `drawlib rules` Topic Catalog
 
-#### General Guidelines (12 Topics):
+#### General Guidelines (14 Topics):
 
 | Topic Name | Primary Scope |
 | :--- | :--- |
@@ -197,10 +199,12 @@ uv run drawlib rules show api                  # Complete API index & symbol che
 | **`style-guide`** | Visual hierarchy, 50%+ neutral baseline rule, 6 semantic colors, and typography sizing. |
 | **`review-guide`** | Autonomous 3-stage multimodal review loop, `720pt` typography scaling, and coordinate anchor table. |
 | **`anim-guide`** | Animation loop idioms (Re-Draw vs. Mutate) across primitives, SmartArts, charts, diagrams, and graphs. |
-| **`project-overview`** | Architecture of the 4 project archetypes (`images`, `doc`, `site`, `slide`), shared files, and cache. |
+| **`slide-guide`** | Slide deck story arc, Dual-Layer (`::: block` vs. `::: note`) rule, and visual best practices. |
+| **`project-overview`** | Architecture of the 5 project archetypes (`images`, `doc`, `site`, `catalog`, `slide`), shared files, and cache. |
 | **`project-images`** | Standalone images project (`images_src/*.py` -> `images/*.png`), `save()` redirection, and grid review. |
 | **`project-doc`** | Linear technical document & PDF project (`doc_src/*.md`), `00_cover.md`, `--toc`, and page-break sizing. |
 | **`project-site`** | Multi-page website (`docs_src/**/*.md`), `navbar.md` syntax, Top Hero rule, and `drawlib serve --check`. |
+| **`project-catalog`** | 2-column catalog & API/CLI/schema reference (`catalog_src/**/*.md`), auto-extracted H1/H2 sidebar, semantic badges, and `/` filter. |
 | **`project-slide`** | 16:9 slide stage (`1920x1080`), `::: block` / `::: note` syntax, layout templates, and Presenter View. |
 | **`cli`** | Complete CLI command, flag, and exit code reference manual. |
 | **`api`** | Comprehensive API index and symbol signature cheat sheet across all `drawlib.*` modules. |

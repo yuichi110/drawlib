@@ -36,7 +36,7 @@ text((64, 22.8), "Cross-Cutting Design, Asset Cache & AI Knowledge", style=Style
 bottom_cards = [
     (25.5, "colors | styles | css", "Design Palettes", Styles.Neutral, phosphor.palette),
     (64.0, "drawlib cache", "Assets & Browser", Styles.PrimaryNeutral, phosphor.database),
-    (102.5, "drawlib rules", "92 AI Manuals", Styles.SecondaryNeutral, phosphor.book_open),
+    (102.5, "drawlib rules", "93 AI Manuals", Styles.SecondaryNeutral, phosphor.book_open),
 ]
 for bx, btitle, bsub, bst, bicon in bottom_cards:
     rectangle((bx, 11.8), width=35, height=11.5, style=bst.patch(shape_r=1.5))
@@ -106,7 +106,7 @@ STUDIO_BODY = Styles.Neutral.patch(
 )
 
 PART_ITEMS = [
-    ("1. init & rules", "Scaffold & 92 manuals"),
+    ("1. init & rules", "Scaffold & 93 manuals"),
     ("2. show -g Loop", "Sub-second grid preview"),
     ("3. build Targets", "Web, PDF & MS Office"),
     ("4. serve & Inspect", "Link audit, CSS & cache"),
@@ -316,7 +316,7 @@ def draw_sub_pills(scx: float, labels: list[str], active_idx: int) -> None:
 # Part 1: 1. init & rules (3 frames: 3.3 + 3.3 + 3.5 = 10.1s)
 # =========================================================================
 PART1_CODE = [
-    "# 1a. List 4 starter archetypes",
+    "# 1a. List 5 starter archetypes",
     "drawlib init project list",
     "",
     "# 1b. Scaffold site w/ Google CSS",
@@ -333,9 +333,9 @@ PART1_STATES = [
         3.3,
         (0, 1),
         "init project list",
-        "4 Starter Archetypes: images, doc, site & slide",
+        "5 Starter Archetypes: images, doc, site, catalog & slide",
         "1a. Project Archetype Catalog",
-        "4 built-in project templates for any format",
+        "5 built-in project templates for any format",
         "Configures drawlib.toml, styles.py & build.sh",
     ),
     (
@@ -352,10 +352,10 @@ PART1_STATES = [
         "1c",
         3.5,
         (7, 8),
-        "92 AI Guides",
-        "92 Offline Reference Guides + Companion PNGs",
+        "93 AI Guides",
+        "93 Offline Reference Guides + Companion PNGs",
         "1c. Embedded AI Knowledge Base",
-        "92 offline manuals for geometry, styles & API",
+        "93 offline manuals for geometry, styles & API",
         "Auto-renders companion illustrations locally",
     ),
 ]
@@ -371,13 +371,13 @@ for p1_idx, (mode, dur, hl_rng, badge, foot, s_t, s_1, s_2) in enumerate(PART1_S
             archetypes = [
                 (89.2, 41.0, "images", "*.py -> PNG/SVG", phosphor.images, Styles.Neutral),
                 (114.8, 41.0, "doc", "Spec -> PDF/DOCX", phosphor.file_pdf, Styles.PrimaryNeutral),
-                (89.2, 25.5, "site", "Multi-page HTML", phosphor.globe, Styles.PrimaryNeutral),
+                (89.2, 25.5, "site|catalog", "Docs & API HTML", phosphor.globe, Styles.PrimaryNeutral),
                 (114.8, 25.5, "slide", "16:9 HTML & PPTX", phosphor.presentation_chart, Styles.SecondaryNeutral),
             ]
             for ax, ay, name, desc, ic_fn, cst in archetypes:
                 rectangle((ax, ay), width=24.0, height=12.6, style=cst.patch(shape_r=1.5))
                 ic_fn((ax - 7.8, ay + 1.8), width=4.0, style=Styles.PrimaryBold)
-                text((ax - 4.2, ay + 2.0), name, style=Styles.DarkBold.patch(text_size=10.4, halign="left"))
+                text((ax - 4.2, ay + 2.0), name, style=Styles.DarkBold.patch(text_size=10.2, halign="left"))
                 text((ax, ay - 3.2), desc, style=Styles.Dark.patch(text_size=9.5))
         elif mode == "1b":
             rectangle(
@@ -412,7 +412,7 @@ for p1_idx, (mode, dur, hl_rng, badge, foot, s_t, s_1, s_2) in enumerate(PART1_S
             rectangle((89.8, 33.0), width=26.6, height=27.0, style=Styles.Neutral.patch(shape_r=1.5))
             phosphor.book_open((80.2, 42.6), width=3.8, style=Styles.PrimaryBold)
             text((83.2, 42.6), "overview", style=Styles.DarkBold.patch(text_size=10.2, halign="left"))
-            text((89.8, 36.8), "92 AI Rule Guides", style=Styles.PrimaryBold.patch(text_size=9.6))
+            text((89.8, 36.8), "93 AI Rule Guides", style=Styles.PrimaryBold.patch(text_size=9.6))
             text((89.8, 31.8), "• (0,0) Bottom-Left", style=Styles.Dark.patch(text_size=9.5))
             text((89.8, 27.4), "• 50%+ Neutral Card", style=Styles.Dark.patch(text_size=9.5))
             text((89.8, 23.0), "• 720pt Font Math", style=Styles.Dark.patch(text_size=9.5))
@@ -859,7 +859,7 @@ drawlib styles list                                        # List style catalogs
 drawlib css list                                           # List CSS presets for HTML and PDF
 drawlib cache list                                         # Inspect cached fonts, icons, and maps
 drawlib cache download --all                               # Pre-download fonts, icons, maps, and headless Chromium
-drawlib rules list                                         # List 92 AI rule instruction manuals
+drawlib rules list                                         # List 93 AI rule instruction manuals
 ```
 
 ---
@@ -1077,7 +1077,7 @@ drawlib init project <TYPE> [target] [OPTIONS]
 drawlib init project list
 ```
 
-- `<TYPE>`: プロジェクト種別を選択するサブコマンド: `doc`、`site`、`catalog` *(Upcoming in v0.3.5)*、`slide`（すべて統一された `<src_dir>/<lang>/` ロケールディレクトリと `drawlib.toml` の `[i18n]` で初期化）、`images`（エイリアス: `image`）、または `list`。
+- `<TYPE>`: プロジェクト種別を選択するサブコマンド: `doc`、`site`、`catalog`、`slide`（すべて統一された `<src_dir>/<lang>/` ロケールディレクトリと `drawlib.toml` の `[i18n]` で初期化）、`images`（エイリアス: `image`）、または `list`。
 - `[target]`: プロジェクトおよびソースフォルダのベース名（`<target>_src/` を作成します）。デフォルト値: `doc` は `doc`、`site` は `docs`、`catalog` は `catalog`、`slide` は `slide`、`images` は `images`。
 - `-s`, `--style <theme>`: スタイルプリセットテーマ（`default`、`google`、`monochrome` など）。`style.css` と `styles.py` の両方を同期して設定します。
 - `-l`, `--lang <code>`: スターターコンテンツおよびフォント設定の言語（`en`、`ja`、`zh-cn`、`ko`、`th`、`hi` など。`doc`、`site`、`catalog`、`slide` では `-l en,ja` のようなカンマ区切りの複数ロケール指定に対応）。デフォルト: `en`。
@@ -1188,19 +1188,20 @@ drawlib cache clear --all           # Clear all caches (fonts, icons, maps, and 
 組み込みのアーキテクチャ・ライブラリマニュアル（オンデマンドで `_cached_assets/rules/` に付属の図解も自動生成）をターミナルから直接参照できます。
 
 ```bash
-drawlib rules list                            # List all 92 rule topics and cache status
+drawlib rules list                            # List all 93 rule topics and cache status
 drawlib rules show agent-instruction          # View AI agent bootstrap manual
 drawlib rules show overview                   # View Cartesian geometry principles
 drawlib rules show style-guide                # View 50%+ neutral baseline & semantic color rules
 drawlib rules show review-guide               # View 3-stage multimodal review loop & 720pt font math
 drawlib rules show anim-guide                 # View animation idioms across all modules
-drawlib rules show project-overview           # View 4 project archetypes & shared architecture
+drawlib rules show project-overview           # View 5 project archetypes & shared architecture
 drawlib rules show project-site               # View multi-page website authoring & navbar.md rules
+drawlib rules show project-catalog            # View 2-column catalog & semantic badge rules
 drawlib rules show project-slide              # View 1920x1080 slide authoring & stage rules
 drawlib rules show lib-graph-overview         # View declarative graph layout solvers overview
 drawlib rules show lib-diagrams-overview --raw # Output raw Markdown without building/checking cache
 drawlib rules show lib-shapes-overview --rebuild # Force regenerate companion rule illustrations
-drawlib rules build --all                     # Pre-build illustrations for all 92 rule topics
+drawlib rules build --all                     # Pre-build illustrations for all 93 rule topics
 drawlib rules clear                           # Delete cached rule documents and generated images
 ```
 

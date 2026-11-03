@@ -1887,7 +1887,7 @@ save()
 以下の包括的なガイドから各機能の詳細を確認できます。
 
 1. [**はじめに**](./01_getting_started/overview.md)
-   - 基本設計思想、インストール、クイックスタート、座標系の原則、プロジェクト構成、AI エージェント設定、およびライブ公開の [サンプル・ショーケース (`examples.drawlib.com`)](https://examples.drawlib.com/)。
+   - 基本設計思想、インストール、クイックスタート、座標系の原則、プロジェクト構成、AI エージェント設定、[API & CLI リファレンス (`www.drawlib.com/api/`)](https://www.drawlib.com/api/ja/)、およびライブ公開の [サンプル・ショーケース (`examples.drawlib.com`)](https://examples.drawlib.com/)。
 2. [**描画プリミティブとスタイル**](./02_drawing_primitives/canvas.md)
    - 低レベルのベクター図形、多角形、ドメインプリミティブ、ブロック矢印、線、タイポグラフィ、フォント、画像処理、プリセットテーマ、カラーパレット。
 3. [**アイコンとブランドスイート**](./03_icons/overview.md)
@@ -1903,6 +1903,6 @@ save()
 8. [**アニメーション（APNG & WebP）**](./08_animations/overview.md)
    - マルチフレームアニメーション、滑らかな色遷移、コンポーネントの段階的表示、矢印の伸長（`draw_ratio`）、および全 Drawlib モジュール横断のカメラパン・ズーム。
 9. [**ドキュメントビルダと CLI**](./09_doc_builder_and_cli/overview.md)
-   - コードとしての図解ドキュメント: Markdown コードブロック構文、CLI リファレンス、プロジェクトテンプレート（`doc`、`site`、`slide`、`images`）、1920×1080 スライドステージレイアウト、カスタマイズ、2 層キャッシュ機構と CI/CD。
+   - コードとしての図解ドキュメント: Markdown コードブロック構文、CLI リファレンス、プロジェクトテンプレート（`doc`、`site`、`catalog`、`slide`、`images`）、1920×1080 スライドステージレイアウト、カスタマイズ、2 層キャッシュ機構と CI/CD。
 10. [**AI エージェントと高度な統合**](./10_ai_agents_and_advanced/ai_agent_instructions.md)
     - 自律型エージェント向け指示ルール、視覚的自己修正フィードバックループ、プログラマティック Python API、幾何・数学ユーティリティ、トラブルシューティング。

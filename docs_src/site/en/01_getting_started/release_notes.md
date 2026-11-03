@@ -1,5 +1,30 @@
 # Release Notes & Migration Guide
 
+## Version 0.3.5
+
+*Release Date: 2026/11/03*
+
+Version 0.3.5 introduces the 5th project archetype—**Illustrated Catalog & Reference (`catalog`, `drawlib init project catalog`)**—designed for API/CLI references, data schemas, microservice registries, and operational runbooks, alongside **Declarative Project SEO & `llms.txt` generation (`[seo]`)**, **zero-install `uvx` build script fallbacks**, and the **Official Bilingual Python API & CLI Reference (`/api/`)**.
+
+---
+
+### Highlights & New Features
+
+#### 1. Illustrated Catalog & Reference Project Archetype (`catalog`, `drawlib init project catalog`)
+- **Zero-Navbar 2-Column Catalog Builder (`1 Markdown = 1 HTML Page`)**: Scaffold `catalog` projects via `drawlib init project catalog [target] [-l en,ja] [-s google]` (`drawlib.tools.init_project("catalog", ...)`). Each Markdown file in `<src_dir>/<lang>/` automatically becomes a collapsible `# H1` sidebar category (`<details class="catalog-nav-group">`) with `## H2` entries linked as `#slug` items and tracked via live scroll-spy—no manual `navbar.md` maintenance required.
+- **50+ Semantic `H2` Badges & `/` Instant Filter**: Prefix `## ` headings with inline backtick tokens—covering HTTP (`GET`, `POST`, `PUT`, `PATCH`, `DELETE`, `gRPC`), code/CLI (`def`, `class`, `type`, `cmd`, `flag`, `env`, `config`), data/infra (`table`, `schema`, `service`, `job`, `pipeline`, `metric`), design/governance (`token`, `style`, `icon`, `adr`, `rule`), and operational status (`ok`, `warn`, `error`, `deprecated`)—to render color-coded pills in both the page body and sidebar, paired with `/` keyboard incremental filtering.
+- **Declarative `[catalog]` Customization & Dedicated CSS Target**: Configure `sidebar_expanded`, `badge_text`, `badge_url`, `breadcrumb_root`, `repo_url`, and `[[catalog.header_links]]` in `drawlib.toml`, inspect or export catalog stylesheets via `drawlib css list|show catalog` (`get_css(target="catalog")`, `export_css(target="catalog")`), and access authoring guidance via `drawlib rules show project-catalog`.
+
+#### 2. Declarative Project SEO, Open Graph & `llms.txt` Generation (`[seo]`, `[i18n.descriptions]`)
+- **Turnkey Search & Social Metadata Across `site`, `doc`, `catalog`, and `slide`**: Configure `[seo]` (`site_url`, `og_image`, `twitter_card`, `twitter_site`, `robots`, `sitemap`, `llms_txt`, `json_ld`, `cname`, `nojekyll`) and `[i18n.descriptions]` in `drawlib.toml` to automatically emit `<link rel="canonical">`, multi-locale `hreflang` alternates, Open Graph / X Card tags, Schema.org JSON-LD structured data, `sitemap.xml`, `robots.txt`, `CNAME`, and `.nojekyll`.
+- **AI-Ready `llms.txt` Discovery Index**: Automatically generates a clean `llms.txt` index summarizing site structure, localized entry URLs, and page descriptions so LLM agents and search crawlers can navigate compiled documentation sites effortlessly.
+
+#### 3. Zero-Install `uvx` Fallback Scripts & Official Bilingual API Reference (`/api/`, `/architecture/`)
+- **Polyglot Zero-Install Build & Preview Scripts (`uvx drawlib`)**: Scaffolded `build*.sh` and `serve.sh` scripts now detect `uv run drawlib` first and automatically fall back to `uvx drawlib` (or global `drawlib`), enabling zero-Python-setup diagram and documentation builds inside Go, Rust, TypeScript, Java, or standalone Git repositories.
+- **Official Bilingual Python API & CLI Reference & Architecture Portal**: Published a 100% complete bilingual (`en`/`ja`, 29 modules & CLI pages) API & CLI Reference at `https://www.drawlib.com/api/` dogfooding the new `catalog` archetype, alongside the internal Software Architecture Specification at `https://www.drawlib.com/architecture/`.
+
+---
+
 ## Version 0.3.4
 
 *Release Date: 2026/11/02*

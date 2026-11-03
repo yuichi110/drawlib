@@ -131,7 +131,7 @@ def draw_gemini_avatar(xy: tuple[float, float], radius: float = 4.3) -> None:
 
 
 def draw_scene_init_patterns(highlight_doc: bool) -> None:
-    """Scene 1: Show 4 drawlib init project archetypes and select 'doc'."""
+    """Scene 1: Show 5 drawlib init project archetypes and select 'doc'."""
     text(
         (69.0, 76.2),
         "Project Scaffolding Patterns — drawlib init project <type>",
@@ -140,7 +140,7 @@ def draw_scene_init_patterns(highlight_doc: bool) -> None:
     sub_msg = (
         "2. Sample walkthrough: Linear Document (drawlib init project doc)"
         if highlight_doc
-        else "1. Choose from 4 starter project archetypes"
+        else "1. Choose from 5 starter project archetypes"
     )
     sub_st = (
         Styles.PrimaryBold.patch(text_size=11.0)
@@ -163,9 +163,9 @@ def draw_scene_init_patterns(highlight_doc: bool) -> None:
             100.5,
             51.5,
             "site",
-            "drawlib init project site",
-            "Multi-Page Docs Website",
-            "Out: docs_html/<lang>/, docs_markdown/",
+            "drawlib init project site / catalog",
+            "Docs Website / API & Schema Ref",
+            "Out: docs_html/<lang>/, catalog_html/<lang>/",
             phosphor.globe,
         ),
         (

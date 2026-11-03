@@ -1887,7 +1887,7 @@ Write your technical spec or system architecture in standard Markdown with embed
 Explore the comprehensive guides below:
 
 1. [**Getting Started**](./01_getting_started/overview.md)
-   - Core philosophy, installation, quickstart, coordinate principles, project scaffolding, AI agent configuration, and the live [Examples Showcase (`examples.drawlib.com`)](https://examples.drawlib.com/).
+   - Core philosophy, installation, quickstart, coordinate principles, project scaffolding, AI agent configuration, the [API & CLI Reference (`www.drawlib.com/api/`)](https://www.drawlib.com/api/en/), and the live [Examples Showcase (`examples.drawlib.com`)](https://examples.drawlib.com/).
 2. [**Drawing Primitives & Styles**](./02_drawing_primitives/canvas.md)
    - Low-level vector shapes, polygons, domain primitives, block arrows, lines, typography, fonts, image processing, preset themes, and color palettes.
 3. [**Icons & Brand Suites**](./03_icons/overview.md)
@@ -1903,6 +1903,6 @@ Explore the comprehensive guides below:
 8. [**Animations (APNG & WebP)**](./08_animations/overview.md)
    - Multi-frame animations, smooth color transitions, progressive component reveals, arrow growth (`draw_ratio`), and camera pan/zoom across all Drawlib modules.
 9. [**Document Builder & CLI**](./09_doc_builder_and_cli/overview.md)
-   - Illustrated Documentation as Code: Markdown block syntax, CLI reference, project templates (`doc`, `site`, `slide`, `images`), 1920×1080 slide stage layout, customization, and two-tier caching & CI/CD.
+   - Illustrated Documentation as Code: Markdown block syntax, CLI reference, project templates (`doc`, `site`, `catalog`, `slide`, `images`), 1920×1080 slide stage layout, customization, and two-tier caching & CI/CD.
 10. [**AI Agents & Advanced Integration**](./10_ai_agents_and_advanced/ai_agent_instructions.md)
    - Autonomous agent instructions, visual self-correction feedback loop, programmatic Python APIs, math utilities, and troubleshooting.

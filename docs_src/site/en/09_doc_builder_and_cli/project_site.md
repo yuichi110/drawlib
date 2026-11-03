@@ -987,9 +987,7 @@ ja = "日本語"
 
 ## 9. Project-Managed SEO, Open Graph & `llms.txt` (`drawlib.toml`)
 
-> **Note (Upcoming in v0.3.5):** Project-level `[seo]` and `[i18n.descriptions]` manifest support is scheduled for the upcoming **v0.3.5** release and is not yet included in the `v0.3.4` package on PyPI.
-
-Web-facing Drawlib projects (`site`, `doc`, and `slide`) can declaratively manage search engine metadata, SNS Open Graph / X (Twitter) preview cards, `sitemap.xml`, `robots.txt`, and AI crawler indexes (`llms.txt`) directly in `drawlib.toml` without custom post-processing scripts:
+Web-facing Drawlib projects (`site`, `doc`, `catalog`, and `slide`) can declaratively manage search engine metadata, SNS Open Graph / X (Twitter) preview cards, `sitemap.xml`, `robots.txt`, and AI crawler indexes (`llms.txt`) directly in `drawlib.toml` without custom post-processing scripts:
 
 ```toml
 [project]

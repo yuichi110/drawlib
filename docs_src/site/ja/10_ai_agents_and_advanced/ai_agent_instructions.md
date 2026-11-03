@@ -169,7 +169,7 @@ save()
 ```
 
 ```bash
-# List all 31 modular rule topics and cache status:
+# List all 93 modular rule topics and cache status:
 uv run drawlib rules list
 
 # Retrieve targeted manuals:
@@ -178,17 +178,19 @@ uv run drawlib rules show overview             # Cartesian geometry & canvas lif
 uv run drawlib rules show style-guide          # 6-color semantic system & 50%+ neutral baseline
 uv run drawlib rules show review-guide         # 3-stage multimodal review loop & 720pt font math
 uv run drawlib rules show anim-guide           # Animation loop idioms & component patterns
-uv run drawlib rules show project-overview     # 4 project archetypes & decision matrix
+uv run drawlib rules show slide-guide          # Slide deck story arc & Dual-Layer rules
+uv run drawlib rules show project-overview     # 5 project archetypes & decision matrix
 uv run drawlib rules show project-images       # Standalone images project (images_src/*.py)
 uv run drawlib rules show project-doc          # Linear document & PDF project (doc_src/*.md)
 uv run drawlib rules show project-site         # Multi-page documentation website (docs_src/**/*.md)
+uv run drawlib rules show project-catalog      # 2-column reference & schema catalog (catalog_src/**/*.md)
 uv run drawlib rules show project-slide        # 1920x1080 slide stage authoring & templates (slide_src/*.md)
 uv run drawlib rules show api                  # Complete API index & symbol cheat sheet
 ```
 
 ### 3.1 `drawlib rules` トピックカタログ一覧
 
-#### 全般ガイドライン（12トピック）:
+#### 全般ガイドライン（14トピック）:
 
 | トピック名 | 主な内容 |
 | :--- | :--- |
@@ -197,10 +199,12 @@ uv run drawlib rules show api                  # Complete API index & symbol che
 | **`style-guide`** | 視覚的階層、50%以上をニュートラルスタイルにする原則、6つのセマンティックカラー、文字サイズ設計。 |
 | **`review-guide`** | 自律3段階マルチモーダル検証ループ、`720pt` 基準の文字スケーリング、座標アンカー対応表。 |
 | **`anim-guide`** | プリミティブ・SmartArts・Charts・Diagrams・Graphs にわたるアニメーションループの実装イディオム（再描画 vs 状態更新）。 |
-| **`project-overview`** | 4つのプロジェクトアーキタイプ（`images`、`doc`、`site`、`slide`）の構成、共通ファイル、キャッシュ機構。 |
+| **`slide-guide`** | スライドデッキのストーリー構成、2層構造（`::: block` vs `::: note`）ルール、ビジュアル設計のベストプラクティス。 |
+| **`project-overview`** | 5つのプロジェクトアーキタイプ（`images`、`doc`、`site`、`catalog`、`slide`）の構成、共通ファイル、キャッシュ機構。 |
 | **`project-images`** | スタンドアロン画像プロジェクト（`images_src/*.py` -> `images/*.png`）、`save()` の出力先自動制御、グリッド検証。 |
 | **`project-doc`** | リニア技術文書・PDF プロジェクト（`doc_src/*.md`）、`00_cover.md`、`--toc`、改ページを考慮した図のサイズ設計。 |
 | **`project-site`** | マルチページ Web サイト（`docs_src/**/*.md`）、`navbar.md` 構文、トップヒーロー原則、`drawlib serve --check`。 |
+| **`project-catalog`** | 2カラム型カタログ＆API/CLI/スキーマリファレンス（`catalog_src/**/*.md`）、H1/H2 自動抽出サイドバー、セマンティックバッジ、`/` フィルタ。 |
 | **`project-slide`** | 16:9 スライドステージ（`1920x1080`）、`::: block` / `::: note` 構文、レイアウトテンプレート、発表者ビュー。 |
 | **`cli`** | 全 CLI コマンド・フラグ・終了コードのリファレンスマニュアル。 |
 | **`api`** | 全 `drawlib.*` モジュールを網羅した API インデックスとシンボルシグネチャ早見表。 |

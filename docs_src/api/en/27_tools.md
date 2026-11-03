@@ -143,7 +143,7 @@ build_docx(
 
 ## `def` build_html(input_dir, output_dir=None, *, ...)
 
-Compile an `i18n`-native `site`, `doc`, or `catalog` *(Upcoming in v0.3.5)* project directory (`drawlib.toml` + `<lang>/` sources) into static HTML with shared diagram deduplication, per-locale stylesheets, language switcher navigation (when 2+ locales are configured), and a root `index.html`.
+Compile an `i18n`-native `site`, `doc`, or `catalog` project directory (`drawlib.toml` + `<lang>/` sources) into static HTML with shared diagram deduplication, per-locale stylesheets, language switcher navigation (when 2+ locales are configured), and a root `index.html`.
 
 ```python
 from drawlib.tools import build_html
@@ -162,7 +162,7 @@ build_html(
 
 | Parameter | Type | Default | Description |
 | :--- | :--- | :--- | :--- |
-| `input_dir` | `str` | *(required)* | Project root directory containing `drawlib.toml` (`type = "site"`, `"doc"`, or `"catalog"` *(Upcoming in v0.3.5)*) and `<lang>/` folders. |
+| `input_dir` | `str` | *(required)* | Project root directory containing `drawlib.toml` (`type = "site"`, `"doc"`, or `"catalog"`) and `<lang>/` folders. |
 | `output_dir` | `str \| None` | `None` | Target HTML output directory (defaults to `<base>_html`). |
 | `image_format` | `str` | `"png"` | Image output format for embedded `drawlib` blocks (`"png"` or `"webp"`). |
 | `styles_path` | `str \| None` | `None` | Optional path to a custom `styles.py` script. |
@@ -457,7 +457,7 @@ export_code_block(
 
 ## `def` export_css(name, output_path=None, target="html", force=False, lang="en")
 
-Synthesize and write a built-in CSS theme preset to a file on disk (`target="catalog"` is *(Upcoming in v0.3.5)*).
+Synthesize and write a built-in CSS theme preset to a file on disk.
 
 ```python
 from drawlib.tools import export_css
@@ -475,7 +475,7 @@ export_css(
 | :--- | :--- | :--- | :--- |
 | `name` | `str` | *(required)* | Built-in CSS preset name (`"default"`, `"google"`, `"default-dark"`, `"monochrome"`, etc.). |
 | `output_path` | `str \| None` | `None` | Destination CSS path (defaults to `docs_src/style.css` if present, else `style.css`). |
-| `target` | `CssTarget` | `"html"` | Target layout format (`"html"`, `"pdf"`, `"slide"`, `"site"`, `"doc"`, or `"catalog"` *(Upcoming in v0.3.5)*). |
+| `target` | `CssTarget` | `"html"` | Target layout format (`"html"`, `"pdf"`, `"slide"`, `"site"`, `"doc"`, or `"catalog"`). |
 | `force` | `bool` | `False` | Overwrite `output_path` if it already exists (`FileExistsError` when `False`). |
 | `lang` | `str` | `"en"` | Language code for localized web font stacks (`"en"`, `"ja"`, `"zh-cn"`, etc.). |
 
@@ -505,7 +505,7 @@ get_agent_instruction(
 
 ## `def` get_css(name=None, target="html", lang="en")
 
-Synthesize and return a complete standalone CSS stylesheet string combining theme tokens, UI components, and target layout rules (`target="catalog"` is *(Upcoming in v0.3.5)*).
+Synthesize and return a complete standalone CSS stylesheet string combining theme tokens, UI components, and target layout rules.
 
 ```python
 from drawlib.tools import get_css
@@ -520,7 +520,7 @@ get_css(
 | Parameter | Type | Default | Description |
 | :--- | :--- | :--- | :--- |
 | `name` | `str \| None` | `None` | Built-in preset name or custom CSS path (defaults to `"default"`). |
-| `target` | `CssTarget` | `"html"` | Target layout format (`"html"`, `"site"`, `"doc"`, `"pdf"`, `"slide"`, or `"catalog"` *(Upcoming in v0.3.5)*). |
+| `target` | `CssTarget` | `"html"` | Target layout format (`"html"`, `"site"`, `"doc"`, `"pdf"`, `"slide"`, or `"catalog"`). |
 | `lang` | `str` | `"en"` | Language code or alias for typography font stack substitution. |
 
 - **Returns (`str`)**: Synthesized CSS stylesheet text.
@@ -555,7 +555,7 @@ init_agent_instruction(
 
 ## `def` init_project(project_type, destination=".", target=None, ...)
 
-Scaffold a starter Drawlib project (`<target>_src/`) pre-configured with `drawlib.toml`, `styles.py`, `utils.py`, `_assets/`, stylesheets/templates, and executable `build*.sh` scripts (`project_type="catalog"` is *(Upcoming in v0.3.5)*).
+Scaffold a starter Drawlib project (`<target>_src/`) pre-configured with `drawlib.toml`, `styles.py`, `utils.py`, `_assets/`, stylesheets/templates, and executable `build*.sh` scripts.
 
 ```python
 from drawlib.tools import init_project
@@ -574,7 +574,7 @@ init_project(
 
 | Parameter | Type | Default | Description |
 | :--- | :--- | :--- | :--- |
-| `project_type` | `str` | *(required)* | Archetype name: `"doc"`, `"site"`, `"catalog"` *(Upcoming in v0.3.5)*, `"slide"`, `"images"`, or `"image"`. |
+| `project_type` | `str` | *(required)* | Archetype name: `"doc"`, `"site"`, `"catalog"`, `"slide"`, `"images"`, or `"image"`. |
 | `destination` | `str \| Path` | `"."` | Parent directory in which `<target>_src/` is created. |
 | `target` | `str \| None` | `None` | Custom base name (defaults to `"doc"`, `"docs"`, `"catalog"`, `"slide"`, or `"images"`). |
 | `output` | `str \| None` | `None` | Legacy alias for `target`. |
@@ -624,7 +624,7 @@ list_cache() -> list[dict[str, Any]]
 
 ## `def` list_css(target="html")
 
-Return metadata dictionaries for all built-in CSS theme presets available for `target` (`target="catalog"` is *(Upcoming in v0.3.5)*).
+Return metadata dictionaries for all built-in CSS theme presets available for `target`.
 
 ```python
 from drawlib.tools import list_css
@@ -636,7 +636,7 @@ list_css(
 
 | Parameter | Type | Default | Description |
 | :--- | :--- | :--- | :--- |
-| `target` | `CssTarget` | `"html"` | Target layout format (`"html"`, `"pdf"`, `"slide"`, `"site"`, `"doc"`, or `"catalog"` *(Upcoming in v0.3.5)*). |
+| `target` | `CssTarget` | `"html"` | Target layout format (`"html"`, `"pdf"`, `"slide"`, `"site"`, `"doc"`, or `"catalog"`). |
 
 - **Returns (`list[dict[str, str]]`)**: Preset dictionaries containing `"name"`, `"file"`, and `"description"`.
 
