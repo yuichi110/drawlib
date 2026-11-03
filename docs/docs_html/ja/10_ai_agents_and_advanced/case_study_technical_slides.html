@@ -653,7 +653,7 @@
                 <h1>事例紹介: 技術プレゼンテーションスライドの作成</h1>
 <p>障害ポストモーテム、アーキテクチャレビュー、技術カンファレンスでの登壇には、明快なビジュアルストーリーテリングが求められます。しかし、従来の GUI プレゼンテーションツール（PowerPoint、Keynote、Google スライド）での技術スライド作成には大きな摩擦が伴います。エンジニアは矩形のドラッグや矢印の整列、スクリーンショットの貼り付けに何時間も費やし、ストーリー構成を見直すたびにバージョン管理もリファクタリングも困難な手作業のやり直しを強いられます。</p>
 <p>Drawlib の**スライドデッキプロジェクト（<code>slide</code>）**は、プレゼンテーション制作を Git 管理された宣言的ワークフローへと変革し、<strong>16:9 の HTML/PDF スライドデッキ、スピーカーノート、純粋な Python による技術ダイアグラム</strong>を人間と AI コーディングエージェントが協働で開発できるようにします。</p>
-<p>本事例では、クラウドアーキテクチャ図、シーケンスプロトコル、定量データチャート、5段階の適応サイクル図、そして複数ウェーブにわたる地理的攻撃マップ（<code>GeoMap</code>）を備えた全27枚のサーバーレスセキュリティ障害ポストモーテムスライド**「1日3億リクエスト超の DDoS・EDoS 攻撃を生き延びた記録」<strong>（<code>docs/slide_ddos_incident_response_src/</code>）を制作した、実践的な</strong>9ステップの反復ワークフロー**を紹介します。</p>
+<p>本事例では、クラウドアーキテクチャ図、シーケンスプロトコル、定量データチャート、5段階の適応サイクル図、そして複数ウェーブにわたる地理的攻撃マップ（<code>GeoMap</code>）を備えた全27枚のサーバーレスセキュリティ障害ポストモーテムスライド<a href="https://examples.drawlib.com/slide_ddos_incident_response/en/"><strong>「1日3億リクエスト超の DDoS・EDoS 攻撃を生き延びた記録」</strong></a>（<a href="https://github.com/yuichi110/drawlib-examples/tree/main/slide_ddos_incident_response_src"><code>drawlib-examples</code> のソースコード</a>）を制作した、実践的な<strong>9ステップの反復ワークフロー</strong>を紹介します。</p>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="../../images/10_ai_agents_and_advanced/case_study_technical_slides/case_study_slide_9step_workflow.png" alt="case_study_technical_slides_1" />
   <figcaption class="drawlib-caption">人間と AI の協働による9ステップの技術スライド制作ライフサイクル</figcaption>
@@ -806,7 +806,7 @@
 <h2>2. ステップ 1〜3: プロジェクト初期化・構成議論・<code>_</code> プレフィックス計画ファイル</h2>
 <h3>2.1. ステップ 1: スライドプロジェクトの初期化 (<code>drawlib init project slide</code>)</h3>
 <p>すべてのスライドデッキ制作は、構造化された Drawlib の <code>slide</code> プロジェクトを初期化することから始まります。</p>
-<pre><code class="language-bash">uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>project<span class="w"> </span>slide<span class="w"> </span>docs/slide_ddos_incident_response_src<span class="w"> </span>--style<span class="w"> </span>google
+<pre><code class="language-bash">uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>project<span class="w"> </span>slide<span class="w"> </span>slide_ddos_incident_response_src<span class="w"> </span>--style<span class="w"> </span>google
 </code></pre>
 <p>これにより、プレゼンテーション制作に必要な基盤一式が自動生成されます。</p>
 <ul>
@@ -1028,7 +1028,7 @@
 <h3>4.3. イテレーション 3: ストーリー順序の再編と「攻撃目的の変容」ブリッジスライドの挿入</h3>
 <ul>
 <li><strong>人間のレビュー（ステップ 6〜7）</strong>: 初期アウトラインでは、<strong>非対称 SHA-256 Proof-of-Work</strong> が第2幕の末尾に置かれていました。レビューの中で著者は、SHA-256 PoW こそが攻撃者を EDoS（大量リクエスト課金攻撃）へと転換させた直接の引き金であることを指摘し、PoW を第3幕の冒頭へ移動したうえで、攻撃者の目的が*「TTS 音声合成 API を直接叩くこと」<em>から</em>「URL を問わず大量リクエストをオリジン側の課金評価へ到達させること」*へどう変化したかを解説するブリッジスライドを挿入するよう依頼しました。</li>
-<li><strong>AI の実装（ステップ 8）</strong>: Drawlib の <code>slide</code> プロジェクトでは各スライドが独立した連番付き Markdown ファイル（<code>01_section.md</code>、<code>02_pow_challenge.md</code>、<code>03_attacker_goal_shift.md</code> ...）として管理されているため、章をまたぐ並び替えも <code>mv</code> コマンドによるリネームと章扉のトピック更新だけで完了しました。その後 <code>./docs/slide_ddos_incident_response_src/build.sh</code> を実行するだけで全27ページのスライド番号が自動採番され、PDF の再検証までスムーズに完了しました。</li>
+<li><strong>AI の実装（ステップ 8）</strong>: Drawlib の <code>slide</code> プロジェクトでは各スライドが独立した連番付き Markdown ファイル（<code>01_section.md</code>、<code>02_pow_challenge.md</code>、<code>03_attacker_goal_shift.md</code> ...）として管理されているため、章をまたぐ並び替えも <code>mv</code> コマンドによるリネームと章扉のトピック更新だけで完了しました。その後 <code>./slide_ddos_incident_response_src/build.sh</code> を実行するだけで全27ページのスライド番号が自動採番され、PDF の再検証までスムーズに完了しました。</li>
 </ul>
 <hr />
 <h2>5. 技術スライド制作のベストプラクティスまとめ</h2>

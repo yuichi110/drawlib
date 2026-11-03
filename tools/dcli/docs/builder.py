@@ -39,60 +39,6 @@ ALL_TARGETS: tuple[BuildTarget, ...] = (
         clean_paths=("docs/docs_markdown", "docs/docs_html", "docs/docs_images"),
     ),
     BuildTarget(
-        name="quickstart",
-        src_dir="docs/quickstart_src",
-        script_rel_path="docs/quickstart_src/build.sh",
-        description="Quickstart Document & PDF",
-        clean_paths=(
-            "docs/quickstart_markdown",
-            "docs/quickstart_html",
-            "docs/quickstart_en.pdf",
-            "docs/quickstart_images",
-        ),
-    ),
-    BuildTarget(
-        name="readme",
-        src_dir="docs/readme_src",
-        script_rel_path="docs/readme_src/build.sh",
-        description="README Asset Images",
-        clean_paths=("docs/readme_images",),
-    ),
-    BuildTarget(
-        name="dogfooding",
-        src_dir="docs/drawlib-dogfooding_src",
-        script_rel_path="docs/drawlib-dogfooding_src/build.sh",
-        description="Dogfooding Whitepaper (EN/JP)",
-        clean_paths=(
-            "docs/drawlib-dogfooding_markdown",
-            "docs/drawlib-dogfooding_html",
-            "docs/drawlib-dogfooding_en.pdf",
-            "docs/drawlib-dogfooding_ja.pdf",
-            "docs/drawlib-dogfooding_images",
-        ),
-    ),
-    BuildTarget(
-        name="slide",
-        src_dir="docs/slide_about_drawlib_src",
-        script_rel_path="docs/slide_about_drawlib_src/build.sh",
-        description="16:9 Presentation Slide Deck (About Drawlib)",
-        clean_paths=(
-            "docs/slide_about_drawlib_html",
-            "docs/slide_about_drawlib_en.pdf",
-            "docs/slide_about_drawlib_images",
-        ),
-    ),
-    BuildTarget(
-        name="slide-ddos",
-        src_dir="docs/slide_ddos_incident_response_src",
-        script_rel_path="docs/slide_ddos_incident_response_src/build.sh",
-        description="16:9 Presentation Slide Deck (DDoS Incident Response)",
-        clean_paths=(
-            "docs/slide_ddos_incident_response_html",
-            "docs/slide_ddos_incident_response_en.pdf",
-            "docs/slide_ddos_incident_response_images",
-        ),
-    ),
-    BuildTarget(
         name="architecture",
         src_dir="docs/architecture_src",
         script_rel_path="docs/architecture_src/build.sh",
@@ -102,6 +48,13 @@ ALL_TARGETS: tuple[BuildTarget, ...] = (
             "docs/architecture_html",
             "docs/architecture_images",
         ),
+    ),
+    BuildTarget(
+        name="readme",
+        src_dir="docs/readme_src",
+        script_rel_path="docs/readme_src/build.sh",
+        description="README Asset Images",
+        clean_paths=("docs/readme_images",),
     ),
     BuildTarget(
         name="logo",
@@ -123,12 +76,6 @@ TARGET_MAP: dict[str, BuildTarget] = {target.name: target for target in ALL_TARG
 # Convenience aliases
 TARGET_MAP["docs"] = TARGET_MAP["site"]
 TARGET_MAP["doc"] = TARGET_MAP["site"]
-TARGET_MAP["dogfooding-en"] = TARGET_MAP["dogfooding"]
-TARGET_MAP["slide_about_drawlib"] = TARGET_MAP["slide"]
-TARGET_MAP["slide-about-drawlib"] = TARGET_MAP["slide"]
-TARGET_MAP["slide_ddos_incident_response"] = TARGET_MAP["slide-ddos"]
-TARGET_MAP["slide-ddos-incident-response"] = TARGET_MAP["slide-ddos"]
-TARGET_MAP["ddos"] = TARGET_MAP["slide-ddos"]
 
 
 def clean_target_artifacts(targets: Sequence[BuildTarget]) -> None:
@@ -172,7 +119,7 @@ def build_docs(
     """Build specified documentation targets or all targets.
 
     Args:
-        target_name: Specific target name ('site', 'quickstart', 'readme', 'dogfooding', 'slide', etc.).
+        target_name: Specific target name ('site', 'architecture', 'readme', 'logo', 'ogp', or 'all').
         build_all: If True, build all available targets in sequence.
         clean: If True, remove previous build artifacts before building.
     """

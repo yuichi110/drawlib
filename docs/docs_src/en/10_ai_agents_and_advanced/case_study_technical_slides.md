@@ -4,7 +4,7 @@ Engineering postmortems, architecture reviews, and conference talks demand clear
 
 Drawlib's **Slide Deck Project (`slide`)** transforms presentation authoring into a declarative, Git-tracked workflow where **16:9 HTML/PDF slide decks, speaker notes, and pure-Python technical diagrams** are co-developed by humans and AI coding agents.
 
-This case study documents the real-world **9-step iterative workflow** used to build **"Surviving a 300M+ Req/Day DDoS & EDoS Attack"**—a 27-slide serverless security postmortem deck (`docs/slide_ddos_incident_response_src/`) featuring cloud architecture diagrams, sequence protocols, data charts, 5-step adaptation cycles, and multi-wave geographic attack maps (`GeoMap`).
+This case study documents the real-world **9-step iterative workflow** used to build [**"Surviving a 300M+ Req/Day DDoS & EDoS Attack"**](https://examples.drawlib.com/slide_ddos_incident_response/en/)—a 27-slide serverless security postmortem deck ([source in `drawlib-examples`](https://github.com/yuichi110/drawlib-examples/tree/main/slide_ddos_incident_response_src)) featuring cloud architecture diagrams, sequence protocols, data charts, 5-step adaptation cycles, and multi-wave geographic attack maps (`GeoMap`).
 
 ```drawlib code=fold align=center file=case_study_slide_9step_workflow.png caption="The 9-Step Human-AI Collaborative Slide Authoring Lifecycle"
 from drawlib.canvas import save, setup
@@ -106,7 +106,7 @@ Rather than expecting a single "one-shot" prompt to produce a finished 27-slide 
 Every slide deck starts by initializing a structured Drawlib `slide` project:
 
 ```bash
-uv run drawlib init project slide docs/slide_ddos_incident_response_src --style google
+uv run drawlib init project slide slide_ddos_incident_response_src --style google
 ```
 
 This generates the complete presentation infrastructure:
@@ -292,7 +292,7 @@ save()
 
 ### 4.3. Iteration 3: Narrative Reordering & The Goal-Shift Bridge Slide
 - **Human Review (Steps 6–7)**: In the initial outline, **Asymmetric SHA-256 Proof-of-Work** was placed at the end of Act 2. During review, the author pointed out that SHA-256 PoW was the direct trigger for the attacker's pivot to EDoS—and requested moving PoW to the start of Act 3, followed by a light bridge slide explaining how the attacker's goal changed from *"calling the TTS synthesis API directly"* to *"sneaking massive request volume through to the origin on any URL."*
-- **AI Execution (Step 8)**: Because every slide in a Drawlib `slide` project is an independent, numbered Markdown file (`01_section.md`, `02_pow_challenge.md`, `03_attacker_goal_shift.md`, ...), reordering slides across chapters required only a `mv` command and updating the chapter divider topics—followed by `./docs/slide_ddos_incident_response_src/build.sh` to automatically renumber all 27 slides and re-verify the PDF.
+- **AI Execution (Step 8)**: Because every slide in a Drawlib `slide` project is an independent, numbered Markdown file (`01_section.md`, `02_pow_challenge.md`, `03_attacker_goal_shift.md`, ...), reordering slides across chapters required only a `mv` command and updating the chapter divider topics—followed by `./slide_ddos_incident_response_src/build.sh` to automatically renumber all 27 slides and re-verify the PDF.
 
 ---
 

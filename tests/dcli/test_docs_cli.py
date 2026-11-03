@@ -33,18 +33,16 @@ def test_target_definitions() -> None:
     """Test that all targets are properly mapped."""
     assert "site" in TARGET_MAP
     assert "docs" in TARGET_MAP
+    assert "doc" in TARGET_MAP
     assert "architecture" in TARGET_MAP
-    assert "quickstart" in TARGET_MAP
-    assert "dogfooding" in TARGET_MAP
-    assert "dogfooding-en" in TARGET_MAP
-    assert "slide" in TARGET_MAP
-    assert "slide-ddos" in TARGET_MAP
-    assert "slide_ddos_incident_response" in TARGET_MAP
-    assert "ddos" in TARGET_MAP
     assert "readme" in TARGET_MAP
     assert "logo" in TARGET_MAP
     assert "ogp" in TARGET_MAP
-    assert len(ALL_TARGETS) == 9
+    assert "quickstart" not in TARGET_MAP
+    assert "dogfooding" not in TARGET_MAP
+    assert "slide" not in TARGET_MAP
+    assert "slide-ddos" not in TARGET_MAP
+    assert len(ALL_TARGETS) == 5
 
 
 def test_docs_build_unknown_target() -> None:
@@ -57,9 +55,9 @@ def test_docs_build_unknown_target() -> None:
 def test_docs_build_invocation() -> None:
     """Test build command invokes build_docs correctly."""
     with patch("tools.dcli.docs.cli.build_docs") as mock_build:
-        result = runner.invoke(app, ["build", "quickstart", "--no-clean"])
+        result = runner.invoke(app, ["build", "architecture", "--no-clean"])
         assert result.exit_code == 0
-        mock_build.assert_called_once_with(target_name="quickstart", build_all=False, clean=False)
+        mock_build.assert_called_once_with(target_name="architecture", build_all=False, clean=False)
 
 
 def test_docs_build_all_invocation() -> None:

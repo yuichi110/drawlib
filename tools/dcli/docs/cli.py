@@ -34,10 +34,7 @@ def callback() -> None:
 def build(
     target: str | None = typer.Argument(
         None,
-        help=(
-            "Target to build ('site', 'architecture', 'quickstart', 'readme', 'logo', 'ogp', "
-            "'dogfooding', 'slide', 'slide-ddos', or 'all'). Default: 'site'."
-        ),
+        help="Target to build ('site', 'architecture', 'readme', 'logo', 'ogp', or 'all'). Default: 'site'.",
     ),
     all_targets: bool = typer.Option(
         False,
@@ -51,7 +48,7 @@ def build(
         help="Remove build artifacts before compilation.",
     ),
 ) -> None:
-    """Build documentation, presentations, and illustration assets."""
+    """Build documentation and illustration assets."""
     try:
         build_docs(target_name=target, build_all=all_targets, clean=clean)
     except Exception as e:
@@ -63,16 +60,6 @@ SERVE_TARGET_MAP: dict[str, str] = {
     "site": "docs/docs_html",
     "docs": "docs/docs_html",
     "docs_html": "docs/docs_html",
-    "dogfooding": "docs/drawlib-dogfooding_html",
-    "dogfooding-en": "docs/drawlib-dogfooding_html",
-    "quickstart": "docs/quickstart_html",
-    "slide": "docs/slide_about_drawlib_html",
-    "slide_about_drawlib": "docs/slide_about_drawlib_html",
-    "slide-about-drawlib": "docs/slide_about_drawlib_html",
-    "slide-ddos": "docs/slide_ddos_incident_response_html",
-    "slide_ddos_incident_response": "docs/slide_ddos_incident_response_html",
-    "slide-ddos-incident-response": "docs/slide_ddos_incident_response_html",
-    "ddos": "docs/slide_ddos_incident_response_html",
     "architecture": "docs/architecture_html",
 }
 
@@ -81,10 +68,7 @@ SERVE_TARGET_MAP: dict[str, str] = {
 def serve(
     target: str = typer.Argument(
         "site",
-        help=(
-            "Directory or target alias to serve ('site', 'architecture', 'dogfooding', "
-            "'quickstart', 'slide', 'slide-ddos', or path)."
-        ),
+        help="Directory or target alias to serve ('site', 'architecture', or path).",
     ),
     port: int = typer.Option(8000, "--port", "-p", help="Port to serve the documentation on."),
     no_browser: bool = typer.Option(False, "--no-browser", help="Do not automatically open the browser."),

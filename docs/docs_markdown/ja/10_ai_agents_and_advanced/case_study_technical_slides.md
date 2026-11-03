@@ -4,7 +4,7 @@
 
 Drawlib の**スライドデッキプロジェクト（`slide`）**は、プレゼンテーション制作を Git 管理された宣言的ワークフローへと変革し、**16:9 の HTML/PDF スライドデッキ、スピーカーノート、純粋な Python による技術ダイアグラム**を人間と AI コーディングエージェントが協働で開発できるようにします。
 
-本事例では、クラウドアーキテクチャ図、シーケンスプロトコル、定量データチャート、5段階の適応サイクル図、そして複数ウェーブにわたる地理的攻撃マップ（`GeoMap`）を備えた全27枚のサーバーレスセキュリティ障害ポストモーテムスライド**「1日3億リクエスト超の DDoS・EDoS 攻撃を生き延びた記録」**（`docs/slide_ddos_incident_response_src/`）を制作した、実践的な**9ステップの反復ワークフロー**を紹介します。
+本事例では、クラウドアーキテクチャ図、シーケンスプロトコル、定量データチャート、5段階の適応サイクル図、そして複数ウェーブにわたる地理的攻撃マップ（`GeoMap`）を備えた全27枚のサーバーレスセキュリティ障害ポストモーテムスライド[**「1日3億リクエスト超の DDoS・EDoS 攻撃を生き延びた記録」**](https://examples.drawlib.com/slide_ddos_incident_response/en/)（[`drawlib-examples` のソースコード](https://github.com/yuichi110/drawlib-examples/tree/main/slide_ddos_incident_response_src)）を制作した、実践的な**9ステップの反復ワークフロー**を紹介します。
 
 
 
@@ -120,7 +120,7 @@ save()
 すべてのスライドデッキ制作は、構造化された Drawlib の `slide` プロジェクトを初期化することから始まります。
 
 ```bash
-uv run drawlib init project slide docs/slide_ddos_incident_response_src --style google
+uv run drawlib init project slide slide_ddos_incident_response_src --style google
 ```
 
 これにより、プレゼンテーション制作に必要な基盤一式が自動生成されます。
@@ -334,7 +334,7 @@ save()
 
 ### 4.3. イテレーション 3: ストーリー順序の再編と「攻撃目的の変容」ブリッジスライドの挿入
 - **人間のレビュー（ステップ 6〜7）**: 初期アウトラインでは、**非対称 SHA-256 Proof-of-Work** が第2幕の末尾に置かれていました。レビューの中で著者は、SHA-256 PoW こそが攻撃者を EDoS（大量リクエスト課金攻撃）へと転換させた直接の引き金であることを指摘し、PoW を第3幕の冒頭へ移動したうえで、攻撃者の目的が*「TTS 音声合成 API を直接叩くこと」*から*「URL を問わず大量リクエストをオリジン側の課金評価へ到達させること」*へどう変化したかを解説するブリッジスライドを挿入するよう依頼しました。
-- **AI の実装（ステップ 8）**: Drawlib の `slide` プロジェクトでは各スライドが独立した連番付き Markdown ファイル（`01_section.md`、`02_pow_challenge.md`、`03_attacker_goal_shift.md` ...）として管理されているため、章をまたぐ並び替えも `mv` コマンドによるリネームと章扉のトピック更新だけで完了しました。その後 `./docs/slide_ddos_incident_response_src/build.sh` を実行するだけで全27ページのスライド番号が自動採番され、PDF の再検証までスムーズに完了しました。
+- **AI の実装（ステップ 8）**: Drawlib の `slide` プロジェクトでは各スライドが独立した連番付き Markdown ファイル（`01_section.md`、`02_pow_challenge.md`、`03_attacker_goal_shift.md` ...）として管理されているため、章をまたぐ並び替えも `mv` コマンドによるリネームと章扉のトピック更新だけで完了しました。その後 `./slide_ddos_incident_response_src/build.sh` を実行するだけで全27ページのスライド番号が自動採番され、PDF の再検証までスムーズに完了しました。
 
 ---
 

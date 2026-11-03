@@ -653,7 +653,7 @@
                 <h1>Case Study: Creating Technical Slide Decks with AI Agents</h1>
 <p>Engineering postmortems, architecture reviews, and conference talks demand clear visual storytelling. However, creating technical slide decks in traditional GUI presentation tools (PowerPoint, Keynote, Google Slides) suffers from severe friction: engineers spend hours manually dragging boxes, aligning arrows, and copy-pasting screenshots that immediately become impossible to version-control or refactor when the narrative evolves.</p>
 <p>Drawlib's <strong>Slide Deck Project (<code>slide</code>)</strong> transforms presentation authoring into a declarative, Git-tracked workflow where <strong>16:9 HTML/PDF slide decks, speaker notes, and pure-Python technical diagrams</strong> are co-developed by humans and AI coding agents.</p>
-<p>This case study documents the real-world <strong>9-step iterative workflow</strong> used to build <strong>&quot;Surviving a 300M+ Req/Day DDoS &amp; EDoS Attack&quot;</strong>—a 27-slide serverless security postmortem deck (<code>docs/slide_ddos_incident_response_src/</code>) featuring cloud architecture diagrams, sequence protocols, data charts, 5-step adaptation cycles, and multi-wave geographic attack maps (<code>GeoMap</code>).</p>
+<p>This case study documents the real-world <strong>9-step iterative workflow</strong> used to build <a href="https://examples.drawlib.com/slide_ddos_incident_response/en/"><strong>&quot;Surviving a 300M+ Req/Day DDoS &amp; EDoS Attack&quot;</strong></a>—a 27-slide serverless security postmortem deck (<a href="https://github.com/yuichi110/drawlib-examples/tree/main/slide_ddos_incident_response_src">source in <code>drawlib-examples</code></a>) featuring cloud architecture diagrams, sequence protocols, data charts, 5-step adaptation cycles, and multi-wave geographic attack maps (<code>GeoMap</code>).</p>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="../../images/10_ai_agents_and_advanced/case_study_technical_slides/case_study_slide_9step_workflow.png" alt="case_study_technical_slides_1" />
   <figcaption class="drawlib-caption">The 9-Step Human-AI Collaborative Slide Authoring Lifecycle</figcaption>
@@ -806,7 +806,7 @@
 <h2>2. Steps 1–3: Scaffolding, Discussion &amp; The <code>_</code> Planning File Pattern</h2>
 <h3>2.1. Step 1: Scaffolding the Slide Project (<code>drawlib init project slide</code>)</h3>
 <p>Every slide deck starts by initializing a structured Drawlib <code>slide</code> project:</p>
-<pre><code class="language-bash">uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>project<span class="w"> </span>slide<span class="w"> </span>docs/slide_ddos_incident_response_src<span class="w"> </span>--style<span class="w"> </span>google
+<pre><code class="language-bash">uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>project<span class="w"> </span>slide<span class="w"> </span>slide_ddos_incident_response_src<span class="w"> </span>--style<span class="w"> </span>google
 </code></pre>
 <p>This generates the complete presentation infrastructure:</p>
 <ul>
@@ -1028,7 +1028,7 @@
 <h3>4.3. Iteration 3: Narrative Reordering &amp; The Goal-Shift Bridge Slide</h3>
 <ul>
 <li><strong>Human Review (Steps 6–7)</strong>: In the initial outline, <strong>Asymmetric SHA-256 Proof-of-Work</strong> was placed at the end of Act 2. During review, the author pointed out that SHA-256 PoW was the direct trigger for the attacker's pivot to EDoS—and requested moving PoW to the start of Act 3, followed by a light bridge slide explaining how the attacker's goal changed from <em>&quot;calling the TTS synthesis API directly&quot;</em> to <em>&quot;sneaking massive request volume through to the origin on any URL.&quot;</em></li>
-<li><strong>AI Execution (Step 8)</strong>: Because every slide in a Drawlib <code>slide</code> project is an independent, numbered Markdown file (<code>01_section.md</code>, <code>02_pow_challenge.md</code>, <code>03_attacker_goal_shift.md</code>, ...), reordering slides across chapters required only a <code>mv</code> command and updating the chapter divider topics—followed by <code>./docs/slide_ddos_incident_response_src/build.sh</code> to automatically renumber all 27 slides and re-verify the PDF.</li>
+<li><strong>AI Execution (Step 8)</strong>: Because every slide in a Drawlib <code>slide</code> project is an independent, numbered Markdown file (<code>01_section.md</code>, <code>02_pow_challenge.md</code>, <code>03_attacker_goal_shift.md</code>, ...), reordering slides across chapters required only a <code>mv</code> command and updating the chapter divider topics—followed by <code>./slide_ddos_incident_response_src/build.sh</code> to automatically renumber all 27 slides and re-verify the PDF.</li>
 </ul>
 <hr />
 <h2>5. Key Takeaways for Technical Slide Authoring</h2>

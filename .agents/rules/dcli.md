@@ -23,7 +23,7 @@ source ./dcli             # Register 'dcli' alias and dynamic Tab autocompletion
 | :--- | :--- | :--- |
 | **`code-check`** | `code_check/` | Code quality & static analysis (Ruff lint/format, Ty type check, docstring check, line count) |
 | **`test`** | `test.py` | Unit & integration test execution via pytest + coverage + xdist parallelization |
-| **`docs`** | `docs/` | Building documentation projects (`site`, `quickstart`, `dogfooding`, `slide`, `readme`) & preview server |
+| **`docs`** | `docs/` | Building documentation projects (`site`, `architecture`, `readme`, `logo`, `ogp`) & preview server |
 | **`codegen`** | `codegen/` | Code generation utilities for Phosphor and GCP icon Python bindings |
 | **`release-assets`**| `release_assets/` | Building, verifying, uploading, and syncing font/icon archives on GitHub Releases |
 | **`pypi`** | `pypi/` | Dependency auditing, version checks, `pyproject.toml` updates, and TestPyPI/PyPI publishing |
@@ -63,10 +63,6 @@ source ./dcli             # Register 'dcli' alias and dynamic Tab autocompletion
 - **Available `TARGET` names**:
   - `site` *(default)*: Main documentation site (`docs/docs_src/` -> `docs/docs_html/`, `docs/docs_markdown/`)
   - `architecture`: Software architecture specification site (`docs/architecture_src/`)
-  - `quickstart`: Quickstart guide & PDF (`docs/quickstart_src/`)
-  - `dogfooding`: Bilingual Dogfooding whitepaper EN/JP (`docs/drawlib-dogfooding_src/`)
-  - `slide` (`slide_about_drawlib`): 16:9 presentation slide deck (`docs/slide_about_drawlib_src/`)
-  - `slide-ddos` (`slide_ddos_incident_response`, `ddos`): 16:9 DDoS incident response slide deck (`docs/slide_ddos_incident_response_src/`)
   - `readme`: Standalone README illustration scripts (`docs/readme_src/`)
   - `logo`: Brand logo & favicon asset scripts (`docs/logo_src/`)
   - `ogp`: GitHub Social Preview & OGP banner scripts (`docs/ogp_src/`)
