@@ -1,10 +1,8 @@
 # Drawing Primitives & Graphics Backends
 
-Drawlib provides a comprehensive suite of **declarative drawing primitives** (`drawlib.shapes`, `lines`, `text`, `images`, `icons`). Rather than requiring users to construct complex object-oriented scene graphs or manipulate raw canvas contexts, Drawlib exposes functional, declarative drawing commands with center-anchored geometry.
+Drawlib exposes a declarative, center-anchored **functional primitive layer** (`drawlib.shapes`, `lines`, `text`, `icons`, `images`, and `math`) backed by `_core/l4_canvas`. Instead of requiring manual Matplotlib figure/axes wiring or low-level scene-graph boilerplate, every primitive validates its `Style` token at the boundary, applies active `canvas.transform()` affine stacks, and emits exact vector or raster Matplotlib artists.
 
-This document details the mapping between public drawing primitives and the underlying Matplotlib backend, font discovery, and icon vector engines.
-
-```drawlib align=center code=fold file=primitives_architecture.png caption="Drawing Primitives to Matplotlib Backend Mapping"
+```drawlib align=center code=fold file=primitives_architecture.png caption="Public Drawing Primitive Facades, L4 Canvas Bridge & Matplotlib Artists"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line
@@ -12,139 +10,236 @@ from drawlib.shapes import rectangle
 from drawlib.styles import Styles
 from drawlib.text import text
 
-setup(width=140, height=62)
+setup(width=122, height=54)
 
-rectangle((70, 31), width=136, height=58, style=Styles.Neutral.patch(shape_r=2.5))
-text(
-    (70, 54),
-    "Drawing Primitives to Matplotlib Backend Mapping",
-    style=Styles.DarkBold.patch(text_size=12.5),
-)
-
-# 4 Primitive Categories on Top
-primitives = [
-    (20, "shapes.*", "rectangle, circle\npolygon, cloud, star", phosphor.shapes, Styles.PrimaryNeutral, Styles.PrimaryBold),
-    (53, "lines.*", "line, curve, bezier\narrow heads, dashes", phosphor.line_segments, Styles.SecondaryNeutral, Styles.SecondaryBold),
-    (87, "text.*", "text(), typography\nmultiline, fonts", phosphor.text_t, Styles.Neutral, Styles.DarkBold),
-    (120, "icons.*", "phosphor, gcp\nvector SVG paths", phosphor.sparkle, Styles.PrimaryNeutral, Styles.PrimaryBold),
+# 1. Top Row: 5 Public Primitive Facades (Parallel Lanes, Zero Converging Pileups)
+facades = [
+    (14.6, "shapes (43)", "6 categories\nPathPatch, Wedge", phosphor.shapes, Styles.PrimaryNeutral, Styles.PrimaryBold),
+    (37.8, "lines (8)", "Bezier & arcs\nFancyArrowPatch", phosphor.line_segments, Styles.Neutral, Styles.DarkBold),
+    (61.0, "text", "TTF & badges\nText artist", phosphor.text_t, Styles.Neutral, Styles.DarkBold),
+    (84.2, "icons (34)", "Glyph + 33 PNG\nText / OffsetImage", phosphor.sparkle, Styles.SecondaryNeutral, Styles.SecondaryBold),
+    (107.4, "images", "Dimage & code\nAnnotationBbox", phosphor.images, Styles.Neutral, Styles.DarkBold),
 ]
 
-for x, title, desc, icon_func, card_style, icon_style in primitives:
-    rectangle((x, 37), width=28, height=22, style=card_style.patch(shape_r=1.5))
-    icon_func((x - 8.5, 43.5), width=3.4, style=icon_style)
-    text((x - 4.5, 43.5), title, style=icon_style.patch(halign="left", text_size=9.2))
-    text((x, 31.5), desc, style=Styles.Dark.patch(text_size=8.0))
-    line((x, 26), (70, 16.5), arrow_head="->", style=Styles.MutedBold)
+for cx, title, desc, icon_fn, card_style, accent_style in facades:
+    rectangle((cx, 41.5), width=21.2, height=19.0, style=card_style.patch(shape_r=1.8))
+    icon_fn((cx, 47.0), width=3.8, style=accent_style)
+    text((cx, 41.8), title, style=accent_style.patch(text_size=10.8))
+    text((cx, 35.8), desc, style=Styles.Dark.patch(text_size=10.0))
+    line((cx, 31.5), (cx, 26.8), arrow_head="->", style=Styles.DarkBold)
 
-# Matplotlib Backend Bridge at Bottom
-rectangle((70, 10.5), width=128, height=12, style=Styles.PrimaryFlat.patch(shape_r=1.8))
-phosphor.cpu((14, 10.5), width=4.2, style=Styles.WhiteBold)
-text((20, 10.5), "Matplotlib Agg Backend Bridge (_core/l4_canvas)", style=Styles.WhiteBold.patch(halign="left", text_size=9.8))
-text((76, 10.5), "FancyBboxPatch | PathPatch | TextPath | AxesImage", style=Styles.White.patch(halign="left", text_size=8.8))
+# 2. Middle Band: L4 Canvas Coordinate & Transform Bridge
+rectangle(
+    (61.0, 21.5),
+    width=114.0,
+    height=9.2,
+    style=Styles.PrimaryNeutral.patch(shape_r=1.8),
+    text="L4 Canvas Coordinate & Transform Bridge (_core/l4_canvas) — Style Guard & Affine Stack",
+    text_style=Styles.DarkBold.patch(text_size=10.8),
+)
+
+line((61.0, 16.5), (61.0, 12.2), arrow_head="->", style=Styles.PrimaryBold)
+
+# 3. Bottom Band: Matplotlib Backend Artists & Export Targets
+rectangle(
+    (61.0, 7.0),
+    width=114.0,
+    height=9.2,
+    style=Styles.PrimaryFlat.patch(shape_r=1.8),
+    text="Matplotlib Backend Artists — Agg Raster (PNG / WebP) · Native <text> SVG · Vector PDF",
+    text_style=Styles.WhiteBold.patch(text_size=10.8),
+)
 
 save()
 ```
 
 ---
 
-## 1. Concept: Functional Ergonomics over OOP Ceremony
+## 1. Concept: Center-Anchored Declarative Primitives
 
-Many graphics libraries require verbose object lifecycles:
+All low-level drawing commands (`shapes`, `text`, `icons`, `images`) default to **center-anchored Cartesian placement `(cx, cy)`** (`halign="center"`, `valign="center"`), combining geometry, stroke/fill styling, rotation (`angle`), and embedded text alignment in a single call:
+
 ```python
-# Traditional verbose OOP graphics (anti-pattern)
-rect = Rectangle(Point(10, 20), Width(40), Height(20))
-rect.setFill(Color.BLUE)
-canvas.addShape(rect)
-canvas.render()
-```
-
-Drawlib adopts a clean **functional, declarative API**:
-```python
-# Drawlib declarative primitive
-rectangle((30, 30), width=40, height=20, style=Styles.PrimaryFlat, text="Service")
-```
-- Coordinates describe the shape directly in Cartesian space.
-- Shape creation, styling, border styling, label text placement, and font sizing are achieved in a single cohesive function call.
-- Text labels embedded within shapes automatically compute vertical and horizontal alignment offsets.
-
----
-
-## 2. Positioning: Primitive Subsystems
-
-The primitives layer sits directly between `_core/l4_canvas` and the higher-level domain components:
-
-- **`drawlib.shapes` (23 Primitives)**:
-  - Basic: `rectangle()`, `circle()`, `ellipse()`, `donut()`, `wedge()`.
-  - Polygons: `regular_polygon()`, `polygon()`, `star()`, `trapezoid()`, `parallelogram()`.
-  - Domain Callouts: `cloud()`, `speech_bubble()`, `cylinder()`, `cube()`.
-  - Backend translation: Converted to Matplotlib `PathPatch` via cubic Bezier spline approximation.
-- **`drawlib.lines`**:
-  - `line()`, `lines()`, `curve()`, `bezier()`.
-  - Supports stroke styles (`solid`, `dashed`, `dotted`), line caps, and directional arrowheads (`->`, `<-`, `<->`, `|-|`).
-- **`drawlib.text`**:
-  - TrueType typography rendering with automatic font discovery (`FontFile`, Google Fonts cache).
-  - Handles line breaks, vertical and horizontal anchor alignments, and bounding box measurement.
-- **`drawlib.icons` & `images`**:
-  - Phosphor vector icons and Google Cloud Platform architecture icons.
-  - Bitmap image placement with automatic aspect-ratio preservation.
-
-```drawlib align=center code=fold file=icon_font_subsystem.png caption="External Fonts & Icon Assets Subsystem"
-from drawlib.canvas import save, setup
-from drawlib.icons import phosphor
-from drawlib.lines import line
 from drawlib.shapes import rectangle
 from drawlib.styles import Styles
-from drawlib.text import text
 
-setup(width=140, height=56)
+# Draws a rounded card centered at (30, 25) with auto-aligned label typography
+rectangle(
+    (30, 25),
+    width=36,
+    height=14,
+    style=Styles.PrimaryNeutral.patch(shape_r=2.0),
+    text="Auth Gateway",
+    text_style=Styles.DarkBold.patch(text_size=11.0),
+)
+```
 
-rectangle((70, 28), width=136, height=52, style=Styles.Neutral.patch(shape_r=2.5))
-text(
-    (70, 48.5),
-    "External Fonts & Icon Assets Subsystem",
-    style=Styles.DarkBold.patch(text_size=12.2),
+---
+
+## 2. Positioning: The Six Primitive & Asset Subsystems
+
+### 2.1. `drawlib.shapes` (43 Shape Primitives Across 6 Categories)
+`src/drawlib/shapes.py` re-exports **43 shape functions** implemented in `_core/l4_canvas/_shapes/`:
+
+| Category | Count | Public Shape Functions |
+| :--- | :---: | :--- |
+| **Basic** | `6` | `rectangle`, `circle` (supports `hole_ratio` for rings/donuts), `ellipse`, `wedge`, `fan`, `arc` |
+| **Polygon** | `9` | `triangle`, `parallelogram`, `trapezoid`, `rhombus`, `regularpolygon`, `star`, `plaque`, `polygon`, `shape` |
+| **Arrow** | `6` | `arrow`, `arrow_l`, `arrow_u`, `arrow_arc`, `arrow_polyline`, `chevron` |
+| **Container** | `6` | `cylinder`, `cube`, `document`, `funnel`, `cloud`, `brace` |
+| **Badge** | `8` | `bubblespeech`, `pin`, `tag`, `ribbon`, `shield`, `forbidden`, `checkmark`, `explosion` |
+| **Symbol** | `8` | `face`, `clock`, `sun`, `moon`, `heart`, `lightning`, `gear`, `math_symbol` |
+
+### 2.2. `drawlib.lines` (8 Functions) & `drawlib.math`
+- **`drawlib.lines`**: Provides **8 stroke and spline primitives**: `line`, `lines`, `line_curved`, `lines_curved`, `line_bezier1`, `line_bezier2`, `lines_bezier`, and `line_arc`. Supports `LineStyle` (`"solid"`, `"dashed"`, `"dotted"`, `"dashdot"`) and `ArrowHead` (`""`, `"->"`, `"<-"`, `"<->"`).
+- **`drawlib.math` (`_core/l3_math`)**: Pure-Python analytical geometry helpers used across primitives, diagrams, and animations (`compute_orthogonal_path`, `rotate_point`, `get_rotated_points`, `get_rotated_path_points`, `get_point_on_ellipse`, `get_intermediate_point`, `get_intermediate_path_points`, `get_angle`, `get_distance`).
+
+### 2.3. `drawlib.text` & `drawlib.images` (`Dimage`)
+- **`drawlib.text`**: Exposes `text()` and `text_vertical()`, supporting multi-line spacing (`text_line_spacing`), optional background badge boxes (`text_bg_*`), arbitrary rotation, and native `<text>` preservation (`matplotlib.rcParams["svg.fonttype"] = "none"`) in SVG builds.
+- **`drawlib.images`**:
+  - `image(xy, width, image, *, style=None)`: Places file paths, `PIL.Image.Image` buffers, or `Dimage` objects while preserving aspect ratio, optional `image_tint_color`, and optional border frames (`image_border_*`).
+  - `Dimage` (`_core/l3_images`): Immutable Pillow image wrapper offering chainable non-destructive operations (`.resize()`, `.crop()`, `.trim()`, `.mirror()`, `.flip()`, `.fill()`, `.grayscale()`, `.colorize()`, `.invert()`, `.mosaic()`, `.blur()`, `.brightness()`, `.contrast()`, `.sepia()`, `.round_corners()`, `.circle()`, `.add_margin()`).
+  - `get_dimage_from_code()`: Executes Drawlib Python code in an isolated child canvas and returns the rendered result as an in-memory `Dimage` for nested composition.
+
+### 2.4. `drawlib.icons` (34 Suites) & `drawlib.fonts` (46 Font Packs)
+`drawlib.icons` exposes **34 icon suites** lazily via PEP 562 `__getattr__` and a custom `sys.meta_path` importer (`_IconsSubmoduleFinder` / `_IconsSubmoduleLoader`), ensuring zero import overhead for unused suites:
+1. **Vector Font Icons (`FontIconProvider`)**: `phosphor` provides **1,512** canonical Unicode icon glyphs (plus convenience aliases) across **5 TTF font weights** (`thin`, `light`, `regular`, `bold`, `fill`), compiled from `phosphor_data.json` via `./dcli codegen icon-phosphor` and rendered via `font_icon()` -> `canvas.text()`.
+2. **Raster Icon Suites (`PngIconProvider` — 33 Suites)**:
+   - **3 Cloud Provider Suites**: `gcp`, `aws`, `azure`.
+   - **15 Tintable Monochrome Domain Suites**: `ai`, `business`, `client`, `cloud`, `cnative`, `code`, `data`, `devops`, `facility`, `itservice`, `network`, `security`, `server`, `social`, `workspace`.
+   - **15 Multi-Color Flat Suites**: `original_ai` through `original_workspace`.
+3. **Multilingual Typography (`drawlib.fonts`)**: **46 TrueType/OpenType font packages** (`Font`, `FontSansSerif`, `FontSerif`, `FontMonoSpace`, `FontRoboto`, `FontSourceCode`, `FontArabic`, `FontBrahmic`, `FontChinese`, `FontJapanese`, `FontKorean`, `FontThai`) plus custom local `FontFile` support.
+
+```drawlib align=center code=fold file=icon_font_subsystem.png caption="Dual Font/PNG Asset Architecture & GitHub Releases Cache Delivery"
+from drawlib.canvas import save, setup
+from drawlib.diagrams.architecture import ArchitectureDiagram, Node, NodeGroup, PhosphorIcon
+from drawlib.styles import Styles
+
+setup(width=120, height=56)
+
+d = ArchitectureDiagram(
+    node_style=Styles.PrimaryBold,
+    node_text_style=Styles.DarkBold.patch(text_size=10.2),
+    edge_style=Styles.DarkBold,
+    edge_text_style=Styles.DarkBold.patch(text_size=10.0),
+    node_card_style=Styles.Neutral,
 )
 
-cards = [
-    (18.5, "1. Phosphor Vectors", "phosphor_data.json\nPure vector paths", phosphor.sparkle, Styles.PrimaryNeutral, Styles.PrimaryBold),
-    (52.5, "2. Cloud Icons", "GCP & AWS icons\nHigh-DPI rasters", phosphor.cloud, Styles.SecondaryNeutral, Styles.SecondaryBold),
-    (86.5, "3. Google Fonts", "Roboto, Inter, Noto\nAuto TTF download", phosphor.text_t, Styles.Neutral, Styles.DarkBold),
-    (120.5, "4. Local Assets", "project/_assets/\nLogos & brand TTFs", phosphor.folder, Styles.PrimaryFlat, Styles.WhiteBold),
-]
+# 1. Left Group: External Release Asset Delivery
+delivery = d.add(
+    NodeGroup(title="L3 External Asset Delivery", width=34.0, height=50.0, style=Styles.Neutral),
+    xy=(2.0, 3.0),
+)
+gh_rel = delivery.add(
+    Node(
+        "GitHub Releases (v0.3)\n83 SHA-256 .zip Packs",
+        width=29.0,
+        height=16.0,
+        icon=PhosphorIcon.PACKAGE,
+        icon_size=5.0,
+        card_style=Styles.Neutral,
+    ),
+    xy=(17.0, 34.5),
+)
+cached_dir = delivery.add(
+    Node(
+        "_cached_assets/\nfonts · fonticons · icons",
+        width=29.0,
+        height=16.0,
+        icon=PhosphorIcon.FOLDER_OPEN,
+        icon_size=5.0,
+        card_style=Styles.PrimaryNeutral,
+    ),
+    xy=(17.0, 11.5),
+)
+d.connect(gh_rel, cached_dir, padding=0.8)
 
-for x, title, desc, icon_func, card_style, icon_style in cards:
-    rectangle((x, 23), width=28, height=31, style=card_style.patch(shape_r=1.8))
-    icon_func((x - 9.5, 33), width=3.4, style=icon_style)
-    text((x - 5.5, 33), title, style=icon_style.patch(halign="left", text_size=9.0))
-    sub_style = Styles.White if card_style == Styles.PrimaryFlat else Styles.Dark
-    text((x, 18), desc, style=sub_style.patch(text_size=8.2))
+# 2. Middle Group: Dual Icon & Font Providers
+providers = d.add(
+    NodeGroup(title="Dual Provider Layer", width=38.0, height=50.0, style=Styles.Neutral),
+    xy=(42.0, 3.0),
+)
+font_prov = providers.add(
+    Node(
+        "FontIconProvider & l3_fonts\n1,512 Phosphor + 46 TTF",
+        width=33.0,
+        height=16.0,
+        icon=PhosphorIcon.TEXT_T,
+        icon_size=5.0,
+        card_style=Styles.PrimaryNeutral,
+    ),
+    xy=(19.0, 34.5),
+)
+png_prov = providers.add(
+    Node(
+        "PngIconProvider\n33 Cloud & Domain Suites",
+        width=33.0,
+        height=16.0,
+        icon=PhosphorIcon.IMAGES,
+        icon_size=5.0,
+        style=Styles.SecondaryBold,
+        card_style=Styles.SecondaryNeutral,
+    ),
+    xy=(19.0, 11.5),
+)
 
-for i in range(3):
-    x_from = cards[i][0] + 14.0
-    x_to = cards[i + 1][0] - 14.0
-    line((x_from, 23), (x_to, 23), arrow_head="->", style=Styles.DarkBold)
+# 3. Right Group: L4 Matplotlib Artists
+artists = d.add(
+    NodeGroup(title="L4 Matplotlib Artists", width=32.0, height=50.0, style=Styles.Neutral),
+    xy=(86.0, 3.0),
+)
+text_art = artists.add(
+    Node(
+        "canvas.text()\nVector Text Artist",
+        width=27.0,
+        height=16.0,
+        icon=PhosphorIcon.SPARKLE,
+        icon_size=5.0,
+        style=Styles.WhiteBold,
+        text_style=Styles.WhiteBold.patch(text_size=10.2),
+        card_style=Styles.PrimaryFlat,
+    ),
+    xy=(16.0, 34.5),
+)
+img_art = artists.add(
+    Node(
+        "canvas.image()\nAnnotationBbox",
+        width=27.0,
+        height=16.0,
+        icon=PhosphorIcon.CPU,
+        icon_size=5.0,
+        card_style=Styles.Neutral,
+    ),
+    xy=(16.0, 11.5),
+)
 
+bus_bottom = d.junction((39.0, 14.5))
+bus_top = d.junction((39.0, 37.5))
+d.connect(cached_dir, bus_bottom, arrow="-", padding=(0.8, 0.0))
+d.connect(bus_bottom, bus_top, arrow="-")
+d.connect(bus_top, font_prov, arrow="->", padding=(0.0, 0.8))
+d.connect(bus_bottom, png_prov, arrow="->", padding=(0.0, 0.8))
+d.connect(font_prov, text_art, padding=0.8)
+d.connect(png_prov, img_art, padding=0.8)
+
+d.draw(xy=(60.0, 28.0), align="center")
 save()
 ```
 
 ---
 
-## 3. Details: Geometry Calculation & Asset Compilation
+## 3. Details: Backend Artist Mapping & Verified Asset Packaging
 
-### 3.1. Corner Radius & Path Generation
-Rounded rectangles in Drawlib do not simply clip a raster buffer. Instead, `_core/l3_math` computes exact quarter-circle cubic Bezier arcs:
-- The parameter `shape_r` defines the corner radius in virtual canvas units.
-- Straight edge segments connect the tangent endpoints of the four corner arcs, generating a closed Matplotlib `matplotlib.path.Path`.
+### 3.1. Exact Matplotlib Artist Translation (`_core/l4_canvas`)
+`_core/l4_canvas` translates Drawlib primitives into specific `matplotlib` artist classes (never relying on `FancyBboxPatch`, `TextPath`, or raw `AxesImage` stretches):
+- **Shapes (`_shapes/`)**: Rounded polygons, compound cutout rings (`hole_ratio` with opposite winding subpaths), and callouts build exact `matplotlib.path.Path` Bezier splines wrapped in **`PathPatch`**, alongside native **`Polygon`**, **`Circle`**, **`Ellipse`**, **`RegularPolygon`**, **`Wedge`**, and **`Arc`** patches.
+- **Lines & Arrows (`_line.py`)**: All straight, curved, arc, and Bezier paths render through **`FancyArrowPatch`** configured with `Path` vertices, `ConnectionStyle`, and proportional `mutation_scale`.
+- **Typography & Font Icons (`_text.py`, `_font_icon.py`)**: Both `text()` and `font_icon()` resolve TrueType files into `FontProperties` and append **`matplotlib.text.Text`** artists so text and Phosphor glyphs remain infinitely sharp in PDF and SVG exports.
+- **Raster Images & PNG Icons (`_image.py`)**: `Dimage` buffers convert to RGBA NumPy arrays wrapped inside **`matplotlib.offsetbox.OffsetImage`** and **`AnnotationBbox(..., frameon=False)`** with zoom calibrated to exact canvas units.
 
-### 3.2. Vector Icon Code Generation (`./dcli codegen`)
-Drawlib embeds over 1,200 Phosphor vector icons directly into the library:
-- Raw SVG path definitions are compiled from `phosphor_data.json` into optimized Python methods via `./dcli codegen icon-phosphor`.
-- Because paths are pure vector mathematics, Phosphor icons scale infinitely without pixelation or artifacting in PDF exports.
-
-### 3.3. Font File Discovery & Caching
-When a diagram requests a font family:
-1. `_core/l3_fonts` checks the local project directory (`_assets/*.ttf`).
-2. If not found locally, it checks the pre-downloaded user cache directory (`~/.cache/drawlib/fonts/`).
-3. If still missing, Drawlib fetches the open-source TrueType font from Google Fonts and caches it locally.
+### 3.2. Deterministic GitHub Release Assets (`_core/l3_external`)
+To keep the PyPI wheel compact while supporting 46 multilingual fonts, 34 icon suites, and 3 `GeoMap` datasets (**83 packages total** declared in `src/drawlib/_release_assets.py`):
+1. `./dcli release-assets build` packs each asset suite via `create_deterministic_zip_bytes()` (normalizing file order, permissions, and timestamps) and records its cryptographic `archive_sha256` in `ReleaseAssetPackage`.
+2. At runtime (or ahead of time via `uv run drawlib cache download --all`), `ReleaseAssetPackage.download_and_extract()` downloads the `.zip` archive from **GitHub Releases (`tag="v0.3"`)**, verifies the **SHA-256 digest** in memory before touching disk, and extracts the files into `drawlib._cached_assets/{fonts,fonticons,icons,maps}/`.
 
 Next, explore how these primitives compose into **[High-Level Components](02_high_level_components.md)**.

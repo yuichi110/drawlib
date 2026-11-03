@@ -1,238 +1,338 @@
 # Developer Tooling: Code Generation & Release Assets
 
-Drawlib provides thousands of vector icons (Phosphor) and cloud architecture icons (Google Cloud Platform). Rather than maintaining thousands of function definitions manually, Drawlib uses automated code generation and external binary asset packaging.
+Drawlib exposes thousands of vector glyph icons, 33 cloud and technology architecture icon suites, and 232 normalized geographic boundary maps without bloating its PyPI wheel—combining automated Python code generation (`./dcli codegen`) with deterministic `.zip` asset distribution (`./dcli release-assets`).
 
-```drawlib align=center code=fold file=codegen_pipeline_architecture.png caption="Automated Icon Code Generation Pipeline"
+```drawlib align=center code=fold file=codegen_pipeline_architecture.png caption="Three Automated Code Generation Pipelines in tools/dcli/codegen/"
 from drawlib.canvas import save, setup
-from drawlib.icons import phosphor
-from drawlib.lines import line
-from drawlib.shapes import rectangle
+from drawlib.diagrams.architecture import ArchitectureDiagram, Node, PhosphorIcon
 from drawlib.styles import Styles
-from drawlib.text import text
 
-setup(width=140, height=56)
+setup(width=120, height=58)
 
-rectangle((70, 28), width=136, height=52, style=Styles.Neutral.patch(shape_r=2.5))
-text(
-    (70, 48.5),
-    "Icon Code Generation & Type-Safe Binding Pipeline",
-    style=Styles.DarkBold.patch(text_size=12.2),
+d = ArchitectureDiagram(
+    node_style=Styles.PrimaryBold,
+    node_text_style=Styles.DarkBold.patch(text_size=10.5),
+    edge_style=Styles.DarkBold,
+    edge_text_style=Styles.Dark.patch(text_size=9.8),
+    node_card_style=Styles.Neutral.patch(shape_r=1.8),
 )
 
-stages = [
-    (24, "1. Source Definitions", "phosphor_data.json\ntools/icons_src/gcp/*.py\nGoogle Fonts metadata", phosphor.database, Styles.PrimaryNeutral, Styles.PrimaryBold),
-    (70, "2. Codegen Engine", "tools/dcli/codegen/\n512x512 PNG Normalizer\nAST & Template Engine", phosphor.gear_six, Styles.SecondaryNeutral, Styles.SecondaryBold),
-    (116, "3. Typed Bindings", "src/drawlib/icons/\nphosphor, gcp (variants)\nAutocompletion & Docs", phosphor.file_code, Styles.PrimaryFlat, Styles.WhiteBold),
-]
+# Pipeline 1 (Top): Phosphor Vector Font Icons
+p1_src = d.add(
+    Node(
+        "regular.css\nfonticons/phosphor",
+        width=31.0,
+        height=14.8,
+        icon=PhosphorIcon.FILE_CSS,
+        icon_size=4.4,
+        card_style=Styles.PrimaryNeutral.patch(shape_r=1.8),
+    ),
+    xy=(15.5, 44.5),
+)
+p1_gen = d.add(
+    Node(
+        "codegen/phosphor.py\nCSS Hex Parser",
+        width=31.0,
+        height=14.8,
+        icon=PhosphorIcon.GEAR_SIX,
+        icon_size=4.4,
+        style=Styles.DarkBold,
+    ),
+    xy=(56.5, 44.5),
+)
+p1_out = d.add(
+    Node(
+        "phosphor/_generated.py\n1,530 Funcs · 5 Weights",
+        width=31.0,
+        height=14.8,
+        icon=PhosphorIcon.SPARKLE,
+        icon_size=4.4,
+        card_style=Styles.PrimaryNeutral.patch(shape_r=1.8),
+    ),
+    xy=(97.5, 44.5),
+)
 
-for x, title, desc, icon_func, card_style, icon_style in stages:
-    rectangle((x, 23), width=36, height=31, style=card_style.patch(shape_r=1.8))
-    icon_func((x - 12, 33), width=3.6, style=icon_style)
-    text((x - 7.5, 33), title, style=icon_style.patch(halign="left", text_size=9.2))
-    sub_style = Styles.White if card_style == Styles.PrimaryFlat else Styles.Dark
-    text((x, 18), desc, style=sub_style.patch(text_size=8.2))
+# Pipeline 2 (Middle): 33 PNG Architecture & Domain Icon Suites
+p2_src = d.add(
+    Node(
+        "tools/icons_src/*\ngcp · aws · azure · 30",
+        width=31.0,
+        height=14.8,
+        icon=PhosphorIcon.IMAGES,
+        icon_size=4.4,
+        style=Styles.SecondaryBold,
+        card_style=Styles.SecondaryNeutral.patch(shape_r=1.8),
+    ),
+    xy=(15.5, 26.0),
+)
+p2_gen = d.add(
+    Node(
+        "icons_build & codegen\n512x512 + manifest",
+        width=31.0,
+        height=14.8,
+        icon=PhosphorIcon.WRENCH,
+        icon_size=4.4,
+        style=Styles.DarkBold,
+    ),
+    xy=(56.5, 26.0),
+)
+p2_out = d.add(
+    Node(
+        "33 _generated.py\n+ Diagram StrEnums",
+        width=31.0,
+        height=14.8,
+        icon=PhosphorIcon.FILE_CODE,
+        icon_size=4.4,
+        style=Styles.WhiteBold,
+        text_style=Styles.WhiteBold.patch(text_size=10.5),
+        card_style=Styles.PrimaryFlat.patch(shape_r=1.8),
+    ),
+    xy=(97.5, 26.0),
+)
 
-for i in range(2):
-    x_from = stages[i][0] + 18.0
-    x_to = stages[i + 1][0] - 18.0
-    line((x_from, 23), (x_to, 23), arrow_head="->", style=Styles.DarkBold)
+# Pipeline 3 (Bottom): GeoMap Vector Presets
+p3_src = d.add(
+    Node(
+        "23 GeoJSON Sources\nNatural Earth & MLIT",
+        width=31.0,
+        height=14.8,
+        icon=PhosphorIcon.GLOBE_HEMISPHERE_EAST,
+        icon_size=4.4,
+        card_style=Styles.PrimaryNeutral.patch(shape_r=1.8),
+    ),
+    xy=(15.5, 7.5),
+)
+p3_gen = d.add(
+    Node(
+        "map_normalize & gen\nmaps/{world,countries}",
+        width=31.0,
+        height=14.8,
+        icon=PhosphorIcon.MAP_TRIFOLD,
+        icon_size=4.4,
+        style=Styles.SecondaryBold,
+        card_style=Styles.SecondaryNeutral.patch(shape_r=1.8),
+    ),
+    xy=(56.5, 7.5),
+)
+p3_out = d.add(
+    Node(
+        "_geomap/_presets.py\nWorld · Countries · Cities",
+        width=31.0,
+        height=14.8,
+        icon=PhosphorIcon.COMPASS,
+        icon_size=4.4,
+        style=Styles.DarkBold,
+    ),
+    xy=(97.5, 7.5),
+)
 
+d.connect(p1_src, p1_gen, padding=0.8)
+d.connect(p1_gen, p1_out, padding=0.8)
+d.connect(p2_src, p2_gen, padding=0.8)
+d.connect(p2_gen, p2_out, padding=0.8)
+d.connect(p3_src, p3_gen, padding=0.8)
+d.connect(p3_gen, p3_out, padding=0.8)
+
+d.draw(xy=(3.5, 3.0))
 save()
 ```
 
 ---
 
-## 1. Concept: Automated Generation vs. Manual Maintenance
+## 1. Concept: Generated Type-Safe Facades Over External Asset Packs
 
-A comprehensive technical diagramming library requires vast catalogs of standardized icons:
-- **Phosphor Icons**: 1,200+ icons available across multiple visual weights (regular, bold, fill, thin, light, duotone).
-- **Google Cloud Architecture Icons**: 250 canonical product symbols (`variant="default"` 3-tone blue and `variant="modern"` 4-color) across compute, storage, networking, database, AI, and security categories.
+Hand-maintaining thousands of icon functions, diagram enums, and geographic bounding-box presets invites typo drift and stale signatures whenever upstream catalogs evolve. Instead, Drawlib treats all icon and map bindings as **deterministic generated artifacts** backed by **35 subcommands** under `./dcli codegen`:
+- **Zero Runtime Schema Overhead**: CSS codepoints, PNG variant manifests, and GeoJSON bounding boxes are parsed at codegen time into static Python functions and `StrEnum`s with full IDE autocompletion.
+- **Explicit Keyword-Only Styling**: Every generated icon function enforces `style: Style` as a required keyword-only argument, guaranteeing explicit color/weight control across both vector font glyphs and rasterized cloud icons:
 
-Manually writing Python functions and classes for thousands of icons is prone to identifier collisions, typo regressions, and immense maintenance overhead when icon sets evolve.
+```python
+from drawlib.icons import gcp, phosphor
+from drawlib.styles import Styles
 
-Drawlib solves this by treating icon bindings as **generated artifacts**:
-1. Native Drawlib icon drawing scripts live in `tools/icons_src/gcp/*.py` (`<icon_name>_default.py` and `<icon_name>_modern.py`), which `tools/icons_src/build.sh` renders and normalizes into `512×512` (`460×460` inner bbox) transparent PNGs and `manifest.json` in `tools/release_assets/v0.3/icons/gcp/`.
-2. Generator scripts in `tools/dcli/codegen/` read `manifest.json` (and `phosphor_data.json` for Phosphor) and generate type-annotated Python facades with `Literal["default", "modern"]` variant support.
-3. Developers import clean, autocompleting functions with zero runtime schema parsing cost:
-   ```python
-   from drawlib.icons import phosphor, gcp
-   phosphor.database((50, 50), width=10)
-   gcp.compute_engine((20, 20), width=12, style=Styles.Primary, variant="default")
-   gcp.compute_engine((40, 20), width=12, style=Styles.Primary, variant="modern")
-   ```
+phosphor.database((50, 50), width=10, style=Styles.Dark)
+gcp.compute_engine((20, 20), width=12, style=Styles.Primary, variant="default")
+gcp.compute_engine((40, 20), width=12, style=Styles.Primary, variant="modern")
+```
 
 ---
 
 ## 2. Positioning: The Decoupled Three-Tier Release Architecture
 
-To maintain a lightweight Python package while providing gigabytes of optional fonts, cloud icons, and geographic maps, Drawlib implements a **Decoupled Three-Tier Release Architecture**:
+To keep `pip install drawlib` fast and PyPI wheels under 2 MB while offering hundreds of megabytes of international fonts, cloud icons, and high-resolution maps, Drawlib decouples **code distribution** from **binary asset hosting** across three tiers:
 
-```drawlib align=center code=fold file=release_asset_lifecycle_architecture.png caption="Decoupled Three-Tier Release Architecture: Code Release, GitHub Releases CDN, and Runtime Resolution"
+```drawlib align=center code=fold file=release_asset_lifecycle_architecture.png caption="Decoupled Three-Tier Asset Architecture: Repo SoT, GitHub Releases CDN, and Runtime Cache"
 from drawlib.canvas import save, setup
-from drawlib.icons import phosphor
-from drawlib.lines import line
-from drawlib.shapes import rectangle
-from drawlib.styles import Styles
-from drawlib.text import text
+from drawlib.diagrams.architecture import ArchitectureDiagram, Node, NodeGroup, PhosphorIcon
+from drawlib.styles import Colors, Styles
 
-setup(width=146, height=66)
+setup(width=122, height=58)
 
-# Canvas background card
-rectangle((73, 33), width=142, height=62, style=Styles.Neutral.patch(shape_r=2.5))
-text(
-    (73, 60.5),
-    "Decoupled Three-Tier Release Architecture: Code vs. Binary Assets",
-    style=Styles.DarkBold.patch(text_size=12.2),
+d = ArchitectureDiagram(
+    node_style=Styles.PrimaryBold,
+    node_text_style=Styles.DarkBold.patch(text_size=10.5),
+    edge_style=Styles.DarkBold,
+    edge_text_style=Styles.DarkBold.patch(text_size=9.6),
+    node_card_style=Styles.Neutral.patch(shape_fill_color=Colors.White, shape_r=1.5),
 )
 
-# 3 Big Columns
-columns = [
-    (25, "1. Code Release & SoT", Styles.PrimaryNeutral, Styles.PrimaryBold),
-    (73, "2. GitHub Releases CDN", Styles.SecondaryNeutral, Styles.SecondaryBold),
-    (121, "3. Runtime Drawlib", Styles.PrimaryFlat, Styles.WhiteBold),
-]
+# Tier 1: Repository Single Source of Truth
+g1 = d.add(
+    NodeGroup(
+        title="1. Repo SoT",
+        width=31.0,
+        height=50.5,
+        style=Styles.PrimaryNeutral.patch(shape_r=2.0),
+        text_style=Styles.PrimaryBold.patch(text_size=11.2, halign="left", valign="top"),
+    ),
+    xy=(0.0, 0.0),
+)
+n1a = g1.add(
+    Node(
+        "release_assets/v0.3\n46 Font · 34 Icon · 3 Map",
+        width=27.5,
+        height=15.0,
+        icon=PhosphorIcon.FOLDER_OPEN,
+        icon_size=4.4,
+    ),
+    xy=(15.5, 33.5),
+)
+n1b = g1.add(
+    Node(
+        "_release_assets.py\n83 SHA-256 Digests",
+        width=27.5,
+        height=15.0,
+        icon=PhosphorIcon.FILE_CODE,
+        icon_size=4.4,
+    ),
+    xy=(15.5, 10.5),
+)
 
-for cx, col_title, col_style, title_style in columns:
-    bg_style = Styles.White if col_style != Styles.PrimaryFlat else Styles.PrimaryNeutral
-    rectangle((cx, 33.5), width=38, height=43, style=bg_style.patch(shape_r=2.0))
-    rectangle((cx, 51.8), width=36, height=4.2, style=col_style.patch(shape_r=1.2))
-    text((cx, 51.8), col_title, style=title_style.patch(text_size=9.2))
+# Tier 2: GitHub Releases Public CDN
+g2 = d.add(
+    NodeGroup(
+        title="2. GitHub Releases CDN",
+        width=31.0,
+        height=50.5,
+        style=Styles.SecondaryNeutral.patch(shape_r=2.0),
+        text_style=Styles.SecondaryBold.patch(text_size=11.2, halign="left", valign="top"),
+    ),
+    xy=(42.0, 0.0),
+)
+n2a = g2.add(
+    Node(
+        "83 Deterministic ZIPs\nreleases/download/v0.3",
+        width=27.5,
+        height=15.0,
+        icon=PhosphorIcon.FILE_ARCHIVE,
+        icon_size=4.4,
+        style=Styles.SecondaryBold,
+    ),
+    xy=(15.5, 33.5),
+)
+n2b = g2.add(
+    Node(
+        "asset_manifest.json\nRemote Hash Registry",
+        width=27.5,
+        height=15.0,
+        icon=PhosphorIcon.SHIELD_CHECK,
+        icon_size=4.4,
+        style=Styles.SecondaryBold,
+    ),
+    xy=(15.5, 10.5),
+)
 
-# --- Column 1: Code Release & SoT ---
-c1_boxes = [
-    (45, "Raw Assets (tools/release_assets/)\nFonts (48), GCP Icons, Maps (3)", phosphor.folder, Styles.Neutral),
-    (36, "dcli release-assets sync\nDeterministic ZIP + SHA-256", phosphor.gear_six, Styles.SecondaryNeutral),
-    (27, "Single Source of Truth (SoT)\nsrc/drawlib/_release_assets.py", phosphor.file_code, Styles.PrimaryNeutral),
-    (18, "PyPI Package Release\nSlim wheel (<2MB, zero binary bloat)", phosphor.package, Styles.PrimaryNeutral),
-]
-for y, desc, icon_func, box_style in c1_boxes:
-    rectangle((25, y), width=34, height=6.8, style=box_style.patch(shape_r=1.2))
-    icon_func((10.5, y), width=2.4, style=Styles.DarkBold)
-    text((13.0, y), desc, style=Styles.Dark.patch(halign="left", text_size=7.6))
+# Tier 3: Runtime Lazy Cache
+g3 = d.add(
+    NodeGroup(
+        title="3. Runtime Cache",
+        width=31.0,
+        height=50.5,
+        style=Styles.Neutral.patch(shape_r=2.0),
+        text_style=Styles.DarkBold.patch(text_size=11.2, halign="left", valign="top"),
+    ),
+    xy=(84.0, 0.0),
+)
+n3a = g3.add(
+    Node(
+        "Lazy Fetch & Verify\nensure_asset_available",
+        width=27.5,
+        height=15.0,
+        icon=PhosphorIcon.CLOUD_ARROW_DOWN,
+        icon_size=4.4,
+        style=Styles.DarkBold,
+    ),
+    xy=(15.5, 33.5),
+)
+n3b = g3.add(
+    Node(
+        "_cached_assets/\nVerified Local Store",
+        width=27.5,
+        height=15.0,
+        icon=PhosphorIcon.HARD_DRIVES,
+        icon_size=4.4,
+        style=Styles.WhiteBold,
+        text_style=Styles.WhiteBold.patch(text_size=10.5),
+        card_style=Styles.PrimaryFlat.patch(shape_r=1.5),
+    ),
+    xy=(15.5, 10.5),
+)
 
-for i in range(3):
-    y_from = c1_boxes[i][0] - 3.4
-    y_to = c1_boxes[i + 1][0] + 3.4
-    line((25, y_from), (25, y_to), arrow_head="->", style=Styles.DarkBold.patch(line_width=1.2))
+# Intra-tier and cross-tier edges
+d.connect(n1a, n1b, label="sync", padding=0.6)
+d.connect(n2a, n2b, padding=0.6)
+d.connect(n3a, n3b, label="extract", padding=0.6)
 
-# --- Column 2: GitHub Releases CDN ---
-c2_boxes = [
-    (45, "GitHub Release (Tag: v0.3)\nImmutable release tag endpoint", phosphor.cloud, Styles.SecondaryNeutral),
-    (36, "53 Deterministic ZIP Archives\nBit-exact reproducible binaries", phosphor.archive, Styles.Neutral),
-    (27, "Public Download CDN\nreleases/download/{tag}/{pkg}.zip", phosphor.globe, Styles.Neutral),
-    (18, "Integrity Verification\nImmutable remote SHA-256 hashes", phosphor.shield_check, Styles.SecondaryNeutral),
-]
-for y, desc, icon_func, box_style in c2_boxes:
-    rectangle((73, y), width=34, height=6.8, style=box_style.patch(shape_r=1.2))
-    icon_func((58.5, y), width=2.4, style=Styles.DarkBold)
-    text((61.0, y), desc, style=Styles.Dark.patch(halign="left", text_size=7.6))
+d.connect(n1a, n2a, label="upload", padding=0.8)
+d.connect(n2a, n3a, label="HTTPS", padding=0.8)
+d.connect(n1b, n2b, label="remote", arrow="<->", padding=0.8)
 
-for i in range(3):
-    y_from = c2_boxes[i][0] - 3.4
-    y_to = c2_boxes[i + 1][0] + 3.4
-    line((73, y_from), (73, y_to), arrow_head="->", style=Styles.DarkBold.patch(line_width=1.2))
-
-# --- Column 3: Runtime Drawlib ---
-c3_boxes = [
-    (45, "User Script Execution\ngcp.compute(), fonts, geomap", phosphor.play_circle, Styles.PrimaryNeutral),
-    (36, "ensure_asset_available()\nLazy on-demand dependency trigger", phosphor.lightning, Styles.SecondaryNeutral),
-    (27, "SHA-256 Integrity Verification\nCompare download hash with SoT", phosphor.check_circle, Styles.Neutral),
-    (18, "Local Cache & Offline Pre-warming\ndrawlib._cached_assets/ (Docker:assets)", phosphor.hard_drive, Styles.PrimaryFlat),
-]
-for y, desc, icon_func, box_style in c3_boxes:
-    rectangle((121, y), width=34, height=6.8, style=box_style.patch(shape_r=1.2))
-    i_style = Styles.WhiteBold if box_style == Styles.PrimaryFlat else Styles.DarkBold
-    t_style = Styles.White if box_style == Styles.PrimaryFlat else Styles.Dark
-    icon_func((106.5, y), width=2.4, style=i_style)
-    text((109.0, y), desc, style=t_style.patch(halign="left", text_size=7.6))
-
-for i in range(3):
-    y_from = c3_boxes[i][0] - 3.4
-    y_to = c3_boxes[i + 1][0] + 3.4
-    line((121, y_from), (121, y_to), arrow_head="->", style=Styles.DarkBold.patch(line_width=1.2))
-
-# Cross-column interconnect arrows
-# Col 1 -> Col 2: dcli upload (x: 44.0 to 54.0)
-line((44.0, 36.0), (54.0, 36.0), arrow_head="->", style=Styles.PrimaryBold.patch(line_width=1.5))
-text((49.0, 38.5), "dcli upload", style=Styles.PrimaryBold.patch(text_size=7.2))
-
-# Col 2 -> Col 3: HTTP GET on demand (x: 92.0 to 102.0)
-line((92.0, 36.0), (102.0, 36.0), arrow_head="->", style=Styles.SecondaryBold.patch(line_width=1.5))
-text((97.0, 38.5), "urllib.request", style=Styles.SecondaryBold.patch(text_size=7.2))
-
-# Col 1 -> Col 3: pip install drawlib (routing around bottom)
-line((25.0, 14.6), (25.0, 5.5), style=Styles.DarkBold.patch(line_style="dashed", line_width=1.2))
-line((25.0, 5.5), (121.0, 5.5), style=Styles.DarkBold.patch(line_style="dashed", line_width=1.2))
-line((121.0, 5.5), (121.0, 14.6), arrow_head="->", style=Styles.DarkBold.patch(line_style="dashed", line_width=1.2))
-text((73.0, 7.3), "pip install drawlib (Installs code & verified SoT hashes into environment)", style=Styles.DarkBold.patch(text_size=7.2))
-
+d.draw(xy=(3.5, 3.5))
 save()
 ```
 
 ---
 
-## 3. Details: Codegen Engines and the Asset Release Lifecycle
+## 3. Details: The Three Codegen Pipelines & 83-Package Asset Lifecycle
 
-### 3.1. Phosphor Code Generation (`./dcli codegen icon-phosphor`)
-The Phosphor codegen engine (`tools/dcli/codegen/icon_phosphor.py`):
-1. Reads `tools/dcli/codegen/phosphor_data.json`.
-2. Sanitizes all icon names against Python reserved keywords (`import`, `class`, `def`, `from`, etc.).
-3. Emits `src/drawlib/icons/phosphor.py`, producing:
-   - An enum containing all icon identifiers.
-   - Individual wrapper functions with explicit `@validate_call` decorators and typing.
-   - Comprehensive docstrings containing tags, categories, and usage examples.
+### 3.1. Pipeline 1 — Phosphor Vector Font Icons (`./dcli codegen icon-phosphor`)
+Implemented in `tools/dcli/codegen/phosphor.py`, the Phosphor generator maps CSS glyph declarations directly to TrueType font codepoints:
+1. **CSS Codepoint Parsing**: Reads `tools/release_assets/v0.3/fonticons/phosphor/regular.css` (or downloads `icon_phosphor` from GitHub Releases if absent locally) and parses `.ph.<icon-name>:before` rules into hex Unicode codepoints.
+2. **Five Font Weights**: Phosphor is packaged across **5 single-glyph TrueType weights** (`thin`, `light`, `regular`, `bold`, and `fill`, selected via `style.icon_style`).
+3. **Centralized Runtime Validation**: Emits **1,530** `snake_case` functions into `src/drawlib/_icons/font_icons/phosphor/_generated.py`. Each wrapper delegates to `_write = PHOSPHOR_PROVIDER.write`, keeping `@validate_call` centralized once on `FontIconProvider.write()` in `src/drawlib/_icons/font_icons/_base.py` so module import remains instantaneous.
 
-### 3.2. GCP Architecture Icon Generation (`./dcli codegen icon-gcp`)
-The GCP codegen engine (`tools/dcli/codegen/gcp_codegen.py` & `icons_build.py`):
-1. Builds and normalizes native Drawlib GCP icon scripts (`tools/icons_src/gcp/*_default.py` and `*_modern.py`) into `512×512` (`460×460` inner bbox) transparent PNGs in `tools/release_assets/v0.3/icons/gcp/`.
-2. Writes `tools/release_assets/v0.3/icons/gcp/manifest.json` with SHA-256 digests, bounding boxes, and available variants (`default`, `modern`).
-3. Generates type-safe draw functions (`variant: Literal["default", "modern"] = "default"`) in `src/drawlib/_icons/png_icons/gcp/_generated.py`.
+### 3.2. Pipeline 2 — 33 PNG Cloud & Domain Icon Suites (`icon-gcp`, `icon-aws`, `icon-azure`, `icon-*`)
+Implemented across `tools/dcli/codegen/icons_build.py`, `gcp_codegen.py`, and `original_cloud_codegen.py`, this pipeline manages **33 rasterized icon suites**:
+- **Cloud Providers**: `gcp` (250 canonical functions across 295 `default` and `modern` PNGs), `aws` (329 icons), `azure` (250 icons), and `cloud` (45 multi-cloud/PaaS logos).
+- **14 Additional Technology Domains**: `ai`, `business`, `client`, `cnative`, `code`, `data`, `devops`, `facility`, `itservice`, `network`, `security`, `server`, `social`, and `workspace`.
+- **15 Vendor-Neutral Pastel Suites (`original_*`)**: `original_ai` through `original_workspace` (80 Drawlib-authored concept icons per suite).
 
-### 3.3. GeoMap Map Data Codegen (`./dcli codegen map`)
-The GeoMap codegen pipeline downloads, normalizes, and packages geographic vector data:
-1. **Download**: `map_download.py` fetches GeoJSON boundaries from Natural Earth.
-2. **Normalize**: `map_normalize.py` simplifies polygons and normalizes coordinate topologies.
-3. **Codegen**: `map_codegen.py` generates country code enums and coordinates for pure-vector rendering in `drawlib.smartarts`.
+For each suite, the pipeline:
+1. Renders and normalizes native Drawlib scripts in `tools/icons_src/<suite>/*.py` (via `tools/icons_src/build.sh` when `--build-images` is passed) into `512×512` (`460×460` inner bounding box) transparent PNGs and writes `tools/release_assets/v0.3/icons/<suite>/manifest.json`.
+2. Emits typed Python functions (including `variant: Literal[...]` unions) into `src/drawlib/_icons/png_icons/<suite>/_generated.py` and formats with `ruff format`.
+3. Synchronizes the corresponding architecture diagram `Enum` class (`GcpIcon`, `AwsIcon`, `AzureIcon`, `AiIcon`..`WorkspaceIcon`, `OriginalAiIcon`..`OriginalWorkspaceIcon`) inside `src/drawlib/_diagrams/architecture/_icons.py` via `_update_architecture_enum()`.
 
-### 3.4. Phase 1: Code Release & SoT Synchronization (`./dcli release-assets sync`)
-Drawlib separates lightweight Python source code from heavy binary assets (48 font families, 2 icon packs, 3 map GeoJSON packs) to keep PyPI wheels small (<2 MB) and `pip install drawlib` instantaneous.
+### 3.3. Pipeline 3 — GeoMap Vector Boundary Presets (`./dcli codegen map`)
+Implemented across `map_download.py`, `map_normalize.py`, and `map_codegen.py`, the map pipeline compiles pure-Python cartographic datasets for `drawlib.smartarts.GeoMap`:
+1. **Upstream Fetch (`map_download.py`)**: Downloads **23 upstream datasets**—Natural Earth `110m`/`50m`/`10m` Admin-0/Admin-1 boundaries, Japan MLIT prefectural and municipal GeoJSONs/CSVs, and 12 global metropolitan ward/borough GeoJSONs—into `tools/original_assets/maps/`.
+2. **Topology Normalization (`map_normalize.py`)**: Simplifies polygon rings and writes 232 normalized `.geojson` files plus `manifest.json` under `tools/release_assets/v0.3/maps/{world,countries,cities}/`.
+3. **Preset Codegen (`map_codegen.py`)**: Reads `maps/manifest.json` and generates `World`, `Countries`, and `Cities` `StrEnum`s alongside `PRESET_DEFAULT_RANGES` (`(lon_range, lat_range)` tuples) in `src/drawlib/_smartarts/_geomap/_presets.py`.
 
-The build process enforces deterministic byte reproducibility:
-1. **Raw Asset Scans**: `tools/dcli/release_assets/sync.py` scans all package directories under `tools/release_assets/<tag>/`.
-2. **Deterministic ZIP Archives**: `create_deterministic_zip_bytes()` normalizes file ordering, fixes timestamps to `2026-01-01 00:00:00`, and forces file permissions to `0o644`. Identical source files yield bit-for-bit identical ZIP archives regardless of operating system.
-3. **Cryptographic SHA-256 Digest**: Each archive's exact SHA-256 hash is computed in-memory.
-4. **Single Source of Truth (SoT)**: The generator script writes `src/drawlib/_release_assets.py`, embedding:
-   - `DEFAULT_RELEASE_TAG = "v0.3"`
-   - `ReleaseAssetPackageName` (StrEnum)
-   - `RELEASE_ASSET_PACKAGES: Final[ReleaseAssetPackages]` mapping every package to its immutable `archive_sha256` and file manifest.
-5. **Slim Wheel Publication**: When `./dcli pypi publish` executes, only Python source and the verified SoT hashes are packaged into the PyPI wheel. All heavy binary files are excluded.
+### 3.4. Deterministic `.zip` Packaging & Release Asset Commands (`./dcli release-assets`)
+`src/drawlib/_release_assets.py` acts as the top-level Single Source of Truth (SoT) defining **83 deterministic `.zip` packages** under `DEFAULT_RELEASE_TAG = "v0.3"`:
+- **46 `font_*` packages** (Roboto, Sans/Serif/Mono families, Japanese, CJK, Korean, Arabic, Brahmic, and Thai Noto fonts)
+- **34 `icon_*` packages** (`icon_phosphor` + 33 PNG icon suites)
+- **3 `map_*` packages** (`map_world`, `map_countries`, `map_cities`)
 
-### 3.5. Phase 2: Binary Asset CDN on GitHub Releases (`./dcli release-assets upload`)
-Binary assets are published to GitHub Releases to serve as an immutable, globally distributed CDN:
-1. **Archive Compilation**: `./dcli release-assets build` generates the 53 `.zip` archives into `tools/release_assets/<tag>/`.
-2. **Automated Upload**: `./dcli release-assets upload` uses `GitHubReleaseClient` to upload the archives to the release tagged with `DEFAULT_RELEASE_TAG` (e.g. `v0.3`) via the GitHub REST API.
-3. **Predictable CDN URLs**: Every package is retrievable at:
-   ```text
-   https://github.com/yuichi110/drawlib/releases/download/{tag}/{archive_name}
-   ```
-4. **Consistency Verification**: `./dcli release-assets sync --check` verifies that remote GitHub release assets match local SHA-256 checksums exactly.
+`create_deterministic_zip_bytes()` sorts archive entries lexicographically, pins ZIP timestamps to `2026-01-01 00:00:00`, and normalizes file modes to `0o644` so identical inputs produce bit-identical `.zip` bytes and SHA-256 digests on Linux, macOS, and Windows. Each `./dcli release-assets` subcommand serves a distinct role:
+- **`./dcli release-assets sync [--check]`**: **100% local and offline.** Scans `tools/release_assets/<tag>/`, computes deterministic in-memory ZIP SHA-256 hashes, and updates (or verifies with `--check`) `src/drawlib/_release_assets.py` without making network calls.
+- **`./dcli release-assets build [PACKAGE]`**: Writes deterministic `.zip` archives locally into **`dist/release_assets/<tag>/`** without uploading.
+- **`./dcli release-assets remote`**: Queries the GitHub Releases REST API and **audits remote GitHub Release assets and `asset_manifest.json` SHA-256 checksums** against local `_release_assets.py` definitions.
+- **`./dcli release-assets upload` / `remove`**: Uploads (skipping packages whose remote SHA-256 already matches unless `--force` is passed) or deletes `.zip` assets on GitHub Releases and updates the remote `asset_manifest.json`.
 
-### 3.6. Phase 3: Runtime Drawlib Lazy Resolution & Integrity Verification
-At runtime, Drawlib downloads binary assets strictly on-demand:
-1. **Lazy Trigger**: When a user's diagram script calls a function requiring an external asset (e.g., `gcp.compute_engine()`, `styles.patch_font()`, or `geomap()`):
-   ```python
-   ensure_asset_available(resource_path: str, tag: str = DEFAULT_RELEASE_TAG)
-   ```
-2. **Local Cache Inspection**: The method queries `pkg.is_downloaded()`, checking if all required files exist locally in `drawlib._cached_assets/<target_rel_path>`. If present, execution proceeds immediately with zero network overhead.
-3. **Secure Download**: If missing, Drawlib downloads the `.zip` archive from GitHub Releases via `urllib.request`.
-4. **Cryptographic Verification**: The downloaded bytes are hashed with SHA-256 and compared against `pkg.archive_sha256` recorded in the SoT (`_release_assets.py`). If the checksum fails, execution halts with a `RuntimeError`, preventing truncated downloads or man-in-the-middle tampering.
-5. **Safe Extraction**: The verified archive is extracted directly into `drawlib._cached_assets/` via `zipfile.ZipFile`.
+### 3.5. Runtime Lazy Resolution & Air-Gapped Pre-Warming
+At runtime, `ensure_asset_available()` and `download_if_not_exist()` resolve missing assets lazily into **`drawlib._cached_assets/`**:
+1. Checks whether the target font, icon, or GeoJSON file already exists locally (and matches its expected MD5/package manifest).
+2. If absent, downloads `https://github.com/yuichi110/drawlib/releases/download/{tag}/{archive_name}` via `urllib.request`, verifies the archive's SHA-256 digest against `RELEASE_ASSET_PACKAGES` in `_release_assets.py` (raising `RuntimeError` on mismatch), and extracts into `drawlib._cached_assets/`.
+3. For air-gapped servers, CI runners, and `drawlib:assets` / `drawlib:full` Docker images, `drawlib cache download --all` (`download_all_release_assets()`) pre-fetches and verifies all 83 packages upfront.
 
-### 3.7. Offline Environments & Container Pre-warming
-For air-gapped systems, CI runners, or environments without internet access, Drawlib provides upfront caching:
-- **CLI Pre-warming**: Run `drawlib cache download --all` (or call `download_all_release_assets()`) to download and verify all 53 asset packages upfront.
-- **Docker Images**: Pre-baked container images (`drawlib:assets` and `drawlib:full`) execute this pre-warming during `docker build`, ensuring that containerized workflows operate 100% offline with zero external network access.
-
-Next, examine the publishing pipeline and Docker verification in **[Publishing & Docker](03_release_and_docker.md)**.
-
-
+Next, examine the PyPI publishing workflow and clean-room Docker verification in **[Publishing & Docker](03_release_and_docker.md)**.

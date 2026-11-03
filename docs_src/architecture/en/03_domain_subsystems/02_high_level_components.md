@@ -1,226 +1,350 @@
 # SmartArts, Charts & Diagrams Subsystems
 
-Manual assembly of technical diagrams from raw primitives (`rectangle`, `line`, `text`) is tedious and error-prone. As systems scale, computing exact bounding boxes, alignment offsets, and arrow intersections by hand becomes unsustainable.
+As architectural diagrams and executive dashboards grow, hand-calculating every box margin, legend swatch, and orthogonal connector from low-level primitives becomes error-prone. Drawlib solves this through three stateful **high-level component subsystems**—**SmartArts (18)**, **Quantitative Charts (9)**, and **Technical Diagrams (6)**—that compile structured domain models directly onto the shared vector canvas.
 
-Drawlib addresses this complexity through three specialized **high-level component families**: **SmartArts**, **Charts**, and **Diagrams**.
-
-```drawlib align=center code=fold file=high_level_components_trio.png caption="The Three High-Level Component Families"
+```drawlib align=center code=fold file=high_level_components_trio.png caption="The Three High-Level Component Subsystems in Drawlib"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
-from drawlib.lines import line
-from drawlib.shapes import rectangle
-from drawlib.styles import Styles
-from drawlib.text import text
+from drawlib.smartarts import CardList
+from drawlib.styles import Colors, Styles
 
-setup(width=140, height=62)
+setup(width=120, height=50)
 
-rectangle((70, 31), width=136, height=58, style=Styles.Neutral.patch(shape_r=2.5))
-text(
-    (70, 54),
-    "The Three High-Level Component Families",
-    style=Styles.DarkBold.patch(text_size=12.5),
+trio = CardList(
+    style=Styles.Neutral.patch(shape_r=2.0),
+    text_style=Styles.DarkBold.patch(text_size=11.5),
+    description_style=Styles.Dark.patch(text_size=10.2),
+    badge_shape="circle",
+    badge_style=Styles.White.patch(shape_line_color=Colors.Primary),
+    icon_style=Styles.PrimaryBold,
+    direction="horizontal",
+    spacing=4.0,
+    show_arrows=False,
 )
 
-families = [
-    (26, "1. SmartArts", "Tree, MindMap, Table\nChevronProcess, Cycle\nDeclarative visual lists", phosphor.tree_structure, Styles.PrimaryNeutral, Styles.PrimaryBold),
-    (70, "2. Quantitative Charts", "Bar, Line, Area, Pie\nRadar, Scatter, Gantt\nData -> Canvas mapping", phosphor.chart_bar, Styles.SecondaryNeutral, Styles.SecondaryBold),
-    (114, "3. Domain Diagrams", "Architecture, Sequence\nFlow, State, ER, Class\nUML & Cloud topologies", phosphor.presentation_chart, Styles.PrimaryFlat, Styles.WhiteBold),
-]
+trio.add(
+    "18 SmartArts",
+    "Structured lists, trees,\nmindmaps, tables, code,\npanels, maps & calendars",
+    icon=phosphor.tree_structure,
+    style=Styles.PrimaryNeutral.patch(shape_r=2.0),
+)
+trio.add(
+    "9 Quantitative Charts",
+    "Bar, Line, Area, Pie,\nRadar, Scatter, Gantt,\nHeatmap & Overlay",
+    icon=phosphor.chart_bar,
+    style=Styles.SecondaryNeutral.patch(shape_r=2.0),
+    badge_style=Styles.White.patch(shape_line_color=Colors.Secondary),
+    icon_style=Styles.SecondaryBold,
+)
+trio.add(
+    "6 Technical Diagrams",
+    "Cloud Architecture, Flow,\nSequence, UML Class,\nER Schema & State",
+    icon=phosphor.share_network,
+    style=Styles.Neutral.patch(shape_r=2.0),
+    badge_style=Styles.PrimaryFlat,
+    icon_style=Styles.WhiteBold,
+)
 
-for x, title, desc, icon_func, card_style, icon_style in families:
-    rectangle((x, 26), width=38, height=36, style=card_style.patch(shape_r=1.8))
-    icon_func((x - 13, 38), width=4.0, style=icon_style)
-    text((x - 8, 38), title, style=icon_style.patch(halign="left", text_size=9.8))
-    sub_style = Styles.White if card_style == Styles.PrimaryFlat else Styles.Dark
-    text((x, 22), desc, style=sub_style.patch(text_size=8.5))
-
-line((46, 26), (50, 26), arrow_head="->", style=Styles.DarkBold)
-line((90, 26), (94, 26), arrow_head="->", style=Styles.DarkBold)
-
+trio.draw(xy=(4.0, 4.0), width=112.0, height=42.0)
 save()
 ```
 
 ---
 
-## 1. Concept: Declarative Bounding Boxes `(x0, y0, w, h)`
+## 1. Concept: Stateful 4-Phase Lifecycle & Coordinate Anchors
 
-Unlike low-level primitives that center around `(cx, cy)`, all high-level components accept a **bottom-left bounding anchor `(x0, y0)`** alongside total bounding dimensions `width` and `height`:
+All high-level components follow a unified **4-phase stateful lifecycle** (**1. Instantiate -> 2. Register via `.add()` -> 3. Mutate State (Optional) -> 4. Render via `.draw()`**):
 
 ```python
-# Declarative high-level component invocation
-chevron_process(
-    (10, 20), width=80, height=18,
-    items=["Requirements", "Design", "Implementation", "Verification"],
+from drawlib.smartarts import ChevronProcess
+from drawlib.styles import Styles
+
+cp = ChevronProcess(
+    style=Styles.Neutral,
+    text_style=Styles.DarkBold.patch(text_size=11.0),
+    description_style=Styles.Muted.patch(text_size=10.0),
+    spacing=1.5,
+    flat_left_end=True,
 )
+cp.add("1. Plan", description="Requirements")
+cp.add("2. Design", description="Architecture")
+cp.add("3. Build", description="Implementation", style=Styles.PrimaryNeutral)
+cp.add(
+    "4. Verify",
+    description="Grid Review",
+    style=Styles.PrimaryFlat,
+    text_style=Styles.WhiteBold.patch(text_size=11.0),
+    description_style=Styles.White.patch(text_size=10.0),
+)
+cp.draw(xy=(10.0, 20.0), width=100.0, height=14.0)
 ```
 
-Within this bounded rectangle $[x_0, x_0 + w] \times [y_0, y_0 + h]$, the component's internal layout engine:
-- Automatically calculates spacing, paddings, and element widths.
-- Proportionally scales text labels and icons to fit available space.
-- Renders background cards, connecting arrows, and labels in a single deterministic pass.
+Every registered item, series, or node exposes layout-preserving visibility (`elem.show = False`)—and charts additionally expose partial spatial rendering (`draw_ratio`, `draw_direction`)—allowing progressive builds in **[Animation & Slide Engines](04_animation_and_slide_engines.md)** without shifting bounding boxes or axis scales.
+
+### Coordinate Anchor Conventions Across Subsystems
+Unlike low-level primitives (which always center on `(cx, cy)`), high-level components adopt natural geometric anchors suited to their flow direction:
+
+| Default Anchor | Components & Containers | Growth / Coordinate Semantics |
+| :--- | :--- | :--- |
+| **Bottom-Left `(x0, y0)`** | **SmartArts**: `BoxList`, `CardList`, `ChevronProcess`, `DayCalendar`, `WeekCalendar`, `MonthCalendar`, `GeoMap`, `GridLayout`, `KpiCards` (`KpiCard`), `Panel`, `Pyramid`, `Roadmap`<br>**Charts**: All 9 chart classes (`align="bottom_left"` default; `"center"` supported)<br>**Diagrams**: All 6 `d.draw(xy=...)` containers & `NodeGroup` | Bounding box extends rightward (`+x`) and upward (`+y`) across `[x0, x0 + w] × [y0, y0 + h]`. *(Individual nodes inside a Diagram use local **Center `(cx, cy)`**).* |
+| **Top-Left `(x0, y1)`** | **SmartArts**: `Table`, `SourceCode` (`align="top_left"` default; `"bottom_left"` & `"center"` supported), `TreeNode`, `BulletPoints` | Starts at top-left `(x0, y1)` and flows rightward (`+x`) and downward (`-y`) as rows or tree branches accumulate. |
+| **Center `(cx, cy)`** | **SmartArts**: `MindMapNode` (fixed root center), `Cycle` (`align="center"` default; `"bottom_left"` supported) | Expands radially or along 4 cardinal branches (`"top"`, `"bottom"`, `"left"`, `"right"`) around `(cx, cy)`. |
 
 ---
 
 ## 2. Positioning: Component Subsystem Breakdown
 
-### 2.1. `drawlib.smartarts` — Structured Visual Lists & Composite Models
-SmartArts translate structured data into polished, auto-aligned graphics using an **Item (`BaseModel`) + Container** composite architecture:
-- **`TreeNode`**: Computes multi-level recursive tree hierarchies, routing orthogonal connecting lines between parent and child nodes.
-- **`MindMapNode`**: An **orthogonal 4-cardinal-direction branching tree** that distributes concepts along the North, South, East, and West axes using right-angled fork lines and intermediate routing junctions.
-- **`ChevronProcess` & `ChevronItem`**: Linear stages with interlocking chevron arrows and optional sub-labels.
-- **`GridLayout` & `GridItem`**: Matrix layouts with cell-aligned cards and responsive horizontal/vertical item distributions.
-- **`Table`**: Column-aligned tabular data with automatic text wrapping, custom headers, and alternating row fills.
-- **`SourceCode`**: Tokenizes source code via Pygments and renders vector text glyphs on the canvas with language-aware syntax highlighting and `SourceCodeStyles`.
-- **`GeoMap`**: Spherical geographic projection and GeoJSON polygon clipping engine for rendering country and regional maps in pure vector form.
+### 2.1. `drawlib.smartarts` — 18 Structured Visual Components
+`drawlib.smartarts` lazily exports **18 primary visual components** (plus `KpiCard` alias, 12 mutable `*Item` / `SourceCodeStyles` models, and `sourcecode` / `get_source_code_styles` helpers):
+- **Process, Lists & Matrices**: `ChevronProcess`, `BoxList`, `CardList` (vertical/horizontal cards with badges and optional `->` arrows), `BulletPoints`, `GridLayout` (row/column spanning matrix + `draw_flexible()`), `Pyramid`, and `Roadmap` (vertical/horizontal milestone timelines).
+- **Hierarchies & Cycles**: `TreeNode` (orthogonal recursive file/org trees), `MindMapNode` (4-way orthogonal branching along `"top"`, `"bottom"`, `"left"`, `"right"`), and `Cycle` (circular orbit + `CycleCenter` hub).
+- **Frames, Metrics & Schedules**: `Panel` (`"filled"`, `"underline"`, `"floating"`, `"window"` headers with `get_content_box()`), `KpiCards` (`KpiCard`), `Table`, and schedule calendars (`MonthCalendar`, `WeekCalendar`, `DayCalendar`).
+- **Code & Spatial Vector Engines**: `SourceCode` (stateless Pygments tokenizer rendering vector syntax-highlighted tokens with CJK font auto-selection) and `GeoMap` (GeoJSON vector map engine for `World`, `Countries`, and `Cities` with `lonlat_to_xy()`).
 
-### 2.2. `drawlib.charts` — OOP Mixin Tree & The Triad Architecture
-Unlike heavy scientific plotting packages that generate axes and tick marks across arbitrary pixel dimensions, Drawlib's chart engine decomposes chart generation into a **Triad Architecture**:
-1. **Container / Builder**: Configures axes, titles, dimensions, and legends (`BarChart`, `LineChart`, `PieChart`, etc.).
-2. **Data Series / Items**: Strongly-typed value containers (`Series`, `Slice`, `Point`, `Item`).
-3. **Procedural Renderers**: Dedicated geometry calculation and rendering functions (`_renderer.py`).
+### 2.2. `drawlib.charts` — 9 Chart Classes Across 8 Submodules
+Organized into 8 submodules (`bar`, `line`, `area`, `pie`, `radar`, `scatter`, `gantt`, `heatmap`), `drawlib.charts` follows a **Triad Architecture** separating **Container/Builder**, **Data Models** (`Series`, `Slice`, `Point`, `Task`, `Row`, `Cell`, `Spot`), and **Procedural Renderers** (`_renderer.py`), with **presence-based styling** (`Style | None = None` omits optional grids, labels, or backgrounds cleanly):
 
-The container classes follow a strict object-oriented mixin inheritance tree:
-
-```drawlib align=center code=fold file=charts_mixin_hierarchy.png caption="drawlib.charts OOP Mixin Hierarchy & Triad Architecture"
+```drawlib align=center code=fold file=charts_mixin_hierarchy.png caption="drawlib.charts Inheritance Tree & Standalone Spatial Containers (All 9 Classes)"
 from drawlib.canvas import save, setup
 from drawlib.diagrams.class_diagram import ClassDiagram, ClassNode
-from drawlib.styles import Styles
+from drawlib.fonts import FontRoboto, FontSourceCode
+from drawlib.styles import Colors, Styles
 
-setup(width=160, height=100)
+setup(width=142, height=84)
 
 cd = ClassDiagram(
-    node_style=Styles.Neutral,
+    node_style=Styles.Neutral.patch(text_font=FontSourceCode.ROBOTO_MONO, text_size=10.0),
+    header_style=Styles.PrimaryNeutral.patch(text_font=FontRoboto.ROBOTO_BOLD, text_size=10.5),
     edge_style=Styles.DarkBold,
-    edge_text_style=Styles.Dark,
-    title="drawlib.charts OOP Mixin Hierarchy & Triad Architecture",
+    edge_text_style=Styles.Dark.patch(text_size=10.0),
+    margin=2.0,
 )
 
-# Root Mixin
-legend_mixin = cd.add(ClassNode(name="LegendChartMixin", stereotype="mixin", width=38.0, style=Styles.SecondaryNeutral), xy=(80.0, 80.0))
-legend_mixin.add_method("draw_legend", params="xy, text_style, ...")
-legend_mixin.add_method("_get_legend_elements", return_type="list")
+# Root Mixin (Centered over Axis & Radial branches)
+legend_mixin = cd.add(
+    ClassNode(
+        "LegendChartMixin",
+        stereotype="mixin",
+        width=36.0,
+        row_height=3.2,
+        style=Styles.Neutral,
+        header_style=Styles.PrimaryFlat.patch(text_color=Colors.White),
+    ).add_method("draw_legend", "xy, text_style", "None"),
+    xy=(61.0, 73.5),
+)
 
-# Intermediate Mixins (Row 2)
-axis_mixin = cd.add(ClassNode(name="AxisChartMixin", stereotype="mixin", width=36.0, style=Styles.SecondaryNeutral), xy=(50.0, 56.0))
-axis_mixin.add_attribute("width, height: float")
-axis_mixin.add_attribute("x_axis, y_axis: Axis")
-axis_mixin.add_method("configure_x_axis", return_type="Axis")
-axis_mixin.add_method("configure_y_axis", return_type="Axis")
+# Second-Tier Mixins
+axis_mixin = cd.add(
+    ClassNode(
+        "AxisChartMixin",
+        width=32.0,
+        row_height=3.2,
+        style=Styles.Neutral,
+        header_style=Styles.SecondaryNeutral,
+    )
+    .add_attribute("x_axis, y_axis", "Axis")
+    .add_method("configure_x_axis", "...", "Axis"),
+    xy=(36.0, 52.5),
+)
 
-radial_mixin = cd.add(ClassNode(name="RadialChartMixin", stereotype="mixin", width=34.0, style=Styles.SecondaryNeutral), xy=(120.0, 56.0))
-radial_mixin.add_attribute("radius: float")
-radial_mixin.add_attribute("title: str")
-radial_mixin.add_method("get_size", return_type="tuple[float, float]")
+radial_mixin = cd.add(
+    ClassNode(
+        "RadialChartMixin",
+        width=32.0,
+        row_height=3.2,
+        style=Styles.Neutral,
+        header_style=Styles.SecondaryNeutral,
+    )
+    .add_attribute("radius", "float")
+    .add_method("get_size", "", "tuple"),
+    xy=(86.5, 52.5),
+)
 
-# Cartesian Base (Row 3)
-cartesian_base = cd.add(ClassNode(name="CartesianChartBase", width=36.0), xy=(24.0, 34.0))
-cartesian_base.add_attribute("categories: list[str]")
+# Third-Tier Branches (Col A: Bar/Scatter, Col B: CartesianChartBase, Col C: Pie/Radar)
+bar_scatter = cd.add(
+    ClassNode("BarChart / ScatterChart", width=32.0, row_height=3.2, style=Styles.PrimaryNeutral)
+    .add_method("add_series", "name, values", "Series")
+    .add_method("draw", "xy, scale", "None"),
+    xy=(19.0, 30.0),
+)
 
-# Concrete Charts (Row 4)
-line_chart = cd.add(ClassNode(name="LineChart / AreaChart", width=36.0, style=Styles.PrimaryNeutral), xy=(24.0, 14.0))
-line_chart.add_method("add_series", params="name, values, ...")
-line_chart.add_method("draw", params="xy", return_type="None")
+cartesian_base = cd.add(
+    ClassNode("CartesianChartBase", width=32.0, row_height=3.2, style=Styles.Neutral, header_style=Styles.Neutral)
+    .add_attribute("categories", "list[str]"),
+    xy=(53.0, 30.0),
+)
 
-bar_chart = cd.add(ClassNode(name="BarChart / ScatterChart", width=36.0, style=Styles.PrimaryNeutral), xy=(72.0, 14.0))
-bar_chart.add_method("add_series", params="name, values, ...")
-bar_chart.add_method("draw", params="xy", return_type="None")
+radial_charts = cd.add(
+    ClassNode("PieChart / RadarChart", width=32.0, row_height=3.2, style=Styles.PrimaryNeutral)
+    .add_method("add_slice / add_series", "...", "")
+    .add_method("draw", "xy, radius", "None"),
+    xy=(86.5, 30.0),
+)
 
-radial_chart = cd.add(ClassNode(name="PieChart / RadarChart", width=36.0, style=Styles.PrimaryFlat), xy=(120.0, 14.0))
-radial_chart.add_method("add_slice / add_series", params="...")
-radial_chart.add_method("draw", params="xy", return_type="None")
+# Fourth-Tier Leaf (Col B: LineChart / AreaChart)
+line_area = cd.add(
+    ClassNode("LineChart / AreaChart", width=32.0, row_height=3.2, style=Styles.PrimaryNeutral)
+    .add_method("add_series", "name, values", "Series")
+    .add_method("draw", "xy, scale", "None"),
+    xy=(53.0, 9.5),
+)
 
-# Connections
+# Col D: Standalone Schedule & Matrix/Spatial Containers
+gantt = cd.add(
+    ClassNode("GanttChart", width=33.0, row_height=3.2, style=Styles.PrimaryNeutral)
+    .add_method("add_task / add_section", "...", "")
+    .add_method("draw", "xy, scale", "None"),
+    xy=(122.5, 73.5),
+)
+
+box_helper = cd.add(
+    ClassNode(
+        "draw_with_box_overrides",
+        width=33.0,
+        row_height=3.2,
+        style=Styles.Neutral,
+        header_style=Styles.SecondaryNeutral,
+    ).add_attribute("width, height, align, scale", ""),
+    xy=(122.5, 52.5),
+)
+
+heatmap = cd.add(
+    ClassNode("HeatmapChart", width=33.0, row_height=3.2, style=Styles.PrimaryNeutral)
+    .add_method("add_row / draw_colorbar", "...", "")
+    .add_method("draw", "xy, scale", "None"),
+    xy=(122.5, 31.0),
+)
+
+overlay = cd.add(
+    ClassNode(
+        "HeatmapOverlay",
+        width=33.0,
+        row_height=3.2,
+        style=Styles.Neutral,
+        header_style=Styles.PrimaryNeutral,
+    )
+    .add_method("add_spot / draw_colorbar", "...", "")
+    .add_method("draw", "xy, scale", "None"),
+    xy=(122.5, 9.5),
+)
+
+# Mixin Inheritance Tree (Zero Crossings)
 cd.connect(axis_mixin, legend_mixin, "inheritance", start_side="top", end_side="bottom")
 cd.connect(radial_mixin, legend_mixin, "inheritance", start_side="top", end_side="bottom")
-
+cd.connect(bar_scatter, axis_mixin, "inheritance", start_side="top", end_side="bottom")
 cd.connect(cartesian_base, axis_mixin, "inheritance", start_side="top", end_side="bottom")
-cd.connect(line_chart, cartesian_base, "inheritance", start_side="top", end_side="bottom")
-cd.connect(bar_chart, axis_mixin, "inheritance", start_side="top", end_side="bottom")
-cd.connect(radial_chart, radial_mixin, "inheritance", start_side="top", end_side="bottom")
+cd.connect(line_area, cartesian_base, "inheritance", start_side="top", end_side="bottom")
+cd.connect(radial_charts, radial_mixin, "inheritance", start_side="top", end_side="bottom")
 
-cd.draw(xy=(0.0, 0.0))
+# Standalone Container Dependencies
+cd.connect(gantt, box_helper, "dependency", start_side="bottom", end_side="top", label="uses")
+cd.connect(heatmap, box_helper, "dependency", start_side="top", end_side="bottom", label="uses")
+cd.connect(overlay, heatmap, "dependency", start_side="top", end_side="bottom", label="shares stops")
+
+cd.draw(xy=(71.0, 42.0), align="center")
 save()
 ```
 
-#### Coordinate Normalization Pipeline
-Data arrays are mapped directly into Cartesian canvas units:
+#### Data-Space to Canvas Coordinate Mapping
+Cartesian charts (`Axis` in `_charts/_common/_axis.py`) compute **Nice Numbers** ($1, 2, 5 \times 10^k$) or $\log_{10}$ tick intervals and map domain values linearly (or logarithmically) into exact canvas coordinates:
 
-```drawlib align=center code=fold file=chart_coordinate_mapping.png caption="Data Space to Canvas Coordinate Normalization"
+```drawlib align=center code=fold file=chart_coordinate_mapping.png caption="Domain Data Normalization into Bounded Canvas Coordinates (x0, y0, w, h)"
 from drawlib.canvas import save, setup
+from drawlib.charts.line import LineChart
 from drawlib.icons import phosphor
 from drawlib.lines import line
 from drawlib.shapes import rectangle
+from drawlib.smartarts import BulletPoints, Panel
 from drawlib.styles import Styles
 from drawlib.text import text
 
-setup(width=140, height=58)
+setup(width=118, height=48)
 
-rectangle((70, 29), width=136, height=54, style=Styles.Neutral.patch(shape_r=2.5))
-text(
-    (70, 50),
-    "Data Space to Canvas Coordinate Normalization",
-    style=Styles.DarkBold.patch(text_size=12.2),
+# 1. Left Panel: Raw Domain Values (x: 3..37)
+left_panel = Panel(
+    "1. Raw Data Domain",
+    style=Styles.Neutral,
+    header_style=Styles.PrimaryNeutral,
+    text_style=Styles.DarkBold.patch(text_size=11.0),
+    icon=phosphor.table,
+    icon_style=Styles.PrimaryBold,
+    header_height=7.5,
 )
+left_panel.draw((3.0, 3.5), width=34.0, height=41.0)
 
-# Left: Data Domain
-rectangle((34, 24), width=48, height=34, style=Styles.PrimaryNeutral.patch(shape_r=1.8))
-phosphor.table((16, 35), width=3.8, style=Styles.PrimaryBold)
-text((21, 35), "Raw Data Space", style=Styles.PrimaryBold.patch(halign="left", text_size=9.5))
-text(
-    (34, 22),
-    "• Revenue: $0 ~ $100k\n• Dates: Jan ~ Dec\n• Unbounded numeric values",
-    style=Styles.Dark.patch(text_size=8.5),
+bp = BulletPoints(
+    text_style=Styles.Dark.patch(text_size=10.5),
+    vertical_margin=6.8,
+    indent_width=3.5,
 )
+bp.set_indent(1)
+bp.add("USD 0–100k range")
+bp.add("Q1–Q4 categories")
+bp.add("Nice / log10 ticks")
+bp.add("Unbounded floats")
+bp.draw((5.5, 31.5))
 
-# Center: Normalization Transform
-rectangle((70, 24), width=24, height=18, style=Styles.SecondaryNeutral.patch(shape_r=1.5))
-phosphor.arrows_clockwise((70, 28), width=3.6, style=Styles.SecondaryBold)
-text((70, 19), "Linear\nMapping", style=Styles.SecondaryBold.patch(text_size=8.5))
+# 11-Unit Clear Arrow Gap 1 (x: 37..48)
+line((38.2, 24.0), (46.8, 24.0), arrow_head="->", style=Styles.DarkBold)
 
-line((58, 24), (68, 24), arrow_head="->", style=Styles.DarkBold)
-line((72, 24), (82, 24), arrow_head="->", style=Styles.DarkBold)
+# 2. Center Transform Card (x: 48..70)
+rectangle((59.0, 24.0), width=22.0, height=23.0, style=Styles.SecondaryNeutral.patch(shape_r=1.8))
+phosphor.arrows_left_right((59.0, 31.0), width=4.0, style=Styles.SecondaryBold)
+text((59.0, 23.5), "Axis Scale\nMapper", style=Styles.SecondaryBold.patch(text_size=10.8))
+text((59.0, 15.8), "(val - min) / span", style=Styles.Dark.patch(text_size=10.0))
 
-# Right: Canvas Cartesian Space
-rectangle((106, 24), width=48, height=34, style=Styles.PrimaryFlat.patch(shape_r=1.8))
-phosphor.palette((88, 35), width=3.8, style=Styles.WhiteBold)
-text((93, 35), "Canvas Bounds (x0, y0, w, h)", style=Styles.WhiteBold.patch(halign="left", text_size=9.2))
-text(
-    (106, 22),
-    "• x = x0 + (val - min) / range * w\n• y = y0 + (val - min) / range * h\n• Vector lines & bars placed",
-    style=Styles.White.patch(text_size=8.0),
+# 11-Unit Clear Arrow Gap 2 (x: 70..81)
+line((71.2, 24.0), (79.8, 24.0), arrow_head="->", style=Styles.PrimaryBold)
+
+# 3. Right Panel: Live Normalized Canvas Chart (x: 81..115)
+right_panel = Panel(
+    "2. Canvas (x0, y0, w, h)",
+    style=Styles.Neutral,
+    header_style=Styles.PrimaryFlat,
+    text_style=Styles.WhiteBold.patch(text_size=10.8),
+    icon=phosphor.chart_bar,
+    icon_style=Styles.WhiteBold,
+    header_height=7.5,
 )
+right_panel.draw((81.0, 3.5), width=34.0, height=41.0)
+
+mini = LineChart(
+    categories=["Q1", "Q2", "Q3", "Q4"],
+    axis_line_style=Styles.Dark,
+    axis_text_style=Styles.Dark.patch(text_size=10.0),
+    grid_style=Styles.MutedThin,
+    width=29.0,
+    height=28.0,
+)
+mini.configure_y_axis(min_value=0.0, max_value=100.0, tick_step=50.0, unit="k")
+mini.add_series("Rev", [22.0, 48.0, 64.0, 92.0], style=Styles.PrimaryBold, point_shape="circle")
+mini.draw(xy=(83.5, 5.5))
 
 save()
 ```
 
-- Data arrays are normalized:
-  $$x_{\text{canvas}} = x_0 + \frac{x_{\text{val}} - x_{\text{min}}}{x_{\text{max}} - x_{\text{min}}} \times w$$
-  $$y_{\text{canvas}} = y_0 + \frac{y_{\text{val}} - y_{\text{min}}}{y_{\text{max}} - y_{\text{min}}} \times h$$
+$$x_{\text{canvas}} = x_0 + \frac{x_{\text{val}} - x_{\text{min}}}{x_{\text{max}} - x_{\text{min}}} \times w_{\text{plot}}, \qquad y_{\text{canvas}} = y_0 + \frac{y_{\text{val}} - y_{\text{min}}}{y_{\text{max}} - y_{\text{min}}} \times h_{\text{plot}}$$
 
-### 2.3. `drawlib.diagrams` — Technical & UML Models
-Provides ready-to-use software engineering visualizations structured into object-oriented node models:
-- **`sequence`**: Client/server lifelines, synchronous calls, async responses, and loop activations.
-- **`flow`**: Decision trees built on the `FlowNode` base class (`Process`, `Decision`, `Start`, `End`, `Data`) with automatic orthogonal routing.
-- **`state`**: Finite state machines powered by `StateNodeBase` (`State`, `InitialState`, `FinalState`, `ChoiceState`, `ForkJoinState`) with self-referential arcs and transition labels.
-- **`er`**: Entity-relationship models with primary/foreign key attributes and cardinality notations (`1:1`, `1:N`, `M:N`).
-- **`class_diagram`**: UML class boxes (`ClassDiagram`, `ClassNode`) with attribute and method compartments and standard UML connectors (`inheritance`, `composition`, `aggregation`, `dependency`).
-- **Polymorphic Icon Dispatch**: Uses `draw_diagram_icon` to seamlessly embed Phosphor, FontAwesome, or GCP icons into diagram headers and node badges.
+### 2.3. `drawlib.diagrams` — All 6 Technical & UML Diagram Engines
+`drawlib.diagrams` provides **6 specialized software engineering diagram engines** sharing a common `Connectable` boundary-routing contract (`routing="orthogonal" | "direct" | "curved"`):
+1. **`architecture` (`ArchitectureDiagram`)**: Distributed systems and cloud topologies built from hierarchical boundary containers (`NodeGroup`), icon-backed service/resource nodes (`Node`), multi-way bus waypoints (`Junction`, `node.fork()`), and `Edge` connectors.
+2. **`flow` (`FlowDiagram`)**: ISO 5807 / JIS X 0121 flowcharts (`Start`, `End`, `Process`, `Decision`, `Data` inheriting `FlowNode`) across vertical or horizontal cross-functional swimlanes (`Lane`).
+3. **`sequence` (`SequenceDiagram`)**: API interaction lifelines (`Participant`, `ParticipantGroup`), sync/async calls (`request()`, `reply()`, `connect()`), timeline `Note` callouts, and `with` interaction frames (`loop`, `alt`, `else_`, `opt`, `par`).
+4. **`class_diagram` (`ClassDiagram`)**: 3-compartment UML 2.0 `ClassNode` boxes (`AttributeInfo`, `MethodInfo`, stereotypes, visibility `+`/`-`/`#`/`~`) and 6 canonical `ClassRelationship` connectors (`inheritance`, `realization`, `composition`, `aggregation`, `dependency`, `association`).
+5. **`er` (`ERDiagram`)**: Relational database `Entity` tables with `PK`/`FK`/`NN`/`UQ` column badges, Crow's Foot cardinalities (`"1:1"`, `"1:*"`, `"*:*"`, `"1:0..*"`), and row-level column-to-column edge anchoring.
+6. **`state` (`StateDiagram`)**: UML finite state machines (`State`, `InitialState`, `FinalState`, `ChoiceState`, `ForkJoinState` inheriting `StateNodeBase`) with internal `entry / do / exit` compartments, self-loops, and curved `StateTransition` arcs.
 
+- **Polymorphic Icon Dispatch (`draw_diagram_icon` in `_diagrams/_common.py`)**: Seamlessly dispatches across all **34 built-in Drawlib icon suites** (`PhosphorIcon`, `GcpIcon`, `AwsIcon`, `AzureIcon`, 15 domain `*Icon` enums, and 15 `Original*Icon` enums) as well as `CustomIcon`, `Dimage`, `PIL.Image.Image`, and local file paths.
+- **Topology Solvers**: When node coordinates are unknown ahead of time, pair `drawlib.diagrams` with `drawlib.graph` coordinate solvers (see **[Graph Auto-Layout](03_graph_autolayout.md)**).
 
 ---
 
-## 3. Details: Layout Mechanics & Style Cascading
+## 3. Details: Cascade Resolution & Boundary Routing
 
-### 3.1. Proportional Font & Margin Calculation
-When a user sets `width=80` and `height=20` on a SmartArt component, child elements dynamically adjust:
-- Box margins are computed as a percentage of total element width ($m = 0.05 \times w_{\text{item}}$).
-- Font sizes dynamically scale within safe typographic bounds ($9.5 \le \text{text\_size} \le 13.0$).
-- If text exceeds the allowable width, words automatically wrap or truncate based on configured overflow policies.
+### 3.1. 3-Tier Style Cascade & Proportional `scale`
+Every high-level component resolves visual tokens lazily inside `.draw()` via a deterministic hierarchy (**Element Override -> Container Default -> Explicit Presence Rule**) and wraps rendering in `with canvas.transform(origin=xy, scale=scale):` so stroke widths, corner radii, icons, and font sizes scale uniformly around `xy`.
 
-### 3.2. Vector Arrow Head Calculation
-In sequence and flow diagrams, arrow heads are drawn using geometric projections:
-- Given start point $P_1 = (x_1, y_1)$ and end point $P_2 = (x_2, y_2)$, the direction angle is:
-  $$\theta = \text{atan2}(y_2 - y_1, x_2 - x_1)$$
-- Arrow wings are projected back at angles $\theta \pm 150^\circ$, ensuring sharp arrowheads regardless of canvas aspect ratio.
+### 3.2. Orthogonal Manhattan Routing & Edge Padding
+When connecting two `Connectable` bounding boxes (`get_bounds() -> (min_x, min_y, max_x, max_y)`), `_core/l3_math` (`compute_orthogonal_path`) resolves attachment sides (`"auto"`, `"left"`, `"right"`, `"top"`, `"bottom"`) into clean L-bend or Z-bend polylines, and `apply_edge_padding()` trims start/end segments by `padding` before projecting directional arrowheads at $\theta = \operatorname{atan2}(\Delta y, \Delta x)$.
 
-Next, explore the declarative graph auto-layout engine in **[Graph Auto-Layout](03_graph_autolayout.md)**.
+Next, explore the declarative graph coordinate solvers in **[Graph Auto-Layout](03_graph_autolayout.md)**.

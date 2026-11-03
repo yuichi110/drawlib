@@ -13,7 +13,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Local Preview Server &amp; Cache Management Tooling</title>
+    <title>Local Preview Server &amp; Three-Tier Cache Architecture</title>
     <script>
         (function() {
             const saved = localStorage.getItem('drawlib-theme');
@@ -25,21 +25,25 @@
         })();
     </script>
     
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     
-        <meta name="description" content="Developing documentation requires rapid feedback. If testing a layout change requires deploying to a remote server or installing complex web servers (like…">
+    
+    
+    <meta name="description" content="Fast visual iteration and deterministic offline builds are essential to &quot;Illustrated Documentation as Code.&quot; Requiring Node.js dev servers to preview static…">
     <link rel="canonical" href="https://www.drawlib.com/architecture/en/05_cli_and_runtime/02_preview_server.html">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Drawlib Architecture">
-    <meta property="og:title" content="Local Preview Server &amp; Cache Management Tooling — Drawlib Architecture">
-    <meta property="og:description" content="Developing documentation requires rapid feedback. If testing a layout change requires deploying to a remote server or installing complex web servers (like…">
+    <meta property="og:title" content="Local Preview Server &amp; Three-Tier Cache Architecture — Drawlib Architecture">
+    <meta property="og:description" content="Fast visual iteration and deterministic offline builds are essential to &quot;Illustrated Documentation as Code.&quot; Requiring Node.js dev servers to preview static…">
     <meta property="og:url" content="https://www.drawlib.com/architecture/en/05_cli_and_runtime/02_preview_server.html">
     <meta property="og:image" content="https://www.drawlib.com/architecture/_assets/ogp.png">
     <meta property="og:locale" content="en_US">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Local Preview Server &amp; Cache Management Tooling — Drawlib Architecture">
-    <meta name="twitter:description" content="Developing documentation requires rapid feedback. If testing a layout change requires deploying to a remote server or installing complex web servers (like…">
+    <meta name="twitter:title" content="Local Preview Server &amp; Three-Tier Cache Architecture — Drawlib Architecture">
+    <meta name="twitter:description" content="Fast visual iteration and deterministic offline builds are essential to &quot;Illustrated Documentation as Code.&quot; Requiring Node.js dev servers to preview static…">
     <meta name="twitter:image" content="https://www.drawlib.com/architecture/_assets/ogp.png">
-    
     
     
     <link rel="icon" type="image/png" href="../../_assets/favicon.png">
@@ -56,7 +60,8 @@
             <div class="sidebar-header">
                 <a href="../index.html" class="sidebar-brand" aria-label="Drawlib Architecture">
                     
-                    Drawlib Architecture
+                    <img src="../../_assets/logo.png" alt="Drawlib Architecture" class="sidebar-logo sidebar-logo-light">
+                    <img src="../../_assets/logo_dark.png" alt="Drawlib Architecture" class="sidebar-logo sidebar-logo-dark">
                     
                 </a>
                 <div class="sidebar-header-actions">
@@ -70,6 +75,15 @@
                     </button>
                 </div>
             </div>
+            <div class="sidebar-subbar">
+                <a href="https://www.drawlib.com/en/01_getting_started/release_notes.html" target="_blank" rel="noopener noreferrer" class="sidebar-version-badge" title="Architecture Specification · View Release Notes">
+                    <span class="sidebar-version-dot" aria-hidden="true"></span>
+                    <span class="sidebar-version-text">Architecture · v0.3.4</span>
+                </a>
+                <a href="https://github.com/yuichi110/drawlib" target="_blank" rel="noopener noreferrer" class="sidebar-github-link" aria-label="GitHub Repository" title="GitHub Repository">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+                </a>
+            </div>
             <div class="sidebar-menu">
                 
                     
@@ -82,6 +96,10 @@
                             
                             <li class="nav-item ">
                                 <a href="https://www.drawlib.com/" target="_blank" rel="noopener noreferrer">Official Docs<svg class="nav-external-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="https://examples.drawlib.com/" target="_blank" rel="noopener noreferrer">Examples Showcase<svg class="nav-external-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
                             </li>
                             
                         </ul>
@@ -137,6 +155,10 @@
                                 <a href="../03_domain_subsystems/03_graph_autolayout.html" >Graph Auto-Layout</a>
                             </li>
                             
+                            <li class="nav-item ">
+                                <a href="../03_domain_subsystems/04_animation_and_slide_engines.html" >Animation &amp; Slide Engines</a>
+                            </li>
+                            
                         </ul>
                     
                         
@@ -168,7 +190,7 @@
                             </li>
                             
                             <li class="nav-item active">
-                                <a href="02_preview_server.html" >Preview Server &amp; Tooling</a>
+                                <a href="02_preview_server.html" >Preview Server &amp; Assets</a>
                             </li>
                             
                         </ul>
@@ -213,167 +235,250 @@
         <div class="content-wrapper">
             <header class="top-bar">
                 <div class="breadcrumbs">
-                    <span class="crumb">Docs</span>
+                    <span class="crumb">Architecture</span>
                     <span class="crumb-separator">&raquo;</span>
-                    <span class="crumb active">Local Preview Server &amp; Cache Management Tooling</span>
+                    <span class="crumb active">Local Preview Server &amp; Three-Tier Cache Architecture</span>
                 </div>
                 
             </header>
             <main class="main-content">
-                <h1>Local Preview Server &amp; Cache Management Tooling</h1>
-<p>Developing documentation requires rapid feedback. If testing a layout change requires deploying to a remote server or installing complex web servers (like Nginx, Node.js, or Apache), the developer loop slows down significantly.</p>
-<p>Drawlib includes a lightweight, built-in HTTP server (<code>_http_server/</code>) and asset distribution toolset (<code>drawlib cache</code>) to provide <strong>instant zero-dependency local previewing</strong> and <strong>air-gapped asset management</strong>.</p>
+                <h1>Local Preview Server &amp; Three-Tier Cache Architecture</h1>
+<p>Fast visual iteration and deterministic offline builds are essential to &quot;Illustrated Documentation as Code.&quot; Requiring Node.js dev servers to preview static HTML—or fetching unverified font binaries onto ad-hoc home directories during CI—introduces operational friction and network flakiness.</p>
+<p>Drawlib pairs a zero-dependency standard-library HTTP preview server (<code>src/drawlib/_http_server/</code>) with a <strong>Three-Tier Local Cache &amp; Asset Architecture</strong> (<code>drawlib cache</code>, <code>_release_assets.py</code>, <code>_core/l3_external/_package.py</code>, and <code>_builder/_common/cache_manager.py</code>).</p>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="../../images/05_cli_and_runtime/02_preview_server/preview_server_architecture.png" alt="02_preview_server_1" />
-  <figcaption class="drawlib-caption">Local Preview Server & Request Handling Architecture</figcaption>
+  <figcaption class="drawlib-caption">drawlib serve Preflight Scan, DNS-Bypass Bind, and Cache-Busting HTTP Lifecycle</figcaption>
 </figure>
 <details class="drawlib-code-details">
 <summary>Source Code</summary>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.diagrams.sequence</span><span class="w"> </span><span class="kn">import</span> <span class="n">Participant</span><span class="p">,</span> <span class="n">PhosphorIcon</span><span class="p">,</span> <span class="n">SequenceDiagram</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">140</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">124</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">74</span><span class="p">)</span>
 
-<span class="n">rectangle</span><span class="p">((</span><span class="mi">70</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">136</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">56</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.5</span><span class="p">))</span>
-<span class="n">text</span><span class="p">(</span>
-    <span class="p">(</span><span class="mi">70</span><span class="p">,</span> <span class="mi">52</span><span class="p">),</span>
-    <span class="s2">"Local Preview Server &amp; Request Handling Architecture"</span><span class="p">,</span>
-    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">12.2</span><span class="p">),</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">SequenceDiagram</span><span class="p">(</span>
+    <span class="n">node_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">,</span>
+    <span class="n">node_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="n">edge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+    <span class="n">edge_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">node_card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">),</span>
+    <span class="n">autonumber</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">col_width</span><span class="o">=</span><span class="mf">30.5</span><span class="p">,</span>
+    <span class="n">step_y</span><span class="o">=</span><span class="mf">6.2</span><span class="p">,</span>
+    <span class="n">margin</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span>
 <span class="p">)</span>
 
-<span class="c1"># Left: Browser Client</span>
-<span class="n">rectangle</span><span class="p">((</span><span class="mi">24</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">34</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">34</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.8</span><span class="p">))</span>
-<span class="n">phosphor</span><span class="o">.</span><span class="n">globe</span><span class="p">((</span><span class="mi">12</span><span class="p">,</span> <span class="mi">36</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
-<span class="n">text</span><span class="p">((</span><span class="mi">16</span><span class="p">,</span> <span class="mi">36</span><span class="p">),</span> <span class="s2">"Web Browser"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
-<span class="n">text</span><span class="p">(</span>
-    <span class="p">(</span><span class="mi">24</span><span class="p">,</span> <span class="mi">21</span><span class="p">),</span>
-    <span class="s2">"http://localhost:8000</span><span class="se">\n</span><span class="s2">• Live doc preview</span><span class="se">\n</span><span class="s2">• HTML / SVG assets</span><span class="se">\n</span><span class="s2">• Instant reload"</span><span class="p">,</span>
-    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.2</span><span class="p">),</span>
+<span class="n">cli</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Participant</span><span class="p">(</span>
+        <span class="s2">"CLI</span><span class="se">\n</span><span class="s2">drawlib serve"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mi">23</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mf">13.5</span><span class="p">,</span>
+        <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">TERMINAL</span><span class="p">,</span>
+        <span class="n">icon_size</span><span class="o">=</span><span class="mf">4.3</span><span class="p">,</span>
+        <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">),</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+<span class="n">scanner</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Participant</span><span class="p">(</span>
+        <span class="s2">"Link Scanner</span><span class="se">\n</span><span class="s2">_link_scanner"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mi">23</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mf">13.5</span><span class="p">,</span>
+        <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">MAGNIFYING_GLASS</span><span class="p">,</span>
+        <span class="n">icon_size</span><span class="o">=</span><span class="mf">4.3</span><span class="p">,</span>
+        <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">),</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+<span class="n">server</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Participant</span><span class="p">(</span>
+        <span class="s2">"HTTP Server</span><span class="se">\n</span><span class="s2">TCPServer.bind"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mf">13.5</span><span class="p">,</span>
+        <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">CPU</span><span class="p">,</span>
+        <span class="n">icon_size</span><span class="o">=</span><span class="mf">4.3</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">,</span>
+        <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+        <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">),</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+<span class="n">browser</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Participant</span><span class="p">(</span>
+        <span class="s2">"Web Browser</span><span class="se">\n</span><span class="s2">localhost:8000"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mi">23</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mf">13.5</span><span class="p">,</span>
+        <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">GLOBE</span><span class="p">,</span>
+        <span class="n">icon_size</span><span class="o">=</span><span class="mf">4.3</span><span class="p">,</span>
+        <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">),</span>
+    <span class="p">)</span>
 <span class="p">)</span>
 
-<span class="c1"># Center: Python HTTP Server Engine</span>
-<span class="n">rectangle</span><span class="p">((</span><span class="mi">70</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">38</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">34</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.8</span><span class="p">))</span>
-<span class="n">phosphor</span><span class="o">.</span><span class="n">cpu</span><span class="p">((</span><span class="mi">54</span><span class="p">,</span> <span class="mi">36</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">)</span>
-<span class="n">text</span><span class="p">((</span><span class="mi">58</span><span class="p">,</span> <span class="mi">36</span><span class="p">),</span> <span class="s2">"_http_server"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
-<span class="n">text</span><span class="p">(</span>
-    <span class="p">(</span><span class="mi">70</span><span class="p">,</span> <span class="mi">21</span><span class="p">),</span>
-    <span class="s2">"ThreadingHTTPServer</span><span class="se">\n</span><span class="s2">• Zero external deps</span><span class="se">\n</span><span class="s2">• Custom MIME map</span><span class="se">\n</span><span class="s2">• Path traversal guard"</span><span class="p">,</span>
-    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.0</span><span class="p">),</span>
-<span class="p">)</span>
+<span class="n">cli</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="n">scanner</span><span class="p">,</span> <span class="s2">"Preflight scan_broken_links()"</span><span class="p">)</span>
+<span class="n">scanner</span><span class="o">.</span><span class="n">reply</span><span class="p">(</span><span class="n">cli</span><span class="p">,</span> <span class="s2">"HTML &amp; asset links verified"</span><span class="p">)</span>
+<span class="n">cli</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="n">server</span><span class="p">,</span> <span class="s2">"Bind ('', 8000) without getfqdn()"</span><span class="p">)</span>
+<span class="n">browser</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="n">server</span><span class="p">,</span> <span class="s2">"GET /index.html &amp; style.css"</span><span class="p">)</span>
+<span class="n">server</span><span class="o">.</span><span class="n">reply</span><span class="p">(</span><span class="n">browser</span><span class="p">,</span> <span class="s2">"200 OK + Cache-Control: no-store"</span><span class="p">)</span>
+<span class="n">browser</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="n">server</span><span class="p">,</span> <span class="s2">"GET /missing.png (with Referer)"</span><span class="p">)</span>
+<span class="n">server</span><span class="o">.</span><span class="n">reply</span><span class="p">(</span><span class="n">browser</span><span class="p">,</span> <span class="s2">"404 + stderr [404 NOT FOUND] log"</span><span class="p">)</span>
 
-<span class="n">line</span><span class="p">((</span><span class="mi">41</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="p">(</span><span class="mi">51</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
-<span class="n">line</span><span class="p">((</span><span class="mi">89</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="p">(</span><span class="mi">99</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
-
-<span class="c1"># Right: Static File Tree</span>
-<span class="n">rectangle</span><span class="p">((</span><span class="mi">116</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">34</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">34</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.8</span><span class="p">))</span>
-<span class="n">phosphor</span><span class="o">.</span><span class="n">folder</span><span class="p">((</span><span class="mi">104</span><span class="p">,</span> <span class="mi">36</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">)</span>
-<span class="n">text</span><span class="p">((</span><span class="mi">108</span><span class="p">,</span> <span class="mi">36</span><span class="p">),</span> <span class="s2">"docs_html/"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
-<span class="n">text</span><span class="p">(</span>
-    <span class="p">(</span><span class="mi">116</span><span class="p">,</span> <span class="mi">21</span><span class="p">),</span>
-    <span class="s2">"• index.html</span><span class="se">\n</span><span class="s2">• styles.css</span><span class="se">\n</span><span class="s2">• SVG / PNG images</span><span class="se">\n</span><span class="s2">• font files"</span><span class="p">,</span>
-    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.2</span><span class="p">),</span>
-<span class="p">)</span>
-
+<span class="n">d</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">62.0</span><span class="p">,</span> <span class="mf">37.0</span><span class="p">),</span> <span class="n">align</span><span class="o">=</span><span class="s2">"center"</span><span class="p">)</span>
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 </details>
 <hr />
-<h2>1. Concept: Zero-Dependency Developer Experience</h2>
-<p>Drawlib's preview server requires no Node.js runtime, npm packages, or external web servers:</p>
-<ul>
-<li>Built strictly using Python's standard library <code>http.server.ThreadingHTTPServer</code>.</li>
-<li>Serves generated HTML documentation, CSS stylesheets, Javascript modules, vector SVGs, and raster PNGs concurrently.</li>
-<li>Automatically allocates the next available port if default port <code>8000</code> is occupied.</li>
-</ul>
-<hr />
-<h2>2. Positioning: HTTP Server Subsystems &amp; Security</h2>
-<p>The preview server implements several specialized architectural capabilities:</p>
+<h2>1. Preview Server Internals (<code>_http_server/_server.py</code>)</h2>
+<p><code>serve_docs()</code> delivers instant local previewing of compiled <code>*_html/</code> directories (<code>index.html</code>, per-locale <code>style.css</code>, bundled fonts, SVGs, and PNG/WebP diagrams) using Python's <code>http.server.ThreadingHTTPServer</code>:</p>
+<h3>1.1. Startup Preflight &amp; Browser Launch</h3>
 <ol>
-<li><strong><code>_CustomHTTPServer</code> &amp; macOS DNS Stall Bypass</strong>:
-Standard Python <code>http.server.HTTPServer</code> can suffer from 5-second connection delays on macOS when resolving <code>localhost</code>. <code>_CustomHTTPServer</code> overrides <code>server_bind()</code> on <code>socketserver.TCPServer</code>, enforcing explicit IPv4 loopback binding (<code>127.0.0.1</code>) and disabling blocking reverse-DNS lookups.</li>
-<li><strong><code>_CustomHTTPRequestHandler</code> &amp; Cache-Busting</strong>:
-To ensure that documentation edits and re-rendered images display immediately upon page refresh, the handler injects aggressive cache-control headers:<pre><code class="language-http"><span class="err">Cache-Control: no-store, no-cache, must-revalidate, max-age=0</span>
+<li><strong>Directory Validation (<code>_resolve_serving_directory</code>)</strong>: Verifies the target path exists and is a directory (raising <code>ValueError</code> -&gt; Exit <code>1</code> otherwise).</li>
+<li><strong>Automatic Preflight Link Scan (<code>_perform_link_check</code>)</strong>: Runs <code>scan_broken_links()</code> across all <code>*.html</code> files before binding the socket. In interactive serving mode, broken links print a <code>[WARNING]</code> report to <code>stderr</code> while allowing inspection; with <code>--check</code>, <code>serve_docs()</code> exits immediately (<code>0</code> if clean, <code>1</code> if broken) without opening a socket. Pass <code>--skip-check</code> to bypass scanning during rapid rebuild loops.</li>
+<li><strong>Single-Port Binding Contract</strong>: Binds <code>(&quot;&quot;, port)</code> (default <code>8000</code>) with <code>allow_reuse_address = True</code>. Drawlib <strong>does not</strong> silently hop to port <code>8001</code> if <code>8000</code> is occupied—instead, it prints <code>Error starting server on port &lt;port&gt;</code> to <code>stderr</code> and exits with code <code>1</code> so port expectations in scripts and browser tabs remain deterministic (override explicitly via <code>-p/--port</code>).</li>
+<li><strong>Delayed Daemon Browser Opener</strong>: Unless <code>--no-browser</code> is passed, spawns a background daemon thread that waits <code>0.5s</code> for <code>serve_forever()</code> to enter its accept loop before calling <code>webbrowser.open(&quot;http://localhost:&lt;port&gt;&quot;)</code>.</li>
+</ol>
+<h3>1.2. macOS <code>getfqdn()</code> Bypass &amp; Zero-Cache Headers</h3>
+<ul>
+<li><strong><code>_CustomHTTPServer.server_bind()</code></strong>: Python's standard <code>HTTPServer.server_bind()</code> invokes <code>socket.getfqdn()</code>, which triggers a reverse-DNS/mDNS lookup that frequently stalls for <strong>5+ seconds</strong> on macOS laptops with VPNs or custom hostnames. <code>_CustomHTTPServer</code> calls <code>socketserver.TCPServer.server_bind(self)</code> directly and sets <code>self.server_name = str(host) if host else &quot;localhost&quot;</code>, making startup instantaneous.</li>
+<li><strong><code>_CustomHTTPRequestHandler</code></strong>: Inherits standard MIME-type resolution from <code>SimpleHTTPRequestHandler</code>, injects aggressive cache-busting headers in <code>end_headers()</code> so rebuilt diagrams and <code>style.css</code> edits appear on every browser refresh:<pre><code class="language-http"><span class="err">Cache-Control: no-store, no-cache, must-revalidate, max-age=0</span>
 <span class="err">Pragma: no-cache</span>
 <span class="err">Expires: 0</span>
 </code></pre>
-It also logs referer telemetry on <code>404 Not Found</code> responses to rapidly diagnose broken assets.</li>
-<li><strong>Preflight Link Scanner Mode (<code>--check</code>)</strong>:
-When launched with <code>--check</code>, the server runs headlessly without binding a port:
-<ul>
-<li>Uses <code>_LinkExtractor(HTMLParser)</code> to extract all <code>&lt;a href&gt;</code> and <code>&lt;img src&gt;</code> tags.</li>
-<li><strong>Forbidden Path Scanner</strong>: Scans for accidental leaks of local filesystem paths, immediately flagging URIs starting with <code>/usr/</code>, <code>/home/</code>, <code>/private/</code>, <code>/tmp/</code>, Windows drive letters (<code>^[A-Za-z]:[\\/]</code>), or <code>file://</code>.</li>
-<li>Exits with <code>0</code> (clean) or <code>1</code> (broken/forbidden links found).</li>
+and overrides <code>send_error()</code> to log <code>[404 NOT FOUND] &lt;path&gt; (Referer: &lt;url&gt;)</code> to <code>stderr</code> whenever a page requests a missing asset.</li>
 </ul>
-</li>
-</ol>
+<hr />
+<h2>2. Three-Tier Local Cache &amp; Asset Storage Architecture</h2>
+<p>To keep the PyPI <code>drawlib</code> wheel compact while supporting offline rendering, incremental builds, and PDF/PPTX browser automation, Drawlib separates cached data across <strong>three distinct storage tiers</strong> (managed via <code>drawlib cache list | download | clear</code>):</p>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="../../images/05_cli_and_runtime/02_preview_server/asset_distribution_architecture.png" alt="02_preview_server_2" />
-  <figcaption class="drawlib-caption">Release Asset Distribution & Offline Cache Sync Pipeline</figcaption>
+  <figcaption class="drawlib-caption">Drawlib's Three Real Local Cache Tiers and External Asset Sources</figcaption>
 </figure>
 <details class="drawlib-code-details">
 <summary>Source Code</summary>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.diagrams.architecture</span><span class="w"> </span><span class="kn">import</span> <span class="n">ArchitectureDiagram</span><span class="p">,</span> <span class="n">Node</span><span class="p">,</span> <span class="n">NodeGroup</span><span class="p">,</span> <span class="n">PhosphorIcon</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Colors</span><span class="p">,</span> <span class="n">Styles</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">140</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">58</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">124</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">62</span><span class="p">)</span>
 
-<span class="n">rectangle</span><span class="p">((</span><span class="mi">70</span><span class="p">,</span> <span class="mi">29</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">136</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">54</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.5</span><span class="p">))</span>
-<span class="n">text</span><span class="p">(</span>
-    <span class="p">(</span><span class="mi">70</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span>
-    <span class="s2">"Release Asset Distribution &amp; Offline Cache Sync Pipeline"</span><span class="p">,</span>
-    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">12.2</span><span class="p">),</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">ArchitectureDiagram</span><span class="p">(</span>
+    <span class="n">node_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">,</span>
+    <span class="n">node_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="n">edge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+    <span class="n">edge_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">node_card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">),</span>
 <span class="p">)</span>
 
-<span class="n">steps</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="p">(</span><span class="mf">18.5</span><span class="p">,</span> <span class="s2">"1. GitHub Releases"</span><span class="p">,</span> <span class="s2">"Deterministic .zip</span><span class="se">\n</span><span class="s2">Hosted on GitHub CDN"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">cloud</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">),</span>
-    <span class="p">(</span><span class="mf">52.5</span><span class="p">,</span> <span class="s2">"2. Cache Sync CLI"</span><span class="p">,</span> <span class="s2">"drawlib cache download</span><span class="se">\n</span><span class="s2">Integrity hash check"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">download_simple</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">),</span>
-    <span class="p">(</span><span class="mf">86.5</span><span class="p">,</span> <span class="s2">"3. Local Cache"</span><span class="p">,</span> <span class="s2">"~/.cache/drawlib/</span><span class="se">\n</span><span class="s2">Fonts, icons, sqlite"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">database</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">),</span>
-    <span class="p">(</span><span class="mf">120.5</span><span class="p">,</span> <span class="s2">"4. Air-Gapped Use"</span><span class="p">,</span> <span class="s2">"Offline CI/CD runners</span><span class="se">\n</span><span class="s2">Docker full images"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">shield_check</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">),</span>
-<span class="p">]</span>
+<span class="n">gh_rel</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span>
+        <span class="s2">"GitHub Releases</span><span class="se">\n</span><span class="s2">83 SHA-256 .zip"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mi">26</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mi">17</span><span class="p">,</span>
+        <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">CLOUD</span><span class="p">,</span>
+        <span class="n">icon_size</span><span class="o">=</span><span class="mf">4.5</span><span class="p">,</span>
+        <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">),</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">13.5</span><span class="p">,</span> <span class="mf">42.5</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">pw_cdn</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span>
+        <span class="s2">"Playwright CDN</span><span class="se">\n</span><span class="s2">Chromium Shell"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mi">26</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mi">17</span><span class="p">,</span>
+        <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">GLOBE</span><span class="p">,</span>
+        <span class="n">icon_size</span><span class="o">=</span><span class="mf">4.5</span><span class="p">,</span>
+        <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">),</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">13.5</span><span class="p">,</span> <span class="mf">16.5</span><span class="p">),</span>
+<span class="p">)</span>
 
-<span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">desc</span><span class="p">,</span> <span class="n">icon_func</span><span class="p">,</span> <span class="n">card_style</span><span class="p">,</span> <span class="n">icon_style</span> <span class="ow">in</span> <span class="n">steps</span><span class="p">:</span>
-    <span class="n">rectangle</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="mf">23.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">28</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">31</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">card_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.8</span><span class="p">))</span>
-    <span class="n">icon_func</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="mf">9.5</span><span class="p">,</span> <span class="mf">33.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.4</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">icon_style</span><span class="p">)</span>
-    <span class="n">text</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="mf">5.5</span><span class="p">,</span> <span class="mf">33.5</span><span class="p">),</span> <span class="n">title</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">icon_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">9.0</span><span class="p">))</span>
-    <span class="n">sub_style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">White</span> <span class="k">if</span> <span class="n">card_style</span> <span class="o">==</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span>
-    <span class="n">text</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="mf">18.5</span><span class="p">),</span> <span class="n">desc</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">sub_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.2</span><span class="p">))</span>
+<span class="n">cache_cli</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span>
+        <span class="s2">"drawlib cache</span><span class="se">\n</span><span class="s2">download / clear"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+        <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">DOWNLOAD_SIMPLE</span><span class="p">,</span>
+        <span class="n">icon_size</span><span class="o">=</span><span class="mf">4.8</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">,</span>
+        <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+        <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.6</span><span class="p">),</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">47.5</span><span class="p">,</span> <span class="mf">29.5</span><span class="p">),</span>
+<span class="p">)</span>
 
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
-    <span class="n">x_from</span> <span class="o">=</span> <span class="n">steps</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mf">14.0</span>
-    <span class="n">x_to</span> <span class="o">=</span> <span class="n">steps</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mf">14.0</span>
-    <span class="n">line</span><span class="p">((</span><span class="n">x_from</span><span class="p">,</span> <span class="mf">23.5</span><span class="p">),</span> <span class="p">(</span><span class="n">x_to</span><span class="p">,</span> <span class="mf">23.5</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+<span class="n">tiers</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">NodeGroup</span><span class="p">(</span>
+        <span class="s2">"Three Local Storage Tiers"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mi">49</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mi">56</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.8</span><span class="p">),</span>
+        <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">),</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">69.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">),</span>
+<span class="p">)</span>
 
+<span class="n">t1</span> <span class="o">=</span> <span class="n">tiers</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span>
+        <span class="s2">"1. drawlib/_cached_assets/</span><span class="se">\n</span><span class="s2">fonts, icons, maps, rules"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mi">43</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mf">13.5</span><span class="p">,</span>
+        <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">FOLDER</span><span class="p">,</span>
+        <span class="n">icon_size</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span>
+        <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.4</span><span class="p">),</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">24.5</span><span class="p">,</span> <span class="mf">40.5</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">t2</span> <span class="o">=</span> <span class="n">tiers</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span>
+        <span class="s2">"2. Playwright OS Cache</span><span class="se">\n</span><span class="s2">chromium-headless-shell"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mi">43</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mf">13.5</span><span class="p">,</span>
+        <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">BROWSERS</span><span class="p">,</span>
+        <span class="n">icon_size</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span>
+        <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_fill_color</span><span class="o">=</span><span class="n">Colors</span><span class="o">.</span><span class="n">White</span><span class="p">,</span> <span class="n">shape_r</span><span class="o">=</span><span class="mf">1.4</span><span class="p">),</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">24.5</span><span class="p">,</span> <span class="mf">24.5</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">t3</span> <span class="o">=</span> <span class="n">tiers</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span>
+        <span class="s2">"3. &lt;workspace&gt;/.drawlib/</span><span class="se">\n</span><span class="s2">cache.db (SQLite 1 GiB)"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mi">43</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mf">13.5</span><span class="p">,</span>
+        <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">DATABASE</span><span class="p">,</span>
+        <span class="n">icon_size</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span>
+        <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.4</span><span class="p">),</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">24.5</span><span class="p">,</span> <span class="mf">8.5</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">j_src</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">junction</span><span class="p">((</span><span class="mf">30.5</span><span class="p">,</span> <span class="mf">29.5</span><span class="p">))</span>
+<span class="n">gh_rel</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">j_src</span><span class="p">,</span> <span class="n">arrow</span><span class="o">=</span><span class="s2">"-"</span><span class="p">)</span>
+<span class="n">pw_cdn</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">j_src</span><span class="p">,</span> <span class="n">arrow</span><span class="o">=</span><span class="s2">"-"</span><span class="p">)</span>
+<span class="n">j_src</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">cache_cli</span><span class="p">,</span> <span class="n">arrow</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">)</span>
+<span class="n">cache_cli</span><span class="o">.</span><span class="n">fork</span><span class="p">([</span><span class="n">t1</span><span class="p">,</span> <span class="n">t2</span><span class="p">,</span> <span class="n">t3</span><span class="p">],</span> <span class="n">at_x</span><span class="o">=</span><span class="mf">64.0</span><span class="p">)</span>
+
+<span class="n">d</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">))</span>
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 </details>
-<hr />
-<h2>3. Details: Release Asset Distribution &amp; Offline CI/CD</h2>
-<p>To keep the <code>drawlib</code> wheel package lightweight (&lt; 5MB on PyPI), heavy binary font packages and icon catalogs are hosted externally on GitHub Releases:</p>
-<h3>3.1. Deterministic <code>.zip</code> Archives &amp; Manifest Verification</h3>
-<p>External asset packages are distributed as byte-reproducible <code>.zip</code> archives generated via <code>create_deterministic_zip_bytes()</code>:</p>
+<h3>2.1. Tier 1 — Package Asset Directory (<code>&lt;site-packages&gt;/drawlib/_cached_assets/</code>)</h3>
+<p>Defined by <code>ASSETS_DIR_PATH</code> in <code>src/drawlib/_core/l1_core/_const.py</code>, binary asset packages and compiled rule manuals live directly inside the installed <code>drawlib</code> Python package under <code>drawlib/_cached_assets/{fonts,fonticons,icons,maps,rules}/</code>:</p>
 <ul>
-<li>File timestamps are pegged to a fixed epoch (<code>2026-01-01 00:00:00</code>).</li>
-<li>Permissions are normalized to <code>0o644</code> (files) and <code>0o755</code> (directories).</li>
-<li><code>AssetManifest</code> cryptographically records the SHA-256 hash and package size, ensuring tamper-proof downloads.</li>
+<li><strong>83 Deterministic <code>.zip</code> Archives (<code>_release_assets.py</code>)</strong>: Every external package (<code>ReleaseAssetPackage</code>, <code>category: &quot;font&quot; | &quot;icon&quot; | &quot;map&quot;</code>) is built via <code>create_deterministic_zip_bytes()</code> with flat filenames, <code>0o644</code> permissions (<code>create_system=3</code>), <code>ZIP_DEFLATED</code> level <code>9</code>, and timestamps fixed to <code>2026-01-01 00:00:00</code>.</li>
+<li><strong>Cryptographic SHA-256 Verification (<code>_core/l3_external/_package.py</code>)</strong>: Whether fetched lazily on first draw or pre-warmed via <code>drawlib cache download [--fonts|--icons|--maps|--all]</code>, the archive's SHA-256 digest is verified against <code>ReleaseAssetPackage.archive_sha256</code> before extraction. <code>drawlib cache clear --all</code> wipes <code>fonts/</code>, <code>fonticons/</code>, <code>icons/</code>, <code>maps/</code>, and <code>rules/</code>.</li>
 </ul>
-<h3>3.2. Air-Gapped &amp; Docker Container Readiness</h3>
-<p>For enterprise environments without internet access or strict offline CI/CD requirements:</p>
-<pre><code class="language-bash"><span class="c1"># Pre-download all assets into user cache</span>
+<h3>2.2. Tier 2 — Workspace SQLite Render Cache (<code>&lt;workspace&gt;/.drawlib/cache.db</code>)</h3>
+<p>Managed by <code>_builder/_common/cache.py</code>, incremental diagram renders are stored per workspace in <code>.drawlib/cache.db</code>:</p>
+<ul>
+<li>Contains two tables—<code>image_cache</code> (keyed by AST-normalized code, helper hashes, DPI, and format for <code>build</code>) and <code>cli_image_cache</code> (for <code>drawlib show</code> exports)—bounded by an automatic <strong>1 GiB LRU</strong> eviction budget.</li>
+<li>Cleared selectively via <code>drawlib cache clear --images</code> (and included in <code>drawlib cache clear --all</code>).</li>
+</ul>
+<h3>2.3. Tier 3 — Headless Chromium Cache (Playwright Browser Store)</h3>
+<p>PDF (<code>build pdf</code>) and PowerPoint (<code>build pptx</code>) compilation use Playwright's <code>chromium-headless-shell</code> stored in Playwright's OS browser directory (or <code>PLAYWRIGHT_BROWSERS_PATH</code> in Docker containers), coordinated across concurrent processes on POSIX via <code>~/.cache/drawlib/playwright_install.lock</code>:</p>
+<pre><code class="language-bash"><span class="c1"># Pre-warm all 83 font/icon/map ZIPs AND chromium-headless-shell for air-gapped CI</span>
 uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>cache<span class="w"> </span>download<span class="w"> </span>--all
 
-<span class="c1"># Build full offline Docker container</span>
+<span class="c1"># Or build the self-contained offline production container image</span>
 ./dcli<span class="w"> </span>docker<span class="w"> </span>build<span class="w"> </span>--full
 </code></pre>
-<p>Because all fonts and icons are pre-warmed inside <code>~/.cache/drawlib/</code>, documentation builds and tests run 100% offline with zero external network requests.</p>
-<p>Next, explore how development workflows and toolsets are automated in <strong><a href="../06_developer_tooling/01_dcli_orchestrator.html">Developer Tooling: dcli Orchestrator</a></strong>.</p>
+<p>Next, explore how repository quality checks, asset syncing, testing, and releases are orchestrated in <strong><a href="../06_developer_tooling/01_dcli_orchestrator.html">dcli Unified Orchestrator</a></strong>.</p>
 
             </main>
         </div>
@@ -406,8 +511,8 @@ uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </s
                     if (e.key === 'Escape') {
                         langDropdowns.forEach(function(dd) {
                             dd.removeAttribute('open');
-                        });
-                    }
+                        }
+                    });
                 });
             }
 

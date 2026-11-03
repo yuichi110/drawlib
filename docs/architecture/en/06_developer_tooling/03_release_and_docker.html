@@ -25,21 +25,25 @@
         })();
     </script>
     
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     
-        <meta name="description" content="Releasing a production library requires rigorous verification to ensure that published packages install cleanly, lack hidden local dependencies, and function…">
+    
+    
+    <meta name="description" content="Releasing a graphics and document-compilation library requires strict safeguards so published wheels never depend on uncommitted local files, stale cached…">
     <link rel="canonical" href="https://www.drawlib.com/architecture/en/06_developer_tooling/03_release_and_docker.html">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Drawlib Architecture">
     <meta property="og:title" content="Developer Tooling: Publishing &amp; Clean-Room Testing — Drawlib Architecture">
-    <meta property="og:description" content="Releasing a production library requires rigorous verification to ensure that published packages install cleanly, lack hidden local dependencies, and function…">
+    <meta property="og:description" content="Releasing a graphics and document-compilation library requires strict safeguards so published wheels never depend on uncommitted local files, stale cached…">
     <meta property="og:url" content="https://www.drawlib.com/architecture/en/06_developer_tooling/03_release_and_docker.html">
     <meta property="og:image" content="https://www.drawlib.com/architecture/_assets/ogp.png">
     <meta property="og:locale" content="en_US">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Developer Tooling: Publishing &amp; Clean-Room Testing — Drawlib Architecture">
-    <meta name="twitter:description" content="Releasing a production library requires rigorous verification to ensure that published packages install cleanly, lack hidden local dependencies, and function…">
+    <meta name="twitter:description" content="Releasing a graphics and document-compilation library requires strict safeguards so published wheels never depend on uncommitted local files, stale cached…">
     <meta name="twitter:image" content="https://www.drawlib.com/architecture/_assets/ogp.png">
-    
     
     
     <link rel="icon" type="image/png" href="../../_assets/favicon.png">
@@ -56,7 +60,8 @@
             <div class="sidebar-header">
                 <a href="../index.html" class="sidebar-brand" aria-label="Drawlib Architecture">
                     
-                    Drawlib Architecture
+                    <img src="../../_assets/logo.png" alt="Drawlib Architecture" class="sidebar-logo sidebar-logo-light">
+                    <img src="../../_assets/logo_dark.png" alt="Drawlib Architecture" class="sidebar-logo sidebar-logo-dark">
                     
                 </a>
                 <div class="sidebar-header-actions">
@@ -70,6 +75,15 @@
                     </button>
                 </div>
             </div>
+            <div class="sidebar-subbar">
+                <a href="https://www.drawlib.com/en/01_getting_started/release_notes.html" target="_blank" rel="noopener noreferrer" class="sidebar-version-badge" title="Architecture Specification · View Release Notes">
+                    <span class="sidebar-version-dot" aria-hidden="true"></span>
+                    <span class="sidebar-version-text">Architecture · v0.3.4</span>
+                </a>
+                <a href="https://github.com/yuichi110/drawlib" target="_blank" rel="noopener noreferrer" class="sidebar-github-link" aria-label="GitHub Repository" title="GitHub Repository">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+                </a>
+            </div>
             <div class="sidebar-menu">
                 
                     
@@ -82,6 +96,10 @@
                             
                             <li class="nav-item ">
                                 <a href="https://www.drawlib.com/" target="_blank" rel="noopener noreferrer">Official Docs<svg class="nav-external-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="https://examples.drawlib.com/" target="_blank" rel="noopener noreferrer">Examples Showcase<svg class="nav-external-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
                             </li>
                             
                         </ul>
@@ -137,6 +155,10 @@
                                 <a href="../03_domain_subsystems/03_graph_autolayout.html" >Graph Auto-Layout</a>
                             </li>
                             
+                            <li class="nav-item ">
+                                <a href="../03_domain_subsystems/04_animation_and_slide_engines.html" >Animation &amp; Slide Engines</a>
+                            </li>
+                            
                         </ul>
                     
                         
@@ -168,7 +190,7 @@
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../05_cli_and_runtime/02_preview_server.html" >Preview Server &amp; Tooling</a>
+                                <a href="../05_cli_and_runtime/02_preview_server.html" >Preview Server &amp; Assets</a>
                             </li>
                             
                         </ul>
@@ -213,7 +235,7 @@
         <div class="content-wrapper">
             <header class="top-bar">
                 <div class="breadcrumbs">
-                    <span class="crumb">Docs</span>
+                    <span class="crumb">Architecture</span>
                     <span class="crumb-separator">&raquo;</span>
                     <span class="crumb active">Developer Tooling: Publishing &amp; Clean-Room Testing</span>
                 </div>
@@ -221,140 +243,230 @@
             </header>
             <main class="main-content">
                 <h1>Developer Tooling: Publishing &amp; Clean-Room Testing</h1>
-<p>Releasing a production library requires rigorous verification to ensure that published packages install cleanly, lack hidden local dependencies, and function in completely isolated environments.</p>
+<p>Releasing a graphics and document-compilation library requires strict safeguards so published wheels never depend on uncommitted local files, stale cached binaries, or host-specific system state.</p>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="../../images/06_developer_tooling/03_release_and_docker/release_lifecycle_pipeline.png" alt="03_release_and_docker_1" />
-  <figcaption class="drawlib-caption">PyPI Release and Clean-Room Verification Lifecycle</figcaption>
+  <figcaption class="drawlib-caption">End-to-End PyPI Release and Clean-Room Verification Pipeline</figcaption>
 </figure>
 <details class="drawlib-code-details">
 <summary>Source Code</summary>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">circle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.smartarts</span><span class="w"> </span><span class="kn">import</span> <span class="n">ChevronProcess</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">140</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">56</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">120</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
 
-<span class="n">rectangle</span><span class="p">((</span><span class="mi">70</span><span class="p">,</span> <span class="mi">28</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">136</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">52</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.5</span><span class="p">))</span>
-<span class="n">text</span><span class="p">(</span>
-    <span class="p">(</span><span class="mi">70</span><span class="p">,</span> <span class="mf">48.5</span><span class="p">),</span>
-    <span class="s2">"End-to-End Release &amp; Clean-Room Testing Pipeline"</span><span class="p">,</span>
-    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">12.2</span><span class="p">),</span>
+<span class="n">pipeline</span> <span class="o">=</span> <span class="n">ChevronProcess</span><span class="p">(</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.8</span><span class="p">),</span>
+    <span class="n">description_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.8</span><span class="p">),</span>
+    <span class="n">corner_angle</span><span class="o">=</span><span class="mf">70.0</span><span class="p">,</span>
+    <span class="n">spacing</span><span class="o">=</span><span class="mf">1.6</span><span class="p">,</span>
+    <span class="n">flat_left_end</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">pipeline</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="s2">"1. Version Gate"</span><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="s2">"pypi check-version</span><span class="se">\n</span><span class="s2">&amp; cache clear --all"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.8</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">pipeline</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="s2">"2. Stage TestPyPI"</span><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="s2">"pypi publish</span><span class="se">\n</span><span class="s2">--test-pypi"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.8</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">pipeline</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="s2">"3. Clean-Room"</span><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="s2">"docker test</span><span class="se">\n</span><span class="s2">--test-pypi &lt;VER&gt;"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.8</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">pipeline</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="s2">"4. Live Release"</span><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="s2">"pypi publish &amp;</span><span class="se">\n</span><span class="s2">ut_pypi.yml 3x3"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.8</span><span class="p">),</span>
+    <span class="n">description_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.8</span><span class="p">),</span>
 <span class="p">)</span>
 
-<span class="n">stages</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="p">(</span><span class="mf">18.5</span><span class="p">,</span> <span class="s2">"1. Dependency Audit"</span><span class="p">,</span> <span class="s2">"./dcli pypi check-version</span><span class="se">\n</span><span class="s2">Audit deps &amp; pyproject"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">shield_check</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">),</span>
-    <span class="p">(</span><span class="mf">52.5</span><span class="p">,</span> <span class="s2">"2. TestPyPI Staging"</span><span class="p">,</span> <span class="s2">"./dcli pypi publish --test</span><span class="se">\n</span><span class="s2">Build wheel &amp; sdist"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">cloud_arrow_up</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">),</span>
-    <span class="p">(</span><span class="mf">86.5</span><span class="p">,</span> <span class="s2">"3. Clean Docker Test"</span><span class="p">,</span> <span class="s2">"./dcli docker test --test</span><span class="se">\n</span><span class="s2">Pristine Linux container"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">cpu</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">),</span>
-    <span class="p">(</span><span class="mf">120.5</span><span class="p">,</span> <span class="s2">"4. Production PyPI"</span><span class="p">,</span> <span class="s2">"./dcli pypi publish</span><span class="se">\n</span><span class="s2">Live PyPI distribution"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">rocket_launch</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">),</span>
+<span class="n">pipeline</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">3.5</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">113.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">24.0</span><span class="p">)</span>
+
+<span class="n">badges</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="mf">17.2</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">shield_check</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">46.2</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">cloud_arrow_up</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">73.8</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">cube</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">101.4</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">rocket_launch</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">),</span>
 <span class="p">]</span>
-
-<span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">desc</span><span class="p">,</span> <span class="n">icon_func</span><span class="p">,</span> <span class="n">card_style</span><span class="p">,</span> <span class="n">icon_style</span> <span class="ow">in</span> <span class="n">stages</span><span class="p">:</span>
-    <span class="n">rectangle</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="mi">23</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">28</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">31</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">card_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.8</span><span class="p">))</span>
-    <span class="n">icon_func</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="mf">9.5</span><span class="p">,</span> <span class="mi">33</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.4</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">icon_style</span><span class="p">)</span>
-    <span class="n">text</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="mf">5.5</span><span class="p">,</span> <span class="mi">33</span><span class="p">),</span> <span class="n">title</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">icon_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">9.0</span><span class="p">))</span>
-    <span class="n">sub_style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">White</span> <span class="k">if</span> <span class="n">card_style</span> <span class="o">==</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span>
-    <span class="n">text</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="mi">18</span><span class="p">),</span> <span class="n">desc</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">sub_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.2</span><span class="p">))</span>
-
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
-    <span class="n">x_from</span> <span class="o">=</span> <span class="n">stages</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mf">14.0</span>
-    <span class="n">x_to</span> <span class="o">=</span> <span class="n">stages</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mf">14.0</span>
-    <span class="n">line</span><span class="p">((</span><span class="n">x_from</span><span class="p">,</span> <span class="mi">23</span><span class="p">),</span> <span class="p">(</span><span class="n">x_to</span><span class="p">,</span> <span class="mi">23</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">cx</span><span class="p">,</span> <span class="n">icon_fn</span><span class="p">,</span> <span class="n">bg_style</span><span class="p">,</span> <span class="n">fg_style</span> <span class="ow">in</span> <span class="n">badges</span><span class="p">:</span>
+    <span class="n">circle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mf">34.8</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">3.9</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">bg_style</span><span class="p">)</span>
+    <span class="n">icon_fn</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mf">34.8</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.1</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">fg_style</span><span class="p">)</span>
 
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 </details>
 <hr />
-<h2>1. Concept: Clean-Room Release Verification</h2>
-<p>A notorious failure mode in Python library development is the &quot;works on my machine&quot; release:</p>
+<h2>1. Concept: Eliminating &quot;Works on My Machine&quot; Releases</h2>
+<p>Python library releases commonly fail in subtle ways when built directly from a developer's active workspace:</p>
 <ul>
-<li>A developer accidentally relies on an uncommitted local file or unpinned global package.</li>
-<li>A package wheel is built and pushed to PyPI without verifying that it can be cleanly installed and run on a stock Linux machine.</li>
-<li>Version tags jump unpredictably (e.g. accidentally releasing <code>0.3.0</code> instead of <code>0.2.1</code>), breaking semantic version expectations.</li>
+<li>Downloaded runtime assets sitting inside <code>src/drawlib/_cached_assets/</code> accidentally get bundled into the wheel, inflating a <code>&lt;2 MB</code> pure-Python distribution by hundreds of megabytes.</li>
+<li>Tests pass locally because <code>src/</code> is on <code>PYTHONPATH</code>, masking missing subpackages or broken metadata in the built wheel.</li>
+<li>Version numbers jump unintentionally or collide with already published PyPI artifacts.</li>
 </ul>
-<p>Drawlib eliminates these risks through two foundational tooling modules:</p>
+<p>Drawlib prevents these failure modes with two tightly paired <code>./dcli</code> toolsets and a cross-OS GitHub Actions verification matrix:</p>
 <ol>
-<li><strong><code>pypi</code> Toolset (<code>tools/dcli/pypi/</code>)</strong>: Audits dependency health, enforces monotonic version progression, synchronizes <code>README_PYPI.md</code>, and handles authenticated package publishing.</li>
-<li><strong><code>docker</code> Toolset (<code>tools/dcli/docker.py</code>)</strong>: Spawns isolated clean-room Linux containers that download the newly staged package from TestPyPI, install it into a virgin Python virtualenv, and execute the entire test suite.</li>
+<li><strong><code>pypi</code> Toolset (<code>tools/dcli/pypi/</code>)</strong>: Performs read-only dependency and version audits against <code>pyproject.toml</code> and PyPI/TestPyPI, purges local asset caches before <code>uv build</code>, and publishes via <code>uv publish</code>.</li>
+<li><strong><code>docker</code> Toolset (<code>tools/dcli/docker.py</code>)</strong>: Builds production container variants (<code>Dockerfile.prod</code>) and isolated clean-room test containers (<code>Dockerfile.test_pypi</code> and <code>Dockerfile.test_local</code>) that run the <code>pytest</code> suite without <code>src/</code> mounted.</li>
 </ol>
 <hr />
-<h2>2. Positioning: The Release and Deployment Boundary</h2>
-<p>The release tooling acts as the quality firewall between local code repositories and public distribution channels:</p>
+<h2>2. Positioning: Orthogonal Production Container Variants</h2>
+<p><code>tools/docker/Dockerfile.prod</code> parameterizes two orthogonal build arguments—<code>WITH_PDF</code> and <code>WITH_ASSETS</code>—over a common <code>python:${PYTHON_VERSION}-slim</code> (default <code>3.12</code>) base where core Python dependencies (<code>matplotlib</code>, <code>pydantic</code>, <code>playwright</code>, <code>python-docx</code>, <code>python-pptx</code>, <code>typer</code>, <code>rich</code>) are always installed:</p>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="../../images/06_developer_tooling/03_release_and_docker/docker_container_matrix.png" alt="03_release_and_docker_2" />
-  <figcaption class="drawlib-caption">Drawlib Docker Container Variants and Layering</figcaption>
+  <figcaption class="drawlib-caption">Orthogonal Docker Build Matrix in tools/docker/Dockerfile.prod</figcaption>
 </figure>
 <details class="drawlib-code-details">
 <summary>Source Code</summary>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.diagrams.architecture</span><span class="w"> </span><span class="kn">import</span> <span class="n">ArchitectureDiagram</span><span class="p">,</span> <span class="n">Node</span><span class="p">,</span> <span class="n">PhosphorIcon</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">140</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">52</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">118</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">54</span><span class="p">)</span>
 
-<span class="n">rectangle</span><span class="p">((</span><span class="mi">70</span><span class="p">,</span> <span class="mi">26</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">136</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">48</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.5</span><span class="p">))</span>
-<span class="n">text</span><span class="p">(</span>
-    <span class="p">(</span><span class="mi">70</span><span class="p">,</span> <span class="mf">45.5</span><span class="p">),</span>
-    <span class="s2">"Docker Container Image Architecture &amp; Capabilities"</span><span class="p">,</span>
-    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">12.2</span><span class="p">),</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">ArchitectureDiagram</span><span class="p">(</span>
+    <span class="n">node_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">,</span>
+    <span class="n">node_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="n">edge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+    <span class="n">edge_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.8</span><span class="p">),</span>
+    <span class="n">node_card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">),</span>
 <span class="p">)</span>
 
-<span class="n">variants</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="p">(</span><span class="mf">18.5</span><span class="p">,</span> <span class="s2">"drawlib:slim"</span><span class="p">,</span> <span class="s2">"Base Linux + Python 3.12</span><span class="se">\n</span><span class="s2">Minimal library wheel</span><span class="se">\n</span><span class="s2">Lightweight CI runners"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">circle_dashed</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">),</span>
-    <span class="p">(</span><span class="mf">52.5</span><span class="p">,</span> <span class="s2">"drawlib:pdf"</span><span class="p">,</span> <span class="s2">"Slim + Playwright</span><span class="se">\n</span><span class="s2">Chromium headless browser</span><span class="se">\n</span><span class="s2">A4 PDF book compiling"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">file_pdf</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">),</span>
-    <span class="p">(</span><span class="mf">86.5</span><span class="p">,</span> <span class="s2">"drawlib:assets"</span><span class="p">,</span> <span class="s2">"Slim + Cached Fonts/Icons</span><span class="se">\n</span><span class="s2">Pre-warmed ~/.cache/</span><span class="se">\n</span><span class="s2">Zero external downloads"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">package</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">),</span>
-    <span class="p">(</span><span class="mf">120.5</span><span class="p">,</span> <span class="s2">"drawlib:full"</span><span class="p">,</span> <span class="s2">"All-in-one offline image</span><span class="se">\n</span><span class="s2">PDF engine + all assets</span><span class="se">\n</span><span class="s2">Air-gapped enterprise"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">shield_check</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">),</span>
-<span class="p">]</span>
+<span class="n">slim</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span>
+        <span class="s2">"drawlib:slim</span><span class="se">\n</span><span class="s2">python:3.12-slim</span><span class="se">\n</span><span class="s2">Core Wheel (&lt;2 MB)"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mf">28.0</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mf">18.5</span><span class="p">,</span>
+        <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">PACKAGE</span><span class="p">,</span>
+        <span class="n">icon_size</span><span class="o">=</span><span class="mf">4.6</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+        <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">),</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">14.5</span><span class="p">,</span> <span class="mf">24.0</span><span class="p">),</span>
+<span class="p">)</span>
 
-<span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">desc</span><span class="p">,</span> <span class="n">icon_func</span><span class="p">,</span> <span class="n">card_style</span><span class="p">,</span> <span class="n">icon_style</span> <span class="ow">in</span> <span class="n">variants</span><span class="p">:</span>
-    <span class="n">rectangle</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="mf">21.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">28</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">31</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">card_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.8</span><span class="p">))</span>
-    <span class="n">icon_func</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="mf">9.5</span><span class="p">,</span> <span class="mf">31.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.4</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">icon_style</span><span class="p">)</span>
-    <span class="n">text</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="mf">5.5</span><span class="p">,</span> <span class="mf">31.5</span><span class="p">),</span> <span class="n">title</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">icon_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">9.0</span><span class="p">))</span>
-    <span class="n">sub_style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">White</span> <span class="k">if</span> <span class="n">card_style</span> <span class="o">==</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span>
-    <span class="n">text</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="mf">16.5</span><span class="p">),</span> <span class="n">desc</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">sub_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.2</span><span class="p">))</span>
+<span class="n">pdf</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span>
+        <span class="s2">"drawlib:pdf</span><span class="se">\n</span><span class="s2">Chromium Shell &amp; Libs</span><span class="se">\n</span><span class="s2">PDF &amp; PPTX DOM"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mf">32.0</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mf">17.5</span><span class="p">,</span>
+        <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">FILE_PDF</span><span class="p">,</span>
+        <span class="n">icon_size</span><span class="o">=</span><span class="mf">4.6</span><span class="p">,</span>
+        <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">),</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">55.0</span><span class="p">,</span> <span class="mf">39.0</span><span class="p">),</span>
+<span class="p">)</span>
 
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
-    <span class="n">x_from</span> <span class="o">=</span> <span class="n">variants</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mf">14.0</span>
-    <span class="n">x_to</span> <span class="o">=</span> <span class="n">variants</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mf">14.0</span>
-    <span class="n">line</span><span class="p">((</span><span class="n">x_from</span><span class="p">,</span> <span class="mf">21.5</span><span class="p">),</span> <span class="p">(</span><span class="n">x_to</span><span class="p">,</span> <span class="mf">21.5</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+<span class="n">assets</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span>
+        <span class="s2">"drawlib:assets</span><span class="se">\n</span><span class="s2">83 Packs Pre-Warmed</span><span class="se">\n</span><span class="s2">in _cached_assets/"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mf">32.0</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mf">17.5</span><span class="p">,</span>
+        <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">HARD_DRIVES</span><span class="p">,</span>
+        <span class="n">icon_size</span><span class="o">=</span><span class="mf">4.6</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">,</span>
+        <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">),</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">55.0</span><span class="p">,</span> <span class="mf">9.0</span><span class="p">),</span>
+<span class="p">)</span>
 
+<span class="n">full</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span>
+        <span class="s2">"drawlib:full</span><span class="se">\n</span><span class="s2">100% Air-Gapped</span><span class="se">\n</span><span class="s2">Chromium + 83 Packs"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mf">28.0</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mf">18.5</span><span class="p">,</span>
+        <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">SHIELD_CHECK</span><span class="p">,</span>
+        <span class="n">icon_size</span><span class="o">=</span><span class="mf">4.6</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">,</span>
+        <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+        <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">),</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">95.5</span><span class="p">,</span> <span class="mf">24.0</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">j_tl</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">junction</span><span class="p">((</span><span class="mf">14.5</span><span class="p">,</span> <span class="mf">39.0</span><span class="p">))</span>
+<span class="n">j_bl</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">junction</span><span class="p">((</span><span class="mf">14.5</span><span class="p">,</span> <span class="mf">9.0</span><span class="p">))</span>
+<span class="n">j_tr</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">junction</span><span class="p">((</span><span class="mf">95.5</span><span class="p">,</span> <span class="mf">39.0</span><span class="p">))</span>
+<span class="n">j_br</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">junction</span><span class="p">((</span><span class="mf">95.5</span><span class="p">,</span> <span class="mf">9.0</span><span class="p">))</span>
+
+<span class="n">d</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">slim</span><span class="p">,</span> <span class="n">j_tl</span><span class="p">,</span> <span class="n">arrow</span><span class="o">=</span><span class="s2">"-"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="p">(</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">))</span>
+<span class="n">d</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">j_tl</span><span class="p">,</span> <span class="n">pdf</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"--pdf"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">))</span>
+
+<span class="n">d</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">slim</span><span class="p">,</span> <span class="n">j_bl</span><span class="p">,</span> <span class="n">arrow</span><span class="o">=</span><span class="s2">"-"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="p">(</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">))</span>
+<span class="n">d</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">j_bl</span><span class="p">,</span> <span class="n">assets</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"--assets"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">))</span>
+
+<span class="n">d</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">pdf</span><span class="p">,</span> <span class="n">j_tr</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"+ WITH_ASSETS"</span><span class="p">,</span> <span class="n">arrow</span><span class="o">=</span><span class="s2">"-"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="p">(</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">))</span>
+<span class="n">d</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">j_tr</span><span class="p">,</span> <span class="n">full</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">))</span>
+
+<span class="n">d</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">assets</span><span class="p">,</span> <span class="n">j_br</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"+ WITH_PDF"</span><span class="p">,</span> <span class="n">arrow</span><span class="o">=</span><span class="s2">"-"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="p">(</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">))</span>
+<span class="n">d</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">j_br</span><span class="p">,</span> <span class="n">full</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">))</span>
+
+<span class="n">d</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">))</span>
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 </details>
 <hr />
-<h2>3. Details: Tooling Workflows and Docker Architecture</h2>
-<h3>3.1. PyPI Release Workflow (<code>./dcli pypi</code>)</h3>
-<p>The release sequence follows a strict verification pipeline:</p>
+<h2>3. Details: PyPI Release Pipeline &amp; Clean-Room Container Verification</h2>
+<h3>3.1. Dependency Auditing &amp; Version Verification (<code>./dcli pypi</code>)</h3>
+<p><code>pyproject.toml</code> statically configures package metadata—including <code>readme = &quot;docs_src/README_PYPI.md&quot;</code>, <code>requires-python = &quot;&gt;=3.11&quot;</code>, and all runtime dependencies (<code>matplotlib</code>, <code>pydantic</code>, <code>pygments</code>, <code>markdown-it-py</code>, <code>jinja2</code>, <code>typer</code>, <code>rich</code>, <code>playwright</code>, <code>python-docx</code>, <code>python-pptx</code>). The <code>pypi</code> toolset inspects <code>pyproject.toml</code> strictly <strong>read-only</strong> without mutating project files:</p>
+<ul>
+<li><strong><code>./dcli pypi deps</code> &amp; <code>dep-releases &lt;package&gt;</code></strong>: Lists direct runtime dependencies declared in <code>pyproject.toml</code> and queries PyPI release histories (<code>--from YEAR</code>, <code>--to YEAR</code>, <code>--format text|json</code>) to audit upstream compatibility across Python 3.11–3.13.</li>
+<li><strong><code>./dcli pypi list-versions</code> &amp; <code>latest [--test-pypi]</code></strong>: Queries published versions on live PyPI or TestPyPI.</li>
+<li><strong><code>./dcli pypi check-version [--test-pypi] [--allow-jump]</code></strong>: Validates that <code>project.version</code> in <code>pyproject.toml</code> advances monotonically from the latest published release without accidental minor or major jumps (unless <code>--allow-jump</code> is explicitly passed).</li>
+<li><strong><code>./dcli pypi publish [--test-pypi] [--allow-jump]</code></strong>: Resolves <code>TEST_PYPI_TOKEN</code> or <code>PYPI_TOKEN</code> (from <code>.env</code>, environment variables, or <code>--token</code>) and executes a deterministic 4-step sequence:
 <ol>
-<li><strong>Dependency Audit (<code>./dcli pypi deps</code>)</strong>: Generates the runtime dependency tree, flagging outdated or incompatible transitive dependencies.</li>
-<li><strong>Version Progression (<code>./dcli pypi check-version</code>)</strong>: Queries PyPI to verify that the version declared in <code>pyproject.toml</code> is strictly greater than the latest published release and conforms to semantic versioning (preventing accidental minor/major jumps unless explicitly passed <code>--allow-jump</code>).</li>
-<li><strong>Metadata Synchronization (<code>./dcli pypi update-pyproject</code>)</strong>: Ensures that <code>README_PYPI.md</code>, license files, and project URLs are synchronized into <code>pyproject.toml</code>.</li>
-<li><strong>Decoupled Asset Separation</strong>: Binary fonts, icons, and maps are intentionally excluded from the wheel distribution to keep package sizes under 2 MB. Instead, their bit-exact SHA-256 hashes are compiled into <code>src/drawlib/_release_assets.py</code>, and the archives are hosted on GitHub Releases (see <strong><a href="02_codegen_and_assets.html">Code Generation &amp; Assets</a></strong>).</li>
-<li><strong>Staging (<code>./dcli pypi publish --test-pypi</code>)</strong>: Builds source distributions (<code>sdist</code>) and binary wheels (<code>bdist_wheel</code>), publishing them to TestPyPI.</li>
-<li><strong>Production Publishing (<code>./dcli pypi publish</code>)</strong>: After clean-room Docker container verification passes, published packages are deployed to live PyPI.</li>
+<li>Runs <code>check-version</code> against the target index.</li>
+<li>Removes any stale <code>dist/</code> directory.</li>
+<li>Runs <code>uv run drawlib cache clear --all</code> so <code>src/drawlib/_cached_assets/</code> contains zero downloaded fonts, icons, or maps prior to wheel assembly.</li>
+<li>Runs <code>uv build</code> (<code>uv_build</code> backend) followed by <code>uv publish</code> (targeting <code>https://test.pypi.org/legacy/</code> when <code>--test-pypi</code> is set).</li>
 </ol>
-<h3>3.2. Clean-Room Docker Container Testing (<code>./dcli docker test</code>)</h3>
-<p>Before pushing to production PyPI, <code>./dcli docker test --test-pypi &lt;VERSION&gt;</code> executes:</p>
-<ul>
-<li>Spawns a clean <code>debian:bookworm-slim</code> or <code>python:3.12-slim</code> container with no access to local project files.</li>
-<li>Installs <code>drawlib==&lt;VERSION&gt;</code> directly from TestPyPI.</li>
-<li>Runs <code>pytest tests/drawlib/</code> inside the clean container.</li>
-<li>Verifies that all imports, asset caches, and drawing operations succeed without requiring development dependencies.</li>
+</li>
 </ul>
-<h3>3.3. Production Container Variants</h3>
-<p>Drawlib provides 4 container configurations for different operational environments:</p>
+<h3>3.2. Production Docker Variants (<code>./dcli docker build</code>)</h3>
+<p><code>./dcli docker</code> (<code>status</code>, <code>build</code>, <code>test</code>, <code>list</code>, <code>prune</code>) builds four production tags from <code>tools/docker/Dockerfile.prod</code> (supporting <code>--python 3.11|3.12|3.13</code> and <code>--pypi &lt;VER&gt;</code> to install from PyPI instead of local source):</p>
 <ul>
-<li><strong><code>drawlib:slim</code></strong>: Standard minimal image for diagram-rendering CLI containers.</li>
-<li><strong><code>drawlib:pdf</code></strong>: Includes headless Chromium for automated PDF documentation pipelines.</li>
-<li><strong><code>drawlib:assets</code></strong>: Pre-downloads and verifies all 53 font, icon, and map packages (<code>drawlib cache download --all</code>) at build time into <code>drawlib._cached_assets/</code>, eliminating external network requests during runtime execution.</li>
-<li><strong><code>drawlib:full</code></strong>: Combines PDF export and pre-warmed assets for completely air-gapped enterprise deployments.</li>
+<li><strong><code>drawlib:slim</code></strong> <em>(default)</em>: <code>python:3.12-slim</code> + Mesa/GLib libraries (<code>libgl1</code>, <code>libglx-mesa0</code>, <code>libglib2.0-0</code>) + core <code>drawlib</code> wheel (<code>playwright</code>, <code>python-docx</code>, and <code>python-pptx</code> Python packages included). Ideal for PNG/SVG/HTML/DOCX builds.</li>
+<li><strong><code>drawlib:pdf</code></strong> (<code>--pdf</code> -&gt; <code>WITH_PDF=true</code>): Runs <code>playwright install --with-deps --only-shell chromium</code> to add the headless Chromium shell and Linux shared libraries required for PDF compilation and PPTX DOM slide rasterization.</li>
+<li><strong><code>drawlib:assets</code></strong> (<code>--assets</code> -&gt; <code>WITH_ASSETS=true</code>): Runs <code>drawlib cache download --all</code> at image build time, pre-populating all <strong>83</strong> verified font, icon, and map packages directly into <strong><code>drawlib._cached_assets/</code></strong> inside the installed package directory.</li>
+<li><strong><code>drawlib:full</code></strong> (<code>--full</code> -&gt; <code>WITH_PDF=true</code> + <code>WITH_ASSETS=true</code>): Combines headless Chromium and all 83 pre-warmed asset packs so air-gapped enterprise environments operate with zero runtime network access.</li>
 </ul>
-<p>Next, explore Drawlib's testing architecture and verification methodologies in <strong><a href="../07_test_architecture/01_test_hierarchy_and_strategy.html">Test Architecture: Hierarchy &amp; Strategy</a></strong>.</p>
+<h3>3.3. Clean-Room Container &amp; Cross-OS Matrix Testing (<code>Dockerfile.test_pypi</code> &amp; <code>ut_pypi.yml</code>)</h3>
+<p>Before and after production publication, Drawlib validates the packaged artifact in two independent clean-room environments:</p>
+<pre><code class="language-bash"><span class="c1"># 1. Stage to TestPyPI and verify inside a clean Linux container</span>
+./dcli<span class="w"> </span>pypi<span class="w"> </span>publish<span class="w"> </span>--test-pypi
+./dcli<span class="w"> </span>docker<span class="w"> </span><span class="nb">test</span><span class="w"> </span>--test-pypi<span class="w"> </span>&lt;VERSION&gt;
+
+<span class="c1"># 2. Publish to live PyPI and verify the live wheel</span>
+./dcli<span class="w"> </span>pypi<span class="w"> </span>publish
+./dcli<span class="w"> </span>docker<span class="w"> </span><span class="nb">test</span><span class="w"> </span>--pypi<span class="w"> </span>&lt;VERSION&gt;
+</code></pre>
+<ol>
+<li><strong>Isolated Container Verification (<code>tools/docker/Dockerfile.test_pypi</code>)</strong>:
+<ul>
+<li>Starts from <code>python:3.12-slim</code> (configurable via <code>--python</code>), installs <code>pytest</code>, <code>pytest-cov</code>, and <code>pytest-xdist</code>, and pins <code>matplotlib==3.10.9</code> and <code>pillow==12.2.0</code> so golden-image pixel comparisons match CI baselines deterministically.</li>
+<li>Verifies via <code>pip index versions drawlib</code> that the exact <code>&lt;VERSION&gt;</code> exists on the target index, installs <code>drawlib==&lt;VERSION&gt;</code> (<code>--extra-index-url https://pypi.org/simple/</code> when testing TestPyPI), and runs <code>playwright install-deps chromium</code>.</li>
+<li>Copies <strong>only <code>pyproject.toml</code> and <code>tests/</code>—strictly excluding <code>src/</code></strong>—ensuring every import resolves exclusively against <code>site-packages/drawlib/</code>.</li>
+<li>Executes <code>drawlib cache download --all &amp;&amp; pytest -n auto --dist loadfile tests/drawlib/</code>.</li>
+</ul>
+</li>
+<li><strong>9-Job Cross-OS Release Matrix (<code>.github/workflows/ut_pypi.yml</code>)</strong>:
+<ul>
+<li>Triggered via <code>workflow_dispatch</code> with <code>lib_version</code>, delegating to <code>ut_template.yml</code> across a <strong>3 OS × 3 Python matrix</strong> (<code>ubuntu-latest</code>, <code>windows-latest</code>, <code>macos-latest</code> × Python <code>3.11</code>, <code>3.12</code>, <code>3.13</code>) to verify native font handling, path semantics, and headless rendering on every supported platform.</li>
+</ul>
+</li>
+</ol>
+<p>Next, explore Drawlib's 159-module test layout and dual-verification engine in <strong><a href="../07_test_architecture/01_test_hierarchy_and_strategy.html">Test Architecture: Hierarchy &amp; Strategy</a></strong>.</p>
 
             </main>
         </div>
@@ -387,8 +499,8 @@
                     if (e.key === 'Escape') {
                         langDropdowns.forEach(function(dd) {
                             dd.removeAttribute('open');
-                        });
-                    }
+                        }
+                    });
                 });
             }
 

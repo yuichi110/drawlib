@@ -25,21 +25,25 @@
         })();
     </script>
     
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     
-        <meta name="description" content="Drawlib provides a comprehensive suite of declarative drawing primitives (drawlib.shapes, lines, text, images, icons). Rather than requiring users to…">
+    
+    
+    <meta name="description" content="Drawlib exposes a declarative, center-anchored functional primitive layer (drawlib.shapes, lines, text, icons, images, and math) backed by _core/l4_canvas.…">
     <link rel="canonical" href="https://www.drawlib.com/architecture/en/03_domain_subsystems/01_primitives_and_backends.html">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Drawlib Architecture">
     <meta property="og:title" content="Drawing Primitives &amp; Graphics Backends — Drawlib Architecture">
-    <meta property="og:description" content="Drawlib provides a comprehensive suite of declarative drawing primitives (drawlib.shapes, lines, text, images, icons). Rather than requiring users to…">
+    <meta property="og:description" content="Drawlib exposes a declarative, center-anchored functional primitive layer (drawlib.shapes, lines, text, icons, images, and math) backed by _core/l4_canvas.…">
     <meta property="og:url" content="https://www.drawlib.com/architecture/en/03_domain_subsystems/01_primitives_and_backends.html">
     <meta property="og:image" content="https://www.drawlib.com/architecture/_assets/ogp.png">
     <meta property="og:locale" content="en_US">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Drawing Primitives &amp; Graphics Backends — Drawlib Architecture">
-    <meta name="twitter:description" content="Drawlib provides a comprehensive suite of declarative drawing primitives (drawlib.shapes, lines, text, images, icons). Rather than requiring users to…">
+    <meta name="twitter:description" content="Drawlib exposes a declarative, center-anchored functional primitive layer (drawlib.shapes, lines, text, icons, images, and math) backed by _core/l4_canvas.…">
     <meta name="twitter:image" content="https://www.drawlib.com/architecture/_assets/ogp.png">
-    
     
     
     <link rel="icon" type="image/png" href="../../_assets/favicon.png">
@@ -56,7 +60,8 @@
             <div class="sidebar-header">
                 <a href="../index.html" class="sidebar-brand" aria-label="Drawlib Architecture">
                     
-                    Drawlib Architecture
+                    <img src="../../_assets/logo.png" alt="Drawlib Architecture" class="sidebar-logo sidebar-logo-light">
+                    <img src="../../_assets/logo_dark.png" alt="Drawlib Architecture" class="sidebar-logo sidebar-logo-dark">
                     
                 </a>
                 <div class="sidebar-header-actions">
@@ -70,6 +75,15 @@
                     </button>
                 </div>
             </div>
+            <div class="sidebar-subbar">
+                <a href="https://www.drawlib.com/en/01_getting_started/release_notes.html" target="_blank" rel="noopener noreferrer" class="sidebar-version-badge" title="Architecture Specification · View Release Notes">
+                    <span class="sidebar-version-dot" aria-hidden="true"></span>
+                    <span class="sidebar-version-text">Architecture · v0.3.4</span>
+                </a>
+                <a href="https://github.com/yuichi110/drawlib" target="_blank" rel="noopener noreferrer" class="sidebar-github-link" aria-label="GitHub Repository" title="GitHub Repository">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+                </a>
+            </div>
             <div class="sidebar-menu">
                 
                     
@@ -82,6 +96,10 @@
                             
                             <li class="nav-item ">
                                 <a href="https://www.drawlib.com/" target="_blank" rel="noopener noreferrer">Official Docs<svg class="nav-external-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="https://examples.drawlib.com/" target="_blank" rel="noopener noreferrer">Examples Showcase<svg class="nav-external-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
                             </li>
                             
                         </ul>
@@ -137,6 +155,10 @@
                                 <a href="03_graph_autolayout.html" >Graph Auto-Layout</a>
                             </li>
                             
+                            <li class="nav-item ">
+                                <a href="04_animation_and_slide_engines.html" >Animation &amp; Slide Engines</a>
+                            </li>
+                            
                         </ul>
                     
                         
@@ -168,7 +190,7 @@
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../05_cli_and_runtime/02_preview_server.html" >Preview Server &amp; Tooling</a>
+                                <a href="../05_cli_and_runtime/02_preview_server.html" >Preview Server &amp; Assets</a>
                             </li>
                             
                         </ul>
@@ -213,7 +235,7 @@
         <div class="content-wrapper">
             <header class="top-bar">
                 <div class="breadcrumbs">
-                    <span class="crumb">Docs</span>
+                    <span class="crumb">Architecture</span>
                     <span class="crumb-separator">&raquo;</span>
                     <span class="crumb active">Drawing Primitives &amp; Graphics Backends</span>
                 </div>
@@ -221,11 +243,10 @@
             </header>
             <main class="main-content">
                 <h1>Drawing Primitives &amp; Graphics Backends</h1>
-<p>Drawlib provides a comprehensive suite of <strong>declarative drawing primitives</strong> (<code>drawlib.shapes</code>, <code>lines</code>, <code>text</code>, <code>images</code>, <code>icons</code>). Rather than requiring users to construct complex object-oriented scene graphs or manipulate raw canvas contexts, Drawlib exposes functional, declarative drawing commands with center-anchored geometry.</p>
-<p>This document details the mapping between public drawing primitives and the underlying Matplotlib backend, font discovery, and icon vector engines.</p>
+<p>Drawlib exposes a declarative, center-anchored <strong>functional primitive layer</strong> (<code>drawlib.shapes</code>, <code>lines</code>, <code>text</code>, <code>icons</code>, <code>images</code>, and <code>math</code>) backed by <code>_core/l4_canvas</code>. Instead of requiring manual Matplotlib figure/axes wiring or low-level scene-graph boilerplate, every primitive validates its <code>Style</code> token at the boundary, applies active <code>canvas.transform()</code> affine stacks, and emits exact vector or raster Matplotlib artists.</p>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="../../images/03_domain_subsystems/01_primitives_and_backends/primitives_architecture.png" alt="01_primitives_and_backends_1" />
-  <figcaption class="drawlib-caption">Drawing Primitives to Matplotlib Backend Mapping</figcaption>
+  <figcaption class="drawlib-caption">Public Drawing Primitive Facades, L4 Canvas Bridge & Matplotlib Artists</figcaption>
 </figure>
 <details class="drawlib-code-details">
 <summary>Source Code</summary>
@@ -236,152 +257,275 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">140</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">62</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">122</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">54</span><span class="p">)</span>
 
-<span class="n">rectangle</span><span class="p">((</span><span class="mi">70</span><span class="p">,</span> <span class="mi">31</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">136</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">58</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.5</span><span class="p">))</span>
-<span class="n">text</span><span class="p">(</span>
-    <span class="p">(</span><span class="mi">70</span><span class="p">,</span> <span class="mi">54</span><span class="p">),</span>
-    <span class="s2">"Drawing Primitives to Matplotlib Backend Mapping"</span><span class="p">,</span>
-    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">12.5</span><span class="p">),</span>
-<span class="p">)</span>
-
-<span class="c1"># 4 Primitive Categories on Top</span>
-<span class="n">primitives</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="s2">"shapes.*"</span><span class="p">,</span> <span class="s2">"rectangle, circle</span><span class="se">\n</span><span class="s2">polygon, cloud, star"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">shapes</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">53</span><span class="p">,</span> <span class="s2">"lines.*"</span><span class="p">,</span> <span class="s2">"line, curve, bezier</span><span class="se">\n</span><span class="s2">arrow heads, dashes"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">line_segments</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">87</span><span class="p">,</span> <span class="s2">"text.*"</span><span class="p">,</span> <span class="s2">"text(), typography</span><span class="se">\n</span><span class="s2">multiline, fonts"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">text_t</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">120</span><span class="p">,</span> <span class="s2">"icons.*"</span><span class="p">,</span> <span class="s2">"phosphor, gcp</span><span class="se">\n</span><span class="s2">vector SVG paths"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">sparkle</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">),</span>
+<span class="c1"># 1. Top Row: 5 Public Primitive Facades (Parallel Lanes, Zero Converging Pileups)</span>
+<span class="n">facades</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="mf">14.6</span><span class="p">,</span> <span class="s2">"shapes (43)"</span><span class="p">,</span> <span class="s2">"6 categories</span><span class="se">\n</span><span class="s2">PathPatch, Wedge"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">shapes</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">37.8</span><span class="p">,</span> <span class="s2">"lines (8)"</span><span class="p">,</span> <span class="s2">"Bezier &amp; arcs</span><span class="se">\n</span><span class="s2">FancyArrowPatch"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">line_segments</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">61.0</span><span class="p">,</span> <span class="s2">"text"</span><span class="p">,</span> <span class="s2">"TTF &amp; badges</span><span class="se">\n</span><span class="s2">Text artist"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">text_t</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">84.2</span><span class="p">,</span> <span class="s2">"icons (34)"</span><span class="p">,</span> <span class="s2">"Glyph + 33 PNG</span><span class="se">\n</span><span class="s2">Text / OffsetImage"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">sparkle</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">107.4</span><span class="p">,</span> <span class="s2">"images"</span><span class="p">,</span> <span class="s2">"Dimage &amp; code</span><span class="se">\n</span><span class="s2">AnnotationBbox"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">images</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">),</span>
 <span class="p">]</span>
 
-<span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">desc</span><span class="p">,</span> <span class="n">icon_func</span><span class="p">,</span> <span class="n">card_style</span><span class="p">,</span> <span class="n">icon_style</span> <span class="ow">in</span> <span class="n">primitives</span><span class="p">:</span>
-    <span class="n">rectangle</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="mi">37</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">28</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">card_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
-    <span class="n">icon_func</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="mf">8.5</span><span class="p">,</span> <span class="mf">43.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.4</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">icon_style</span><span class="p">)</span>
-    <span class="n">text</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="mf">4.5</span><span class="p">,</span> <span class="mf">43.5</span><span class="p">),</span> <span class="n">title</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">icon_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">9.2</span><span class="p">))</span>
-    <span class="n">text</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="mf">31.5</span><span class="p">),</span> <span class="n">desc</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.0</span><span class="p">))</span>
-    <span class="n">line</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="mi">26</span><span class="p">),</span> <span class="p">(</span><span class="mi">70</span><span class="p">,</span> <span class="mf">16.5</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedBold</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">cx</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">desc</span><span class="p">,</span> <span class="n">icon_fn</span><span class="p">,</span> <span class="n">card_style</span><span class="p">,</span> <span class="n">accent_style</span> <span class="ow">in</span> <span class="n">facades</span><span class="p">:</span>
+    <span class="n">rectangle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mf">41.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">21.2</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">19.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">card_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.8</span><span class="p">))</span>
+    <span class="n">icon_fn</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mf">47.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">accent_style</span><span class="p">)</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mf">41.8</span><span class="p">),</span> <span class="n">title</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">accent_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.8</span><span class="p">))</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mf">35.8</span><span class="p">),</span> <span class="n">desc</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+    <span class="n">line</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mf">31.5</span><span class="p">),</span> <span class="p">(</span><span class="n">cx</span><span class="p">,</span> <span class="mf">26.8</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
 
-<span class="c1"># Matplotlib Backend Bridge at Bottom</span>
-<span class="n">rectangle</span><span class="p">((</span><span class="mi">70</span><span class="p">,</span> <span class="mf">10.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.8</span><span class="p">))</span>
-<span class="n">phosphor</span><span class="o">.</span><span class="n">cpu</span><span class="p">((</span><span class="mi">14</span><span class="p">,</span> <span class="mf">10.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">)</span>
-<span class="n">text</span><span class="p">((</span><span class="mi">20</span><span class="p">,</span> <span class="mf">10.5</span><span class="p">),</span> <span class="s2">"Matplotlib Agg Backend Bridge (_core/l4_canvas)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">9.8</span><span class="p">))</span>
-<span class="n">text</span><span class="p">((</span><span class="mi">76</span><span class="p">,</span> <span class="mf">10.5</span><span class="p">),</span> <span class="s2">"FancyBboxPatch | PathPatch | TextPath | AxesImage"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">8.8</span><span class="p">))</span>
+<span class="c1"># 2. Middle Band: L4 Canvas Coordinate &amp; Transform Bridge</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mf">61.0</span><span class="p">,</span> <span class="mf">21.5</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mf">114.0</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">9.2</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.8</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"L4 Canvas Coordinate &amp; Transform Bridge (_core/l4_canvas) — Style Guard &amp; Affine Stack"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.8</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">line</span><span class="p">((</span><span class="mf">61.0</span><span class="p">,</span> <span class="mf">16.5</span><span class="p">),</span> <span class="p">(</span><span class="mf">61.0</span><span class="p">,</span> <span class="mf">12.2</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+
+<span class="c1"># 3. Bottom Band: Matplotlib Backend Artists &amp; Export Targets</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mf">61.0</span><span class="p">,</span> <span class="mf">7.0</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mf">114.0</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">9.2</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.8</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Matplotlib Backend Artists — Agg Raster (PNG / WebP) · Native &lt;text&gt; SVG · Vector PDF"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.8</span><span class="p">),</span>
+<span class="p">)</span>
 
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 </details>
 <hr />
-<h2>1. Concept: Functional Ergonomics over OOP Ceremony</h2>
-<p>Many graphics libraries require verbose object lifecycles:</p>
-<pre><code class="language-python"><span class="c1"># Traditional verbose OOP graphics (anti-pattern)</span>
-<span class="n">rect</span> <span class="o">=</span> <span class="n">Rectangle</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span> <span class="n">Width</span><span class="p">(</span><span class="mi">40</span><span class="p">),</span> <span class="n">Height</span><span class="p">(</span><span class="mi">20</span><span class="p">))</span>
-<span class="n">rect</span><span class="o">.</span><span class="n">setFill</span><span class="p">(</span><span class="n">Color</span><span class="o">.</span><span class="n">BLUE</span><span class="p">)</span>
-<span class="n">canvas</span><span class="o">.</span><span class="n">addShape</span><span class="p">(</span><span class="n">rect</span><span class="p">)</span>
-<span class="n">canvas</span><span class="o">.</span><span class="n">render</span><span class="p">()</span>
+<h2>1. Concept: Center-Anchored Declarative Primitives</h2>
+<p>All low-level drawing commands (<code>shapes</code>, <code>text</code>, <code>icons</code>, <code>images</code>) default to <strong>center-anchored Cartesian placement <code>(cx, cy)</code></strong> (<code>halign=&quot;center&quot;</code>, <code>valign=&quot;center&quot;</code>), combining geometry, stroke/fill styling, rotation (<code>angle</code>), and embedded text alignment in a single call:</p>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+
+<span class="c1"># Draws a rounded card centered at (30, 25) with auto-aligned label typography</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">36</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Auth Gateway"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">),</span>
+<span class="p">)</span>
 </code></pre>
-<p>Drawlib adopts a clean <strong>functional, declarative API</strong>:</p>
-<pre><code class="language-python"><span class="c1"># Drawlib declarative primitive</span>
-<span class="n">rectangle</span><span class="p">((</span><span class="mi">30</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"Service"</span><span class="p">)</span>
-</code></pre>
-<ul>
-<li>Coordinates describe the shape directly in Cartesian space.</li>
-<li>Shape creation, styling, border styling, label text placement, and font sizing are achieved in a single cohesive function call.</li>
-<li>Text labels embedded within shapes automatically compute vertical and horizontal alignment offsets.</li>
-</ul>
 <hr />
-<h2>2. Positioning: Primitive Subsystems</h2>
-<p>The primitives layer sits directly between <code>_core/l4_canvas</code> and the higher-level domain components:</p>
+<h2>2. Positioning: The Six Primitive &amp; Asset Subsystems</h2>
+<h3>2.1. <code>drawlib.shapes</code> (43 Shape Primitives Across 6 Categories)</h3>
+<p><code>src/drawlib/shapes.py</code> re-exports <strong>43 shape functions</strong> implemented in <code>_core/l4_canvas/_shapes/</code>:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Category</th>
+<th style="text-align:center">Count</th>
+<th style="text-align:left">Public Shape Functions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Basic</strong></td>
+<td style="text-align:center"><code>6</code></td>
+<td style="text-align:left"><code>rectangle</code>, <code>circle</code> (supports <code>hole_ratio</code> for rings/donuts), <code>ellipse</code>, <code>wedge</code>, <code>fan</code>, <code>arc</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Polygon</strong></td>
+<td style="text-align:center"><code>9</code></td>
+<td style="text-align:left"><code>triangle</code>, <code>parallelogram</code>, <code>trapezoid</code>, <code>rhombus</code>, <code>regularpolygon</code>, <code>star</code>, <code>plaque</code>, <code>polygon</code>, <code>shape</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Arrow</strong></td>
+<td style="text-align:center"><code>6</code></td>
+<td style="text-align:left"><code>arrow</code>, <code>arrow_l</code>, <code>arrow_u</code>, <code>arrow_arc</code>, <code>arrow_polyline</code>, <code>chevron</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Container</strong></td>
+<td style="text-align:center"><code>6</code></td>
+<td style="text-align:left"><code>cylinder</code>, <code>cube</code>, <code>document</code>, <code>funnel</code>, <code>cloud</code>, <code>brace</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Badge</strong></td>
+<td style="text-align:center"><code>8</code></td>
+<td style="text-align:left"><code>bubblespeech</code>, <code>pin</code>, <code>tag</code>, <code>ribbon</code>, <code>shield</code>, <code>forbidden</code>, <code>checkmark</code>, <code>explosion</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Symbol</strong></td>
+<td style="text-align:center"><code>8</code></td>
+<td style="text-align:left"><code>face</code>, <code>clock</code>, <code>sun</code>, <code>moon</code>, <code>heart</code>, <code>lightning</code>, <code>gear</code>, <code>math_symbol</code></td>
+</tr>
+</tbody>
+</table>
+<h3>2.2. <code>drawlib.lines</code> (8 Functions) &amp; <code>drawlib.math</code></h3>
 <ul>
-<li><strong><code>drawlib.shapes</code> (23 Primitives)</strong>:
+<li><strong><code>drawlib.lines</code></strong>: Provides <strong>8 stroke and spline primitives</strong>: <code>line</code>, <code>lines</code>, <code>line_curved</code>, <code>lines_curved</code>, <code>line_bezier1</code>, <code>line_bezier2</code>, <code>lines_bezier</code>, and <code>line_arc</code>. Supports <code>LineStyle</code> (<code>&quot;solid&quot;</code>, <code>&quot;dashed&quot;</code>, <code>&quot;dotted&quot;</code>, <code>&quot;dashdot&quot;</code>) and <code>ArrowHead</code> (<code>&quot;&quot;</code>, <code>&quot;-&gt;&quot;</code>, <code>&quot;&lt;-&quot;</code>, <code>&quot;&lt;-&gt;&quot;</code>).</li>
+<li><strong><code>drawlib.math</code> (<code>_core/l3_math</code>)</strong>: Pure-Python analytical geometry helpers used across primitives, diagrams, and animations (<code>compute_orthogonal_path</code>, <code>rotate_point</code>, <code>get_rotated_points</code>, <code>get_rotated_path_points</code>, <code>get_point_on_ellipse</code>, <code>get_intermediate_point</code>, <code>get_intermediate_path_points</code>, <code>get_angle</code>, <code>get_distance</code>).</li>
+</ul>
+<h3>2.3. <code>drawlib.text</code> &amp; <code>drawlib.images</code> (<code>Dimage</code>)</h3>
 <ul>
-<li>Basic: <code>rectangle()</code>, <code>circle()</code>, <code>ellipse()</code>, <code>donut()</code>, <code>wedge()</code>.</li>
-<li>Polygons: <code>regular_polygon()</code>, <code>polygon()</code>, <code>star()</code>, <code>trapezoid()</code>, <code>parallelogram()</code>.</li>
-<li>Domain Callouts: <code>cloud()</code>, <code>speech_bubble()</code>, <code>cylinder()</code>, <code>cube()</code>.</li>
-<li>Backend translation: Converted to Matplotlib <code>PathPatch</code> via cubic Bezier spline approximation.</li>
+<li><strong><code>drawlib.text</code></strong>: Exposes <code>text()</code> and <code>text_vertical()</code>, supporting multi-line spacing (<code>text_line_spacing</code>), optional background badge boxes (<code>text_bg_*</code>), arbitrary rotation, and native <code>&lt;text&gt;</code> preservation (<code>matplotlib.rcParams[&quot;svg.fonttype&quot;] = &quot;none&quot;</code>) in SVG builds.</li>
+<li><strong><code>drawlib.images</code></strong>:
+<ul>
+<li><code>image(xy, width, image, *, style=None)</code>: Places file paths, <code>PIL.Image.Image</code> buffers, or <code>Dimage</code> objects while preserving aspect ratio, optional <code>image_tint_color</code>, and optional border frames (<code>image_border_*</code>).</li>
+<li><code>Dimage</code> (<code>_core/l3_images</code>): Immutable Pillow image wrapper offering chainable non-destructive operations (<code>.resize()</code>, <code>.crop()</code>, <code>.trim()</code>, <code>.mirror()</code>, <code>.flip()</code>, <code>.fill()</code>, <code>.grayscale()</code>, <code>.colorize()</code>, <code>.invert()</code>, <code>.mosaic()</code>, <code>.blur()</code>, <code>.brightness()</code>, <code>.contrast()</code>, <code>.sepia()</code>, <code>.round_corners()</code>, <code>.circle()</code>, <code>.add_margin()</code>).</li>
+<li><code>get_dimage_from_code()</code>: Executes Drawlib Python code in an isolated child canvas and returns the rendered result as an in-memory <code>Dimage</code> for nested composition.</li>
 </ul>
 </li>
-<li><strong><code>drawlib.lines</code></strong>:
+</ul>
+<h3>2.4. <code>drawlib.icons</code> (34 Suites) &amp; <code>drawlib.fonts</code> (46 Font Packs)</h3>
+<p><code>drawlib.icons</code> exposes <strong>34 icon suites</strong> lazily via PEP 562 <code>__getattr__</code> and a custom <code>sys.meta_path</code> importer (<code>_IconsSubmoduleFinder</code> / <code>_IconsSubmoduleLoader</code>), ensuring zero import overhead for unused suites:</p>
+<ol>
+<li><strong>Vector Font Icons (<code>FontIconProvider</code>)</strong>: <code>phosphor</code> provides <strong>1,512</strong> canonical Unicode icon glyphs (plus convenience aliases) across <strong>5 TTF font weights</strong> (<code>thin</code>, <code>light</code>, <code>regular</code>, <code>bold</code>, <code>fill</code>), compiled from <code>phosphor_data.json</code> via <code>./dcli codegen icon-phosphor</code> and rendered via <code>font_icon()</code> -&gt; <code>canvas.text()</code>.</li>
+<li><strong>Raster Icon Suites (<code>PngIconProvider</code> — 33 Suites)</strong>:
 <ul>
-<li><code>line()</code>, <code>lines()</code>, <code>curve()</code>, <code>bezier()</code>.</li>
-<li>Supports stroke styles (<code>solid</code>, <code>dashed</code>, <code>dotted</code>), line caps, and directional arrowheads (<code>-&gt;</code>, <code>&lt;-</code>, <code>&lt;-&gt;</code>, <code>|-|</code>).</li>
+<li><strong>3 Cloud Provider Suites</strong>: <code>gcp</code>, <code>aws</code>, <code>azure</code>.</li>
+<li><strong>15 Tintable Monochrome Domain Suites</strong>: <code>ai</code>, <code>business</code>, <code>client</code>, <code>cloud</code>, <code>cnative</code>, <code>code</code>, <code>data</code>, <code>devops</code>, <code>facility</code>, <code>itservice</code>, <code>network</code>, <code>security</code>, <code>server</code>, <code>social</code>, <code>workspace</code>.</li>
+<li><strong>15 Multi-Color Flat Suites</strong>: <code>original_ai</code> through <code>original_workspace</code>.</li>
 </ul>
 </li>
-<li><strong><code>drawlib.text</code></strong>:
-<ul>
-<li>TrueType typography rendering with automatic font discovery (<code>FontFile</code>, Google Fonts cache).</li>
-<li>Handles line breaks, vertical and horizontal anchor alignments, and bounding box measurement.</li>
-</ul>
-</li>
-<li><strong><code>drawlib.icons</code> &amp; <code>images</code></strong>:
-<ul>
-<li>Phosphor vector icons and Google Cloud Platform architecture icons.</li>
-<li>Bitmap image placement with automatic aspect-ratio preservation.</li>
-</ul>
-</li>
-</ul>
+<li><strong>Multilingual Typography (<code>drawlib.fonts</code>)</strong>: <strong>46 TrueType/OpenType font packages</strong> (<code>Font</code>, <code>FontSansSerif</code>, <code>FontSerif</code>, <code>FontMonoSpace</code>, <code>FontRoboto</code>, <code>FontSourceCode</code>, <code>FontArabic</code>, <code>FontBrahmic</code>, <code>FontChinese</code>, <code>FontJapanese</code>, <code>FontKorean</code>, <code>FontThai</code>) plus custom local <code>FontFile</code> support.</li>
+</ol>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="../../images/03_domain_subsystems/01_primitives_and_backends/icon_font_subsystem.png" alt="01_primitives_and_backends_2" />
-  <figcaption class="drawlib-caption">External Fonts & Icon Assets Subsystem</figcaption>
+  <figcaption class="drawlib-caption">Dual Font/PNG Asset Architecture & GitHub Releases Cache Delivery</figcaption>
 </figure>
 <details class="drawlib-code-details">
 <summary>Source Code</summary>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.diagrams.architecture</span><span class="w"> </span><span class="kn">import</span> <span class="n">ArchitectureDiagram</span><span class="p">,</span> <span class="n">Node</span><span class="p">,</span> <span class="n">NodeGroup</span><span class="p">,</span> <span class="n">PhosphorIcon</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">140</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">56</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">120</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">56</span><span class="p">)</span>
 
-<span class="n">rectangle</span><span class="p">((</span><span class="mi">70</span><span class="p">,</span> <span class="mi">28</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">136</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">52</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.5</span><span class="p">))</span>
-<span class="n">text</span><span class="p">(</span>
-    <span class="p">(</span><span class="mi">70</span><span class="p">,</span> <span class="mf">48.5</span><span class="p">),</span>
-    <span class="s2">"External Fonts &amp; Icon Assets Subsystem"</span><span class="p">,</span>
-    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">12.2</span><span class="p">),</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">ArchitectureDiagram</span><span class="p">(</span>
+    <span class="n">node_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">,</span>
+    <span class="n">node_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.2</span><span class="p">),</span>
+    <span class="n">edge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+    <span class="n">edge_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">node_card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
 <span class="p">)</span>
 
-<span class="n">cards</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="p">(</span><span class="mf">18.5</span><span class="p">,</span> <span class="s2">"1. Phosphor Vectors"</span><span class="p">,</span> <span class="s2">"phosphor_data.json</span><span class="se">\n</span><span class="s2">Pure vector paths"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">sparkle</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">),</span>
-    <span class="p">(</span><span class="mf">52.5</span><span class="p">,</span> <span class="s2">"2. Cloud Icons"</span><span class="p">,</span> <span class="s2">"GCP &amp; AWS icons</span><span class="se">\n</span><span class="s2">High-DPI rasters"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">cloud</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">),</span>
-    <span class="p">(</span><span class="mf">86.5</span><span class="p">,</span> <span class="s2">"3. Google Fonts"</span><span class="p">,</span> <span class="s2">"Roboto, Inter, Noto</span><span class="se">\n</span><span class="s2">Auto TTF download"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">text_t</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">),</span>
-    <span class="p">(</span><span class="mf">120.5</span><span class="p">,</span> <span class="s2">"4. Local Assets"</span><span class="p">,</span> <span class="s2">"project/_assets/</span><span class="se">\n</span><span class="s2">Logos &amp; brand TTFs"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">folder</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">),</span>
-<span class="p">]</span>
+<span class="c1"># 1. Left Group: External Release Asset Delivery</span>
+<span class="n">delivery</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">NodeGroup</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">"L3 External Asset Delivery"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">34.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">50.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">gh_rel</span> <span class="o">=</span> <span class="n">delivery</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span>
+        <span class="s2">"GitHub Releases (v0.3)</span><span class="se">\n</span><span class="s2">83 SHA-256 .zip Packs"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mf">29.0</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mf">16.0</span><span class="p">,</span>
+        <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">PACKAGE</span><span class="p">,</span>
+        <span class="n">icon_size</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span>
+        <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">17.0</span><span class="p">,</span> <span class="mf">34.5</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">cached_dir</span> <span class="o">=</span> <span class="n">delivery</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span>
+        <span class="s2">"_cached_assets/</span><span class="se">\n</span><span class="s2">fonts · fonticons · icons"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mf">29.0</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mf">16.0</span><span class="p">,</span>
+        <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">FOLDER_OPEN</span><span class="p">,</span>
+        <span class="n">icon_size</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span>
+        <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">17.0</span><span class="p">,</span> <span class="mf">11.5</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">gh_rel</span><span class="p">,</span> <span class="n">cached_dir</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
 
-<span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">desc</span><span class="p">,</span> <span class="n">icon_func</span><span class="p">,</span> <span class="n">card_style</span><span class="p">,</span> <span class="n">icon_style</span> <span class="ow">in</span> <span class="n">cards</span><span class="p">:</span>
-    <span class="n">rectangle</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="mi">23</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">28</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">31</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">card_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.8</span><span class="p">))</span>
-    <span class="n">icon_func</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="mf">9.5</span><span class="p">,</span> <span class="mi">33</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.4</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">icon_style</span><span class="p">)</span>
-    <span class="n">text</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="mf">5.5</span><span class="p">,</span> <span class="mi">33</span><span class="p">),</span> <span class="n">title</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">icon_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">9.0</span><span class="p">))</span>
-    <span class="n">sub_style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">White</span> <span class="k">if</span> <span class="n">card_style</span> <span class="o">==</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span>
-    <span class="n">text</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="mi">18</span><span class="p">),</span> <span class="n">desc</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">sub_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.2</span><span class="p">))</span>
+<span class="c1"># 2. Middle Group: Dual Icon &amp; Font Providers</span>
+<span class="n">providers</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">NodeGroup</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">"Dual Provider Layer"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">38.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">50.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">42.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">font_prov</span> <span class="o">=</span> <span class="n">providers</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span>
+        <span class="s2">"FontIconProvider &amp; l3_fonts</span><span class="se">\n</span><span class="s2">1,512 Phosphor + 46 TTF"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mf">33.0</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mf">16.0</span><span class="p">,</span>
+        <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">TEXT_T</span><span class="p">,</span>
+        <span class="n">icon_size</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span>
+        <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">19.0</span><span class="p">,</span> <span class="mf">34.5</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">png_prov</span> <span class="o">=</span> <span class="n">providers</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span>
+        <span class="s2">"PngIconProvider</span><span class="se">\n</span><span class="s2">33 Cloud &amp; Domain Suites"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mf">33.0</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mf">16.0</span><span class="p">,</span>
+        <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">IMAGES</span><span class="p">,</span>
+        <span class="n">icon_size</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">,</span>
+        <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">19.0</span><span class="p">,</span> <span class="mf">11.5</span><span class="p">),</span>
+<span class="p">)</span>
 
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
-    <span class="n">x_from</span> <span class="o">=</span> <span class="n">cards</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mf">14.0</span>
-    <span class="n">x_to</span> <span class="o">=</span> <span class="n">cards</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mf">14.0</span>
-    <span class="n">line</span><span class="p">((</span><span class="n">x_from</span><span class="p">,</span> <span class="mi">23</span><span class="p">),</span> <span class="p">(</span><span class="n">x_to</span><span class="p">,</span> <span class="mi">23</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+<span class="c1"># 3. Right Group: L4 Matplotlib Artists</span>
+<span class="n">artists</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">NodeGroup</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">"L4 Matplotlib Artists"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">32.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">50.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">86.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">text_art</span> <span class="o">=</span> <span class="n">artists</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span>
+        <span class="s2">"canvas.text()</span><span class="se">\n</span><span class="s2">Vector Text Artist"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mf">27.0</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mf">16.0</span><span class="p">,</span>
+        <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">SPARKLE</span><span class="p">,</span>
+        <span class="n">icon_size</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">,</span>
+        <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.2</span><span class="p">),</span>
+        <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">16.0</span><span class="p">,</span> <span class="mf">34.5</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">img_art</span> <span class="o">=</span> <span class="n">artists</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span>
+        <span class="s2">"canvas.image()</span><span class="se">\n</span><span class="s2">AnnotationBbox"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mf">27.0</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mf">16.0</span><span class="p">,</span>
+        <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">CPU</span><span class="p">,</span>
+        <span class="n">icon_size</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span>
+        <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">16.0</span><span class="p">,</span> <span class="mf">11.5</span><span class="p">),</span>
+<span class="p">)</span>
 
+<span class="n">bus_bottom</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">junction</span><span class="p">((</span><span class="mf">39.0</span><span class="p">,</span> <span class="mf">14.5</span><span class="p">))</span>
+<span class="n">bus_top</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">junction</span><span class="p">((</span><span class="mf">39.0</span><span class="p">,</span> <span class="mf">37.5</span><span class="p">))</span>
+<span class="n">d</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">cached_dir</span><span class="p">,</span> <span class="n">bus_bottom</span><span class="p">,</span> <span class="n">arrow</span><span class="o">=</span><span class="s2">"-"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="p">(</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">))</span>
+<span class="n">d</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">bus_bottom</span><span class="p">,</span> <span class="n">bus_top</span><span class="p">,</span> <span class="n">arrow</span><span class="o">=</span><span class="s2">"-"</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">bus_top</span><span class="p">,</span> <span class="n">font_prov</span><span class="p">,</span> <span class="n">arrow</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">))</span>
+<span class="n">d</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">bus_bottom</span><span class="p">,</span> <span class="n">png_prov</span><span class="p">,</span> <span class="n">arrow</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">))</span>
+<span class="n">d</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">font_prov</span><span class="p">,</span> <span class="n">text_art</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">png_prov</span><span class="p">,</span> <span class="n">img_art</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+
+<span class="n">d</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">60.0</span><span class="p">,</span> <span class="mf">28.0</span><span class="p">),</span> <span class="n">align</span><span class="o">=</span><span class="s2">"center"</span><span class="p">)</span>
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 </details>
 <hr />
-<h2>3. Details: Geometry Calculation &amp; Asset Compilation</h2>
-<h3>3.1. Corner Radius &amp; Path Generation</h3>
-<p>Rounded rectangles in Drawlib do not simply clip a raster buffer. Instead, <code>_core/l3_math</code> computes exact quarter-circle cubic Bezier arcs:</p>
+<h2>3. Details: Backend Artist Mapping &amp; Verified Asset Packaging</h2>
+<h3>3.1. Exact Matplotlib Artist Translation (<code>_core/l4_canvas</code>)</h3>
+<p><code>_core/l4_canvas</code> translates Drawlib primitives into specific <code>matplotlib</code> artist classes (never relying on <code>FancyBboxPatch</code>, <code>TextPath</code>, or raw <code>AxesImage</code> stretches):</p>
 <ul>
-<li>The parameter <code>shape_r</code> defines the corner radius in virtual canvas units.</li>
-<li>Straight edge segments connect the tangent endpoints of the four corner arcs, generating a closed Matplotlib <code>matplotlib.path.Path</code>.</li>
+<li><strong>Shapes (<code>_shapes/</code>)</strong>: Rounded polygons, compound cutout rings (<code>hole_ratio</code> with opposite winding subpaths), and callouts build exact <code>matplotlib.path.Path</code> Bezier splines wrapped in <strong><code>PathPatch</code></strong>, alongside native <strong><code>Polygon</code></strong>, <strong><code>Circle</code></strong>, <strong><code>Ellipse</code></strong>, <strong><code>RegularPolygon</code></strong>, <strong><code>Wedge</code></strong>, and <strong><code>Arc</code></strong> patches.</li>
+<li><strong>Lines &amp; Arrows (<code>_line.py</code>)</strong>: All straight, curved, arc, and Bezier paths render through <strong><code>FancyArrowPatch</code></strong> configured with <code>Path</code> vertices, <code>ConnectionStyle</code>, and proportional <code>mutation_scale</code>.</li>
+<li><strong>Typography &amp; Font Icons (<code>_text.py</code>, <code>_font_icon.py</code>)</strong>: Both <code>text()</code> and <code>font_icon()</code> resolve TrueType files into <code>FontProperties</code> and append <strong><code>matplotlib.text.Text</code></strong> artists so text and Phosphor glyphs remain infinitely sharp in PDF and SVG exports.</li>
+<li><strong>Raster Images &amp; PNG Icons (<code>_image.py</code>)</strong>: <code>Dimage</code> buffers convert to RGBA NumPy arrays wrapped inside <strong><code>matplotlib.offsetbox.OffsetImage</code></strong> and <strong><code>AnnotationBbox(..., frameon=False)</code></strong> with zoom calibrated to exact canvas units.</li>
 </ul>
-<h3>3.2. Vector Icon Code Generation (<code>./dcli codegen</code>)</h3>
-<p>Drawlib embeds over 1,200 Phosphor vector icons directly into the library:</p>
-<ul>
-<li>Raw SVG path definitions are compiled from <code>phosphor_data.json</code> into optimized Python methods via <code>./dcli codegen icon-phosphor</code>.</li>
-<li>Because paths are pure vector mathematics, Phosphor icons scale infinitely without pixelation or artifacting in PDF exports.</li>
-</ul>
-<h3>3.3. Font File Discovery &amp; Caching</h3>
-<p>When a diagram requests a font family:</p>
+<h3>3.2. Deterministic GitHub Release Assets (<code>_core/l3_external</code>)</h3>
+<p>To keep the PyPI wheel compact while supporting 46 multilingual fonts, 34 icon suites, and 3 <code>GeoMap</code> datasets (<strong>83 packages total</strong> declared in <code>src/drawlib/_release_assets.py</code>):</p>
 <ol>
-<li><code>_core/l3_fonts</code> checks the local project directory (<code>_assets/*.ttf</code>).</li>
-<li>If not found locally, it checks the pre-downloaded user cache directory (<code>~/.cache/drawlib/fonts/</code>).</li>
-<li>If still missing, Drawlib fetches the open-source TrueType font from Google Fonts and caches it locally.</li>
+<li><code>./dcli release-assets build</code> packs each asset suite via <code>create_deterministic_zip_bytes()</code> (normalizing file order, permissions, and timestamps) and records its cryptographic <code>archive_sha256</code> in <code>ReleaseAssetPackage</code>.</li>
+<li>At runtime (or ahead of time via <code>uv run drawlib cache download --all</code>), <code>ReleaseAssetPackage.download_and_extract()</code> downloads the <code>.zip</code> archive from <strong>GitHub Releases (<code>tag=&quot;v0.3&quot;</code>)</strong>, verifies the <strong>SHA-256 digest</strong> in memory before touching disk, and extracts the files into <code>drawlib._cached_assets/{fonts,fonticons,icons,maps}/</code>.</li>
 </ol>
 <p>Next, explore how these primitives compose into <strong><a href="02_high_level_components.html">High-Level Components</a></strong>.</p>
 
@@ -416,8 +560,8 @@
                     if (e.key === 'Escape') {
                         langDropdowns.forEach(function(dd) {
                             dd.removeAttribute('open');
-                        });
-                    }
+                        }
+                    });
                 });
             }
 

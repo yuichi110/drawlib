@@ -13,7 +13,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Multi-Target Exporters (HTML, Markdown, PDF, Word &amp; PowerPoint)</title>
+    <title>Multi-Target Exporters (HTML, Slide, PDF, Word, PowerPoint &amp; Markdown)</title>
     <script>
         (function() {
             const saved = localStorage.getItem('drawlib-theme');
@@ -25,21 +25,25 @@
         })();
     </script>
     
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     
-        <meta name="description" content="A core requirement of enterprise technical documentation is multi-format versatility. Engineers read documentation on GitHub repositories, architects study…">
+    
+    
+    <meta name="description" content="Enterprise engineering teams consume technical knowledge across fundamentally different mediums: interactive documentation portals, 16:9 architecture review…">
     <link rel="canonical" href="https://www.drawlib.com/architecture/en/04_doc_builder_and_compiler/02_multi_target_exporters.html">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Drawlib Architecture">
-    <meta property="og:title" content="Multi-Target Exporters (HTML, Markdown, PDF, Word &amp; PowerPoint) — Drawlib Architecture">
-    <meta property="og:description" content="A core requirement of enterprise technical documentation is multi-format versatility. Engineers read documentation on GitHub repositories, architects study…">
+    <meta property="og:title" content="Multi-Target Exporters (HTML, Slide, PDF, Word, PowerPoint &amp; Markdown) — Drawlib Architecture">
+    <meta property="og:description" content="Enterprise engineering teams consume technical knowledge across fundamentally different mediums: interactive documentation portals, 16:9 architecture review…">
     <meta property="og:url" content="https://www.drawlib.com/architecture/en/04_doc_builder_and_compiler/02_multi_target_exporters.html">
     <meta property="og:image" content="https://www.drawlib.com/architecture/_assets/ogp.png">
     <meta property="og:locale" content="en_US">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Multi-Target Exporters (HTML, Markdown, PDF, Word &amp; PowerPoint) — Drawlib Architecture">
-    <meta name="twitter:description" content="A core requirement of enterprise technical documentation is multi-format versatility. Engineers read documentation on GitHub repositories, architects study…">
+    <meta name="twitter:title" content="Multi-Target Exporters (HTML, Slide, PDF, Word, PowerPoint &amp; Markdown) — Drawlib Architecture">
+    <meta name="twitter:description" content="Enterprise engineering teams consume technical knowledge across fundamentally different mediums: interactive documentation portals, 16:9 architecture review…">
     <meta name="twitter:image" content="https://www.drawlib.com/architecture/_assets/ogp.png">
-    
     
     
     <link rel="icon" type="image/png" href="../../_assets/favicon.png">
@@ -56,7 +60,8 @@
             <div class="sidebar-header">
                 <a href="../index.html" class="sidebar-brand" aria-label="Drawlib Architecture">
                     
-                    Drawlib Architecture
+                    <img src="../../_assets/logo.png" alt="Drawlib Architecture" class="sidebar-logo sidebar-logo-light">
+                    <img src="../../_assets/logo_dark.png" alt="Drawlib Architecture" class="sidebar-logo sidebar-logo-dark">
                     
                 </a>
                 <div class="sidebar-header-actions">
@@ -70,6 +75,15 @@
                     </button>
                 </div>
             </div>
+            <div class="sidebar-subbar">
+                <a href="https://www.drawlib.com/en/01_getting_started/release_notes.html" target="_blank" rel="noopener noreferrer" class="sidebar-version-badge" title="Architecture Specification · View Release Notes">
+                    <span class="sidebar-version-dot" aria-hidden="true"></span>
+                    <span class="sidebar-version-text">Architecture · v0.3.4</span>
+                </a>
+                <a href="https://github.com/yuichi110/drawlib" target="_blank" rel="noopener noreferrer" class="sidebar-github-link" aria-label="GitHub Repository" title="GitHub Repository">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+                </a>
+            </div>
             <div class="sidebar-menu">
                 
                     
@@ -82,6 +96,10 @@
                             
                             <li class="nav-item ">
                                 <a href="https://www.drawlib.com/" target="_blank" rel="noopener noreferrer">Official Docs<svg class="nav-external-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="https://examples.drawlib.com/" target="_blank" rel="noopener noreferrer">Examples Showcase<svg class="nav-external-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
                             </li>
                             
                         </ul>
@@ -137,6 +155,10 @@
                                 <a href="../03_domain_subsystems/03_graph_autolayout.html" >Graph Auto-Layout</a>
                             </li>
                             
+                            <li class="nav-item ">
+                                <a href="../03_domain_subsystems/04_animation_and_slide_engines.html" >Animation &amp; Slide Engines</a>
+                            </li>
+                            
                         </ul>
                     
                         
@@ -168,7 +190,7 @@
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../05_cli_and_runtime/02_preview_server.html" >Preview Server &amp; Tooling</a>
+                                <a href="../05_cli_and_runtime/02_preview_server.html" >Preview Server &amp; Assets</a>
                             </li>
                             
                         </ul>
@@ -213,201 +235,365 @@
         <div class="content-wrapper">
             <header class="top-bar">
                 <div class="breadcrumbs">
-                    <span class="crumb">Docs</span>
+                    <span class="crumb">Architecture</span>
                     <span class="crumb-separator">&raquo;</span>
-                    <span class="crumb active">Multi-Target Exporters (HTML, Markdown, PDF, Word &amp; PowerPoint)</span>
+                    <span class="crumb active">Multi-Target Exporters (HTML, Slide, PDF, Word, PowerPoint &amp; Markdown)</span>
                 </div>
                 
             </header>
             <main class="main-content">
-                <h1>Multi-Target Exporters (HTML, Markdown, PDF, Word &amp; PowerPoint)</h1>
-<p>A core requirement of enterprise technical documentation is multi-format versatility. Engineers read documentation on GitHub repositories, architects study polished documentation websites, compliance teams require immutable vector PDFs for RFCs and audits, and stakeholders review editable Microsoft Word (<code>.docx</code>) documents and 16:9 PowerPoint (<code>.pptx</code>) decks.</p>
-<p>Drawlib's builder (<code>_builder/doc_builder/</code> and <code>_slide/</code>) provides <strong>Multi-Target Compilation</strong>: a single source Markdown directory (<code>*_src/</code>) compiles simultaneously into an interactive web portal (<code>*_html/</code>), clean GitHub Flavored Markdown (<code>*_markdown/</code>), a print-ready vector PDF (<code>*.pdf</code>), a native editable MS Word document (<code>*.docx</code>), and a 16:9 MS PowerPoint presentation (<code>*.pptx</code>).</p>
+                <h1>Multi-Target Exporters (HTML, Slide, PDF, Word, PowerPoint &amp; Markdown)</h1>
+<p>Enterprise engineering teams consume technical knowledge across fundamentally different mediums: interactive documentation portals, 16:9 architecture review decks, print-ready vector PDFs for compliance and RFCs, editable Microsoft Word (<code>.docx</code>) and PowerPoint (<code>.pptx</code>) deliverables for stakeholder collaboration, and GitHub Flavored Markdown (<code>GFM</code>) inside source repositories.</p>
+<p>Drawlib's compiler layer (<code>_builder/doc_builder/</code>, <code>_slide/</code>, <code>_builder/_common/</code>, and <code>_templates/_css.py</code>) implements <strong>Single-Source Multi-Target Compilation</strong>: one declarative project directory (<code>*_src/</code> + <code>drawlib.toml</code>) compiles into <strong>six distinct deliverables</strong> while sharing a single SQLite diagram cache (<code>.drawlib/cache.db</code>).</p>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="../../images/04_doc_builder_and_compiler/02_multi_target_exporters/multi_target_exporters.png" alt="02_multi_target_exporters_1" />
-  <figcaption class="drawlib-caption">Multi-Target Document and Slide Compilation Architecture</figcaption>
+  <figcaption class="drawlib-caption">Single-Source Multi-Target Compilation into Six Deliverables</figcaption>
 </figure>
 <details class="drawlib-code-details">
 <summary>Source Code</summary>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.diagrams.architecture</span><span class="w"> </span><span class="kn">import</span> <span class="n">ArchitectureDiagram</span><span class="p">,</span> <span class="n">Node</span><span class="p">,</span> <span class="n">PhosphorIcon</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">142</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">78</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">126</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">62</span><span class="p">)</span>
 
-<span class="n">rectangle</span><span class="p">((</span><span class="mi">71</span><span class="p">,</span> <span class="mi">39</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">136</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">72</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.5</span><span class="p">))</span>
-<span class="n">text</span><span class="p">(</span>
-    <span class="p">(</span><span class="mi">71</span><span class="p">,</span> <span class="mf">69.5</span><span class="p">),</span>
-    <span class="s2">"Multi-Target Document &amp; Slide Compilation Architecture"</span><span class="p">,</span>
-    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">12.5</span><span class="p">),</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">ArchitectureDiagram</span><span class="p">(</span>
+    <span class="n">node_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">,</span>
+    <span class="n">node_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="n">edge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+    <span class="n">edge_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">node_card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.6</span><span class="p">),</span>
 <span class="p">)</span>
 
-<span class="c1"># Root AST Node (Left)</span>
-<span class="n">rectangle</span><span class="p">((</span><span class="mi">26</span><span class="p">,</span> <span class="mf">35.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">38</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">44</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.8</span><span class="p">))</span>
-<span class="n">phosphor</span><span class="o">.</span><span class="n">file_code</span><span class="p">((</span><span class="mf">11.5</span><span class="p">,</span> <span class="mf">51.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.4</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
-<span class="n">text</span><span class="p">((</span><span class="mf">15.5</span><span class="p">,</span> <span class="mf">51.0</span><span class="p">),</span> <span class="s2">"Source AST"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">))</span>
-<span class="n">text</span><span class="p">(</span>
-    <span class="p">(</span><span class="mi">26</span><span class="p">,</span> <span class="mf">30.5</span><span class="p">),</span>
-    <span class="s2">"• Token stream</span><span class="se">\n</span><span class="s2">• Rendered diagrams</span><span class="se">\n</span><span class="s2">• Heading anchors</span><span class="se">\n</span><span class="s2">• ::: block / ::: note</span><span class="se">\n</span><span class="s2">• navbar.md tree"</span><span class="p">,</span>
-    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+<span class="n">src</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span>
+        <span class="s2">"Source (*_src/)</span><span class="se">\n</span><span class="s2">MD + drawlib.toml"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mi">26</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mi">19</span><span class="p">,</span>
+        <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">FILE_CODE</span><span class="p">,</span>
+        <span class="n">icon_size</span><span class="o">=</span><span class="mf">4.8</span><span class="p">,</span>
+        <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.6</span><span class="p">),</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">13.5</span><span class="p">,</span> <span class="mf">28.0</span><span class="p">),</span>
 <span class="p">)</span>
 
-<span class="c1"># 5 Exporter Targets on Right</span>
-<span class="n">exporters</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="p">(</span><span class="mf">59.0</span><span class="p">,</span> <span class="s2">"HTML Web &amp; Slide Stage"</span><span class="p">,</span> <span class="s2">"compiler/html.py — VitePress theme &amp; 16:9 stage"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">globe</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">),</span>
-    <span class="p">(</span><span class="mf">47.2</span><span class="p">,</span> <span class="s2">"GitHub Markdown"</span><span class="p">,</span> <span class="s2">"compiler/markdown.py — Pure GFM + image links"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">file_text</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">),</span>
-    <span class="p">(</span><span class="mf">35.5</span><span class="p">,</span> <span class="s2">"Vector Print PDF"</span><span class="p">,</span> <span class="s2">"compiler/pdf.py — Auto headless Chromium print"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">file_pdf</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
-    <span class="p">(</span><span class="mf">23.8</span><span class="p">,</span> <span class="s2">"MS Word (.docx)"</span><span class="p">,</span> <span class="s2">"compiler/docx.py — Editable OOXML + 200 DPI PNG"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">file_doc</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">),</span>
-    <span class="p">(</span><span class="mf">12.0</span><span class="p">,</span> <span class="s2">"MS PowerPoint (.pptx)"</span><span class="p">,</span> <span class="s2">"_slide/compiler_pptx.py — 16:9 OOXML + CSS layout"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">file_ppt</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">),</span>
-<span class="p">]</span>
+<span class="n">hub</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span>
+        <span class="s2">"Compiler &amp;</span><span class="se">\n</span><span class="s2">Block Engine"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mi">23</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mi">19</span><span class="p">,</span>
+        <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">CPU</span><span class="p">,</span>
+        <span class="n">icon_size</span><span class="o">=</span><span class="mf">4.8</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">,</span>
+        <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+        <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.6</span><span class="p">),</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">44.5</span><span class="p">,</span> <span class="mf">28.0</span><span class="p">),</span>
+<span class="p">)</span>
 
-<span class="n">line</span><span class="p">((</span><span class="mi">45</span><span class="p">,</span> <span class="mf">35.5</span><span class="p">),</span> <span class="p">(</span><span class="mi">53</span><span class="p">,</span> <span class="mf">35.5</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
-<span class="n">line</span><span class="p">((</span><span class="mi">53</span><span class="p">,</span> <span class="mf">12.0</span><span class="p">),</span> <span class="p">(</span><span class="mi">53</span><span class="p">,</span> <span class="mf">59.0</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+<span class="c1"># Top Row: Web, Slide Stage &amp; Git Deliverables</span>
+<span class="n">t_html</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span>
+        <span class="s2">"HTML Site / Doc</span><span class="se">\n</span><span class="s2">SEO &amp; llms.txt"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mi">17</span><span class="p">,</span>
+        <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">GLOBE</span><span class="p">,</span>
+        <span class="n">icon_size</span><span class="o">=</span><span class="mf">4.5</span><span class="p">,</span>
+        <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">),</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">69.0</span><span class="p">,</span> <span class="mf">47.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">t_slide</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span>
+        <span class="s2">"16:9 HTML Slide</span><span class="se">\n</span><span class="s2">_slide Stage"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mi">17</span><span class="p">,</span>
+        <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">PRESENTATION_CHART</span><span class="p">,</span>
+        <span class="n">icon_size</span><span class="o">=</span><span class="mf">4.5</span><span class="p">,</span>
+        <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">),</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">90.5</span><span class="p">,</span> <span class="mf">47.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">t_md</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span>
+        <span class="s2">"GFM Markdown</span><span class="se">\n</span><span class="s2">Shared images/"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mi">17</span><span class="p">,</span>
+        <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">FILE_TEXT</span><span class="p">,</span>
+        <span class="n">icon_size</span><span class="o">=</span><span class="mf">4.5</span><span class="p">,</span>
+        <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">),</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">112.0</span><span class="p">,</span> <span class="mf">47.0</span><span class="p">),</span>
+<span class="p">)</span>
 
-<span class="k">for</span> <span class="n">y</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">desc</span><span class="p">,</span> <span class="n">icon_func</span><span class="p">,</span> <span class="n">card_style</span> <span class="ow">in</span> <span class="n">exporters</span><span class="p">:</span>
-    <span class="n">rectangle</span><span class="p">((</span><span class="mi">97</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">74</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">10.2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">card_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
-    <span class="n">is_hero</span> <span class="o">=</span> <span class="n">card_style</span> <span class="o">==</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span>
-    <span class="n">icon_style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span> <span class="k">if</span> <span class="n">is_hero</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span>
-    <span class="n">title_style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span> <span class="k">if</span> <span class="n">is_hero</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span>
-    <span class="n">desc_style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">White</span> <span class="k">if</span> <span class="n">is_hero</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span>
-    <span class="n">icon_func</span><span class="p">((</span><span class="mf">64.5</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">icon_style</span><span class="p">)</span>
-    <span class="n">text</span><span class="p">((</span><span class="mf">69.0</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="mf">2.1</span><span class="p">),</span> <span class="n">title</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">title_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
-    <span class="n">text</span><span class="p">((</span><span class="mf">69.0</span><span class="p">,</span> <span class="n">y</span> <span class="o">-</span> <span class="mf">2.3</span><span class="p">),</span> <span class="n">desc</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">desc_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
-    <span class="n">line</span><span class="p">((</span><span class="mi">53</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="p">(</span><span class="mi">60</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+<span class="c1"># Bottom Row: Print &amp; Native Office Deliverables</span>
+<span class="n">t_pdf</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span>
+        <span class="s2">"Print / Slide PDF</span><span class="se">\n</span><span class="s2">Chromium Print"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mi">17</span><span class="p">,</span>
+        <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">FILE_PDF</span><span class="p">,</span>
+        <span class="n">icon_size</span><span class="o">=</span><span class="mf">4.5</span><span class="p">,</span>
+        <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">),</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">69.0</span><span class="p">,</span> <span class="mf">9.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">t_docx</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span>
+        <span class="s2">"MS Word .docx</span><span class="se">\n</span><span class="s2">python-docx"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mi">17</span><span class="p">,</span>
+        <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">FILE_DOC</span><span class="p">,</span>
+        <span class="n">icon_size</span><span class="o">=</span><span class="mf">4.5</span><span class="p">,</span>
+        <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">),</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">90.5</span><span class="p">,</span> <span class="mf">9.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">t_pptx</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span>
+        <span class="s2">"PowerPoint .pptx</span><span class="se">\n</span><span class="s2">DOM -&gt; OOXML"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mi">17</span><span class="p">,</span>
+        <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">FILE_PPT</span><span class="p">,</span>
+        <span class="n">icon_size</span><span class="o">=</span><span class="mf">4.5</span><span class="p">,</span>
+        <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">),</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">112.0</span><span class="p">,</span> <span class="mf">9.0</span><span class="p">),</span>
+<span class="p">)</span>
 
+<span class="n">src</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">hub</span><span class="p">,</span> <span class="n">arrow</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">)</span>
+<span class="n">j1</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">junction</span><span class="p">((</span><span class="mf">69.0</span><span class="p">,</span> <span class="mf">28.0</span><span class="p">))</span>
+<span class="n">j2</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">junction</span><span class="p">((</span><span class="mf">90.5</span><span class="p">,</span> <span class="mf">28.0</span><span class="p">))</span>
+<span class="n">j3</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">junction</span><span class="p">((</span><span class="mf">112.0</span><span class="p">,</span> <span class="mf">28.0</span><span class="p">))</span>
+
+<span class="n">hub</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">j1</span><span class="p">,</span> <span class="n">arrow</span><span class="o">=</span><span class="s2">"-"</span><span class="p">)</span>
+<span class="n">j1</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">j2</span><span class="p">,</span> <span class="n">arrow</span><span class="o">=</span><span class="s2">"-"</span><span class="p">)</span>
+<span class="n">j2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">j3</span><span class="p">,</span> <span class="n">arrow</span><span class="o">=</span><span class="s2">"-"</span><span class="p">)</span>
+
+<span class="n">j1</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">t_html</span><span class="p">,</span> <span class="n">arrow</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">)</span>
+<span class="n">j1</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">t_pdf</span><span class="p">,</span> <span class="n">arrow</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">)</span>
+<span class="n">j2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">t_slide</span><span class="p">,</span> <span class="n">arrow</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">)</span>
+<span class="n">j2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">t_docx</span><span class="p">,</span> <span class="n">arrow</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">)</span>
+<span class="n">j3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">t_md</span><span class="p">,</span> <span class="n">arrow</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">)</span>
+<span class="n">j3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">t_pptx</span><span class="p">,</span> <span class="n">arrow</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">)</span>
+
+<span class="n">d</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">))</span>
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 </details>
 <hr />
-<h2>1. Concept: Single Source of Truth, Zero Format Fragmentation</h2>
-<p>In traditional workflows, maintaining web documentation, PDF specifications, and editable Office deliverables requires separate authoring tools (e.g. Docusaurus for web, LaTeX for PDF, Word/PowerPoint for stakeholder review). When changes occur, synchronizing formatting across outputs is tedious and error-prone.</p>
-<p>Drawlib eliminates this fragmentation by executing drawing code blocks once and serializing the resulting document or slide AST through five specialized target exporters:</p>
+<h2>1. Exporter Matrix &amp; Locale Output Layout</h2>
+<p>Every multi-locale project (<code>[i18n]</code> in <code>drawlib.toml</code>) compiles deterministically across all configured <code>langs</code> while deduplicating identical rendered diagrams into a shared <code>images/</code> directory:</p>
 <table>
 <thead>
 <tr>
-<th style="text-align:left">Exporter</th>
-<th style="text-align:left">Compiler Module</th>
-<th style="text-align:left">Primary Output</th>
-<th style="text-align:left">Key Capabilities</th>
+<th style="text-align:left">CLI Command</th>
+<th style="text-align:left">Compiler &amp; Exporter Modules</th>
+<th style="text-align:left">Output Artifact Layout</th>
+<th style="text-align:left">Key Architectural Mechanics</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align:left"><strong>HTML</strong></td>
-<td style="text-align:left"><code>compiler/html.py</code></td>
-<td style="text-align:left"><code>docs_html/&lt;lang&gt;/</code>, <code>slide_html/&lt;lang&gt;/</code> (+ root <code>index.html</code>)</td>
-<td style="text-align:left">VitePress-inspired theme, sidebar navigation, language switcher, instant dark mode, 16:9 interactive slide stage.</td>
+<td style="text-align:left"><strong><code>drawlib build html</code></strong></td>
+<td style="text-align:left"><code>compiler/html.py</code>, <code>exporter_html.py</code>, <code>_common/seo.py</code></td>
+<td style="text-align:left"><code>&lt;base&gt;_html/&lt;lang&gt;/</code>, shared <code>&lt;base&gt;_html/images/</code>, rebased <code>/index.html</code>, <code>sitemap.xml</code>, <code>robots.txt</code>, <code>llms.txt</code></td>
+<td style="text-align:left">Compiles <code>site</code> and <code>doc</code> projects with Jinja2 <code>template.html</code>, <code>navbar.py</code> external link icons, language switcher (<code>2+</code> locales), <code>@font-face</code> SVG bundling, and SEO/LLM metadata.</td>
 </tr>
 <tr>
-<td style="text-align:left"><strong>Markdown</strong></td>
-<td style="text-align:left"><code>compiler/markdown.py</code></td>
-<td style="text-align:left"><code>docs_markdown/&lt;lang&gt;/</code></td>
-<td style="text-align:left">Clean GitHub Flavored Markdown with relative shared <code>images/</code> links for native Git viewing.</td>
+<td style="text-align:left"><strong><code>drawlib build slide</code></strong></td>
+<td style="text-align:left"><code>_slide/compiler.py</code>, <code>_slide/_assets.py</code></td>
+<td style="text-align:left"><code>&lt;base&gt;_html/&lt;lang&gt;/index.html</code> + root redirect <code>/index.html</code></td>
+<td style="text-align:left">Compiles <code>slide</code> projects into an interactive <code>1920×1080</code> 16:9 HTML stage with keyboard/presenter controls and inline animated SVGs.</td>
 </tr>
 <tr>
-<td style="text-align:left"><strong>PDF</strong></td>
-<td style="text-align:left"><code>compiler/pdf.py</code></td>
-<td style="text-align:left"><code>&lt;base&gt;_&lt;lang&gt;.pdf</code></td>
-<td style="text-align:left">Vector graphic embedding, automated pagination, TOC injection, auto-provisioned headless Chromium print.</td>
+<td style="text-align:left"><strong><code>drawlib build pdf</code></strong></td>
+<td style="text-align:left"><code>compiler/pdf.py</code>, <code>merger.py</code>, <code>exporter_pdf.py</code>, <code>_common/browser.py</code></td>
+<td style="text-align:left"><code>&lt;base&gt;_&lt;lang&gt;.pdf</code> (or single <code>.pdf</code>)</td>
+<td style="text-align:left">Prints merged <code>doc</code> chapters (base64 PNG Data URLs + <code>--generate-index</code> TOC) or <code>slide</code> decks (inline SVG + <code>@font-face</code>, <code>prefer_css_page_size=True</code>) via managed <code>chromium-headless-shell</code>.</td>
 </tr>
 <tr>
-<td style="text-align:left"><strong>Word (<code>.docx</code>)</strong></td>
-<td style="text-align:left"><code>compiler/docx.py</code></td>
-<td style="text-align:left"><code>&lt;base&gt;_&lt;lang&gt;.docx</code></td>
-<td style="text-align:left">Pure-Python editable OOXML headings, prose, lists, tables, syntax-highlighted code blocks, TOC, and 200 DPI PNG diagrams.</td>
+<td style="text-align:left"><strong><code>drawlib build docx</code></strong></td>
+<td style="text-align:left"><code>compiler/docx.py</code>, <code>exporter_docx.py</code>, <code>_common/office.py</code></td>
+<td style="text-align:left"><code>&lt;base&gt;_&lt;lang&gt;.docx</code> (or single <code>.docx</code>)</td>
+<td style="text-align:left">Pure-Python <code>_DocxChapterRenderer</code> walking <code>MarkdownIt</code> tokens into native <code>python-docx</code> OOXML styles, tables, Pygments code blocks, <code>--generate-index</code> TOC, and <code>200 DPI</code> PNGs.</td>
 </tr>
 <tr>
-<td style="text-align:left"><strong>PowerPoint (<code>.pptx</code>)</strong></td>
-<td style="text-align:left"><code>_slide/compiler_pptx.py</code></td>
-<td style="text-align:left"><code>&lt;base&gt;_&lt;lang&gt;.pptx</code></td>
-<td style="text-align:left">Headless Chromium <code>1920×1080</code> CSS layout measurement mapped to native 16:9 (<code>960×540 pt</code>) OOXML cards, text, tables, speaker notes, and 240 DPI PNG diagrams.</td>
+<td style="text-align:left"><strong><code>drawlib build pptx</code></strong></td>
+<td style="text-align:left"><code>_slide/compiler_pptx.py</code>, <code>_pptx_dom.py</code>, <code>_pptx_writer.py</code></td>
+<td style="text-align:left"><code>&lt;base&gt;_&lt;lang&gt;.pptx</code> (or single <code>.pptx</code>)</td>
+<td style="text-align:left">Measures live <code>1920×1080</code> Chromium DOM geometry and CSS styles, emitting native editable <code>960×540 pt</code> <code>python-pptx</code> cards, tables, <code>::: note</code> speaker notes, and <code>240 DPI</code> PNGs.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>drawlib build markdown</code></strong></td>
+<td style="text-align:left"><code>compiler/markdown.py</code>, <code>exporter_md.py</code></td>
+<td style="text-align:left"><code>&lt;base&gt;_markdown/&lt;lang&gt;/</code>, shared <code>images/</code>, root <code>index.md</code> (<code>site</code>)</td>
+<td style="text-align:left">Emits clean GFM keeping <code>.md</code> internal links, pure <code>![alt](path)</code> syntax when no layout overrides exist, and <code>&lt;details class=&quot;drawlib-code-details&quot;&gt;</code> when <code>code=fold</code>.</td>
 </tr>
 </tbody>
 </table>
-<p>For multi-locale projects (<code>[i18n]</code> in <code>drawlib.toml</code>), every directory build emits locale-scoped subdirectories (<code>&lt;output_dir&gt;/&lt;lang&gt;/</code> sharing a deduplicated <code>&lt;output_dir&gt;/images/</code> folder) or locale-suffixed document deliverables (<code>&lt;base&gt;_&lt;lang&gt;.pdf</code>, <code>&lt;base&gt;_&lt;lang&gt;.docx</code>, <code>&lt;base&gt;_&lt;lang&gt;.pptx</code>), even when <code>langs = [&quot;en&quot;]</code> contains a single locale.</p>
 <hr />
-<h2>2. Positioning: HTML Theme Engine &amp; Design Tokens</h2>
-<p>The HTML exporter (<code>compiler/html.py</code>) combines Jinja2 HTML templates (<code>template.html</code>) and responsive CSS variables (<code>style.css</code>):</p>
+<h2>2. Three-Layer CSS Synthesizer &amp; <code>--rtd-*</code> Design Tokens</h2>
+<p>Rather than shipping monolithic static stylesheets, <code>_templates/_css.py</code> (<code>get_css()</code>) dynamically synthesizes <code>style.css</code> by concatenating <strong>three modular CSS layers</strong> and applying locale-specific CJK font stacks (<code>localize_css_for_language()</code>):</p>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="../../images/04_doc_builder_and_compiler/02_multi_target_exporters/theme_tokens_and_modes.png" alt="02_multi_target_exporters_2" />
-  <figcaption class="drawlib-caption">Dual-Theme CSS Variable Design Architecture</figcaption>
+  <figcaption class="drawlib-caption">Three-Layer CSS Synthesizer and Light/Dark Token Pipeline</figcaption>
 </figure>
 <details class="drawlib-code-details">
 <summary>Source Code</summary>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.diagrams.architecture</span><span class="w"> </span><span class="kn">import</span> <span class="n">ArchitectureDiagram</span><span class="p">,</span> <span class="n">Node</span><span class="p">,</span> <span class="n">PhosphorIcon</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">140</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">58</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">121</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">58</span><span class="p">)</span>
 
-<span class="n">rectangle</span><span class="p">((</span><span class="mi">70</span><span class="p">,</span> <span class="mi">29</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">136</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">54</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.5</span><span class="p">))</span>
-<span class="n">text</span><span class="p">(</span>
-    <span class="p">(</span><span class="mi">70</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span>
-    <span class="s2">"Dual-Theme CSS Variable Design Architecture"</span><span class="p">,</span>
-    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">12.2</span><span class="p">),</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">ArchitectureDiagram</span><span class="p">(</span>
+    <span class="n">node_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">,</span>
+    <span class="n">node_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="n">edge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+    <span class="n">edge_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">node_card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">),</span>
 <span class="p">)</span>
 
-<span class="c1"># Left Column: Light Theme</span>
-<span class="n">rectangle</span><span class="p">((</span><span class="mi">35</span><span class="p">,</span> <span class="mi">24</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">52</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">33</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.8</span><span class="p">))</span>
-<span class="n">phosphor</span><span class="o">.</span><span class="n">sun</span><span class="p">((</span><span class="mi">14</span><span class="p">,</span> <span class="mi">35</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
-<span class="n">text</span><span class="p">((</span><span class="mi">18</span><span class="p">,</span> <span class="mi">35</span><span class="p">),</span> <span class="s2">"Light Theme (Default)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
-<span class="n">text</span><span class="p">(</span>
-    <span class="p">(</span><span class="mi">35</span><span class="p">,</span> <span class="mi">21</span><span class="p">),</span>
-    <span class="s2">"--dl-bg: #ffffff</span><span class="se">\n</span><span class="s2">--dl-text: #0f172a (Slate-900)</span><span class="se">\n</span><span class="s2">--dl-border: #e2e8f0 (Slate-200)</span><span class="se">\n</span><span class="s2">--dl-code-bg: #f8fafc"</span><span class="p">,</span>
-    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+<span class="n">l1</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span>
+        <span class="s2">"Layer 1: 9 Themes</span><span class="se">\n</span><span class="s2">--rtd-* Templates"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mi">33</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mf">14.5</span><span class="p">,</span>
+        <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">PALETTE</span><span class="p">,</span>
+        <span class="n">icon_size</span><span class="o">=</span><span class="mf">4.2</span><span class="p">,</span>
+        <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">),</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">16.5</span><span class="p">,</span> <span class="mf">44.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">l2</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span>
+        <span class="s2">"Layer 2: Components</span><span class="se">\n</span><span class="s2">code + markdown.css"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mi">33</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mf">14.5</span><span class="p">,</span>
+        <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">CODE</span><span class="p">,</span>
+        <span class="n">icon_size</span><span class="o">=</span><span class="mf">4.2</span><span class="p">,</span>
+        <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">),</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">16.5</span><span class="p">,</span> <span class="mf">26.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">l3</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span>
+        <span class="s2">"Layer 3: Targets</span><span class="se">\n</span><span class="s2">site | doc | pdf | slide"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mi">33</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mf">14.5</span><span class="p">,</span>
+        <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">BROWSERS</span><span class="p">,</span>
+        <span class="n">icon_size</span><span class="o">=</span><span class="mf">4.2</span><span class="p">,</span>
+        <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">),</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">16.5</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">),</span>
 <span class="p">)</span>
 
-<span class="c1"># Right Column: Dark Theme</span>
-<span class="n">rectangle</span><span class="p">((</span><span class="mi">105</span><span class="p">,</span> <span class="mi">24</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">52</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">33</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.8</span><span class="p">))</span>
-<span class="n">phosphor</span><span class="o">.</span><span class="n">moon</span><span class="p">((</span><span class="mi">83</span><span class="p">,</span> <span class="mi">35</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">)</span>
-<span class="n">text</span><span class="p">((</span><span class="mi">87</span><span class="p">,</span> <span class="mi">35</span><span class="p">),</span> <span class="s2">"Dark Theme ([data-theme='dark'])"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">10.2</span><span class="p">))</span>
-<span class="n">text</span><span class="p">(</span>
-    <span class="p">(</span><span class="mi">105</span><span class="p">,</span> <span class="mi">21</span><span class="p">),</span>
-    <span class="s2">"--dl-bg: #0f172a (Slate-900)</span><span class="se">\n</span><span class="s2">--dl-text: #f8fafc (Slate-50)</span><span class="se">\n</span><span class="s2">--dl-border: #334155 (Slate-700)</span><span class="se">\n</span><span class="s2">--dl-code-bg: #1e293b"</span><span class="p">,</span>
-    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+<span class="n">synth</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span>
+        <span class="s2">"_css.py Synthesizer</span><span class="se">\n</span><span class="s2">+ CJK Font Stack"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mi">28</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mf">20.0</span><span class="p">,</span>
+        <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">PAINT_BRUSH</span><span class="p">,</span>
+        <span class="n">icon_size</span><span class="o">=</span><span class="mf">4.6</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">,</span>
+        <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+        <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.6</span><span class="p">),</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">61.0</span><span class="p">,</span> <span class="mf">26.0</span><span class="p">),</span>
 <span class="p">)</span>
 
-<span class="c1"># Center: Toggle Mechanism</span>
-<span class="n">rectangle</span><span class="p">((</span><span class="mi">70</span><span class="p">,</span> <span class="mi">24</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
-<span class="n">phosphor</span><span class="o">.</span><span class="n">arrows_left_right</span><span class="p">((</span><span class="mi">70</span><span class="p">,</span> <span class="mi">24</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">)</span>
+<span class="n">light_out</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span>
+        <span class="s2">"Light :root</span><span class="se">\n</span><span class="s2">--rtd-* &amp; --slide-*"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mi">28</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mf">16.5</span><span class="p">,</span>
+        <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">SUN</span><span class="p">,</span>
+        <span class="n">icon_size</span><span class="o">=</span><span class="mf">4.3</span><span class="p">,</span>
+        <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">),</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">101.0</span><span class="p">,</span> <span class="mf">37.5</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">dark_out</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span>
+        <span class="s2">"[data-theme='dark']</span><span class="se">\n</span><span class="s2">Zero-FOUC Toggle"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mi">28</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mf">16.5</span><span class="p">,</span>
+        <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">MOON</span><span class="p">,</span>
+        <span class="n">icon_size</span><span class="o">=</span><span class="mf">4.3</span><span class="p">,</span>
+        <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">),</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">101.0</span><span class="p">,</span> <span class="mf">14.5</span><span class="p">),</span>
+<span class="p">)</span>
 
+<span class="n">j_in</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">junction</span><span class="p">((</span><span class="mf">40.0</span><span class="p">,</span> <span class="mf">26.0</span><span class="p">))</span>
+<span class="n">l1</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">j_in</span><span class="p">,</span> <span class="n">arrow</span><span class="o">=</span><span class="s2">"-"</span><span class="p">)</span>
+<span class="n">l2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">j_in</span><span class="p">,</span> <span class="n">arrow</span><span class="o">=</span><span class="s2">"-"</span><span class="p">)</span>
+<span class="n">l3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">j_in</span><span class="p">,</span> <span class="n">arrow</span><span class="o">=</span><span class="s2">"-"</span><span class="p">)</span>
+<span class="n">j_in</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">synth</span><span class="p">,</span> <span class="n">arrow</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">)</span>
+<span class="n">synth</span><span class="o">.</span><span class="n">fork</span><span class="p">([</span><span class="n">light_out</span><span class="p">,</span> <span class="n">dark_out</span><span class="p">],</span> <span class="n">at_x</span><span class="o">=</span><span class="mf">81.0</span><span class="p">)</span>
+
+<span class="n">d</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">))</span>
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 </details>
-<h3>Theme System Features:</h3>
-<ul>
-<li><strong>Instant Dark Mode Toggle</strong>: Uses <code>localStorage</code> and prefers-color-scheme with zero render flash (<code>data-theme=&quot;dark&quot;</code>).</li>
-<li><strong>Subtle Dividers &amp; High Contrast</strong>: Built with modern Tailwind/VitePress standard neutrals (<code>#334155</code> border tokens, <code>#f8fafc</code> dark text) to ensure readability for technical diagrams.</li>
-<li><strong>Collapsible Code Blocks</strong>: Renders embedded drawing code inside <code>&lt;details class=&quot;drawlib-code&quot;&gt;</code> disclosure blocks.</li>
-</ul>
-<hr />
-<h2>3. Details: Vector PDF, Office (<code>.docx</code> / <code>.pptx</code>) &amp; Markdown Export Mechanics</h2>
-<h3>3.1. High-Resolution Vector PDF &amp; Zero-Config Headless Chromium</h3>
-<p>When exporting to PDF (<code>drawlib build pdf</code>):</p>
+<h3>2.1. Layer Composition &amp; Built-In Presets</h3>
 <ol>
-<li><strong>Chapter Merging (<code>merger.py</code>)</strong>: Concatenates individual chapter Markdown files in sorted sequence (with optional <code>--toc</code> / <code>--generate-index</code> Table of Contents between Chapter 1 and Chapter 2) into a continuous print document.</li>
-<li><strong>Vector Graphic Injection</strong>: Embeds crisp vector graphics and high-DPI diagrams for infinite print sharpness.</li>
-<li><strong>Auto-Provisioned Headless Chromium</strong>: <code>playwright</code> ships as a standard dependency; Drawlib automatically installs <code>chromium-headless-shell</code> on first run via Playwright's bundled driver (or pre-caches it via <code>drawlib cache download --browser</code> / <code>--all</code>, with <code>playwright install-deps chromium</code> diagnostics for minimal Linux containers).</li>
+<li><strong>Layer 1 — Theme Token Templates (<code>_templates/css/themes/&lt;preset&gt;.css.template</code>)</strong>: Defines <strong>9 built-in presets</strong> (<code>default</code>, <code>default-dark</code>, <code>default-auto</code>, <code>google</code>, <code>google-dark</code>, <code>google-auto</code>, <code>github</code>, <code>minimal</code>, and <code>monochrome</code>) parameterized by <code>{{FONT_STACK}}</code> and <code>{{MONO_FONT_STACK}}</code>. All colors and typography flow through <code>--rtd-*</code> custom properties:<pre><code class="language-css"><span class="p">:</span><span class="nd">root</span><span class="o">,</span><span class="w"> </span><span class="o">[</span><span class="nt">data-theme</span><span class="o">=</span><span class="s2">"light"</span><span class="o">]</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nv">--rtd-bg-color</span><span class="p">:</span><span class="w"> </span><span class="mh">#f8fafc</span><span class="p">;</span>
+<span class="w">    </span><span class="nv">--rtd-content-bg</span><span class="p">:</span><span class="w"> </span><span class="mh">#ffffff</span><span class="p">;</span>
+<span class="w">    </span><span class="nv">--rtd-surface-bg</span><span class="p">:</span><span class="w"> </span><span class="mh">#f8fafc</span><span class="p">;</span>
+<span class="w">    </span><span class="nv">--rtd-text-color</span><span class="p">:</span><span class="w"> </span><span class="mh">#334155</span><span class="p">;</span>
+<span class="w">    </span><span class="nv">--rtd-heading-color</span><span class="p">:</span><span class="w"> </span><span class="mh">#0f172a</span><span class="p">;</span>
+<span class="w">    </span><span class="nv">--rtd-brand-color</span><span class="p">:</span><span class="w"> </span><span class="mh">#2563eb</span><span class="p">;</span>
+<span class="w">    </span><span class="nv">--rtd-border-color</span><span class="p">:</span><span class="w"> </span><span class="mh">#e2e8f0</span><span class="p">;</span>
+<span class="w">    </span><span class="nv">--rtd-code-bg</span><span class="p">:</span><span class="w"> </span><span class="mh">#f1f5f9</span><span class="p">;</span>
+<span class="w">    </span><span class="nv">--rtd-font</span><span class="p">:</span><span class="w"> </span><span class="err">{{</span><span class="n">FONT_STACK</span><span class="p">}</span><span class="err">}</span><span class="o">;</span>
+<span class="w">    </span><span class="nt">--rtd-mono-font</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="err">{MONO_FONT_STACK</span><span class="p">}</span><span class="err">}</span><span class="o">;</span>
+<span class="err">}</span>
+</code></pre>
+</li>
+<li><strong>Layer 2 — Shared Component Rules (<code>_templates/css/components/</code>)</strong>: Concatenates <code>code.css</code> (Pygments syntax token colors and <code>&lt;details class=&quot;drawlib-code-details&quot;&gt;</code> collapsible source disclosures) and <code>markdown.css</code> (tables, blockquotes, <code>&lt;figure class=&quot;drawlib-image&quot;&gt;</code> frames, and typography rhythm).</li>
+<li><strong>Layer 3 — Target Shell Rules (<code>_templates/css/targets/</code>)</strong>: Appends layout rules specialized for <code>site.css</code> (responsive sidebar, sticky header, language dropdown), <code>doc.css</code> (centered linear document), <code>pdf.css</code> (<code>@page</code> print pagination and <code>break-inside: avoid</code>), or <code>slide.css</code> (<code>1920×1080</code> presentation stage where <code>--slide-bg</code>, <code>--slide-fg</code>, <code>--slide-brand</code>, and <code>--slide-card-bg</code> inherit <code>var(--rtd-*)</code> tokens).</li>
 </ol>
-<h3>3.2. Native Editable MS Word (<code>.docx</code>) &amp; MS PowerPoint (<code>.pptx</code>) Exporters</h3>
+<h3>2.2. Zero-FOUC Theme Persistence</h3>
+<p>In <code>template.html</code>, an inline synchronous <code>&lt;script&gt;</code> inside <code>&lt;head&gt;</code> inspects <code>localStorage.getItem('drawlib-theme')</code> and <code>window.matchMedia('(prefers-color-scheme: dark)')</code> <strong>before first paint</strong>, stamping <code>document.documentElement.setAttribute('data-theme', ...)</code> so dark-mode reloads never exhibit a white Flash of Unstyled Content (FOUC). Diagram <code>&lt;figure class=&quot;drawlib-image&quot;&gt;</code> cards retain crisp white backgrounds in dark mode so neutral vector strokes stay legible.</p>
+<hr />
+<h2>3. Target-Specific Exporter Mechanics</h2>
+<h3>3.1. HTML (<code>site</code> &amp; <code>doc</code>), Root Rebasing &amp; SEO / <code>llms.txt</code></h3>
+<p><code>compiler/html.py</code> compiles <code>site</code> and <code>doc</code> projects (while explicitly guarding <code>manifest.project.type == &quot;slide&quot;</code> so slide decks route through <code>drawlib build slide</code>):</p>
 <ul>
-<li><strong>MS Word (<code>compiler/docx.py</code>, <code>drawlib build docx</code>)</strong>: Translates Markdown chapters or single <code>.md</code> files directly into native OOXML via <code>python-docx</code> without requiring a browser—preserving headings, prose, bullet/numbered lists, tables, blockquotes, syntax-highlighted code blocks, cover pages, and <code>--generate-index</code> Tables of Contents, while rendering <code>drawlib</code> blocks (including SVG, WebP, and animated blocks) as static high-DPI PNGs (<code>--dpi 200</code> default).</li>
-<li><strong>MS PowerPoint (<code>_slide/compiler_pptx.py</code>, <code>drawlib build pptx</code>)</strong>: Renders each <code>1920×1080</code> slide in headless Chromium to measure exact DOM bounding boxes and computed CSS styles (<code>::: block</code> cards with <code>rgba</code> alpha fills/borders, typography, lists, tables, inline code), then emits native editable 16:9 (<code>960×540 pt</code>) <code>python-pptx</code> shapes, <code>::: note</code> speaker notes, and high-DPI static PNG diagrams (<code>--dpi 240</code> default, <code>--anim-frame first|last</code> defaulting to <code>last</code>).</li>
+<li><strong>Sidebar &amp; External Links (<code>navbar.py</code>)</strong>: <code>parse_navbar_markdown()</code> parses <code>&lt;lang&gt;/navbar.md</code> into <code>NavbarSection</code> trees, resolving active page highlights and marking <code>https://</code> targets with <code>is_external=True</code> (<code>target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;</code> plus an inline <code>.nav-external-icon</code> SVG).</li>
+<li><strong>Root <code>/index.html</code> Rebasing vs. Slide Redirect</strong>: Both <code>site</code> and <code>doc</code> HTML builds rewrite relative URLs from <code>&lt;default_lang&gt;/index.html</code> into a full root <code>&lt;out&gt;/index.html</code> via <code>rebase_html_relative_urls()</code>, whereas <code>slide</code> HTML builds (<code>_slide/compiler.py</code>) emit a lightweight root redirect <code>index.html</code> (<code>write_root_redirect_html()</code>) that forwards to <code>&lt;default_lang&gt;/index.html</code> while preserving <code>?query</code> parameters and <code>#slide</code> hash fragments.</li>
+<li><strong>Font Bundling (<code>bundle_svg_fonts</code>)</strong>: When pages embed inline SVGs, <code>bundle_svg_fonts()</code> copies referenced font binaries into <code>&lt;out&gt;/fonts/</code> and injects <code>@font-face</code> declarations into per-locale <code>&lt;lang&gt;/style.css</code>.</li>
+<li><strong>SEO, <code>hreflang</code> &amp; AI Discovery (<code>_common/seo.py</code>)</strong>: Injects canonical URLs, <code>&lt;link rel=&quot;alternate&quot; hreflang=&quot;...&quot;&gt;</code> (plus <code>x-default</code>), Open Graph (<code>og:*</code>), and Twitter Card (<code>twitter:*</code>) tags into <code>&lt;head&gt;</code>, and emits root <code>sitemap.xml</code>, <code>robots.txt</code>, and <strong><code>llms.txt</code></strong> (structured Markdown index of project pages and descriptions for LLM ingestion).</li>
 </ul>
-<h3>3.3. Pure GitHub Flavored Markdown Export</h3>
-<p>When exporting to Markdown (<code>drawlib build markdown</code>):</p>
+<h3>3.2. 16:9 Slide Stage &amp; Native PowerPoint (<code>.pptx</code>)</h3>
+<p>Presentation projects (<code>type = &quot;slide&quot;</code>) compile from a single Markdown deck into both web and Office formats (detailed in <strong><a href="../03_domain_subsystems/04_animation_and_slide_engines.html">Animation &amp; Slide Engines</a></strong>):</p>
 <ul>
-<li>Strips HTML-specific interactive tags (<code>&lt;details&gt;</code>, <code>&lt;summary&gt;</code>).</li>
-<li>Rewrites <code>drawlib</code> code blocks to pure Markdown image syntax (e.g., <code>![Caption](path/to/diagram.png)</code>).</li>
-<li>Replaces internal <code>.html</code> links with relative <code>.md</code> references for seamless navigation inside GitHub repository browsers.</li>
+<li><strong>Interactive HTML Stage (<code>drawlib build slide</code>)</strong>: <code>_slide/compiler.py</code> renders <code>---</code> slide separators, <code>::: block</code> layout cards, <code>::: note</code> speaker notes, and keyframe-animated SVGs onto a <code>1920×1080</code> responsive viewport.</li>
+<li><strong>DOM-Measured PowerPoint (<code>drawlib build pptx</code>)</strong>: <code>_slide/compiler_pptx.py</code> renders static diagram frames at <code>--dpi 240</code> (<code>--anim-frame last|first</code>, defaulting to <code>last</code>), launches headless Chromium (<code>_pptx_dom.py</code>) to extract exact <code>getBoundingClientRect()</code> coordinates and computed CSS styles (<code>rgba</code> card alpha blending, borders, fonts, lists, tables, inline code), and maps the <code>1920×1080 px</code> stage at <code>0.5×</code> scale onto native editable <code>960×540 pt</code> <code>python-pptx</code> slides (<code>_pptx_writer.py</code>) complete with speaker notes and deterministic ZIP metadata (<code>normalize_opc_zip_timestamps()</code>).</li>
 </ul>
-<p>Next, explore how link integrity and path hygiene are enforced in <strong><a href="03_link_and_quality_scanner.html">Link &amp; Quality Scanner</a></strong>.</p>
+<h3>3.3. Vector Print &amp; Slide PDF (<code>drawlib build pdf</code>)</h3>
+<p><code>compiler/pdf.py</code> supports linear <code>doc</code> directories, <code>slide</code> directories, and standalone <code>.md</code>/<code>.html</code> files:</p>
+<ol>
+<li><strong>Chapter Merging &amp; Index Injection (<code>merger.py</code>)</strong>: For <code>doc</code> directories, <code>build_merged_html()</code> concatenates sorted chapters, rewrites intra-document <code>.md</code> links to <code>#doc-chapter-N</code> anchors, inlines local <code>&lt;img src&gt;</code> assets as base64 PNG Data URLs (<code>_inline_local_images()</code>), inserts CSS page breaks (<code>--page-break / --no-page-break</code>), and—when <code>--generate-index</code> is enabled—injects <code>&lt;nav class=&quot;pdf-toc&quot;&gt;</code> directly between Chapter 1 (cover/overview) and Chapter 2. For <code>slide</code> projects, <code>build_pdf()</code> stages the deck via <code>build_slide()</code> preserving crisp inline vector SVGs and <code>@font-face</code> fonts with <code>prefer_css_page_size=True</code>.</li>
+<li><strong>Managed Headless Chromium (<code>_common/browser.py</code>)</strong>: Uses <code>playwright</code> (<code>chromium-headless-shell</code>). If the browser binary is missing, <code>install_headless_chromium()</code> acquires an exclusive POSIX file lock (<code>fcntl.flock</code> on <code>playwright_install.lock</code>) and provisions it automatically—or pre-warms it offline via <code>drawlib cache download --browser</code> / <code>--all</code>.</li>
+<li><strong>Byte-Exact Reproducibility</strong>: Unless <code>--timestamp</code> is passed, <code>normalize_pdf_timestamps()</code> rewrites PDF <code>/CreationDate</code> and <code>/ModDate</code> strings in-place to <code>SOURCE_DATE_EPOCH</code> (or <code>D:20260101000000+00'00'</code>), preserving exact byte offsets so PDF <code>xref</code> tables remain valid.</li>
+</ol>
+<h3>3.4. Pure-Python Microsoft Word (<code>.docx</code>)</h3>
+<p><code>compiler/docx.py</code> and <code>exporter_docx.py</code> compile Markdown chapters or standalone <code>.md</code> files directly to <code>.docx</code> <strong>without launching a browser</strong>:</p>
+<ul>
+<li><strong><code>_DocxChapterRenderer</code></strong>: Walks the <code>MarkdownIt(&quot;gfm-like&quot;)</code> token stream to construct native <code>python-docx</code> OOXML headings with internal bookmarks (<code>_sanitize_bookmark_name</code>), clickable hyperlinks, nested bullet/numbered lists, GFM tables, styled blockquotes, Pygments-colored monospace code blocks, and optional <code>--generate-index</code> Tables of Contents.</li>
+<li><strong>High-DPI Static Diagrams &amp; Deterministic Packaging</strong>: Renders <code>drawlib</code> blocks at <code>--dpi 200</code> (flattening WebP or animated outputs via <code>ensure_static_office_image()</code>), scales images proportionally within the <code>178mm</code> printable A4 content width, and normalizes OPC core properties and ZIP entry timestamps via <code>_common/office.py</code> (<code>normalize_opc_zip_timestamps()</code>).</li>
+</ul>
+<h3>3.5. Rendered GitHub Flavored Markdown (<code>drawlib build markdown</code>)</h3>
+<p><code>compiler/markdown.py</code> and <code>exporter_md.py</code> compile <code>site</code> and <code>doc</code> sources into <code>&lt;base&gt;_markdown/&lt;lang&gt;/</code> (plus a rebased root <code>index.md</code> for <code>site</code> projects via <code>rebase_markdown_relative_urls()</code>) backed by a shared <code>&lt;base&gt;_markdown/images/</code> folder:</p>
+<ul>
+<li><strong>Adaptive Image Syntax</strong>: <code>DrawlibBlockProcessor.process_markdown(..., use_markdown_syntax=True)</code> emits pure Markdown <code>![alt](relative/path.png)</code> whenever no custom sizing, alignment, or caption attributes are set, and upgrades to <code>&lt;figure class=&quot;drawlib-image&quot;&gt;</code> when layout attributes (<code>align=center</code>, <code>caption=&quot;...&quot;</code>, <code>width=...</code>) are requested.</li>
+<li><strong>Preserved Code Disclosures &amp; <code>.md</code> Links</strong>: Blocks marked <code>code=fold</code> retain native GitHub-compatible <code>&lt;details class=&quot;drawlib-code-details&quot;&gt;</code> blocks below the figure, while internal cross-references remain <code>.md</code> links so repository browsing on GitHub works out of the box.</li>
+</ul>
+<p>Next, explore how link integrity, structural parity, and path hygiene are enforced in <strong><a href="03_link_and_quality_scanner.html">Link &amp; Quality Scanner</a></strong>.</p>
 
             </main>
         </div>
@@ -440,8 +626,8 @@
                     if (e.key === 'Escape') {
                         langDropdowns.forEach(function(dd) {
                             dd.removeAttribute('open');
-                        });
-                    }
+                        }
+                    });
                 });
             }
 

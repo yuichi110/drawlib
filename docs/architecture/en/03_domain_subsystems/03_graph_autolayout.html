@@ -25,21 +25,25 @@
         })();
     </script>
     
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     
-        <meta name="description" content="Visualizing microservices topologies, data pipelines, and cluster networks manually requires calculating dozens of node coordinates and arrow trajectories.…">
+    
+    
+    <meta name="description" content="Visualizing cloud topologies, data pipelines, and hierarchical networks manually requires computing dozens of (x, y) coordinates, container envelopes, and…">
     <link rel="canonical" href="https://www.drawlib.com/architecture/en/03_domain_subsystems/03_graph_autolayout.html">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Drawlib Architecture">
     <meta property="og:title" content="Declarative Graph Auto-Layout Engine (drawlib.graph) — Drawlib Architecture">
-    <meta property="og:description" content="Visualizing microservices topologies, data pipelines, and cluster networks manually requires calculating dozens of node coordinates and arrow trajectories.…">
+    <meta property="og:description" content="Visualizing cloud topologies, data pipelines, and hierarchical networks manually requires computing dozens of (x, y) coordinates, container envelopes, and…">
     <meta property="og:url" content="https://www.drawlib.com/architecture/en/03_domain_subsystems/03_graph_autolayout.html">
     <meta property="og:image" content="https://www.drawlib.com/architecture/_assets/ogp.png">
     <meta property="og:locale" content="en_US">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Declarative Graph Auto-Layout Engine (drawlib.graph) — Drawlib Architecture">
-    <meta name="twitter:description" content="Visualizing microservices topologies, data pipelines, and cluster networks manually requires calculating dozens of node coordinates and arrow trajectories.…">
+    <meta name="twitter:description" content="Visualizing cloud topologies, data pipelines, and hierarchical networks manually requires computing dozens of (x, y) coordinates, container envelopes, and…">
     <meta name="twitter:image" content="https://www.drawlib.com/architecture/_assets/ogp.png">
-    
     
     
     <link rel="icon" type="image/png" href="../../_assets/favicon.png">
@@ -56,7 +60,8 @@
             <div class="sidebar-header">
                 <a href="../index.html" class="sidebar-brand" aria-label="Drawlib Architecture">
                     
-                    Drawlib Architecture
+                    <img src="../../_assets/logo.png" alt="Drawlib Architecture" class="sidebar-logo sidebar-logo-light">
+                    <img src="../../_assets/logo_dark.png" alt="Drawlib Architecture" class="sidebar-logo sidebar-logo-dark">
                     
                 </a>
                 <div class="sidebar-header-actions">
@@ -70,6 +75,15 @@
                     </button>
                 </div>
             </div>
+            <div class="sidebar-subbar">
+                <a href="https://www.drawlib.com/en/01_getting_started/release_notes.html" target="_blank" rel="noopener noreferrer" class="sidebar-version-badge" title="Architecture Specification · View Release Notes">
+                    <span class="sidebar-version-dot" aria-hidden="true"></span>
+                    <span class="sidebar-version-text">Architecture · v0.3.4</span>
+                </a>
+                <a href="https://github.com/yuichi110/drawlib" target="_blank" rel="noopener noreferrer" class="sidebar-github-link" aria-label="GitHub Repository" title="GitHub Repository">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+                </a>
+            </div>
             <div class="sidebar-menu">
                 
                     
@@ -82,6 +96,10 @@
                             
                             <li class="nav-item ">
                                 <a href="https://www.drawlib.com/" target="_blank" rel="noopener noreferrer">Official Docs<svg class="nav-external-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="https://examples.drawlib.com/" target="_blank" rel="noopener noreferrer">Examples Showcase<svg class="nav-external-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
                             </li>
                             
                         </ul>
@@ -137,6 +155,10 @@
                                 <a href="03_graph_autolayout.html" >Graph Auto-Layout</a>
                             </li>
                             
+                            <li class="nav-item ">
+                                <a href="04_animation_and_slide_engines.html" >Animation &amp; Slide Engines</a>
+                            </li>
+                            
                         </ul>
                     
                         
@@ -168,7 +190,7 @@
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../05_cli_and_runtime/02_preview_server.html" >Preview Server &amp; Tooling</a>
+                                <a href="../05_cli_and_runtime/02_preview_server.html" >Preview Server &amp; Assets</a>
                             </li>
                             
                         </ul>
@@ -213,7 +235,7 @@
         <div class="content-wrapper">
             <header class="top-bar">
                 <div class="breadcrumbs">
-                    <span class="crumb">Docs</span>
+                    <span class="crumb">Architecture</span>
                     <span class="crumb-separator">&raquo;</span>
                     <span class="crumb active">Declarative Graph Auto-Layout Engine (drawlib.graph)</span>
                 </div>
@@ -221,221 +243,373 @@
             </header>
             <main class="main-content">
                 <h1>Declarative Graph Auto-Layout Engine (drawlib.graph)</h1>
-<p>Visualizing microservices topologies, data pipelines, and cluster networks manually requires calculating dozens of node coordinates and arrow trajectories. However, traditional graph visualization tools (like Graphviz or Cytoscape) rely on heavy external binary runtimes (C/C++ binaries, Java, or Node.js) that complicate CI/CD pipelines and trap layouts inside a rigid rendering black box.</p>
-<p>To solve this, Drawlib includes <code>drawlib.graph</code>: a <strong>pure-Python coordinate and layout calculator (<code>get_layout()</code>)</strong> that solves topological coordinates, nested cluster boundaries, and edge waypoints in-memory without external dependencies, powering a clean <strong>2-Step Workflow</strong> with <code>drawlib.diagrams</code> and <code>drawlib.shapes</code>.</p>
+<p>Visualizing cloud topologies, data pipelines, and hierarchical networks manually requires computing dozens of <code>(x, y)</code> coordinates, container envelopes, and connector waypoints. Conversely, traditional graph visualization tools (such as Graphviz or Cytoscape) depend on external C/C++, Java, or Node.js runtimes and lock visual styling inside an opaque rendering black box.</p>
+<p>To bridge both worlds, Drawlib provides <code>drawlib.graph</code>: a <strong>pure-Python coordinate and layout solver (<code>get_layout()</code>)</strong> that resolves topological ranks, nested cluster boundaries, and Manhattan waypoints in memory with zero external binaries, powering a decoupled <strong>2-Step Workflow</strong> alongside <code>drawlib.diagrams</code> and <code>drawlib.shapes</code>.</p>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="../../images/03_domain_subsystems/03_graph_autolayout/graph_layout_pipeline.png" alt="03_graph_autolayout_1" />
-  <figcaption class="drawlib-caption">Pure-Python Graph Auto-Layout Pipeline (drawlib.graph)</figcaption>
+  <figcaption class="drawlib-caption">Decoupled Two-Phase Graph Auto-Layout Pipeline (LayerGraph + FlowDiagram)</figcaption>
 </figure>
 <details class="drawlib-code-details">
 <summary>Source Code</summary>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.diagrams.flow</span><span class="w"> </span><span class="kn">import</span> <span class="n">FlowDiagram</span><span class="p">,</span> <span class="n">Process</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.graph</span><span class="w"> </span><span class="kn">import</span> <span class="n">LayerGraph</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">140</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">58</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">120</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">44</span><span class="p">)</span>
 
-<span class="n">rectangle</span><span class="p">((</span><span class="mi">70</span><span class="p">,</span> <span class="mi">29</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">136</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">54</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.5</span><span class="p">))</span>
-<span class="n">text</span><span class="p">(</span>
-    <span class="p">(</span><span class="mi">70</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span>
-    <span class="s2">"Pure-Python Graph Auto-Layout Pipeline (drawlib.graph)"</span><span class="p">,</span>
-    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">12.2</span><span class="p">),</span>
+<span class="c1"># Step 1: Solve pipeline stage coordinates with LayerGraph</span>
+<span class="n">g</span> <span class="o">=</span> <span class="n">LayerGraph</span><span class="p">(</span>
+    <span class="n">direction</span><span class="o">=</span><span class="s2">"LR"</span><span class="p">,</span>
+    <span class="n">rank_sep</span><span class="o">=</span><span class="mf">5.5</span><span class="p">,</span>
+    <span class="n">default_node_width</span><span class="o">=</span><span class="mf">24.0</span><span class="p">,</span>
+    <span class="n">default_node_height</span><span class="o">=</span><span class="mf">16.5</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"topology"</span><span class="p">,</span> <span class="s2">"solver"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"solver"</span><span class="p">,</span> <span class="s2">"layout"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"layout"</span><span class="p">,</span> <span class="s2">"renderer"</span><span class="p">)</span>
+<span class="n">layout</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">get_layout</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">120</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">margin</span><span class="o">=</span><span class="mf">3.75</span><span class="p">)</span>
+
+<span class="c1"># Phase header banners aligned directly to solved stage bounds</span>
+<span class="n">p1_left</span> <span class="o">=</span> <span class="n">layout</span><span class="p">[</span><span class="s2">"topology"</span><span class="p">]</span><span class="o">.</span><span class="n">left</span>
+<span class="n">p1_right</span> <span class="o">=</span> <span class="n">layout</span><span class="p">[</span><span class="s2">"layout"</span><span class="p">]</span><span class="o">.</span><span class="n">right</span>
+<span class="n">p2_left</span> <span class="o">=</span> <span class="n">layout</span><span class="p">[</span><span class="s2">"renderer"</span><span class="p">]</span><span class="o">.</span><span class="n">left</span>
+<span class="n">p2_right</span> <span class="o">=</span> <span class="n">layout</span><span class="p">[</span><span class="s2">"renderer"</span><span class="p">]</span><span class="o">.</span><span class="n">right</span>
+
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">((</span><span class="n">p1_left</span> <span class="o">+</span> <span class="n">p1_right</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="mf">36.5</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="n">p1_right</span> <span class="o">-</span> <span class="n">p1_left</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">7.5</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Phase 1: Pure Geometry Solver (drawlib.graph)"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.5</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">((</span><span class="n">p2_left</span> <span class="o">+</span> <span class="n">p2_right</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="mf">36.5</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="n">p2_right</span> <span class="o">-</span> <span class="n">p2_left</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">7.5</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Phase 2: Render"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.5</span><span class="p">),</span>
 <span class="p">)</span>
 
-<span class="n">stages</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="p">(</span><span class="mf">18.5</span><span class="p">,</span> <span class="s2">"1. Node/Edge Spec"</span><span class="p">,</span> <span class="s2">"Declarative DAG</span><span class="se">\n</span><span class="s2">Nodes &amp; Clusters"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">graph</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">),</span>
-    <span class="p">(</span><span class="mf">52.5</span><span class="p">,</span> <span class="s2">"2. Topology Sort"</span><span class="p">,</span> <span class="s2">"Layer assignment</span><span class="se">\n</span><span class="s2">Compass &amp; tree packing"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">sort_ascending</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">),</span>
-    <span class="p">(</span><span class="mf">86.5</span><span class="p">,</span> <span class="s2">"3. Coord Solving"</span><span class="p">,</span> <span class="s2">"xy, local_xy &amp;</span><span class="se">\n</span><span class="s2">Cluster bottom_left"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">bounding_box</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">),</span>
-    <span class="p">(</span><span class="mf">120.5</span><span class="p">,</span> <span class="s2">"4. get_layout()"</span><span class="p">,</span> <span class="s2">"GraphLayout output</span><span class="se">\n</span><span class="s2">for diagrams/shapes"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">arrows_split</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">),</span>
-<span class="p">]</span>
+<span class="c1"># Step 2: Render stages using FlowDiagram anchored to solved .xy centers</span>
+<span class="n">flow</span> <span class="o">=</span> <span class="n">FlowDiagram</span><span class="p">(</span>
+    <span class="n">node_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+    <span class="n">edge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+    <span class="n">edge_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">n1</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Process</span><span class="p">(</span>
+        <span class="s2">"1. Topology</span><span class="se">\n</span><span class="s2">Nodes &amp; Clusters"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mf">24.0</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mf">16.5</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
+        <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="n">layout</span><span class="p">[</span><span class="s2">"topology"</span><span class="p">]</span><span class="o">.</span><span class="n">xy</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">n2</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Process</span><span class="p">(</span>
+        <span class="s2">"2. Solver Pass</span><span class="se">\n</span><span class="s2">5 Graph Engines"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mf">24.0</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mf">16.5</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+        <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="n">layout</span><span class="p">[</span><span class="s2">"solver"</span><span class="p">]</span><span class="o">.</span><span class="n">xy</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">n3</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Process</span><span class="p">(</span>
+        <span class="s2">"3. GraphLayout</span><span class="se">\n</span><span class="s2">.xy &amp; .bottom_left"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mf">24.0</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mf">16.5</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
+        <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="n">layout</span><span class="p">[</span><span class="s2">"layout"</span><span class="p">]</span><span class="o">.</span><span class="n">xy</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">n4</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Process</span><span class="p">(</span>
+        <span class="s2">"4. Visual Bind</span><span class="se">\n</span><span class="s2">Diagrams &amp; Shapes"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mf">24.0</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mf">16.5</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
+        <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="n">layout</span><span class="p">[</span><span class="s2">"renderer"</span><span class="p">]</span><span class="o">.</span><span class="n">xy</span><span class="p">,</span>
+<span class="p">)</span>
 
-<span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">desc</span><span class="p">,</span> <span class="n">icon_func</span><span class="p">,</span> <span class="n">card_style</span><span class="p">,</span> <span class="n">icon_style</span> <span class="ow">in</span> <span class="n">stages</span><span class="p">:</span>
-    <span class="n">rectangle</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="mf">23.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">28</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">31</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">card_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.8</span><span class="p">))</span>
-    <span class="n">icon_func</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="mf">9.5</span><span class="p">,</span> <span class="mf">33.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.4</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">icon_style</span><span class="p">)</span>
-    <span class="n">text</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="mf">5.5</span><span class="p">,</span> <span class="mf">33.5</span><span class="p">),</span> <span class="n">title</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">icon_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
-    <span class="n">sub_style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">White</span> <span class="k">if</span> <span class="n">card_style</span> <span class="o">==</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span>
-    <span class="n">text</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="mf">18.5</span><span class="p">),</span> <span class="n">desc</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">sub_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
-
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
-    <span class="n">x_from</span> <span class="o">=</span> <span class="n">stages</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mf">14.0</span>
-    <span class="n">x_to</span> <span class="o">=</span> <span class="n">stages</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mf">14.0</span>
-    <span class="n">line</span><span class="p">((</span><span class="n">x_from</span><span class="p">,</span> <span class="mf">23.5</span><span class="p">),</span> <span class="p">(</span><span class="n">x_to</span><span class="p">,</span> <span class="mf">23.5</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+<span class="n">flow</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">n1</span><span class="p">,</span> <span class="n">n2</span><span class="p">,</span> <span class="n">routing</span><span class="o">=</span><span class="s2">"direct"</span><span class="p">)</span>
+<span class="n">flow</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">n2</span><span class="p">,</span> <span class="n">n3</span><span class="p">,</span> <span class="n">routing</span><span class="o">=</span><span class="s2">"direct"</span><span class="p">)</span>
+<span class="n">flow</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">n3</span><span class="p">,</span> <span class="n">n4</span><span class="p">,</span> <span class="n">routing</span><span class="o">=</span><span class="s2">"direct"</span><span class="p">)</span>
+<span class="n">flow</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
 
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 </details>
 <hr />
 <h2>1. Concept: Pure Coordinate Calculator &amp; 2-Step Workflow</h2>
-<p>Instead of coupling layout math to a rigid, un-customizable renderer, <code>drawlib.graph</code> is strictly a <strong>pure coordinate calculator (<code>get_layout()</code> only)</strong>. Developers and AI agents declare topological relationships in Step 1, and render with <code>drawlib.diagrams</code> (<code>ArchitectureDiagram</code>, <code>FlowDiagram</code>, etc.) or <code>drawlib.shapes</code> in Step 2:</p>
+<p>Rather than coupling layout algorithms to hard-coded shapes, <code>drawlib.graph</code> is strictly a <strong>stateless geometry solver (<code>get_layout()</code> only)</strong>. None of the graph classes define <code>.draw()</code>, <code>style</code>, <code>text_style</code>, or <code>label</code> parameters. Instead, engineers and AI agents separate topological reasoning from visual rendering across two deterministic phases:</p>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.diagrams.flow</span><span class="w"> </span><span class="kn">import</span> <span class="n">FlowDiagram</span><span class="p">,</span> <span class="n">Process</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.graph</span><span class="w"> </span><span class="kn">import</span> <span class="n">LayerGraph</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
-<span class="c1"># Step 1: Solve topology coordinates with LayerGraph.get_layout()</span>
+<span class="c1"># Phase 1: Declare topology &amp; solve coordinates in memory</span>
 <span class="n">g</span> <span class="o">=</span> <span class="n">LayerGraph</span><span class="p">(</span><span class="n">direction</span><span class="o">=</span><span class="s2">"LR"</span><span class="p">,</span> <span class="n">default_node_width</span><span class="o">=</span><span class="mf">24.0</span><span class="p">,</span> <span class="n">default_node_height</span><span class="o">=</span><span class="mf">12.0</span><span class="p">)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"client"</span><span class="p">)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"gateway"</span><span class="p">)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">node</span><span class="p">(</span><span class="s2">"service"</span><span class="p">)</span>
 <span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"client"</span><span class="p">,</span> <span class="s2">"gateway"</span><span class="p">)</span>
 <span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"gateway"</span><span class="p">,</span> <span class="s2">"service"</span><span class="p">)</span>
-<span class="n">layout</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">get_layout</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">120</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">40</span><span class="p">)</span>
+<span class="n">layout</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">get_layout</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">120</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">margin</span><span class="o">=</span><span class="mf">8.0</span><span class="p">)</span>
 
-<span class="c1"># Step 2: Render with FlowDiagram (or inspect via print(layout))</span>
-<span class="n">flow</span> <span class="o">=</span> <span class="n">FlowDiagram</span><span class="p">(</span><span class="n">node_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">edge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span> <span class="n">edge_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="p">)</span>
+<span class="c1"># Phase 2: Bind solved coordinates to FlowDiagram, ArchitectureDiagram, or primitives</span>
+<span class="n">flow</span> <span class="o">=</span> <span class="n">FlowDiagram</span><span class="p">(</span>
+    <span class="n">node_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+    <span class="n">edge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+    <span class="n">edge_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+<span class="p">)</span>
 <span class="n">c</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Process</span><span class="p">(</span><span class="s2">"Web Browser"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">12</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="n">layout</span><span class="p">[</span><span class="s2">"client"</span><span class="p">]</span><span class="o">.</span><span class="n">xy</span><span class="p">)</span>
-<span class="n">gw</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Process</span><span class="p">(</span><span class="s2">"API Gateway"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="n">layout</span><span class="p">[</span><span class="s2">"gateway"</span><span class="p">]</span><span class="o">.</span><span class="n">xy</span><span class="p">)</span>
+<span class="n">gw</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Process</span><span class="p">(</span>
+        <span class="s2">"API Gateway"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
+        <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="n">layout</span><span class="p">[</span><span class="s2">"gateway"</span><span class="p">]</span><span class="o">.</span><span class="n">xy</span><span class="p">,</span>
+<span class="p">)</span>
 <span class="n">svc</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Process</span><span class="p">(</span><span class="s2">"Auth Service"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">12</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="n">layout</span><span class="p">[</span><span class="s2">"service"</span><span class="p">]</span><span class="o">.</span><span class="n">xy</span><span class="p">)</span>
 <span class="n">flow</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">gw</span><span class="p">)</span>
 <span class="n">flow</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">gw</span><span class="p">,</span> <span class="n">svc</span><span class="p">)</span>
 <span class="n">flow</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
 </code></pre>
-<h3>Key Architectural Advantages:</h3>
-<ul>
-<li><strong>Strict Separation of Layout and Rendering</strong>: <code>drawlib.graph</code> contains zero visual styling parameters (<code>style</code>, <code>label</code>, <code>shape</code>, <code>draw()</code> do not exist on <code>drawlib.graph</code>), eliminating redundant rendering code and letting <code>drawlib.diagrams</code> handle icons, cards, and connectors.</li>
-<li><strong>No External Binaries</strong>: Runs anywhere standard Python runs—including lightweight Docker images and air-gapped CI environments.</li>
-<li><strong>Seamless Local &amp; Global Coordinates</strong>: <code>GraphLayout</code> provides both global canvas coordinates (<code>.xy</code>, <code>.bottom_left</code>) and cluster-relative coordinates (<code>.local_xy</code>, <code>.local_bottom_left</code>) that map directly into <code>ArchitectureDiagram</code>'s nested <code>NodeGroup</code> hierarchy.</li>
-</ul>
+<h3>Core Layout Data Models (<code>_graph/_common/_models.py</code>)</h3>
+<p><code>BaseGraph.get_layout()</code> returns a <code>GraphLayout</code> container supporting dictionary lookup (<code>layout[&quot;id&quot;]</code> resolving nodes first, then clusters), tabular console inspection (<code>print(layout)</code>), and post-solve nudging (<code>layout.offset(node_id, dx=..., dy=...)</code> which shifts incident edge ports in lockstep):</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Output Model</th>
+<th style="text-align:left">Key Properties &amp; Geometry</th>
+<th style="text-align:left">Typical Downstream Consumer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong><code>NodeLayout</code></strong></td>
+<td style="text-align:left"><code>.xy</code> <code>(x, y)</code> center, <code>.bottom_left</code>, <code>.local_xy</code>, <code>.local_bottom_left</code>, <code>.left</code>/<code>.right</code>/<code>.top</code>/<code>.bottom</code></td>
+<td style="text-align:left"><code>ArchitectureDiagram</code> (<code>Node</code>), <code>FlowDiagram</code> (<code>Process</code>, <code>Decision</code>), <code>shapes.*</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>ClusterLayout</code></strong></td>
+<td style="text-align:left"><code>.bbox</code> <code>(cx, cy, w, h)</code>, <code>.xy</code> center, <code>.bottom_left</code>, <code>.local_bottom_left</code>, <code>.parent_id</code></td>
+<td style="text-align:left">Top-level <code>NodeGroup</code> (<code>.bottom_left</code>) &amp; nested <code>NodeGroup</code> (<code>.local_bottom_left</code>)</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>EdgeLayout</code></strong></td>
+<td style="text-align:left"><code>.points</code> waypoint list, <code>.src_port</code>, <code>.dst_port</code>, <code>.mid_xy</code> label anchor</td>
+<td style="text-align:left"><code>lines.lines(e.points, arrow_head=&quot;-&gt;&quot;)</code>, custom wire annotations</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>GraphLayout</code></strong></td>
+<td style="text-align:left"><code>.nodes</code>, <code>.clusters</code>, <code>.edges</code>, <code>.ring_radii</code>, <code>layout[&quot;id&quot;]</code>, <code>.offset(id, dx, dy)</code></td>
+<td style="text-align:left">Unified coordinate registry across global and container-local frames</td>
+</tr>
+</tbody>
+</table>
 <hr />
-<h2>2. Positioning: The 5 Graph Layout Engines</h2>
-<p>All solvers in <code>drawlib.graph</code> inherit from the abstract base class <code>BaseGraph(ABC)</code> (<code>_common/_base.py</code>). <code>BaseGraph</code> defines the standard lifecycle:</p>
-<ol>
-<li><strong>Specification Phase</strong>: Registering nodes (<code>g.node(id, *, width=..., height=...)</code>), edges (<code>g.edge(src, dst)</code>), and nested boundaries (<code>g.cluster(id, nodes=[...], *, padding=4.0, header_height=3.5)</code> or <code>g.group(id, ...)</code>).</li>
-<li><strong>Solve Phase (<code>get_layout(width=..., height=..., margin=10.0)</code>)</strong>: Returns a <code>GraphLayout</code> container holding <code>NodeLayout</code>, <code>ClusterLayout</code>, and <code>EdgeLayout</code> objects, supporting <code>layout[&quot;id&quot;]</code> lookup, <code>print(layout)</code> tabular inspection, and <code>layout.offset(id, dx=..., dy=...)</code> post-solve adjustments.</li>
-<li><strong>Render Phase (Externalized to <code>drawlib.diagrams</code> / <code>drawlib.shapes</code>)</strong>: Solved coordinates are passed to <code>ArchitectureDiagram</code>, <code>FlowDiagram</code>, or <code>drawlib.shapes</code> / <code>drawlib.lines</code>.</li>
-</ol>
-<p><code>drawlib.graph</code> provides <strong>five specialized layout solvers</strong>:</p>
-<ol>
-<li><strong><code>LayerGraph</code> (Ranked DAG Layout)</strong>:
-<ul>
-<li>Uses an adapted Sugiyama-style layering algorithm:
-<ul>
-<li>Assigns nodes to horizontal or vertical layers (ranks) based on topological sorting, longest-path analysis, and <code>.tier()</code> stage pinning.</li>
-<li>Orders nodes within each layer via barycenter crossing minimization.</li>
-<li>Solves coordinate positions and computes orthogonal or straight edge waypoints.</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><strong><code>ArchitectureGraph</code> (2-Level Macro/Micro Compound Topology)</strong>:
-<ul>
-<li>Specialized layout solver designed for cloud architectures and distributed microservices.</li>
-<li>Solves layouts across two coupled geometric tiers:
-<ul>
-<li><strong>Macro Level</strong>: Arranges top-level containers (VPCs, cloud regions, client tiers, observability zones) across a 5-zone compass (<code>pos=&quot;left&quot;|&quot;center&quot;|&quot;right&quot;|&quot;top&quot;|&quot;bottom&quot;</code>) or along the macro flow direction (<code>LR</code> or <code>TB</code>).</li>
-<li><strong>Micro Level</strong>: Packs internal services and nested subnets (<code>parent=...</code>) within their enclosing container boundaries and computes <code>.local_xy</code> and <code>.local_bottom_left</code>.</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><strong><code>TreeGraph</code> (Hierarchical Directory / Org Layout)</strong>:
-<ul>
-<li>Optimized for single-parent trees, directory trees, and organizational hierarchies (<code>.child(parent, child_id)</code>).</li>
-<li>Computes subtree widths recursively via Reingold-Tilford contours to prevent node overlaps.</li>
-</ul>
-</li>
-<li><strong><code>RadialGraph</code> (Central Hub &amp; Spoke Layout)</strong>:
-<ul>
-<li>Distributes peripheral nodes (<code>.spoke(parent, spoke_id, ring=...)</code>) in concentric angular orbits around a central hub and exposes ring radii in <code>layout.ring_radii</code>.</li>
-</ul>
-</li>
-<li><strong><code>GridGraph</code> (Matrix / Cluster Topology)</strong>:
-<ul>
-<li>Aligns nodes on a 2D coordinate grid (<code>.cell()</code>, <code>.cluster_row()</code>, <code>.cluster_column()</code>) with smart channel edge routing.</li>
-</ul>
-</li>
-</ol>
+<h2>2. Positioning: The 5 Specialized Layout Solvers</h2>
+<p>All five solvers inherit from <code>BaseGraph</code> (<code>_graph/_common/_base.py</code>), sharing node/edge/cluster registration (<code>g.node()</code>, <code>g.edge()</code>, <code>g.cluster()</code>, <code>g.group()</code>) while implementing domain-specific placement strategies:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Solver Class</th>
+<th style="text-align:left">Underlying Algorithm</th>
+<th style="text-align:left">Domain Helpers &amp; Parameters</th>
+<th style="text-align:left">Primary Target Topology</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong><code>LayerGraph</code></strong></td>
+<td style="text-align:left">Adapted Sugiyama ranked DAG (cycle breaking, longest-path ranking, barycenter crossing reduction)</td>
+<td style="text-align:left"><code>direction=&quot;LR&quot;|&quot;TB&quot;</code>, <code>rank_sep</code>, <code>node_sep</code>, <code>.tier(name, nodes, layer=...)</code></td>
+<td style="text-align:left">CI/CD pipelines, ETL/Airflow DAGs, layered service dependencies</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>ArchitectureGraph</code></strong></td>
+<td style="text-align:left">2-level Macro/Micro container packing + 5-zone compass placement</td>
+<td style="text-align:left"><code>pos=&quot;left&quot;|&quot;center&quot;|&quot;right&quot;|&quot;top&quot;|&quot;bottom&quot;</code>, <code>order=1..N</code>, <code>parent=...</code>, <code>container_sep</code></td>
+<td style="text-align:left">Cloud VPCs, public/private subnets, multi-zone microservices</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>TreeGraph</code></strong></td>
+<td style="text-align:left">Recursive Reingold-Tilford / Buchheim contour tree packing</td>
+<td style="text-align:left"><code>direction=&quot;TB&quot;|&quot;LR&quot;</code>, <code>level_sep</code>, <code>sibling_sep</code>, <code>.child(parent, child_id)</code></td>
+<td style="text-align:left">Org charts, ASTs, module hierarchies, decision trees</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>RadialGraph</code></strong></td>
+<td style="text-align:left">Concentric BFS rings with proportional angular sector allocation</td>
+<td style="text-align:left"><code>ring_sep</code>, <code>.spoke(parent, spoke_id, ring=...)</code>, <code>layout.ring_radii</code></td>
+<td style="text-align:left">Hub-and-spoke event meshes, Pub/Sub topologies, ecosystem maps</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>GridGraph</code></strong></td>
+<td style="text-align:left">2D matrix slot assignment with inter-cell Manhattan channel routing</td>
+<td style="text-align:left"><code>col_sep</code>, <code>row_sep</code>, <code>.cell(id, row, col)</code>, <code>.cluster_row()</code>, <code>.cluster_column()</code></td>
+<td style="text-align:left">Service catalogs, state matrices, structured grid networks</td>
+</tr>
+</tbody>
+</table>
 <hr />
-<h2>3. Details: ArchitectureGraph &amp; 2-Level Compound Layout</h2>
-<h3>3.1. The Macro/Micro Compound Layout Problem</h3>
-<p>Traditional graph algorithms (like standard Sugiyama layering or force-directed placement) treat all nodes and clusters homogeneously. In cloud architecture diagrams, this creates severe layout failure modes:</p>
-<ul>
-<li>Subnets inside a VPC become stretched across distant columns to align with unrelated external nodes.</li>
-<li>High-level containers collapse or overlap because the solver lacks hierarchical rank separation.</li>
-</ul>
-<h3>3.2. Two-Stage Decomposition in <code>ArchitectureGraph</code></h3>
-<p><code>ArchitectureGraph</code> (<code>_architecture/_solver.py</code>) resolves this via <strong>two-stage geometric decomposition</strong>:</p>
+<h2>3. Details: Compound Macro/Micro Solving &amp; Cluster Envelopes</h2>
+<h3>3.1. Two-Level Decomposition in <code>ArchitectureGraph</code></h3>
+<p>Standard homogeneous graph algorithms stretch internal subnet nodes across distant global ranks when external edges cross container boundaries. <code>ArchitectureGraph</code> (<code>_graph/_architecture/_solver.py</code>) prevents this via <strong>two-level geometric decomposition</strong>:</p>
 <ol>
-<li><strong>Container Abstraction</strong>: Top-level containers (e.g. <code>Client Zone</code>, <code>VPC</code>, <code>External SaaS</code>) are treated as macro nodes in an overarching container dependency DAG.</li>
-<li><strong>Micro Layout &amp; Dimension Solving</strong>: Inside each container, child nodes are resolved locally. The container's intrinsic bounding box is calculated using bottom-up envelope expansion:
-$$\text{width}_{\text{container}} = \max(x_1) - \min(x_0) + 2 \times \text{padding}$$</li>
-<li><strong>Macro Positioning &amp; Flow</strong>: Containers are positioned sequentially along the macro axis (<code>direction=&quot;LR&quot;</code> or <code>&quot;TB&quot;</code>), respecting inter-container dependencies and user-configured <code>container_sep</code>.</li>
-<li><strong>Global Edge Routing</strong>: Edges crossing container boundaries calculate entry and exit boundary anchor points, routing cleanly through inter-container channels.</li>
+<li><strong>Leaf Container Micro-Layout</strong>: Nodes assigned to each leaf cluster (<code>subgroup</code> or un-nested <code>group</code>) are solved locally first to establish intrinsic container dimensions.</li>
+<li><strong>Subgroup Ordering (<code>order</code>) &amp; Root Sizing</strong>: Child subnets (<code>parent=&quot;vpc&quot;</code>) are ordered sequentially via explicit <code>order</code> hints or inter-subnet dependency topology (<code>_order_by_inter_edges</code>), and packed inside their parent root container.</li>
+<li><strong>Macro Compass &amp; Axis Placement</strong>: Root containers are arranged either across the 5-zone spatial compass (<code>pos=&quot;left&quot;</code>, <code>&quot;center&quot;</code>, <code>&quot;right&quot;</code>, <code>&quot;top&quot;</code>, <code>&quot;bottom&quot;</code>) or sequentially along <code>direction</code> (<code>&quot;LR&quot;</code> or <code>&quot;TB&quot;</code>).</li>
 </ol>
-<hr />
-<h2>4. Details: Nested Cluster Boundary Computation</h2>
-<p>A standout architectural capability of <code>drawlib.graph</code> is <strong>automatic recursive cluster boundary expansion</strong>:</p>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="../../images/03_domain_subsystems/03_graph_autolayout/graph_cluster_boundaries.png" alt="03_graph_autolayout_2" />
-  <figcaption class="drawlib-caption">Hierarchical Nested Cluster Bounding Box Calculation</figcaption>
+  <figcaption class="drawlib-caption">Nested Cluster Auto-Layout Solved by ArchitectureGraph & Rendered by ArchitectureDiagram</figcaption>
 </figure>
 <details class="drawlib-code-details">
 <summary>Source Code</summary>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.diagrams.architecture</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">ArchitectureDiagram</span><span class="p">,</span>
+    <span class="n">GcpIcon</span><span class="p">,</span>
+    <span class="n">Node</span><span class="p">,</span>
+    <span class="n">NodeGroup</span><span class="p">,</span>
+    <span class="n">PhosphorIcon</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.graph</span><span class="w"> </span><span class="kn">import</span> <span class="n">ArchitectureGraph</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">140</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">62</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">120</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">67</span><span class="p">)</span>
 
-<span class="n">rectangle</span><span class="p">((</span><span class="mi">70</span><span class="p">,</span> <span class="mi">31</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">136</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">58</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.5</span><span class="p">))</span>
-<span class="n">text</span><span class="p">(</span>
-    <span class="p">(</span><span class="mi">70</span><span class="p">,</span> <span class="mi">54</span><span class="p">),</span>
-    <span class="s2">"Hierarchical Nested Cluster Bounding Box Calculation"</span><span class="p">,</span>
-    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">12.2</span><span class="p">),</span>
+<span class="c1"># Step 1: Solve nested VPC &amp; subnet coordinates automatically via ArchitectureGraph</span>
+<span class="n">g</span> <span class="o">=</span> <span class="n">ArchitectureGraph</span><span class="p">(</span>
+    <span class="n">direction</span><span class="o">=</span><span class="s2">"LR"</span><span class="p">,</span>
+    <span class="n">container_sep</span><span class="o">=</span><span class="mf">7.0</span><span class="p">,</span>
+    <span class="n">default_node_width</span><span class="o">=</span><span class="mf">18.5</span><span class="p">,</span>
+    <span class="n">default_node_height</span><span class="o">=</span><span class="mf">13.0</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">cluster</span><span class="p">(</span><span class="s2">"clients"</span><span class="p">,</span> <span class="p">[</span><span class="s2">"browser"</span><span class="p">],</span> <span class="n">pos</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">3.5</span><span class="p">,</span> <span class="n">header_height</span><span class="o">=</span><span class="mf">6.5</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s2">"vpc"</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="s2">"center"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span> <span class="n">header_height</span><span class="o">=</span><span class="mf">7.0</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">cluster</span><span class="p">(</span><span class="s2">"public_sub"</span><span class="p">,</span> <span class="p">[</span><span class="s2">"gateway"</span><span class="p">,</span> <span class="s2">"web"</span><span class="p">],</span> <span class="n">parent</span><span class="o">=</span><span class="s2">"vpc"</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">3.5</span><span class="p">,</span> <span class="n">header_height</span><span class="o">=</span><span class="mf">6.5</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">cluster</span><span class="p">(</span><span class="s2">"private_sub"</span><span class="p">,</span> <span class="p">[</span><span class="s2">"sql"</span><span class="p">,</span> <span class="s2">"cache"</span><span class="p">],</span> <span class="n">parent</span><span class="o">=</span><span class="s2">"vpc"</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">3.5</span><span class="p">,</span> <span class="n">header_height</span><span class="o">=</span><span class="mf">6.5</span><span class="p">)</span>
+
+<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"browser"</span><span class="p">,</span> <span class="s2">"gateway"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"browser"</span><span class="p">,</span> <span class="s2">"web"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"gateway"</span><span class="p">,</span> <span class="s2">"sql"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">edge</span><span class="p">(</span><span class="s2">"web"</span><span class="p">,</span> <span class="s2">"cache"</span><span class="p">)</span>
+
+<span class="n">layout</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">get_layout</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">118</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">68</span><span class="p">,</span> <span class="n">margin</span><span class="o">=</span><span class="mf">4.0</span><span class="p">)</span>
+
+<span class="c1"># Step 2: Render directly with ArchitectureDiagram using .bottom_left, .local_bottom_left &amp; .local_xy</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">ArchitectureDiagram</span><span class="p">(</span>
+    <span class="n">node_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">,</span>
+    <span class="n">node_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="n">edge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+    <span class="n">edge_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">node_card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
 <span class="p">)</span>
 
-<span class="c1"># Outer Cluster (VPC)</span>
-<span class="n">rectangle</span><span class="p">((</span><span class="mi">70</span><span class="p">,</span> <span class="mi">27</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">126</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">))</span>
-<span class="n">phosphor</span><span class="o">.</span><span class="n">cloud</span><span class="p">((</span><span class="mi">15</span><span class="p">,</span> <span class="mf">43.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
-<span class="n">text</span><span class="p">((</span><span class="mi">20</span><span class="p">,</span> <span class="mf">43.5</span><span class="p">),</span> <span class="s2">"Outer Cluster (e.g. VPC Network)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
+<span class="n">ext_grp</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">NodeGroup</span><span class="p">(</span>
+        <span class="n">title</span><span class="o">=</span><span class="s2">"Edge Clients"</span><span class="p">,</span>
+        <span class="n">padding</span><span class="o">=</span><span class="mf">3.5</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="p">,</span>
+        <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">),</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="n">layout</span><span class="p">[</span><span class="s2">"clients"</span><span class="p">]</span><span class="o">.</span><span class="n">bottom_left</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">vpc_grp</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">NodeGroup</span><span class="p">(</span>
+        <span class="n">title</span><span class="o">=</span><span class="s2">"Production VPC (parent=None)"</span><span class="p">,</span>
+        <span class="n">padding</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="p">,</span>
+        <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">),</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="n">layout</span><span class="p">[</span><span class="s2">"vpc"</span><span class="p">]</span><span class="o">.</span><span class="n">bottom_left</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">pub_grp</span> <span class="o">=</span> <span class="n">vpc_grp</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">NodeGroup</span><span class="p">(</span>
+        <span class="n">title</span><span class="o">=</span><span class="s2">"Public Subnet"</span><span class="p">,</span>
+        <span class="n">padding</span><span class="o">=</span><span class="mf">3.5</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
+        <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">),</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="n">layout</span><span class="p">[</span><span class="s2">"public_sub"</span><span class="p">]</span><span class="o">.</span><span class="n">local_bottom_left</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">priv_grp</span> <span class="o">=</span> <span class="n">vpc_grp</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">NodeGroup</span><span class="p">(</span>
+        <span class="n">title</span><span class="o">=</span><span class="s2">"Data Subnet"</span><span class="p">,</span>
+        <span class="n">padding</span><span class="o">=</span><span class="mf">3.5</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
+        <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">),</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="n">layout</span><span class="p">[</span><span class="s2">"private_sub"</span><span class="p">]</span><span class="o">.</span><span class="n">local_bottom_left</span><span class="p">,</span>
+<span class="p">)</span>
 
-<span class="c1"># Inner Cluster 1 (Public Subnet)</span>
-<span class="n">rectangle</span><span class="p">((</span><span class="mi">40</span><span class="p">,</span> <span class="mi">24</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">58</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">27</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
-<span class="n">text</span><span class="p">((</span><span class="mi">16</span><span class="p">,</span> <span class="mi">33</span><span class="p">),</span> <span class="s2">"Subnet A (Public)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">8.8</span><span class="p">))</span>
+<span class="n">browser</span> <span class="o">=</span> <span class="n">ext_grp</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span><span class="s2">"Client App"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">18.5</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">13.0</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">DEVICES</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">5.6</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="n">layout</span><span class="p">[</span><span class="s2">"browser"</span><span class="p">]</span><span class="o">.</span><span class="n">local_xy</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">gateway</span> <span class="o">=</span> <span class="n">pub_grp</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span>
+        <span class="s2">"API Gateway"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mf">18.5</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mf">13.0</span><span class="p">,</span>
+        <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">SHIELD_CHECK</span><span class="p">,</span>
+        <span class="n">icon_size</span><span class="o">=</span><span class="mf">5.6</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="p">,</span>
+        <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
+        <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="n">layout</span><span class="p">[</span><span class="s2">"gateway"</span><span class="p">]</span><span class="o">.</span><span class="n">local_xy</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">web</span> <span class="o">=</span> <span class="n">pub_grp</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span><span class="s2">"Web SSR"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">18.5</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">13.0</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">GcpIcon</span><span class="o">.</span><span class="n">CLOUD_RUN</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">5.6</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="n">layout</span><span class="p">[</span><span class="s2">"web"</span><span class="p">]</span><span class="o">.</span><span class="n">local_xy</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">sql</span> <span class="o">=</span> <span class="n">priv_grp</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span><span class="s2">"Cloud SQL"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">18.5</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">13.0</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">GcpIcon</span><span class="o">.</span><span class="n">CLOUD_SQL</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">5.6</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="n">layout</span><span class="p">[</span><span class="s2">"sql"</span><span class="p">]</span><span class="o">.</span><span class="n">local_xy</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">cache</span> <span class="o">=</span> <span class="n">priv_grp</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span><span class="s2">"Memorystore"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">18.5</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">13.0</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">GcpIcon</span><span class="o">.</span><span class="n">MEMORYSTORE</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">5.6</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="n">layout</span><span class="p">[</span><span class="s2">"cache"</span><span class="p">]</span><span class="o">.</span><span class="n">local_xy</span><span class="p">,</span>
+<span class="p">)</span>
 
-<span class="n">rectangle</span><span class="p">((</span><span class="mi">28</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">))</span>
-<span class="n">phosphor</span><span class="o">.</span><span class="n">globe</span><span class="p">((</span><span class="mi">21</span><span class="p">,</span> <span class="mf">22.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
-<span class="n">text</span><span class="p">((</span><span class="mi">30</span><span class="p">,</span> <span class="mf">22.5</span><span class="p">),</span> <span class="s2">"Web App"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.2</span><span class="p">))</span>
+<span class="n">d</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">browser</span><span class="p">,</span> <span class="n">gateway</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">browser</span><span class="p">,</span> <span class="n">web</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">gateway</span><span class="p">,</span> <span class="n">sql</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">web</span><span class="p">,</span> <span class="n">cache</span><span class="p">)</span>
 
-<span class="n">rectangle</span><span class="p">((</span><span class="mi">52</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">))</span>
-<span class="n">phosphor</span><span class="o">.</span><span class="n">shield_check</span><span class="p">((</span><span class="mi">45</span><span class="p">,</span> <span class="mf">22.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
-<span class="n">text</span><span class="p">((</span><span class="mi">54</span><span class="p">,</span> <span class="mf">22.5</span><span class="p">),</span> <span class="s2">"API Gateway"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.2</span><span class="p">))</span>
-
-<span class="c1"># Inner Cluster 2 (Private Subnet)</span>
-<span class="n">rectangle</span><span class="p">((</span><span class="mi">100</span><span class="p">,</span> <span class="mi">24</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">58</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">27</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
-<span class="n">text</span><span class="p">((</span><span class="mi">76</span><span class="p">,</span> <span class="mi">33</span><span class="p">),</span> <span class="s2">"Subnet B (Private Data)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">8.8</span><span class="p">))</span>
-
-<span class="n">rectangle</span><span class="p">((</span><span class="mi">88</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">))</span>
-<span class="n">phosphor</span><span class="o">.</span><span class="n">database</span><span class="p">((</span><span class="mi">81</span><span class="p">,</span> <span class="mf">22.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">)</span>
-<span class="n">text</span><span class="p">((</span><span class="mi">90</span><span class="p">,</span> <span class="mf">22.5</span><span class="p">),</span> <span class="s2">"Postgres"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.2</span><span class="p">))</span>
-
-<span class="n">rectangle</span><span class="p">((</span><span class="mi">112</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">))</span>
-<span class="n">phosphor</span><span class="o">.</span><span class="n">hard_drives</span><span class="p">((</span><span class="mi">105</span><span class="p">,</span> <span class="mf">22.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">)</span>
-<span class="n">text</span><span class="p">((</span><span class="mi">114</span><span class="p">,</span> <span class="mf">22.5</span><span class="p">),</span> <span class="s2">"Redis Cache"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.2</span><span class="p">))</span>
-
-<span class="c1"># Connecting line between clusters</span>
-<span class="n">line</span><span class="p">((</span><span class="mi">62</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span> <span class="p">(</span><span class="mi">78</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
-
+<span class="n">d</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">9.0</span><span class="p">))</span>
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 </details>
-<h3>Bottom-Up Geometric Solving</h3>
-<p>When clusters contain child nodes or sub-clusters:</p>
-<ol>
-<li><strong>Leaf Node Positioning</strong>: Leaf nodes are positioned first within their local rank coordinate space.</li>
-<li><strong>Cluster Bounding Box Calculation</strong>: The enclosing cluster iterates over all member bounding boxes to compute the minimum enclosing envelope:
-$$x_0 = \min_{i}(x_{0,i}) - \text{padding}$$
-$$y_0 = \min_{i}(y_{0,i}) - \text{padding}$$
-$$\text{width} = \max_{i}(x_{1,i}) - x_0 + \text{padding}$$
-$$\text{height} = \max_{i}(y_{1,i}) - y_0 + \text{padding}$$</li>
-<li><strong>Parent Propagation</strong>: Parent clusters recursively absorb child cluster envelopes, rendering grouped cloud topologies with balanced padding and zero boundary collisions.</li>
-</ol>
-<p>Next, proceed to Chapter 4: <strong><a href="../04_doc_builder_and_compiler/01_compilation_pipeline.html">Compilation Pipeline</a></strong>.</p>
+<h3>3.2. Recursive Cluster Bounding Box &amp; Local Frame Equations</h3>
+<p>In <code>BaseGraph._build_clusters_layout()</code> (<code>_graph/_common/_base.py</code>), whenever a cluster omits explicit solver dimensions, its bounding envelope is computed bottom-up from all enclosed member nodes and child sub-clusters $i \in \text{members}(C)$:</p>
+<p>$$x_0 = \min_{i}(x_{0,i}) - \text{padding}, \qquad x_1 = \max_{i}(x_{1,i}) + \text{padding}$$</p>
+<p>$$y_0 = \min_{i}(y_{0,i}) - \text{padding}, \qquad y_1 = \max_{i}(y_{1,i}) + \text{padding} + \text{header_height}$$</p>
+<p>$$\text{width} = x_1 - x_0, \qquad \text{height} = y_1 - y_0, \qquad (c_x, c_y) = \left(\frac{x_0 + x_1}{2},; \frac{y_0 + y_1}{2}\right)$$</p>
+<ul>
+<li><strong>Header Headroom (<code>header_height = 3.5</code> default)</strong>: Adding <code>cluster.header_height</code> exclusively to $y_1$ reserves dedicated vertical clearance at the top of the container so <code>NodeGroup(title=...)</code> banners never overlap top-row service cards.</li>
+<li><strong>Hierarchical Coordinate Localization (<code>_finalize_hierarchy_coords</code>)</strong>: Once global envelopes settle, every nested cluster and child node computes parent-origin coordinates relative to its enclosing container's bottom-left corner $(x_{0,\text{parent}}, y_{0,\text{parent}})$:
+<ul>
+<li><code>cluster.local_bottom_left = (cluster.left - parent.left, cluster.bottom - parent.bottom)</code></li>
+<li><code>node.local_xy = (node.x - parent.left, node.y - parent.bottom)</code></li>
+</ul>
+</li>
+</ul>
+<p>This dual global/local coordinate output allows top-level <code>NodeGroup</code>s (<code>.bottom_left</code>), nested sub-groups (<code>.local_bottom_left</code>), and member <code>Node</code>s (<code>.local_xy</code>) to compose without manual offset arithmetic.</p>
+<p>Next, explore multi-frame synthesis, 16:9 vector presentation stages, and live-DOM PowerPoint compilation in <strong><a href="04_animation_and_slide_engines.html">Animation &amp; Slide Engines</a></strong>.</p>
 
             </main>
         </div>
@@ -468,8 +642,8 @@ $$\text{height} = \max_{i}(y_{1,i}) - y_0 + \text{padding}$$</li>
                     if (e.key === 'Escape') {
                         langDropdowns.forEach(function(dd) {
                             dd.removeAttribute('open');
-                        });
-                    }
+                        }
+                    });
                 });
             }
 

@@ -25,21 +25,25 @@
         })();
     </script>
     
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     
-        <meta name="description" content="A scalable illustration engine requires rock-solid type safety. In traditional plotting libraries, styles are passed as untyped dictionaries (e.g. {&quot;color&quot;…">
+    
+    
+    <meta name="description" content="In traditional plotting libraries, styles are passed as untyped dictionaries ({&quot;color&quot;: &quot;blue&quot;, &quot;lw&quot;: 2}), allowing silent key typos or out-of-range values…">
     <link rel="canonical" href="https://www.drawlib.com/architecture/en/02_core_engine/02_types_and_styles.html">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Drawlib Architecture">
     <meta property="og:title" content="Type System, Guarded Models &amp; Styles — Drawlib Architecture">
-    <meta property="og:description" content="A scalable illustration engine requires rock-solid type safety. In traditional plotting libraries, styles are passed as untyped dictionaries (e.g. {&quot;color&quot;…">
+    <meta property="og:description" content="In traditional plotting libraries, styles are passed as untyped dictionaries ({&quot;color&quot;: &quot;blue&quot;, &quot;lw&quot;: 2}), allowing silent key typos or out-of-range values…">
     <meta property="og:url" content="https://www.drawlib.com/architecture/en/02_core_engine/02_types_and_styles.html">
     <meta property="og:image" content="https://www.drawlib.com/architecture/_assets/ogp.png">
     <meta property="og:locale" content="en_US">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Type System, Guarded Models &amp; Styles — Drawlib Architecture">
-    <meta name="twitter:description" content="A scalable illustration engine requires rock-solid type safety. In traditional plotting libraries, styles are passed as untyped dictionaries (e.g. {&quot;color&quot;…">
+    <meta name="twitter:description" content="In traditional plotting libraries, styles are passed as untyped dictionaries ({&quot;color&quot;: &quot;blue&quot;, &quot;lw&quot;: 2}), allowing silent key typos or out-of-range values…">
     <meta name="twitter:image" content="https://www.drawlib.com/architecture/_assets/ogp.png">
-    
     
     
     <link rel="icon" type="image/png" href="../../_assets/favicon.png">
@@ -56,7 +60,8 @@
             <div class="sidebar-header">
                 <a href="../index.html" class="sidebar-brand" aria-label="Drawlib Architecture">
                     
-                    Drawlib Architecture
+                    <img src="../../_assets/logo.png" alt="Drawlib Architecture" class="sidebar-logo sidebar-logo-light">
+                    <img src="../../_assets/logo_dark.png" alt="Drawlib Architecture" class="sidebar-logo sidebar-logo-dark">
                     
                 </a>
                 <div class="sidebar-header-actions">
@@ -70,6 +75,15 @@
                     </button>
                 </div>
             </div>
+            <div class="sidebar-subbar">
+                <a href="https://www.drawlib.com/en/01_getting_started/release_notes.html" target="_blank" rel="noopener noreferrer" class="sidebar-version-badge" title="Architecture Specification · View Release Notes">
+                    <span class="sidebar-version-dot" aria-hidden="true"></span>
+                    <span class="sidebar-version-text">Architecture · v0.3.4</span>
+                </a>
+                <a href="https://github.com/yuichi110/drawlib" target="_blank" rel="noopener noreferrer" class="sidebar-github-link" aria-label="GitHub Repository" title="GitHub Repository">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+                </a>
+            </div>
             <div class="sidebar-menu">
                 
                     
@@ -82,6 +96,10 @@
                             
                             <li class="nav-item ">
                                 <a href="https://www.drawlib.com/" target="_blank" rel="noopener noreferrer">Official Docs<svg class="nav-external-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="https://examples.drawlib.com/" target="_blank" rel="noopener noreferrer">Examples Showcase<svg class="nav-external-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
                             </li>
                             
                         </ul>
@@ -137,6 +155,10 @@
                                 <a href="../03_domain_subsystems/03_graph_autolayout.html" >Graph Auto-Layout</a>
                             </li>
                             
+                            <li class="nav-item ">
+                                <a href="../03_domain_subsystems/04_animation_and_slide_engines.html" >Animation &amp; Slide Engines</a>
+                            </li>
+                            
                         </ul>
                     
                         
@@ -168,7 +190,7 @@
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../05_cli_and_runtime/02_preview_server.html" >Preview Server &amp; Tooling</a>
+                                <a href="../05_cli_and_runtime/02_preview_server.html" >Preview Server &amp; Assets</a>
                             </li>
                             
                         </ul>
@@ -213,7 +235,7 @@
         <div class="content-wrapper">
             <header class="top-bar">
                 <div class="breadcrumbs">
-                    <span class="crumb">Docs</span>
+                    <span class="crumb">Architecture</span>
                     <span class="crumb-separator">&raquo;</span>
                     <span class="crumb active">Type System, Guarded Models &amp; Styles</span>
                 </div>
@@ -221,88 +243,168 @@
             </header>
             <main class="main-content">
                 <h1>Type System, Guarded Models &amp; Styles</h1>
-<p>A scalable illustration engine requires rock-solid type safety. In traditional plotting libraries, styles are passed as untyped dictionaries (e.g. <code>{&quot;color&quot;: &quot;blue&quot;, &quot;lw&quot;: 2}</code>), where typos (<code>&quot;colour&quot;</code> or <code>&quot;width&quot;</code>) fail silently or crash at runtime deep inside backend rendering code.</p>
-<p>Drawlib eliminates this fragility through a <strong>strongly-typed, composite style architecture</strong> (<code>_core/l2_types</code> and <code>_core/l3_styles</code>), featuring immutable design tokens and guarded validation.</p>
+<p>In traditional plotting libraries, styles are passed as untyped dictionaries (<code>{&quot;color&quot;: &quot;blue&quot;, &quot;lw&quot;: 2}</code>), allowing silent key typos or out-of-range values to leak deep into backend rendering code. Drawlib eliminates this fragility through a <strong>strongly-typed, immutable style architecture</strong> (<code>_core/l2_types</code>, <code>_core/l3_colors</code>, and <code>_core/l3_styles</code>) backed by Pydantic boundary validation and zero-cost lazy preset catalogs.</p>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="../../images/02_core_engine/02_types_and_styles/style_catalog_architecture.png" alt="02_types_and_styles_1" />
-  <figcaption class="drawlib-caption">L3 Unified Style Model & Preset Catalog Architecture</figcaption>
+  <figcaption class="drawlib-caption">L3 Unified Style Model, Lazy Metaclass & Preset Catalog Architecture</figcaption>
 </figure>
 <details class="drawlib-code-details">
 <summary>Source Code</summary>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.diagrams.class_diagram</span><span class="w"> </span><span class="kn">import</span> <span class="n">ClassDiagram</span><span class="p">,</span> <span class="n">ClassNode</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.fonts</span><span class="w"> </span><span class="kn">import</span> <span class="n">FontRoboto</span><span class="p">,</span> <span class="n">FontSourceCode</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Colors</span><span class="p">,</span> <span class="n">Styles</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">160</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">94</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">122</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">78</span><span class="p">)</span>
 
 <span class="n">cd</span> <span class="o">=</span> <span class="n">ClassDiagram</span><span class="p">(</span>
-    <span class="n">node_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+    <span class="n">node_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_font</span><span class="o">=</span><span class="n">FontSourceCode</span><span class="o">.</span><span class="n">ROBOTO_MONO</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">header_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_font</span><span class="o">=</span><span class="n">FontRoboto</span><span class="o">.</span><span class="n">ROBOTO_BOLD</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">10.8</span><span class="p">),</span>
     <span class="n">edge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
-    <span class="n">edge_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="p">,</span>
-    <span class="n">title</span><span class="o">=</span><span class="s2">"L3 Unified Style Model &amp; Preset Catalog Architecture"</span><span class="p">,</span>
+    <span class="n">edge_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">margin</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span>
 <span class="p">)</span>
 
-<span class="c1"># Color Model</span>
-<span class="n">color_node</span> <span class="o">=</span> <span class="n">cd</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">ClassNode</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"Color"</span><span class="p">,</span> <span class="n">stereotype</span><span class="o">=</span><span class="s2">"BaseModel"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">30.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">18.0</span><span class="p">,</span> <span class="mf">62.0</span><span class="p">))</span>
-<span class="n">color_node</span><span class="o">.</span><span class="n">add_attribute</span><span class="p">(</span><span class="s2">"r, g, b: int (0-255)"</span><span class="p">)</span>
-<span class="n">color_node</span><span class="o">.</span><span class="n">add_attribute</span><span class="p">(</span><span class="s2">"alpha: float (0.0-1.0)"</span><span class="p">)</span>
-<span class="n">color_node</span><span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"to_mplot_rgba"</span><span class="p">,</span> <span class="n">return_type</span><span class="o">=</span><span class="s2">"tuple"</span><span class="p">)</span>
-<span class="n">color_node</span><span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"patch"</span><span class="p">,</span> <span class="n">return_type</span><span class="o">=</span><span class="s2">"Color"</span><span class="p">)</span>
+<span class="c1"># Left Column: Universal Style &amp; RGBA Color Value Objects</span>
+<span class="n">style_node</span> <span class="o">=</span> <span class="n">cd</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">ClassNode</span><span class="p">(</span>
+        <span class="s2">"Style"</span><span class="p">,</span>
+        <span class="n">stereotype</span><span class="o">=</span><span class="s2">"BaseModel"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mf">48.0</span><span class="p">,</span>
+        <span class="n">row_height</span><span class="o">=</span><span class="mf">3.3</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
+        <span class="n">header_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_color</span><span class="o">=</span><span class="n">Colors</span><span class="o">.</span><span class="n">White</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="o">.</span><span class="n">add_attribute</span><span class="p">(</span><span class="s2">"supports"</span><span class="p">,</span> <span class="s2">"frozenset[SupportType]"</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">add_attribute</span><span class="p">(</span><span class="s2">"shape_*, line_*, text_*"</span><span class="p">,</span> <span class="s2">"19 fields"</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">add_attribute</span><span class="p">(</span><span class="s2">"icon_*, image_*, align"</span><span class="p">,</span> <span class="s2">"12 fields"</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"validate_for"</span><span class="p">,</span> <span class="s2">"target"</span><span class="p">,</span> <span class="s2">"None"</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"patch"</span><span class="p">,</span> <span class="s2">"other, **kw"</span><span class="p">,</span> <span class="s2">"Style"</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">28.0</span><span class="p">,</span> <span class="mf">57.5</span><span class="p">),</span>
+<span class="p">)</span>
 
-<span class="c1"># Unified Style Model</span>
-<span class="n">style_node</span> <span class="o">=</span> <span class="n">cd</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">ClassNode</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"Style"</span><span class="p">,</span> <span class="n">stereotype</span><span class="o">=</span><span class="s2">"BaseModel"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">50.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">82.0</span><span class="p">,</span> <span class="mf">62.0</span><span class="p">))</span>
-<span class="n">style_node</span><span class="o">.</span><span class="n">add_attribute</span><span class="p">(</span><span class="s2">"supports: frozenset[SupportType]"</span><span class="p">)</span>
-<span class="n">style_node</span><span class="o">.</span><span class="n">add_attribute</span><span class="p">(</span><span class="s2">"shape_fill_color, shape_line_*: ..."</span><span class="p">)</span>
-<span class="n">style_node</span><span class="o">.</span><span class="n">add_attribute</span><span class="p">(</span><span class="s2">"line_color, line_width, ...: ..."</span><span class="p">)</span>
-<span class="n">style_node</span><span class="o">.</span><span class="n">add_attribute</span><span class="p">(</span><span class="s2">"text_color, text_size, text_font: ..."</span><span class="p">)</span>
-<span class="n">style_node</span><span class="o">.</span><span class="n">add_attribute</span><span class="p">(</span><span class="s2">"icon_color, icon_style: ..."</span><span class="p">)</span>
-<span class="n">style_node</span><span class="o">.</span><span class="n">add_attribute</span><span class="p">(</span><span class="s2">"image_tint_color, image_border_*: ..."</span><span class="p">)</span>
-<span class="n">style_node</span><span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"validate_for"</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="s2">"target: SupportType"</span><span class="p">)</span>
-<span class="n">style_node</span><span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"patch"</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="s2">"other=None, **kwargs"</span><span class="p">,</span> <span class="n">return_type</span><span class="o">=</span><span class="s2">"Style"</span><span class="p">)</span>
+<span class="n">color_node</span> <span class="o">=</span> <span class="n">cd</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">ClassNode</span><span class="p">(</span>
+        <span class="s2">"Color"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mf">44.0</span><span class="p">,</span>
+        <span class="n">row_height</span><span class="o">=</span><span class="mf">3.3</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+        <span class="n">header_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="o">.</span><span class="n">add_attribute</span><span class="p">(</span><span class="s2">"r, g, b"</span><span class="p">,</span> <span class="s2">"int (0..255)"</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">add_attribute</span><span class="p">(</span><span class="s2">"alpha"</span><span class="p">,</span> <span class="s2">"float = 1.0"</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"to_mplot_rgba"</span><span class="p">,</span> <span class="s2">""</span><span class="p">,</span> <span class="s2">"tuple"</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"patch"</span><span class="p">,</span> <span class="s2">"..."</span><span class="p">,</span> <span class="s2">"Color"</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">28.0</span><span class="p">,</span> <span class="mf">18.0</span><span class="p">),</span>
+<span class="p">)</span>
 
-<span class="c1"># Metaclass</span>
-<span class="n">meta_node</span> <span class="o">=</span> <span class="n">cd</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">ClassNode</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"_BaseStylesMeta"</span><span class="p">,</span> <span class="n">stereotype</span><span class="o">=</span><span class="s2">"metaclass"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">36.0</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">138.0</span><span class="p">,</span> <span class="mf">62.0</span><span class="p">))</span>
-<span class="n">meta_node</span><span class="o">.</span><span class="n">add_attribute</span><span class="p">(</span><span class="s2">"_default_instances: dict"</span><span class="p">)</span>
-<span class="n">meta_node</span><span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"__getattr__"</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="s2">"name: str"</span><span class="p">,</span> <span class="n">return_type</span><span class="o">=</span><span class="s2">"Any"</span><span class="p">)</span>
-<span class="n">meta_node</span><span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"get_default_instance"</span><span class="p">,</span> <span class="n">return_type</span><span class="o">=</span><span class="s2">"BaseStyles"</span><span class="p">)</span>
+<span class="c1"># Right Column: Lazy Singleton Metaclass &amp; Preset Catalogs</span>
+<span class="n">meta_node</span> <span class="o">=</span> <span class="n">cd</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">ClassNode</span><span class="p">(</span>
+        <span class="s2">"_BaseStylesMeta"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mf">48.0</span><span class="p">,</span>
+        <span class="n">row_height</span><span class="o">=</span><span class="mf">3.2</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+        <span class="n">header_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="o">.</span><span class="n">add_attribute</span><span class="p">(</span><span class="s2">"_default_factories"</span><span class="p">,</span> <span class="s2">"dict"</span><span class="p">,</span> <span class="n">visibility</span><span class="o">=</span><span class="s2">"-"</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">add_attribute</span><span class="p">(</span><span class="s2">"_default_instances"</span><span class="p">,</span> <span class="s2">"dict"</span><span class="p">,</span> <span class="n">visibility</span><span class="o">=</span><span class="s2">"-"</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"register_default_factory"</span><span class="p">,</span> <span class="s2">"fn"</span><span class="p">,</span> <span class="s2">"None"</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"get_default_instance"</span><span class="p">,</span> <span class="s2">""</span><span class="p">,</span> <span class="s2">"BaseStyles | None"</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">93.0</span><span class="p">,</span> <span class="mf">62.0</span><span class="p">),</span>
+<span class="p">)</span>
 
-<span class="c1"># BaseStyles Catalog</span>
-<span class="n">catalog_node</span> <span class="o">=</span> <span class="n">cd</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">ClassNode</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"BaseStyles"</span><span class="p">,</span> <span class="n">stereotype</span><span class="o">=</span><span class="s2">"BaseModel"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">52.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">82.0</span><span class="p">,</span> <span class="mf">18.0</span><span class="p">))</span>
-<span class="n">catalog_node</span><span class="o">.</span><span class="n">add_attribute</span><span class="p">(</span><span class="s2">"Primary, PrimaryBold, PrimaryFlat, ..."</span><span class="p">)</span>
-<span class="n">catalog_node</span><span class="o">.</span><span class="n">add_attribute</span><span class="p">(</span><span class="s2">"Secondary, Accent, Muted, ..."</span><span class="p">)</span>
-<span class="n">catalog_node</span><span class="o">.</span><span class="n">add_attribute</span><span class="p">(</span><span class="s2">"Light, Dark, Warning, Danger, Success"</span><span class="p">)</span>
-<span class="n">catalog_node</span><span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"patch_font"</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="s2">"regular, bold, thin, size"</span><span class="p">,</span> <span class="n">return_type</span><span class="o">=</span><span class="s2">"Self"</span><span class="p">)</span>
-<span class="n">catalog_node</span><span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"styles"</span><span class="p">,</span> <span class="n">return_type</span><span class="o">=</span><span class="s2">"dict[str, Style]"</span><span class="p">)</span>
+<span class="n">catalog_node</span> <span class="o">=</span> <span class="n">cd</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">ClassNode</span><span class="p">(</span><span class="s2">"BaseStyles"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">48.0</span><span class="p">,</span> <span class="n">row_height</span><span class="o">=</span><span class="mf">3.2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">add_attribute</span><span class="p">(</span><span class="s2">"Primary, Secondary, Accent, Neutral"</span><span class="p">,</span> <span class="s2">"Style"</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">add_attribute</span><span class="p">(</span><span class="s2">"Warning, Muted, Danger, Success"</span><span class="p">,</span> <span class="s2">"Style"</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"patch_font"</span><span class="p">,</span> <span class="s2">"regular, bold, ..."</span><span class="p">,</span> <span class="s2">"Self"</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"styles"</span><span class="p">,</span> <span class="s2">""</span><span class="p">,</span> <span class="s2">"dict[str, Style]"</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">93.0</span><span class="p">,</span> <span class="mf">33.0</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">presets_node</span> <span class="o">=</span> <span class="n">cd</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">ClassNode</span><span class="p">(</span>
+        <span class="s2">"DefaultStyles / GoogleStyles"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mf">48.0</span><span class="p">,</span>
+        <span class="n">row_height</span><span class="o">=</span><span class="mf">3.2</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+        <span class="n">header_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">add_attribute</span><span class="p">(</span><span class="s2">"Default1..6, Monochrome, *Neutral"</span><span class="p">,</span> <span class="s2">"Style"</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">93.0</span><span class="p">,</span> <span class="mf">8.5</span><span class="p">),</span>
+<span class="p">)</span>
 
 <span class="c1"># Relationships</span>
-<span class="n">cd</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">style_node</span><span class="p">,</span> <span class="n">color_node</span><span class="p">,</span> <span class="s2">"composition"</span><span class="p">,</span> <span class="n">start_side</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">end_side</span><span class="o">=</span><span class="s2">"right"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"uses Color"</span><span class="p">)</span>
-<span class="n">cd</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">catalog_node</span><span class="p">,</span> <span class="n">style_node</span><span class="p">,</span> <span class="s2">"aggregation"</span><span class="p">,</span> <span class="n">start_side</span><span class="o">=</span><span class="s2">"top"</span><span class="p">,</span> <span class="n">end_side</span><span class="o">=</span><span class="s2">"bottom"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"aggregates Styles"</span><span class="p">)</span>
-<span class="n">cd</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">catalog_node</span><span class="p">,</span> <span class="n">meta_node</span><span class="p">,</span> <span class="s2">"dependency"</span><span class="p">,</span> <span class="n">start_side</span><span class="o">=</span><span class="s2">"right"</span><span class="p">,</span> <span class="n">end_side</span><span class="o">=</span><span class="s2">"bottom"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"instantiated by"</span><span class="p">)</span>
+<span class="n">cd</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">style_node</span><span class="p">,</span> <span class="n">color_node</span><span class="p">,</span> <span class="s2">"composition"</span><span class="p">,</span> <span class="n">start_side</span><span class="o">=</span><span class="s2">"bottom"</span><span class="p">,</span> <span class="n">end_side</span><span class="o">=</span><span class="s2">"top"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"uses Color"</span><span class="p">)</span>
+<span class="n">cd</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">catalog_node</span><span class="p">,</span> <span class="n">style_node</span><span class="p">,</span> <span class="s2">"aggregation"</span><span class="p">,</span> <span class="n">start_side</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">end_side</span><span class="o">=</span><span class="s2">"right"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"aggregates"</span><span class="p">)</span>
+<span class="n">cd</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">catalog_node</span><span class="p">,</span> <span class="n">meta_node</span><span class="p">,</span> <span class="s2">"dependency"</span><span class="p">,</span> <span class="n">start_side</span><span class="o">=</span><span class="s2">"top"</span><span class="p">,</span> <span class="n">end_side</span><span class="o">=</span><span class="s2">"bottom"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"metaclass"</span><span class="p">)</span>
+<span class="n">cd</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">presets_node</span><span class="p">,</span> <span class="n">catalog_node</span><span class="p">,</span> <span class="s2">"inheritance"</span><span class="p">,</span> <span class="n">start_side</span><span class="o">=</span><span class="s2">"top"</span><span class="p">,</span> <span class="n">end_side</span><span class="o">=</span><span class="s2">"bottom"</span><span class="p">)</span>
 
-<span class="n">cd</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">))</span>
+<span class="n">cd</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">61.0</span><span class="p">,</span> <span class="mf">39.0</span><span class="p">),</span> <span class="n">align</span><span class="o">=</span><span class="s2">"center"</span><span class="p">)</span>
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 </details>
 <hr />
-<h2>1. Concept: Value Objects &amp; Immutable Style Tokens</h2>
-<p>Styles in Drawlib are not loose configurations; they are <strong>immutable Value Objects</strong>.</p>
-<h3>1.1. Single Universal Model with Target Declarations</h3>
-<p>Rather than fracturing styling into disparate, fragmented classes, Drawlib unifies all visual styling into a single, flat Pydantic model: <code>Style(BaseModel)</code>.</p>
+<h2>1. Concept: Immutable Value Objects &amp; Target Invariants</h2>
+<p>Styles in Drawlib are frozen Pydantic <strong>Value Objects</strong> (<code>ConfigDict(frozen=True, extra=&quot;forbid&quot;, defer_build=True)</code>). Every style modification creates an isolated copy rather than mutating shared global tokens.</p>
+<h3>1.1. Single Universal <code>Style</code> Model (32 Fields)</h3>
+<p>Rather than fragmenting configuration across separate shape, stroke, and font classes, <code>_core/l3_styles/_style.py</code> consolidates styling into <code>Style(BaseModel)</code> with <strong>32 total fields</strong> (<strong>31 visual/transform fields</strong> + <strong><code>supports</code></strong>):</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Field Group</th>
+<th style="text-align:center">Count</th>
+<th style="text-align:left">Exact <code>Style</code> Attributes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Target Set</strong></td>
+<td style="text-align:center"><code>1</code></td>
+<td style="text-align:left"><code>supports: frozenset[SupportType]</code> (<code>&quot;shape&quot;</code>, <code>&quot;line&quot;</code>, <code>&quot;text&quot;</code>, <code>&quot;icon&quot;</code>, <code>&quot;image&quot;</code>)</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Shape (<code>shape_*</code>)</strong></td>
+<td style="text-align:center"><code>5</code></td>
+<td style="text-align:left"><code>shape_fill_color</code>, <code>shape_line_color</code>, <code>shape_line_width</code>, <code>shape_line_style</code>, <code>shape_r</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Line (<code>line_*</code>)</strong></td>
+<td style="text-align:center"><code>5</code></td>
+<td style="text-align:left"><code>line_color</code>, <code>line_width</code>, <code>line_style</code>, <code>line_arrow_head_fill</code>, <code>line_arrow_head_scale</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Text (<code>text_*</code>)</strong></td>
+<td style="text-align:center"><code>9</code></td>
+<td style="text-align:left"><code>text_color</code>, <code>text_size</code>, <code>text_font</code>, <code>text_flip</code>, <code>text_line_spacing</code>, plus 4 badge box fields (<code>text_bg_fill_color</code>, <code>text_bg_line_color</code>, <code>text_bg_line_width</code>, <code>text_bg_line_style</code>)</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Icon (<code>icon_*</code>)</strong></td>
+<td style="text-align:center"><code>2</code></td>
+<td style="text-align:left"><code>icon_color</code>, <code>icon_style</code> (<code>&quot;thin&quot;</code>, <code>&quot;light&quot;</code>, <code>&quot;regular&quot;</code>, <code>&quot;bold&quot;</code>, <code>&quot;fill&quot;</code>)</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Image (<code>image_*</code>)</strong></td>
+<td style="text-align:center"><code>4</code></td>
+<td style="text-align:left"><code>image_tint_color</code>, <code>image_border_color</code>, <code>image_border_width</code>, <code>image_border_style</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Align &amp; Transform</strong></td>
+<td style="text-align:center"><code>6</code></td>
+<td style="text-align:left"><code>halign</code>, <code>valign</code>, <code>xy_shift</code>, <code>xy_abs_shift</code>, <code>angle</code>, <code>alpha</code></td>
+</tr>
+</tbody>
+</table>
 <ul>
-<li><strong>28 First-Class Properties</strong>: Encompassing shape fills/lines, line widths/arrows, typography/fonts, icon styling, image tinting, and coordinate alignment offsets.</li>
-<li><strong>Explicit Target Tracking (<code>supports</code>)</strong>: Each style declares which target primitives it supports (<code>supports: frozenset[SupportType]</code> where <code>SupportType = Literal[&quot;shape&quot;, &quot;line&quot;, &quot;text&quot;, &quot;icon&quot;, &quot;image&quot;]</code>).</li>
-<li><strong>Auto-Inference &amp; Invariant Validation</strong>: If not declared explicitly, <code>_infer_supports()</code> dynamically analyzes populated attributes. Furthermore, <code>_validate_invariants()</code> ensures mandatory attributes (e.g. <code>shape_fill_color</code> for shapes) are never missing when a target is claimed.</li>
-<li><strong>Runtime Target Guarding</strong>: Before drawing, primitives call <code>style.validate_for(&quot;shape&quot;)</code>, raising a clear validation error if a style is applied to an incompatible graphic element.</li>
+<li><strong>Auto-Inference &amp; Invariant Validation</strong>: When <code>supports</code> is omitted, <code>_infer_supports()</code> inspects populated attributes to determine valid drawing targets, and <code>_validate_invariants()</code> verifies that every declared target has its required fields (for example, <code>shape_fill_color</code>, <code>shape_line_color</code>, and <code>shape_line_width</code> for <code>&quot;shape&quot;</code>).</li>
+<li><strong>Runtime Target Guarding</strong>: Before creating any Matplotlib artist, canvas primitives call <code>style.validate_for(&quot;shape&quot;)</code> (or <code>&quot;line&quot;</code>, <code>&quot;text&quot;</code>, <code>&quot;icon&quot;</code>), failing fast with a descriptive <code>ValueError</code> if an incompatible token is passed.</li>
+<li><strong>Fast Preset Construction</strong>: Built-in catalogs construct trusted <code>Style</code> tokens via <code>_construct_preset_style()</code> (<code>Style.model_construct(...)</code>), including <code>Style.Transparent</code>, avoiding thousands of redundant Pydantic validation passes at import time.</li>
 </ul>
-<h3>1.2. The <code>.patch()</code> Functional Mutation Pattern</h3>
-<p>To customize an existing style without side effects, Drawlib uses a <strong>Copy-on-Write <code>.patch()</code> method</strong>:</p>
-<ul>
-<li><code>.patch(other=None, **kwargs)</code> clones the underlying model, applies overrides with full Pydantic validation, and returns a new frozen <code>Style</code> instance.</li>
-<li>The original design token remains 100% pristine.</li>
-</ul>
+<h3>1.2. Copy-on-Write Mutation via <code>.patch()</code></h3>
+<p>To customize a preset token for a specific node or connector without mutating global state, <code>Style.patch(other=None, **kwargs)</code> merges attribute overrides, re-evaluates <code>supports</code> invariants, and returns a new frozen <code>Style</code>:</p>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="../../images/02_core_engine/02_types_and_styles/style_patching_flow.png" alt="02_types_and_styles_2" />
-  <figcaption class="drawlib-caption">Immutable Style Mutation Pattern (.patch())</figcaption>
+  <figcaption class="drawlib-caption">Copy-on-Write Style Customization with .patch() and Live Swatch Previews</figcaption>
 </figure>
 <details class="drawlib-code-details">
 <summary>Source Code</summary>
@@ -310,110 +412,158 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.smartarts</span><span class="w"> </span><span class="kn">import</span> <span class="n">Panel</span><span class="p">,</span> <span class="n">SourceCode</span><span class="p">,</span> <span class="n">SourceCodeStyles</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">140</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">56</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">118</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">48</span><span class="p">)</span>
 
-<span class="n">rectangle</span><span class="p">((</span><span class="mi">70</span><span class="p">,</span> <span class="mi">28</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">136</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">52</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.5</span><span class="p">))</span>
-<span class="n">text</span><span class="p">(</span>
-    <span class="p">(</span><span class="mi">70</span><span class="p">,</span> <span class="mf">48.5</span><span class="p">),</span>
-    <span class="s2">"Immutable Style Mutation Pattern (.patch())"</span><span class="p">,</span>
-    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">12.2</span><span class="p">),</span>
+<span class="n">code_theme</span> <span class="o">=</span> <span class="n">SourceCodeStyles</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"default"</span><span class="p">,</span> <span class="n">font_lang</span><span class="o">=</span><span class="s2">"en"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">)</span>
+
+<span class="c1"># 1. Left Panel: Immutable Preset Token</span>
+<span class="n">left_panel</span> <span class="o">=</span> <span class="n">Panel</span><span class="p">(</span>
+    <span class="s2">"1. Base Preset Token"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+    <span class="n">header_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.2</span><span class="p">),</span>
+    <span class="n">icon</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">lock</span><span class="p">,</span>
+    <span class="n">icon_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">,</span>
+    <span class="n">header_height</span><span class="o">=</span><span class="mf">7.5</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">left_panel</span><span class="o">.</span><span class="n">draw</span><span class="p">((</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">48.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">41.0</span><span class="p">)</span>
+
+<span class="n">SourceCode</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">6.0</span><span class="p">,</span> <span class="mf">34.5</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mf">42.0</span><span class="p">,</span>
+    <span class="n">code</span><span class="o">=</span><span class="s1">'base = Styles.PrimaryNeutral</span><span class="se">\n</span><span class="s1"># Frozen global token (r=0)'</span><span class="p">,</span>
+    <span class="n">styles</span><span class="o">=</span><span class="n">code_theme</span><span class="p">,</span>
+    <span class="n">code_lang</span><span class="o">=</span><span class="s2">"python"</span><span class="p">,</span>
+    <span class="n">align</span><span class="o">=</span><span class="s2">"top_left"</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mf">27.0</span><span class="p">,</span> <span class="mf">11.5</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mf">38.0</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">9.5</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Unmutated Global Swatch"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
 <span class="p">)</span>
 
-<span class="c1"># 1. Base Token (Left)</span>
-<span class="n">rectangle</span><span class="p">((</span><span class="mi">28</span><span class="p">,</span> <span class="mi">23</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">38</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.8</span><span class="p">))</span>
-<span class="n">phosphor</span><span class="o">.</span><span class="n">lock</span><span class="p">((</span><span class="mi">15</span><span class="p">,</span> <span class="mf">33.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.6</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
-<span class="n">text</span><span class="p">((</span><span class="mi">19</span><span class="p">,</span> <span class="mf">33.5</span><span class="p">),</span> <span class="s2">"Base Style Token"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
-<span class="n">text</span><span class="p">(</span>
-    <span class="p">(</span><span class="mi">28</span><span class="p">,</span> <span class="mi">21</span><span class="p">),</span>
-    <span class="s2">"Styles.Neutral</span><span class="se">\n</span><span class="s2">• Immutable preset</span><span class="se">\n</span><span class="s2">• Global design token</span><span class="se">\n</span><span class="s2">• Never mutated in place"</span><span class="p">,</span>
-    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">),</span>
+<span class="c1"># Center Copy-on-Write Arrow</span>
+<span class="n">line</span><span class="p">((</span><span class="mf">52.5</span><span class="p">,</span> <span class="mf">24.0</span><span class="p">),</span> <span class="p">(</span><span class="mf">65.5</span><span class="p">,</span> <span class="mf">24.0</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">59.0</span><span class="p">,</span> <span class="mf">28.5</span><span class="p">),</span> <span class="s2">".patch()"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.8</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">59.0</span><span class="p">,</span> <span class="mf">19.5</span><span class="p">),</span> <span class="s2">"Copy-on-Write"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+
+<span class="c1"># 2. Right Panel: Derived Patched Style</span>
+<span class="n">right_panel</span> <span class="o">=</span> <span class="n">Panel</span><span class="p">(</span>
+    <span class="s2">"2. Derived Style Instance"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+    <span class="n">header_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.2</span><span class="p">),</span>
+    <span class="n">icon</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">sparkle</span><span class="p">,</span>
+    <span class="n">icon_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">,</span>
+    <span class="n">header_height</span><span class="o">=</span><span class="mf">7.5</span><span class="p">,</span>
 <span class="p">)</span>
+<span class="n">right_panel</span><span class="o">.</span><span class="n">draw</span><span class="p">((</span><span class="mf">67.0</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">48.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">41.0</span><span class="p">)</span>
 
-<span class="c1"># 2. Patch Transformation (Center)</span>
-<span class="n">rectangle</span><span class="p">((</span><span class="mi">70</span><span class="p">,</span> <span class="mi">23</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">28</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
-<span class="n">phosphor</span><span class="o">.</span><span class="n">sparkle</span><span class="p">((</span><span class="mi">60</span><span class="p">,</span> <span class="mf">26.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.4</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">)</span>
-<span class="n">text</span><span class="p">((</span><span class="mi">64</span><span class="p">,</span> <span class="mf">26.5</span><span class="p">),</span> <span class="s2">".patch(...)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">9.2</span><span class="p">))</span>
-<span class="n">text</span><span class="p">((</span><span class="mi">70</span><span class="p">,</span> <span class="mi">18</span><span class="p">),</span> <span class="s2">"Copy-on-Write</span><span class="se">\n</span><span class="s2">Attribute Override"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.0</span><span class="p">))</span>
-
-<span class="n">line</span><span class="p">((</span><span class="mi">47</span><span class="p">,</span> <span class="mi">23</span><span class="p">),</span> <span class="p">(</span><span class="mi">56</span><span class="p">,</span> <span class="mi">23</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
-<span class="n">line</span><span class="p">((</span><span class="mi">84</span><span class="p">,</span> <span class="mi">23</span><span class="p">),</span> <span class="p">(</span><span class="mi">93</span><span class="p">,</span> <span class="mi">23</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
-
-<span class="c1"># 3. Derived Style (Right)</span>
-<span class="n">rectangle</span><span class="p">((</span><span class="mi">112</span><span class="p">,</span> <span class="mi">23</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">38</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.8</span><span class="p">))</span>
-<span class="n">phosphor</span><span class="o">.</span><span class="n">check</span><span class="p">((</span><span class="mi">99</span><span class="p">,</span> <span class="mf">33.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.6</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">)</span>
-<span class="n">text</span><span class="p">((</span><span class="mi">103</span><span class="p">,</span> <span class="mf">33.5</span><span class="p">),</span> <span class="s2">"Derived Style"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
-<span class="n">text</span><span class="p">(</span>
-    <span class="p">(</span><span class="mi">112</span><span class="p">,</span> <span class="mi">21</span><span class="p">),</span>
-    <span class="s2">"new_style = base.patch(</span><span class="se">\n</span><span class="s2">  shape_r=2.0,</span><span class="se">\n</span><span class="s2">  text_size=11.5</span><span class="se">\n</span><span class="s2">)</span><span class="se">\n</span><span class="s2">• Isolated instance"</span><span class="p">,</span>
-    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.2</span><span class="p">),</span>
+<span class="n">SourceCode</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">70.0</span><span class="p">,</span> <span class="mf">35.0</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mf">42.0</span><span class="p">,</span>
+    <span class="n">code</span><span class="o">=</span><span class="s1">'derived = base.patch(</span><span class="se">\n</span><span class="s1">    shape_r=3.0,</span><span class="se">\n</span><span class="s1">    shape_line_style="dashed",</span><span class="se">\n</span><span class="s1">)'</span><span class="p">,</span>
+    <span class="n">styles</span><span class="o">=</span><span class="n">code_theme</span><span class="p">,</span>
+    <span class="n">code_lang</span><span class="o">=</span><span class="s2">"python"</span><span class="p">,</span>
+    <span class="n">align</span><span class="o">=</span><span class="s2">"top_left"</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">derived_swatch</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+    <span class="n">shape_r</span><span class="o">=</span><span class="mf">3.0</span><span class="p">,</span>
+    <span class="n">shape_line_style</span><span class="o">=</span><span class="s2">"dashed"</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mf">91.0</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mf">38.0</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">9.0</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">derived_swatch</span><span class="p">,</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Rounded + Dashed Swatch"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
 <span class="p">)</span>
 
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 </details>
 <hr />
-<h2>2. Positioning: Layer 2 Types &amp; Layer 3 Style Services</h2>
-<p>The type and styling system bridges low-level geometry and high-level domain components:</p>
+<h2>2. Positioning: L2 Guarded Types, L3 Colors &amp; Preset Catalogs</h2>
+<p>The styling stack bridges low-level geometry primitives (<code>_core/l2_types</code>) and higher-level domain subsystems (<code>shapes</code>, <code>charts</code>, <code>diagrams</code>, <code>smartarts</code>, and <a href="../03_domain_subsystems/04_animation_and_slide_engines.html">Animation &amp; Slide Engines</a>):</p>
 <ul>
-<li><strong><code>_core/l2_types</code></strong>:
+<li><strong><code>_core/l2_types</code> (Guarded Domain Primitives)</strong>:
 <ul>
-<li><code>Coordinate = tuple[float, float]</code> and <code>Coordinates = list[Coordinate]</code>: Lightweight functional coordinate representations without class overhead.</li>
-<li><code>Bezier2</code> and <code>Bezier3</code>: Control-point tuples for quadratic and cubic curves.</li>
-<li>Pydantic bounds: <code>PosInt</code>, <code>PosFloat</code>, <code>Ratio</code> ($[0.0, 1.0]$), and <code>Angle</code> with cyclic normalization modulo 360°.</li>
+<li><strong>Geometry Tuples</strong>: <code>Coordinate = tuple[float, float]</code>, <code>Coordinates = list[Coordinate]</code>, plus quadratic and cubic spline control tuples (<code>Bezier2</code>, <code>Bezier3</code>).</li>
+<li><strong>Constrained Scalars &amp; Literals</strong>: <code>PosInt</code>, <code>PosFloat</code>, <code>Ratio</code> ($[0.0, 1.0]$), <code>Alpha</code>, <code>Bend</code> ($(-2.0, 2.0)$), <code>ShapeRadius</code> (<code>PosFloat | tuple[PosFloat, ...]</code>), <code>LineStyle</code> (<code>&quot;solid&quot; | &quot;dashed&quot; | &quot;dotted&quot; | &quot;dashdot&quot;</code>), and <code>ArrowHead</code> (<code>&quot;&quot; | &quot;-&gt;&quot; | &quot;&lt;-&quot; | &quot;&lt;-&gt;&quot;</code>).</li>
 </ul>
 </li>
-<li><strong><code>_core/l3_colors</code></strong>:
+<li><strong><code>_core/l3_colors</code> &amp; <code>drawlib.preset_colors</code></strong>:
 <ul>
-<li><code>Color(BaseModel)</code>: Immutable RGBA model supporting hex codes (<code>#3b82f6</code>), RGB tuples, and RGBA floats.</li>
-<li><code>.to_mplot_rgba()</code>: Generates Matplotlib-ready normalized float tuples rounded to 5 decimal places.</li>
-<li><code>ColorUtils</code>: Linear color interpolation and WCAG contrast ratio calculations.</li>
+<li><strong><code>Color(BaseModel)</code></strong>: Immutable RGBA value object (<code>r, g, b</code> in <code>0..255</code>, <code>alpha</code> in <code>0.0..1.0</code>) supporting hex strings (<code>&quot;#3b82f6&quot;</code>), tuples, <code>.to_mplot_rgba()</code> (normalized floats rounded to 5 decimal places), and <code>.patch()</code>.</li>
+<li><strong><code>ColorUtils</code> (<code>_core/l3_colors/_color_utils.py</code>)</strong>: Static utility class providing linear RGBA interpolation (<code>get_intermediate_color</code>, <code>get_intermediate_colors</code>) and <strong>ITU-R BT.601 relative luminance</strong> (<code>0.299R + 0.587G + 0.114B</code>) via <code>get_luminance()</code> and <code>get_contrast_text_color()</code>, selecting dark vs. light foreground text against a <strong><code>0.6</code> luminance threshold</strong> (with <code>alpha_threshold=0.3</code> transparency fallback).</li>
+<li><strong>Color Catalogs</strong>: <code>DefaultColors</code> (<code>DefaultColors1</code>..<code>DefaultColors6</code>), <code>GoogleColors</code>, <code>MonochromeColors</code>, and <code>CssColors</code> (<strong>140 standard named CSS web colors</strong>).</li>
 </ul>
 </li>
-<li><strong><code>_core/l3_styles</code></strong>:
+<li><strong><code>_core/l3_styles</code> &amp; <code>drawlib.preset_styles</code></strong>:
 <ul>
-<li><code>Style</code>: The flat universal style value object.</li>
-<li><code>BaseStyles</code>: Preset catalog providing 17 visual variations for 4 semantic roles (<code>Primary</code>, <code>Secondary</code>, <code>Accent</code>, <code>Muted</code>) plus extended roles (<code>Light</code>, <code>Dark</code>, <code>Warning</code>, <code>Danger</code>, <code>Success</code>).</li>
+<li><strong><code>BaseStyles</code> Semantic Matrix</strong>: Defines <strong>8 semantic roles</strong> (<code>Primary</code>, <code>Secondary</code>, <code>Accent</code>, <code>Warning</code>, <code>Neutral</code>, <code>Muted</code>, <code>Danger</code>, <code>Success</code> — 5 grayscale semantic roles <code>Primary</code>, <code>Secondary</code>, <code>Accent</code>, <code>Neutral</code>, <code>Muted</code> in <code>MonochromeStyles</code>, plus <code>Light</code> and <code>Dark</code>) across <strong>17 orthogonal variants</strong> (<code>&quot;&quot;</code>, <code>Bordered</code>, <code>Bold</code>, <code>Thin</code>, <code>Flat</code>, <code>Outline</code>, <code>OutlineBold</code>, <code>OutlineThin</code>, <code>Solid</code>, <code>SolidBold</code>, <code>SolidThin</code>, <code>Dashed</code>, <code>DashedBold</code>, <code>DashedThin</code>, <code>Dotted</code>, <code>DottedBold</code>, <code>DottedThin</code>).</li>
+<li><strong>Tinted Neutral Card Tokens</strong>: Every catalog (<code>DefaultStyles</code> / <code>DefaultStyles1</code>..<code>6</code>, <code>GoogleStyles</code>, <code>MonochromeStyles</code>) also provides <code>*Neutral</code> and <code>*NeutralFlat</code> card tokens (<code>PrimaryNeutral</code>, <code>SecondaryNeutral</code>, <code>BlueNeutral</code>, <code>TealNeutral</code>, etc.) to make 50%+ neutral architectural grounding effortless.</li>
 </ul>
 </li>
 </ul>
 <hr />
-<h2>3. Details: Metaclass Catalog &amp; Pydantic Validation Mechanics</h2>
-<h3>3.1. Metaclass Singleton Resolution (<code>_BaseStylesMeta</code>)</h3>
-<p>To provide the ergonomic syntax <code>Styles.Primary</code> or <code>Styles[&quot;Neutral&quot;]</code> without requiring manual instantiation, <code>BaseStyles</code> uses a custom metaclass <code>_BaseStylesMeta</code>:</p>
+<h2>3. Details: Lazy Metaclass Resolution &amp; Boundary Validation</h2>
+<h3>3.1. Zero-Cost Lazy Instantiation (<code>_BaseStylesMeta</code>)</h3>
+<p>To allow ergonomic class-level token access (<code>DefaultStyles.PrimaryNeutral</code> or <code>GoogleStyles[&quot;PrimaryFlat&quot;]</code>) without constructing every multi-hundred-token catalog at <code>import drawlib</code> time, <code>BaseStyles</code> uses <code>_BaseStylesMeta</code> as its metaclass:</p>
 <pre><code class="language-python"><span class="k">class</span><span class="w"> </span><span class="nc">_BaseStylesMeta</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">)):</span>
     <span class="n">_default_instances</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">type</span><span class="p">,</span> <span class="n">BaseStyles</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">_default_factories</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">type</span><span class="p">,</span> <span class="n">Callable</span><span class="p">[[],</span> <span class="n">BaseStyles</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="fm">__getattr__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
-        <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">get_default_instance</span><span class="p">(),</span> <span class="n">name</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">register_default_factory</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">factory</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[],</span> <span class="n">BaseStyles</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">_BaseStylesMeta</span><span class="o">.</span><span class="n">_default_factories</span><span class="p">[</span><span class="bp">cls</span><span class="p">]</span> <span class="o">=</span> <span class="n">factory</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Style</span><span class="p">:</span>
-        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">get_default_instance</span><span class="p">()[</span><span class="n">name</span><span class="p">]</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_default_instance</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BaseStyles</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">cls</span> <span class="ow">in</span> <span class="n">_BaseStylesMeta</span><span class="o">.</span><span class="n">_default_instances</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">_BaseStylesMeta</span><span class="o">.</span><span class="n">_default_instances</span><span class="p">[</span><span class="bp">cls</span><span class="p">]</span>
+        <span class="k">if</span> <span class="bp">cls</span> <span class="ow">in</span> <span class="n">_BaseStylesMeta</span><span class="o">.</span><span class="n">_default_factories</span><span class="p">:</span>
+            <span class="n">inst</span> <span class="o">=</span> <span class="n">_BaseStylesMeta</span><span class="o">.</span><span class="n">_default_factories</span><span class="p">[</span><span class="bp">cls</span><span class="p">]()</span>
+            <span class="n">_BaseStylesMeta</span><span class="o">.</span><span class="n">_default_instances</span><span class="p">[</span><span class="bp">cls</span><span class="p">]</span> <span class="o">=</span> <span class="n">inst</span>
+            <span class="k">return</span> <span class="n">inst</span>
+        <span class="o">...</span>
 </code></pre>
-<p>When a user imports <code>from drawlib.styles import Styles</code> and accesses <code>Styles.PrimaryNeutral</code>, the metaclass intercepts the attribute lookup on the class itself and resolves it against a registered default singleton instance.</p>
-<h3>3.2. Cascading Font Updates via <code>.patch_font()</code></h3>
-<p>Documentation projects frequently need to customize typography across all presets (e.g. switching to Japanese fonts or adjusting default font sizes).</p>
-<p>Instead of requiring users to patch every preset individually, <code>BaseStyles.patch_font()</code> updates the entire catalog in a single call:</p>
-<pre><code class="language-python"><span class="n">styles</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">patch_font</span><span class="p">(</span>
-    <span class="n">regular</span><span class="o">=</span><span class="n">FontJapanese</span><span class="o">.</span><span class="n">NOTO_SANS_CJK_JP_REGULAR</span><span class="p">,</span>
-    <span class="n">bold</span><span class="o">=</span><span class="n">FontJapanese</span><span class="o">.</span><span class="n">NOTO_SANS_CJK_JP_BOLD</span><span class="p">,</span>
-    <span class="n">size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">,</span>
+<p>Each preset catalog registers a zero-argument builder via <code>register_default_factory()</code>. Only when a style attribute, dictionary key, or bound class method (<code>patch</code>, <code>patch_font</code>, <code>copy</code>) is first accessed does <code>get_default_instance()</code> materialize and cache the singleton in <code>_default_instances</code>.</p>
+<h3>3.2. Catalog-Wide Typography Updates via <code>.patch_font()</code></h3>
+<p>Localized projects (<code>-l ja</code>, <code>-l zh</code>, <code>-l ko</code>) often need to switch font families and baseline sizes across every style token simultaneously. <code>BaseStyles.patch_font()</code> clones the catalog in a single pass using exact <code>drawlib.fonts</code> enum members:</p>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.fonts</span><span class="w"> </span><span class="kn">import</span> <span class="n">FontJapanese</span><span class="p">,</span> <span class="n">FontSourceCode</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+
+<span class="n">Styles</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">patch_font</span><span class="p">(</span>
+    <span class="n">regular</span><span class="o">=</span><span class="n">FontJapanese</span><span class="o">.</span><span class="n">SANSSERIF_REGULAR</span><span class="p">,</span>
+    <span class="n">bold</span><span class="o">=</span><span class="n">FontJapanese</span><span class="o">.</span><span class="n">SANSSERIF_BOLD</span><span class="p">,</span>
+    <span class="n">thin</span><span class="o">=</span><span class="n">FontJapanese</span><span class="o">.</span><span class="n">SANSSERIF_THIN</span><span class="p">,</span>
+    <span class="n">sourcecode</span><span class="o">=</span><span class="n">FontSourceCode</span><span class="o">.</span><span class="n">SOURCEHANCODEJP</span><span class="p">,</span>
+    <span class="n">size</span><span class="o">=</span><span class="mf">11.5</span><span class="p">,</span>
 <span class="p">)</span>
 </code></pre>
-<p>Internally, <code>.patch_font()</code> iterates through all <code>Style</code> attributes in <code>BaseStyles</code>, intelligently mapping <code>bold</code> and <code>thin</code> variants to corresponding styles, and returns a new cloned catalog with zero global mutation.</p>
-<h3>3.3. Declarative Model Validation</h3>
-<p>Every style attribute is validated using declarative Pydantic field constraints and <code>BeforeValidator</code> functions:</p>
-<pre><code class="language-python"><span class="k">def</span><span class="w"> </span><span class="nf">_normalize_angle</span><span class="p">(</span><span class="n">v</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-    <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="o">%</span> <span class="mf">360.0</span>
+<p>Internally, <code>_resolve_target_font()</code> inspects each token suffix (<code>*Bold</code>, <code>*Thin</code>, or regular), updates <code>text_font</code> and <code>text_size</code> via <code>Style.model_construct()</code>, and returns a new immutable <code>BaseStyles</code> catalog.</p>
+<h3>3.3. Cyclic Angle &amp; Scalar Validation (<code>_core/l2_types/_style.py</code>)</h3>
+<p>All scalar constraints execute at the API boundary via <code>Annotated</code> Pydantic validators before any canvas state is touched:</p>
+<pre><code class="language-python"><span class="k">def</span><span class="w"> </span><span class="nf">_normalize_angle</span><span class="p">(</span><span class="n">v</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="n">val</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+    <span class="k">if</span> <span class="mf">0.0</span> <span class="o">&lt;=</span> <span class="n">val</span> <span class="o">&lt;=</span> <span class="mf">360.0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">val</span>
+    <span class="n">mod</span> <span class="o">=</span> <span class="n">val</span> <span class="o">%</span> <span class="mf">360.0</span>
+    <span class="k">return</span> <span class="mf">0.0</span> <span class="k">if</span> <span class="n">mod</span> <span class="o">==</span> <span class="mf">0.0</span> <span class="k">else</span> <span class="n">mod</span>
 
 <span class="n">Angle</span> <span class="o">=</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">BeforeValidator</span><span class="p">(</span><span class="n">_normalize_angle</span><span class="p">)]</span>
+<span class="n">Angle90</span> <span class="o">=</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">Field</span><span class="p">(</span><span class="n">ge</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">le</span><span class="o">=</span><span class="mf">90.0</span><span class="p">)]</span>
 <span class="n">Bend</span> <span class="o">=</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">Field</span><span class="p">(</span><span class="n">gt</span><span class="o">=-</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">lt</span><span class="o">=</span><span class="mf">2.0</span><span class="p">)]</span>
-<span class="n">PosFloat</span> <span class="o">=</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">Field</span><span class="p">(</span><span class="n">ge</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)]</span>
 </code></pre>
-<p>Invalid configurations (such as negative line widths, out-of-range transparencies, or invalid alignments) are trapped at API boundaries before any Matplotlib rendering code is executed.</p>
-<p>Next, inspect the cryptographic caching engine in <strong><a href="03_caching_and_ast_engine.html">Cache &amp; AST Engine</a></strong>.</p>
+<p>Values inside <code>[0.0, 360.0]</code> (including <code>360.0</code> for full-circle arcs) are preserved verbatim, while out-of-bounds angles (<code>-90.0 -&gt; 270.0</code>, <code>450.0 -&gt; 90.0</code>) normalize deterministically via modulo arithmetic.</p>
+<p>Next, inspect the cryptographic image cache and static AST analyzer in <strong><a href="03_caching_and_ast_engine.html">Cache &amp; AST Engine</a></strong>.</p>
 
             </main>
         </div>
@@ -446,8 +596,8 @@
                     if (e.key === 'Escape') {
                         langDropdowns.forEach(function(dd) {
                             dd.removeAttribute('open');
-                        });
-                    }
+                        }
+                    });
                 });
             }
 

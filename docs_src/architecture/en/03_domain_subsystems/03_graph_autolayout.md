@@ -1,44 +1,104 @@
 # Declarative Graph Auto-Layout Engine (drawlib.graph)
 
-Visualizing microservices topologies, data pipelines, and cluster networks manually requires calculating dozens of node coordinates and arrow trajectories. However, traditional graph visualization tools (like Graphviz or Cytoscape) rely on heavy external binary runtimes (C/C++ binaries, Java, or Node.js) that complicate CI/CD pipelines and trap layouts inside a rigid rendering black box.
+Visualizing cloud topologies, data pipelines, and hierarchical networks manually requires computing dozens of `(x, y)` coordinates, container envelopes, and connector waypoints. Conversely, traditional graph visualization tools (such as Graphviz or Cytoscape) depend on external C/C++, Java, or Node.js runtimes and lock visual styling inside an opaque rendering black box.
 
-To solve this, Drawlib includes `drawlib.graph`: a **pure-Python coordinate and layout calculator (`get_layout()`)** that solves topological coordinates, nested cluster boundaries, and edge waypoints in-memory without external dependencies, powering a clean **2-Step Workflow** with `drawlib.diagrams` and `drawlib.shapes`.
+To bridge both worlds, Drawlib provides `drawlib.graph`: a **pure-Python coordinate and layout solver (`get_layout()`)** that resolves topological ranks, nested cluster boundaries, and Manhattan waypoints in memory with zero external binaries, powering a decoupled **2-Step Workflow** alongside `drawlib.diagrams` and `drawlib.shapes`.
 
-```drawlib align=center code=fold file=graph_layout_pipeline.png caption="Pure-Python Graph Auto-Layout Pipeline (drawlib.graph)"
+```drawlib align=center code=fold file=graph_layout_pipeline.png caption="Decoupled Two-Phase Graph Auto-Layout Pipeline (LayerGraph + FlowDiagram)"
 from drawlib.canvas import save, setup
-from drawlib.icons import phosphor
-from drawlib.lines import line
+from drawlib.diagrams.flow import FlowDiagram, Process
+from drawlib.graph import LayerGraph
 from drawlib.shapes import rectangle
 from drawlib.styles import Styles
-from drawlib.text import text
 
-setup(width=140, height=58)
+setup(width=120, height=44)
 
-rectangle((70, 29), width=136, height=54, style=Styles.Neutral.patch(shape_r=2.5))
-text(
-    (70, 50),
-    "Pure-Python Graph Auto-Layout Pipeline (drawlib.graph)",
-    style=Styles.DarkBold.patch(text_size=12.2),
+# Step 1: Solve pipeline stage coordinates with LayerGraph
+g = LayerGraph(
+    direction="LR",
+    rank_sep=5.5,
+    default_node_width=24.0,
+    default_node_height=16.5,
+)
+g.edge("topology", "solver")
+g.edge("solver", "layout")
+g.edge("layout", "renderer")
+layout = g.get_layout(width=120, height=30, margin=3.75)
+
+# Phase header banners aligned directly to solved stage bounds
+p1_left = layout["topology"].left
+p1_right = layout["layout"].right
+p2_left = layout["renderer"].left
+p2_right = layout["renderer"].right
+
+rectangle(
+    ((p1_left + p1_right) / 2, 36.5),
+    width=p1_right - p1_left,
+    height=7.5,
+    style=Styles.PrimaryNeutral.patch(shape_r=1.5),
+    text="Phase 1: Pure Geometry Solver (drawlib.graph)",
+    text_style=Styles.PrimaryBold.patch(text_size=11.5),
+)
+rectangle(
+    ((p2_left + p2_right) / 2, 36.5),
+    width=p2_right - p2_left,
+    height=7.5,
+    style=Styles.SecondaryNeutral.patch(shape_r=1.5),
+    text="Phase 2: Render",
+    text_style=Styles.SecondaryBold.patch(text_size=11.5),
 )
 
-stages = [
-    (18.5, "1. Node/Edge Spec", "Declarative DAG\nNodes & Clusters", phosphor.graph, Styles.PrimaryNeutral, Styles.PrimaryBold),
-    (52.5, "2. Topology Sort", "Layer assignment\nCompass & tree packing", phosphor.sort_ascending, Styles.SecondaryNeutral, Styles.SecondaryBold),
-    (86.5, "3. Coord Solving", "xy, local_xy &\nCluster bottom_left", phosphor.bounding_box, Styles.Neutral, Styles.DarkBold),
-    (120.5, "4. get_layout()", "GraphLayout output\nfor diagrams/shapes", phosphor.arrows_split, Styles.PrimaryFlat, Styles.WhiteBold),
-]
+# Step 2: Render stages using FlowDiagram anchored to solved .xy centers
+flow = FlowDiagram(
+    node_style=Styles.Neutral,
+    edge_style=Styles.DarkBold,
+    edge_text_style=Styles.Dark.patch(text_size=10.5),
+)
+n1 = flow.add(
+    Process(
+        "1. Topology\nNodes & Clusters",
+        width=24.0,
+        height=16.5,
+        style=Styles.PrimaryNeutral,
+        text_style=Styles.DarkBold.patch(text_size=10.5),
+    ),
+    xy=layout["topology"].xy,
+)
+n2 = flow.add(
+    Process(
+        "2. Solver Pass\n5 Graph Engines",
+        width=24.0,
+        height=16.5,
+        style=Styles.Neutral,
+        text_style=Styles.DarkBold.patch(text_size=10.5),
+    ),
+    xy=layout["solver"].xy,
+)
+n3 = flow.add(
+    Process(
+        "3. GraphLayout\n.xy & .bottom_left",
+        width=24.0,
+        height=16.5,
+        style=Styles.PrimaryFlat,
+        text_style=Styles.WhiteBold.patch(text_size=10.5),
+    ),
+    xy=layout["layout"].xy,
+)
+n4 = flow.add(
+    Process(
+        "4. Visual Bind\nDiagrams & Shapes",
+        width=24.0,
+        height=16.5,
+        style=Styles.SecondaryNeutral,
+        text_style=Styles.DarkBold.patch(text_size=10.5),
+    ),
+    xy=layout["renderer"].xy,
+)
 
-for x, title, desc, icon_func, card_style, icon_style in stages:
-    rectangle((x, 23.5), width=28, height=31, style=card_style.patch(shape_r=1.8))
-    icon_func((x - 9.5, 33.5), width=3.4, style=icon_style)
-    text((x - 5.5, 33.5), title, style=icon_style.patch(halign="left", text_size=9.5))
-    sub_style = Styles.White if card_style == Styles.PrimaryFlat else Styles.Dark
-    text((x, 18.5), desc, style=sub_style.patch(text_size=9.5))
-
-for i in range(3):
-    x_from = stages[i][0] + 14.0
-    x_to = stages[i + 1][0] - 14.0
-    line((x_from, 23.5), (x_to, 23.5), arrow_head="->", style=Styles.DarkBold)
+flow.connect(n1, n2, routing="direct")
+flow.connect(n2, n3, routing="direct")
+flow.connect(n3, n4, routing="direct")
+flow.draw()
 
 save()
 ```
@@ -47,150 +107,212 @@ save()
 
 ## 1. Concept: Pure Coordinate Calculator & 2-Step Workflow
 
-Instead of coupling layout math to a rigid, un-customizable renderer, `drawlib.graph` is strictly a **pure coordinate calculator (`get_layout()` only)**. Developers and AI agents declare topological relationships in Step 1, and render with `drawlib.diagrams` (`ArchitectureDiagram`, `FlowDiagram`, etc.) or `drawlib.shapes` in Step 2:
+Rather than coupling layout algorithms to hard-coded shapes, `drawlib.graph` is strictly a **stateless geometry solver (`get_layout()` only)**. None of the graph classes define `.draw()`, `style`, `text_style`, or `label` parameters. Instead, engineers and AI agents separate topological reasoning from visual rendering across two deterministic phases:
 
 ```python
 from drawlib.diagrams.flow import FlowDiagram, Process
 from drawlib.graph import LayerGraph
 from drawlib.styles import Styles
 
-# Step 1: Solve topology coordinates with LayerGraph.get_layout()
+# Phase 1: Declare topology & solve coordinates in memory
 g = LayerGraph(direction="LR", default_node_width=24.0, default_node_height=12.0)
-g.node("client")
-g.node("gateway")
-g.node("service")
 g.edge("client", "gateway")
 g.edge("gateway", "service")
-layout = g.get_layout(width=120, height=40)
+layout = g.get_layout(width=120, height=40, margin=8.0)
 
-# Step 2: Render with FlowDiagram (or inspect via print(layout))
-flow = FlowDiagram(node_style=Styles.Neutral, edge_style=Styles.DarkBold, edge_text_style=Styles.Dark)
+# Phase 2: Bind solved coordinates to FlowDiagram, ArchitectureDiagram, or primitives
+flow = FlowDiagram(
+    node_style=Styles.Neutral,
+    edge_style=Styles.DarkBold,
+    edge_text_style=Styles.Dark.patch(text_size=10.5),
+)
 c = flow.add(Process("Web Browser", width=24, height=12), xy=layout["client"].xy)
-gw = flow.add(Process("API Gateway", width=24, height=12, style=Styles.PrimaryFlat, text_style=Styles.WhiteBold), xy=layout["gateway"].xy)
+gw = flow.add(
+    Process(
+        "API Gateway",
+        width=24,
+        height=12,
+        style=Styles.PrimaryFlat,
+        text_style=Styles.WhiteBold.patch(text_size=10.5),
+    ),
+    xy=layout["gateway"].xy,
+)
 svc = flow.add(Process("Auth Service", width=24, height=12), xy=layout["service"].xy)
 flow.connect(c, gw)
 flow.connect(gw, svc)
 flow.draw()
 ```
 
-### Key Architectural Advantages:
-- **Strict Separation of Layout and Rendering**: `drawlib.graph` contains zero visual styling parameters (`style`, `label`, `shape`, `draw()` do not exist on `drawlib.graph`), eliminating redundant rendering code and letting `drawlib.diagrams` handle icons, cards, and connectors.
-- **No External Binaries**: Runs anywhere standard Python runs—including lightweight Docker images and air-gapped CI environments.
-- **Seamless Local & Global Coordinates**: `GraphLayout` provides both global canvas coordinates (`.xy`, `.bottom_left`) and cluster-relative coordinates (`.local_xy`, `.local_bottom_left`) that map directly into `ArchitectureDiagram`'s nested `NodeGroup` hierarchy.
+### Core Layout Data Models (`_graph/_common/_models.py`)
+
+`BaseGraph.get_layout()` returns a `GraphLayout` container supporting dictionary lookup (`layout["id"]` resolving nodes first, then clusters), tabular console inspection (`print(layout)`), and post-solve nudging (`layout.offset(node_id, dx=..., dy=...)` which shifts incident edge ports in lockstep):
+
+| Output Model | Key Properties & Geometry | Typical Downstream Consumer |
+| :--- | :--- | :--- |
+| **`NodeLayout`** | `.xy` `(x, y)` center, `.bottom_left`, `.local_xy`, `.local_bottom_left`, `.left`/`.right`/`.top`/`.bottom` | `ArchitectureDiagram` (`Node`), `FlowDiagram` (`Process`, `Decision`), `shapes.*` |
+| **`ClusterLayout`** | `.bbox` `(cx, cy, w, h)`, `.xy` center, `.bottom_left`, `.local_bottom_left`, `.parent_id` | Top-level `NodeGroup` (`.bottom_left`) & nested `NodeGroup` (`.local_bottom_left`) |
+| **`EdgeLayout`** | `.points` waypoint list, `.src_port`, `.dst_port`, `.mid_xy` label anchor | `lines.lines(e.points, arrow_head="->")`, custom wire annotations |
+| **`GraphLayout`** | `.nodes`, `.clusters`, `.edges`, `.ring_radii`, `layout["id"]`, `.offset(id, dx, dy)` | Unified coordinate registry across global and container-local frames |
 
 ---
 
-## 2. Positioning: The 5 Graph Layout Engines
+## 2. Positioning: The 5 Specialized Layout Solvers
 
-All solvers in `drawlib.graph` inherit from the abstract base class `BaseGraph(ABC)` (`_common/_base.py`). `BaseGraph` defines the standard lifecycle:
-1. **Specification Phase**: Registering nodes (`g.node(id, *, width=..., height=...)`), edges (`g.edge(src, dst)`), and nested boundaries (`g.cluster(id, nodes=[...], *, padding=4.0, header_height=3.5)` or `g.group(id, ...)`).
-2. **Solve Phase (`get_layout(width=..., height=..., margin=10.0)`)**: Returns a `GraphLayout` container holding `NodeLayout`, `ClusterLayout`, and `EdgeLayout` objects, supporting `layout["id"]` lookup, `print(layout)` tabular inspection, and `layout.offset(id, dx=..., dy=...)` post-solve adjustments.
-3. **Render Phase (Externalized to `drawlib.diagrams` / `drawlib.shapes`)**: Solved coordinates are passed to `ArchitectureDiagram`, `FlowDiagram`, or `drawlib.shapes` / `drawlib.lines`.
+All five solvers inherit from `BaseGraph` (`_graph/_common/_base.py`), sharing node/edge/cluster registration (`g.node()`, `g.edge()`, `g.cluster()`, `g.group()`) while implementing domain-specific placement strategies:
 
-`drawlib.graph` provides **five specialized layout solvers**:
-
-1. **`LayerGraph` (Ranked DAG Layout)**:
-   - Uses an adapted Sugiyama-style layering algorithm:
-     - Assigns nodes to horizontal or vertical layers (ranks) based on topological sorting, longest-path analysis, and `.tier()` stage pinning.
-     - Orders nodes within each layer via barycenter crossing minimization.
-     - Solves coordinate positions and computes orthogonal or straight edge waypoints.
-2. **`ArchitectureGraph` (2-Level Macro/Micro Compound Topology)**:
-   - Specialized layout solver designed for cloud architectures and distributed microservices.
-   - Solves layouts across two coupled geometric tiers:
-     - **Macro Level**: Arranges top-level containers (VPCs, cloud regions, client tiers, observability zones) across a 5-zone compass (`pos="left"|"center"|"right"|"top"|"bottom"`) or along the macro flow direction (`LR` or `TB`).
-     - **Micro Level**: Packs internal services and nested subnets (`parent=...`) within their enclosing container boundaries and computes `.local_xy` and `.local_bottom_left`.
-3. **`TreeGraph` (Hierarchical Directory / Org Layout)**:
-   - Optimized for single-parent trees, directory trees, and organizational hierarchies (`.child(parent, child_id)`).
-   - Computes subtree widths recursively via Reingold-Tilford contours to prevent node overlaps.
-4. **`RadialGraph` (Central Hub & Spoke Layout)**:
-   - Distributes peripheral nodes (`.spoke(parent, spoke_id, ring=...)`) in concentric angular orbits around a central hub and exposes ring radii in `layout.ring_radii`.
-5. **`GridGraph` (Matrix / Cluster Topology)**:
-   - Aligns nodes on a 2D coordinate grid (`.cell()`, `.cluster_row()`, `.cluster_column()`) with smart channel edge routing.
+| Solver Class | Underlying Algorithm | Domain Helpers & Parameters | Primary Target Topology |
+| :--- | :--- | :--- | :--- |
+| **`LayerGraph`** | Adapted Sugiyama ranked DAG (cycle breaking, longest-path ranking, barycenter crossing reduction) | `direction="LR"\|"TB"`, `rank_sep`, `node_sep`, `.tier(name, nodes, layer=...)` | CI/CD pipelines, ETL/Airflow DAGs, layered service dependencies |
+| **`ArchitectureGraph`** | 2-level Macro/Micro container packing + 5-zone compass placement | `pos="left"\|"center"\|"right"\|"top"\|"bottom"`, `order=1..N`, `parent=...`, `container_sep` | Cloud VPCs, public/private subnets, multi-zone microservices |
+| **`TreeGraph`** | Recursive Reingold-Tilford / Buchheim contour tree packing | `direction="TB"\|"LR"`, `level_sep`, `sibling_sep`, `.child(parent, child_id)` | Org charts, ASTs, module hierarchies, decision trees |
+| **`RadialGraph`** | Concentric BFS rings with proportional angular sector allocation | `ring_sep`, `.spoke(parent, spoke_id, ring=...)`, `layout.ring_radii` | Hub-and-spoke event meshes, Pub/Sub topologies, ecosystem maps |
+| **`GridGraph`** | 2D matrix slot assignment with inter-cell Manhattan channel routing | `col_sep`, `row_sep`, `.cell(id, row, col)`, `.cluster_row()`, `.cluster_column()` | Service catalogs, state matrices, structured grid networks |
 
 ---
 
-## 3. Details: ArchitectureGraph & 2-Level Compound Layout
+## 3. Details: Compound Macro/Micro Solving & Cluster Envelopes
 
-### 3.1. The Macro/Micro Compound Layout Problem
-Traditional graph algorithms (like standard Sugiyama layering or force-directed placement) treat all nodes and clusters homogeneously. In cloud architecture diagrams, this creates severe layout failure modes:
-- Subnets inside a VPC become stretched across distant columns to align with unrelated external nodes.
-- High-level containers collapse or overlap because the solver lacks hierarchical rank separation.
+### 3.1. Two-Level Decomposition in `ArchitectureGraph`
 
-### 3.2. Two-Stage Decomposition in `ArchitectureGraph`
-`ArchitectureGraph` (`_architecture/_solver.py`) resolves this via **two-stage geometric decomposition**:
-1. **Container Abstraction**: Top-level containers (e.g. `Client Zone`, `VPC`, `External SaaS`) are treated as macro nodes in an overarching container dependency DAG.
-2. **Micro Layout & Dimension Solving**: Inside each container, child nodes are resolved locally. The container's intrinsic bounding box is calculated using bottom-up envelope expansion:
-   $$\text{width}_{\text{container}} = \max(x_1) - \min(x_0) + 2 \times \text{padding}$$
-3. **Macro Positioning & Flow**: Containers are positioned sequentially along the macro axis (`direction="LR"` or `"TB"`), respecting inter-container dependencies and user-configured `container_sep`.
-4. **Global Edge Routing**: Edges crossing container boundaries calculate entry and exit boundary anchor points, routing cleanly through inter-container channels.
+Standard homogeneous graph algorithms stretch internal subnet nodes across distant global ranks when external edges cross container boundaries. `ArchitectureGraph` (`_graph/_architecture/_solver.py`) prevents this via **two-level geometric decomposition**:
 
----
+1. **Leaf Container Micro-Layout**: Nodes assigned to each leaf cluster (`subgroup` or un-nested `group`) are solved locally first to establish intrinsic container dimensions.
+2. **Subgroup Ordering (`order`) & Root Sizing**: Child subnets (`parent="vpc"`) are ordered sequentially via explicit `order` hints or inter-subnet dependency topology (`_order_by_inter_edges`), and packed inside their parent root container.
+3. **Macro Compass & Axis Placement**: Root containers are arranged either across the 5-zone spatial compass (`pos="left"`, `"center"`, `"right"`, `"top"`, `"bottom"`) or sequentially along `direction` (`"LR"` or `"TB"`).
 
-## 4. Details: Nested Cluster Boundary Computation
-
-A standout architectural capability of `drawlib.graph` is **automatic recursive cluster boundary expansion**:
-
-```drawlib align=center code=fold file=graph_cluster_boundaries.png caption="Hierarchical Nested Cluster Bounding Box Calculation"
+```drawlib align=center code=fold file=graph_cluster_boundaries.png caption="Nested Cluster Auto-Layout Solved by ArchitectureGraph & Rendered by ArchitectureDiagram"
 from drawlib.canvas import save, setup
-from drawlib.icons import phosphor
-from drawlib.lines import line
-from drawlib.shapes import rectangle
+from drawlib.diagrams.architecture import (
+    ArchitectureDiagram,
+    GcpIcon,
+    Node,
+    NodeGroup,
+    PhosphorIcon,
+)
+from drawlib.graph import ArchitectureGraph
 from drawlib.styles import Styles
-from drawlib.text import text
 
-setup(width=140, height=62)
+setup(width=120, height=67)
 
-rectangle((70, 31), width=136, height=58, style=Styles.Neutral.patch(shape_r=2.5))
-text(
-    (70, 54),
-    "Hierarchical Nested Cluster Bounding Box Calculation",
-    style=Styles.DarkBold.patch(text_size=12.2),
+# Step 1: Solve nested VPC & subnet coordinates automatically via ArchitectureGraph
+g = ArchitectureGraph(
+    direction="LR",
+    container_sep=7.0,
+    default_node_width=18.5,
+    default_node_height=13.0,
+)
+g.cluster("clients", ["browser"], pos="left", padding=3.5, header_height=6.5)
+g.group("vpc", pos="center", padding=4.0, header_height=7.0)
+g.cluster("public_sub", ["gateway", "web"], parent="vpc", order=1, padding=3.5, header_height=6.5)
+g.cluster("private_sub", ["sql", "cache"], parent="vpc", order=2, padding=3.5, header_height=6.5)
+
+g.edge("browser", "gateway")
+g.edge("browser", "web")
+g.edge("gateway", "sql")
+g.edge("web", "cache")
+
+layout = g.get_layout(width=118, height=68, margin=4.0)
+
+# Step 2: Render directly with ArchitectureDiagram using .bottom_left, .local_bottom_left & .local_xy
+d = ArchitectureDiagram(
+    node_style=Styles.Primary,
+    node_text_style=Styles.DarkBold.patch(text_size=10.5),
+    edge_style=Styles.DarkBold,
+    edge_text_style=Styles.Dark.patch(text_size=10.0),
+    node_card_style=Styles.Neutral,
 )
 
-# Outer Cluster (VPC)
-rectangle((70, 27), width=126, height=42, style=Styles.MutedDashed.patch(shape_r=2.0))
-phosphor.cloud((15, 43.5), width=3.8, style=Styles.PrimaryBold)
-text((20, 43.5), "Outer Cluster (e.g. VPC Network)", style=Styles.PrimaryBold.patch(halign="left", text_size=9.5))
+ext_grp = d.add(
+    NodeGroup(
+        title="Edge Clients",
+        padding=3.5,
+        style=Styles.MutedDashed,
+        text_style=Styles.DarkBold.patch(text_size=10.5, halign="left"),
+    ),
+    xy=layout["clients"].bottom_left,
+)
+vpc_grp = d.add(
+    NodeGroup(
+        title="Production VPC (parent=None)",
+        padding=4.0,
+        style=Styles.MutedDashed,
+        text_style=Styles.PrimaryBold.patch(text_size=11.0, halign="left"),
+    ),
+    xy=layout["vpc"].bottom_left,
+)
+pub_grp = vpc_grp.add(
+    NodeGroup(
+        title="Public Subnet",
+        padding=3.5,
+        style=Styles.PrimaryNeutral,
+        text_style=Styles.DarkBold.patch(text_size=10.5, halign="left"),
+    ),
+    xy=layout["public_sub"].local_bottom_left,
+)
+priv_grp = vpc_grp.add(
+    NodeGroup(
+        title="Data Subnet",
+        padding=3.5,
+        style=Styles.SecondaryNeutral,
+        text_style=Styles.DarkBold.patch(text_size=10.5, halign="left"),
+    ),
+    xy=layout["private_sub"].local_bottom_left,
+)
 
-# Inner Cluster 1 (Public Subnet)
-rectangle((40, 24), width=58, height=27, style=Styles.PrimaryNeutral.patch(shape_r=1.5))
-text((16, 33), "Subnet A (Public)", style=Styles.DarkBold.patch(halign="left", text_size=8.8))
+browser = ext_grp.add(
+    Node("Client App", width=18.5, height=13.0, icon=PhosphorIcon.DEVICES, icon_size=5.6),
+    xy=layout["browser"].local_xy,
+)
+gateway = pub_grp.add(
+    Node(
+        "API Gateway",
+        width=18.5,
+        height=13.0,
+        icon=PhosphorIcon.SHIELD_CHECK,
+        icon_size=5.6,
+        style=Styles.White,
+        card_style=Styles.PrimaryFlat,
+        text_style=Styles.WhiteBold.patch(text_size=10.5),
+    ),
+    xy=layout["gateway"].local_xy,
+)
+web = pub_grp.add(
+    Node("Web SSR", width=18.5, height=13.0, icon=GcpIcon.CLOUD_RUN, icon_size=5.6),
+    xy=layout["web"].local_xy,
+)
+sql = priv_grp.add(
+    Node("Cloud SQL", width=18.5, height=13.0, icon=GcpIcon.CLOUD_SQL, icon_size=5.6),
+    xy=layout["sql"].local_xy,
+)
+cache = priv_grp.add(
+    Node("Memorystore", width=18.5, height=13.0, icon=GcpIcon.MEMORYSTORE, icon_size=5.6),
+    xy=layout["cache"].local_xy,
+)
 
-rectangle((28, 20), width=20, height=12, style=Styles.Neutral.patch(shape_r=1.2))
-phosphor.globe((21, 22.5), width=3.0, style=Styles.PrimaryBold)
-text((30, 22.5), "Web App", style=Styles.DarkBold.patch(text_size=8.2))
+d.connect(browser, gateway)
+d.connect(browser, web)
+d.connect(gateway, sql)
+d.connect(web, cache)
 
-rectangle((52, 20), width=20, height=12, style=Styles.Neutral.patch(shape_r=1.2))
-phosphor.shield_check((45, 22.5), width=3.0, style=Styles.PrimaryBold)
-text((54, 22.5), "API Gateway", style=Styles.DarkBold.patch(text_size=8.2))
-
-# Inner Cluster 2 (Private Subnet)
-rectangle((100, 24), width=58, height=27, style=Styles.SecondaryNeutral.patch(shape_r=1.5))
-text((76, 33), "Subnet B (Private Data)", style=Styles.DarkBold.patch(halign="left", text_size=8.8))
-
-rectangle((88, 20), width=20, height=12, style=Styles.Neutral.patch(shape_r=1.2))
-phosphor.database((81, 22.5), width=3.0, style=Styles.SecondaryBold)
-text((90, 22.5), "Postgres", style=Styles.DarkBold.patch(text_size=8.2))
-
-rectangle((112, 20), width=20, height=12, style=Styles.PrimaryFlat.patch(shape_r=1.2))
-phosphor.hard_drives((105, 22.5), width=3.0, style=Styles.WhiteBold)
-text((114, 22.5), "Redis Cache", style=Styles.WhiteBold.patch(text_size=8.2))
-
-# Connecting line between clusters
-line((62, 20), (78, 20), arrow_head="->", style=Styles.DarkBold)
-
+d.draw(xy=(-1.0, -9.0))
 save()
 ```
 
-### Bottom-Up Geometric Solving
-When clusters contain child nodes or sub-clusters:
-1. **Leaf Node Positioning**: Leaf nodes are positioned first within their local rank coordinate space.
-2. **Cluster Bounding Box Calculation**: The enclosing cluster iterates over all member bounding boxes to compute the minimum enclosing envelope:
-   $$x_0 = \min_{i}(x_{0,i}) - \text{padding}$$
-   $$y_0 = \min_{i}(y_{0,i}) - \text{padding}$$
-   $$\text{width} = \max_{i}(x_{1,i}) - x_0 + \text{padding}$$
-   $$\text{height} = \max_{i}(y_{1,i}) - y_0 + \text{padding}$$
-3. **Parent Propagation**: Parent clusters recursively absorb child cluster envelopes, rendering grouped cloud topologies with balanced padding and zero boundary collisions.
+### 3.2. Recursive Cluster Bounding Box & Local Frame Equations
 
-Next, proceed to Chapter 4: **[Compilation Pipeline](../04_doc_builder_and_compiler/01_compilation_pipeline.md)**.
+In `BaseGraph._build_clusters_layout()` (`_graph/_common/_base.py`), whenever a cluster omits explicit solver dimensions, its bounding envelope is computed bottom-up from all enclosed member nodes and child sub-clusters $i \in \text{members}(C)$:
 
+$$x_0 = \min_{i}(x_{0,i}) - \text{padding}, \qquad x_1 = \max_{i}(x_{1,i}) + \text{padding}$$
+
+$$y_0 = \min_{i}(y_{0,i}) - \text{padding}, \qquad y_1 = \max_{i}(y_{1,i}) + \text{padding} + \text{header\_height}$$
+
+$$\text{width} = x_1 - x_0, \qquad \text{height} = y_1 - y_0, \qquad (c_x, c_y) = \left(\frac{x_0 + x_1}{2},\; \frac{y_0 + y_1}{2}\right)$$
+
+- **Header Headroom (`header_height = 3.5` default)**: Adding `cluster.header_height` exclusively to $y_1$ reserves dedicated vertical clearance at the top of the container so `NodeGroup(title=...)` banners never overlap top-row service cards.
+- **Hierarchical Coordinate Localization (`_finalize_hierarchy_coords`)**: Once global envelopes settle, every nested cluster and child node computes parent-origin coordinates relative to its enclosing container's bottom-left corner $(x_{0,\text{parent}}, y_{0,\text{parent}})$:
+  - `cluster.local_bottom_left = (cluster.left - parent.left, cluster.bottom - parent.bottom)`
+  - `node.local_xy = (node.x - parent.left, node.y - parent.bottom)`
+
+This dual global/local coordinate output allows top-level `NodeGroup`s (`.bottom_left`), nested sub-groups (`.local_bottom_left`), and member `Node`s (`.local_xy`) to compose without manual offset arithmetic.
+
+Next, explore multi-frame synthesis, 16:9 vector presentation stages, and live-DOM PowerPoint compilation in **[Animation & Slide Engines](04_animation_and_slide_engines.md)**.

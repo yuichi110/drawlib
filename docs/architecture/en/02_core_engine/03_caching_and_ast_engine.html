@@ -25,21 +25,25 @@
         })();
     </script>
     
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     
-        <meta name="description" content="A major friction point with &quot;Documentation as Code&quot; is compilation speed. If compiling an 80-page documentation site with 400 diagrams requires re-executing…">
+    
+    
+    <meta name="description" content="Re-executing hundreds of Matplotlib scripts on every edit would turn documentation builds into multi-minute bottlenecks. Drawlib eliminates redundant…">
     <link rel="canonical" href="https://www.drawlib.com/architecture/en/02_core_engine/03_caching_and_ast_engine.html">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Drawlib Architecture">
     <meta property="og:title" content="SQLite Cache Engine &amp; AST Analysis — Drawlib Architecture">
-    <meta property="og:description" content="A major friction point with &quot;Documentation as Code&quot; is compilation speed. If compiling an 80-page documentation site with 400 diagrams requires re-executing…">
+    <meta property="og:description" content="Re-executing hundreds of Matplotlib scripts on every edit would turn documentation builds into multi-minute bottlenecks. Drawlib eliminates redundant…">
     <meta property="og:url" content="https://www.drawlib.com/architecture/en/02_core_engine/03_caching_and_ast_engine.html">
     <meta property="og:image" content="https://www.drawlib.com/architecture/_assets/ogp.png">
     <meta property="og:locale" content="en_US">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="SQLite Cache Engine &amp; AST Analysis — Drawlib Architecture">
-    <meta name="twitter:description" content="A major friction point with &quot;Documentation as Code&quot; is compilation speed. If compiling an 80-page documentation site with 400 diagrams requires re-executing…">
+    <meta name="twitter:description" content="Re-executing hundreds of Matplotlib scripts on every edit would turn documentation builds into multi-minute bottlenecks. Drawlib eliminates redundant…">
     <meta name="twitter:image" content="https://www.drawlib.com/architecture/_assets/ogp.png">
-    
     
     
     <link rel="icon" type="image/png" href="../../_assets/favicon.png">
@@ -56,7 +60,8 @@
             <div class="sidebar-header">
                 <a href="../index.html" class="sidebar-brand" aria-label="Drawlib Architecture">
                     
-                    Drawlib Architecture
+                    <img src="../../_assets/logo.png" alt="Drawlib Architecture" class="sidebar-logo sidebar-logo-light">
+                    <img src="../../_assets/logo_dark.png" alt="Drawlib Architecture" class="sidebar-logo sidebar-logo-dark">
                     
                 </a>
                 <div class="sidebar-header-actions">
@@ -70,6 +75,15 @@
                     </button>
                 </div>
             </div>
+            <div class="sidebar-subbar">
+                <a href="https://www.drawlib.com/en/01_getting_started/release_notes.html" target="_blank" rel="noopener noreferrer" class="sidebar-version-badge" title="Architecture Specification · View Release Notes">
+                    <span class="sidebar-version-dot" aria-hidden="true"></span>
+                    <span class="sidebar-version-text">Architecture · v0.3.4</span>
+                </a>
+                <a href="https://github.com/yuichi110/drawlib" target="_blank" rel="noopener noreferrer" class="sidebar-github-link" aria-label="GitHub Repository" title="GitHub Repository">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+                </a>
+            </div>
             <div class="sidebar-menu">
                 
                     
@@ -82,6 +96,10 @@
                             
                             <li class="nav-item ">
                                 <a href="https://www.drawlib.com/" target="_blank" rel="noopener noreferrer">Official Docs<svg class="nav-external-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="https://examples.drawlib.com/" target="_blank" rel="noopener noreferrer">Examples Showcase<svg class="nav-external-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
                             </li>
                             
                         </ul>
@@ -137,6 +155,10 @@
                                 <a href="../03_domain_subsystems/03_graph_autolayout.html" >Graph Auto-Layout</a>
                             </li>
                             
+                            <li class="nav-item ">
+                                <a href="../03_domain_subsystems/04_animation_and_slide_engines.html" >Animation &amp; Slide Engines</a>
+                            </li>
+                            
                         </ul>
                     
                         
@@ -168,7 +190,7 @@
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../05_cli_and_runtime/02_preview_server.html" >Preview Server &amp; Tooling</a>
+                                <a href="../05_cli_and_runtime/02_preview_server.html" >Preview Server &amp; Assets</a>
                             </li>
                             
                         </ul>
@@ -213,7 +235,7 @@
         <div class="content-wrapper">
             <header class="top-bar">
                 <div class="breadcrumbs">
-                    <span class="crumb">Docs</span>
+                    <span class="crumb">Architecture</span>
                     <span class="crumb-separator">&raquo;</span>
                     <span class="crumb active">SQLite Cache Engine &amp; AST Analysis</span>
                 </div>
@@ -221,184 +243,280 @@
             </header>
             <main class="main-content">
                 <h1>SQLite Cache Engine &amp; AST Analysis</h1>
-<p>A major friction point with &quot;Documentation as Code&quot; is compilation speed. If compiling an 80-page documentation site with 400 diagrams requires re-executing every Python script from scratch, build times exceed several minutes, destroying the rapid feedback loop required for interactive documentation authoring.</p>
-<p>Drawlib solves this via a <strong>cryptographic caching engine</strong> (<code>_builder/_common/cache.py</code>) backed by an embedded SQLite database (<code>.drawlib/cache.db</code>), reducing incremental rebuild times to <strong>&lt; 1ms per diagram</strong>.</p>
+<p>Re-executing hundreds of Matplotlib scripts on every edit would turn documentation builds into multi-minute bottlenecks. Drawlib eliminates redundant rendering through a <strong>two-stage pre-execution pipeline</strong>: static Python <code>ast</code> inspection (<code>_builder/_image_ast.py</code>) for conflict detection and import safety, paired with a SHA-256 <strong>SQLite blob cache</strong> (<code>_builder/_common/cache.py</code> in <code>.drawlib/cache.db</code>) that restores unchanged PNG, WebP, and coordinate-grid images in <strong>&lt; 1 ms</strong>.</p>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="../../images/02_core_engine/03_caching_and_ast_engine/caching_decision_flow.png" alt="03_caching_and_ast_engine_1" />
-  <figcaption class="drawlib-caption">Cryptographic AST & SQLite Cache Decision Pipeline</figcaption>
+  <figcaption class="drawlib-caption">Static AST Pre-Check & SQLite Blob Cache Decision Pipeline</figcaption>
 </figure>
 <details class="drawlib-code-details">
 <summary>Source Code</summary>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.diagrams.flow</span><span class="w"> </span><span class="kn">import</span> <span class="n">Data</span><span class="p">,</span> <span class="n">Decision</span><span class="p">,</span> <span class="n">End</span><span class="p">,</span> <span class="n">FlowDiagram</span><span class="p">,</span> <span class="n">Process</span><span class="p">,</span> <span class="n">Start</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">140</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">124</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">64</span><span class="p">)</span>
 
-<span class="n">rectangle</span><span class="p">((</span><span class="mi">70</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">136</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">56</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.5</span><span class="p">))</span>
-<span class="n">text</span><span class="p">(</span>
-    <span class="p">(</span><span class="mi">70</span><span class="p">,</span> <span class="mi">52</span><span class="p">),</span>
-    <span class="s2">"Cryptographic AST &amp; SQLite Cache Decision Pipeline"</span><span class="p">,</span>
-    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">12.2</span><span class="p">),</span>
+<span class="n">flow</span> <span class="o">=</span> <span class="n">FlowDiagram</span><span class="p">(</span>
+    <span class="n">node_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.8</span><span class="p">),</span>
+    <span class="n">edge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+    <span class="n">edge_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.2</span><span class="p">),</span>
 <span class="p">)</span>
 
-<span class="n">nodes</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="s2">"1. Code Block"</span><span class="p">,</span> <span class="s2">"Markdown Fence</span><span class="se">\n</span><span class="s2">or Python Script"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">code</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">52</span><span class="p">,</span> <span class="s2">"2. AST &amp; Hash"</span><span class="p">,</span> <span class="s2">"Composite SHA-256</span><span class="se">\n</span><span class="s2">Code + Deps + Assets"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">cpu</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">86</span><span class="p">,</span> <span class="s2">"3. SQLite Check"</span><span class="p">,</span> <span class="s2">"Lookup cache.db</span><span class="se">\n</span><span class="s2">Match Hash Key"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">database</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">120</span><span class="p">,</span> <span class="s2">"4. Fast Restore"</span><span class="p">,</span> <span class="s2">"Hit: &lt; 1ms copy</span><span class="se">\n</span><span class="s2">Miss: Execute &amp; Cache"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">lightning</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">),</span>
-<span class="p">]</span>
+<span class="n">source</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Start</span><span class="p">(</span><span class="s2">"Fence / .py</span><span class="se">\n</span><span class="s2">Source"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">21.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">11.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">13.5</span><span class="p">,</span> <span class="mf">34.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">precheck</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Process</span><span class="p">(</span><span class="s2">"AST Save Check &amp;</span><span class="se">\n</span><span class="s2">SHA-256 Key"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">25.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">13.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">42.5</span><span class="p">,</span> <span class="mf">34.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">decision</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Decision</span><span class="p">(</span><span class="s2">"Cache</span><span class="se">\n</span><span class="s2">Hit?"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">21.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">16.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">71.5</span><span class="p">,</span> <span class="mf">34.0</span><span class="p">),</span>
+<span class="p">)</span>
 
-<span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">desc</span><span class="p">,</span> <span class="n">icon_func</span><span class="p">,</span> <span class="n">card_style</span><span class="p">,</span> <span class="n">icon_style</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">:</span>
-    <span class="n">rectangle</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="mf">25.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">28</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">33</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">card_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.8</span><span class="p">))</span>
-    <span class="n">icon_func</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="mf">9.5</span><span class="p">,</span> <span class="mf">35.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.6</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">icon_style</span><span class="p">)</span>
-    <span class="n">text</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="mf">5.5</span><span class="p">,</span> <span class="mf">35.5</span><span class="p">),</span> <span class="n">title</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">icon_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">9.2</span><span class="p">))</span>
-    <span class="n">sub_style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">White</span> <span class="k">if</span> <span class="n">card_style</span> <span class="o">==</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span>
-    <span class="n">text</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="mf">20.5</span><span class="p">),</span> <span class="n">desc</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">sub_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">))</span>
+<span class="c1"># Hit Branch (Top-Right)</span>
+<span class="n">hit</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">End</span><span class="p">(</span>
+        <span class="s2">"&lt; 1 ms SQLite</span><span class="se">\n</span><span class="s2">Blob Restore"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mf">28.0</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mf">12.0</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
+        <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.8</span><span class="p">),</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">103.0</span><span class="p">,</span> <span class="mf">52.0</span><span class="p">),</span>
+<span class="p">)</span>
 
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
-    <span class="n">x_from</span> <span class="o">=</span> <span class="n">nodes</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mf">14.0</span>
-    <span class="n">x_to</span> <span class="o">=</span> <span class="n">nodes</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mf">14.0</span>
-    <span class="n">line</span><span class="p">((</span><span class="n">x_from</span><span class="p">,</span> <span class="mf">25.5</span><span class="p">),</span> <span class="p">(</span><span class="n">x_to</span><span class="p">,</span> <span class="mf">25.5</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+<span class="c1"># Miss Branch (Bottom-Right)</span>
+<span class="n">sandbox</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Process</span><span class="p">(</span><span class="s2">"In-Process</span><span class="se">\n</span><span class="s2">Sandbox Exec"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">23.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">12.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">71.5</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">store</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Data</span><span class="p">(</span><span class="s2">"Store PNG/WebP</span><span class="se">\n</span><span class="s2">+ Grid Blobs"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">26.5</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">12.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">103.0</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">),</span>
+<span class="p">)</span>
 
+<span class="n">source</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">precheck</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+<span class="n">precheck</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">decision</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+<span class="n">decision</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">hit</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Hit"</span><span class="p">,</span> <span class="n">start_side</span><span class="o">=</span><span class="s2">"top"</span><span class="p">,</span> <span class="n">end_side</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+<span class="n">decision</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">sandbox</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Miss"</span><span class="p">,</span> <span class="n">start_side</span><span class="o">=</span><span class="s2">"bottom"</span><span class="p">,</span> <span class="n">end_side</span><span class="o">=</span><span class="s2">"top"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+<span class="n">sandbox</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">store</span><span class="p">,</span> <span class="n">start_side</span><span class="o">=</span><span class="s2">"right"</span><span class="p">,</span> <span class="n">end_side</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+
+<span class="n">flow</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">62.0</span><span class="p">,</span> <span class="mf">32.0</span><span class="p">),</span> <span class="n">align</span><span class="o">=</span><span class="s2">"center"</span><span class="p">)</span>
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 </details>
 <hr />
-<h2>1. Concept: Cryptographic Content Hashing vs. Timestamp Invalidation</h2>
-<p>Traditional build tools (like <code>make</code> or file mtime watchers) rely on filesystem modification timestamps. This approach fails catastrophically for embedded documentation diagrams:</p>
+<h2>1. Crucial Distinction: Raw Content Hashing vs. Static Python <code>ast</code> Analysis</h2>
+<p>Drawlib deliberately separates <strong>cryptographic cache-key generation</strong> from <strong>static syntax-tree inspection</strong> so each subsystem stays fast, deterministic, and sound:</p>
+<ol>
+<li><strong>Raw UTF-8 Content Hashing (<code>BuildImageCache.compute_keys</code>)</strong>:
 <ul>
-<li>Editing a single typographical error in a Markdown file updates the file's timestamp, which would unnecessarily force the re-rendering of all 10 diagrams on that page.</li>
-<li>Conversely, modifying an external imported theme (<code>styles.py</code>) might not touch the Markdown file at all, leaving diagrams stale.</li>
+<li>Drawlib does <strong>not</strong> normalize or strip Python AST nodes when computing cache keys. Instead, <code>hash_text(code)</code> hashes the <strong>exact UTF-8 source text</strong> (<code>hashlib.sha256(code.encode(&quot;utf-8&quot;)).hexdigest()</code>), ensuring formatting or string-literal changes are captured in microseconds without AST canonicalization edge cases.</li>
+<li><code>compute_keys()</code> combines <code>code_hash</code>, <code>config_hash</code> (<code>styles.py</code> + <code>utils.py</code>), <code>_hash_referenced_local_assets()</code> (scanning string literals like <code>'logo.png'</code> or <code>'brand.ttf'</code> across the script directory, project root, and <code>_assets/</code>), canonicalized <code>source_abs</code> / <code>target_abs</code> paths, and an optional renderer <code>extra_salt</code> (such as <code>:svg-fonts-v1</code> for SVG font output).</li>
 </ul>
-<h3>The Drawlib Solution: Multi-Factor Composite Hashing</h3>
-<p>Drawlib ignores filesystem timestamps entirely. Instead, it computes a <strong>cryptographic SHA-256 composite hash</strong> for every diagram block based on its true dependency tree:</p>
+</li>
+<li><strong>Static Python <code>ast</code> Pre-Execution Analysis (<code>_builder/_image_ast.py</code>)</strong>:
+<ul>
+<li>Before executing standalone <code>.py</code> scripts, <code>check_duplicate_script_outputs()</code> parses each file with <code>ast.parse()</code> and runs <code>_SaveCallVisitor</code> (<code>_parse_static_save_call</code>) to statically resolve literal <code>save(file, format)</code> targets via <code>resolve_static_save_target()</code> and fail immediately if two scripts collide on the same output image path.</li>
+<li><code>_extract_single_static_save()</code> uses <code>_has_local_imports()</code> to walk <code>ast.Import</code> and <code>ast.ImportFrom</code> nodes. If a standalone script imports unhashed local helper modules from its own directory or <code>topdir_path</code> (beyond tracked <code>styles.py</code> and <code>utils.py</code>), Drawlib conservatively skips the pre-execution static shortcut so edits to custom local modules never return stale images.</li>
+</ul>
+</li>
+</ol>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="../../images/02_core_engine/03_caching_and_ast_engine/composite_hash_inputs.png" alt="03_caching_and_ast_engine_2" />
-  <figcaption class="drawlib-caption">Composition of the Cryptographic Cache Key</figcaption>
+  <figcaption class="drawlib-caption">Multi-Factor SHA-256 Cache Key Inputs & Version-Guarded SQLite Storage</figcaption>
 </figure>
 <details class="drawlib-code-details">
 <summary>Source Code</summary>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.diagrams.architecture</span><span class="w"> </span><span class="kn">import</span> <span class="n">ArchitectureDiagram</span><span class="p">,</span> <span class="n">Node</span><span class="p">,</span> <span class="n">NodeGroup</span><span class="p">,</span> <span class="n">PhosphorIcon</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">140</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">58</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">118</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">54</span><span class="p">)</span>
 
-<span class="n">rectangle</span><span class="p">((</span><span class="mi">70</span><span class="p">,</span> <span class="mi">29</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">136</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">54</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.5</span><span class="p">))</span>
-<span class="n">text</span><span class="p">(</span>
-    <span class="p">(</span><span class="mi">70</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span>
-    <span class="s2">"Composition of the Cryptographic Cache Key"</span><span class="p">,</span>
-    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">12.2</span><span class="p">),</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">ArchitectureDiagram</span><span class="p">(</span>
+    <span class="n">node_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">,</span>
+    <span class="n">node_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="n">edge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+    <span class="n">edge_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">node_card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
 <span class="p">)</span>
 
-<span class="c1"># 4 Inputs on Left (X: 32)</span>
-<span class="n">inputs</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="p">(</span><span class="mi">38</span><span class="p">,</span> <span class="s2">"Code Block Source"</span><span class="p">,</span> <span class="s2">"Normalized drawing Python AST"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">code</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">27</span><span class="p">,</span> <span class="s2">"styles.py Hash"</span><span class="p">,</span> <span class="s2">"Palettes, fonts, custom styles"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">palette</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="s2">"utils.py Hash"</span><span class="p">,</span> <span class="s2">"Shared drawing macros"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">wrench</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="s2">"Assets Hash"</span><span class="p">,</span> <span class="s2">"_assets/*.png, *.ttf binaries"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">folder</span><span class="p">),</span>
-<span class="p">]</span>
+<span class="c1"># Left Group: Composite Key Inputs</span>
+<span class="n">inputs_grp</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">NodeGroup</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">"compute_keys() Inputs"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">36.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">49.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">in_code</span> <span class="o">=</span> <span class="n">inputs_grp</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span>
+        <span class="s2">"UTF-8 Code &amp;</span><span class="se">\n</span><span class="s2">Local _assets/*"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mf">31.0</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mf">12.0</span><span class="p">,</span>
+        <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">CODE</span><span class="p">,</span>
+        <span class="n">icon_size</span><span class="o">=</span><span class="mf">4.5</span><span class="p">,</span>
+        <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">18.0</span><span class="p">,</span> <span class="mf">36.5</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">in_cfg</span> <span class="o">=</span> <span class="n">inputs_grp</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span>
+        <span class="s2">"styles.py +</span><span class="se">\n</span><span class="s2">utils.py Hash"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mf">31.0</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mf">12.0</span><span class="p">,</span>
+        <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">PALETTE</span><span class="p">,</span>
+        <span class="n">icon_size</span><span class="o">=</span><span class="mf">4.5</span><span class="p">,</span>
+        <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">18.0</span><span class="p">,</span> <span class="mf">22.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">in_paths</span> <span class="o">=</span> <span class="n">inputs_grp</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span>
+        <span class="s2">"Source/Target</span><span class="se">\n</span><span class="s2">Paths + Salt"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mf">31.0</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mf">12.0</span><span class="p">,</span>
+        <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">LINK</span><span class="p">,</span>
+        <span class="n">icon_size</span><span class="o">=</span><span class="mf">4.5</span><span class="p">,</span>
+        <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">18.0</span><span class="p">,</span> <span class="mf">7.5</span><span class="p">),</span>
+<span class="p">)</span>
 
-<span class="k">for</span> <span class="n">y</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">desc</span><span class="p">,</span> <span class="n">icon_func</span> <span class="ow">in</span> <span class="n">inputs</span><span class="p">:</span>
-    <span class="n">rectangle</span><span class="p">((</span><span class="mi">32</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="mi">2</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">48</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">8.2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">))</span>
-    <span class="n">icon_func</span><span class="p">((</span><span class="mi">12</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="mi">2</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.4</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
-    <span class="n">text</span><span class="p">((</span><span class="mi">16</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="mi">2</span><span class="p">),</span> <span class="n">title</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">8.8</span><span class="p">))</span>
-    <span class="n">text</span><span class="p">((</span><span class="mi">33</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="mi">2</span><span class="p">),</span> <span class="n">desc</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">7.5</span><span class="p">))</span>
-    <span class="n">line</span><span class="p">((</span><span class="mi">56</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">72</span><span class="p">,</span> <span class="mi">23</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedBold</span><span class="p">)</span>
+<span class="c1"># Merge Bus Junction -&gt; Single Clean Arrowhead into Hasher</span>
+<span class="n">bus</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">junction</span><span class="p">((</span><span class="mf">43.0</span><span class="p">,</span> <span class="mf">24.5</span><span class="p">))</span>
+<span class="n">d</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">in_code</span><span class="p">,</span> <span class="n">bus</span><span class="p">,</span> <span class="n">arrow</span><span class="o">=</span><span class="s2">"-"</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">in_cfg</span><span class="p">,</span> <span class="n">bus</span><span class="p">,</span> <span class="n">arrow</span><span class="o">=</span><span class="s2">"-"</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">in_paths</span><span class="p">,</span> <span class="n">bus</span><span class="p">,</span> <span class="n">arrow</span><span class="o">=</span><span class="s2">"-"</span><span class="p">)</span>
 
-<span class="c1"># Center Hashing Function</span>
-<span class="n">rectangle</span><span class="p">((</span><span class="mi">82</span><span class="p">,</span> <span class="mi">23</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
-<span class="n">phosphor</span><span class="o">.</span><span class="n">cpu</span><span class="p">((</span><span class="mi">82</span><span class="p">,</span> <span class="mi">28</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">)</span>
-<span class="n">text</span><span class="p">((</span><span class="mi">82</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span> <span class="s2">"SHA-256</span><span class="se">\n</span><span class="s2">Hasher"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.8</span><span class="p">))</span>
+<span class="n">hasher</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span>
+        <span class="s2">"SHA-256</span><span class="se">\n</span><span class="s2">Cache Key"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mf">23.0</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mf">16.0</span><span class="p">,</span>
+        <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">CPU</span><span class="p">,</span>
+        <span class="n">icon_size</span><span class="o">=</span><span class="mf">5.2</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">,</span>
+        <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">59.5</span><span class="p">,</span> <span class="mf">24.5</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">bus</span><span class="p">,</span> <span class="n">hasher</span><span class="p">,</span> <span class="n">arrow</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">))</span>
 
-<span class="n">line</span><span class="p">((</span><span class="mi">94</span><span class="p">,</span> <span class="mi">23</span><span class="p">),</span> <span class="p">(</span><span class="mi">105</span><span class="p">,</span> <span class="mi">23</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+<span class="c1"># Right Group: SQLite Database &amp; Version Metadata Guard</span>
+<span class="n">db_grp</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">NodeGroup</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">".drawlib/cache.db (WAL)"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">36.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">49.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">80.0</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">img_tbl</span> <span class="o">=</span> <span class="n">db_grp</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span>
+        <span class="s2">"image_cache &amp;</span><span class="se">\n</span><span class="s2">cli_image_cache"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mf">31.0</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mf">15.0</span><span class="p">,</span>
+        <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">DATABASE</span><span class="p">,</span>
+        <span class="n">icon_size</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">,</span>
+        <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+        <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">18.0</span><span class="p">,</span> <span class="mf">33.5</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">meta_tbl</span> <span class="o">=</span> <span class="n">db_grp</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span>
+        <span class="s2">"cache_meta</span><span class="se">\n</span><span class="s2">lib &amp; mpl ver"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mf">31.0</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mf">14.0</span><span class="p">,</span>
+        <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">SHIELD_CHECK</span><span class="p">,</span>
+        <span class="n">icon_size</span><span class="o">=</span><span class="mf">4.8</span><span class="p">,</span>
+        <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">18.0</span><span class="p">,</span> <span class="mf">10.5</span><span class="p">),</span>
+<span class="p">)</span>
 
-<span class="c1"># Output Cache Key &amp; SQLite Entry</span>
-<span class="n">rectangle</span><span class="p">((</span><span class="mi">121</span><span class="p">,</span> <span class="mi">23</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">28</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">26</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.8</span><span class="p">))</span>
-<span class="n">phosphor</span><span class="o">.</span><span class="n">database</span><span class="p">((</span><span class="mi">121</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">)</span>
-<span class="n">text</span><span class="p">((</span><span class="mi">121</span><span class="p">,</span> <span class="mi">21</span><span class="p">),</span> <span class="s2">"cache.db Entry"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.2</span><span class="p">))</span>
-<span class="n">text</span><span class="p">((</span><span class="mi">121</span><span class="p">,</span> <span class="mi">14</span><span class="p">),</span> <span class="s2">"Primary Key:</span><span class="se">\n</span><span class="s2">Composite Hash"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.0</span><span class="p">))</span>
+<span class="n">d</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">hasher</span><span class="p">,</span> <span class="n">img_tbl</span><span class="p">,</span> <span class="n">arrow</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">meta_tbl</span><span class="p">,</span> <span class="n">img_tbl</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Auto-Reset"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
 
+<span class="n">d</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">59.0</span><span class="p">,</span> <span class="mf">27.0</span><span class="p">),</span> <span class="n">align</span><span class="o">=</span><span class="s2">"center"</span><span class="p">)</span>
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 </details>
 <hr />
-<h2>2. Positioning: Cache Engine in the Compilation Pipeline</h2>
-<p>The cache engine operates transparently between the Markdown block extractor and the drawing canvas:</p>
+<h2>2. Positioning: Cache Engine in Build &amp; CLI Workflows</h2>
+<p><code>.drawlib/cache.db</code> serves two sibling cache managers inside <code>drawlib._builder._common.cache</code>:</p>
 <ol>
-<li><strong>Extraction</strong>: When <code>doc_builder</code> encounters a <code>drawlib</code> block, <code>DrawlibBlockProcessor</code> extracts the Python code and evaluates cache viability.</li>
-<li><strong>Static AST Analysis</strong>: Before executing any code, <code>image_builder.py</code> parses the AST to statically inspect <code>canvas.save(&quot;...&quot;)</code> invocations, detecting output file name conflicts across multiple documents without execution overhead.</li>
-<li><strong>Dependency Hashing</strong>: <code>_builder/_common/cache.py</code> computes SHA-256 hashes for:
+<li><strong><code>BuildImageCache</code> (<code>image_cache</code> table)</strong>:
 <ul>
-<li>The normalized drawing code.</li>
-<li>Global configuration files (<code>styles.py</code> and <code>utils.py</code>).</li>
-<li>Any local binary assets (<code>_assets/*.png</code>, <code>*.ttf</code>) discovered via string literal inspection.</li>
+<li>Used by <code>doc_builder</code> (<code>DrawlibBlockProcessor</code>) and <code>image_builder</code> (<code>DrawlibExecuter</code>) for static <code>.png</code>/<code>.webp</code> diagrams as well as multi-frame <code>.webp</code> animations (see <a href="../03_domain_subsystems/04_animation_and_slide_engines.html">Animation &amp; Slide Engines</a>).</li>
+<li>Stores both standard production blobs (<code>png_blob</code>, <code>webp_blob</code>) and coordinate-grid debug blobs (<code>png_grid_blob</code>, <code>webp_grid_blob</code>) side-by-side under the same <code>cache_key</code>.</li>
 </ul>
 </li>
-<li><strong>Database Query</strong>: Queries <code>.drawlib/cache.db</code> using the computed composite key.
+<li><strong><code>CliImageCache</code> (<code>cli_image_cache</code> table)</strong>:
 <ul>
-<li><strong>Cache Hit</strong>: Restores pre-rendered binary blobs directly from SQLite in <strong>&lt; 1ms</strong>.</li>
-<li><strong>Cache Miss</strong>: Executes the Python block in an in-process sandbox, saves the generated images, and persists all format blobs into SQLite.</li>
+<li>Caches rendered catalog preview sheets generated by <code>drawlib styles show</code> and <code>drawlib colors show</code> (keyed by category, preset name, page number, and <code>has_grid</code>), making repeated style lookups instantaneous.</li>
 </ul>
 </li>
 </ol>
+<p>Database path resolution (<code>get_default_cache_db_path()</code>) checks <code>DRAWLIB_CACHE_DB</code>, <code>DRAWLIB_CACHE_DIR/cache.db</code>, an upward directory walk for <code>.drawlib/cache.db</code>, and finally falls back to <code>&lt;cwd&gt;/.drawlib/cache.db</code> (automatically writing <code>.gitignore</code> rules via <code>ensure_cache_dir_ignores()</code>).</p>
 <hr />
-<h2>3. Details: SQLite Database Schema &amp; Invalidation</h2>
-<h3>3.1. Database Schema &amp; Multi-Blob Storage</h3>
-<p>The cache database resides in <code>.drawlib/cache.db</code> with Write-Ahead Logging (<code>PRAGMA journal_mode=WAL;</code>) enabled for high-concurrency performance:</p>
-<pre><code class="language-sql"><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">image_cache</span><span class="w"> </span><span class="p">(</span>
-<span class="w">    </span><span class="n">cache_key</span><span class="w"> </span><span class="nb">TEXT</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span>
-<span class="w">    </span><span class="n">code_hash</span><span class="w"> </span><span class="nb">TEXT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
-<span class="w">    </span><span class="n">config_hash</span><span class="w"> </span><span class="nb">TEXT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
-<span class="w">    </span><span class="n">png_blob</span><span class="w"> </span><span class="nb">BLOB</span><span class="p">,</span>
-<span class="w">    </span><span class="n">png_grid_blob</span><span class="w"> </span><span class="nb">BLOB</span><span class="p">,</span>
-<span class="w">    </span><span class="n">webp_blob</span><span class="w"> </span><span class="nb">BLOB</span><span class="p">,</span>
-<span class="w">    </span><span class="n">webp_grid_blob</span><span class="w"> </span><span class="nb">BLOB</span><span class="p">,</span>
-<span class="w">    </span><span class="n">total_size_bytes</span><span class="w"> </span><span class="nb">INTEGER</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
-<span class="w">    </span><span class="n">created_at</span><span class="w"> </span><span class="nb">TEXT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
-<span class="w">    </span><span class="n">last_accessed_at</span><span class="w"> </span><span class="nb">TEXT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span>
-<span class="p">);</span>
-<span class="k">CREATE</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">idx_image_cache_accessed</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">image_cache</span><span class="w"> </span><span class="p">(</span><span class="n">last_accessed_at</span><span class="p">);</span>
-
-<span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">cache_meta</span><span class="w"> </span><span class="p">(</span>
-<span class="w">    </span><span class="k">key</span><span class="w"> </span><span class="nb">TEXT</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span>
+<h2>3. Details: SQLite Schema, Version Guards &amp; LRU Eviction</h2>
+<h3>3.1. Exact SQLite Schema (<code>WAL</code> Mode)</h3>
+<p>Connections open with <code>PRAGMA journal_mode=WAL;</code> and <code>PRAGMA synchronous=NORMAL;</code> (<code>timeout=30.0</code>), managing three tables:</p>
+<pre><code class="language-sql"><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">cache_meta</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="k">key</span><span class="w">   </span><span class="nb">TEXT</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span>
 <span class="w">    </span><span class="n">value</span><span class="w"> </span><span class="nb">TEXT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span>
 <span class="p">);</span>
+
+<span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">image_cache</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">cache_key</span><span class="w">            </span><span class="nb">TEXT</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span>
+<span class="w">    </span><span class="n">code_hash</span><span class="w">            </span><span class="nb">TEXT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">    </span><span class="n">config_hash</span><span class="w">          </span><span class="nb">TEXT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">    </span><span class="n">png_blob</span><span class="w">             </span><span class="nb">BLOB</span><span class="p">,</span>
+<span class="w">    </span><span class="n">png_size_bytes</span><span class="w">       </span><span class="nb">INTEGER</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="n">png_grid_blob</span><span class="w">        </span><span class="nb">BLOB</span><span class="p">,</span>
+<span class="w">    </span><span class="n">png_grid_size_bytes</span><span class="w">  </span><span class="nb">INTEGER</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="n">webp_blob</span><span class="w">            </span><span class="nb">BLOB</span><span class="p">,</span>
+<span class="w">    </span><span class="n">webp_size_bytes</span><span class="w">      </span><span class="nb">INTEGER</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="n">webp_grid_blob</span><span class="w">       </span><span class="nb">BLOB</span><span class="p">,</span>
+<span class="w">    </span><span class="n">webp_grid_size_bytes</span><span class="w"> </span><span class="nb">INTEGER</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="n">total_size_bytes</span><span class="w">     </span><span class="nb">INTEGER</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="n">created_at</span><span class="w">           </span><span class="nb">REAL</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">    </span><span class="n">last_accessed_at</span><span class="w">     </span><span class="nb">REAL</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span>
+<span class="p">);</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">idx_image_cache_last_accessed</span>
+<span class="w">    </span><span class="k">ON</span><span class="w"> </span><span class="n">image_cache</span><span class="p">(</span><span class="n">last_accessed_at</span><span class="p">);</span>
+
+<span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">cli_image_cache</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">cache_key</span><span class="w">            </span><span class="nb">TEXT</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span>
+<span class="w">    </span><span class="n">category</span><span class="w">             </span><span class="nb">TEXT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">    </span><span class="n">preset_name</span><span class="w">          </span><span class="nb">TEXT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">    </span><span class="n">page</span><span class="w">                 </span><span class="nb">INTEGER</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">    </span><span class="n">has_grid</span><span class="w">             </span><span class="nb">INTEGER</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">    </span><span class="n">png_blob</span><span class="w">             </span><span class="nb">BLOB</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">    </span><span class="n">total_size_bytes</span><span class="w">     </span><span class="nb">INTEGER</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">    </span><span class="n">created_at</span><span class="w">           </span><span class="nb">REAL</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">    </span><span class="n">last_accessed_at</span><span class="w">     </span><span class="nb">REAL</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span>
+<span class="p">);</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">idx_cli_image_cache_accessed</span>
+<span class="w">    </span><span class="k">ON</span><span class="w"> </span><span class="n">cli_image_cache</span><span class="p">(</span><span class="n">last_accessed_at</span><span class="p">);</span>
 </code></pre>
-<h4>Dual Normal &amp; Coordinate Grid Blobs</h4>
-<p>To support instantaneous previewing with coordinate grids (<code>uv run drawlib show page.md block.png -g</code>), Drawlib stores <strong>four distinct blobs per cache key</strong>:</p>
-<ol>
-<li><code>png_blob</code>: Standard production raster image.</li>
-<li><code>png_grid_blob</code>: Raster image with 10-unit/5-unit coordinate overlay grid for authoring.</li>
-<li><code>webp_blob</code>: Compressed modern web asset.</li>
-<li><code>webp_grid_blob</code>: Coordinate grid overlay compressed web asset.</li>
-</ol>
-<h3>3.2. Automatic 1 GiB LRU Eviction</h3>
-<p>To prevent cache bloat in large repositories:</p>
+<h3>3.2. Automatic Version-Upgrade Reset &amp; 1 GiB LRU Eviction</h3>
 <ul>
-<li><code>total_size_bytes</code> tracks the exact byte footprint of each record.</li>
-<li>When total cache size exceeds <strong>1 GiB</strong> (<code>1,073,741,824 bytes</code>), <code>BuildImageCache</code> triggers an automatic <strong>LRU (Least Recently Used) prune</strong>, deleting the oldest 50% of entries sorted by <code>last_accessed_at</code>.</li>
+<li><strong>Environment Version Guard (<code>cache_meta</code>)</strong>: On initialization, <code>BuildImageCache</code> and <code>CliImageCache</code> compare the stored <code>lib_version</code>, <code>matplotlib_version</code> (queried lazily via <code>importlib.metadata</code> without importing Matplotlib), and <code>schema_version</code> (<code>&quot;1&quot;</code>). Whenever Drawlib or Matplotlib is upgraded, the tables are automatically dropped, recreated, and <code>VACUUM</code>-compacted so subtle typography or rasterization changes never serve stale outputs.</li>
+<li><strong>1 GiB Bounded Footprint</strong>: Each <code>put()</code> updates per-format byte counters (<code>png_size_bytes</code>, <code>png_grid_size_bytes</code>, <code>webp_size_bytes</code>, <code>webp_grid_size_bytes</code>) and <code>total_size_bytes</code>, while every <code>get()</code> refreshes <code>last_accessed_at</code> (<code>time.time()</code> float). When <code>SUM(total_size_bytes)</code> exceeds <strong>1 GiB</strong> (<code>DEFAULT_MAX_CACHE_BYTES = 1,073,741,824</code>), <code>_init_db_and_evict()</code> deletes the oldest 50% of rows ordered by <code>last_accessed_at ASC, created_at ASC</code> and compacts the file with <code>VACUUM</code>.</li>
 </ul>
-<h3>3.3. Cache Invalidation Triggers</h3>
-<p>A diagram is invalidated and re-rendered only when:</p>
-<ul>
-<li>The Python code within the code fence is modified.</li>
-<li>Target canvas dimensions (<code>width</code>, <code>height</code>, or <code>dpi</code>) change.</li>
-<li><code>styles.py</code> or <code>utils.py</code> is edited.</li>
-<li>Any referenced asset file in <code>_assets/</code> (e.g. a company logo or font file) is changed.</li>
-</ul>
-<h3>3.4. Cache Management CLI</h3>
-<p>Developers and CI runners can inspect and prune the cache via the CLI:</p>
-<pre><code class="language-bash">uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>cache<span class="w"> </span>list<span class="w">            </span><span class="c1"># Display cache statistics and total stored assets</span>
-uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>cache<span class="w"> </span>clear<span class="w"> </span>--images<span class="w">  </span><span class="c1"># Purge all rendered diagram blobs</span>
-uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>cache<span class="w"> </span>clear<span class="w"> </span>--all<span class="w">     </span><span class="c1"># Complete reset of database and downloaded assets</span>
+<h3>3.3. Cache &amp; External Asset Management CLI</h3>
+<p>The <code>drawlib cache</code> sub-application (<code>_cli/commands/cache.py</code>) manages both <code>.drawlib/cache.db</code> and external release asset packages (<code>drawlib._cached_assets/</code>):</p>
+<pre><code class="language-bash"><span class="c1"># Clear rendered SQLite image blobs (.drawlib/cache.db)</span>
+uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>cache<span class="w"> </span>clear<span class="w"> </span>--images
+
+<span class="c1"># Clear both external font/icon/map packages AND .drawlib/cache.db</span>
+uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>cache<span class="w"> </span>clear<span class="w"> </span>--all
+
+<span class="c1"># Inspect local download status &amp; sizes of external font, icon, and map packages</span>
+uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>cache<span class="w"> </span>list
+
+<span class="c1"># Pre-download release asset archives and/or headless Chromium for offline/CI builds</span>
+uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>cache<span class="w"> </span>download<span class="w"> </span>--all<span class="w">       </span><span class="c1"># Or --fonts, --icons, --maps, --browser</span>
 </code></pre>
 <p>Next, proceed to Chapter 3: <strong><a href="../03_domain_subsystems/01_primitives_and_backends.html">Primitives &amp; Backends</a></strong>.</p>
 
@@ -433,8 +551,8 @@ uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </s
                     if (e.key === 'Escape') {
                         langDropdowns.forEach(function(dd) {
                             dd.removeAttribute('open');
-                        });
-                    }
+                        }
+                    });
                 });
             }
 

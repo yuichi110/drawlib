@@ -31,6 +31,9 @@
     <loc>https://www.drawlib.com/architecture/en/03_domain_subsystems/03_graph_autolayout.html</loc>
   </url>
   <url>
+    <loc>https://www.drawlib.com/architecture/en/03_domain_subsystems/04_animation_and_slide_engines.html</loc>
+  </url>
+  <url>
     <loc>https://www.drawlib.com/architecture/en/04_doc_builder_and_compiler/01_compilation_pipeline.html</loc>
   </url>
   <url>

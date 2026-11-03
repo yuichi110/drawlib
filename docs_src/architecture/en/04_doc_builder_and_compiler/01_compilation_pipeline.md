@@ -1,231 +1,383 @@
 # Markdown Tokenization & Code Block Processor
 
-The core engine enabling **"Illustrated Documentation as Code"** is Drawlib's document compilation pipeline (`_builder/doc_builder/`). Rather than relying on fragile regex string substitutions or headless browser preprocessing, Drawlib tokenizes Markdown documents into an Abstract Syntax Tree (AST), identifies embedded drawing blocks, executes Python code in-process, and transforms code tokens into responsive web elements and vector image assets.
+The core engine powering **"Illustrated Documentation as Code"** is Drawlib's document builder and compilation pipeline (`_builder/`). Rather than executing untrusted Markdown snippets via naive string splits or forcing manual pre-generation scripts, Drawlib combines **line-preserving outer-fence masking**, **deterministic SQLite WAL image caching**, **in-process sandboxed `Canvas` execution**, and **multi-target AST/HTML compilation** across Markdown, HTML, PDF, and Word (`.docx`) outputs.
 
-This document details the tokenization lifecycle, code fence option parsing, and sandbox execution mechanics.
+This chapter details the hybrid pre-AST block processor, `DrawlibBlockOptions` parsing, sandbox execution and traceback mapping, standalone script AST checks, and multi-locale `drawlib.toml` parity validation.
 
-```drawlib align=center code=fold file=compiler_pipeline_flow.png caption="Document Compilation Pipeline Architecture"
+```drawlib align=center code=fold file=compiler_pipeline_flow.png caption="4-Stage Document Block Processing & Compilation Pipeline (_builder/doc_builder)"
 from drawlib.canvas import save, setup
-from drawlib.icons import phosphor
-from drawlib.lines import line
 from drawlib.shapes import rectangle
+from drawlib.smartarts import ChevronProcess
 from drawlib.styles import Styles
-from drawlib.text import text
 
-setup(width=140, height=58)
+setup(width=120, height=42)
 
-rectangle((70, 29), width=136, height=54, style=Styles.Neutral.patch(shape_r=2.5))
-text(
-    (70, 50),
-    "Document Compilation Pipeline Architecture",
-    style=Styles.DarkBold.patch(text_size=12.2),
-)
-
-steps = [
-    (18.5, "1. Protect Fences", "preserve_outer_fences\nMask nested blocks", phosphor.shield_check, Styles.PrimaryNeutral, Styles.PrimaryBold),
-    (52.5, "2. Block Processor", "Regex extract & cache\nDrawlibBlockProcessor", phosphor.gear, Styles.SecondaryNeutral, Styles.SecondaryBold),
-    (86.5, "3. Sandboxed Exec", "In-process execution\n_no_op_save & blobs", phosphor.play_circle, Styles.PrimaryFlat, Styles.WhiteBold),
-    (120.5, "4. GFM & Exporter", "markdown-it-py AST\nPygments & HTML/PDF", phosphor.check_circle, Styles.SecondaryNeutral, Styles.SecondaryBold),
+# Top module badges aligned above each pipeline chevron
+badges = [
+    (17.5, "detector.py", Styles.Neutral, Styles.DarkBold),
+    (45.8, "options & cache", Styles.PrimaryNeutral, Styles.PrimaryBold),
+    (74.2, "processor.py", Styles.PrimaryNeutral, Styles.PrimaryBold),
+    (102.5, "compiler/*.py", Styles.SecondaryNeutral, Styles.SecondaryBold),
 ]
+for cx, label, box_style, txt_style in badges:
+    rectangle(
+        (cx, 34.5),
+        width=25.5,
+        height=6.8,
+        style=box_style.patch(shape_r=1.4),
+        text=label,
+        text_style=txt_style.patch(text_size=10.5),
+    )
 
-for x, title, desc, icon_func, card_style, icon_style in steps:
-    rectangle((x, 23.5), width=28, height=31, style=card_style.patch(shape_r=1.8))
-    icon_func((x - 9.5, 33.5), width=3.4, style=icon_style)
-    text((x - 5.5, 33.5), title, style=icon_style.patch(halign="left", text_size=9.0))
-    sub_style = Styles.White if card_style == Styles.PrimaryFlat else Styles.Dark
-    text((x, 18.5), desc, style=sub_style.patch(text_size=8.2))
-
-for i in range(3):
-    x_from = steps[i][0] + 14.0
-    x_to = steps[i + 1][0] - 14.0
-    line((x_from, 23.5), (x_to, 23.5), arrow_head="->", style=Styles.DarkBold)
+# 4-stage sequential compilation pipeline
+pipeline = ChevronProcess(
+    style=Styles.Neutral,
+    text_style=Styles.DarkBold.patch(text_size=10.5),
+    description_style=Styles.Dark.patch(text_size=10.0),
+    corner_angle=65.0,
+    spacing=1.8,
+    flat_left_end=True,
+)
+pipeline.add("1. Fence Mask", description="4+ tick outer mask")
+pipeline.add("2. Parse & Cache", description="Options & WAL DB", style=Styles.PrimaryNeutral)
+pipeline.add(
+    "3. Canvas Exec",
+    description="Sandbox & capture",
+    style=Styles.PrimaryFlat,
+    text_style=Styles.WhiteBold.patch(text_size=10.5),
+    description_style=Styles.White.patch(text_size=10.0),
+)
+pipeline.add("4. Target Emit", description="HTML/PDF/DOCX/MD", style=Styles.SecondaryNeutral)
+pipeline.draw(xy=(4.0, 5.0), width=112.0, height=23.5)
 
 save()
 ```
 
 ---
 
-## 1. Concept: The 3-Stage Text & AST Hybrid Pipeline
+## 1. Concept: Line-Preserving Fence Masking & Hybrid AST Pipeline
 
-Unlike naive documentation generators that either rely exclusively on fragile regex replacements or heavy headless browser rendering, Drawlib implements a high-performance **3-Stage Text & AST Hybrid Pipeline**:
+Documentation pages routinely embed literal ```` ```drawlib ```` tutorial snippets inside outer 4-backtick (```` ````markdown ````) or tilde (```` ~~~~ ````) fences. If a naive regex scanned the raw file, it would accidentally execute documentation examples; conversely, if full GFM HTML conversion ran first, `DrawlibBlockProcessor` could no longer emit target-specific Markdown links (for `markdown.py` and `docx.py`) alongside rich `<figure>`/`<details>` markup (for `html.py` and `pdf.py`).
 
-```
-[Markdown Source]
-       │
-       ▼
-Stage A: Outer Fence Protection (detector.preserve_outer_fences)
-       │  Masks nested code blocks inside markdown quotes/lists
-       ▼
-Stage B: Block Extraction & Execution Sandbox (DrawlibBlockProcessor)
-       │  Extracts ```drawlib fences via regex
-       │  Queries BuildImageCache (SQLite WAL)
-       │  Executes code with _no_op_save and renders image assets
-       │  Substitutes fences with HTML <figure> tags or Markdown image links
-       ▼
-Stage C: Downstream GFM AST Parsing (markdown-it-py)
-          Parses remaining Markdown into HTML/AST tokens
-          Applies Pygments syntax highlighting
-          Rewrites relative .md links to .html
-```
+Drawlib resolves both constraints through a **4-stage hybrid text and AST pipeline**:
 
-### Why a Hybrid Pipeline?
-1. **Preserving Drawing Semantics**: Intercepting and executing drawing blocks before full Markdown AST tokenization allows Drawlib to insert semantic `<figure>` elements, responsive `<details>` toggles, and image references seamlessly into the document flow.
-2. **Deterministic Output Caching**: Blocks are hashed and resolved against `.drawlib/cache.db` before any heavy parsing or execution takes place, achieving sub-millisecond incremental builds.
-3. **Robust Syntax Highlighting**: Surrounding Markdown prose and standard non-drawlib code blocks are handled cleanly by `markdown-it-py` and Pygments without interference.
+1. **Stage 1 — Outer Fence Masking (`detector.preserve_outer_fences`)**:
+   - Scans the source Markdown line-by-line before block extraction and replaces any fenced block delimited by **4 or more backticks or tildes** with a multi-line placeholder (`__DRAWLIB_PRESERVED_FENCE_{idx}__` padded with `__DRAWLIB_FENCE_PAD_{idx}_{line}__`).
+   - Preserving the **exact physical line count** ensures any syntax or runtime error in a downstream ```` ```drawlib ```` block still reports the true `file.md:line` offset.
+2. **Stage 2 — Pre-Flight Collision Check & Block Extraction (`progress.py` & `processor.py`)**:
+   - `check_document_output_duplicates()` scans all target `file=` attributes across the project to reject duplicate output asset paths before execution begins.
+   - `DrawlibBlockProcessor.process_markdown()` extracts active 3-backtick ```` ```drawlib ```` blocks, parses `DrawlibBlockOptions`, and computes deterministic cache keys (`BuildImageCache.compute_keys`) incorporating code text, dimensions, format, DPI, and hashed `styles.py`/`utils.py` dependencies.
+   - *(HTML Input Support)*: `detect_document_type()` (`detector.py`) classifies inputs into `DocumentInputInfo` (`"markdown_drawlib"`, `"markdown"`, `"html_drawlib"`, or `"html"`). Raw `.html`/`.htm` files embedding `<script type="text/drawlib" ...>` tags route through `DrawlibBlockProcessor.process_html()`.
+   - *(Standalone Image Projects)*: For `type = "images"` (`image_builder.py`: `DrawlibExecuter`), `_image_ast.py` (`_SaveCallVisitor`) statically inspects `ast.Call` `save(...)` nodes via `check_duplicate_script_outputs()` and `resolve_static_save_target()` to detect output collisions and resolve single-target cache hits without executing Python.
+3. **Stage 3 — In-Process Canvas Execution & Fence Restoration**:
+   - Cache misses execute in-process against `Canvas`, write rendered image/animation buffers to disk and `.drawlib/cache.db`, and substitute the fence with `<figure class="drawlib-image">` / `<div class="drawlib-image">` (or standard `![caption](path)` Markdown image links).
+   - `restore_outer_fences()` restores all masked 4+-backtick tutorial blocks verbatim.
+4. **Stage 4 — Downstream Target Compilation (`parser.py` & `exporter_docx.py`)**:
+   - For **HTML and PDF** (`compiler/html.py`, `compiler/pdf.py`), `parse_markdown_to_html()` (`parser.py`) tokenizes GFM prose, tables, and remaining code blocks via `markdown-it-py` + Pygments (`highlight.py`).
+   - For **Word `.docx`** (`compiler/docx.py`, `exporter_docx.py`), `_DocxChapterRenderer` walks the `MarkdownIt` token stream directly into OpenXML paragraphs, runs, tables, and `240 DPI` images without an intermediate HTML conversion pass.
 
 ---
 
-## 2. Positioning: Compiler Architecture & Core Models
+## 2. Positioning: `doc_builder` Subsystem Architecture
 
-The document builder subsystem (`_builder/doc_builder/`) decomposes responsibilities into dedicated Pydantic configuration models, processing engines, and format exporters:
+The `_builder` package separates shared project/cache infrastructure (`_builder/_common/`) from Markdown/HTML block processing (`doc_builder/processor/`) and multi-format output compilers (`doc_builder/compiler/`):
 
-```drawlib align=center code=fold file=doc_builder_architecture.png caption="doc_builder Compilation Pipeline & Exporter Architecture"
+```drawlib align=center code=fold file=doc_builder_architecture.png caption="Real Module & Class Architecture of _builder/_common and _builder/doc_builder"
 from drawlib.canvas import save, setup
-from drawlib.diagrams.class_diagram import ClassDiagram, ClassNode
+from drawlib.diagrams.architecture import (
+    ArchitectureDiagram,
+    Node,
+    NodeGroup,
+    PhosphorIcon,
+)
 from drawlib.styles import Styles
 
-setup(width=168, height=102)
+setup(width=122, height=78)
 
-cd = ClassDiagram(
-    node_style=Styles.Neutral,
+d = ArchitectureDiagram(
+    node_style=Styles.Primary,
+    node_text_style=Styles.DarkBold.patch(text_size=10.5),
     edge_style=Styles.DarkBold,
-    edge_text_style=Styles.Dark,
-    title="doc_builder Compilation Pipeline & Exporter Architecture",
+    edge_text_style=Styles.Dark.patch(text_size=10.0),
+    node_card_style=Styles.Neutral,
 )
 
-# Core Models (Row 1)
-doc_info = cd.add(ClassNode(name="DocumentInputInfo", stereotype="BaseModel", width=36.0, style=Styles.SecondaryNeutral), xy=(24.0, 78.0))
-doc_info.add_attribute("src_dir: Path")
-doc_info.add_attribute("output_dir: Path")
-doc_info.add_attribute("site_title, lang: str")
+# Row 1: Shared Project, Cache & SEO Infrastructure (_builder/_common)
+common_grp = d.add(
+    NodeGroup(
+        title="Shared Core (_common & i18n)",
+        width=114.0,
+        height=21.5,
+        style=Styles.MutedDashed,
+        text_style=Styles.PrimaryBold.patch(text_size=11.0, halign="left"),
+    ),
+    xy=(4.0, 53.0),
+)
+manifest = common_grp.add(
+    Node(
+        "ProjectManifest\n[project] [i18n] [seo]",
+        width=31.0,
+        height=13.0,
+        icon=PhosphorIcon.FILE_CODE,
+        icon_size=5.0,
+        card_style=Styles.PrimaryNeutral,
+    ),
+    xy=(20.0, 8.2),
+)
+cache = common_grp.add(
+    Node(
+        "BuildImageCache\nSQLite WAL .db",
+        width=31.0,
+        height=13.0,
+        icon=PhosphorIcon.DATABASE,
+        icon_size=5.0,
+    ),
+    xy=(57.0, 8.2),
+)
+seo_i18n = common_grp.add(
+    Node(
+        "seo.py & i18n.py\nParity & Metadata",
+        width=31.0,
+        height=13.0,
+        icon=PhosphorIcon.GLOBE,
+        icon_size=5.0,
+        card_style=Styles.SecondaryNeutral,
+    ),
+    xy=(94.0, 8.2),
+)
 
-block_opts = cd.add(ClassNode(name="DrawlibBlockOptions", stereotype="BaseModel", width=38.0, style=Styles.SecondaryNeutral), xy=(82.5, 78.0))
-block_opts.add_attribute("file: str | None")
-block_opts.add_attribute("fold_code, no_code: bool")
-block_opts.add_attribute("align: Literal")
-block_opts.add_attribute("caption: str | None")
+# Row 2: Fence Detection, Options & Block Execution Sandbox
+proc_grp = d.add(
+    NodeGroup(
+        title="Block Sandbox",
+        width=114.0,
+        height=20.5,
+        style=Styles.MutedDashed,
+        text_style=Styles.PrimaryBold.patch(text_size=11.0, halign="left"),
+    ),
+    xy=(4.0, 29.0),
+)
+opts = proc_grp.add(
+    Node(
+        "parse_block_info\nDrawlibBlockOptions",
+        width=31.0,
+        height=12.5,
+        icon=PhosphorIcon.FILE_TEXT,
+        icon_size=5.0,
+        card_style=Styles.PrimaryNeutral,
+    ),
+    xy=(20.0, 7.8),
+)
+processor = proc_grp.add(
+    Node(
+        "DrawlibBlockProcessor\nSandbox & Render",
+        width=31.0,
+        height=12.5,
+        icon=PhosphorIcon.GEAR,
+        icon_size=5.0,
+        style=Styles.White,
+        card_style=Styles.PrimaryFlat,
+        text_style=Styles.WhiteBold.patch(text_size=10.5),
+    ),
+    xy=(57.0, 7.8),
+)
+detector = proc_grp.add(
+    Node(
+        "detector.py\n4+ Fence Masking",
+        width=31.0,
+        height=12.5,
+        icon=PhosphorIcon.FUNNEL,
+        icon_size=5.0,
+    ),
+    xy=(94.0, 7.8),
+)
 
-cache_cls = cd.add(ClassNode(name="BuildImageCache", width=36.0, style=Styles.SecondaryNeutral), xy=(138.0, 78.0))
-cache_cls.add_attribute("cache_db: Path")
-cache_cls.add_method("get_image", return_type="bytes | None")
-cache_cls.add_method("put_image", params="key, png, webp, ...")
+# Row 3: Target Compilers & Chapter Merger (compiler/ & merger.py)
+comp_grp = d.add(
+    NodeGroup(
+        title="Target Compilers (compiler/ & merger.py)",
+        width=114.0,
+        height=23.5,
+        style=Styles.MutedDashed,
+        text_style=Styles.PrimaryBold.patch(text_size=11.0, halign="left"),
+    ),
+    xy=(4.0, 3.0),
+)
+html_md = comp_grp.add(
+    Node(
+        "html.py & md\nGFM + Pygments",
+        width=24.0,
+        height=11.6,
+        icon=PhosphorIcon.GLOBE,
+        icon_size=4.8,
+        card_style=Styles.PrimaryNeutral,
+    ),
+    xy=(15.5, 6.8),
+)
+merger = comp_grp.add(
+    Node(
+        "merger.py\nChapter Bundle",
+        width=24.0,
+        height=11.6,
+        icon=PhosphorIcon.GIT_MERGE,
+        icon_size=4.8,
+    ),
+    xy=(43.2, 6.8),
+)
+pdf_comp = comp_grp.add(
+    Node(
+        "pdf.py\nChromium Print",
+        width=24.0,
+        height=11.6,
+        icon=PhosphorIcon.FILE_PDF,
+        icon_size=4.8,
+    ),
+    xy=(70.8, 6.8),
+)
+docx_comp = comp_grp.add(
+    Node(
+        "docx.py\nToken -> OOXML",
+        width=24.0,
+        height=11.6,
+        icon=PhosphorIcon.FILE_DOC,
+        icon_size=4.8,
+        card_style=Styles.SecondaryNeutral,
+    ),
+    xy=(98.5, 6.8),
+)
 
-# Core Processor (Row 2)
-processor = cd.add(ClassNode(name="DrawlibBlockProcessor", width=48.0, style=Styles.PrimaryFlat), xy=(82.5, 48.0))
-processor.add_attribute("cache: BuildImageCache")
-processor.add_attribute("options_parser: OptionsParser")
-processor.add_method("process_markdown", params="content: str", return_type="tuple")
-processor.add_method("execute_block", params="code: str", return_type="Path")
+d.connect(manifest, opts)
+d.connect(processor, cache, arrow="<->")
+d.connect(seo_i18n, detector)
+d.connect(opts, processor)
+d.connect(detector, processor)
 
-# Exporters (Row 3)
-exp_base = cd.add(ClassNode(name="ExporterBase", stereotype="ABC", width=34.0), xy=(24.0, 18.0))
-exp_base.add_method("export", params="input_info, ...")
+# Clean orthogonal fan-out bus below Row 3's header into each compiler's top center
+bus = d.junction((61.0, 19.8))
+d.connect(processor, bus, arrow="-")
+for cx, target in [(19.5, html_md), (47.2, merger), (74.8, pdf_comp), (102.5, docx_comp)]:
+    tap = d.junction((cx, 19.8))
+    d.connect(bus, tap, arrow="-")
+    d.connect(tap, target)
+d.connect(merger, pdf_comp)
 
-exp_html = cd.add(ClassNode(name="ExporterHTML", width=34.0, style=Styles.PrimaryNeutral), xy=(70.0, 18.0))
-exp_html.add_method("render_page", return_type="str")
-
-exp_pdf = cd.add(ClassNode(name="ExporterPDF", width=34.0, style=Styles.PrimaryNeutral), xy=(114.0, 18.0))
-exp_pdf.add_method("compile_pdf", return_type="Path")
-exp_pdf.add_method("normalize_pdf_timestamps", return_type="None")
-
-merger = cd.add(ClassNode(name="DocumentMerger", width=32.0), xy=(150.0, 18.0))
-merger.add_method("merge_documents", return_type="str")
-
-# Relationships
-cd.connect(processor, block_opts, "composition", start_side="top", end_side="bottom", label="parses into")
-cd.connect(processor, cache_cls, "aggregation", start_side="right", end_side="left", label="queries")
-cd.connect(exp_html, exp_base, "inheritance", start_side="left", end_side="right")
-cd.connect(exp_pdf, exp_base, "inheritance", start_side="left", end_side="bottom")
-cd.connect(exp_pdf, merger, "dependency", start_side="right", end_side="left")
-cd.connect(exp_html, processor, "dependency", start_side="top", end_side="bottom", label="invokes")
-
-cd.draw(xy=(0.0, 0.0))
+d.draw()
 save()
 ```
 
-### Code Fence Attribute Parser
-Drawlib code fences support declarative metadata options on the opening line:
+### Code Fence Attribute Tokenization (`processor/options.py`)
 
-```drawlib align=center code=fold file=fence_attribute_parsing.png caption="Code Fence Token Extraction & Options Parsing"
+`parse_block_info()` and `tokenize_kv_pairs()` parse space-separated `key=value` attributes on the opening ```` ```drawlib ```` fence line (supporting quoted strings, bracketed integer lists like `anim_pause=[2, 5]`, and HTML `<script type="text/drawlib">` tag attributes) into a validated `DrawlibBlockOptions` dataclass:
+
+```drawlib align=center code=fold file=fence_attribute_parsing.png caption="Tokenization of Code Fence Info Strings into DrawlibBlockOptions"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.lines import line
-from drawlib.shapes import rectangle
+from drawlib.smartarts import CardList, SourceCode, SourceCodeStyles
 from drawlib.styles import Styles
-from drawlib.text import text
 
-setup(width=140, height=58)
+setup(width=120, height=52)
 
-rectangle((70, 29), width=136, height=54, style=Styles.Neutral.patch(shape_r=2.5))
-text(
-    (70, 50),
-    "Code Fence Token Extraction & Options Parsing",
-    style=Styles.DarkBold.patch(text_size=12.2),
+snippet = (
+    '```drawlib align=center code=fold file=arch.png caption="Service Topology"\n'
+    "setup(width=116, height=48)  # -> parsed into DrawlibBlockOptions"
+)
+code_styles = SourceCodeStyles.get("dark", font_lang="en", text_size=10.0)
+SourceCode.draw(
+    xy=(4.0, 48.5),
+    width=112.0,
+    code=snippet,
+    styles=code_styles,
+    code_lang="markdown",
+    show_linenum=False,
 )
 
-# Top: Raw Code Fence Header
-rectangle((70, 39), width=126, height=9, style=Styles.PrimaryFlat.patch(shape_r=1.5))
-phosphor.code((14, 39), width=4.0, style=Styles.WhiteBold)
-text(
-    (72, 39),
-    '```drawlib align=center code=fold file=arch.png caption="Architecture Diagram"',
-    style=Styles.WhiteBold.patch(text_size=9.2),
+line((60.0, 33.0), (60.0, 27.5), arrow_head="->", style=Styles.DarkBold)
+
+groups = CardList(
+    style=Styles.Neutral,
+    text_style=Styles.DarkBold.patch(text_size=10.5),
+    description_style=Styles.Dark.patch(text_size=10.0),
+    badge_shape="none",
+    icon_style=Styles.PrimaryBold,
+    direction="horizontal",
+    spacing=2.2,
 )
-
-line((70, 34.5), (70, 27.5), arrow_head="->", style=Styles.DarkBold)
-
-# Bottom: 4 Parsed Attributes
-attributes = [
-    (18.5, "align='center'", "CSS flexbox\ncenter alignment", phosphor.align_center_horizontal, Styles.PrimaryNeutral, Styles.PrimaryBold),
-    (52.5, "code='fold'", "<details> tag\ncollapsible code", phosphor.caret_down, Styles.SecondaryNeutral, Styles.SecondaryBold),
-    (86.5, "file='arch.png'", "Explicit target\noutput asset name", phosphor.image, Styles.Neutral, Styles.DarkBold),
-    (120.5, "caption='...'", "<figcaption> text\nbelow image", phosphor.chat_centered_text, Styles.PrimaryNeutral, Styles.PrimaryBold),
-]
-
-for x, title, desc, icon_func, card_style, icon_style in attributes:
-    rectangle((x, 15), width=28, height=22, style=card_style.patch(shape_r=1.5))
-    icon_func((x - 9.0, 21), width=3.4, style=icon_style)
-    text((x - 5.0, 21), title, style=icon_style.patch(halign="left", text_size=8.5))
-    text((x, 10.5), desc, style=Styles.Dark.patch(text_size=7.8))
+groups.add(
+    "Asset & Cache",
+    "file (required)\nformat & no_cache",
+    icon=phosphor.file_code,
+    style=Styles.PrimaryNeutral,
+)
+groups.add(
+    "Source Display",
+    "code=hide|show|fold\n<details> wrapper",
+    icon=phosphor.code,
+)
+groups.add(
+    "Figure Layout",
+    "align (text-align)\ncaption, w/h, class",
+    icon=phosphor.frame_corners,
+)
+groups.add(
+    "Anim Controls",
+    "anim_trigger & loop\nanim_pause=[...]",
+    icon=phosphor.play_circle,
+    style=Styles.SecondaryNeutral,
+    icon_style=Styles.SecondaryBold,
+)
+groups.draw(xy=(4.0, 3.5), width=112.0, height=23.0)
 
 save()
 ```
 
-### Supported Header Options
-- **`file=<name>.<ext>`**: Specifies the output filename (e.g. `file=pipeline.png` or `file=diagram.svg`). If omitted, Drawlib generates an automatic deterministic hash name.
-- **`code=fold` / `code=show` / `code=hide`**: Controls code visibility. `code=fold` wraps Python source in an interactive HTML `<details>` disclosure toggle; `code=hide` suppresses source display completely.
-- **`align=center` / `align=left` / `align=right`**: Controls container alignment via CSS flexbox.
-- **`caption="..."`**: Renders an accessible, semantic `<figcaption>` beneath the illustration.
+### Complete `DrawlibBlockOptions` Reference
+
+| Option | Type & Allowed Values | Default | Behavior in `DrawlibBlockProcessor` |
+| :--- | :--- | :--- | :--- |
+| **`file`** | `str \| None` | *(Required)* | Output asset filename (e.g., `file=arch.png` or `file=flow.svg`). `DrawlibBlockProcessor(..., require_file=True)` **raises `ValueError`** if `file=` is omitted *(sequential `1.png` naming is enabled only when `require_file=False` inside internal `rules_builder.py`)*, and `check_document_output_duplicates()` rejects collisions pre-build. |
+| **`format`** | `"png" \| "svg" \| "webp" \| "pdf" \| None` | `None` | Explicit format override when not inferred from `file` extension (falls back to compiler `image_format`). |
+| **`code`** | `"hide" \| "show" \| "fold"` | `"hide"` | `"hide"` emits only the image; `"show"` renders syntax-highlighted Python above the image; `"fold"` wraps source inside a collapsible HTML `<details>` disclosure block. |
+| **`align`** | `"left" \| "center" \| "right" \| None` | `None` | Applies inline `style="text-align: center|left|right;"` on the outer `<figure class="drawlib-image">` (when `caption` is set) or `<div class="drawlib-image">` wrapper. |
+| **`caption`** | `str \| None` | `None` | Upgrades the wrapper to `<figure class="drawlib-image">` and appends `<figcaption>...</figcaption>`. |
+| **`width`, `height`** | `str \| None` | `None` | Optional HTML `<img>` dimension attributes (e.g., `80%`, `640px`, or integer pixels). |
+| **`css_class`** | `str \| None` (`class=...`) | `None` | Appends custom CSS class names to the generated image element. |
+| **`no_cache`** | `bool` | `False` | Forces fresh execution of this specific block even when `.drawlib/cache.db` holds a matching digest. |
+| **`anim_trigger`** | `"auto" \| "click" \| None` | `None` | Activates `<canvas class="drawlib-anim-canvas">` interactive playback (`"auto"` on slide entry or `"click"`). |
+| **`anim_loop`** | `"once" \| "infinite" \| None` | `None` | Controls playback looping (automatically defaults to `"once"` whenever `anim_pause` is provided). |
+| **`anim_pause`** | `list[int] \| None` | `None` | Sorted positive frame indices (e.g., `anim_pause=[2, 5]`) where interactive playback pauses awaiting user advance. |
 
 ---
 
-## 3. Details: Sandboxed Execution & Error Reporting
+## 3. Details: Sandboxed Execution & Accurate Line Diagnostics
 
-### 3.1. In-Process Sandbox & `_no_op_save`
-When a code block must be executed (on cache miss):
-1. **Scope Isolation**: `DrawlibBlockProcessor` constructs a dedicated `globals()` dictionary populated with project-wide imports (`styles.py`, `utils.py`), isolating execution from the compiler's own internal namespace.
-2. **Context Path Injection**: The document's source directory is temporarily prepended to `sys.path`, allowing blocks to load local assets (`_assets/`) and helper scripts seamlessly.
-3. **`_no_op_save` Monkeypatching**: The compiler automatically intercepts and patches `canvas.save()` to prevent user code from writing directly to disk before the processor captures and caches the rendered image buffers.
+When `BuildImageCache.get()` reports a cache miss (or `no_cache=True`), `DrawlibBlockProcessor._exec_code_block()` and `render_block_to_file()` (`processor/processor.py`) execute the Python block in-process without spawning slow subprocesses:
 
-### 3.2. Accurate Line Number Error Diagnostics
-If a Python exception occurs inside a drawing block:
-- Drawlib catches the exception, inspects the traceback, and calculates the exact physical line number within the Markdown source file (`file.md:L142`).
-- The build terminates immediately with an informative terminal message showing the offending code line, avoiding mysterious stack traces inside `exec()`.
+1. **Preloaded `shared_globals` & Canvas Reset**:
+   - Project-wide `styles.py` and `utils.py` modules are loaded once via `load_styles_and_utils()` into `self.shared_globals` (`drawlib.styles` and `drawlib.utils`).
+   - Before each block runs, the processor calls `l4_canvas.clear()` so figure dimensions, artist lists, and active `Animation` state never leak across blocks, and constructs a fresh execution namespace seeded from `shared_globals`.
+2. **`_no_op_save` Monkeypatching & `redirect_stdout` Isolation**:
+   - Within the block namespace, `drawlib.canvas.save` (and direct `from drawlib.canvas import save` bindings) is monkeypatched to `_no_op_save` so user code calling `save()` at the end of a snippet does not write prematurely to disk.
+   - Execution runs inside `contextlib.redirect_stdout(io.StringIO())` (unless developer verbose logging is enabled), preventing stray `print()` calls inside diagrams from polluting CLI build progress bars.
+   - Once execution finishes, `render_block_to_file()` invokes the real `l4_canvas.save()` (or `Animation._save()`) to produce the target asset and stores the resulting bytes inside `BuildImageCache.put()`.
+3. **Exact Source Line Traceback Mapping (`compile(..., filename=source_filename)`)**:
+   - Rather than passing raw strings to `exec()`, the processor compiles code via `compile(padded_code, filename=source_filename, mode="exec")` aligned to the fence's starting line number in the `.md` or `.html` source. Any syntax or validation error immediately reports the exact `path/to/page.md:line` location.
 
 ---
 
-## 4. Project Manifest (`drawlib.toml`) & Multi-Locale `i18n` Compilation
+## 4. Project Manifest (`drawlib.toml`), `[seo]` & Multi-Locale `i18n` Parity
 
-Directory builds across `doc`, `site`, and `slide` archetypes are governed by a declarative **`drawlib.toml`** manifest (`_builder/_common/manifest.py` and `doc_builder/i18n.py`):
+Directory builds across `images`, `doc`, `site`, and `slide` archetypes are governed by **`ProjectManifest`** (`_builder/_common/manifest.py`), **`seo.py`** (`_builder/_common/seo.py`), and **`validate_i18n_project()`** (`doc_builder/i18n.py`):
 
-1. **Manifest Validation (`ProjectManifest` & `I18nConfig`)**:
-   - `doc`, `site`, and `slide` projects require an `[i18n]` table specifying `default_lang` and `langs` (`len >= 1`, plus optional `[i18n.labels]`), and organize Markdown sources under `<src_dir>/<lang>/`.
-   - `images` projects specify `type = "images"` and `lang` under `[project]` without `[i18n]`.
-2. **Pre-Flight Structural Parity Validation (`validate_i18n_project`)**:
-   - Before executing any drawing block, the compiler verifies that every configured locale directory (`<src_dir>/<lang>/`) contains the exact same relative `.md` file set, `navbar.md` structure (for `site`), Markdown heading hierarchy (`#`–`######`, ignoring speaker `::: note` prose on `slide`), and ````drawlib```` block layout.
-3. **Shared Diagram Deduplication & Per-Locale Overrides**:
-   - Language-neutral diagrams (`file=arch.png`) compile once using root `<src_dir>/styles.py` and `<src_dir>/utils.py`, writing to a shared `<output>/images/` directory referenced across all locales (`../images/` or `../../images/`).
-   - Locale-specific diagrams can override typography or helper logic via optional `<src_dir>/<lang>/styles.py` and `<src_dir>/<lang>/utils.py` files while writing to locale-suffixed filenames (`file=arch_ja.png`).
+1. **Three-Section Declarative Manifest (`ProjectManifest`)**:
+   - **`[project]` (`ProjectMetadata`)**: Declares `type` (`"images" | "doc" | "site" | "slide"`), `title`, `style`, `image_format`, and single-locale `lang` (for `images` projects).
+   - **`[i18n]` (`I18nConfig`)**: Required on `doc`, `site`, and `slide` projects; defines `default_lang`, `langs`, locale switcher display names (`[i18n.labels]`), and localized meta summaries (`[i18n.descriptions]`).
+   - **`[seo]` (`SeoConfig`)**: Configures canonical `site_url`, Open Graph preview asset (`og_image`), Twitter card metadata (`twitter_card`, `twitter_site`), and automated generation of `sitemap.xml` (`sitemap`), `robots.txt` (`robots`), and LLM-friendly documentation indexes (`llms_txt`).
+2. **Pre-Flight `i18n` Structural Parity (`extract_markdown_skeleton`)**:
+   - Before executing any diagram block on a multi-locale project (`len(langs) > 1`), `validate_i18n_project()` verifies identical relative `.md` file trees across `<src_dir>/<lang>/`, matching `navbar.md` link targets (for `site`), and matching document skeletons via `extract_markdown_skeleton()`.
+   - **Heading & Prose Flexibility**: `extract_markdown_skeleton()` enforces structural parity across **`H1`–`H3` headings** (`HeadingToken`), fenced code blocks (`CodeBlockToken`), and ````drawlib```` blocks (`DrawlibBlockToken`)—while collapsing **`H4`–`H6` subheadings**, paragraphs, lists, tables, and blockquotes into `MarkdownTextToken` (and stripping `::: note` / unwrapping `::: block` on `slide` decks) so translators can adapt fine-grained prose naturally.
+3. **Shared vs. Locale-Specific Diagram Parity**:
+   - **Language-Neutral Shared Diagrams (`file=arch.png`)**: Must contain **identical Python source code** across every locale. The compiler executes the block once using root `<src_dir>/styles.py` & `utils.py` and writes a single deduplicated asset into `<output>/images/arch.png`.
+   - **Localized Diagrams (`file=arch_<lang>.png`)**: Diagrams with translated labels use locale-suffixed filenames (`arch_en.png`, `arch_ja.png`) and resolve optional per-locale `<src_dir>/<lang>/styles.py` and `utils.py` overrides.
 
-Next, explore how the AST compiles into multiple formats in **[Multi-Target Exporters](02_multi_target_exporters.md)**.
-
+Next, explore how processed documents compile into HTML sites, normalized PDFs, and OpenXML Word archives in **[Multi-Target Exporters](02_multi_target_exporters.md)**.

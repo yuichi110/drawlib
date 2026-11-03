@@ -2,6 +2,7 @@
 
 - [Architecture Overview](index.md)
 - [Official Docs](https://www.drawlib.com/)
+- [Examples Showcase](https://examples.drawlib.com/)
 
 ## 1. Overview & Architecture
 - [System Architecture](01_overview/01_system_architecture.md)
@@ -16,6 +17,7 @@
 - [Primitives & Backends](03_domain_subsystems/01_primitives_and_backends.md)
 - [High-Level Components](03_domain_subsystems/02_high_level_components.md)
 - [Graph Auto-Layout](03_domain_subsystems/03_graph_autolayout.md)
+- [Animation & Slide Engines](03_domain_subsystems/04_animation_and_slide_engines.md)
 
 ## 4. Doc Builder & Compiler
 - [Compilation Pipeline](04_doc_builder_and_compiler/01_compilation_pipeline.md)
@@ -24,7 +26,7 @@
 
 ## 5. CLI & Runtime
 - [CLI Architecture](05_cli_and_runtime/01_cli_architecture.md)
-- [Preview Server & Tooling](05_cli_and_runtime/02_preview_server.md)
+- [Preview Server & Assets](05_cli_and_runtime/02_preview_server.md)
 
 ## 6. Developer Tooling
 - [dcli Unified Orchestrator](06_developer_tooling/01_dcli_orchestrator.md)

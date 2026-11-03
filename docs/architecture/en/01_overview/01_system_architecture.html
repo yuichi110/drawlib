@@ -25,21 +25,25 @@
         })();
     </script>
     
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     
-        <meta name="description" content="Drawlib is built from the ground up as a pure-Python, headless illustration and documentation compilation framework. It eliminates the traditional divide…">
+    
+    
+    <meta name="description" content="Drawlib is engineered from the ground up as a pure-Python illustration, slide, and documentation compilation framework. It eliminates the divide between…">
     <link rel="canonical" href="https://www.drawlib.com/architecture/en/01_overview/01_system_architecture.html">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Drawlib Architecture">
     <meta property="og:title" content="System Architecture &amp; Design Principles — Drawlib Architecture">
-    <meta property="og:description" content="Drawlib is built from the ground up as a pure-Python, headless illustration and documentation compilation framework. It eliminates the traditional divide…">
+    <meta property="og:description" content="Drawlib is engineered from the ground up as a pure-Python illustration, slide, and documentation compilation framework. It eliminates the divide between…">
     <meta property="og:url" content="https://www.drawlib.com/architecture/en/01_overview/01_system_architecture.html">
     <meta property="og:image" content="https://www.drawlib.com/architecture/_assets/ogp.png">
     <meta property="og:locale" content="en_US">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="System Architecture &amp; Design Principles — Drawlib Architecture">
-    <meta name="twitter:description" content="Drawlib is built from the ground up as a pure-Python, headless illustration and documentation compilation framework. It eliminates the traditional divide…">
+    <meta name="twitter:description" content="Drawlib is engineered from the ground up as a pure-Python illustration, slide, and documentation compilation framework. It eliminates the divide between…">
     <meta name="twitter:image" content="https://www.drawlib.com/architecture/_assets/ogp.png">
-    
     
     
     <link rel="icon" type="image/png" href="../../_assets/favicon.png">
@@ -56,7 +60,8 @@
             <div class="sidebar-header">
                 <a href="../index.html" class="sidebar-brand" aria-label="Drawlib Architecture">
                     
-                    Drawlib Architecture
+                    <img src="../../_assets/logo.png" alt="Drawlib Architecture" class="sidebar-logo sidebar-logo-light">
+                    <img src="../../_assets/logo_dark.png" alt="Drawlib Architecture" class="sidebar-logo sidebar-logo-dark">
                     
                 </a>
                 <div class="sidebar-header-actions">
@@ -70,6 +75,15 @@
                     </button>
                 </div>
             </div>
+            <div class="sidebar-subbar">
+                <a href="https://www.drawlib.com/en/01_getting_started/release_notes.html" target="_blank" rel="noopener noreferrer" class="sidebar-version-badge" title="Architecture Specification · View Release Notes">
+                    <span class="sidebar-version-dot" aria-hidden="true"></span>
+                    <span class="sidebar-version-text">Architecture · v0.3.4</span>
+                </a>
+                <a href="https://github.com/yuichi110/drawlib" target="_blank" rel="noopener noreferrer" class="sidebar-github-link" aria-label="GitHub Repository" title="GitHub Repository">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+                </a>
+            </div>
             <div class="sidebar-menu">
                 
                     
@@ -82,6 +96,10 @@
                             
                             <li class="nav-item ">
                                 <a href="https://www.drawlib.com/" target="_blank" rel="noopener noreferrer">Official Docs<svg class="nav-external-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="https://examples.drawlib.com/" target="_blank" rel="noopener noreferrer">Examples Showcase<svg class="nav-external-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
                             </li>
                             
                         </ul>
@@ -137,6 +155,10 @@
                                 <a href="../03_domain_subsystems/03_graph_autolayout.html" >Graph Auto-Layout</a>
                             </li>
                             
+                            <li class="nav-item ">
+                                <a href="../03_domain_subsystems/04_animation_and_slide_engines.html" >Animation &amp; Slide Engines</a>
+                            </li>
+                            
                         </ul>
                     
                         
@@ -168,7 +190,7 @@
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../05_cli_and_runtime/02_preview_server.html" >Preview Server &amp; Tooling</a>
+                                <a href="../05_cli_and_runtime/02_preview_server.html" >Preview Server &amp; Assets</a>
                             </li>
                             
                         </ul>
@@ -213,7 +235,7 @@
         <div class="content-wrapper">
             <header class="top-bar">
                 <div class="breadcrumbs">
-                    <span class="crumb">Docs</span>
+                    <span class="crumb">Architecture</span>
                     <span class="crumb-separator">&raquo;</span>
                     <span class="crumb active">System Architecture &amp; Design Principles</span>
                 </div>
@@ -221,174 +243,257 @@
             </header>
             <main class="main-content">
                 <h1>System Architecture &amp; Design Principles</h1>
-<p>Drawlib is built from the ground up as a pure-Python, headless illustration and documentation compilation framework. It eliminates the traditional divide between software source code and graphical documentation by making visual diagrams first-class, version-controlled software artifacts.</p>
-<p>This document details the high-level system execution flow, package boundaries, and core design principles governing Drawlib's implementation.</p>
+<p>Drawlib is engineered from the ground up as a pure-Python illustration, slide, and documentation compilation framework. It eliminates the divide between software source code and visual documentation by treating diagrams, animations, technical specs, and slide decks as version-controlled software artifacts.</p>
+<p>This chapter details Drawlib's end-to-end execution pipeline, lazy public package facade, internal subsystem boundaries, and deterministic runtime invariants.</p>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="../../images/01_overview/01_system_architecture/system_architecture_pipeline.png" alt="01_system_architecture_1" />
-  <figcaption class="drawlib-caption">End-to-End System Execution Pipeline</figcaption>
+  <figcaption class="drawlib-caption">End-to-End Compilation & Rendering Pipeline</figcaption>
 </figure>
 <details class="drawlib-code-details">
 <summary>Source Code</summary>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">circle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.smartarts</span><span class="w"> </span><span class="kn">import</span> <span class="n">ChevronProcess</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">140</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">58</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">118</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
 
-<span class="n">rectangle</span><span class="p">((</span><span class="mi">70</span><span class="p">,</span> <span class="mi">29</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">136</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">54</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.5</span><span class="p">))</span>
-<span class="n">text</span><span class="p">(</span>
-    <span class="p">(</span><span class="mi">70</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span>
-    <span class="s2">"End-to-End System Execution Pipeline"</span><span class="p">,</span>
-    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">12.5</span><span class="p">),</span>
+<span class="n">pipeline</span> <span class="o">=</span> <span class="n">ChevronProcess</span><span class="p">(</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">),</span>
+    <span class="n">description_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="n">corner_angle</span><span class="o">=</span><span class="mf">64.0</span><span class="p">,</span>
+    <span class="n">spacing</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span>
+    <span class="n">flat_left_end</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 <span class="p">)</span>
+<span class="n">pipeline</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="s2">"1. Source &amp; TOML"</span><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="s2">".md, .py &amp; styles"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">pipeline</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="s2">"2. AST &amp; Cache"</span><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="s2">"&lt; 1ms SQLite hit"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">pipeline</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="s2">"3. Canvas &amp; Anim"</span><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="s2">"L1–L4 Agg &amp; Pillow"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">),</span>
+    <span class="n">description_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">pipeline</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="s2">"4. Multi-Target"</span><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="s2">"Web, Slide &amp; Office"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">pipeline</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">112.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">23.0</span><span class="p">)</span>
 
-<span class="n">steps</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="s2">"1. Source Code"</span><span class="p">,</span> <span class="s2">"Markdown Fence</span><span class="se">\n</span><span class="s2">or Standalone .py"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">code</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">52</span><span class="p">,</span> <span class="s2">"2. Cache &amp; AST"</span><span class="p">,</span> <span class="s2">"SQLite .drawlib/</span><span class="se">\n</span><span class="s2">0ms Incremental"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">database</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">86</span><span class="p">,</span> <span class="s2">"3. Canvas Engine"</span><span class="p">,</span> <span class="s2">"L1-L4 Facade</span><span class="se">\n</span><span class="s2">Matplotlib Agg"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">palette</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">120</span><span class="p">,</span> <span class="s2">"4. Artifacts"</span><span class="p">,</span> <span class="s2">"HTML / PDF / PNG</span><span class="se">\n</span><span class="s2">Multi-Target Output"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">check_circle</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">),</span>
+<span class="c1"># Stage icon badges aligned above each chevron body</span>
+<span class="n">stage_icons</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="mf">16.5</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">file_code</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">45.2</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">database</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">72.8</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">cpu</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">100.4</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">export</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">),</span>
 <span class="p">]</span>
-
-<span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">desc</span><span class="p">,</span> <span class="n">icon_func</span><span class="p">,</span> <span class="n">card_style</span><span class="p">,</span> <span class="n">icon_style</span> <span class="ow">in</span> <span class="n">steps</span><span class="p">:</span>
-    <span class="n">rectangle</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">27</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">34</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">card_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.8</span><span class="p">))</span>
-    <span class="n">icon_func</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">36</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">icon_style</span><span class="p">)</span>
-    <span class="n">title_style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span> <span class="k">if</span> <span class="n">card_style</span> <span class="o">==</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span>
-    <span class="n">desc_style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">White</span> <span class="k">if</span> <span class="n">card_style</span> <span class="o">==</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span>
-    <span class="n">text</span><span class="p">((</span><span class="n">x</span> <span class="o">+</span> <span class="mf">2.5</span><span class="p">,</span> <span class="mi">36</span><span class="p">),</span> <span class="n">title</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">title_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.6</span><span class="p">))</span>
-    <span class="n">text</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span> <span class="n">desc</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">desc_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">))</span>
-
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
-    <span class="n">x_from</span> <span class="o">=</span> <span class="n">steps</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mf">13.5</span>
-    <span class="n">x_to</span> <span class="o">=</span> <span class="n">steps</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mf">13.5</span>
-    <span class="n">line</span><span class="p">((</span><span class="n">x_from</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="p">(</span><span class="n">x_to</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">cx</span><span class="p">,</span> <span class="n">icon_fn</span><span class="p">,</span> <span class="n">badge_style</span><span class="p">,</span> <span class="n">icon_style</span> <span class="ow">in</span> <span class="n">stage_icons</span><span class="p">:</span>
+    <span class="n">circle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mf">34.0</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">4.2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">badge_style</span><span class="p">)</span>
+    <span class="n">icon_fn</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mf">34.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.4</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">icon_style</span><span class="p">)</span>
 
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 </details>
 <hr />
 <h2>1. Concept: Core Architectural Tenets</h2>
-<p>Drawlib addresses the fundamental problems of GUI-based diagramming and low-level plotting libraries through three architectural pillars:</p>
-<h3>1.1. Pure Python as the Declarative Drawing Medium</h3>
-<p>Traditional diagram generators either require external domain-specific languages (e.g. PlantUML, Mermaid, Graphviz DOT) that lack programming power, or low-level plotting APIs (e.g. raw Matplotlib, Cairo) that require hundreds of lines of boilerplate for simple boxes and arrows.</p>
-<p>Drawlib provides a high-level, declarative Python API:</p>
+<p>Drawlib addresses the limitations of GUI diagramming tools and low-level plotting libraries through three architectural principles:</p>
+<h3>1.1. Declarative Python Over DSLs &amp; Plotting Boilerplate</h3>
+<p>External diagram DSLs (Mermaid, PlantUML, DOT) lack general-purpose programming expressiveness and fine-grained layout control, while low-level graphics APIs (raw Matplotlib, Cairo, SVG DOM) demand hundreds of lines of boilerplate for simple boxes and connectors.</p>
+<p>Drawlib exposes a declarative, strongly typed Python API across every abstraction level:</p>
 <ul>
-<li>Visual elements are expressed with concise functions (<code>rectangle()</code>, <code>line()</code>, <code>chevron_process()</code>, <code>architecture()</code>).</li>
-<li>Python data structures (lists, dicts, tuples) drive diagram generation directly from real data.</li>
-<li>Diagram code runs in standard Python environments (<code>uv run python</code>), with full autocomplete and type checking in modern IDEs.</li>
+<li><strong>Primitives &amp; High-Level Classes</strong>: Concise functions (<code>rectangle()</code>, <code>line()</code>, <code>text()</code>) compose seamlessly with structured classes (<code>ChevronProcess</code>, <code>ArchitectureDiagram</code>, <code>ArchitectureGraph</code>, <code>BarChart</code>, <code>Animation</code>).</li>
+<li><strong>Data-Driven Authoring</strong>: Standard Python loops, comprehensions, dataclasses, and JSON/TOML payloads drive diagram generation directly without template string concatenation.</li>
+<li><strong>Static &amp; Runtime Type Safety</strong>: Every public function and model is annotated for IDE autocompletion (<code>py.typed</code>) and guarded by lazy Pydantic call validation.</li>
 </ul>
-<h3>1.2. Headless In-Memory Execution</h3>
-<p>Drawlib requires no display server, window manager, or headless browser to render static diagrams:</p>
+<h3>1.2. Two-Tier Headless Execution Model</h3>
+<p>Drawlib separates core graphics rasterization from paginated browser/Office export so routine rendering stays fast and lightweight:</p>
 <ul>
-<li>Diagrams render entirely in-memory using Matplotlib's non-interactive <code>Agg</code> (Anti-Grain Geometry) backend.</li>
-<li>Execution is completely deterministic: given the same inputs, random seed, and font assets, Drawlib produces bit-identical PNG, SVG, or PDF outputs on Linux, macOS, and Windows.</li>
-<li>CI/CD runners can build hundreds of illustrations without installing complex GUI dependencies or Xvfb virtualization.</li>
+<li><strong>In-Memory Canvas &amp; Animation Engine (No Browser Required)</strong>: Static images (<code>PNG</code>, <code>SVG</code>, <code>WebP</code>) and multi-frame animations (<code>WebP</code>, <code>APNG</code> via <code>drawlib.anim</code>) render 100% in-memory through Matplotlib's non-interactive <code>Agg</code> (Anti-Grain Geometry) backend and Pillow—requiring zero X11/Wayland servers or browser processes.</li>
+<li><strong>Managed Chromium &amp; Native OpenXML Export</strong>: Paginated print PDFs (<code>build pdf</code>) and live DOM bounding-box extraction for PowerPoint slides (<code>build pptx</code>) delegate to a shared, auto-provisioned headless Playwright Chromium launcher (<code>_builder/_common/browser.py</code>), while Word documents (<code>.docx</code>) and PowerPoint slide XML (<code>.pptx</code>) are assembled natively via <code>python-docx</code> and <code>python-pptx</code>.</li>
 </ul>
 <h3>1.3. Zero-Drift Single Source of Truth</h3>
-<p>Instead of maintaining diagrams and documentation in disconnected repositories, Drawlib unifies them inside Git:</p>
+<p>Documentation and presentations live alongside code in Git (<code>*_src/&lt;lang&gt;/*.md</code> and <code>drawlib.toml</code>):</p>
 <ul>
-<li>Technical specifications author documentation in Markdown with embedded <code>drawlib</code> Python blocks.</li>
-<li>The build engine verifies all code blocks, catches execution errors, and generates synchronized HTML, Markdown, and PDF assets in a single pass.</li>
-<li>Architecture drift is eliminated because diagrams fail compilation if underlying interfaces change.</li>
+<li>Embedded <code>drawlib</code> blocks execute in-process during compilation; broken imports or invalid style tokens fail the build immediately rather than shipping stale visuals.</li>
+<li>A single source tree emits HTML web portals, 16:9 HTML slide decks (<code>drawlib.slide</code>), vector PDFs, <code>.docx</code>, <code>.pptx</code>, standalone Markdown, and SEO / LLM discovery metadata (<code>sitemap.xml</code>, <code>robots.txt</code>, <code>llms.txt</code>).</li>
 </ul>
 <hr />
 <h2>2. Positioning: Package Architecture &amp; Boundaries</h2>
-<p>Drawlib's codebase (<code>src/drawlib/</code>) strictly isolates user-facing public interfaces from internal rendering mechanics, layout algorithms, and build tooling:</p>
+<p>Drawlib (<code>src/drawlib/</code>) strictly separates its <strong>20 lazy-loaded public submodules</strong> from internal <code>_core</code> layers, domain engines, and build/CLI compilers:</p>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="../../images/01_overview/01_system_architecture/package_boundaries.png" alt="01_system_architecture_2" />
-  <figcaption class="drawlib-caption">Drawlib Package Architecture & Internal Subsystems</figcaption>
+  <figcaption class="drawlib-caption">Drawlib Package Boundaries & Unidirectional Dependency Flow</figcaption>
 </figure>
 <details class="drawlib-code-details">
 <summary>Source Code</summary>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.diagrams.architecture</span><span class="w"> </span><span class="kn">import</span> <span class="n">ArchitectureDiagram</span><span class="p">,</span> <span class="n">Node</span><span class="p">,</span> <span class="n">NodeGroup</span><span class="p">,</span> <span class="n">PhosphorIcon</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">140</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">64</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">122</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">66</span><span class="p">)</span>
 
-<span class="n">rectangle</span><span class="p">((</span><span class="mi">70</span><span class="p">,</span> <span class="mi">32</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">136</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.5</span><span class="p">))</span>
-<span class="n">text</span><span class="p">(</span>
-    <span class="p">(</span><span class="mi">70</span><span class="p">,</span> <span class="mf">56.5</span><span class="p">),</span>
-    <span class="s2">"Drawlib Package Architecture &amp; Internal Subsystems"</span><span class="p">,</span>
-    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">12.2</span><span class="p">),</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">ArchitectureDiagram</span><span class="p">(</span>
+    <span class="n">node_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">,</span>
+    <span class="n">node_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="n">edge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+    <span class="n">edge_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">node_card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.3</span><span class="p">),</span>
 <span class="p">)</span>
 
-<span class="c1"># 1. Public Facades (Top Layer)</span>
-<span class="n">rectangle</span><span class="p">((</span><span class="mi">70</span><span class="p">,</span> <span class="mi">47</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">126</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
-<span class="n">phosphor</span><span class="o">.</span><span class="n">shield_check</span><span class="p">((</span><span class="mi">15</span><span class="p">,</span> <span class="mi">47</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">)</span>
-<span class="n">text</span><span class="p">(</span>
-    <span class="p">(</span><span class="mi">72</span><span class="p">,</span> <span class="mi">47</span><span class="p">),</span>
-    <span class="s2">"Public Facades: drawlib.canvas, shapes, lines, text, styles, icons, smartarts, charts, diagrams, graph"</span><span class="p">,</span>
-    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.2</span><span class="p">),</span>
+<span class="c1"># Tier 1 (Top): Entrypoints, Compilers &amp; Slide Engine</span>
+<span class="n">g_top</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">NodeGroup</span><span class="p">(</span>
+        <span class="n">title</span><span class="o">=</span><span class="s2">"Entrypoints &amp; Compilers (_cli, _builder, _slide, _http_server)"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mf">116.0</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mf">17.5</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.6</span><span class="p">,</span> <span class="n">shape_line_style</span><span class="o">=</span><span class="s2">"solid"</span><span class="p">),</span>
+        <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">valign</span><span class="o">=</span><span class="s2">"top"</span><span class="p">),</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">46.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">g_top</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Node</span><span class="p">(</span><span class="s2">"_cli &amp; _http_server"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">33.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">10.2</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">TERMINAL</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">4.0</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">20.0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">))</span>
+<span class="n">g_top</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Node</span><span class="p">(</span><span class="s2">"_builder (Doc / Office / SEO)"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">38.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">10.2</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">FILE_CODE</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">4.0</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">58.0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">))</span>
+<span class="n">g_top</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Node</span><span class="p">(</span><span class="s2">"_slide &amp; _templates"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">33.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">10.2</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">PRESENTATION</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">4.0</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">96.0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">))</span>
+
+<span class="c1"># Tier 2 (Middle-Left): 20 Lazy Public Facades</span>
+<span class="n">g_pub</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">NodeGroup</span><span class="p">(</span>
+        <span class="n">title</span><span class="o">=</span><span class="s2">"20 Public Facades (PEP 562)"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mf">55.0</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mf">17.5</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.6</span><span class="p">,</span> <span class="n">shape_line_style</span><span class="o">=</span><span class="s2">"solid"</span><span class="p">),</span>
+        <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">valign</span><span class="o">=</span><span class="s2">"top"</span><span class="p">),</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">24.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">g_pub</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Node</span><span class="p">(</span><span class="s2">"canvas, shapes, lines,</span><span class="se">\n</span><span class="s2">text, styles, fonts, icons"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">24.5</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">10.4</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">PACKAGE</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">3.8</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">14.5</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">))</span>
+<span class="n">g_pub</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Node</span><span class="p">(</span><span class="s2">"smartarts, charts, graph,</span><span class="se">\n</span><span class="s2">diagrams, anim, slide"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">24.5</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">10.4</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">SHIELD_CHECK</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">3.8</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">41.0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">))</span>
+
+<span class="c1"># Tier 2 (Middle-Right): Domain Subsystems</span>
+<span class="n">g_dom</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">NodeGroup</span><span class="p">(</span>
+        <span class="n">title</span><span class="o">=</span><span class="s2">"Domain Subsystems (_smartarts .. _anim)"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mf">55.0</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mf">17.5</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.6</span><span class="p">,</span> <span class="n">shape_line_style</span><span class="o">=</span><span class="s2">"solid"</span><span class="p">),</span>
+        <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">valign</span><span class="o">=</span><span class="s2">"top"</span><span class="p">),</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">64.0</span><span class="p">,</span> <span class="mf">24.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">g_dom</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span><span class="s2">"_smartarts, _charts,</span><span class="se">\n</span><span class="s2">_icons, _preset_*"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">24.5</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">10.4</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">SHAPES</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">3.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">14.5</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">g_dom</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span><span class="s2">"_diagrams, _graph,</span><span class="se">\n</span><span class="s2">_anim (WebP / APNG)"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">24.5</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">10.4</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">GRAPH</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">3.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">41.0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">),</span>
 <span class="p">)</span>
 
-<span class="c1"># 2. Middle Row: Domain Subsystems (Left) vs Core Drawing Stack (Right)</span>
-<span class="c1"># Domain Modules</span>
-<span class="n">rectangle</span><span class="p">((</span><span class="mi">38</span><span class="p">,</span> <span class="mi">26</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">27</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.8</span><span class="p">))</span>
-<span class="n">phosphor</span><span class="o">.</span><span class="n">shapes</span><span class="p">((</span><span class="mi">13</span><span class="p">,</span> <span class="mf">35.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
-<span class="n">text</span><span class="p">((</span><span class="mi">17</span><span class="p">,</span> <span class="mf">35.5</span><span class="p">),</span> <span class="s2">"Domain Modules (_charts, _diagrams, _graph)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">9.6</span><span class="p">))</span>
-<span class="n">text</span><span class="p">(</span>
-    <span class="p">(</span><span class="mi">38</span><span class="p">,</span> <span class="mf">23.0</span><span class="p">),</span>
-    <span class="s2">"• SmartArts Layout Engine (Tree, Table, Mindmap)</span><span class="se">\n</span><span class="s2">• Quantitative Charts (Data -&gt; Canvas Mapping)</span><span class="se">\n</span><span class="s2">• Auto-Layout Graphs (Layer, Architecture, DAGs)"</span><span class="p">,</span>
-    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">),</span>
+<span class="c1"># Tier 3 (Bottom): Core Drawing Engine (_core/)</span>
+<span class="n">g_core</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">NodeGroup</span><span class="p">(</span>
+        <span class="n">title</span><span class="o">=</span><span class="s2">"Core Drawing Engine (_core: l1_core -&gt; l2_types -&gt; l3_* -&gt; l4_canvas)"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mf">116.0</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mf">17.0</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.6</span><span class="p">,</span> <span class="n">shape_line_style</span><span class="o">=</span><span class="s2">"solid"</span><span class="p">),</span>
+        <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">valign</span><span class="o">=</span><span class="s2">"top"</span><span class="p">),</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">g_core</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Node</span><span class="p">(</span><span class="s2">"l1_core &amp; l2_types"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">33.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">9.8</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">GEAR</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">3.8</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">20.0</span><span class="p">,</span> <span class="mf">5.8</span><span class="p">))</span>
+<span class="n">g_core</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Node</span><span class="p">(</span><span class="s2">"l3_* (Colors, Styles, Math)"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">38.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">9.8</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">DATABASE</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">3.8</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">58.0</span><span class="p">,</span> <span class="mf">5.8</span><span class="p">))</span>
+<span class="n">g_core</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span>
+        <span class="s2">"l4_canvas (10 Mixins &amp; Agg)"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mf">33.0</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mf">9.8</span><span class="p">,</span>
+        <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">CPU</span><span class="p">,</span>
+        <span class="n">icon_size</span><span class="o">=</span><span class="mf">3.8</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">,</span>
+        <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+        <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.3</span><span class="p">),</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">96.0</span><span class="p">,</span> <span class="mf">5.8</span><span class="p">),</span>
 <span class="p">)</span>
 
-<span class="c1"># Core Drawing Stack</span>
-<span class="n">rectangle</span><span class="p">((</span><span class="mi">102</span><span class="p">,</span> <span class="mi">26</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">27</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.8</span><span class="p">))</span>
-<span class="n">phosphor</span><span class="o">.</span><span class="n">cpu</span><span class="p">((</span><span class="mi">77</span><span class="p">,</span> <span class="mf">35.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">)</span>
-<span class="n">text</span><span class="p">((</span><span class="mi">81</span><span class="p">,</span> <span class="mf">35.5</span><span class="p">),</span> <span class="s2">"Core Drawing Engine (_core/)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">9.6</span><span class="p">))</span>
-<span class="n">text</span><span class="p">(</span>
-    <span class="p">(</span><span class="mi">102</span><span class="p">,</span> <span class="mf">23.0</span><span class="p">),</span>
-    <span class="s2">"• L1 Core (Settings, Logging, Constants, Paths)</span><span class="se">\n</span><span class="s2">• L2 Types (Coordinate Tuples, Pydantic Bounds)</span><span class="se">\n</span><span class="s2">• L3 Services (Colors, Fonts, Styles, Math, Assets)</span><span class="se">\n</span><span class="s2">• L4 Canvas (Diamond Mixin Stack, Matplotlib Bridge)"</span><span class="p">,</span>
-    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">),</span>
-<span class="p">)</span>
+<span class="c1"># Clean downward and facade-to-domain dependency edges</span>
+<span class="n">d</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">junction</span><span class="p">((</span><span class="mf">30.5</span><span class="p">,</span> <span class="mf">46.0</span><span class="p">)),</span> <span class="n">d</span><span class="o">.</span><span class="n">junction</span><span class="p">((</span><span class="mf">30.5</span><span class="p">,</span> <span class="mf">41.5</span><span class="p">)),</span> <span class="n">routing</span><span class="o">=</span><span class="s2">"direct"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">junction</span><span class="p">((</span><span class="mf">91.5</span><span class="p">,</span> <span class="mf">46.0</span><span class="p">)),</span> <span class="n">d</span><span class="o">.</span><span class="n">junction</span><span class="p">((</span><span class="mf">91.5</span><span class="p">,</span> <span class="mf">41.5</span><span class="p">)),</span> <span class="n">routing</span><span class="o">=</span><span class="s2">"direct"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">g_pub</span><span class="p">,</span> <span class="n">g_dom</span><span class="p">,</span> <span class="n">routing</span><span class="o">=</span><span class="s2">"direct"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">junction</span><span class="p">((</span><span class="mf">30.5</span><span class="p">,</span> <span class="mf">24.0</span><span class="p">)),</span> <span class="n">d</span><span class="o">.</span><span class="n">junction</span><span class="p">((</span><span class="mf">30.5</span><span class="p">,</span> <span class="mf">19.5</span><span class="p">)),</span> <span class="n">routing</span><span class="o">=</span><span class="s2">"direct"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">junction</span><span class="p">((</span><span class="mf">91.5</span><span class="p">,</span> <span class="mf">24.0</span><span class="p">)),</span> <span class="n">d</span><span class="o">.</span><span class="n">junction</span><span class="p">((</span><span class="mf">91.5</span><span class="p">,</span> <span class="mf">19.5</span><span class="p">)),</span> <span class="n">routing</span><span class="o">=</span><span class="s2">"direct"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
 
-<span class="c1"># Connecting arrows</span>
-<span class="n">line</span><span class="p">((</span><span class="mi">38</span><span class="p">,</span> <span class="mf">42.5</span><span class="p">),</span> <span class="p">(</span><span class="mi">38</span><span class="p">,</span> <span class="mf">39.5</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
-<span class="n">line</span><span class="p">((</span><span class="mi">102</span><span class="p">,</span> <span class="mf">42.5</span><span class="p">),</span> <span class="p">(</span><span class="mi">102</span><span class="p">,</span> <span class="mf">39.5</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
-<span class="n">line</span><span class="p">((</span><span class="mi">68</span><span class="p">,</span> <span class="mi">26</span><span class="p">),</span> <span class="p">(</span><span class="mi">72</span><span class="p">,</span> <span class="mi">26</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
-
-<span class="c1"># 3. Bottom Row: Build &amp; Tooling Systems</span>
-<span class="n">rectangle</span><span class="p">((</span><span class="mi">70</span><span class="p">,</span> <span class="mf">7.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">126</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">))</span>
-<span class="n">phosphor</span><span class="o">.</span><span class="n">terminal</span><span class="p">((</span><span class="mi">14</span><span class="p">,</span> <span class="mf">7.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
-<span class="n">text</span><span class="p">(</span>
-    <span class="p">(</span><span class="mi">71</span><span class="p">,</span> <span class="mf">7.5</span><span class="p">),</span>
-    <span class="s2">"Tooling &amp; Compilation Layer: _builder (doc_builder, image_builder), _cli (Typer), _http_server"</span><span class="p">,</span>
-    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.0</span><span class="p">),</span>
-<span class="p">)</span>
-
+<span class="n">d</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">))</span>
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 </details>
-<h3>Subsystem Boundaries</h3>
+<h3>2.1. Lazy Root Package (<code>src/drawlib/__init__.py</code>)</h3>
+<p>To keep CLI startup (<code>drawlib --help</code>, <code>drawlib rules</code>) near-instantaneous without eagerly importing Matplotlib, Pillow, or Playwright, <code>src/drawlib/__init__.py</code> implements <strong>PEP 562 module-level <code>__getattr__</code> and <code>__dir__</code></strong> over <code>_LAZY_MODULES</code>. All <strong>20 public submodules</strong> are loaded on first attribute access while remaining statically visible under <code>if TYPE_CHECKING:</code>:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Category</th>
+<th style="text-align:left">Public Submodules (<code>drawlib.&lt;name&gt;</code>)</th>
+<th style="text-align:left">Backing Internal Packages</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Canvas &amp; Primitives</strong></td>
+<td style="text-align:left"><code>canvas</code>, <code>shapes</code>, <code>lines</code>, <code>text</code>, <code>images</code>, <code>math</code></td>
+<td style="text-align:left"><code>_core/l4_canvas</code>, <code>_core/l3_images</code>, <code>_core/l3_math</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Styling, Fonts &amp; Icons</strong></td>
+<td style="text-align:left"><code>styles</code>, <code>preset_styles</code>, <code>preset_colors</code>, <code>fonts</code>, <code>icons</code>, <code>types</code></td>
+<td style="text-align:left"><code>_core/l2_types</code>, <code>_core/l3_colors</code>, <code>_core/l3_styles</code>, <code>_core/l3_fonts</code>, <code>_preset_colors</code>, <code>_preset_styles</code>, <code>_icons</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>High-Level Components</strong></td>
+<td style="text-align:left"><code>smartarts</code>, <code>charts</code>, <code>diagrams</code>, <code>graph</code></td>
+<td style="text-align:left"><code>_smartarts</code>, <code>_charts</code>, <code>_diagrams</code>, <code>_graph</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Motion, Slides &amp; Runtime</strong></td>
+<td style="text-align:left"><code>anim</code>, <code>slide</code>, <code>tools</code>, <code>utils</code></td>
+<td style="text-align:left"><code>_anim</code>, <code>_slide</code>, <code>_core/l3_external</code>, <code>_release_assets.py</code></td>
+</tr>
+</tbody>
+</table>
+<h3>2.2. Internal Subsystem Packages (<code>src/drawlib/_*/</code>)</h3>
 <ul>
-<li><strong>Public Domain Facades (<code>src/drawlib/*.py</code>)</strong>: Thin re-export modules (<code>canvas</code>, <code>shapes</code>, <code>lines</code>, <code>text</code>, <code>icons</code>, <code>smartarts</code>, <code>charts</code>, <code>diagrams</code>, <code>graph</code>). They expose guarded, user-friendly APIs while hiding internal implementation classes.</li>
-<li><strong>Internal Core Engine (<code>src/drawlib/_core/</code>)</strong>: The foundational drawing stack organized into strictly layered modules (<code>l1_core</code> through <code>l4_canvas</code>), including <code>l3_external</code> for deterministic binary asset synchronization.</li>
-<li><strong>Domain Implementations (<code>src/drawlib/_*/</code>)</strong>: High-level visual components (<code>_smartarts</code>, <code>_charts</code>, <code>_diagrams</code>, <code>_graph</code>, <code>_slide</code>, <code>_anim</code>, <code>_icons</code>, <code>_preset_styles</code>).</li>
-<li><strong>Compilation &amp; Tooling Layer (<code>src/drawlib/_builder/</code>, <code>_cli/</code>, <code>_http_server/</code>)</strong>: Markdown parser, code execution sandboxing, multi-target exporters, Typer CLI, and preview server.</li>
+<li><strong>Core Engine (<code>_core/</code>)</strong>: Strictly layered drawing foundation (<code>l1_core</code>, <code>l2_types</code>, <code>l3_colors</code>, <code>l3_external</code>, <code>l3_fonts</code>, <code>l3_images</code>, <code>l3_math</code>, <code>l3_styles</code>, <code>l4_canvas</code>).</li>
+<li><strong>Domain Engines (<code>_icons/</code>, <code>_preset_colors/</code>, <code>_preset_styles/</code>, <code>_smartarts/</code>, <code>_charts/</code>, <code>_diagrams/</code>, <code>_graph/</code>, <code>_anim/</code>, <code>_slide/</code>)</strong>: Self-contained visual models, layout solvers, multi-frame animation recorders, and 16:9 HTML/PDF/<code>.pptx</code> slide compilers.</li>
+<li><strong>Compiler, Assets &amp; CLI (<code>_builder/</code>, <code>_templates/</code>, <code>_rules/</code>, <code>_cli/</code>, <code>_http_server/</code>, <code>_release_assets.py</code>)</strong>: Project scaffolding templates, embedded AI agent manuals, <code>image_builder</code> / <code>doc_builder</code> pipelines (HTML, Markdown, PDF, <code>.docx</code>, <code>.pptx</code>, SEO/<code>llms.txt</code>), local preview server, and release asset manifest bindings.</li>
 </ul>
 <hr />
-<h2>3. Details: Internal Architecture &amp; Runtime Environment</h2>
-<h3>3.1. Matplotlib Abstraction &amp; Backend Management</h3>
-<p>While Matplotlib powers Drawlib's rasterization and vector export, Drawlib intentionally shields developers from Matplotlib's complex API (<code>Axes</code>, <code>Figure</code>, <code>Transform</code>, <code>Spines</code>):</p>
+<h2>3. Details: Runtime Determinism &amp; Incremental Caching</h2>
+<h3>3.1. Deterministic Matplotlib <code>Agg</code> Configuration</h3>
+<p>Although Matplotlib rasterizes primitives under the hood, Drawlib encapsulates <code>Figure</code>, <code>Axes</code>, and <code>Patch</code> state behind <code>_core/l4_canvas</code>:</p>
 <ul>
-<li><strong>Deterministic Headless Configuration</strong>: Drawlib configures Matplotlib with vector-safe settings upon canvas initialization, setting <code>rcParams[&quot;svg.fonttype&quot;] = &quot;none&quot;</code> (to preserve text as pure editable text glyphs) and <code>rcParams[&quot;svg.hashsalt&quot;] = &quot;drawlib&quot;</code> (to ensure byte-for-byte deterministic SVG output across runs).</li>
-<li><strong>Spine &amp; Margin Elimination</strong>: Every canvas automatically removes all axes, ticks, spines, and margins via <code>ax.axis(&quot;off&quot;)</code>, <code>tight_layout()</code>, and <code>subplots_adjust(left=0, right=1, bottom=0, top=1)</code>, leaving a pure Cartesian drawing plane.</li>
-<li><strong>Fixed 10.0-Inch / 720pt Typography Mapping</strong>: Drawlib fixes figure width to <code>FIGURE_WIDTH_INCHES = 10.0</code> ($10.0 \times 72 = 720\text{ pt}$). A canvas unit therefore maps directly to $720.0 / \text{width}$ points, establishing a deterministic typographic baseline where <code>text_size=10.5</code>–<code>12.0</code> precisely matches standard $16\text{px}$ HTML body text when rendered.</li>
+<li><strong>Reproducible Vector &amp; SVG Output</strong>: Canvas initialization sets <code>matplotlib.rcParams[&quot;svg.fonttype&quot;] = &quot;none&quot;</code> (retaining editable text glyphs with embedded <code>&lt;!-- drawlib-svg-fonts: ... --&gt;</code> metadata) and <code>matplotlib.rcParams[&quot;svg.hashsalt&quot;] = &quot;drawlib&quot;</code> for byte-for-byte deterministic SVG IDs across runs.</li>
+<li><strong>Zero-Margin Cartesian Plane</strong>: Every canvas configures <code>set_xlim(0, width)</code>, <code>set_ylim(0, height)</code>, <code>set_aspect(&quot;equal&quot;)</code>, <code>axis(&quot;off&quot;)</code>, <code>tight_layout()</code>, and <code>subplots_adjust(left=0, right=1, bottom=0, top=1)</code>.</li>
+<li><strong>Fixed <code>10.0</code>-Inch (<code>720pt</code>) Typography Baseline</strong>: <code>CanvasBase</code> fixes <code>FIGURE_WIDTH_INCHES = 10.0</code> ($10.0 \times 72 = 720\text{ pt}$). One logical canvas unit equals $720.0 / \text{width}$ points, ensuring <code>text_size = 10.5</code>–<code>12.0</code> matches <code>16px</code> HTML prose when <code>width = 100..125</code>.</li>
 </ul>
-<h3>3.2. Reproducibility &amp; Cryptographic Caching</h3>
-<p>Drawlib's build pipeline integrates a high-performance SQLite caching engine (<code>.drawlib/cache.db</code>):</p>
+<h3>3.2. Sub-Millisecond Incremental SQLite Cache (<code>.drawlib/cache.db</code>)</h3>
+<p>Re-executing hundreds of Python diagrams on every documentation edit would bottleneck authoring. Drawlib's <code>_builder</code> layer integrates a cryptographic SQLite cache (<code>.drawlib/cache.db</code>):</p>
 <ul>
-<li><strong>Static Analysis &amp; Dependency Tracking</strong>: Drawlib statically analyzes code blocks to identify target outputs without execution, while hashing all referenced local files (<code>styles.py</code>, <code>utils.py</code>, <code>_assets/</code>).</li>
-<li><strong>Composite Hash</strong>: An image is re-rendered only if the code content, canvas dimensions, imported styles, or referenced assets have changed.</li>
-<li><strong>Sub-Millisecond Restores</strong>: Unchanged diagrams are restored from cache in <code>&lt; 1ms</code>, allowing documentation sites with hundreds of illustrations to compile in seconds.</li>
+<li><strong>AST Static Target &amp; Dependency Extraction</strong>: <code>_image_ast.py</code> parses Python scripts and <code>drawlib</code> fences via Python's <code>ast</code> module to resolve output filenames (<code>.png</code>, <code>.svg</code>, <code>.webp</code>), animation flags, and local file dependencies (<code>styles.py</code>, <code>utils.py</code>, <code>_assets/*</code>) without executing code.</li>
+<li><strong>Composite SHA-256 Cache Keys</strong>: Cache entries bind source code hashes, helper module hashes, referenced asset digests, and library version metadata.</li>
+<li><strong><code>&lt; 1ms</code> Incremental Restores</strong>: Unchanged static and animated diagrams restore directly from <code>.drawlib/cache.db</code> in <strong><code>&lt; 1ms</code></strong>, enabling multi-page portals, <code>.docx</code> specs, and <code>.pptx</code> slide decks to recompile in seconds.</li>
 </ul>
-<p>Next, explore the strict unidirectional dependency model in <strong><a href="02_layer_hierarchy.html">Layer Hierarchy</a></strong>.</p>
+<p>Next, examine the strict layer dependency rules in <strong><a href="02_layer_hierarchy.html">Layer Hierarchy</a></strong>.</p>
 
             </main>
         </div>
@@ -421,8 +526,8 @@
                     if (e.key === 'Escape') {
                         langDropdowns.forEach(function(dd) {
                             dd.removeAttribute('open');
-                        });
-                    }
+                        }
+                    });
                 });
             }
 

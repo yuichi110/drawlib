@@ -25,21 +25,25 @@
         })();
     </script>
     
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     
-        <meta name="description" content="A drawing library faces severe architectural challenges: complex geometry transformations, stateful rendering backends, styling cascades, high-level layout…">
+    
+    
+    <meta name="description" content="A full-featured illustration and document compiler combines geometry math, font metrics, raster image pipelines, stateful Matplotlib rendering, auto-layout…">
     <link rel="canonical" href="https://www.drawlib.com/architecture/en/01_overview/02_layer_hierarchy.html">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Drawlib Architecture">
     <meta property="og:title" content="Layer Hierarchy &amp; Architectural Rules — Drawlib Architecture">
-    <meta property="og:description" content="A drawing library faces severe architectural challenges: complex geometry transformations, stateful rendering backends, styling cascades, high-level layout…">
+    <meta property="og:description" content="A full-featured illustration and document compiler combines geometry math, font metrics, raster image pipelines, stateful Matplotlib rendering, auto-layout…">
     <meta property="og:url" content="https://www.drawlib.com/architecture/en/01_overview/02_layer_hierarchy.html">
     <meta property="og:image" content="https://www.drawlib.com/architecture/_assets/ogp.png">
     <meta property="og:locale" content="en_US">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Layer Hierarchy &amp; Architectural Rules — Drawlib Architecture">
-    <meta name="twitter:description" content="A drawing library faces severe architectural challenges: complex geometry transformations, stateful rendering backends, styling cascades, high-level layout…">
+    <meta name="twitter:description" content="A full-featured illustration and document compiler combines geometry math, font metrics, raster image pipelines, stateful Matplotlib rendering, auto-layout…">
     <meta name="twitter:image" content="https://www.drawlib.com/architecture/_assets/ogp.png">
-    
     
     
     <link rel="icon" type="image/png" href="../../_assets/favicon.png">
@@ -56,7 +60,8 @@
             <div class="sidebar-header">
                 <a href="../index.html" class="sidebar-brand" aria-label="Drawlib Architecture">
                     
-                    Drawlib Architecture
+                    <img src="../../_assets/logo.png" alt="Drawlib Architecture" class="sidebar-logo sidebar-logo-light">
+                    <img src="../../_assets/logo_dark.png" alt="Drawlib Architecture" class="sidebar-logo sidebar-logo-dark">
                     
                 </a>
                 <div class="sidebar-header-actions">
@@ -70,6 +75,15 @@
                     </button>
                 </div>
             </div>
+            <div class="sidebar-subbar">
+                <a href="https://www.drawlib.com/en/01_getting_started/release_notes.html" target="_blank" rel="noopener noreferrer" class="sidebar-version-badge" title="Architecture Specification · View Release Notes">
+                    <span class="sidebar-version-dot" aria-hidden="true"></span>
+                    <span class="sidebar-version-text">Architecture · v0.3.4</span>
+                </a>
+                <a href="https://github.com/yuichi110/drawlib" target="_blank" rel="noopener noreferrer" class="sidebar-github-link" aria-label="GitHub Repository" title="GitHub Repository">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+                </a>
+            </div>
             <div class="sidebar-menu">
                 
                     
@@ -82,6 +96,10 @@
                             
                             <li class="nav-item ">
                                 <a href="https://www.drawlib.com/" target="_blank" rel="noopener noreferrer">Official Docs<svg class="nav-external-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="https://examples.drawlib.com/" target="_blank" rel="noopener noreferrer">Examples Showcase<svg class="nav-external-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
                             </li>
                             
                         </ul>
@@ -137,6 +155,10 @@
                                 <a href="../03_domain_subsystems/03_graph_autolayout.html" >Graph Auto-Layout</a>
                             </li>
                             
+                            <li class="nav-item ">
+                                <a href="../03_domain_subsystems/04_animation_and_slide_engines.html" >Animation &amp; Slide Engines</a>
+                            </li>
+                            
                         </ul>
                     
                         
@@ -168,7 +190,7 @@
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../05_cli_and_runtime/02_preview_server.html" >Preview Server &amp; Tooling</a>
+                                <a href="../05_cli_and_runtime/02_preview_server.html" >Preview Server &amp; Assets</a>
                             </li>
                             
                         </ul>
@@ -213,7 +235,7 @@
         <div class="content-wrapper">
             <header class="top-bar">
                 <div class="breadcrumbs">
-                    <span class="crumb">Docs</span>
+                    <span class="crumb">Architecture</span>
                     <span class="crumb-separator">&raquo;</span>
                     <span class="crumb active">Layer Hierarchy &amp; Architectural Rules</span>
                 </div>
@@ -221,120 +243,219 @@
             </header>
             <main class="main-content">
                 <h1>Layer Hierarchy &amp; Architectural Rules</h1>
-<p>A drawing library faces severe architectural challenges: complex geometry transformations, stateful rendering backends, styling cascades, high-level layout algorithms, and document compilation. Without strict architectural boundaries, code quickly degrades into tangled inter-module dependencies and circular imports.</p>
-<p>To ensure long-term maintainability, Drawlib enforces a strict <strong>Unidirectional Layered Architecture</strong> across its core drawing engine and domain subsystems.</p>
+<p>A full-featured illustration and document compiler combines geometry math, font metrics, raster image pipelines, stateful Matplotlib rendering, auto-layout solvers, and multi-format exporters. Without strict architectural boundaries, cross-cutting imports quickly degrade into circular dependencies and slow startup cascades.</p>
+<p>To preserve modularity and testability, Drawlib enforces a strict <strong>Unidirectional Layered Architecture</strong> from top-level CLI and builders down to <code>l1_core</code>.</p>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="../../images/01_overview/02_layer_hierarchy/layer_hierarchy_stack.png" alt="02_layer_hierarchy_1" />
-  <figcaption class="drawlib-caption">Drawlib Strict Layered Architecture Stack</figcaption>
+  <figcaption class="drawlib-caption">Drawlib Six-Tier Unidirectional Architecture Stack</figcaption>
 </figure>
 <details class="drawlib-code-details">
 <summary>Source Code</summary>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.smartarts</span><span class="w"> </span><span class="kn">import</span> <span class="n">CardList</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">140</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">72</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">120</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">68</span><span class="p">)</span>
 
-<span class="n">rectangle</span><span class="p">((</span><span class="mi">70</span><span class="p">,</span> <span class="mi">36</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">136</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">68</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.5</span><span class="p">))</span>
-<span class="n">text</span><span class="p">(</span>
-    <span class="p">(</span><span class="mi">70</span><span class="p">,</span> <span class="mi">65</span><span class="p">),</span>
-    <span class="s2">"Drawlib Strict Layered Architecture Stack"</span><span class="p">,</span>
-    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">12.5</span><span class="p">),</span>
+<span class="n">stack</span> <span class="o">=</span> <span class="n">CardList</span><span class="p">(</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">),</span>
+    <span class="n">description_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">badge_shape</span><span class="o">=</span><span class="s2">"rounded_rect"</span><span class="p">,</span>
+    <span class="n">badge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
+    <span class="n">icon_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">,</span>
+    <span class="n">direction</span><span class="o">=</span><span class="s2">"vertical"</span><span class="p">,</span>
+    <span class="n">spacing</span><span class="o">=</span><span class="mf">1.8</span><span class="p">,</span>
 <span class="p">)</span>
+<span class="n">stack</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="s2">"CLI, Builders &amp; Facades"</span><span class="p">,</span>
+    <span class="s2">"_cli, _builder, _http_server &amp; 20 lazy drawlib.* facades"</span><span class="p">,</span>
+    <span class="n">icon</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">terminal</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
+    <span class="n">badge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">stack</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="s2">"Domain Subsystems"</span><span class="p">,</span>
+    <span class="s2">"_smartarts, _charts, _diagrams, _graph, _icons, _anim, _slide"</span><span class="p">,</span>
+    <span class="n">icon</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">shapes</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
+    <span class="n">badge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="p">,</span>
+    <span class="n">icon_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">stack</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="s2">"L4 Canvas Layer"</span><span class="p">,</span>
+    <span class="s2">"_core/l4_canvas: CanvasBase + 10 feature mixins &amp; Agg bridge"</span><span class="p">,</span>
+    <span class="n">icon</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">palette</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">),</span>
+    <span class="n">description_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">badge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="p">,</span>
+    <span class="n">icon_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">stack</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="s2">"L3 Domain Services"</span><span class="p">,</span>
+    <span class="s2">"_core/l3_*: colors, styles, fonts, images, math &amp; external assets"</span><span class="p">,</span>
+    <span class="n">icon</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">cpu</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">stack</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="s2">"L2 Types Layer"</span><span class="p">,</span>
+    <span class="s2">"_core/l2_types: geometry, path points, bounds, font &amp; style types"</span><span class="p">,</span>
+    <span class="n">icon</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">cube</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">stack</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="s2">"L1 Core Bedrock"</span><span class="p">,</span>
+    <span class="s2">"_core/l1_core: settings, logging, const, path utils &amp; lazy validator"</span><span class="p">,</span>
+    <span class="n">icon</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">wrench</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">stack</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">96.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">62.0</span><span class="p">)</span>
 
-<span class="n">layers</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="p">(</span><span class="mi">57</span><span class="p">,</span> <span class="s2">"Public Facades"</span><span class="p">,</span> <span class="s2">"src/drawlib/*.py  (canvas, shapes, smartarts, charts, diagrams, graph)"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">shield_check</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">47</span><span class="p">,</span> <span class="s2">"Domain Modules"</span><span class="p">,</span> <span class="s2">"_smartarts, _charts, _diagrams, _graph, _icons, _anim, _slide"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">shapes</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">37</span><span class="p">,</span> <span class="s2">"L4 Canvas Layer"</span><span class="p">,</span> <span class="s2">"_core/l4_canvas  (Cooperative Diamond Mixin Stack, setup/save/show)"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">palette</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">27</span><span class="p">,</span> <span class="s2">"L3 Domain Services"</span><span class="p">,</span> <span class="s2">"_core/l3_*  (colors, fonts, images, math, styles, external assets)"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">cpu</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">17</span><span class="p">,</span> <span class="s2">"L2 Types Layer"</span><span class="p">,</span> <span class="s2">"_core/l2_types  (Coordinate tuples, Pydantic field bounds, enums)"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">cube</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="s2">"L1 Core Infrastructure"</span><span class="p">,</span> <span class="s2">"_core/l1_core  (Settings, Logging, Constants, Path utilities)"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">wrench</span><span class="p">),</span>
-<span class="p">]</span>
-
-<span class="k">for</span> <span class="n">y</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">desc</span><span class="p">,</span> <span class="n">card_style</span><span class="p">,</span> <span class="n">text_style</span><span class="p">,</span> <span class="n">icon_func</span> <span class="ow">in</span> <span class="n">layers</span><span class="p">:</span>
-    <span class="n">rectangle</span><span class="p">((</span><span class="mi">65</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">116</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">8.2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">card_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">))</span>
-    <span class="n">icon_func</span><span class="p">((</span><span class="mi">12</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">text_style</span><span class="p">)</span>
-    <span class="n">text</span><span class="p">((</span><span class="mi">17</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">title</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">text_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
-    <span class="n">sub_style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">White</span> <span class="k">if</span> <span class="n">card_style</span> <span class="o">==</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span>
-    <span class="n">text</span><span class="p">((</span><span class="mi">54</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">desc</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">sub_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">8.0</span><span class="p">))</span>
-
-<span class="c1"># Arrow indicating unidirectional flow from L1 upwards</span>
-<span class="n">line</span><span class="p">((</span><span class="mi">128</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span> <span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="mi">57</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
-<span class="n">text</span><span class="p">((</span><span class="mi">133</span><span class="p">,</span> <span class="mi">32</span><span class="p">),</span> <span class="s2">"Allowed</span><span class="se">\n</span><span class="s2">Depends"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.0</span><span class="p">))</span>
+<span class="c1"># Strictly downward Allowed Imports indicator on the right</span>
+<span class="n">line</span><span class="p">((</span><span class="mf">104.5</span><span class="p">,</span> <span class="mf">62.0</span><span class="p">),</span> <span class="p">(</span><span class="mf">104.5</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">arrow_circle_down</span><span class="p">((</span><span class="mf">112.0</span><span class="p">,</span> <span class="mf">43.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">(</span>
+    <span class="p">(</span><span class="mf">112.0</span><span class="p">,</span> <span class="mf">32.0</span><span class="p">),</span>
+    <span class="s2">"Allowed</span><span class="se">\n</span><span class="s2">Imports</span><span class="se">\n</span><span class="s2">(Downward)"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+<span class="p">)</span>
 
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 </details>
 <hr />
-<h2>1. Concept: Unidirectional Dependency Invariant</h2>
-<p>The fundamental law of Drawlib's codebase is <strong>Unidirectional Downward Dependency</strong>:</p>
+<h2>1. Concept: Unidirectional Downward Dependency Law</h2>
+<p>Drawlib's package graph obeys a single non-negotiable invariant:</p>
 <blockquote>
-<p><strong>The Architectural Law</strong>:<br />
-A higher-level layer may import symbols from lower-level layers, but a lower-level layer must <strong>never</strong> import symbols from higher-level layers.</p>
+<p><strong>The Layer Dependency Law</strong>:<br />
+Higher-level layers may import symbols from lower-level layers, whereas lower-level layers must <strong>never</strong> import symbols from higher-level layers or form lateral import cycles.</p>
 </blockquote>
-<p>This principle guarantees:</p>
+<p>Enforcing strictly downward imports guarantees:</p>
 <ul>
-<li><strong>Zero Circular Dependencies</strong>: Modules can always be loaded in topological order without import deadlocks.</li>
-<li><strong>Independent Testability</strong>: Lower layers (like <code>l1_core</code> and <code>l2_types</code>) can be unit tested without initializing graphics backends, Matplotlib figures, or complex styling trees.</li>
-<li><strong>Swappable Backends</strong>: The graphics rendering pipeline (<code>l4_canvas</code> and Matplotlib) can be modified or extended without altering core data types or high-level layout algorithms.</li>
+<li><strong>Zero Circular Imports</strong>: Every package loads in deterministic topological order with zero import deadlocks.</li>
+<li><strong>Fast Isolated Unit Testing</strong>: <code>l1_core</code>, <code>l2_types</code>, and <code>l3_math</code> execute in milliseconds without initializing Matplotlib figures, font registries, or browser processes.</li>
+<li><strong>Clean Backend Encapsulation</strong>: Matplotlib <code>Artist</code> and <code>Axes</code> objects remain confined to <code>_core/l4_canvas</code>, keeping domain models (<code>_smartarts</code>, <code>_diagrams</code>, <code>_graph</code>) pure and composable.</li>
 </ul>
 <hr />
-<h2>2. Positioning: Layer Responsibilities Breakdown</h2>
-<p>Drawlib decomposes drawing mechanics into six discrete horizontal layers:</p>
+<h2>2. Positioning: Six-Tier Layer &amp; Domain Matrix</h2>
+<h3>2.1. Horizontal Architectural Tiers</h3>
 <table>
 <thead>
 <tr>
-<th style="text-align:left">Layer</th>
-<th style="text-align:left">Directory Path</th>
+<th style="text-align:left">Tier (Top → Bottom)</th>
+<th style="text-align:left">Package Path</th>
 <th style="text-align:left">Primary Responsibility</th>
-<th style="text-align:left">Upstream Consumers</th>
+<th style="text-align:left">Allowed Dependencies</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align:left"><strong>Public Facades</strong></td>
-<td style="text-align:left"><code>src/drawlib/*.py</code></td>
-<td style="text-align:left">Clean re-exports of user-facing functions and classes (<code>canvas</code>, <code>shapes</code>, <code>styles</code>).</td>
-<td style="text-align:left">End-user drawing code &amp; AI agents</td>
+<td style="text-align:left"><strong>6. CLI, Builders &amp; Facades</strong></td>
+<td style="text-align:left"><code>_cli/</code>, <code>_builder/</code>, <code>_http_server/</code>, <code>src/drawlib/*.py</code></td>
+<td style="text-align:left">Typer CLI, Markdown/HTML/PDF/Office compilers, preview server, and 20 lazy user-facing facades.</td>
+<td style="text-align:left">Domain Subsystems, <code>_core</code> L1–L4</td>
 </tr>
 <tr>
-<td style="text-align:left"><strong>Domain Modules</strong></td>
+<td style="text-align:left"><strong>5. Domain Subsystems</strong></td>
 <td style="text-align:left"><code>src/drawlib/_*/</code></td>
-<td style="text-align:left">High-level diagramming modules (<code>_smartarts</code>, <code>_charts</code>, <code>_diagrams</code>, <code>_graph</code>).</td>
-<td style="text-align:left">Public facades</td>
+<td style="text-align:left">High-level visual components, icon suites, preset palettes, graph solvers, animations, and slides.</td>
+<td style="text-align:left">Lower/peer domain helpers, <code>_core</code> L1–L4</td>
 </tr>
 <tr>
-<td style="text-align:left"><strong>L4 Canvas</strong></td>
-<td style="text-align:left"><code>_core/l4_canvas</code></td>
-<td style="text-align:left">Global Canvas context, diamond multiple inheritance feature mixins, transform stack.</td>
-<td style="text-align:left">Domain modules, Public facades</td>
+<td style="text-align:left"><strong>4. L4 Canvas</strong></td>
+<td style="text-align:left"><code>_core/l4_canvas/</code></td>
+<td style="text-align:left">Singleton <code>Canvas</code> (<code>CanvasBase</code> + 10 cooperative mixins), transform stack, and Matplotlib <code>Agg</code> bridge.</td>
+<td style="text-align:left"><code>l3_*</code>, <code>l2_types</code>, <code>l1_core</code></td>
 </tr>
 <tr>
-<td style="text-align:left"><strong>L3 Services</strong></td>
-<td style="text-align:left"><code>_core/l3_*</code></td>
-<td style="text-align:left">Independent specialized services (<code>l3_colors</code>, <code>l3_fonts</code>, <code>l3_images</code>, <code>l3_math</code>, <code>l3_styles</code>, <code>l3_external</code>).</td>
-<td style="text-align:left">L4 Canvas, Domain modules</td>
+<td style="text-align:left"><strong>3. L3 Domain Services</strong></td>
+<td style="text-align:left"><code>_core/l3_*/</code></td>
+<td style="text-align:left">Color models, guarded <code>Style</code> schema, font catalog, <code>Dimage</code> wrapper, 2D routing math, and asset manifests.</td>
+<td style="text-align:left"><code>l2_types</code>, <code>l1_core</code></td>
 </tr>
 <tr>
-<td style="text-align:left"><strong>L2 Types</strong></td>
-<td style="text-align:left"><code>_core/l2_types</code></td>
-<td style="text-align:left">Functional coordinate primitives (<code>Coordinate</code>, <code>Coordinates</code>), Pydantic field bounds, enums.</td>
-<td style="text-align:left">L3 Services, L4 Canvas, Domain</td>
+<td style="text-align:left"><strong>2. L2 Value Types</strong></td>
+<td style="text-align:left"><code>_core/l2_types/</code></td>
+<td style="text-align:left">Coordinate/path aliases, constrained numeric types, font/file annotations, and style/shape literal types.</td>
+<td style="text-align:left"><code>l1_core</code> &amp; stdlib/Pydantic types</td>
 </tr>
 <tr>
-<td style="text-align:left"><strong>L1 Core</strong></td>
-<td style="text-align:left"><code>_core/l1_core</code></td>
-<td style="text-align:left">Core runtime settings (<code>drawlib_settings</code>), logging, path utilities, static asset directory constants.</td>
-<td style="text-align:left">All higher layers</td>
+<td style="text-align:left"><strong>1. L1 Core Bedrock</strong></td>
+<td style="text-align:left"><code>_core/l1_core/</code></td>
+<td style="text-align:left">Runtime <code>drawlib_settings</code>, logger, path/stack inspection, constants, and lazy <code>@validate_call</code>.</td>
+<td style="text-align:left">Zero internal Drawlib imports</td>
+</tr>
+</tbody>
+</table>
+<h3>2.2. Complete Domain Subsystem Inventory</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Internal Package</th>
+<th style="text-align:left">Public Facade</th>
+<th style="text-align:left">Architectural Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>_icons/</code></td>
+<td style="text-align:left"><code>drawlib.icons</code></td>
+<td style="text-align:left">34 standardized icon suites (<code>phosphor</code> vector font + <code>gcp</code>, <code>aws</code>, <code>azure</code>, 15 brand &amp; 15 <code>original_*</code> suites).</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>_preset_colors/</code></td>
+<td style="text-align:left"><code>drawlib.preset_colors</code>, <code>styles.Colors</code></td>
+<td style="text-align:left">Curated theme color tokens (<code>DefaultColors</code>, <code>GoogleColors</code>, <code>MonochromeColors</code>, <code>CssColors</code>).</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>_preset_styles/</code></td>
+<td style="text-align:left"><code>drawlib.preset_styles</code>, <code>styles.Styles</code></td>
+<td style="text-align:left">Semantic <code>Style</code> presets enforcing contrast and neutral/accent hierarchy across themes.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>_smartarts/</code></td>
+<td style="text-align:left"><code>drawlib.smartarts</code></td>
+<td style="text-align:left">18 structured layout components (<code>ChevronProcess</code>, <code>CardList</code>, <code>GridLayout</code>, <code>Table</code>, <code>TreeNode</code>, <code>Panel</code>, etc.).</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>_charts/</code></td>
+<td style="text-align:left"><code>drawlib.charts</code></td>
+<td style="text-align:left">9 quantitative data visualization charts (<code>BarChart</code>, <code>LineChart</code>, <code>AreaChart</code>, <code>PieChart</code>, <code>GanttChart</code>, etc.).</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>_diagrams/</code></td>
+<td style="text-align:left"><code>drawlib.diagrams</code></td>
+<td style="text-align:left">6 software engineering diagram engines (<code>architecture</code>, <code>flow</code>, <code>sequence</code>, <code>state</code>, <code>class_diagram</code>, <code>er</code>).</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>_graph/</code></td>
+<td style="text-align:left"><code>drawlib.graph</code></td>
+<td style="text-align:left">5 declarative topology coordinate solvers (<code>ArchitectureGraph</code>, <code>LayerGraph</code>, <code>TreeGraph</code>, <code>RadialGraph</code>, <code>GridGraph</code>).</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>_anim/</code></td>
+<td style="text-align:left"><code>drawlib.anim</code></td>
+<td style="text-align:left">Multi-frame <code>Animation</code> timeline recorder, easing curves, and lossless <code>WebP</code>/<code>APNG</code> encoder.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>_slide/</code></td>
+<td style="text-align:left"><code>drawlib.slide</code></td>
+<td style="text-align:left">16:9 presentation Markdown parser (<code>::: block</code>, <code>::: note</code>), responsive HTML deck compiler, and <code>.pptx</code> DOM bridge.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>_templates/</code></td>
+<td style="text-align:left"><code>drawlib init</code> (<code>_cli</code>)</td>
+<td style="text-align:left">Starter project scaffolds (<code>images</code>, <code>doc</code>, <code>site</code>, <code>slide</code>) with <code>drawlib.toml</code>, <code>styles.py</code>, and <code>template.html</code>.</td>
 </tr>
 </tbody>
 </table>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="../../images/01_overview/02_layer_hierarchy/layer_dependency_rules.png" alt="02_layer_hierarchy_2" />
-  <figcaption class="drawlib-caption">Layer Dependency Rules: Allowed vs. Forbidden Imports</figcaption>
+  <figcaption class="drawlib-caption">Layer Dependency Rules: Allowed Downward vs. Forbidden Upward Imports</figcaption>
 </figure>
 <details class="drawlib-code-details">
 <summary>Source Code</summary>
@@ -342,91 +463,116 @@ A higher-level layer may import symbols from lower-level layers, but a lower-lev
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.smartarts</span><span class="w"> </span><span class="kn">import</span> <span class="n">Panel</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">140</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">56</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">116</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">48</span><span class="p">)</span>
 
-<span class="n">rectangle</span><span class="p">((</span><span class="mi">70</span><span class="p">,</span> <span class="mi">28</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">136</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">52</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.5</span><span class="p">))</span>
-<span class="n">text</span><span class="p">(</span>
-    <span class="p">(</span><span class="mi">70</span><span class="p">,</span> <span class="mf">48.5</span><span class="p">),</span>
-    <span class="s2">"Layer Dependency Rules: Allowed vs. Forbidden Imports"</span><span class="p">,</span>
-    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">12.2</span><span class="p">),</span>
+<span class="c1"># Left Panel: Allowed Downward Import (Higher on TOP -&gt; Lower on BOTTOM)</span>
+<span class="n">left_panel</span> <span class="o">=</span> <span class="n">Panel</span><span class="p">(</span>
+    <span class="s2">"Allowed: Downward Import"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+    <span class="n">header_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">),</span>
+    <span class="n">icon</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">check_circle</span><span class="p">,</span>
+    <span class="n">icon_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SuccessBold</span><span class="p">,</span>
+    <span class="n">header_height</span><span class="o">=</span><span class="mf">8.0</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">left_panel</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">53.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">42.0</span><span class="p">)</span>
+
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mf">29.5</span><span class="p">,</span> <span class="mf">30.5</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mf">46.0</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">8.0</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Higher Layer (Domain / _builder)"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">line</span><span class="p">((</span><span class="mf">29.5</span><span class="p">,</span> <span class="mf">25.8</span><span class="p">),</span> <span class="p">(</span><span class="mf">29.5</span><span class="p">,</span> <span class="mf">16.2</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SuccessBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">39.5</span><span class="p">,</span> <span class="mf">21.0</span><span class="p">),</span> <span class="s2">"import OK"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SuccessBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mf">29.5</span><span class="p">,</span> <span class="mf">11.5</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mf">46.0</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">8.0</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Lower Layer (_core L1–L4)"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
 <span class="p">)</span>
 
-<span class="c1"># Left Column: Allowed Dependencies (Downward)</span>
-<span class="n">rectangle</span><span class="p">((</span><span class="mi">38</span><span class="p">,</span> <span class="mi">23</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">58</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">33</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.8</span><span class="p">))</span>
-<span class="n">phosphor</span><span class="o">.</span><span class="n">check_circle</span><span class="p">((</span><span class="mi">14</span><span class="p">,</span> <span class="mi">34</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
-<span class="n">text</span><span class="p">((</span><span class="mi">18</span><span class="p">,</span> <span class="mi">34</span><span class="p">),</span> <span class="s2">"Allowed: Downward Imports"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+<span class="c1"># Right Panel: Forbidden Upward Import (Higher on TOP, Lower on BOTTOM, UPWARD arrow!)</span>
+<span class="n">right_panel</span> <span class="o">=</span> <span class="n">Panel</span><span class="p">(</span>
+    <span class="s2">"Forbidden: Upward / Circular"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+    <span class="n">header_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerNeutral</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">),</span>
+    <span class="n">icon</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">x_circle</span><span class="p">,</span>
+    <span class="n">icon_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerBold</span><span class="p">,</span>
+    <span class="n">header_height</span><span class="o">=</span><span class="mf">8.0</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">right_panel</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">60.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">53.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">42.0</span><span class="p">)</span>
 
-<span class="n">rectangle</span><span class="p">((</span><span class="mi">38</span><span class="p">,</span> <span class="mi">26</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">6.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.0</span><span class="p">))</span>
-<span class="n">text</span><span class="p">((</span><span class="mi">38</span><span class="p">,</span> <span class="mi">26</span><span class="p">),</span> <span class="s2">"Higher Layer: Domain / Facades"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.8</span><span class="p">))</span>
-
-<span class="n">line</span><span class="p">((</span><span class="mi">38</span><span class="p">,</span> <span class="mi">22</span><span class="p">),</span> <span class="p">(</span><span class="mi">38</span><span class="p">,</span> <span class="mf">16.5</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
-
-<span class="n">rectangle</span><span class="p">((</span><span class="mi">38</span><span class="p">,</span> <span class="mf">12.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">6.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.0</span><span class="p">))</span>
-<span class="n">text</span><span class="p">((</span><span class="mi">38</span><span class="p">,</span> <span class="mf">12.5</span><span class="p">),</span> <span class="s2">"Lower Layer: L1 / L2 / L3 / L4 Core"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.8</span><span class="p">))</span>
-
-<span class="c1"># Right Column: Forbidden Dependencies (Upward or Cross-Domain Cycles)</span>
-<span class="n">rectangle</span><span class="p">((</span><span class="mi">102</span><span class="p">,</span> <span class="mi">23</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">58</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">33</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.8</span><span class="p">))</span>
-<span class="n">phosphor</span><span class="o">.</span><span class="n">x_circle</span><span class="p">((</span><span class="mi">78</span><span class="p">,</span> <span class="mi">34</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">)</span>
-<span class="n">text</span><span class="p">((</span><span class="mi">82</span><span class="p">,</span> <span class="mi">34</span><span class="p">),</span> <span class="s2">"Forbidden: Upward / Circular Imports"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
-
-<span class="n">rectangle</span><span class="p">((</span><span class="mi">102</span><span class="p">,</span> <span class="mi">26</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">6.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.0</span><span class="p">))</span>
-<span class="n">text</span><span class="p">((</span><span class="mi">102</span><span class="p">,</span> <span class="mi">26</span><span class="p">),</span> <span class="s2">"Lower Layer (e.g. l1_core, l2_types)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.8</span><span class="p">))</span>
-
-<span class="n">line</span><span class="p">((</span><span class="mi">102</span><span class="p">,</span> <span class="mi">22</span><span class="p">),</span> <span class="p">(</span><span class="mi">102</span><span class="p">,</span> <span class="mf">16.5</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">)</span>
-
-<span class="n">rectangle</span><span class="p">((</span><span class="mi">102</span><span class="p">,</span> <span class="mf">12.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">6.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.0</span><span class="p">))</span>
-<span class="n">text</span><span class="p">((</span><span class="mi">102</span><span class="p">,</span> <span class="mf">12.5</span><span class="p">),</span> <span class="s2">"Higher Layer (e.g. Domain / Builder) [X]"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.8</span><span class="p">))</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mf">86.5</span><span class="p">,</span> <span class="mf">30.5</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mf">46.0</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">8.0</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Higher Layer (Domain / _builder)"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">line</span><span class="p">((</span><span class="mf">86.5</span><span class="p">,</span> <span class="mf">16.2</span><span class="p">),</span> <span class="p">(</span><span class="mf">86.5</span><span class="p">,</span> <span class="mf">25.8</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">97.5</span><span class="p">,</span> <span class="mf">21.0</span><span class="p">),</span> <span class="s2">"Rejected [X]"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mf">86.5</span><span class="p">,</span> <span class="mf">11.5</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mf">46.0</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">8.0</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Lower Layer (_core L1–L4)"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+<span class="p">)</span>
 
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 </details>
 <hr />
-<h2>3. Details: Layer Isolation Mechanics</h2>
-<h3>3.1. Layer 1 (<code>l1_core</code>) — The Bedrock</h3>
-<p><code>l1_core</code> has zero internal Drawlib dependencies. It relies strictly on the Python standard library:</p>
+<h2>3. Details: Core Layer Isolation (<code>l1_core</code> – <code>l4_canvas</code>)</h2>
+<h3>3.1. Layer 1 (<code>_core/l1_core</code>) — Zero-Internal-Dependency Bedrock</h3>
+<p><code>l1_core</code> sits at the root of the dependency graph and imports zero internal Drawlib modules:</p>
 <ul>
-<li><strong>Runtime Settings (<code>_settings.py</code>)</strong>: <code>DrawlibSettings</code> (accessed via the singleton <code>drawlib_settings</code>) manages global verbosity (<code>&quot;normal&quot;</code>, <code>&quot;quiet&quot;</code>, <code>&quot;verbose&quot;</code>, <code>&quot;developer&quot;</code>), warning suppression, test mode detection, and grid overlay forcing (<code>_force_grid</code>).</li>
-<li><strong>Logging (<code>_logging.py</code>)</strong>: Centralized Python <code>logging</code> instance under the <code>&quot;drawlib&quot;</code> namespace.</li>
-<li><strong>Constants &amp; Path Utils (<code>_const.py</code>, <code>_path_utils.py</code>)</strong>: Static directories for fonts, icons, maps, and rules, alongside call-stack inspection tools (<code>get_script_path()</code>).</li>
-<li><strong>Declarative Validation (No Boilerplate Exception Classes)</strong>: Drawlib avoids custom exception hierarchies. Boundary validation is declared via Pydantic (<code>@validate_call</code>, <code>Field</code>, <code>BeforeValidator</code>), raising standard Pydantic <code>ValidationError</code> or built-in <code>ValueError</code>.</li>
+<li><strong>Stdlib-Only Import Path</strong>: <code>_const.py</code> (<code>LIB_NAME</code>, <code>LIB_VERSION</code>, asset directories), <code>_logging.py</code> (<code>logger</code>), <code>_path_utils.py</code> (<code>get_script_path()</code>, <code>get_script_relative_path()</code>, <code>ensure_cache_dir_ignores()</code>), and <code>_settings.py</code> (<code>drawlib_settings</code> singleton) rely strictly on the Python standard library at import time.</li>
+<li><strong>Lazy Call Validation (<code>_validator.py</code>)</strong>: Defines Drawlib's <code>@validate_call</code> decorator wrapping <code>pydantic.validate_call</code>. Instead of compiling Pydantic validation schemas eagerly when modules are imported, <code>_validator.py</code> defers schema construction until a function's first runtime call while preserving exact <code>ParamSpec</code>/<code>TypeVar</code> static type signatures.</li>
 </ul>
-<h3>3.2. Layer 2 (<code>l2_types</code>) — Value Primitives &amp; Constraints</h3>
-<p><code>l2_types</code> defines lightweight, functional type primitives:</p>
+<h3>3.2. Layer 2 (<code>_core/l2_types</code>) — Value Primitives &amp; Type Constraints</h3>
+<p><code>l2_types</code> defines lightweight type aliases, Pydantic <code>Annotated</code> bounds, and literal unions across seven submodules without touching rendering state:</p>
 <ul>
-<li><strong>Coordinate Primitives (<code>_geometry.py</code>)</strong>: <code>Coordinate = tuple[float, float]</code>, <code>Coordinates = list[Coordinate]</code>, <code>Bezier2</code>, and <code>Bezier3</code>.</li>
-<li><strong>Pydantic Bounds (<code>_primitive.py</code>, <code>_style.py</code>)</strong>: <code>PosInt</code>, <code>PosFloat</code>, <code>Ratio</code> ($[0.0, 1.0]$), and <code>Angle</code> with cyclic normalization modulo 360°.</li>
-<li>Does not contain any rendering logic or Matplotlib objects.</li>
+<li><strong><code>_geometry.py</code></strong>: <code>Coordinate = tuple[float, float]</code>, <code>Coordinates = list[Coordinate]</code>, <code>Bezier2</code>, <code>Bezier3</code>, <code>PathPoint = Coordinate | Bezier2 | Bezier3</code>, and <code>PathPoints = list[PathPoint]</code>.</li>
+<li><strong><code>_primitive.py</code></strong>: Guarded numeric bounds (<code>PosInt</code>, <code>PosFloat</code>, <code>NegInt</code>, <code>NegFloat</code>, <code>Ratio</code> in $[0.0, 1.0]$, <code>NumVertex</code>).</li>
+<li><strong><code>_color.py</code> &amp; <code>_font.py</code></strong>: <code>RGBChannel</code>, <code>Alpha</code>, <code>ColorRGB</code>, <code>ColorRGBA</code>, plus <code>Font</code>, <code>FontBase</code>, <code>FontFile</code>, <code>FontMetadata</code>, and <code>FontResource</code>.</li>
+<li><strong><code>_image.py</code> &amp; <code>_path.py</code></strong>: <code>ImageFormat</code>, <code>ImageQuality</code>, <code>ImageResample</code>, <code>ImageZoom</code>, <code>FilePath</code>, and <code>ExistingFilePath</code>.</li>
+<li><strong><code>_style.py</code></strong>: <code>Angle</code> (modulo $360^\circ$), <code>Angle90</code>, <code>ArrowHead</code>, <code>Bend</code>, <code>HAlign</code>, <code>VAlign</code>, <code>LineStyle</code>, <code>ShapeRadius</code>, <code>Size</code>, and shape variant literals (<code>BraceDirection</code>, <code>CloudVariant</code>, <code>FaceVariant</code>, <code>ShieldVariant</code>, etc.).</li>
 </ul>
-<h3>3.3. Layer 3 (<code>l3_*</code>) — Domain Services</h3>
-<p>Layer 3 provides specialized domain engines that operate on <code>l2_types</code> without knowing about the Canvas lifecycle:</p>
+<h3>3.3. Layer 3 (<code>_core/l3_*</code>) — Specialized Domain Services</h3>
+<p>Layer 3 modules implement stateless and value-object domain engines over <code>l2_types</code>:</p>
 <ul>
-<li><strong><code>l3_colors</code></strong>: <code>Color(BaseModel)</code> immutable RGBA model, <code>ColorType</code> annotation, and <code>ColorUtils</code> linear interpolation.</li>
-<li><strong><code>l3_styles</code></strong>: Unified flat <code>Style(BaseModel)</code> with explicit target declarations (<code>supports: frozenset[SupportType]</code>) and <code>BaseStyles(BaseModel, metaclass=_BaseStylesMeta)</code>.</li>
-<li><strong><code>l3_fonts</code></strong>: Language-specific font enums, true-type font resources, and metadata caching.</li>
-<li><strong><code>l3_images</code></strong>: <code>Dimage</code> PIL fluent wrapper for cropping, tinting, and scaling.</li>
-<li><strong><code>l3_math</code></strong>: Functional 2D geometry (<code>_geometry.py</code>) and orthogonal path routing (<code>_routing.py</code>).</li>
-<li><strong><code>l3_external</code></strong>: GitHub Release asset synchronization (<code>ReleaseAssetPackage</code>, <code>AssetManifest</code>, deterministic <code>.zip</code> generator).</li>
+<li><strong><code>l3_colors</code></strong>: Immutable <code>Color(BaseModel)</code>, <code>ColorType</code>, <code>BaseColors</code>, and <code>ColorUtils</code> RGBA conversion/interpolation.</li>
+<li><strong><code>l3_styles</code></strong>: Guarded <code>Style(BaseModel)</code> with <code>supports: frozenset[SupportType]</code> validation and <code>BaseStyles</code> metaclass token inheritance.</li>
+<li><strong><code>l3_fonts</code></strong>: Bundled/downloadable TrueType &amp; OpenType font resolution and glyph metric helpers.</li>
+<li><strong><code>l3_images</code></strong>: Fluent <code>Dimage</code> Pillow wrapper for immutable resize, crop, alpha tinting, and rotation.</li>
+<li><strong><code>l3_math</code></strong>: Vectorized 2D rotation/bounding geometry (<code>_geometry.py</code>) and Manhattan orthogonal connector routing (<code>_routing.py</code>).</li>
+<li><strong><code>l3_external</code></strong>: Release asset archive definitions (<code>ReleaseAssetPackage</code>, <code>AssetManifest</code>) and SHA-256 verification.</li>
 </ul>
-<h3>3.4. Layer 4 (<code>l4_canvas</code>) — Canvas &amp; Graphics Bridge</h3>
-<p><code>l4_canvas</code> brings together all lower layers to manage the active drawing canvas:</p>
+<h3>3.4. Layer 4 (<code>_core/l4_canvas/_canvas.py</code>) — Cooperative Mixin Canvas</h3>
+<p><code>l4_canvas</code> assembles the singleton <code>canvas = Canvas()</code> from <strong><code>CanvasBase</code> plus 10 feature mixin classes</strong>:</p>
 <ul>
-<li>Terminal <code>Canvas</code> class composed through cooperative diamond multiple inheritance (<code>CanvasBase</code> + 7 feature mixins).</li>
-<li>Coordinates calls between user drawing operations and Matplotlib patch primitives.</li>
-<li>Exposes <code>setup()</code>, <code>save()</code>, <code>show()</code>, and the <code>transform()</code> context manager.</li>
+<li><strong>3 Core Feature Mixins</strong>: <code>CanvasLineFeature</code>, <code>CanvasTextFeature</code>, and <code>CanvasImageFeature</code>.</li>
+<li><strong>7 Shape Feature Mixins</strong>: <code>CanvasShapeFeature</code> aggregating <strong>6</strong> shape category mixins (<code>CanvasShapeBasicFeature</code>, <code>CanvasShapePolygonFeature</code>, <code>CanvasShapeArrowFeature</code>, <code>CanvasShapeContainerFeature</code>, <code>CanvasShapeBadgeFeature</code>, <code>CanvasShapeSymbolFeature</code>).</li>
+<li><strong>Public <code>drawlib.canvas</code> Exports</strong>: Re-exports <code>canvas</code>, <code>clear</code>, <code>get_dimage</code>, <code>save</code>, <code>setup</code>, and <code>show</code>. Spatial coordinate frames are scoped via the <code>with canvas.transform(origin, scale, translate):</code> context manager method on the <code>canvas</code> singleton.</li>
 </ul>
-<h3>3.5. Automated Enforcement in CI/CD</h3>
-<p>This layering invariant is strictly enforced:</p>
-<ul>
-<li><strong>Ruff Linting</strong>: Rejects cyclic imports and invalid cross-module references.</li>
-<li><strong>Ty Type Checking</strong>: Verifies that lower-layer type signatures never leak higher-layer classes.</li>
-<li>Run verification at any time via:<pre><code class="language-bash">./dcli<span class="w"> </span>code-check<span class="w"> </span><span class="nb">type</span>
+<h3>3.5. Static Verification via <code>./dcli</code></h3>
+<p>Architectural hygiene, type boundaries, and <code>@validate_call</code> docstring signatures are continuously verified via <code>./dcli</code>:</p>
+<pre><code class="language-bash">./dcli<span class="w"> </span>code-check<span class="w"> </span>all<span class="w">   </span><span class="c1"># Runs Ruff lint/format, Ty static type checker, and docstring checks</span>
 </code></pre>
-</li>
-</ul>
-<p>Continue to <strong><a href="../02_core_engine/01_canvas_and_geometry.html">Canvas &amp; Geometry</a></strong> to inspect the core drawing engine.</p>
+<p>Continue to <strong><a href="../02_core_engine/01_canvas_and_geometry.html">Canvas &amp; Geometry</a></strong> to examine the Cartesian coordinate system, 4-part anchor rules, and the L4 Canvas MRO in detail.</p>
 
             </main>
         </div>
@@ -459,8 +605,8 @@ A higher-level layer may import symbols from lower-level layers, but a lower-lev
                     if (e.key === 'Escape') {
                         langDropdowns.forEach(function(dd) {
                             dd.removeAttribute('open');
-                        });
-                    }
+                        }
+                    });
                 });
             }
 

@@ -1,0 +1,666 @@
+<!--
+ Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+
+ This software is licensed under the Apache License, Version 2.0.
+ For more information, please visit: https://github.com/yuichi110/drawlib
+
+ This software is provided "as is", without warranty of any kind,
+ express or implied, including but not limited to the warranties of
+ merchantability, fitness for a particular purpose and noninfringement.
+-->
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animation &amp; Slide Presentation Engines (drawlib.anim &amp; drawlib.slide)</title>
+    <script>
+        (function() {
+            const saved = localStorage.getItem('drawlib-theme');
+            if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    
+    
+    <meta name="description" content="Technical architecture communication rarely stops at static prose diagrams: engineers also need step-by-step animated state transitions and 16:9 presentation…">
+    <link rel="canonical" href="https://www.drawlib.com/architecture/en/03_domain_subsystems/04_animation_and_slide_engines.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Drawlib Architecture">
+    <meta property="og:title" content="Animation &amp; Slide Presentation Engines (drawlib.anim &amp; drawlib.slide) — Drawlib Architecture">
+    <meta property="og:description" content="Technical architecture communication rarely stops at static prose diagrams: engineers also need step-by-step animated state transitions and 16:9 presentation…">
+    <meta property="og:url" content="https://www.drawlib.com/architecture/en/03_domain_subsystems/04_animation_and_slide_engines.html">
+    <meta property="og:image" content="https://www.drawlib.com/architecture/_assets/ogp.png">
+    <meta property="og:locale" content="en_US">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Animation &amp; Slide Presentation Engines (drawlib.anim &amp; drawlib.slide) — Drawlib Architecture">
+    <meta name="twitter:description" content="Technical architecture communication rarely stops at static prose diagrams: engineers also need step-by-step animated state transitions and 16:9 presentation…">
+    <meta name="twitter:image" content="https://www.drawlib.com/architecture/_assets/ogp.png">
+    
+    
+    <link rel="icon" type="image/png" href="../../_assets/favicon.png">
+    
+    
+    <link rel="stylesheet" href="../style.css">
+    
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-brand" aria-label="Drawlib Architecture">
+                    
+                    <img src="../../_assets/logo.png" alt="Drawlib Architecture" class="sidebar-logo sidebar-logo-light">
+                    <img src="../../_assets/logo_dark.png" alt="Drawlib Architecture" class="sidebar-logo sidebar-logo-dark">
+                    
+                </a>
+                <div class="sidebar-header-actions">
+                    <button type="button" id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle theme">
+                        <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                        <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                    </button>
+                    <button type="button" id="menu-toggle" class="menu-toggle-btn" aria-label="Toggle navigation" aria-expanded="false">
+                        <svg class="icon-hamburger" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                        <svg class="icon-close" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                    </button>
+                </div>
+            </div>
+            <div class="sidebar-subbar">
+                <a href="https://www.drawlib.com/en/01_getting_started/release_notes.html" target="_blank" rel="noopener noreferrer" class="sidebar-version-badge" title="Architecture Specification · View Release Notes">
+                    <span class="sidebar-version-dot" aria-hidden="true"></span>
+                    <span class="sidebar-version-text">Architecture · v0.3.4</span>
+                </a>
+                <a href="https://github.com/yuichi110/drawlib" target="_blank" rel="noopener noreferrer" class="sidebar-github-link" aria-label="GitHub Repository" title="GitHub Repository">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+                </a>
+            </div>
+            <div class="sidebar-menu">
+                
+                    
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../index.html" >Architecture Overview</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="https://www.drawlib.com/" target="_blank" rel="noopener noreferrer">Official Docs<svg class="nav-external-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="https://examples.drawlib.com/" target="_blank" rel="noopener noreferrer">Examples Showcase<svg class="nav-external-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">1. Overview &amp; Architecture</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../01_overview/01_system_architecture.html" >System Architecture</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../01_overview/02_layer_hierarchy.html" >Layer Hierarchy</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">2. Core Engine</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../02_core_engine/01_canvas_and_geometry.html" >Canvas &amp; Geometry</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_core_engine/02_types_and_styles.html" >Types &amp; Style Models</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_core_engine/03_caching_and_ast_engine.html" >Cache &amp; AST Engine</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">3. Domain Subsystems</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="01_primitives_and_backends.html" >Primitives &amp; Backends</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="02_high_level_components.html" >High-Level Components</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="03_graph_autolayout.html" >Graph Auto-Layout</a>
+                            </li>
+                            
+                            <li class="nav-item active">
+                                <a href="04_animation_and_slide_engines.html" >Animation &amp; Slide Engines</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">4. Doc Builder &amp; Compiler</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../04_doc_builder_and_compiler/01_compilation_pipeline.html" >Compilation Pipeline</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_doc_builder_and_compiler/02_multi_target_exporters.html" >Multi-Target Exporters</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_doc_builder_and_compiler/03_link_and_quality_scanner.html" >Link &amp; Quality Scanner</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">5. CLI &amp; Runtime</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../05_cli_and_runtime/01_cli_architecture.html" >CLI Architecture</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_cli_and_runtime/02_preview_server.html" >Preview Server &amp; Assets</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">6. Developer Tooling</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../06_developer_tooling/01_dcli_orchestrator.html" >dcli Unified Orchestrator</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_developer_tooling/02_codegen_and_assets.html" >Code Generation &amp; Assets</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_developer_tooling/03_release_and_docker.html" >Publishing &amp; Docker</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">7. Test Architecture &amp; Quality</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../07_test_architecture/01_test_hierarchy_and_strategy.html" >Test Hierarchy &amp; Strategy</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_test_architecture/02_dogfooding_and_quality_gates.html" >Dogfooding &amp; Quality Gates</a>
+                            </li>
+                            
+                        </ul>
+                    
+                
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Architecture</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">Animation &amp; Slide Presentation Engines (drawlib.anim &amp; drawlib.slide)</span>
+                </div>
+                
+            </header>
+            <main class="main-content">
+                <h1>Animation &amp; Slide Presentation Engines (drawlib.anim &amp; drawlib.slide)</h1>
+<p>Technical architecture communication rarely stops at static prose diagrams: engineers also need <strong>step-by-step animated state transitions</strong> and <strong>16:9 presentation decks</strong> that export cleanly to interactive HTML, vector PDF, and editable PowerPoint (<code>.pptx</code>). Rather than bolting on external video encoders or forcing manual PowerPoint slide redrawing, Drawlib unifies multi-frame animation (<code>drawlib.anim</code>) and presentation compilation (<code>drawlib.slide</code>) directly over the core <code>Canvas</code> and Markdown pipeline.</p>
+<p>This chapter details the in-memory frame synthesis engine (<code>_anim/</code>), the dual-coordinate 16:9 HTML/SVG presentation stage and automatic <code>@font-face</code> bundler (<code>_slide/</code>), and the headless Chromium live-DOM to OOXML <code>.pptx</code> compiler.</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="../../images/03_domain_subsystems/04_animation_and_slide_engines/anim_and_slide_architecture.png" alt="04_animation_and_slide_engines_1" />
+  <figcaption class="drawlib-caption">Unified Animation (_anim) & 16:9 Slide Presentation (_slide) Architecture</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.diagrams.architecture</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">ArchitectureDiagram</span><span class="p">,</span>
+    <span class="n">Node</span><span class="p">,</span>
+    <span class="n">NodeGroup</span><span class="p">,</span>
+    <span class="n">PhosphorIcon</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">122</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">66</span><span class="p">)</span>
+
+<span class="n">d</span> <span class="o">=</span> <span class="n">ArchitectureDiagram</span><span class="p">(</span>
+    <span class="n">node_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">,</span>
+    <span class="n">node_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="n">edge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+    <span class="n">edge_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">node_card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Top pipeline: Declarative Multi-Frame Animation Engine (_anim)</span>
+<span class="n">anim_grp</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">NodeGroup</span><span class="p">(</span>
+        <span class="n">title</span><span class="o">=</span><span class="s2">"Multi-Frame Animation Engine (drawlib.anim / _anim)"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mf">114.0</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mf">25.5</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="p">,</span>
+        <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">),</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">36.5</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">f_loop</span> <span class="o">=</span> <span class="n">anim_grp</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span><span class="s2">"Frame Loop</span><span class="se">\n</span><span class="s2">anim.frame()"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">22.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">14.5</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">FILM_STRIP</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">5.4</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">14.5</span><span class="p">,</span> <span class="mf">9.8</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">c_buf</span> <span class="o">=</span> <span class="n">anim_grp</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span>
+        <span class="s2">"Canvas Snapshot</span><span class="se">\n</span><span class="s2">Agg -&gt; PIL Image"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mf">22.0</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mf">14.5</span><span class="p">,</span>
+        <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">STACK</span><span class="p">,</span>
+        <span class="n">icon_size</span><span class="o">=</span><span class="mf">5.4</span><span class="p">,</span>
+        <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">42.8</span><span class="p">,</span> <span class="mf">9.8</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">encoder</span> <span class="o">=</span> <span class="n">anim_grp</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span><span class="s2">"Lossless Codec</span><span class="se">\n</span><span class="s2">APNG &amp; WebP"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">22.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">14.5</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">FILE_IMAGE</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">5.4</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">71.2</span><span class="p">,</span> <span class="mf">9.8</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">player</span> <span class="o">=</span> <span class="n">anim_grp</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span>
+        <span class="s2">"&lt;canvas&gt; Player</span><span class="se">\n</span><span class="s2">Auto / Click / Pause"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mf">22.0</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mf">14.5</span><span class="p">,</span>
+        <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">PLAY_CIRCLE</span><span class="p">,</span>
+        <span class="n">icon_size</span><span class="o">=</span><span class="mf">5.4</span><span class="p">,</span>
+        <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">99.5</span><span class="p">,</span> <span class="mf">9.8</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># Bottom pipeline: 16:9 Slide Stage &amp; Multi-Format Compiler (_slide)</span>
+<span class="n">slide_grp</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">NodeGroup</span><span class="p">(</span>
+        <span class="n">title</span><span class="o">=</span><span class="s2">"16:9 Presentation Stage &amp; Compiler (drawlib.slide / _slide)"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mf">114.0</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mf">27.0</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="p">,</span>
+        <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">,</span> <span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">),</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">md_src</span> <span class="o">=</span> <span class="n">slide_grp</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span><span class="s2">"Slide Markdown</span><span class="se">\n</span><span class="s2">::: block / note"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">22.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">14.5</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">FILE_TEXT</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">5.4</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">14.5</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">stage</span> <span class="o">=</span> <span class="n">slide_grp</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span>
+        <span class="s2">"1920x1080 Stage</span><span class="se">\n</span><span class="s2">+ SVG @font-face"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mf">22.0</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mf">14.5</span><span class="p">,</span>
+        <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">PRESENTATION</span><span class="p">,</span>
+        <span class="n">icon_size</span><span class="o">=</span><span class="mf">5.4</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="p">,</span>
+        <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
+        <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">42.8</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">runtime</span> <span class="o">=</span> <span class="n">slide_grp</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span>
+        <span class="s2">"slide.js Runtime</span><span class="se">\n</span><span class="s2">Presenter Sync"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mf">22.0</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mf">14.5</span><span class="p">,</span>
+        <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">BROADCAST</span><span class="p">,</span>
+        <span class="n">icon_size</span><span class="o">=</span><span class="mf">5.4</span><span class="p">,</span>
+        <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">71.2</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">pptx_out</span> <span class="o">=</span> <span class="n">slide_grp</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Node</span><span class="p">(</span>
+        <span class="s2">"PDF &amp; .pptx</span><span class="se">\n</span><span class="s2">DOM -&gt; OOXML"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mf">22.0</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mf">14.5</span><span class="p">,</span>
+        <span class="n">icon</span><span class="o">=</span><span class="n">PhosphorIcon</span><span class="o">.</span><span class="n">FILE_PPT</span><span class="p">,</span>
+        <span class="n">icon_size</span><span class="o">=</span><span class="mf">5.4</span><span class="p">,</span>
+        <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">99.5</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">d</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">f_loop</span><span class="p">,</span> <span class="n">c_buf</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">c_buf</span><span class="p">,</span> <span class="n">encoder</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">encoder</span><span class="p">,</span> <span class="n">player</span><span class="p">)</span>
+
+<span class="n">d</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">md_src</span><span class="p">,</span> <span class="n">stage</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">stage</span><span class="p">,</span> <span class="n">runtime</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">runtime</span><span class="p">,</span> <span class="n">pptx_out</span><span class="p">)</span>
+
+<span class="c1"># Cross-subsystem integration: animated assets &amp; &lt;canvas&gt; state machine in Slide runtime</span>
+<span class="n">d</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">player</span><span class="p">,</span> <span class="n">runtime</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryDashed</span><span class="p">)</span><span class="o">.</span><span class="n">via</span><span class="p">((</span><span class="mf">103.5</span><span class="p">,</span> <span class="mf">33.5</span><span class="p">),</span> <span class="p">(</span><span class="mf">75.2</span><span class="p">,</span> <span class="mf">33.5</span><span class="p">))</span>
+
+<span class="n">d</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<hr />
+<h2>1. Declarative Multi-Frame Animation Engine (<code>drawlib.anim</code> / <code>_anim/</code>)</h2>
+<p>Instead of introducing a separate scene-graph API for motion graphics, <code>Animation</code> (<code>_anim/_animation.py</code>) wraps Drawlib's standard stateless drawing lifecycle in a frame-capture loop. Every primitive, icon, chart, diagram, and SmartArt component works identically inside animated frames.</p>
+<h3>1.1. Canvas Registration &amp; Frame Buffer Lifecycle</h3>
+<ol>
+<li><strong>Active Canvas Binding</strong>: Calling <code>anim = Animation(fps=10.0, loop=0)</code> after <code>setup(width=..., height=...)</code> validates frame timing (<code>fps</code> or <code>frame_rate</code> in seconds per frame; <code>loop=0</code> for infinite looping or <code>1..N</code> for bounded repeats) and registers <code>canvas._active_animation = self</code> as a singleton guard on the active <code>Canvas</code>.</li>
+<li><strong>Context-Managed Frame Capture (<code>anim.frame</code> &amp; <code>anim.add_frame</code>)</strong>:
+<ul>
+<li>Inside <code>with anim.frame(duration=..., clear=True):</code>, standard Drawlib calls populate Matplotlib artists on the offscreen <code>FigureCanvasAgg</code> surface.</li>
+<li>Exiting the <code>with</code> block invokes <code>anim.add_frame(duration=duration, clear=clear)</code>, which snapshots an RGBA <code>PIL.Image.Image</code> via <code>canvas.get_dimage().get_pil_image()</code>, converts per-frame timing into integer milliseconds (<code>round(sec * 1000)</code>), and calls <code>canvas._clear_artists()</code> when <code>clear=True</code>—wiping frame artists while preserving canvas dimensions, coordinate bounds, and background styling for the next frame.</li>
+<li>High-level components also expose <code>.show: bool</code> toggles on nodes, edges, series, and SmartArt items so progressive build-ups keep identical coordinates across frames without layout jitter.</li>
+</ul>
+</li>
+<li><strong>Lossless Multi-Frame Encoding &amp; Static Fallbacks</strong>:
+<ul>
+<li>When <code>save()</code> executes on a canvas with an active <code>Animation</code>, <code>Canvas.save()</code> delegates to <code>anim._save(file_path, format=format)</code>:
+<ul>
+<li><strong>Lossless APNG (<code>.png</code> / <code>.apng</code>)</strong>: Encoded via Pillow (<code>save_all=True</code>, <code>append_images=frames[1:]</code>, <code>compress_level=9</code>, <code>optimize=True</code>).</li>
+<li><strong>Lossless Animated WebP (<code>.webp</code>)</strong>: Encoded with <code>lossless=True</code>, <code>quality=100</code>, <code>method=4</code>, and <code>minimize_size=True</code> (<code>.svg</code> is rejected with <code>ValueError</code> because SVG does not host raster frame streams).</li>
+</ul>
+</li>
+<li>For static print targets (<code>.pdf</code>, <code>.docx</code>, <code>.pptx</code>), the compiler supports deterministic single-frame extraction (<code>static_anim_frame=&quot;last&quot;</code> or <code>&quot;first&quot;</code> or explicit frame index, plus <code>ensure_static_office_image()</code>) so multi-frame blocks degrade gracefully into sharp static illustrations.</li>
+</ul>
+</li>
+</ol>
+<h3>1.2. Interactive <code>&lt;canvas&gt;</code> Playback &amp; Offline APNG Parser</h3>
+<p>When a Markdown or Slide <code>drawlib</code> fence configures interactive playback options (<code>anim_trigger=&quot;auto&quot;|&quot;click&quot;</code>, <code>anim_loop=&quot;once&quot;|&quot;infinite&quot;</code>, or <code>anim_pause=[2, 5]</code>), <code>_slide/_assets.py</code> (<code>format_asset_markup</code>) replaces static <code>&lt;img&gt;</code> markup with an interactive <code>&lt;div class=&quot;drawlib-anim-wrapper&quot;&gt;</code> hosting a <code>&lt;canvas class=&quot;drawlib-anim-canvas&quot;&gt;</code>:</p>
+<ul>
+<li><strong>Zero-Server <code>file://</code> Base64 Hydration</strong>: To avoid browser <code>fetch()</code> CORS restrictions when opening local <code>index.html</code> decks directly from disk (<code>file://</code>), the compiler embeds the encoded APNG/WebP payload inside <code>data-base64=&quot;...&quot;</code> alongside <code>data-trigger</code>, <code>data-loop</code>, and <code>data-pause</code> attributes (<code>anim_loop</code> automatically defaults to <code>&quot;once&quot;</code> whenever <code>anim_pause</code> checkpoints are specified).</li>
+<li><strong>Dual-Path Frame Decoder (<code>slide.js</code>: <code>createAnimPlayer</code>)</strong>: At runtime, the browser player decodes frames via the hardware-accelerated WebCodecs <code>ImageDecoder</code> API (<code>image/apng</code> or <code>image/webp</code>), falling back automatically to an embedded pure-JavaScript APNG binary chunk parser (<code>parseApngBuffer</code>) that reconstructs standalone PNG frames (<code>IHDR</code> + <code>fcTL</code> + <code>IDAT</code>/<code>fdAT</code> with recomputed IEEE 802.3 CRC32 checksums).</li>
+<li><strong>4-State Playback Machine</strong>: Each player transitions deterministically across <code>READY -&gt; PLAYING -&gt; PAUSED -&gt; ENDED</code>, pausing automatically at frame indices listed in <code>anim_pause</code> and advancing on click or keyboard trigger (<code>A</code>).</li>
+</ul>
+<hr />
+<h2>2. 16:9 Presentation Stage &amp; SVG Font Auto-Bundler (<code>drawlib.slide</code> / <code>_slide/</code>)</h2>
+<p><code>drawlib.slide</code> compiles multi-locale Markdown slide decks (<code>slide_src/&lt;lang&gt;/*.md</code>, split horizontally on <code>---</code> dividers or organized as one file per slide) into self-contained <code>1920×1080</code> widescreen HTML presentations (<code>compiler.py</code>).</p>
+<h3>2.1. Dual Coordinate Geometry (<code>1920×1080</code> Stage + Vector Canvas)</h3>
+<p>Slide authoring combines two complementary coordinate spaces:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Layer</th>
+<th style="text-align:left">Coordinate System &amp; Origin</th>
+<th style="text-align:left">Primary Constructs &amp; Modules</th>
+<th style="text-align:left">Responsibility</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Macro HTML Stage</strong></td>
+<td style="text-align:left"><code>1920 × 1080</code> CSS pixels, <strong>Top-Left <code>(0, 0)</code></strong> (<code>+x</code> right, <code>+y</code> down)</td>
+<td style="text-align:left"><code>::: block xy=(x, y) width=W height=H ...</code>, <code>::: note</code> (<code>_slide/_blocks.py</code>), <code>BoundingBox</code> (<code>_slide/base.py</code>)</td>
+<td style="text-align:left">Crisp DOM typography, multi-column text boxes, tables, code blocks, and hidden speaker notes</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Micro Vector Canvas</strong></td>
+<td style="text-align:left">Cartesian units (e.g., <code>192 × 108</code> for full-bleed 16:9), <strong>Bottom-Left <code>(0, 0)</code></strong> (<code>+x</code> right, <code>+y</code> up)</td>
+<td style="text-align:left"><code>drawlib</code> blocks, <code>SlideContext</code> / <code>current_slide</code>, <code>draw_section_header()</code>, <code>draw_page_number()</code> (<code>_slide/helpers.py</code>)</td>
+<td style="text-align:left">Precision diagrams, charts, SmartArts, and section divider graphics rendered as inline <code>&lt;svg&gt;</code></td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li><strong>Container Block &amp; Speaker Note Preprocessor (<code>_slide/_blocks.py</code>)</strong>:
+<ul>
+<li><code>extract_slide_notes()</code> strips <code>::: note ... :::</code> blocks prior to Markdown rendering and emits <code>&lt;aside class=&quot;slide-notes&quot; hidden&gt;</code> inside each <code>&lt;section class=&quot;slide&quot;&gt;</code>.</li>
+<li><code>process_container_blocks()</code> and <code>parse_box_options()</code> parse <code>::: block</code> attributes (<code>xy=(x, y)</code>, <code>width</code>, <code>height</code>, <code>font_size</code>, <code>align</code>, <code>z_index</code>, <code>compact</code>, <code>class</code>, <code>style</code>) into <code>position: absolute</code> <code>&lt;div class=&quot;slide-block slide-text-box&quot;&gt;</code> containers (defaulting body content to <code>BoundingBox(80, 140, 1760, 840)</code> beneath the slide header).</li>
+</ul>
+</li>
+<li><strong>Thread-Safe Slide Pagination Context (<code>_slide/base.py</code>)</strong>:
+<ul>
+<li>Before executing a slide's <code>drawlib</code> blocks, <code>compiler.py</code> binds <code>SlideContext(index=i, total=N)</code> inside a <code>contextvars.ContextVar</code> accessed via the <code>current_slide</code> proxy (<code>from drawlib.slide import current_slide</code>). Built-in helpers like <code>draw_page_number()</code> and <code>draw_section_header(variant=&quot;split&quot;|&quot;centered&quot;|&quot;banner&quot;|&quot;minimal&quot;)</code> read <code>current_slide.index</code> and <code>current_slide.total</code> automatically.</li>
+</ul>
+</li>
+</ol>
+<h3>2.2. Self-Contained SVG <code>@font-face</code> Bundler (<code>bundle_svg_fonts</code>)</h3>
+<p>Standard Matplotlib SVG exports emit <code>font-family</code> names without embedding glyph outlines (<code>svg.fonttype = &quot;none&quot;</code>), which keeps text selectable and crisp but breaks typography—especially Phosphor icon ligatures and CJK fonts—on viewer machines lacking those local fonts. Drawlib solves this end-to-end across <code>l4_canvas</code> and <code>_slide/_assets.py</code>:</p>
+<ol>
+<li><strong>Canvas SVG Font Manifest Injection (<code>l4_canvas/_canvas.py</code>)</strong>: During <code>Canvas.save()</code> for <code>.svg</code> outputs, <code>_collect_svg_font_metadata()</code> inspects every Matplotlib <code>Text</code> artist on the figure, maps resolved font paths back to <code>builtin:fonts/&lt;rel&gt;</code> or <code>builtin:fonticons/&lt;rel&gt;</code> (or local custom font paths), and <code>_inject_svg_font_metadata()</code> writes a <code>&lt;!-- drawlib-svg-fonts: [...] --&gt;</code> JSON comment immediately before <code>&lt;/svg&gt;</code>.</li>
+<li><strong>Font Asset Extraction &amp; <code>@font-face</code> Synthesis (<code>_slide/_assets.py:bundle_svg_fonts</code>)</strong>:
+<ul>
+<li>When <code>build_slide()</code> inlines vector diagrams (<code>&lt;div class=&quot;slide-svg-wrapper&quot;&gt;</code>), <code>bundle_svg_fonts()</code> extracts the metadata comment, strips it from the emitted HTML, resolves cached font files (auto-downloading missing asset archives via <code>download_if_not_exist</code>), and copies referenced <code>.ttf</code> / <code>.otf</code> binaries into <code>&lt;output&gt;/_assets/fonts/</code>.</li>
+<li>It then synthesizes deduplicated <code>@font-face</code> rules (<code>url(&quot;../_assets/fonts/...&quot;)</code>) under <code>/* Auto-bundled Drawlib SVG Fonts */</code> at the bottom of each locale's <code>&lt;output&gt;/&lt;lang&gt;/style.css</code>, guaranteeing pixel-identical offline rendering across HTML and Chromium PDF builds.</li>
+</ul>
+</li>
+</ol>
+<h3>2.3. Interactive <code>slide.js</code> Runtime &amp; Dual-Window Presenter Console</h3>
+<p>Each compiled deck bundles a dependency-free browser runtime (<code>slide.js</code>) providing:</p>
+<ul>
+<li><strong>Responsive Stage Scaling &amp; Navigation</strong>: Dynamically scales the <code>1920×1080</code> stage to fit any viewport while supporting keyboard arrows/<code>Space</code>/<code>PageDown</code>, touch swipe gestures, Fullscreen (<code>F</code>), Language switching (<code>L</code>, preserving the active <code>#N</code> slide hash across locales), and interactive Overview Grid (<code>O</code> / <code>Escape</code>, cloning slide nodes and copying live <code>&lt;canvas&gt;</code> frame bitmaps into clickable thumbnails).</li>
+<li><strong>Synchronized Presenter Console (<code>P</code> / <code>S</code> -&gt; <code>?presenter=1</code>)</strong>: Opens a secondary presenter window displaying the current slide, a next-slide preview pane, scrollable <code>::: note</code> speaker notes with <code>A-</code> / <code>A+</code> font-size controls, and a pausable/resettable elapsed timer. Bidirectional state synchronization (<code>slide_change</code>, <code>anim_trigger</code>, <code>presenter_ready</code>) runs over <code>BroadcastChannel('drawlib_slide_sync')</code> with automatic <code>window.opener.postMessage</code> / <code>presenterWindow.postMessage</code> fallback for <code>file://</code> origins.</li>
+</ul>
+<hr />
+<h2>3. Live-DOM to Native PowerPoint <code>.pptx</code> Compiler (<code>_slide/compiler_pptx.py</code>)</h2>
+<p>Converting rich CSS/HTML/SVG slides into native editable PowerPoint <code>.pptx</code> files traditionally suffers from brittle Markdown-to-PPTX heuristics that lose CSS grid/card layouts, borders, colors, and CJK line metrics. Drawlib solves this via a <strong>4-stage Live-DOM to OOXML compilation pipeline</strong> (<code>compiler_pptx.py</code>, <code>_pptx_dom.py</code>, <code>_pptx_writer.py</code>):</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="../../images/03_domain_subsystems/04_animation_and_slide_engines/pptx_dom_extraction_pipeline.png" alt="04_animation_and_slide_engines_2" />
+  <figcaption class="drawlib-caption">4-Stage Live-DOM to Native Editable PowerPoint (.pptx) Compilation Pipeline</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.smartarts</span><span class="w"> </span><span class="kn">import</span> <span class="n">CardList</span><span class="p">,</span> <span class="n">ChevronProcess</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">120</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">48</span><span class="p">)</span>
+
+<span class="c1"># Top row: 4-stage sequential pipeline (ChevronProcess)</span>
+<span class="n">pipeline</span> <span class="o">=</span> <span class="n">ChevronProcess</span><span class="p">(</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="n">description_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">corner_angle</span><span class="o">=</span><span class="mf">65.0</span><span class="p">,</span>
+    <span class="n">spacing</span><span class="o">=</span><span class="mf">1.8</span><span class="p">,</span>
+    <span class="n">flat_left_end</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">pipeline</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"1. HTML Stage"</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">"240 DPI PNGs"</span><span class="p">)</span>
+<span class="n">pipeline</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="s2">"2. Chromium DOM"</span><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="s2">"1920x1080 CSS"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="n">description_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">pipeline</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"3. OOXML Mapper"</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">"0.5x -&gt; 960x540pt"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
+<span class="n">pipeline</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"4. .pptx Archive"</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">"OPC ZIP Fixed"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">)</span>
+<span class="n">pipeline</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">28.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">112.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">15.5</span><span class="p">)</span>
+
+<span class="c1"># Bottom row: Concrete module responsibilities &amp; artifacts (CardList)</span>
+<span class="n">details</span> <span class="o">=</span> <span class="n">CardList</span><span class="p">(</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="n">description_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">badge_shape</span><span class="o">=</span><span class="s2">"none"</span><span class="p">,</span>
+    <span class="n">icon_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">,</span>
+    <span class="n">direction</span><span class="o">=</span><span class="s2">"horizontal"</span><span class="p">,</span>
+    <span class="n">spacing</span><span class="o">=</span><span class="mf">2.2</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">details</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="s2">"build_slide()"</span><span class="p">,</span>
+    <span class="s2">"Static anim_frame</span><span class="se">\n</span><span class="s2">&amp; theme CSS stage"</span><span class="p">,</span>
+    <span class="n">icon</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">browsers</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">details</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="s2">"extract_deck_dom()"</span><span class="p">,</span>
+    <span class="s2">"PptxSlideSpec</span><span class="se">\n</span><span class="s2">z-sorted boxes &amp; runs"</span><span class="p">,</span>
+    <span class="n">icon</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">magnifying_glass</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">details</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="s2">"write_deck_to_pptx()"</span><span class="p">,</span>
+    <span class="s2">"&lt;a:alpha&gt;, &lt;a:ea&gt;</span><span class="se">\n</span><span class="s2">&amp; width safety buffer"</span><span class="p">,</span>
+    <span class="n">icon</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">file_ppt</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">details</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="s2">"Normalized OPC"</span><span class="p">,</span>
+    <span class="s2">"Deterministic dates</span><span class="se">\n</span><span class="s2">&amp; ZIP timestamps"</span><span class="p">,</span>
+    <span class="n">icon</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">shield_check</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
+    <span class="n">icon_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">details</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">112.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">21.5</span><span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<h3>Stage-by-Stage <code>.pptx</code> Compilation Mechanics</h3>
+<ol>
+<li><strong>High-DPI Raster Staging (<code>build_pptx</code> -&gt; <code>build_slide</code>)</strong>:
+<ul>
+<li><code>build_pptx()</code> first compiles the slide project into a temporary stage with <code>image_format=&quot;png&quot;</code>, <code>dpi=240</code>, <code>force_image_format=True</code>, and <code>static_anim_frame=anim_frame</code> (<code>&quot;last&quot;</code> by default). Pre-rasterizing diagrams at <code>240 DPI</code> (<code>ensure_static_office_image</code>) ensures PowerPoint displays crisp Retina-grade illustrations on Windows, macOS, and web viewers without SVG font mismatches.</li>
+</ul>
+</li>
+<li><strong>Headless Chromium Computed DOM Extraction (<code>_pptx_dom.py</code>: <code>extract_deck_dom</code>)</strong>:
+<ul>
+<li>Launches headless Playwright Chromium at an exact <code>1920×1080</code> viewport (<code>device_scale_factor=2</code>), injects <code>_STAGE_OVERRIDE_CSS</code> to lock stage scaling at <code>1:1</code>, and awaits <code>document.fonts.ready</code> plus full image decoding.</li>
+<li>Executes <code>_JS_EXTRACT_SLIDE</code> inside each <code>&lt;section.slide&gt;</code> to measure live <code>getBoundingClientRect()</code> geometry, computed CSS backgrounds/borders/radii, <code>&lt;table&gt;</code> cell grids, inline code pills, list markers, and fine-grained DOM <code>Range</code> text runs—returning z-layer-sorted dataclasses (<code>PptxDeckSpec</code>, <code>PptxSlideSpec</code>, <code>PptxCard</code>, <code>PptxRule</code>, <code>PptxImage</code>, <code>PptxTable</code>, <code>PptxTextBox</code>, <code>PptxParagraph</code>, <code>PptxRun</code>, <code>PptxColor</code>).</li>
+</ul>
+</li>
+<li><strong>OOXML Coordinate Scaling, Alpha &amp; CJK Typography (<code>_pptx_writer.py</code>: <code>write_deck_to_pptx</code>)</strong>:
+<ul>
+<li>Scales <code>1920×1080</code> CSS pixels by <code>_PX_TO_PT = 0.5</code> onto a widescreen 16:9 <code>python-pptx</code> presentation (<code>960 × 540 pt</code>, or <code>12,192,000 × 6,858,000 EMU</code>).</li>
+<li>Emits native editable shapes with DrawingML <code>&lt;a:alpha&gt;</code> fill/stroke opacity, applies horizontal text-box width safety buffers (<code>_compute_buffered_box_x_w</code>) so minor Chromium-vs-PowerPoint glyph width differences never cause unintended line wraps, attaches <code>&lt;a:ea typeface=&quot;...&quot;&gt;</code> XML elements (<code>default_ea_font</code>) so Japanese/Chinese/Korean runs render in their proper CJK font, and populates PowerPoint speaker notes from <code>notes_text</code>.</li>
+</ul>
+</li>
+<li><strong>Deterministic OPC Archive Normalization</strong>:
+<ul>
+<li>Normalizes <code>core_properties</code> timestamps (<code>resolve_office_datetime(timestamp=False)</code>) and rewrites Open Packaging Conventions (OPC) ZIP member headers (<code>normalize_opc_zip_timestamps()</code>), making <code>.pptx</code> builds byte-reproducible across CI runs unless <code>timestamp=True</code> is explicitly requested.</li>
+</ul>
+</li>
+</ol>
+<p>Next, proceed to Chapter 4: <strong><a href="../04_doc_builder_and_compiler/01_compilation_pipeline.html">Markdown Tokenization &amp; Code Block Processor</a></strong>.</p>
+
+            </main>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Theme toggle
+            const themeBtn = document.getElementById('theme-toggle');
+            if (themeBtn) {
+                themeBtn.addEventListener('click', function() {
+                    const current = document.documentElement.getAttribute('data-theme');
+                    const next = current === 'dark' ? 'light' : 'dark';
+                    document.documentElement.setAttribute('data-theme', next);
+                    localStorage.setItem('drawlib-theme', next);
+                });
+            }
+
+            // Language dropdown outside-click & Escape close
+            const langDropdowns = document.querySelectorAll('.lang-dropdown');
+            if (langDropdowns.length > 0) {
+                document.addEventListener('click', function(e) {
+                    langDropdowns.forEach(function(dd) {
+                        if (dd.hasAttribute('open') && !dd.contains(e.target)) {
+                            dd.removeAttribute('open');
+                        }
+                    });
+                });
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape') {
+                        langDropdowns.forEach(function(dd) {
+                            dd.removeAttribute('open');
+                        }
+                    });
+                });
+            }
+
+            // Mobile menu toggle
+            const menuBtn = document.getElementById('menu-toggle');
+            const sidebar = document.querySelector('.sidebar');
+            if (menuBtn && sidebar) {
+                function setMenuOpen(open) {
+                    sidebar.classList.toggle('is-open', open);
+                    menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+                    document.body.classList.toggle('menu-open', open);
+                    if (open) {
+                        const menu = sidebar.querySelector('.sidebar-menu');
+                        if (menu) {
+                            menu.scrollTop = 0;
+                        }
+                    }
+                }
+
+                menuBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const willOpen = !sidebar.classList.contains('is-open');
+                    setMenuOpen(willOpen);
+                });
+
+                // Close menu when clicking outside sidebar
+                document.addEventListener('click', function(e) {
+                    if (sidebar.classList.contains('is-open') && !sidebar.contains(e.target)) {
+                        setMenuOpen(false);
+                    }
+                });
+
+                // Close menu when a navigation link is clicked
+                const navLinks = sidebar.querySelectorAll('.nav-item a');
+                navLinks.forEach(function(link) {
+                    link.addEventListener('click', function() {
+                        setMenuOpen(false);
+                    });
+                });
+
+                // Close on Escape key
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape' && sidebar.classList.contains('is-open')) {
+                        setMenuOpen(false);
+                    }
+                });
+
+                // Reset menu state when resized above mobile breakpoint
+                window.addEventListener('resize', function() {
+                    if (window.innerWidth > 768 && sidebar.classList.contains('is-open')) {
+                        setMenuOpen(false);
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

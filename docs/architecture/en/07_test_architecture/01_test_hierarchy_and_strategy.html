@@ -25,21 +25,25 @@
         })();
     </script>
     
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     
-        <meta name="description" content="Testing a 2D drawing and documentation engine presents unique challenges: graphics must be thoroughly validated across operating systems without opening…">
+    
+    
+    <meta name="description" content="Testing a 2D illustration and multi-format document engine requires verifying both exact geometric invariants in memory and rendered visual output across…">
     <link rel="canonical" href="https://www.drawlib.com/architecture/en/07_test_architecture/01_test_hierarchy_and_strategy.html">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Drawlib Architecture">
     <meta property="og:title" content="Test Architecture: Hierarchy &amp; Headless Verification — Drawlib Architecture">
-    <meta property="og:description" content="Testing a 2D drawing and documentation engine presents unique challenges: graphics must be thoroughly validated across operating systems without opening…">
+    <meta property="og:description" content="Testing a 2D illustration and multi-format document engine requires verifying both exact geometric invariants in memory and rendered visual output across…">
     <meta property="og:url" content="https://www.drawlib.com/architecture/en/07_test_architecture/01_test_hierarchy_and_strategy.html">
     <meta property="og:image" content="https://www.drawlib.com/architecture/_assets/ogp.png">
     <meta property="og:locale" content="en_US">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Test Architecture: Hierarchy &amp; Headless Verification — Drawlib Architecture">
-    <meta name="twitter:description" content="Testing a 2D drawing and documentation engine presents unique challenges: graphics must be thoroughly validated across operating systems without opening…">
+    <meta name="twitter:description" content="Testing a 2D illustration and multi-format document engine requires verifying both exact geometric invariants in memory and rendered visual output across…">
     <meta name="twitter:image" content="https://www.drawlib.com/architecture/_assets/ogp.png">
-    
     
     
     <link rel="icon" type="image/png" href="../../_assets/favicon.png">
@@ -56,7 +60,8 @@
             <div class="sidebar-header">
                 <a href="../index.html" class="sidebar-brand" aria-label="Drawlib Architecture">
                     
-                    Drawlib Architecture
+                    <img src="../../_assets/logo.png" alt="Drawlib Architecture" class="sidebar-logo sidebar-logo-light">
+                    <img src="../../_assets/logo_dark.png" alt="Drawlib Architecture" class="sidebar-logo sidebar-logo-dark">
                     
                 </a>
                 <div class="sidebar-header-actions">
@@ -70,6 +75,15 @@
                     </button>
                 </div>
             </div>
+            <div class="sidebar-subbar">
+                <a href="https://www.drawlib.com/en/01_getting_started/release_notes.html" target="_blank" rel="noopener noreferrer" class="sidebar-version-badge" title="Architecture Specification · View Release Notes">
+                    <span class="sidebar-version-dot" aria-hidden="true"></span>
+                    <span class="sidebar-version-text">Architecture · v0.3.4</span>
+                </a>
+                <a href="https://github.com/yuichi110/drawlib" target="_blank" rel="noopener noreferrer" class="sidebar-github-link" aria-label="GitHub Repository" title="GitHub Repository">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+                </a>
+            </div>
             <div class="sidebar-menu">
                 
                     
@@ -82,6 +96,10 @@
                             
                             <li class="nav-item ">
                                 <a href="https://www.drawlib.com/" target="_blank" rel="noopener noreferrer">Official Docs<svg class="nav-external-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="https://examples.drawlib.com/" target="_blank" rel="noopener noreferrer">Examples Showcase<svg class="nav-external-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
                             </li>
                             
                         </ul>
@@ -137,6 +155,10 @@
                                 <a href="../03_domain_subsystems/03_graph_autolayout.html" >Graph Auto-Layout</a>
                             </li>
                             
+                            <li class="nav-item ">
+                                <a href="../03_domain_subsystems/04_animation_and_slide_engines.html" >Animation &amp; Slide Engines</a>
+                            </li>
+                            
                         </ul>
                     
                         
@@ -168,7 +190,7 @@
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../05_cli_and_runtime/02_preview_server.html" >Preview Server &amp; Tooling</a>
+                                <a href="../05_cli_and_runtime/02_preview_server.html" >Preview Server &amp; Assets</a>
                             </li>
                             
                         </ul>
@@ -213,7 +235,7 @@
         <div class="content-wrapper">
             <header class="top-bar">
                 <div class="breadcrumbs">
-                    <span class="crumb">Docs</span>
+                    <span class="crumb">Architecture</span>
                     <span class="crumb-separator">&raquo;</span>
                     <span class="crumb active">Test Architecture: Hierarchy &amp; Headless Verification</span>
                 </div>
@@ -221,159 +243,254 @@
             </header>
             <main class="main-content">
                 <h1>Test Architecture: Hierarchy &amp; Headless Verification</h1>
-<p>Testing a 2D drawing and documentation engine presents unique challenges: graphics must be thoroughly validated across operating systems without opening interactive windows, and without relying on fragile pixel-by-pixel bitmap comparisons.</p>
+<p>Testing a 2D illustration and multi-format document engine requires verifying both exact geometric invariants in memory and rendered visual output across Linux, Windows, and macOS—without opening GUI windows or writing brittle tests.</p>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="../../images/07_test_architecture/01_test_hierarchy_and_strategy/test_hierarchy_and_mirroring.png" alt="01_test_hierarchy_and_strategy_1" />
-  <figcaption class="drawlib-caption">1:1 Mirroring Test Suite Hierarchy</figcaption>
+  <figcaption class="drawlib-caption">Four-Tier Source-to-Test Structural Mirroring Across 159 Test Modules</figcaption>
 </figure>
 <details class="drawlib-code-details">
 <summary>Source Code</summary>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.smartarts</span><span class="w"> </span><span class="kn">import</span> <span class="n">Table</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Colors</span><span class="p">,</span> <span class="n">Styles</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">140</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">58</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">120</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">56</span><span class="p">)</span>
 
-<span class="n">rectangle</span><span class="p">((</span><span class="mi">70</span><span class="p">,</span> <span class="mi">29</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">136</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">54</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.5</span><span class="p">))</span>
-<span class="n">text</span><span class="p">(</span>
-    <span class="p">(</span><span class="mi">70</span><span class="p">,</span> <span class="mf">50.5</span><span class="p">),</span>
-    <span class="s2">"1:1 Structural Mirroring: Source Code vs. Test Hierarchy"</span><span class="p">,</span>
-    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">12.2</span><span class="p">),</span>
+<span class="n">table</span> <span class="o">=</span> <span class="n">Table</span><span class="p">(</span>
+    <span class="n">cell_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="n">header_cell_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
+    <span class="n">header_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.8</span><span class="p">),</span>
+    <span class="n">border_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedThin</span><span class="p">,</span>
 <span class="p">)</span>
 
-<span class="c1"># Source Layer</span>
-<span class="n">src_modules</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="p">(</span><span class="mi">22</span><span class="p">,</span> <span class="s2">"src/drawlib/_core"</span><span class="p">,</span> <span class="s2">"L1-L4 internal stack</span><span class="se">\n</span><span class="s2">Canvas, types, styles"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">cpu</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">54</span><span class="p">,</span> <span class="s2">"src/drawlib/shapes"</span><span class="p">,</span> <span class="s2">"Primitives, lines</span><span class="se">\n</span><span class="s2">text, bezier curves"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">shapes</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">86</span><span class="p">,</span> <span class="s2">"src/drawlib/charts"</span><span class="p">,</span> <span class="s2">"Domain components</span><span class="se">\n</span><span class="s2">SmartArts, Diagrams"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">chart_bar</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">118</span><span class="p">,</span> <span class="s2">"src/drawlib/_builder"</span><span class="p">,</span> <span class="s2">"Markdown compiler</span><span class="se">\n</span><span class="s2">HTML, PDF, CLI"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">file_code</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">),</span>
+<span class="n">table</span><span class="o">.</span><span class="n">set_style_cell_evenodd</span><span class="p">(</span>
+    <span class="n">even_color</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">shape_fill_color</span><span class="p">,</span>
+    <span class="n">even_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="n">odd_color</span><span class="o">=</span><span class="n">Colors</span><span class="o">.</span><span class="n">White</span><span class="p">,</span>
+    <span class="n">odd_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">table</span><span class="o">.</span><span class="n">set_style_cell_rowheader</span><span class="p">(</span>
+    <span class="n">background_color</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">shape_fill_color</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">,</span> <span class="n">xy_shift</span><span class="o">=</span><span class="p">(</span><span class="mf">2.4</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)),</span>
+<span class="p">)</span>
+<span class="n">table</span><span class="o">.</span><span class="n">set_style_cell_header</span><span class="p">(</span>
+    <span class="n">background_color</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">shape_fill_color</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.8</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">table</span><span class="o">.</span><span class="n">set_style_border</span><span class="p">(</span>
+    <span class="n">top</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">1.4</span><span class="p">),</span>
+    <span class="n">top2</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">1.1</span><span class="p">),</span>
+    <span class="n">bottom</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">1.4</span><span class="p">),</span>
+    <span class="n">left2</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedThin</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">0.9</span><span class="p">),</span>
+    <span class="n">between_columns</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedThin</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">0.6</span><span class="p">),</span>
+    <span class="n">between_rows</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedThin</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">0.6</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">rows</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">[</span><span class="s2">"Architecture Tier"</span><span class="p">,</span> <span class="s2">"Production Source"</span><span class="p">,</span> <span class="s2">"Mirrored Test Suite"</span><span class="p">,</span> <span class="s2">"dcli Shortcuts"</span><span class="p">],</span>
+    <span class="p">[</span>
+        <span class="s2">"1. Core Stack"</span><span class="p">,</span>
+        <span class="s2">"src/drawlib/_core/ (L1–L4)</span><span class="se">\n</span><span class="s2">6 shape groups · lines · text"</span><span class="p">,</span>
+        <span class="s2">"tests/drawlib/_core/</span><span class="se">\n</span><span class="s2">&amp; preset_styles/"</span><span class="p">,</span>
+        <span class="s2">"core · canvas</span><span class="se">\n</span><span class="s2">types · styles"</span><span class="p">,</span>
+    <span class="p">],</span>
+    <span class="p">[</span>
+        <span class="s2">"2. Domain Suites"</span><span class="p">,</span>
+        <span class="s2">"src/drawlib/_{charts,diagrams,</span><span class="se">\n</span><span class="s2">smartarts,graph,slide,anim,icons}"</span><span class="p">,</span>
+        <span class="s2">"tests/drawlib/{charts,diagrams,</span><span class="se">\n</span><span class="s2">smartarts,graph,slide,anim,icons}"</span><span class="p">,</span>
+        <span class="s2">"charts · graph</span><span class="se">\n</span><span class="s2">diagrams · icons"</span><span class="p">,</span>
+    <span class="p">],</span>
+    <span class="p">[</span>
+        <span class="s2">"3. Build &amp; Server"</span><span class="p">,</span>
+        <span class="s2">"src/drawlib/{_builder,</span><span class="se">\n</span><span class="s2">_cli,_http_server}/"</span><span class="p">,</span>
+        <span class="s2">"tests/drawlib/{doc_builder,</span><span class="se">\n</span><span class="s2">cli,http_server}/"</span><span class="p">,</span>
+        <span class="s2">"doc-builder</span><span class="se">\n</span><span class="s2">cli"</span><span class="p">,</span>
+    <span class="p">],</span>
+    <span class="p">[</span>
+        <span class="s2">"4. Dev Tooling"</span><span class="p">,</span>
+        <span class="s2">"tools/dcli/</span><span class="se">\n</span><span class="s2">(7 developer CLI toolsets)"</span><span class="p">,</span>
+        <span class="s2">"tests/dcli/</span><span class="se">\n</span><span class="s2">(11 CLI &amp; sync test modules)"</span><span class="p">,</span>
+        <span class="s2">"dcli"</span><span class="p">,</span>
+    <span class="p">],</span>
 <span class="p">]</span>
 
-<span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">desc</span><span class="p">,</span> <span class="n">icon_func</span><span class="p">,</span> <span class="n">card_style</span><span class="p">,</span> <span class="n">icon_style</span> <span class="ow">in</span> <span class="n">src_modules</span><span class="p">:</span>
-    <span class="n">rectangle</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="mi">38</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">card_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
-    <span class="n">icon_func</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="mf">11.5</span><span class="p">,</span> <span class="mi">38</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">icon_style</span><span class="p">)</span>
-    <span class="n">text</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">41</span><span class="p">),</span> <span class="n">title</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">icon_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">8.2</span><span class="p">))</span>
-    <span class="n">text</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="mi">8</span><span class="p">,</span> <span class="mf">35.5</span><span class="p">),</span> <span class="n">desc</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">7.0</span><span class="p">))</span>
+<span class="n">table</span><span class="o">.</span><span class="n">draw_flexible</span><span class="p">(</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">3.5</span><span class="p">,</span> <span class="mf">52.5</span><span class="p">),</span>
+    <span class="n">column_widths</span><span class="o">=</span><span class="p">[</span><span class="mf">26.5</span><span class="p">,</span> <span class="mf">34.5</span><span class="p">,</span> <span class="mf">34.0</span><span class="p">,</span> <span class="mf">18.0</span><span class="p">],</span>
+    <span class="n">row_heights</span><span class="o">=</span><span class="p">[</span><span class="mf">8.5</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">],</span>
+    <span class="n">data</span><span class="o">=</span><span class="n">rows</span><span class="p">,</span>
+    <span class="n">align</span><span class="o">=</span><span class="s2">"top_left"</span><span class="p">,</span>
+<span class="p">)</span>
 
-<span class="c1"># Test Layer</span>
-<span class="n">test_modules</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="p">(</span><span class="mi">22</span><span class="p">,</span> <span class="s2">"tests/drawlib/_core"</span><span class="p">,</span> <span class="s2">"Mirroring unit tests</span><span class="se">\n</span><span class="s2">State &amp; style tests"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">flask</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">54</span><span class="p">,</span> <span class="s2">"tests/drawlib/shapes"</span><span class="p">,</span> <span class="s2">"Patch geometry tests</span><span class="se">\n</span><span class="s2">Bounding box checks"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">check_circle</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">86</span><span class="p">,</span> <span class="s2">"tests/drawlib/charts"</span><span class="p">,</span> <span class="s2">"Domain calculations</span><span class="se">\n</span><span class="s2">Data mapping tests"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">check_circle</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">118</span><span class="p">,</span> <span class="s2">"tests/drawlib/doc_builder"</span><span class="p">,</span> <span class="s2">"AST parsing tests</span><span class="se">\n</span><span class="s2">Link validation tests"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">check_circle</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">),</span>
+<span class="n">tier_icons</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="mf">39.0</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">stack</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">29.0</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">shapes</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">19.0</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">terminal_window</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">9.0</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">wrench</span><span class="p">),</span>
 <span class="p">]</span>
-
-<span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">desc</span><span class="p">,</span> <span class="n">icon_func</span><span class="p">,</span> <span class="n">card_style</span><span class="p">,</span> <span class="n">icon_style</span> <span class="ow">in</span> <span class="n">test_modules</span><span class="p">:</span>
-    <span class="n">rectangle</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">card_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
-    <span class="n">icon_func</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="mf">11.5</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">icon_style</span><span class="p">)</span>
-    <span class="n">text</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">18</span><span class="p">),</span> <span class="n">title</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">icon_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">8.2</span><span class="p">))</span>
-    <span class="n">text</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="mi">8</span><span class="p">,</span> <span class="mf">12.5</span><span class="p">),</span> <span class="n">desc</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">7.0</span><span class="p">))</span>
-    <span class="c1"># Vertical mirroring connector</span>
-    <span class="n">line</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="mf">31.5</span><span class="p">),</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mf">21.5</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"&lt;-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">cy</span><span class="p">,</span> <span class="n">icon_fn</span> <span class="ow">in</span> <span class="n">tier_icons</span><span class="p">:</span>
+    <span class="n">icon_fn</span><span class="p">((</span><span class="mf">6.6</span><span class="p">,</span> <span class="n">cy</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.6</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
 
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 </details>
 <hr />
 <h2>1. Concept: The Dual-Verification Testing Strategy</h2>
-<p>Traditional graphical test suites suffer from severe dilemmas: relying strictly on bitmap comparisons leads to brittle tests and false positives across operating systems, while relying solely on property tests risks silent visual regressions (such as clipped labels or overlapping connectors).</p>
-<p>Drawlib resolves this with a <strong>Dual-Verification Architecture</strong>:</p>
-<pre><code><span class="w">                 </span><span class="o">[</span><span class="n">Drawing Function Under Test</span><span class="o">]</span>
-<span class="w">                               </span><span class="err">│</span>
-<span class="w">               </span><span class="err">┌───────────────┴───────────────┐</span>
-<span class="w">               </span><span class="err">▼</span><span class="w">                               </span><span class="err">▼</span>
-<span class="w">       </span><span class="o">[</span><span class="n">Layer 1: Property</span><span class="o">]</span><span class="w">             </span><span class="o">[</span><span class="n">Layer 2: Visual</span><span class="o">]</span>
-<span class="w">    </span><span class="ow">In</span><span class="o">-</span><span class="n">memory</span><span class="w"> </span><span class="n">direct</span><span class="w"> </span><span class="n">assertions</span><span class="w">     </span><span class="n">pytest_runtest_call</span><span class="w"> </span><span class="n">hook</span>
-<span class="w">    </span><span class="err">•</span><span class="w"> </span><span class="n">Bounding</span><span class="w"> </span><span class="n">box</span><span class="w"> </span><span class="n">math</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">w</span><span class="p">,</span><span class="w"> </span><span class="n">h</span><span class="p">)</span><span class="err">•</span><span class="w"> </span><span class="n">check_image_match</span><span class="p">()</span>
-<span class="w">    </span><span class="err">•</span><span class="w"> </span><span class="n">Color</span><span class="w"> </span><span class="n">hex</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">RGBA</span><span class="w"> </span><span class="k">values</span><span class="w">       </span><span class="err">•</span><span class="w"> </span><span class="n">PIL</span><span class="w"> </span><span class="n">histogram</span><span class="w"> </span><span class="n">diffing</span>
-<span class="w">    </span><span class="err">•</span><span class="w"> </span><span class="n">Patch</span><span class="w"> </span><span class="n">counts</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">stroke</span><span class="w"> </span><span class="n">widths</span><span class="w">  </span><span class="err">•</span><span class="w"> </span><span class="n">output_tests</span><span class="o">/</span><span class="w"> </span><span class="n">vs</span><span class="w"> </span><span class="o">*</span><span class="n">_answers</span><span class="o">/</span>
-<span class="w">    </span><span class="err">•</span><span class="w"> </span><span class="n">Fast</span><span class="p">,</span><span class="w"> </span><span class="k">cross</span><span class="o">-</span><span class="n">platform</span><span class="w"> </span><span class="n">unit</span><span class="w">     </span><span class="err">•</span><span class="w"> </span><span class="nv">@pytest</span><span class="p">.</span><span class="n">mark</span><span class="p">.</span><span class="n">image_threshold</span>
-</code></pre>
-<ol>
-<li><strong>Layer 1 — Mathematical Geometry Assertions</strong>: Fast in-memory unit tests that verify coordinate transforms, bounding boxes, patch counts, and style attributes without disk I/O.</li>
-<li><strong>Layer 2 — Automated Image Regression Hook</strong>: A custom <code>pytest_runtest_call</code> hook in <code>conftest.py</code> that intercepts test completion, comparing newly rendered output images in <code>output_tests/</code> against golden reference images in <code>*_answers/</code> using PIL histogram diffing (<code>check_image_match()</code>).</li>
-<li><strong>Configurable Thresholds</strong>: Tests calibrate tolerance via <code>@pytest.mark.image_threshold(0.99)</code>, accommodating sub-pixel rasterization variances across operating systems while immediately catching visual layout breakages.</li>
-</ol>
-<hr />
-<h2>2. Positioning: The Test Suite Architecture</h2>
-<p>The test suite is organized into two primary sub-packages, separated from the production distribution:</p>
+<p>Graphical libraries face a classic testing trade-off: pure bitmap assertions break over minor sub-pixel anti-aliasing differences across OS font engines, whereas pure data-model assertions miss visual bugs like clipped labels, inverted coordinates, or broken Matplotlib patches.</p>
+<p>Drawlib combines both techniques inside a <strong>Dual-Verification Headless Pipeline</strong> orchestrated by <code>tests/conftest.py</code> and <code>tests/utils.py</code>:</p>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="../../images/07_test_architecture/01_test_hierarchy_and_strategy/headless_graphics_test_pipeline.png" alt="01_test_hierarchy_and_strategy_2" />
-  <figcaption class="drawlib-caption">Headless Graphics Testing and Patch Assertion Mechanics</figcaption>
+  <figcaption class="drawlib-caption">Headless Pytest Execution Lifecycle and Dual Verification Branches</figcaption>
 </figure>
 <details class="drawlib-code-details">
 <summary>Source Code</summary>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.diagrams.flow</span><span class="w"> </span><span class="kn">import</span> <span class="n">End</span><span class="p">,</span> <span class="n">FlowDiagram</span><span class="p">,</span> <span class="n">Process</span><span class="p">,</span> <span class="n">Start</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">140</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">52</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">124</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">56</span><span class="p">)</span>
 
-<span class="n">rectangle</span><span class="p">((</span><span class="mi">70</span><span class="p">,</span> <span class="mi">26</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">136</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">48</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.5</span><span class="p">))</span>
-<span class="n">text</span><span class="p">(</span>
-    <span class="p">(</span><span class="mi">70</span><span class="p">,</span> <span class="mf">45.5</span><span class="p">),</span>
-    <span class="s2">"Headless Graphics Execution and Patch Assertion Pipeline"</span><span class="p">,</span>
-    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">12.2</span><span class="p">),</span>
+<span class="n">flow</span> <span class="o">=</span> <span class="n">FlowDiagram</span><span class="p">(</span>
+    <span class="n">node_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.8</span><span class="p">),</span>
+    <span class="n">edge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+    <span class="n">edge_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.6</span><span class="p">),</span>
 <span class="p">)</span>
 
-<span class="n">steps</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="p">(</span><span class="mf">18.5</span><span class="p">,</span> <span class="s2">"1. Pytest Fixture"</span><span class="p">,</span> <span class="s2">"Isolated Canvas state</span><span class="se">\n</span><span class="s2">Temporary memory buffers"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">flask</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">),</span>
-    <span class="p">(</span><span class="mf">52.5</span><span class="p">,</span> <span class="s2">"2. Headless Draw"</span><span class="p">,</span> <span class="s2">"setup(100, 50)</span><span class="se">\n</span><span class="s2">rectangle((50,25), ...)"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">paint_brush</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">),</span>
-    <span class="p">(</span><span class="mf">86.5</span><span class="p">,</span> <span class="s2">"3. Virtual Axes"</span><span class="p">,</span> <span class="s2">"Agg Backend in memory</span><span class="se">\n</span><span class="s2">Generates patch primitives"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">cpu</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">),</span>
-    <span class="p">(</span><span class="mf">120.5</span><span class="p">,</span> <span class="s2">"4. Patch Assertions"</span><span class="p">,</span> <span class="s2">"assert patch.get_x() == 50</span><span class="se">\n</span><span class="s2">assert color == '#2563EB'"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">shield_check</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">),</span>
-<span class="p">]</span>
+<span class="n">init_node</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Start</span><span class="p">(</span>
+        <span class="s2">"preprocess()</span><span class="se">\n</span><span class="s2">grid_only=True"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mf">21.0</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mf">13.5</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
+        <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">10.5</span><span class="p">,</span> <span class="mf">24.5</span><span class="p">),</span>
+<span class="p">)</span>
 
-<span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">desc</span><span class="p">,</span> <span class="n">icon_func</span><span class="p">,</span> <span class="n">card_style</span><span class="p">,</span> <span class="n">icon_style</span> <span class="ow">in</span> <span class="n">steps</span><span class="p">:</span>
-    <span class="n">rectangle</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="mf">21.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">28</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">31</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">card_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.8</span><span class="p">))</span>
-    <span class="n">icon_func</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="mf">9.5</span><span class="p">,</span> <span class="mf">31.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.4</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">icon_style</span><span class="p">)</span>
-    <span class="n">text</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="mf">5.5</span><span class="p">,</span> <span class="mf">31.5</span><span class="p">),</span> <span class="n">title</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">icon_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">9.0</span><span class="p">))</span>
-    <span class="n">sub_style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">White</span> <span class="k">if</span> <span class="n">card_style</span> <span class="o">==</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span>
-    <span class="n">text</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="mf">16.5</span><span class="p">),</span> <span class="n">desc</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">sub_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.2</span><span class="p">))</span>
+<span class="n">exec_node</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Process</span><span class="p">(</span>
+        <span class="s2">"Test Function</span><span class="se">\n</span><span class="s2">Headless Draw"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mf">19.5</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mf">13.5</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.8</span><span class="p">),</span>
+        <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">35.25</span><span class="p">,</span> <span class="mf">24.5</span><span class="p">),</span>
+<span class="p">)</span>
 
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
-    <span class="n">x_from</span> <span class="o">=</span> <span class="n">steps</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mf">14.0</span>
-    <span class="n">x_to</span> <span class="o">=</span> <span class="n">steps</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mf">14.0</span>
-    <span class="n">line</span><span class="p">((</span><span class="n">x_from</span><span class="p">,</span> <span class="mf">21.5</span><span class="p">),</span> <span class="p">(</span><span class="n">x_to</span><span class="p">,</span> <span class="mf">21.5</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+<span class="n">prop_branch</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Process</span><span class="p">(</span>
+        <span class="s2">"1. In-Memory Model &amp; Pydantic</span><span class="se">\n</span><span class="s2">Geometry, Styles &amp; ValidationError"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mf">49.0</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mf">14.0</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.8</span><span class="p">),</span>
+        <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">74.0</span><span class="p">,</span> <span class="mf">40.5</span><span class="p">),</span>
+<span class="p">)</span>
 
+<span class="n">save_node</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Process</span><span class="p">(</span>
+        <span class="s2">"save() PNG</span><span class="se">\n</span><span class="s2">output_tests/"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mf">19.0</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mf">14.0</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.8</span><span class="p">),</span>
+        <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">59.0</span><span class="p">,</span> <span class="mf">8.5</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">golden_node</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Process</span><span class="p">(</span>
+        <span class="s2">"2. check_image_match()</span><span class="se">\n</span><span class="s2">&gt;= 97.0% vs *_answers/"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mf">25.0</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mf">14.0</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.8</span><span class="p">),</span>
+        <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">86.0</span><span class="p">,</span> <span class="mf">8.5</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">teardown_node</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">End</span><span class="p">(</span>
+        <span class="s2">"clear()</span><span class="se">\n</span><span class="s2">Teardown"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mf">15.0</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mf">13.5</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+        <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">109.5</span><span class="p">,</span> <span class="mf">24.5</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">init_node</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">exec_node</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+<span class="n">exec_node</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">prop_branch</span><span class="p">,</span> <span class="n">start_side</span><span class="o">=</span><span class="s2">"top"</span><span class="p">,</span> <span class="n">end_side</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span><span class="o">.</span><span class="n">via</span><span class="p">((</span><span class="mf">35.25</span><span class="p">,</span> <span class="mf">40.5</span><span class="p">))</span>
+<span class="n">exec_node</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">save_node</span><span class="p">,</span> <span class="n">start_side</span><span class="o">=</span><span class="s2">"bottom"</span><span class="p">,</span> <span class="n">end_side</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span><span class="o">.</span><span class="n">via</span><span class="p">((</span><span class="mf">35.25</span><span class="p">,</span> <span class="mf">8.5</span><span class="p">))</span>
+<span class="n">save_node</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">golden_node</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+<span class="n">prop_branch</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">teardown_node</span><span class="p">,</span> <span class="n">start_side</span><span class="o">=</span><span class="s2">"right"</span><span class="p">,</span> <span class="n">end_side</span><span class="o">=</span><span class="s2">"top"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span><span class="o">.</span><span class="n">via</span><span class="p">((</span><span class="mf">109.5</span><span class="p">,</span> <span class="mf">40.5</span><span class="p">))</span>
+<span class="n">golden_node</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">teardown_node</span><span class="p">,</span> <span class="n">start_side</span><span class="o">=</span><span class="s2">"right"</span><span class="p">,</span> <span class="n">end_side</span><span class="o">=</span><span class="s2">"bottom"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span><span class="o">.</span><span class="n">via</span><span class="p">((</span><span class="mf">109.5</span><span class="p">,</span> <span class="mf">8.5</span><span class="p">))</span>
+
+<span class="n">flow</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">3.5</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">))</span>
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 </details>
 <ol>
-<li><strong><code>tests/drawlib/</code></strong>: Tests the core library package. Contains unit tests for L1–L4 layers, domain components (charts, diagrams, smartarts, graph), document builder engines, and CLI interfaces.</li>
-<li><strong><code>tests/dcli/</code></strong>: Tests internal development tools, CLI subcommands, release asset management scripts, and Docker orchestration.</li>
+<li><strong>Branch 1 — In-Memory Model &amp; <code>@validate_call</code> Assertions</strong>: Fast unit tests verify coordinate solvers, bounding-box math, mutable component <code>.items</code> state, SQLite cache keys, and Pydantic <code>ValidationError</code> boundaries directly in memory without touching disk.</li>
+<li><strong>Branch 2 — Automatic Golden-Image Regression (<code>pytest_runtest_call</code>)</strong>: Whenever a test saves a PNG under <code>output_tests/</code>, <code>tests/conftest.py</code> automatically compares the rendered bytes against the committed reference PNG in <code>&lt;test_module&gt;_answers/</code> via <code>check_image_match()</code>.</li>
 </ol>
 <hr />
-<h2>3. Details: Test Fixtures and Targeted Execution</h2>
-<h3>3.1. Pytest Fixtures &amp; Canvas Isolation</h3>
-<p><code>tests/conftest.py</code> provides shared test fixtures to ensure complete isolation between tests:</p>
+<h2>2. Positioning: The 159-Module Structural Layout</h2>
+<p>The repository's <strong>159 <code>test_*.py</code> modules</strong> (<code>148</code> under <code>tests/drawlib/</code> and <code>11</code> under <code>tests/dcli/</code>) mirror internal implementation boundaries rather than duplicating thin public re-export facades:</p>
 <ul>
-<li><strong>Canvas Reset</strong>: Ensures the Canvas singleton state is cleared before and after each test function, preventing coordinate leakage or stale drawing buffers.</li>
-<li><strong>Filesystem Isolation</strong>: Provides temporary sandbox directories for document builder compilation tests, preventing dirty artifacts from polluting the workspace.</li>
+<li><strong>Core Stack (<code>tests/drawlib/_core/</code> &amp; <code>tests/drawlib/preset_styles/</code>)</strong>: Mirrors <code>src/drawlib/_core/</code> (<code>l1_core</code>, <code>l2_types</code>, <code>l3_colors</code>, <code>l3_external</code>, <code>l3_fonts</code>, <code>l3_images</code>, <code>l3_math</code>, <code>l3_styles</code>, and <code>l4_canvas</code>—where all 6 shape categories, lines, text, and image primitives live under <code>tests/drawlib/_core/l4_canvas/</code>).</li>
+<li><strong>Domain Component Suites (<code>tests/drawlib/{charts,diagrams,smartarts,graph,slide,anim,icons,release_assets}/</code>)</strong>: Mirrors <code>src/drawlib/_{charts,diagrams,smartarts,graph,slide,anim,icons}/</code> and <code>_release_assets.py</code>, pairing layout/validation tests with <code>&lt;test_stem&gt;_answers/</code> golden PNG directories.</li>
+<li><strong>Builders, CLI &amp; HTTP Server (<code>tests/drawlib/{doc_builder,cli,http_server}/</code>)</strong>: Mirrors <code>src/drawlib/{_builder,_cli,_http_server}/</code>, exercising Markdown compilation, DOCX/PPTX/PDF exporters, link validation, and the local preview server (alongside <code>test_docexist.py</code> and <code>test_lazy_imports.py</code> at the <code>tests/drawlib/</code> root).</li>
+<li><strong>Developer Tooling (<code>tests/dcli/</code>)</strong>: Mirrors <code>tools/dcli/</code>, verifying toolset discovery, shell autocompletion, docstring AST scanning, deterministic ZIP manifest syncing, PyPI SemVer checks, and Docker CLI command construction.</li>
 </ul>
-<h3>3.2. Targeted Execution via <code>./dcli test</code></h3>
-<p>Running the entire test suite on every change can slow down rapid iteration. <code>./dcli test</code> provides fast targeted shortcuts:</p>
-<pre><code class="language-bash"><span class="c1"># Run tests by module shortcut</span>
-./dcli<span class="w"> </span><span class="nb">test</span><span class="w"> </span>target<span class="w"> </span>core<span class="w">          </span><span class="c1"># Tests src/drawlib/_core/</span>
-./dcli<span class="w"> </span><span class="nb">test</span><span class="w"> </span>target<span class="w"> </span>charts<span class="w">        </span><span class="c1"># Tests charts and quantitative models</span>
-./dcli<span class="w"> </span><span class="nb">test</span><span class="w"> </span>target<span class="w"> </span>diagrams<span class="w">      </span><span class="c1"># Tests UML and architecture diagrams</span>
-./dcli<span class="w"> </span><span class="nb">test</span><span class="w"> </span>target<span class="w"> </span>graph<span class="w">         </span><span class="c1"># Tests declarative DAG autolayout</span>
-./dcli<span class="w"> </span><span class="nb">test</span><span class="w"> </span>target<span class="w"> </span>doc-builder<span class="w">   </span><span class="c1"># Tests Markdown compiler and link checker</span>
+<hr />
+<h2>3. Details: Fixtures, RGB Histogram Diffing, and <code>./dcli test</code></h2>
+<h3>3.1. Canvas Isolation &amp; <code>pytest_runtest_call</code> (<code>tests/conftest.py</code>)</h3>
+<p><code>tests/conftest.py</code> guarantees deterministic isolation across sequential and <code>pytest-xdist</code> workers through two mechanisms:</p>
+<ul>
+<li><strong><code>preprocess()</code> Autouse Fixture (<code>scope=&quot;function&quot;, autouse=True</code>)</strong>: Sets <code>NO_COLOR=&quot;1&quot;</code> and <code>TERM=&quot;dumb&quot;</code> for stable CLI output assertions, silences library warnings via <code>drawlib_settings._set_suppress_warning(True)</code>, initializes a clean headless canvas with <code>setup(grid_only=True)</code> before <code>yield</code>, and executes <code>clear()</code> after <code>yield</code> so figure state never leaks across tests.</li>
+<li><strong><code>pytest_runtest_call(item)</code> Hook Wrapper</strong>: Snapshots <code>.png</code> modification times inside <code>output_tests/&lt;subpath&gt;/</code> before executing the test body. If the test passes without raising an exception, every newly created or modified <code>.png</code> is mapped to <code>tests/drawlib/&lt;subpath&gt;/&lt;test_stem&gt;_answers/&lt;rel_name&gt;.png</code> via <code>_get_answers_file_path()</code> and verified during the <code>call</code> phase.</li>
+</ul>
+<h3>3.2. <code>0.0</code>–<code>100.0</code> Pixel Match Percentage (<code>tests/utils.py:check_image_match</code>)</h3>
+<p><code>check_image_match()</code> evaluates visual fidelity on a <strong><code>0.0</code> to <code>100.0</code> percentage scale</strong> (never <code>0.0</code>–<code>1.0</code>):</p>
+<ol>
+<li>Loads both the generated PNG bytes and golden reference PNG in memory via Pillow and normalizes both to <code>&quot;RGB&quot;</code>.</li>
+<li>Rejects mismatched dimensions immediately (<code>img1.size != img2.size</code>).</li>
+<li>Computes <code>ImageChops.difference(img1, img2).convert(&quot;L&quot;).histogram()[0]</code>, which counts the exact number of pixels with zero luminance difference (<code>R, G, B</code> identical), and divides by <code>width * height * 100</code>:
+$$\text{match_percentage} = \frac{\text{hist}[0]}{\text{width} \times \text{height}} \times 100.0$$</li>
+<li><code>tests/conftest.py</code> enforces a default threshold of <strong><code>97.0</code></strong> (<code>97.0%</code> exact pixel match), absorbing minor FreeType/platform anti-aliasing variance along glyph edges while catching any geometry, color, or layout regression. Individual tests tighten or relax tolerance on the same <code>0.0</code>–<code>100.0</code> scale using <code>@pytest.mark.image_threshold</code>:</li>
+</ol>
+<pre><code class="language-python"><span class="kn">import</span><span class="w"> </span><span class="nn">pytest</span>
 
-<span class="c1"># Run full test suite with parallel execution</span>
-./dcli<span class="w"> </span><span class="nb">test</span><span class="w"> </span>all<span class="w"> </span>--parallel
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">image_threshold</span><span class="p">(</span><span class="mf">98.5</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">test_precision_badge_alignment</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="o">...</span>
 </code></pre>
-<h3>3.3. Parallelization &amp; Code Coverage</h3>
+<h3>3.3. 18 Module Shortcuts, Parallel Execution &amp; Cross-OS CI (<code>tools/dcli/test.py</code>)</h3>
+<p><code>./dcli test</code> wraps <code>uv run pytest -s</code> with 18 <code>MODULE_SHORTCUTS</code> for sub-second targeted feedback during development:</p>
 <ul>
-<li><strong>pytest-xdist (<code>--parallel</code>)</strong>: Spawns multiple worker processes, utilizing all CPU cores for sub-second test execution.</li>
-<li><strong>Coverage Auditing (<code>--cov-report</code>)</strong>: Generates line and branch coverage metrics, ensuring critical geometric calculation paths and validation checks are verified.</li>
+<li><strong>Top-Level Suites (2)</strong>: <code>drawlib</code> (<code>tests/drawlib/</code>), <code>dcli</code> (<code>tests/dcli/</code>).</li>
+<li><strong>Core &amp; Engine Shortcuts (7)</strong>: <code>core</code> (<code>_core/</code>), <code>types</code> (<code>_core/l2_types/</code>), <code>styles</code> (<code>_core/l3_styles/</code>), <code>fonts</code> (<code>_core/l3_fonts/</code>), <code>images</code> (<code>_core/l3_images/</code>), <code>canvas</code> (<code>_core/l4_canvas/</code>), <code>preset-styles</code> (<code>preset_styles/</code>).</li>
+<li><strong>Domain, Builder &amp; CLI Shortcuts (9)</strong>: <code>icons</code>, <code>smartarts</code>, <code>charts</code>, <code>diagrams</code>, <code>graph</code>, <code>slide</code>, <code>anim</code>, <code>cli</code>, <code>doc-builder</code> (<code>doc_builder/</code>).</li>
 </ul>
-<p>Next, explore how repository dogfooding and static quality gates guarantee zero-defect releases in <strong><a href="02_dogfooding_and_quality_gates.html">Dogfooding &amp; Quality Gates</a></strong>.</p>
+<pre><code class="language-bash"><span class="c1"># Fast targeted iteration on a shortcut or explicit test file</span>
+./dcli<span class="w"> </span><span class="nb">test</span><span class="w"> </span>target<span class="w"> </span>canvas
+./dcli<span class="w"> </span><span class="nb">test</span><span class="w"> </span>target<span class="w"> </span>doc-builder
+
+<span class="c1"># Full suite (--parallel and --cov=drawlib enabled by default on 'all' and 'drawlib')</span>
+./dcli<span class="w"> </span><span class="nb">test</span><span class="w"> </span>all<span class="w"> </span>--cov-report
+</code></pre>
+<ul>
+<li><strong>Default Parallelism &amp; Coverage</strong>: On <code>./dcli test all</code> and <code>./dcli test drawlib</code>, <code>--parallel</code> (<code>-n auto --dist loadfile</code>, grouping each test module onto a single worker so module-scoped <code>output_tests/</code> directories never race) and <code>--cov</code> (<code>--cov=drawlib</code>, with <code>--cov-report</code> adding <code>--cov-report=term-missing</code>) are <strong>enabled by default</strong>.</li>
+<li><strong>Cross-OS Continuous Integration (<code>.github/workflows/ut_github.yml</code>)</strong>: Runs the full test suite on every push and pull request to <code>main</code> across <code>ubuntu-latest</code>, <code>windows-latest</code>, and <code>macos-latest</code> via <code>ut_template.yml</code> (default Python <code>3.12</code>, with <code>workflow_dispatch</code> support for <code>3.11</code>, <code>3.12</code>, and <code>3.13</code>).</li>
+</ul>
+<p>Next, explore how live repository dogfooding and static quality gates verify end-to-end documentation builds in <strong><a href="02_dogfooding_and_quality_gates.html">Dogfooding &amp; Quality Gates</a></strong>.</p>
 
             </main>
         </div>
@@ -406,8 +523,8 @@
                     if (e.key === 'Escape') {
                         langDropdowns.forEach(function(dd) {
                             dd.removeAttribute('open');
-                        });
-                    }
+                        }
+                    });
                 });
             }
 

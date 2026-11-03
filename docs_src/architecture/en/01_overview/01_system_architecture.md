@@ -1,45 +1,60 @@
 # System Architecture & Design Principles
 
-Drawlib is built from the ground up as a pure-Python, headless illustration and documentation compilation framework. It eliminates the traditional divide between software source code and graphical documentation by making visual diagrams first-class, version-controlled software artifacts.
+Drawlib is engineered from the ground up as a pure-Python illustration, slide, and documentation compilation framework. It eliminates the divide between software source code and visual documentation by treating diagrams, animations, technical specs, and slide decks as version-controlled software artifacts.
 
-This document details the high-level system execution flow, package boundaries, and core design principles governing Drawlib's implementation.
+This chapter details Drawlib's end-to-end execution pipeline, lazy public package facade, internal subsystem boundaries, and deterministic runtime invariants.
 
-```drawlib align=center code=fold file=system_architecture_pipeline.png caption="End-to-End System Execution Pipeline"
+```drawlib align=center code=fold file=system_architecture_pipeline.png caption="End-to-End Compilation & Rendering Pipeline"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
-from drawlib.lines import line
-from drawlib.shapes import rectangle
+from drawlib.shapes import circle
+from drawlib.smartarts import ChevronProcess
 from drawlib.styles import Styles
-from drawlib.text import text
 
-setup(width=140, height=58)
+setup(width=118, height=42)
 
-rectangle((70, 29), width=136, height=54, style=Styles.Neutral.patch(shape_r=2.5))
-text(
-    (70, 50),
-    "End-to-End System Execution Pipeline",
-    style=Styles.DarkBold.patch(text_size=12.5),
+pipeline = ChevronProcess(
+    style=Styles.Neutral,
+    text_style=Styles.DarkBold.patch(text_size=11.0),
+    description_style=Styles.Dark.patch(text_size=10.5),
+    corner_angle=64.0,
+    spacing=2.0,
+    flat_left_end=True,
 )
+pipeline.add(
+    "1. Source & TOML",
+    description=".md, .py & styles",
+    style=Styles.PrimaryNeutral,
+)
+pipeline.add(
+    "2. AST & Cache",
+    description="< 1ms SQLite hit",
+    style=Styles.SecondaryNeutral,
+)
+pipeline.add(
+    "3. Canvas & Anim",
+    description="L1–L4 Agg & Pillow",
+    style=Styles.PrimaryFlat,
+    text_style=Styles.WhiteBold.patch(text_size=11.0),
+    description_style=Styles.White.patch(text_size=10.5),
+)
+pipeline.add(
+    "4. Multi-Target",
+    description="Web, Slide & Office",
+    style=Styles.Neutral,
+)
+pipeline.draw(xy=(3.0, 4.0), width=112.0, height=23.0)
 
-steps = [
-    (18, "1. Source Code", "Markdown Fence\nor Standalone .py", phosphor.code, Styles.PrimaryNeutral, Styles.PrimaryBold),
-    (52, "2. Cache & AST", "SQLite .drawlib/\n0ms Incremental", phosphor.database, Styles.SecondaryNeutral, Styles.SecondaryBold),
-    (86, "3. Canvas Engine", "L1-L4 Facade\nMatplotlib Agg", phosphor.palette, Styles.PrimaryFlat, Styles.WhiteBold),
-    (120, "4. Artifacts", "HTML / PDF / PNG\nMulti-Target Output", phosphor.check_circle, Styles.PrimaryNeutral, Styles.PrimaryBold),
+# Stage icon badges aligned above each chevron body
+stage_icons = [
+    (16.5, phosphor.file_code, Styles.PrimaryNeutral, Styles.PrimaryBold),
+    (45.2, phosphor.database, Styles.SecondaryNeutral, Styles.SecondaryBold),
+    (72.8, phosphor.cpu, Styles.PrimaryFlat, Styles.WhiteBold),
+    (100.4, phosphor.export, Styles.Neutral, Styles.DarkBold),
 ]
-
-for x, title, desc, icon_func, card_style, icon_style in steps:
-    rectangle((x, 25), width=27, height=34, style=card_style.patch(shape_r=1.8))
-    icon_func((x - 8, 36), width=3.8, style=icon_style)
-    title_style = Styles.WhiteBold if card_style == Styles.PrimaryFlat else Styles.DarkBold
-    desc_style = Styles.White if card_style == Styles.PrimaryFlat else Styles.Dark
-    text((x + 2.5, 36), title, style=title_style.patch(text_size=9.6))
-    text((x, 20), desc, style=desc_style.patch(text_size=8.5))
-
-for i in range(3):
-    x_from = steps[i][0] + 13.5
-    x_to = steps[i + 1][0] - 13.5
-    line((x_from, 25), (x_to, 25), arrow_head="->", style=Styles.DarkBold)
+for cx, icon_fn, badge_style, icon_style in stage_icons:
+    circle((cx, 34.0), radius=4.2, style=badge_style)
+    icon_fn((cx, 34.0), width=4.4, style=icon_style)
 
 save()
 ```
@@ -48,119 +63,163 @@ save()
 
 ## 1. Concept: Core Architectural Tenets
 
-Drawlib addresses the fundamental problems of GUI-based diagramming and low-level plotting libraries through three architectural pillars:
+Drawlib addresses the limitations of GUI diagramming tools and low-level plotting libraries through three architectural principles:
 
-### 1.1. Pure Python as the Declarative Drawing Medium
-Traditional diagram generators either require external domain-specific languages (e.g. PlantUML, Mermaid, Graphviz DOT) that lack programming power, or low-level plotting APIs (e.g. raw Matplotlib, Cairo) that require hundreds of lines of boilerplate for simple boxes and arrows.
+### 1.1. Declarative Python Over DSLs & Plotting Boilerplate
+External diagram DSLs (Mermaid, PlantUML, DOT) lack general-purpose programming expressiveness and fine-grained layout control, while low-level graphics APIs (raw Matplotlib, Cairo, SVG DOM) demand hundreds of lines of boilerplate for simple boxes and connectors.
 
-Drawlib provides a high-level, declarative Python API:
-- Visual elements are expressed with concise functions (`rectangle()`, `line()`, `chevron_process()`, `architecture()`).
-- Python data structures (lists, dicts, tuples) drive diagram generation directly from real data.
-- Diagram code runs in standard Python environments (`uv run python`), with full autocomplete and type checking in modern IDEs.
+Drawlib exposes a declarative, strongly typed Python API across every abstraction level:
+- **Primitives & High-Level Classes**: Concise functions (`rectangle()`, `line()`, `text()`) compose seamlessly with structured classes (`ChevronProcess`, `ArchitectureDiagram`, `ArchitectureGraph`, `BarChart`, `Animation`).
+- **Data-Driven Authoring**: Standard Python loops, comprehensions, dataclasses, and JSON/TOML payloads drive diagram generation directly without template string concatenation.
+- **Static & Runtime Type Safety**: Every public function and model is annotated for IDE autocompletion (`py.typed`) and guarded by lazy Pydantic call validation.
 
-### 1.2. Headless In-Memory Execution
-Drawlib requires no display server, window manager, or headless browser to render static diagrams:
-- Diagrams render entirely in-memory using Matplotlib's non-interactive `Agg` (Anti-Grain Geometry) backend.
-- Execution is completely deterministic: given the same inputs, random seed, and font assets, Drawlib produces bit-identical PNG, SVG, or PDF outputs on Linux, macOS, and Windows.
-- CI/CD runners can build hundreds of illustrations without installing complex GUI dependencies or Xvfb virtualization.
+### 1.2. Two-Tier Headless Execution Model
+Drawlib separates core graphics rasterization from paginated browser/Office export so routine rendering stays fast and lightweight:
+- **In-Memory Canvas & Animation Engine (No Browser Required)**: Static images (`PNG`, `SVG`, `WebP`) and multi-frame animations (`WebP`, `APNG` via `drawlib.anim`) render 100% in-memory through Matplotlib's non-interactive `Agg` (Anti-Grain Geometry) backend and Pillow—requiring zero X11/Wayland servers or browser processes.
+- **Managed Chromium & Native OpenXML Export**: Paginated print PDFs (`build pdf`) and live DOM bounding-box extraction for PowerPoint slides (`build pptx`) delegate to a shared, auto-provisioned headless Playwright Chromium launcher (`_builder/_common/browser.py`), while Word documents (`.docx`) and PowerPoint slide XML (`.pptx`) are assembled natively via `python-docx` and `python-pptx`.
 
 ### 1.3. Zero-Drift Single Source of Truth
-Instead of maintaining diagrams and documentation in disconnected repositories, Drawlib unifies them inside Git:
-- Technical specifications author documentation in Markdown with embedded ````drawlib```` Python blocks.
-- The build engine verifies all code blocks, catches execution errors, and generates synchronized HTML, Markdown, and PDF assets in a single pass.
-- Architecture drift is eliminated because diagrams fail compilation if underlying interfaces change.
+Documentation and presentations live alongside code in Git (`*_src/<lang>/*.md` and `drawlib.toml`):
+- Embedded ````drawlib```` blocks execute in-process during compilation; broken imports or invalid style tokens fail the build immediately rather than shipping stale visuals.
+- A single source tree emits HTML web portals, 16:9 HTML slide decks (`drawlib.slide`), vector PDFs, `.docx`, `.pptx`, standalone Markdown, and SEO / LLM discovery metadata (`sitemap.xml`, `robots.txt`, `llms.txt`).
 
 ---
 
 ## 2. Positioning: Package Architecture & Boundaries
 
-Drawlib's codebase (`src/drawlib/`) strictly isolates user-facing public interfaces from internal rendering mechanics, layout algorithms, and build tooling:
+Drawlib (`src/drawlib/`) strictly separates its **20 lazy-loaded public submodules** from internal `_core` layers, domain engines, and build/CLI compilers:
 
-```drawlib align=center code=fold file=package_boundaries.png caption="Drawlib Package Architecture & Internal Subsystems"
+```drawlib align=center code=fold file=package_boundaries.png caption="Drawlib Package Boundaries & Unidirectional Dependency Flow"
 from drawlib.canvas import save, setup
-from drawlib.icons import phosphor
-from drawlib.lines import line
-from drawlib.shapes import rectangle
+from drawlib.diagrams.architecture import ArchitectureDiagram, Node, NodeGroup, PhosphorIcon
 from drawlib.styles import Styles
-from drawlib.text import text
 
-setup(width=140, height=64)
+setup(width=122, height=66)
 
-rectangle((70, 32), width=136, height=60, style=Styles.Neutral.patch(shape_r=2.5))
-text(
-    (70, 56.5),
-    "Drawlib Package Architecture & Internal Subsystems",
-    style=Styles.DarkBold.patch(text_size=12.2),
+d = ArchitectureDiagram(
+    node_style=Styles.PrimaryBold,
+    node_text_style=Styles.DarkBold.patch(text_size=10.5),
+    edge_style=Styles.DarkBold,
+    edge_text_style=Styles.Dark.patch(text_size=10.0),
+    node_card_style=Styles.Neutral.patch(shape_r=1.3),
 )
 
-# 1. Public Facades (Top Layer)
-rectangle((70, 47), width=126, height=9, style=Styles.PrimaryFlat.patch(shape_r=1.5))
-phosphor.shield_check((15, 47), width=4.0, style=Styles.WhiteBold)
-text(
-    (72, 47),
-    "Public Facades: drawlib.canvas, shapes, lines, text, styles, icons, smartarts, charts, diagrams, graph",
-    style=Styles.WhiteBold.patch(text_size=9.2),
+# Tier 1 (Top): Entrypoints, Compilers & Slide Engine
+g_top = d.add(
+    NodeGroup(
+        title="Entrypoints & Compilers (_cli, _builder, _slide, _http_server)",
+        width=116.0,
+        height=17.5,
+        style=Styles.Neutral.patch(shape_r=1.6, shape_line_style="solid"),
+        text_style=Styles.DarkBold.patch(text_size=11.0, halign="left", valign="top"),
+    ),
+    xy=(3.0, 46.0),
+)
+g_top.add(Node("_cli & _http_server", width=33.0, height=10.2, icon=PhosphorIcon.TERMINAL, icon_size=4.0), xy=(20.0, 6.0))
+g_top.add(Node("_builder (Doc / Office / SEO)", width=38.0, height=10.2, icon=PhosphorIcon.FILE_CODE, icon_size=4.0), xy=(58.0, 6.0))
+g_top.add(Node("_slide & _templates", width=33.0, height=10.2, icon=PhosphorIcon.PRESENTATION, icon_size=4.0), xy=(96.0, 6.0))
+
+# Tier 2 (Middle-Left): 20 Lazy Public Facades
+g_pub = d.add(
+    NodeGroup(
+        title="20 Public Facades (PEP 562)",
+        width=55.0,
+        height=17.5,
+        style=Styles.PrimaryNeutral.patch(shape_r=1.6, shape_line_style="solid"),
+        text_style=Styles.PrimaryBold.patch(text_size=11.0, halign="left", valign="top"),
+    ),
+    xy=(3.0, 24.0),
+)
+g_pub.add(Node("canvas, shapes, lines,\ntext, styles, fonts, icons", width=24.5, height=10.4, icon=PhosphorIcon.PACKAGE, icon_size=3.8), xy=(14.5, 6.0))
+g_pub.add(Node("smartarts, charts, graph,\ndiagrams, anim, slide", width=24.5, height=10.4, icon=PhosphorIcon.SHIELD_CHECK, icon_size=3.8), xy=(41.0, 6.0))
+
+# Tier 2 (Middle-Right): Domain Subsystems
+g_dom = d.add(
+    NodeGroup(
+        title="Domain Subsystems (_smartarts .. _anim)",
+        width=55.0,
+        height=17.5,
+        style=Styles.SecondaryNeutral.patch(shape_r=1.6, shape_line_style="solid"),
+        text_style=Styles.SecondaryBold.patch(text_size=11.0, halign="left", valign="top"),
+    ),
+    xy=(64.0, 24.0),
+)
+g_dom.add(
+    Node("_smartarts, _charts,\n_icons, _preset_*", width=24.5, height=10.4, icon=PhosphorIcon.SHAPES, icon_size=3.8, style=Styles.SecondaryBold),
+    xy=(14.5, 6.0),
+)
+g_dom.add(
+    Node("_diagrams, _graph,\n_anim (WebP / APNG)", width=24.5, height=10.4, icon=PhosphorIcon.GRAPH, icon_size=3.8, style=Styles.SecondaryBold),
+    xy=(41.0, 6.0),
 )
 
-# 2. Middle Row: Domain Subsystems (Left) vs Core Drawing Stack (Right)
-# Domain Modules
-rectangle((38, 26), width=60, height=27, style=Styles.PrimaryNeutral.patch(shape_r=1.8))
-phosphor.shapes((13, 35.5), width=3.8, style=Styles.PrimaryBold)
-text((17, 35.5), "Domain Modules (_charts, _diagrams, _graph)", style=Styles.PrimaryBold.patch(halign="left", text_size=9.6))
-text(
-    (38, 23.0),
-    "• SmartArts Layout Engine (Tree, Table, Mindmap)\n• Quantitative Charts (Data -> Canvas Mapping)\n• Auto-Layout Graphs (Layer, Architecture, DAGs)",
-    style=Styles.Dark.patch(text_size=8.5),
+# Tier 3 (Bottom): Core Drawing Engine (_core/)
+g_core = d.add(
+    NodeGroup(
+        title="Core Drawing Engine (_core: l1_core -> l2_types -> l3_* -> l4_canvas)",
+        width=116.0,
+        height=17.0,
+        style=Styles.PrimaryNeutral.patch(shape_r=1.6, shape_line_style="solid"),
+        text_style=Styles.PrimaryBold.patch(text_size=11.0, halign="left", valign="top"),
+    ),
+    xy=(3.0, 2.5),
+)
+g_core.add(Node("l1_core & l2_types", width=33.0, height=9.8, icon=PhosphorIcon.GEAR, icon_size=3.8), xy=(20.0, 5.8))
+g_core.add(Node("l3_* (Colors, Styles, Math)", width=38.0, height=9.8, icon=PhosphorIcon.DATABASE, icon_size=3.8), xy=(58.0, 5.8))
+g_core.add(
+    Node(
+        "l4_canvas (10 Mixins & Agg)",
+        width=33.0,
+        height=9.8,
+        icon=PhosphorIcon.CPU,
+        icon_size=3.8,
+        style=Styles.WhiteBold,
+        text_style=Styles.WhiteBold.patch(text_size=10.5),
+        card_style=Styles.PrimaryFlat.patch(shape_r=1.3),
+    ),
+    xy=(96.0, 5.8),
 )
 
-# Core Drawing Stack
-rectangle((102, 26), width=60, height=27, style=Styles.SecondaryNeutral.patch(shape_r=1.8))
-phosphor.cpu((77, 35.5), width=3.8, style=Styles.SecondaryBold)
-text((81, 35.5), "Core Drawing Engine (_core/)", style=Styles.SecondaryBold.patch(halign="left", text_size=9.6))
-text(
-    (102, 23.0),
-    "• L1 Core (Settings, Logging, Constants, Paths)\n• L2 Types (Coordinate Tuples, Pydantic Bounds)\n• L3 Services (Colors, Fonts, Styles, Math, Assets)\n• L4 Canvas (Diamond Mixin Stack, Matplotlib Bridge)",
-    style=Styles.Dark.patch(text_size=8.5),
-)
+# Clean downward and facade-to-domain dependency edges
+d.connect(d.junction((30.5, 46.0)), d.junction((30.5, 41.5)), routing="direct", padding=0.4)
+d.connect(d.junction((91.5, 46.0)), d.junction((91.5, 41.5)), routing="direct", padding=0.4)
+d.connect(g_pub, g_dom, routing="direct", padding=0.5)
+d.connect(d.junction((30.5, 24.0)), d.junction((30.5, 19.5)), routing="direct", padding=0.4)
+d.connect(d.junction((91.5, 24.0)), d.junction((91.5, 19.5)), routing="direct", padding=0.4)
 
-# Connecting arrows
-line((38, 42.5), (38, 39.5), arrow_head="->", style=Styles.DarkBold)
-line((102, 42.5), (102, 39.5), arrow_head="->", style=Styles.DarkBold)
-line((68, 26), (72, 26), arrow_head="->", style=Styles.DarkBold)
-
-# 3. Bottom Row: Build & Tooling Systems
-rectangle((70, 7.5), width=126, height=7, style=Styles.Neutral.patch(shape_r=1.2))
-phosphor.terminal((14, 7.5), width=3.5, style=Styles.DarkBold)
-text(
-    (71, 7.5),
-    "Tooling & Compilation Layer: _builder (doc_builder, image_builder), _cli (Typer), _http_server",
-    style=Styles.Dark.patch(text_size=9.0),
-)
-
+d.draw(xy=(0.0, 0.0))
 save()
 ```
 
-### Subsystem Boundaries
-- **Public Domain Facades (`src/drawlib/*.py`)**: Thin re-export modules (`canvas`, `shapes`, `lines`, `text`, `icons`, `smartarts`, `charts`, `diagrams`, `graph`). They expose guarded, user-friendly APIs while hiding internal implementation classes.
-- **Internal Core Engine (`src/drawlib/_core/`)**: The foundational drawing stack organized into strictly layered modules (`l1_core` through `l4_canvas`), including `l3_external` for deterministic binary asset synchronization.
-- **Domain Implementations (`src/drawlib/_*/`)**: High-level visual components (`_smartarts`, `_charts`, `_diagrams`, `_graph`, `_slide`, `_anim`, `_icons`, `_preset_styles`).
-- **Compilation & Tooling Layer (`src/drawlib/_builder/`, `_cli/`, `_http_server/`)**: Markdown parser, code execution sandboxing, multi-target exporters, Typer CLI, and preview server.
+### 2.1. Lazy Root Package (`src/drawlib/__init__.py`)
+To keep CLI startup (`drawlib --help`, `drawlib rules`) near-instantaneous without eagerly importing Matplotlib, Pillow, or Playwright, `src/drawlib/__init__.py` implements **PEP 562 module-level `__getattr__` and `__dir__`** over `_LAZY_MODULES`. All **20 public submodules** are loaded on first attribute access while remaining statically visible under `if TYPE_CHECKING:`:
+
+| Category | Public Submodules (`drawlib.<name>`) | Backing Internal Packages |
+| :--- | :--- | :--- |
+| **Canvas & Primitives** | `canvas`, `shapes`, `lines`, `text`, `images`, `math` | `_core/l4_canvas`, `_core/l3_images`, `_core/l3_math` |
+| **Styling, Fonts & Icons** | `styles`, `preset_styles`, `preset_colors`, `fonts`, `icons`, `types` | `_core/l2_types`, `_core/l3_colors`, `_core/l3_styles`, `_core/l3_fonts`, `_preset_colors`, `_preset_styles`, `_icons` |
+| **High-Level Components** | `smartarts`, `charts`, `diagrams`, `graph` | `_smartarts`, `_charts`, `_diagrams`, `_graph` |
+| **Motion, Slides & Runtime** | `anim`, `slide`, `tools`, `utils` | `_anim`, `_slide`, `_core/l3_external`, `_release_assets.py` |
+
+### 2.2. Internal Subsystem Packages (`src/drawlib/_*/`)
+- **Core Engine (`_core/`)**: Strictly layered drawing foundation (`l1_core`, `l2_types`, `l3_colors`, `l3_external`, `l3_fonts`, `l3_images`, `l3_math`, `l3_styles`, `l4_canvas`).
+- **Domain Engines (`_icons/`, `_preset_colors/`, `_preset_styles/`, `_smartarts/`, `_charts/`, `_diagrams/`, `_graph/`, `_anim/`, `_slide/`)**: Self-contained visual models, layout solvers, multi-frame animation recorders, and 16:9 HTML/PDF/`.pptx` slide compilers.
+- **Compiler, Assets & CLI (`_builder/`, `_templates/`, `_rules/`, `_cli/`, `_http_server/`, `_release_assets.py`)**: Project scaffolding templates, embedded AI agent manuals, `image_builder` / `doc_builder` pipelines (HTML, Markdown, PDF, `.docx`, `.pptx`, SEO/`llms.txt`), local preview server, and release asset manifest bindings.
 
 ---
 
-## 3. Details: Internal Architecture & Runtime Environment
+## 3. Details: Runtime Determinism & Incremental Caching
 
-### 3.1. Matplotlib Abstraction & Backend Management
-While Matplotlib powers Drawlib's rasterization and vector export, Drawlib intentionally shields developers from Matplotlib's complex API (`Axes`, `Figure`, `Transform`, `Spines`):
-- **Deterministic Headless Configuration**: Drawlib configures Matplotlib with vector-safe settings upon canvas initialization, setting `rcParams["svg.fonttype"] = "none"` (to preserve text as pure editable text glyphs) and `rcParams["svg.hashsalt"] = "drawlib"` (to ensure byte-for-byte deterministic SVG output across runs).
-- **Spine & Margin Elimination**: Every canvas automatically removes all axes, ticks, spines, and margins via `ax.axis("off")`, `tight_layout()`, and `subplots_adjust(left=0, right=1, bottom=0, top=1)`, leaving a pure Cartesian drawing plane.
-- **Fixed 10.0-Inch / 720pt Typography Mapping**: Drawlib fixes figure width to `FIGURE_WIDTH_INCHES = 10.0` ($10.0 \times 72 = 720\text{ pt}$). A canvas unit therefore maps directly to $720.0 / \text{width}$ points, establishing a deterministic typographic baseline where `text_size=10.5`–`12.0` precisely matches standard $16\text{px}$ HTML body text when rendered.
+### 3.1. Deterministic Matplotlib `Agg` Configuration
+Although Matplotlib rasterizes primitives under the hood, Drawlib encapsulates `Figure`, `Axes`, and `Patch` state behind `_core/l4_canvas`:
+- **Reproducible Vector & SVG Output**: Canvas initialization sets `matplotlib.rcParams["svg.fonttype"] = "none"` (retaining editable text glyphs with embedded `<!-- drawlib-svg-fonts: ... -->` metadata) and `matplotlib.rcParams["svg.hashsalt"] = "drawlib"` for byte-for-byte deterministic SVG IDs across runs.
+- **Zero-Margin Cartesian Plane**: Every canvas configures `set_xlim(0, width)`, `set_ylim(0, height)`, `set_aspect("equal")`, `axis("off")`, `tight_layout()`, and `subplots_adjust(left=0, right=1, bottom=0, top=1)`.
+- **Fixed `10.0`-Inch (`720pt`) Typography Baseline**: `CanvasBase` fixes `FIGURE_WIDTH_INCHES = 10.0` ($10.0 \times 72 = 720\text{ pt}$). One logical canvas unit equals $720.0 / \text{width}$ points, ensuring `text_size = 10.5`–`12.0` matches `16px` HTML prose when `width = 100..125`.
 
-### 3.2. Reproducibility & Cryptographic Caching
-Drawlib's build pipeline integrates a high-performance SQLite caching engine (`.drawlib/cache.db`):
-- **Static Analysis & Dependency Tracking**: Drawlib statically analyzes code blocks to identify target outputs without execution, while hashing all referenced local files (`styles.py`, `utils.py`, `_assets/`).
-- **Composite Hash**: An image is re-rendered only if the code content, canvas dimensions, imported styles, or referenced assets have changed.
-- **Sub-Millisecond Restores**: Unchanged diagrams are restored from cache in `< 1ms`, allowing documentation sites with hundreds of illustrations to compile in seconds.
+### 3.2. Sub-Millisecond Incremental SQLite Cache (`.drawlib/cache.db`)
+Re-executing hundreds of Python diagrams on every documentation edit would bottleneck authoring. Drawlib's `_builder` layer integrates a cryptographic SQLite cache (`.drawlib/cache.db`):
+- **AST Static Target & Dependency Extraction**: `_image_ast.py` parses Python scripts and ````drawlib```` fences via Python's `ast` module to resolve output filenames (`.png`, `.svg`, `.webp`), animation flags, and local file dependencies (`styles.py`, `utils.py`, `_assets/*`) without executing code.
+- **Composite SHA-256 Cache Keys**: Cache entries bind source code hashes, helper module hashes, referenced asset digests, and library version metadata.
+- **`< 1ms` Incremental Restores**: Unchanged static and animated diagrams restore directly from `.drawlib/cache.db` in **`< 1ms`**, enabling multi-page portals, `.docx` specs, and `.pptx` slide decks to recompile in seconds.
 
-Next, explore the strict unidirectional dependency model in **[Layer Hierarchy](02_layer_hierarchy.md)**.
-
+Next, examine the strict layer dependency rules in **[Layer Hierarchy](02_layer_hierarchy.md)**.

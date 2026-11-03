@@ -13,7 +13,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Link Scanner &amp; Preflight Quality Validation</title>
+    <title>Link Scanner, Structural Parity &amp; Quality Gates</title>
     <script>
         (function() {
             const saved = localStorage.getItem('drawlib-theme');
@@ -25,21 +25,25 @@
         })();
     </script>
     
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     
-        <meta name="description" content="Technical documentation is only as reliable as its cross-references. In large documentation projects spanning dozens of pages and thousands of links, broken…">
+    
+    
+    <meta name="description" content="Technical documentation is only as trustworthy as its cross-references and locale consistency. Across multi-page sites and multi-locale builds, broken…">
     <link rel="canonical" href="https://www.drawlib.com/architecture/en/04_doc_builder_and_compiler/03_link_and_quality_scanner.html">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Drawlib Architecture">
-    <meta property="og:title" content="Link Scanner &amp; Preflight Quality Validation — Drawlib Architecture">
-    <meta property="og:description" content="Technical documentation is only as reliable as its cross-references. In large documentation projects spanning dozens of pages and thousands of links, broken…">
+    <meta property="og:title" content="Link Scanner, Structural Parity &amp; Quality Gates — Drawlib Architecture">
+    <meta property="og:description" content="Technical documentation is only as trustworthy as its cross-references and locale consistency. Across multi-page sites and multi-locale builds, broken…">
     <meta property="og:url" content="https://www.drawlib.com/architecture/en/04_doc_builder_and_compiler/03_link_and_quality_scanner.html">
     <meta property="og:image" content="https://www.drawlib.com/architecture/_assets/ogp.png">
     <meta property="og:locale" content="en_US">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Link Scanner &amp; Preflight Quality Validation — Drawlib Architecture">
-    <meta name="twitter:description" content="Technical documentation is only as reliable as its cross-references. In large documentation projects spanning dozens of pages and thousands of links, broken…">
+    <meta name="twitter:title" content="Link Scanner, Structural Parity &amp; Quality Gates — Drawlib Architecture">
+    <meta name="twitter:description" content="Technical documentation is only as trustworthy as its cross-references and locale consistency. Across multi-page sites and multi-locale builds, broken…">
     <meta name="twitter:image" content="https://www.drawlib.com/architecture/_assets/ogp.png">
-    
     
     
     <link rel="icon" type="image/png" href="../../_assets/favicon.png">
@@ -56,7 +60,8 @@
             <div class="sidebar-header">
                 <a href="../index.html" class="sidebar-brand" aria-label="Drawlib Architecture">
                     
-                    Drawlib Architecture
+                    <img src="../../_assets/logo.png" alt="Drawlib Architecture" class="sidebar-logo sidebar-logo-light">
+                    <img src="../../_assets/logo_dark.png" alt="Drawlib Architecture" class="sidebar-logo sidebar-logo-dark">
                     
                 </a>
                 <div class="sidebar-header-actions">
@@ -70,6 +75,15 @@
                     </button>
                 </div>
             </div>
+            <div class="sidebar-subbar">
+                <a href="https://www.drawlib.com/en/01_getting_started/release_notes.html" target="_blank" rel="noopener noreferrer" class="sidebar-version-badge" title="Architecture Specification · View Release Notes">
+                    <span class="sidebar-version-dot" aria-hidden="true"></span>
+                    <span class="sidebar-version-text">Architecture · v0.3.4</span>
+                </a>
+                <a href="https://github.com/yuichi110/drawlib" target="_blank" rel="noopener noreferrer" class="sidebar-github-link" aria-label="GitHub Repository" title="GitHub Repository">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+                </a>
+            </div>
             <div class="sidebar-menu">
                 
                     
@@ -82,6 +96,10 @@
                             
                             <li class="nav-item ">
                                 <a href="https://www.drawlib.com/" target="_blank" rel="noopener noreferrer">Official Docs<svg class="nav-external-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="https://examples.drawlib.com/" target="_blank" rel="noopener noreferrer">Examples Showcase<svg class="nav-external-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
                             </li>
                             
                         </ul>
@@ -137,6 +155,10 @@
                                 <a href="../03_domain_subsystems/03_graph_autolayout.html" >Graph Auto-Layout</a>
                             </li>
                             
+                            <li class="nav-item ">
+                                <a href="../03_domain_subsystems/04_animation_and_slide_engines.html" >Animation &amp; Slide Engines</a>
+                            </li>
+                            
                         </ul>
                     
                         
@@ -168,7 +190,7 @@
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../05_cli_and_runtime/02_preview_server.html" >Preview Server &amp; Tooling</a>
+                                <a href="../05_cli_and_runtime/02_preview_server.html" >Preview Server &amp; Assets</a>
                             </li>
                             
                         </ul>
@@ -213,161 +235,306 @@
         <div class="content-wrapper">
             <header class="top-bar">
                 <div class="breadcrumbs">
-                    <span class="crumb">Docs</span>
+                    <span class="crumb">Architecture</span>
                     <span class="crumb-separator">&raquo;</span>
-                    <span class="crumb active">Link Scanner &amp; Preflight Quality Validation</span>
+                    <span class="crumb active">Link Scanner, Structural Parity &amp; Quality Gates</span>
                 </div>
                 
             </header>
             <main class="main-content">
-                <h1>Link Scanner &amp; Preflight Quality Validation</h1>
-<p>Technical documentation is only as reliable as its cross-references. In large documentation projects spanning dozens of pages and thousands of links, broken hyperlinks, missing asset files, and accidental local filesystem leaks (<code>file:///home/user/...</code>) severely compromise quality and portability.</p>
-<p>Drawlib enforces link integrity through a <strong>Dual-Layer Validation Pipeline</strong>: a build-time Markdown link linter (<code>compiler/base.py</code>) combined with a preflight recursive HTML link crawler (<code>_http_server/_link_scanner.py</code>).</p>
+                <h1>Link Scanner, Structural Parity &amp; Quality Gates</h1>
+<p>Technical documentation is only as trustworthy as its cross-references and locale consistency. Across multi-page sites and multi-locale builds, broken relative paths, colliding image filenames, drifted translations, and accidental workstation path leaks (<code>file:///...</code> or <code>/Users/...</code>) undermine portability and expose private directory layouts.</p>
+<p>Drawlib enforces repository hygiene through a <strong>Two-Phase Validation Architecture</strong>: build-time structural, duplicate, and source-link gates (<code>doc_builder/progress.py</code>, <code>_image_ast.py</code>, <code>doc_builder/i18n.py</code>, and <code>compiler/base.py</code>) paired with a post-build HTML link and asset crawler (<code>_http_server/_link_scanner.py</code>).</p>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="../../images/04_doc_builder_and_compiler/03_link_and_quality_scanner/link_validator_pipeline.png" alt="03_link_and_quality_scanner_1" />
-  <figcaption class="drawlib-caption">Dual-Layer Link & Path Hygiene Validation Pipeline</figcaption>
+  <figcaption class="drawlib-caption">Build-Time Source Gates and Post-Build HTML Link Verification Pipeline</figcaption>
 </figure>
 <details class="drawlib-code-details">
 <summary>Source Code</summary>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.diagrams.flow</span><span class="w"> </span><span class="kn">import</span> <span class="n">Decision</span><span class="p">,</span> <span class="n">End</span><span class="p">,</span> <span class="n">FlowDiagram</span><span class="p">,</span> <span class="n">Process</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Colors</span><span class="p">,</span> <span class="n">Styles</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">140</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">58</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">124</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">64</span><span class="p">)</span>
 
-<span class="n">rectangle</span><span class="p">((</span><span class="mi">70</span><span class="p">,</span> <span class="mi">29</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">136</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">54</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.5</span><span class="p">))</span>
-<span class="n">text</span><span class="p">(</span>
-    <span class="p">(</span><span class="mi">70</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span>
-    <span class="s2">"Dual-Layer Link &amp; Path Hygiene Validation Pipeline"</span><span class="p">,</span>
-    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">12.2</span><span class="p">),</span>
+<span class="n">flow</span> <span class="o">=</span> <span class="n">FlowDiagram</span><span class="p">(</span>
+    <span class="n">node_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="n">edge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+    <span class="n">edge_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">118</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">58</span><span class="p">,</span>
+    <span class="n">lane_orientation</span><span class="o">=</span><span class="s2">"vertical"</span><span class="p">,</span>
 <span class="p">)</span>
 
-<span class="n">steps</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="p">(</span><span class="mf">18.5</span><span class="p">,</span> <span class="s2">"1. Source Text"</span><span class="p">,</span> <span class="s2">"Mask code blocks</span><span class="se">\n</span><span class="s2">Preserve line #s"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">code</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">),</span>
-    <span class="p">(</span><span class="mf">52.5</span><span class="p">,</span> <span class="s2">"2. Build Validator"</span><span class="p">,</span> <span class="s2">"Reject file:// &amp; /</span><span class="se">\n</span><span class="s2">Enforce relative"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">shield_check</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">),</span>
-    <span class="p">(</span><span class="mf">86.5</span><span class="p">,</span> <span class="s2">"3. Disk Existence"</span><span class="p">,</span> <span class="s2">"Check target path</span><span class="se">\n</span><span class="s2">Resolve relative .md"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">check_circle</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">),</span>
-    <span class="p">(</span><span class="mf">120.5</span><span class="p">,</span> <span class="s2">"4. Preflight Scan"</span><span class="p">,</span> <span class="s2">"drawlib serve --check</span><span class="se">\n</span><span class="s2">Crawl 7,000+ links"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">magnifying_glass</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">),</span>
-<span class="p">]</span>
+<span class="n">flow</span><span class="o">.</span><span class="n">add_lane</span><span class="p">(</span>
+    <span class="s2">"Phase 1: Build-Time Source Gates"</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">58</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+    <span class="n">header_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
+    <span class="n">header_size</span><span class="o">=</span><span class="mf">6.5</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">flow</span><span class="o">.</span><span class="n">add_lane</span><span class="p">(</span>
+    <span class="s2">"Phase 2: Post-Build HTML Crawler"</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+    <span class="n">header_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
+    <span class="n">header_size</span><span class="o">=</span><span class="mf">6.5</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">),</span>
+<span class="p">)</span>
 
-<span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">desc</span><span class="p">,</span> <span class="n">icon_func</span><span class="p">,</span> <span class="n">card_style</span><span class="p">,</span> <span class="n">icon_style</span> <span class="ow">in</span> <span class="n">steps</span><span class="p">:</span>
-    <span class="n">rectangle</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="mf">23.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">28</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">31</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">card_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.8</span><span class="p">))</span>
-    <span class="n">icon_func</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="mf">9.5</span><span class="p">,</span> <span class="mf">33.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.4</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">icon_style</span><span class="p">)</span>
-    <span class="n">text</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="mf">5.5</span><span class="p">,</span> <span class="mf">33.5</span><span class="p">),</span> <span class="n">title</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">icon_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">9.0</span><span class="p">))</span>
-    <span class="n">sub_style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">White</span> <span class="k">if</span> <span class="n">card_style</span> <span class="o">==</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span>
-    <span class="n">text</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="mf">18.5</span><span class="p">),</span> <span class="n">desc</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">sub_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.2</span><span class="p">))</span>
+<span class="n">dup_gate</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Process</span><span class="p">(</span>
+        <span class="s2">"Duplicate &amp; i18n Parity</span><span class="se">\n</span><span class="s2">AST save() + H1-H3 Skeleton"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mi">48</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mf">11.5</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
+        <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">29.0</span><span class="p">,</span> <span class="mf">42.5</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">mask_step</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Process</span><span class="p">(</span>
+        <span class="s2">"_mask_code_blocks()</span><span class="se">\n</span><span class="s2">Blank fences, keep </span><span class="se">\\</span><span class="s2">n lines"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mi">48</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mf">11.5</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_fill_color</span><span class="o">=</span><span class="n">Colors</span><span class="o">.</span><span class="n">White</span><span class="p">),</span>
+        <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">29.0</span><span class="p">,</span> <span class="mf">26.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">src_lint</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Process</span><span class="p">(</span>
+        <span class="s2">"validate_markdown_links()</span><span class="se">\n</span><span class="s2">Reject file:// &amp; OS roots"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mi">48</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mf">11.5</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
+        <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">29.0</span><span class="p">,</span> <span class="mf">9.5</span><span class="p">),</span>
+<span class="p">)</span>
 
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
-    <span class="n">x_from</span> <span class="o">=</span> <span class="n">steps</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mf">14.0</span>
-    <span class="n">x_to</span> <span class="o">=</span> <span class="n">steps</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mf">14.0</span>
-    <span class="n">line</span><span class="p">((</span><span class="n">x_from</span><span class="p">,</span> <span class="mf">23.5</span><span class="p">),</span> <span class="p">(</span><span class="n">x_to</span><span class="p">,</span> <span class="mf">23.5</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+<span class="n">html_scan</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Process</span><span class="p">(</span>
+        <span class="s2">"scan_broken_links()</span><span class="se">\n</span><span class="s2">Parse &lt;a/img/link&gt; in HTML"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mi">48</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mf">11.5</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
+        <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">88.0</span><span class="p">,</span> <span class="mf">42.5</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">disk_chk</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">Decision</span><span class="p">(</span>
+        <span class="s2">"Target Exists</span><span class="se">\n</span><span class="s2">on Disk?"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mf">13.0</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
+        <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">77.5</span><span class="p">,</span> <span class="mf">25.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">ok_end</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">End</span><span class="p">(</span>
+        <span class="s2">"Exit 0: Verified"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mf">8.0</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
+        <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">77.5</span><span class="p">,</span> <span class="mf">6.5</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">err_end</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">End</span><span class="p">(</span>
+        <span class="s2">"Exit 1: Abort"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mi">21</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mf">8.0</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerNeutral</span><span class="p">,</span>
+        <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DangerBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">105.5</span><span class="p">,</span> <span class="mf">6.5</span><span class="p">),</span>
+<span class="p">)</span>
 
+<span class="n">dup_gate</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">mask_step</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
+<span class="n">mask_step</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">src_lint</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
+<span class="n">src_lint</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">html_scan</span><span class="p">,</span> <span class="n">start_side</span><span class="o">=</span><span class="s2">"right"</span><span class="p">,</span> <span class="n">end_side</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span><span class="o">.</span><span class="n">via</span><span class="p">((</span><span class="mf">56.0</span><span class="p">,</span> <span class="mf">9.5</span><span class="p">),</span> <span class="p">(</span><span class="mf">56.0</span><span class="p">,</span> <span class="mf">42.5</span><span class="p">))</span>
+<span class="n">html_scan</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">disk_chk</span><span class="p">,</span> <span class="n">start_side</span><span class="o">=</span><span class="s2">"bottom"</span><span class="p">,</span> <span class="n">end_side</span><span class="o">=</span><span class="s2">"top"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
+<span class="n">disk_chk</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">ok_end</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Yes"</span><span class="p">,</span> <span class="n">start_side</span><span class="o">=</span><span class="s2">"bottom"</span><span class="p">,</span> <span class="n">end_side</span><span class="o">=</span><span class="s2">"top"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
+<span class="n">disk_chk</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">err_end</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"No"</span><span class="p">,</span> <span class="n">start_side</span><span class="o">=</span><span class="s2">"right"</span><span class="p">,</span> <span class="n">end_side</span><span class="o">=</span><span class="s2">"top"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
+
+<span class="n">flow</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">))</span>
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 </details>
 <hr />
-<h2>1. Concept: The Dangers of Absolute Paths and <code>file://</code> Schemes</h2>
-<p>When authors write documentation—especially with AI coding assistants that use <code>file:///absolute/path</code> links for clickable IDE navigation in chat—local filesystem URLs can inadvertently leak into committed Markdown files:</p>
+<h2>1. Why Local Filesystem Paths Are Forbidden</h2>
+<p>When engineers collaborate with AI coding agents—which frequently format IDE chat links as <code>file:///home/user/...</code> or <code>/usr/local/...</code>—local workstation paths can accidentally slip into Markdown prose:</p>
 <ul>
-<li><code>[Design Plan](file:///home/developer/git/repo/plan.md)</code> works perfectly on the author's workstation.</li>
-<li>When pushed to GitHub or deployed as a public static site, every external user and CI runner gets an inaccessible broken link.</li>
-<li>Absolute paths also reveal private workstation directory structures, posing an information disclosure risk.</li>
+<li>A link such as <code>[Architecture Spec](file:///Users/alice/repo/spec.md)</code> opens locally on the author's laptop, masking the defect during authoring.</li>
+<li>Once pushed to GitHub or deployed to static hosting, the link breaks for every reader and leaks private OS usernames and directory hierarchies.</li>
 </ul>
-<h3>The Drawlib Invariant</h3>
-<p>All intra-documentation links and asset references must be <strong>strictly relative</strong> (e.g. <code>../02_architecture/overview.md</code> or <code>_assets/logo.png</code>). Drawlib rejects absolute paths and <code>file://</code> URLs at build time with zero tolerance.</p>
+<p>Drawlib enforces a strict portability invariant: <strong>all local hyperlinks and asset paths must be relative</strong> (for example, <code>02_multi_target_exporters.md</code> or <code>../_assets/logo.png</code>), while external links must use standard web schemes (<code>https://</code>, <code>http://</code>, <code>mailto:</code>, <code>tel:</code>).</p>
 <hr />
-<h2>2. Positioning: Dual-Layer Validation Architecture</h2>
-<p>Drawlib validates link hygiene at two complementary stages:</p>
-<ol>
-<li><strong>Layer 1: Build-Time Markdown Validator (<code>validate_markdown_links</code>)</strong>:
+<h2>2. Phase 1: Build-Time Structural, Parity &amp; Source Gates</h2>
+<p>Before and during compilation across <code>build html</code>, <code>build markdown</code>, <code>build pdf</code>, and <code>build docx</code>, Drawlib runs four static source checks:</p>
+<h3>2.1. Duplicate Output &amp; AST <code>save()</code> Collision Guards</h3>
 <ul>
-<li>Operates on raw Markdown source files during <code>drawlib build</code> (HTML, Markdown, and PDF).</li>
-<li>Scans Markdown links (<code>[text](url)</code>) and image tags (<code>! [alt](url)</code>).</li>
-<li>Aborts compilation immediately with exact line numbers if an invalid target is found.</li>
+<li><strong>Document &amp; Block Target Deduplication (<code>check_document_output_duplicates</code> in <code>doc_builder/progress.py</code>)</strong>: Scans all Markdown files and <code>file=&lt;name&gt;.png</code> fence attributes prior to rendering, aborting immediately if two chapters resolve to the same output path or if two distinct <code>drawlib</code> blocks overwrite the same image file with different source code.</li>
+<li><strong>Script AST Inspection (<code>check_duplicate_script_outputs</code> in <code>_builder/_image_ast.py</code>)</strong>: Uses <code>_SaveCallVisitor(ast.NodeVisitor)</code> on standalone <code>images</code> projects to statically inspect <code>save(...)</code> calls across <code>.py</code> scripts and catch output filename collisions before executing user code.</li>
 </ul>
-</li>
-<li><strong>Layer 2: Preflight HTML Link Crawler (<code>drawlib serve --check</code>)</strong>:
+<h3>2.2. Multi-Locale <code>i18n</code> Skeleton &amp; Navbar Parity (<code>doc_builder/i18n.py</code>)</h3>
+<p>For projects declaring <code>[i18n]</code> in <code>drawlib.toml</code>, <code>validate_i18n_project()</code> and <code>validate_i18n_site()</code> enforce structural symmetry across every locale in <code>langs</code>:</p>
 <ul>
-<li>Operates on generated HTML output trees (<code>docs_html/</code>).</li>
-<li>Parses compiled <code>&lt;a href=&quot;...&quot;&gt;</code> and <code>&lt;img src=&quot;...&quot;&gt;</code> tags.</li>
-<li>Verifies that target files exist on disk, anchors (<code>#section</code>) resolve to valid DOM IDs, and zero broken links exist across the entire site.</li>
+<li><strong>File Tree &amp; <code>navbar.md</code> Parity</strong>: Every locale directory (<code>&lt;src&gt;/&lt;lang&gt;/</code>) must contain the exact same relative <code>.md</code> file set and matching <code>navbar.md</code> section hierarchy (<code>parse_navbar_markdown()</code> in <code>navbar.py</code> also verifies that every local <code>navbar.md</code> link target exists on disk).</li>
+<li><strong>Heading &amp; Diagram Skeleton Parity</strong>: <code>extract_markdown_skeleton()</code> compares <code>H1</code>–<code>H3</code> heading depth sequences and <code>drawlib</code> block counts/filenames across locales so translations never silently drop a diagram or section.</li>
 </ul>
-</li>
-</ol>
+<h3>2.3. Line-Preserving Code Masking &amp; <code>validate_markdown_links()</code></h3>
+<p>Documentation pages routinely include URLs or filesystem paths <em>inside</em> code examples (such as <code>`file:///tmp/demo.png`</code> or fenced Python snippets). Stripping code blocks before regex scanning would shift line counts and corrupt error diagnostics.</p>
+<p>In <code>compiler/base.py</code>, <code>_mask_code_blocks()</code> replaces every non-newline character inside fenced code blocks and inline code spans with a space (<code>&quot; &quot;</code>) while preserving <code>\n</code> characters <strong>1-to-1</strong>:</p>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="../../images/04_doc_builder_and_compiler/03_link_and_quality_scanner/code_masking_technique.png" alt="03_link_and_quality_scanner_2" />
-  <figcaption class="drawlib-caption">Line-Preserving Whitespace Masking Algorithm</figcaption>
+  <figcaption class="drawlib-caption">Line-Preserving Whitespace Masking in _mask_code_blocks()</figcaption>
 </figure>
 <details class="drawlib-code-details">
 <summary>Source Code</summary>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.smartarts</span><span class="w"> </span><span class="kn">import</span> <span class="n">SourceCode</span><span class="p">,</span> <span class="n">SourceCodeStyles</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">140</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">58</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">122</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">33</span><span class="p">)</span>
 
-<span class="n">rectangle</span><span class="p">((</span><span class="mi">70</span><span class="p">,</span> <span class="mi">29</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">136</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">54</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.5</span><span class="p">))</span>
-<span class="n">text</span><span class="p">(</span>
-    <span class="p">(</span><span class="mi">70</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span>
-    <span class="s2">"Line-Preserving Whitespace Masking Algorithm"</span><span class="p">,</span>
-    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">12.2</span><span class="p">),</span>
+<span class="n">fence</span> <span class="o">=</span> <span class="s2">"`"</span> <span class="o">*</span> <span class="mi">3</span>
+<span class="n">raw_md</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s2">"# Architecture</span><span class="se">\n</span><span class="s2">"</span>
+    <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">fence</span><span class="si">}</span><span class="s2">python</span><span class="se">\n</span><span class="s2">"</span>
+    <span class="s1">'u = "file:///tmp/x"</span><span class="se">\n</span><span class="s1">'</span>
+    <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">fence</span><span class="si">}</span><span class="se">\n</span><span class="s2">"</span>
+    <span class="s2">"[Next](02_layer.md)"</span>
+<span class="p">)</span>
+<span class="n">masked_md</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s2">"# Architecture</span><span class="se">\n</span><span class="s2">"</span>
+    <span class="s2">"         </span><span class="se">\n</span><span class="s2">"</span>
+    <span class="s2">"                   </span><span class="se">\n</span><span class="s2">"</span>
+    <span class="s2">"   </span><span class="se">\n</span><span class="s2">"</span>
+    <span class="s2">"[Next](02_layer.md)"</span>
 <span class="p">)</span>
 
-<span class="c1"># Left Column: Raw Markdown with Code Block</span>
-<span class="n">rectangle</span><span class="p">((</span><span class="mi">38</span><span class="p">,</span> <span class="mi">24</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">58</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">33</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.8</span><span class="p">))</span>
-<span class="n">phosphor</span><span class="o">.</span><span class="n">file_code</span><span class="p">((</span><span class="mi">14</span><span class="p">,</span> <span class="mi">35</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
-<span class="n">text</span><span class="p">((</span><span class="mi">18</span><span class="p">,</span> <span class="mi">35</span><span class="p">),</span> <span class="s2">"Raw Markdown Source"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">))</span>
+<span class="n">code_styles</span> <span class="o">=</span> <span class="n">SourceCodeStyles</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"default"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">)</span>
+<span class="n">masked_styles</span> <span class="o">=</span> <span class="n">SourceCodeStyles</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"google"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">)</span>
+
+<span class="n">phosphor</span><span class="o">.</span><span class="n">file_code</span><span class="p">((</span><span class="mf">5.5</span><span class="p">,</span> <span class="mf">29.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.6</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
 <span class="n">text</span><span class="p">(</span>
-    <span class="p">(</span><span class="mi">38</span><span class="p">,</span> <span class="mi">22</span><span class="p">),</span>
-    <span class="s2">"L1: # Heading</span><span class="se">\n</span><span class="s2">L2: ```python</span><span class="se">\n</span><span class="s2">L3: url = 'file:///tmp/demo'</span><span class="se">\n</span><span class="s2">L4: ```</span><span class="se">\n</span><span class="s2">L5: [Spec](02_layer.md)"</span><span class="p">,</span>
-    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">7.8</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">8.5</span><span class="p">,</span> <span class="mf">29.0</span><span class="p">),</span>
+    <span class="s2">"1. Raw Markdown Input"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">SourceCode</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">25.5</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mf">50.0</span><span class="p">,</span>
+    <span class="n">code</span><span class="o">=</span><span class="n">raw_md</span><span class="p">,</span>
+    <span class="n">styles</span><span class="o">=</span><span class="n">code_styles</span><span class="p">,</span>
+    <span class="n">code_lang</span><span class="o">=</span><span class="s2">"markdown"</span><span class="p">,</span>
+    <span class="n">show_linenum</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">align</span><span class="o">=</span><span class="s2">"top_left"</span><span class="p">,</span>
 <span class="p">)</span>
 
-<span class="c1"># Center: Space Masking Transform</span>
-<span class="n">rectangle</span><span class="p">((</span><span class="mi">70</span><span class="p">,</span> <span class="mi">24</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
-<span class="n">phosphor</span><span class="o">.</span><span class="n">arrows_left_right</span><span class="p">((</span><span class="mi">70</span><span class="p">,</span> <span class="mi">24</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.6</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">)</span>
-
-<span class="c1"># Right Column: Line-Preserved Masked Text</span>
-<span class="n">rectangle</span><span class="p">((</span><span class="mi">102</span><span class="p">,</span> <span class="mi">24</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">58</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">33</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.8</span><span class="p">))</span>
-<span class="n">phosphor</span><span class="o">.</span><span class="n">check_circle</span><span class="p">((</span><span class="mi">78</span><span class="p">,</span> <span class="mi">35</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">)</span>
-<span class="n">text</span><span class="p">((</span><span class="mi">82</span><span class="p">,</span> <span class="mi">35</span><span class="p">),</span> <span class="s2">"Line-Preserved Masked Text"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">9.2</span><span class="p">))</span>
+<span class="n">line</span><span class="p">((</span><span class="mf">54.5</span><span class="p">,</span> <span class="mf">13.5</span><span class="p">),</span> <span class="p">(</span><span class="mf">67.5</span><span class="p">,</span> <span class="mf">13.5</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
 <span class="n">text</span><span class="p">(</span>
-    <span class="p">(</span><span class="mi">102</span><span class="p">,</span> <span class="mi">22</span><span class="p">),</span>
-    <span class="s2">"L1: # Heading</span><span class="se">\n</span><span class="s2">L2:            (spaces)</span><span class="se">\n</span><span class="s2">L3:            (spaces)</span><span class="se">\n</span><span class="s2">L4:    </span><span class="se">\n</span><span class="s2">L5: [Spec](02_layer.md)"</span><span class="p">,</span>
-    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">7.8</span><span class="p">),</span>
+    <span class="p">(</span><span class="mf">61.0</span><span class="p">,</span> <span class="mf">18.5</span><span class="p">),</span>
+    <span class="s2">"Spaces</span><span class="se">\n</span><span class="s2">keep </span><span class="se">\\</span><span class="s2">n"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">phosphor</span><span class="o">.</span><span class="n">shield_check</span><span class="p">((</span><span class="mf">71.5</span><span class="p">,</span> <span class="mf">29.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.6</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">(</span>
+    <span class="p">(</span><span class="mf">74.5</span><span class="p">,</span> <span class="mf">29.0</span><span class="p">),</span>
+    <span class="s2">"2. Masked Stream (1:1 Lines)"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">SourceCode</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">69.0</span><span class="p">,</span> <span class="mf">25.5</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mf">50.0</span><span class="p">,</span>
+    <span class="n">code</span><span class="o">=</span><span class="n">masked_md</span><span class="p">,</span>
+    <span class="n">styles</span><span class="o">=</span><span class="n">masked_styles</span><span class="p">,</span>
+    <span class="n">code_lang</span><span class="o">=</span><span class="s2">"markdown"</span><span class="p">,</span>
+    <span class="n">show_linenum</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">align</span><span class="o">=</span><span class="s2">"top_left"</span><span class="p">,</span>
 <span class="p">)</span>
 
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 </details>
-<hr />
-<h2>3. Details: The Line-Preserving Whitespace Masking Algorithm</h2>
-<p>A common pitfall when linting Markdown links is that code blocks often contain code examples referencing URLs or filesystem paths (e.g. <code>python file:///tmp/test.png </code>), which must <strong>not</strong> be flagged as errors.</p>
-<p>However, simply stripping code blocks with regex alters the total number of lines, causing error messages to report misleading line numbers.</p>
-<h3>Drawlib's Non-Destructive Masking Solution</h3>
-<p>Before running the link pattern scanner, <code>compiler/base.py</code> replaces every character inside fenced code blocks and inline code spans with <strong>whitespace spaces</strong>, while strictly preserving newline characters (<code>\n</code>):</p>
+<p>Notice the backreference regex in <code>compiler/base.py</code>:</p>
 <pre><code class="language-python"><span class="k">def</span><span class="w"> </span><span class="nf">_mask_code_blocks</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">replacer</span><span class="p">(</span><span class="n">match</span><span class="p">:</span> <span class="n">re</span><span class="o">.</span><span class="n">Match</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="n">s</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-        <span class="k">return</span> <span class="s2">""</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span> <span class="k">if</span> <span class="n">c</span> <span class="o">==</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span> <span class="k">else</span> <span class="s2">" "</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">s</span><span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">repl</span><span class="p">(</span><span class="n">match</span><span class="p">:</span> <span class="n">re</span><span class="o">.</span><span class="n">Match</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">""</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span> <span class="k">if</span> <span class="n">ch</span> <span class="o">==</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span> <span class="k">else</span> <span class="s2">" "</span> <span class="k">for</span> <span class="n">ch</span> <span class="ow">in</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
 
-    <span class="c1"># Mask multiline code blocks (```...``` and ~~~...~~~)</span>
-    <span class="n">masked</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">"(```[\s\S]*?```|~~~[\s\S]*?~~~)"</span><span class="p">,</span> <span class="n">replacer</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
-    <span class="c1"># Mask inline code spans (`...`)</span>
-    <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">"(`[^`\n]+`)"</span><span class="p">,</span> <span class="n">replacer</span><span class="p">,</span> <span class="n">masked</span><span class="p">)</span>
+    <span class="c1"># Backreference \1 matches 4-backtick outer fences containing 3-backtick inner blocks!</span>
+    <span class="n">masked</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">"(?s)(`{3,}|~{3,}).*?\1"</span><span class="p">,</span> <span class="n">repl</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">"(`[^`\n]+`)"</span><span class="p">,</span> <span class="n">repl</span><span class="p">,</span> <span class="n">masked</span><span class="p">)</span>
 </code></pre>
-<p>Because newlines are preserved, line numbers calculated via <code>splitlines()</code> match the physical Markdown file <strong>1-to-1</strong>:</p>
+<p>Using <code>(</code>{3,}|~{3,}).*?\1` ensures that a 4-backtick documentation example wrapping an inner 3-backtick <code>drawlib</code> block is masked cleanly from outer opening fence to outer closing fence.</p>
+<p><code>validate_markdown_links()</code> then scans every line for both Markdown links/images (<code>!?\[.*?\]\((.*?)\)</code>) and raw HTML tags (<code>&lt;(?:a|img)\b[^&gt;]*?\b(?:href|src)=[&quot;'](.*?)[&quot;']</code>), raising a <code>ValueError</code> with the exact 1-based line number if any target matches:</p>
 <ul>
-<li>Links inside prose are scanned accurately.</li>
-<li>Examples inside Python code fences are safely ignored.</li>
-<li>Build errors point directly to the exact source line in the author's editor.</li>
+<li><strong>File URI Schemes</strong>: <code>file://</code> or <code>file:/</code></li>
+<li><strong>8 OS Root Prefixes</strong>: <code>/usr/</code>, <code>/home/</code>, <code>/users/</code>, <code>/root/</code>, <code>/private/</code>, <code>/tmp/</code>, <code>/var/</code>, <code>/opt/</code></li>
+<li><strong>Windows Drive Paths</strong>: <code>^[A-Za-z]:[\\/]</code></li>
 </ul>
-<p>Next, proceed to Chapter 5: <strong><a href="../05_cli_and_runtime/01_cli_architecture.html">CLI Architecture</a></strong>.</p>
+<p><em>(Scope Boundary: <code>validate_markdown_links()</code> enforces <strong>URL scheme and path-prefix hygiene</strong>—it does not check whether relative <code>.md</code> targets exist on disk. Missing static Markdown images <code>![alt](path)</code> emit non-fatal warnings to <code>stderr</code> via <code>validate_markdown_images()</code>, while full cross-page file existence is verified after HTML compilation in Phase 2.)</em></p>
+<hr />
+<h2>3. Phase 2: Post-Build HTML Crawler (<code>_link_scanner.py</code>)</h2>
+<p>Once HTML compilation finishes, <code>scan_broken_links()</code> (<code>src/drawlib/_http_server/_link_scanner.py</code>) crawls the generated output directory—running automatically at <code>drawlib serve</code> startup (unless <code>--skip-check</code> is passed) or headlessly in CI via <code>drawlib serve &lt;out_dir&gt; --check</code>:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Aspect</th>
+<th style="text-align:left"><code>validate_markdown_links</code> (<code>compiler/base.py</code>)</th>
+<th style="text-align:left"><code>scan_broken_links</code> (<code>_http_server/_link_scanner.py</code>)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Execution Stage</strong></td>
+<td style="text-align:left">Build-time (<code>html</code>, <code>markdown</code>, <code>pdf</code>, <code>docx</code>)</td>
+<td style="text-align:left">Post-build (<code>drawlib serve</code> / <code>drawlib serve --check</code>)</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Input Format</strong></td>
+<td style="text-align:left">Masked Markdown source (<code>_mask_code_blocks</code>)</td>
+<td style="text-align:left">Compiled <code>*.html</code> tree via <code>_LinkExtractor(HTMLParser)</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Inspected Elements</strong></td>
+<td style="text-align:left"><code>[text](url)</code>, <code>![alt](url)</code>, raw <code>&lt;a href&gt;</code>, <code>&lt;img src&gt;</code></td>
+<td style="text-align:left"><code>&lt;a href&gt;</code>, <code>&lt;img src&gt;</code>, <code>&lt;link rel=&quot;stylesheet&quot;&gt;</code>, <code>&lt;link rel=&quot;alternate&quot;&gt;</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Forbidden Local Paths</strong></td>
+<td style="text-align:left">Rejects <code>file://</code>, 8 OS roots, Windows <code>C:\</code></td>
+<td style="text-align:left">Rejects <code>file://</code>, 8 OS roots, Windows <code>C:\</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Disk Existence Check</strong></td>
+<td style="text-align:left">No (<code>navbar.md</code> checked separately; images warn)</td>
+<td style="text-align:left"><strong>Yes</strong> — verifies target file or <code>&lt;dir&gt;/index.html</code> exists on disk</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>URL <code>#fragment</code> Handling</strong></td>
+<td style="text-align:left">Ignored when standalone <code>#anchor</code></td>
+<td style="text-align:left">Standalone <code>#anchor</code> skipped; <code>page.html#sec</code> stripped via <code>urldefrag</code> before file check</td>
+</tr>
+</tbody>
+</table>
+<h3>Resolution Rules in <code>scan_broken_links()</code></h3>
+<ol>
+<li><strong>External &amp; Special Schemes</strong>: Skips <code>http://</code>, <code>https://</code>, <code>mailto:</code>, <code>tel:</code>, <code>javascript:</code>, <code>data:</code>, and protocol-relative <code>//</code> URLs.</li>
+<li><strong>Fragment Stripping (<code>urldefrag</code>)</strong>: Pure in-page anchors (<code>#overview</code>) are skipped, while combined links (<code>02_layer_hierarchy.html#core</code>) have their <code>#fragment</code> stripped via <code>urllib.parse.urldefrag()</code> and URL-unquoted before checking the target file on disk <em>(DOM element IDs are not parsed)</em>.</li>
+<li><strong>Root-Relative vs. Page-Relative Resolution</strong>: Paths starting with <code>/</code> (after passing the OS root prefix filter) resolve relative to the served <code>root_dir</code>, whereas relative paths resolve against the directory of the containing <code>.html</code> file—accepting either a direct file match (<code>os.path.isfile</code>) or a directory containing <code>index.html</code>.</li>
+</ol>
+<p>Next, proceed to Chapter 5 to see how these compilers and scanners are exposed through Drawlib's command-line interface in <strong><a href="../05_cli_and_runtime/01_cli_architecture.html">CLI Architecture</a></strong>.</p>
 
             </main>
         </div>
@@ -400,8 +567,8 @@
                     if (e.key === 'Escape') {
                         langDropdowns.forEach(function(dd) {
                             dd.removeAttribute('open');
-                        });
-                    }
+                        }
+                    });
                 });
             }
 

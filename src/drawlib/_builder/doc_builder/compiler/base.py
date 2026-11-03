@@ -174,8 +174,9 @@ def validate_markdown_links(src_abs: str, content: str) -> None:
 def validate_markdown_images(src_abs: str, content: str) -> None:
     """Check for missing local static images referenced via ![alt](path) in markdown."""
     src_dir = os.path.dirname(src_abs)
+    masked = _mask_code_blocks(content)
     pattern = re.compile(r"!\[(.*?)\]\((.*?)\)")
-    for match in pattern.finditer(content):
+    for match in pattern.finditer(masked):
         img_ref = match.group(2).strip()
         if not img_ref or img_ref.startswith(("http://", "https://", "data:", "#")):
             continue

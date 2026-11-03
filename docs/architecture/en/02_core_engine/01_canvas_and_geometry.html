@@ -25,21 +25,25 @@
         })();
     </script>
     
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     
-        <meta name="description" content="At the heart of Drawlib lies the Canvas Engine (_core/l4_canvas), which abstracts physical display devices and plotting libraries into a clean, deterministic…">
+    
+    
+    <meta name="description" content="At the core of Drawlib sits the Canvas Engine (_core/l4_canvas), which abstracts Matplotlib figures, patches, and physical DPI scaling behind a deterministic…">
     <link rel="canonical" href="https://www.drawlib.com/architecture/en/02_core_engine/01_canvas_and_geometry.html">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Drawlib Architecture">
     <meta property="og:title" content="Canvas Lifecycle &amp; Coordinate System — Drawlib Architecture">
-    <meta property="og:description" content="At the heart of Drawlib lies the Canvas Engine (_core/l4_canvas), which abstracts physical display devices and plotting libraries into a clean, deterministic…">
+    <meta property="og:description" content="At the core of Drawlib sits the Canvas Engine (_core/l4_canvas), which abstracts Matplotlib figures, patches, and physical DPI scaling behind a deterministic…">
     <meta property="og:url" content="https://www.drawlib.com/architecture/en/02_core_engine/01_canvas_and_geometry.html">
     <meta property="og:image" content="https://www.drawlib.com/architecture/_assets/ogp.png">
     <meta property="og:locale" content="en_US">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Canvas Lifecycle &amp; Coordinate System — Drawlib Architecture">
-    <meta name="twitter:description" content="At the heart of Drawlib lies the Canvas Engine (_core/l4_canvas), which abstracts physical display devices and plotting libraries into a clean, deterministic…">
+    <meta name="twitter:description" content="At the core of Drawlib sits the Canvas Engine (_core/l4_canvas), which abstracts Matplotlib figures, patches, and physical DPI scaling behind a deterministic…">
     <meta name="twitter:image" content="https://www.drawlib.com/architecture/_assets/ogp.png">
-    
     
     
     <link rel="icon" type="image/png" href="../../_assets/favicon.png">
@@ -56,7 +60,8 @@
             <div class="sidebar-header">
                 <a href="../index.html" class="sidebar-brand" aria-label="Drawlib Architecture">
                     
-                    Drawlib Architecture
+                    <img src="../../_assets/logo.png" alt="Drawlib Architecture" class="sidebar-logo sidebar-logo-light">
+                    <img src="../../_assets/logo_dark.png" alt="Drawlib Architecture" class="sidebar-logo sidebar-logo-dark">
                     
                 </a>
                 <div class="sidebar-header-actions">
@@ -70,6 +75,15 @@
                     </button>
                 </div>
             </div>
+            <div class="sidebar-subbar">
+                <a href="https://www.drawlib.com/en/01_getting_started/release_notes.html" target="_blank" rel="noopener noreferrer" class="sidebar-version-badge" title="Architecture Specification · View Release Notes">
+                    <span class="sidebar-version-dot" aria-hidden="true"></span>
+                    <span class="sidebar-version-text">Architecture · v0.3.4</span>
+                </a>
+                <a href="https://github.com/yuichi110/drawlib" target="_blank" rel="noopener noreferrer" class="sidebar-github-link" aria-label="GitHub Repository" title="GitHub Repository">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+                </a>
+            </div>
             <div class="sidebar-menu">
                 
                     
@@ -82,6 +96,10 @@
                             
                             <li class="nav-item ">
                                 <a href="https://www.drawlib.com/" target="_blank" rel="noopener noreferrer">Official Docs<svg class="nav-external-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="https://examples.drawlib.com/" target="_blank" rel="noopener noreferrer">Examples Showcase<svg class="nav-external-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
                             </li>
                             
                         </ul>
@@ -137,6 +155,10 @@
                                 <a href="../03_domain_subsystems/03_graph_autolayout.html" >Graph Auto-Layout</a>
                             </li>
                             
+                            <li class="nav-item ">
+                                <a href="../03_domain_subsystems/04_animation_and_slide_engines.html" >Animation &amp; Slide Engines</a>
+                            </li>
+                            
                         </ul>
                     
                         
@@ -168,7 +190,7 @@
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../05_cli_and_runtime/02_preview_server.html" >Preview Server &amp; Tooling</a>
+                                <a href="../05_cli_and_runtime/02_preview_server.html" >Preview Server &amp; Assets</a>
                             </li>
                             
                         </ul>
@@ -213,7 +235,7 @@
         <div class="content-wrapper">
             <header class="top-bar">
                 <div class="breadcrumbs">
-                    <span class="crumb">Docs</span>
+                    <span class="crumb">Architecture</span>
                     <span class="crumb-separator">&raquo;</span>
                     <span class="crumb active">Canvas Lifecycle &amp; Coordinate System</span>
                 </div>
@@ -221,72 +243,122 @@
             </header>
             <main class="main-content">
                 <h1>Canvas Lifecycle &amp; Coordinate System</h1>
-<p>At the heart of Drawlib lies the <strong>Canvas Engine</strong> (<code>_core/l4_canvas</code>), which abstracts physical display devices and plotting libraries into a clean, deterministic virtual coordinate plane.</p>
-<p>This document details the Cartesian virtual geometry model, anchor point conventions, and the Canvas lifecycle state machine.</p>
+<p>At the core of Drawlib sits the <strong>Canvas Engine</strong> (<code>_core/l4_canvas</code>), which abstracts Matplotlib figures, patches, and physical DPI scaling behind a deterministic Cartesian coordinate plane.</p>
+<p>This chapter details the Canvas lifecycle state machine, the Cartesian coordinate space, Drawlib's four-part coordinate anchor model, and the 10-mixin cooperative inheritance hierarchy in <code>_core/l4_canvas/_canvas.py</code>.</p>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="../../images/02_core_engine/01_canvas_and_geometry/canvas_lifecycle_state_machine.png" alt="01_canvas_and_geometry_1" />
-  <figcaption class="drawlib-caption">Canvas Lifecycle State Machine</figcaption>
+  <figcaption class="drawlib-caption">Canvas Singleton Lifecycle & Multi-Frame Loop</figcaption>
 </figure>
 <details class="drawlib-code-details">
 <summary>Source Code</summary>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.diagrams.state</span><span class="w"> </span><span class="kn">import</span> <span class="n">InitialState</span><span class="p">,</span> <span class="n">State</span><span class="p">,</span> <span class="n">StateDiagram</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Colors</span><span class="p">,</span> <span class="n">Styles</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">140</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">58</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">124</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
 
-<span class="n">rectangle</span><span class="p">((</span><span class="mi">70</span><span class="p">,</span> <span class="mi">29</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">136</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">54</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.5</span><span class="p">))</span>
-<span class="n">text</span><span class="p">(</span>
-    <span class="p">(</span><span class="mi">70</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span>
-    <span class="s2">"Canvas Lifecycle State Machine"</span><span class="p">,</span>
-    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">12.5</span><span class="p">),</span>
+<span class="n">sd</span> <span class="o">=</span> <span class="n">StateDiagram</span><span class="p">(</span>
+    <span class="n">node_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="n">edge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
+    <span class="n">edge_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">margin</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span>
 <span class="p">)</span>
 
-<span class="n">states</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="p">(</span><span class="mf">18.5</span><span class="p">,</span> <span class="s2">"1. Eager Init"</span><span class="p">,</span> <span class="s2">"CanvasBase(100x100)</span><span class="se">\n</span><span class="s2">Default on import"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">circle</span><span class="p">),</span>
-    <span class="p">(</span><span class="mf">52.5</span><span class="p">,</span> <span class="s2">"2. Setup &amp; Config"</span><span class="p">,</span> <span class="s2">"setup(width, height)</span><span class="se">\n</span><span class="s2">Custom plane &amp; DPI"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">sliders</span><span class="p">),</span>
-    <span class="p">(</span><span class="mf">86.5</span><span class="p">,</span> <span class="s2">"3. Vector Queue"</span><span class="p">,</span> <span class="s2">"shapes, lines, text</span><span class="se">\n</span><span class="s2">_TransformArtistList"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">pencil</span><span class="p">),</span>
-    <span class="p">(</span><span class="mf">120.5</span><span class="p">,</span> <span class="s2">"4. Render &amp; Clean"</span><span class="p">,</span> <span class="s2">"save() / show()</span><span class="se">\n</span><span class="s2">tight_layout() &amp; flush"</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">check_circle</span><span class="p">),</span>
-<span class="p">]</span>
+<span class="n">init</span> <span class="o">=</span> <span class="n">sd</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">InitialState</span><span class="p">(</span><span class="n">radius</span><span class="o">=</span><span class="mf">1.5</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">30.5</span><span class="p">))</span>
+<span class="n">s_default</span> <span class="o">=</span> <span class="n">sd</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">State</span><span class="p">(</span>
+        <span class="s2">"1. Default Canvas</span><span class="se">\n</span><span class="s2">(100×100 Agg)"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mf">21.0</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mf">12.5</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">19.5</span><span class="p">,</span> <span class="mf">30.5</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">s_config</span> <span class="o">=</span> <span class="n">sd</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">State</span><span class="p">(</span>
+        <span class="s2">"2. Configured</span><span class="se">\n</span><span class="s2">setup(w, h, dpi)"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mf">21.0</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mf">12.5</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">50.0</span><span class="p">,</span> <span class="mf">30.5</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">s_queue</span> <span class="o">=</span> <span class="n">sd</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">State</span><span class="p">(</span>
+        <span class="s2">"3. Active Queue</span><span class="se">\n</span><span class="s2">_TransformArtistList"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mf">23.0</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mf">12.5</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_color</span><span class="o">=</span><span class="n">Colors</span><span class="o">.</span><span class="n">White</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">80.5</span><span class="p">,</span> <span class="mf">30.5</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">s_render</span> <span class="o">=</span> <span class="n">sd</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">State</span><span class="p">(</span>
+        <span class="s2">"4. Render &amp; Flush</span><span class="se">\n</span><span class="s2">save / get_dimage"</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mf">21.0</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mf">12.5</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">111.0</span><span class="p">,</span> <span class="mf">30.5</span><span class="p">),</span>
+<span class="p">)</span>
 
-<span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">desc</span><span class="p">,</span> <span class="n">card_style</span><span class="p">,</span> <span class="n">text_style</span><span class="p">,</span> <span class="n">icon_func</span> <span class="ow">in</span> <span class="n">states</span><span class="p">:</span>
-    <span class="n">rectangle</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="mf">24.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">28</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">33</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">card_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.8</span><span class="p">))</span>
-    <span class="n">icon_func</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="mf">9.5</span><span class="p">,</span> <span class="mf">34.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.6</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">text_style</span><span class="p">)</span>
-    <span class="n">text</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="mf">5.5</span><span class="p">,</span> <span class="mf">34.5</span><span class="p">),</span> <span class="n">title</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">text_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">9.2</span><span class="p">))</span>
-    <span class="n">sub_style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">White</span> <span class="k">if</span> <span class="n">card_style</span> <span class="o">==</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span> <span class="k">else</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span>
-    <span class="n">text</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="mf">19.5</span><span class="p">),</span> <span class="n">desc</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">sub_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">))</span>
+<span class="n">sd</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">init</span><span class="p">,</span> <span class="n">s_default</span><span class="p">,</span> <span class="n">routing</span><span class="o">=</span><span class="s2">"direct"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">sd</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">s_default</span><span class="p">,</span> <span class="n">s_config</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"setup()"</span><span class="p">,</span> <span class="n">routing</span><span class="o">=</span><span class="s2">"direct"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">sd</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">s_config</span><span class="p">,</span> <span class="n">s_queue</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"draw"</span><span class="p">,</span> <span class="n">routing</span><span class="o">=</span><span class="s2">"direct"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">sd</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+    <span class="n">s_queue</span><span class="p">,</span>
+    <span class="n">s_queue</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="s2">"transform() / shapes"</span><span class="p">,</span>
+    <span class="n">side</span><span class="o">=</span><span class="s2">"top"</span><span class="p">,</span>
+    <span class="n">loop_width</span><span class="o">=</span><span class="mf">9.5</span><span class="p">,</span>
+    <span class="n">loop_height</span><span class="o">=</span><span class="mf">6.0</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">sd</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">s_queue</span><span class="p">,</span> <span class="n">s_render</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"save()"</span><span class="p">,</span> <span class="n">routing</span><span class="o">=</span><span class="s2">"direct"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
 
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
-    <span class="n">x_from</span> <span class="o">=</span> <span class="n">states</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mf">14.0</span>
-    <span class="n">x_to</span> <span class="o">=</span> <span class="n">states</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mf">14.0</span>
-    <span class="n">line</span><span class="p">((</span><span class="n">x_from</span><span class="p">,</span> <span class="mf">24.5</span><span class="p">),</span> <span class="p">(</span><span class="n">x_to</span><span class="p">,</span> <span class="mf">24.5</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+<span class="c1"># Shallow inner return arc (next frame) vs deep outer reset arc (clear)</span>
+<span class="n">sd</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+    <span class="n">s_render</span><span class="p">,</span>
+    <span class="n">s_queue</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="s2">"next frame"</span><span class="p">,</span>
+    <span class="n">start_side</span><span class="o">=</span><span class="s2">"bottom"</span><span class="p">,</span>
+    <span class="n">end_side</span><span class="o">=</span><span class="s2">"bottom"</span><span class="p">,</span>
+    <span class="n">routing</span><span class="o">=</span><span class="s2">"curved"</span><span class="p">,</span>
+    <span class="n">bend</span><span class="o">=-</span><span class="mf">0.20</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">padding</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+<span class="p">)</span>
 
+<span class="n">sd</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+    <span class="n">s_render</span><span class="p">,</span>
+    <span class="n">s_default</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="s2">"clear() -&gt; reset defaults"</span><span class="p">,</span>
+    <span class="n">start_side</span><span class="o">=</span><span class="s2">"bottom"</span><span class="p">,</span>
+    <span class="n">end_side</span><span class="o">=</span><span class="s2">"bottom"</span><span class="p">,</span>
+    <span class="n">routing</span><span class="o">=</span><span class="s2">"curved"</span><span class="p">,</span>
+    <span class="n">bend</span><span class="o">=-</span><span class="mf">0.38</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">padding</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">sd</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">))</span>
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 </details>
 <hr />
-<h2>1. Concept: Cartesian Virtual Space vs. Screen Coordinates</h2>
-<p>Most graphics and GUI engines (HTML5 Canvas, SVG, PIL, OpenCV) place the coordinate origin <code>(0, 0)</code> at the <strong>top-left corner</strong>, with the Y-axis pointing downward (<code>+Y</code> down).</p>
-<p>While natural for cascading web layouts, this convention is counter-intuitive for humans and mathematical reasoning:</p>
+<h2>1. Concept: Pure Cartesian Plane (<code>(0, 0)</code> at Bottom-Left)</h2>
+<p>Screen-oriented graphics APIs (HTML5 Canvas, SVG, Pillow, OpenCV) place <code>(0, 0)</code> at the <strong>top-left corner</strong> with <code>+Y</code> pointing downward. While convenient for raster scanlines, inverted Y coordinates complicate geometry math, bar/line chart baselines, and counter-clockwise angle calculations.</p>
+<p>Drawlib standardizes on a mathematical <strong>Cartesian coordinate plane</strong>:</p>
 <ul>
-<li>Ground/baseline objects have high Y coordinates, while headers have low Y coordinates.</li>
-<li>Trigonometric rotations (clockwise vs. counter-clockwise) require inverted angle calculations.</li>
-<li>Bar charts, line graphs, and hierarchy trees must invert vertical bounds manually.</li>
-</ul>
-<h3>The Drawlib Solution: Pure Cartesian Plane</h3>
-<p>Drawlib uses a standard <strong>Cartesian coordinate system</strong>:</p>
-<ul>
-<li><strong>Origin <code>(0, 0)</code></strong> is anchored at the <strong>bottom-left corner</strong>.</li>
-<li><code>+X</code> extends horizontally to the <strong>right</strong> (<code>0</code> → <code>W</code>).</li>
-<li><code>+Y</code> extends vertically <strong>upward</strong> (<code>0</code> → <code>H</code>).</li>
-<li>Rotations are standard counter-clockwise angles ($0^\circ$ points East, $90^\circ$ points North).</li>
+<li><strong>Origin <code>(0, 0)</code></strong> sits at the <strong>bottom-left corner</strong> of the canvas.</li>
+<li><strong><code>+X</code></strong> increases rightward from <code>0</code> to <code>width</code> (<code>W</code>).</li>
+<li><strong><code>+Y</code></strong> increases upward from <code>0</code> to <code>height</code> (<code>H</code>).</li>
+<li><strong>Angles</strong> follow counter-clockwise trigonometry ($0^\circ$ East, $90^\circ$ North) modulo $360^\circ$.</li>
 </ul>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="../../images/02_core_engine/01_canvas_and_geometry/cartesian_coordinate_space.png" alt="01_canvas_and_geometry_2" />
-  <figcaption class="drawlib-caption">Cartesian Coordinate System & Component Anchors</figcaption>
+  <figcaption class="drawlib-caption">Cartesian Coordinate Space & Three Component Anchor Conventions</figcaption>
 </figure>
 <details class="drawlib-code-details">
 <summary>Source Code</summary>
@@ -297,90 +369,126 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">140</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">64</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">118</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">56</span><span class="p">)</span>
 
-<span class="n">rectangle</span><span class="p">((</span><span class="mi">70</span><span class="p">,</span> <span class="mi">32</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">136</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.5</span><span class="p">))</span>
-<span class="n">text</span><span class="p">(</span>
-    <span class="p">(</span><span class="mi">70</span><span class="p">,</span> <span class="mf">56.5</span><span class="p">),</span>
-    <span class="s2">"Cartesian Coordinate System &amp; Component Anchors"</span><span class="p">,</span>
-    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">12.2</span><span class="p">),</span>
-<span class="p">)</span>
+<span class="c1"># Simulated Canvas Boundary: X in [11, 113], Y in [9, 49]</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">62.0</span><span class="p">,</span> <span class="mf">29.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">102.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">40.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
 
-<span class="c1"># Simulated Canvas Boundary (X: 18 to 122, Y: 10 to 50)</span>
-<span class="n">rectangle</span><span class="p">((</span><span class="mi">70</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">104</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
+<span class="c1"># +X and +Y Axes</span>
+<span class="n">line</span><span class="p">((</span><span class="mf">11.0</span><span class="p">,</span> <span class="mf">9.0</span><span class="p">),</span> <span class="p">(</span><span class="mf">11.0</span><span class="p">,</span> <span class="mf">51.5</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">6.5</span><span class="p">,</span> <span class="mf">50.0</span><span class="p">),</span> <span class="s2">"+Y"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">))</span>
+<span class="n">line</span><span class="p">((</span><span class="mf">11.0</span><span class="p">,</span> <span class="mf">9.0</span><span class="p">),</span> <span class="p">(</span><span class="mf">115.0</span><span class="p">,</span> <span class="mf">9.0</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">114.0</span><span class="p">,</span> <span class="mf">4.5</span><span class="p">),</span> <span class="s2">"+X"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">))</span>
 
-<span class="c1"># Origin (0,0) at bottom-left</span>
-<span class="n">circle</span><span class="p">((</span><span class="mi">18</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">)</span>
-<span class="n">text</span><span class="p">((</span><span class="mi">23</span><span class="p">,</span> <span class="mf">7.5</span><span class="p">),</span> <span class="s2">"(0, 0) Origin</span><span class="se">\n</span><span class="s2">Bottom-Left"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">))</span>
+<span class="c1"># Origin (0, 0) &amp; Top-Right (W, H) high-contrast bullseye markers</span>
+<span class="n">circle</span><span class="p">((</span><span class="mf">11.0</span><span class="p">,</span> <span class="mf">9.0</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">1.6</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">)</span>
+<span class="n">circle</span><span class="p">((</span><span class="mf">11.0</span><span class="p">,</span> <span class="mf">9.0</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">0.65</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">21.5</span><span class="p">,</span> <span class="mf">4.5</span><span class="p">),</span> <span class="s2">"(0, 0) Origin"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
 
-<span class="c1"># Top-Right (W, H)</span>
-<span class="n">circle</span><span class="p">((</span><span class="mi">122</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryFlat</span><span class="p">)</span>
-<span class="n">text</span><span class="p">((</span><span class="mi">115</span><span class="p">,</span> <span class="mf">52.5</span><span class="p">),</span> <span class="s2">"(W, H) Top-Right"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.5</span><span class="p">))</span>
+<span class="n">circle</span><span class="p">((</span><span class="mf">113.0</span><span class="p">,</span> <span class="mf">49.0</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryFlat</span><span class="p">)</span>
+<span class="n">circle</span><span class="p">((</span><span class="mf">113.0</span><span class="p">,</span> <span class="mf">49.0</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">105.5</span><span class="p">,</span> <span class="mf">52.5</span><span class="p">),</span> <span class="s2">"(W, H)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
 
-<span class="c1"># Primitive: Center Anchor (cx, cy)</span>
-<span class="n">rectangle</span><span class="p">((</span><span class="mi">48</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
-<span class="n">circle</span><span class="p">((</span><span class="mi">48</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">)</span>
-<span class="n">phosphor</span><span class="o">.</span><span class="n">crosshair</span><span class="p">((</span><span class="mi">48</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">2.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
-<span class="n">text</span><span class="p">((</span><span class="mi">48</span><span class="p">,</span> <span class="mi">33</span><span class="p">),</span> <span class="s2">"Center Anchor (cx, cy)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.8</span><span class="p">))</span>
-<span class="n">text</span><span class="p">((</span><span class="mi">48</span><span class="p">,</span> <span class="mi">26</span><span class="p">),</span> <span class="s2">"shapes.*, text.text()</span><span class="se">\n</span><span class="s2">icons.*"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.0</span><span class="p">))</span>
+<span class="c1"># 1. Center Anchor (cx, cy) — X: [15.5, 43.5], Y: [16.5, 41.5]</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">29.5</span><span class="p">,</span> <span class="mf">29.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">28.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">25.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">29.5</span><span class="p">,</span> <span class="mf">37.2</span><span class="p">),</span> <span class="s2">"Center (cx, cy)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.8</span><span class="p">))</span>
+<span class="n">line</span><span class="p">((</span><span class="mf">26.5</span><span class="p">,</span> <span class="mf">29.5</span><span class="p">),</span> <span class="p">(</span><span class="mf">32.5</span><span class="p">,</span> <span class="mf">29.5</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">line</span><span class="p">((</span><span class="mf">29.5</span><span class="p">,</span> <span class="mf">26.5</span><span class="p">),</span> <span class="p">(</span><span class="mf">29.5</span><span class="p">,</span> <span class="mf">32.5</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
+<span class="n">circle</span><span class="p">((</span><span class="mf">29.5</span><span class="p">,</span> <span class="mf">29.5</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">1.7</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">)</span>
+<span class="n">circle</span><span class="p">((</span><span class="mf">29.5</span><span class="p">,</span> <span class="mf">29.5</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">29.5</span><span class="p">,</span> <span class="mf">20.8</span><span class="p">),</span> <span class="s2">"shapes, text, icons</span><span class="se">\n</span><span class="s2">MindMap, Cycle"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
 
-<span class="c1"># Component: Bottom-Left Anchor (x0, y0)</span>
-<span class="n">rectangle</span><span class="p">((</span><span class="mi">92</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
-<span class="n">circle</span><span class="p">((</span><span class="mi">76</span><span class="p">,</span> <span class="mi">21</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryFlat</span><span class="p">)</span>
-<span class="n">phosphor</span><span class="o">.</span><span class="n">arrow_up_right</span><span class="p">((</span><span class="mi">76</span><span class="p">,</span> <span class="mi">21</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">2.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">)</span>
-<span class="n">text</span><span class="p">((</span><span class="mi">92</span><span class="p">,</span> <span class="mi">33</span><span class="p">),</span> <span class="s2">"Bottom-Left Anchor (x0, y0)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.8</span><span class="p">))</span>
-<span class="n">text</span><span class="p">((</span><span class="mi">92</span><span class="p">,</span> <span class="mi">26</span><span class="p">),</span> <span class="s2">"smartarts.*, charts.*</span><span class="se">\n</span><span class="s2">diagrams.*, graph.*"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.0</span><span class="p">))</span>
+<span class="c1"># 2. Bottom-Left Anchor (x0, y0) — X: [48.0, 76.0], Y: [16.5, 41.5]</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">62.0</span><span class="p">,</span> <span class="mf">29.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">28.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">25.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">squares_four</span><span class="p">((</span><span class="mf">62.0</span><span class="p">,</span> <span class="mf">36.2</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">62.0</span><span class="p">,</span> <span class="mf">29.5</span><span class="p">),</span> <span class="s2">"Bottom-Left"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.8</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">62.0</span><span class="p">,</span> <span class="mf">21.5</span><span class="p">),</span> <span class="s2">"Charts, Diagrams</span><span class="se">\n</span><span class="s2">Grid, Cards, Chevron"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+<span class="n">circle</span><span class="p">((</span><span class="mf">48.0</span><span class="p">,</span> <span class="mf">16.5</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">1.7</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryFlat</span><span class="p">)</span>
+<span class="n">circle</span><span class="p">((</span><span class="mf">48.0</span><span class="p">,</span> <span class="mf">16.5</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">56.0</span><span class="p">,</span> <span class="mf">12.8</span><span class="p">),</span> <span class="s2">"(x0, y0)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
 
-<span class="c1"># Axes indicators</span>
-<span class="n">line</span><span class="p">((</span><span class="mi">18</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="mi">48</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
-<span class="n">text</span><span class="p">((</span><span class="mi">15</span><span class="p">,</span> <span class="mi">48</span><span class="p">),</span> <span class="s2">"+Y"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.8</span><span class="p">))</span>
-<span class="n">line</span><span class="p">((</span><span class="mi">18</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="p">(</span><span class="mi">120</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">)</span>
-<span class="n">text</span><span class="p">((</span><span class="mi">120</span><span class="p">,</span> <span class="mf">7.5</span><span class="p">),</span> <span class="s2">"+X"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">8.8</span><span class="p">))</span>
+<span class="c1"># 3. Top-Left Anchor (x0, y1) — X: [80.5, 108.5], Y: [16.5, 41.5]</span>
+<span class="n">rectangle</span><span class="p">((</span><span class="mf">94.5</span><span class="p">,</span> <span class="mf">29.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">28.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">25.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.5</span><span class="p">))</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">table</span><span class="p">((</span><span class="mf">94.5</span><span class="p">,</span> <span class="mf">36.2</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">94.5</span><span class="p">,</span> <span class="mf">29.5</span><span class="p">),</span> <span class="s2">"Top-Left"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.8</span><span class="p">))</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">94.5</span><span class="p">,</span> <span class="mf">21.5</span><span class="p">),</span> <span class="s2">"Table, TreeNode</span><span class="se">\n</span><span class="s2">Bullets, SourceCode"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
+<span class="n">circle</span><span class="p">((</span><span class="mf">80.5</span><span class="p">,</span> <span class="mf">41.5</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">1.7</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">)</span>
+<span class="n">circle</span><span class="p">((</span><span class="mf">80.5</span><span class="p">,</span> <span class="mf">41.5</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">88.5</span><span class="p">,</span> <span class="mf">45.2</span><span class="p">),</span> <span class="s2">"(x0, y1)"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">))</span>
 
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 </details>
 <hr />
-<h2>2. Positioning: The Dual-Anchor Architecture</h2>
-<p>A key architectural design in Drawlib is the clean separation of anchor semantics between <strong>low-level primitives</strong> and <strong>high-level components</strong>:</p>
+<h2>2. Positioning: Four-Part Coordinate Anchor Architecture</h2>
+<p>Rather than forcing every visual abstraction into a single awkward origin, Drawlib aligns each component family with its natural geometric anchor and exposes explicit <code>align</code> overrides where appropriate:</p>
 <table>
 <thead>
 <tr>
-<th style="text-align:left">Category</th>
-<th style="text-align:left">Typical Modules</th>
-<th style="text-align:left">Anchor Point</th>
-<th style="text-align:left">Mathematical Definition</th>
+<th style="text-align:left">Anchor Mode</th>
+<th style="text-align:left">Modules &amp; Components</th>
+<th style="text-align:left">Coordinate Semantics</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align:left"><strong>Primitives</strong></td>
-<td style="text-align:left"><code>shapes.*</code>, <code>text.text()</code>, <code>icons.*</code></td>
-<td style="text-align:left"><strong>Center <code>(cx, cy)</code></strong></td>
-<td style="text-align:left">Position specifies the exact geometric centroid of the shape, glyph, or icon.</td>
+<td style="text-align:left"><strong>1. Center <code>(cx, cy)</code></strong></td>
+<td style="text-align:left"><code>shapes.*</code>, <code>text.*</code>, <code>icons.*</code>, <code>images.image()</code>, radial SmartArts (<code>MindMapNode</code>, <code>Cycle</code>), and diagram nodes (<code>d.add(node, xy=(cx, cy))</code>)</td>
+<td style="text-align:left">Places the geometric center of the element at <code>(cx, cy)</code>, making rotation, icon centering, and arrow targeting symmetric.</td>
 </tr>
 <tr>
-<td style="text-align:left"><strong>Components</strong></td>
-<td style="text-align:left"><code>smartarts.*</code>, <code>charts.*</code>, <code>diagrams.*</code>, <code>graph.*</code></td>
-<td style="text-align:left"><strong>Bottom-Left <code>(x0, y0)</code></strong></td>
-<td style="text-align:left">Position specifies the minimum bounding corner of the enclosing box <code>[x0, x0 + width] × [y0, y0 + height]</code>.</td>
+<td style="text-align:left"><strong>2. Bottom-Left <code>(x0, y0)</code></strong></td>
+<td style="text-align:left">Rectangular SmartArts (<code>ChevronProcess</code>, <code>CardList</code>, <code>GridLayout</code>, <code>BoxList</code>, <code>Pyramid</code>, <code>KpiCards</code>, <code>Roadmap</code>, <code>Panel</code>, <code>GeoMap</code>, <code>*Calendar</code>), all <code>charts.*</code>, and <code>diagrams.*.draw(xy=(x0, y0))</code> / <code>NodeGroup</code></td>
+<td style="text-align:left">Places the minimum corner of <code>[x0, x0 + w] × [y0, y0 + h]</code> at <code>(x0, y0)</code>, growing rightward (<code>+X</code>) and upward (<code>+Y</code>).</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>3. Top-Left <code>(x0, y1)</code></strong></td>
+<td style="text-align:left">Flow-down SmartArts (<code>Table</code>, <code>TreeNode</code>, <code>BulletPoints</code>, <code>SourceCode</code>)</td>
+<td style="text-align:left">Places the top-left corner at <code>(x0, y1)</code> so variable-length rows, tree branches, and code lines expand naturally downward (<code>-Y</code>).</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>4. Dual Graph Coordinates</strong></td>
+<td style="text-align:left"><code>drawlib.graph</code> (<code>*.get_layout()</code>)</td>
+<td style="text-align:left">Layout results expose <strong>both</strong> <code>node.xy</code> (center <code>(cx, cy)</code> for primitives/diagram nodes) and <code>node.bottom_left</code> (<code>(x0, y0)</code> for nested containers).</td>
 </tr>
 </tbody>
 </table>
-<h3>Why This Dual-Anchor Design?</h3>
-<ol>
-<li><strong>Primitives Are Symmetry-Centric</strong>: Rotating a box or placing a label on an arrow is simplest when coordinates specify the shape's center <code>(cx, cy)</code>.</li>
-<li><strong>Components Are Container-Centric</strong>: Stacking tables, aligning bar charts, or positioning DAG clusters is simplest when defining the enclosing bounding box from its bottom-left origin <code>(x0, y0)</code>.</li>
-<li>To center a component with width $w$ horizontally on a canvas of width $W$, simply compute:
-$$x_0 = \frac{W - w}{2}$$</li>
-</ol>
+<p>To center a bottom-left anchored component of width $w$ horizontally on a canvas of width $W$, either pass <code>align=&quot;center&quot;</code> with <code>xy=(W / 2, H / 2)</code> or compute $x_0 = (W - w) / 2$.</p>
 <hr />
-<h2>3. Details: Canvas Engine Architecture &amp; Multiple Inheritance</h2>
-<h3>3.1. Cooperative Diamond Inheritance Hierarchy</h3>
-<p>The terminal <code>Canvas</code> class (<code>_core/l4_canvas/canvas.py</code>) does not implement all drawing operations directly. Instead, it is composed via Python multiple inheritance across seven feature mixin classes rooted in <code>CanvasBase</code>:</p>
+<h2>3. Details: L4 Canvas Mixin Hierarchy &amp; Transform Engine</h2>
+<h3>3.1. Cooperative 10-Mixin Diamond Inheritance (<code>_core/l4_canvas/_canvas.py</code>)</h3>
+<p>The singleton <code>canvas = Canvas()</code> in <code>_core/l4_canvas/_canvas.py</code> is assembled via cooperative Python multiple inheritance across <strong><code>CanvasBase</code> (<code>_base.py</code>) and 10 specialized feature mixins</strong>:</p>
+<ul>
+<li><strong>Direct <code>CanvasBase</code> Subclasses</strong>:
+<ul>
+<li><code>CanvasShapeBasicFeature</code> (<code>_shapes/_basic.py</code>): Foundational geometric and radial patches (<code>rectangle</code>, <code>circle</code>, <code>ellipse</code>, <code>arc</code>, <code>wedge</code>).</li>
+<li><code>CanvasLineFeature</code> (<code>_line.py</code>): Straight, curved, arc, and quadratic/cubic Bezier strokes (<code>line</code>, <code>lines</code>, <code>line_curved</code>, <code>line_arc</code>, <code>line_bezier1</code>, <code>line_bezier2</code>, <code>lines_curved</code>, <code>lines_bezier</code>).</li>
+<li><code>CanvasTextFeature</code> (<code>_text.py</code>): Horizontal and vertical typography (<code>text</code>, <code>text_vertical</code>).</li>
+</ul>
+</li>
+<li><strong>Subclasses of <code>CanvasShapeBasicFeature</code></strong>:
+<ul>
+<li><code>CanvasShapePolygonFeature</code> (<code>_shapes/_polygon.py</code>): Vertex and path shapes (<code>triangle</code>, <code>parallelogram</code>, <code>trapezoid</code>, <code>rhombus</code>, <code>regularpolygon</code>, <code>star</code>, <code>plaque</code>, <code>polygon</code>, <code>shape</code>).</li>
+<li><code>CanvasImageFeature</code> (<code>_image.py</code>): Raster/PIL rendering via <code>image(xy, width, image, *, style=None)</code> — inherits from <code>CanvasShapeBasicFeature</code> so optional image borders reuse <code>self.rectangle(...)</code>.</li>
+</ul>
+</li>
+<li><strong>4 Specialized Shape Mixins Inheriting from <code>CanvasShapePolygonFeature</code></strong>:
+<ul>
+<li><code>CanvasShapeArrowFeature</code> (<code>_shapes/_arrow.py</code>): <code>arrow</code>, <code>arrow_polyline</code>, <code>arrow_arc</code>, <code>arrow_l</code>, <code>arrow_u</code>, <code>chevron</code>.</li>
+<li><code>CanvasShapeBadgeFeature</code> (<code>_shapes/_badge.py</code>): <code>bubblespeech</code>, <code>pin</code>, <code>tag</code>, <code>ribbon</code>, <code>shield</code>, <code>forbidden</code>, <code>checkmark</code>, <code>explosion</code>.</li>
+<li><code>CanvasShapeContainerFeature</code> (<code>_shapes/_container.py</code>): <code>cylinder</code>, <code>cube</code>, <code>document</code>, <code>funnel</code>, <code>cloud</code>, <code>brace</code>.</li>
+<li><code>CanvasShapeSymbolFeature</code> (<code>_shapes/_symbol.py</code>): <code>face</code>, <code>clock</code>, <code>sun</code>, <code>moon</code>, <code>heart</code>, <code>lightning</code>, <code>gear</code>, <code>math_symbol</code>.</li>
+</ul>
+</li>
+<li><strong>Aggregator &amp; Terminal Class</strong>:
+<ul>
+<li><code>CanvasShapeFeature</code> (<code>_shapes/__init__.py</code>) combines all 6 shape mixins (<strong>43 shapes</strong> total), and <code>Canvas(CanvasShapeFeature, CanvasLineFeature, CanvasTextFeature, CanvasImageFeature, CanvasBase)</code> adds <code>save()</code>, <code>show()</code>, and <code>get_dimage()</code>.</li>
+</ul>
+</li>
+</ul>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="../../images/02_core_engine/01_canvas_and_geometry/canvas_inheritance_hierarchy.png" alt="01_canvas_and_geometry_3" />
-  <figcaption class="drawlib-caption">L4 Canvas Cooperative Diamond Inheritance Hierarchy</figcaption>
+  <figcaption class="drawlib-caption">L4 Canvas Cooperative Diamond Inheritance Hierarchy (CanvasBase + 10 Feature Mixins)</figcaption>
 </figure>
 <details class="drawlib-code-details">
 <summary>Source Code</summary>
@@ -388,106 +496,124 @@ $$x_0 = \frac{W - w}{2}$$</li>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.diagrams.class_diagram</span><span class="w"> </span><span class="kn">import</span> <span class="n">ClassDiagram</span><span class="p">,</span> <span class="n">ClassNode</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">160</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">92</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">125</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">90</span><span class="p">)</span>
 
 <span class="n">cd</span> <span class="o">=</span> <span class="n">ClassDiagram</span><span class="p">(</span>
     <span class="n">node_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
     <span class="n">edge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
-    <span class="n">edge_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="p">,</span>
-    <span class="n">title</span><span class="o">=</span><span class="s2">"L4 Canvas Cooperative Diamond Inheritance Hierarchy"</span><span class="p">,</span>
+    <span class="n">edge_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+    <span class="n">margin</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span>
 <span class="p">)</span>
 
-<span class="c1"># Base class</span>
-<span class="n">base</span> <span class="o">=</span> <span class="n">cd</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">ClassNode</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"CanvasBase"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">38.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">80.0</span><span class="p">,</span> <span class="mf">76.0</span><span class="p">))</span>
-<span class="n">base</span><span class="o">.</span><span class="n">add_attribute</span><span class="p">(</span><span class="s2">"FIGURE_WIDTH_INCHES: float = 10.0"</span><span class="p">)</span>
-<span class="n">base</span><span class="o">.</span><span class="n">add_attribute</span><span class="p">(</span><span class="s2">"_artists: _TransformArtistList"</span><span class="p">)</span>
-<span class="n">base</span><span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"setup"</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="s2">"width, height, dpi, ..."</span><span class="p">)</span>
-<span class="n">base</span><span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"transform"</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="s2">"origin, scale, translate"</span><span class="p">)</span>
+<span class="c1"># Row 1: Root Base Class</span>
+<span class="n">base</span> <span class="o">=</span> <span class="n">cd</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">ClassNode</span><span class="p">(</span><span class="s2">"CanvasBase"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">42.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"setup"</span><span class="p">,</span> <span class="s2">"width, height, dpi, ..."</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"transform"</span><span class="p">,</span> <span class="s2">"origin, scale, translate"</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">64.0</span><span class="p">,</span> <span class="mf">80.5</span><span class="p">),</span>
+<span class="p">)</span>
 
-<span class="c1"># Intermediate feature mixins (Row 2)</span>
-<span class="n">shape_basic</span> <span class="o">=</span> <span class="n">cd</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">ClassNode</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"CanvasShapeBasicFeature"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">38.0</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">33.0</span><span class="p">,</span> <span class="mf">56.0</span><span class="p">))</span>
-<span class="n">shape_basic</span><span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"rectangle"</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="s2">"xy, width, height, ..."</span><span class="p">)</span>
-<span class="n">shape_basic</span><span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"circle"</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="s2">"xy, radius, ..."</span><span class="p">)</span>
+<span class="c1"># Row 2: Direct CanvasBase Subclasses (Basic, Line, Text)</span>
+<span class="n">shape_basic</span> <span class="o">=</span> <span class="n">cd</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">ClassNode</span><span class="p">(</span><span class="s2">"CanvasShapeBasicFeature"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">33.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"rectangle"</span><span class="p">,</span> <span class="s2">"xy, width, height, ..."</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">23.0</span><span class="p">,</span> <span class="mf">64.5</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">line_feat</span> <span class="o">=</span> <span class="n">cd</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">ClassNode</span><span class="p">(</span><span class="s2">"CanvasLineFeature"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">24.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"line"</span><span class="p">,</span> <span class="s2">"xy1, xy2, ..."</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">86.0</span><span class="p">,</span> <span class="mf">64.5</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">text_feat</span> <span class="o">=</span> <span class="n">cd</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">ClassNode</span><span class="p">(</span><span class="s2">"CanvasTextFeature"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">24.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"text"</span><span class="p">,</span> <span class="s2">"xy, text, ..."</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">111.0</span><span class="p">,</span> <span class="mf">64.5</span><span class="p">),</span>
+<span class="p">)</span>
 
-<span class="n">line_feat</span> <span class="o">=</span> <span class="n">cd</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">ClassNode</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"CanvasLineFeature"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">30.0</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">80.0</span><span class="p">,</span> <span class="mf">56.0</span><span class="p">))</span>
-<span class="n">line_feat</span><span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"line"</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="s2">"xy1, xy2, ..."</span><span class="p">)</span>
-<span class="n">line_feat</span><span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"lines"</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="s2">"xys, ..."</span><span class="p">)</span>
+<span class="c1"># Row 3: Subclasses of CanvasShapeBasicFeature (Polygon on left, Image in middle)</span>
+<span class="n">shape_poly</span> <span class="o">=</span> <span class="n">cd</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">ClassNode</span><span class="p">(</span><span class="s2">"CanvasShapePolygonFeature"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">32.98</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"polygon"</span><span class="p">,</span> <span class="s2">"xys, ..."</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">23.01</span><span class="p">,</span> <span class="mf">50.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">image_feat</span> <span class="o">=</span> <span class="n">cd</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">ClassNode</span><span class="p">(</span><span class="s2">"CanvasImageFeature"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">25.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"image"</span><span class="p">,</span> <span class="s2">"xy, width, image"</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">60.5</span><span class="p">,</span> <span class="mf">50.0</span><span class="p">),</span>
+<span class="p">)</span>
 
-<span class="n">text_feat</span> <span class="o">=</span> <span class="n">cd</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">ClassNode</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"CanvasTextFeature"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">30.0</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">128.0</span><span class="p">,</span> <span class="mf">56.0</span><span class="p">))</span>
-<span class="n">text_feat</span><span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"text"</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="s2">"xy, text, ..."</span><span class="p">)</span>
-<span class="n">text_feat</span><span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"text_vertical"</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="s2">"xy, text, ..."</span><span class="p">)</span>
+<span class="c1"># Left Spine: 4 Specialized Polygon Subclasses (aligned right=39.5, left=6.5)</span>
+<span class="n">shape_arrow</span> <span class="o">=</span> <span class="n">cd</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">ClassNode</span><span class="p">(</span><span class="s2">"CanvasShapeArrowFeature"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">33.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">23.0</span><span class="p">,</span> <span class="mf">36.8</span><span class="p">))</span>
+<span class="n">shape_badge</span> <span class="o">=</span> <span class="n">cd</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">ClassNode</span><span class="p">(</span><span class="s2">"CanvasShapeBadgeFeature"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">33.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">23.0</span><span class="p">,</span> <span class="mf">27.2</span><span class="p">))</span>
+<span class="n">shape_cont</span> <span class="o">=</span> <span class="n">cd</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">ClassNode</span><span class="p">(</span><span class="s2">"CanvasShapeContainerFeature"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">33.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">23.0</span><span class="p">,</span> <span class="mf">17.6</span><span class="p">))</span>
+<span class="n">shape_sym</span> <span class="o">=</span> <span class="n">cd</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">ClassNode</span><span class="p">(</span><span class="s2">"CanvasShapeSymbolFeature"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">33.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">23.0</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">))</span>
 
-<span class="c1"># Specialized feature mixins (Row 3)</span>
-<span class="n">shape_poly</span> <span class="o">=</span> <span class="n">cd</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">ClassNode</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"CanvasShapePolygonFeature"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">38.0</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">24.0</span><span class="p">,</span> <span class="mf">36.0</span><span class="p">))</span>
-<span class="n">shape_poly</span><span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"polygon"</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="s2">"xys, ..."</span><span class="p">)</span>
-<span class="n">shape_poly</span><span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"star"</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="s2">"xy, ..."</span><span class="p">)</span>
+<span class="c1"># Middle Aggregator &amp; Bottom-Right Terminal Canvas</span>
+<span class="n">shape_feat</span> <span class="o">=</span> <span class="n">cd</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">ClassNode</span><span class="p">(</span><span class="s2">"CanvasShapeFeature"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">27.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">60.5</span><span class="p">,</span> <span class="mf">22.8</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">canvas_cls</span> <span class="o">=</span> <span class="n">cd</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">ClassNode</span><span class="p">(</span><span class="s2">"Canvas"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">38.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"save"</span><span class="p">,</span> <span class="s2">"file, format"</span><span class="p">,</span> <span class="s2">"None"</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"get_dimage"</span><span class="p">,</span> <span class="s2">""</span><span class="p">,</span> <span class="s2">"Dimage"</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">92.0</span><span class="p">,</span> <span class="mf">10.5</span><span class="p">),</span>
+<span class="p">)</span>
 
-<span class="n">shape_arrow</span> <span class="o">=</span> <span class="n">cd</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">ClassNode</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"CanvasShapeArrowFeature"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">34.0</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">63.0</span><span class="p">,</span> <span class="mf">36.0</span><span class="p">))</span>
-<span class="n">shape_arrow</span><span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"arrow"</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="s2">"xy1, xy2, ..."</span><span class="p">)</span>
-<span class="n">shape_arrow</span><span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"arrow_polyline"</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="s2">"xys, ..."</span><span class="p">)</span>
-
-<span class="n">image_feat</span> <span class="o">=</span> <span class="n">cd</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">ClassNode</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"CanvasImageFeature"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">30.0</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">99.0</span><span class="p">,</span> <span class="mf">36.0</span><span class="p">))</span>
-<span class="n">image_feat</span><span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"image"</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="s2">"xy, image, width, ..."</span><span class="p">)</span>
-
-<span class="c1"># Aggregate &amp; Terminal (Row 4)</span>
-<span class="n">shape_feat</span> <span class="o">=</span> <span class="n">cd</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">ClassNode</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"CanvasShapeFeature"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">32.0</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">43.5</span><span class="p">,</span> <span class="mf">16.0</span><span class="p">))</span>
-
-<span class="n">canvas_cls</span> <span class="o">=</span> <span class="n">cd</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">ClassNode</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"Canvas"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">36.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">120.0</span><span class="p">,</span> <span class="mf">16.0</span><span class="p">))</span>
-<span class="n">canvas_cls</span><span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"show"</span><span class="p">,</span> <span class="n">return_type</span><span class="o">=</span><span class="s2">"None"</span><span class="p">)</span>
-<span class="n">canvas_cls</span><span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"save"</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="s2">"file, format"</span><span class="p">,</span> <span class="n">return_type</span><span class="o">=</span><span class="s2">"None"</span><span class="p">)</span>
-<span class="n">canvas_cls</span><span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"get_dimage"</span><span class="p">,</span> <span class="n">return_type</span><span class="o">=</span><span class="s2">"Dimage"</span><span class="p">)</span>
-
-<span class="c1"># Inheritance connections</span>
+<span class="c1"># 1. Direct CanvasBase children (shared horizontal bus y=72.7)</span>
 <span class="n">cd</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">shape_basic</span><span class="p">,</span> <span class="n">base</span><span class="p">,</span> <span class="s2">"inheritance"</span><span class="p">,</span> <span class="n">start_side</span><span class="o">=</span><span class="s2">"top"</span><span class="p">,</span> <span class="n">end_side</span><span class="o">=</span><span class="s2">"bottom"</span><span class="p">)</span>
 <span class="n">cd</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">line_feat</span><span class="p">,</span> <span class="n">base</span><span class="p">,</span> <span class="s2">"inheritance"</span><span class="p">,</span> <span class="n">start_side</span><span class="o">=</span><span class="s2">"top"</span><span class="p">,</span> <span class="n">end_side</span><span class="o">=</span><span class="s2">"bottom"</span><span class="p">)</span>
 <span class="n">cd</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">text_feat</span><span class="p">,</span> <span class="n">base</span><span class="p">,</span> <span class="s2">"inheritance"</span><span class="p">,</span> <span class="n">start_side</span><span class="o">=</span><span class="s2">"top"</span><span class="p">,</span> <span class="n">end_side</span><span class="o">=</span><span class="s2">"bottom"</span><span class="p">)</span>
 
+<span class="c1"># 2. CanvasShapeBasicFeature children (shared horizontal bus y=57.2)</span>
 <span class="n">cd</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">shape_poly</span><span class="p">,</span> <span class="n">shape_basic</span><span class="p">,</span> <span class="s2">"inheritance"</span><span class="p">,</span> <span class="n">start_side</span><span class="o">=</span><span class="s2">"top"</span><span class="p">,</span> <span class="n">end_side</span><span class="o">=</span><span class="s2">"bottom"</span><span class="p">)</span>
-<span class="n">cd</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">shape_arrow</span><span class="p">,</span> <span class="n">shape_basic</span><span class="p">,</span> <span class="s2">"inheritance"</span><span class="p">,</span> <span class="n">start_side</span><span class="o">=</span><span class="s2">"top"</span><span class="p">,</span> <span class="n">end_side</span><span class="o">=</span><span class="s2">"bottom"</span><span class="p">)</span>
 <span class="n">cd</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">image_feat</span><span class="p">,</span> <span class="n">shape_basic</span><span class="p">,</span> <span class="s2">"inheritance"</span><span class="p">,</span> <span class="n">start_side</span><span class="o">=</span><span class="s2">"top"</span><span class="p">,</span> <span class="n">end_side</span><span class="o">=</span><span class="s2">"bottom"</span><span class="p">)</span>
 
-<span class="n">cd</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">shape_feat</span><span class="p">,</span> <span class="n">shape_poly</span><span class="p">,</span> <span class="s2">"inheritance"</span><span class="p">,</span> <span class="n">start_side</span><span class="o">=</span><span class="s2">"top"</span><span class="p">,</span> <span class="n">end_side</span><span class="o">=</span><span class="s2">"bottom"</span><span class="p">)</span>
-<span class="n">cd</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">shape_feat</span><span class="p">,</span> <span class="n">shape_arrow</span><span class="p">,</span> <span class="s2">"inheritance"</span><span class="p">,</span> <span class="n">start_side</span><span class="o">=</span><span class="s2">"top"</span><span class="p">,</span> <span class="n">end_side</span><span class="o">=</span><span class="s2">"bottom"</span><span class="p">)</span>
+<span class="c1"># 3. 4 Specialized Shape Mixins -&gt; CanvasShapePolygonFeature (clean outer-left spine x=3.5)</span>
+<span class="n">cd</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">shape_arrow</span><span class="p">,</span> <span class="n">shape_poly</span><span class="p">,</span> <span class="s2">"inheritance"</span><span class="p">,</span> <span class="n">start_side</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">end_side</span><span class="o">=</span><span class="s2">"left"</span><span class="p">)</span>
+<span class="n">cd</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">shape_badge</span><span class="p">,</span> <span class="n">shape_poly</span><span class="p">,</span> <span class="s2">"inheritance"</span><span class="p">,</span> <span class="n">start_side</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">end_side</span><span class="o">=</span><span class="s2">"left"</span><span class="p">)</span>
+<span class="n">cd</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">shape_cont</span><span class="p">,</span> <span class="n">shape_poly</span><span class="p">,</span> <span class="s2">"inheritance"</span><span class="p">,</span> <span class="n">start_side</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">end_side</span><span class="o">=</span><span class="s2">"left"</span><span class="p">)</span>
+<span class="n">cd</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">shape_sym</span><span class="p">,</span> <span class="n">shape_poly</span><span class="p">,</span> <span class="s2">"inheritance"</span><span class="p">,</span> <span class="n">start_side</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">end_side</span><span class="o">=</span><span class="s2">"left"</span><span class="p">)</span>
 
-<span class="n">cd</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">canvas_cls</span><span class="p">,</span> <span class="n">shape_feat</span><span class="p">,</span> <span class="s2">"inheritance"</span><span class="p">,</span> <span class="n">start_side</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">end_side</span><span class="o">=</span><span class="s2">"right"</span><span class="p">)</span>
+<span class="c1"># 4. CanvasShapeFeature -&gt; All 6 Shape Mixins (clean central spine x=43.25)</span>
+<span class="n">cd</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">shape_feat</span><span class="p">,</span> <span class="n">shape_basic</span><span class="p">,</span> <span class="s2">"inheritance"</span><span class="p">,</span> <span class="n">start_side</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">end_side</span><span class="o">=</span><span class="s2">"right"</span><span class="p">)</span>
+<span class="n">cd</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">shape_feat</span><span class="p">,</span> <span class="n">shape_poly</span><span class="p">,</span> <span class="s2">"inheritance"</span><span class="p">,</span> <span class="n">start_side</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">end_side</span><span class="o">=</span><span class="s2">"right"</span><span class="p">)</span>
+<span class="n">cd</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">shape_feat</span><span class="p">,</span> <span class="n">shape_arrow</span><span class="p">,</span> <span class="s2">"inheritance"</span><span class="p">,</span> <span class="n">start_side</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">end_side</span><span class="o">=</span><span class="s2">"right"</span><span class="p">)</span>
+<span class="n">cd</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">shape_feat</span><span class="p">,</span> <span class="n">shape_badge</span><span class="p">,</span> <span class="s2">"inheritance"</span><span class="p">,</span> <span class="n">start_side</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">end_side</span><span class="o">=</span><span class="s2">"right"</span><span class="p">)</span>
+<span class="n">cd</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">shape_feat</span><span class="p">,</span> <span class="n">shape_cont</span><span class="p">,</span> <span class="s2">"inheritance"</span><span class="p">,</span> <span class="n">start_side</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">end_side</span><span class="o">=</span><span class="s2">"right"</span><span class="p">)</span>
+<span class="n">cd</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">shape_feat</span><span class="p">,</span> <span class="n">shape_sym</span><span class="p">,</span> <span class="s2">"inheritance"</span><span class="p">,</span> <span class="n">start_side</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">end_side</span><span class="o">=</span><span class="s2">"right"</span><span class="p">)</span>
+
+<span class="c1"># 5. Terminal Canvas -&gt; Shape, Image, Line, Text</span>
+<span class="n">cd</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">canvas_cls</span><span class="p">,</span> <span class="n">shape_feat</span><span class="p">,</span> <span class="s2">"inheritance"</span><span class="p">,</span> <span class="n">start_side</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">end_side</span><span class="o">=</span><span class="s2">"bottom"</span><span class="p">)</span>
+<span class="n">cd</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">canvas_cls</span><span class="p">,</span> <span class="n">image_feat</span><span class="p">,</span> <span class="s2">"inheritance"</span><span class="p">,</span> <span class="n">start_side</span><span class="o">=</span><span class="s2">"top"</span><span class="p">,</span> <span class="n">end_side</span><span class="o">=</span><span class="s2">"bottom"</span><span class="p">)</span>
 <span class="n">cd</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">canvas_cls</span><span class="p">,</span> <span class="n">line_feat</span><span class="p">,</span> <span class="s2">"inheritance"</span><span class="p">,</span> <span class="n">start_side</span><span class="o">=</span><span class="s2">"top"</span><span class="p">,</span> <span class="n">end_side</span><span class="o">=</span><span class="s2">"bottom"</span><span class="p">)</span>
 <span class="n">cd</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">canvas_cls</span><span class="p">,</span> <span class="n">text_feat</span><span class="p">,</span> <span class="s2">"inheritance"</span><span class="p">,</span> <span class="n">start_side</span><span class="o">=</span><span class="s2">"top"</span><span class="p">,</span> <span class="n">end_side</span><span class="o">=</span><span class="s2">"bottom"</span><span class="p">)</span>
-<span class="n">cd</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">canvas_cls</span><span class="p">,</span> <span class="n">image_feat</span><span class="p">,</span> <span class="s2">"inheritance"</span><span class="p">,</span> <span class="n">start_side</span><span class="o">=</span><span class="s2">"top"</span><span class="p">,</span> <span class="n">end_side</span><span class="o">=</span><span class="s2">"bottom"</span><span class="p">)</span>
 
 <span class="n">cd</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">))</span>
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 </details>
-<h3>3.2. Physical Unit &amp; 720pt Typography Mapping</h3>
-<p>Rather than dynamically scaling physical dimensions based on arbitrary scale factors, Drawlib anchors every canvas to a <strong>fixed 10.0-inch width</strong> (<code>FIGURE_WIDTH_INCHES = 10.0</code> in <code>CanvasBase</code>).</p>
+<h3>3.2. Physical <code>10.0</code>-Inch Width &amp; <code>720pt</code> Typography Invariant</h3>
+<p>Rather than resizing physical figure width arbitrarily, <code>CanvasBase</code> locks <code>FIGURE_WIDTH_INCHES = 10.0</code> (<code>POINTS_PER_INCH = 72.0</code>):</p>
 <ul>
-<li><strong>Physical Width</strong>: Exactly 10.0 inches across the horizontal coordinate span (<code>[0, width]</code>).</li>
-<li><strong>Physical Height</strong>: Proportional to the aspect ratio:
-$$\text{fig_height} = \text{height} \times \frac{10.0}{\text{width}}$$</li>
-<li><strong>Typographic Scale Invariant</strong>: Because 1 inch is exactly 72 PostScript points, the canvas width represents precisely 720 points ($10.0 \times 72 = 720\text{ pt}$). Consequently, the rendered font size in points is:
-$$\text{Rendered Font Size (pt)} = \text{text_size} \times \frac{720.0}{\text{Canvas Width}}$$
-When a diagram is displayed at standard documentation column widths, an in-canvas <code>text_size=10.5</code>–<code>12.0</code> matches standard $16\text{px}$ HTML body text.</li>
+<li><strong>Physical Dimensions</strong>: Figure width is fixed at $10.0\text{ in}$ across $[0, \text{width}]$, and figure height scales proportionally as $\text{height} \times 10.0 / \text{width}$ inches at <code>dpi</code> pixels per inch (<code>DEFAULT_DPI = 100</code>).</li>
+<li><strong>Typographic Scaling Formula</strong>: Because $10.0\text{ in} = 720\text{ pt}$, any <code>Style(text_size=s)</code> occupies $s \times \text{width} / 720$ logical canvas units vertically, and renders in browser CSS pixels at:
+$$\text{Browser Font Size (px)} = \text{text_size} \times \frac{\text{Displayed Width (px)}}{720.0}$$
+On compact canvases (<code>width = 100..125</code>), <code>text_size = 10.5</code>–<code>12.0</code> matches <code>16px</code> HTML body text without manual font math.</li>
 </ul>
-<h3>3.3. Spatial Transformations &amp; Transform Stack</h3>
-<p>Domain modules (such as <code>_charts</code> and <code>_diagrams</code>) frequently require local coordinate frames. Instead of manually recomputing every coordinate:</p>
+<h3>3.3. Affine Transform Stack &amp; <code>_TransformArtistList</code></h3>
+<p>High-level components (<code>SmartArts</code>, <code>Charts</code>, <code>Diagrams</code>) support proportional <code>scale</code> and local coordinate offsets without rewriting primitive math:</p>
 <ul>
-<li><code>CanvasBase.transform(origin, scale, translate)</code> provides a context manager that pushes an affine similarity transform onto <code>_transform_stack</code>.</li>
-<li><strong><code>_TransformArtistList</code></strong>: A specialized list subclass holding pending Matplotlib artists. When artists are added via <code>.append()</code> or <code>.extend()</code>, the list intercepts them and scales patch coordinates, line widths, text font sizes, and bounding boxes in-place.</li>
-<li>Upon exiting the <code>with canvas.transform(...)</code> context, the previous transformation state is popped from the stack cleanly.</li>
+<li><strong><code>canvas.transform(origin=(ox, oy), scale=s, translate=(dx, dy))</code></strong>: Computes cumulative similarity parameters $(s_{\text{comp}}, tx_{\text{comp}}, ty_{\text{comp}})$ and pushes them onto <code>_transform_stack</code>, popping cleanly in a <code>finally:</code> block.</li>
+<li><strong><code>_TransformArtistList</code></strong>: Subclasses <code>list[Artist]</code> on <code>self._artists</code>. Whenever a primitive appends or extends Matplotlib patches (<code>PathPatch</code>, <code>FancyArrowPatch</code>, <code>Circle</code>, <code>Polygon</code>), <code>Text</code>, or <code>AnnotationBbox</code> images, <code>_TransformArtistList</code> intercepts the artist and scales vertices, radii, stroke widths, arrow <code>mutation_scale</code>, font sizes, and image <code>OffsetImage</code> zoom in-place.</li>
 </ul>
-<h3>3.4. Eager Initialization &amp; Canvas Lifecycle</h3>
+<h3>3.4. Eager Initialization, Multi-Frame Flush &amp; Animation Hook</h3>
 <ul>
-<li><strong>Zero &quot;Uninitialized&quot; State</strong>: <code>CanvasBase.__init__()</code> eagerly calls <code>self.setup()</code>, defaulting to a $100 \times 100$ coordinate plane. Standalone scripts can call drawing primitives immediately without an explicit <code>setup()</code> call.</li>
-<li><strong>Rendering &amp; Artist Flushing</strong>: When <code>canvas.save()</code> or <code>canvas.show()</code> is invoked:
-<ol>
-<li>Artists in <code>_artists</code> are added to the Matplotlib <code>Axes</code> with ascending <code>zorder</code>.</li>
-<li>Canvas margins are eliminated via <code>tight_layout()</code> and <code>subplots_adjust(left=0, right=1, bottom=0, top=1)</code>.</li>
-<li>The image is rendered to disk or memory.</li>
-<li>All artists are removed from the <code>Axes</code> via <code>_remove_artists_from_ax()</code>, leaving the canvas ready for subsequent frames or animations without memory leaks.</li>
-</ol>
-</li>
+<li><strong>Eager Default Plane</strong>: <code>CanvasBase.__init__()</code> immediately invokes <code>self.setup()</code>, creating a ready-to-use $100 \times 100$ canvas on module import.</li>
+<li><strong>Non-Destructive Multi-Frame Flush</strong>: Calling <code>save()</code>, <code>show()</code>, or <code>get_dimage()</code> assigns sequential <code>zorder</code> values (<code>0..N-1</code>), strips margins (<code>tight_layout()</code> + <code>subplots_adjust(0, 1, 0, 1)</code>), rasterizes or serializes SVG (injecting <code>&lt;!-- drawlib-svg-fonts: ... --&gt;</code> metadata), and detaches artists from <code>self._ax</code> (<code>_remove_artists_from_ax()</code>).</li>
+<li><strong>Animation &amp; Full Reset</strong>: When <code>drawlib.anim.Animation</code> is active (<code>_active_animation</code>), <code>save()</code> delegates multi-frame <code>WebP</code>/<code>APNG</code> encoding to the animation controller and clears <code>_artists</code>. Calling <code>clear()</code> closes the Matplotlib figure and re-initializes <code>CanvasBase</code> back to system defaults.</li>
 </ul>
-<p>Next, explore the type safety and styling system in <strong><a href="02_types_and_styles.html">Types &amp; Style Models</a></strong>.</p>
+<p>Next, inspect immutable color/style validation in <strong><a href="02_types_and_styles.html">Types &amp; Style Models</a></strong>.</p>
 
             </main>
         </div>
@@ -520,8 +646,8 @@ When a diagram is displayed at standard documentation column widths, an in-canva
                     if (e.key === 'Escape') {
                         langDropdowns.forEach(function(dd) {
                             dd.removeAttribute('open');
-                        });
-                    }
+                        }
+                    });
                 });
             }
 

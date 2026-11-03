@@ -7,9 +7,14 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
+from pathlib import Path
+
 import pytest
 
-from drawlib._builder.doc_builder.compiler.base import validate_markdown_links
+from drawlib._builder.doc_builder.compiler.base import (
+    validate_markdown_images,
+    validate_markdown_links,
+)
 
 
 def test_validate_markdown_links_valid() -> None:
@@ -63,3 +68,24 @@ End of document.
     assert 'Forbidden absolute path or file:// URL detected in "/path/to/doc.md":' in err
     assert "Line 4:" in err
     assert expected_target in err
+
+
+def test_validate_markdown_images_masks_code_blocks(
+    tmp_path: Path,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    doc_path = str(tmp_path / "doc.md")
+    content = """# Image Check
+
+Inline syntax example `![alt](path)` and fenced example:
+```markdown
+![example](relative/path.png)
+```
+
+Real missing image: ![Missing](does_not_exist.png)
+"""
+    validate_markdown_images(doc_path, content)
+    err = capsys.readouterr().err
+    assert "does_not_exist.png" in err
+    assert "'path'" not in err
+    assert "relative/path.png" not in err
