@@ -33,7 +33,7 @@ if s2 != s:
 fi
 $DRAWLIB_CMD build html docs_src/site/ -o docs/
 touch docs/.nojekyll
-echo "www.drawlib.com" > docs/CNAME
+printf "www.drawlib.com" > docs/CNAME
 cat << 'EOF' > docs/404.html
 <!DOCTYPE html>
 <html lang="en">
