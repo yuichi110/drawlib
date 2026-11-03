@@ -125,9 +125,21 @@ langs = ["en", "ja"]
 [i18n.labels]                 # Optional custom switcher display labels
 en = "English"
 ja = "日本語"
+
+[i18n.descriptions]           # Optional per-locale meta/OGP & llms.txt summary overrides
+en = "English summary for search engines, social cards, and llms.txt."
+ja = "検索エンジン・SNS カード・llms.txt 向けの日本語概要。"
+
+[seo]                         # Optional project-managed SEO, OGP, sitemap.xml, robots.txt & llms.txt
+site_url = "https://docs.example.com"
+og_image = "_assets/ogp.png"  # Copied to output and resolved against site_url
+twitter_card = "summary_large_image"
+sitemap = true
+robots = true
+llms_txt = true
 ```
 ```toml
-# Standalone Python scripts ("images") — lang is set under [project] (no [i18n]):
+# Standalone Python scripts ("images") — lang is set under [project] (no [i18n] or [seo]):
 [project]
 name = "images"
 type = "images"
@@ -136,7 +148,8 @@ description = ""
 lang = "en"
 style = "default"
 ```
-- **Required Manifest & `[i18n]` for `doc`, `site`, and `slide`**: Directory builds for `doc`, `site`, and `slide` strictly require `drawlib.toml` with an `[i18n]` table (`default_lang`, `langs` with `len >= 1`, and optional `[i18n.labels]`), and disallow `lang` under `[project]`. Even single-language projects (`langs = ["en"]` or `langs = ["ja"]`) place Markdown inside `<target>_src/<lang>/` and emit locale-suffixed document/deck files (`<base>_<lang>.pdf`, `<base>_<lang>.docx`, `<base>_<lang>.pptx`), while automatically hiding the HTML language switcher until `len(langs) >= 2`.
+- **Required Manifest & `[i18n]` for `doc`, `site`, and `slide`**: Directory builds for `doc`, `site`, and `slide` strictly require `drawlib.toml` with an `[i18n]` table (`default_lang`, `langs` with `len >= 1`, and optional `[i18n.labels]` / `[i18n.descriptions]`), and disallow `lang` under `[project]`. Even single-language projects (`langs = ["en"]` or `langs = ["ja"]`) place Markdown inside `<target>_src/<lang>/` and emit locale-suffixed document/deck files (`<base>_<lang>.pdf`, `<base>_<lang>.docx`, `<base>_<lang>.pptx`), while automatically hiding the HTML language switcher until `len(langs) >= 2`.
+- **Optional Project-Managed SEO, Open Graph & `llms.txt` (`[seo]`)**: On `doc`, `site`, and `slide` HTML directory builds, configuring `[seo]` (or `[project].description` / `[i18n.descriptions]`) injects `<meta name="description">`, Open Graph (`og:*`), Twitter/X Card (`twitter:*`), and `<link rel="canonical">` tags into HTML `<head>`, upgrades `hreflang` links to absolute URLs when `site_url` is set, and generates `sitemap.xml`, `robots.txt` (when `site_url` is set), and `llms.txt` (`llmstxt.org` AI-agent index) at the HTML output root.
 - **Standalone Single-File Builds Preserved**: Single-file CLI/API calls (`drawlib build pdf spec.md -o spec.pdf`, `drawlib build docx spec.md -o spec.docx`, `drawlib build image fig.py -o fig.png`) continue to work directly without a project manifest.
 
 ### 3.3. Global Theme & Font Configuration (`styles.py` & `<lang>/styles.py`)

@@ -306,6 +306,9 @@ def write_root_redirect_html(
     default_lang: str,
     target_rel: str = "index.html",
     title: str = "Redirecting...",
+    *,
+    canonical_url: str | None = None,
+    extra_head_html: str = "",
 ) -> str:
     """Write a root ``index.html`` redirecting to ``<default_lang>/<target_rel>`` with query/hash preserved.
 
@@ -314,25 +317,32 @@ def write_root_redirect_html(
         default_lang: Default canonical language directory name (e.g. ``'en'``).
         target_rel: Target HTML filename inside ``<default_lang>/``.
         title: HTML page title.
+        canonical_url: Optional absolute canonical URL override (defaults to relative ``<default_lang>/<target_rel>``).
+        extra_head_html: Optional pre-escaped ``<meta>``/``<link>`` lines to insert inside ``<head>``.
 
     Returns:
         str: Absolute path to the written ``index.html``.
     """
-    import html as html_lib
+    import html as html_lib  # noqa: PLC0415
+    import json  # noqa: PLC0415
 
     target_url = f"{default_lang}/{target_rel}"
     esc_url = html_lib.escape(target_url, quote=True)
+    esc_canonical = html_lib.escape(canonical_url if canonical_url else target_url, quote=True)
     esc_title = html_lib.escape(title)
+    js_url_literal = json.dumps(target_url)
+    extra_block = f"{extra_head_html}\n" if extra_head_html else ""
     content = (
         "<!DOCTYPE html>\n"
-        f'<html lang="{html_lib.escape(default_lang)}">\n'
+        f'<html lang="{html_lib.escape(default_lang, quote=True)}">\n'
         "<head>\n"
         '  <meta charset="UTF-8">\n'
         f'  <meta http-equiv="refresh" content="0; url={esc_url}">\n'
-        f'  <link rel="canonical" href="{esc_url}">\n'
+        f'  <link rel="canonical" href="{esc_canonical}">\n'
         f"  <title>{esc_title}</title>\n"
+        f"{extra_block}"
         "  <script>\n"
-        f'    window.location.replace("{esc_url}" + window.location.search + window.location.hash);\n'
+        f"    window.location.replace({js_url_literal} + window.location.search + window.location.hash);\n"
         "  </script>\n"
         "</head>\n"
         "<body>\n"

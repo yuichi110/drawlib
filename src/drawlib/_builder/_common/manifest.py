@@ -12,7 +12,9 @@
 from __future__ import annotations
 
 import os
+import re
 import tomllib
+import urllib.parse
 from typing import Literal
 
 from pydantic import BaseModel, ConfigDict, Field
@@ -21,6 +23,7 @@ from drawlib._templates.langs import normalize_language
 
 PROJECT_MANIFEST_FILENAME = "drawlib.toml"
 ProjectArchetype = Literal["images", "doc", "site", "slide"]
+TwitterCardType = Literal["summary_large_image", "summary"]
 _VALID_ARCHETYPES: dict[str, ProjectArchetype] = {
     "images": "images",
     "image": "images",
@@ -29,6 +32,21 @@ _VALID_ARCHETYPES: dict[str, ProjectArchetype] = {
     "slide": "slide",
 }
 _I18N_ARCHETYPES: frozenset[str] = frozenset({"doc", "site", "slide"})
+_SEO_ALLOWED_KEYS: frozenset[str] = frozenset(
+    {
+        "site_url",
+        "og_image",
+        "twitter_card",
+        "twitter_site",
+        "sitemap",
+        "robots",
+        "llms_txt",
+    }
+)
+_UNSAFE_ATTR_CHARS: tuple[str, ...] = ("\r", "\n", "\x00", '"', "'", "<", ">")
+_TWITTER_HANDLE_RE = re.compile(r"^@?[A-Za-z0-9_]{1,30}$")
+_SCHEME_PREFIX_RE = re.compile(r"^[A-Za-z][A-Za-z0-9+.-]+:")
+_WIN_DRIVE_RE = re.compile(r"^[A-Za-z]:[\\/]")
 
 
 class ProjectMetadata(BaseModel):
@@ -60,6 +78,7 @@ class I18nConfig(BaseModel):
         default_lang: Canonical default language key (e.g. ``'en'``).
         langs: Ordered list of canonical language keys enabled for the project (1 or more locales).
         labels: Optional custom display labels keyed by canonical language code.
+        descriptions: Optional localized project descriptions keyed by canonical language code.
     """
 
     model_config = ConfigDict(frozen=True)
@@ -67,6 +86,31 @@ class I18nConfig(BaseModel):
     default_lang: str
     langs: list[str]
     labels: dict[str, str] = Field(default_factory=dict)
+    descriptions: dict[str, str] = Field(default_factory=dict)
+
+
+class SeoConfig(BaseModel):
+    """Parsed SEO, Open Graph, and crawler metadata from ``[seo]`` in ``drawlib.toml``.
+
+    Attributes:
+        site_url: Canonical public origin/base URL without trailing slash (e.g. ``'https://www.drawlib.com'``).
+        og_image: External ``https://`` URL or validated project-relative image path (e.g. ``'_assets/ogp.png'``).
+        twitter_card: X/Twitter card layout (``'summary_large_image'`` or ``'summary'``).
+        twitter_site: Optional normalized X/Twitter account handle (e.g. ``'@drawlib'``).
+        sitemap: Whether to generate ``sitemap.xml`` when ``site_url`` is configured.
+        robots: Whether to generate ``robots.txt``.
+        llms_txt: Whether to generate ``llms.txt`` (``llmstxt.org`` Markdown index).
+    """
+
+    model_config = ConfigDict(frozen=True)
+
+    site_url: str = ""
+    og_image: str = ""
+    twitter_card: TwitterCardType = "summary_large_image"
+    twitter_site: str = ""
+    sitemap: bool = True
+    robots: bool = True
+    llms_txt: bool = True
 
 
 class ProjectManifest(BaseModel):
@@ -75,12 +119,14 @@ class ProjectManifest(BaseModel):
     Attributes:
         project: Core project archetype and metadata from ``[project]``.
         i18n: Locale configuration from ``[i18n]`` (always populated for ``doc``, ``site``, ``slide``).
+        seo: Optional SEO/OGP/crawler configuration from ``[seo]`` (for ``doc``, ``site``, ``slide``).
     """
 
     model_config = ConfigDict(frozen=True)
 
     project: ProjectMetadata
     i18n: I18nConfig | None = None
+    seo: SeoConfig | None = None
 
     @property
     def is_i18n(self) -> bool:
@@ -150,20 +196,25 @@ def _parse_project_section(raw_proj: object, cfg_path: str, input_abs: str) -> P
     )
 
 
-def _parse_i18n_labels(raw_labels: object, norm_langs: list[str], cfg_path: str) -> dict[str, str]:
-    """Validate optional ``[i18n.labels]`` mapping."""
-    if raw_labels is None:
+def _parse_i18n_string_map(
+    raw_map: object,
+    norm_langs: list[str],
+    cfg_path: str,
+    section_label: str,
+) -> dict[str, str]:
+    """Validate optional ``[i18n.labels]`` or ``[i18n.descriptions]`` string mapping."""
+    if raw_map is None:
         return {}
-    if not isinstance(raw_labels, dict):
-        raise ValueError(f'Invalid "{cfg_path}": "[i18n.labels]" must be a TOML table.')
+    if not isinstance(raw_map, dict):
+        raise ValueError(f'Invalid "{cfg_path}": "{section_label}" must be a TOML table.')
     parsed: dict[str, str] = {}
-    for raw_k, raw_v in raw_labels.items():
+    for raw_k, raw_v in raw_map.items():
         if not isinstance(raw_k, str) or not isinstance(raw_v, str) or not raw_v.strip():
-            raise ValueError(f'Invalid "{cfg_path}": "[i18n.labels]" entries must be non-empty strings.')
+            raise ValueError(f'Invalid "{cfg_path}": "{section_label}" entries must be non-empty strings.')
         norm_k = normalize_language(raw_k)
         if norm_k not in norm_langs:
             raise ValueError(
-                f'Invalid "{cfg_path}": "[i18n.labels]" key "{norm_k}" is not listed in "[i18n].langs" {norm_langs}.'
+                f'Invalid "{cfg_path}": "{section_label}" key "{norm_k}" is not listed in "[i18n].langs" {norm_langs}.'
             )
         parsed[norm_k] = raw_v.strip()
     return parsed
@@ -185,7 +236,7 @@ def _parse_i18n_section(
             f'not "{project_meta.type}".'
         )
 
-    unknown_keys = sorted(set(raw_i18n.keys()) - {"default_lang", "langs", "labels"})
+    unknown_keys = sorted(set(raw_i18n.keys()) - {"default_lang", "langs", "labels", "descriptions"})
     if unknown_keys:
         raise ValueError(f'Invalid "{cfg_path}": unknown key(s) {unknown_keys} in "[i18n]".')
 
@@ -216,8 +267,156 @@ def _parse_i18n_section(
                 f'Missing locale directory "{lang_dir}" required by "{cfg_path}" (lang="{lang_code}").'
             )
 
-    labels = _parse_i18n_labels(raw_i18n.get("labels"), norm_langs, cfg_path)
-    return I18nConfig(default_lang=norm_default, langs=norm_langs, labels=labels)
+    labels = _parse_i18n_string_map(raw_i18n.get("labels"), norm_langs, cfg_path, "[i18n.labels]")
+    descriptions = _parse_i18n_string_map(
+        raw_i18n.get("descriptions"),
+        norm_langs,
+        cfg_path,
+        "[i18n.descriptions]",
+    )
+    return I18nConfig(
+        default_lang=norm_default,
+        langs=norm_langs,
+        labels=labels,
+        descriptions=descriptions,
+    )
+
+
+def _validate_site_url(raw_url: object, cfg_path: str) -> str:
+    """Validate and normalize optional ``[seo].site_url``."""
+    if not isinstance(raw_url, str):
+        raise ValueError(f'Invalid "{cfg_path}": "[seo].site_url" must be a string.')
+    cleaned = raw_url.strip()
+    if not cleaned:
+        return ""
+    if any(ch in cleaned for ch in (*_UNSAFE_ATTR_CHARS, " ", "\t")):
+        raise ValueError(
+            f'Invalid "{cfg_path}": "[seo].site_url" contains unsafe whitespace or quote/angle characters.'
+        )
+    parsed = urllib.parse.urlsplit(cleaned)
+    if parsed.scheme.lower() not in {"http", "https"} or not parsed.netloc:
+        raise ValueError(
+            f'Invalid "{cfg_path}": "[seo].site_url" must be an absolute http:// or https:// URL, got {raw_url!r}.'
+        )
+    if parsed.query or parsed.fragment:
+        raise ValueError(
+            f'Invalid "{cfg_path}": "[seo].site_url" must not contain query parameters or URL fragments.'
+        )
+    return cleaned.rstrip("/")
+
+
+def _validate_og_image(raw_og_image: object, cfg_path: str, input_abs: str) -> str:
+    """Validate and normalize optional ``[seo].og_image`` as external URL or confined relative asset."""
+    if not isinstance(raw_og_image, str):
+        raise ValueError(f'Invalid "{cfg_path}": "[seo].og_image" must be a string.')
+    cleaned = raw_og_image.strip()
+    if not cleaned:
+        return ""
+    if any(ch in cleaned for ch in _UNSAFE_ATTR_CHARS):
+        raise ValueError(f'Invalid "{cfg_path}": "[seo].og_image" contains unsafe characters.')
+
+    lower = cleaned.lower()
+    if lower.startswith(("http://", "https://")):
+        if any(ws in cleaned for ws in (" ", "\t")):
+            raise ValueError(f'Invalid "{cfg_path}": "[seo].og_image" URL must not contain whitespace.')
+        parsed = urllib.parse.urlsplit(cleaned)
+        if not parsed.netloc:
+            raise ValueError(f'Invalid "{cfg_path}": "[seo].og_image" URL is missing host: {raw_og_image!r}.')
+        return cleaned
+
+    if (
+        cleaned.startswith(("/", "\\"))
+        or os.path.isabs(cleaned)
+        or _WIN_DRIVE_RE.match(cleaned)
+        or _SCHEME_PREFIX_RE.match(cleaned)
+    ):
+        raise ValueError(
+            f'Invalid "{cfg_path}": "[seo].og_image" must be an https:// URL or a project-relative file path, '
+            f"got {raw_og_image!r}."
+        )
+
+    rel_posix = cleaned.replace("\\", "/")
+    real_root = os.path.realpath(input_abs)
+    joined_norm = os.path.normpath(os.path.join(input_abs, *rel_posix.split("/")))
+    real_target = os.path.realpath(joined_norm)
+    try:
+        common = os.path.commonpath([real_root, real_target])
+    except ValueError as exc:
+        raise ValueError(
+            f'Invalid "{cfg_path}": "[seo].og_image" must stay within project root "{input_abs}".'
+        ) from exc
+
+    if common != real_root or real_target == real_root:
+        raise ValueError(
+            f'Invalid "{cfg_path}": "[seo].og_image" path traversal outside project root "{input_abs}" is prohibited.'
+        )
+    if not os.path.isfile(real_target):
+        raise ValueError(f'Missing "[seo].og_image" file "{real_target}" required by "{cfg_path}".')
+
+    return os.path.relpath(joined_norm, input_abs).replace(os.sep, "/")
+
+
+def _parse_seo_section(
+    raw_seo: object,
+    project_meta: ProjectMetadata,
+    cfg_path: str,
+    input_abs: str,
+) -> SeoConfig:
+    """Validate and normalize the ``[seo]`` table."""
+    if not isinstance(raw_seo, dict):
+        raise ValueError(f'Invalid "{cfg_path}": "[seo]" must be a TOML table.')
+
+    if project_meta.type not in _I18N_ARCHETYPES:
+        raise ValueError(
+            f'Invalid "{cfg_path}": "[seo]" is only supported for "doc", "site", and "slide" projects, '
+            f'not "{project_meta.type}".'
+        )
+
+    unknown_keys = sorted(set(raw_seo.keys()) - _SEO_ALLOWED_KEYS)
+    if unknown_keys:
+        raise ValueError(f'Invalid "{cfg_path}": unknown key(s) {unknown_keys} in "[seo]".')
+
+    site_url = _validate_site_url(raw_seo.get("site_url", ""), cfg_path)
+    og_image = _validate_og_image(raw_seo.get("og_image", ""), cfg_path, input_abs)
+
+    raw_card = raw_seo.get("twitter_card", "summary_large_image")
+    if raw_card not in {"summary_large_image", "summary"}:
+        raise ValueError(
+            f'Invalid "{cfg_path}": "[seo].twitter_card" must be "summary_large_image" or "summary", '
+            f"got {raw_card!r}."
+        )
+    twitter_card: TwitterCardType = "summary_large_image" if raw_card == "summary_large_image" else "summary"
+
+    raw_twitter_site = raw_seo.get("twitter_site", "")
+    if not isinstance(raw_twitter_site, str):
+        raise ValueError(f'Invalid "{cfg_path}": "[seo].twitter_site" must be a string.')
+    cleaned_handle = raw_twitter_site.strip()
+    if cleaned_handle:
+        if not _TWITTER_HANDLE_RE.match(cleaned_handle):
+            raise ValueError(
+                f'Invalid "{cfg_path}": "[seo].twitter_site" must be a valid @handle (1-30 alphanumeric/underscore '
+                f"characters), got {raw_twitter_site!r}."
+            )
+        norm_twitter_site = cleaned_handle if cleaned_handle.startswith("@") else f"@{cleaned_handle}"
+    else:
+        norm_twitter_site = ""
+
+    bool_flags: dict[str, bool] = {}
+    for flag_key in ("sitemap", "robots", "llms_txt"):
+        raw_flag = raw_seo.get(flag_key, True)
+        if not isinstance(raw_flag, bool):
+            raise ValueError(f'Invalid "{cfg_path}": "[seo].{flag_key}" must be a boolean.')
+        bool_flags[flag_key] = raw_flag
+
+    return SeoConfig(
+        site_url=site_url,
+        og_image=og_image,
+        twitter_card=twitter_card,
+        twitter_site=norm_twitter_site,
+        sitemap=bool_flags["sitemap"],
+        robots=bool_flags["robots"],
+        llms_txt=bool_flags["llms_txt"],
+    )
 
 
 def load_project_manifest(input_dir: str) -> ProjectManifest | None:
@@ -255,7 +454,11 @@ def load_project_manifest(input_dir: str) -> ProjectManifest | None:
     elif "i18n" in raw:
         i18n_cfg = _parse_i18n_section(raw["i18n"], project_meta, cfg_path, input_abs)
 
-    return ProjectManifest(project=project_meta, i18n=i18n_cfg)
+    seo_cfg: SeoConfig | None = None
+    if "seo" in raw:
+        seo_cfg = _parse_seo_section(raw["seo"], project_meta, cfg_path, input_abs)
+
+    return ProjectManifest(project=project_meta, i18n=i18n_cfg, seo=seo_cfg)
 
 
 def find_project_manifest(path: str, max_up: int = 4) -> tuple[str, ProjectManifest] | None:
@@ -289,8 +492,11 @@ def format_project_manifest_toml(
     lang: str = "en",
     langs: list[str] | None = None,
     labels: dict[str, str] | None = None,
+    descriptions: dict[str, str] | None = None,
     title: str = "",
     description: str = "",
+    seo: SeoConfig | None = None,
+    include_seo_comment: bool = True,
 ) -> str:
     """Serialize a clean, human-readable ``drawlib.toml`` string for ``drawlib init``.
 
@@ -301,8 +507,11 @@ def format_project_manifest_toml(
         lang: Primary / default canonical language code.
         langs: Ordered list of canonical languages for ``doc``, ``site``, and ``slide``.
         labels: Optional custom display labels for ``[i18n.labels]``.
+        descriptions: Optional localized descriptions for ``[i18n.descriptions]``.
         title: Optional default title override.
         description: Optional project description.
+        seo: Optional active ``[seo]`` configuration block.
+        include_seo_comment: If True and ``seo`` is None, append a commented ``[seo]`` template on web projects.
 
     Returns:
         str: Formatted TOML text ending with a newline.
@@ -338,6 +547,43 @@ def format_project_manifest_toml(
             lines.extend(["", "[i18n.labels]"])
             for lc, lbl in labels.items():
                 lines.append(f'{_esc(lc)} = "{_esc(lbl)}"')
+        if descriptions:
+            lines.extend(["", "[i18n.descriptions]"])
+            for lc, desc in descriptions.items():
+                lines.append(f'{_esc(lc)} = "{_esc(desc)}"')
+
+        if seo is not None:
+            lines.extend(
+                [
+                    "",
+                    "[seo]",
+                    f'site_url = "{_esc(seo.site_url)}"',
+                    f'og_image = "{_esc(seo.og_image)}"',
+                    f'twitter_card = "{_esc(seo.twitter_card)}"',
+                ]
+            )
+            if seo.twitter_site:
+                lines.append(f'twitter_site = "{_esc(seo.twitter_site)}"')
+            lines.extend(
+                [
+                    f"sitemap = {str(seo.sitemap).lower()}",
+                    f"robots = {str(seo.robots).lower()}",
+                    f"llms_txt = {str(seo.llms_txt).lower()}",
+                ]
+            )
+        elif include_seo_comment:
+            lines.extend(
+                [
+                    "",
+                    "# [seo]",
+                    '# site_url = "https://example.com"',
+                    '# og_image = "_assets/ogp.png"',
+                    '# twitter_card = "summary_large_image"',
+                    "# sitemap = true",
+                    "# robots = true",
+                    "# llms_txt = true",
+                ]
+            )
 
     return "\n".join(lines) + "\n"
 

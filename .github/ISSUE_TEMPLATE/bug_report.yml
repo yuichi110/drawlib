@@ -1,0 +1,43 @@
+name: Bug Report
+description: Report a rendering defect, CLI error, or documentation build issue
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report an issue! Providing a minimal Python snippet or `drawlib` Markdown block helps us reproduce and fix it quickly.
+
+  - type: input
+    id: version
+    attributes:
+      label: Drawlib & Environment Version
+      description: Output of `drawlib --version` (or `uvx drawlib --version`), Python version, and OS
+      placeholder: "drawlib 0.3.x, Python 3.12, macOS 15 / Ubuntu 24.04"
+    validations:
+      required: true
+
+  - type: textarea
+    id: repro
+    attributes:
+      label: Minimal Reproduction
+      description: Paste a minimal standalone Python script, `drawlib` Markdown block, or CLI command
+      placeholder: |
+        from drawlib.canvas import save, setup
+        from drawlib.shapes import rectangle
+        from drawlib.styles import Styles
+
+        setup(width=100, height=40)
+        rectangle((50, 20), width=40, height=16, style=Styles.Neutral, text="Example")
+        save()
+      render: python
+    validations:
+      required: true
+
+  - type: textarea
+    id: behavior
+    attributes:
+      label: Expected vs. Actual Behavior
+      description: Describe what you expected to happen and what happened instead (attach rendered PNGs or error logs if helpful)
+    validations:
+      required: true

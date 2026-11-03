@@ -30,6 +30,9 @@
     <link rel="alternate" hreflang="{{ alt.hreflang }}" href="{{ alt.url }}">
     {% endfor %}
     {% endif %}
+    {% if seo_meta_html %}
+{{ seo_meta_html | safe }}
+    {% endif %}
     {% if favicon_href %}
     <link rel="icon" type="image/png" href="{{ favicon_href }}">
     {% endif %}

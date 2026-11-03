@@ -247,20 +247,30 @@ langs = ["en", "ja"]
 [i18n.labels]
 en = "English"
 ja = "日本語"
+
+[i18n.descriptions]
+en = "Official documentation website."
+ja = "公式ドキュメントサイト。"
+
+[seo]
+site_url = "https://docs.example.com"
+og_image = "_assets/ogp.png"
+twitter_card = "summary_large_image"
+sitemap = true
+robots = true
+llms_txt = true
 ```
 
 - **Source Layout (`<target>_src/`)**:
-  - `drawlib.toml` (`[project]` `type = "site"` + `[i18n]` `default_lang`, `langs`, optional `[i18n.labels]`) + shared root `styles.py`, `utils.py`, `style.css`, `template.html`, `_assets/`, and `build*.sh` (with optional per-locale `<lang>/styles.py` or `<lang>/utils.py` overrides).
+  - `drawlib.toml` (`[project]` `type = "site"` + `[i18n]` `default_lang`, `langs`, optional `[i18n.labels]` / `[i18n.descriptions]`, and optional `[seo]`) + shared root `styles.py`, `utils.py`, `style.css`, `template.html`, `_assets/`, and `build*.sh` (with optional per-locale `<lang>/styles.py` or `<lang>/utils.py` overrides).
   - Symmetric locale directories (`en/navbar.md`, `en/index.md`, `ja/navbar.md`, `ja/index.md`, ...).
 - **Compiled Output Layout (`<target>_html/` & `<target>_markdown/`)**:
   - Root `index.html` / `index.md` rendered directly from `<default_lang>/index.md` with relative links automatically rebased (`images/index/...`, `<default_lang>/...`, `_assets/...`).
-  - Per-locale `<lang>/**/*.html` with localized `<lang>/style.css`, `<html lang="...">`, Google Fonts `<link>`, `hreflang` tags, and top-right `<details class="lang-dropdown">` + `<a href>` language switcher when `len(langs) >= 2` (automatically hidden when `len(langs) == 1` and in `@media print`).
+  - Per-locale `<lang>/**/*.html` with localized `<lang>/style.css`, `<html lang="...">`, Google Fonts `<link>`, `hreflang` tags (upgraded to canonical `https://...` URLs when `[seo].site_url` is set), Open Graph / Twitter Card `<meta>` tags, and top-right `<details class="lang-dropdown">` + `<a href>` language switcher when `len(langs) >= 2` (automatically hidden when `len(langs) == 1` and in `@media print`).
+  - When `[seo]` is configured, `drawlib build html` also emits `sitemap.xml`, `robots.txt` (requires `site_url`), and `llms.txt` (`llmstxt.org` AI-agent documentation index built from `navbar.md`) at the `<target>_html/` root.
   - Shared `images/<doc_rel_stem>/<file>.png` rendered **once** per build run across all locales.
 - **4 Pre-Flight Mechanical Parity Checks (Enforced Automatically When `len(langs) >= 2`)**:
   1. **File Set Parity**: Relative `.md`/`.html` paths in every `<lang>/` must match `<default_lang>/`.
   2. **`navbar.md` Parity**: Section count, heading presence, item count, and normalized link targets must match `<default_lang>/navbar.md`.
   3. **Markdown Skeleton Sequence Parity**: Ordered sequence of `[Heading(H1..H3), MarkdownText, DrawlibBlock(file, code, align, has_caption), CodeBlock(lang)]` must match `<default_lang>` (consecutive paragraphs/lists/tables/blockquotes/H4+ collapse into a single `MarkdownText` token for natural translation freedom).
   4. **Drawlib Code Parity**: Shared `file=<name>.png` blocks must have identical Python code across locales; intentionally localized diagrams must use `file=<stem>_<lang>.<ext>` (e.g. `file=overview_ja.png` with explicit `FontJapanese` or `<lang>/styles.py`).
-
-
-

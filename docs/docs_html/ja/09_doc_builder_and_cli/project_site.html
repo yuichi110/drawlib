@@ -31,12 +31,28 @@
     
     
     
-    <link rel="alternate" hreflang="en" href="../../en/09_doc_builder_and_cli/project_site.html">
+    <link rel="alternate" hreflang="en" href="https://www.drawlib.com/en/09_doc_builder_and_cli/project_site.html">
     
-    <link rel="alternate" hreflang="ja" href="project_site.html">
+    <link rel="alternate" hreflang="ja" href="https://www.drawlib.com/ja/09_doc_builder_and_cli/project_site.html">
     
-    <link rel="alternate" hreflang="x-default" href="../../en/09_doc_builder_and_cli/project_site.html">
+    <link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/en/09_doc_builder_and_cli/project_site.html">
     
+    
+    
+    <meta name="description" content="site スターターテンプレートは、階層型のサイドバーナビゲーション、モバイル対応のレスポンシブレイアウト、シンタックスハイライト、および静的 HTML と GitHub 対応 Markdown へのデュアル出力を備えた、マルチページ構成の技術ドキュメントサイトを構築します。">
+    <link rel="canonical" href="https://www.drawlib.com/ja/09_doc_builder_and_cli/project_site.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Drawlib ドキュメント">
+    <meta property="og:title" content="ドキュメントサイトプロジェクトガイド (drawlib init project site) — Drawlib ドキュメント">
+    <meta property="og:description" content="site スターターテンプレートは、階層型のサイドバーナビゲーション、モバイル対応のレスポンシブレイアウト、シンタックスハイライト、および静的 HTML と GitHub 対応 Markdown へのデュアル出力を備えた、マルチページ構成の技術ドキュメントサイトを構築します。">
+    <meta property="og:url" content="https://www.drawlib.com/ja/09_doc_builder_and_cli/project_site.html">
+    <meta property="og:image" content="https://www.drawlib.com/_assets/ogp.png">
+    <meta property="og:locale" content="ja_JP">
+    <meta property="og:locale:alternate" content="en_US">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="ドキュメントサイトプロジェクトガイド (drawlib init project site) — Drawlib ドキュメント">
+    <meta name="twitter:description" content="site スターターテンプレートは、階層型のサイドバーナビゲーション、モバイル対応のレスポンシブレイアウト、シンタックスハイライト、および静的 HTML と GitHub 対応 Markdown へのデュアル出力を備えた、マルチページ構成の技術ドキュメントサイトを構築します。">
+    <meta name="twitter:image" content="https://www.drawlib.com/_assets/ogp.png">
     
     
     <link rel="icon" type="image/png" href="../../_assets/favicon.png">
@@ -384,7 +400,7 @@
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../05_charts/pie.html" >Pie & Donut Chart（円・ドーナツグラフ）</a>
+                                <a href="../05_charts/pie.html" >Pie &amp; Donut Chart（円・ドーナツグラフ）</a>
                             </li>
                             
                             <li class="nav-item ">
@@ -400,7 +416,7 @@
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../05_charts/heatmap.html" >Heatmap & Thermal Overlay（ヒートマップ）</a>
+                                <a href="../05_charts/heatmap.html" >Heatmap &amp; Thermal Overlay（ヒートマップ）</a>
                             </li>
                             
                         </ul>
@@ -845,6 +861,46 @@ drawlib<span class="w"> </span>init<span class="w"> </span>project<span class="w
 <li><strong>自動言語スイッチャーとルートリダイレクト</strong>: <code>len(langs) &gt; 1</code> の場合、コンパイルされた各 HTML ページのヘッダーには他言語の同一ページへ直接遷移する言語切り替えドロップダウンが生成され、ルートの <code>docs_html/index.html</code> は訪問者を優先ロケール（既定は <code>default_lang</code>）へリダイレクトします。</li>
 <li><strong>ビルド前の厳格なパリティ検証</strong>: ビルド実行時には、全ロケール間でファイルセットの一致、<code>navbar.md</code> の構造一致、Markdown の構造スケルトン一致、および内部リンク先の存在がレンダリング前に自動検証されます。</li>
 <li><strong>統合リンク監査</strong>: <code>uv run drawlib serve docs_html/ --check</code> を実行すると、すべてのロケールにわたる内部ナビゲーション、共有画像参照、および言語切り替えリンクを 1 パスで一括検証できます。</li>
+</ul>
+<hr />
+<h2>9. プロジェクト管理型 SEO・Open Graph・<code>llms.txt</code> (<code>drawlib.toml</code>)</h2>
+<blockquote>
+<p><strong>Note (Upcoming in v0.3.5):</strong> <code>drawlib.toml</code> における <code>[seo]</code> および <code>[i18n.descriptions]</code> のマニフェスト機能は次期 <strong>v0.3.5</strong> リリースで提供予定であり、現在 PyPI で公開されている <code>v0.3.4</code> パッケージには含まれていません。</p>
+</blockquote>
+<p>Web 出力を生成する Drawlib プロジェクト（<code>site</code>、<code>doc</code>、<code>slide</code>）では、独自のスクリプトを書かずに <code>drawlib.toml</code> の宣言だけで検索エンジン向けメタデータ、SNS シェア用の Open Graph / X (Twitter) カード、<code>sitemap.xml</code>、<code>robots.txt</code>、および AI クローラー向けインデックス（<code>llms.txt</code>）を一元管理できます。</p>
+<pre><code class="language-toml"><span class="k">[project]</span>
+<span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"docs"</span>
+<span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"site"</span>
+<span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Drawlib Documentation"</span>
+<span class="n">description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Pure-Python Illustration as Code and Illustrated Documentation as Code library."</span>
+<span class="n">style</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"default"</span>
+
+<span class="k">[i18n]</span>
+<span class="n">default_lang</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"en"</span>
+<span class="n">langs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">"en"</span><span class="p">,</span><span class="w"> </span><span class="s2">"ja"</span><span class="p">]</span>
+
+<span class="k">[i18n.labels]</span>
+<span class="n">en</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"English"</span>
+<span class="n">ja</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"日本語"</span>
+
+<span class="k">[i18n.descriptions]</span>
+<span class="n">en</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Pure-Python Illustration as Code and Illustrated Documentation as Code library for AI agents."</span>
+<span class="n">ja</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"AI エージェント時代の Illustration as Code・図解ドキュメント生成 Python ライブラリ。"</span>
+
+<span class="k">[seo]</span>
+<span class="n">site_url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"https://www.drawlib.com"</span>
+<span class="n">og_image</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"_assets/ogp.png"</span>
+<span class="n">twitter_card</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"summary_large_image"</span>
+<span class="n">twitter_site</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"@handle"</span><span class="w">             </span><span class="c1"># 任意の X (Twitter) アカウントハンドル</span>
+<span class="n">sitemap</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="w">                       </span><span class="c1"># site_url 設定時に sitemap.xml を出力</span>
+<span class="n">robots</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="w">                        </span><span class="c1"># Sitemap 指定付きの robots.txt を出力</span>
+<span class="n">llms_txt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="w">                      </span><span class="c1"># llmstxt.org 準拠の Markdown インデックス (llms.txt) を出力</span>
+</code></pre>
+<ul>
+<li><strong>ページ単位の <code>&lt;head&gt;</code> SEO・OGP 自動注入</strong>: 各ページの先頭 Markdown 段落から要約テキストを自動抽出し（未記載時は <code>[i18n.descriptions]</code> および <code>[project].description</code> へフォールバック）、<code>&lt;meta name=&quot;description&quot;&gt;</code>、<code>&lt;link rel=&quot;canonical&quot;&gt;</code>、<code>og:*</code>（<code>og:title</code>、<code>og:description</code>、<code>og:url</code>、<code>og:image</code>、<code>og:locale</code>、<code>og:locale:alternate</code>）、<code>twitter:*</code> タグを出力するとともに、ローカルの <code>og_image</code> アセットを <code>&lt;out_dir&gt;/</code> へ自動コピーします。</li>
+<li><strong>正規 URL への <code>hreflang</code> 自動アップグレード</strong>: <code>site_url</code> を設定すると、<code>&lt;head&gt;</code> 内の <code>&lt;link rel=&quot;alternate&quot; hreflang=&quot;...&quot;&gt;</code> タグは自動的に正規の <code>https://...</code> 絶対 URL へ変換される一方、画面上の言語スイッチャー UI リンクはオフラインの <code>drawlib serve</code> でも動作するよう相対パスのまま維持されます。</li>
+<li><strong><code>sitemap.xml</code> と <code>robots.txt</code> の自動生成</strong>: 多言語の <code>xhtml:link</code> 代替リンクを備えた Sitemap 0.9 準拠の <code>sitemap.xml</code> と、<code>&lt;site_url&gt;/sitemap.xml</code> を案内する <code>robots.txt</code> を出力します。</li>
+<li><strong>AI エージェント向け <code>llms.txt</code> (<code>llmstxt.org</code>)</strong>: <code>navbar.md</code> のカテゴリ構造（<code>doc</code> の章や <code>slide</code> の各スライド）に沿って 1 文の要約と多言語エントリポイントを整理した Markdown インデックス（<code>docs_html/llms.txt</code>）を自動生成します。</li>
 </ul>
 
             </main>

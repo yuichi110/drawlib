@@ -1,0 +1,27 @@
+name: Feature Request
+description: Propose a new diagram component, chart, CLI workflow, or AI agent capability
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Have an idea to make **Illustration as Code** or **AI-assisted documentation** even better? Tell us below!
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Use Case / Problem Statement
+      description: What architectural diagram, document workflow, or developer problem are you trying to solve?
+      placeholder: "When documenting microservices in a Go repository, I would like..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed API or CLI Behavior
+      description: Sketch how the Python API, `drawlib.toml` option, or CLI command could look (optional)
+      placeholder: "drawlib build ..."
+    validations:
+      required: false

@@ -31,12 +31,28 @@
     
     
     
-    <link rel="alternate" hreflang="en" href="../../en/01_getting_started/installation.html">
+    <link rel="alternate" hreflang="en" href="https://www.drawlib.com/en/01_getting_started/installation.html">
     
-    <link rel="alternate" hreflang="ja" href="installation.html">
+    <link rel="alternate" hreflang="ja" href="https://www.drawlib.com/ja/01_getting_started/installation.html">
     
-    <link rel="alternate" hreflang="x-default" href="../../en/01_getting_started/installation.html">
+    <link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/en/01_getting_started/installation.html">
     
+    
+    
+    <meta name="description" content="Drawlib は PyPI で公開されており、uvx drawlib でインストール不要（ゼロインストール）ですぐに実行できるほか、uv（推奨）または標準の pip を使用してインストールできます。 単一の drawlib パッケージには、AI エージェント用ルールのワンコマンド生成（drawlib init…">
+    <link rel="canonical" href="https://www.drawlib.com/ja/01_getting_started/installation.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Drawlib ドキュメント">
+    <meta property="og:title" content="インストールガイド — Drawlib ドキュメント">
+    <meta property="og:description" content="Drawlib は PyPI で公開されており、uvx drawlib でインストール不要（ゼロインストール）ですぐに実行できるほか、uv（推奨）または標準の pip を使用してインストールできます。 単一の drawlib パッケージには、AI エージェント用ルールのワンコマンド生成（drawlib init…">
+    <meta property="og:url" content="https://www.drawlib.com/ja/01_getting_started/installation.html">
+    <meta property="og:image" content="https://www.drawlib.com/_assets/ogp.png">
+    <meta property="og:locale" content="ja_JP">
+    <meta property="og:locale:alternate" content="en_US">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="インストールガイド — Drawlib ドキュメント">
+    <meta name="twitter:description" content="Drawlib は PyPI で公開されており、uvx drawlib でインストール不要（ゼロインストール）ですぐに実行できるほか、uv（推奨）または標準の pip を使用してインストールできます。 単一の drawlib パッケージには、AI エージェント用ルールのワンコマンド生成（drawlib init…">
+    <meta name="twitter:image" content="https://www.drawlib.com/_assets/ogp.png">
     
     
     <link rel="icon" type="image/png" href="../../_assets/favicon.png">
@@ -384,7 +400,7 @@
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../05_charts/pie.html" >Pie & Donut Chart（円・ドーナツグラフ）</a>
+                                <a href="../05_charts/pie.html" >Pie &amp; Donut Chart（円・ドーナツグラフ）</a>
                             </li>
                             
                             <li class="nav-item ">
@@ -400,7 +416,7 @@
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../05_charts/heatmap.html" >Heatmap & Thermal Overlay（ヒートマップ）</a>
+                                <a href="../05_charts/heatmap.html" >Heatmap &amp; Thermal Overlay（ヒートマップ）</a>
                             </li>
                             
                         </ul>
@@ -631,8 +647,8 @@
             </header>
             <main class="main-content">
                 <h1>インストールガイド</h1>
-<p>Drawlib は PyPI で公開されており、<code>uv</code>（推奨）または標準の <code>pip</code> を使用してインストールできます。
-単一の <code>drawlib</code> パッケージをインストールするだけで、AI エージェント用ルールのワンコマンド生成（<code>drawlib init agent</code>）、HTML・Markdown・ベクター PDF・MS Word（<code>.docx</code>）・MS PowerPoint（<code>.pptx</code>）の出力機能、ヘッドレス Chromium の自動セットアップ、およびオフラインアセットキャッシュがすべて標準で利用できます。</p>
+<p>Drawlib は PyPI で公開されており、<code>uvx drawlib</code> でインストール不要（ゼロインストール）ですぐに実行できるほか、<code>uv</code>（推奨）または標準の <code>pip</code> を使用してインストールできます。
+単一の <code>drawlib</code> パッケージには、AI エージェント用ルールのワンコマンド生成（<code>drawlib init agent</code>）、HTML・Markdown・ベクター PDF・MS Word（<code>.docx</code>）・MS PowerPoint（<code>.pptx</code>）の出力機能、ヘッドレス Chromium の自動セットアップ、およびオフラインアセットキャッシュがすべて標準で含まれています。</p>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="../../images/01_getting_started/installation/installation_setup_workflow.png" alt="installation_1" />
   <figcaption class="drawlib-caption">Drawlib 環境・AI エージェントのセットアップワークフロー</figcaption>
@@ -657,8 +673,8 @@
     <span class="n">flat_left_end</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="n">workflow</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
-    <span class="s2">"1. Install Drawlib"</span><span class="p">,</span>
-    <span class="n">description</span><span class="o">=</span><span class="s2">"uv add drawlib</span><span class="se">\n</span><span class="s2">pip install drawlib"</span><span class="p">,</span>
+    <span class="s2">"1. Run or Install"</span><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="s2">"uvx drawlib</span><span class="se">\n</span><span class="s2">uv add / pip"</span><span class="p">,</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
     <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">),</span>
     <span class="n">description_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
@@ -710,26 +726,38 @@
 <hr />
 <h2>動作要件</h2>
 <ul>
-<li><strong>Python</strong>: バージョン 3.11 以上。</li>
+<li><strong>Python</strong>: バージョン 3.11 以上（<a href="https://docs.astral.sh/uv/"><code>uv</code> / <code>uvx</code></a> を利用する場合は自動的に管理されます）。</li>
 <li><strong>OS</strong>: Linux、macOS、または Windows。</li>
 </ul>
 <hr />
-<h2>1. <code>uv</code> を使用する場合（推奨）</h2>
-<p>現在のプロジェクトの依存関係に Drawlib を追加します。</p>
-<pre><code class="language-bash"><span class="c1"># Add to active project (includes PDF, .docx, and .pptx export out of the box)</span>
+<h2>1. <code>uv</code> とゼロインストール <code>uvx</code> の利用（推奨）</h2>
+<h3>1.1 ゼロインストール CLI・非 Python リポジトリでの利用（<code>uvx drawlib</code>）</h3>
+<p><a href="https://docs.astral.sh/uv/"><code>uv</code></a> がインストールされていれば、<strong><code>pyproject.toml</code> や仮想環境の作成、プロジェクトへの依存パッケージ追加を一切行わずに</strong>、<code>uvx drawlib</code> ですぐにドキュメントサイト・技術仕様書・16:9 スライドデッキの初期化とビルドを実行できます。生成される <code>./&lt;target&gt;_src/build.sh</code> や <code>serve.sh</code> も <code>uvx drawlib</code> を自動検出するため、30秒でのお試し評価はもちろん、<strong>Go・Rust・TypeScript・Java・Terraform などの非 Python リポジトリ</strong>でのドキュメント管理にも最適です。</p>
+<pre><code class="language-bash"><span class="c1"># インストール不要で日英2言語のドキュメントサイトと AI エージェントルールを初期化</span>
+$<span class="w"> </span>uvx<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>project<span class="w"> </span>site<span class="w"> </span>-l<span class="w"> </span>en,ja
+$<span class="w"> </span>uvx<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>agent<span class="w"> </span>claude
+
+<span class="c1"># 生成されたビルド・プレビュースクリプトは自動的に `uvx drawlib` を検出して実行</span>
+$<span class="w"> </span>./docs_src/build.sh
+$<span class="w"> </span>uvx<span class="w"> </span>drawlib<span class="w"> </span>serve<span class="w"> </span>docs_html/<span class="w"> </span>--check
+</code></pre>
+<h3>1.2 Python プロジェクトの依存関係として追加（<code>uv add drawlib</code>）</h3>
+<p>IDE の入力補完を効かせてスタンドアロンの <code>.py</code> スクリプトを執筆する場合や、既存の Python <code>uv</code> ワークスペース内で <code>drawlib.*</code> をインポートする場合は、プロジェクトの依存関係に追加します。</p>
+<pre><code class="language-bash"><span class="c1"># 現在の Python プロジェクトに追加（PDF、.docx、.pptx 出力も標準で含まれます）</span>
 $<span class="w"> </span>uv<span class="w"> </span>add<span class="w"> </span>drawlib
 
-<span class="c1"># Verify installation and CLI version</span>
+<span class="c1"># インストールと CLI バージョンの確認</span>
 $<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>--version
 </code></pre>
-<h3>スタンドアロン CLI 実行（<code>uvx</code>）</h3>
-<p>プロジェクトに追加せず、Drawlib CLI ツールを直接実行したい場合は以下のように実行します。</p>
-<pre><code class="language-bash">$<span class="w"> </span>uvx<span class="w"> </span>drawlib<span class="w"> </span>--version
-$<span class="w"> </span>uvx<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>project<span class="w"> </span>site
+<h3>1.3 グローバル CLI ツールとして常駐インストール（<code>uv tool install drawlib</code>）</h3>
+<p>日々の業務で複数のリポジトリを横断してドキュメントやスライドを作成する場合は、分離されたグローバル <code>uv</code> ツール環境に一度インストールしておくと、どのディレクトリからでも常に <code>drawlib</code> コマンドを直接呼び出せます。</p>
+<pre><code class="language-bash"><span class="c1"># 分離された uv ツール環境へ `drawlib` をグローバルインストール</span>
+$<span class="w"> </span>uv<span class="w"> </span>tool<span class="w"> </span>install<span class="w"> </span>drawlib
+$<span class="w"> </span>drawlib<span class="w"> </span>--version
 </code></pre>
 <hr />
 <h2>2. <code>pip</code> を使用する場合</h2>
-<p>仮想環境に Drawlib をインストールします。</p>
+<p>Python 仮想環境に Drawlib をインストールします。</p>
 <pre><code class="language-bash">$<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>drawlib
 
 <span class="c1"># Verify installation</span>
@@ -737,9 +765,9 @@ $<span class="w"> </span>drawlib<span class="w"> </span>--version
 </code></pre>
 <hr />
 <h2>3. AI エージェント設定の初期化 <em>（任意・強く推奨）</em></h2>
-<p>Drawlib は AI エージェントを使わない通常の Python ライブラリおよび CLI としてもそのまま動作しますが、<strong>Claude Code</strong>・<strong>Cursor</strong>・<strong>Antigravity</strong>・<strong>GitHub Copilot</strong>・<strong>Windsurf</strong>・<strong>Cline</strong>・<strong>Roo Code</strong>・<strong>OpenAI Codex</strong>・<strong>Gemini CLI</strong> などの AI コーディングエージェントを利用する場合は、インストール直後にワークスペース用のエージェントルールを初期化しておくことを <strong>強く推奨</strong> します。</p>
+<p>Drawlib は AI エージェントを使わない通常の Python ライブラリおよび CLI としてもそのまま動作しますが、<strong>Claude Code</strong>・<strong>Cursor</strong>・<strong>Antigravity</strong>・<strong>GitHub Copilot</strong>・<strong>Windsurf</strong>・<strong>Cline</strong>・<strong>Roo Code</strong>・<strong>OpenAI Codex</strong>・<strong>Gemini CLI</strong> などの AI コーディングエージェントを利用する場合は、セットアップ直後にワークスペース用のエージェントルールを初期化しておくことを <strong>強く推奨</strong> します。</p>
 <p><code>drawlib init agent</code> を実行すると、各 IDE / CLI エージェント固有のルールファイルが自動生成され、左下原点 <code>(0, 0)</code> の座標系・<code>50%+</code> ニュートラル配色ルール・<code>drawlib init project</code> によるプロジェクト初期化・3 ステージ視覚自己検証ループを AI が自律的に遵守するようになります。</p>
-<pre><code class="language-bash"><span class="c1"># 対応している AI エージェントと出力先パスの一覧を表示</span>
+<pre><code class="language-bash"><span class="c1"># 対応 AI エージェント一覧を表示（ゼロインストール / 非 Python リポジトリでは `uvx drawlib ...`）</span>
 $<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>agent<span class="w"> </span>list
 
 <span class="c1"># 使用している AI エージェント向けのルールファイルを生成</span>
@@ -747,7 +775,7 @@ $<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>dr
 $<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>agent<span class="w"> </span>cursor<span class="w">        </span><span class="c1"># -&gt; .cursor/rules/drawlib.mdc</span>
 $<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>agent<span class="w"> </span>antigravity<span class="w">   </span><span class="c1"># -&gt; .agents/rules/drawlib.md</span>
 
-<span class="c1"># 複数のエージェントを一括で初期化（全 9 種を一括生成する場合は 'all'）</span>
+<span class="c1"># 複数のエージェントを一括で初期化（モジュール分離型 7 種を一括生成する場合は 'all'）</span>
 $<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>agent<span class="w"> </span>claude<span class="w"> </span>cursor<span class="w"> </span>copilot
 
 <span class="c1"># 任意: フロントマター対応エージェントの読込モードを標準の 'auto' から常時読込 'always' に変更</span>

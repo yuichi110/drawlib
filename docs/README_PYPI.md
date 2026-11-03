@@ -1,6 +1,25 @@
-# Drawlib
+<div align="center">
+  <a href="https://www.drawlib.com/">
+    <img alt="Drawlib" src="https://raw.githubusercontent.com/yuichi110/drawlib/main/docs/logo/logo_transparent.png" width="340">
+  </a>
 
-**Pure-Python Library for "Illustration as Code" & "Illustrated Documentation as Code"**
+  <p><strong>Pure-Python Library for "Illustration as Code" &amp; "Illustrated Documentation as Code"</strong></p>
+
+  <p>
+    <a href="https://pypi.org/project/drawlib/"><img alt="PyPI version" src="https://img.shields.io/pypi/v/drawlib.svg"></a>
+    <a href="https://pypi.org/project/drawlib/"><img alt="Python 3.11–3.13" src="https://img.shields.io/pypi/pyversions/drawlib.svg"></a>
+    <a href="https://github.com/yuichi110/drawlib/actions/workflows/quality.yml"><img alt="Code Quality" src="https://github.com/yuichi110/drawlib/actions/workflows/quality.yml/badge.svg"></a>
+    <a href="https://github.com/yuichi110/drawlib/actions/workflows/ut_github.yml"><img alt="Unit Tests" src="https://github.com/yuichi110/drawlib/actions/workflows/ut_github.yml/badge.svg"></a>
+    <a href="https://opensource.org/licenses/Apache-2.0"><img alt="License: Apache-2.0" src="https://img.shields.io/badge/License-Apache_2.0-blue.svg"></a>
+    <a href="https://www.drawlib.com/"><img alt="Official Docs" src="https://img.shields.io/badge/Docs-www.drawlib.com-0ea5e9"></a>
+  </p>
+
+  <p>
+    <strong>English</strong> | <a href="https://github.com/yuichi110/drawlib/blob/main/docs/README_JA.md"><strong>日本語</strong></a>
+  </p>
+</div>
+
+---
 
 Drawlib is a declarative Python drawing library and integrated multi-format documentation compiler engineered for software developers and **autonomous AI coding agents**. Instead of maintaining brittle diagrams in external GUI tools (draw.io, Visio, PowerPoint) and manually pasting exported screenshots into wikis, Drawlib lets you author, animate, localize, version-control, and compile architectural diagrams, quantitative charts, technical documents, and 16:9 slide decks entirely from code in Git.
 
@@ -11,6 +30,26 @@ Drawlib is a declarative Python drawing library and integrated multi-format docu
   - [Quickstart Guide (PDF)](https://github.com/yuichi110/drawlib/blob/main/docs/quickstart_en.pdf)
   - [16:9 Presentation Slide Deck (PDF)](https://github.com/yuichi110/drawlib/blob/main/docs/slide_about_drawlib_en.pdf)
   - [Dogfooding Whitepaper — English (PDF)](https://github.com/yuichi110/drawlib/blob/main/docs/drawlib-dogfooding_en.pdf) | [日本語版 (PDF)](https://github.com/yuichi110/drawlib/blob/main/docs/drawlib-dogfooding_ja.pdf)
+
+---
+
+## Try in 30 Seconds (Zero Install with `uvx`)
+
+No `pyproject.toml`, virtual environment, or package installation required—works immediately in **any directory** (including **Go, Rust, TypeScript, and Java** repositories) using [`uv`](https://docs.astral.sh/uv/):
+
+```bash
+# 1. Scaffold a bilingual documentation site (or: doc, slide, images)
+uvx drawlib init project site -l en,ja
+
+# 2. (Optional) Generate Drawlib rules for your AI coding agent (claude, cursor, antigravity, copilot, ...)
+uvx drawlib init agent claude
+
+# 3. Compile HTML site + Markdown + diagrams & launch local preview
+./docs_src/build.sh
+uvx drawlib serve docs_html/
+```
+
+> **Python project or global CLI?** Install with `uv add drawlib`, `uv tool install drawlib`, or `pip install drawlib`.
 
 ---
 
@@ -66,13 +105,13 @@ At its core, Drawlib cleanly separates **Content** (geometry, coordinates, struc
 
 ---
 
-### 4. Illustrated Documentation & 16:9 Slide Deck as Code (Multi-Locale Ready)
+### 4. Illustrated Documentation & 16:9 Slide Deck as Code (Multi-Locale & SEO Ready)
 
 Author Markdown files with embedded ```` ```drawlib ```` code fences inside a unified `drawlib.toml` project. A single build compiles your repository into web portals, GitHub Markdown, PDFs, editable Word documents, HTML slide decks, and PowerPoint files:
 
 ![Multi-Locale Documentation and Slide Build Pipeline](https://www.drawlib.com/images/01_getting_started/project_quicklook/doc_build_pipeline.png)
 
-- **Unified `drawlib.toml` & Multi-Locale (`<lang>/`) Architecture**: Configure project metadata, `[build]` flags, and `[i18n]` locales (`langs = ["en", "ja"]`) in `drawlib.toml` with built-in structural parity checks across `<src_dir>/<lang>/` trees and locale-suffixed deliverables (`*_<lang>.pdf`, `*_<lang>.docx`, `*_<lang>.pptx`).
+- **Unified `drawlib.toml`, Multi-Locale (`[i18n]`) & Declarative SEO (`[seo]`)**: Configure project metadata, `[build]` flags, `[i18n]` locales (`langs = ["en", "ja"]` with structural parity checks), and `[seo]` publishing (`site_url`, Open Graph / X social cards, `hreflang`, `sitemap.xml`, `robots.txt`, and AI-ready `llms.txt`) directly in `drawlib.toml`.
 - **4 Project Scaffolds (`drawlib init project <type>`)**:
   - `drawlib init project site [-l en,ja]`: Multi-page documentation website (`docs_html/` with language switcher, search, and sidebar TOC) and GitHub Markdown (`docs_markdown/`).
   - `drawlib init project doc [-l en,ja]`: Linear technical specification or whitepaper (`*_html/`, `*_markdown/`, vector `*_<lang>.pdf`, plus editable MS Word `*_<lang>.docx` via `./<target>_src/build_docx.sh` or `drawlib build docx`).
@@ -86,16 +125,22 @@ Author Markdown files with embedded ```` ```drawlib ```` code fences inside a un
 
 ![Drawlib Environment & AI Agent Setup Workflow](https://www.drawlib.com/images/01_getting_started/installation/installation_setup_workflow.png)
 
-Install `drawlib` from PyPI using `uv` (recommended) or `pip` (Python `>= 3.11`):
+Run `drawlib` instantly with zero installation via `uvx`, or install from PyPI into your Python project or global CLI environment (Python `>= 3.11`):
 
 ```bash
+# Zero-install CLI (ideal for quick try & non-Python repos: Go, Rust, TypeScript, Java)
+uvx drawlib --version
+
+# Add to a Python uv project (for importing `drawlib.*` in scripts/tests)
 uv add drawlib
-# or: pip install drawlib
+
+# Or install globally as a persistent CLI tool / via pip
+uv tool install drawlib   # or: pip install drawlib
 ```
 
 ### Configure AI Agent Instructions *(Optional — Strongly Recommended)*
 
-If you author code or documentation with an AI coding agent (**Claude Code**, **Cursor**, **Antigravity**, **GitHub Copilot**, **Windsurf**, **Cline**, **Roo Code**, **OpenAI Codex**, or **Gemini CLI**), initialize workspace agent instructions right after installation so your agent automatically follows Drawlib's bottom-left `(0, 0)` coordinate space, `50%+` neutral style discipline, `drawlib init project` scaffolding, and 3-stage visual self-correction loop:
+If you author code or documentation with an AI coding agent (**Claude Code**, **Cursor**, **Antigravity**, **GitHub Copilot**, **Windsurf**, **Cline**, **Roo Code**, **OpenAI Codex**, or **Gemini CLI**), initialize workspace agent instructions right after setup (prefix with `uvx` or `uv run` as needed) so your agent automatically follows Drawlib's bottom-left `(0, 0)` coordinate space, `50%+` neutral style discipline, `drawlib init project` scaffolding, and 3-stage visual self-correction loop:
 
 ```bash
 drawlib init agent list                   # List supported agents & target file paths
@@ -111,12 +156,6 @@ PDF, MS Word (`.docx`), and MS PowerPoint (`.pptx`) export work out of the box�
 
 - **Offline / Air-Gapped / CI Environments**: Pre-download all fonts, icons, maps, and headless Chromium ahead of time with `drawlib cache download --all` (or Chromium only with `drawlib cache download --browser`).
 - **Minimal Linux Containers** (e.g., `python:3.12-slim` lacking OS shared libraries such as `libnss3` or `libgbm1`): Install OS browser dependencies once via `playwright install-deps chromium` (or `playwright install --with-deps --only-shell chromium`).
-
-Verify the installation:
-
-```bash
-drawlib --version
-```
 
 ---
 
@@ -150,10 +189,11 @@ text((49.5, 27), "REST API", style=Styles.DarkBold)
 save()
 ```
 
-Run the script with Python to generate `client_server.png`:
+Run the script to generate `client_server.png`:
 
 ```bash
-python client_server.py
+uv run python client_server.py
+# Or without project setup: uvx drawlib show client_server.py -o client_server.png
 ```
 
 #### Core Principles at a Glance
@@ -166,7 +206,7 @@ python client_server.py
 
 ### 2. Illustrated Documentation & Slide Deck Workflow
 
-Scaffold a multi-page documentation site, linear whitepaper, or 16:9 slide deck in seconds (pass `-l en,ja` for multi-locale `<src_dir>/<lang>/` projects):
+Scaffold a multi-page documentation site, linear whitepaper, or 16:9 slide deck in seconds (pass `-l en,ja` for multi-locale `<src_dir>/<lang>/` projects; prefix with `uvx` if running zero-install):
 
 ```bash
 # Initialize a bilingual multi-page documentation site in docs_src/ (en/ & ja/)
@@ -200,7 +240,7 @@ save()
 ```
 ````
 
-Compile, export, and preview with the `drawlib` CLI:
+Compile, export, and preview with the generated scripts (which automatically detect `uv run drawlib`, `drawlib`, or `uvx drawlib`) or the CLI:
 
 ```bash
 # Build HTML site, GitHub Markdown, or PDF via generated build script
@@ -237,6 +277,7 @@ drawlib show docs_src/en/index.md service_routing.png -g -o preview_grid.png
 
 - **Official Documentation**: [English (`https://www.drawlib.com/`)](https://www.drawlib.com/) | [日本語 (`https://www.drawlib.com/ja/`)](https://www.drawlib.com/ja/)
 - **Release Notes & Changelog**: [English](https://www.drawlib.com/en/01_getting_started/release_notes.html) | [日本語](https://www.drawlib.com/ja/01_getting_started/release_notes.html)
+- **Contributor & Developer Guide**: [`CONTRIBUTING.md`](https://github.com/yuichi110/drawlib/blob/main/.github/CONTRIBUTING.md) | [`docs/README_DEV.md`](https://github.com/yuichi110/drawlib/blob/main/docs/README_DEV.md)
 - **PyPI Package**: [https://pypi.org/project/drawlib/](https://pypi.org/project/drawlib/)
 - **GitHub Repository**: [https://github.com/yuichi110/drawlib](https://github.com/yuichi110/drawlib)
 - **License**: Apache License 2.0

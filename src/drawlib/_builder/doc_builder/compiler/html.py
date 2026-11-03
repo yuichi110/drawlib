@@ -19,9 +19,23 @@ from typing import Any
 from drawlib._builder._common import (
     BuildImageCache,
     FileBuildProgress,
+    LlmsLink,
+    LlmsSection,
+    ProjectManifest,
+    SitemapEntry,
+    build_page_seo_metadata,
+    ensure_seo_og_image_copied,
+    extract_markdown_description,
     find_project_manifest,
     load_project_manifest,
+    render_seo_head_tags,
+    resolve_localized_description,
+    resolve_public_page_url,
     resolve_styles_and_utils,
+    upgrade_alternate_links,
+    write_llms_txt,
+    write_robots_txt,
+    write_sitemap_xml,
 )
 from drawlib._builder.doc_builder.compiler.base import (
     copy_directory_assets,
@@ -165,6 +179,7 @@ def build_html(
         return _build_i18n_doc_html(
             input_abs=input_abs,
             out_dir_abs=out_dir_abs,
+            manifest=manifest,
             i18n_cfg=manifest.i18n,
             image_format=image_format,
             styles_path=styles_path,
@@ -175,6 +190,7 @@ def build_html(
     return _build_i18n_site_html(
         input_abs=input_abs,
         out_dir_abs=out_dir_abs,
+        manifest=manifest,
         i18n_cfg=manifest.i18n,
         image_format=image_format,
         styles_path=styles_path,
@@ -275,6 +291,7 @@ def _build_i18n_site_html(
     *,
     input_abs: str,
     out_dir_abs: str,
+    manifest: ProjectManifest,
     i18n_cfg: I18nConfig,
     image_format: str,
     styles_path: str | None,
@@ -319,13 +336,18 @@ def _build_i18n_site_html(
         lc: resolve_styles_and_utils(os.path.join(input_abs, lc), styles_path, utils_path) for lc in ordered_langs
     }
 
+    rel_htmls_by_lang: dict[str, list[str]] = {lc: [] for lc in ordered_langs}
+    page_meta_by_src: dict[str, tuple[str, str, str]] = {}
+    default_src_files: list[str] = []
+    landing_desc_by_lang: dict[str, str] = {}
+
     for idx, ((lang, rel_path, src_abs, dest_abs, is_md), disp_name) in enumerate(
         zip(all_tasks, display_names),
         start=1,
     ):
         loc_styles, loc_utils = locale_styles_utils[lang]
         cfg_key = (loc_styles, loc_utils)
-        processors_by_cfg[cfg_key] = _compile_i18n_locale_page(
+        next_proc, doc_title, doc_desc, rel_html = _compile_i18n_locale_page(
             idx=idx,
             total_files=total_files,
             disp_name=disp_name,
@@ -338,6 +360,7 @@ def _build_i18n_site_html(
             is_md=is_md,
             input_abs=input_abs,
             out_dir_abs=out_dir_abs,
+            manifest=manifest,
             i18n_cfg=i18n_cfg,
             locale_navbar=locale_navbars[lang],
             locale_css_path=locale_css_paths[lang],
@@ -350,10 +373,18 @@ def _build_i18n_site_html(
             no_cache=no_cache,
             cache=cache,
         )
+        processors_by_cfg[cfg_key] = next_proc
+        rel_htmls_by_lang[lang].append(rel_html)
+        if rel_html == "index.html":
+            landing_desc_by_lang[lang] = doc_desc
+        if lang == default_lang:
+            abs_src_key = os.path.abspath(src_abs)
+            default_src_files.append(abs_src_key)
+            page_meta_by_src[abs_src_key] = (doc_title, doc_desc, f"{lang}/{rel_html}")
 
     def_styles, def_utils = locale_styles_utils[default_lang]
     def_key = (def_styles, def_utils)
-    _compile_i18n_root_index_page(
+    _, root_title, root_desc = _compile_i18n_root_index_page(
         idx=total_files,
         total_files=total_files,
         disp_name=root_disp,
@@ -361,6 +392,7 @@ def _build_i18n_site_html(
         image_width=image_width,
         input_abs=input_abs,
         out_dir_abs=out_dir_abs,
+        manifest=manifest,
         i18n_cfg=i18n_cfg,
         default_navbar=locale_navbars[default_lang],
         default_css_path=locale_css_paths[default_lang],
@@ -379,6 +411,21 @@ def _build_i18n_site_html(
         if css_out is not None:
             bundle_svg_fonts(out_dir_abs, css_file_path=css_out)
 
+    _emit_site_seo_files(
+        input_abs=input_abs,
+        out_dir_abs=out_dir_abs,
+        manifest=manifest,
+        i18n_cfg=i18n_cfg,
+        ordered_langs=ordered_langs,
+        rel_htmls_by_lang=rel_htmls_by_lang,
+        default_navbar=locale_navbars[default_lang],
+        page_meta_by_src=page_meta_by_src,
+        default_src_files=default_src_files,
+        landing_desc_by_lang=landing_desc_by_lang,
+        root_title=root_title,
+        root_desc=root_desc,
+    )
+
     readme_out = os.path.join(out_dir_abs, "README.md")
     if not os.path.exists(readme_out):
         os.makedirs(out_dir_abs, exist_ok=True)
@@ -388,35 +435,17 @@ def _build_i18n_site_html(
     return out_dir_abs
 
 
-def _build_i18n_doc_html(
+def _prepare_i18n_doc_locales(
     *,
     input_abs: str,
     out_dir_abs: str,
-    i18n_cfg: I18nConfig,
-    image_format: str,
-    styles_path: str | None,
-    utils_path: str | None,
-    no_cache: bool,
+    ordered_langs: list[str],
+    locale_files: dict[str, list[str]],
+    css_file: str,
     css_mode: str,
-) -> str:
-    """Compile a multi-locale (i18n) linear ``doc`` directory into merged HTML documents per locale."""
-    if out_dir_abs == input_abs:
-        raise ValueError(
-            f'Refusing to build multi-locale HTML in-place inside source directory "{input_abs}". '
-            "Please specify a separate output directory."
-        )
-
-    template_file, css_file = resolve_template_and_css(input_abs)
-    locale_files = validate_i18n_project(
-        input_abs,
-        i18n_cfg,
-        project_type="doc",
-        default_format=image_format,
-    )
-
-    default_lang = i18n_cfg.default_lang
-    ordered_langs = [default_lang] + [lc for lc in i18n_cfg.langs if lc != default_lang]
-
+    image_format: str,
+) -> tuple[dict[str, str | None], list[str], int]:
+    """Prepare localized ``style.css`` files, clean stale HTMLs, and check duplicate block outputs for ``doc``."""
     locale_css_paths: dict[str, str | None] = {}
     raw_css = ""
     if css_mode != "embed":
@@ -468,6 +497,154 @@ def _build_i18n_doc_html(
         )
         max_blocks = max(max_blocks, loc_max)
 
+    return locale_css_paths, all_disp_names, max_blocks
+
+
+def _compile_doc_locale_combined(
+    *,
+    lang: str,
+    rel_files: list[str],
+    input_abs: str,
+    out_dir_abs: str,
+    start_step: int,
+    total_files: int,
+    name_width: int,
+    image_width: int,
+    image_format: str,
+    loc_styles: str | None,
+    loc_utils: str | None,
+    processor: DrawlibBlockProcessor | None,
+    no_cache: bool,
+    cache: BuildImageCache,
+) -> tuple[str, str, str, list[tuple[str, str, str]], int, DrawlibBlockProcessor | None]:
+    """Compile all chapters for one ``doc`` locale and return combined body, title, desc, chapters, step, proc."""
+    lang_out_dir = os.path.join(out_dir_abs, lang)
+    chapter_anchors: dict[str, str] = {}
+    for c_idx, rel_path in enumerate(rel_files, start=1):
+        src_abs = os.path.join(input_abs, lang, *rel_path.split("/"))
+        stem = os.path.splitext(os.path.basename(src_abs))[0]
+        slug = re.sub(r"[^a-zA-Z0-9_-]+", "-", stem).strip("-").lower() or f"doc-{c_idx}"
+        anchor_id = f"chapter-{c_idx}-{slug}"
+        chapter_anchors[src_abs] = anchor_id
+        chapter_anchors[os.path.basename(src_abs)] = anchor_id
+        chapter_anchors[f"{stem}.md"] = anchor_id
+        chapter_anchors[f"{stem}.html"] = anchor_id
+
+    chapters_html: list[str] = []
+    toc_entries: list[tuple[str, str]] = []
+    chapters_meta: list[tuple[str, str, str]] = []
+    inferred_title: str | None = None
+    first_desc = ""
+    global_step = start_step
+
+    for rel_path in rel_files:
+        global_step += 1
+        src_abs = os.path.join(input_abs, lang, *rel_path.split("/"))
+        rel_stem, _ = os.path.splitext(rel_path)
+        dest_abs = os.path.join(lang_out_dir, f"{os.path.basename(rel_stem)}.html")
+        shared_dir = os.path.join(out_dir_abs, "images", *rel_stem.split("/"))
+        progress = FileBuildProgress(
+            global_step,
+            total_files,
+            file_name=f"/{lang}/{rel_path}",
+            name_width=name_width,
+            image_width=image_width,
+        )
+        chapter_body, chapter_title, chapter_desc, processor = _compile_chapter_body(
+            src_abs=src_abs,
+            dest_abs=dest_abs,
+            image_format=image_format,
+            styles_path=loc_styles,
+            utils_path=loc_utils,
+            processor=processor,
+            progress=progress,
+            no_cache=no_cache,
+            cache=cache,
+            project_root=input_abs,
+            shared_images_dir=shared_dir,
+        )
+        if inferred_title is None:
+            inferred_title = chapter_title
+        if not first_desc and chapter_desc:
+            first_desc = chapter_desc
+
+        anchor_id = chapter_anchors[src_abs]
+        toc_entries.append((anchor_id, chapter_title))
+        chapters_meta.append((anchor_id, chapter_title, chapter_desc))
+
+        def _rewrite_link(match: re.Match[str], _anchors: dict[str, str] = chapter_anchors) -> str:
+            href_target = match.group(1)
+            base_target = os.path.basename(href_target.split("#")[0])
+            if base_target in _anchors:
+                return f'href="#{_anchors[base_target]}"'
+            return match.group(0)
+
+        chapter_body = re.sub(
+            r'href=["\'](?!https?://|//|#)([^"\']+\.(?:md|html))(#[^"\']*)?["\']',
+            _rewrite_link,
+            chapter_body,
+            flags=re.IGNORECASE,
+        )
+        chapters_html.append(f'<section id="{anchor_id}" class="doc-chapter pdf-chapter">\n{chapter_body}\n</section>')
+
+    lang_cfg = get_language_config(lang)
+    body_parts: list[str] = []
+    index_entries = toc_entries[1:]
+    if len(index_entries) > 0:
+        toc_items = "\n".join(f'    <li><a href="#{anc}">{t_title}</a></li>' for anc, t_title in index_entries)
+        toc_html = (
+            f'<nav class="doc-toc pdf-toc">\n  <h2>{lang_cfg.toc_title}</h2>\n  <ul>\n{toc_items}\n  </ul>\n</nav>'
+        )
+        body_parts.append(chapters_html[0])
+        body_parts.append(toc_html)
+        body_parts.extend(chapters_html[1:])
+    else:
+        body_parts.extend(chapters_html)
+
+    combined_body = "\n\n".join(body_parts)
+    resolved_title = inferred_title or "Drawlib Document"
+    return combined_body, resolved_title, first_desc, chapters_meta, global_step, processor
+
+
+def _build_i18n_doc_html(
+    *,
+    input_abs: str,
+    out_dir_abs: str,
+    manifest: ProjectManifest,
+    i18n_cfg: I18nConfig,
+    image_format: str,
+    styles_path: str | None,
+    utils_path: str | None,
+    no_cache: bool,
+    css_mode: str,
+) -> str:
+    """Compile a multi-locale (i18n) linear ``doc`` directory into merged HTML documents per locale."""
+    if out_dir_abs == input_abs:
+        raise ValueError(
+            f'Refusing to build multi-locale HTML in-place inside source directory "{input_abs}". '
+            "Please specify a separate output directory."
+        )
+
+    template_file, css_file = resolve_template_and_css(input_abs)
+    locale_files = validate_i18n_project(
+        input_abs,
+        i18n_cfg,
+        project_type="doc",
+        default_format=image_format,
+    )
+
+    default_lang = i18n_cfg.default_lang
+    ordered_langs = [default_lang] + [lc for lc in i18n_cfg.langs if lc != default_lang]
+    locale_css_paths, all_disp_names, max_blocks = _prepare_i18n_doc_locales(
+        input_abs=input_abs,
+        out_dir_abs=out_dir_abs,
+        ordered_langs=ordered_langs,
+        locale_files=locale_files,
+        css_file=css_file,
+        css_mode=css_mode,
+        image_format=image_format,
+    )
+
     root_disp = "/index.html"
     total_files = len(all_disp_names) + 1
     name_width = max((len(n) for n in [*all_disp_names, root_disp]), default=0)
@@ -478,105 +655,59 @@ def _build_i18n_doc_html(
     global_step = 0
     default_combined_body = ""
     default_doc_title = "Drawlib Document"
+    default_doc_desc = ""
+    default_chapters_meta: list[tuple[str, str, str]] = []
+    landing_desc_by_lang: dict[str, str] = {}
+    doc_site_title = manifest.project.title.strip() or None
 
     for lang in ordered_langs:
         lang_out_dir = os.path.join(out_dir_abs, lang)
         lang_index_dest = os.path.join(lang_out_dir, "index.html")
         loc_styles, loc_utils = resolve_styles_and_utils(os.path.join(input_abs, lang), styles_path, utils_path)
         cfg_key = (loc_styles, loc_utils)
-        processor = processors_by_cfg.get(cfg_key)
 
-        chapter_anchors: dict[str, str] = {}
-        for c_idx, rel_path in enumerate(locale_files[lang], start=1):
-            src_abs = os.path.join(input_abs, lang, *rel_path.split("/"))
-            stem = os.path.splitext(os.path.basename(src_abs))[0]
-            slug = re.sub(r"[^a-zA-Z0-9_-]+", "-", stem).strip("-").lower() or f"doc-{c_idx}"
-            anchor_id = f"chapter-{c_idx}-{slug}"
-            chapter_anchors[src_abs] = anchor_id
-            chapter_anchors[os.path.basename(src_abs)] = anchor_id
-            chapter_anchors[f"{stem}.md"] = anchor_id
-            chapter_anchors[f"{stem}.html"] = anchor_id
-
-        chapters_html: list[str] = []
-        toc_entries: list[tuple[str, str]] = []
-        inferred_title: str | None = None
-
-        for rel_path in locale_files[lang]:
-            global_step += 1
-            src_abs = os.path.join(input_abs, lang, *rel_path.split("/"))
-            rel_stem, _ = os.path.splitext(rel_path)
-            dest_abs = os.path.join(lang_out_dir, f"{os.path.basename(rel_stem)}.html")
-            shared_dir = os.path.join(out_dir_abs, "images", *rel_stem.split("/"))
-            progress = FileBuildProgress(
-                global_step,
-                total_files,
-                file_name=f"/{lang}/{rel_path}",
-                name_width=name_width,
-                image_width=image_width,
-            )
-            chapter_body, chapter_title, processor = _compile_chapter_body(
-                src_abs=src_abs,
-                dest_abs=dest_abs,
-                image_format=image_format,
-                styles_path=loc_styles,
-                utils_path=loc_utils,
-                processor=processor,
-                progress=progress,
-                no_cache=no_cache,
-                cache=cache,
-                project_root=input_abs,
-                shared_images_dir=shared_dir,
-            )
-            if inferred_title is None:
-                inferred_title = chapter_title
-
-            anchor_id = chapter_anchors[src_abs]
-            toc_entries.append((anchor_id, chapter_title))
-
-            def _rewrite_link(match: re.Match[str], _anchors: dict[str, str] = chapter_anchors) -> str:
-                href_target = match.group(1)
-                base_target = os.path.basename(href_target.split("#")[0])
-                if base_target in _anchors:
-                    return f'href="#{_anchors[base_target]}"'
-                return match.group(0)
-
-            chapter_body = re.sub(
-                r'href=["\'](?!https?://|//|#)([^"\']+\.(?:md|html))(#[^"\']*)?["\']',
-                _rewrite_link,
-                chapter_body,
-                flags=re.IGNORECASE,
-            )
-            chapters_html.append(
-                f'<section id="{anchor_id}" class="doc-chapter pdf-chapter">\n{chapter_body}\n</section>'
-            )
-
-        processors_by_cfg[cfg_key] = processor
-        lang_cfg = get_language_config(lang)
-        body_parts: list[str] = []
-        index_entries = toc_entries[1:]
-        if len(index_entries) > 0:
-            toc_items = "\n".join(f'    <li><a href="#{anc}">{t_title}</a></li>' for anc, t_title in index_entries)
-            toc_html = (
-                f'<nav class="doc-toc pdf-toc">\n  <h2>{lang_cfg.toc_title}</h2>\n  <ul>\n{toc_items}\n  </ul>\n</nav>'
-            )
-            body_parts.append(chapters_html[0])
-            body_parts.append(toc_html)
-            body_parts.extend(chapters_html[1:])
-        else:
-            body_parts.extend(chapters_html)
-
-        combined_body = "\n\n".join(body_parts)
-        resolved_title = inferred_title or "Drawlib Document"
+        combined_body, resolved_title, first_desc, chapters_meta, global_step, next_proc = _compile_doc_locale_combined(
+            lang=lang,
+            rel_files=locale_files[lang],
+            input_abs=input_abs,
+            out_dir_abs=out_dir_abs,
+            start_step=global_step,
+            total_files=total_files,
+            name_width=name_width,
+            image_width=image_width,
+            image_format=image_format,
+            loc_styles=loc_styles,
+            loc_utils=loc_utils,
+            processor=processors_by_cfg.get(cfg_key),
+            no_cache=no_cache,
+            cache=cache,
+        )
+        processors_by_cfg[cfg_key] = next_proc
+        landing_desc_by_lang[lang] = first_desc
         if lang == default_lang:
             default_combined_body = combined_body
             default_doc_title = resolved_title
+            default_doc_desc = first_desc
+            default_chapters_meta = chapters_meta
 
+        lang_cfg = get_language_config(lang)
         languages_ctx, alt_links = build_language_switcher_context(
             config=i18n_cfg,
             out_dir_abs=out_dir_abs,
             rel_html_path="index.html",
             current_dest_abs=lang_index_dest,
             active_lang=lang,
+        )
+        seo_meta_html, eff_alt_links = _resolve_page_seo_and_alternates(
+            manifest=manifest,
+            out_dir_abs=out_dir_abs,
+            dest_abs=lang_index_dest,
+            lang=lang,
+            page_title=resolved_title,
+            site_title=doc_site_title,
+            page_description=first_desc,
+            prefer_manifest_description=True,
+            alternate_links=alt_links,
         )
         rel_favicon_href = resolve_favicon_href(input_abs, out_dir_abs, lang_index_dest)
         rel_logo_href, rel_logo_dark_href = resolve_logo_hrefs(input_abs, out_dir_abs, lang_index_dest)
@@ -597,8 +728,9 @@ def _build_i18n_doc_html(
             html_dir=lang_cfg.direction,
             font_link_html=lang_cfg.font_link_html,
             languages=languages_ctx,
-            alternate_links=alt_links,
+            alternate_links=eff_alt_links,
             css_lang=lang,
+            seo_meta_html=seo_meta_html,
         )
         os.makedirs(lang_out_dir, exist_ok=True)
         with open(lang_index_dest, "w", encoding="utf-8") as f:
@@ -628,6 +760,17 @@ def _build_i18n_doc_html(
         current_dest_abs=root_dest_abs,
         active_lang=default_lang,
     )
+    root_seo_html, eff_root_alt_links = _resolve_page_seo_and_alternates(
+        manifest=manifest,
+        out_dir_abs=out_dir_abs,
+        dest_abs=root_dest_abs,
+        lang=default_lang,
+        page_title=default_doc_title,
+        site_title=doc_site_title,
+        page_description=default_doc_desc,
+        prefer_manifest_description=True,
+        alternate_links=root_alt_links,
+    )
     def_lang_cfg = get_language_config(default_lang)
     root_favicon_href = resolve_favicon_href(input_abs, out_dir_abs, root_dest_abs)
     root_logo_href, root_logo_dark_href = resolve_logo_hrefs(input_abs, out_dir_abs, root_dest_abs)
@@ -648,8 +791,9 @@ def _build_i18n_doc_html(
         html_dir=def_lang_cfg.direction,
         font_link_html=def_lang_cfg.font_link_html,
         languages=root_languages,
-        alternate_links=root_alt_links,
+        alternate_links=eff_root_alt_links,
         css_lang=default_lang,
+        seo_meta_html=root_seo_html,
     )
     os.makedirs(out_dir_abs, exist_ok=True)
     with open(root_dest_abs, "w", encoding="utf-8") as f:
@@ -660,6 +804,17 @@ def _build_i18n_doc_html(
     for css_out in locale_css_paths.values():
         if css_out is not None:
             bundle_svg_fonts(out_dir_abs, css_file_path=css_out)
+
+    _emit_doc_seo_files(
+        input_abs=input_abs,
+        out_dir_abs=out_dir_abs,
+        manifest=manifest,
+        i18n_cfg=i18n_cfg,
+        ordered_langs=ordered_langs,
+        default_title=default_doc_title,
+        default_chapters=default_chapters_meta,
+        landing_desc_by_lang=landing_desc_by_lang,
+    )
 
     readme_out = os.path.join(out_dir_abs, "README.md")
     if not os.path.exists(readme_out):
@@ -684,6 +839,7 @@ def _compile_i18n_locale_page(
     is_md: bool,
     input_abs: str,
     out_dir_abs: str,
+    manifest: ProjectManifest | None,
     i18n_cfg: I18nConfig,
     locale_navbar: tuple[list[NavbarSection], str | None],
     locale_css_path: str | None,
@@ -695,8 +851,8 @@ def _compile_i18n_locale_page(
     processor: DrawlibBlockProcessor | None,
     no_cache: bool,
     cache: BuildImageCache,
-) -> DrawlibBlockProcessor | None:
-    """Compile a single <out_dir_abs>/<lang>/<rel_html> page."""
+) -> tuple[DrawlibBlockProcessor | None, str, str, str]:
+    """Compile a single <out_dir_abs>/<lang>/<rel_html> page and return (processor, title, desc, rel_html)."""
     rel_stem, _ = os.path.splitext(rel_path)
     rel_html = f"{rel_stem}.html" if is_md else rel_path
     shared_dir = os.path.join(out_dir_abs, "images", *rel_stem.split("/"))
@@ -726,8 +882,9 @@ def _compile_i18n_locale_page(
         active_lang=lang,
     )
     lang_cfg = get_language_config(lang)
+    is_landing_index = rel_html == "index.html"
 
-    return _compile_single_html_file(
+    next_proc, doc_title, doc_desc = _compile_single_html_file(
         src_abs=src_abs,
         dest_abs=dest_abs,
         image_format=image_format,
@@ -761,7 +918,11 @@ def _compile_i18n_locale_page(
         languages=languages_ctx,
         alternate_links=alt_links,
         css_lang=lang,
+        manifest=manifest,
+        out_dir_abs=out_dir_abs,
+        prefer_manifest_description=is_landing_index,
     )
+    return next_proc, doc_title, doc_desc, rel_html
 
 
 def _compile_i18n_root_index_page(
@@ -773,6 +934,7 @@ def _compile_i18n_root_index_page(
     image_width: int,
     input_abs: str,
     out_dir_abs: str,
+    manifest: ProjectManifest | None,
     i18n_cfg: I18nConfig,
     default_navbar: tuple[list[NavbarSection], str | None],
     default_css_path: str | None,
@@ -784,7 +946,7 @@ def _compile_i18n_root_index_page(
     processor: DrawlibBlockProcessor | None,
     no_cache: bool,
     cache: BuildImageCache,
-) -> DrawlibBlockProcessor | None:
+) -> tuple[DrawlibBlockProcessor | None, str, str]:
     """Compile root <out_dir_abs>/index.html from <default_lang>/index.* with rebased relative links."""
     default_lang = i18n_cfg.default_lang
     def_src_root = os.path.join(input_abs, default_lang)
@@ -848,6 +1010,9 @@ def _compile_i18n_root_index_page(
         languages=languages_ctx,
         alternate_links=alt_links,
         css_lang=default_lang,
+        manifest=manifest,
+        out_dir_abs=out_dir_abs,
+        prefer_manifest_description=True,
     )
 
 
@@ -863,8 +1028,8 @@ def _compile_chapter_body(
     cache: BuildImageCache | None = None,
     project_root: str | None = None,
     shared_images_dir: str | None = None,
-) -> tuple[str, str, DrawlibBlockProcessor | None]:
-    """Compile a single source file into an HTML body fragment and title."""
+) -> tuple[str, str, str, DrawlibBlockProcessor | None]:
+    """Compile a single source file into an HTML body fragment, title, and plain-text summary."""
     with open(src_abs, "r", encoding="utf-8") as f:
         content = f.read()
 
@@ -876,6 +1041,9 @@ def _compile_chapter_body(
     if doc_info.is_markdown:
         validate_markdown_links(src_abs, content)
         validate_markdown_images(src_abs, content)
+        doc_desc = extract_markdown_description(content)
+    else:
+        doc_desc = ""
 
     if doc_info.has_drawlib and processor is None:
         processor = DrawlibBlockProcessor(
@@ -953,7 +1121,42 @@ def _compile_chapter_body(
     if progress is not None:
         progress.update(total_steps, total_steps, done=True)
 
-    return body_html, doc_title, processor
+    return body_html, doc_title, doc_desc, processor
+
+
+def _resolve_page_seo_and_alternates(
+    *,
+    manifest: ProjectManifest | None,
+    out_dir_abs: str | None,
+    dest_abs: str,
+    lang: str,
+    page_title: str,
+    site_title: str | None,
+    page_description: str,
+    prefer_manifest_description: bool,
+    alternate_links: list[dict[str, str]] | None,
+) -> tuple[str | None, list[dict[str, str]] | None]:
+    """Build rendered SEO ``<head>`` tags and upgrade ``alternate_links`` when ``[seo]`` is active."""
+    if manifest is None or manifest.seo is None or out_dir_abs is None:
+        return None, alternate_links
+
+    upgraded = (
+        upgrade_alternate_links(alternate_links, manifest.seo.site_url, out_dir_abs, dest_abs)
+        if alternate_links and manifest.seo.site_url
+        else alternate_links
+    )
+    seo_meta = build_page_seo_metadata(
+        manifest=manifest,
+        out_dir_abs=out_dir_abs,
+        dest_abs=dest_abs,
+        lang=lang,
+        page_title=page_title,
+        site_title=site_title,
+        page_description=page_description,
+        prefer_manifest_description=prefer_manifest_description,
+    )
+    seo_html = render_seo_head_tags(seo_meta) if seo_meta is not None else None
+    return seo_html, upgraded
 
 
 def _compile_single_html_file(
@@ -985,9 +1188,12 @@ def _compile_single_html_file(
     languages: list[dict[str, Any]] | None = None,
     alternate_links: list[dict[str, str]] | None = None,
     css_lang: str = "en",
-) -> DrawlibBlockProcessor | None:
-    """Compile a single Markdown or HTML file into HTML."""
-    body_html, doc_title, processor = _compile_chapter_body(
+    manifest: ProjectManifest | None = None,
+    out_dir_abs: str | None = None,
+    prefer_manifest_description: bool = False,
+) -> tuple[DrawlibBlockProcessor | None, str, str]:
+    """Compile a single Markdown or HTML file into HTML and return ``(processor, title, description)``."""
+    body_html, doc_title, doc_desc, processor = _compile_chapter_body(
         src_abs=src_abs,
         dest_abs=dest_abs,
         image_format=image_format,
@@ -1007,6 +1213,18 @@ def _compile_single_html_file(
             to_dir=os.path.dirname(dest_abs),
         )
 
+    seo_meta_html, eff_alt_links = _resolve_page_seo_and_alternates(
+        manifest=manifest,
+        out_dir_abs=out_dir_abs,
+        dest_abs=dest_abs,
+        lang=css_lang,
+        page_title=doc_title,
+        site_title=site_title,
+        page_description=doc_desc,
+        prefer_manifest_description=prefer_manifest_description,
+        alternate_links=alternate_links,
+    )
+
     full_html = render_html_document(
         body_html=body_html,
         title=doc_title,
@@ -1024,12 +1242,250 @@ def _compile_single_html_file(
         html_dir=html_dir,
         font_link_html=font_link_html,
         languages=languages,
-        alternate_links=alternate_links,
+        alternate_links=eff_alt_links,
         css_lang=css_lang,
+        seo_meta_html=seo_meta_html,
     )
 
     os.makedirs(os.path.dirname(dest_abs), exist_ok=True)
     with open(dest_abs, "w", encoding="utf-8") as f:
         f.write(full_html)
 
-    return processor
+    return processor, doc_title, doc_desc
+
+
+def _build_i18n_sitemap_entries(
+    site_url: str,
+    i18n_cfg: I18nConfig,
+    ordered_langs: list[str],
+    rel_htmls_by_lang: dict[str, list[str]],
+) -> list[SitemapEntry]:
+    """Construct ``SitemapEntry`` items for root ``index.html`` and all localized pages."""
+    multi_locale = len(i18n_cfg.langs) >= 2
+    default_lang = i18n_cfg.default_lang
+
+    def _alternates_for(rel_html: str) -> tuple[tuple[str, str], ...]:
+        if not multi_locale:
+            return ()
+        alts = [
+            (get_language_config(lc).code, resolve_public_page_url(site_url, f"{lc}/{rel_html}"))
+            for lc in i18n_cfg.langs
+        ]
+        x_def_rel = "index.html" if rel_html == "index.html" else f"{default_lang}/{rel_html}"
+        alts.append(("x-default", resolve_public_page_url(site_url, x_def_rel)))
+        return tuple(alts)
+
+    entries: list[SitemapEntry] = [
+        SitemapEntry(
+            loc=resolve_public_page_url(site_url, "index.html"),
+            alternates=_alternates_for("index.html"),
+        )
+    ]
+    for lang in ordered_langs:
+        rel_list = rel_htmls_by_lang.get(lang, [])
+        ordered_rels = (["index.html"] if "index.html" in rel_list else []) + [
+            r for r in rel_list if r != "index.html"
+        ]
+        for rel_html in ordered_rels:
+            entries.append(
+                SitemapEntry(
+                    loc=resolve_public_page_url(site_url, f"{lang}/{rel_html}"),
+                    alternates=_alternates_for(rel_html),
+                )
+            )
+    return entries
+
+
+def _format_llms_url(site_url: str, rel_out_path: str) -> str:
+    """Format a public or root-relative link URL for ``llms.txt``."""
+    if site_url:
+        return resolve_public_page_url(site_url, rel_out_path)
+    norm = rel_out_path.replace("\\", "/").lstrip("/")
+    if not norm or norm == "index.html":
+        return "/"
+    if norm.endswith("/index.html"):
+        return f"/{norm[:-len('index.html')]}"
+    return f"/{norm}"
+
+
+def _build_locales_llms_section(
+    manifest: ProjectManifest,
+    i18n_cfg: I18nConfig,
+    site_url: str,
+    landing_desc_by_lang: dict[str, str],
+) -> LlmsSection | None:
+    """Build optional ``Locales`` section for ``llms.txt`` when 2+ languages are configured."""
+    if len(i18n_cfg.langs) < 2:
+        return None
+    links: list[LlmsLink] = []
+    for lc in i18n_cfg.langs:
+        lang_cfg = get_language_config(lc)
+        label = i18n_cfg.labels.get(lc) or lang_cfg.display_name
+        desc = resolve_localized_description(
+            manifest=manifest,
+            lang=lc,
+            page_description=landing_desc_by_lang.get(lc, ""),
+            prefer_manifest=True,
+        )
+        links.append(
+            LlmsLink(
+                title=f"{label} ({lang_cfg.code})",
+                url=_format_llms_url(site_url, f"{lc}/index.html"),
+                description=desc,
+            )
+        )
+    return LlmsSection(title="Locales", links=links)
+
+
+def _build_site_llms_sections(
+    manifest: ProjectManifest,
+    i18n_cfg: I18nConfig,
+    site_url: str,
+    nav_sections: list[NavbarSection],
+    page_meta_by_src: dict[str, tuple[str, str, str]],
+    default_src_files: list[str],
+    landing_desc_by_lang: dict[str, str],
+) -> list[LlmsSection]:
+    """Organize ``site`` pages into ``LlmsSection`` blocks following ``navbar.md`` hierarchy."""
+    sections: list[LlmsSection] = []
+    seen_srcs: set[str] = set()
+
+    for nav_sec in nav_sections:
+        sec_links: list[LlmsLink] = []
+        for item in nav_sec.items:
+            if item.is_external or not item.target_file_abs:
+                continue
+            src_key = os.path.abspath(item.target_file_abs)
+            meta = page_meta_by_src.get(src_key)
+            if meta is None or src_key in seen_srcs:
+                continue
+            seen_srcs.add(src_key)
+            doc_title, doc_desc, rel_out_html = meta
+            sec_links.append(
+                LlmsLink(
+                    title=(item.title or doc_title),
+                    url=_format_llms_url(site_url, rel_out_html),
+                    description=doc_desc,
+                )
+            )
+        if sec_links:
+            sections.append(LlmsSection(title=(nav_sec.title or "Overview"), links=sec_links))
+
+    extra_links: list[LlmsLink] = []
+    for src_abs in default_src_files:
+        src_key = os.path.abspath(src_abs)
+        if src_key in seen_srcs or src_key not in page_meta_by_src:
+            continue
+        doc_title, doc_desc, rel_out_html = page_meta_by_src[src_key]
+        extra_links.append(
+            LlmsLink(
+                title=doc_title,
+                url=_format_llms_url(site_url, rel_out_html),
+                description=doc_desc,
+            )
+        )
+    if extra_links:
+        sections.append(LlmsSection(title="Pages", links=extra_links))
+
+    locales_sec = _build_locales_llms_section(manifest, i18n_cfg, site_url, landing_desc_by_lang)
+    if locales_sec is not None:
+        sections.append(locales_sec)
+    return sections
+
+
+def _emit_site_seo_files(
+    *,
+    input_abs: str,
+    out_dir_abs: str,
+    manifest: ProjectManifest,
+    i18n_cfg: I18nConfig,
+    ordered_langs: list[str],
+    rel_htmls_by_lang: dict[str, list[str]],
+    default_navbar: tuple[list[NavbarSection], str | None],
+    page_meta_by_src: dict[str, tuple[str, str, str]],
+    default_src_files: list[str],
+    landing_desc_by_lang: dict[str, str],
+    root_title: str,
+    root_desc: str,
+) -> None:
+    """Emit ``og_image`` copy, ``sitemap.xml``, ``robots.txt``, and ``llms.txt`` for a ``site`` build."""
+    seo = manifest.seo
+    if seo is None:
+        return
+
+    ensure_seo_og_image_copied(input_abs, out_dir_abs, seo)
+    if seo.sitemap and seo.site_url:
+        entries = _build_i18n_sitemap_entries(seo.site_url, i18n_cfg, ordered_langs, rel_htmls_by_lang)
+        write_sitemap_xml(out_dir_abs, entries)
+    if seo.robots:
+        write_robots_txt(out_dir_abs, seo.site_url, include_sitemap=(seo.sitemap and bool(seo.site_url)))
+    if seo.llms_txt:
+        nav_sections, nav_site_title = default_navbar
+        llms_title = manifest.project.title.strip() or nav_site_title or root_title
+        llms_summary = resolve_localized_description(
+            manifest=manifest,
+            lang=i18n_cfg.default_lang,
+            page_description=root_desc,
+            prefer_manifest=True,
+            max_length=240,
+        )
+        sections = _build_site_llms_sections(
+            manifest=manifest,
+            i18n_cfg=i18n_cfg,
+            site_url=seo.site_url,
+            nav_sections=nav_sections,
+            page_meta_by_src=page_meta_by_src,
+            default_src_files=default_src_files,
+            landing_desc_by_lang=landing_desc_by_lang,
+        )
+        write_llms_txt(out_dir_abs, title=llms_title, summary=llms_summary, sections=sections)
+
+
+def _emit_doc_seo_files(
+    *,
+    input_abs: str,
+    out_dir_abs: str,
+    manifest: ProjectManifest,
+    i18n_cfg: I18nConfig,
+    ordered_langs: list[str],
+    default_title: str,
+    default_chapters: list[tuple[str, str, str]],
+    landing_desc_by_lang: dict[str, str],
+) -> None:
+    """Emit ``og_image`` copy, ``sitemap.xml``, ``robots.txt``, and ``llms.txt`` for a ``doc`` build."""
+    seo = manifest.seo
+    if seo is None:
+        return
+
+    ensure_seo_og_image_copied(input_abs, out_dir_abs, seo)
+    rel_htmls_by_lang = {lc: ["index.html"] for lc in ordered_langs}
+    if seo.sitemap and seo.site_url:
+        entries = _build_i18n_sitemap_entries(seo.site_url, i18n_cfg, ordered_langs, rel_htmls_by_lang)
+        write_sitemap_xml(out_dir_abs, entries)
+    if seo.robots:
+        write_robots_txt(out_dir_abs, seo.site_url, include_sitemap=(seo.sitemap and bool(seo.site_url)))
+    if seo.llms_txt:
+        default_lang = i18n_cfg.default_lang
+        base_doc_url = _format_llms_url(seo.site_url, f"{default_lang}/index.html")
+        chapter_links = [
+            LlmsLink(title=ch_title, url=f"{base_doc_url}#{anchor_id}", description=ch_desc)
+            for anchor_id, ch_title, ch_desc in default_chapters
+        ]
+        sections: list[LlmsSection] = []
+        if chapter_links:
+            sections.append(LlmsSection(title="Chapters", links=chapter_links))
+        locales_sec = _build_locales_llms_section(manifest, i18n_cfg, seo.site_url, landing_desc_by_lang)
+        if locales_sec is not None:
+            sections.append(locales_sec)
+
+        first_desc = default_chapters[0][2] if default_chapters else ""
+        llms_title = manifest.project.title.strip() or default_title
+        llms_summary = resolve_localized_description(
+            manifest=manifest,
+            lang=default_lang,
+            page_description=first_desc,
+            prefer_manifest=True,
+            max_length=240,
+        )
+        write_llms_txt(out_dir_abs, title=llms_title, summary=llms_summary, sections=sections)
+

@@ -84,7 +84,7 @@ drawlib/
 ├── tests/              # Test suite (tests/drawlib and tests/dcli)
 ├── tools/              # Developer CLI (dcli), release_assets/, and original_assets/
 ├── dcli                # Shell launcher & autocompletion wrapper
-├── docs/               # Documentation projects (*_src/), outputs, README_DEV.md & README_PYPI.md
+├── docs/               # Documentation projects (*_src/), outputs, README_JA.md, README_DEV.md & README_PYPI.md
 ├── .agents/rules/      # Living developer guidelines and AI instructions
 └── pyproject.toml      # Project metadata, dependencies, and tool configs
 ```

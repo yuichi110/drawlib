@@ -2,7 +2,7 @@
 name = "docs"
 type = "site"
 title = ""
-description = "Drawlib Official Documentation Website"
+description = "Pure-Python library and multi-target compiler for Illustration as Code and Illustrated Documentation as Code — built for AI coding agents and developers."
 style = "default"
 
 [i18n]
@@ -12,3 +12,16 @@ langs = ["en", "ja"]
 [i18n.labels]
 en = "English"
 ja = "日本語"
+
+[i18n.descriptions]
+en = "Pure-Python library and multi-target compiler for Illustration as Code and Illustrated Documentation as Code — built for AI coding agents and developers."
+ja = "AI コーディングエージェントと開発者のための「Illustration as Code」「Illustrated Documentation as Code」ピュア Python 描画ライブラリ＆ドキュメントコンパイラ。"
+
+[seo]
+site_url = "https://www.drawlib.com"
+og_image = "_assets/ogp.png"
+twitter_card = "summary_large_image"
+sitemap = true
+robots = true
+llms_txt = true
+

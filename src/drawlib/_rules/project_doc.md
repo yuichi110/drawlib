@@ -231,14 +231,20 @@ langs = ["en", "ja"]
 [i18n.labels]
 en = "English"
 ja = "日本語"
+
+[i18n.descriptions]
+en = "Architecture whitepaper."
+ja = "アーキテクチャホワイトペーパー。"
+
+[seo]
+site_url = "https://docs.example.com/whitepaper"
+og_image = "_assets/ogp.png"
 ```
 
-- **No `[project].lang` on `doc` Projects**: Locale settings live exclusively in `[i18n]` (`default_lang`, `langs`, optional `[i18n.labels]`).
+- **No `[project].lang` on `doc` Projects**: Locale settings live exclusively in `[i18n]` (`default_lang`, `langs`, optional `[i18n.labels]` / `[i18n.descriptions]`).
 - **Symmetric Locale Chapter Trees (`doc_src/<lang>/`)**: Every locale directory (`en/`, `ja/`, ...) must contain the exact same relative set of numbered Markdown chapters (`00_cover.md`, `01_overview.md`, ...) with matching Markdown structural skeletons (headings `H1`–`H3`, `MarkdownText` runs, `DrawlibBlock` attributes, and non-drawlib `CodeBlock` languages).
 - **Per-Locale `styles.py` / `utils.py` Overrides**: Shared language-neutral diagrams (`file=fig_arch.png`) use root `doc_src/styles.py` and render once into shared `images/` (`default_lang` authoritative). When a locale needs CJK typography or translated diagram labels, place a locale-specific override at `doc_src/<lang>/styles.py` (e.g., `ja/styles.py` with `FontJapanese`) and give localized fences a distinct filename (`file=fig_arch_ja.png`).
 - **Synchronized Per-Locale Deliverables**:
-  - **HTML (`whitepaper_html/`)**: Generates `<lang>/index.html`, a root `index.html` browser-language redirector, shared `images/` + `_assets/`, and a top-right `.lang-switcher` dropdown when `len(langs) >= 2` (automatically omitted when `len(langs) == 1` and hidden in `@media print`).
+  - **HTML (`whitepaper_html/`)**: Generates `<lang>/index.html`, a root `index.html` browser-language redirector (with canonical/OGP social card metadata when `[seo]` is configured), shared `images/` + `_assets/`, optional `sitemap.xml` / `robots.txt` / `llms.txt`, and a top-right `.lang-switcher` dropdown when `len(langs) >= 2` (automatically omitted when `len(langs) == 1` and hidden in `@media print`).
   - **PDF & MS Word (`whitepaper_<lang>.pdf` / `whitepaper_<lang>.docx`)**: Compiles one A4 vector PDF and/or `.docx` per locale (`whitepaper_en.pdf`, `whitepaper_ja.pdf`), automatically localizing the injected Table of Contents heading (`"Table of Contents"`, `"目次"`, etc.) for each locale.
   - **Markdown (`whitepaper_markdown/<lang>/`)**: Emits per-locale GitHub Markdown chapters referencing shared `../images/...`.
-
-

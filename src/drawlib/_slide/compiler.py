@@ -22,10 +22,23 @@ from typing import TYPE_CHECKING, Any, Final, Literal
 
 from drawlib._builder._common import (
     BuildImageCache,
+    LlmsLink,
+    LlmsSection,
+    SitemapEntry,
+    build_page_seo_metadata,
+    ensure_seo_og_image_copied,
+    extract_markdown_description,
     find_project_manifest,
     load_project_manifest,
     load_styles_and_utils,
+    render_seo_head_tags,
+    resolve_localized_description,
+    resolve_public_page_url,
     resolve_styles_and_utils,
+    upgrade_alternate_links,
+    write_llms_txt,
+    write_robots_txt,
+    write_sitemap_xml,
 )
 from drawlib._builder.doc_builder.detector import preserve_outer_fences, restore_outer_fences
 from drawlib._builder.doc_builder.i18n import (
@@ -375,8 +388,8 @@ def _compile_locale_slides(
     cache: BuildImageCache,
     render_opts: _SlideRenderOptions,
     rendered_targets: set[str],
-) -> tuple[str, str, str | None]:
-    """Compile all Markdown slides for a single locale and return ``(slides_markup, thumbs_markup, first_h1)``."""
+) -> tuple[str, str, str | None, str, list[tuple[int, str, str]]]:
+    """Compile all Markdown slides for a locale and return ``(slides_html, thumbs_html, h1, desc, slides_meta)``."""
     total_slides = len(rel_files)
     lang_src_dir = os.path.join(input_abs, lang)
     loc_styles, loc_utils = resolve_styles_and_utils(lang_src_dir, styles_path, utils_path)
@@ -394,7 +407,9 @@ def _compile_locale_slides(
 
     slides_html_list: list[str] = []
     thumbs_html_list: list[str] = []
+    slides_meta: list[tuple[int, str, str]] = []
     first_h1_title: str | None = None
+    first_desc = ""
 
     for idx, rel_path in enumerate(rel_files, start=1):
         file_path = os.path.join(lang_src_dir, *rel_path.split("/"))
@@ -405,8 +420,13 @@ def _compile_locale_slides(
         ctx_token = set_slide_context(index=idx, total=total_slides)
         try:
             content_without_notes, notes_html = extract_slide_notes(raw_content)
-            if first_h1_title is None:
-                first_h1_title = _extract_first_h1(content_without_notes)
+            slide_h1 = _extract_first_h1(content_without_notes)
+            if first_h1_title is None and slide_h1:
+                first_h1_title = slide_h1
+            slide_desc = extract_markdown_description(content_without_notes, allow_heading_fallback=True)
+            if not first_desc and slide_desc:
+                first_desc = slide_desc
+            slides_meta.append((idx, slide_h1 or f"Slide {idx}", slide_desc))
 
             text_to_search = (
                 "\n" + content_without_notes if not content_without_notes.startswith("\n") else content_without_notes
@@ -454,7 +474,7 @@ def _compile_locale_slides(
             f"    </div>"
         )
 
-    return "\n\n".join(slides_html_list), "\n".join(thumbs_html_list), first_h1_title
+    return "\n\n".join(slides_html_list), "\n".join(thumbs_html_list), first_h1_title, first_desc, slides_meta
 
 
 def _resolve_favicon_markup(input_abs: str, output_abs: str, lang_out_dir: str) -> str:
@@ -535,9 +555,11 @@ def _render_locale_index_html(
     *,
     input_abs: str,
     output_abs: str,
+    manifest: ProjectManifest | None,
     i18n_cfg: I18nConfig,
     lang: str,
     deck_title: str,
+    deck_description: str,
     slides_markup: str,
     thumbs_markup: str,
 ) -> str:
@@ -554,6 +576,23 @@ def _render_locale_index_html(
         current_dest_abs=lang_index_abs,
         active_lang=lang,
     )
+    if manifest is not None and manifest.seo is not None and manifest.seo.site_url:
+        alt_links = upgrade_alternate_links(alt_links, manifest.seo.site_url, output_abs, lang_index_abs)
+
+    seo_markup = ""
+    if manifest is not None and manifest.seo is not None:
+        seo_meta = build_page_seo_metadata(
+            manifest=manifest,
+            out_dir_abs=output_abs,
+            dest_abs=lang_index_abs,
+            lang=lang,
+            page_title=deck_title,
+            site_title=(manifest.project.title.strip() or deck_title),
+            page_description=deck_description,
+            prefer_manifest_description=True,
+        )
+        if seo_meta is not None:
+            seo_markup = f"{render_seo_head_tags(seo_meta, indent='  ')}\n"
 
     alt_links_markup = "".join(
         f'  <link rel="alternate" hreflang="{html.escape(link["hreflang"], quote=True)}" '
@@ -577,6 +616,7 @@ def _render_locale_index_html(
         f"  <title>{esc_title}</title>\n"
         f"{favicon_markup}"
         f"{alt_links_markup}"
+        f"{seo_markup}"
         '  <link rel="preconnect" href="https://fonts.googleapis.com">\n'
         '  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n'
         '  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?'
@@ -615,6 +655,151 @@ def _render_locale_index_html(
     with open(lang_index_abs, "w", encoding="utf-8") as f:
         f.write(html_content)
     return lang_index_abs
+
+
+def _write_slide_root_redirect(
+    *,
+    output_abs: str,
+    manifest: ProjectManifest,
+    i18n_cfg: I18nConfig,
+    default_lang: str,
+    default_title: str,
+    default_desc: str,
+) -> None:
+    """Write ``<output_abs>/index.html`` redirect shell, enriched with OGP tags when ``[seo]`` is active."""
+    from drawlib._builder.doc_builder.compiler.base import write_root_redirect_html  # noqa: PLC0415
+
+    seo = manifest.seo
+    if seo is None:
+        write_root_redirect_html(output_abs, default_lang, title=default_title)
+        return
+
+    root_dest_abs = os.path.join(output_abs, "index.html")
+    _, root_alt_links = build_language_switcher_context(
+        config=i18n_cfg,
+        out_dir_abs=output_abs,
+        rel_html_path="index.html",
+        current_dest_abs=root_dest_abs,
+        active_lang=default_lang,
+    )
+    if seo.site_url:
+        root_alt_links = upgrade_alternate_links(root_alt_links, seo.site_url, output_abs, root_dest_abs)
+
+    canonical_url = resolve_public_page_url(seo.site_url, f"{default_lang}/index.html") if seo.site_url else None
+    root_meta = build_page_seo_metadata(
+        manifest=manifest,
+        out_dir_abs=output_abs,
+        dest_abs=root_dest_abs,
+        lang=default_lang,
+        page_title=default_title,
+        site_title=(manifest.project.title.strip() or default_title),
+        page_description=default_desc,
+        prefer_manifest_description=True,
+        canonical_rel_override=f"{default_lang}/index.html",
+    )
+    extra_parts: list[str] = [
+        f'  <link rel="alternate" hreflang="{html.escape(lk["hreflang"], quote=True)}" '
+        f'href="{html.escape(lk["url"], quote=True)}">'
+        for lk in root_alt_links
+    ]
+    if root_meta is not None:
+        extra_parts.append(render_seo_head_tags(root_meta, indent="  ", include_canonical=False))
+
+    write_root_redirect_html(
+        output_abs,
+        default_lang,
+        title=default_title,
+        canonical_url=canonical_url,
+        extra_head_html="\n".join(extra_parts),
+    )
+
+
+def _emit_slide_seo_files(
+    *,
+    output_abs: str,
+    manifest: ProjectManifest,
+    i18n_cfg: I18nConfig,
+    ordered_langs: list[str],
+    default_title: str,
+    default_desc: str,
+    default_slides_meta: list[tuple[int, str, str]],
+    desc_by_lang: dict[str, str],
+) -> None:
+    """Emit ``sitemap.xml``, ``robots.txt``, and ``llms.txt`` for a ``slide`` deck when ``[seo]`` is enabled."""
+    seo = manifest.seo
+    if seo is None:
+        return
+
+    default_lang = i18n_cfg.default_lang
+    multi_locale = len(i18n_cfg.langs) >= 2
+
+    if seo.sitemap and seo.site_url:
+        alternates: tuple[tuple[str, str], ...] = ()
+        if multi_locale:
+            alts = [
+                (get_language_config(lc).code, resolve_public_page_url(seo.site_url, f"{lc}/index.html"))
+                for lc in i18n_cfg.langs
+            ]
+            alts.append(("x-default", resolve_public_page_url(seo.site_url, "index.html")))
+            alternates = tuple(alts)
+
+        entries = [
+            SitemapEntry(
+                loc=resolve_public_page_url(seo.site_url, f"{lc}/index.html"),
+                alternates=alternates,
+            )
+            for lc in ordered_langs
+        ]
+        write_sitemap_xml(output_abs, entries)
+
+    if seo.robots:
+        write_robots_txt(output_abs, seo.site_url, include_sitemap=(seo.sitemap and bool(seo.site_url)))
+
+    if seo.llms_txt:
+        deck_base_url = (
+            resolve_public_page_url(seo.site_url, f"{default_lang}/index.html")
+            if seo.site_url
+            else f"/{default_lang}/"
+        )
+        slide_links = [
+            LlmsLink(title=f"Slide {s_idx}: {s_title}", url=f"{deck_base_url}#{s_idx}", description=s_desc)
+            for s_idx, s_title, s_desc in default_slides_meta
+        ]
+        sections: list[LlmsSection] = []
+        if slide_links:
+            sections.append(LlmsSection(title="Slides", links=slide_links))
+        if multi_locale:
+            locale_links = [
+                LlmsLink(
+                    title=(
+                        f"{i18n_cfg.labels.get(lc) or get_language_config(lc).display_name} "
+                        f"({get_language_config(lc).code})"
+                    ),
+                    url=(
+                        resolve_public_page_url(seo.site_url, f"{lc}/index.html")
+                        if seo.site_url
+                        else f"/{lc}/"
+                    ),
+                    description=resolve_localized_description(
+                        manifest=manifest,
+                        lang=lc,
+                        page_description=desc_by_lang.get(lc, ""),
+                        prefer_manifest=True,
+                    ),
+                )
+                for lc in i18n_cfg.langs
+            ]
+            sections.append(LlmsSection(title="Locales", links=locale_links))
+
+        llms_title = manifest.project.title.strip() or default_title
+        llms_summary = resolve_localized_description(
+            manifest=manifest,
+            lang=default_lang,
+            page_description=default_desc,
+            prefer_manifest=True,
+            max_length=240,
+        )
+        write_llms_txt(output_abs, title=llms_title, summary=llms_summary, sections=sections)
 
 
 def build_slide(
@@ -684,13 +869,13 @@ def build_slide(
     )
     rendered_targets: set[str] = set()
     cache = BuildImageCache(enabled=not no_cache)
-    compiled_locales: dict[str, tuple[str, str, str]] = {}
+    compiled_locales: dict[str, tuple[str, str, str, str, list[tuple[int, str, str]]]] = {}
 
     orig_cwd = os.getcwd()
     try:
         os.chdir(input_abs)
         for lang in ordered_langs:
-            slides_markup, thumbs_markup, first_h1 = _compile_locale_slides(
+            slides_markup, thumbs_markup, first_h1, first_desc, slides_meta = _compile_locale_slides(
                 input_abs=input_abs,
                 lang=lang,
                 rel_files=locale_files[lang],
@@ -702,7 +887,7 @@ def build_slide(
                 rendered_targets=rendered_targets,
             )
             locale_title = title or manifest_title or first_h1 or "Presentation"
-            compiled_locales[lang] = (slides_markup, thumbs_markup, locale_title)
+            compiled_locales[lang] = (slides_markup, thumbs_markup, locale_title, first_desc, slides_meta)
     finally:
         os.chdir(orig_cwd)
 
@@ -712,22 +897,42 @@ def build_slide(
         deck_theme=deck_theme,
         langs=i18n_cfg.langs,
     )
+    ensure_seo_og_image_copied(input_abs, output_abs, manifest.seo)
 
     locale_index_paths: dict[str, str] = {}
+    desc_by_lang: dict[str, str] = {}
     for lang in i18n_cfg.langs:
-        slides_markup, thumbs_markup, locale_title = compiled_locales[lang]
+        slides_markup, thumbs_markup, locale_title, locale_desc, _ = compiled_locales[lang]
+        desc_by_lang[lang] = locale_desc
         locale_index_paths[lang] = _render_locale_index_html(
             input_abs=input_abs,
             output_abs=output_abs,
+            manifest=manifest,
             i18n_cfg=i18n_cfg,
             lang=lang,
             deck_title=locale_title,
+            deck_description=locale_desc,
             slides_markup=slides_markup,
             thumbs_markup=thumbs_markup,
         )
 
-    from drawlib._builder.doc_builder.compiler.base import write_root_redirect_html  # noqa: PLC0415
-
-    default_title = compiled_locales[default_lang][2]
-    write_root_redirect_html(output_abs, default_lang, title=default_title)
+    _, _, default_title, default_desc, default_slides_meta = compiled_locales[default_lang]
+    _write_slide_root_redirect(
+        output_abs=output_abs,
+        manifest=manifest,
+        i18n_cfg=i18n_cfg,
+        default_lang=default_lang,
+        default_title=default_title,
+        default_desc=default_desc,
+    )
+    _emit_slide_seo_files(
+        output_abs=output_abs,
+        manifest=manifest,
+        i18n_cfg=i18n_cfg,
+        ordered_langs=ordered_langs,
+        default_title=default_title,
+        default_desc=default_desc,
+        default_slides_meta=default_slides_meta,
+        desc_by_lang=desc_by_lang,
+    )
     return locale_index_paths[default_lang]

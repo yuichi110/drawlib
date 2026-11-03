@@ -60,10 +60,10 @@ save()
 
 ## 2. One-Command Agent Instruction Setup (`drawlib init agent`)
 
-Instead of manually copying prompt snippets or hand-crafting tool-specific YAML frontmatter, generate ready-to-use Drawlib instruction files directly for your AI coding assistant using `drawlib init agent`:
+Instead of manually copying prompt snippets or hand-crafting tool-specific YAML frontmatter, generate ready-to-use Drawlib instruction files directly for your AI coding assistant using `drawlib init agent` (in Go, Rust, TypeScript, or zero-install repositories without a Python `pyproject.toml`, replace `uv run drawlib` with `uvx drawlib`):
 
 ```bash
-# Synopsis:
+# Synopsis (use `uvx drawlib ...` in zero-install or non-Python repositories):
 # uv run drawlib init agent <antigravity|claude|cursor|copilot|windsurf|cline|roo|codex|gemini|all|list> [-m <auto|always>] [-d <dir>] [-f]
 
 # List all supported AI coding agents, output paths, and formats:

@@ -31,12 +31,28 @@
     
     
     
-    <link rel="alternate" hreflang="en" href="../../en/10_ai_agents_and_advanced/ai_agent_instructions.html">
+    <link rel="alternate" hreflang="en" href="https://www.drawlib.com/en/10_ai_agents_and_advanced/ai_agent_instructions.html">
     
-    <link rel="alternate" hreflang="ja" href="ai_agent_instructions.html">
+    <link rel="alternate" hreflang="ja" href="https://www.drawlib.com/ja/10_ai_agents_and_advanced/ai_agent_instructions.html">
     
-    <link rel="alternate" hreflang="x-default" href="../../en/10_ai_agents_and_advanced/ai_agent_instructions.html">
+    <link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/en/10_ai_agents_and_advanced/ai_agent_instructions.html">
     
+    
+    
+    <meta name="description" content="Drawlib は、AI 支援エンジニアリング時代のためにゼロから設計されました。大規模言語モデル（LLM）に何千行もの壊れやすい生 SVG パス文字列や複雑な Matplotlib のボイラープレートを生成させる代わりに、ゼロショットで高品質なアーキテクチャ図を描画できる、明快で高水準な宣言的 Python…">
+    <link rel="canonical" href="https://www.drawlib.com/ja/10_ai_agents_and_advanced/ai_agent_instructions.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Drawlib ドキュメント">
+    <meta property="og:title" content="AI エージェント指示とルール体系 — Drawlib ドキュメント">
+    <meta property="og:description" content="Drawlib は、AI 支援エンジニアリング時代のためにゼロから設計されました。大規模言語モデル（LLM）に何千行もの壊れやすい生 SVG パス文字列や複雑な Matplotlib のボイラープレートを生成させる代わりに、ゼロショットで高品質なアーキテクチャ図を描画できる、明快で高水準な宣言的 Python…">
+    <meta property="og:url" content="https://www.drawlib.com/ja/10_ai_agents_and_advanced/ai_agent_instructions.html">
+    <meta property="og:image" content="https://www.drawlib.com/_assets/ogp.png">
+    <meta property="og:locale" content="ja_JP">
+    <meta property="og:locale:alternate" content="en_US">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="AI エージェント指示とルール体系 — Drawlib ドキュメント">
+    <meta name="twitter:description" content="Drawlib は、AI 支援エンジニアリング時代のためにゼロから設計されました。大規模言語モデル（LLM）に何千行もの壊れやすい生 SVG パス文字列や複雑な Matplotlib のボイラープレートを生成させる代わりに、ゼロショットで高品質なアーキテクチャ図を描画できる、明快で高水準な宣言的 Python…">
+    <meta name="twitter:image" content="https://www.drawlib.com/_assets/ogp.png">
     
     
     <link rel="icon" type="image/png" href="../../_assets/favicon.png">
@@ -384,7 +400,7 @@
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../05_charts/pie.html" >Pie & Donut Chart（円・ドーナツグラフ）</a>
+                                <a href="../05_charts/pie.html" >Pie &amp; Donut Chart（円・ドーナツグラフ）</a>
                             </li>
                             
                             <li class="nav-item ">
@@ -400,7 +416,7 @@
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="../05_charts/heatmap.html" >Heatmap & Thermal Overlay（ヒートマップ）</a>
+                                <a href="../05_charts/heatmap.html" >Heatmap &amp; Thermal Overlay（ヒートマップ）</a>
                             </li>
                             
                         </ul>
@@ -692,8 +708,8 @@
 </ol>
 <hr />
 <h2>2. コマンド1行でのエージェント指示セットアップ（<code>drawlib init agent</code>）</h2>
-<p>プロンプトスニペットを手動でコピー＆ペーストしたり、ツールごとの YAML フロントマターを手書きしたりする必要はありません。<code>drawlib init agent</code> コマンドで、各 AI コーディングエージェントに最適化された Drawlib 指示ファイルを直接生成できます。</p>
-<pre><code class="language-bash"><span class="c1"># 構文:</span>
+<p>プロンプトスニペットを手動でコピー＆ペーストしたり、ツールごとの YAML フロントマターを手書きしたりする必要はありません。<code>drawlib init agent</code> コマンドで、各 AI コーディングエージェントに最適化された Drawlib 指示ファイルを直接生成できます（Go・Rust・TypeScript などの非 Python リポジトリやゼロインストール環境では、<code>uv run drawlib</code> を <code>uvx drawlib</code> に置き換えて実行してください）。</p>
+<pre><code class="language-bash"><span class="c1"># 構文（ゼロインストール環境や非 Python リポジトリでは `uvx drawlib ...` を使用）:</span>
 <span class="c1"># uv run drawlib init agent &lt;antigravity|claude|cursor|copilot|windsurf|cline|roo|codex|gemini|all|list&gt; [-m &lt;auto|always&gt;] [-d &lt;dir&gt;] [-f]</span>
 
 <span class="c1"># 対応 AI コーディングエージェント・出力先・フォーマット一覧を表示:</span>

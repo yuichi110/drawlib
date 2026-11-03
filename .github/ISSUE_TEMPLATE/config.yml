@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Official Documentation & Guides (www.drawlib.com)
+    url: https://www.drawlib.com/
+    about: Browse tutorials, API manuals, gallery examples, and Japanese documentation (www.drawlib.com/ja/)

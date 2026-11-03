@@ -470,6 +470,14 @@ langs = ["en", "ja"]
 [i18n.labels]
 en = "English"
 ja = "日本語"
+
+[i18n.descriptions]
+en = "16:9 architecture presentation deck."
+ja = "16:9 アーキテクチャプレゼンテーションスライド。"
+
+[seo]
+site_url = "https://slide.example.com/pitch"
+og_image = "_assets/ogp.png"
 ```
 
 - **Symmetric Locale Slide Trees & Parity Checks (`slide_src/<lang>/`)**:
@@ -477,7 +485,6 @@ ja = "日本語"
   - Speaker notes (`::: note ... :::`) are stripped before Markdown skeleton comparison so presenters can freely customize spoken scripts per language while keeping visual stage structure (`H1`–`H3`, `MarkdownText`, `DrawlibBlock`, `CodeBlock`) in parity.
   - Shared language-neutral ````drawlib```` diagrams (`file=arch.svg`) must have identical code across locales and are rendered **once** into shared `slide_html/images/<slide_stem>/`; intentionally localized diagrams use `file=<stem>_<lang>.svg` (with optional per-locale `slide_src/<lang>/styles.py` & `<lang>/utils.py` overrides).
 - **Synchronized Multi-Locale Outputs**:
-  - **HTML (`pitch_html/`)**: Generates per-locale `<lang>/index.html` and localized `<lang>/style.css` (with bundled `@font-face` SVG fonts), shared `images/`, `_assets/`, and `slide.js`, plus a root `pitch_html/index.html` redirector that preserves `?presenter=1` and `#N` slide hashes.
+  - **HTML (`pitch_html/`)**: Generates per-locale `<lang>/index.html` and localized `<lang>/style.css` (with bundled `@font-face` SVG fonts), shared `images/`, `_assets/`, and `slide.js`, plus a root `pitch_html/index.html` redirector that preserves `?presenter=1` and `#N` slide hashes (and embeds full Open Graph / Twitter Card metadata + optional `sitemap.xml`, `robots.txt`, and `llms.txt` slide index when `[seo]` is configured).
   - **Interactive Slide Language Switcher**: When `len(langs) >= 2`, `.slide-controls` displays a `.lang-switcher` dropdown that switches locales while preserving the active `#N` slide hash (automatically omitted when `len(langs) == 1` and hidden in `@media print`).
   - **Vector PDF & PowerPoint (`pitch_<lang>.pdf` / `pitch_<lang>.pptx`)**: `drawlib build pdf` and `drawlib build pptx` emit one 16:9 vector PDF and/or `.pptx` per locale (`pitch_en.pdf`, `pitch_ja.pdf`, `pitch_en.pptx`, `pitch_ja.pptx`).
-

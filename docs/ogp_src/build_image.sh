@@ -26,5 +26,10 @@ echo "Using Drawlib command: $DRAWLIB_CMD"
 echo "Building OGP / Social Preview images..."
 $DRAWLIB_CMD build image ogp_src/ -o ogp_images/
 
+if [ -f "ogp_images/social_preview.png" ] && [ -d "docs_src/_assets" ]; then
+    cp "ogp_images/social_preview.png" "docs_src/_assets/ogp.png"
+    echo "  - Synced: docs_src/_assets/ogp.png"
+fi
+
 echo "Build complete!"
 echo "  - Images: ogp_images/"

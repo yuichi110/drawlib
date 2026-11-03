@@ -983,3 +983,46 @@ ja = "日本語"
 - **ビルド前の厳格なパリティ検証**: ビルド実行時には、全ロケール間でファイルセットの一致、`navbar.md` の構造一致、Markdown の構造スケルトン一致、および内部リンク先の存在がレンダリング前に自動検証されます。
 - **統合リンク監査**: `uv run drawlib serve docs_html/ --check` を実行すると、すべてのロケールにわたる内部ナビゲーション、共有画像参照、および言語切り替えリンクを 1 パスで一括検証できます。
 
+---
+
+## 9. プロジェクト管理型 SEO・Open Graph・`llms.txt` (`drawlib.toml`)
+
+> **Note (Upcoming in v0.3.5):** `drawlib.toml` における `[seo]` および `[i18n.descriptions]` のマニフェスト機能は次期 **v0.3.5** リリースで提供予定であり、現在 PyPI で公開されている `v0.3.4` パッケージには含まれていません。
+
+Web 出力を生成する Drawlib プロジェクト（`site`、`doc`、`slide`）では、独自のスクリプトを書かずに `drawlib.toml` の宣言だけで検索エンジン向けメタデータ、SNS シェア用の Open Graph / X (Twitter) カード、`sitemap.xml`、`robots.txt`、および AI クローラー向けインデックス（`llms.txt`）を一元管理できます。
+
+```toml
+[project]
+name = "docs"
+type = "site"
+title = "Drawlib Documentation"
+description = "Pure-Python Illustration as Code and Illustrated Documentation as Code library."
+style = "default"
+
+[i18n]
+default_lang = "en"
+langs = ["en", "ja"]
+
+[i18n.labels]
+en = "English"
+ja = "日本語"
+
+[i18n.descriptions]
+en = "Pure-Python Illustration as Code and Illustrated Documentation as Code library for AI agents."
+ja = "AI エージェント時代の Illustration as Code・図解ドキュメント生成 Python ライブラリ。"
+
+[seo]
+site_url = "https://www.drawlib.com"
+og_image = "_assets/ogp.png"
+twitter_card = "summary_large_image"
+twitter_site = "@handle"             # 任意の X (Twitter) アカウントハンドル
+sitemap = true                       # site_url 設定時に sitemap.xml を出力
+robots = true                        # Sitemap 指定付きの robots.txt を出力
+llms_txt = true                      # llmstxt.org 準拠の Markdown インデックス (llms.txt) を出力
+```
+
+- **ページ単位の `<head>` SEO・OGP 自動注入**: 各ページの先頭 Markdown 段落から要約テキストを自動抽出し（未記載時は `[i18n.descriptions]` および `[project].description` へフォールバック）、`<meta name="description">`、`<link rel="canonical">`、`og:*`（`og:title`、`og:description`、`og:url`、`og:image`、`og:locale`、`og:locale:alternate`）、`twitter:*` タグを出力するとともに、ローカルの `og_image` アセットを `<out_dir>/` へ自動コピーします。
+- **正規 URL への `hreflang` 自動アップグレード**: `site_url` を設定すると、`<head>` 内の `<link rel="alternate" hreflang="...">` タグは自動的に正規の `https://...` 絶対 URL へ変換される一方、画面上の言語スイッチャー UI リンクはオフラインの `drawlib serve` でも動作するよう相対パスのまま維持されます。
+- **`sitemap.xml` と `robots.txt` の自動生成**: 多言語の `xhtml:link` 代替リンクを備えた Sitemap 0.9 準拠の `sitemap.xml` と、`<site_url>/sitemap.xml` を案内する `robots.txt` を出力します。
+- **AI エージェント向け `llms.txt` (`llmstxt.org`)**: `navbar.md` のカテゴリ構造（`doc` の章や `slide` の各スライド）に沿って 1 文の要約と多言語エントリポイントを整理した Markdown インデックス（`docs_html/llms.txt`）を自動生成します。
+

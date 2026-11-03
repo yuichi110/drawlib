@@ -25,7 +25,8 @@ GUI diagram tools (draw.io, Visio) decouple visuals from Git, causing diagrams t
    - **Linear doc / PDF / `.docx`** -> `uv run drawlib init project doc [target] [-l <langs>] [-s <style>]` (`project-doc`; `./<target>_src/build_docx.sh` for Word)
    - **Multi-page website** -> `uv run drawlib init project site [target] [-l <langs>] [-s <style>]` (`project-site`)
    - **16:9 slide deck / `.pptx`** -> `uv run drawlib init project slide [target] [-l <langs>] [-s <style>]` (`project-slide`; `./<target>_src/build_pptx.sh` for PowerPoint)
-   - **Localization (`--lang`)**: Pass `-l ja` for CJK fonts, or `-l en,ja` on `doc`/`site`/`slide` for multi-locale `<src_dir>/<lang>/` with `[i18n]` in `drawlib.toml`.
+   - **Localization & SEO**: Pass `-l ja` for CJK fonts, or `-l en,ja` on `doc`/`site`/`slide` for multi-locale `<src_dir>/<lang>/` (`[i18n]` & `[seo]` in `drawlib.toml`).
+   - **CLI Runner**: Use `uv run drawlib` in Python `uv` projects, `uvx drawlib` in zero-install / non-Python repos, or `drawlib` if installed globally.
    - **Clean Up Samples**: Delete or replace starter `sample*.py` files after scaffolding.
 3. **Cartesian Coordinates (`(0, 0)` at Bottom-Left)**:
    Run `uv run drawlib rules show overview` before coding *(origin `(0, 0)` is bottom-left; X right, Y up)*.

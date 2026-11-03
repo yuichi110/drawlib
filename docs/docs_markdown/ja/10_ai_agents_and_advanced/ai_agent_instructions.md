@@ -74,10 +74,10 @@ save()
 
 ## 2. コマンド1行でのエージェント指示セットアップ（`drawlib init agent`）
 
-プロンプトスニペットを手動でコピー＆ペーストしたり、ツールごとの YAML フロントマターを手書きしたりする必要はありません。`drawlib init agent` コマンドで、各 AI コーディングエージェントに最適化された Drawlib 指示ファイルを直接生成できます。
+プロンプトスニペットを手動でコピー＆ペーストしたり、ツールごとの YAML フロントマターを手書きしたりする必要はありません。`drawlib init agent` コマンドで、各 AI コーディングエージェントに最適化された Drawlib 指示ファイルを直接生成できます（Go・Rust・TypeScript などの非 Python リポジトリやゼロインストール環境では、`uv run drawlib` を `uvx drawlib` に置き換えて実行してください）。
 
 ```bash
-# 構文:
+# 構文（ゼロインストール環境や非 Python リポジトリでは `uvx drawlib ...` を使用）:
 # uv run drawlib init agent <antigravity|claude|cursor|copilot|windsurf|cline|roo|codex|gemini|all|list> [-m <auto|always>] [-d <dir>] [-f]
 
 # 対応 AI コーディングエージェント・出力先・フォーマット一覧を表示:

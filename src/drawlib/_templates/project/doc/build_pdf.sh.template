@@ -10,7 +10,7 @@ else
 fi
 
 if [ -z "${DRAWLIB_CMD:-}" ]; then
-    if ( [ -f "uv.lock" ] || [ -f "../uv.lock" ] ) && command -v uv &> /dev/null; then
+    if ( [ -f "uv.lock" ] || [ -f "../uv.lock" ] ) && command -v uv &> /dev/null && uv run drawlib --version &> /dev/null; then
         DRAWLIB_CMD="uv run drawlib"
     elif command -v drawlib &> /dev/null; then
         DRAWLIB_CMD="drawlib"
@@ -20,6 +20,8 @@ if [ -z "${DRAWLIB_CMD:-}" ]; then
         DRAWLIB_CMD="python -m drawlib"
     elif command -v uv &> /dev/null && uv run drawlib --version &> /dev/null; then
         DRAWLIB_CMD="uv run drawlib"
+    elif command -v uvx &> /dev/null; then
+        DRAWLIB_CMD="uvx drawlib"
     else
         DRAWLIB_CMD="drawlib"
     fi

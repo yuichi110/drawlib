@@ -983,3 +983,46 @@ ja = "日本語"
 - **Pre-Flight Parity Enforcement**: Every build automatically verifies file-set parity, `navbar.md` structure parity, Markdown structural skeleton parity, and internal link targets across all configured locales before rendering.
 - **Unified Link Verification**: Running `uv run drawlib serve docs_html/ --check` validates internal navigation, shared image references, and cross-locale switcher links across all locales in one pass.
 
+---
+
+## 9. Project-Managed SEO, Open Graph & `llms.txt` (`drawlib.toml`)
+
+> **Note (Upcoming in v0.3.5):** Project-level `[seo]` and `[i18n.descriptions]` manifest support is scheduled for the upcoming **v0.3.5** release and is not yet included in the `v0.3.4` package on PyPI.
+
+Web-facing Drawlib projects (`site`, `doc`, and `slide`) can declaratively manage search engine metadata, SNS Open Graph / X (Twitter) preview cards, `sitemap.xml`, `robots.txt`, and AI crawler indexes (`llms.txt`) directly in `drawlib.toml` without custom post-processing scripts:
+
+```toml
+[project]
+name = "docs"
+type = "site"
+title = "Drawlib Documentation"
+description = "Pure-Python Illustration as Code and Illustrated Documentation as Code library."
+style = "default"
+
+[i18n]
+default_lang = "en"
+langs = ["en", "ja"]
+
+[i18n.labels]
+en = "English"
+ja = "日本語"
+
+[i18n.descriptions]
+en = "Pure-Python Illustration as Code and Illustrated Documentation as Code library for AI agents."
+ja = "AI エージェント時代の Illustration as Code・図解ドキュメント生成 Python ライブラリ。"
+
+[seo]
+site_url = "https://www.drawlib.com"
+og_image = "_assets/ogp.png"
+twitter_card = "summary_large_image"
+twitter_site = "@handle"             # Optional X (Twitter) account handle
+sitemap = true                       # Emit sitemap.xml when site_url is configured
+robots = true                        # Emit robots.txt with Sitemap directive
+llms_txt = true                      # Emit llmstxt.org Markdown index (llms.txt)
+```
+
+- **Per-Page `<head>` SEO & Open Graph Injection**: Automatically extracts each page's opening Markdown summary paragraph (falling back to `[i18n.descriptions]` and `[project].description`), emits `<meta name="description">`, `<link rel="canonical">`, `og:*` (`og:title`, `og:description`, `og:url`, `og:image`, `og:locale`, `og:locale:alternate`), and `twitter:*` tags, and copies local `og_image` assets into `<out_dir>/`.
+- **Canonical `hreflang` Upgrade**: When `site_url` is set, `<link rel="alternate" hreflang="...">` tags in `<head>` automatically upgrade to full canonical `https://...` URLs while interactive UI language switcher links remain relative for offline `drawlib serve` previews.
+- **`sitemap.xml` & `robots.txt`**: Emits Sitemap 0.9 XML with `xhtml:link` multilingual alternate clusters and a matching `robots.txt` pointing crawlers to `<site_url>/sitemap.xml`.
+- **AI-Ready `llms.txt` (`llmstxt.org`)**: Generates a clean Markdown index (`docs_html/llms.txt`) organized by `navbar.md` categories (or `doc` chapters / `slide` sections) with 1-sentence page summaries and multi-locale entry points for LLM agents.
+

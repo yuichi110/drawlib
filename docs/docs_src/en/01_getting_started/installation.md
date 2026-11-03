@@ -1,7 +1,7 @@
 # Installation Guide
 
-Drawlib is published on PyPI and can be installed using `uv` (recommended) or standard `pip`.
-A single `drawlib` installation includes one-command AI agent rule setup (`drawlib init agent`), built-in HTML, Markdown, vector PDF, MS Word (`.docx`), and MS PowerPoint (`.pptx`) exporters, automatic headless Chromium provisioning, and offline asset caching.
+Drawlib is published on PyPI and can be run instantly with zero installation via `uvx drawlib`, or installed using `uv` (recommended) or standard `pip`.
+A single `drawlib` package includes one-command AI agent rule setup (`drawlib init agent`), built-in HTML, Markdown, vector PDF, MS Word (`.docx`), and MS PowerPoint (`.pptx`) exporters, automatic headless Chromium provisioning, and offline asset caching.
 
 ```drawlib code=fold align=center file=installation_setup_workflow.png caption="Drawlib Environment & AI Agent Setup Workflow"
 from drawlib.canvas import save, setup
@@ -22,8 +22,8 @@ workflow = ChevronProcess(
     flat_left_end=True,
 )
 workflow.add(
-    "1. Install Drawlib",
-    description="uv add drawlib\npip install drawlib",
+    "1. Run or Install",
+    description="uvx drawlib\nuv add / pip",
     style=Styles.PrimaryFlat,
     text_style=Styles.WhiteBold.patch(text_size=11.0),
     description_style=Styles.White.patch(text_size=10.0),
@@ -76,36 +76,54 @@ save()
 
 ## Requirements
 
-- **Python**: Version 3.11 or higher.
+- **Python**: Version 3.11 or higher (automatically managed when using [`uv` / `uvx`](https://docs.astral.sh/uv/)).
 - **Operating System**: Linux, macOS, or Windows.
 
 ---
 
-## 1. Using `uv` (Recommended)
+## 1. Using `uv` & Zero-Install `uvx` (Recommended)
 
-Add Drawlib to your current project dependencies:
+### 1.1 Zero-Install CLI & Non-Python Repositories (`uvx drawlib`)
+
+If [`uv`](https://docs.astral.sh/uv/) is installed, you can scaffold, preview, and compile Drawlib documentation sites, technical specs, and 16:9 slide decks immediately via `uvx drawlib`—with **no `pyproject.toml`, virtual environment, or project dependency required**. Every generated `./<target>_src/build.sh` and `serve.sh` script automatically falls back to `uvx drawlib`, making this ideal both for 30-second evaluation and for polyglot repositories (**Go, Rust, TypeScript, Java, Terraform**):
 
 ```bash
-# Add to active project (includes PDF, .docx, and .pptx export out of the box)
+# Scaffold a bilingual documentation site and AI agent rules with zero install
+$ uvx drawlib init project site -l en,ja
+$ uvx drawlib init agent claude
+
+# Generated build & preview scripts automatically detect and run `uvx drawlib`
+$ ./docs_src/build.sh
+$ uvx drawlib serve docs_html/ --check
+```
+
+### 1.2 Python Project Dependency (`uv add drawlib`)
+
+When authoring standalone `.py` scripts with IDE autocomplete or importing `drawlib.*` inside an existing Python `uv` workspace, add `drawlib` to your project dependencies:
+
+```bash
+# Add to active Python project (includes PDF, .docx, and .pptx export out of the box)
 $ uv add drawlib
 
 # Verify installation and CLI version
 $ uv run drawlib --version
 ```
 
-### Standalone CLI Execution (`uvx`)
-If you want to run the Drawlib CLI tool without adding it to a project:
+### 1.3 Persistent Global CLI Tool (`uv tool install drawlib`)
+
+If you author documentation or slides across multiple repositories every day, install `drawlib` once into an isolated global `uv` tool environment so the `drawlib` command is always available on your `PATH`:
 
 ```bash
-$ uvx drawlib --version
-$ uvx drawlib init project site
+# Install `drawlib` globally in an isolated uv tool environment
+$ uv tool install drawlib
+$ drawlib --version
 ```
 
 ---
 
 ## 2. Using `pip`
 
-Install Drawlib into your virtual environment:
+Install Drawlib into your Python virtual environment:
 
 ```bash
 $ pip install drawlib
@@ -118,12 +136,12 @@ $ drawlib --version
 
 ## 3. Configure AI Agent Instructions *(Optional — Strongly Recommended)*
 
-Drawlib works out of the box as a standalone Python library and CLI without any AI assistant. However, if you author code or documentation with an AI coding agent (**Claude Code**, **Cursor**, **Antigravity**, **GitHub Copilot**, **Windsurf**, **Cline**, **Roo Code**, **OpenAI Codex**, or **Gemini CLI**), initializing workspace agent instructions right after installation is **strongly recommended**.
+Drawlib works out of the box as a standalone Python library and CLI without any AI assistant. However, if you author code or documentation with an AI coding agent (**Claude Code**, **Cursor**, **Antigravity**, **GitHub Copilot**, **Windsurf**, **Cline**, **Roo Code**, **OpenAI Codex**, or **Gemini CLI**), initializing workspace agent instructions right after setup is **strongly recommended**.
 
 Running `drawlib init agent` generates the native rule file for your IDE or CLI agent so it automatically follows Drawlib's bottom-left `(0, 0)` coordinate space, `50%+` neutral style discipline, `drawlib init project` scaffolding workflow, and 3-stage visual self-correction loop:
 
 ```bash
-# List all supported AI agents and their target rule file paths
+# List all supported AI agents (use `uvx drawlib ...` in zero-install / non-Python repos)
 $ uv run drawlib init agent list
 
 # Generate workspace instructions for your AI coding agent
@@ -131,7 +149,7 @@ $ uv run drawlib init agent claude        # -> .claude/rules/drawlib.md
 $ uv run drawlib init agent cursor        # -> .cursor/rules/drawlib.mdc
 $ uv run drawlib init agent antigravity   # -> .agents/rules/drawlib.md
 
-# Or initialize multiple agents at once (pass 'all' for all 9 agents)
+# Or initialize multiple agents at once (pass 'all' for all 7 modular agents)
 $ uv run drawlib init agent claude cursor copilot
 
 # Optional: switch frontmatter-capable agents from contextual 'auto' (default) to 'always'

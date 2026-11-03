@@ -526,3 +526,23 @@ def test_cli_init_site_and_doc_multi_lang(tmp_path: Path) -> None:
     res_bad = run_drawlib_cli(["init", "project", "images", "-l", "en,ja"], cwd=str(tmp_path))
     assert res_bad.returncode != 0
     assert "supported for 'doc', 'site', and 'slide' projects, not 'images'" in res_bad.stderr
+
+
+def test_cli_init_scripts_support_uvx_fallback(tmp_path: Path) -> None:
+    """Verify all scaffolded leaf build/serve shell scripts verify uv.lock drawlib and fall back to uvx."""
+    expected_scripts = {
+        "images": ["build_image.sh"],
+        "doc": ["build_html.sh", "build_pdf.sh", "build_docx.sh", "build_markdown.sh", "build_image.sh", "serve.sh"],
+        "site": ["build_html.sh", "build_markdown.sh", "build_image.sh", "serve.sh"],
+        "slide": ["build_html.sh", "build_pdf.sh", "build_pptx.sh", "build_image.sh", "serve.sh"],
+    }
+    for proj_type, scripts in expected_scripts.items():
+        res = run_drawlib_cli(["init", "project", proj_type, f"uvx_{proj_type}"], cwd=str(tmp_path))
+        assert res.returncode == 0
+        src_dir = tmp_path / f"uvx_{proj_type}_src"
+        for script_name in scripts:
+            content = (src_dir / script_name).read_text(encoding="utf-8")
+            assert 'uv run drawlib --version &> /dev/null' in content, f"{proj_type}/{script_name} missing uv check"
+            assert 'elif command -v uvx &> /dev/null; then' in content, f"{proj_type}/{script_name} missing uvx check"
+            assert 'DRAWLIB_CMD="uvx drawlib"' in content, f"{proj_type}/{script_name} missing uvx drawlib fallback"
+

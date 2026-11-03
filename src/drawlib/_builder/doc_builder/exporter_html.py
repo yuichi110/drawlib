@@ -16,6 +16,7 @@ import re
 from typing import Any, Literal
 
 from jinja2 import Environment, FileSystemLoader
+from markupsafe import Markup
 
 from drawlib._templates import get_css, localize_css_for_language
 from drawlib._templates.langs import get_language_config
@@ -64,13 +65,18 @@ def _ensure_i18n_head_metadata(
     html_dir: str | None,
     font_link_html: str | None,
     alternate_links: list[dict[str, str]] | None,
+    seo_meta_html: str | None = None,
 ) -> str:
-    """Ensure html lang/dir, Google Fonts link, and hreflang links are present even on legacy templates."""
+    """Ensure html lang/dir, Google Fonts link, hreflang links, and SEO tags are present on templates."""
+    import html as html_lib  # noqa: PLC0415
+
     if html_lang:
         eff_dir = html_dir or "ltr"
+        esc_lang = html_lib.escape(html_lang, quote=True)
+        esc_dir = html_lib.escape(eff_dir, quote=True)
         rendered = re.sub(
             r"<html\b[^>]*>",
-            f'<html lang="{html_lang}" dir="{eff_dir}">',
+            f'<html lang="{esc_lang}" dir="{esc_dir}">',
             rendered,
             count=1,
             flags=re.IGNORECASE,
@@ -81,9 +87,13 @@ def _ensure_i18n_head_metadata(
         extra_head_lines.append(f"    {font_link_html}")
     if alternate_links and 'rel="alternate"' not in rendered:
         for alt in alternate_links:
+            esc_hreflang = html_lib.escape(alt["hreflang"], quote=True)
+            esc_url = html_lib.escape(alt["url"], quote=True)
             extra_head_lines.append(
-                f'    <link rel="alternate" hreflang="{alt["hreflang"]}" href="{alt["url"]}">'
+                f'    <link rel="alternate" hreflang="{esc_hreflang}" href="{esc_url}">'
             )
+    if seo_meta_html and 'property="og:title"' not in rendered:
+        extra_head_lines.append(seo_meta_html)
 
     if extra_head_lines and "</head>" in rendered:
         injection = "\n".join(extra_head_lines) + "\n</head>"
@@ -111,6 +121,7 @@ def render_html_document(
     languages: list[dict[str, Any]] | None = None,
     alternate_links: list[dict[str, str]] | None = None,
     css_lang: str = "en",
+    seo_meta_html: str | None = None,
 ) -> str:
     """Render full standalone HTML document using template and html_css.
 
@@ -133,6 +144,7 @@ def render_html_document(
         languages (Optional[List[Dict[str, Any]]]): Multi-locale language switcher link items.
         alternate_links (Optional[List[Dict[str, str]]]): ``hreflang`` alternate link entries.
         css_lang (str): Language code for embedded CSS font localization when ``css_href`` is None.
+        seo_meta_html (Optional[str]): Pre-escaped SEO/OGP/Twitter ``<meta>`` and canonical ``<link>`` snippet.
 
     Returns:
         str: Complete HTML string.
@@ -146,7 +158,7 @@ def render_html_document(
     tmpl_abs = os.path.abspath(template_path)
     tmpl_dir = os.path.dirname(tmpl_abs)
     tmpl_name = os.path.basename(tmpl_abs)
-    custom_env = Environment(loader=FileSystemLoader(tmpl_dir))
+    custom_env = Environment(loader=FileSystemLoader(tmpl_dir), autoescape=True)
     template = custom_env.get_template(tmpl_name)
 
     custom_css_content = ""
@@ -155,8 +167,8 @@ def render_html_document(
 
     render_kwargs: dict[str, Any] = {
         "title": title,
-        "body": body_html,
-        "custom_css": custom_css_content,
+        "body": Markup(body_html),  # noqa: S704
+        "custom_css": Markup(custom_css_content),  # noqa: S704
         "css_href": css_href,
         "nav_items": nav_items or [],
         "nav_sections": nav_sections or [],
@@ -167,22 +179,24 @@ def render_html_document(
         "logo_dark_href": logo_dark_href,
         "languages": languages or [],
         "alternate_links": alternate_links or [],
+        "seo_meta_html": Markup(seo_meta_html or ""),  # noqa: S704
     }
     if html_lang is not None:
         render_kwargs["html_lang"] = html_lang
     if html_dir is not None:
         render_kwargs["html_dir"] = html_dir
     if font_link_html is not None:
-        render_kwargs["font_link_html"] = font_link_html
+        render_kwargs["font_link_html"] = Markup(font_link_html)  # noqa: S704
 
     rendered = template.render(**render_kwargs)
-    if html_lang is not None or font_link_html is not None or alternate_links:
+    if html_lang is not None or font_link_html is not None or alternate_links or seo_meta_html:
         rendered = _ensure_i18n_head_metadata(
             rendered=rendered,
             html_lang=html_lang,
             html_dir=html_dir,
             font_link_html=font_link_html,
             alternate_links=alternate_links,
+            seo_meta_html=seo_meta_html,
         )
     return rendered
 
@@ -213,10 +227,10 @@ def render_pdf_document(
         tmpl_abs = os.path.abspath(template_path)
         tmpl_dir = os.path.dirname(tmpl_abs)
         tmpl_name = os.path.basename(tmpl_abs)
-        custom_env = Environment(loader=FileSystemLoader(tmpl_dir))
+        custom_env = Environment(loader=FileSystemLoader(tmpl_dir), autoescape=True)
         template = custom_env.get_template(tmpl_name)
     else:
-        template = Environment().from_string(
+        template = Environment(autoescape=True).from_string(
             "<!DOCTYPE html>\n"
             '<html lang="en">\n'
             "<head>\n"
@@ -241,16 +255,17 @@ def render_pdf_document(
 
     rendered = template.render(
         title=title,
-        body=body_html,
-        custom_css=custom_css_content,
+        body=Markup(body_html),  # noqa: S704
+        custom_css=Markup(custom_css_content),  # noqa: S704
         css_href=None,
         nav_items=[],
         nav_sections=[],
         languages=[],
         alternate_links=[],
+        seo_meta_html="",
         html_lang=lang_cfg.code,
         html_dir=lang_cfg.direction,
-        font_link_html=lang_cfg.font_link_html,
+        font_link_html=Markup(lang_cfg.font_link_html),  # noqa: S704
     )
     return _ensure_i18n_head_metadata(
         rendered=rendered,

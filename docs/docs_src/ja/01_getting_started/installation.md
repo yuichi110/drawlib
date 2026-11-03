@@ -1,7 +1,7 @@
 # インストールガイド
 
-Drawlib は PyPI で公開されており、`uv`（推奨）または標準の `pip` を使用してインストールできます。
-単一の `drawlib` パッケージをインストールするだけで、AI エージェント用ルールのワンコマンド生成（`drawlib init agent`）、HTML・Markdown・ベクター PDF・MS Word（`.docx`）・MS PowerPoint（`.pptx`）の出力機能、ヘッドレス Chromium の自動セットアップ、およびオフラインアセットキャッシュがすべて標準で利用できます。
+Drawlib は PyPI で公開されており、`uvx drawlib` でインストール不要（ゼロインストール）ですぐに実行できるほか、`uv`（推奨）または標準の `pip` を使用してインストールできます。
+単一の `drawlib` パッケージには、AI エージェント用ルールのワンコマンド生成（`drawlib init agent`）、HTML・Markdown・ベクター PDF・MS Word（`.docx`）・MS PowerPoint（`.pptx`）の出力機能、ヘッドレス Chromium の自動セットアップ、およびオフラインアセットキャッシュがすべて標準で含まれています。
 
 ```drawlib code=fold align=center file=installation_setup_workflow.png caption="Drawlib 環境・AI エージェントのセットアップワークフロー"
 from drawlib.canvas import save, setup
@@ -22,8 +22,8 @@ workflow = ChevronProcess(
     flat_left_end=True,
 )
 workflow.add(
-    "1. Install Drawlib",
-    description="uv add drawlib\npip install drawlib",
+    "1. Run or Install",
+    description="uvx drawlib\nuv add / pip",
     style=Styles.PrimaryFlat,
     text_style=Styles.WhiteBold.patch(text_size=11.0),
     description_style=Styles.White.patch(text_size=10.0),
@@ -76,36 +76,54 @@ save()
 
 ## 動作要件
 
-- **Python**: バージョン 3.11 以上。
+- **Python**: バージョン 3.11 以上（[`uv` / `uvx`](https://docs.astral.sh/uv/) を利用する場合は自動的に管理されます）。
 - **OS**: Linux、macOS、または Windows。
 
 ---
 
-## 1. `uv` を使用する場合（推奨）
+## 1. `uv` とゼロインストール `uvx` の利用（推奨）
 
-現在のプロジェクトの依存関係に Drawlib を追加します。
+### 1.1 ゼロインストール CLI・非 Python リポジトリでの利用（`uvx drawlib`）
+
+[`uv`](https://docs.astral.sh/uv/) がインストールされていれば、**`pyproject.toml` や仮想環境の作成、プロジェクトへの依存パッケージ追加を一切行わずに**、`uvx drawlib` ですぐにドキュメントサイト・技術仕様書・16:9 スライドデッキの初期化とビルドを実行できます。生成される `./<target>_src/build.sh` や `serve.sh` も `uvx drawlib` を自動検出するため、30秒でのお試し評価はもちろん、**Go・Rust・TypeScript・Java・Terraform などの非 Python リポジトリ**でのドキュメント管理にも最適です。
 
 ```bash
-# Add to active project (includes PDF, .docx, and .pptx export out of the box)
+# インストール不要で日英2言語のドキュメントサイトと AI エージェントルールを初期化
+$ uvx drawlib init project site -l en,ja
+$ uvx drawlib init agent claude
+
+# 生成されたビルド・プレビュースクリプトは自動的に `uvx drawlib` を検出して実行
+$ ./docs_src/build.sh
+$ uvx drawlib serve docs_html/ --check
+```
+
+### 1.2 Python プロジェクトの依存関係として追加（`uv add drawlib`）
+
+IDE の入力補完を効かせてスタンドアロンの `.py` スクリプトを執筆する場合や、既存の Python `uv` ワークスペース内で `drawlib.*` をインポートする場合は、プロジェクトの依存関係に追加します。
+
+```bash
+# 現在の Python プロジェクトに追加（PDF、.docx、.pptx 出力も標準で含まれます）
 $ uv add drawlib
 
-# Verify installation and CLI version
+# インストールと CLI バージョンの確認
 $ uv run drawlib --version
 ```
 
-### スタンドアロン CLI 実行（`uvx`）
-プロジェクトに追加せず、Drawlib CLI ツールを直接実行したい場合は以下のように実行します。
+### 1.3 グローバル CLI ツールとして常駐インストール（`uv tool install drawlib`）
+
+日々の業務で複数のリポジトリを横断してドキュメントやスライドを作成する場合は、分離されたグローバル `uv` ツール環境に一度インストールしておくと、どのディレクトリからでも常に `drawlib` コマンドを直接呼び出せます。
 
 ```bash
-$ uvx drawlib --version
-$ uvx drawlib init project site
+# 分離された uv ツール環境へ `drawlib` をグローバルインストール
+$ uv tool install drawlib
+$ drawlib --version
 ```
 
 ---
 
 ## 2. `pip` を使用する場合
 
-仮想環境に Drawlib をインストールします。
+Python 仮想環境に Drawlib をインストールします。
 
 ```bash
 $ pip install drawlib
@@ -118,12 +136,12 @@ $ drawlib --version
 
 ## 3. AI エージェント設定の初期化 *（任意・強く推奨）*
 
-Drawlib は AI エージェントを使わない通常の Python ライブラリおよび CLI としてもそのまま動作しますが、**Claude Code**・**Cursor**・**Antigravity**・**GitHub Copilot**・**Windsurf**・**Cline**・**Roo Code**・**OpenAI Codex**・**Gemini CLI** などの AI コーディングエージェントを利用する場合は、インストール直後にワークスペース用のエージェントルールを初期化しておくことを **強く推奨** します。
+Drawlib は AI エージェントを使わない通常の Python ライブラリおよび CLI としてもそのまま動作しますが、**Claude Code**・**Cursor**・**Antigravity**・**GitHub Copilot**・**Windsurf**・**Cline**・**Roo Code**・**OpenAI Codex**・**Gemini CLI** などの AI コーディングエージェントを利用する場合は、セットアップ直後にワークスペース用のエージェントルールを初期化しておくことを **強く推奨** します。
 
 `drawlib init agent` を実行すると、各 IDE / CLI エージェント固有のルールファイルが自動生成され、左下原点 `(0, 0)` の座標系・`50%+` ニュートラル配色ルール・`drawlib init project` によるプロジェクト初期化・3 ステージ視覚自己検証ループを AI が自律的に遵守するようになります。
 
 ```bash
-# 対応している AI エージェントと出力先パスの一覧を表示
+# 対応 AI エージェント一覧を表示（ゼロインストール / 非 Python リポジトリでは `uvx drawlib ...`）
 $ uv run drawlib init agent list
 
 # 使用している AI エージェント向けのルールファイルを生成
@@ -131,7 +149,7 @@ $ uv run drawlib init agent claude        # -> .claude/rules/drawlib.md
 $ uv run drawlib init agent cursor        # -> .cursor/rules/drawlib.mdc
 $ uv run drawlib init agent antigravity   # -> .agents/rules/drawlib.md
 
-# 複数のエージェントを一括で初期化（全 9 種を一括生成する場合は 'all'）
+# 複数のエージェントを一括で初期化（モジュール分離型 7 種を一括生成する場合は 'all'）
 $ uv run drawlib init agent claude cursor copilot
 
 # 任意: フロントマター対応エージェントの読込モードを標準の 'auto' から常時読込 'always' に変更
