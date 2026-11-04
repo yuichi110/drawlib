@@ -1,0 +1,47 @@
+id: progress_assessment
+name: Deterministic Project Progress, Git Governance & Trajectory Assessment
+description: Inspect .pni/progress/<target>.yaml, Git branch lineage, merge-tree conflict simulation, LOC/test trajectories, and JSONL history ledgers, then emit a validated ProgressResult JSON.
+rules:
+  - "common/progress_tracking"
+  - "common/git_workflow"
+primitives:
+  - type: progress_analyze
+    name: Extract Schedule, Branch Merge-Tree Conflicts & Historical LOC/Test Trajectories
+    with:
+      lookback_weeks: 12
+      output_dir: "reports"
+      target: "{workflow_id}"
+  - type: ai_interpret
+    name: Evaluate Declared vs. Verified Progress, Branch Conflicts & Git Governance
+    rules:
+      - "common/progress_tracking"
+      - "common/git_workflow"
+    prompt: |
+      Analyze the deterministic `ProgressFacts` (`plan`, `working_tree_conflicts`, `branches`,
+      `overlapping_file_hotspots`, `policy_violations`, `trajectory`, `churn_hotspots`,
+      `task_evidence`, `audit_summary`, `progress_history`) against `common/progress_tracking`
+      and `common/git_workflow`:
+      - Compare each planned task's `declared_progress` and `declared_status` against objective
+        evidence (`existing_paths`, `missing_paths`, `matched_branches`, `branch_has_conflict`,
+        `recent_commits_count`, `stub_todo_count`, `has_tests`).
+      - Inspect every unmerged branch (`ahead_commits`, `behind_commits`, `is_stale`,
+        `has_conflict`, `conflicting_files`) and cross-branch `overlapping_file_hotspots`.
+      - Evaluate Git methodology adherence (`merge_strategy`, `foxtrot_merges_count`,
+        `wip_commits_on_trunk`, `conventional_commit_ratio`) and Source vs. Test LOC trajectory.
+  - type: emit_progress
+    name: Emit Validated ProgressResult JSON & Append Progress Ledger
+    with:
+      output_dir: "reports"
+      target: "{workflow_id}"
+    prompt: |
+      Emit a complete, evidence-grounded `ProgressResult` JSON payload without modifying
+      `.pni/progress/*.yaml`:
+      - `delivery_status` (`on_track` | `at_risk` | `delayed` | `blocked`), `overall_health_score`,
+        and `dimension_scores` (`schedule_adherence`, `git_and_merge_hygiene`,
+        `momentum_and_churn`, `test_and_quality_trajectory`).
+      - `task_assessments`: verified completion percentage (`verified_progress`), `status_verdict`,
+        and concrete `evidence_summary` for every task in `plan.tasks`.
+      - `branch_assessments`: integration risk and concrete merge/rebase recommendation for active
+        or conflicting branches.
+      - `audit_status_note`: concise 2-3 sentence summary of `audit_summary` if linked (`based_on`).
+      - `bottlenecks_and_risks` and prioritized `P0`–`P2` `next_actions`.

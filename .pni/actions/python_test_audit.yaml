@@ -1,0 +1,10 @@
+id: python_test_audit
+name: Python Testing Standards Audit
+description: Evaluate test suite layout, isolation, and coverage against python/testing standards.
+rules:
+  - python/testing
+primitives:
+  - type: ai_interpret
+    name: Evaluate Test Suite Completeness & Structure
+    prompt: |
+      Compare `source_files_count` vs `test_files_count` from ProjectFacts and inspect `tests/` to verify mirror layout, deterministic test isolation, and boundary coverage according to `python/testing`.

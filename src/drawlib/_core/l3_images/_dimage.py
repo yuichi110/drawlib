@@ -488,19 +488,18 @@ class Dimage:
             Dimage: A new Dimage with a colorize effect.
 
         """
-        # validate and convert
-        b = from_black_to
-        black = (b[0], b[1], b[2])
-        w = from_white_to
-        white = (w[0], w[1], w[2])
+        br, bg, bb = _resolve_target_rgb(from_black_to)
+        wr, wg, wb = _resolve_target_rgb(from_white_to)
+        black_hex = f"#{br:02x}{bg:02x}{bb:02x}"
+        white_hex = f"#{wr:02x}{wg:02x}{wb:02x}"
         if from_mid_to is not None:
-            m = from_mid_to
-            mid = (m[0], m[1], m[2])
+            mr, mg, mb = _resolve_target_rgb(from_mid_to)
+            mid_hex: str | None = f"#{mr:02x}{mg:02x}{mb:02x}"
         else:
-            mid = None
+            mid_hex = None
         # colorize
         gray = self._pilimg.convert("L")
-        colorized_image = ImageOps.colorize(gray, black=black, white=white, mid=mid)  # type: ignore
+        colorized_image = ImageOps.colorize(gray, black=black_hex, white=white_hex, mid=mid_hex)
         if "A" not in self._pilimg.mode:
             return Dimage(colorized_image)
 

@@ -1,0 +1,89 @@
+<!--
+ Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+
+ This software is licensed under the Apache License, Version 2.0.
+ For more information, please visit: https://github.com/yuichi110/drawlib
+
+ This software is provided "as is", without warranty of any kind,
+ express or implied, including but not limited to the warranties of
+ merchantability, fitness for a particular purpose and noninfringement.
+-->
+<!DOCTYPE html>
+<html lang="{{ html_lang | default('en') }}" dir="{{ html_dir | default('ltr') }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title | default("Drawlib Document") }}</title>
+    {{ font_link_html | default('') | safe }}
+    {% if alternate_links %}
+    {% for alt in alternate_links %}
+    <link rel="alternate" hreflang="{{ alt.hreflang }}" href="{{ alt.url }}">
+    {% endfor %}
+    {% endif %}
+    {% if seo_meta_html %}
+{{ seo_meta_html | safe }}
+    {% endif %}
+    {% if favicon_href %}
+    <link rel="icon" type="image/png" href="{{ favicon_href }}">
+    {% endif %}
+    {% if css_href %}
+    <link rel="stylesheet" href="{{ css_href }}">
+    {% endif %}
+    {% if custom_css %}
+    <style>
+{{ custom_css | safe }}
+    </style>
+    {% endif %}
+</head>
+<body class="doc-body">
+    <main class="main-container">
+        {% if languages and languages | length > 1 %}
+        <div class="doc-topbar">
+            <div class="lang-switcher">
+                <details class="lang-dropdown">
+                    <summary class="lang-dropdown-btn" aria-label="Select language">
+                        <svg class="lang-globe-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                        <span class="lang-current-label">{% for l in languages %}{% if l.active %}{{ l.label }}{% endif %}{% endfor %}</span>
+                        <svg class="lang-caret-icon" viewBox="0 0 24 24" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </summary>
+                    <div class="lang-dropdown-menu" role="menu">
+                        {% for l in languages %}
+                        <a href="{{ l.url }}" class="lang-option{% if l.active %} active{% endif %}" lang="{{ l.html_lang }}" hreflang="{{ l.html_lang }}" {% if l.active %}aria-current="page"{% endif %}>
+                            <span>{{ l.label }}</span>
+                            {% if l.active %}
+                            <svg class="lang-check-icon" viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            {% endif %}
+                        </a>
+                        {% endfor %}
+                    </div>
+                </details>
+            </div>
+        </div>
+        {% endif %}
+        {{ body | safe }}
+    </main>
+    {% if languages and languages | length > 1 %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const langDropdowns = document.querySelectorAll('.lang-dropdown');
+            if (langDropdowns.length > 0) {
+                document.addEventListener('click', function(e) {
+                    langDropdowns.forEach(function(dd) {
+                        if (dd.hasAttribute('open') && !dd.contains(e.target)) {
+                            dd.removeAttribute('open');
+                        }
+                    });
+                });
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape') {
+                        langDropdowns.forEach(function(dd) {
+                            dd.removeAttribute('open');
+                        });
+                    }
+                });
+            }
+        });
+    </script>
+    {% endif %}
+</body>
+</html>

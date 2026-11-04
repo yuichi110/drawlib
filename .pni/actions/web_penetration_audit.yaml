@@ -1,0 +1,18 @@
+id: web_penetration_audit
+name: Dynamic Containerized Web Penetration Testing (Python + httpx)
+description: Verify target Python + httpx security probes in .pni/pentests/<target>/, boot the target web application in an isolated 127.0.0.1 loopback container, and evaluate live HTTP findings against SEC-05 and SEC-06.
+rules:
+  - common/security_vulnerability
+primitives:
+  - type: web_pentest
+    name: Verify .pni/pentests Suite & Execute Isolated Loopback HTTP Penetration Probes
+    with:
+      container_engine: "auto"
+      on_missing_runtime: "skip"
+  - type: ai_interpret
+    name: Evaluate Live HTTP Penetration Findings, Security Headers & Endpoint Defenses
+    prompt: |
+      Inspect `PentestFacts` (`.pni/cache/<workflow_id>/pentest/pentest_facts.json`: `status`, `probe_summary`, `findings`, `materialized_files`) together with `.pni/pentests/<target>/` and `AstFacts.api_endpoints`:
+      1. If `PentestFacts.status == "skipped"`, mark `common/security_vulnerability` (`SEC-06`) as `not_applicable` citing `skip_reason`. If `status == "error"` due to build/boot failure, cite `boot_failure_reason` verbatim.
+      2. Correlate live `PentestFacts.findings` (`CWE-79` reflected XSS, `CWE-89` SQL error disclosure, `CWE-22` traversal/LFI, `CWE-306` unauthenticated admin endpoints, `CWE-538` exposed `.env`/`.git`, `CWE-693`/`CWE-942` security headers & CORS) back to the exact target source handler files (`file_path`) and `.pni/pentests/<target>/` probe evidence.
+      3. Populate `rule_checks`, `findings`, and `action_items` (`P0`/`P1` for live exploitable vulnerabilities, `P2` for baseline HTTP header hardening).

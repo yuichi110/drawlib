@@ -1,0 +1,21 @@
+id: python_ast_audit
+name: Python AST, Imports, Typing, Docstrings, Quality & Framework Audit
+description: Parse Python AST once to extract exact isort, typing, docstring, cognitive complexity, Bugbear/Bandit, deptry, test-AST, and framework metrics, then have AI interpret them.
+rules:
+  - common/architecture
+  - common/maintainability
+  - common/security
+  - common/security_vulnerability
+  - python/code_quality
+  - python/typing
+  - python/modern_stack
+primitives:
+  - type: ast_analyze
+    name: Extract Deterministic Python AST & Framework Metrics
+    with:
+      lang: "python"
+  - type: ai_interpret
+    name: Interpret Python AST Facts & Evaluate Quality/Typing/Imports/Security
+    prompt: |
+      Inspect the deterministic AstFacts (`import_hygiene_coverage_pct`, `unsorted_imports`, `wildcard_imports`, `type_safety_coverage_pct`, `type_safety_issues`, `weak_type_usages`, `unscoped_type_ignores`, `docstring_coverage_pct`, `missing_docstrings`, `empty_docstrings`, `doc_signature_mismatches`, `complex_functions`, `excessive_parameters`, `bug_risk_idioms`, `unused_dependencies`, `undeclared_dependencies`, `framework_issues`, `modernization_hints`, `missing_io_timeouts`, `scattered_env_access`, `unstructured_logging`, `hardcoded_secrets`, `dangerous_sinks`, `api_endpoints`).
+      Read the flagged source files to evaluate architectural layering (`common/architecture`), SIG maintainability (`common/maintainability`), code security, CWE sinks & API boundaries (`common/security`, `common/security_vulnerability`), code & docstring quality (`python/code_quality`), type safety (`python/typing`), and import/stack hygiene (`python/modern_stack`).

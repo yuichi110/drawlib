@@ -1,0 +1,42 @@
+id: migration_proposal
+name: Deterministic Migration Intelligence & Structured Migration Execution Plan
+description: Extract topological waves, implicit contracts, boundary touchpoints, codemods, and ambiguities, then synthesize a validated MigrationPlanResult JSON.
+rules:
+  - "common/migration_planning"
+primitives:
+  - type: migration_analyze
+    name: Extract Topological Waves, Contracts, Touchpoints & Ambiguities
+    with:
+      migration_strategy: "auto"
+      api_compatibility: "strict"
+      bug_handling_policy: "ask_human"
+      codemod_tool: "auto"
+      output_dir: "reports"
+      target: "{workflow_id}"
+  - type: ai_interpret
+    name: Evaluate Migration Constraints & Architecture Boundaries
+    rules:
+      - "common/migration_planning"
+    prompt: |
+      Analyze the deterministic `MigrationFacts` (`refactoring_waves`, `cycle_cuts`, `implicit_contracts`,
+      `boundary_touchpoints`, `mechanical_codemods`, `manual_blockers`, `spec_vs_bug_candidates`) against
+      the confirmed multi-line `brief` and `common/migration_planning` rule:
+      - Map every stateful (`in_memory_state`), database (`persistence_db`), and HTTP (`external_http_rpc`)
+        touchpoint to concrete To-Be Ports & Adapters (or framework services).
+      - Verify external API compatibility constraints (`api_compatibility`) and isolate ambiguous legacy
+        behaviors (`spec_vs_bug_candidates`) into Decision Log recommendations rather than silent fixes.
+  - type: emit_migration_plan
+    name: Emit Validated MigrationPlanResult JSON
+    with:
+      output_dir: "reports"
+      target: "{workflow_id}"
+    prompt: |
+      Emit a complete, grounded `MigrationPlanResult` JSON payload:
+      - `confirmed_assumptions` and `non_goals` faithfully reflecting the clarified `brief`.
+      - `target_axes`: dynamic As-Is -> To-Be gap axes across language/runtime, framework, architecture
+        philosophy, database/persistence, cache/state, and container/CI.
+      - `target_architecture`: concrete `target_layers`, `dependency_rules`, and file-by-file
+        `component_mappings` (Port & Adapter roles).
+      - `decision_log`: stakeholder sign-off table for every `spec_vs_bug_candidates` item.
+      - `phase_gates` (`Phase 0`..`Phase 4`) and topologically ordered `pr_wbs` (`PR-01`..`PR-NN`) with
+        explicit verification commands and PR dependencies.

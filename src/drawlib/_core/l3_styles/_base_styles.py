@@ -11,6 +11,7 @@
 
 from __future__ import annotations
 
+import contextlib
 from collections.abc import Callable
 from typing import TYPE_CHECKING, Any, ClassVar, Final, Generator, Self
 
@@ -510,13 +511,11 @@ class BaseStyles(BaseModel, metaclass=_BaseStylesMeta):
         Raises:
             KeyError: If the specified key does not exist.
         """
-        try:
+        with contextlib.suppress(AttributeError):
             if hasattr(self, key):
                 val = getattr(self, key)
                 if val is not None:
                     return val
-        except AttributeError:
-            pass
         raise KeyError(f'Style "{key}" is not found in {self.__class__.__name__}.')
 
     def __getattr__(self, name: str) -> Any:  # noqa: ANN401

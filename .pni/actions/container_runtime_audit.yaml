@@ -1,0 +1,19 @@
+id: container_runtime_audit
+name: Containerized Build, Offline Unit Test, Measured Coverage & Boot Audit
+description: Build target inside an isolated Docker/Podman harness under .pni/dockerfiles/, run unit tests & coverage with --network=none, probe startup health, and evaluate against runtime verification standards.
+rules:
+  - common/runtime_verification
+  - common/production_readiness
+primitives:
+  - type: run_check
+    name: Execute Containerized Build, Offline Unit Tests, Coverage & Smoke Probe
+    with:
+      container_engine: "auto"
+      on_missing_runtime: "skip"
+  - type: ai_interpret
+    name: Evaluate Buildability, Offline Test Results, Measured Coverage & Startup Health
+    prompt: |
+      Inspect `RuntimeFacts` (`status`, `project_dockerfile_build`, `harness_build`, `test_execution`, `coverage`, `smoke_check`) alongside `.pni/cache/<workflow_id>/runtime/runtime_facts.json` and target source/test files:
+      1. If `RuntimeFacts.status == "skipped"` (`engine_available == false`), record `not_applicable` for `common/runtime_verification` citing `skip_reason`.
+      2. Verify clean container buildability (`RV-01`), 100% offline `--network=none` unit test pass (`RV-02`), measured line & branch coverage (`RV-03`, citing exact `lowest_covered_modules` and `missing_lines_preview`), and archetype startup/DI smoke health (`RV-04`).
+      3. If `harness_build` failed due to missing system packages (e.g., `libpq-dev`, `gcc`) rather than a code bug, note how `.pni/dockerfiles/.../Dockerfile` or `with: { extra_apt_packages: "..." }` can be customized without touching target source files.

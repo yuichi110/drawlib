@@ -1,0 +1,22 @@
+id: write_migration_report
+name: Compile 7-Chapter Drawlib Migration Execution Plan PDF
+description: Scaffold and compile a dedicated 7-chapter Migration Execution Plan report (*_migration_plan.json -> *.pdf) using Drawlib.
+primitives:
+  - type: write_drawlib_report
+    name: Author & Compile Drawlib Migration Execution Plan PDF
+    with:
+      report_kind: "migration"
+      src_dir: "reports_src"
+      output_dir: "reports"
+      target: "{workflow_id}"
+      formats:
+        - "pdf"
+      lang: "en"
+      style: "google"
+    prompt: |
+      Execute the 3-phase migration plan visual report synthesis:
+      1. READ the validated `MigrationPlanResult` JSON (`*_migration_plan.json`) and deterministic `MigrationFacts`.
+      2. READ the target source files so To-Be Port & Adapter `ClassDiagram` boxes, Wave 1..4 `Roadmap`, and
+         implicit contract DTO mappings cite real code symbols.
+      3. CONSULT Drawlib rules on demand (`drawlib rules show agent-instruction`, `api`, `lib-smartarts-overview`, `lib-charts-overview`, `lib-diagrams-overview`, `project-doc`), WRITE or UPDATE the 7 migration chapters (`00_cover.md` + `01_migration_strategy_summary.md` ..
+         `06_pr_wbs_and_verification_gates.md`) inside `<src_dir>/<target>_src/<lang>/`, visually verify diagrams via `drawlib show ... -g`, and compile `<output_dir>/<target>.pdf`.

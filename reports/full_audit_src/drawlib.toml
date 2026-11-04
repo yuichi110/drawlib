@@ -1,0 +1,18 @@
+[project]
+name = "full_audit"
+type = "doc"
+title = "Drawlib v0.3.5 — Engineering & Architecture Audit Report"
+description = "Comprehensive PNI501 static AST, architectural boundary, air-gapped container runtime, and Trivy supply-chain security audit of Drawlib v0.3.5."
+style = "google"
+
+[i18n]
+default_lang = "en"
+langs = ["en"]
+
+# [seo]
+# site_url = "https://example.com"
+# og_image = "_assets/ogp.png"
+# twitter_card = "summary_large_image"
+# sitemap = true
+# robots = true
+# llms_txt = true

@@ -47,6 +47,7 @@ class DrawlibSettings:
         self._suppress_warning: bool = False
         self._output_dir: str | None = None
         self._force_grid: bool = False
+        self._suppress_save: bool = False
 
     @validate_call
     def get_logging_mode(
@@ -252,6 +253,27 @@ class DrawlibSettings:
             None
         """
         self._force_grid = force_grid
+
+    @validate_call
+    def get_suppress_save(self) -> bool:
+        """Get whether canvas save() calls are suppressed in the current process.
+
+        Returns:
+            bool: True if save() is suppressed, False otherwise.
+        """
+        return self._suppress_save
+
+    @validate_call
+    def set_suppress_save(self, suppress_save: bool) -> None:
+        """Set whether canvas save() calls are suppressed in the current process.
+
+        Args:
+            suppress_save: True to make save() a no-op, False otherwise.
+
+        Returns:
+            None
+        """
+        self._suppress_save = suppress_save
 
 
 drawlib_settings = DrawlibSettings()

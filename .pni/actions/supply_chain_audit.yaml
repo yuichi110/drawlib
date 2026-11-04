@@ -1,0 +1,13 @@
+id: supply_chain_audit
+name: OpenSSF Supply-Chain, CI Workflow, Container & Secret Hygiene Audit
+description: Evaluate repository governance, GitHub Actions token permissions and action pinning, committed secret files, and Dockerfile hygiene against OpenSSF Scorecard and OWASP ASVS rules.
+rules:
+  - common/supply_chain
+  - common/security
+  - common/git_workflow
+primitives:
+  - type: ai_interpret
+    name: Evaluate Supply-Chain, CI Permissions, Container & Secret Hygiene
+    prompt: |
+      Review `ProjectFacts` (`lockfiles_found`, `unpinned_dependencies`, `has_license`, `has_security_policy`, `has_dependency_automation`, `ci_workflows_found`, `ci_supply_chain_issues`, `committed_secret_files`, `has_dockerfile`, `container_hygiene_issues`) and `AstFacts.hardcoded_secrets`.
+      Inspect any flagged `.github/workflows/*.yml`, `Dockerfile`, or secret findings and evaluate compliance with `common/supply_chain` and `common/security` (mapping findings primarily to `dependencies` and `code_quality` categories).

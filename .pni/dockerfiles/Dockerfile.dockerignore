@@ -1,0 +1,17 @@
+# Created by pni automatically for isolated build context hygiene.
+.git
+.pni
+.drawlib
+.venv
+venv
+__pycache__
+.pytest_cache
+.ruff_cache
+.mypy_cache
+node_modules
+vendor
+reports
+reports_src
+target
+build
+.gradle

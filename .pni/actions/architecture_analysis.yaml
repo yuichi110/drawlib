@@ -1,0 +1,27 @@
+id: architecture_analysis
+name: Post-AST 3-Aspect Grounded Architecture Analysis & Recording
+description: Decompose architectural understanding into 3 hallucination-guarded perspectives (purpose & stack, layers & modules, runtime flows & state) verified against AST module_inventory.
+rules:
+  - common/architecture
+primitives:
+  - type: record_architecture
+    name: "Record Architecture Aspect 1: System Purpose & Stack"
+    with:
+      aspect: "purpose_and_stack"
+    prompt: |
+      Read `ProjectFacts`, `README`, and top-level manifests to record `SystemProfile` (`system_purpose`, `domain_context`, `runtime_types`, `tech_stack`, `external_integrations`).
+      Base every item strictly on observed files and dependencies—never invent unverified external services.
+  - type: record_architecture
+    name: "Record Architecture Aspect 2: Layers, Modules & Boundaries"
+    with:
+      aspect: "layers_and_modules"
+    prompt: |
+      Using `AstFacts.module_inventory` and `AstFacts.internal_import_graph`, record `StructureMap` (`architecture_pattern`, `layers`, `modules`, `boundary_assessment`).
+      Every path in `layers[].paths` and `modules[].path` MUST exist in the repository or `module_inventory` (deterministic grounding check enforced).
+  - type: record_architecture
+    name: "Record Architecture Aspect 3: Entry Points, Execution Flows & State"
+    with:
+      aspect: "flows_and_state"
+    prompt: |
+      Inspect the entry-point files from `module_inventory` to trace concrete runtime `ExecutionFlowMap` (`entry_points`, `execution_flows`, `state_and_storage`, `error_and_concurrency_model`).
+      Every entry in `entry_points` and `execution_flows[].involved_files` MUST reference a real repository file (`path` or `path:symbol`).

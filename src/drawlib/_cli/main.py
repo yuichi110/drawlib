@@ -11,7 +11,7 @@
 
 from __future__ import annotations
 
-from drawlib._cli import call_command
+from drawlib._cli._drawlib import call_command
 
 
 def main() -> None:

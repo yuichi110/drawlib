@@ -11,6 +11,7 @@
 
 from __future__ import annotations
 
+import contextlib
 import re
 from typing import Final
 
@@ -107,12 +108,10 @@ def build_box_styles(
 
 def _parse_xy_tuple(val_clean: str) -> tuple[float, float] | None:
     """Parse an '(x, y)' string into a float pair."""
-    try:
+    with contextlib.suppress(ValueError):
         coords = [float(p.strip()) for p in val_clean.strip("()[]").split(",")]
         if len(coords) == 2:
             return coords[0], coords[1]
-    except ValueError:
-        pass
     return None
 
 

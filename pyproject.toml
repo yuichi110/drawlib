@@ -59,10 +59,13 @@ classifiers = [
 ]
 dependencies = [
     "matplotlib>=3.8",
+    "pillow>=10.2",
+    "numpy>=1.26",
     "pydantic>=2.8",
     "pygments>=2.18",
     "markdown-it-py>=3.0",
     "jinja2>=3.1",
+    "markupsafe>=2.1",
     "typer>=0.12.0",
     "rich>=13.0.0",
     "playwright>=1.49.0",
@@ -92,6 +95,7 @@ dev = [
     "typer>=0.12.0",
     "rich>=13.0.0",
     "pytest-xdist>=3.8.0",
+    "pni501",
 ]
 
 [tool.ruff]
@@ -99,7 +103,7 @@ preview = false
 fix = true
 unsafe-fixes = false
 line-length = 120
-exclude = ["docs", "docs_src"]
+exclude = ["docs", "docs_src", "reports"]
 
 [tool.ruff.lint]
 select = [
@@ -199,3 +203,6 @@ testpaths = ["tests"]
 markers = [
     "image_threshold(threshold): custom pixel match threshold for image comparison",
 ]
+
+[tool.uv.sources]
+pni501 = { git = "https://github.com/yuichi110/pni501.git" }

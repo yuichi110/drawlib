@@ -68,7 +68,7 @@ def _resolve_svg_font_info_cached(norm_abs: str, file_exists: bool) -> SvgFontIn
         rel_bundle_path = f"_assets/fonts/{rel_sub}"
         src_spec = f"builtin:fonticons/{rel_sub}"
     else:
-        h = hashlib.md5()  # noqa: S324
+        h = hashlib.md5(usedforsecurity=False)
         if file_exists:
             with open(norm_abs, "rb") as f:
                 for chunk in iter(lambda: f.read(65536), b""):

@@ -1,0 +1,13 @@
+id: service_readiness_audit
+name: Twelve-Factor & Google SRE Production Readiness Audit (Web API / Worker)
+description: Evaluate web services, APIs, and background workers against 12-Factor/15-Factor App and Google SRE PRR standards using operational AST signals and recorded architecture.
+rules:
+  - common/twelve_factor
+  - common/production_readiness
+  - common/security
+primitives:
+  - type: ai_interpret
+    name: Evaluate 12-Factor Config/Statelessness & SRE PRR Timeouts/Observability
+    prompt: |
+      Using `AstFacts` (`missing_io_timeouts`, `scattered_env_access`, `unstructured_logging`, `global_state_usages`, `bug_risk_idioms`) and the recorded `ArchitectureRecord` (`entry_points`, `execution_flows`, `state_and_storage`, `error_and_concurrency_model`), inspect key service/config/client modules.
+      Evaluate 12-Factor compliance (`common/twelve_factor`: centralized typed config, swappable backing services, statelessness, structured logs, graceful shutdown) and SRE Production Readiness (`common/production_readiness`: explicit external I/O timeouts, bounded retries, health/readiness probes, actionable error propagation).

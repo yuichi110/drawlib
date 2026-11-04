@@ -143,6 +143,9 @@ class Canvas(
             in the script's directory. For example, calling save() in a script "mydir/image1.py"
             will generate "mydir/image1.png".
         """
+        if drawlib_settings.get_suppress_save():
+            return
+
         if self._active_animation is not None:
             file_path = self._get_save_file_path(file, format)
             self._create_parent_directory(file_path)

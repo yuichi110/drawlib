@@ -15,6 +15,9 @@ on:
         default: 'latest'
         type: string
 
+permissions:
+  contents: read
+
 jobs:
   matrix-test:
     strategy:

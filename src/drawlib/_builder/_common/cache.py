@@ -57,6 +57,72 @@ def hash_file(file_path: str | None) -> str:
     return h.hexdigest()
 
 
+_PROJECT_MARKERS = ("drawlib.toml", "template.html", "styles.py", "utils.py")
+
+
+def _has_project_marker(directory: str) -> bool:
+    """Return True if directory contains a Drawlib project marker file or _assets folder."""
+    if os.path.isdir(os.path.join(directory, "_assets")):
+        return True
+    return any(os.path.isfile(os.path.join(directory, name)) for name in _PROJECT_MARKERS)
+
+
+def _discover_project_root(context_dir: str | None, project_root: str | None) -> str | None:
+    """Resolve effective project root directory from explicit path or upward traversal."""
+    if project_root:
+        return os.path.abspath(project_root)
+    if not context_dir or not os.path.isdir(context_dir):
+        return None
+
+    curr = os.path.abspath(context_dir)
+    while True:
+        parent = os.path.dirname(curr)
+        if parent and parent != curr and os.path.isfile(os.path.join(parent, "drawlib.toml")):
+            return parent
+        if _has_project_marker(curr):
+            return curr
+        if not parent or parent == curr:
+            return None
+        curr = parent
+
+
+def _search_upward_asset(rel_candidate: str, start_dir: str, stop_root: str | None) -> str | None:
+    """Walk upward from start_dir toward stop_root looking for rel_candidate or _assets/rel_candidate."""
+    curr = os.path.abspath(start_dir)
+    while True:
+        parent = os.path.dirname(curr)
+        if not parent or parent == curr:
+            return None
+        for probe in (os.path.join(curr, rel_candidate), os.path.join(curr, "_assets", rel_candidate)):
+            if os.path.isfile(probe):
+                return probe
+        if stop_root and os.path.abspath(curr) == stop_root:
+            return None
+        curr = parent
+
+
+def _resolve_asset_candidate(
+    rel_candidate: str,
+    context_dir: str | None,
+    eff_root: str | None,
+) -> str | None:
+    """Resolve a candidate relative asset path across context_dir, project_root, and _assets/."""
+    direct_probes: list[str] = []
+    if context_dir and os.path.isdir(context_dir):
+        direct_probes.append(os.path.join(context_dir, rel_candidate))
+    if eff_root and os.path.isdir(eff_root):
+        direct_probes.append(os.path.join(eff_root, rel_candidate))
+        direct_probes.append(os.path.join(eff_root, "_assets", rel_candidate))
+
+    for probe in direct_probes:
+        if os.path.isfile(probe):
+            return probe
+
+    if context_dir and os.path.isdir(context_dir):
+        return _search_upward_asset(rel_candidate, context_dir, eff_root)
+    return None
+
+
 def _hash_referenced_local_assets(
     code: str,
     context_dir: str | None,
@@ -67,68 +133,10 @@ def _hash_referenced_local_assets(
     if not candidates:
         return ""
 
-    eff_root = os.path.abspath(project_root) if project_root else None
-    if eff_root is None and context_dir and os.path.isdir(context_dir):
-        curr = os.path.abspath(context_dir)
-        while True:
-            parent = os.path.dirname(curr)
-            if parent and parent != curr and os.path.isfile(os.path.join(parent, "drawlib.toml")):
-                eff_root = parent
-                break
-            if (
-                os.path.isfile(os.path.join(curr, "drawlib.toml"))
-                or os.path.isdir(os.path.join(curr, "_assets"))
-                or os.path.isfile(os.path.join(curr, "template.html"))
-                or os.path.isfile(os.path.join(curr, "styles.py"))
-                or os.path.isfile(os.path.join(curr, "utils.py"))
-            ):
-                eff_root = curr
-                break
-            if parent == curr or not parent:
-                break
-            curr = parent
-
+    eff_root = _discover_project_root(context_dir, project_root)
     parts: list[str] = []
     for rel_candidate in candidates:
-        resolved_file: str | None = None
-
-        # 1. Direct match in context_dir
-        if context_dir and os.path.isdir(context_dir):
-            cand = os.path.join(context_dir, rel_candidate)
-            if os.path.isfile(cand):
-                resolved_file = cand
-
-        # 2. Match relative to project_root
-        if resolved_file is None and eff_root and os.path.isdir(eff_root):
-            cand = os.path.join(eff_root, rel_candidate)
-            if os.path.isfile(cand):
-                resolved_file = cand
-
-        # 3. Match inside project_root/_assets/
-        if resolved_file is None and eff_root and os.path.isdir(eff_root):
-            cand = os.path.join(eff_root, "_assets", rel_candidate)
-            if os.path.isfile(cand):
-                resolved_file = cand
-
-        # 4. Search upwards from context_dir towards eff_root or filesystem root
-        if resolved_file is None and context_dir and os.path.isdir(context_dir):
-            curr = os.path.abspath(context_dir)
-            while True:
-                parent = os.path.dirname(curr)
-                if parent == curr or not parent:
-                    break
-                cand = os.path.join(curr, rel_candidate)
-                if os.path.isfile(cand):
-                    resolved_file = cand
-                    break
-                cand_assets = os.path.join(curr, "_assets", rel_candidate)
-                if os.path.isfile(cand_assets):
-                    resolved_file = cand_assets
-                    break
-                if eff_root and os.path.abspath(curr) == eff_root:
-                    break
-                curr = parent
-
+        resolved_file = _resolve_asset_candidate(rel_candidate, context_dir, eff_root)
         if resolved_file is not None:
             parts.append(f"{rel_candidate}:{hash_file(resolved_file)}")
 
@@ -331,16 +339,19 @@ class BuildImageCache:
         if not self._enabled:
             return None
 
-        fmt = "webp" if image_format.lower() == "webp" else "png"
-        blob_col = "webp_blob" if fmt == "webp" else "png_blob"
-        grid_col = "webp_grid_blob" if fmt == "webp" else "png_grid_blob"
-
+        is_webp = image_format.lower() == "webp"
         conn = self._connect()
         try:
-            cur = conn.execute(
-                f"SELECT {blob_col}, {grid_col} FROM image_cache WHERE cache_key = ? AND {blob_col} IS NOT NULL",  # noqa: S608
-                (cache_key,),
-            )
+            if is_webp:
+                cur = conn.execute(
+                    "SELECT webp_blob, webp_grid_blob FROM image_cache WHERE cache_key = ? AND webp_blob IS NOT NULL",
+                    (cache_key,),
+                )
+            else:
+                cur = conn.execute(
+                    "SELECT png_blob, png_grid_blob FROM image_cache WHERE cache_key = ? AND png_blob IS NOT NULL",
+                    (cache_key,),
+                )
             row = cur.fetchone()
             if row is None or row[0] is None:
                 return None

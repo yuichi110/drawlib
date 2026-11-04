@@ -20,8 +20,10 @@ from typing import Any
 
 from PIL import Image
 
-from drawlib._core.l1_core import validate_call
+from drawlib._core.l1_core import drawlib_settings, validate_call
 from drawlib._core.l3_images import Dimage
+from drawlib._core.l4_canvas._canvas import clear as canvas_clear
+from drawlib._core.l4_canvas._canvas import get_dimage as canvas_get_dimage
 
 
 def _worker_render_code(
@@ -35,19 +37,13 @@ def _worker_render_code(
         conn: IPC pipe connection endpoint.
     """
     try:
-        import drawlib._core.l4_canvas
-        import drawlib.canvas
-
         # Reset canvas to a clean state in the worker process (clearing any inherited state from fork)
-        drawlib.canvas.clear()
+        canvas_clear()
+        drawlib_settings.set_suppress_save(True)
 
-        # Intercept save() to be a no-op before user code executes
+        # Intercept bare save() in globals to be a no-op as well
         def _no_op_save(*args: Any, **kwargs: Any) -> None:  # noqa: ANN401
             pass
-
-        drawlib.canvas.save = _no_op_save  # type: ignore
-        drawlib._core.l4_canvas.save = _no_op_save  # type: ignore
-        drawlib._core.l4_canvas.canvas.save = _no_op_save
 
         exec_globals: dict[str, Any] = {
             "__name__": "__main__",
@@ -57,7 +53,7 @@ def _worker_render_code(
         compiled = compile(code, filename="<dimage_code>", mode="exec")
         exec(compiled, exec_globals)
 
-        dimg = drawlib.canvas.get_dimage()
+        dimg = canvas_get_dimage()
         pil_img = dimg.get_pil_image()
         bio = io.BytesIO()
         pil_img.save(bio, format="PNG")

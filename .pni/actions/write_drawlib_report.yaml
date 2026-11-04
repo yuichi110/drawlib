@@ -1,0 +1,20 @@
+id: write_drawlib_report
+name: Read Score & Code and Write drawlib Report
+description: Final workflow step instructing the AI agent to READ score, READ code/docs, and WRITE or UPDATE a drawlib visual report.
+primitives:
+  - type: write_drawlib_report
+    name: Create Visual Report with drawlib
+    with:
+      src_dir: "reports"
+      output_dir: "reports"
+      target: "{workflow_id}"
+      score_path: "{output_dir}/{target}_score.json"
+      formats:
+        - "pdf"
+      lang: "en"
+      style: "google"
+    prompt: |
+      Execute the 3-phase report synthesis:
+      1. READ Score from the configured score JSON and deterministic facts JSON.
+      2. READ Code & Documentation across the target paths to capture real module boundaries and key insights.
+      3. CONSULT Drawlib rules on demand (`drawlib rules show agent-instruction`, `api`, `lib-smartarts-overview`, `lib-charts-overview`, `lib-diagrams-overview`, `project-doc`), WRITE or UPDATE the Drawlib `doc` report (`reports_src/<target>_src/<lang>/` -> `reports/<target>.pdf`), visually verify diagrams via `drawlib show ... -g`, and COMPILE. If chapter `.md` files already exist in `reports_src/<target>_src/<lang>/`, update them in-place without deleting existing documents or creating dated archive copies so `git diff` tracks changes cleanly.

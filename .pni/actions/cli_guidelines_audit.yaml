@@ -1,0 +1,12 @@
+id: cli_guidelines_audit
+name: Command Line Interface Design & UX Audit (clig.dev)
+description: Evaluate CLI entrypoints, help ergonomics, stdout/stderr separation, exit codes, and non-interactive automation friendliness against clig.dev guidelines.
+rules:
+  - common/cli_guidelines
+  - common/documentation
+primitives:
+  - type: ai_interpret
+    name: Evaluate CLI Ergonomics, Streams, Exit Codes & Automation UX
+    prompt: |
+      Inspect the CLI entrypoint modules identified in `ArchitectureRecord.execution_flow_map.entry_points` (or `AstFacts.module_inventory`) alongside `ProjectFacts.readme_headings`.
+      Evaluate compliance with `common/cli_guidelines` (`-h`/`--help` clarity, `--version`, clean separation of `stdout` data vs. `stderr` diagnostics, meaningful non-zero exit codes, non-interactive flags/stdin support, and actionable error recovery messages).

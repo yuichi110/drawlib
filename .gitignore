@@ -22,6 +22,8 @@ tests/**/*.webp
 
 # others
 .drawlib/
+.pni/cache/
+.pni/state.db*
 tools/original_assets/aws/
 tools/original_assets/azure/
 sandbox/*

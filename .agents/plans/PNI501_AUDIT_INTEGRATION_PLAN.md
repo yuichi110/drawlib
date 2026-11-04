@@ -173,10 +173,15 @@
 
 #### 1. 実行方式とリポジトリ管理方針
 - **実行方式**:
-  - `pni501` 自身が `drawlib` に依存しているため、`drawlib` の `[dependency-groups].dev` に直接入れて循環ロックを作るよりも、開発中は `uv run --directory <pni501_repo> pni ...` または `uvx --from <pni501_repo_or_pypi> pni ...` で分離実行する方式を基本とする。
+  - `pyproject.toml` の `[dependency-groups].dev` および `[tool.uv.sources]` に `pni501 = { git = "https://github.com/yuichi110/pni501.git" }` を登録し、`uv run pni ...` で実行する。
+- **レポート配置規約（ソース・出力とも `reports/` に集約）**:
+  - PNI レポートの Drawlib ソースプロジェクトとコンパイル済み出力物の**両方**を `/usr/local/google/home/yuichiito/git_github/drawlib/reports` 配下に配置する：
+    - レポートソースコード: `reports/full_audit_src/`（`src_dir: "reports"`）
+    - スコア JSON / 生成 PDF: `reports/full_audit_score.json`, `reports/full_audit.pdf`（`output_dir: "reports"`）
+  - `pyproject.toml` の `[tool.ruff] exclude` に `"reports"` を追加し、生成テンプレートファイルが `drawlib` 本体の著作権ヘッダ検査（`CPY`）等と干渉しないようにする。
 - **`.gitignore` の整備**:
-  - `.pni/cache/`、`.pni/state.db*`、および一時生成物を `.gitignore` に追加する。
-  - `.pni/workflows/` と `.pni/dockerfiles/` は `drawlib` 固有の監査設定としてバージョン管理可能にする（レポート出力先 `reports/` / `reports_src/` を Git 管理するか `.drawlib/pni/` 配下に置くかは運用時に選択）。
+  - `.pni/cache/`、`.pni/state.db*` を `.gitignore` に追加する。
+  - `.pni/workflows/`、`.pni/dockerfiles/`、および `reports/` はバージョン管理可能にする。
 
 #### 2. `drawlib` 向けカスタムワークフロー (`.pni/workflows/full_audit.yaml`)
 - `drawlib` は **Python ライブラリ（SDK）かつ CLI ツール（`drawlib` コマンド）** のハイブリッド構成であるため、以下の構成で定義する：
@@ -195,8 +200,8 @@
     7. `python_test_audit`（テストスイート構成・`conftest.py` 画像比較フック考慮）
     8. `container_runtime_audit`（クリーンルームビルド・`--network=none` 全単体テスト・実測カバレッジ・CLI/Import スモーク）
     9. `security_vulnerability_audit`（Trivy による CVE・シークレット・CWE シンク診断）
-    10. `emit_score`（7軸スコア JSON 出力）
-    11. `write_drawlib_report`（`drawlib v0.3.5+` による 7章構成 A4 PDF 診断レポート生成）
+    10. `emit_score`（`output_dir: "reports"`, `target: "full_audit"` → `reports/full_audit_score.json`）
+    11. `write_drawlib_report`（`src_dir: "reports"`, `output_dir: "reports"`, `target: "full_audit"` → `reports/full_audit_src/en/` から `reports/full_audit.pdf` を生成）
 
 #### 3. `drawlib` 用コンテナ検証ハーネス (`.pni/dockerfiles/root/Dockerfile`)
 - `tools/docker/Dockerfile.test_local` と同等のオフラインテスト成立条件を満たすハーネスを構成する：

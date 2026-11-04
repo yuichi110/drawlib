@@ -1,0 +1,27 @@
+id: write_progress_report
+name: Compile 5-Chapter Drawlib Project Progress & Git Governance Report PDF
+description: Scaffold and compile a dedicated 5-chapter Project Progress & Git Governance report (*_progress.json -> *.pdf) using Drawlib.
+primitives:
+  - type: write_drawlib_report
+    name: Author & Compile Drawlib Project Progress & Git Governance PDF
+    with:
+      report_kind: "progress"
+      src_dir: "reports_src"
+      output_dir: "reports"
+      target: "{workflow_id}"
+      formats:
+        - "pdf"
+      lang: "en"
+      style: "google"
+    prompt: |
+      Execute the 3-phase project progress & Git governance visual report synthesis:
+      1. READ the validated `ProgressResult` JSON (`*_progress.json`), deterministic `ProgressFacts`
+         (`.pni/cache/<workflow_id>/progress_facts.json`), and `progress_blueprint.json`.
+      2. INSPECT `.pni/progress/<target>.yaml`, `.pni/history/progress/<workflow_id>.jsonl`, and
+         any linked `.pni/history/audit/*.jsonl` so Gantt/Milestone timelines, branch lineage
+         conflict tables, and LOC/test trajectory charts cite exact repository facts.
+      3. CONSULT Drawlib rules on demand (`drawlib rules show agent-instruction`, `api`,
+         `lib-smartarts-overview`, `lib-charts-overview`, `lib-diagrams-overview`, `project-doc`), WRITE or UPDATE the 5
+         progress chapters (`00_cover.md` + `01_schedule_and_milestones.md` ..
+         `04_risks_and_next_actions.md`) inside `<src_dir>/<target>_src/<lang>/`, visually verify diagrams
+         via `drawlib show ... -g`, and compile `<output_dir>/<target>.pdf`.

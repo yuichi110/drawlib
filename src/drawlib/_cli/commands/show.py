@@ -11,6 +11,7 @@
 
 from __future__ import annotations
 
+import contextlib
 import os
 import sys
 import traceback
@@ -68,12 +69,10 @@ def cmd_show(
     """Execute and display or export a drawlib code block from a Markdown/HTML file or Python script."""
     # If file is not a regular file on disk, check if it matches a rules topic name
     if not os.path.isfile(file):
-        try:
+        with contextlib.suppress(ValueError):
             canonical = _normalize_topic(file)
             cmd_rules_show(topic=canonical)
             return
-        except ValueError:
-            pass
 
     try:
         from drawlib._builder.doc_builder import show_code_block  # noqa: PLC0415

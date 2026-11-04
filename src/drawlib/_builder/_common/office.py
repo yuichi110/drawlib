@@ -11,6 +11,7 @@
 
 from __future__ import annotations
 
+import contextlib
 import datetime
 import hashlib
 import os
@@ -38,11 +39,9 @@ def resolve_office_datetime(*, timestamp: bool = False) -> datetime.datetime:
 
     source_date_epoch = os.environ.get("SOURCE_DATE_EPOCH")
     if source_date_epoch:
-        try:
+        with contextlib.suppress(ValueError, OverflowError, OSError):
             epoch_val = int(source_date_epoch)
             return datetime.datetime.fromtimestamp(epoch_val, tz=datetime.timezone.utc).replace(microsecond=0)
-        except (ValueError, OverflowError, OSError):
-            pass
 
     return datetime.datetime(2026, 1, 1, 0, 0, 0, tzinfo=datetime.timezone.utc)
 

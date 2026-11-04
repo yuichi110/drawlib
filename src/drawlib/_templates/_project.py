@@ -11,6 +11,7 @@
 
 from __future__ import annotations
 
+import contextlib
 import importlib.resources
 from importlib.resources.abc import Traversable
 from pathlib import Path
@@ -159,10 +160,8 @@ def _copy_item_with_substitutions(
         dst.write_bytes(src.read_bytes())
 
     if dst.name.endswith(".sh"):
-        try:
+        with contextlib.suppress(OSError):
             dst.chmod(dst.stat().st_mode | 0o755)
-        except OSError:
-            pass
     if dst not in created_files:
         created_files.append(dst)
 

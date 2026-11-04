@@ -11,6 +11,7 @@
 
 from __future__ import annotations
 
+import contextlib
 import os
 import re
 import shlex
@@ -155,12 +156,10 @@ def parse_block_info(info_str: str) -> DrawlibBlockOptions:
                 part_s = part.strip()
                 if not part_s:
                     continue
-                try:
+                with contextlib.suppress(ValueError):
                     p_val = int(part_s)
                     if p_val > 0:
                         pauses.append(p_val)
-                except ValueError:
-                    pass
             if pauses:
                 options.anim_pause = sorted(set(pauses))
 

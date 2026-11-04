@@ -12,8 +12,9 @@
 from __future__ import annotations
 
 import math
-from typing import TYPE_CHECKING, Literal
+from typing import TYPE_CHECKING, Literal, cast
 
+from drawlib._core.l2_types import Coordinate
 from drawlib._core.l3_fonts import Font
 from drawlib._core.l3_styles import Style
 from drawlib._core.l4_canvas import LineArcHelper
@@ -188,7 +189,7 @@ def _render_self_transition(
     a_end = base_angle + 360.0 - gap_deg / 2.0
 
     pts = LineArcHelper.get_ellipse_path_points(loop_xy, w_l, h_l, a_start, a_end)
-    canvas_lines_bezier(pts[0], path_points=pts[1:], arrow_head="->", style=edge_style)  # type: ignore
+    canvas_lines_bezier(cast(Coordinate, pts[0]), path_points=pts[1:], arrow_head="->", style=edge_style)
 
     label = trans.effective_label
     if label:

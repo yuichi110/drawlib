@@ -73,7 +73,7 @@ def download_if_not_exist(
     def is_checksum_correct() -> bool:
         if not md5_hash:
             return True
-        md5_hash2 = hashlib.md5()  # noqa: S324
+        md5_hash2 = hashlib.md5(usedforsecurity=False)
         with open(file_path, "rb") as f:
             for chunk in iter(lambda: f.read(4096), b""):
                 md5_hash2.update(chunk)

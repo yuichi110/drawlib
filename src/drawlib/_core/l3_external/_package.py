@@ -118,7 +118,7 @@ class ReleaseAssetPackage(BaseModel):
         url = self.get_download_url(tag=tag)
         req = urllib.request.Request(url, headers={"User-Agent": "drawlib"})  # noqa: S310
         try:
-            with urllib.request.urlopen(req) as resp:  # noqa: S310
+            with urllib.request.urlopen(req, timeout=60) as resp:  # noqa: S310
                 data: bytes = resp.read()
         except Exception as e:
             msg = f"Failed to download asset package '{self.name}' from '{url}': {e}"

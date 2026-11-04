@@ -1,0 +1,73 @@
+id: full_audit
+category: audit
+name: Full Project Health Audit & Report (drawlib)
+description: Hybrid Python library & CLI audit for drawlib covering AST quality, 3-aspect architecture recording, library/CLI/supply-chain hygiene, offline containerized pytest + coverage verification, Trivy security scan, 7-axis score JSON, and Drawlib A4 PDF visual report.
+
+targets:
+  source:
+    - "src/drawlib"
+  tests:
+    - "tests/drawlib"
+  docs:
+    - "README.md"
+  exclude:
+    - "**/*_generated.py"
+
+steps:
+  - id: repo_and_deps
+    uses: repo_structure_audit
+
+  - id: ast_and_quality
+    uses: python_ast_audit
+
+  - id: arch_recording
+    uses: architecture_analysis
+
+  - id: library_hygiene
+    uses: library_hygiene_audit
+
+  - id: cli_guidelines
+    uses: cli_guidelines_audit
+
+  - id: supply_chain
+    uses: supply_chain_audit
+
+  - id: test_health
+    uses: python_test_audit
+
+  - id: runtime_verification
+    uses: container_runtime_audit
+    with:
+      pytest_extra_args:
+        - "-n"
+        - "2"
+        - "--dist"
+        - "loadfile"
+      build_timeout_sec: 900
+      test_timeout_sec: 1500
+      smoke_timeout_sec: 60
+
+  - id: security_audit
+    uses: security_vulnerability_audit
+    with:
+      build_timeout_sec: 600
+      scan_timeout_sec: 300
+
+  - id: output_score
+    uses: emit_score
+    with:
+      output_dir: "reports"
+      target: "full_audit"
+      score_path: "reports/full_audit_score.json"
+
+  - id: create_report
+    uses: write_drawlib_report
+    with:
+      src_dir: "reports"
+      output_dir: "reports"
+      target: "full_audit"
+      score_path: "reports/full_audit_score.json"
+      formats:
+        - "pdf"
+      lang: "en"
+      style: "google"

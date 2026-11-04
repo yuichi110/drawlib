@@ -1,0 +1,16 @@
+id: emit_score
+name: Emit Rich Structured Score & AI Context JSON
+description: Synthesize deterministic facts, architecture map, rationales, strengths, findings, and action plan into score JSON.
+primitives:
+  - type: emit_score
+    name: Write Validated Score & AI Context JSON
+    with:
+      output_dir: "reports"
+      target: "{workflow_id}"
+      score_path: "{output_dir}/{target}_score.json"
+    prompt: |
+      Synthesize all deterministic facts and rule-based interpretations into a rich `ScoreResult` JSON payload designed for downstream AI agents (report generation and automated remediation):
+      - `overall_score`, `grade` (`S`/`A`/`B`/`C`/`D`), 7-axis `category_scores` (`architecture`, `code_quality`, `typing`, `testing`, `dependencies`, `security`, `documentation`), and `category_rationales` (why each axis received its score).
+      - `architecture_overview`: structural `pattern`, `entry_points`, `modules` (path, role, key_symbols, depends_on, health_note), and `dependency_notes`.
+      - `strengths` (verified engineering best practices) and `findings` (with rule_id, file_path, line, symbol, deterministic evidence, and recommendation).
+      - `action_plan` (`P0`/`P1`/`P2` prioritized improvements with `target_files`, `related_rules`, and `expected_impact`) and `report_hints` (visual diagram/chart cues for `drawlib`).

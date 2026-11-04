@@ -1,0 +1,13 @@
+id: library_hygiene_audit
+name: Reusable Library & SDK API Purity, SemVer & Diátaxis Audit
+description: Evaluate public API surface boundaries, zero import-time side effects, SemVer dependency bounds, and Diátaxis documentation structure for libraries and SDKs.
+rules:
+  - common/library_guidelines
+  - common/documentation
+  - common/maintainability
+primitives:
+  - type: ai_interpret
+    name: Evaluate Public API Boundaries, Import Purity, SemVer & Diátaxis Docs
+    prompt: |
+      Inspect public package exports (`__init__.py` / `public` classes in `AstFacts.module_inventory`), `ProjectFacts` (`has_type_marker`, `dependencies`, `tooling_modernization_issues`, `readme_headings`, `docs_inventory`), and `AstFacts` (`excessive_parameters`, `unstructured_logging`, `scattered_env_access`).
+      Evaluate compliance with `common/library_guidelines` (explicit public API surface, zero import-time side effects, no `sys.exit`/`System.exit` in library code, flexible `>=` SemVer dependency bounds) and `common/documentation` (Standard Readme & Diátaxis coverage).
