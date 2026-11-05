@@ -59,7 +59,7 @@ classifiers = [
 ]
 dependencies = [
     "matplotlib>=3.8",
-    "pillow>=10.2",
+    "pillow>=13.0.0",
     "numpy>=1.26",
     "pydantic>=2.8",
     "pygments>=2.18",
