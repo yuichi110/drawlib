@@ -1,6 +1,6 @@
 # Drawlib ドキュメント
 
-Drawlib は、**「Illustration as Code（コードとしての図解）」** および **「Illustrated Documentation as Code（コードとしての図解ドキュメント）」** のために設計された、ピュア Python の描画ライブラリ兼ドキュメントコンパイラです。
+Drawlib は、**「Illustration as Code（コードとしての図解）」** および **「Illustrated Documentation as Code（コードとしての図解ドキュメント）」** のために設計された、宣言的描画ライブラリ兼マルチフォーマット・ドキュメントコンパイラです。Python プロジェクトはもちろん、ゼロインストールの **`uvx drawlib`** を使えば Python 環境の構築を一切行わずに、**他言語の開発リポジトリ（Go・Rust・TypeScript・Java・Terraform など）** や **開発プロジェクト以外の独立した企画書・仕様書・スライド管理フォルダ** でも、図解入り Web サイト・PDF/Word 文書・PowerPoint スライドを簡単に管理できます。
 
 ```drawlib align=center file=hero_ai_doc_loop.png caption="Drawlib による自律型 AI ドキュメント作成ワークフロー（Drawlib で生成された APNG アニメーション）"
 from __future__ import annotations
@@ -1815,7 +1815,7 @@ save()
 
 ---
 
-## 主要な 3 つの柱
+## 主要な 4 つの柱
 
 ### 1. AI 駆動のドキュメント構築パイプライン
 Drawlib は、AI コーディングエージェント（Claude Code、Cursor、Gemini など）が技術ドキュメントを自律的に執筆・保守できるよう設計されています。
@@ -1878,7 +1878,13 @@ save()
 標準の Markdown ファイル内に ````drawlib```` ブロックを埋め込んで技術仕様書やシステムアーキテクチャを記述すれば、1 つのコマンド（`drawlib build`）ですべてを以下の形式へコンパイルできます。
 - **レスポンシブ HTML サイト (`docs_html/`)**: サイドバーナビゲーションと即時検索を備えた完全な静的 Web サイト。
 - **GitHub 用 Markdown (`docs/`)**: シンタックスハイライトされたコードと相対パスの埋め込み画像を含むクリーンな Markdown。
-- **ヘッドレス PDF (`docs.pdf`)**: Chromium 経由で生成される出版品質のベクター PDF。
+- **ヘッドレス PDF・Word・PowerPoint (`docs.pdf`, `.docx`, `.pptx`)**: Chromium 経由で生成される出版品質のベクター PDF に加え、編集可能な Word 文書や PowerPoint スライドもネイティブ出力。
+
+### 4. `uvx` によるゼロインストール運用（他言語リポジトリ・非開発文書）
+Drawlib を導入するために Python プロジェクトである必要も、ソフトウェア開発リポジトリである必要もありません。`uvx drawlib` を実行すれば、**`pyproject.toml` や `.venv` を一切作らずに**隔離キャッシュから直接 Drawlib を呼び出せます。
+- **ポリグロット（他言語）開発リポジトリ**: `go.mod`、`Cargo.toml`、`package.json`、`pom.xml`、Terraform `.tf` モジュールの隣に `docs_src/` を配置し、サービスコードと同じ PR で設計図や ADR をレビュー・更新できます。
+- **開発プロジェクト以外の独立した文書・スライド管理**: 企画書・提案書・セキュリティ監査レポート・研究論文・経営会議用スライドを、Python 環境の知識ゼロで専用の Git フォルダで管理できます。
+- 詳細は専用ガイド [**`uvx` によるゼロインストール活用（他言語リポジトリ・非開発プロジェクト）**](./01_getting_started/uvx_any_project.md) を参照してください。
 
 ---
 
@@ -1887,7 +1893,7 @@ save()
 以下の包括的なガイドから各機能の詳細を確認できます。
 
 1. [**はじめに**](./01_getting_started/overview.md)
-   - 基本設計思想、インストール、クイックスタート、座標系の原則、プロジェクト構成、AI エージェント設定、[API & CLI リファレンス (`www.drawlib.com/api/`)](https://www.drawlib.com/api/ja/)、およびライブ公開の [サンプル・ショーケース (`examples.drawlib.com`)](https://examples.drawlib.com/)。
+   - 基本設計思想、インストール、[他言語・非開発プロジェクトでの `uvx` ゼロインストール活用](./01_getting_started/uvx_any_project.md)、クイックスタート、座標系の原則、プロジェクト構成、AI エージェント設定、[API & CLI リファレンス (`www.drawlib.com/api/`)](https://www.drawlib.com/api/ja/)、およびライブ公開の [サンプル・ショーケース (`examples.drawlib.com`)](https://examples.drawlib.com/)。
 2. [**描画プリミティブとスタイル**](./02_drawing_primitives/canvas.md)
    - 低レベルのベクター図形、多角形、ドメインプリミティブ、ブロック矢印、線、タイポグラフィ、フォント、画像処理、プリセットテーマ、カラーパレット。
 3. [**アイコンとブランドスイート**](./03_icons/overview.md)

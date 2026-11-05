@@ -1108,7 +1108,7 @@ save()
 
 ## 1. プロジェクトのスキャフォールディング（`drawlib init project`）
 
-コマンド 1 つでプロジェクトの完全なテンプレートを生成できます。
+コマンド 1 つでプロジェクトの完全なテンプレートを生成できます（Python プロジェクトでは `uv run drawlib`、Go・Rust・TypeScript・Java リポジトリや非開発の文書・スライドフォルダではゼロインストールの [`uvx drawlib`](./uvx_any_project.md) をそのまま使用できます）。
 
 ```bash
 # List available starter project templates

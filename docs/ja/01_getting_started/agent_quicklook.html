@@ -120,6 +120,10 @@
                             </li>
                             
                             <li class="nav-item ">
+                                <a href="uvx_any_project.html" >uvx ゼロインストール活用</a>
+                            </li>
+                            
+                            <li class="nav-item ">
                                 <a href="quick_start.html" >クイックスタートガイド</a>
                             </li>
                             
@@ -690,8 +694,8 @@
 <li><strong>決定論的なジオメトリ検証</strong>: 描画結果を推測に頼るのではなく、<code>drawlib show -g</code> で絶対座標グリッド付きの画像を出力し、視覚的に結果を検証できます。</li>
 </ol>
 <p>AI エージェントに Drawlib で図解やドキュメントを作成させるには、ワークスペースに Drawlib の基本ガイドラインを設定してください。</p>
-<h3>1. ワークスペースルールの設定（<code>drawlib init agent</code>）</h3>
-<p><code>drawlib init agent</code>（<code>antigravity</code>, <code>claude</code>, <code>cursor</code>, <code>copilot</code>, <code>windsurf</code>, <code>cline</code>, <code>roo</code>, <code>codex</code>, <code>gemini</code>, または <code>all</code>）を実行し、Drawlib 公式の AI エージェント用ルールファイルをワークスペースへ直接生成します。</p>
+<h3>1. ワークスペースルールの設定（<code>uvx</code> / <code>drawlib init agent</code>）</h3>
+<p><code>drawlib init agent</code>（<code>antigravity</code>, <code>claude</code>, <code>cursor</code>, <code>copilot</code>, <code>windsurf</code>, <code>cline</code>, <code>roo</code>, <code>codex</code>, <code>gemini</code>, または <code>all</code>）を実行し、Drawlib 公式の AI エージェント用ルールファイルをワークスペースへ直接生成します（他言語リポジトリや非開発の文書・スライドフォルダでは、Python 環境不要の <a href="./uvx_any_project.html"><code>uvx drawlib init agent ...</code></a> をそのまま実行できます）。</p>
 <ul>
 <li><strong>Antigravity</strong>: <code>.agents/rules/drawlib.md</code> を生成します。</li>
 <li><strong>Claude Code / Cursor / GitHub Copilot</strong>: <code>.claude/rules/drawlib.md</code>、<code>.cursor/rules/drawlib.mdc</code>、または <code>.github/instructions/drawlib.instructions.md</code> を生成します。</li>

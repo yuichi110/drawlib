@@ -289,6 +289,7 @@ Drawlib treats architectural illustrations and technical documents as first-clas
 3. **High-Level Domain Primitives**: Declarative abstractions (`ArchitectureDiagram`, `ChevronProcess`, `Table`, `ArchitectureGraph`) eliminate layout boilerplate while preserving pixel-perfect control.
 4. **Multi-Format Compilation**: Compile a single Markdown source into static HTML websites, GitHub Markdown, vector-crisp PDFs, MS Word (`.docx`) documents, and 16:9 HTML/PDF/PowerPoint (`.pptx`) slide decks.
 5. **Centralized Style Governance**: Theme tokens (`DefaultStyles`, `GoogleStyles`, `MonochromeStyles`) ensure that shapes, connectors, text, and icons adhere to a cohesive visual hierarchy.
+6. **Zero-Install Anywhere with `uvx`**: Adopt Drawlib in **any language repository** (Go, Rust, TypeScript, Java, Terraform) or **standalone non-development documentation/slide folders** via `uvx drawlib` with zero Python virtual environment or `pyproject.toml` setup (see [Zero-Install Workflow with `uvx`](./uvx_any_project.md)).
 
 ---
 

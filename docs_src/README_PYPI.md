@@ -22,11 +22,11 @@
 
 ---
 
-Drawlib is a declarative Python drawing library and integrated multi-format documentation compiler engineered for software developers and **autonomous AI coding agents**. Instead of maintaining brittle diagrams in external GUI tools (draw.io, Visio, PowerPoint) and manually pasting exported screenshots into wikis, Drawlib lets you author, animate, localize, version-control, and compile architectural diagrams, quantitative charts, technical documents, and 16:9 slide decks entirely from code in Git.
+Drawlib is a declarative drawing library and integrated multi-format documentation compiler engineered for software developers, technical writers, and **autonomous AI coding agents**. Instead of maintaining brittle diagrams in external GUI tools (draw.io, Visio, PowerPoint) and manually pasting exported screenshots into wikis, Drawlib lets you author, animate, localize, version-control, and compile architectural diagrams, quantitative charts, technical documents (HTML / PDF / Word `.docx`), and 16:9 slide decks (PowerPoint `.pptx`) entirely from code in Git. Beyond Python projects, zero-install **`uvx drawlib`** works immediately in **any language repository (Go, Rust, TypeScript, Java, Terraform)** as well as **standalone non-code documentation and slide folders** with zero Python environment setup.
 
 ![Autonomous AI Documentation Workflow](https://www.drawlib.com/images/index/hero_ai_doc_loop.png)
 
-- **Official Website & Documentation**: [English (`www.drawlib.com`)](https://www.drawlib.com/) | [日本語 (`www.drawlib.com/ja/`)](https://www.drawlib.com/ja/) | [API & CLI Reference (`www.drawlib.com/api/`)](https://www.drawlib.com/api/) | [Internal Architecture Spec](https://www.drawlib.com/architecture/)
+- **Official Website & Documentation**: [English (`www.drawlib.com`)](https://www.drawlib.com/) | [日本語 (`www.drawlib.com/ja/`)](https://www.drawlib.com/ja/) | [Zero-Install `uvx` Guide](https://www.drawlib.com/01_getting_started/uvx_any_project.html) | [API & CLI Reference (`www.drawlib.com/api/`)](https://www.drawlib.com/api/) | [Internal Architecture Spec](https://www.drawlib.com/architecture/)
 - **Live Examples Gallery**: [Browse All Showcase Projects (`examples.drawlib.com`)](https://examples.drawlib.com/) | [Source (`drawlib-examples`)](https://github.com/yuichi110/drawlib-examples)
   - **16:9 Slide Decks**: [About Drawlib (HTML / PDF / PPTX)](https://examples.drawlib.com/about-drawlib/en/) · [DDoS Incident Postmortem (HTML / PDF / PPTX)](https://examples.drawlib.com/ddos-incident-response/en/)
   - **Guides & Whitepapers**: [Dogfooding Whitepaper — English](https://examples.drawlib.com/dogfooding/en/) / [日本語版](https://examples.drawlib.com/dogfooding/ja/) · [Quickstart Guide (HTML / PDF / DOCX)](https://examples.drawlib.com/quickstart/en/)
@@ -35,7 +35,7 @@ Drawlib is a declarative Python drawing library and integrated multi-format docu
 
 ## Try in 30 Seconds (Zero Install with `uvx`)
 
-No `pyproject.toml`, virtual environment, or package installation required—works immediately in **any directory** (including **Go, Rust, TypeScript, and Java** repositories) using [`uv`](https://docs.astral.sh/uv/):
+No `pyproject.toml`, virtual environment, or package installation required—works immediately in **any directory** (including **Go, Rust, TypeScript, Java, and Terraform** codebases, or **standalone non-development documentation/slide folders**) using [`uv`](https://docs.astral.sh/uv/):
 
 ```bash
 # 1. Scaffold a bilingual documentation site (or: catalog, doc, slide, images)
@@ -49,7 +49,7 @@ uvx drawlib init agent claude
 uvx drawlib serve docs_html/
 ```
 
-> **Python project or global CLI?** Install with `uv add drawlib`, `uv tool install drawlib`, or `pip install drawlib`.
+> **Python project or global CLI?** Install with `uv add drawlib`, `uv tool install drawlib`, or `pip install drawlib`. See the [Zero-Install Workflow with `uvx` guide](https://www.drawlib.com/01_getting_started/uvx_any_project.html) for polyglot repository and non-code documentation patterns.
 
 ---
 

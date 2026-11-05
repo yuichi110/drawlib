@@ -55,6 +55,12 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/en/01_getting_started/release_notes.html" />
   </url>
   <url>
+    <loc>https://www.drawlib.com/en/01_getting_started/uvx_any_project.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.drawlib.com/en/01_getting_started/uvx_any_project.html" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.drawlib.com/ja/01_getting_started/uvx_any_project.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/en/01_getting_started/uvx_any_project.html" />
+  </url>
+  <url>
     <loc>https://www.drawlib.com/en/02_drawing_primitives/canvas.html</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.drawlib.com/en/02_drawing_primitives/canvas.html" />
     <xhtml:link rel="alternate" hreflang="ja" href="https://www.drawlib.com/ja/02_drawing_primitives/canvas.html" />
@@ -713,6 +719,12 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://www.drawlib.com/en/01_getting_started/release_notes.html" />
     <xhtml:link rel="alternate" hreflang="ja" href="https://www.drawlib.com/ja/01_getting_started/release_notes.html" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/en/01_getting_started/release_notes.html" />
+  </url>
+  <url>
+    <loc>https://www.drawlib.com/ja/01_getting_started/uvx_any_project.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.drawlib.com/en/01_getting_started/uvx_any_project.html" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.drawlib.com/ja/01_getting_started/uvx_any_project.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/en/01_getting_started/uvx_any_project.html" />
   </url>
   <url>
     <loc>https://www.drawlib.com/ja/02_drawing_primitives/canvas.html</loc>

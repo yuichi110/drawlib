@@ -1108,7 +1108,7 @@ Instead of writing documentation in static wikis and manually copying and pastin
 
 ## 1. Project Scaffolding (`drawlib init project`)
 
-Scaffold a complete project template with a single command:
+Scaffold a complete project template with a single command (use `uv run drawlib` in Python projects or zero-install [`uvx drawlib`](./uvx_any_project.md) in Go/Rust/TypeScript/Java repositories and standalone non-code documentation folders):
 
 ```bash
 # List available starter project templates

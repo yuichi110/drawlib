@@ -97,6 +97,8 @@ $ ./docs_src/build.sh
 $ uvx drawlib serve docs_html/ --check
 ```
 
+> **他言語リポジトリ・非開発プロジェクトでの活用**: `go.mod`、`Cargo.toml`、`package.json`、Terraform モジュールと共存するディレクトリ構成や、開発コードを含まない企画書・Word（`.docx`）・PowerPoint（`.pptx`）スライド専用フォルダの運用パターンについては、[**`uvx` によるゼロインストール活用（他言語リポジトリ・非開発プロジェクト）**](./uvx_any_project.md) を参照してください。
+
 ### 1.2 Python プロジェクトの依存関係として追加（`uv add drawlib`）
 
 IDE の入力補完を効かせてスタンドアロンの `.py` スクリプトを執筆する場合や、既存の Python `uv` ワークスペース内で `drawlib.*` をインポートする場合は、プロジェクトの依存関係に追加します。

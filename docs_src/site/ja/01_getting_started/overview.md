@@ -289,6 +289,7 @@ Drawlib は、アーキテクチャ図や技術ドキュメントを、標準的
 3. **高水準なドメインプリミティブ**: 宣言的な抽象コンポーネント（`ArchitectureDiagram`、`ChevronProcess`、`Table`、`ArchitectureGraph`）により、ピクセル単位の精密な制御を維持しつつレイアウトのボイラープレートを排除します。
 4. **マルチフォーマットへの一括コンパイル**: 単一の Markdown ソースから、静的 HTML サイト、GitHub 用 Markdown、鮮明なベクター PDF、MS Word（`.docx`）文書、さらに 16:9 の HTML / PDF / PowerPoint（`.pptx`）スライドデッキへとコンパイルできます。
 5. **一元化されたスタイルガバナンス**: テーマトークン（`DefaultStyles`、`GoogleStyles`、`MonochromeStyles`）により、図形・コネクタ・テキスト・アイコンのすべてが統一された視覚的階層に従います。
+6. **`uvx` によるゼロインストール運用**: `uvx drawlib` を使えば、`pyproject.toml` や仮想環境を一切作成せずに、**他言語の開発リポジトリ（Go・Rust・TypeScript・Java・Terraform）** や **開発プロジェクト以外の独立した企画書・仕様書・スライド管理フォルダ** でもそのまま導入できます（詳細は [`uvx` によるゼロインストール活用](./uvx_any_project.md) を参照）。
 
 ---
 

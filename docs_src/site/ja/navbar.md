@@ -5,6 +5,7 @@
 ## 1. はじめに
 - [Drawlib とは](./01_getting_started/overview.md)
 - [インストールガイド](./01_getting_started/installation.md)
+- [uvx ゼロインストール活用](./01_getting_started/uvx_any_project.md)
 - [クイックスタートガイド](./01_getting_started/quick_start.md)
 - [基本ビジュアル概念](./01_getting_started/core_concepts.md)
 - [プロジェクト構成とビルド](./01_getting_started/project_quicklook.md)

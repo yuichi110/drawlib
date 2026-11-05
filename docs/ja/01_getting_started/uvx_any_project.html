@@ -1,0 +1,1155 @@
+<!--
+ Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+
+ This software is licensed under the Apache License, Version 2.0.
+ For more information, please visit: https://github.com/yuichi110/drawlib
+
+ This software is provided "as is", without warranty of any kind,
+ express or implied, including but not limited to the warranties of
+ merchantability, fitness for a particular purpose and noninfringement.
+-->
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>`uvx` によるゼロインストール活用（他言語・非開発プロジェクト）</title>
+    <script>
+        (function() {
+            const saved = localStorage.getItem('drawlib-theme');
+            if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    
+    
+    <link rel="alternate" hreflang="en" href="https://www.drawlib.com/en/01_getting_started/uvx_any_project.html">
+    
+    <link rel="alternate" hreflang="ja" href="https://www.drawlib.com/ja/01_getting_started/uvx_any_project.html">
+    
+    <link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/en/01_getting_started/uvx_any_project.html">
+    
+    
+    
+    <meta name="description" content="Drawlib の描画エンジン自体は Python で実装されていますが、Drawlib で図解・ドキュメントサイト・ホワイトペーパー・スライドデッキを管理するために Python プロジェクト（さらにはソフトウェア開発リポジトリ）である必要は一切ありません。uvx drawlib を使えば、ワークスペースに…">
+    <link rel="canonical" href="https://www.drawlib.com/ja/01_getting_started/uvx_any_project.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Drawlib ドキュメント">
+    <meta property="og:title" content="uvx によるゼロインストール活用（他言語・非開発プロジェクト） — Drawlib ドキュメント">
+    <meta property="og:description" content="Drawlib の描画エンジン自体は Python で実装されていますが、Drawlib で図解・ドキュメントサイト・ホワイトペーパー・スライドデッキを管理するために Python プロジェクト（さらにはソフトウェア開発リポジトリ）である必要は一切ありません。uvx drawlib を使えば、ワークスペースに…">
+    <meta property="og:url" content="https://www.drawlib.com/ja/01_getting_started/uvx_any_project.html">
+    <meta property="og:image" content="https://www.drawlib.com/_assets/ogp.png">
+    <meta property="og:locale" content="ja_JP">
+    <meta property="og:locale:alternate" content="en_US">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="uvx によるゼロインストール活用（他言語・非開発プロジェクト） — Drawlib ドキュメント">
+    <meta name="twitter:description" content="Drawlib の描画エンジン自体は Python で実装されていますが、Drawlib で図解・ドキュメントサイト・ホワイトペーパー・スライドデッキを管理するために Python プロジェクト（さらにはソフトウェア開発リポジトリ）である必要は一切ありません。uvx drawlib を使えば、ワークスペースに…">
+    <meta name="twitter:image" content="https://www.drawlib.com/_assets/ogp.png">
+    
+    
+    <link rel="icon" type="image/png" href="../../_assets/favicon.png">
+    
+    
+    <link rel="stylesheet" href="../style.css">
+    
+    
+</head>
+<body>
+    
+    <div class="doc-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-brand" aria-label="Drawlib ドキュメント">
+                    
+                    <img src="../../_assets/logo.png" alt="Drawlib ドキュメント" class="sidebar-logo sidebar-logo-light">
+                    <img src="../../_assets/logo_dark.png" alt="Drawlib ドキュメント" class="sidebar-logo sidebar-logo-dark">
+                    
+                </a>
+                <div class="sidebar-header-actions">
+                    <button type="button" id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle theme">
+                        <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                        <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                    </button>
+                    <button type="button" id="menu-toggle" class="menu-toggle-btn" aria-label="Toggle navigation" aria-expanded="false">
+                        <svg class="icon-hamburger" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                        <svg class="icon-close" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                    </button>
+                </div>
+            </div>
+            <div class="sidebar-subbar">
+                
+                <a href="../01_getting_started/release_notes.html" class="sidebar-version-badge" title="View Release Notes">
+                    <span class="sidebar-version-dot" aria-hidden="true"></span>
+                    <span class="sidebar-version-text">v0.3.5</span>
+                </a>
+                <a href="https://github.com/yuichi110/drawlib" target="_blank" rel="noopener noreferrer" class="sidebar-github-link" aria-label="GitHub Repository" title="GitHub Repository">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+                </a>
+            </div>
+            <div class="sidebar-menu">
+                
+                    
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../index.html" >ようこそ</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">1. はじめに</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="overview.html" >Drawlib とは</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="installation.html" >インストールガイド</a>
+                            </li>
+                            
+                            <li class="nav-item active">
+                                <a href="uvx_any_project.html" >uvx ゼロインストール活用</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="quick_start.html" >クイックスタートガイド</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="core_concepts.html" >基本ビジュアル概念</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="project_quicklook.html" >プロジェクト構成とビルド</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="agent_quicklook.html" >AI 駆動ワークフローとエージェント設定</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="release_notes.html" >リリースノートと移行ガイド</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="https://www.drawlib.com/api/" target="_blank" rel="noopener noreferrer">API &amp; CLI リファレンス<svg class="nav-external-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="https://examples.drawlib.com/" target="_blank" rel="noopener noreferrer">サンプル・ショーケース<svg class="nav-external-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">2. 描画プリミティブとスタイル</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/canvas.html" >キャンバスと座標系</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_overview.html" >図形プリミティブ概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_basic.html" >基本図形・放射状図形</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_polygon.html" >多角形とカスタムパス</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_arrow.html" >ブロック矢印・シェブロン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_container.html" >3D コンテナ・フロー・グルーピング</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_badge.html" >吹き出し・バッジ・ステータス</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/shapes_symbol.html" >フェイス・時計・記号・演算子</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/lines.html" >線とコネクタ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/text.html" >テキストとタイポグラフィ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/fonts.html" >フォントと多言語カタログ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/font_file.html" >カスタムフォントファイル (FontFile)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/images.html" >画像と Dimage</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/styles.html" >スタイルとテーマ設定</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/colors.html" >カラーパレットと色モデル</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../02_drawing_primitives/style_guide.html" >図解デザインとスタイルガイド</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">3. アイコンとブランドスイート</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/overview.html" >アイコン概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/phosphor.html" >Phosphor ベクターアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/gcp.html" >Google Cloud (GCP) アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/aws.html" >Amazon Web Services (AWS) アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/azure.html" >Microsoft Azure アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/cloud.html" >クラウド・オリジナルクラウドアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/cnative.html" >クラウドネイティブ (K8s) アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/devops.html" >DevOps・オブザーバビリティアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/network.html" >ネットワーク・Cisco トポロジアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/server.html" >サーバー・OS・仮想化アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/security.html" >セキュリティ・ゼロトラストアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/facility.html" >データセンター・ファシリティアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/ai.html" >AI・機械学習アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/data.html" >データ・データベースアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/code.html" >コード・言語・フレームワークアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/business.html" >エンタープライズ・FinTech アイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/itservice.html" >IT サービス・コンサルティングアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/workspace.html" >ワークスペース・コラボレーションアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/social.html" >ソーシャル・メディア・コミュニティアイコン</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../03_icons/client.html" >クライアント端末・エンドポイントアイコン</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">4. SmartArts（スマートアート）</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/overview.html" >SmartArts 概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/chevron_process.html" >ChevronProcess（シェブロン工程図）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/cycle.html" >Cycle（サイクル図）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/table.html" >Table（テーブル）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/tree.html" >Tree（ツリー図）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/mindmap.html" >MindMap（マインドマップ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/grid_layout.html" >GridLayout（グリッドレイアウト）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/pyramid.html" >Pyramid（ピラミッド図）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/box_list.html" >BoxList（ボックスリスト）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/kpi_cards.html" >KpiCards（KPI カード）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/card_list.html" >CardList（カードリスト）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/roadmap.html" >Roadmap（ロードマップ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/panel.html" >Panel（パネル）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/calendar.html" >Calendar（カレンダー）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/bullet_points.html" >BulletPoints（箇条書きボード）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/source_code.html" >SourceCode（ソースコードカード）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../04_smartarts/geomap.html" >GeoMap（地理マップ）</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">5. Charts（定量チャート）</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/overview.html" >Charts 概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/axes_and_legends.html" >軸・スケール・凡例</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/bar.html" >Bar Chart（棒グラフ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/line.html" >Line Chart（折れ線グラフ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/area.html" >Area Chart（面グラフ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/pie.html" >Pie &amp; Donut Chart（円・ドーナツグラフ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/radar.html" >Radar Chart（レーダーチャート）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/scatter.html" >Scatter Chart（散布図）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/gantt.html" >Gantt Chart（ガントチャート）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../05_charts/heatmap.html" >Heatmap &amp; Thermal Overlay（ヒートマップ）</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">6. テクニカルダイアグラム</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/overview.html" >ダイアグラム概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/architecture.html" >アーキテクチャ図</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/flow.html" >フロー図</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/sequence.html" >シーケンス図</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/class_diagram.html" >UML クラス図</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/er.html" >ER 図</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../06_diagrams/state_diagram.html" >ステートマシン図</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">7. 自動レイアウトグラフ</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/overview.html" >グラフエンジン概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/architecture_graph.html" >ArchitectureGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/layer_graph.html" >LayerGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/tree_graph.html" >TreeGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/radial_graph.html" >RadialGraph</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../07_graph/grid_graph.html" >GridGraph</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">8. アニメーション</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/overview.html" >アニメーション概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/primitives.html" >プリミティブと色のアニメーション</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/smartarts.html" >SmartArts のアニメーション</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/charts.html" >Charts のアニメーション</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/diagrams.html" >ダイアグラムのアニメーション</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../08_animations/graphs.html" >グラフのアニメーション</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">9. ドキュメントビルダと CLI</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/overview.html" >コードとしての図解ドキュメント概要</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/code_blocks.html" >Markdown コードブロック構文</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/cli_reference.html" >CLI リファレンス</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/project_doc.html" >リニアドキュメントプロジェクト (`doc`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/project_site.html" >ドキュメントサイトプロジェクト (`site`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/project_catalog.html" >カタログプロジェクト (`catalog`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/project_slide.html" >スライドデッキプロジェクト (`slide`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/slide_layout_and_api.html" >スライドステージレイアウトと API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/project_image.html" >画像プロジェクト (`images`)</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/customization.html" >テンプレートと CSS カスタマイズ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../09_doc_builder_and_cli/caching_and_cicd.html" >キャッシュ機構と CI/CD</a>
+                            </li>
+                            
+                        </ul>
+                    
+                        
+                        <div class="sidebar-heading">10. AI エージェントと高度な統合</div>
+                        
+                        <ul class="nav-list">
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/ai_agent_instructions.html" >AI エージェント指示とルール体系</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/multimodal_feedback_loop.html" >自律検証フィードバックループ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/programmatic_api.html" >プログラマティック API</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/math_and_layout.html" >アルゴリズムレイアウトと幾何計算</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/debugging.html" >トラブルシューティングとデバッグ</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/case_study_brand_assets.html" >事例紹介: 公式ブランドアセットの設計</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/case_study_documentation_site.html" >事例紹介: AI エージェントによるドキュメントサイト構築</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/case_study_software_architecture.html" >事例紹介: コードとしてのソフトウェアアーキテクチャ設計書</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="../10_ai_agents_and_advanced/case_study_technical_slides.html" >事例紹介: 技術プレゼンテーションスライドの作成</a>
+                            </li>
+                            
+                            <li class="nav-item ">
+                                <a href="https://www.drawlib.com/architecture/" target="_blank" rel="noopener noreferrer">内部アーキテクチャ仕様書<svg class="nav-external-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
+                            </li>
+                            
+                        </ul>
+                    
+                
+            </div>
+        </aside>
+        <div class="content-wrapper">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="crumb">Docs</span>
+                    <span class="crumb-separator">&raquo;</span>
+                    <span class="crumb active">`uvx` によるゼロインストール活用（他言語・非開発プロジェクト）</span>
+                </div>
+                
+                <div class="lang-switcher">
+                    <details class="lang-dropdown">
+                        <summary class="lang-dropdown-btn" aria-label="Select language">
+                            <svg class="lang-globe-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                            <span class="lang-current-label">日本語</span>
+                            <svg class="lang-caret-icon" viewBox="0 0 24 24" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </summary>
+                        <div class="lang-dropdown-menu" role="menu">
+                            
+                            <a href="../../en/01_getting_started/uvx_any_project.html" class="lang-option" lang="en" hreflang="en" >
+                                <span>English</span>
+                                
+                            </a>
+                            
+                            <a href="uvx_any_project.html" class="lang-option active" lang="ja" hreflang="ja" aria-current="page">
+                                <span>日本語</span>
+                                
+                                <svg class="lang-check-icon" viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                
+                            </a>
+                            
+                        </div>
+                    </details>
+                </div>
+                
+            </header>
+            <main class="main-content">
+                <h1><code>uvx</code> によるゼロインストール活用（他言語・非開発プロジェクト）</h1>
+<p>Drawlib の描画エンジン自体は Python で実装されていますが、<strong>Drawlib で図解・ドキュメントサイト・ホワイトペーパー・スライドデッキを管理するために Python プロジェクト（さらにはソフトウェア開発リポジトリ）である必要は一切ありません</strong>。<a href="https://docs.astral.sh/uv/guides/tools/"><code>uvx drawlib</code></a> を使えば、ワークスペースに <code>pyproject.toml</code> や <code>.venv</code> を追加することなく、<strong>Go・Rust・TypeScript・Java・C++・Terraform などの他言語リポジトリ</strong>はもちろん、<strong>企画書・仕様書・プレゼン資料専用の非開発フォルダ</strong>でも即座にマルチフォーマットの図解ドキュメント管理を始められます。</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="../../images/01_getting_started/uvx_any_project/uvx_zero_install_ecosystem.png" alt="uvx_any_project_1" />
+  <figcaption class="drawlib-caption">他言語リポジトリ・非開発ドキュメントフォルダ・Python プロジェクトを横断する uvx ゼロインストールワークフロー</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">line</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.smartarts</span><span class="w"> </span><span class="kn">import</span> <span class="n">CardList</span><span class="p">,</span> <span class="n">Panel</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">144</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">62</span><span class="p">)</span>
+
+<span class="n">body_frame</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">250</span><span class="p">,</span> <span class="mi">252</span><span class="p">,</span> <span class="mi">255</span><span class="p">))</span>
+
+<span class="c1"># 1. Left Panel: 3 Entry Contexts (Polyglot, Non-Code, Python)</span>
+<span class="n">p_in</span> <span class="o">=</span> <span class="n">Panel</span><span class="p">(</span>
+    <span class="s2">"1. Any Workspace or Repo"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">body_frame</span><span class="p">,</span>
+    <span class="n">header_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">),</span>
+    <span class="n">icon</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">folders</span><span class="p">,</span>
+    <span class="n">icon_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">,</span>
+    <span class="n">header_height</span><span class="o">=</span><span class="mf">7.5</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">p_in</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">42.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">54.0</span><span class="p">)</span>
+
+<span class="n">in_cards</span> <span class="o">=</span> <span class="n">CardList</span><span class="p">(</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="n">description_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+    <span class="n">badge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
+    <span class="n">icon_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">,</span>
+    <span class="n">spacing</span><span class="o">=</span><span class="mf">2.2</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">in_cards</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="s2">"Polyglot Code Repos"</span><span class="p">,</span>
+    <span class="s2">"Go • Rust • TS • Java • IaC</span><span class="se">\n</span><span class="s2">Keep docs_src/ next to go.mod"</span><span class="p">,</span>
+    <span class="n">icon</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">code</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">in_cards</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="s2">"Non-Code Docs &amp; Decks"</span><span class="p">,</span>
+    <span class="s2">"Specs • RFCs • Whitepapers</span><span class="se">\n</span><span class="s2">Word, PDF &amp; PPTX in any folder"</span><span class="p">,</span>
+    <span class="n">icon</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">file_text</span><span class="p">,</span>
+    <span class="n">badge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">in_cards</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="s2">"Python Workspaces"</span><span class="p">,</span>
+    <span class="s2">"uv run / Python API</span><span class="se">\n</span><span class="s2">Import drawlib.* or run CLI"</span><span class="p">,</span>
+    <span class="n">icon</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">terminal_window</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">in_cards</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">5.2</span><span class="p">,</span> <span class="mf">6.2</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">37.6</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">41.5</span><span class="p">)</span>
+
+<span class="c1"># 2. Center Panel: Zero-Install uvx + AI Agent Engine</span>
+<span class="n">p_eng</span> <span class="o">=</span> <span class="n">Panel</span><span class="p">(</span>
+    <span class="s2">"2. Zero-Install CLI &amp; AI Loop"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">body_frame</span><span class="p">,</span>
+    <span class="n">header_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">),</span>
+    <span class="n">icon</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">lightning</span><span class="p">,</span>
+    <span class="n">icon_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="p">,</span>
+    <span class="n">header_height</span><span class="o">=</span><span class="mf">7.5</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">p_eng</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">51.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">42.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">54.0</span><span class="p">)</span>
+
+<span class="n">eng_cards</span> <span class="o">=</span> <span class="n">CardList</span><span class="p">(</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="n">description_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+    <span class="n">badge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
+    <span class="n">icon_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">,</span>
+    <span class="n">spacing</span><span class="o">=</span><span class="mf">2.2</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">eng_cards</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="s2">"uvx drawlib init project"</span><span class="p">,</span>
+    <span class="s2">"Zero repo pollution</span><span class="se">\n</span><span class="s2">No pyproject.toml or .venv"</span><span class="p">,</span>
+    <span class="n">icon</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">terminal</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="n">description_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+    <span class="n">badge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">)),</span>
+    <span class="n">icon_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">eng_cards</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="s2">"uvx drawlib init agent"</span><span class="p">,</span>
+    <span class="s2">"Claude • Cursor • Copilot</span><span class="se">\n</span><span class="s2">Antigravity • Gemini CLI"</span><span class="p">,</span>
+    <span class="n">icon</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">robot</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">eng_cards</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="s2">"./docs_src/build.sh"</span><span class="p">,</span>
+    <span class="s2">"Auto-detects uvx drawlib</span><span class="se">\n</span><span class="s2">Incremental SQLite cache"</span><span class="p">,</span>
+    <span class="n">icon</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">arrows_clockwise</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">eng_cards</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">53.2</span><span class="p">,</span> <span class="mf">6.2</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">37.6</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">41.5</span><span class="p">)</span>
+
+<span class="c1"># 3. Right Panel: Multi-Format Deliverables</span>
+<span class="n">p_out</span> <span class="o">=</span> <span class="n">Panel</span><span class="p">(</span>
+    <span class="s2">"3. Published Deliverables"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">body_frame</span><span class="p">,</span>
+    <span class="n">header_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">),</span>
+    <span class="n">icon</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">export</span><span class="p">,</span>
+    <span class="n">icon_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">,</span>
+    <span class="n">header_height</span><span class="o">=</span><span class="mf">7.5</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">p_out</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">99.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">42.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">54.0</span><span class="p">)</span>
+
+<span class="n">out_cards</span> <span class="o">=</span> <span class="n">CardList</span><span class="p">(</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="n">description_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.5</span><span class="p">),</span>
+    <span class="n">badge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
+    <span class="n">icon_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">,</span>
+    <span class="n">spacing</span><span class="o">=</span><span class="mf">2.2</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">out_cards</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="s2">"HTML Sites &amp; Catalogs"</span><span class="p">,</span>
+    <span class="s2">"site / catalog -&gt; docs_html/</span><span class="se">\n</span><span class="s2">Search, i18n, SEO &amp; llms.txt"</span><span class="p">,</span>
+    <span class="n">icon</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">globe</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">out_cards</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="s2">"Vector PDF &amp; MS Word"</span><span class="p">,</span>
+    <span class="s2">"doc -&gt; .pdf &amp; .docx</span><span class="se">\n</span><span class="s2">A4 specs &amp; editable Word"</span><span class="p">,</span>
+    <span class="n">icon</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">file_pdf</span><span class="p">,</span>
+    <span class="n">badge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">out_cards</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="s2">"16:9 Slide Decks"</span><span class="p">,</span>
+    <span class="s2">"slide -&gt; HTML / .pdf / .pptx</span><span class="se">\n</span><span class="s2">Decks &amp; editable PowerPoint"</span><span class="p">,</span>
+    <span class="n">icon</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">presentation_chart</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">out_cards</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">101.2</span><span class="p">,</span> <span class="mf">6.2</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">37.6</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">41.5</span><span class="p">)</span>
+
+<span class="c1"># Horizontal connectors between panels</span>
+<span class="n">line</span><span class="p">((</span><span class="mf">45.0</span><span class="p">,</span> <span class="mf">31.0</span><span class="p">),</span> <span class="p">(</span><span class="mf">51.0</span><span class="p">,</span> <span class="mf">31.0</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">2.2</span><span class="p">))</span>
+<span class="n">line</span><span class="p">((</span><span class="mf">93.0</span><span class="p">,</span> <span class="mf">31.0</span><span class="p">),</span> <span class="p">(</span><span class="mf">99.0</span><span class="p">,</span> <span class="mf">31.0</span><span class="p">),</span> <span class="n">arrow_head</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">2.2</span><span class="p">))</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<hr />
+<h2>1. なぜ <code>uvx drawlib</code> なら Python 環境不要で使えるのか</h2>
+<p><a href="https://docs.astral.sh/uv/"><code>uv</code></a> は単一の高速なネイティブバイナリ（<code>brew install uv</code>、<code>curl</code>、または <code>winget</code> で導入可能）であり、Node.js の <code>npx</code> に相当する一時ツール実行ランナー <strong><code>uvx</code></strong> を標準搭載しています。</p>
+<ol>
+<li><strong>リポジトリルートを一切汚さない（Zero Repo Pollution）</strong>: <code>uvx drawlib ...</code> を実行すると、ユーザー領域のキャッシュ（<code>~/.cache/uv</code>）内に分離された Python <code>&gt;=3.11</code> と Drawlib 環境が自動構築されます。プロジェクトのルートディレクトリに <strong><code>pyproject.toml</code>、<code>uv.lock</code>、<code>requirements.txt</code>、<code>.venv/</code> を置く必要は一切ありません</strong>。</li>
+<li><strong><code>build.sh</code> による自動コマンド検出</strong>: <code>drawlib init project</code> が生成するすべてのスクリプト（<code>build.sh</code>、<code>build_html.sh</code>、<code>build_pdf.sh</code>、<code>build_docx.sh</code>、<code>build_pptx.sh</code>、<code>serve.sh</code>）は、<code>uv run drawlib</code> やグローバルな <code>drawlib</code> の有無を検査し、未設定環境では自動的に <strong><code>uvx drawlib</code></strong> へフォールバックします。一度初期化すれば、チームメンバーや CI 環境は <code>./docs_src/build.sh</code> を実行するだけです。</li>
+<li><strong>すべての機能がフル稼働</strong>: <code>uvx drawlib</code> でも、全 34 アイコンスイート、自動レイアウトグラフ、SmartArts、定量チャート、ヘッドレス Chromium による A4 PDF 出力、ネイティブ MS Word（<code>.docx</code>）出力、および MS PowerPoint（<code>.pptx</code>）出力まで、すべての機能が制限なく動作します。</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">実行モード</th>
+<th style="text-align:left">コマンド接頭辞</th>
+<th style="text-align:left">最適な利用シーン</th>
+<th style="text-align:left">リポジトリルートへの追加ファイル</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>ゼロインストール (<code>uvx</code>)</strong></td>
+<td style="text-align:left"><code>uvx drawlib ...</code></td>
+<td style="text-align:left"><strong>Go・Rust・TS・Java・Terraform リポジトリ</strong>、30秒でのお試し評価</td>
+<td style="text-align:left"><strong>なし</strong>（Python 設定ファイル <code>0</code> 個）</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>グローバル常駐 (<code>uv tool</code>)</strong></td>
+<td style="text-align:left"><code>drawlib ...</code></td>
+<td style="text-align:left"><strong>テクニカルライター・PM・アーキテクト</strong> など、多数のフォルダで日常的に文書やスライドを作る場合</td>
+<td style="text-align:left"><strong>なし</strong>（マシンごとに初回 1 回 <code>uv tool install drawlib</code>）</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Python プロジェクト (<code>uv run</code>)</strong></td>
+<td style="text-align:left"><code>uv run drawlib ...</code></td>
+<td style="text-align:left"><strong>Python ライブラリ／アプリ開発</strong>、または IDE 補完を効かせて <code>drawlib.*</code> を直接 import する場合</td>
+<td style="text-align:left"><code>pyproject.toml</code> &amp; <code>uv.lock</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>2. Python プロジェクト以外の 2 大活用パターン</h2>
+<p>他言語で書かれたマイクロサービスのリポジトリに組み込む場合でも、空のフォルダで企画書やプレゼン資料を執筆する場合でも、ディレクトリ構成はシンプルかつ自己完結に保たれます。</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="../../images/01_getting_started/uvx_any_project/uvx_polyglot_and_standalone_tree.png" alt="uvx_any_project_2" />
+  <figcaption class="drawlib-caption">他言語コードリポジトリ（左）と非開発ドキュメント・スライド専用フォルダ（右）のディレクトリ構成</figcaption>
+</figure>
+<details class="drawlib-code-details">
+<summary>Source Code</summary>
+<pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.canvas</span><span class="w"> </span><span class="kn">import</span> <span class="n">save</span><span class="p">,</span> <span class="n">setup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.icons</span><span class="w"> </span><span class="kn">import</span> <span class="n">phosphor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.shapes</span><span class="w"> </span><span class="kn">import</span> <span class="n">rectangle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.smartarts</span><span class="w"> </span><span class="kn">import</span> <span class="n">Panel</span><span class="p">,</span> <span class="n">TreeNode</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Colors</span><span class="p">,</span> <span class="n">Styles</span>
+
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">144</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">64</span><span class="p">)</span>
+
+<span class="n">TreeNode</span><span class="o">.</span><span class="n">register_drawing_item</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">"dir"</span><span class="p">,</span>
+    <span class="n">location</span><span class="o">=</span><span class="s2">"before"</span><span class="p">,</span>
+    <span class="n">padding_width</span><span class="o">=</span><span class="mf">3.8</span><span class="p">,</span>
+    <span class="n">function</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">folder</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">icon_color</span><span class="o">=</span><span class="n">Colors</span><span class="o">.</span><span class="n">Primary</span><span class="p">),</span>
+    <span class="n">args</span><span class="o">=</span><span class="p">{</span><span class="s2">"width"</span><span class="p">:</span> <span class="mf">2.8</span><span class="p">},</span>
+<span class="p">)</span>
+<span class="n">TreeNode</span><span class="o">.</span><span class="n">register_drawing_item</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">"file"</span><span class="p">,</span>
+    <span class="n">location</span><span class="o">=</span><span class="s2">"before"</span><span class="p">,</span>
+    <span class="n">padding_width</span><span class="o">=</span><span class="mf">3.8</span><span class="p">,</span>
+    <span class="n">function</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">file_text</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="p">,</span>
+    <span class="n">args</span><span class="o">=</span><span class="p">{</span><span class="s2">"width"</span><span class="p">:</span> <span class="mf">2.6</span><span class="p">},</span>
+<span class="p">)</span>
+
+<span class="n">root_kwargs</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"text_style"</span><span class="p">:</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
+    <span class="s2">"line_style"</span><span class="p">:</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
+    <span class="s2">"line_horizontal_margin"</span><span class="p">:</span> <span class="mf">1.8</span><span class="p">,</span>
+    <span class="s2">"line_horizontal_length"</span><span class="p">:</span> <span class="mf">2.6</span><span class="p">,</span>
+    <span class="s2">"line_vertical_margin"</span><span class="p">:</span> <span class="mf">4.2</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="n">item_style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">)</span>
+<span class="n">hl_style</span> <span class="o">=</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">)</span>
+
+<span class="c1"># Left Panel: Pattern A — Polyglot Code Repository</span>
+<span class="n">p_left</span> <span class="o">=</span> <span class="n">Panel</span><span class="p">(</span>
+    <span class="s2">"Pattern A: Polyglot Code Repo (Go / TS / Rust)"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">250</span><span class="p">,</span> <span class="mi">252</span><span class="p">,</span> <span class="mi">255</span><span class="p">)),</span>
+    <span class="n">header_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">),</span>
+    <span class="n">icon</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">git_branch</span><span class="p">,</span>
+    <span class="n">icon_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">,</span>
+    <span class="n">header_height</span><span class="o">=</span><span class="mf">7.5</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">p_left</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">66.5</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">56.0</span><span class="p">)</span>
+
+<span class="n">t_poly</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="s2">"my-polyglot-service/"</span><span class="p">,</span> <span class="o">**</span><span class="n">root_kwargs</span><span class="p">)</span><span class="o">.</span><span class="n">set_drawing_item</span><span class="p">(</span><span class="s2">"dir"</span><span class="p">)</span>
+<span class="n">t_poly</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"go.mod / package.json / Cargo.toml"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">item_style</span><span class="p">)</span><span class="o">.</span><span class="n">set_drawing_item</span><span class="p">(</span><span class="s2">"file"</span><span class="p">)</span>
+<span class="n">t_poly</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"src/  (Go / TypeScript / Rust code)"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">item_style</span><span class="p">)</span><span class="o">.</span><span class="n">set_drawing_item</span><span class="p">(</span><span class="s2">"dir"</span><span class="p">)</span>
+<span class="n">t_poly</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">".claude/rules/drawlib.md  (AI rules)"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">hl_style</span><span class="p">)</span><span class="o">.</span><span class="n">set_drawing_item</span><span class="p">(</span><span class="s2">"file"</span><span class="p">)</span>
+<span class="n">t_docs</span> <span class="o">=</span> <span class="n">t_poly</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"docs_src/  (Drawlib project)"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">hl_style</span><span class="p">)</span><span class="o">.</span><span class="n">set_drawing_item</span><span class="p">(</span><span class="s2">"dir"</span><span class="p">)</span>
+<span class="n">t_docs</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"drawlib.toml  (type = 'site')"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">item_style</span><span class="p">)</span><span class="o">.</span><span class="n">set_drawing_item</span><span class="p">(</span><span class="s2">"file"</span><span class="p">)</span>
+<span class="n">t_docs</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"en/ &amp; ja/  (Markdown + diagrams)"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">item_style</span><span class="p">)</span><span class="o">.</span><span class="n">set_drawing_item</span><span class="p">(</span><span class="s2">"dir"</span><span class="p">)</span>
+<span class="n">t_docs</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"build.sh  (Auto-runs uvx drawlib)"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">item_style</span><span class="p">)</span><span class="o">.</span><span class="n">set_drawing_item</span><span class="p">(</span><span class="s2">"file"</span><span class="p">)</span>
+<span class="n">t_poly</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"docs_html/  (Compiled static site)"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">item_style</span><span class="p">)</span><span class="o">.</span><span class="n">set_drawing_item</span><span class="p">(</span><span class="s2">"dir"</span><span class="p">)</span>
+<span class="n">t_poly</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">6.5</span><span class="p">,</span> <span class="mf">48.0</span><span class="p">))</span>
+
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mf">36.25</span><span class="p">,</span> <span class="mf">8.8</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mf">60.0</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">5.8</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.4</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"No pyproject.toml or .venv in your Go / TS / Rust root"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="c1"># Right Panel: Pattern B — Non-Code Documentation &amp; Slide Workspace</span>
+<span class="n">p_right</span> <span class="o">=</span> <span class="n">Panel</span><span class="p">(</span>
+    <span class="s2">"Pattern B: Standalone Docs &amp; Slide Folder"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_fill_color</span><span class="o">=</span><span class="p">(</span><span class="mi">250</span><span class="p">,</span> <span class="mi">252</span><span class="p">,</span> <span class="mi">255</span><span class="p">)),</span>
+    <span class="n">header_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">),</span>
+    <span class="n">icon</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">briefcase</span><span class="p">,</span>
+    <span class="n">icon_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">,</span>
+    <span class="n">header_height</span><span class="o">=</span><span class="mf">7.5</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">p_right</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">74.5</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">66.5</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">56.0</span><span class="p">)</span>
+
+<span class="n">t_doc</span> <span class="o">=</span> <span class="n">TreeNode</span><span class="p">(</span><span class="s2">"q4-strategy-and-rfc/"</span><span class="p">,</span> <span class="o">**</span><span class="n">root_kwargs</span><span class="p">)</span><span class="o">.</span><span class="n">set_drawing_item</span><span class="p">(</span><span class="s2">"dir"</span><span class="p">)</span>
+<span class="n">t_doc</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">".cursor/rules/drawlib.mdc  (AI rules)"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">hl_style</span><span class="p">)</span><span class="o">.</span><span class="n">set_drawing_item</span><span class="p">(</span><span class="s2">"file"</span><span class="p">)</span>
+<span class="n">t_dsrc</span> <span class="o">=</span> <span class="n">t_doc</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"doc_src/  (Whitepaper / RFC)"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">hl_style</span><span class="p">)</span><span class="o">.</span><span class="n">set_drawing_item</span><span class="p">(</span><span class="s2">"dir"</span><span class="p">)</span>
+<span class="n">t_dsrc</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"en/00_cover.md .. 03_roadmap.md"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">item_style</span><span class="p">)</span><span class="o">.</span><span class="n">set_drawing_item</span><span class="p">(</span><span class="s2">"file"</span><span class="p">)</span>
+<span class="n">t_dsrc</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"build_pdf.sh &amp; build_docx.sh"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">item_style</span><span class="p">)</span><span class="o">.</span><span class="n">set_drawing_item</span><span class="p">(</span><span class="s2">"file"</span><span class="p">)</span>
+<span class="n">t_ssrc</span> <span class="o">=</span> <span class="n">t_doc</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"slide_src/  (16:9 slide deck)"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">hl_style</span><span class="p">)</span><span class="o">.</span><span class="n">set_drawing_item</span><span class="p">(</span><span class="s2">"dir"</span><span class="p">)</span>
+<span class="n">t_ssrc</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"en/01_title.md .. 05_summary.md"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">item_style</span><span class="p">)</span><span class="o">.</span><span class="n">set_drawing_item</span><span class="p">(</span><span class="s2">"file"</span><span class="p">)</span>
+<span class="n">t_ssrc</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"build_pdf.sh &amp; build_pptx.sh"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">item_style</span><span class="p">)</span><span class="o">.</span><span class="n">set_drawing_item</span><span class="p">(</span><span class="s2">"file"</span><span class="p">)</span>
+<span class="n">t_doc</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">"doc_en.pdf / .docx &amp; slide_en.pptx"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">hl_style</span><span class="p">)</span><span class="o">.</span><span class="n">set_drawing_item</span><span class="p">(</span><span class="s2">"file"</span><span class="p">)</span>
+<span class="n">t_doc</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">78.0</span><span class="p">,</span> <span class="mf">48.0</span><span class="p">))</span>
+
+<span class="n">rectangle</span><span class="p">(</span>
+    <span class="p">(</span><span class="mf">107.75</span><span class="p">,</span> <span class="mf">8.8</span><span class="p">),</span>
+    <span class="n">width</span><span class="o">=</span><span class="mf">60.0</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mf">5.8</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.4</span><span class="p">,</span> <span class="n">shape_line_width</span><span class="o">=</span><span class="mf">1.5</span><span class="p">),</span>
+    <span class="n">text</span><span class="o">=</span><span class="s2">"Zero application code needed — Pure Docs, Word &amp; PPTX"</span><span class="p">,</span>
+    <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">save</span><span class="p">()</span>
+</code></pre>
+</details>
+<hr />
+<h3>2.1 パターン A：Go・Rust・TypeScript・Java・Terraform リポジトリでの設計書管理</h3>
+<p>Go・Rust・TypeScript（Next.js）・Java・Terraform などでサービスを開発している際、アーキテクチャ図を外部の GUI 作図ツールに置くと、プルリクエストでのコード変更と図解がすぐに乖離してしまいます。<code>uvx drawlib</code> を使えば、既存のビルドツールチェーン（<code>go.mod</code> や <code>package.json</code>）に一切手を加えることなく、リポジトリ内の Markdown に実行可能な図解ブロックを直接埋め込めます。</p>
+<pre><code class="language-bash"><span class="c1"># 既存の Go / Rust / TypeScript / Java / Terraform リポジトリのルートで実行:</span>
+$<span class="w"> </span>uvx<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>project<span class="w"> </span>site<span class="w"> </span>-l<span class="w"> </span>en,ja
+$<span class="w"> </span>uvx<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>agent<span class="w"> </span>claude<span class="w"> </span>cursor
+
+<span class="c1"># HTML サイト・GitHub Markdown・埋め込み図解を一括ビルド（自動で uvx drawlib を使用）:</span>
+$<span class="w"> </span>./docs_src/build.sh
+
+<span class="c1"># ローカルプレビューサーバーの起動、またはヘッドレスでのリンク切れ検証:</span>
+$<span class="w"> </span>./docs_src/serve.sh
+$<span class="w"> </span>uvx<span class="w"> </span>drawlib<span class="w"> </span>serve<span class="w"> </span>docs_html/<span class="w"> </span>--check
+</code></pre>
+<ul>
+<li><strong>他言語コードと AI エージェントの相乗効果</strong>: <code>uvx drawlib init agent claude</code>（または <code>cursor</code>、<code>antigravity</code>、<code>copilot</code>）を実行しておけば、AI コーディングエージェントがリポジトリ内の Go 構造体、Rust トレイト、TypeScript 型定義、OpenAPI スキーマ、Terraform <code>.tf</code> モジュールを読み取り、<code>docs_src/</code> 内に正確な <code>ArchitectureDiagram</code>・<code>SequenceDiagram</code>・<code>ERDiagram</code>・<code>ClassDiagram</code> を自律的に生成・更新します。</li>
+<li><strong>ゼロコンフィグの GitHub Actions CI</strong>: CI/CD でも <code>astral-sh/setup-uv</code> を 1 行追加するだけで動作し、リポジトリに Python の依存管理ファイルを置く必要はありません。</li>
+</ul>
+<pre><code class="language-yaml"><span class="c1"># .github/workflows/docs.yml</span>
+<span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Build Illustrated Docs</span>
+<span class="nt">on</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">push</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">pull_request</span><span class="p p-Indicator">]</span>
+<span class="nt">permissions</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">contents</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">read</span>
+<span class="nt">jobs</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">docs</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ubuntu-latest</span>
+<span class="w">    </span><span class="nt">steps</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/checkout@v4</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">astral-sh/setup-uv@v5</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Build documentation &amp; verify links</span>
+<span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">          </span><span class="no">./docs_src/build.sh</span>
+<span class="w">          </span><span class="no">uvx drawlib serve docs_html/ --check</span>
+</code></pre>
+<hr />
+<h3>2.2 パターン B：開発プロジェクト以外（単体の仕様書・ホワイトペーパー・提案書・プレゼンスライド）</h3>
+<p>Drawlib は、<strong>アプリケーションのソースコードが一切存在しない文書作成プロジェクト</strong>——たとえば要件定義書（PRD）、セキュリティ障害報告書（ポストモーテム）、技術ホワイトペーパー、顧客向け提案書、カンファレンス登壇スライドなどの作成においても強力な威力を発揮します。</p>
+<p>PowerPoint 上で手作業で箱を並べたり Word にスクリーンショットを貼り付けたりする代わりに、空のフォルダを作って <code>uvx</code> で <code>doc</code>・<code>slide</code>・<code>catalog</code> プロジェクトを初期化すれば、本文の執筆から図解・チャートのレイアウトまで AI エージェントと一気通貫で進められます。</p>
+<pre><code class="language-bash"><span class="c1"># ホワイトペーパー・提案書・プレゼン資料用の専用フォルダを作成</span>
+$<span class="w"> </span>mkdir<span class="w"> </span>security-postmortem<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>security-postmortem
+
+<span class="c1"># 1. リニア文書プロジェクトを初期化（HTML + A4 ベクター PDF + MS Word .docx 対応）</span>
+$<span class="w"> </span>uvx<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>project<span class="w"> </span>doc<span class="w"> </span>-l<span class="w"> </span>en,ja<span class="w"> </span>-s<span class="w"> </span>google
+
+<span class="c1"># 2. または 16:9 プレゼンスライドデッキを初期化（HTML + PDF + MS PowerPoint .pptx 対応）</span>
+$<span class="w"> </span>uvx<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>project<span class="w"> </span>slide<span class="w"> </span>-l<span class="w"> </span>en,ja<span class="w"> </span>-s<span class="w"> </span>google
+
+<span class="c1"># 3. IDE / CLI の AI エージェントが図解とスライドを自律作成できるようルールを初期化</span>
+$<span class="w"> </span>uvx<span class="w"> </span>drawlib<span class="w"> </span>init<span class="w"> </span>agent<span class="w"> </span>claude
+
+<span class="c1"># 4. 印刷用 PDF、編集可能な MS Word (.docx)、編集可能な PowerPoint (.pptx) を出力</span>
+$<span class="w"> </span>./doc_src/build.sh
+$<span class="w"> </span>./doc_src/build_docx.sh
+$<span class="w"> </span>./slide_src/build.sh
+$<span class="w"> </span>./slide_src/build_pptx.sh
+</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">プロジェクト種別</th>
+<th style="text-align:left">初期化コマンド (<code>uvx</code>)</th>
+<th style="text-align:left">非開発プロジェクトでの主な用途</th>
+<th style="text-align:left">生成される成果物</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>リニア文書 (<code>doc</code>)</strong></td>
+<td style="text-align:left"><code>uvx drawlib init project doc</code></td>
+<td style="text-align:left">ホワイトペーパー、RFC、監査レポート、提案書、運用マニュアル</td>
+<td style="text-align:left">統合 HTML、<strong>A4 ベクター PDF (<code>*.pdf</code>)</strong>、<strong>編集可能な MS Word (<code>*.docx</code>)</strong></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>16:9 スライド (<code>slide</code>)</strong></td>
+<td style="text-align:left"><code>uvx drawlib init project slide</code></td>
+<td style="text-align:left">経営層向け報告、障害ポストモーテム、技術登壇資料、顧客ピッチ</td>
+<td style="text-align:left">16:9 HTML スライド、<strong>16:9 PDF</strong>、<strong>編集可能な MS PowerPoint (<code>*.pptx</code>)</strong></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>マルチページサイト (<code>site</code>)</strong></td>
+<td style="text-align:left"><code>uvx drawlib init project site</code></td>
+<td style="text-align:left">チームハンドブック、プロダクトガイド、社内ナレッジポータル</td>
+<td style="text-align:left">検索・多言語切替・SEO・<code>llms.txt</code> 付きの静的 HTML サイト</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>カタログ (<code>catalog</code>)</strong></td>
+<td style="text-align:left"><code>uvx drawlib init project catalog</code></td>
+<td style="text-align:left">サービス台帳、データ辞書、セキュリティ統制カタログ</td>
+<td style="text-align:left">カード索引・追従目次・検索付きのカタログサイト</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>単体図版 (<code>images</code>)</strong></td>
+<td style="text-align:left"><code>uvx drawlib init project images</code></td>
+<td style="text-align:left">技術ブログ挿絵、論文・記事用の図表、SNS / OGP バナー画像</td>
+<td style="text-align:left">高解像度 PNG・SVG・PDF および APNG / WebP アニメーション</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Tip — 日常的に多数のフォルダで執筆する場合はグローバル導入も便利:</strong>
+企画書やスライドを毎週さまざまなフォルダで作成する場合は、一度だけ <code>uv tool install drawlib</code> を実行しておくと、分離されたツール環境のまま <code>drawlib</code> コマンドに常時パスが通り、各フォルダをクリーンに保ったままさらに軽快に利用できます。</p>
+</blockquote>
+
+            </main>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Theme toggle
+            const themeBtn = document.getElementById('theme-toggle');
+            if (themeBtn) {
+                themeBtn.addEventListener('click', function() {
+                    const current = document.documentElement.getAttribute('data-theme');
+                    const next = current === 'dark' ? 'light' : 'dark';
+                    document.documentElement.setAttribute('data-theme', next);
+                    localStorage.setItem('drawlib-theme', next);
+                });
+            }
+
+            // Language dropdown outside-click & Escape close
+            const langDropdowns = document.querySelectorAll('.lang-dropdown');
+            if (langDropdowns.length > 0) {
+                document.addEventListener('click', function(e) {
+                    langDropdowns.forEach(function(dd) {
+                        if (dd.hasAttribute('open') && !dd.contains(e.target)) {
+                            dd.removeAttribute('open');
+                        }
+                    });
+                });
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape') {
+                        langDropdowns.forEach(function(dd) {
+                            dd.removeAttribute('open');
+                        });
+                    }
+                });
+            }
+
+            // Mobile menu toggle
+            const menuBtn = document.getElementById('menu-toggle');
+            const sidebar = document.querySelector('.sidebar');
+            if (menuBtn && sidebar) {
+                function setMenuOpen(open) {
+                    sidebar.classList.toggle('is-open', open);
+                    menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+                    document.body.classList.toggle('menu-open', open);
+                    if (open) {
+                        const menu = sidebar.querySelector('.sidebar-menu');
+                        if (menu) {
+                            menu.scrollTop = 0;
+                        }
+                    }
+                }
+
+                menuBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const willOpen = !sidebar.classList.contains('is-open');
+                    setMenuOpen(willOpen);
+                });
+
+                // Close menu when clicking outside sidebar
+                document.addEventListener('click', function(e) {
+                    if (sidebar.classList.contains('is-open') && !sidebar.contains(e.target)) {
+                        setMenuOpen(false);
+                    }
+                });
+
+                // Close menu when a navigation link is clicked
+                const navLinks = sidebar.querySelectorAll('.nav-item a');
+                navLinks.forEach(function(link) {
+                    link.addEventListener('click', function() {
+                        setMenuOpen(false);
+                    });
+                });
+
+                // Close on Escape key
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape' && sidebar.classList.contains('is-open')) {
+                        setMenuOpen(false);
+                    }
+                });
+
+                // Reset menu state when resized above mobile breakpoint
+                window.addEventListener('resize', function() {
+                    if (window.innerWidth > 768 && sidebar.classList.contains('is-open')) {
+                        setMenuOpen(false);
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1113,7 +1113,7 @@ Unlike traditional libraries where agents often hallucinate outdated APIs or str
 To enable your AI agent to author Drawlib illustrations and documentation, configure your environment with Drawlib's core guidelines.
 
 ### 1. Configure Workspace Rules (`drawlib init agent`)
-Generate Drawlib's official AI agent rule files directly into your workspace using `drawlib init agent` (`antigravity`, `claude`, `cursor`, `copilot`, `windsurf`, `cline`, `roo`, `codex`, `gemini`, or `all`):
+Generate Drawlib's official AI agent rule files directly into your workspace using `drawlib init agent` (`antigravity`, `claude`, `cursor`, `copilot`, `windsurf`, `cline`, `roo`, `codex`, `gemini`, or `all`). In non-Python repositories or standalone documentation folders, run [`uvx drawlib init agent ...`](./uvx_any_project.md) with zero Python setup:
 
 - **Antigravity**: Generates `.agents/rules/drawlib.md`.
 - **Claude Code / Cursor / GitHub Copilot**: Generates `.claude/rules/drawlib.md`, `.cursor/rules/drawlib.mdc`, or `.github/instructions/drawlib.instructions.md`.

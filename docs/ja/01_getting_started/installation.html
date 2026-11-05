@@ -120,6 +120,10 @@
                             </li>
                             
                             <li class="nav-item ">
+                                <a href="uvx_any_project.html" >uvx ゼロインストール活用</a>
+                            </li>
+                            
+                            <li class="nav-item ">
                                 <a href="quick_start.html" >クイックスタートガイド</a>
                             </li>
                             
@@ -757,6 +761,9 @@ $<span class="w"> </span>uvx<span class="w"> </span>drawlib<span class="w"> </sp
 $<span class="w"> </span>./docs_src/build.sh
 $<span class="w"> </span>uvx<span class="w"> </span>drawlib<span class="w"> </span>serve<span class="w"> </span>docs_html/<span class="w"> </span>--check
 </code></pre>
+<blockquote>
+<p><strong>他言語リポジトリ・非開発プロジェクトでの活用</strong>: <code>go.mod</code>、<code>Cargo.toml</code>、<code>package.json</code>、Terraform モジュールと共存するディレクトリ構成や、開発コードを含まない企画書・Word（<code>.docx</code>）・PowerPoint（<code>.pptx</code>）スライド専用フォルダの運用パターンについては、<a href="./uvx_any_project.html"><strong><code>uvx</code> によるゼロインストール活用（他言語リポジトリ・非開発プロジェクト）</strong></a> を参照してください。</p>
+</blockquote>
 <h3>1.2 Python プロジェクトの依存関係として追加（<code>uv add drawlib</code>）</h3>
 <p>IDE の入力補完を効かせてスタンドアロンの <code>.py</code> スクリプトを執筆する場合や、既存の Python <code>uv</code> ワークスペース内で <code>drawlib.*</code> をインポートする場合は、プロジェクトの依存関係に追加します。</p>
 <pre><code class="language-bash"><span class="c1"># 現在の Python プロジェクトに追加（PDF、.docx、.pptx 出力も標準で含まれます）</span>

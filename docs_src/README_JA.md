@@ -37,11 +37,11 @@
 
 ---
 
-Drawlib は、ソフトウェア開発者と **自律型 AI コーディングエージェント** のために設計された、宣言的 Python 作図ライブラリ兼マルチフォーマット・ドキュメントコンパイラです。外部の GUI ツール（draw.io、Visio、PowerPoint）で壊れやすい図を手作業で保守してスクリーンショットを Wiki に貼り付ける代わりに、アーキテクチャ図・定量チャート・技術仕様書・16:9 プレゼンスライドの執筆・アニメーション化・多言語化・バージョン管理・ビルドまですべて Git 上のコードとして一元管理できます。
+Drawlib は、ソフトウェア開発者・テクニカルライター・**自律型 AI コーディングエージェント** のために設計された、宣言的作図ライブラリ兼マルチフォーマット・ドキュメントコンパイラです。外部の GUI ツール（draw.io、Visio、PowerPoint）で壊れやすい図を手作業で保守してスクリーンショットを Wiki に貼り付ける代わりに、アーキテクチャ図・定量チャート・技術仕様書（HTML / PDF / Word `.docx`）・16:9 プレゼンスライド（PowerPoint `.pptx`）の執筆・アニメーション化・多言語化・バージョン管理・ビルドまですべて Git 上のコードとして一元管理できます。Python プロジェクトはもちろん、ゼロインストールの **`uvx drawlib`** を使えば Python 環境の構築を一切行わずに、**他言語の開発リポジトリ（Go・Rust・TypeScript・Java・Terraform など）** や **開発プロジェクト以外の独立した企画書・仕様書・スライド管理フォルダ** でも今すぐ利用できます。
 
 ![Autonomous AI Documentation Workflow](../docs/readme_images/01_hero_ai_doc_loop.png)
 
-- **公式 Web サイト & ドキュメント**: [日本語 (`www.drawlib.com/ja/`)](https://www.drawlib.com/ja/) | [English (`www.drawlib.com`)](https://www.drawlib.com/) | [API & CLI リファレンス (`www.drawlib.com/api/ja/`)](https://www.drawlib.com/api/ja/) | [内部アーキテクチャ仕様書](https://www.drawlib.com/architecture/)
+- **公式 Web サイト & ドキュメント**: [日本語 (`www.drawlib.com/ja/`)](https://www.drawlib.com/ja/) | [English (`www.drawlib.com`)](https://www.drawlib.com/) | [`uvx` ゼロインストール活用ガイド](https://www.drawlib.com/ja/01_getting_started/uvx_any_project.html) | [API & CLI リファレンス (`www.drawlib.com/api/ja/`)](https://www.drawlib.com/api/ja/) | [内部アーキテクチャ仕様書](https://www.drawlib.com/architecture/)
 - **ライブサンプル集 (`examples.drawlib.com`)**: [全サンプル一覧を見る（HTML / PDF / DOCX / PPTX）](https://examples.drawlib.com/) | [ソース (`drawlib-examples`)](https://github.com/yuichi110/drawlib-examples)
   - **16:9 プレゼンスライド**: [About Drawlib（HTML / PDF / PPTX）](https://examples.drawlib.com/about-drawlib/en/) · [DDoS 障害対応ポストモーテム（HTML / PDF / PPTX）](https://examples.drawlib.com/ddos-incident-response/en/)
   - **ガイド & ホワイトペーパー**: [Dogfooding 技術ホワイトペーパー — 日本語版](https://examples.drawlib.com/dogfooding/ja/) / [English](https://examples.drawlib.com/dogfooding/en/) · [クイックスタートガイド（HTML / PDF / DOCX）](https://examples.drawlib.com/quickstart/en/)
@@ -52,7 +52,7 @@ Drawlib は、ソフトウェア開発者と **自律型 AI コーディング�
 
 ## 30秒で試す（`uvx` ゼロインストール）
 
-[`uv`](https://docs.astral.sh/uv/) さえ入っていれば、`pyproject.toml` や仮想環境の作成・パッケージの事前インストールは一切不要です。**Go・Rust・TypeScript・Java などの非 Python リポジトリを含む任意のディレクトリ**ですぐに試せます。
+[`uv`](https://docs.astral.sh/uv/) さえ入っていれば、`pyproject.toml` や仮想環境の作成・パッケージの事前インストールは一切不要です。**Go・Rust・TypeScript・Java・Terraform などの他言語開発リポジトリ**はもちろん、**開発プロジェクト以外の独立した企画書・仕様書・スライド管理フォルダ**でもすぐに試せます。
 
 ```bash
 # 1. 日英2言語のドキュメントサイトを初期化（catalog / doc / slide / images も選択可）
@@ -66,7 +66,7 @@ uvx drawlib init agent claude
 uvx drawlib serve docs_html/
 ```
 
-> **Python プロジェクトへの導入・常駐 CLI 化**: `uv add drawlib`、`uv tool install drawlib`、または `pip install drawlib` でインストールできます。
+> **Python プロジェクトへの導入・常駐 CLI 化**: `uv add drawlib`、`uv tool install drawlib`、または `pip install drawlib` でインストールできます。他言語リポジトリや非開発文書の管理パターンは [`uvx` ゼロインストール活用ガイド](https://www.drawlib.com/ja/01_getting_started/uvx_any_project.html) を参照してください。
 
 ---
 

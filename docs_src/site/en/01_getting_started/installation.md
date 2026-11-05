@@ -97,6 +97,8 @@ $ ./docs_src/build.sh
 $ uvx drawlib serve docs_html/ --check
 ```
 
+> **Polyglot Repositories & Standalone Non-Code Docs**: For complete directory layouts alongside `go.mod`, `Cargo.toml`, `package.json`, or Terraform modules—as well as standalone Word (`.docx`) and PowerPoint (`.pptx`) authoring without a codebase—see [**Zero-Install Workflow with `uvx` (Any Language & Non-Code Projects)**](./uvx_any_project.md).
+
 ### 1.2 Python Project Dependency (`uv add drawlib`)
 
 When authoring standalone `.py` scripts with IDE autocomplete or importing `drawlib.*` inside an existing Python `uv` workspace, add `drawlib` to your project dependencies:

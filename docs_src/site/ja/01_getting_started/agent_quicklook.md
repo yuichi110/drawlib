@@ -1112,8 +1112,8 @@ Drawlib は相補的な 2 つのループを組み合わせて機能します。
 
 AI エージェントに Drawlib で図解やドキュメントを作成させるには、ワークスペースに Drawlib の基本ガイドラインを設定してください。
 
-### 1. ワークスペースルールの設定（`drawlib init agent`）
-`drawlib init agent`（`antigravity`, `claude`, `cursor`, `copilot`, `windsurf`, `cline`, `roo`, `codex`, `gemini`, または `all`）を実行し、Drawlib 公式の AI エージェント用ルールファイルをワークスペースへ直接生成します。
+### 1. ワークスペースルールの設定（`uvx` / `drawlib init agent`）
+`drawlib init agent`（`antigravity`, `claude`, `cursor`, `copilot`, `windsurf`, `cline`, `roo`, `codex`, `gemini`, または `all`）を実行し、Drawlib 公式の AI エージェント用ルールファイルをワークスペースへ直接生成します（他言語リポジトリや非開発の文書・スライドフォルダでは、Python 環境不要の [`uvx drawlib init agent ...`](./uvx_any_project.md) をそのまま実行できます）。
 
 - **Antigravity**: `.agents/rules/drawlib.md` を生成します。
 - **Claude Code / Cursor / GitHub Copilot**: `.claude/rules/drawlib.md`、`.cursor/rules/drawlib.mdc`、または `.github/instructions/drawlib.instructions.md` を生成します。

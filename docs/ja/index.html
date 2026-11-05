@@ -120,6 +120,10 @@
                             </li>
                             
                             <li class="nav-item ">
+                                <a href="01_getting_started/uvx_any_project.html" >uvx ゼロインストール活用</a>
+                            </li>
+                            
+                            <li class="nav-item ">
                                 <a href="01_getting_started/quick_start.html" >クイックスタートガイド</a>
                             </li>
                             
@@ -663,7 +667,7 @@
             </header>
             <main class="main-content">
                 <h1>Drawlib ドキュメント</h1>
-<p>Drawlib は、<strong>「Illustration as Code（コードとしての図解）」</strong> および <strong>「Illustrated Documentation as Code（コードとしての図解ドキュメント）」</strong> のために設計された、ピュア Python の描画ライブラリ兼ドキュメントコンパイラです。</p>
+<p>Drawlib は、<strong>「Illustration as Code（コードとしての図解）」</strong> および <strong>「Illustrated Documentation as Code（コードとしての図解ドキュメント）」</strong> のために設計された、宣言的描画ライブラリ兼マルチフォーマット・ドキュメントコンパイラです。Python プロジェクトはもちろん、ゼロインストールの <strong><code>uvx drawlib</code></strong> を使えば Python 環境の構築を一切行わずに、<strong>他言語の開発リポジトリ（Go・Rust・TypeScript・Java・Terraform など）</strong> や <strong>開発プロジェクト以外の独立した企画書・仕様書・スライド管理フォルダ</strong> でも、図解入り Web サイト・PDF/Word 文書・PowerPoint スライドを簡単に管理できます。</p>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="../images/index/hero_ai_doc_loop.png" alt="index_1" />
   <figcaption class="drawlib-caption">Drawlib による自律型 AI ドキュメント作成ワークフロー（Drawlib で生成された APNG アニメーション）</figcaption>
@@ -677,7 +681,7 @@
 本ドキュメントのすべての本文と図版は、<strong>Drawlib</strong> と <strong>Gemini Coding Agent</strong>（<strong>Antigravity IDE</strong> 上で稼働）を用いて、この Git リポジトリ内で直接作成されました。人間の関与はハイレベルな指示（プロンプト）のみにとどまり、ドキュメント構成の設計、技術解説の執筆、図版のデザイン、そして視覚的なレイアウト検証まですべて Gemini が自律的に実行しています。</p>
 </blockquote>
 <hr />
-<h2>主要な 3 つの柱</h2>
+<h2>主要な 4 つの柱</h2>
 <h3>1. AI 駆動のドキュメント構築パイプライン</h3>
 <p>Drawlib は、AI コーディングエージェント（Claude Code、Cursor、Gemini など）が技術ドキュメントを自律的に執筆・保守できるよう設計されています。</p>
 <ul>
@@ -747,7 +751,14 @@
 <ul>
 <li><strong>レスポンシブ HTML サイト (<code>docs_html/</code>)</strong>: サイドバーナビゲーションと即時検索を備えた完全な静的 Web サイト。</li>
 <li><strong>GitHub 用 Markdown (<code>docs/</code>)</strong>: シンタックスハイライトされたコードと相対パスの埋め込み画像を含むクリーンな Markdown。</li>
-<li><strong>ヘッドレス PDF (<code>docs.pdf</code>)</strong>: Chromium 経由で生成される出版品質のベクター PDF。</li>
+<li><strong>ヘッドレス PDF・Word・PowerPoint (<code>docs.pdf</code>, <code>.docx</code>, <code>.pptx</code>)</strong>: Chromium 経由で生成される出版品質のベクター PDF に加え、編集可能な Word 文書や PowerPoint スライドもネイティブ出力。</li>
+</ul>
+<h3>4. <code>uvx</code> によるゼロインストール運用（他言語リポジトリ・非開発文書）</h3>
+<p>Drawlib を導入するために Python プロジェクトである必要も、ソフトウェア開発リポジトリである必要もありません。<code>uvx drawlib</code> を実行すれば、<strong><code>pyproject.toml</code> や <code>.venv</code> を一切作らずに</strong>隔離キャッシュから直接 Drawlib を呼び出せます。</p>
+<ul>
+<li><strong>ポリグロット（他言語）開発リポジトリ</strong>: <code>go.mod</code>、<code>Cargo.toml</code>、<code>package.json</code>、<code>pom.xml</code>、Terraform <code>.tf</code> モジュールの隣に <code>docs_src/</code> を配置し、サービスコードと同じ PR で設計図や ADR をレビュー・更新できます。</li>
+<li><strong>開発プロジェクト以外の独立した文書・スライド管理</strong>: 企画書・提案書・セキュリティ監査レポート・研究論文・経営会議用スライドを、Python 環境の知識ゼロで専用の Git フォルダで管理できます。</li>
+<li>詳細は専用ガイド <a href="./01_getting_started/uvx_any_project.html"><strong><code>uvx</code> によるゼロインストール活用（他言語リポジトリ・非開発プロジェクト）</strong></a> を参照してください。</li>
 </ul>
 <hr />
 <h2>ドキュメントロードマップ</h2>
@@ -755,7 +766,7 @@
 <ol>
 <li><a href="./01_getting_started/overview.html"><strong>はじめに</strong></a>
 <ul>
-<li>基本設計思想、インストール、クイックスタート、座標系の原則、プロジェクト構成、AI エージェント設定、<a href="https://www.drawlib.com/api/ja/">API &amp; CLI リファレンス (<code>www.drawlib.com/api/</code>)</a>、およびライブ公開の <a href="https://examples.drawlib.com/">サンプル・ショーケース (<code>examples.drawlib.com</code>)</a>。</li>
+<li>基本設計思想、インストール、<a href="./01_getting_started/uvx_any_project.html">他言語・非開発プロジェクトでの <code>uvx</code> ゼロインストール活用</a>、クイックスタート、座標系の原則、プロジェクト構成、AI エージェント設定、<a href="https://www.drawlib.com/api/ja/">API &amp; CLI リファレンス (<code>www.drawlib.com/api/</code>)</a>、およびライブ公開の <a href="https://examples.drawlib.com/">サンプル・ショーケース (<code>examples.drawlib.com</code>)</a>。</li>
 </ul>
 </li>
 <li><a href="./02_drawing_primitives/canvas.html"><strong>描画プリミティブとスタイル</strong></a>

@@ -5,6 +5,7 @@
 ## 1. Getting Started
 - [Why Drawlib](./01_getting_started/overview.md)
 - [Installation Guide](./01_getting_started/installation.md)
+- [Zero-Install Workflow (`uvx`)](./01_getting_started/uvx_any_project.md)
 - [Quick Start Guide](./01_getting_started/quick_start.md)
 - [Core Visual Concepts](./01_getting_started/core_concepts.md)
 - [Project & Build Overview](./01_getting_started/project_quicklook.md)
