@@ -87,12 +87,20 @@ ALL_TARGETS: tuple[BuildTarget, ...] = (
         description="Official API & CLI Reference Site (docs/api/)",
         clean_paths=("docs/api",),
     ),
+    BuildTarget(
+        name="reports",
+        src_dir="reports/full_audit_src",
+        script_rel_path="reports/full_audit_src/build.sh",
+        description="PNI501 Full Audit Report (docs/reports/pni-full-audit/ & reports/full_audit.pdf)",
+        clean_paths=("docs/reports/pni-full-audit",),
+    ),
 )
 
 TARGET_MAP: dict[str, BuildTarget] = {target.name: target for target in ALL_TARGETS}
 # Convenience aliases
 TARGET_MAP["docs"] = TARGET_MAP["site"]
 TARGET_MAP["doc"] = TARGET_MAP["site"]
+TARGET_MAP["report"] = TARGET_MAP["reports"]
 
 
 def clean_target_artifacts(targets: Sequence[BuildTarget]) -> None:

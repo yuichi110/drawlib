@@ -1,6 +1,6 @@
 # 5. Deep Dive: Code Quality, Testing & Runtime
 
-Drawlib v0.3.5 pairs 100.0% static function type-annotation coverage and 99.3% Google-style docstring discipline across 424 source modules (`85,323` LOC) with an 86.3% line-covered test suite—while hermetic `--network=none` container verification pinpointed 19 offline test failures caused by unguarded asset/browser network fetches and localized complexity hotspots in the DOCX/Markdown compilers.
+Drawlib v0.3.5 pairs 100.0% static function type-annotation coverage and 99.3% Google-style docstring discipline across 424 source modules (`85,323` LOC) with an 86.3% line-covered test suite—and following in-tree `pkg.files` validation for offline icon lookups, hermetic `--network=none` container verification achieves a **99.5% offline pass rate (`1,405 / 1,412`)**, leaving only localized DOCX/Markdown compiler complexity and pre-baked Playwright browser caching for `.pptx` tests.
 
 ```drawlib align=center code=hide file=ch05_module_fitness_heatmap.png caption="Figure 5.1 — Subsystem × Quality Dimension Fitness Matrix highlighting core typing/docstring uniformity versus localized DOCX complexity and offline PPTX coverage gaps."
 from drawlib.canvas import save, setup
@@ -42,7 +42,7 @@ chart = HeatmapChart(
 chart.add_row("_core/l1..l4", [100.0, 100.0, 100.0, 89.0, 95.5])
 chart.add_row("_diagrams & _graph", [100.0, 100.0, 100.0, 82.0, 96.0])
 chart.add_row("_charts & _smartarts", [100.0, 96.5, 100.0, 68.0, 92.7])
-chart.add_row("cache & manifest", [100.0, 100.0, 100.0, 80.0, 88.5])
+chart.add_row("cache & manifest", [100.0, 100.0, 100.0, 80.0, 89.2])
 chart.add_row("exporter_docx.py", [100.0, 100.0, 100.0, 24.0, 82.2])
 chart.add_row("_pptx_writer.py", [100.0, 100.0, 96.0, 96.0, 11.1])
 chart.add_row("_cli", [100.0, 100.0, 100.0, 86.0, 85.1])
@@ -95,8 +95,8 @@ cards = CardList(
     spacing=2.5,
 )
 cards.add(
-    "Core Engine Parity",
-    "100% typed & documented;\n95.5%–96.0% line coverage",
+    "Core & Icon Parity",
+    "100% typed & pkg.files checked;\n95.5%–96.0% line coverage",
     badge_text="OK",
 )
 cards.add(
@@ -122,7 +122,7 @@ save()
 
 ## 5.1 Static AST Code Quality, Typing & Maintainability
 
-PNI's Python AST audit (`python_ast_audit`: **91/100, Grade S**) inspected all `424` non-generated source modules (`85,323` LOC, `300` classes, and `1,958` functions/methods; `**/*_generated.py` icon wrappers excluded from human-authored AST lint). Across core layers (`_core/l1_core` through `_core/l4_canvas`) and domain packages (`_charts`, `_diagrams`, `_smartarts`, `_graph`, `_icons`, `_anim`), static hygiene is unusually disciplined:
+PNI's Python AST audit (`python_ast_audit`: **92/100, Grade S**) inspected all `424` non-generated source modules (`85,323` LOC, `300` classes, and `1,958` functions/methods; `**/*_generated.py` icon wrappers excluded from human-authored AST lint). Across core layers (`_core/l1_core` through `_core/l4_canvas`) and domain packages (`_charts`, `_diagrams`, `_smartarts`, `_graph`, `_icons`, `_anim`), static hygiene is unusually disciplined:
 
 | Static Quality & Maintainability Metric | Measured Value | Rule Threshold / Target | Status & Engineering Interpretation |
 | :--- | :---: | :---: | :--- |
@@ -132,7 +132,7 @@ PNI's Python AST audit (`python_ast_audit`: **91/100, Grade S**) inspected all `
 | **Shared Mutable Global State** | **`0`** | `0` (`common/maintainability`) | **PASS** — Canvas lifecycle state is encapsulated inside `_core/l4_canvas/_base.py` and reset cleanly per render/test. |
 | **Cross-Layer & Sibling Import Cycles** | **`2` sibling (`0` layer)** | `0` (`common/architecture`) | **WARN** — `40` type-only cycles are isolated under `if TYPE_CHECKING:`; `2` sibling runtime cycles remain (`_edge.py <-> _junction.py` in `architecture` and `flow`). |
 | **High-Complexity Functions (`> 15`)** | **`399`** | `<= 15` cognitive (`SIG`) | **WARN** — Concentrated in Markdown/OpenXML AST walkers (`exporter_docx.py`, `options.py`, `merger.py`) and rich border/layout solvers. |
-| **Wide Parameter Signatures (`> 6` args)** | **`330`** | `<= 6` positional (`SIG`) | **WARN** — Driven by declarative keyword-only (`*`) styling, typography, and axis configuration APIs across Charts and SmartArts. |
+| **Wide Parameter Signatures (`> 6` args)** | **`330` (`WAIVED`)** | `<= 6` positional (`SIG`) | **WAIVED (`.pni/pni.toml`)** — Intentional declarative keyword-only (`*`) styling, typography, and axis configuration APIs across Charts and SmartArts. |
 | **12-Factor Operational Hygiene** | **`0` missing HTTP timeouts** | `common/production_readiness` | **PASS / INFO** — `urllib.request.urlopen(..., timeout=60)` in `_package.py:165`; `9` direct `os.environ` reads and `30` `print()` calls remain in `_builder/`. |
 
 ### Top Cognitive-Complexity Hotspots (`common/maintainability`)
@@ -150,7 +150,7 @@ While foundational geometry and canvas primitives stay compact, multi-format doc
 | `src/drawlib/_builder/_common/seo.py:205` | `extract_markdown_description` | `77` | `20` | **`46`** | Strips fences, directives, headings, and inline markup to synthesize clean meta/OGP page descriptions. |
 | `src/drawlib/_builder/doc_builder/exporter_docx.py:884` | `export_chapters_to_docx` | `202` | `23` | **`46`** | Orchestrates cover page, TOC field generation, chapter assembly, and deterministic OPC zip timestamp normalization. |
 
-### Library vs. CLI Boundary Hygiene (`common/library_guidelines`: **90/100, Grade S**)
+### Library vs. CLI Boundary Hygiene (`common/library_guidelines`: **91/100, Grade S**)
 
 `src/drawlib/__init__.py` implements **PEP 562 lazy `__getattr__` loading**, ensuring `import drawlib` executes in milliseconds with zero heavy Matplotlib/Playwright initialization or network side effects. Two minor boundary couplings merit cleanup in `P2`:
 1. **Library-Level `sys.exit(1)` Calls**: `src/drawlib/_core/l1_core/_settings.py` (lines `123`, `297`, `304`, `313`) and `src/drawlib/_builder/doc_builder/processor/viewer.py` (lines `189`, `193`, `245`) invoke `sys.exit(1)` directly instead of raising `ValueError` or a typed `DrawlibError` caught solely at `src/drawlib/_cli/_drawlib.py:call_command`.
@@ -160,9 +160,9 @@ While foundational geometry and canvas primitives stay compact, multi-format doc
 
 ## 5.2 Clean-Room Container Verification & Measured Coverage
 
-Static test analysis (`python_test_audit`: **93/100, Grade S**) confirmed `150` test modules and `1,293` test functions (`1,420` collected pytest items with parametrization) achieving **100.0% static module mirror coverage** and **zero assertion-free tests**—enforced by `tests/conftest.py`, which resets canvas state via an `autouse` `preprocess()` fixture and intercepts `pytest_runtest_call` to verify rendered outputs pixel-for-pixel against `*_answers/*.png` baselines. *(Note: `tests/drawlib/doc_builder/test_api_docs_completeness.py:31` reads `docs_src/api/`, which is excluded by `.dockerignore` and removed in `tools/docker/Dockerfile.test_local:27`; adding a `pytest.skip` guard when `docs_src/api` is absent prevents clean-room packaging drift.)*
+Static test analysis (`python_test_audit`: **93/100, Grade S**) confirmed `150` test modules and `1,293` test functions (`1,420` collected pytest items with parametrization) achieving **100.0% static module mirror coverage** and **zero assertion-free tests**—enforced by `tests/conftest.py`, which resets canvas state via an `autouse` `preprocess()` fixture and intercepts `pytest_runtest_call` to verify rendered outputs pixel-for-pixel against `*_answers/*.png` baselines.
 
-PNI then executed **4 containerized runtime verification stages** (`container_runtime_audit`: **84/100, Grade A**) inside `.pni/dockerfiles/Dockerfile` (`python:3.12` + `uv`, `pytest-cov`) with external networking completely disabled (`--network=none`) during test execution:
+PNI executed **4 containerized runtime verification stages** (`container_runtime_audit`: **88/100, Grade A**) inside `.pni/dockerfiles/Dockerfile` (`python:3.12` + `uv`, `pytest-cov`) with external networking completely disabled (`--network=none`) during test execution:
 
 ```drawlib align=center code=hide file=ch05_runtime_coverage_breakdown.png caption="Figure 5.2 — Hermetic container runtime verification KPIs (RV-01 through RV-04) and lowest-covered non-generated modules under --network=none."
 from drawlib.canvas import save, setup
@@ -219,11 +219,11 @@ kpis.add(
     accent_style=Styles.PrimaryFlat,
 )
 kpis.add(
-    "98.7%",
-    "RV-02 Offline (19 Failed)",
-    "1,393 pass / 19 fail / 8 skip",
-    metric_style=Styles.DangerBold.patch(text_size=13.0),
-    accent_style=Styles.DangerFlat,
+    "99.5%",
+    "RV-02 Offline (1,405/1,412)",
+    "12 icon tests fixed · 6 PPTX open",
+    metric_style=Styles.SuccessBold.patch(text_size=13.0),
+    accent_style=Styles.SuccessFlat,
 )
 kpis.draw(l_xy, width=l_w, height=l_h, columns=1)
 
@@ -285,44 +285,27 @@ Across all `43,108` executable statements in `src/drawlib/`, `pytest-cov` record
 
 ## 5.3 Root-Cause Analysis: Two Authentic Bugs Uncovered by `--network=none`
 
-Online GitHub Actions runners mask unintended live network dependencies because outbound HTTPS requests to `github.com` and `cdn.playwright.dev` succeed transparently. Running `pytest` inside an air-gapped `--network=none` container (`1,393 passed`, `19 failed`, `8 skipped` in `536.98s`) surfaced **two genuine architectural defects** accounting for all `19` failures:
+Online GitHub Actions runners mask unintended live network dependencies because outbound HTTPS requests to `github.com` and `cdn.playwright.dev` succeed transparently. Running `pytest` inside an air-gapped `--network=none` container surfaced **two genuine architectural defects**:
 
-### Bug A — Negative Icon Tests Trigger Live HTTPS Archive Downloads (`12` Icon Failures + `1` CJK Font Failure)
+### Bug A (`RESOLVED`) — Negative Icon Tests Triggered Live HTTPS Archive Downloads (`12` Icon Failures Fixed)
 
-Twelve negative icon tests (`test_nonexistent_*_icon_error`) pass an intentionally bogus icon filename under a valid suite directory (such as `icons/ai/nonexistent_icon.png`) and assert that Drawlib raises a missing-file error. Instead of failing fast locally, the lookup chain triggers a live HTTPS archive download:
-1. `download_if_not_exist(file_path)` in `src/drawlib/_core/l3_external/_download.py:87` calls `_find_package_for_file_path(file_path)`, which delegates to `find_package_for_icon_path()` in `src/drawlib/_release_assets.py:4449`.
-2. `find_package_for_icon_path()` extracts only the top-level directory segment (`family = normalized.split("/")[0]`, e.g., `icon_ai`) and returns the `ReleaseAssetPackage` **without checking whether the requested relative path exists in `pkg.files`**.
-3. At `src/drawlib/_core/l3_external/_download.py:94`, `download_if_not_exist()` unconditionally calls `pkg.download_and_extract()` (without even checking `pkg.is_downloaded()`), attempting to download `https://github.com/yuichi110/drawlib/releases/download/v0.3/icon_<suite>.zip`.
-4. **Online CI Masking vs. Air-Gapped Failure**: On internet-connected runners, Python downloads and extracts a multi-megabyte `.zip` archive just to discover on line `96` (`if not is_file_exist(): raise RuntimeError(...)`) that `nonexistent_icon.png` was never part of the archive! Under `--network=none`, `urllib.request.urlopen` fails immediately with `Temporary failure in name resolution`. One additional test (`test_sourcecode_japanese`) failed for the related reason that `font_mono_source_han_code_jp.zip` was not pre-seeded in the generic test container.
-5. **Remediation (`P1`)**: Verify relative filename membership against `pkg.files` inside `find_package_for_resource_path()` / `download_if_not_exist()` before any network I/O (immediately raising `FileNotFoundError` for invalid names in `< 1 ms`), guard downloads with `if not pkg.is_downloaded():`, and run `drawlib cache download --all` when building offline test images.
+Twelve negative icon tests (`test_nonexistent_*_icon_error`) pass an intentionally bogus icon filename under a valid suite directory (such as `icons/ai/nonexistent_icon.png`) and assert that Drawlib raises a missing-file error. Previously, the lookup chain triggered a live HTTPS archive download:
+1. `find_package_for_icon_path()` in `src/drawlib/_release_assets.py` extracted only the top-level directory segment (`family = normalized.split("/")[0]`, e.g., `icon_ai`) and returned the `ReleaseAssetPackage` **without checking whether the requested relative path existed in `pkg.files`**.
+2. `resolve_png_icon_path()` in `src/drawlib/_icons/png_icons/_base.py` then called `download_if_not_exist()`, attempting to download `https://github.com/yuichi110/drawlib/releases/download/v0.3/icon_<suite>.zip` just to discover after extraction that `nonexistent_icon.png` was never in the archive.
+3. **In-Tree Fix (`COMPLETED`)**: `find_package_for_resource_path()` and `find_package_for_icon_path()` in `src/drawlib/_release_assets.py` now verify `normalized in pkg.files` before returning a package, and `resolve_png_icon_path()` in `src/drawlib/_icons/png_icons/_base.py` checks `find_package_for_icon_path(rel_path) is None` before calling `download_if_not_exist()`, immediately raising `ValueError(f'Icon "{file_name}" not found in "{category}" icon set.')` with zero network I/O. All `12` negative icon tests (`#2–#13` below) now pass offline in `< 1 ms`.
 
-### Bug B — Runtime Headless Chromium Download in `.pptx` Export Tests (`6` PPTX Failures)
+### Bug B (`OPEN`) — Runtime Headless Chromium Download in `.pptx` Export Tests (`6` PPTX Failures + `1` Uncached Font)
 
 Six PowerPoint compilation tests (`test_cli_build_pptx` plus all `5` `TestBuildPptx` methods in `tests/drawlib/slide/test_pptx.py`) compile Markdown slide decks into `.pptx` archives. Drawlib's slide compiler renders slide HTML in headless Chromium (`src/drawlib/_slide/_pptx_dom.py:extract_deck_dom`) to measure exact CSS layout coordinates before `src/drawlib/_slide/_pptx_writer.py` emits native OpenXML shapes:
 1. `launch_headless_chromium()` at `src/drawlib/_builder/_common/browser.py:247` invokes `playwright.chromium.launch(headless=True, args=launch_args)`.
 2. Because `.pni/dockerfiles/Dockerfile` uses the standard Python/uv base image without pre-installed Playwright browser binaries, `launch()` raises a missing-executable error, triggering `install_headless_chromium()` (`browser.py:256` -> `browser.py:210`), which spawns `playwright install chromium-headless-shell` and fails resolving `cdn.playwright.dev` (`EAI_AGAIN`) under `--network=none`.
-3. **Remediation (`P1`)**: Pre-bake `playwright install --with-deps --only-shell chromium` into `.pni/dockerfiles/Dockerfile`, add an offline-aware skip marker when browser binaries are intentionally absent, and add pure-Python unit tests passing synthetic `PptxSlide` DOM fixtures directly into `_pptx_writer.py` so OpenXML generation is tested above `80%` coverage without requiring a browser process.
+3. **Remediation (`P1`)**: Pre-bake `playwright install --with-deps --only-shell chromium` and `drawlib cache download --all` into `.pni/dockerfiles/Dockerfile`, add an offline-aware skip marker when browser binaries are intentionally absent, and add pure-Python unit tests passing synthetic `PptxSlide` DOM fixtures directly into `_pptx_writer.py`.
 
-### Complete Offline Container Test Failure Log (`RV-02`, `19` Failures)
+### Complete Offline Container Test Log (`RV-02`: `12` Fixed, `7` Requiring Pre-Baked Browser/Font Cache)
 
-| # | Test Case (`classname::name`) | Root Cause Bucket | Verbatim Error Excerpt (`runtime_facts.test_execution`) |
-| :-: | :--- | :--- | :--- |
-| 1 | `tests.drawlib.cli.test_cli_build::test_cli_build_pptx` | **Bug B** (Playwright CDN) | `AssertionError: Build PowerPoint Error:` (`cdn.playwright.dev` `EAI_AGAIN` at `browser.py:247`) |
-| 2 | `tests.drawlib.icons.test_ai.TestAiIcons::test_nonexistent_ai_icon_error` | **Bug A** (`_download.py:94`) | `RuntimeError: Failed to download asset package 'icon_ai' ... [Errno -3] Temporary failure in name resolution` |
-| 3 | `tests.drawlib.icons.test_ai.TestAiIcons::test_nonexistent_original_ai_icon_error` | **Bug A** (`_download.py:94`) | `RuntimeError: Failed to download asset package 'icon_original_ai' ... [Errno -3] Temporary failure in name resolution` |
-| 4 | `tests.drawlib.icons.test_aws_azure.TestAwsAndAzureIcons::test_nonexistent_aws_azure_icon_error` | **Bug A** (`_download.py:94`) | `RuntimeError: Failed to download asset package 'icon_aws' ... [Errno -3] Temporary failure in name resolution` |
-| 5 | `tests.drawlib.icons.test_cnative.TestCnativeIcons::test_nonexistent_cnative_icon_error` | **Bug A** (`_download.py:94`) | `RuntimeError: Failed to download asset package 'icon_cnative' ... [Errno -3] Temporary failure in name resolution` |
-| 6 | `tests.drawlib.icons.test_cnative.TestOriginalCnativeIcons::test_nonexistent_original_cnative_icon_error` | **Bug A** (`_download.py:94`) | `RuntimeError: Failed to download asset package 'icon_original_cnative' ... [Errno -3] Temporary failure in name resolution` |
-| 7 | `tests.drawlib.icons.test_data.TestDataIcons::test_nonexistent_original_data_icon_error` | **Bug A** (`_download.py:94`) | `RuntimeError: Failed to download asset package 'icon_original_data' ... [Errno -3] Temporary failure in name resolution` |
-| 8 | `tests.drawlib.icons.test_devops.TestDevopsIcons::test_nonexistent_devops_icon_error` | **Bug A** (`_download.py:94`) | `RuntimeError: Failed to download asset package 'icon_devops' ... [Errno -3] Temporary failure in name resolution` |
-| 9 | `tests.drawlib.icons.test_devops.TestDevopsIcons::test_nonexistent_original_devops_icon_error` | **Bug A** (`_download.py:94`) | `RuntimeError: Failed to download asset package 'icon_original_devops' ... [Errno -3] Temporary failure in name resolution` |
-| 10 | `tests.drawlib.icons.test_network.TestNetworkIcons::test_nonexistent_network_icon_error` | **Bug A** (`_download.py:94`) | `RuntimeError: Failed to download asset package 'icon_network' ... [Errno -3] Temporary failure in name resolution` |
-| 11 | `tests.drawlib.icons.test_network.TestOriginalNetworkIcons::test_nonexistent_original_network_icon_error` | **Bug A** (`_download.py:94`) | `RuntimeError: Failed to download asset package 'icon_original_network' ... [Errno -3] Temporary failure in name resolution` |
-| 12 | `tests.drawlib.icons.test_server.TestOriginalServerIcons::test_nonexistent_original_server_icon_error` | **Bug A** (`_download.py:94`) | `RuntimeError: Failed to download asset package 'icon_original_server' ... [Errno -3] Temporary failure in name resolution` |
-| 13 | `tests.drawlib.icons.test_server.TestServerIcons::test_nonexistent_server_icon_error` | **Bug A** (`_download.py:94`) | `RuntimeError: Failed to download asset package 'icon_server' ... [Errno -3] Temporary failure in name resolution` |
-| 14 | `tests.drawlib.slide.test_pptx.TestBuildPptx::test_animation_first_vs_last_frame_extraction` | **Bug B** (Playwright CDN) | `RuntimeError:` (headless Chromium auto-install failed offline at `browser.py:247`) |
-| 15 | `tests.drawlib.slide.test_pptx.TestBuildPptx::test_deterministic_pptx_archive_and_validation` | **Bug B** (Playwright CDN) | `RuntimeError:` (headless Chromium auto-install failed offline at `browser.py:247`) |
-| 16 | `tests.drawlib.slide.test_pptx.TestBuildPptx::test_multi_locale_build_pptx_en_and_ja` | **Bug B** (Playwright CDN) | `RuntimeError:` (headless Chromium auto-install failed offline at `browser.py:247`) |
-| 17 | `tests.drawlib.slide.test_pptx.TestBuildPptx::test_widescreen_geometry_typography_tables_code_and_notes` | **Bug B** (Playwright CDN) | `RuntimeError:` (headless Chromium auto-install failed offline at `browser.py:247`) |
-| 18 | `tests.drawlib.slide.test_pptx.TestBuildPptx::test_z_index_layering_and_rgba_floating_card` | **Bug B** (Playwright CDN) | `RuntimeError:` (headless Chromium auto-install failed offline at `browser.py:247`) |
-| 19 | `tests.drawlib.smartarts.test_sourcecode.TestSourceCode::test_sourcecode_japanese` | **Bug A** (Uncached Font) | `RuntimeError: Failed to download asset package 'font_mono_source_han_code_jp' ... [Errno -3] Temporary failure` |
+| # | Status | Test Case (`classname::name`) | Root Cause Bucket | Diagnostic & Resolution Summary |
+| :-: | :---: | :--- | :--- | :--- |
+| 1 | `OPEN` | `tests.drawlib.cli.test_cli_build::test_cli_build_pptx` | **Bug B** (Playwright CDN) | Requires pre-baked Chromium in `.pni/dockerfiles/Dockerfile` (`browser.py:247`) |
+| 2–13 | **`FIXED`** | `12x test_nonexistent_*_icon_error` (`test_ai`, `test_aws_azure`, `test_cnative`, `test_data`, `test_devops`, `test_network`, `test_server`) | **Bug A** (`_release_assets.py`) | **Resolved**: `find_package_for_icon_path()` checks `pkg.files` before network I/O (`0` DNS calls) |
+| 14–18 | `OPEN` | `5x tests.drawlib.slide.test_pptx.TestBuildPptx::*` | **Bug B** (Playwright CDN) | Requires pre-baked Chromium in `.pni/dockerfiles/Dockerfile` (`browser.py:247`) |
+| 19 | `OPEN` | `tests.drawlib.smartarts.test_sourcecode.TestSourceCode::test_sourcecode_japanese` | **Uncached Font** | Requires `drawlib cache download --all` (`font_mono_source_han_code_jp.zip`) in test image |

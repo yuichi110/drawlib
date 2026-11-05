@@ -1,0 +1,63 @@
+# PNI Project Configuration Manifest (.pni/pni.toml)
+# Precedence: CLI / Workflow step `with:` > Workflow YAML > .pni/pni.toml > Built-in defaults
+
+[project]
+name = "drawlib"
+archetypes = ["library", "cli"]
+
+[targets]
+root = "."
+source = ["src/drawlib"]
+tests = ["tests/drawlib"]
+docs = ["README.md"]
+exclude = [
+    "**/*_generated.py",
+    "docs/**",
+    "docs_src/**",
+    "reports/**",
+    "output_tests/**",
+]
+
+[scan]
+# Exclude local developer .env files and generated output directories while keeping uv.lock scannable
+respect_gitignore = false
+include_gitignored = ["uv.lock"]
+skip_files = [".env", ".env.*", "**/.env"]
+skip_dirs = ["reports", "docs", "docs_src", "output_tests", ".drawlib", ".agents"]
+
+[report]
+src_dir = "reports"
+output_dir = "reports"
+html_output_dir = "docs/reports/pni-full-audit"
+formats = ["pdf", "html"]
+lang = "en"
+style = "google"
+
+# Declarative design waivers (each entry requires `id` and `reason` >= 10 non-whitespace chars):
+[[opt_out]]
+id = "CWE-94"
+scope = [
+    "src/drawlib/_builder/**",
+    "src/drawlib/_core/l4_canvas/_image_code.py",
+]
+reason = "Drawlib executes user-authored Python diagram blocks by design ('Illustration as Code')."
+
+[[opt_out]]
+id = "DS-0026"
+scope = ["tools/docker/Dockerfile.*", ".pni/dockerfiles/**"]
+reason = "Batch CLI and test containers exit upon command completion; daemon HEALTHCHECK is not applicable."
+
+[[opt_out]]
+id = "python/lockfile_committed"
+reason = "Pure-Python library supporting Python 3.11-3.13 intentionally gitignores uv.lock."
+
+[[opt_out]]
+id = "ast/private_submodule_import"
+scope = ["src/drawlib/**"]
+reason = "Public PEP 562 facades (drawlib/*.py) and layered internal packages intentionally re-export _* submodules."
+
+[[opt_out]]
+id = "ast/excessive_parameters"
+scope = ["src/drawlib/**"]
+reason = "Declarative styling, diagram, chart, and layout APIs expose keyword-only (*) configuration parameters by design."
+

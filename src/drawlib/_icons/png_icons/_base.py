@@ -78,7 +78,8 @@ class PngIconProvider:
             if dev_source.is_file():
                 return str(dev_source.resolve())
 
-            ensure_asset_available(f"{self.asset_subdir}/{filename}")
+            if not pkg.files or filename in pkg.files:
+                ensure_asset_available(f"{self.asset_subdir}/{filename}")
 
         if not icon_path.is_file():
             dev_source = Path("tools") / "release_assets" / "v0.3" / self.asset_subdir / filename

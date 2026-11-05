@@ -38,7 +38,7 @@ RUN uv venv /opt/pni-venv \
        pytest-xdist \
        tomlkit \
        matplotlib==3.10.9 \
-       pillow==12.2.0
+       "pillow>=13.0.0"
 
 # Pre-install headless Chromium OS libs & shell plus drawlib font/icon caches for --network=none tests
 RUN playwright install-deps chromium \

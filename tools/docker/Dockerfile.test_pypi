@@ -6,13 +6,16 @@ ARG DRAWLIB_VERSION
 
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
+ENV PLAYWRIGHT_BROWSERS_PATH=/opt/ms-playwright
 
-# Install system dependencies for matplotlib
+# Install system dependencies for matplotlib and create non-root test user
 RUN apt-get update && apt-get install -y --no-install-recommends \
     libgl1 \
     libglx-mesa0 \
     libglib2.0-0 \
-    && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/* \
+    && useradd --uid 10001 --create-home --shell /bin/bash drawlib \
+    && mkdir -p /app /opt/ms-playwright
 
 WORKDIR /app
 
@@ -22,7 +25,7 @@ RUN pip install --no-cache-dir \
     pytest-cov \
     pytest-xdist \
     matplotlib==3.10.9 \
-    pillow==12.2.0
+    "pillow>=13.0.0"
 
 # Verify that the exact version of drawlib exists in the designated repository
 RUN pip index versions drawlib \
@@ -42,6 +45,9 @@ RUN playwright install-deps chromium && rm -rf /var/lib/apt/lists/*
 # Copy pytest configuration, test suite, and assets
 COPY pyproject.toml ./
 COPY tests/ ./tests/
-RUN mkdir -p output_tests
+RUN mkdir -p output_tests && \
+    chown -R drawlib:drawlib /app /opt/ms-playwright "$(python -c 'import pathlib, drawlib._cached_assets as c; print(pathlib.Path(c.__file__).parent)')"
 
+USER drawlib
 CMD ["sh", "-c", "drawlib cache download --all && pytest -n auto --dist loadfile tests/drawlib/"]
+

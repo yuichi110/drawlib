@@ -1,3 +1,7 @@
+<div class="pni-cover-brand">
+  <img src="../_assets/logo_icon_transparent.png" alt="PNI 501" class="pni-cover-logo">
+</div>
+
 # PNI Software Health Diagnostic Report
 
 **Target System: `drawlib` (`v0.3.5`) — Static AST, Architectural Boundary, Hermetic Container Runtime & Supply-Chain Security Audit**
@@ -49,7 +53,7 @@ rectangle(
     style=Styles.PrimaryFlat.patch(shape_r=2.2),
 )
 phosphor.medal((badge_cx, badge_cy + 13.5), width=6.0, style=Styles.WhiteBold)
-text((badge_cx, badge_cy + 4.8), "90 / 100", style=Styles.WhiteBold.patch(text_size=21.0))
+text((badge_cx, badge_cy + 4.8), "94 / 100", style=Styles.WhiteBold.patch(text_size=21.0))
 rectangle(
     (badge_cx, badge_cy - 3.6),
     width=28.0,
@@ -64,7 +68,7 @@ text(
 )
 text(
     (badge_cx, badge_cy - 17.0),
-    "Typing 96  |  Docs 97  |  Arch 93",
+    "Docs 97  |  Typing 96  |  Sec 94",
     style=Styles.WhiteBold.patch(text_size=9.5),
 )
 
@@ -87,23 +91,23 @@ kpis.add(
     "424 modules  |  85,323 LOC  |  150 tests",
 )
 kpis.add(
-    "8 / 16",
+    "11 / 16",
     "Engineering Rules Passed",
-    "8 PASS  |  6 WARN  |  2 FAIL across 8 audits",
+    "11 PASS  |  5 WARN  |  0 FAIL across 8 audits",
     accent_style=Styles.SecondaryFlat,
     metric_style=Styles.SecondaryBold.patch(text_size=15.5),
 )
 kpis.add(
-    "86.3%",
-    "Hermetic Line Coverage",
-    "1,393 / 1,412 offline tests  |  75.5% branch",
+    "99.5%",
+    "Offline Pass & 86.3% Cov",
+    "1,405 / 1,412 offline tests  |  75.5% branch",
 )
 kpis.add(
-    "21",
-    "Consolidated Findings",
-    "1 Critical (Pillow Lock)  |  2 High  |  6 Med",
-    accent_style=Styles.AccentFlat,
-    metric_style=Styles.AccentBold.patch(text_size=15.5),
+    "0 CVEs",
+    "Supply-Chain & IaC Status",
+    "pillow>=13.0.0 · UID 10001 · 5 waivers",
+    accent_style=Styles.SuccessFlat,
+    metric_style=Styles.SuccessBold.patch(text_size=15.5),
 )
 kpis.draw((kpi_x, inner_xy[1]), width=kpi_w, height=inner_h, columns=2, align="bottom_left")
 
@@ -112,12 +116,12 @@ save()
 
 ### Diagnostic Scope & Audit Metadata
 
-End-to-end engineering assessment of **`drawlib` (`v0.3.5`)** executed via **`pni501` (`full_audit`)**, combining deterministic Python AST verification, layered dependency analysis, hermetic `--network=none` container runtime testing, and Trivy supply-chain scanning.
+End-to-end engineering assessment of **`drawlib` (`v0.3.5`)** executed via **`pni501` (`full_audit`)**, combining deterministic Python AST verification, layered dependency analysis, hermetic `--network=none` container runtime testing, Trivy supply-chain scanning, and `.pni/pni.toml` policy verification.
 
 | Property | Value |
 | :--- | :--- |
 | **Target & Archetypes** | `drawlib` (`v0.3.5`, Python `>=3.11`, PEP 621 `uv`, `py.typed`) — `library` (20 facades) + `cli` (9 subcommands) |
-| **Workflow & Timestamp** | `full_audit` (`wf-8093775c`, 17 steps) — Evaluated `2026-11-04T15:34:58+00:00` |
+| **Workflow & Policy** | `full_audit` (`wf-8093775c`, 17 steps, `.pni/pni.toml` with 5 architectural waivers) — Evaluated `2026-11-05` |
 | **Codebase Footprint** | `424` source files (`85,323` LOC, `300` classes, `1,958` functions) & `150` test files (`1,420` collected items) |
-| **Overall Health Score** | **90 / 100 (`Grade S`)** — Arch `93`, Quality `87`, Typing `96`, Testing `88`, Deps `91`, Security `78`, Docs `97` |
-| **Compliance & Findings** | `8 / 16` rules `PASS` (`6 WARN`, `2 FAIL`) — `21` consolidated `file:line` locations (`10` `P0–P2` actions) |
+| **Overall Health Score** | **94 / 100 (`Grade S`)** — Docs `97`, Typing `96`, Security `94`, Arch `93`, Testing `92`, Deps `91`, Quality `87` |
+| **Compliance & Findings** | `11 / 16` rules `PASS` (`5 WARN`, `0 FAIL`) — `0` CVEs, `0` IaC misconfigs (`3` `P0/P1` fixes landed + `7` `P1/P2` follow-ups) |

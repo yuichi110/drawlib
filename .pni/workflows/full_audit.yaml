@@ -1,17 +1,7 @@
 id: full_audit
 category: audit
 name: Full Project Health Audit & Report (drawlib)
-description: Hybrid Python library & CLI audit for drawlib covering AST quality, 3-aspect architecture recording, library/CLI/supply-chain hygiene, offline containerized pytest + coverage verification, Trivy security scan, 7-axis score JSON, and Drawlib A4 PDF visual report.
-
-targets:
-  source:
-    - "src/drawlib"
-  tests:
-    - "tests/drawlib"
-  docs:
-    - "README.md"
-  exclude:
-    - "**/*_generated.py"
+description: Hybrid Python library & CLI audit for drawlib covering AST quality, 3-aspect architecture recording, library/CLI/supply-chain hygiene, offline containerized pytest + coverage verification, Trivy security scan, 7-axis score JSON, and Drawlib HTML + A4 PDF visual report.
 
 steps:
   - id: repo_and_deps
@@ -65,9 +55,11 @@ steps:
     with:
       src_dir: "reports"
       output_dir: "reports"
+      html_output_dir: "docs/reports/pni-full-audit"
       target: "full_audit"
       score_path: "reports/full_audit_score.json"
       formats:
         - "pdf"
+        - "html"
       lang: "en"
       style: "google"

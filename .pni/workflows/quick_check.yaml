@@ -3,16 +3,6 @@ category: audit
 name: Quick Health Check (drawlib)
 description: Fast deterministic Python AST and repository check for drawlib followed by AI interpretation and score output in reports/.
 
-targets:
-  source:
-    - "src/drawlib"
-  tests:
-    - "tests/drawlib"
-  docs:
-    - "README.md"
-  exclude:
-    - "**/*_generated.py"
-
 steps:
   - id: repo_and_deps
     uses: repo_structure_audit

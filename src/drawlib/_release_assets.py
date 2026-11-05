@@ -4494,6 +4494,9 @@ def find_package_for_resource_path(resource_path: str) -> ReleaseAssetPackage | 
         return find_package_for_icon_path(norm)
     if norm.startswith(("maps/", "world/", "countries/", "cities/")):
         return find_package_for_map_path(norm)
+    family = norm.split("/")[0] if "/" in norm else norm
+    if f"icon_{family}" in RELEASE_ASSET_PACKAGES:
+        return find_package_for_icon_path(norm)
     return find_package_for_font_path(norm)
 
 
@@ -4511,6 +4514,12 @@ def ensure_asset_available(resource_path: str, tag: str = DEFAULT_RELEASE_TAG) -
     pkg = find_package_for_resource_path(resource_path)
     if pkg is None:
         raise ValueError(f"No release asset package found for resource path '{resource_path}'.")
+
+    norm = resource_path.replace("\\", "/").strip("/")
+    if "/" in norm and pkg.files:
+        filename = norm.rsplit("/", 1)[-1]
+        if filename not in pkg.files:
+            return
 
     if not pkg.is_downloaded():
         pkg.download_and_extract(tag=tag)

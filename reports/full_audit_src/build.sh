@@ -2,17 +2,21 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 
-echo "=== Building HTML ==="
-"$SCRIPT_DIR/build_html.sh"
+cd "$REPO_ROOT"
+if [ ! -f "$SCRIPT_DIR/_assets/ogp.png" ]; then
+    cp -f "$SCRIPT_DIR/_assets/_logo.png" "$SCRIPT_DIR/_assets/ogp.png"
+fi
 
-echo "=== Building PDF ==="
-"$SCRIPT_DIR/build_pdf.sh"
+echo "=== Building PNI Full Audit Report (PDF + HTML -> docs/reports/pni-full-audit/) ==="
+uv run --no-sync pni report build full_audit \
+    --src-dir reports \
+    -o reports \
+    --html-output-dir docs/reports/pni-full-audit \
+    -f pdf,html
 
-echo "=== Building Markdown ==="
-"$SCRIPT_DIR/build_markdown.sh"
-
-echo "=== Extracting Images ==="
-"$SCRIPT_DIR/build_image.sh"
-
-echo "All builds completed successfully!"
+cp -f docs/reports/pni-full-audit/images/00_cover/ch00_cover_scorecard.png "$SCRIPT_DIR/_assets/ogp.png"
+cp -f docs/reports/pni-full-audit/images/00_cover/ch00_cover_scorecard.png docs/reports/pni-full-audit/_assets/ogp.png
+cp -f reports/full_audit.pdf docs/reports/pni-full-audit/full_audit.pdf
+echo "All report builds completed successfully!"

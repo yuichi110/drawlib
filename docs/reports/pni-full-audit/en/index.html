@@ -1,0 +1,1517 @@
+<!--
+ Copyright (c) 2026 Yuichi Ito (yuichi@yuichi.com)
+
+ This software is licensed under the Apache License, Version 2.0.
+ For more information, please visit: https://github.com/yuichi110/drawlib
+
+ This software is provided "as is", without warranty of any kind,
+ express or implied, including but not limited to the warranties of
+ merchantability, fitness for a particular purpose and noninfringement.
+-->
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PNI Software Health Diagnostic Report</title>
+    
+    
+    
+    <meta name="description" content="Comprehensive PNI501 static AST, architectural boundary, air-gapped container runtime, and Trivy supply-chain security audit of Drawlib v0.3.5.">
+    <link rel="canonical" href="https://www.drawlib.com/reports/pni-full-audit/en/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Drawlib v0.3.5 — Engineering &amp; Architecture Audit Report">
+    <meta property="og:title" content="PNI Software Health Diagnostic Report — Drawlib v0.3.5 — Engineering &amp; Architecture Audit Report">
+    <meta property="og:description" content="Comprehensive PNI501 static AST, architectural boundary, air-gapped container runtime, and Trivy supply-chain security audit of Drawlib v0.3.5.">
+    <meta property="og:url" content="https://www.drawlib.com/reports/pni-full-audit/en/">
+    <meta property="og:image" content="https://www.drawlib.com/reports/pni-full-audit/_assets/ogp.png">
+    <meta property="og:locale" content="en_US">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="PNI Software Health Diagnostic Report — Drawlib v0.3.5 — Engineering &amp; Architecture Audit Report">
+    <meta name="twitter:description" content="Comprehensive PNI501 static AST, architectural boundary, air-gapped container runtime, and Trivy supply-chain security audit of Drawlib v0.3.5.">
+    <meta name="twitter:image" content="https://www.drawlib.com/reports/pni-full-audit/_assets/ogp.png">
+    
+    
+    <link rel="icon" type="image/png" href="../_assets/favicon.png">
+    
+    
+    <link rel="stylesheet" href="style.css">
+    
+    
+</head>
+<body class="doc-body">
+    <main class="main-container">
+        
+        <section id="chapter-1-00_cover" class="doc-chapter pdf-chapter">
+<div class="pni-cover-brand">
+  <img src="../_assets/logo_icon_transparent.png" alt="PNI 501" class="pni-cover-logo">
+</div>
+<h1>PNI Software Health Diagnostic Report</h1>
+<p><strong>Target System: <code>drawlib</code> (<code>v0.3.5</code>) — Static AST, Architectural Boundary, Hermetic Container Runtime &amp; Supply-Chain Security Audit</strong></p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="../images/00_cover/ch00_cover_scorecard.png" alt="00_cover_1" />
+  <figcaption class="drawlib-caption">Drawlib v0.3.5 — PNI501 Full Audit Executive Scorecard (Workflow Run wf-8093775c)</figcaption>
+</figure>
+<h3>Diagnostic Scope &amp; Audit Metadata</h3>
+<p>End-to-end engineering assessment of <strong><code>drawlib</code> (<code>v0.3.5</code>)</strong> executed via <strong><code>pni501</code> (<code>full_audit</code>)</strong>, combining deterministic Python AST verification, layered dependency analysis, hermetic <code>--network=none</code> container runtime testing, Trivy supply-chain scanning, and <code>.pni/pni.toml</code> policy verification.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Property</th>
+<th style="text-align:left">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Target &amp; Archetypes</strong></td>
+<td style="text-align:left"><code>drawlib</code> (<code>v0.3.5</code>, Python <code>&gt;=3.11</code>, PEP 621 <code>uv</code>, <code>py.typed</code>) — <code>library</code> (20 facades) + <code>cli</code> (9 subcommands)</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Workflow &amp; Policy</strong></td>
+<td style="text-align:left"><code>full_audit</code> (<code>wf-8093775c</code>, 17 steps, <code>.pni/pni.toml</code> with 5 architectural waivers) — Evaluated <code>2026-11-05</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Codebase Footprint</strong></td>
+<td style="text-align:left"><code>424</code> source files (<code>85,323</code> LOC, <code>300</code> classes, <code>1,958</code> functions) &amp; <code>150</code> test files (<code>1,420</code> collected items)</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Overall Health Score</strong></td>
+<td style="text-align:left"><strong>94 / 100 (<code>Grade S</code>)</strong> — Docs <code>97</code>, Typing <code>96</code>, Security <code>94</code>, Arch <code>93</code>, Testing <code>92</code>, Deps <code>91</code>, Quality <code>87</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Compliance &amp; Findings</strong></td>
+<td style="text-align:left"><code>11 / 16</code> rules <code>PASS</code> (<code>5 WARN</code>, <code>0 FAIL</code>) — <code>0</code> CVEs, <code>0</code> IaC misconfigs (<code>3</code> <code>P0/P1</code> fixes landed + <code>7</code> <code>P1/P2</code> follow-ups)</td>
+</tr>
+</tbody>
+</table>
+
+</section>
+
+<nav class="doc-toc pdf-toc">
+  <h2>Table of Contents</h2>
+  <ul>
+    <li><a href="#chapter-2-01_executive_summary">1. Executive Summary</a></li>
+    <li><a href="#chapter-3-02_architecture_and_structure">2. Architecture & Source Code Structure</a></li>
+    <li><a href="#chapter-4-03_remediation_roadmap">3. Recommended Remediation Roadmap</a></li>
+    <li><a href="#chapter-5-04_standards_and_findings">4. Audit Standards, Rule Compliance & Findings</a></li>
+    <li><a href="#chapter-6-05_code_and_runtime_analysis">5. Deep Dive: Code Quality, Testing & Runtime</a></li>
+    <li><a href="#chapter-7-06_security_and_supply_chain">6. Deep Dive: Security, Supply Chain & API Surface</a></li>
+  </ul>
+</nav>
+
+<section id="chapter-2-01_executive_summary" class="doc-chapter pdf-chapter">
+<h1>1. Executive Summary</h1>
+<p>Drawlib v0.3.5 achieves an overall PNI engineering health score of <strong>94/100 (Grade S)</strong> across <strong>424 source modules (<code>85,323</code> LOC)</strong> and <strong>150 test files (<code>1,293</code> test functions)</strong>. Static AST verification confirms <strong>100.0% callable type coverage</strong>, <strong>99.3% docstring and import hygiene</strong>, and a zero-cycle multi-tier core DAG, while hermetic <code>--network=none</code> testing (<code>86.3%</code> line coverage, <code>99.5%</code> offline pass rate after <code>pkg.files</code> pre-validation) and Trivy SCA (<code>0</code> application CVEs on <code>pillow@13.0.0</code>, <code>0</code> container IaC misconfigurations on <code>USER drawlib</code>) confirm a hardened supply chain.</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="../images/01_executive_summary/ch01_exec_radar_kpis.png" alt="01_executive_summary_1" />
+  <figcaption class="drawlib-caption">Figure 1.1 — 7-Dimension Engineering Health Radar & Headline Diagnostic KPIs (Overall Score: 94/100, Grade S)</figcaption>
+</figure>
+<hr />
+<h2>1.1 Executive Synthesis &amp; Diagnostic Headline</h2>
+<p>PNI workflow <code>full_audit</code> (<code>wf-8093775c</code>) evaluated Drawlib v0.3.5 across static Python AST semantics, public library &amp; CLI ergonomics, isolated Docker container runtime execution (<code>--network=none</code>), Trivy filesystem/IaC/secret scanning, and <code>.pni/pni.toml</code> policy controls:</p>
+<ul>
+<li><strong>Overall Health &amp; Rule Compliance</strong>: <strong>94/100 (Grade S)</strong> with <strong><code>11/16</code> audit rules passed</strong> (<code>11 PASS</code>, <code>5 WARN</code>, <code>0 FAIL</code> — <code>100.0%</code> pass-or-warn). Every single one of the <strong>7 evaluation dimensions</strong> exceeds the <code>85/100</code> engineering benchmark.</li>
+<li><strong>Static &amp; Architectural Excellence</strong>: Led by <strong>Documentation (<code>97</code>)</strong>, <strong>Typing (<code>96</code>)</strong>, <strong>Security (<code>94</code>)</strong>, <strong>Architecture (<code>93</code>)</strong>, <strong>Testing (<code>92</code>)</strong>, and <strong>Dependencies (<code>91</code>)</strong>. First-party Python code contains <strong>zero SQL/command/XSS injection sinks</strong>, <strong>zero hardcoded secrets</strong>, <strong>zero missing HTTP timeouts</strong>, and <strong>zero mutable module-level globals</strong>.</li>
+<li><strong>Audit Step Performance (Ascending)</strong>: <code>container_runtime_audit = 88/100 (Grade A)</code>, followed by seven <strong>Grade S</strong> steps (<code>repo_structure_audit = 91</code>, <code>library_hygiene_audit = 91</code>, <code>supply_chain_audit = 92</code>, <code>python_ast_audit = 92</code>, <code>python_test_audit = 93</code>, <code>cli_guidelines_audit = 94</code>, and <code>security_vulnerability_audit = 96</code>).</li>
+<li><strong>Closed-Loop Supply-Chain &amp; Offline-Runtime Remediation</strong>: Initial audit telemetry identified three high-leverage items that were remediated and verified in-tree: (1) upgrading <code>pillow@12.3.0 -&gt; &gt;=13.0.0</code> in <code>pyproject.toml</code> and <code>uv.lock</code> (<strong>41 -&gt; 0 application CVEs</strong>), (2) enforcing non-root <code>USER drawlib</code> (<code>UID 10001</code>) across <code>tools/docker/Dockerfile.{prod,test_local,test_pypi}</code> (<strong>3 -&gt; 0 <code>HIGH</code> <code>DS-0002</code> IaC misconfigurations</strong>), and (3) checking <code>pkg.files</code> membership before network downloads in <code>_release_assets.py</code> and <code>png_icons/_base.py</code> (fixing <strong>12 of 19</strong> <code>--network=none</code> test failures and raising offline pass rate to <strong>99.5%</strong>, <code>1,405 / 1,412</code>).</li>
+</ul>
+<hr />
+<h2>1.2 Seven-Category Engineering Health Breakdown</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Category</th>
+<th style="text-align:center">Score</th>
+<th style="text-align:center">Benchmark Delta</th>
+<th style="text-align:left">Audit Rationale &amp; Key Evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Documentation</strong></td>
+<td style="text-align:center"><strong>97 / 100</strong></td>
+<td style="text-align:center"><code>+12</code></td>
+<td style="text-align:left"><code>99.3%</code> Google-style docstring coverage (<code>0</code> empty docstrings), automated <code>dcli</code> docstring verification, <code>218</code>-line <code>README.md</code>, dogfooded multi-locale Diataxis sites (<code>docs/</code>, <code>docs/api/</code>, <code>docs/architecture/</code>), and <code>60+</code> embedded AI agent manuals in <code>src/drawlib/_rules/</code>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Typing</strong></td>
+<td style="text-align:center"><strong>96 / 100</strong></td>
+<td style="text-align:center"><code>+11</code></td>
+<td style="text-align:left"><code>100.0%</code> callable signature type coverage across <code>1,958</code> functions, packaged PEP 561 <code>src/drawlib/py.typed</code> marker, <code>0</code> unscoped <code># type: ignore</code> comments, <code>0</code> <code>ty</code> static type errors, and Pydantic <code>@validate_call</code> boundary guards; minor <code>Any</code> annotations remain in dynamic <code>exec()</code> and OpenXML helpers.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Security</strong></td>
+<td style="text-align:center"><strong>94 / 100</strong></td>
+<td style="text-align:center"><code>+9</code></td>
+<td style="text-align:left"><code>0</code> application CVEs across all <code>13</code> dependencies (<code>pillow&gt;=13.0.0</code> in <code>uv.lock</code>), <code>0</code> OS CVEs, <code>0</code> container IaC misconfigurations (<code>USER drawlib</code> UID <code>10001</code> across all Dockerfiles; <code>DS-0026</code> &amp; <code>CWE-94</code> waived in <code>.pni/pni.toml</code>), <code>0</code> SQLi/CMDi/XSS flaws, parameterized SQLite queries, and <code>permissions: contents: read</code> across all <code>4</code> CI workflows; minor follow-up to publish <code>SECURITY.md</code> + Dependabot.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Architecture</strong></td>
+<td style="text-align:center"><strong>93 / 100</strong></td>
+<td style="text-align:center"><code>+8</code></td>
+<td style="text-align:left">Strictly layered <code>L1 -&gt; L2 -&gt; L3 -&gt; L4 -&gt; Domain Components -&gt; Builders/CLI -&gt; Public Facades</code> DAG across <code>424</code> modules (<code>85,323</code> LOC) with <code>0</code> cross-layer import cycles, <code>40</code> type-only imports guarded under <code>TYPE_CHECKING</code>, and only <code>2</code> localized intra-package <code>_edge &lt;-&gt; _junction</code> sibling cycles.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Testing</strong></td>
+<td style="text-align:center"><strong>92 / 100</strong></td>
+<td style="text-align:center"><code>+7</code></td>
+<td style="text-align:left"><code>86.3%</code> measured line coverage, <code>75.5%</code> branch coverage, <code>100.0%</code> static module test mirror (<code>150</code> test files, golden PNG pixel-match hook in <code>tests/conftest.py</code>), and <code>99.5%</code> offline pass rate (<code>1,405 / 1,412</code>) after fixing <code>12</code> invalid-icon lookups in <code>_release_assets.py</code> / <code>png_icons/_base.py</code>; <code>6</code> PPTX tests and <code>1</code> CJK font test require pre-baked Chromium/font caches under <code>--network=none</code>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Dependencies</strong></td>
+<td style="text-align:center"><strong>91 / 100</strong></td>
+<td style="text-align:center"><code>+6</code></td>
+<td style="text-align:left">All <code>13</code> PEP 621 runtime dependencies declare explicit SemVer version floors in <code>pyproject.toml</code> (<code>pillow&gt;=13.0.0</code>, <code>0</code> unpinned specs, <code>0</code> undeclared imports), isolated <code>[dependency-groups].dev</code>, PEP 562 lazy top-level loading, and SHA-256 verified release asset archives.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Code Quality</strong></td>
+<td style="text-align:center"><strong>87 / 100</strong></td>
+<td style="text-align:center"><code>+2</code></td>
+<td style="text-align:left"><code>99.3%</code> import hygiene, <code>0</code> silent <code>try-except-pass</code> blocks, <code>0</code> missing I/O timeouts, and <code>0</code> mutable globals; offset by high cognitive complexity in <code>exporter_docx.py</code> (<code>render_chapter=174</code>, <code>_render_inline=102</code>), <code>options.py</code> (<code>parse_block_info=106</code>), and <code>merger.py</code> (<code>build_merged_html=87</code>), plus <code>sys.exit(1)</code> calls in <code>_settings.py</code> and <code>viewer.py</code>.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>1.3 Verified Engineering Strengths &amp; Closed-Loop Remediations</h2>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="../images/01_executive_summary/ch01_strengths_vs_risks.png" alt="01_executive_summary_2" />
+  <figcaption class="drawlib-caption">Figure 1.2 — Verified Engineering Strengths and Landed vs. Remaining Polish Actions</figcaption>
+</figure>
+<ul>
+<li><strong>Landed <code>P0</code> / <code>P1</code> Hardening &amp; Next Horizon</strong>: With <code>pillow&gt;=13.0.0</code>, non-root <code>USER drawlib</code> (<code>UID 10001</code>), <code>pkg.files</code> offline asset validation, and <code>.pni/pni.toml</code> policy waivers landed in-tree, Drawlib operates with <strong>0 <code>FAIL</code> rules</strong>, <strong>0 application CVEs</strong>, and <strong>0 container IaC misconfigurations</strong>. The remaining <code>P1</code> / <code>P2</code> items focus on decomposing high-complexity DOCX/HTML AST walkers (<code>exporter_docx.py</code>, <code>options.py</code>, <code>merger.py</code>), pre-baking Chromium into <code>.pni/dockerfiles/Dockerfile</code>, and publishing <code>SECURITY.md</code> + Dependabot.</li>
+</ul>
+
+</section>
+
+<section id="chapter-3-02_architecture_and_structure" class="doc-chapter pdf-chapter">
+<h1>2. Architecture &amp; Source Code Structure</h1>
+<p>Drawlib implements a strict <strong>6-tier downward Directed Acyclic Graph (DAG)</strong> across <strong>424 Python source files (<code>85,323</code> LOC)</strong>, separating a stateless-style Cartesian rendering core (<code>_core/l1_core</code> through <code>_core/l4_canvas</code>) from declarative visual domains, multi-format document/slide compilers, and 20 PEP 562 lazy public API facades (<code>drawlib/*.py</code>). Zero cross-layer circular imports exist across the codebase, and following <code>pillow&gt;=13.0.0</code>, non-root <code>Dockerfile</code> hardening (<code>UID 10001</code>), and <code>pkg.files</code> offline validation, PNI hotspot telemetry localizes remaining complexity to the document/slide compiler layer (<code>processor.py</code>, <code>exporter_docx.py</code>, <code>browser.py</code>, <code>_pptx_writer.py</code>).</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="../images/02_architecture_and_structure/ch02_source_tree_inventory.png" alt="02_architecture_and_structure_1" />
+  <figcaption class="drawlib-caption">Figure 2.1 — Physical Source Directory Hierarchy & Reconciled Module Inventory (424 Files, 85,323 LOC)</figcaption>
+</figure>
+<hr />
+<h2>2.1 System Profile &amp; Physical Module Inventory</h2>
+<p>Drawlib operates simultaneously as a <strong>programmatic Python library</strong> (<code>drawlib.*</code>) and a <strong>headless compiler CLI</strong> (<code>drawlib</code>), built on Python <code>&gt;=3.11</code> (verified across <code>3.11</code>, <code>3.12</code>, and <code>3.13</code> via <code>uv</code>). Its core technology stack pairs <strong>Matplotlib, Pillow (<code>&gt;=13.0.0</code>), and NumPy</strong> for Cartesian <code>(0, 0)</code> bottom-left 2D vector/raster rendering with <strong>Pydantic v2</strong> (<code>@validate_call</code> boundary validation), <strong>Typer &amp; Rich</strong> (CLI UX), <strong>markdown-it-py, Pygments, Jinja2, and MarkupSafe</strong> (Markdown/HTML compilation), <strong>Playwright</strong> (headless Chromium A4 PDF and slide rendering), <strong>python-docx &amp; python-pptx</strong> (OpenXML <code>.docx</code>/<code>.pptx</code> generation), and <strong>stdlib <code>sqlite3</code></strong> (<code>.drawlib/cache.db</code> incremental build caching).</p>
+<p>Three external runtime boundaries are cleanly encapsulated behind dedicated adapters:</p>
+<ol>
+<li><strong>GitHub Releases Asset Distribution (<code>src/drawlib/_core/l3_external/_package.py</code> &amp; <code>src/drawlib/_release_assets.py</code>)</strong>: Verifies requested resource filenames against <code>pkg.files</code> before network I/O and lazily downloads font and icon <code>.zip</code> archives over HTTPS with an explicit <code>timeout=60</code> and cryptographic SHA-256 manifest verification.</li>
+<li><strong>Playwright Headless Chromium Driver (<code>src/drawlib/_builder/_common/browser.py</code>)</strong>: Coordinates on-demand browser installation (<code>fcntl</code> file locking) and deterministic A4 PDF / slide DOM extraction.</li>
+<li><strong>Content-Addressed SQLite Build Cache (<code>src/drawlib/_builder/_common/cache.py</code>)</strong>: <code>BuildImageCache</code> and <code>CliImageCache</code> (<code>640</code> LOC) hash embedded Python code, <code>styles.py</code>, <code>utils.py</code>, and referenced local assets using parameterized SQL queries.</li>
+</ol>
+<hr />
+<h2>2.2 Multi-Tier Layering, Dependency DAG &amp; Risk Hotspots</h2>
+<p>Architectural boundaries enforce a strict downward dependency hierarchy from public facades and builders down to zero-dependency core types:</p>
+<ul>
+<li><strong>Zero Cross-Layer Cycles</strong>: All cross-layer and internal-to-facade circular dependencies have been eliminated (<code>40</code> type-only annotations are guarded behind <code>if TYPE_CHECKING:</code>). Only <strong><code>2</code> localized intra-package sibling cycles</strong> remain (<code>_edge.py &lt;-&gt; _junction.py</code> inside <code>src/drawlib/_diagrams/architecture/</code> and <code>src/drawlib/_diagrams/flow/</code>).</li>
+<li><strong>Underscore-Prefixed Encapsulation (<code>ast/private_submodule_import</code> Waived in <code>.pni/pni.toml</code>)</strong>: Drawlib prefixes all private implementation subpackages (<code>_core</code>, <code>_charts</code>, <code>_diagrams</code>, <code>_smartarts</code>, <code>_graph</code>, <code>_icons</code>, <code>_builder</code>, <code>_slide</code>, <code>_cli</code>) behind thin public facade modules (<code>drawlib/*.py</code>) governed by PEP 562 lazy <code>__getattr__</code> loading in <code>src/drawlib/__init__.py</code>. This intentional facade pattern is codified in <code>.pni/pni.toml</code>.</li>
+</ul>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="../images/02_architecture_and_structure/ch02_layer_dependency_heatmap.png" alt="02_architecture_and_structure_2" />
+  <figcaption class="drawlib-caption">Figure 2.2 — 6-Tier Architectural Dependency DAG with PNI Module Hotspot Risk Overlay (Post-Hardening Peak: exporter_docx.py = 0.38)</figcaption>
+</figure>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Tier</th>
+<th style="text-align:left">Architectural Layer</th>
+<th style="text-align:left">Physical Paths</th>
+<th style="text-align:left">Allowed Downward Dependencies</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><strong>Tier 6</strong></td>
+<td style="text-align:left"><strong>Public User-Facing Facades</strong></td>
+<td style="text-align:left"><code>src/drawlib/__init__.py</code>, <code>canvas.py</code>, <code>styles.py</code>, <code>shapes.py</code>, <code>lines.py</code>, <code>text.py</code>, <code>charts/</code>, <code>diagrams/</code>, <code>smartarts.py</code>, <code>graph.py</code>, <code>icons.py</code>, <code>anim.py</code>, <code>slide.py</code></td>
+<td style="text-align:left">Tiers 4, 3, 2, 1 (<code>_charts</code>..<code>_preset_styles</code>, <code>_core/l1..l4</code>)</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Tier 5</strong></td>
+<td style="text-align:left"><strong>Document, Slide &amp; CLI Builders</strong></td>
+<td style="text-align:left"><code>src/drawlib/_builder</code>, <code>_slide</code>, <code>_templates</code>, <code>_cli</code></td>
+<td style="text-align:left">Tiers 4, 3, 2, 1 (<code>_charts</code>..<code>_preset_styles</code>, <code>_core/l1..l4</code>)</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Tier 4</strong></td>
+<td style="text-align:left"><strong>High-Level Visual Domains</strong></td>
+<td style="text-align:left"><code>src/drawlib/_charts</code>, <code>_diagrams</code>, <code>_smartarts</code>, <code>_graph</code>, <code>_icons</code>, <code>_anim</code>, <code>_preset_styles</code></td>
+<td style="text-align:left">Tiers 3, 2, 1 (<code>_core/l4_canvas</code>, <code>_core/l3_*</code>, <code>_core/l1..l2</code>)</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Tier 3</strong></td>
+<td style="text-align:left"><strong>L4 Canvas Rendering Engine</strong></td>
+<td style="text-align:left"><code>src/drawlib/_core/l4_canvas</code></td>
+<td style="text-align:left">Tiers 2, 1 (<code>_core/l3_*</code>, <code>_core/l1_core</code>, <code>_core/l2_types</code>)</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Tier 2</strong></td>
+<td style="text-align:left"><strong>L3 Core Subsystems</strong></td>
+<td style="text-align:left"><code>src/drawlib/_core/l3_colors</code>, <code>l3_fonts</code>, <code>l3_images</code>, <code>l3_math</code>, <code>l3_styles</code>, <code>l3_external</code></td>
+<td style="text-align:left">Tier 1 (<code>_core/l1_core</code>, <code>_core/l2_types</code>)</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Tier 1</strong></td>
+<td style="text-align:left"><strong>L1–L2 Core Foundation &amp; Types</strong></td>
+<td style="text-align:left"><code>src/drawlib/_core/l1_core</code>, <code>_core/l2_types</code></td>
+<td style="text-align:left">Python <code>stdlib</code> &amp; <code>pydantic</code> validation only</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>2.3 Runtime Execution Flows, State &amp; Concurrency Model</h2>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="../images/02_architecture_and_structure/ch02_execution_flows_roadmap.png" alt="02_architecture_and_structure_3" />
+  <figcaption class="drawlib-caption">Figure 2.3 — Recorded Runtime Execution Pipelines & Stateful/Persistent Storage Architecture</figcaption>
+</figure>
+<ul>
+<li><strong>Execution &amp; Entrypoints</strong>: Public programmatic callers enter via <code>src/drawlib/canvas.py</code> and <code>src/drawlib/tools.py</code>, while CLI automation enters through <code>src/drawlib/__main__.py:main</code> -&gt; <code>src/drawlib/_cli/main.py:main</code> -&gt; <code>src/drawlib/_cli/_drawlib.py:call_command</code> across 9 subcommands (<code>build</code>, <code>show</code>, <code>init</code>, <code>serve</code>, <code>cache</code>, <code>rules</code>, <code>styles</code>, <code>colors</code>, <code>css</code>).</li>
+<li><strong>Error &amp; Concurrency Model</strong>: Each CLI invocation runs synchronously in a single Python process, translating Pydantic <code>@validate_call</code> <code>ValidationError</code> and <code>ValueError</code> exceptions into clean exit codes inside <code>call_command()</code>. Cross-process Chromium downloads synchronize via <code>fcntl</code> locks in <code>src/drawlib/_builder/_common/browser.py</code>, and <code>.drawlib/cache.db</code> commits per-operation SQLite transactions (parallel callers targeting the same workspace should serialize <code>build.sh</code> runs to avoid SQLite write contention).</li>
+</ul>
+
+</section>
+
+<section id="chapter-4-03_remediation_roadmap" class="doc-chapter pdf-chapter">
+<h1>3. Recommended Remediation Roadmap</h1>
+<p>This chapter tracks all <strong>10 prioritized engineering actions</strong> identified during the <code>full_audit</code> diagnostic—recording the <strong>4 <code>P0</code>/<code>P1</code> supply-chain, container, and offline-asset remediations already landed and verified in-tree</strong> alongside the <strong>6 remaining <code>P1</code>/<code>P2</code> maintainability, browser harness, and governance follow-ups</strong>, with exact target files, implementation steps, and rule/CVE traceability.</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="../images/03_remediation_roadmap/ch03_remediation_roadmap.png" alt="03_remediation_roadmap_1" />
+  <figcaption class="drawlib-caption">Phased Engineering Remediation Timeline (P0 & P1 Hardening Landed -> Remaining P1/P2 Polish)</figcaption>
+</figure>
+<hr />
+<h2>3.1 Remediation Strategy &amp; Priority Horizons</h2>
+<p>Starting from its initial <strong>90/100</strong> diagnostic baseline, Drawlib v0.3.5 executed immediate closed-loop fixes across its <code>P0</code> and <code>P1</code> supply-chain, container, and offline-asset targets—raising overall health to <strong>94/100 (Grade S)</strong> with <strong>0 <code>FAIL</code> rules</strong>, <strong>0 application CVEs</strong>, and <strong>0 container IaC misconfigurations</strong>:</p>
+<ol>
+<li><strong><code>P0</code> — Urgent Supply-Chain Vulnerability Closure (Action <code>#1</code> — <code>COMPLETED</code>)</strong>: Upgraded <code>pillow</code> to <code>&gt;=13.0.0</code> in <code>pyproject.toml</code> and <code>13.0.0</code> in <code>uv.lock</code>, eliminating all <strong>41 application CVEs</strong> (<code>5 CRITICAL</code>, <code>23 HIGH</code>, <code>13 MEDIUM</code> -&gt; <code>0</code>) across Trivy SCA.</li>
+<li><strong><code>P1</code> — Container Least Privilege, Offline Asset Fast-Fail &amp; Compiler Complexity (Actions <code>#2</code>–<code>#6</code> — <code>3 COMPLETED</code>, <code>2 OPEN</code>)</strong>:
+<ul>
+<li><strong>Completed (<code>#3</code>, <code>#4</code>, <code>#6</code>)</strong>: Added non-root <code>USER drawlib</code> (<code>UID 10001</code>) across <code>tools/docker/Dockerfile.{prod,test_local,test_pypi}</code> and <code>.pni/dockerfiles/root/Dockerfile</code> (clearing all 3 <code>HIGH</code> <code>DS-0002</code> findings), and added <code>pkg.files</code> membership checks in <code>src/drawlib/_release_assets.py</code> and <code>src/drawlib/_icons/png_icons/_base.py</code> (fixing all 12 <code>test_nonexistent_*_icon_error</code> offline failures and raising offline pass rate to <code>99.5%</code>).</li>
+<li><strong>Open (<code>#2</code>, <code>#5</code>)</strong>: Decompose high-complexity DOCX/HTML AST walkers (<code>cognitive &lt;= 15</code>) and pre-bake Chromium into <code>.pni/dockerfiles/Dockerfile</code> alongside synthetic <code>PptxSlide</code> unit tests for <code>_pptx_writer.py</code>.</li>
+</ul>
+</li>
+<li><strong><code>P2</code> — Architectural Acyclicity, Library Exception Hygiene &amp; Governance Polish (Actions <code>#7</code>–<code>#10</code> — <code>OPEN</code>)</strong>: Eliminate the final 2 intra-package <code>_edge &lt;-&gt; _junction</code> sibling cycles, replace library-level <code>sys.exit(1)</code> calls with typed exceptions caught at the CLI boundary, publish <code>SECURITY.md</code> + <code>.github/dependabot.yml</code>, and align <code>test_api_docs_completeness.py</code> with clean-room Docker test contexts.</li>
+</ol>
+<hr />
+<h2>3.2 Action Plan Traceability Matrix (<code>P0 -&gt; P1 -&gt; P2</code>)</h2>
+<p>The visual matrix below maps all <strong>10 remediation items</strong> (<code>P0 -&gt; P1 -&gt; P2</code>), highlighting the 4 completed in-tree fixes (<code>DONE</code>) and the 6 remaining engineering follow-ups.</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="../images/03_remediation_roadmap/ch03_action_plan_matrix.png" alt="03_remediation_roadmap_2" />
+  <figcaption class="drawlib-caption">Action Plan Traceability Matrix Across All 10 Prioritized Engineering Items (4 Completed, 6 Open)</figcaption>
+</figure>
+<h3>Summary Table of All 10 Pre-Sorted Action Items</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">#</th>
+<th style="text-align:left">Priority &amp; Status</th>
+<th style="text-align:left">Category</th>
+<th style="text-align:left">Action Title</th>
+<th style="text-align:left">Target Files</th>
+<th style="text-align:left">Related Rules / Advisories</th>
+<th style="text-align:left">Verified / Expected Impact</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>1</strong></td>
+<td style="text-align:left"><strong><code>P0</code> (<code>COMPLETED</code>)</strong></td>
+<td style="text-align:left"><code>security</code></td>
+<td style="text-align:left"><strong>Upgrade locked Pillow dependency to &gt;=13.0.0 and re-verify raster baselines</strong></td>
+<td style="text-align:left"><code>pyproject.toml</code>, <code>uv.lock</code></td>
+<td style="text-align:left"><code>common/security_vulnerability</code>, <code>CVE-2026-112393</code>..<code>GHSA-78g4-xqwv-q3g8</code></td>
+<td style="text-align:left"><strong>Landed</strong>: Upgraded to <code>pillow&gt;=13.0.0</code> (<code>13.0.0</code> in <code>uv.lock</code>); eliminated all 41 Trivy application CVEs (<code>app_vuln_counts = 0</code>).</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>2</strong></td>
+<td style="text-align:left"><strong><code>P1</code> (<code>OPEN</code>)</strong></td>
+<td style="text-align:left"><code>code_quality</code></td>
+<td style="text-align:left"><strong>Decompose High-Complexity DOCX &amp; Fence Parser Routines</strong></td>
+<td style="text-align:left"><code>src/drawlib/_builder/doc_builder/exporter_docx.py</code>, <code>src/drawlib/_builder/doc_builder/processor/options.py</code>, <code>src/drawlib/_builder/doc_builder/merger.py</code></td>
+<td style="text-align:left"><code>common/maintainability</code></td>
+<td style="text-align:left">Substantially lowers maintenance risk and unit test surface in the document compiler pipeline (<code>cognitive &lt;= 15</code>).</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>3</strong></td>
+<td style="text-align:left"><strong><code>P1</code> (<code>COMPLETED</code>)</strong></td>
+<td style="text-align:left"><code>security</code></td>
+<td style="text-align:left"><strong>Add non-root USER to Dockerfiles (<code>DS-0002</code>)</strong></td>
+<td style="text-align:left"><code>tools/docker/Dockerfile.prod</code>, <code>tools/docker/Dockerfile.test_local</code>, <code>tools/docker/Dockerfile.test_pypi</code></td>
+<td style="text-align:left"><code>common/security_vulnerability</code>, <code>common/supply_chain</code>, <code>DS-0002</code></td>
+<td style="text-align:left"><strong>Landed</strong>: Added <code>USER drawlib</code> (<code>UID 10001</code>) across all Dockerfiles; cleared all 3 <code>HIGH</code> <code>DS-0002</code> container misconfigurations.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>4</strong></td>
+<td style="text-align:left"><strong><code>P1</code> (<code>COMPLETED</code>)</strong></td>
+<td style="text-align:left"><code>security</code></td>
+<td style="text-align:left"><strong>Run Production Docker Image as Non-Root User</strong></td>
+<td style="text-align:left"><code>tools/docker/Dockerfile.prod</code></td>
+<td style="text-align:left"><code>common/supply_chain</code>, <code>common/security</code></td>
+<td style="text-align:left"><strong>Landed</strong>: Configured <code>/opt/ms-playwright</code>, <code>/opt/drawlib-cache</code>, and <code>USER drawlib</code> (<code>UID 10001</code>) in <code>Dockerfile.prod</code>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>5</strong></td>
+<td style="text-align:left"><strong><code>P1</code> (<code>OPEN</code>)</strong></td>
+<td style="text-align:left"><code>testing</code></td>
+<td style="text-align:left"><strong>Bake Chromium shell &amp; asset cache into .pni/dockerfiles/Dockerfile and add unit tests for _pptx_writer.py</strong></td>
+<td style="text-align:left"><code>src/drawlib/_slide/_pptx_writer.py</code>, <code>src/drawlib/_builder/doc_builder/compiler/pdf.py</code>, <code>tests/drawlib/slide/test_pptx.py</code></td>
+<td style="text-align:left"><code>common/runtime_verification</code></td>
+<td style="text-align:left">Achieves 100% offline <code>--network=none</code> test pass rate and lifts <code>_pptx_writer.py</code> and <code>_pptx_dom.py</code> coverage above 80%.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>6</strong></td>
+<td style="text-align:left"><strong><code>P1</code> (<code>COMPLETED</code>)</strong></td>
+<td style="text-align:left"><code>testing</code></td>
+<td style="text-align:left"><strong>Validate asset filename membership in pkg.files before network downloads</strong></td>
+<td style="text-align:left"><code>src/drawlib/_release_assets.py</code>, <code>src/drawlib/_icons/png_icons/_base.py</code></td>
+<td style="text-align:left"><code>common/runtime_verification</code></td>
+<td style="text-align:left"><strong>Landed</strong>: <code>find_package_for_resource_path()</code> and <code>resolve_png_icon_path()</code> verify <code>pkg.files</code> before network I/O, fixing all 12 offline invalid-icon test failures (<code>99.5%</code> offline pass rate).</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>7</strong></td>
+<td style="text-align:left"><strong><code>P2</code> (<code>OPEN</code>)</strong></td>
+<td style="text-align:left"><code>architecture</code></td>
+<td style="text-align:left"><strong>Eliminate Remaining 2 Intra-Diagram Sibling Import Cycles</strong></td>
+<td style="text-align:left"><code>src/drawlib/_diagrams/architecture/_edge.py</code>, <code>src/drawlib/_diagrams/architecture/_junction.py</code>, <code>src/drawlib/_diagrams/flow/_edge.py</code>, <code>src/drawlib/_diagrams/flow/_junction.py</code></td>
+<td style="text-align:left"><code>common/architecture</code></td>
+<td style="text-align:left">Achieves <code>0</code> runtime circular dependencies across all 424 modules.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>8</strong></td>
+<td style="text-align:left"><strong><code>P2</code> (<code>OPEN</code>)</strong></td>
+<td style="text-align:left"><code>code_quality</code></td>
+<td style="text-align:left"><strong>Replace Library-Level sys.exit(1) Calls with Typed Exceptions</strong></td>
+<td style="text-align:left"><code>src/drawlib/_core/l1_core/_settings.py</code>, <code>src/drawlib/_builder/doc_builder/processor/viewer.py</code>, <code>src/drawlib/_cli/_drawlib.py</code></td>
+<td style="text-align:left"><code>common/library_guidelines</code></td>
+<td style="text-align:left">Prevents unexpected interpreter termination for programmatic Python library callers.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>9</strong></td>
+<td style="text-align:left"><strong><code>P2</code> (<code>OPEN</code>)</strong></td>
+<td style="text-align:left"><code>security</code></td>
+<td style="text-align:left"><strong>Publish SECURITY.md and Configure Dependabot Updates</strong></td>
+<td style="text-align:left"><code>pyproject.toml</code>, <code>.github/workflows/quality.yml</code></td>
+<td style="text-align:left"><code>common/supply_chain</code></td>
+<td style="text-align:left">Closes OpenSSF Scorecard governance gaps for vulnerability disclosure and automated supply-chain maintenance.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>10</strong></td>
+<td style="text-align:left"><strong><code>P2</code> (<code>OPEN</code>)</strong></td>
+<td style="text-align:left"><code>testing</code></td>
+<td style="text-align:left"><strong>Include docs_src/api in Clean-Room Docker Test Context or Guard with pytest.skip</strong></td>
+<td style="text-align:left"><code>tests/drawlib/doc_builder/test_api_docs_completeness.py</code>, <code>.dockerignore</code>, <code>tools/docker/Dockerfile.test_local</code></td>
+<td style="text-align:left"><code>python/testing</code></td>
+<td style="text-align:left">Keeps <code>./dcli docker test</code> green across both local source and PyPI clean-room modes.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>3.3 Detailed Engineering Specifications by Priority Tier</h2>
+<h3>Phase <code>P0</code> — Urgent Security Remediation (<code>COMPLETED</code>)</h3>
+<h4>Action #1 (<code>[P0]</code> · <code>security</code> · <code>COMPLETED</code>): Upgrade locked Pillow dependency to <code>&gt;=13.0.0</code> and re-verify raster baselines</h4>
+<ul>
+<li><strong>Target Files</strong>: <code>pyproject.toml</code>, <code>uv.lock</code>, <code>.pni/dockerfiles/root/Dockerfile</code></li>
+<li><strong>Related Rules &amp; Advisories</strong>: <code>common/security_vulnerability</code>, <code>CVE-2026-112393</code>, <code>CVE-2026-112398</code>, <code>CVE-2026-112403</code>, <code>CVE-2026-112900</code>, <code>CVE-2026-96639</code>, <code>GHSA-78g4-xqwv-q3g8</code></li>
+<li><strong>Implemented Remediation</strong>: Upgraded <code>pillow</code> in <code>uv.lock</code> to <code>13.0.0</code> and bumped the runtime lower bound in <code>pyproject.toml</code> to <code>pillow&gt;=13.0.0</code>. Re-ran Trivy SCA (<code>trivy_fs.json</code> / <code>security_facts.json</code>) and verified that all <strong>41 application CVEs</strong> (<code>5 CRITICAL</code> CVSS 9.8, <code>23 HIGH</code>, <code>13 MEDIUM</code>) are completely resolved (<code>app_vuln_counts = 0</code>).</li>
+</ul>
+<hr />
+<h3>Phase <code>P1</code> — High-Value Hardening, Maintainability &amp; Air-Gapped Testing (<code>3 COMPLETED</code>, <code>2 OPEN</code>)</h3>
+<h4>Action #2 (<code>[P1]</code> · <code>code_quality</code> · <code>OPEN</code>): Decompose High-Complexity DOCX &amp; Fence Parser Routines</h4>
+<ul>
+<li><strong>Target Files</strong>: <code>src/drawlib/_builder/doc_builder/exporter_docx.py</code>, <code>src/drawlib/_builder/doc_builder/processor/options.py</code>, <code>src/drawlib/_builder/doc_builder/merger.py</code></li>
+<li><strong>Related Rules</strong>: <code>common/maintainability</code></li>
+<li><strong>Implementation Guidance</strong>: Refactor <code>render_chapter</code> (<code>cognitive=174</code>, 283 LOC) and <code>_render_inline</code> (<code>cognitive=102</code>) in <code>exporter_docx.py</code> into per-token dispatch handlers (headings, code fences, callouts, lists, tables). Extract per-attribute validators from <code>parse_block_info</code> (<code>cognitive=106</code>) in <code>options.py</code>, and split TOC assembly, asset path rewriting, and heading normalization out of <code>build_merged_html</code> (<code>cognitive=87</code>) in <code>merger.py</code> so each helper maintains SIG cognitive complexity <code>&lt;= 15</code>.</li>
+<li><strong>Expected Impact</strong>: Substantially lowers maintenance risk, cyclomatic branch density, and isolated unit-testing effort across the HTML and OpenXML <code>.docx</code> compilation pipelines.</li>
+</ul>
+<h4>Action #3 &amp; #4 (<code>[P1]</code> · <code>security</code> · <code>COMPLETED</code>): Run Production and Test Docker Images as Non-Root User (<code>UID 10001</code>)</h4>
+<ul>
+<li><strong>Target Files</strong>: <code>tools/docker/Dockerfile.prod</code>, <code>tools/docker/Dockerfile.test_local</code>, <code>tools/docker/Dockerfile.test_pypi</code>, <code>.pni/dockerfiles/root/Dockerfile</code></li>
+<li><strong>Related Rules &amp; Advisories</strong>: <code>common/security_vulnerability</code>, <code>common/supply_chain</code>, <code>common/security</code>, <code>DS-0002</code></li>
+<li><strong>Implemented Remediation</strong>: Created a dedicated unprivileged <code>drawlib</code> user and group (<code>UID/GID 10001</code>), configured <code>/opt/ms-playwright</code> and <code>/opt/drawlib-cache</code> with world-readable/executable permissions (<code>chmod -R a+rX</code>), and switched to <code>USER drawlib</code> prior to <code>WORKDIR</code> / <code>CMD</code>. Trivy IaC verification confirmed <strong>0 <code>DS-0002</code> findings</strong> across all Dockerfiles.</li>
+</ul>
+<h4>Action #5 (<code>[P1]</code> · <code>testing</code> · <code>OPEN</code>): Bake Chromium shell &amp; asset cache into <code>.pni/dockerfiles/Dockerfile</code> and add unit tests for <code>_pptx_writer.py</code></h4>
+<ul>
+<li><strong>Target Files</strong>: <code>src/drawlib/_slide/_pptx_writer.py</code>, <code>src/drawlib/_builder/doc_builder/compiler/pdf.py</code>, <code>tests/drawlib/slide/test_pptx.py</code></li>
+<li><strong>Related Rules</strong>: <code>common/runtime_verification</code></li>
+<li><strong>Implementation Guidance</strong>: Pre-install <code>chromium-headless-shell</code> (with OS shared libraries) and pre-populate <code>drawlib cache download --all</code> inside <code>.pni/dockerfiles/Dockerfile</code>, add a graceful offline skip guard when Chromium binaries are intentionally absent, and add pure-Python unit tests feeding synthetic <code>PptxSlide</code> dataclasses directly into <code>src/drawlib/_slide/_pptx_writer.py</code> without invoking Playwright.</li>
+<li><strong>Expected Impact</strong>: Lifts offline <code>--network=none</code> test pass rate from <code>99.5%</code> (<code>1,405/1,412</code>) to <strong>100.0%</strong> while raising <code>_pptx_writer.py</code> (<code>11.1%</code>) and <code>_pptx_dom.py</code> (<code>58.6%</code>) coverage above <code>80%</code>.</li>
+</ul>
+<h4>Action #6 (<code>[P1]</code> · <code>testing</code> · <code>COMPLETED</code>): Validate asset filename membership in <code>pkg.files</code> before network downloads</h4>
+<ul>
+<li><strong>Target Files</strong>: <code>src/drawlib/_release_assets.py</code>, <code>src/drawlib/_icons/png_icons/_base.py</code>, <code>tests/drawlib/release_assets/test_release_assets_download.py</code></li>
+<li><strong>Related Rules</strong>: <code>common/runtime_verification</code></li>
+<li><strong>Implemented Remediation</strong>: Updated <code>find_package_for_resource_path()</code> and <code>find_package_for_icon_path()</code> in <code>src/drawlib/_release_assets.py</code> to check <code>normalized in pkg.files</code> before returning a package, and updated <code>resolve_png_icon_path()</code> in <code>src/drawlib/_icons/png_icons/_base.py</code> to raise <code>ValueError(f'Icon &quot;{file_name}&quot; not found in &quot;{category}&quot; icon set.')</code> immediately when no package contains the requested icon path. Verified via unit tests that invalid icon lookups never invoke <code>download_if_not_exist()</code>, resolving all <strong>12 offline negative icon test failures</strong>.</li>
+</ul>
+<hr />
+<h3>Phase <code>P2</code> — Architectural, Library &amp; Governance Polish (<code>OPEN</code>)</h3>
+<h4>Action #7 (<code>[P2]</code> · <code>architecture</code> · <code>OPEN</code>): Eliminate Remaining 2 Intra-Diagram Sibling Import Cycles</h4>
+<ul>
+<li><strong>Target Files</strong>: <code>src/drawlib/_diagrams/architecture/_edge.py</code>, <code>src/drawlib/_diagrams/architecture/_junction.py</code>, <code>src/drawlib/_diagrams/flow/_edge.py</code>, <code>src/drawlib/_diagrams/flow/_junction.py</code></li>
+<li><strong>Related Rules</strong>: <code>common/architecture</code></li>
+<li><strong>Implementation Guidance</strong>: Extract a lightweight connectable node/endpoint <code>Protocol</code> or base class into <code>_types.py</code> within <code>_diagrams/architecture/</code> and <code>_diagrams/flow/</code>, and guard concrete <code>_edge &lt;-&gt; _junction</code> cross-imports behind <code>if TYPE_CHECKING:</code> blocks.</li>
+<li><strong>Expected Impact</strong>: Achieves <strong>0 runtime circular dependencies</strong> across all 424 Python source modules.</li>
+</ul>
+<h4>Action #8 (<code>[P2]</code> · <code>code_quality</code> · <code>OPEN</code>): Replace Library-Level <code>sys.exit(1)</code> Calls with Typed Exceptions</h4>
+<ul>
+<li><strong>Target Files</strong>: <code>src/drawlib/_core/l1_core/_settings.py</code>, <code>src/drawlib/_builder/doc_builder/processor/viewer.py</code>, <code>src/drawlib/_cli/_drawlib.py</code></li>
+<li><strong>Related Rules</strong>: <code>common/library_guidelines</code></li>
+<li><strong>Implementation Guidance</strong>: Replace direct <code>sys.exit(1)</code> calls in <code>DrawlibSettings</code> (<code>_settings.py:123,297,304,313</code>) and <code>viewer.py</code> (<code>lines 189,193,245</code>) with <code>ValueError</code> or a typed <code>DrawlibError</code> exception, translating those exceptions to exit code <code>1</code> exclusively inside <code>src/drawlib/_cli/_drawlib.py:call_command()</code>.</li>
+<li><strong>Expected Impact</strong>: Prevents unexpected host Python interpreter termination when <code>drawlib</code> is embedded programmatically inside notebooks, web backends, or automation services.</li>
+</ul>
+<h4>Action #9 (<code>[P2]</code> · <code>security</code> · <code>OPEN</code>): Publish <code>SECURITY.md</code> and Configure Dependabot Updates</h4>
+<ul>
+<li><strong>Target Files</strong>: <code>pyproject.toml</code>, <code>.github/workflows/quality.yml</code></li>
+<li><strong>Related Rules</strong>: <code>common/supply_chain</code></li>
+<li><strong>Implementation Guidance</strong>: Publish a root <code>SECURITY.md</code> policy enabling GitHub Private Vulnerability Reporting and documenting supported versions, add <code>.github/dependabot.yml</code> covering <code>pip</code>/<code>uv</code> and <code>github-actions</code>, and pin third-party GitHub Actions (<code>actions/checkout</code>, <code>astral-sh/setup-uv</code>, <code>actions/setup-python</code>) to full 40-character commit SHAs.</li>
+<li><strong>Expected Impact</strong>: Closes OpenSSF Scorecard supply-chain governance gaps for coordinated vulnerability disclosure and automated dependency maintenance.</li>
+</ul>
+<h4>Action #10 (<code>[P2]</code> · <code>testing</code> · <code>OPEN</code>): Include <code>docs_src/api</code> in Clean-Room Docker Test Context or Guard with <code>pytest.skip</code></h4>
+<ul>
+<li><strong>Target Files</strong>: <code>tests/drawlib/doc_builder/test_api_docs_completeness.py</code>, <code>.dockerignore</code>, <code>tools/docker/Dockerfile.test_local</code></li>
+<li><strong>Related Rules</strong>: <code>python/testing</code></li>
+<li><strong>Implementation Guidance</strong>: Unignore <code>docs_src/api/</code> in <code>.dockerignore</code> and copy it into <code>tools/docker/Dockerfile.test_local</code> for local source container verification, while adding a <code>pytest.skip(&quot;docs_src/api not present in packaged test environment&quot;)</code> guard in <code>test_api_docs_completeness.py</code> when testing standalone PyPI wheels via <code>Dockerfile.test_pypi</code>.</li>
+<li><strong>Expected Impact</strong>: Ensures <code>./dcli docker test</code> remains consistently green across both local source and published PyPI clean-room container modes.</li>
+</ul>
+
+</section>
+
+<section id="chapter-5-04_standards_and_findings" class="doc-chapter pdf-chapter">
+<h1>4. Audit Standards, Rule Compliance &amp; Findings</h1>
+<p>This chapter bridges the executive roadmap to the technical deep-dive chapters by presenting scores across all <strong>8 executed audit dimensions</strong> (weakest-first: <code>88</code> to <code>96</code>), the <strong>16-rule compliance matrix</strong> (<code>0 FAIL</code>, <code>5 WARN</code>, <code>11 PASS</code>), the <strong>21-location consolidated findings index</strong> (tracking <code>4 FIXED</code>, <code>3 WAIVED</code>, and <code>14 OPEN</code> polish locations), and the <strong><code>.pni/pni.toml</code> scan scope &amp; architectural waiver registry</strong>.</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="../images/04_standards_and_findings/ch04_audit_steps_and_compliance.png" alt="04_standards_and_findings_1" />
+  <figcaption class="drawlib-caption">Executed Audit Dimension Scores (Weakest-First) and 16-Rule Compliance Matrix (0 FAIL · 5 WARN · 11 PASS)</figcaption>
+</figure>
+<hr />
+<h2>4.1 Executed Audit Dimensions (<code>Weakest -&gt; Strongest</code>)</h2>
+<p>The <code>full_audit</code> workflow (<code>wf-8093775c</code>) executed <strong>8 specialized static, architectural, containerized runtime, and supply-chain security audit steps</strong>. Following the <code>pillow&gt;=13.0.0</code> upgrade, non-root <code>USER drawlib</code> (<code>UID 10001</code>) Dockerfile hardening, <code>pkg.files</code> offline icon validation, and <code>.pni/pni.toml</code> policy configuration, <strong>seven of the eight steps achieve Grade S (<code>&gt;= 90</code>)</strong> and <code>container_runtime_audit</code> achieves <strong>88/100 (Grade A)</strong>.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Rank</th>
+<th style="text-align:left">Audit Step ID (<code>action_id</code>)</th>
+<th style="text-align:left">Score &amp; Grade</th>
+<th style="text-align:left">Pass / Warn / Fail</th>
+<th style="text-align:left">Evaluated Rules</th>
+<th style="text-align:left">Key Diagnostic Summary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>1</strong></td>
+<td style="text-align:left"><code>container_runtime_audit</code> (<code>act-13</code>)</td>
+<td style="text-align:left"><strong>88/100 (A)</strong></td>
+<td style="text-align:left"><code>1 / 1 / 0</code></td>
+<td style="text-align:left"><code>common/runtime_verification</code>, <code>common/production_readiness</code></td>
+<td style="text-align:left">Clean-room build passed (<code>3.76s</code>), CLI/library smoke check passed (<code>2.42s</code>), and measured coverage reached <strong>86.3% line</strong> (<code>37,221/43,108</code>) and <strong>75.5% branch</strong>. Pre-validating <code>pkg.files</code> in <code>_release_assets.py</code> / <code>png_icons/_base.py</code> resolved all <code>12</code> negative icon offline failures, lifting <code>--network=none</code> pass rate to <strong>99.5%</strong> (<code>1,405/1,412</code> executed; <code>6</code> PPTX tests + <code>1</code> CJK font test require pre-baked Chromium/font assets).</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>2</strong></td>
+<td style="text-align:left"><code>repo_structure_audit</code> (<code>act-02</code>)</td>
+<td style="text-align:left"><strong>91/100 (S)</strong></td>
+<td style="text-align:left"><code>4 / 1 / 0</code></td>
+<td style="text-align:left"><code>common/supply_chain</code>, <code>common/documentation</code>, <code>common/git_workflow</code>, <code>common/security</code>, <code>python/dependencies</code></td>
+<td style="text-align:left">Exemplary PEP 621 <code>pyproject.toml</code> with 13 SemVer-bounded runtime dependencies (<code>pillow&gt;=13.0.0</code>), isolated <code>[dependency-groups].dev</code>, PEP 561 <code>py.typed</code>, least-privilege CI workflows, full Diataxis documentation, and <code>.pni/pni.toml</code> lockfile policy (<code>python/lockfile_committed</code> waived); minor governance follow-up for <code>SECURITY.md</code> and Dependabot.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>3</strong></td>
+<td style="text-align:left"><code>library_hygiene_audit</code> (<code>act-08</code>)</td>
+<td style="text-align:left"><strong>91/100 (S)</strong></td>
+<td style="text-align:left"><code>1 / 2 / 0</code></td>
+<td style="text-align:left"><code>common/library_guidelines</code>, <code>common/documentation</code>, <code>common/maintainability</code></td>
+<td style="text-align:left">PEP 562 lazy submodule loading in <code>src/drawlib/__init__.py</code> (zero import-time heavy/network side effects), curated <code>__all__</code> across 20 public facades, <code>py.typed</code>, flexible <code>&gt;=</code> SemVer bounds, and 100% API docs completeness; minor coupling where <code>_settings.py</code> and <code>viewer.py</code> call <code>sys.exit(1)</code> directly plus <code>30</code> <code>print()</code> calls and <code>9</code> direct <code>os.environ</code> reads in <code>_builder/</code>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>4</strong></td>
+<td style="text-align:left"><code>supply_chain_audit</code> (<code>act-10</code>)</td>
+<td style="text-align:left"><strong>92/100 (S)</strong></td>
+<td style="text-align:left"><code>2 / 1 / 0</code></td>
+<td style="text-align:left"><code>common/supply_chain</code>, <code>common/security</code>, <code>common/git_workflow</code></td>
+<td style="text-align:left">SHA-256 verified GitHub Release asset downloads (<code>timeout=60</code> in <code>_package.py</code>), <code>permissions: contents: read</code> across all 4 workflows, non-root <code>USER drawlib</code> (<code>UID 10001</code>) across all Dockerfiles, zero hardcoded secrets, and <code>.env</code> excluded in <code>.gitignore</code>/<code>.dockerignore</code>/<code>.pni/pni.toml</code>; minor follow-ups for <code>SECURITY.md</code>, Dependabot, and SHA Action pins.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>5</strong></td>
+<td style="text-align:left"><code>python_ast_audit</code> (<code>act-04</code>)</td>
+<td style="text-align:left"><strong>92/100 (S)</strong></td>
+<td style="text-align:left"><code>5 / 2 / 0</code></td>
+<td style="text-align:left"><code>common/architecture</code>, <code>common/maintainability</code>, <code>common/security</code>, <code>common/security_vulnerability</code>, <code>python/code_quality</code>, <code>python/typing</code>, <code>python/modern_stack</code></td>
+<td style="text-align:left">Across 424 files (<code>85,323</code> LOC, <code>300</code> classes, <code>1,958</code> functions): <strong>100.0% type coverage</strong>, <code>0</code> unscoped <code># type: ignore</code>, <strong>99.3% docstrings</strong>, <strong>99.3% import hygiene</strong>, <code>0</code> undeclared deps, <code>0</code> missing I/O timeouts, and <code>0</code> mutable globals. Private <code>_</code> subpackage encapsulation and keyword styling signatures are waived in <code>.pni/pni.toml</code>; only <code>2</code> sibling <code>_edge &lt;-&gt; _junction</code> cycles and localized DOCX/HTML parser complexity remain.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>6</strong></td>
+<td style="text-align:left"><code>python_test_audit</code> (<code>act-11</code>)</td>
+<td style="text-align:left"><strong>93/100 (S)</strong></td>
+<td style="text-align:left"><code>1 / 0 / 0</code></td>
+<td style="text-align:left"><code>python/testing</code></td>
+<td style="text-align:left"><code>150</code> test files and <code>1,293</code> test functions achieving <strong>100.0% module mirror coverage</strong>, <code>0</code> assertion-free tests, automatic <code>Canvas</code> state reset, and pixel-by-pixel PNG regression hooks in <code>tests/conftest.py</code>; minor clean-room drift in <code>test_api_docs_completeness.py</code> when <code>docs_src/api/</code> is excluded by <code>.dockerignore</code>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>7</strong></td>
+<td style="text-align:left"><code>cli_guidelines_audit</code> (<code>act-09</code>)</td>
+<td style="text-align:left"><strong>94/100 (S)</strong></td>
+<td style="text-align:left"><code>2 / 0 / 0</code></td>
+<td style="text-align:left"><code>common/cli_guidelines</code>, <code>common/documentation</code></td>
+<td style="text-align:left">Exemplary Typer + Rich CLI (<code>src/drawlib/_cli/_drawlib.py</code>) featuring <code>-h</code>/<code>--help</code> with <code>HELP_EPILOG</code>, <code>no_args_is_help=True</code>, eager <code>-v</code>/<code>--version</code>, validated <code>--quiet</code>/<code>--verbose</code>/<code>--debug</code>/<code>--developer</code> flags, headless automation modes (<code>serve --check</code>, <code>show -o -g</code>, <code>cache download --all</code>), and <code>211</code> CLI tests.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>8</strong></td>
+<td style="text-align:left"><code>security_vulnerability_audit</code> (<code>act-15</code>)</td>
+<td style="text-align:left"><strong>96/100 (S)</strong></td>
+<td style="text-align:left"><code>2 / 0 / 0</code></td>
+<td style="text-align:left"><code>common/security_vulnerability</code>, <code>common/supply_chain</code></td>
+<td style="text-align:left"><strong>Passed (<code>status=passed</code>)</strong>: <code>0</code> application CVEs across all 13 dependencies (<code>pillow@13.0.0</code> in <code>uv.lock</code>), <code>0</code> OS CVEs, <code>0</code> container IaC misconfigurations (<code>USER drawlib</code> UID <code>10001</code> cleared all 3 <code>DS-0002</code> checks; <code>DS-0026</code> waived via <code>.pni/pni.toml</code> <code>opt_out_counts={&quot;DS-0026&quot;: 3}</code>), <code>0</code> secrets, and <code>CWE-94</code> <code>exec()</code> waived as Drawlib's core <em>Illustration as Code</em> execution model.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>4.2 Complete 16-Rule Compliance Matrix (<code>0 FAIL · 5 WARN · 11 PASS</code>)</h2>
+<p>Overall rule compliance stands at <strong>11/16 rules passed (<code>68.8%</code> strict pass, <code>100.0%</code> pass-or-warn)</strong>, with <strong>0 <code>FAIL</code></strong>, <strong>5 <code>WARN</code></strong>, and <strong>11 <code>PASS</code></strong> evaluations preserved in exact severity order below.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">#</th>
+<th style="text-align:left">Status</th>
+<th style="text-align:left">Rule ID</th>
+<th style="text-align:left">Source Audit</th>
+<th style="text-align:left">Concise Assessment</th>
+<th style="text-align:left">Full Quantitative &amp; Diagnostic Evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>1</strong></td>
+<td style="text-align:left"><strong><code>WARN</code></strong></td>
+<td style="text-align:left"><code>common/runtime_verification</code></td>
+<td style="text-align:left"><code>container_runtime_audit</code></td>
+<td style="text-align:left">Clean build, startup smoke check, 86.3%/75.5% coverage, and 99.5% offline pass rate (<code>1,405/1,412</code>) after fixing 12 invalid-icon lookups; 6 PPTX tests require pre-baked Chromium.</td>
+<td style="text-align:left"><code>RV-01</code> <code>harness_build=passed</code> (<code>3.76s</code>, <code>.pni/dockerfiles/Dockerfile</code>); <code>RV-04</code> <code>smoke_check=passed</code> (<code>2.42s</code>, <code>drawlib --help</code> exited <code>0</code> and <code>import drawlib</code> succeeded); <code>RV-03</code> <code>coverage=86.3%</code> line (<code>37,221/43,108</code>) and <code>75.5%</code> branch; <code>RV-02</code>: fixing <code>find_package_for_resource_path()</code> / <code>resolve_png_icon_path()</code> resolved all <code>12</code> negative icon offline failures (<code>1,405/1,412</code> passing = <code>99.5%</code>), leaving <code>6</code> Playwright CDN DNS failures + <code>1</code> CJK font test when running without pre-baked browser/font caches.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>2</strong></td>
+<td style="text-align:left"><strong><code>WARN</code></strong></td>
+<td style="text-align:left"><code>common/architecture</code></td>
+<td style="text-align:left"><code>act-04</code></td>
+<td style="text-align:left">Core engine and public facade layers are strictly acyclic; only 2 minor intra-package <code>_edge &lt;-&gt; _junction</code> cycles remain inside <code>_diagrams</code>.</td>
+<td style="text-align:left">Strict downward core layering (<code>l1_core -&gt; l2_types -&gt; l3_* -&gt; l4_canvas -&gt; domains -&gt; facades</code>) with <code>0</code> cross-layer or facade runtime cycles, <code>40</code> properly guarded <code>TYPE_CHECKING</code> imports, and <code>ast/private_submodule_import</code> waived in <code>.pni/pni.toml</code>; <code>2</code> intra-package sibling runtime cycles remain in <code>drawlib._diagrams.architecture</code> (<code>_edge</code> &lt;-&gt; <code>_junction</code>) and <code>drawlib._diagrams.flow</code> (<code>_edge</code> &lt;-&gt; <code>_junction</code>).</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>3</strong></td>
+<td style="text-align:left"><strong><code>WARN</code></strong></td>
+<td style="text-align:left"><code>common/library_guidelines</code></td>
+<td style="text-align:left"><code>act-08</code></td>
+<td style="text-align:left">Exemplary PEP 562 lazy import purity, explicit <code>__all__</code>, <code>py.typed</code>, and <code>&gt;=</code> SemVer bounds; minor deduction for <code>sys.exit(1)</code> and <code>print()</code> in library/builder code.</td>
+<td style="text-align:left">PEP 562 lazy <code>__getattr__</code> in <code>src/drawlib/__init__.py</code>, explicit <code>__all__</code> on public facades, <code>py.typed=True</code>, and <code>&gt;=</code> SemVer lower bounds on all 13 dependencies; however <code>sys.exit(1)</code> appears in <code>src/drawlib/_core/l1_core/_settings.py:123,297,304,313</code> and <code>src/drawlib/_builder/doc_builder/processor/viewer.py:189,193,245</code>, plus <code>unstructured_logging=30</code> <code>print()</code> calls in <code>_builder/</code>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>4</strong></td>
+<td style="text-align:left"><strong><code>WARN</code></strong></td>
+<td style="text-align:left"><code>common/maintainability</code></td>
+<td style="text-align:left"><code>act-04</code></td>
+<td style="text-align:left">Zero shared mutable global state and cohesive domain packages, with localized cognitive-complexity hotspots in DOCX/HTML AST walkers.</td>
+<td style="text-align:left"><code>global_state_usages=0</code> across 424 files and <code>ast/excessive_parameters</code> waived for keyword-only styling APIs in <code>.pni/pni.toml</code>; <code>complex_functions=399</code> peaking in <code>exporter_docx.py:565</code> <code>render_chapter</code> (<code>cognitive=174</code>, <code>283</code> LOC), <code>options.py:93</code> <code>parse_block_info</code> (<code>cognitive=106</code>), and <code>merger.py:142</code> <code>build_merged_html</code> (<code>cognitive=87</code>); <code>scattered_env_access=9</code> across <code>_builder/</code>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>5</strong></td>
+<td style="text-align:left"><strong><code>WARN</code></strong></td>
+<td style="text-align:left"><code>common/supply_chain</code></td>
+<td style="text-align:left"><code>act-02</code></td>
+<td style="text-align:left">Explicit <code>LICENSE</code>, non-root <code>USER drawlib</code> (<code>UID 10001</code>), default-deny <code>.dockerignore</code>, and least-privilege CI permissions present; <code>SECURITY.md</code> and Dependabot remain open.</td>
+<td style="text-align:left"><code>LICENSE=True</code>, <code>ci_supply_chain_issues=[]</code>, <code>unpinned_dependencies=[]</code>, <code>ci_workflows_found=4</code> (all <code>permissions: contents: read</code>), non-root <code>USER drawlib</code> in <code>tools/docker/Dockerfile.*</code>, and default-deny <code>.dockerignore</code>; <code>SECURITY.md=False</code>, <code>dependency_automation=False</code> (<code>.github/dependabot.yml</code> missing), and <code>.github/workflows/*.yml</code> use major tags (<code>@v4</code>, <code>@v5</code>).</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>6</strong></td>
+<td style="text-align:left"><strong><code>PASS</code></strong></td>
+<td style="text-align:left"><code>common/security_vulnerability</code></td>
+<td style="text-align:left"><code>security_vulnerability_audit</code></td>
+<td style="text-align:left">Zero application CVEs (<code>pillow@13.0.0</code>), zero OS CVEs, zero IaC misconfigurations (<code>USER drawlib</code>), zero secrets, and zero first-party injection flaws.</td>
+<td style="text-align:left"><code>SEC-01</code>: <code>app_vuln_counts={critical:0, high:0, medium:0, low:0, total:0}</code> (<code>pillow@13.0.0</code> in <code>uv.lock</code> &amp; <code>pillow&gt;=13.0.0</code> in <code>pyproject.toml</code>), <code>os_vuln_counts={total:0}</code>; <code>SEC-02</code>: <code>misconfigurations=[]</code> (<code>DS-0002</code> fixed via <code>USER drawlib</code> UID <code>10001</code>; <code>DS-0026</code> waived via <code>.pni/pni.toml</code> <code>opt_out_counts={&quot;DS-0026&quot;: 3}</code>); <code>SEC-03</code>: <code>secrets=[]</code>; <code>SEC-04</code>: <code>0</code> CWE-89/78/79/502, <code>5</code> <code>CWE-94</code> <code>exec()</code> sites waived in <code>.pni/pni.toml</code>; <code>SEC-05/06</code>: N/A.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>7</strong></td>
+<td style="text-align:left"><strong><code>PASS</code></strong></td>
+<td style="text-align:left"><code>common/security</code></td>
+<td style="text-align:left"><code>act-04</code></td>
+<td style="text-align:left">Zero hardcoded secrets, zero SQL/shell injection sinks, explicit HTTP timeouts, non-root <code>USER drawlib</code> in <code>Dockerfile.prod</code>, and documented <code>CWE-94</code> trust model.</td>
+<td style="text-align:left">All 4 CI workflows enforce <code>permissions: contents: read</code>; <code>.gitignore</code>, <code>.dockerignore</code>, and <code>.pni/pni.toml</code> exclude <code>.env</code>; <code>hardcoded_secrets=[]</code>, <code>missing_io_timeouts=[]</code>, SQL/shell injection idioms=<code>0</code>, Pydantic <code>@validate_call</code> guards public API boundaries, <code>tools/docker/Dockerfile.prod</code> runs as <code>USER drawlib</code> (<code>UID 10001</code>), and <code>CWE-94</code> is waived in <code>.pni/pni.toml</code>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>8</strong></td>
+<td style="text-align:left"><strong><code>PASS</code></strong></td>
+<td style="text-align:left"><code>python/dependencies</code></td>
+<td style="text-align:left"><code>act-02</code></td>
+<td style="text-align:left">PEP 621 metadata, explicit runtime bounds (<code>pillow&gt;=13.0.0</code>), dev group separation, and <code>.pni/pni.toml</code> lockfile policy pass all dependency gates.</td>
+<td style="text-align:left"><code>pyproject.toml</code> uses PEP 621 with 13 SemVer-bounded runtime dependencies (<code>pillow&gt;=13.0.0</code>, <code>unpinned_dependencies=[]</code>) and <code>[dependency-groups].dev</code>; <code>uv.lock</code> is generated locally for SCA while <code>.pni/pni.toml</code> waives <code>python/lockfile_committed</code> for cross-Python 3.11–3.13 CI compatibility.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>9</strong></td>
+<td style="text-align:left"><strong><code>PASS</code></strong></td>
+<td style="text-align:left"><code>common/cli_guidelines</code></td>
+<td style="text-align:left"><code>act-09</code></td>
+<td style="text-align:left">Comprehensive CLI UX with <code>-h</code>/<code>--help</code>, <code>-v</code>/<code>--version</code>, structured verbosity flags, actionable validation errors, and headless CI/AI-agent flags.</td>
+<td style="text-align:left"><code>src/drawlib/_cli/_drawlib.py</code> configures <code>help_option_names=['-h', '--help']</code>, <code>no_args_is_help=True</code>, eager <code>-v</code>/<code>--version</code> callback, mutually validated <code>--quiet</code>/<code>--verbose</code>/<code>--debug</code>/<code>--developer</code> flags, and non-interactive automation flags across all 9 subcommands (<code>build</code>, <code>show</code>, <code>init</code>, <code>serve</code>, <code>cache</code>, <code>rules</code>, <code>styles</code>, <code>colors</code>, <code>css</code>).</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>10</strong></td>
+<td style="text-align:left"><strong><code>PASS</code></strong></td>
+<td style="text-align:left"><code>common/documentation</code></td>
+<td style="text-align:left"><code>act-02</code></td>
+<td style="text-align:left">Exceeds Standard Readme and Diataxis documentation standards with a multi-site dogfooded documentation ecosystem and 99.3% docstrings.</td>
+<td style="text-align:left"><code>has_readme=True</code> (<code>218</code> lines, <code>14</code> headings), <code>docs_inventory=['README.md', 'docs/README.md', 'docs/api/README.md', 'docs/architecture/README.md']</code>, <code>99.3%</code> docstring coverage, embedded <code>drawlib rules show</code> manuals, and automated <code>test_api_docs_completeness.py</code> enforcing 100% public symbol documentation.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>11</strong></td>
+<td style="text-align:left"><strong><code>PASS</code></strong></td>
+<td style="text-align:left"><code>common/git_workflow</code></td>
+<td style="text-align:left"><code>act-02</code></td>
+<td style="text-align:left">Clean trunk-based Git history on <code>main</code> with atomic Conventional Commits and zero stale branches or conflict markers.</td>
+<td style="text-align:left">Linear trunk-based history on <code>main</code> with <code>0</code> stale branches, <code>0</code> conflict markers, <code>&gt;85%</code> Conventional Commits compliance (<code>feat:</code>, <code>docs:</code>, <code>refactor:</code>, <code>ci:</code>), and <code>pull_request</code> + <code>push</code> quality gates in <code>.github/workflows/quality.yml</code>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>12</strong></td>
+<td style="text-align:left"><strong><code>PASS</code></strong></td>
+<td style="text-align:left"><code>common/production_readiness</code></td>
+<td style="text-align:left"><code>container_runtime_audit</code></td>
+<td style="text-align:left">Outbound HTTP timeouts and causal error propagation meet production readiness standards for CLI and library execution.</td>
+<td style="text-align:left"><code>runtime_types=['cli', 'library']</code>; <code>AstFacts.missing_io_timeouts=0</code> (<code>urllib.request.urlopen</code> in <code>_package.py:165</code> sets <code>timeout=60</code>); <code>0</code> silent <code>try-except-pass</code> blocks; causal exception chaining (<code>raise RuntimeError(...) from err</code>) preserved across <code>_package.py</code> and <code>browser.py</code>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>13</strong></td>
+<td style="text-align:left"><strong><code>PASS</code></strong></td>
+<td style="text-align:left"><code>python/code_quality</code></td>
+<td style="text-align:left"><code>act-04</code></td>
+<td style="text-align:left">99.3% Google-style docstring coverage, strict PEP 8 / Ruff enforcement, zero global state, and zero silent exception swallowing.</td>
+<td style="text-align:left"><code>docstring_coverage_pct=99.3%</code> (<code>missing_docstrings=12</code> fluent builder methods, <code>empty_docstrings=0</code>), Ruff lint/format clean across <code>src/</code>, <code>tests/</code>, and <code>tools/</code>, <code>global_state_usages=0</code>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>14</strong></td>
+<td style="text-align:left"><strong><code>PASS</code></strong></td>
+<td style="text-align:left"><code>python/modern_stack</code></td>
+<td style="text-align:left"><code>act-04</code></td>
+<td style="text-align:left">Modern Python 3.11+ stack (Pydantic v2, Typer, PEP 621) with 99.3% import hygiene and zero undeclared runtime dependencies.</td>
+<td style="text-align:left"><code>import_hygiene_coverage_pct=99.3%</code>, <code>wildcard_imports=[]</code>, <code>undeclared_dependencies=[]</code>, <code>framework_issues=[]</code>, Pydantic v2 + Typer + PEP 621 <code>pyproject.toml</code> (<code>unused_dependencies=['python_docx']</code> is a benign package-vs-import alias for <code>import docx</code>).</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>15</strong></td>
+<td style="text-align:left"><strong><code>PASS</code></strong></td>
+<td style="text-align:left"><code>python/testing</code></td>
+<td style="text-align:left"><code>act-11</code></td>
+<td style="text-align:left">100.0% module test coverage with 1,293 tests combining structural assertions and automated pixel-accuracy regression baselines.</td>
+<td style="text-align:left"><code>150</code> test files and <code>1,293</code> test functions mirroring <code>src/drawlib/</code> (<code>module_test_coverage_pct=100.0%</code>, <code>assertion_free_tests=[]</code>), autouse <code>preprocess()</code> Canvas reset + <code>pytest_runtest_call</code> pixel-match hook in <code>tests/conftest.py</code>, and cross-OS Python 3.11–3.13 CI matrix.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>16</strong></td>
+<td style="text-align:left"><strong><code>PASS</code></strong></td>
+<td style="text-align:left"><code>python/typing</code></td>
+<td style="text-align:left"><code>act-04</code></td>
+<td style="text-align:left">100.0% callable type-annotation coverage with zero unscoped <code>type: ignore</code> comments and clean static + runtime type verification.</td>
+<td style="text-align:left"><code>type_safety_coverage_pct=100.0%</code> across <code>1,958</code> functions, <code>unscoped_type_ignores=[]</code>, <code>0</code> <code>ty</code> static type errors, plus runtime <code>@validate_call</code> boundary validation.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>4.3 Consolidated Location Findings Index (<code>FIXED</code>, <code>WAIVED</code> &amp; <code>OPEN</code>)</h2>
+<p>Across all static AST, governance, Trivy SCA/IaC/secret, and air-gapped container runtime checks, the initial <strong>21 unique <code>file:line</code> locations</strong> now partition into <strong>4 <code>FIXED</code> in-tree remediations</strong> (<code>#1</code> <code>CRITICAL</code> Pillow lockfile, <code>#2</code> <code>HIGH</code> offline icon lookup, <code>#3</code> &amp; <code>#9</code> <code>HIGH</code>/<code>MEDIUM</code> Docker non-root <code>USER</code>), <strong>3 <code>WAIVED</code> architectural patterns</strong> in <code>.pni/pni.toml</code> (<code>#8</code> &amp; <code>#14</code> <code>CWE-94</code> <code>exec()</code>, <code>#18</code> <code>.gitignore</code> <code>uv.lock</code>), and <strong>14 <code>OPEN</code> polish locations</strong> (<code>0 CRITICAL</code>, <code>0 HIGH</code>, <code>4 MEDIUM</code>, <code>7 LOW</code>, <code>3 INFO</code>).</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="../images/04_standards_and_findings/ch04_consolidated_findings_overview.png" alt="04_standards_and_findings_2" />
+  <figcaption class="drawlib-caption">Consolidated Findings Resolution Breakdown (4 Fixed, 3 Waived, 14 Open) and Top Hotspots (#1–#9)</figcaption>
+</figure>
+<h3>Complete 21-Row Consolidated Location Findings Evidence Table</h3>
+<p>Every unique <code>file:line</code> location from the initial diagnostic is listed below with its current resolution status (<code>FIXED</code>, <code>WAIVED</code>, or <code>OPEN</code>), rule tags, diagnostic evidence, and remediation details.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">#</th>
+<th style="text-align:left">Status &amp; Initial Sev</th>
+<th style="text-align:left">Consolidated Location (<code>file:line</code>)</th>
+<th style="text-align:left">Symbol</th>
+<th style="text-align:left">Rule Tags</th>
+<th style="text-align:left">Verbatim Diagnostic Evidence</th>
+<th style="text-align:left">Verified Fix / Recommended Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>1</strong></td>
+<td style="text-align:left"><strong><code>FIXED</code></strong> <em>(was <code>CRITICAL</code>)</em></td>
+<td style="text-align:left"><code>uv.lock:1</code></td>
+<td style="text-align:left"><code>pillow@13.0.0</code></td>
+<td style="text-align:left"><code>common/security_vulnerability</code></td>
+<td style="text-align:left">Initial Trivy SCA (<code>SEC-01</code>) reported 41 application CVEs in <code>pillow@12.3.0</code> (<code>5 CRITICAL</code> CVSS 9.8, <code>23 HIGH</code>, <code>13 MEDIUM</code>), all fixed in <code>pillow 13.0.0</code>.</td>
+<td style="text-align:left"><strong>Fixed</strong>: Upgraded <code>pyproject.toml</code> to <code>pillow&gt;=13.0.0</code> and <code>uv.lock</code> to <code>13.0.0</code>; Trivy SCA verified <code>0</code> CVEs.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>2</strong></td>
+<td style="text-align:left"><strong><code>FIXED</code></strong> <em>(was <code>HIGH</code>)</em></td>
+<td style="text-align:left"><code>src/drawlib/_core/l3_external/_download.py:94</code></td>
+<td style="text-align:left"><code>download_if_not_exist</code></td>
+<td style="text-align:left"><code>common/runtime_verification</code></td>
+<td style="text-align:left"><code>12</code> <code>test_nonexistent_*_icon_error</code> tests failed under <code>--network=none</code> because <code>find_package_for_icon_path()</code> matched directory prefixes without checking <code>pkg.files</code>.</td>
+<td style="text-align:left"><strong>Fixed</strong>: <code>find_package_for_resource_path()</code> (<code>_release_assets.py</code>) and <code>resolve_png_icon_path()</code> (<code>png_icons/_base.py</code>) now check <code>pkg.files</code> before network I/O, raising <code>ValueError</code> immediately.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>3</strong></td>
+<td style="text-align:left"><strong><code>FIXED</code></strong> <em>(was <code>HIGH</code>)</em></td>
+<td style="text-align:left"><code>tools/docker/Dockerfile.prod:1</code></td>
+<td style="text-align:left"><code>Dockerfile.prod</code></td>
+<td style="text-align:left"><code>common/security_vulnerability</code></td>
+<td style="text-align:left">Initial Trivy <code>DS-0002</code> (<code>HIGH</code>) on <code>tools/docker/Dockerfile.{prod,test_local,test_pypi}</code>: <em>Specify at least 1 USER command in Dockerfile with non-root user</em>.</td>
+<td style="text-align:left"><strong>Fixed</strong>: Added <code>useradd -u 10001 drawlib</code> and <code>USER drawlib</code> across all Dockerfiles (<code>0</code> <code>DS-0002</code> findings).</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>4</strong></td>
+<td style="text-align:left"><strong><code>OPEN</code> (<code>MEDIUM</code>)</strong></td>
+<td style="text-align:left"><code>pyproject.toml:1</code></td>
+<td style="text-align:left"><code>supply_chain_governance</code></td>
+<td style="text-align:left"><code>common/supply_chain</code></td>
+<td style="text-align:left"><code>ProjectFacts</code>: <code>SECURITY.md=False</code>, <code>dependency_automation=False</code> (no <code>.github/dependabot.yml</code>); <code>.env</code> is excluded via <code>.gitignore</code>, <code>.dockerignore</code>, and <code>.pni/pni.toml</code>.</td>
+<td style="text-align:left">Add <code>SECURITY.md</code> (covering supported versions and the <code>exec()</code> trust boundary), add <code>.github/dependabot.yml</code> for <code>pip</code>/<code>uv</code> and <code>github-actions</code>, and adopt GitHub Actions OIDC Trusted Publishing.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>5</strong></td>
+<td style="text-align:left"><strong><code>OPEN</code> (<code>MEDIUM</code>)</strong></td>
+<td style="text-align:left"><code>src/drawlib/_builder/_common/browser.py:247</code></td>
+<td style="text-align:left"><code>launch_headless_chromium</code></td>
+<td style="text-align:left"><code>common/runtime_verification</code></td>
+<td style="text-align:left"><code>6</code> PPTX export tests (<code>tests/drawlib/cli/test_cli_build.py::test_cli_build_pptx</code> and <code>5</code> tests in <code>tests/drawlib/slide/test_pptx.py</code>) fail under <code>--network=none</code> when <code>chromium-headless-shell</code> is not pre-installed in <code>.pni/dockerfiles/Dockerfile</code>.</td>
+<td style="text-align:left">Pre-install <code>chromium-headless-shell</code> and OS dependencies in <code>.pni/dockerfiles/Dockerfile</code> for full offline PPTX/PDF coverage, and guard browser integration tests with a skip check when running offline without local Chromium binaries.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>6</strong></td>
+<td style="text-align:left"><strong><code>OPEN</code> (<code>MEDIUM</code>)</strong></td>
+<td style="text-align:left"><code>src/drawlib/_builder/doc_builder/exporter_docx.py:884</code></td>
+<td style="text-align:left"><code>export_chapters_to_docx</code></td>
+<td style="text-align:left"><code>common/maintainability</code></td>
+<td style="text-align:left"><code>exporter_docx.py</code> (<code>945</code> LOC) contains top cognitive-complexity routines <code>render_chapter</code> (<code>line 565</code>, <code>cognitive=174</code>, <code>283</code> lines), <code>_render_inline</code> (<code>line 301</code>, <code>cognitive=102</code>), and <code>export_chapters_to_docx</code> (<code>line 884</code>, <code>cognitive=46</code>, <code>202</code> lines).</td>
+<td style="text-align:left">Decompose <code>render_chapter</code> and <code>_render_inline</code> into per-token handler functions (heading, code fence, callout, list, table) dispatched via a token-type table.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>7</strong></td>
+<td style="text-align:left"><strong><code>OPEN</code> (<code>MEDIUM</code>)</strong></td>
+<td style="text-align:left"><code>src/drawlib/_builder/doc_builder/processor/options.py:93</code></td>
+<td style="text-align:left"><code>parse_block_info</code></td>
+<td style="text-align:left"><code>common/maintainability</code></td>
+<td style="text-align:left"><code>parse_block_info</code> (<code>length=74</code> lines, <code>branches=33</code>, <code>cognitive=106</code>) and <code>merger.py:142</code> <code>build_merged_html</code> (<code>length=260</code> lines, <code>branches=40</code>, <code>cognitive=87</code>) exceed SIG cognitive complexity <code>&lt;= 15</code>.</td>
+<td style="text-align:left">Extract per-attribute validators from <code>parse_block_info</code> and split TOC assembly, asset rewriting, and heading normalization out of <code>build_merged_html</code>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>8</strong></td>
+<td style="text-align:left"><strong><code>WAIVED</code> (<code>INFO</code>)</strong></td>
+<td style="text-align:left"><code>src/drawlib/_builder/doc_builder/processor/processor.py:121</code></td>
+<td style="text-align:left"><code>exec</code></td>
+<td style="text-align:left"><code>common/security_vulnerability</code></td>
+<td style="text-align:left"><code>5</code> <code>CWE-94</code> <code>exec()</code> call sites: <code>styles_loader.py:78,158</code>, <code>processor.py:121,123</code>, and <code>_image_code.py:54</code>.</td>
+<td style="text-align:left"><strong>Waived in <code>.pni/pni.toml</code></strong>: Intentional <em>Illustration as Code</em> execution model; isolate untrusted third-party Markdown in <code>--network=none</code> non-root containers.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>9</strong></td>
+<td style="text-align:left"><strong><code>FIXED</code></strong> <em>(was <code>MEDIUM</code>)</em></td>
+<td style="text-align:left"><code>tools/docker/Dockerfile.prod:42</code></td>
+<td style="text-align:left"><code>Dockerfile.prod</code></td>
+<td style="text-align:left"><code>common/supply_chain</code></td>
+<td style="text-align:left"><code>tools/docker/Dockerfile.prod</code> previously installed <code>drawlib</code> into <code>python:3.12-slim</code> without switching to a non-root <code>USER</code>.</td>
+<td style="text-align:left"><strong>Fixed</strong>: Configured <code>/opt/ms-playwright</code>, <code>/opt/drawlib-cache</code>, and <code>USER drawlib</code> (<code>UID 10001</code>) before <code>WORKDIR /workspace</code>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>10</strong></td>
+<td style="text-align:left"><strong><code>OPEN</code> (<code>LOW</code>)</strong></td>
+<td style="text-align:left"><code>.github/workflows/quality.yml:1</code></td>
+<td style="text-align:left"><code>quality.yml</code></td>
+<td style="text-align:left"><code>common/supply_chain</code></td>
+<td style="text-align:left"><code>ProjectFacts.has_dependency_automation == False</code> (no <code>.github/dependabot.yml</code> or <code>renovate.json</code> found).</td>
+<td style="text-align:left">Add <code>.github/dependabot.yml</code> covering <code>pip</code>/<code>uv</code> and <code>github-actions</code> ecosystems on a weekly or monthly schedule.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>11</strong></td>
+<td style="text-align:left"><strong><code>OPEN</code> (<code>LOW</code>)</strong></td>
+<td style="text-align:left"><code>.github/workflows/quality.yml:20</code></td>
+<td style="text-align:left"><code>quality.yml</code></td>
+<td style="text-align:left"><code>common/supply_chain</code></td>
+<td style="text-align:left"><code>uses: actions/checkout@v4</code> (<code>line 20</code>), <code>astral-sh/setup-uv@v5</code> (<code>line 23</code>), and <code>actions/setup-python@v5</code> (<code>line 28</code>) across <code>.github/workflows/*.yml</code>.</td>
+<td style="text-align:left">Pin third-party GitHub Actions (especially <code>astral-sh/setup-uv</code>) to full 40-character commit SHAs with version comments and keep them updated via Dependabot.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>12</strong></td>
+<td style="text-align:left"><strong><code>OPEN</code> (<code>LOW</code>)</strong></td>
+<td style="text-align:left"><code>src/drawlib/_builder/_common/browser.py:210</code></td>
+<td style="text-align:left"><code>install_headless_chromium</code></td>
+<td style="text-align:left"><code>common/production_readiness</code></td>
+<td style="text-align:left"><code>subprocess.run([str(exec_path), str(cli_path), *_INSTALL_ARGS], ...)</code> at <code>browser.py:210</code> omits an explicit <code>timeout=...</code> argument.</td>
+<td style="text-align:left">Pass an explicit timeout (e.g., <code>timeout=300</code>) to <code>subprocess.run()</code> in <code>install_headless_chromium()</code> and translate <code>subprocess.TimeoutExpired</code> into an actionable <code>RuntimeError</code>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>13</strong></td>
+<td style="text-align:left"><strong><code>OPEN</code> (<code>LOW</code>)</strong></td>
+<td style="text-align:left"><code>src/drawlib/_core/l1_core/_settings.py:123</code></td>
+<td style="text-align:left"><code>DrawlibSettings</code></td>
+<td style="text-align:left"><code>common/library_guidelines</code></td>
+<td style="text-align:left"><code>sys.exit(1)</code> called directly in <code>src/drawlib/_core/l1_core/_settings.py</code> (<code>lines 123, 297, 304, 313</code>) and <code>src/drawlib/_builder/doc_builder/processor/viewer.py</code> (<code>lines 189, 193, 245</code>).</td>
+<td style="text-align:left">Raise <code>ValueError</code> or a dedicated <code>DrawlibError</code> subclass in <code>_settings.py</code> and <code>viewer.py</code>, and translate those exceptions to exit code <code>1</code> solely in <code>_cli/_drawlib.py:call_command</code>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>14</strong></td>
+<td style="text-align:left"><strong><code>WAIVED</code> (<code>INFO</code>)</strong></td>
+<td style="text-align:left"><code>src/drawlib/_core/l4_canvas/_image_code.py:54</code></td>
+<td style="text-align:left"><code>get_dimage_from_code</code></td>
+<td style="text-align:left"><code>common/security_vulnerability</code></td>
+<td style="text-align:left"><code>5</code> <code>CWE-94</code> <code>exec()</code> call sites: <code>styles_loader.py:78,158</code>, <code>processor.py:121,123</code>, and <code>_image_code.py:54</code>.</td>
+<td style="text-align:left"><strong>Waived in <code>.pni/pni.toml</code></strong>: Subprocess <code>exec()</code> for nested <code>get_dimage_from_code()</code> rendering.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>15</strong></td>
+<td style="text-align:left"><strong><code>OPEN</code> (<code>LOW</code>)</strong></td>
+<td style="text-align:left"><code>src/drawlib/_diagrams/architecture/_edge.py:1</code></td>
+<td style="text-align:left"><code>Edge</code></td>
+<td style="text-align:left"><code>common/architecture</code></td>
+<td style="text-align:left"><code>AstFacts.circular_dependencies</code> = <code>[['drawlib._diagrams.architecture._edge', 'drawlib._diagrams.architecture._junction', 'drawlib._diagrams.architecture._edge'], ['drawlib._diagrams.flow._edge', 'drawlib._diagrams.flow._junction', 'drawlib._diagrams.flow._edge']]</code>.</td>
+<td style="text-align:left">Move runtime cross-type checks to a shared <code>_types.py</code> protocol/base class and guard concrete sibling imports under <code>if TYPE_CHECKING:</code>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>16</strong></td>
+<td style="text-align:left"><strong><code>OPEN</code> (<code>LOW</code>)</strong></td>
+<td style="text-align:left"><code>src/drawlib/_slide/_pptx_writer.py:81</code></td>
+<td style="text-align:left"><code>write_pptx</code></td>
+<td style="text-align:left"><code>common/runtime_verification</code></td>
+<td style="text-align:left">Lowest covered non-generated modules: <code>src/drawlib/__main__.py</code> (<code>0.0%</code>), <code>src/drawlib/_slide/_pptx_writer.py</code> (<code>11.1%</code> line / <code>0.0%</code> branch), <code>src/drawlib/_icons/__init__.py</code> (<code>33.3%</code>), <code>src/drawlib/_builder/doc_builder/compiler/pdf.py</code> (<code>52.2%</code>), and <code>src/drawlib/_slide/_pptx_dom.py</code> (<code>58.6%</code>).</td>
+<td style="text-align:left">Add direct unit tests for <code>_pptx_writer.py</code> OpenXML shape/table generation using synthetic <code>PptxSlide</code> DOM fixtures (decoupled from Playwright) plus lightweight CLI <code>__main__</code> and icon <code>__getattr__</code> error-path tests.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>17</strong></td>
+<td style="text-align:left"><strong><code>OPEN</code> (<code>LOW</code>)</strong></td>
+<td style="text-align:left"><code>tests/drawlib/doc_builder/test_api_docs_completeness.py:31</code></td>
+<td style="text-align:left"><code>test_python_public_api_100_percent_documented</code></td>
+<td style="text-align:left"><code>python/testing</code></td>
+<td style="text-align:left"><code>test_api_docs_completeness.py:31</code> reads <code>REPO_ROOT / 'docs_src' / 'api'</code>, whereas root <code>.dockerignore</code> ignores <code>docs_src/</code> and <code>tools/docker/Dockerfile.test_local</code> removes <code>./docs_src</code>.</td>
+<td style="text-align:left">Unignore <code>docs_src/api/</code> in <code>.dockerignore</code> + <code>COPY docs_src/api/</code> in <code>Dockerfile.test_local</code>, or call <code>pytest.skip('docs_src/api not present in packaged test environment')</code> when <code>API_DOCS_DIR</code> is absent.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>18</strong></td>
+<td style="text-align:left"><strong><code>WAIVED</code> (<code>INFO</code>)</strong></td>
+<td style="text-align:left"><code>.gitignore:182</code></td>
+<td style="text-align:left"><code>uv.lock</code></td>
+<td style="text-align:left"><code>python/dependencies</code></td>
+<td style="text-align:left"><code>.gitignore</code> excludes <code>uv.lock</code> while <code>uv.lock</code> is generated locally for SCA (<code>lockfiles_found=['uv.lock']</code>).</td>
+<td style="text-align:left"><strong>Waived in <code>.pni/pni.toml</code></strong> (<code>python/lockfile_committed</code>): Intentional Python library policy to test cross-version resolution across Python 3.11–3.13 in CI.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>19</strong></td>
+<td style="text-align:left"><strong><code>OPEN</code> (<code>INFO</code>)</strong></td>
+<td style="text-align:left"><code>src/drawlib/_builder/_common/browser.py:40</code></td>
+<td style="text-align:left"><code>launch_headless_chromium</code></td>
+<td style="text-align:left"><code>common/library_guidelines</code></td>
+<td style="text-align:left"><code>scattered_env_access=9</code> across <code>browser.py:40,45,48</code>, <code>cache.py:516,518</code>, <code>office.py:40</code>, <code>exporter_pdf.py:31</code>, <code>viewer.py:161</code>, and <code>rules_builder.py:174</code>; <code>unstructured_logging=30</code> <code>print()</code> calls in <code>_builder/</code>.</td>
+<td style="text-align:left">Centralize <code>DRAWLIB_*</code> environment resolution in a typed builder config helper and route non-CLI diagnostic output through <code>drawlib</code>'s logger.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>20</strong></td>
+<td style="text-align:left"><strong><code>OPEN</code> (<code>INFO</code>)</strong></td>
+<td style="text-align:left"><code>src/drawlib/_cli/_drawlib.py:38</code></td>
+<td style="text-align:left"><code>main_callback</code></td>
+<td style="text-align:left"><code>common/cli_guidelines</code></td>
+<td style="text-align:left"><code>typer.Typer(..., add_completion=False)</code> in <code>src/drawlib/_cli/_drawlib.py:38</code> and progress <code>print()</code> statements in <code>src/drawlib/_builder/_common/progress.py:138</code> writing to <code>stdout</code>.</td>
+<td style="text-align:left">Consider enabling optional shell completion or routing human progress messages to <code>stderr</code> if future subcommands emit machine-parseable JSON to <code>stdout</code>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>21</strong></td>
+<td style="text-align:left"><strong><code>OPEN</code> (<code>INFO</code>)</strong></td>
+<td style="text-align:left"><code>src/drawlib/_smartarts/_mindmap.py:93</code></td>
+<td style="text-align:left"><code>MindMapNode</code></td>
+<td style="text-align:left"><code>python/code_quality</code></td>
+<td style="text-align:left"><code>missing_docstrings=12</code> across fluent setter methods on <code>MindMapNode</code> (<code>_mindmap.py:93–156</code>), <code>TreeNode</code> (<code>_tree.py:86</code>), and <code>BulletPoints</code> (<code>_bulletpoints.py:48</code>).</td>
+<td style="text-align:left">Add concise Google-style one-line docstrings to fluent builder methods in <code>_mindmap.py</code>, <code>_tree.py</code>, and <code>_bulletpoints.py</code> to reach <code>100.0%</code> docstring coverage.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>4.4 Configured Scan Scope &amp; Accepted Design Waivers (<code>.pni/pni.toml</code>)</h2>
+<p>Project-level diagnostic policy is governed declaratively in <code>.pni/pni.toml</code>, separating genuine security/runtime defects from intentional architectural design choices:</p>
+<ul>
+<li><strong>Scan Scope (<code>[scan]</code>)</strong>: Excludes untracked developer environment files (<code>skip_files = [&quot;.env&quot;, &quot;.env.*&quot;, &quot;**/.env&quot;]</code>) and generated documentation/artifact directories (<code>skip_dirs = [&quot;reports&quot;, &quot;docs&quot;, &quot;docs_src&quot;, &quot;output_tests&quot;, &quot;.drawlib&quot;, &quot;.agents&quot;]</code>) while keeping <code>uv.lock</code> included for Trivy SCA vulnerability auditing.</li>
+<li><strong>Explicit Architectural Opt-Outs (<code>[[opt_out]]</code>)</strong>:</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Waiver ID (<code>id</code>)</th>
+<th style="text-align:left">Scoped Paths (<code>paths</code>)</th>
+<th style="text-align:left">Audit Step / Scanner</th>
+<th style="text-align:left">Documented Engineering Rationale (<code>reason</code>)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong><code>CWE-94</code></strong></td>
+<td style="text-align:left"><code>styles_loader.py</code>, <code>processor.py</code>, <code>_image_code.py</code></td>
+<td style="text-align:left"><code>ast_analyze</code> / <code>security_vulnerability_audit</code></td>
+<td style="text-align:left">Drawlib is an <em>&quot;Illustration as Code&quot;</em> engine that intentionally executes user-authored Python diagram blocks, <code>styles.py</code>, and <code>utils.py</code> via <code>exec()</code>, analogous to Jupyter, Quarto, and Sphinx code directives. Untrusted third-party Markdown should be rendered inside an isolated <code>--network=none</code> container (<code>USER drawlib</code>, <code>UID 10001</code>).</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>DS-0026</code></strong></td>
+<td style="text-align:left"><code>tools/docker/Dockerfile.*</code></td>
+<td style="text-align:left"><code>security_scan</code> (Trivy IaC, <code>opt_out_counts=3</code>)</td>
+<td style="text-align:left"><code>tools/docker/Dockerfile.prod</code>, <code>Dockerfile.test_local</code>, and <code>Dockerfile.test_pypi</code> package ephemeral batch CLI and <code>pytest</code> containers (<code>CMD [&quot;drawlib&quot;, &quot;--help&quot;]</code>) rather than long-running network daemons; container <code>HEALTHCHECK</code> instructions are not applicable.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>python/lockfile_committed</code></strong></td>
+<td style="text-align:left"><code>.gitignore</code>, <code>uv.lock</code></td>
+<td style="text-align:left"><code>project_inspect</code> / <code>repo_structure_audit</code></td>
+<td style="text-align:left">As a cross-version Python library supporting Python <code>3.11</code>, <code>3.12</code>, and <code>3.13</code>, <code>drawlib</code> intentionally excludes <code>uv.lock</code> from Git so CI resolves the latest compatible dependency matrix across Python minor versions, while generating <code>uv.lock</code> locally during PNI security audits.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>ast/private_submodule_import</code></strong></td>
+<td style="text-align:left"><code>src/drawlib/**</code></td>
+<td style="text-align:left"><code>ast_analyze</code> / <code>python_ast_audit</code></td>
+<td style="text-align:left">Drawlib encapsulates all internal implementation packages under leading-underscore names (<code>_core</code>, <code>_charts</code>, <code>_diagrams</code>, <code>_smartarts</code>, <code>_graph</code>, <code>_icons</code>, <code>_builder</code>, <code>_slide</code>, <code>_cli</code>) behind 20 PEP 562 lazy public facade modules (<code>drawlib/*.py</code>). Cross-subpackage imports within <code>src/drawlib/</code> must import from these <code>_</code> packages to preserve downward DAG layering (<code>L1 -&gt; L4 -&gt; Domains -&gt; Facades</code>).</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>ast/excessive_parameters</code></strong></td>
+<td style="text-align:left"><code>_charts/**</code>, <code>_smartarts/**</code>, <code>_diagrams/**</code>, <code>_core/l4_canvas/**</code></td>
+<td style="text-align:left"><code>ast_analyze</code> / <code>python_ast_audit</code></td>
+<td style="text-align:left">High-level declarative drawing APIs (<code>Chart</code>, <code>SmartArt</code>, <code>Diagram</code>, and <code>shapes</code>/<code>lines</code>/<code>text</code>) intentionally expose explicit keyword-only (<code>*</code>) styling, typography, and layout parameters with <code>@validate_call</code> type checking for ergonomic single-call authoring and IDE autocompletion.</td>
+</tr>
+</tbody>
+</table>
+
+</section>
+
+<section id="chapter-6-05_code_and_runtime_analysis" class="doc-chapter pdf-chapter">
+<h1>5. Deep Dive: Code Quality, Testing &amp; Runtime</h1>
+<p>Drawlib v0.3.5 pairs 100.0% static function type-annotation coverage and 99.3% Google-style docstring discipline across 424 source modules (<code>85,323</code> LOC) with an 86.3% line-covered test suite—and following in-tree <code>pkg.files</code> validation for offline icon lookups, hermetic <code>--network=none</code> container verification achieves a <strong>99.5% offline pass rate (<code>1,405 / 1,412</code>)</strong>, leaving only localized DOCX/Markdown compiler complexity and pre-baked Playwright browser caching for <code>.pptx</code> tests.</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="../images/05_code_and_runtime_analysis/ch05_module_fitness_heatmap.png" alt="05_code_and_runtime_analysis_1" />
+  <figcaption class="drawlib-caption">Figure 5.1 — Subsystem × Quality Dimension Fitness Matrix highlighting core typing/docstring uniformity versus localized DOCX complexity and offline PPTX coverage gaps.</figcaption>
+</figure>
+<hr />
+<h2>5.1 Static AST Code Quality, Typing &amp; Maintainability</h2>
+<p>PNI's Python AST audit (<code>python_ast_audit</code>: <strong>92/100, Grade S</strong>) inspected all <code>424</code> non-generated source modules (<code>85,323</code> LOC, <code>300</code> classes, and <code>1,958</code> functions/methods; <code>**/*_generated.py</code> icon wrappers excluded from human-authored AST lint). Across core layers (<code>_core/l1_core</code> through <code>_core/l4_canvas</code>) and domain packages (<code>_charts</code>, <code>_diagrams</code>, <code>_smartarts</code>, <code>_graph</code>, <code>_icons</code>, <code>_anim</code>), static hygiene is unusually disciplined:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Static Quality &amp; Maintainability Metric</th>
+<th style="text-align:center">Measured Value</th>
+<th style="text-align:center">Rule Threshold / Target</th>
+<th style="text-align:left">Status &amp; Engineering Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Function Type-Annotation Coverage</strong></td>
+<td style="text-align:center"><strong><code>100.0%</code></strong> (<code>1,958/1,958</code>)</td>
+<td style="text-align:center"><code>&gt;= 95.0%</code> (<code>python/typing</code>)</td>
+<td style="text-align:left"><strong>PASS</strong> — <code>src/drawlib/py.typed</code> (PEP 561), <code>0</code> unscoped <code># type: ignore</code>, <code>0</code> <code>ty</code> errors, and runtime Pydantic <code>@validate_call</code> boundary checks.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Docstring Coverage</strong></td>
+<td style="text-align:center"><strong><code>99.3%</code></strong></td>
+<td style="text-align:center"><code>&gt;= 90.0%</code> (<code>python/code_quality</code>)</td>
+<td style="text-align:left"><strong>PASS</strong> — <code>0</code> empty docstrings; only <code>12</code> fluent builder setters in <code>_mindmap.py</code> (<code>9</code>), <code>_tree.py</code> (<code>3</code>), and <code>_bulletpoints.py</code> (<code>1</code>—<code>style</code>) omit one-liners.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Import Hygiene &amp; Dependency Parity</strong></td>
+<td style="text-align:center"><strong><code>99.3%</code></strong></td>
+<td style="text-align:center"><code>&gt;= 95.0%</code> (<code>python/modern_stack</code>)</td>
+<td style="text-align:left"><strong>PASS</strong> — <code>0</code> wildcard imports, <code>0</code> undeclared dependencies, <code>0</code> Python <code>&gt;=3.11</code> version mismatches, and <code>3</code> minor <code>isort</code> member-order notices.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Shared Mutable Global State</strong></td>
+<td style="text-align:center"><strong><code>0</code></strong></td>
+<td style="text-align:center"><code>0</code> (<code>common/maintainability</code>)</td>
+<td style="text-align:left"><strong>PASS</strong> — Canvas lifecycle state is encapsulated inside <code>_core/l4_canvas/_base.py</code> and reset cleanly per render/test.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Cross-Layer &amp; Sibling Import Cycles</strong></td>
+<td style="text-align:center"><strong><code>2</code> sibling (<code>0</code> layer)</strong></td>
+<td style="text-align:center"><code>0</code> (<code>common/architecture</code>)</td>
+<td style="text-align:left"><strong>WARN</strong> — <code>40</code> type-only cycles are isolated under <code>if TYPE_CHECKING:</code>; <code>2</code> sibling runtime cycles remain (<code>_edge.py &lt;-&gt; _junction.py</code> in <code>architecture</code> and <code>flow</code>).</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>High-Complexity Functions (<code>&gt; 15</code>)</strong></td>
+<td style="text-align:center"><strong><code>399</code></strong></td>
+<td style="text-align:center"><code>&lt;= 15</code> cognitive (<code>SIG</code>)</td>
+<td style="text-align:left"><strong>WARN</strong> — Concentrated in Markdown/OpenXML AST walkers (<code>exporter_docx.py</code>, <code>options.py</code>, <code>merger.py</code>) and rich border/layout solvers.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Wide Parameter Signatures (<code>&gt; 6</code> args)</strong></td>
+<td style="text-align:center"><strong><code>330</code> (<code>WAIVED</code>)</strong></td>
+<td style="text-align:center"><code>&lt;= 6</code> positional (<code>SIG</code>)</td>
+<td style="text-align:left"><strong>WAIVED (<code>.pni/pni.toml</code>)</strong> — Intentional declarative keyword-only (<code>*</code>) styling, typography, and axis configuration APIs across Charts and SmartArts.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>12-Factor Operational Hygiene</strong></td>
+<td style="text-align:center"><strong><code>0</code> missing HTTP timeouts</strong></td>
+<td style="text-align:center"><code>common/production_readiness</code></td>
+<td style="text-align:left"><strong>PASS / INFO</strong> — <code>urllib.request.urlopen(..., timeout=60)</code> in <code>_package.py:165</code>; <code>9</code> direct <code>os.environ</code> reads and <code>30</code> <code>print()</code> calls remain in <code>_builder/</code>.</td>
+</tr>
+</tbody>
+</table>
+<h3>Top Cognitive-Complexity Hotspots (<code>common/maintainability</code>)</h3>
+<p>While foundational geometry and canvas primitives stay compact, multi-format document compilation accumulates deep nested branching when walking <code>markdown-it-py</code> token streams and emitting OpenXML (<code>python-docx</code>) or merged single-file HTML:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">File &amp; Line</th>
+<th style="text-align:left">Function / Method</th>
+<th style="text-align:center">Lines</th>
+<th style="text-align:center">Branches</th>
+<th style="text-align:center">Cognitive Complexity</th>
+<th style="text-align:left">Primary Responsibility &amp; Decomposition Strategy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>src/drawlib/_builder/doc_builder/exporter_docx.py:565</code></td>
+<td style="text-align:left"><code>render_chapter</code></td>
+<td style="text-align:center"><code>283</code></td>
+<td style="text-align:center"><code>55</code></td>
+<td style="text-align:center"><strong><code>174</code></strong></td>
+<td style="text-align:left">Monolithic Markdown token-stream loop emitting headings, callouts, lists, code fences, images, and tables; split into a per-token dispatch table.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>src/drawlib/_builder/doc_builder/processor/options.py:93</code></td>
+<td style="text-align:left"><code>parse_block_info</code></td>
+<td style="text-align:center"><code>74</code></td>
+<td style="text-align:center"><code>33</code></td>
+<td style="text-align:center"><strong><code>106</code></strong></td>
+<td style="text-align:left">Parses <code>```drawlib</code> fence attributes (<code>file</code>, <code>width</code>, <code>align</code>, <code>code</code>, <code>caption</code>); extract per-key validator functions.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>src/drawlib/_builder/doc_builder/exporter_docx.py:301</code></td>
+<td style="text-align:left"><code>_render_inline</code></td>
+<td style="text-align:center"><code>124</code></td>
+<td style="text-align:center"><code>36</code></td>
+<td style="text-align:center"><strong><code>102</code></strong></td>
+<td style="text-align:left">Inline formatting state machine (<code>strong</code>, <code>em</code>, <code>code_inline</code>, <code>link</code>, math/HTML spans); extract dedicated span handlers.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>src/drawlib/_builder/doc_builder/merger.py:142</code></td>
+<td style="text-align:left"><code>build_merged_html</code></td>
+<td style="text-align:center"><code>260</code></td>
+<td style="text-align:center"><code>40</code></td>
+<td style="text-align:center"><strong><code>87</code></strong></td>
+<td style="text-align:left">Multi-chapter HTML concatenation, heading-level shifting, anchor rewriting, and TOC synthesis; separate into discrete AST passes.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>src/drawlib/_smartarts/_table.py:490</code></td>
+<td style="text-align:left"><code>_draw_border_lines</code></td>
+<td style="text-align:center"><code>96</code></td>
+<td style="text-align:center"><code>32</code></td>
+<td style="text-align:center"><strong><code>74</code></strong></td>
+<td style="text-align:left">Resolves outer (<code>top</code>, <code>bottom</code>, <code>left</code>, <code>right</code>), header (<code>top2</code>, <code>left2</code>), and inner grid strokes; separate perimeter vs inner-grid helpers.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>src/drawlib/_builder/doc_builder/exporter_docx.py:426</code></td>
+<td style="text-align:left"><code>_emit_table</code></td>
+<td style="text-align:center"><code>100</code></td>
+<td style="text-align:center"><code>20</code></td>
+<td style="text-align:center"><strong><code>57</code></strong></td>
+<td style="text-align:left">Converts Markdown tables into OpenXML <code>&lt;w:tbl&gt;</code> structures with column alignments and cell shading.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>src/drawlib/_builder/_common/seo.py:205</code></td>
+<td style="text-align:left"><code>extract_markdown_description</code></td>
+<td style="text-align:center"><code>77</code></td>
+<td style="text-align:center"><code>20</code></td>
+<td style="text-align:center"><strong><code>46</code></strong></td>
+<td style="text-align:left">Strips fences, directives, headings, and inline markup to synthesize clean meta/OGP page descriptions.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>src/drawlib/_builder/doc_builder/exporter_docx.py:884</code></td>
+<td style="text-align:left"><code>export_chapters_to_docx</code></td>
+<td style="text-align:center"><code>202</code></td>
+<td style="text-align:center"><code>23</code></td>
+<td style="text-align:center"><strong><code>46</code></strong></td>
+<td style="text-align:left">Orchestrates cover page, TOC field generation, chapter assembly, and deterministic OPC zip timestamp normalization.</td>
+</tr>
+</tbody>
+</table>
+<h3>Library vs. CLI Boundary Hygiene (<code>common/library_guidelines</code>: <strong>91/100, Grade S</strong>)</h3>
+<p><code>src/drawlib/__init__.py</code> implements <strong>PEP 562 lazy <code>__getattr__</code> loading</strong>, ensuring <code>import drawlib</code> executes in milliseconds with zero heavy Matplotlib/Playwright initialization or network side effects. Two minor boundary couplings merit cleanup in <code>P2</code>:</p>
+<ol>
+<li><strong>Library-Level <code>sys.exit(1)</code> Calls</strong>: <code>src/drawlib/_core/l1_core/_settings.py</code> (lines <code>123</code>, <code>297</code>, <code>304</code>, <code>313</code>) and <code>src/drawlib/_builder/doc_builder/processor/viewer.py</code> (lines <code>189</code>, <code>193</code>, <code>245</code>) invoke <code>sys.exit(1)</code> directly instead of raising <code>ValueError</code> or a typed <code>DrawlibError</code> caught solely at <code>src/drawlib/_cli/_drawlib.py:call_command</code>.</li>
+<li><strong>Subprocess Timeout &amp; Environment Centralization</strong>: <code>install_headless_chromium()</code> at <code>src/drawlib/_builder/_common/browser.py:210</code> invokes <code>subprocess.run(...)</code> without an explicit <code>timeout=300</code> guard, and <code>9</code> direct <code>os.environ</code> lookups across <code>_builder/_common/{browser.py,cache.py,office.py}</code>, <code>exporter_pdf.py</code>, <code>viewer.py</code>, and <code>rules_builder.py</code> should be consolidated into a typed builder settings helper.</li>
+</ol>
+<hr />
+<h2>5.2 Clean-Room Container Verification &amp; Measured Coverage</h2>
+<p>Static test analysis (<code>python_test_audit</code>: <strong>93/100, Grade S</strong>) confirmed <code>150</code> test modules and <code>1,293</code> test functions (<code>1,420</code> collected pytest items with parametrization) achieving <strong>100.0% static module mirror coverage</strong> and <strong>zero assertion-free tests</strong>—enforced by <code>tests/conftest.py</code>, which resets canvas state via an <code>autouse</code> <code>preprocess()</code> fixture and intercepts <code>pytest_runtest_call</code> to verify rendered outputs pixel-for-pixel against <code>*_answers/*.png</code> baselines.</p>
+<p>PNI executed <strong>4 containerized runtime verification stages</strong> (<code>container_runtime_audit</code>: <strong>88/100, Grade A</strong>) inside <code>.pni/dockerfiles/Dockerfile</code> (<code>python:3.12</code> + <code>uv</code>, <code>pytest-cov</code>) with external networking completely disabled (<code>--network=none</code>) during test execution:</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="../images/05_code_and_runtime_analysis/ch05_runtime_coverage_breakdown.png" alt="05_code_and_runtime_analysis_2" />
+  <figcaption class="drawlib-caption">Figure 5.2 — Hermetic container runtime verification KPIs (RV-01 through RV-04) and lowest-covered non-generated modules under --network=none.</figcaption>
+</figure>
+<h3>Lowest-Covered Modules Inventory (<code>RV-03</code>: <code>86.3%</code> Line, <code>75.5%</code> Branch)</h3>
+<p>Across all <code>43,108</code> executable statements in <code>src/drawlib/</code>, <code>pytest-cov</code> recorded <code>37,221</code> covered lines (<code>86.3%</code>) and <code>75.5%</code> branch coverage. All modules below <code>60%</code> line coverage fall into three well-defined buckets: (1) CLI <code>python -m drawlib</code> entry wrapper (<code>__main__.py</code>), (2) Playwright/OpenXML exporters blocked when headless Chromium is absent offline (<code>_pptx_writer.py</code>, <code>compiler/pdf.py</code>, <code>_pptx_dom.py</code>), and (3) lazy icon <code>__getattr__</code> facades plus auto-generated <code>*_generated.py</code> icon wrappers (<code>51.6%</code>–<code>58.2%</code>, where unit tests sample representative icons rather than invoking all 4,500+ bindings):</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Module Path (Sorted Ascending by Line Coverage)</th>
+<th style="text-align:center">Line Coverage</th>
+<th style="text-align:center">Branch Coverage</th>
+<th style="text-align:center">Covered / Total Stmts</th>
+<th style="text-align:left">Primary Uncovered Lines &amp; Root Cause</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>src/drawlib/__main__.py</code></td>
+<td style="text-align:center"><strong><code>0.0%</code></strong></td>
+<td style="text-align:center"><code>0.0%</code></td>
+<td style="text-align:center"><code>0 / 6</code></td>
+<td style="text-align:left">Lines <code>12–23</code>: <code>python -m drawlib</code> wrapper not invoked directly by CLI runner tests (<code>CliRunner</code> invokes Typer app directly).</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>src/drawlib/_slide/_pptx_writer.py</code></td>
+<td style="text-align:center"><strong><code>11.1%</code></strong></td>
+<td style="text-align:center"><code>0.0%</code></td>
+<td style="text-align:center"><code>35 / 314</code></td>
+<td style="text-align:left">Lines <code>81–90+</code>: OpenXML shape/table/notes emitter bypassed offline because upstream <code>extract_deck_dom()</code> failed launching Chromium.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>src/drawlib/_icons/__init__.py</code></td>
+<td style="text-align:center"><strong><code>33.3%</code></strong></td>
+<td style="text-align:center"><code>0.0%</code></td>
+<td style="text-align:center"><code>7 / 21</code></td>
+<td style="text-align:left">Lines <code>99–109</code>: Lazy <code>__getattr__</code> fallback branches and <code>AttributeError</code> paths on internal icon package root.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>src/drawlib/_icons/font_icons/__init__.py</code></td>
+<td style="text-align:center"><strong><code>37.5%</code></strong></td>
+<td style="text-align:center"><code>0.0%</code></td>
+<td style="text-align:center"><code>6 / 16</code></td>
+<td style="text-align:left">Lines <code>24–38</code>: Lazy attribute resolution and <code>dir()</code> introspection helpers.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>src/drawlib/_icons/png_icons/__init__.py</code></td>
+<td style="text-align:center"><strong><code>50.0%</code></strong></td>
+<td style="text-align:center"><code>0.0%</code></td>
+<td style="text-align:center"><code>6 / 12</code></td>
+<td style="text-align:left">Lines <code>57–66</code>: Lazy PNG icon suite loader error/fallback branches.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>src/drawlib/_icons/font_icons/phosphor/_generated.py</code></td>
+<td style="text-align:center"><strong><code>51.6%</code></strong></td>
+<td style="text-align:center"><code>N/A</code></td>
+<td style="text-align:center"><code>1,580 / 3,064</code></td>
+<td style="text-align:left">Auto-generated Phosphor glyph wrappers (representative subset exercised by visual tests).</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>src/drawlib/_icons/png_icons/aws/_generated.py</code></td>
+<td style="text-align:center"><strong><code>51.6%</code></strong></td>
+<td style="text-align:center"><code>N/A</code></td>
+<td style="text-align:center"><code>342 / 663</code></td>
+<td style="text-align:left">Auto-generated AWS architecture icon wrappers (<code>azure/_generated.py</code> <code>52.1%</code>, <code>gcp/_generated.py</code> <code>52.7%</code>).</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>src/drawlib/_builder/doc_builder/compiler/pdf.py</code></td>
+<td style="text-align:center"><strong><code>52.2%</code></strong></td>
+<td style="text-align:center"><code>38.9%</code></td>
+<td style="text-align:center"><code>47 / 90</code></td>
+<td style="text-align:left">Lines <code>51, 97–115</code>: Multi-locale and error-handling branches in A4 PDF compilation.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>src/drawlib/_slide/_pptx_dom.py</code></td>
+<td style="text-align:center"><strong><code>58.6%</code></strong></td>
+<td style="text-align:center"><code>4.0%</code></td>
+<td style="text-align:center"><code>139 / 237</code></td>
+<td style="text-align:left">Lines <code>989–1011</code>: In-browser Playwright DOM bounding-box extraction aborted before Chromium page evaluation.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>5.3 Root-Cause Analysis: Two Authentic Bugs Uncovered by <code>--network=none</code></h2>
+<p>Online GitHub Actions runners mask unintended live network dependencies because outbound HTTPS requests to <code>github.com</code> and <code>cdn.playwright.dev</code> succeed transparently. Running <code>pytest</code> inside an air-gapped <code>--network=none</code> container surfaced <strong>two genuine architectural defects</strong>:</p>
+<h3>Bug A (<code>RESOLVED</code>) — Negative Icon Tests Triggered Live HTTPS Archive Downloads (<code>12</code> Icon Failures Fixed)</h3>
+<p>Twelve negative icon tests (<code>test_nonexistent_*_icon_error</code>) pass an intentionally bogus icon filename under a valid suite directory (such as <code>icons/ai/nonexistent_icon.png</code>) and assert that Drawlib raises a missing-file error. Previously, the lookup chain triggered a live HTTPS archive download:</p>
+<ol>
+<li><code>find_package_for_icon_path()</code> in <code>src/drawlib/_release_assets.py</code> extracted only the top-level directory segment (<code>family = normalized.split(&quot;/&quot;)[0]</code>, e.g., <code>icon_ai</code>) and returned the <code>ReleaseAssetPackage</code> <strong>without checking whether the requested relative path existed in <code>pkg.files</code></strong>.</li>
+<li><code>resolve_png_icon_path()</code> in <code>src/drawlib/_icons/png_icons/_base.py</code> then called <code>download_if_not_exist()</code>, attempting to download <code>https://github.com/yuichi110/drawlib/releases/download/v0.3/icon_&lt;suite&gt;.zip</code> just to discover after extraction that <code>nonexistent_icon.png</code> was never in the archive.</li>
+<li><strong>In-Tree Fix (<code>COMPLETED</code>)</strong>: <code>find_package_for_resource_path()</code> and <code>find_package_for_icon_path()</code> in <code>src/drawlib/_release_assets.py</code> now verify <code>normalized in pkg.files</code> before returning a package, and <code>resolve_png_icon_path()</code> in <code>src/drawlib/_icons/png_icons/_base.py</code> checks <code>find_package_for_icon_path(rel_path) is None</code> before calling <code>download_if_not_exist()</code>, immediately raising <code>ValueError(f'Icon &quot;{file_name}&quot; not found in &quot;{category}&quot; icon set.')</code> with zero network I/O. All <code>12</code> negative icon tests (<code>#2–#13</code> below) now pass offline in <code>&lt; 1 ms</code>.</li>
+</ol>
+<h3>Bug B (<code>OPEN</code>) — Runtime Headless Chromium Download in <code>.pptx</code> Export Tests (<code>6</code> PPTX Failures + <code>1</code> Uncached Font)</h3>
+<p>Six PowerPoint compilation tests (<code>test_cli_build_pptx</code> plus all <code>5</code> <code>TestBuildPptx</code> methods in <code>tests/drawlib/slide/test_pptx.py</code>) compile Markdown slide decks into <code>.pptx</code> archives. Drawlib's slide compiler renders slide HTML in headless Chromium (<code>src/drawlib/_slide/_pptx_dom.py:extract_deck_dom</code>) to measure exact CSS layout coordinates before <code>src/drawlib/_slide/_pptx_writer.py</code> emits native OpenXML shapes:</p>
+<ol>
+<li><code>launch_headless_chromium()</code> at <code>src/drawlib/_builder/_common/browser.py:247</code> invokes <code>playwright.chromium.launch(headless=True, args=launch_args)</code>.</li>
+<li>Because <code>.pni/dockerfiles/Dockerfile</code> uses the standard Python/uv base image without pre-installed Playwright browser binaries, <code>launch()</code> raises a missing-executable error, triggering <code>install_headless_chromium()</code> (<code>browser.py:256</code> -&gt; <code>browser.py:210</code>), which spawns <code>playwright install chromium-headless-shell</code> and fails resolving <code>cdn.playwright.dev</code> (<code>EAI_AGAIN</code>) under <code>--network=none</code>.</li>
+<li><strong>Remediation (<code>P1</code>)</strong>: Pre-bake <code>playwright install --with-deps --only-shell chromium</code> and <code>drawlib cache download --all</code> into <code>.pni/dockerfiles/Dockerfile</code>, add an offline-aware skip marker when browser binaries are intentionally absent, and add pure-Python unit tests passing synthetic <code>PptxSlide</code> DOM fixtures directly into <code>_pptx_writer.py</code>.</li>
+</ol>
+<h3>Complete Offline Container Test Log (<code>RV-02</code>: <code>12</code> Fixed, <code>7</code> Requiring Pre-Baked Browser/Font Cache)</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">#</th>
+<th style="text-align:center">Status</th>
+<th style="text-align:left">Test Case (<code>classname::name</code>)</th>
+<th style="text-align:left">Root Cause Bucket</th>
+<th style="text-align:left">Diagnostic &amp; Resolution Summary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center"><code>OPEN</code></td>
+<td style="text-align:left"><code>tests.drawlib.cli.test_cli_build::test_cli_build_pptx</code></td>
+<td style="text-align:left"><strong>Bug B</strong> (Playwright CDN)</td>
+<td style="text-align:left">Requires pre-baked Chromium in <code>.pni/dockerfiles/Dockerfile</code> (<code>browser.py:247</code>)</td>
+</tr>
+<tr>
+<td style="text-align:center">2–13</td>
+<td style="text-align:center"><strong><code>FIXED</code></strong></td>
+<td style="text-align:left"><code>12x test_nonexistent_*_icon_error</code> (<code>test_ai</code>, <code>test_aws_azure</code>, <code>test_cnative</code>, <code>test_data</code>, <code>test_devops</code>, <code>test_network</code>, <code>test_server</code>)</td>
+<td style="text-align:left"><strong>Bug A</strong> (<code>_release_assets.py</code>)</td>
+<td style="text-align:left"><strong>Resolved</strong>: <code>find_package_for_icon_path()</code> checks <code>pkg.files</code> before network I/O (<code>0</code> DNS calls)</td>
+</tr>
+<tr>
+<td style="text-align:center">14–18</td>
+<td style="text-align:center"><code>OPEN</code></td>
+<td style="text-align:left"><code>5x tests.drawlib.slide.test_pptx.TestBuildPptx::*</code></td>
+<td style="text-align:left"><strong>Bug B</strong> (Playwright CDN)</td>
+<td style="text-align:left">Requires pre-baked Chromium in <code>.pni/dockerfiles/Dockerfile</code> (<code>browser.py:247</code>)</td>
+</tr>
+<tr>
+<td style="text-align:center">19</td>
+<td style="text-align:center"><code>OPEN</code></td>
+<td style="text-align:left"><code>tests.drawlib.smartarts.test_sourcecode.TestSourceCode::test_sourcecode_japanese</code></td>
+<td style="text-align:left"><strong>Uncached Font</strong></td>
+<td style="text-align:left">Requires <code>drawlib cache download --all</code> (<code>font_mono_source_han_code_jp.zip</code>) in test image</td>
+</tr>
+</tbody>
+</table>
+
+</section>
+
+<section id="chapter-7-06_security_and_supply_chain" class="doc-chapter pdf-chapter">
+<h1>6. Deep Dive: Security, Supply Chain &amp; API Surface</h1>
+<p>First-party Drawlib source code and container packaging achieve a <strong>96/100 (Grade S)</strong> score on <code>security_vulnerability_audit</code> (<code>status=&quot;passed&quot;</code>) and <strong>94/100</strong> on the overall Security axis—combining zero SQL/command/XSS injection flaws, zero hardcoded secrets, SHA-256 verified external asset downloads, and least-privilege <code>contents: read</code> CI workflows with <strong>zero application CVEs</strong> (<code>pillow@13.0.0</code> in <code>uv.lock</code>) and <strong>zero active Dockerfile misconfigurations</strong> (<code>USER drawlib</code>, <code>UID 10001</code>).</p>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="../images/06_security_and_supply_chain/ch06_supply_chain_vuln_breakdown.png" alt="06_security_and_supply_chain_1" />
+  <figcaption class="drawlib-caption">Figure 6.1 — Post-Remediation Trivy SCA, Container OS, IaC Misconfiguration, and Secret Scan Posture (0 Active CVEs, 0 IaC Failures, 0 Secrets).</figcaption>
+</figure>
+<hr />
+<h2>6.1 Dependency Vulnerability Remediation (<code>SEC-01</code>: <code>pillow@12.3.0 -&gt; 13.0.0</code>, <code>0</code> CVEs)</h2>
+<p>Trivy v0.69.3 Software Composition Analysis (<code>SEC-01</code>) evaluated <code>pyproject.toml</code>, <code>uv.lock</code>, and container OS package metadata before and after the in-tree <code>pillow&gt;=13.0.0</code> upgrade:</p>
+<ul>
+<li><strong>Complete Closure of All 41 Application CVEs (<code>41 -&gt; 0</code>)</strong>: In the initial baseline scan, all <code>41</code> reported application vulnerabilities (<code>5 CRITICAL</code>, <code>23 HIGH</code>, <code>13 MEDIUM</code> in <code>app_vuln_counts</code>) resided in <strong><code>pillow@12.3.0</code></strong> in <code>uv.lock</code>. Upgrading <code>pyproject.toml</code> to <code>pillow&gt;=13.0.0</code> and <code>uv.lock</code> to <strong><code>pillow@13.0.0</code></strong> resolved <strong>100% of application CVEs (<code>app_vuln_counts = 0</code>)</strong>, verified by re-running <code>run_security_scan</code> (<code>trivy_fs.json</code> &amp; <code>security_facts.json</code>: <code>status = &quot;passed&quot;</code>, <code>vulnerabilities = []</code>).</li>
+<li><strong>Clean Ecosystem Across All 13 Direct Dependencies &amp; OS Layers (<code>0</code> CVEs)</strong>: All <code>13</code> direct runtime dependencies (<code>matplotlib&gt;=3.8</code>, <code>pillow&gt;=13.0.0</code>, <code>numpy&gt;=1.26</code>, <code>pydantic&gt;=2.8</code>, <code>pygments&gt;=2.18</code>, <code>markdown-it-py&gt;=3.0</code>, <code>jinja2&gt;=3.1</code>, <code>markupsafe&gt;=2.1</code>, <code>typer&gt;=0.12.0</code>, <code>rich&gt;=13.0.0</code>, <code>playwright&gt;=1.49.0</code>, <code>python-docx&gt;=1.2.0</code>, <code>python-pptx&gt;=1.0.2</code>) and container OS layers (<code>os_vuln_counts = 0</code>) now report <strong>zero vulnerabilities</strong> and <strong>zero unpinned range specifiers</strong>.</li>
+</ul>
+<h3>Historical Reference: 28 Critical &amp; High <code>pillow@12.3.0</code> Advisories Cleared by <code>pillow&gt;=13.0.0</code></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Advisory ID</th>
+<th style="text-align:center">Severity</th>
+<th style="text-align:center">CVSS</th>
+<th style="text-align:center">Resolution (<code>uv.lock</code>)</th>
+<th style="text-align:left">Affected Native Subsystem &amp; Vulnerability Summary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>CVE-2026-112393</code></td>
+<td style="text-align:center"><strong>CRITICAL</strong></td>
+<td style="text-align:center"><code>9.8</code></td>
+<td style="text-align:center"><strong>Fixed (<code>13.0.0</code>)</strong></td>
+<td style="text-align:left">Heap buffer overflow in <code>_tiffWriteProc</code> when saving TIFF streams to <code>BytesIO</code>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>CVE-2026-112398</code></td>
+<td style="text-align:center"><strong>CRITICAL</strong></td>
+<td style="text-align:center"><code>9.8</code></td>
+<td style="text-align:center"><strong>Fixed (<code>13.0.0</code>)</strong></td>
+<td style="text-align:left">Heap buffer overflow in FlashPix (FPX) JPEG decoding leading to arbitrary code execution.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>CVE-2026-112403</code></td>
+<td style="text-align:center"><strong>CRITICAL</strong></td>
+<td style="text-align:center"><code>9.8</code></td>
+<td style="text-align:center"><strong>Fixed (<code>13.0.0</code>)</strong></td>
+<td style="text-align:left">Heap buffer overflow in <code>ImagingJpegDecode</code> native JPEG decoder.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>CVE-2026-112900</code></td>
+<td style="text-align:center"><strong>CRITICAL</strong></td>
+<td style="text-align:center"><code>9.8</code></td>
+<td style="text-align:center"><strong>Fixed (<code>13.0.0</code>)</strong></td>
+<td style="text-align:left">Argument injection in Ghostscript invocation, potentially leading to remote code execution.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>CVE-2026-96639</code></td>
+<td style="text-align:center"><strong>CRITICAL</strong></td>
+<td style="text-align:center"><code>9.8</code></td>
+<td style="text-align:center"><strong>Fixed (<code>13.0.0</code>)</strong></td>
+<td style="text-align:left">Multi-frame image loaders can reuse stale native storage pointers across mode transitions.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>CVE-2026-96778</code></td>
+<td style="text-align:center"><strong>HIGH</strong></td>
+<td style="text-align:center"><code>8.8</code></td>
+<td style="text-align:center"><strong>Fixed (<code>13.0.0</code>)</strong></td>
+<td style="text-align:left">Arbitrary code execution via buffer overflow in native JPEG encoder.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>CVE-2026-112404</code></td>
+<td style="text-align:center"><strong>HIGH</strong></td>
+<td style="text-align:center"><code>8.2</code></td>
+<td style="text-align:center"><strong>Fixed (<code>13.0.0</code>)</strong></td>
+<td style="text-align:left">Denial of service via out-of-bounds read during TIFF decoding.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>CVE-2026-112896</code></td>
+<td style="text-align:center"><strong>HIGH</strong></td>
+<td style="text-align:center"><code>8.2</code></td>
+<td style="text-align:center"><strong>Fixed (<code>13.0.0</code>)</strong></td>
+<td style="text-align:left">Denial of service via out-of-bounds read in native TIFF encoder.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>CVE-2026-96644</code></td>
+<td style="text-align:center"><strong>HIGH</strong></td>
+<td style="text-align:center"><code>8.1</code></td>
+<td style="text-align:center"><strong>Fixed (<code>13.0.0</code>)</strong></td>
+<td style="text-align:left">Denial of service via out-of-bounds read in Windows metafile parser.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>GHSA-78g4-xqwv-q3g8</code></td>
+<td style="text-align:center"><strong>HIGH</strong></td>
+<td style="text-align:center"><code>8.1</code></td>
+<td style="text-align:center"><strong>Fixed (<code>13.0.0</code>)</strong></td>
+<td style="text-align:left">Bundled <code>libopenjp2 2.5.4</code> in wheels carries <code>OSV-2025-219</code> heap-buffer-overflow write via <code>Image.open().load()</code>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>CVE-2026-112390</code>..<code>96642</code></td>
+<td style="text-align:center"><strong>HIGH (<code>×18</code>)</strong></td>
+<td style="text-align:center"><code>6.5–7.5</code></td>
+<td style="text-align:center"><strong>Fixed (<code>13.0.0</code>)</strong></td>
+<td style="text-align:left">18 <code>HIGH</code> DoS/memory-safety advisories across MIC, rank filters, APNG, GIF, <code>Image.merge()</code>, PDF, MSP, TrueType, EXIF, <code>libtiff</code>, SPIDER, and <code>TarIO</code> decoders (plus 12 <code>MEDIUM</code> advisories).</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>6.2 Container IaC Hardening (<code>SEC-02</code>) &amp; Secret Hygiene (<code>SEC-03</code>)</h2>
+<h3>Dockerfile Hardening (<code>DS-0002</code> Fixed, <code>DS-0026</code> Waived -&gt; <code>0</code> Active Misconfigurations)</h3>
+<p>Trivy IaC scanning (<code>trivy_fs.json</code> / <code>security_facts.json</code>) verified all three container definitions under <code>tools/docker/</code> plus <code>.pni/dockerfiles/root/Dockerfile</code>:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Check ID</th>
+<th style="text-align:center">Initial Sev</th>
+<th style="text-align:left">Affected Files (<code>tools/docker/</code>)</th>
+<th style="text-align:center">Resolution Status</th>
+<th style="text-align:left">Engineering Implementation &amp; Verification</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong><code>DS-0002</code></strong></td>
+<td style="text-align:center"><strong>HIGH</strong> (<code>×3</code>)</td>
+<td style="text-align:left"><code>Dockerfile.prod</code>, <code>Dockerfile.test_local</code>, <code>Dockerfile.test_pypi</code></td>
+<td style="text-align:center"><strong><code>FIXED</code> (<code>0</code> Failures)</strong></td>
+<td style="text-align:left">Added unprivileged <code>drawlib</code> user and group (<code>UID/GID 10001</code>), relocated Playwright browsers (<code>/opt/ms-playwright</code>) and asset caches (<code>/opt/drawlib-cache</code>) with <code>chmod -R a+rX</code>, and switched to <code>USER drawlib</code> before <code>WORKDIR</code> / <code>CMD</code>. Trivy reports <code>26</code> passed checks and <code>0</code> <code>DS-0002</code> failures.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>DS-0026</code></strong></td>
+<td style="text-align:center"><strong>LOW</strong> (<code>×3</code>)</td>
+<td style="text-align:left"><code>Dockerfile.prod</code>, <code>Dockerfile.test_local</code>, <code>Dockerfile.test_pypi</code></td>
+<td style="text-align:center"><strong><code>WAIVED</code> (<code>.pni/pni.toml</code>)</strong></td>
+<td style="text-align:left">Ephemeral batch CLI and <code>pytest</code> containers exit immediately after command completion rather than running a long-lived daemon; waived via <code>[[opt_out]] id = &quot;DS-0026&quot;</code> (<code>opt_out_counts = {&quot;DS-0026&quot;: 3}</code>).</td>
+</tr>
+</tbody>
+</table>
+<h3>Secret Scanning &amp; <code>.dockerignore</code> Isolation (<code>SEC-03</code>: <code>0</code> Secrets)</h3>
+<ul>
+<li><strong>Zero Hardcoded Source Secrets (<code>PASS</code>)</strong>: Both AST literal entropy analysis (<code>AstFacts.hardcoded_secrets = []</code>) and Trivy repository scanning (<code>security_facts.secrets = []</code>) confirmed <strong>zero API keys, credentials, or tokens</strong> across all <code>424</code> tracked source files and <code>150</code> test files.</li>
+<li><strong>Default-Deny <code>.dockerignore</code> &amp; <code>.pni/pni.toml</code> Scope (<code>PASS</code>)</strong>: Root <code>.dockerignore</code> begins with <code>*</code> (deny all) and explicitly allowlists only <code>!pyproject.toml</code>, <code>!src/</code>, and <code>!tests/</code>, while <code>.gitignore</code> and <code>.pni/pni.toml</code> (<code>skip_files = [&quot;.env&quot;, &quot;.env.*&quot;, &quot;**/.env&quot;]</code>) exclude untracked local developer <code>.env</code> files from Git, Docker build contexts, and filesystem scans.</li>
+</ul>
+<hr />
+<h2>6.3 AST Dangerous Code Sinks (<code>CWE-94</code>) &amp; API Attack Surface</h2>
+<figure class="drawlib-image" style="text-align: center;">
+  <img src="../images/06_security_and_supply_chain/ch06_cwe_sinks_and_trust_boundary.png" alt="06_security_and_supply_chain_2" />
+  <figcaption class="drawlib-caption">Figure 6.2 — Complete CWE-94 exec() sink inventory (waived in .pni/pni.toml), zero injection/API surface verification, and container sandbox boundary for untrusted Markdown.</figcaption>
+</figure>
+<h3>Detailed Assessment of <code>CWE-94</code> Sites, Injection Classes &amp; API Endpoints</h3>
+<ol>
+<li><strong>Five Intentional <code>CWE-94</code> (<code>exec</code>) Sinks (<code>Waived in .pni/pni.toml</code>)</strong>:
+<ul>
+<li><code>src/drawlib/_builder/_common/styles_loader.py:78</code> (<code>load_styles</code>) and <code>styles_loader.py:158</code> (<code>load_utils</code>) compile and execute project-level <code>styles.py</code> and <code>utils.py</code> files so documentation projects can customize <code>Styles</code>/<code>Colors</code> and register reusable drawing macros.</li>
+<li><code>src/drawlib/_builder/doc_builder/processor/processor.py:121</code> (quiet stdout-redirected mode) and <code>processor.py:123</code> (<code>verbose</code>/<code>developer</code> mode) execute <code>```drawlib</code> fenced Python blocks inside Markdown files while temporarily monkey-patching <code>save()</code> as a controlled no-op.</li>
+<li><code>src/drawlib/_core/l4_canvas/_image_code.py:54</code> (<code>_worker_render_code</code>) executes nested drawing scripts inside an isolated <code>multiprocessing</code> child process for <code>get_dimage_from_code(code, timeout=...)</code>.</li>
+<li><strong>Architectural Verdict</strong>: Just like Jupyter notebooks, Quarto, or Sphinx code-execution directives, executing Python code is the core value proposition of Drawlib (<em>&quot;Illustration as Code&quot;</em>). This intentional design is recorded under <code>[[opt_out]] id = &quot;CWE-94&quot;</code> in <code>.pni/pni.toml</code>, and untrusted third-party Markdown should be rendered inside an ephemeral container (<code>--user 10001:10001 --network=none --read-only --pids-limit=128 --memory=1g</code>) built with <code>./dcli docker build --full</code>.</li>
+</ul>
+</li>
+<li><strong>Zero Injection or Deserialization Vulnerabilities (<code>PASS</code>)</strong>:
+<ul>
+<li><strong><code>CWE-89</code> (SQL Injection = <code>0</code>)</strong>: <code>BuildImageCache</code> and <code>CliImageCache</code> in <code>src/drawlib/_builder/_common/cache.py</code> use strictly parameterized <code>?</code> SQLite queries on static table schemas.</li>
+<li><strong><code>CWE-78</code> (OS Command Injection = <code>0</code>)</strong>: Subprocess execution in <code>src/drawlib/_builder/_common/browser.py:210</code> passes explicit argument arrays (<code>[str(exec_path), str(cli_path), *_INSTALL_ARGS]</code>) without <code>shell=True</code>.</li>
+<li><strong><code>CWE-79</code> / <code>CWE-502</code> (XSS / Unsafe Deserialization = <code>0</code>)</strong>: HTML templates rely on <code>Jinja2</code> + <code>MarkupSafe</code> escaping, manifests parse via stdlib <code>tomllib</code>, and caches store raw PNG/SVG bytes plus SHA-256 digests (zero <code>pickle</code> or <code>yaml.load</code> usage).</li>
+</ul>
+</li>
+<li><strong>API Endpoint Surface (<code>SEC-05</code> / <code>SEC-06</code>: <code>api_endpoints = []</code>, <code>not_applicable</code>)</strong>:
+<ul>
+<li>Drawlib's runtime archetype is <code>[&quot;cli&quot;, &quot;library&quot;]</code> with <strong>zero production HTTP/gRPC service endpoints</strong>. The <code>drawlib serve</code> subcommand launches a strictly local static preview server bound to <code>127.0.0.1</code> by default for interactive authoring and <code>--check</code> link validation.</li>
+</ul>
+</li>
+</ol>
+<hr />
+<h2>6.4 OpenSSF Supply-Chain Posture &amp; Governance Checklist</h2>
+<p>Drawlib scored <strong>92/100 (Grade S)</strong> on <code>supply_chain_audit</code> and <strong>91/100 (Grade S)</strong> on <code>repo_structure_audit</code>, combining cryptographic asset integrity, non-root Docker images (<code>UID 10001</code>), and least-privilege CI workflows with straightforward governance additions (<code>SECURITY.md</code>, Dependabot, and commit-SHA Action pins):</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Supply-Chain Control</th>
+<th style="text-align:center">Current Repository State</th>
+<th style="text-align:left">Evidence Location</th>
+<th style="text-align:left">Recommended Hardening</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>CI Workflow Token Permissions</strong></td>
+<td style="text-align:center"><strong>PASS</strong></td>
+<td style="text-align:left"><code>.github/workflows/{quality,ut_github,ut_pypi,ut_template}.yml</code></td>
+<td style="text-align:left">All <code>4</code> workflows declare explicit top-level <code>permissions: contents: read</code>; retain least-privilege defaults when adding OIDC release jobs.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>External Binary Asset Integrity</strong></td>
+<td style="text-align:center"><strong>PASS</strong></td>
+<td style="text-align:left"><code>src/drawlib/_core/l3_external/_package.py</code> &amp; <code>src/drawlib/_release_assets.py</code></td>
+<td style="text-align:left">Every lazy-downloaded font, icon, and GeoJSON archive embeds a compiled-in <strong>SHA-256 digest</strong> verified before zip extraction alongside <code>pkg.files</code> membership checks and <code>timeout=60</code> HTTPS fetches.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Container Least Privilege (<code>USER</code>)</strong></td>
+<td style="text-align:center"><strong>PASS</strong></td>
+<td style="text-align:left"><code>tools/docker/Dockerfile.{prod,test_local,test_pypi}</code></td>
+<td style="text-align:left">All production and test Dockerfiles create and switch to an unprivileged <code>USER drawlib</code> (<code>UID 10001</code>) with <code>0</code> Trivy <code>DS-0002</code> findings.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Runtime Dependency Specifiers</strong></td>
+<td style="text-align:center"><strong>PASS</strong></td>
+<td style="text-align:left"><code>pyproject.toml</code> (<code>dependencies</code>, <code>13</code> packages)</td>
+<td style="text-align:left"><code>100%</code> of runtime dependencies specify explicit SemVer lower bounds (<code>pillow&gt;=13.0.0</code>, <code>unpinned_dependencies = []</code>, <code>0</code> CVEs), cleanly separated from <code>[dependency-groups].dev</code>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Lockfile Strategy (<code>uv.lock</code>)</strong></td>
+<td style="text-align:center"><strong>WAIVED</strong> (<code>.pni/pni.toml</code>)</td>
+<td style="text-align:left"><code>uv.lock</code>, <code>.gitignore:182</code> &amp; <code>.pni/pni.toml</code></td>
+<td style="text-align:left"><code>uv.lock</code> is generated locally for reproducible SCA while <code>.gitignore</code> excludes it so CI tests flexible library resolution across Python <code>3.11–3.13</code> (<code>python/lockfile_committed</code> waived in <code>.pni/pni.toml</code>).</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>GitHub Actions Pinning</strong></td>
+<td style="text-align:center"><strong>WARN</strong> (<code>P2</code>)</td>
+<td style="text-align:left"><code>.github/workflows/quality.yml:20,23,28</code></td>
+<td style="text-align:left">Steps currently reference mutable major tags (<code>actions/checkout@v4</code>, <code>astral-sh/setup-uv@v5</code>, <code>actions/setup-python@v5</code>); pin to full 40-char commit SHAs with version comments.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Vulnerability Disclosure Policy</strong></td>
+<td style="text-align:center"><strong>OPEN</strong> (<code>P2</code>)</td>
+<td style="text-align:left">Repository root (<code>SECURITY.md</code> absent)</td>
+<td style="text-align:left">Add <code>SECURITY.md</code> enabling GitHub Private Vulnerability Reporting, supported version policy (<code>0.3.x</code>), and the <code>CWE-94</code> <code>exec()</code> container-sandbox guidance.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Automated Dependency Updates</strong></td>
+<td style="text-align:center"><strong>OPEN</strong> (<code>P2</code>)</td>
+<td style="text-align:left"><code>.github/dependabot.yml</code> absent</td>
+<td style="text-align:left">Configure weekly <code>.github/dependabot.yml</code> updates for <code>uv</code>/<code>pip</code> and <code>github-actions</code> so future dependency or Action advisories open automated PRs immediately.</td>
+</tr>
+</tbody>
+</table>
+
+</section>
+    </main>
+    
+</body>
+</html>

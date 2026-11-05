@@ -8,13 +8,16 @@ ARG WITH_ASSETS=false
 
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
+ENV PLAYWRIGHT_BROWSERS_PATH=/opt/ms-playwright
 
-# Install system dependencies for matplotlib
+# Install system dependencies for matplotlib and create non-root runtime user
 RUN apt-get update && apt-get install -y --no-install-recommends \
     libgl1 \
     libglx-mesa0 \
     libglib2.0-0 \
-    && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/* \
+    && useradd --uid 10001 --create-home --shell /bin/bash drawlib \
+    && mkdir -p /workspace /opt/ms-playwright
 
 WORKDIR /tmp/drawlib_build
 COPY pyproject.toml ./
@@ -37,7 +40,11 @@ RUN if [ "${WITH_PDF}" = "true" ]; then \
 # Optional: Pre-download all font and icon assets for air-gapped / offline usage
 RUN if [ "${WITH_ASSETS}" = "true" ]; then \
         drawlib cache download --all; \
-    fi
+    fi && \
+    python -c "import pathlib, drawlib._cached_assets as c; p = pathlib.Path(c.__file__).parent; p.mkdir(parents=True, exist_ok=True)" && \
+    chown -R drawlib:drawlib /workspace /opt/ms-playwright "$(python -c 'import pathlib, drawlib._cached_assets as c; print(pathlib.Path(c.__file__).parent)')"
 
 WORKDIR /workspace
+USER drawlib
 CMD ["drawlib", "--help"]
+

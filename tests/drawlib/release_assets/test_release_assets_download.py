@@ -221,6 +221,13 @@ class TestDownloadAndExtract:
             ensure_asset_available("fonts/roboto/regular.ttf")
             mock_dl.assert_not_called()
 
+        with (
+            patch.object(ReleaseAssetPackage, "is_downloaded", return_value=False),
+            patch.object(ReleaseAssetPackage, "download_and_extract") as mock_dl,
+        ):
+            ensure_asset_available("icons/gcp/non_existent_icon_xyz.png")
+            mock_dl.assert_not_called()
+
     def test_download_if_not_exist_uses_release_package(self, tmp_path: Path):
         """Test download_if_not_exist delegates to package extraction when path matches a release package."""
         target_file = tmp_path / "fonts" / "roboto" / "regular.ttf"
