@@ -39,19 +39,19 @@
     
     
     
-    <meta name="description" content="リリース日: 2026/11/03">
+    <meta name="description" content="リリース日: 2026/11/06">
     <link rel="canonical" href="https://www.drawlib.com/ja/01_getting_started/release_notes.html">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Drawlib ドキュメント">
     <meta property="og:title" content="リリースノートと移行ガイド — Drawlib ドキュメント">
-    <meta property="og:description" content="リリース日: 2026/11/03">
+    <meta property="og:description" content="リリース日: 2026/11/06">
     <meta property="og:url" content="https://www.drawlib.com/ja/01_getting_started/release_notes.html">
     <meta property="og:image" content="https://www.drawlib.com/_assets/ogp.png">
     <meta property="og:locale" content="ja_JP">
     <meta property="og:locale:alternate" content="en_US">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="リリースノートと移行ガイド — Drawlib ドキュメント">
-    <meta name="twitter:description" content="リリース日: 2026/11/03">
+    <meta name="twitter:description" content="リリース日: 2026/11/06">
     <meta name="twitter:image" content="https://www.drawlib.com/_assets/ogp.png">
     
     
@@ -88,7 +88,7 @@
                 
                 <a href="../01_getting_started/release_notes.html" class="sidebar-version-badge" title="View Release Notes">
                     <span class="sidebar-version-dot" aria-hidden="true"></span>
-                    <span class="sidebar-version-text">v0.3.5</span>
+                    <span class="sidebar-version-text">v0.3.6</span>
                 </a>
                 <a href="https://github.com/yuichi110/drawlib" target="_blank" rel="noopener noreferrer" class="sidebar-github-link" aria-label="GitHub Repository" title="GitHub Repository">
                     <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
@@ -404,6 +404,10 @@
                             </li>
                             
                             <li class="nav-item ">
+                                <a href="../05_charts/box.html" >Box &amp; Strip Chart（箱ひげ・ストリップ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
                                 <a href="../05_charts/line.html" >Line Chart（折れ線グラフ）</a>
                             </li>
                             
@@ -667,6 +671,23 @@
             </header>
             <main class="main-content">
                 <h1>リリースノートと移行ガイド</h1>
+<h2>バージョン 0.3.6</h2>
+<p><em>リリース日: 2026/11/06</em></p>
+<p>バージョン 0.3.6 では、箱ひげ図・ストリップ／ジッタープロット・ベンチマーク向けハイブリッド重ね描きを 1 クラスに統合した統計分布チャート <strong><code>BoxChart</code> および <code>BoxStats</code>（<code>drawlib.charts.box</code>）</strong> を新搭載したほか、PNI501 ソフトウェア監査に基づく <strong>サプライチェーンセキュリティ強化・非 root コンテナ実行・オフライン動作信頼性の改善</strong> を実施しました。</p>
+<hr />
+<h3>ハイライトと新機能</h3>
+<h4>1. 箱ひげ図・ストリッププロット・ハイブリッド重ね描き（<code>drawlib.charts.box</code>, <code>BoxChart</code>, <code>BoxStats</code>）</h4>
+<ul>
+<li><strong>1 クラス 3 モードの分布可視化ビルダ（<code>show_box</code>, <code>show_points</code>, <code>show_outliers</code>, <code>show_mean</code>）</strong>: カテゴリ別の数値分布を <strong>箱ひげ図</strong>（<code>show_box=True, show_points=False</code>）、<strong>1D／ジッター付きストリッププロット</strong>（<code>show_box=False, show_points=True</code>）、および <strong>$N = 5 \sim 30$ のベンチマーク評価に最適な箱ひげ＋実測点ハイブリッド重ね描き</strong>（<code>show_box=True, show_points=True</code>）として宣言的に描画できます（<code>BoxChart</code> 全体のデフォルト指定および <code>add_series(...)</code> 単位での個別上書きに対応）。</li>
+<li><strong>生データ配列と事前集計 <code>BoxStats</code> のハイブリッド入力（<code>whisker_mode=&quot;iqr&quot; | &quot;min_max&quot; | &quot;percentile&quot;</code>）</strong>: 生データ配列（<code>Sequence[float]</code>）からの Pure Python 四分位・外れ値自動算出（<code>iqr_k=1.5</code> の Tukey 方式、最小最大 <code>min_max</code>、テールレイテンシ向け <code>whisker_percentiles=(5.0, 95.0)</code>）に加え、BigQuery や Cloud Monitoring から取得した集計値 <code>BoxStats(min=..., q1=..., median=..., q3=..., max=..., mean=..., outliers=...)</code> の直接描画をサポートします。</li>
+<li><strong>決定論的ジッターと単一 <code>Style</code> からの高コントラスト自動導出</strong>: <code>(jitter_seed, series_idx, category_idx)</code> ごとに独立した 32bit 整数ミキシングで乱数を分離することで Git 差分やアニメーション時の点シャッフルを完全に防止し、単一 <code>Style</code>（<code>Styles.PrimaryNeutral</code>・<code>Styles.PrimaryFlat</code> 等）からの箱・ひげ・中央値・マーカー色の自動導出、縦向き／横向き配置、<code>scale=&quot;log&quot;</code> 対数軸、<code>draw_ratio</code> 部分描画、および <code>drawlib rules show lib-charts-box</code> に対応しました。</li>
+</ul>
+<h4>2. サプライチェーンセキュリティ強化・非 root コンテナ・オフライン動作改善</h4>
+<ul>
+<li><strong>依存関係更新と非 root コンテナ化</strong>: <code>pillow&gt;=13.0.0</code> への引き上げによる脆弱性解消と、本番・検証用すべての Dockerfile における非 root ユーザー（<code>USER drawlib</code>, <code>UID 10001</code>）実行への強化を実施しました。</li>
+<li><strong>エアギャップ環境での事前検証と監査レポート公開（<code>/reports/pni-full-audit/</code>）</strong>: オフライン環境（<code>--network=none</code>）におけるネットワーク取得前の <code>pkg.files</code> メンバーシップ検証、SQLite ビルドキャッシュ接続の改善、および PNI501 ソフトウェア品質・セキュリティ監査レポートの公開を行いました。</li>
+</ul>
+<hr />
 <h2>バージョン 0.3.5</h2>
 <p><em>リリース日: 2026/11/03</em></p>
 <p>バージョン 0.3.5 では、API・CLI リファレンスやデータスキーマ辞書、マイクロサービス台帳、運用ランブックの構築に最適化された第 5 のプロジェクトアーキタイプ <strong>図解付きカタログ &amp; リファレンス（<code>catalog</code>, <code>drawlib init project catalog</code>）</strong> を新搭載したほか、<strong>宣言的プロジェクト SEO・Open Graph・<code>llms.txt</code> 自動生成（<code>[seo]</code>）</strong>、<strong>ゼロインストール <code>uvx</code> フォールバック対応ビルドスクリプト</strong>、および <strong>日英バイリンガル公式 Python API &amp; CLI リファレンス（<code>/api/</code>）</strong> を公開しました。</p>

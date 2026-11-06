@@ -18,6 +18,8 @@ from pathlib import Path
 from types import ModuleType
 from typing import TYPE_CHECKING, Final
 
+import pytest
+
 import drawlib
 from drawlib._builder._common import load_project_manifest
 from drawlib._builder.doc_builder.catalog_nav import _mask_fences_and_comments, extract_catalog_headings
@@ -56,6 +58,7 @@ MODULE_TO_PAGES: Final[dict[str, tuple[str, ...]]] = {
     "drawlib.charts.scatter": ("16_charts_scatter.md",),
     "drawlib.charts.gantt": ("17_charts_gantt.md",),
     "drawlib.charts.heatmap": ("18_charts_heatmap.md",),
+    "drawlib.charts.box": ("18b_charts_box.md",),
     "drawlib.diagrams.architecture": ("19_diagrams_architecture.md",),
     "drawlib.diagrams.flow": ("20_diagrams_flow.md",),
     "drawlib.diagrams.sequence": ("21_diagrams_sequence.md",),
@@ -205,7 +208,9 @@ def test_all_public_modules_mapped_in_api_reference() -> None:
 
 
 def test_python_public_api_100_percent_documented() -> None:
-    """Verify 100% of ``__all__`` exports across all 35 public modules are documented in EN and JA."""
+    """Verify 100% of ``__all__`` exports across all 36 public modules are documented in EN and JA."""
+    if not API_DOCS_DIR.exists():
+        pytest.skip("docs_src/api not present in clean-room container.")
     for lang in ("en", "ja"):
         missing = _collect_missing_symbols_for_locale(lang)
         assert not missing, "Undocumented public Python API symbols:\n" + "\n".join(missing)
@@ -215,6 +220,8 @@ def test_cli_commands_100_percent_documented() -> None:
     """Verify 100% of ``drawlib`` Typer CLI groups and subcommands appear as ``cmd`` H2s in EN and JA."""
     expected_cmds = _discover_cli_commands(cli_root_app)
     assert len(expected_cmds) >= 39
+    if not API_DOCS_DIR.exists():
+        pytest.skip("docs_src/api not present in clean-room container.")
 
     for lang in ("en", "ja"):
         cli_md = API_DOCS_DIR / lang / "28_cli.md"
@@ -232,6 +239,8 @@ def test_cli_commands_100_percent_documented() -> None:
 
 def test_api_reference_i18n_slug_and_hero_parity() -> None:
     """Verify bilingual manifest, skeleton/code parity, identical H2 slugs, and Top Hero diagrams."""
+    if not API_DOCS_DIR.exists():
+        pytest.skip("docs_src/api not present in clean-room container.")
     manifest = load_project_manifest(str(API_DOCS_DIR))
     assert manifest is not None
     assert manifest.project.type == "catalog"

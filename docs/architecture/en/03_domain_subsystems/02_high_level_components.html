@@ -78,7 +78,7 @@
             <div class="sidebar-subbar">
                 <a href="https://www.drawlib.com/en/01_getting_started/release_notes.html" target="_blank" rel="noopener noreferrer" class="sidebar-version-badge" title="Architecture Specification · View Release Notes">
                     <span class="sidebar-version-dot" aria-hidden="true"></span>
-                    <span class="sidebar-version-text">Architecture · v0.3.5</span>
+                    <span class="sidebar-version-text">Architecture · v0.3.6</span>
                 </a>
                 <a href="https://github.com/yuichi110/drawlib" target="_blank" rel="noopener noreferrer" class="sidebar-github-link" aria-label="GitHub Repository" title="GitHub Repository">
                     <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
@@ -360,11 +360,11 @@
 <li><strong>Frames, Metrics &amp; Schedules</strong>: <code>Panel</code> (<code>&quot;filled&quot;</code>, <code>&quot;underline&quot;</code>, <code>&quot;floating&quot;</code>, <code>&quot;window&quot;</code> headers with <code>get_content_box()</code>), <code>KpiCards</code> (<code>KpiCard</code>), <code>Table</code>, and schedule calendars (<code>MonthCalendar</code>, <code>WeekCalendar</code>, <code>DayCalendar</code>).</li>
 <li><strong>Code &amp; Spatial Vector Engines</strong>: <code>SourceCode</code> (stateless Pygments tokenizer rendering vector syntax-highlighted tokens with CJK font auto-selection) and <code>GeoMap</code> (GeoJSON vector map engine for <code>World</code>, <code>Countries</code>, and <code>Cities</code> with <code>lonlat_to_xy()</code>).</li>
 </ul>
-<h3>2.2. <code>drawlib.charts</code> — 9 Chart Classes Across 8 Submodules</h3>
-<p>Organized into 8 submodules (<code>bar</code>, <code>line</code>, <code>area</code>, <code>pie</code>, <code>radar</code>, <code>scatter</code>, <code>gantt</code>, <code>heatmap</code>), <code>drawlib.charts</code> follows a <strong>Triad Architecture</strong> separating <strong>Container/Builder</strong>, <strong>Data Models</strong> (<code>Series</code>, <code>Slice</code>, <code>Point</code>, <code>Task</code>, <code>Row</code>, <code>Cell</code>, <code>Spot</code>), and <strong>Procedural Renderers</strong> (<code>_renderer.py</code>), with <strong>presence-based styling</strong> (<code>Style | None = None</code> omits optional grids, labels, or backgrounds cleanly):</p>
+<h3>2.2. <code>drawlib.charts</code> — 10 Chart Classes Across 9 Submodules</h3>
+<p>Organized into 9 submodules (<code>bar</code>, <code>box</code>, <code>line</code>, <code>area</code>, <code>pie</code>, <code>radar</code>, <code>scatter</code>, <code>gantt</code>, <code>heatmap</code>), <code>drawlib.charts</code> follows a <strong>Triad Architecture</strong> separating <strong>Container/Builder</strong>, <strong>Data Models</strong> (<code>Series</code>, <code>BoxStats</code>, <code>Slice</code>, <code>Point</code>, <code>Task</code>, <code>Row</code>, <code>Cell</code>, <code>Spot</code>), and <strong>Procedural Renderers</strong> (<code>_renderer.py</code>), with <strong>presence-based styling</strong> (<code>Style | None = None</code> omits optional grids, labels, or backgrounds cleanly):</p>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="../../images/03_domain_subsystems/02_high_level_components/charts_mixin_hierarchy.png" alt="02_high_level_components_2" />
-  <figcaption class="drawlib-caption">drawlib.charts Inheritance Tree & Standalone Spatial Containers (All 9 Classes)</figcaption>
+  <figcaption class="drawlib-caption">drawlib.charts Inheritance Tree & Standalone Spatial Containers (All 10 Classes)</figcaption>
 </figure>
 <details class="drawlib-code-details">
 <summary>Source Code</summary>
@@ -423,12 +423,12 @@
     <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">86.5</span><span class="p">,</span> <span class="mf">52.5</span><span class="p">),</span>
 <span class="p">)</span>
 
-<span class="c1"># Third-Tier Branches (Col A: Bar/Scatter, Col B: CartesianChartBase, Col C: Pie/Radar)</span>
+<span class="c1"># Third-Tier Branches (Col A: Bar/Box/Scatter, Col B: CartesianChartBase, Col C: Pie/Radar)</span>
 <span class="n">bar_scatter</span> <span class="o">=</span> <span class="n">cd</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
-    <span class="n">ClassNode</span><span class="p">(</span><span class="s2">"BarChart / ScatterChart"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">32.0</span><span class="p">,</span> <span class="n">row_height</span><span class="o">=</span><span class="mf">3.2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
-    <span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"add_series"</span><span class="p">,</span> <span class="s2">"name, values"</span><span class="p">,</span> <span class="s2">"Series"</span><span class="p">)</span>
+    <span class="n">ClassNode</span><span class="p">(</span><span class="s2">"Bar / Box / ScatterChart"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">33.5</span><span class="p">,</span> <span class="n">row_height</span><span class="o">=</span><span class="mf">3.2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"add_series"</span><span class="p">,</span> <span class="s2">"name, data"</span><span class="p">,</span> <span class="s2">"Series"</span><span class="p">)</span>
     <span class="o">.</span><span class="n">add_method</span><span class="p">(</span><span class="s2">"draw"</span><span class="p">,</span> <span class="s2">"xy, scale"</span><span class="p">,</span> <span class="s2">"None"</span><span class="p">),</span>
-    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">19.0</span><span class="p">,</span> <span class="mf">30.0</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">18.5</span><span class="p">,</span> <span class="mf">30.0</span><span class="p">),</span>
 <span class="p">)</span>
 
 <span class="n">cartesian_base</span> <span class="o">=</span> <span class="n">cd</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>

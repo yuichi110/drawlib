@@ -2,7 +2,7 @@
 
 The `drawlib.charts` module provides a declarative, pure-Python data visualization engine for comparative, statistical, relational, and project schedule charts.
 
-All eight chart families render as first-class vector canvas components that coexist on a unified coordinate plane alongside callouts, cards, and technical diagrams.
+All nine chart families render as first-class vector canvas components that coexist on a unified coordinate plane alongside callouts, cards, and technical diagrams.
 
 ```drawlib code=fold align=center file=charts_ecosystem_hero.png caption="Drawlib Pure-Python Chart Ecosystem: Coexisting Bar, Line, Donut Pie, and Radar Charts on One Canvas"
 from drawlib.canvas import save, setup
@@ -117,13 +117,14 @@ save()
 
 ---
 
-## 2. The Eight Chart Families & Submodule Exports
+## 2. The Nine Chart Families & Submodule Exports
 
-Drawlib organizes charts into eight specialized submodules under `drawlib.charts`, built on a shared foundation for **[Axes, Scales & Legends](./axes_and_legends.md)**:
+Drawlib organizes charts into nine specialized submodules under `drawlib.charts`, built on a shared foundation for **[Axes, Scales & Legends](./axes_and_legends.md)**:
 
 | Module | Primary Class | Companion Data Models | Exported Type Literals & Aliases | Best Suited For |
 | :--- | :--- | :--- | :--- | :--- |
 | `drawlib.charts.bar` | **[`BarChart`](./bar.md)** | `Series`, `Axis` | `Mode`, `Orientation`, `FormatterType`, `DrawDirection`, `LegendPosition` | Categorical comparisons (vertical, horizontal, grouped, stacked). |
+| `drawlib.charts.box` | **[`BoxChart`](./box.md)** | `BoxStats`, `Series`, `Axis` | `WhiskerMode`, `Orientation`, `PointShape`, `ScaleType`, `FormatterType`, `DrawDirection`, `LegendPosition` | Categorical statistical distributions, quartiles, outliers, strip/jitter plots, and hybrid overlays. |
 | `drawlib.charts.line` | **[`LineChart`](./line.md)** | `Series`, `Axis` | `LineStyle`, `PointShape`, `FormatterType`, `DrawDirection`, `LegendPosition` | Continuous metrics and trends over time (linear or spline smoothed). |
 | `drawlib.charts.area` | **[`AreaChart`](./area.md)** | `Series`, `Axis` | `Mode`, `FormatterType`, `DrawDirection`, `LegendPosition` | Cumulative volume and part-to-whole trends over time. |
 | `drawlib.charts.pie` | **[`PieChart`](./pie.md)** | `Slice` | `FormatterType`, `DrawDirection` | Proportional distributions, donut charts, and center KPI badges. |
@@ -138,9 +139,10 @@ Drawlib organizes charts into eight specialized submodules under `drawlib.charts
 | :--- | :--- | :--- |
 | **`Mode`** (`bar`) | `Literal["group", "stack"]` | `BarChart(bar_mode=...)` |
 | **`Mode`** (`area`) | `Literal["overlap", "stack"]` | `AreaChart(mode=...)` |
-| **`Orientation`** | `Literal["vertical", "horizontal"]` | `BarChart(orientation=...)`, `draw_legend(orientation=...)`, `draw_colorbar(orientation=...)` |
+| **`WhiskerMode`** | `Literal["iqr", "min_max", "percentile"]` | `BoxChart(whisker_mode=...)`, `BoxStats.from_values(whisker_mode=...)` |
+| **`Orientation`** | `Literal["vertical", "horizontal"]` | `BarChart(orientation=...)`, `BoxChart(orientation=...)`, `draw_legend(orientation=...)`, `draw_colorbar(orientation=...)` |
 | **`LineStyle`** | `Literal["solid", "dashed", "dotted", "dashdot"]` | `LineChart`, `AreaChart`, `RadarChart` series stroke patterns |
-| **`PointShape`** | `Literal["circle", "square", "rhombus", "triangle", "none"]` | `ScatterChart` (all 5 shapes); `LineChart`, `AreaChart`, `RadarChart` (`"circle"`, `"square"`, `"none"`) |
+| **`PointShape`** | `Literal["circle", "square", "rhombus", "triangle", "none"]` | `ScatterChart`, `BoxChart` (all 5 shapes); `LineChart`, `AreaChart`, `RadarChart` (`"circle"`, `"square"`, `"none"`) |
 | **`GridShape`** | `Literal["polygon", "circle"]` | `RadarChart(grid_shape=...)` concentric ring geometry |
 | **`ScaleType`** | `Literal["linear", "log"]` | `Axis(scale=...)` linear Nice Numbers or base-10 (`log10`) scaling |
 | **`OverlayMode`** | `Literal["smooth", "contour"]` | `HeatmapOverlay(mode=...)` Gaussian thermal gradient or vector isoline rings |
@@ -174,11 +176,11 @@ Drawlib charts enforce a strict **"Style-as-Presence"** rule: optional visual el
 
 | Optional Style Keyword | Default | Visual Elements Toggled When Provided (`Style`) | Applicable Chart Classes |
 | :--- | :--- | :--- | :--- |
-| **`axis_text_style`** | `None` | Axis tick labels, category names, spoke labels (`RadarChart`), and column/row labels (`GanttChart`). | `BarChart`, `LineChart`, `AreaChart`, `RadarChart`, `ScatterChart`, `GanttChart` |
-| **`grid_style`** | `None` | Background value gridlines, concentric rings (`RadarChart`), or vertical column dividers (`GanttChart`). | `BarChart`, `LineChart`, `AreaChart`, `RadarChart`, `ScatterChart`, `GanttChart` |
-| **`value_text_style`** | `None` | Inline numerical labels on bars, line/radar vertices, pie wedges, or scatter point callouts. | `BarChart`, `LineChart`, `AreaChart`, `PieChart`, `RadarChart`, `ScatterChart` |
-| **`title_style`** | `None` | Top chart title text (requires non-empty `title` string). | All 7 chart classes |
-| **`background_style`** | `None` | Outer chart container card background fill and border stroke. | All 7 chart classes |
+| **`axis_text_style`** | `None` | Axis tick labels, category names, spoke labels (`RadarChart`), and column/row labels (`GanttChart`, `HeatmapChart`). | `BarChart`, `BoxChart`, `LineChart`, `AreaChart`, `RadarChart`, `ScatterChart`, `GanttChart`, `HeatmapChart` |
+| **`grid_style`** | `None` | Background value gridlines, concentric rings (`RadarChart`), or vertical column dividers (`GanttChart`). | `BarChart`, `BoxChart`, `LineChart`, `AreaChart`, `RadarChart`, `ScatterChart`, `GanttChart` |
+| **`value_text_style`** | `None` | Inline numerical labels on bars, box medians, line/radar vertices, pie wedges, heatmap cells, or scatter point callouts. | `BarChart`, `BoxChart`, `LineChart`, `AreaChart`, `PieChart`, `RadarChart`, `ScatterChart`, `HeatmapChart` |
+| **`title_style`** | `None` | Top chart title text (requires non-empty `title` string). | All chart classes |
+| **`background_style`** | `None` | Outer chart container card background fill and border stroke. | All chart classes |
 | **`scale_text_style`** | `None` | Numeric ring scale labels along the vertical spoke of a radar web. | `RadarChart` |
 | **`center_text_style`** | `None` | Center KPI badge text inside a donut hole (requires `hole_ratio > 0` and `center_text`). | `PieChart` |
 | **`header_style`** | `None` | Background card fill/border for the top timeline column header band. | `GanttChart` |
@@ -216,6 +218,7 @@ Every element registration method (`add_series`, `add_slice`, `add`, `add_task`,
 | Chart Class | Default `draw_direction` | `"bottom_to_top"` Behavior | `"left_to_right"` Behavior |
 | :--- | :--- | :--- | :--- |
 | **`BarChart`** | `"bottom_to_top"` (`"vertical"`) / `"left_to_right"` (`"horizontal"`) | Vertical: all bars grow upward from baseline. Horizontal: bars reveal sequentially from bottom category to top. | Vertical: bars reveal sequentially across categories left-to-right. Horizontal: all bars grow rightward from baseline. |
+| **`BoxChart`** | `"bottom_to_top"` (`"vertical"`) / `"left_to_right"` (`"horizontal"`) | Vertical: boxes, whiskers, and strip points expand outward from the median. Horizontal: categories reveal sequentially from bottom to top. | Vertical: categories reveal sequentially across categories left-to-right. Horizontal: boxes, whiskers, and strip points expand outward from the median. |
 | **`LineChart`** | `"left_to_right"` | All vertices rise simultaneously from the baseline toward target `y`. | Curve extends continuously from left to right along arc length. |
 | **`AreaChart`** | `"left_to_right"` | Area polygon and top contour rise from the baseline / lower stack. | Area polygon and top contour sweep continuously from left to right. |
 | **`ScatterChart`** | `"left_to_right"` | Points rise from the bottom axis toward target `y` (`radius * r`). | Points reveal left-to-right across the X-axis range. |

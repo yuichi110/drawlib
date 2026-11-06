@@ -1,5 +1,26 @@
 # Release Notes & Migration Guide
 
+## Version 0.3.6
+
+*Release Date: 2026/11/06*
+
+Version 0.3.6 introduces **`BoxChart` and `BoxStats` (`drawlib.charts.box`)**—a unified statistical distribution chart engine for box plots, strip/jitter plots, and hybrid benchmark overlays—alongside **supply-chain security hardening, non-root container images, and offline reliability enhancements** validated by the PNI501 full engineering audit.
+
+---
+
+### Highlights & New Features
+
+#### 1. Statistical Box Plots, Strip Plots & Hybrid Overlays (`drawlib.charts.box`, `BoxChart`, `BoxStats`)
+- **Unified 3-Mode Distribution Builder (`show_box`, `show_points`, `show_outliers`, `show_mean`)**: Visualize categorical numerical dispersion as classic **Box Plots** (`show_box=True, show_points=False`), **1D / Jittered Strip Plots** (`show_box=False, show_points=True`), or **Box + Strip Hybrid Overlays** (`show_box=True, show_points=True`—ideal for $N = 5 \sim 30$ PoC and latency benchmarks), with defaults configurable on `BoxChart` and overridable per series via `add_series(...)`.
+- **Raw Sample Arrays & Pre-Aggregated `BoxStats` (`whisker_mode="iqr" | "min_max" | "percentile"`)**: Pass raw `Sequence[float]` samples for pure-Python inclusive quartile calculation (`iqr_k=1.5` Tukey fences, full `min_max`, or custom tail-latency `whisker_percentiles=(5.0, 95.0)`), or pass pre-computed `BoxStats(min=..., q1=..., median=..., q3=..., max=..., mean=..., outliers=...)` directly from BigQuery or Cloud Monitoring telemetry.
+- **Process- & Animation-Invariant Deterministic Jitter & High-Contrast Auto-Styling**: Generates reproducible transverse offsets per `(jitter_seed, series_idx, category_idx)` without touching global RNG state, automatically derives contrasting whisker/median/marker colors from a single `Style` token (`Styles.PrimaryNeutral`, `Styles.PrimaryFlat`, etc.), and supports `"vertical"` / `"horizontal"` layouts, `scale="log"` axes, `draw_ratio` animations, and `drawlib rules show lib-charts-box`.
+
+#### 2. Supply-Chain Security Hardening, Non-Root Containers & Offline Reliability
+- **Dependency & Container Hardening**: Upgraded `pillow>=13.0.0` to eliminate upstream image-processing CVEs and hardened all production and clean-room test Dockerfiles to execute under non-root `USER drawlib` (`UID 10001`).
+- **Air-Gapped Asset Pre-Validation & Audit Report (`/reports/pni-full-audit/`)**: Added `pkg.files` membership pre-validation before network downloads for `--network=none` environments, refined SQLite build cache connection handling, and published the PNI501 Engineering & Security Audit Report.
+
+---
+
 ## Version 0.3.5
 
 *Release Date: 2026/11/03*

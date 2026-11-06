@@ -127,6 +127,12 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/api/en/18_charts_heatmap.html" />
   </url>
   <url>
+    <loc>https://www.drawlib.com/api/en/18b_charts_box.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.drawlib.com/api/en/18b_charts_box.html" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.drawlib.com/api/ja/18b_charts_box.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/api/en/18b_charts_box.html" />
+  </url>
+  <url>
     <loc>https://www.drawlib.com/api/en/19_diagrams_architecture.html</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.drawlib.com/api/en/19_diagrams_architecture.html" />
     <xhtml:link rel="alternate" hreflang="ja" href="https://www.drawlib.com/api/ja/19_diagrams_architecture.html" />
@@ -305,6 +311,12 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://www.drawlib.com/api/en/18_charts_heatmap.html" />
     <xhtml:link rel="alternate" hreflang="ja" href="https://www.drawlib.com/api/ja/18_charts_heatmap.html" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/api/en/18_charts_heatmap.html" />
+  </url>
+  <url>
+    <loc>https://www.drawlib.com/api/ja/18b_charts_box.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.drawlib.com/api/en/18b_charts_box.html" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://www.drawlib.com/api/ja/18b_charts_box.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.drawlib.com/api/en/18b_charts_box.html" />
   </url>
   <url>
     <loc>https://www.drawlib.com/api/ja/19_diagrams_architecture.html</loc>

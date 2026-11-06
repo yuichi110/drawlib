@@ -53,7 +53,7 @@ Always prefer tailored high-level components over manual primitive rectangles an
 | **Code & State Models** | `drawlib.diagrams.class_diagram`, `diagrams.state` | OOP UML class models, state machine lifecycles |
 | **Hierarchy & Trees** | `drawlib.smartarts.TreeNode`, `smartarts.MindMapNode` | Directory trees, org charts, radial mind maps |
 | **Structured SmartArts** | `drawlib.smartarts` | `Cycle`, `GridLayout`, `Pyramid`, `BoxList`, `CardList`, `KpiCards`, `Roadmap`, `Panel`, `BulletPoints`, `SourceCode`, `GeoMap`, `*Calendar` |
-| **Quantitative Charts** | `drawlib.charts` | `BarChart`, `LineChart`, `AreaChart`, `PieChart`, `RadarChart`, `ScatterChart`, `GanttChart`, `HeatmapChart`, `HeatmapOverlay` |
+| **Quantitative Charts** | `drawlib.charts` | `BarChart`, `BoxChart`, `LineChart`, `AreaChart`, `PieChart`, `RadarChart`, `ScatterChart`, `GanttChart`, `HeatmapChart`, `HeatmapOverlay` |
 | **Standardized Icons** | `drawlib.icons` | 34 icon suites (`phosphor`, `gcp`, `aws`, `azure`, 15 domain `ai`..`workspace`, 15 `original_*` flat suites) |
 | **Images & Media** | `drawlib.images` | Raster `image()`, `Dimage` transforms, nested `get_dimage_from_code()` |
 | **Drawing Primitives** | `drawlib.shapes`, `lines`, `text` | 43 geometric shapes, curved/bezier lines, arrowheads, styled text |
@@ -113,7 +113,7 @@ uv run drawlib rules show lib-<module> # Core (canvas, lines, text, styles, pres
 uv run drawlib rules show lib-shapes-overview # 43 shapes (+ basic, polygon, arrow, badge, container, symbol)
 uv run drawlib rules show lib-icons-overview # 34 icon suites (+ phosphor, gcp, aws, azure, ai..workspace)
 uv run drawlib rules show lib-smartarts-overview # 18 SmartArts (+ table, tree, mindmap, chevron-process, geomap, calendar, ...)
-uv run drawlib rules show lib-charts-overview # 9 Charts (+ bar, line, area, pie, radar, scatter, gantt, heatmap)
+uv run drawlib rules show lib-charts-overview # 10 Charts (+ bar, box, line, area, pie, radar, scatter, gantt, heatmap)
 uv run drawlib rules show lib-diagrams-overview # 6 Diagrams (+ architecture, flow, sequence, state, class, er)
 uv run drawlib rules show lib-graph-overview # 5 Graph solvers (+ architecture, layer, tree, radial, grid)
 ```

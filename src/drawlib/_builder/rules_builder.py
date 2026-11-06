@@ -102,6 +102,7 @@ TOPIC_SOURCE_MAP: Final[dict[str, tuple[str, ...]]] = {
     # Charts (drawlib.charts)
     "lib-charts-overview": ("charts", "overview.md"),
     "lib-charts-bar": ("charts", "bar.md"),
+    "lib-charts-box": ("charts", "box.md"),
     "lib-charts-line": ("charts", "line.md"),
     "lib-charts-area": ("charts", "area.md"),
     "lib-charts-pie": ("charts", "pie.md"),

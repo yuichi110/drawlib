@@ -172,14 +172,14 @@ For `TreeNode` and `MindMapNode`, you can instantiate the node hierarchy once ou
 
 ## 5. Statistical & Project Charts (`drawlib.charts`) Animation Patterns
 
-All 9 chart classes (`BarChart`, `LineChart`, `AreaChart`, `PieChart`, `RadarChart`, `ScatterChart`, `GanttChart`, `HeatmapChart`, `HeatmapOverlay`) return mutable element objects (`Series`, `Slice`, `Task`, `Point`, `Row`, `Spot`) from their registration methods (`add_series`, `add_slice`, `add_task`, `add`, `add_row`, `add_spot`).
+All 10 chart classes (`BarChart`, `BoxChart`, `LineChart`, `AreaChart`, `PieChart`, `RadarChart`, `ScatterChart`, `GanttChart`, `HeatmapChart`, `HeatmapOverlay`) return mutable element objects (`Series`, `Slice`, `Task`, `Point`, `Row`, `Spot`) from their registration methods (`add_series`, `add_slice`, `add_task`, `add`, `add_row`, `add_spot`).
 
 ### 5.1. Progressive Series Reveal (`s.show`)
 Build the chart once outside the loop and toggle `s.show = (i <= step)` across frames. Because Drawlib calculates automatic `min_value` / `max_value`, pie proportions, and Gantt row heights across **all registered elements regardless of `show=False`**, the chart axes and gridlines remain 100% locked across frames.
 
 ### 5.2. Partial Spatial Growth (`s.draw_ratio` & `s.draw_direction`)
 Every `Series`, `Slice`, and `Task` supports `draw_ratio: float` (`0.0` to `1.0`) and `draw_direction: DrawDirection` (`"bottom_to_top"` or `"left_to_right"`):
-- **`BarChart` / `RadarChart`**: Default `"bottom_to_top"` grows bars vertically from the baseline (or expands the radar polygon radially outward).
+- **`BarChart` / `BoxChart` / `RadarChart`**: Default `"bottom_to_top"` grows bars vertically from the baseline, expands boxes/whiskers outward from the median, or expands the radar polygon radially outward.
 - **`LineChart` / `AreaChart` / `PieChart` / `GanttChart`**: Default `"left_to_right"` sweeps curves, wedges, or task bars progressively along the axis/angle.
 - **`HeatmapChart` / `HeatmapOverlay`**: Reveal rows, cells, or density hotspots progressively across frames via `row.show` / `spot.show` or by mutating cell/spot values.
 

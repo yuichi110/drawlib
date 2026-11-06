@@ -25,9 +25,11 @@ from drawlib._charts._common._types import (
     OverlayMode,
     PointShape,
     ScaleType,
+    WhiskerMode,
 )
 from drawlib._charts.area_chart import AreaChart
 from drawlib._charts.bar_chart import BarChart
+from drawlib._charts.box_chart import BoxChart, BoxStats
 from drawlib._charts.gantt_chart import GanttChart
 from drawlib._charts.heatmap_chart import HeatmapChart, HeatmapOverlay
 from drawlib._charts.line_chart import LineChart
@@ -42,6 +44,8 @@ __all__ = [
     "BarChart",
     "BarMode",
     "BlendMode",
+    "BoxChart",
+    "BoxStats",
     "ColorType",
     "DrawDirection",
     "FormatterType",
@@ -58,4 +62,5 @@ __all__ = [
     "RadarChart",
     "ScaleType",
     "ScatterChart",
+    "WhiskerMode",
 ]

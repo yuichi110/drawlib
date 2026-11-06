@@ -1,6 +1,6 @@
 # Charts のアニメーション
 
-`drawlib.charts` に含まれる 7 つのチャートクラス（`BarChart`、`LineChart`、`AreaChart`、`PieChart`、`RadarChart`、`ScatterChart`、`GanttChart`）はすべて、**事前構築・フレーム内変更（Pre-Build & Mutate）**ライフサイクルに従います。
+`drawlib.charts` に含まれる 10 個のチャートクラス（`BarChart`、`BoxChart`、`LineChart`、`AreaChart`、`PieChart`、`RadarChart`、`ScatterChart`、`GanttChart`、`HeatmapChart`、`HeatmapOverlay`）はすべて、**事前構築・フレーム内変更（Pre-Build & Mutate）**ライフサイクルに従います。
 
 ```drawlib code=fold align=center file=anim_charts_hero.png format=webp caption="Chart アニメーション概要：軸を固定した段階的な空間伸長 (draw_ratio)"
 from drawlib.anim import Animation

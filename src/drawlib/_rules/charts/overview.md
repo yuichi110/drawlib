@@ -15,10 +15,11 @@ Drawlib charts adhere to four foundational principles:
 4. **Unified Styling Engine**: All chart elements—bars, area polygons, curves, gridlines, axes, text badges, colorbars, and legends—are styled using Drawlib's `Style`, `Colors`, and `Font` models.
 
 ### 1.2 Module Structure & Submodule Exports
-All public chart classes, data models, axis configurations, and type literals are organized into 8 dedicated submodules under `drawlib.charts`:
+All public chart classes, data models, axis configurations, and type literals are organized into 9 dedicated submodules under `drawlib.charts`:
 
-- **`drawlib.charts`**: `DrawDirection`, `area`, `bar`, `gantt`, `heatmap`, `line`, `pie`, `radar`, `scatter`
+- **`drawlib.charts`**: `DrawDirection`, `area`, `bar`, `box`, `gantt`, `heatmap`, `line`, `pie`, `radar`, `scatter`
 - **`drawlib.charts.bar`**: `Axis`, `BarChart`, `DrawDirection`, `FormatterType`, `LegendPosition`, `Mode`, `Orientation`, `Series`
+- **`drawlib.charts.box`**: `Axis`, `BoxChart`, `BoxStats`, `DrawDirection`, `FormatterType`, `LegendPosition`, `Orientation`, `PointShape`, `ScaleType`, `Series`, `WhiskerMode`
 - **`drawlib.charts.line`**: `Axis`, `DrawDirection`, `FormatterType`, `LegendPosition`, `LineChart`, `LineStyle`, `PointShape`, `Series`
 - **`drawlib.charts.area`**: `AreaChart`, `Axis`, `DrawDirection`, `FormatterType`, `LegendPosition`, `Mode`, `Series`
 - **`drawlib.charts.pie`**: `DrawDirection`, `FormatterType`, `PieChart`, `Slice`
@@ -31,6 +32,7 @@ All public chart classes, data models, axis configurations, and type literals ar
 # Import from dedicated chart submodules (or DrawDirection directly from drawlib.charts)
 from drawlib.charts import DrawDirection
 from drawlib.charts.bar import Axis, BarChart, FormatterType, LegendPosition, Mode, Orientation, Series
+from drawlib.charts.box import BoxChart, BoxStats, WhiskerMode
 from drawlib.charts.line import Axis, FormatterType, LegendPosition, LineChart, LineStyle, PointShape, Series
 from drawlib.charts.area import AreaChart, Axis, FormatterType, LegendPosition, Mode, Series
 from drawlib.charts.pie import FormatterType, PieChart, Slice
@@ -59,8 +61,9 @@ from drawlib.charts.heatmap import (
 │ Categorical & Matrix     │ Continuous & Relational    │ Radial & Temporal        │
 ├──────────────────────────┼────────────────────────────┼──────────────────────────┤
 │ • BarChart (Group/Stack) │ • LineChart (Linear/Spline)│ • PieChart (Pie/Donut)   │
-│ • HeatmapChart (2D Grid) │ • AreaChart (Overlap/Stack)│ • RadarChart (Spiderweb) │
-│ • HeatmapOverlay (Spot)  │ • ScatterChart (XY/Bubble) │ • GanttChart (Timelines) │
+│ • BoxChart (Box/Strip)   │ • AreaChart (Overlap/Stack)│ • RadarChart (Spiderweb) │
+│ • HeatmapChart (2D Grid) │ • ScatterChart (XY/Bubble) │ • GanttChart (Timelines) │
+│ • HeatmapOverlay (Spot)  │                            │                          │
 └──────────────────────────┴────────────────────────────┴──────────────────────────┘
 ```
 
@@ -69,6 +72,7 @@ Query the detailed guidelines and API reference for any specific chart family us
 | Rule Topic | Submodule | Primary Classes | Command |
 | :--- | :--- | :--- | :--- |
 | **`lib-charts-bar`** | `drawlib.charts.bar` | `BarChart`, `Series`, `Axis` | `uv run drawlib rules show lib-charts-bar` |
+| **`lib-charts-box`** | `drawlib.charts.box` | `BoxChart`, `BoxStats`, `Series`, `Axis` | `uv run drawlib rules show lib-charts-box` |
 | **`lib-charts-line`** | `drawlib.charts.line` | `LineChart`, `Series`, `Axis` | `uv run drawlib rules show lib-charts-line` |
 | **`lib-charts-area`** | `drawlib.charts.area` | `AreaChart`, `Series`, `Axis` | `uv run drawlib rules show lib-charts-area` |
 | **`lib-charts-pie`** | `drawlib.charts.pie` | `PieChart`, `Slice` | `uv run drawlib rules show lib-charts-pie` |
@@ -82,7 +86,7 @@ Query the detailed guidelines and API reference for any specific chart family us
 ## 2. Universal Chart Architecture
 
 ### 2.1 Placement Coordinates (`align`), Spatial Overrides, and Proportional Scaling (`scale`)
-Every chart class (`BarChart`, `LineChart`, `AreaChart`, `PieChart`, `RadarChart`, `ScatterChart`, `GanttChart`, `HeatmapChart`, `HeatmapOverlay`) implements a unified positioning, sizing override, and uniform scaling contract:
+Every chart class (`BarChart`, `BoxChart`, `LineChart`, `AreaChart`, `PieChart`, `RadarChart`, `ScatterChart`, `GanttChart`, `HeatmapChart`, `HeatmapOverlay`) implements a unified positioning, sizing override, and uniform scaling contract:
 
 ```python
 chart.draw(
@@ -120,7 +124,7 @@ chart.draw(
 ```
 
 ### 2.2 The Axis System (`Axis`, `configure_x_axis`, `configure_y_axis`)
-Cartesian charts (`BarChart`, `LineChart`, `AreaChart`, `ScatterChart`) use the `Axis` model (`drawlib._charts._common._axis.Axis`) to control coordinate mapping, linear/logarithmic scaling, gridline/baseline/tick visibility, and label formatting.
+Cartesian charts (`BarChart`, `BoxChart`, `LineChart`, `AreaChart`, `ScatterChart`) use the `Axis` model (`drawlib._charts._common._axis.Axis`) to control coordinate mapping, linear/logarithmic scaling, gridline/baseline/tick visibility, and label formatting.
 
 ```python
 class Axis:
@@ -179,8 +183,8 @@ chart.configure_y_axis(
 | `show_ticks` / `tick_label_style` | `bool` / `Style \| None` | `True` / `None` | Whether to render tick labels and optional per-axis `Style` override (for tick label rotation, set `text_angle` on `tick_label_style` or `axis_text_style`; there is no separate `tick_label_rotation` argument). |
 
 - **Direct Axis Property Access**:
-  - `chart.x_axis` and `chart.y_axis` on `BarChart`, `LineChart`, `AreaChart`, and `ScatterChart`.
-  - `bar_chart.value_axis` (`y_axis` when vertical, `x_axis` when horizontal) and `bar_chart.category_axis` (`x_axis` when vertical, `y_axis` when horizontal).
+  - `chart.x_axis` and `chart.y_axis` on `BarChart`, `BoxChart`, `LineChart`, `AreaChart`, and `ScatterChart`.
+  - `bar_chart.value_axis` / `box_chart.value_axis` (`y_axis` when vertical, `x_axis` when horizontal) and `category_axis` (`x_axis` when vertical, `y_axis` when horizontal).
   - `RadarChart` uses `chart.configure_axis(*, min_value=None, max_value=None, levels=None, scale_format=None) -> RadarChart`.
 
 ### 2.3 Decoupled Legend & Colorbar Rendering (`draw_legend`, `draw_colorbar`)
@@ -199,7 +203,7 @@ chart.draw_legend(
 ) -> None
 ```
 
-- **Supported Charts**: `BarChart`, `LineChart`, `AreaChart`, `PieChart`, `RadarChart`, `ScatterChart`, `HeatmapChart`, and `HeatmapOverlay`.
+- **Supported Charts**: `BarChart`, `BoxChart`, `LineChart`, `AreaChart`, `PieChart`, `RadarChart`, `ScatterChart`, `HeatmapChart`, and `HeatmapOverlay`.
 - **Coordinate Anchor `xy`**:
   - For `orientation="vertical"`, `xy` is the **top-left** starting position (items step downward).
   - For `orientation="horizontal"`, `xy` is the **middle-left** starting position (items advance rightward by `item_gap`).
@@ -208,19 +212,19 @@ chart.draw_legend(
 
 ### 2.4 Presence-Based Styling (`Style | None = None`)
 Drawlib charts enforce a strict **"No Fallback / Style-as-Presence"** design:
-1. **Mandatory Structural Anchor**: `BarChart`, `LineChart`, `AreaChart`, `RadarChart`, `ScatterChart`, and `GanttChart` require `axis_line_style: Style` (`HeatmapChart` and `HeatmapOverlay` require `styles=[Style, ...]` or `min_style` + `max_style`).
+1. **Mandatory Structural Anchor**: `BarChart`, `BoxChart`, `LineChart`, `AreaChart`, `RadarChart`, `ScatterChart`, and `GanttChart` require `axis_line_style: Style` (`HeatmapChart` and `HeatmapOverlay` require `styles=[Style, ...]` or `min_style` + `max_style`).
 2. **Presence-Based Optional Elements**: Any optional style left as `None` completely omits that visual element:
    - `axis_text_style=None`: Tick labels, category names, spoke labels, and row/column headers are omitted.
    - `grid_style=None`: Gridlines, concentric radar rings, and vertical Gantt column dividers are omitted.
-   - `value_text_style=None`: Inline numeric labels on bars, vertices, pie slices, cells, and spots are omitted.
+   - `value_text_style=None`: Inline numeric labels on bars, boxes, vertices, pie slices, cells, and spots are omitted.
    - `title_style=None`: Chart title is omitted even if `title` is non-empty.
    - `background_style=None`: Outer container card is omitted (transparent background).
 
-### 2.5 Animation Support Across All 9 Chart Classes (`show`, `draw_ratio`, `draw_direction`)
-All 9 chart classes follow Drawlib's 4-phase component lifecycle (**1. Instantiate -> 2. Register Elements -> 3. Mutate State -> 4. Render**), enabling smooth keyframe animations and step-by-step slide builds without shifting axis scales or layout geometry:
+### 2.5 Animation Support Across All 10 Chart Classes (`show`, `draw_ratio`, `draw_direction`)
+All 10 chart classes follow Drawlib's 4-phase component lifecycle (**1. Instantiate -> 2. Register Elements -> 3. Mutate State -> 4. Render**), enabling smooth keyframe animations and step-by-step slide builds without shifting axis scales or layout geometry:
 
 1. **Element Visibility (`show: bool = True`)**:
-   - Supported on every data item across all 9 chart classes: `Series`, `Slice`, `Point`, `Task`, `Section`, `Milestone`, `Marker`, `Dependency`, `Row`, `Cell`, and `Spot`.
+   - Supported on every data item across all 10 chart classes: `Series`, `Slice`, `Point`, `Task`, `Section`, `Milestone`, `Marker`, `Dependency`, `Row`, `Cell`, and `Spot`.
    - Setting `elem.show = False` (or `draw_ratio = 0.0`) hides the element (and its legend entry) while **preserving the full 100% dataset's automatic axis bounds, pie total sum, heatmap color range, and Gantt row positions**.
    - In `GanttChart`, hiding a `Task` (`task.show = False` or `task.draw_ratio = 0.0`) automatically hides any connected `Dependency` arrows.
 2. **Partial Spatial Rendering (`draw_ratio: float = 1.0`, `draw_direction: DrawDirection`)**:
@@ -228,6 +232,7 @@ All 9 chart classes follow Drawlib's 4-phase component lifecycle (**1. Instantia
 | Chart Class | Animated Element | Default `draw_direction` | `"bottom_to_top"` Behavior | `"left_to_right"` Behavior |
 | :--- | :--- | :--- | :--- | :--- |
 | **`BarChart`** | `Series` | `"bottom_to_top"` (`"vertical"`) / `"left_to_right"` (`"horizontal"`) | Vertical: all bars grow upward from baseline (`v * r`). Horizontal: bars reveal sequentially from bottom category to top. | Vertical: bars reveal sequentially left-to-right across categories. Horizontal: all bars grow rightward from baseline (`v * r`). |
+| **`BoxChart`** | `Series` | `"bottom_to_top"` (`"vertical"`) / `"left_to_right"` (`"horizontal"`) | Vertical: boxes, whiskers, and strip points expand outward from median. Horizontal: categories reveal sequentially bottom-to-top. | Vertical: categories reveal sequentially left-to-right. Horizontal: boxes, whiskers, and strip points expand outward from median. |
 | **`LineChart`** | `Series` | `"left_to_right"` | All vertices rise simultaneously from baseline toward target `y`. | Curve extends continuously from left to right along arc length; markers appear as reached. |
 | **`AreaChart`** | `Series` | `"left_to_right"` | Area polygon and upper contour rise from baseline / lower stack boundary. | Area polygon and upper contour sweep continuously from left to right. |
 | **`PieChart`** | `Slice` | `"left_to_right"` | Wedge grows radially outward from inner hole (`hole_ratio`) toward `radius`. | Wedge sweeps angularly from `start_angle` across `sweep_angle * r` (labels appear at `r >= 0.6`). |

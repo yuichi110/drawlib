@@ -2,7 +2,7 @@
 
 `drawlib.charts` モジュールは、比較・統計・相関・プロジェクトスケジュール向けの宣言的かつ純粋 Python 製のデータ可視化エンジンを提供します。
 
-全 8 系統のチャートファミリーはファーストクラスのベクターキャンバスコンポーネントとして描画され、吹き出しやカード、各種テクニカルダイアグラムと同じ統一座標平面上でシームレスに共存できます。
+全 9 系統のチャートファミリーはファーストクラスのベクターキャンバスコンポーネントとして描画され、吹き出しやカード、各種テクニカルダイアグラムと同じ統一座標平面上でシームレスに共存できます。
 
 ```drawlib code=fold align=center file=charts_ecosystem_hero.png caption="Drawlib の純粋 Python チャートエコシステム：単一キャンバス上で共存する棒・折れ線・ドーナツ・レーダーチャート"
 from drawlib.canvas import save, setup
@@ -117,13 +117,14 @@ save()
 
 ---
 
-## 2. 8 つのチャートファミリーとサブモジュールの公開シンボル
+## 2. 9 つのチャートファミリーとサブモジュールの公開シンボル
 
-Drawlib のチャートは、**[軸・スケール・凡例](./axes_and_legends.md)** の共通基盤の上に、`drawlib.charts` 配下の 8 つの専門サブモジュールとして整理されています。
+Drawlib のチャートは、**[軸・スケール・凡例](./axes_and_legends.md)** の共通基盤の上に、`drawlib.charts` 配下の 9 つの専門サブモジュールとして整理されています。
 
 | モジュール | 主要クラス | 補助データモデル | 公開されている型リテラル・エイリアス | 主な用途 |
 | :--- | :--- | :--- | :--- | :--- |
 | `drawlib.charts.bar` | **[`BarChart`](./bar.md)** | `Series`, `Axis` | `Mode`, `Orientation`, `FormatterType`, `DrawDirection`, `LegendPosition` | カテゴリ比較（縦棒・横棒・集合・積み上げ）。 |
+| `drawlib.charts.box` | **[`BoxChart`](./box.md)** | `BoxStats`, `Series`, `Axis` | `WhiskerMode`, `Orientation`, `PointShape`, `ScaleType`, `FormatterType`, `DrawDirection`, `LegendPosition` | カテゴリ別の統計分布、四分位数・外れ値、ストリップ／ジッタープロット、ハイブリッド重ね描き。 |
 | `drawlib.charts.line` | **[`LineChart`](./line.md)** | `Series`, `Axis` | `LineStyle`, `PointShape`, `FormatterType`, `DrawDirection`, `LegendPosition` | 時系列に沿った連続メトリクスやトレンド（折れ線またはスプライン補間）。 |
 | `drawlib.charts.area` | **[`AreaChart`](./area.md)** | `Series`, `Axis` | `Mode`, `FormatterType`, `DrawDirection`, `LegendPosition` | 時系列にわたる累積ボリュームや全体に対する内訳トレンド。 |
 | `drawlib.charts.pie` | **[`PieChart`](./pie.md)** | `Slice` | `FormatterType`, `DrawDirection` | 構成比の可視化、ドーナツグラフ、中央 KPI バッジ表示。 |
@@ -138,9 +139,10 @@ Drawlib のチャートは、**[軸・スケール・凡例](./axes_and_legends.
 | :--- | :--- | :--- |
 | **`Mode`** (`bar`) | `Literal["group", "stack"]` | `BarChart(bar_mode=...)` |
 | **`Mode`** (`area`) | `Literal["overlap", "stack"]` | `AreaChart(mode=...)` |
-| **`Orientation`** | `Literal["vertical", "horizontal"]` | `BarChart(orientation=...)`, `draw_legend(orientation=...)`, `draw_colorbar(orientation=...)` |
+| **`WhiskerMode`** | `Literal["iqr", "min_max", "percentile"]` | `BoxChart(whisker_mode=...)`、`BoxStats.from_values(whisker_mode=...)` |
+| **`Orientation`** | `Literal["vertical", "horizontal"]` | `BarChart(orientation=...)`, `BoxChart(orientation=...)`, `draw_legend(orientation=...)`, `draw_colorbar(orientation=...)` |
 | **`LineStyle`** | `Literal["solid", "dashed", "dotted", "dashdot"]` | `LineChart`、`AreaChart`、`RadarChart` の系列ストロークパターン |
-| **`PointShape`** | `Literal["circle", "square", "rhombus", "triangle", "none"]` | `ScatterChart`（全 5 形状）、`LineChart`・`AreaChart`・`RadarChart`（`"circle"`、`"square"`、`"none"`） |
+| **`PointShape`** | `Literal["circle", "square", "rhombus", "triangle", "none"]` | `ScatterChart`・`BoxChart`（全 5 形状）、`LineChart`・`AreaChart`・`RadarChart`（`"circle"`、`"square"`、`"none"`） |
 | **`GridShape`** | `Literal["polygon", "circle"]` | `RadarChart(grid_shape=...)` の同心グリッド形状 |
 | **`ScaleType`** | `Literal["linear", "log"]` | `Axis(scale=...)` の線形（Nice Numbers）または常用対数（`log10`）スケーリング |
 | **`OverlayMode`** | `Literal["smooth", "contour"]` | `HeatmapOverlay(mode=...)` のガウス熱グラデーションまたはベクター等高線リング |
@@ -174,11 +176,11 @@ Drawlib のチャートは厳格な **「Style-as-Presence（スタイルの指�
 
 | 任意スタイル引数 | デフォルト | `Style` 指定時に有効化される視覚要素 | 対象チャートクラス |
 | :--- | :--- | :--- | :--- |
-| **`axis_text_style`** | `None` | 軸の目盛りラベル、カテゴリ名、放射軸ラベル（`RadarChart`）、列／行ラベル（`GanttChart`）。 | `BarChart`, `LineChart`, `AreaChart`, `RadarChart`, `ScatterChart`, `GanttChart` |
-| **`grid_style`** | `None` | 背景の数値グリッド線、同心リング（`RadarChart`）、縦方向の列区切り線（`GanttChart`）。 | `BarChart`, `LineChart`, `AreaChart`, `RadarChart`, `ScatterChart`, `GanttChart` |
-| **`value_text_style`** | `None` | 棒グラフの先端、折れ線／レーダーの頂点、円グラフの扇形内、散布図のポイント横の数値ラベル。 | `BarChart`, `LineChart`, `AreaChart`, `PieChart`, `RadarChart`, `ScatterChart` |
-| **`title_style`** | `None` | チャート上部のタイトル文字列（空でない `title` 文字列が必要）。 | 全 7 チャートクラス |
-| **`background_style`** | `None` | チャート外枠コンテナカードの背景塗りと枠線ストローク。 | 全 7 チャートクラス |
+| **`axis_text_style`** | `None` | 軸の目盛りラベル、カテゴリ名、放射軸ラベル（`RadarChart`）、列／行ラベル（`GanttChart`、`HeatmapChart`）。 | `BarChart`, `BoxChart`, `LineChart`, `AreaChart`, `RadarChart`, `ScatterChart`, `GanttChart`, `HeatmapChart` |
+| **`grid_style`** | `None` | 背景の数値グリッド線、同心リング（`RadarChart`）、縦方向の列区切り線（`GanttChart`）。 | `BarChart`, `BoxChart`, `LineChart`, `AreaChart`, `RadarChart`, `ScatterChart`, `GanttChart` |
+| **`value_text_style`** | `None` | 棒グラフの先端、箱ひげ図の中央値、折れ線／レーダーの頂点、円グラフの扇形内、ヒートマップのセル、散布図のポイント横の数値ラベル。 | `BarChart`, `BoxChart`, `LineChart`, `AreaChart`, `PieChart`, `RadarChart`, `ScatterChart`, `HeatmapChart` |
+| **`title_style`** | `None` | チャート上部のタイトル文字列（空でない `title` 文字列が必要）。 | 全チャートクラス |
+| **`background_style`** | `None` | チャート外枠コンテナカードの背景塗りと枠線ストローク。 | 全チャートクラス |
 | **`scale_text_style`** | `None` | レーダーチャートの垂直上向きスポークに沿った同心リングの数値ラベル。 | `RadarChart` |
 | **`center_text_style`** | `None` | ドーナツ中央穴の KPI バッジテキスト（`hole_ratio > 0` かつ `center_text` の指定が必要）。 | `PieChart` |
 | **`header_style`** | `None` | 上部タイムライン列ヘッダー帯の背景塗り／枠線。 | `GanttChart` |
@@ -216,6 +218,7 @@ Drawlib のすべてのチャートは統一された 4 フェーズのコンポ
 | チャートクラス | デフォルトの `draw_direction` | `"bottom_to_top"` の挙動 | `"left_to_right"` の挙動 |
 | :--- | :--- | :--- | :--- |
 | **`BarChart`** | `"bottom_to_top"`（`"vertical"` 時）／`"left_to_right"`（`"horizontal"` 時） | 縦向き：すべての棒がベースラインから上へ伸長。横向き：下のカテゴリから順に表示。 | 縦向き：左のカテゴリから順に表示。横向き：すべての棒がベースラインから右へ伸長。 |
+| **`BoxChart`** | `"bottom_to_top"`（`"vertical"` 時）／`"left_to_right"`（`"horizontal"` 時） | 縦向き：箱・ひげ・ストリップ点が中央値から上下外側に展開。横向き：下のカテゴリから順に表示。 | 縦向き：左のカテゴリから順に表示。横向き：箱・ひげ・ストリップ点が中央値から左右外側に展開。 |
 | **`LineChart`** | `"left_to_right"` | すべての頂点がベースラインから目標の `y` へ向かって同時に上昇。 | 曲線が弧長に沿って左から右へ連続的に伸長。 |
 | **`AreaChart`** | `"left_to_right"` | 面ポリゴンと上部輪郭線がベースライン（または下段スタック）から上昇。 | 面ポリゴンと上部輪郭線が左から右へ連続的にスイープ。 |
 | **`ScatterChart`** | `"left_to_right"` | 各ポイントが下端軸から目標の `y` へ上昇（半径も `radius * r` に拡大）。 | X 軸の範囲に沿って左から右へポイントを順次表示。 |

@@ -115,8 +115,9 @@ LIBRARY_TOPICS: Final[dict[str, str]] = {
     "lib-smartarts-panel": "Panel titled container frame with get_content_box layout helper",
     "lib-smartarts-calendar": "MonthCalendar, WeekCalendar, and DayCalendar schedule and timetable components",
     # Charts (drawlib.charts)
-    "lib-charts-overview": "Overview of 9 chart types, Axis configuration, legends, and animation draw_ratio",
+    "lib-charts-overview": "Overview of 10 chart types, Axis configuration, legends, and animation draw_ratio",
     "lib-charts-bar": "BarChart grouped/stacked vertical and horizontal bar charts",
+    "lib-charts-box": "BoxChart box plots, strip/jitter plots, hybrid overlays, and BoxStats",
     "lib-charts-line": "LineChart multi-series trend lines with point markers",
     "lib-charts-area": "AreaChart standard and stacked filled area charts",
     "lib-charts-pie": "PieChart pie and donut proportional charts",

@@ -17,7 +17,7 @@ rectangle((60, 29), width=112, height=50, style=Styles.MutedDashed.patch(shape_r
 phosphor.package((38.0, 48.5), width=4.4, style=Styles.DarkBold)
 text(
     (63.5, 48.5),
-    "Drawlib Package Architecture (v0.3.5)",
+    "Drawlib Package Architecture (v0.3.6)",
     style=Styles.DarkBold.patch(text_size=12.5),
 )
 
@@ -65,10 +65,10 @@ Drawlib は `PEP 562` に基づく遅延モジュールロードを採用して�
 | パッケージ名前空間 | 再エクスポートされるサブモジュール (`__all__`) |
 | :--- | :--- |
 | `drawlib` | `anim`, `canvas`, `charts`, `diagrams`, `fonts`, `graph`, `icons`, `images`, `lines`, `math`, `preset_colors`, `preset_styles`, `shapes`, `slide`, `smartarts`, `styles`, `text`, `tools`, `types`, `utils` |
-| `drawlib.charts` | `area`, `bar`, `gantt`, `heatmap`, `line`, `pie`, `radar`, `scatter`（および共通型エイリアス `DrawDirection`） |
+| `drawlib.charts` | `area`, `bar`, `box`, `gantt`, `heatmap`, `line`, `pie`, `radar`, `scatter`（および共通型エイリアス `DrawDirection`） |
 | `drawlib.diagrams` | `architecture`, `class_diagram`, `er`, `flow`, `sequence`, `state` |
 
-### 全モジュール・CLI リファレンス一覧（全 29 ページ）
+### 全モジュール・CLI リファレンス一覧（全 30 ページ）
 
 | ページ | 対象モジュール | 主な収録内容 |
 | :--- | :--- | :--- |
@@ -91,6 +91,7 @@ Drawlib は `PEP 562` に基づく遅延モジュールロードを採用して�
 | [16. drawlib.charts.scatter](16_charts_scatter.md) | `drawlib.charts.scatter` | 散布図・バブルチャート `ScatterChart` |
 | [17. drawlib.charts.gantt](17_charts_gantt.md) | `drawlib.charts.gantt` | スケジュール・マイルストーン・依存関係を表す `GanttChart` |
 | [18. drawlib.charts.heatmap](18_charts_heatmap.md) | `drawlib.charts.heatmap` | マトリクス `HeatmapChart` と空間サーマルオーバーレイ `HeatmapOverlay` |
+| [18b. drawlib.charts.box](18b_charts_box.md) | `drawlib.charts.box` | 箱ひげ図 `BoxChart`・要約統計 `BoxStats`・ストリッププロット重ね合わせ |
 | [19. drawlib.diagrams.architecture](19_diagrams_architecture.md) | `drawlib.diagrams.architecture` | クラウド・マイクロサービス構成図 `ArchitectureDiagram` |
 | [20. drawlib.diagrams.flow](20_diagrams_flow.md) | `drawlib.diagrams.flow` | フローチャート・スイムレーン図 `FlowDiagram` |
 | [21. drawlib.diagrams.sequence](21_diagrams_sequence.md) | `drawlib.diagrams.sequence` | シーケンス図 `SequenceDiagram`（ライフライン・複合フラグメント・ノート） |
@@ -111,12 +112,12 @@ Drawlib は `PEP 562` に基づく遅延モジュールロードを採用して�
 ```python
 from drawlib import __version__
 
-__version__: Final[str] = "0.3.5"
+__version__: Final[str] = "0.3.6"
 ```
 
 | 定数名 | 型 | 値 | 説明 |
 | :--- | :--- | :--- | :--- |
-| `__version__` | `Final[str]` | `'0.3.5'` | インストールされている Drawlib のセマンティックバージョン文字列。 |
+| `__version__` | `Final[str]` | `'0.3.6'` | インストールされている Drawlib のセマンティックバージョン文字列。 |
 
 ---
 
@@ -143,12 +144,12 @@ LIB_NAME: Final[str] = "drawlib"
 ```python
 from drawlib import LIB_VERSION
 
-LIB_VERSION: Final[str] = "0.3.5"
+LIB_VERSION: Final[str] = "0.3.6"
 ```
 
 | 定数名 | 型 | 値 | 説明 |
 | :--- | :--- | :--- | :--- |
-| `LIB_VERSION` | `Final[str]` | `'0.3.5'` | `drawlib.__version__` と同一のセマンティックバージョン文字列。 |
+| `LIB_VERSION` | `Final[str]` | `'0.3.6'` | `drawlib.__version__` と同一のセマンティックバージョン文字列。 |
 
 ---
 

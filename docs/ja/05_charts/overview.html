@@ -88,7 +88,7 @@
                 
                 <a href="../01_getting_started/release_notes.html" class="sidebar-version-badge" title="View Release Notes">
                     <span class="sidebar-version-dot" aria-hidden="true"></span>
-                    <span class="sidebar-version-text">v0.3.5</span>
+                    <span class="sidebar-version-text">v0.3.6</span>
                 </a>
                 <a href="https://github.com/yuichi110/drawlib" target="_blank" rel="noopener noreferrer" class="sidebar-github-link" aria-label="GitHub Repository" title="GitHub Repository">
                     <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
@@ -404,6 +404,10 @@
                             </li>
                             
                             <li class="nav-item ">
+                                <a href="box.html" >Box &amp; Strip Chart（箱ひげ・ストリップ）</a>
+                            </li>
+                            
+                            <li class="nav-item ">
                                 <a href="line.html" >Line Chart（折れ線グラフ）</a>
                             </li>
                             
@@ -668,7 +672,7 @@
             <main class="main-content">
                 <h1>Charts 概要</h1>
 <p><code>drawlib.charts</code> モジュールは、比較・統計・相関・プロジェクトスケジュール向けの宣言的かつ純粋 Python 製のデータ可視化エンジンを提供します。</p>
-<p>全 8 系統のチャートファミリーはファーストクラスのベクターキャンバスコンポーネントとして描画され、吹き出しやカード、各種テクニカルダイアグラムと同じ統一座標平面上でシームレスに共存できます。</p>
+<p>全 9 系統のチャートファミリーはファーストクラスのベクターキャンバスコンポーネントとして描画され、吹き出しやカード、各種テクニカルダイアグラムと同じ統一座標平面上でシームレスに共存できます。</p>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="../../images/05_charts/overview/charts_ecosystem_hero.png" alt="overview_1" />
   <figcaption class="drawlib-caption">Drawlib の純粋 Python チャートエコシステム：単一キャンバス上で共存する棒・折れ線・ドーナツ・レーダーチャート</figcaption>
@@ -786,8 +790,8 @@
   <figcaption class="drawlib-caption">宣言的な複数系列の棒グラフ (BarChart)</figcaption>
 </figure>
 <hr />
-<h2>2. 8 つのチャートファミリーとサブモジュールの公開シンボル</h2>
-<p>Drawlib のチャートは、<strong><a href="./axes_and_legends.html">軸・スケール・凡例</a></strong> の共通基盤の上に、<code>drawlib.charts</code> 配下の 8 つの専門サブモジュールとして整理されています。</p>
+<h2>2. 9 つのチャートファミリーとサブモジュールの公開シンボル</h2>
+<p>Drawlib のチャートは、<strong><a href="./axes_and_legends.html">軸・スケール・凡例</a></strong> の共通基盤の上に、<code>drawlib.charts</code> 配下の 9 つの専門サブモジュールとして整理されています。</p>
 <table>
 <thead>
 <tr>
@@ -805,6 +809,13 @@
 <td style="text-align:left"><code>Series</code>, <code>Axis</code></td>
 <td style="text-align:left"><code>Mode</code>, <code>Orientation</code>, <code>FormatterType</code>, <code>DrawDirection</code>, <code>LegendPosition</code></td>
 <td style="text-align:left">カテゴリ比較（縦棒・横棒・集合・積み上げ）。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>drawlib.charts.box</code></td>
+<td style="text-align:left"><strong><a href="./box.html"><code>BoxChart</code></a></strong></td>
+<td style="text-align:left"><code>BoxStats</code>, <code>Series</code>, <code>Axis</code></td>
+<td style="text-align:left"><code>WhiskerMode</code>, <code>Orientation</code>, <code>PointShape</code>, <code>ScaleType</code>, <code>FormatterType</code>, <code>DrawDirection</code>, <code>LegendPosition</code></td>
+<td style="text-align:left">カテゴリ別の統計分布、四分位数・外れ値、ストリップ／ジッタープロット、ハイブリッド重ね描き。</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>drawlib.charts.line</code></td>
@@ -878,9 +889,14 @@
 <td style="text-align:left"><code>AreaChart(mode=...)</code></td>
 </tr>
 <tr>
+<td style="text-align:left"><strong><code>WhiskerMode</code></strong></td>
+<td style="text-align:left"><code>Literal[&quot;iqr&quot;, &quot;min_max&quot;, &quot;percentile&quot;]</code></td>
+<td style="text-align:left"><code>BoxChart(whisker_mode=...)</code>、<code>BoxStats.from_values(whisker_mode=...)</code></td>
+</tr>
+<tr>
 <td style="text-align:left"><strong><code>Orientation</code></strong></td>
 <td style="text-align:left"><code>Literal[&quot;vertical&quot;, &quot;horizontal&quot;]</code></td>
-<td style="text-align:left"><code>BarChart(orientation=...)</code>, <code>draw_legend(orientation=...)</code>, <code>draw_colorbar(orientation=...)</code></td>
+<td style="text-align:left"><code>BarChart(orientation=...)</code>, <code>BoxChart(orientation=...)</code>, <code>draw_legend(orientation=...)</code>, <code>draw_colorbar(orientation=...)</code></td>
 </tr>
 <tr>
 <td style="text-align:left"><strong><code>LineStyle</code></strong></td>
@@ -890,7 +906,7 @@
 <tr>
 <td style="text-align:left"><strong><code>PointShape</code></strong></td>
 <td style="text-align:left"><code>Literal[&quot;circle&quot;, &quot;square&quot;, &quot;rhombus&quot;, &quot;triangle&quot;, &quot;none&quot;]</code></td>
-<td style="text-align:left"><code>ScatterChart</code>（全 5 形状）、<code>LineChart</code>・<code>AreaChart</code>・<code>RadarChart</code>（<code>&quot;circle&quot;</code>、<code>&quot;square&quot;</code>、<code>&quot;none&quot;</code>）</td>
+<td style="text-align:left"><code>ScatterChart</code>・<code>BoxChart</code>（全 5 形状）、<code>LineChart</code>・<code>AreaChart</code>・<code>RadarChart</code>（<code>&quot;circle&quot;</code>、<code>&quot;square&quot;</code>、<code>&quot;none&quot;</code>）</td>
 </tr>
 <tr>
 <td style="text-align:left"><strong><code>GridShape</code></strong></td>
@@ -955,32 +971,32 @@
 <tr>
 <td style="text-align:left"><strong><code>axis_text_style</code></strong></td>
 <td style="text-align:left"><code>None</code></td>
-<td style="text-align:left">軸の目盛りラベル、カテゴリ名、放射軸ラベル（<code>RadarChart</code>）、列／行ラベル（<code>GanttChart</code>）。</td>
-<td style="text-align:left"><code>BarChart</code>, <code>LineChart</code>, <code>AreaChart</code>, <code>RadarChart</code>, <code>ScatterChart</code>, <code>GanttChart</code></td>
+<td style="text-align:left">軸の目盛りラベル、カテゴリ名、放射軸ラベル（<code>RadarChart</code>）、列／行ラベル（<code>GanttChart</code>、<code>HeatmapChart</code>）。</td>
+<td style="text-align:left"><code>BarChart</code>, <code>BoxChart</code>, <code>LineChart</code>, <code>AreaChart</code>, <code>RadarChart</code>, <code>ScatterChart</code>, <code>GanttChart</code>, <code>HeatmapChart</code></td>
 </tr>
 <tr>
 <td style="text-align:left"><strong><code>grid_style</code></strong></td>
 <td style="text-align:left"><code>None</code></td>
 <td style="text-align:left">背景の数値グリッド線、同心リング（<code>RadarChart</code>）、縦方向の列区切り線（<code>GanttChart</code>）。</td>
-<td style="text-align:left"><code>BarChart</code>, <code>LineChart</code>, <code>AreaChart</code>, <code>RadarChart</code>, <code>ScatterChart</code>, <code>GanttChart</code></td>
+<td style="text-align:left"><code>BarChart</code>, <code>BoxChart</code>, <code>LineChart</code>, <code>AreaChart</code>, <code>RadarChart</code>, <code>ScatterChart</code>, <code>GanttChart</code></td>
 </tr>
 <tr>
 <td style="text-align:left"><strong><code>value_text_style</code></strong></td>
 <td style="text-align:left"><code>None</code></td>
-<td style="text-align:left">棒グラフの先端、折れ線／レーダーの頂点、円グラフの扇形内、散布図のポイント横の数値ラベル。</td>
-<td style="text-align:left"><code>BarChart</code>, <code>LineChart</code>, <code>AreaChart</code>, <code>PieChart</code>, <code>RadarChart</code>, <code>ScatterChart</code></td>
+<td style="text-align:left">棒グラフの先端、箱ひげ図の中央値、折れ線／レーダーの頂点、円グラフの扇形内、ヒートマップのセル、散布図のポイント横の数値ラベル。</td>
+<td style="text-align:left"><code>BarChart</code>, <code>BoxChart</code>, <code>LineChart</code>, <code>AreaChart</code>, <code>PieChart</code>, <code>RadarChart</code>, <code>ScatterChart</code>, <code>HeatmapChart</code></td>
 </tr>
 <tr>
 <td style="text-align:left"><strong><code>title_style</code></strong></td>
 <td style="text-align:left"><code>None</code></td>
 <td style="text-align:left">チャート上部のタイトル文字列（空でない <code>title</code> 文字列が必要）。</td>
-<td style="text-align:left">全 7 チャートクラス</td>
+<td style="text-align:left">全チャートクラス</td>
 </tr>
 <tr>
 <td style="text-align:left"><strong><code>background_style</code></strong></td>
 <td style="text-align:left"><code>None</code></td>
 <td style="text-align:left">チャート外枠コンテナカードの背景塗りと枠線ストローク。</td>
-<td style="text-align:left">全 7 チャートクラス</td>
+<td style="text-align:left">全チャートクラス</td>
 </tr>
 <tr>
 <td style="text-align:left"><strong><code>scale_text_style</code></strong></td>
@@ -1050,6 +1066,12 @@
 <td style="text-align:left"><code>&quot;bottom_to_top&quot;</code>（<code>&quot;vertical&quot;</code> 時）／<code>&quot;left_to_right&quot;</code>（<code>&quot;horizontal&quot;</code> 時）</td>
 <td style="text-align:left">縦向き：すべての棒がベースラインから上へ伸長。横向き：下のカテゴリから順に表示。</td>
 <td style="text-align:left">縦向き：左のカテゴリから順に表示。横向き：すべての棒がベースラインから右へ伸長。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>BoxChart</code></strong></td>
+<td style="text-align:left"><code>&quot;bottom_to_top&quot;</code>（<code>&quot;vertical&quot;</code> 時）／<code>&quot;left_to_right&quot;</code>（<code>&quot;horizontal&quot;</code> 時）</td>
+<td style="text-align:left">縦向き：箱・ひげ・ストリップ点が中央値から上下外側に展開。横向き：下のカテゴリから順に表示。</td>
+<td style="text-align:left">縦向き：左のカテゴリから順に表示。横向き：箱・ひげ・ストリップ点が中央値から左右外側に展開。</td>
 </tr>
 <tr>
 <td style="text-align:left"><strong><code>LineChart</code></strong></td>

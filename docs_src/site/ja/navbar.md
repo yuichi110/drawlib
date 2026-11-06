@@ -77,6 +77,7 @@
 - [Charts 概要](./05_charts/overview.md)
 - [軸・スケール・凡例](./05_charts/axes_and_legends.md)
 - [Bar Chart（棒グラフ）](./05_charts/bar.md)
+- [Box & Strip Chart（箱ひげ・ストリップ）](./05_charts/box.md)
 - [Line Chart（折れ線グラフ）](./05_charts/line.md)
 - [Area Chart（面グラフ）](./05_charts/area.md)
 - [Pie & Donut Chart（円・ドーナツグラフ）](./05_charts/pie.md)

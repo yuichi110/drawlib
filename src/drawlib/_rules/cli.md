@@ -1121,7 +1121,7 @@ drawlib rules
 | `lib-shapes-overview` | `lib-shapes-basic`, `lib-shapes-polygons`, `lib-shapes-arrows`, `lib-shapes-callouts`, `lib-shapes-flowchart`, `lib-shapes-radial` |
 | `lib-icons-overview` | `lib-icons-phosphor`, `lib-icons-gcp`, `lib-icons-aws`, `lib-icons-azure`, `lib-icons-tech-logos`, `lib-icons-network`, `lib-icons-security`, `lib-icons-cicd`, `lib-icons-k8s`, `lib-icons-server`, `lib-icons-database`, `lib-icons-ai`, `lib-icons-computing`, `lib-icons-iot`, `lib-icons-device`, `lib-icons-os`, `lib-icons-programming`, `lib-icons-container`, `lib-icons-doc` |
 | `lib-smartarts-overview` | `lib-smartarts-box`, `lib-smartarts-callout`, `lib-smartarts-card`, `lib-smartarts-chevron`, `lib-smartarts-comparison`, `lib-smartarts-cycle`, `lib-smartarts-funnel`, `lib-smartarts-gauge`, `lib-smartarts-grid`, `lib-smartarts-list`, `lib-smartarts-matrix`, `lib-smartarts-mindmap`, `lib-smartarts-pyramid`, `lib-smartarts-roadmap`, `lib-smartarts-sourcecode`, `lib-smartarts-table`, `lib-smartarts-tree`, `lib-smartarts-venn` |
-| `lib-charts-overview` | `lib-charts-bar`, `lib-charts-line`, `lib-charts-pie`, `lib-charts-scatter`, `lib-charts-area`, `lib-charts-radar`, `lib-charts-gantt`, `lib-charts-heatmap` |
+| `lib-charts-overview` | `lib-charts-bar`, `lib-charts-box`, `lib-charts-line`, `lib-charts-pie`, `lib-charts-scatter`, `lib-charts-area`, `lib-charts-radar`, `lib-charts-gantt`, `lib-charts-heatmap` |
 | `lib-diagrams-overview` | `lib-diagrams-architecture`, `lib-diagrams-flow`, `lib-diagrams-sequence`, `lib-diagrams-er`, `lib-diagrams-class`, `lib-diagrams-state` |
 | `lib-graph-overview` | `lib-graph-architecture`, `lib-graph-layer`, `lib-graph-tree`, `lib-graph-radial`, `lib-graph-grid` |
 

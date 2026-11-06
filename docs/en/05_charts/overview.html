@@ -88,7 +88,7 @@
                 
                 <a href="../01_getting_started/release_notes.html" class="sidebar-version-badge" title="View Release Notes">
                     <span class="sidebar-version-dot" aria-hidden="true"></span>
-                    <span class="sidebar-version-text">v0.3.5</span>
+                    <span class="sidebar-version-text">v0.3.6</span>
                 </a>
                 <a href="https://github.com/yuichi110/drawlib" target="_blank" rel="noopener noreferrer" class="sidebar-github-link" aria-label="GitHub Repository" title="GitHub Repository">
                     <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
@@ -404,6 +404,10 @@
                             </li>
                             
                             <li class="nav-item ">
+                                <a href="box.html" >Box &amp; Strip Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
                                 <a href="line.html" >Line Chart</a>
                             </li>
                             
@@ -668,7 +672,7 @@
             <main class="main-content">
                 <h1>Charts Overview</h1>
 <p>The <code>drawlib.charts</code> module provides a declarative, pure-Python data visualization engine for comparative, statistical, relational, and project schedule charts.</p>
-<p>All eight chart families render as first-class vector canvas components that coexist on a unified coordinate plane alongside callouts, cards, and technical diagrams.</p>
+<p>All nine chart families render as first-class vector canvas components that coexist on a unified coordinate plane alongside callouts, cards, and technical diagrams.</p>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="../../images/05_charts/overview/charts_ecosystem_hero.png" alt="overview_1" />
   <figcaption class="drawlib-caption">Drawlib Pure-Python Chart Ecosystem: Coexisting Bar, Line, Donut Pie, and Radar Charts on One Canvas</figcaption>
@@ -786,8 +790,8 @@
   <figcaption class="drawlib-caption">Declarative Multi-Series Bar Chart</figcaption>
 </figure>
 <hr />
-<h2>2. The Eight Chart Families &amp; Submodule Exports</h2>
-<p>Drawlib organizes charts into eight specialized submodules under <code>drawlib.charts</code>, built on a shared foundation for <strong><a href="./axes_and_legends.html">Axes, Scales &amp; Legends</a></strong>:</p>
+<h2>2. The Nine Chart Families &amp; Submodule Exports</h2>
+<p>Drawlib organizes charts into nine specialized submodules under <code>drawlib.charts</code>, built on a shared foundation for <strong><a href="./axes_and_legends.html">Axes, Scales &amp; Legends</a></strong>:</p>
 <table>
 <thead>
 <tr>
@@ -805,6 +809,13 @@
 <td style="text-align:left"><code>Series</code>, <code>Axis</code></td>
 <td style="text-align:left"><code>Mode</code>, <code>Orientation</code>, <code>FormatterType</code>, <code>DrawDirection</code>, <code>LegendPosition</code></td>
 <td style="text-align:left">Categorical comparisons (vertical, horizontal, grouped, stacked).</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>drawlib.charts.box</code></td>
+<td style="text-align:left"><strong><a href="./box.html"><code>BoxChart</code></a></strong></td>
+<td style="text-align:left"><code>BoxStats</code>, <code>Series</code>, <code>Axis</code></td>
+<td style="text-align:left"><code>WhiskerMode</code>, <code>Orientation</code>, <code>PointShape</code>, <code>ScaleType</code>, <code>FormatterType</code>, <code>DrawDirection</code>, <code>LegendPosition</code></td>
+<td style="text-align:left">Categorical statistical distributions, quartiles, outliers, strip/jitter plots, and hybrid overlays.</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>drawlib.charts.line</code></td>
@@ -878,9 +889,14 @@
 <td style="text-align:left"><code>AreaChart(mode=...)</code></td>
 </tr>
 <tr>
+<td style="text-align:left"><strong><code>WhiskerMode</code></strong></td>
+<td style="text-align:left"><code>Literal[&quot;iqr&quot;, &quot;min_max&quot;, &quot;percentile&quot;]</code></td>
+<td style="text-align:left"><code>BoxChart(whisker_mode=...)</code>, <code>BoxStats.from_values(whisker_mode=...)</code></td>
+</tr>
+<tr>
 <td style="text-align:left"><strong><code>Orientation</code></strong></td>
 <td style="text-align:left"><code>Literal[&quot;vertical&quot;, &quot;horizontal&quot;]</code></td>
-<td style="text-align:left"><code>BarChart(orientation=...)</code>, <code>draw_legend(orientation=...)</code>, <code>draw_colorbar(orientation=...)</code></td>
+<td style="text-align:left"><code>BarChart(orientation=...)</code>, <code>BoxChart(orientation=...)</code>, <code>draw_legend(orientation=...)</code>, <code>draw_colorbar(orientation=...)</code></td>
 </tr>
 <tr>
 <td style="text-align:left"><strong><code>LineStyle</code></strong></td>
@@ -890,7 +906,7 @@
 <tr>
 <td style="text-align:left"><strong><code>PointShape</code></strong></td>
 <td style="text-align:left"><code>Literal[&quot;circle&quot;, &quot;square&quot;, &quot;rhombus&quot;, &quot;triangle&quot;, &quot;none&quot;]</code></td>
-<td style="text-align:left"><code>ScatterChart</code> (all 5 shapes); <code>LineChart</code>, <code>AreaChart</code>, <code>RadarChart</code> (<code>&quot;circle&quot;</code>, <code>&quot;square&quot;</code>, <code>&quot;none&quot;</code>)</td>
+<td style="text-align:left"><code>ScatterChart</code>, <code>BoxChart</code> (all 5 shapes); <code>LineChart</code>, <code>AreaChart</code>, <code>RadarChart</code> (<code>&quot;circle&quot;</code>, <code>&quot;square&quot;</code>, <code>&quot;none&quot;</code>)</td>
 </tr>
 <tr>
 <td style="text-align:left"><strong><code>GridShape</code></strong></td>
@@ -955,32 +971,32 @@
 <tr>
 <td style="text-align:left"><strong><code>axis_text_style</code></strong></td>
 <td style="text-align:left"><code>None</code></td>
-<td style="text-align:left">Axis tick labels, category names, spoke labels (<code>RadarChart</code>), and column/row labels (<code>GanttChart</code>).</td>
-<td style="text-align:left"><code>BarChart</code>, <code>LineChart</code>, <code>AreaChart</code>, <code>RadarChart</code>, <code>ScatterChart</code>, <code>GanttChart</code></td>
+<td style="text-align:left">Axis tick labels, category names, spoke labels (<code>RadarChart</code>), and column/row labels (<code>GanttChart</code>, <code>HeatmapChart</code>).</td>
+<td style="text-align:left"><code>BarChart</code>, <code>BoxChart</code>, <code>LineChart</code>, <code>AreaChart</code>, <code>RadarChart</code>, <code>ScatterChart</code>, <code>GanttChart</code>, <code>HeatmapChart</code></td>
 </tr>
 <tr>
 <td style="text-align:left"><strong><code>grid_style</code></strong></td>
 <td style="text-align:left"><code>None</code></td>
 <td style="text-align:left">Background value gridlines, concentric rings (<code>RadarChart</code>), or vertical column dividers (<code>GanttChart</code>).</td>
-<td style="text-align:left"><code>BarChart</code>, <code>LineChart</code>, <code>AreaChart</code>, <code>RadarChart</code>, <code>ScatterChart</code>, <code>GanttChart</code></td>
+<td style="text-align:left"><code>BarChart</code>, <code>BoxChart</code>, <code>LineChart</code>, <code>AreaChart</code>, <code>RadarChart</code>, <code>ScatterChart</code>, <code>GanttChart</code></td>
 </tr>
 <tr>
 <td style="text-align:left"><strong><code>value_text_style</code></strong></td>
 <td style="text-align:left"><code>None</code></td>
-<td style="text-align:left">Inline numerical labels on bars, line/radar vertices, pie wedges, or scatter point callouts.</td>
-<td style="text-align:left"><code>BarChart</code>, <code>LineChart</code>, <code>AreaChart</code>, <code>PieChart</code>, <code>RadarChart</code>, <code>ScatterChart</code></td>
+<td style="text-align:left">Inline numerical labels on bars, box medians, line/radar vertices, pie wedges, heatmap cells, or scatter point callouts.</td>
+<td style="text-align:left"><code>BarChart</code>, <code>BoxChart</code>, <code>LineChart</code>, <code>AreaChart</code>, <code>PieChart</code>, <code>RadarChart</code>, <code>ScatterChart</code>, <code>HeatmapChart</code></td>
 </tr>
 <tr>
 <td style="text-align:left"><strong><code>title_style</code></strong></td>
 <td style="text-align:left"><code>None</code></td>
 <td style="text-align:left">Top chart title text (requires non-empty <code>title</code> string).</td>
-<td style="text-align:left">All 7 chart classes</td>
+<td style="text-align:left">All chart classes</td>
 </tr>
 <tr>
 <td style="text-align:left"><strong><code>background_style</code></strong></td>
 <td style="text-align:left"><code>None</code></td>
 <td style="text-align:left">Outer chart container card background fill and border stroke.</td>
-<td style="text-align:left">All 7 chart classes</td>
+<td style="text-align:left">All chart classes</td>
 </tr>
 <tr>
 <td style="text-align:left"><strong><code>scale_text_style</code></strong></td>
@@ -1050,6 +1066,12 @@
 <td style="text-align:left"><code>&quot;bottom_to_top&quot;</code> (<code>&quot;vertical&quot;</code>) / <code>&quot;left_to_right&quot;</code> (<code>&quot;horizontal&quot;</code>)</td>
 <td style="text-align:left">Vertical: all bars grow upward from baseline. Horizontal: bars reveal sequentially from bottom category to top.</td>
 <td style="text-align:left">Vertical: bars reveal sequentially across categories left-to-right. Horizontal: all bars grow rightward from baseline.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>BoxChart</code></strong></td>
+<td style="text-align:left"><code>&quot;bottom_to_top&quot;</code> (<code>&quot;vertical&quot;</code>) / <code>&quot;left_to_right&quot;</code> (<code>&quot;horizontal&quot;</code>)</td>
+<td style="text-align:left">Vertical: boxes, whiskers, and strip points expand outward from the median. Horizontal: categories reveal sequentially from bottom to top.</td>
+<td style="text-align:left">Vertical: categories reveal sequentially across categories left-to-right. Horizontal: boxes, whiskers, and strip points expand outward from the median.</td>
 </tr>
 <tr>
 <td style="text-align:left"><strong><code>LineChart</code></strong></td>

@@ -649,9 +649,9 @@ drawlib rules show <topic> --rebuild
 
 ### 5.11. Data Charts & Visualizations (`lib-charts-overview` & `lib-charts-*`)
 - **Commands**:
-  - `drawlib rules show lib-charts-overview` (Index of all 9 chart classes, `.show`, `.draw_ratio`, `align`, and `scale`)
-  - `drawlib rules show lib-charts-<type>` (`bar`, `line`, `area`, `pie`, `radar`, `scatter`, `gantt`, `heatmap`)
-- **Scope**: Statistical, spatial, and planning charts: `BarChart` (grouped, stacked, horizontal), `LineChart`, `AreaChart`, `PieChart` / donut, `RadarChart`, `ScatterChart`, `GanttChart`, `HeatmapChart`, and `HeatmapOverlay`.
+  - `drawlib rules show lib-charts-overview` (Index of all 10 chart classes, `.show`, `.draw_ratio`, `align`, and `scale`)
+  - `drawlib rules show lib-charts-<type>` (`bar`, `box`, `line`, `area`, `pie`, `radar`, `scatter`, `gantt`, `heatmap`)
+- **Scope**: Statistical, spatial, and planning charts: `BarChart` (grouped, stacked, horizontal), `BoxChart` (box, strip/jitter, hybrid overlay), `LineChart`, `AreaChart`, `PieChart` / donut, `RadarChart`, `ScatterChart`, `GanttChart`, `HeatmapChart`, and `HeatmapOverlay`.
 - **Key Syntax**:
   ```python
   from drawlib.charts.bar import BarChart

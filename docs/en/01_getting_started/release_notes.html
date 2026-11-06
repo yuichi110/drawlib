@@ -39,19 +39,19 @@
     
     
     
-    <meta name="description" content="Release Date: 2026/11/03">
+    <meta name="description" content="Release Date: 2026/11/06">
     <link rel="canonical" href="https://www.drawlib.com/en/01_getting_started/release_notes.html">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Drawlib Documentation">
     <meta property="og:title" content="Release Notes &amp; Migration Guide — Drawlib Documentation">
-    <meta property="og:description" content="Release Date: 2026/11/03">
+    <meta property="og:description" content="Release Date: 2026/11/06">
     <meta property="og:url" content="https://www.drawlib.com/en/01_getting_started/release_notes.html">
     <meta property="og:image" content="https://www.drawlib.com/_assets/ogp.png">
     <meta property="og:locale" content="en_US">
     <meta property="og:locale:alternate" content="ja_JP">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Release Notes &amp; Migration Guide — Drawlib Documentation">
-    <meta name="twitter:description" content="Release Date: 2026/11/03">
+    <meta name="twitter:description" content="Release Date: 2026/11/06">
     <meta name="twitter:image" content="https://www.drawlib.com/_assets/ogp.png">
     
     
@@ -88,7 +88,7 @@
                 
                 <a href="../01_getting_started/release_notes.html" class="sidebar-version-badge" title="View Release Notes">
                     <span class="sidebar-version-dot" aria-hidden="true"></span>
-                    <span class="sidebar-version-text">v0.3.5</span>
+                    <span class="sidebar-version-text">v0.3.6</span>
                 </a>
                 <a href="https://github.com/yuichi110/drawlib" target="_blank" rel="noopener noreferrer" class="sidebar-github-link" aria-label="GitHub Repository" title="GitHub Repository">
                     <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
@@ -404,6 +404,10 @@
                             </li>
                             
                             <li class="nav-item ">
+                                <a href="../05_charts/box.html" >Box &amp; Strip Chart</a>
+                            </li>
+                            
+                            <li class="nav-item ">
                                 <a href="../05_charts/line.html" >Line Chart</a>
                             </li>
                             
@@ -667,6 +671,23 @@
             </header>
             <main class="main-content">
                 <h1>Release Notes &amp; Migration Guide</h1>
+<h2>Version 0.3.6</h2>
+<p><em>Release Date: 2026/11/06</em></p>
+<p>Version 0.3.6 introduces <strong><code>BoxChart</code> and <code>BoxStats</code> (<code>drawlib.charts.box</code>)</strong>—a unified statistical distribution chart engine for box plots, strip/jitter plots, and hybrid benchmark overlays—alongside <strong>supply-chain security hardening, non-root container images, and offline reliability enhancements</strong> validated by the PNI501 full engineering audit.</p>
+<hr />
+<h3>Highlights &amp; New Features</h3>
+<h4>1. Statistical Box Plots, Strip Plots &amp; Hybrid Overlays (<code>drawlib.charts.box</code>, <code>BoxChart</code>, <code>BoxStats</code>)</h4>
+<ul>
+<li><strong>Unified 3-Mode Distribution Builder (<code>show_box</code>, <code>show_points</code>, <code>show_outliers</code>, <code>show_mean</code>)</strong>: Visualize categorical numerical dispersion as classic <strong>Box Plots</strong> (<code>show_box=True, show_points=False</code>), <strong>1D / Jittered Strip Plots</strong> (<code>show_box=False, show_points=True</code>), or <strong>Box + Strip Hybrid Overlays</strong> (<code>show_box=True, show_points=True</code>—ideal for $N = 5 \sim 30$ PoC and latency benchmarks), with defaults configurable on <code>BoxChart</code> and overridable per series via <code>add_series(...)</code>.</li>
+<li><strong>Raw Sample Arrays &amp; Pre-Aggregated <code>BoxStats</code> (<code>whisker_mode=&quot;iqr&quot; | &quot;min_max&quot; | &quot;percentile&quot;</code>)</strong>: Pass raw <code>Sequence[float]</code> samples for pure-Python inclusive quartile calculation (<code>iqr_k=1.5</code> Tukey fences, full <code>min_max</code>, or custom tail-latency <code>whisker_percentiles=(5.0, 95.0)</code>), or pass pre-computed <code>BoxStats(min=..., q1=..., median=..., q3=..., max=..., mean=..., outliers=...)</code> directly from BigQuery or Cloud Monitoring telemetry.</li>
+<li><strong>Process- &amp; Animation-Invariant Deterministic Jitter &amp; High-Contrast Auto-Styling</strong>: Generates reproducible transverse offsets per <code>(jitter_seed, series_idx, category_idx)</code> without touching global RNG state, automatically derives contrasting whisker/median/marker colors from a single <code>Style</code> token (<code>Styles.PrimaryNeutral</code>, <code>Styles.PrimaryFlat</code>, etc.), and supports <code>&quot;vertical&quot;</code> / <code>&quot;horizontal&quot;</code> layouts, <code>scale=&quot;log&quot;</code> axes, <code>draw_ratio</code> animations, and <code>drawlib rules show lib-charts-box</code>.</li>
+</ul>
+<h4>2. Supply-Chain Security Hardening, Non-Root Containers &amp; Offline Reliability</h4>
+<ul>
+<li><strong>Dependency &amp; Container Hardening</strong>: Upgraded <code>pillow&gt;=13.0.0</code> to eliminate upstream image-processing CVEs and hardened all production and clean-room test Dockerfiles to execute under non-root <code>USER drawlib</code> (<code>UID 10001</code>).</li>
+<li><strong>Air-Gapped Asset Pre-Validation &amp; Audit Report (<code>/reports/pni-full-audit/</code>)</strong>: Added <code>pkg.files</code> membership pre-validation before network downloads for <code>--network=none</code> environments, refined SQLite build cache connection handling, and published the PNI501 Engineering &amp; Security Audit Report.</li>
+</ul>
+<hr />
 <h2>Version 0.3.5</h2>
 <p><em>Release Date: 2026/11/03</em></p>
 <p>Version 0.3.5 introduces the 5th project archetype—<strong>Illustrated Catalog &amp; Reference (<code>catalog</code>, <code>drawlib init project catalog</code>)</strong>—designed for API/CLI references, data schemas, microservice registries, and operational runbooks, alongside <strong>Declarative Project SEO &amp; <code>llms.txt</code> generation (<code>[seo]</code>)</strong>, <strong>zero-install <code>uvx</code> build script fallbacks</strong>, and the <strong>Official Bilingual Python API &amp; CLI Reference (<code>/api/</code>)</strong>.</p>

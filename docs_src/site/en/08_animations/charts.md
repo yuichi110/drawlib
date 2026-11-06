@@ -1,6 +1,6 @@
 # Animating Charts
 
-All 7 chart classes in `drawlib.charts` (`BarChart`, `LineChart`, `AreaChart`, `PieChart`, `RadarChart`, `ScatterChart`, `GanttChart`) follow the **Pre-Build & Mutate** lifecycle:
+All 10 chart classes in `drawlib.charts` (`BarChart`, `BoxChart`, `LineChart`, `AreaChart`, `PieChart`, `RadarChart`, `ScatterChart`, `GanttChart`, `HeatmapChart`, `HeatmapOverlay`) follow the **Pre-Build & Mutate** lifecycle:
 
 ```drawlib code=fold align=center file=anim_charts_hero.png format=webp caption="Chart Animation Overview: Locked Axes with Progressive Spatial Growth (draw_ratio)"
 from drawlib.anim import Animation

@@ -52,6 +52,9 @@ OverlayMode = Literal["smooth", "contour"]
 # Hotspot overlapping accumulation mode
 BlendMode = Literal["add", "max"]
 
+# Box chart whisker extent calculation mode
+WhiskerMode = Literal["iqr", "min_max", "percentile"]
+
 __all__ = [
     "AreaMode",
     "BarMode",
@@ -67,4 +70,5 @@ __all__ = [
     "OverlayMode",
     "PointShape",
     "ScaleType",
+    "WhiskerMode",
 ]

@@ -17,7 +17,7 @@ rectangle((60, 29), width=112, height=50, style=Styles.MutedDashed.patch(shape_r
 phosphor.package((38.0, 48.5), width=4.4, style=Styles.DarkBold)
 text(
     (63.5, 48.5),
-    "Drawlib Package Architecture (v0.3.5)",
+    "Drawlib Package Architecture (v0.3.6)",
     style=Styles.DarkBold.patch(text_size=12.5),
 )
 
@@ -65,10 +65,10 @@ Drawlib uses lazy module loading (`PEP 562`) so `import drawlib` incurs minimal 
 | Package Namespace | Re-exported Submodules (`__all__`) |
 | :--- | :--- |
 | `drawlib` | `anim`, `canvas`, `charts`, `diagrams`, `fonts`, `graph`, `icons`, `images`, `lines`, `math`, `preset_colors`, `preset_styles`, `shapes`, `slide`, `smartarts`, `styles`, `text`, `tools`, `types`, `utils` |
-| `drawlib.charts` | `area`, `bar`, `gantt`, `heatmap`, `line`, `pie`, `radar`, `scatter` (plus shared type `DrawDirection`) |
+| `drawlib.charts` | `area`, `bar`, `box`, `gantt`, `heatmap`, `line`, `pie`, `radar`, `scatter` (plus shared type `DrawDirection`) |
 | `drawlib.diagrams` | `architecture`, `class_diagram`, `er`, `flow`, `sequence`, `state` |
 
-### Complete API & CLI Reference Directory (29 Pages)
+### Complete API & CLI Reference Directory (30 Pages)
 
 | Page | Module / Scope | Primary Contents |
 | :--- | :--- | :--- |
@@ -91,6 +91,7 @@ Drawlib uses lazy module loading (`PEP 562`) so `import drawlib` incurs minimal 
 | [16. drawlib.charts.scatter](16_charts_scatter.md) | `drawlib.charts.scatter` | 2D correlation `ScatterChart` and variable-radius bubble plots |
 | [17. drawlib.charts.gantt](17_charts_gantt.md) | `drawlib.charts.gantt` | Project timeline, milestone, and dependency `GanttChart` |
 | [18. drawlib.charts.heatmap](18_charts_heatmap.md) | `drawlib.charts.heatmap` | Matrix `HeatmapChart` and spatial `HeatmapOverlay` |
+| [18b. drawlib.charts.box](18b_charts_box.md) | `drawlib.charts.box` | Statistical `BoxChart`, `BoxStats`, and strip/jitter plot overlays |
 | [19. drawlib.diagrams.architecture](19_diagrams_architecture.md) | `drawlib.diagrams.architecture` | Cloud & microservice `ArchitectureDiagram`, groups, nodes, and orthogonal edges |
 | [20. drawlib.diagrams.flow](20_diagrams_flow.md) | `drawlib.diagrams.flow` | Algorithmic `FlowDiagram`, swimlanes, decisions, and process nodes |
 | [21. drawlib.diagrams.sequence](21_diagrams_sequence.md) | `drawlib.diagrams.sequence` | API `SequenceDiagram`, lifelines, activations, fragments, and notes |
@@ -111,12 +112,12 @@ Standard PEP 396 package version string exposed at `drawlib.__version__` (aliase
 ```python
 from drawlib import __version__
 
-__version__: Final[str] = "0.3.5"
+__version__: Final[str] = "0.3.6"
 ```
 
 | Attribute | Type | Value | Description |
 | :--- | :--- | :--- | :--- |
-| `__version__` | `Final[str]` | `'0.3.5'` | Installed Drawlib semantic version string. |
+| `__version__` | `Final[str]` | `'0.3.6'` | Installed Drawlib semantic version string. |
 
 ---
 
@@ -143,12 +144,12 @@ Canonical semantic version constant exposed at `drawlib.LIB_VERSION`.
 ```python
 from drawlib import LIB_VERSION
 
-LIB_VERSION: Final[str] = "0.3.5"
+LIB_VERSION: Final[str] = "0.3.6"
 ```
 
 | Attribute | Type | Value | Description |
 | :--- | :--- | :--- | :--- |
-| `LIB_VERSION` | `Final[str]` | `'0.3.5'` | Semantic version string matching `drawlib.__version__`. |
+| `LIB_VERSION` | `Final[str]` | `'0.3.6'` | Semantic version string matching `drawlib.__version__`. |
 
 ---
 

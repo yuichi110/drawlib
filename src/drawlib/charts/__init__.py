@@ -19,6 +19,7 @@ if TYPE_CHECKING:
     from drawlib.charts import (
         area,
         bar,
+        box,
         gantt,
         heatmap,
         line,
@@ -30,6 +31,7 @@ if TYPE_CHECKING:
 _LAZY_MODULES: Final[dict[str, str]] = {
     "area": "drawlib.charts.area",
     "bar": "drawlib.charts.bar",
+    "box": "drawlib.charts.box",
     "gantt": "drawlib.charts.gantt",
     "heatmap": "drawlib.charts.heatmap",
     "line": "drawlib.charts.line",
@@ -62,6 +64,7 @@ __all__ = [
     "DrawDirection",
     "area",
     "bar",
+    "box",
     "gantt",
     "heatmap",
     "line",

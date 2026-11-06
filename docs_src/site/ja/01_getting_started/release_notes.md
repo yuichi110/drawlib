@@ -1,5 +1,26 @@
 # リリースノートと移行ガイド
 
+## バージョン 0.3.6
+
+*リリース日: 2026/11/06*
+
+バージョン 0.3.6 では、箱ひげ図・ストリップ／ジッタープロット・ベンチマーク向けハイブリッド重ね描きを 1 クラスに統合した統計分布チャート **`BoxChart` および `BoxStats`（`drawlib.charts.box`）** を新搭載したほか、PNI501 ソフトウェア監査に基づく **サプライチェーンセキュリティ強化・非 root コンテナ実行・オフライン動作信頼性の改善** を実施しました。
+
+---
+
+### ハイライトと新機能
+
+#### 1. 箱ひげ図・ストリッププロット・ハイブリッド重ね描き（`drawlib.charts.box`, `BoxChart`, `BoxStats`）
+- **1 クラス 3 モードの分布可視化ビルダ（`show_box`, `show_points`, `show_outliers`, `show_mean`）**: カテゴリ別の数値分布を **箱ひげ図**（`show_box=True, show_points=False`）、**1D／ジッター付きストリッププロット**（`show_box=False, show_points=True`）、および **$N = 5 \sim 30$ のベンチマーク評価に最適な箱ひげ＋実測点ハイブリッド重ね描き**（`show_box=True, show_points=True`）として宣言的に描画できます（`BoxChart` 全体のデフォルト指定および `add_series(...)` 単位での個別上書きに対応）。
+- **生データ配列と事前集計 `BoxStats` のハイブリッド入力（`whisker_mode="iqr" | "min_max" | "percentile"`）**: 生データ配列（`Sequence[float]`）からの Pure Python 四分位・外れ値自動算出（`iqr_k=1.5` の Tukey 方式、最小最大 `min_max`、テールレイテンシ向け `whisker_percentiles=(5.0, 95.0)`）に加え、BigQuery や Cloud Monitoring から取得した集計値 `BoxStats(min=..., q1=..., median=..., q3=..., max=..., mean=..., outliers=...)` の直接描画をサポートします。
+- **決定論的ジッターと単一 `Style` からの高コントラスト自動導出**: `(jitter_seed, series_idx, category_idx)` ごとに独立した 32bit 整数ミキシングで乱数を分離することで Git 差分やアニメーション時の点シャッフルを完全に防止し、単一 `Style`（`Styles.PrimaryNeutral`・`Styles.PrimaryFlat` 等）からの箱・ひげ・中央値・マーカー色の自動導出、縦向き／横向き配置、`scale="log"` 対数軸、`draw_ratio` 部分描画、および `drawlib rules show lib-charts-box` に対応しました。
+
+#### 2. サプライチェーンセキュリティ強化・非 root コンテナ・オフライン動作改善
+- **依存関係更新と非 root コンテナ化**: `pillow>=13.0.0` への引き上げによる脆弱性解消と、本番・検証用すべての Dockerfile における非 root ユーザー（`USER drawlib`, `UID 10001`）実行への強化を実施しました。
+- **エアギャップ環境での事前検証と監査レポート公開（`/reports/pni-full-audit/`）**: オフライン環境（`--network=none`）におけるネットワーク取得前の `pkg.files` メンバーシップ検証、SQLite ビルドキャッシュ接続の改善、および PNI501 ソフトウェア品質・セキュリティ監査レポートの公開を行いました。
+
+---
+
 ## バージョン 0.3.5
 
 *リリース日: 2026/11/03*

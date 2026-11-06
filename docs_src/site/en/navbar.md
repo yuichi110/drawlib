@@ -77,6 +77,7 @@
 - [Charts Overview](./05_charts/overview.md)
 - [Axes, Scales & Legends](./05_charts/axes_and_legends.md)
 - [Bar Chart](./05_charts/bar.md)
+- [Box & Strip Chart](./05_charts/box.md)
 - [Line Chart](./05_charts/line.md)
 - [Area Chart](./05_charts/area.md)
 - [Pie & Donut Chart](./05_charts/pie.md)

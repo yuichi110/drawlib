@@ -163,6 +163,7 @@ from drawlib.smartarts import (
 
 # 6. Statistical & Project Charts
 from drawlib.charts.bar import BarChart, Series
+from drawlib.charts.box import BoxChart, BoxStats, Series
 from drawlib.charts.line import LineChart, Series
 from drawlib.charts.area import AreaChart, Series
 from drawlib.charts.pie import PieChart, Slice
@@ -683,6 +684,7 @@ Drawlib charts render directly into the unified vector canvas alongside architec
 | Chart Class | Element Factory Methods | `draw()` Spatial Overrides |
 | :--- | :--- | :--- |
 | `BarChart` | `add_series(..., show=True, draw_ratio=1.0, draw_direction=...) -> Series` | `draw(xy, *, width=None, height=None, align="bottom_left", scale=1.0)` |
+| `BoxChart` | `add_series(..., show_box=None, show_points=None, show=True, draw_ratio=1.0, draw_direction=...) -> Series` | `draw(xy, *, width=None, height=None, align="bottom_left", scale=1.0)` |
 | `LineChart` | `add_series(..., show=True, draw_ratio=1.0, draw_direction="left_to_right") -> Series` | `draw(xy, *, width=None, height=None, align="bottom_left", scale=1.0)` |
 | `AreaChart` | `add_series(..., show=True, draw_ratio=1.0, draw_direction="left_to_right") -> Series` | `draw(xy, *, width=None, height=None, align="bottom_left", scale=1.0)` |
 | `ScatterChart` | `add(..., show=True) -> Point`, `add_series(..., show=True, draw_ratio=1.0, draw_direction="left_to_right") -> Series` | `draw(xy, *, width=None, height=None, align="bottom_left", scale=1.0)` |

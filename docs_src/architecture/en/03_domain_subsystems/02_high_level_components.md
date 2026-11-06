@@ -101,10 +101,10 @@ Unlike low-level primitives (which always center on `(cx, cy)`), high-level comp
 - **Frames, Metrics & Schedules**: `Panel` (`"filled"`, `"underline"`, `"floating"`, `"window"` headers with `get_content_box()`), `KpiCards` (`KpiCard`), `Table`, and schedule calendars (`MonthCalendar`, `WeekCalendar`, `DayCalendar`).
 - **Code & Spatial Vector Engines**: `SourceCode` (stateless Pygments tokenizer rendering vector syntax-highlighted tokens with CJK font auto-selection) and `GeoMap` (GeoJSON vector map engine for `World`, `Countries`, and `Cities` with `lonlat_to_xy()`).
 
-### 2.2. `drawlib.charts` — 9 Chart Classes Across 8 Submodules
-Organized into 8 submodules (`bar`, `line`, `area`, `pie`, `radar`, `scatter`, `gantt`, `heatmap`), `drawlib.charts` follows a **Triad Architecture** separating **Container/Builder**, **Data Models** (`Series`, `Slice`, `Point`, `Task`, `Row`, `Cell`, `Spot`), and **Procedural Renderers** (`_renderer.py`), with **presence-based styling** (`Style | None = None` omits optional grids, labels, or backgrounds cleanly):
+### 2.2. `drawlib.charts` — 10 Chart Classes Across 9 Submodules
+Organized into 9 submodules (`bar`, `box`, `line`, `area`, `pie`, `radar`, `scatter`, `gantt`, `heatmap`), `drawlib.charts` follows a **Triad Architecture** separating **Container/Builder**, **Data Models** (`Series`, `BoxStats`, `Slice`, `Point`, `Task`, `Row`, `Cell`, `Spot`), and **Procedural Renderers** (`_renderer.py`), with **presence-based styling** (`Style | None = None` omits optional grids, labels, or backgrounds cleanly):
 
-```drawlib align=center code=fold file=charts_mixin_hierarchy.png caption="drawlib.charts Inheritance Tree & Standalone Spatial Containers (All 9 Classes)"
+```drawlib align=center code=fold file=charts_mixin_hierarchy.png caption="drawlib.charts Inheritance Tree & Standalone Spatial Containers (All 10 Classes)"
 from drawlib.canvas import save, setup
 from drawlib.diagrams.class_diagram import ClassDiagram, ClassNode
 from drawlib.fonts import FontRoboto, FontSourceCode
@@ -160,12 +160,12 @@ radial_mixin = cd.add(
     xy=(86.5, 52.5),
 )
 
-# Third-Tier Branches (Col A: Bar/Scatter, Col B: CartesianChartBase, Col C: Pie/Radar)
+# Third-Tier Branches (Col A: Bar/Box/Scatter, Col B: CartesianChartBase, Col C: Pie/Radar)
 bar_scatter = cd.add(
-    ClassNode("BarChart / ScatterChart", width=32.0, row_height=3.2, style=Styles.PrimaryNeutral)
-    .add_method("add_series", "name, values", "Series")
+    ClassNode("Bar / Box / ScatterChart", width=33.5, row_height=3.2, style=Styles.PrimaryNeutral)
+    .add_method("add_series", "name, data", "Series")
     .add_method("draw", "xy, scale", "None"),
-    xy=(19.0, 30.0),
+    xy=(18.5, 30.0),
 )
 
 cartesian_base = cd.add(
