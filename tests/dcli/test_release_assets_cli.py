@@ -91,7 +91,8 @@ def test_cli_assets_build_single(tmp_path: Path) -> None:
 
 def test_cli_assets_upload_dry_run() -> None:
     """Test 'assets upload' in dry-run mode."""
-    result = runner.invoke(app, ["upload", "font_roboto", "--dry-run"])
+    with patch.object(GitHubReleaseClient, "get_release_by_tag", return_value=None):
+        result = runner.invoke(app, ["upload", "font_roboto", "--dry-run"])
     assert result.exit_code == 0
     assert "DRY-RUN" in result.output
     assert "font_roboto.zip" in result.output
@@ -99,7 +100,16 @@ def test_cli_assets_upload_dry_run() -> None:
 
 def test_cli_assets_remove_dry_run() -> None:
     """Test 'assets remove' in dry-run mode."""
-    result = runner.invoke(app, ["remove", "font_roboto", "--dry-run"])
+    fake_release = {
+        "id": 101,
+        "tag_name": "v0.3",
+        "assets": [{"id": 1, "name": "font_roboto.zip", "size": 12345}],
+    }
+    with (
+        patch.object(GitHubReleaseClient, "get_release_by_tag", return_value=fake_release),
+        patch.object(GitHubReleaseClient, "get_remote_manifest", return_value=None),
+    ):
+        result = runner.invoke(app, ["remove", "font_roboto", "--dry-run"])
     assert result.exit_code == 0
     assert "DRY-RUN" in result.output
 

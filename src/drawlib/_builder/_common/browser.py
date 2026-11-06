@@ -17,7 +17,7 @@ import subprocess  # noqa: S404
 import sys
 import tempfile
 import threading
-from collections.abc import Callable, Iterator, Sequence
+from collections.abc import Callable, Generator, Sequence
 from pathlib import Path
 from typing import TYPE_CHECKING, Final
 
@@ -54,7 +54,7 @@ def _resolve_lock_file_paths() -> list[Path]:
 
 
 @contextlib.contextmanager
-def _browser_install_lock() -> Iterator[None]:
+def _browser_install_lock() -> Generator[None, None, None]:
     """Serialize concurrent headless Chromium downloads across threads and processes."""
     with _INSTALL_THREAD_LOCK:
         lock_handle = None

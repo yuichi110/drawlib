@@ -22,7 +22,6 @@ from drawlib._core.l2_types import (
     Angle,
     ArrowHead,
     Bend,
-    Bezier2,
     Bezier3,
     Coordinate,
     Coordinates,
@@ -319,13 +318,11 @@ class CanvasLineFeature(CanvasBase):
             if length not in {2, 3}:
                 raise ValueError()
             if length == 2:
-                if isinstance(p[0], tuple):
-                    p2 = cast(Bezier2, p)
-                    vertices.extend([p2[0], p2[1]])
+                if isinstance(p[0], tuple) and isinstance(p[1], tuple):
+                    vertices.extend([p[0], p[1]])
                     codes.extend([Path.CURVE3] * 2)
-                else:
-                    pt = cast(Coordinate, p)
-                    vertices.append(pt)
+                elif isinstance(p[0], (int, float)) and isinstance(p[1], (int, float)):
+                    vertices.append((p[0], p[1]))
                     codes.append(Path.LINETO)
             else:
                 p3 = cast(Bezier3, p)

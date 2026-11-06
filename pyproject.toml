@@ -1,5 +1,5 @@
 [build-system]
-requires = ["uv-build<0.12"]
+requires = ["uv-build>=0.9,<0.20"]
 build-backend = "uv_build"
 
 [project]
@@ -87,16 +87,16 @@ drawlib = "drawlib._cli.main:main"
 
 [dependency-groups]
 dev = [
-    "types-pillow>=10.2.0.20240311",
-    "ruff>=0.9.0",
-    "pytest>=8.3.0",
-    "pytest-cov>=6.0.0",
-    "tomlkit>=0.14.0",
-    "ty>=0.0.35",
-    "pyright>=1.1.409",
+    "types-pillow==10.2.0.20240822",
+    "ruff==0.16.9",
+    "pytest==9.1.1",
+    "pytest-cov==7.1.0",
+    "tomlkit==0.15.1",
+    "ty==0.0.84",
+    "pyright==1.1.414",
     "typer>=0.12.0",
     "rich>=13.0.0",
-    "pytest-xdist>=3.8.0",
+    "pytest-xdist==3.8.0",
 ]
 audit = [
     "pni501>=0.1.1",

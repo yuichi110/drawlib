@@ -28,17 +28,14 @@ app = typer.Typer(
 def lint(
     fix: bool = typer.Option(False, "--fix", "-f", help="Automatically fix fixable lint issues."),
 ) -> None:
-    """Run Ruff linter and formatter across project targets.
+    """Run Ruff linter across project targets.
 
     Args:
         fix: If True, automatically fix fixable lint issues.
     """
     targets = ["src", "tests", "tools"]
     for target in targets:
-        cmd = ["uv", "run", "ruff", "check"]
-        if fix:
-            cmd.append("--fix")
-        cmd.append(target)
+        cmd = ["uv", "run", "ruff", "check", "--fix" if fix else "--no-fix", target]
         run_command(cmd, desc=f"Running Ruff on {target}...")
     console.print("[bold green]✓ All lint checks passed![/bold green]")
 

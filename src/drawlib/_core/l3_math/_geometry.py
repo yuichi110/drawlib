@@ -12,13 +12,10 @@
 from __future__ import annotations
 
 import math
-from typing import cast
 
 from drawlib._core.l1_core import validate_call
 from drawlib._core.l2_types import (
     Angle,
-    Bezier2,
-    Bezier3,
     Coordinate,
     Coordinates,
     PathPoints,
@@ -330,24 +327,21 @@ def get_rotated_path_points(
     """
     rotated: PathPoints = []
     for pt in path_points:
-        if isinstance(pt[0], (int, float)):
-            coord = cast(Coordinate, pt)
-            rotated.append(rotate_point(coord, angle=angle, center=center))
-        elif len(pt) == 2:
-            b2 = cast(Bezier2, pt)
+        if len(pt) == 3:
             rotated.append(
                 (
-                    rotate_point(b2[0], angle=angle, center=center),
-                    rotate_point(b2[1], angle=angle, center=center),
+                    rotate_point(pt[0], angle=angle, center=center),
+                    rotate_point(pt[1], angle=angle, center=center),
+                    rotate_point(pt[2], angle=angle, center=center),
                 )
             )
-        elif len(pt) == 3:
-            b3 = pt
+        elif isinstance(pt[0], (int, float)) and isinstance(pt[1], (int, float)):
+            rotated.append(rotate_point((pt[0], pt[1]), angle=angle, center=center))
+        elif isinstance(pt[0], tuple) and isinstance(pt[1], tuple):
             rotated.append(
                 (
-                    rotate_point(b3[0], angle=angle, center=center),
-                    rotate_point(b3[1], angle=angle, center=center),
-                    rotate_point(b3[2], angle=angle, center=center),
+                    rotate_point(pt[0], angle=angle, center=center),
+                    rotate_point(pt[1], angle=angle, center=center),
                 )
             )
     return rotated

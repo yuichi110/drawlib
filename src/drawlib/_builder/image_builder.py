@@ -415,7 +415,7 @@ class DrawlibExecuter:
 
         try:
             wrapped = self._create_wrapped_save(orig_canvas_save, canvas_inst)
-            canvas_inst.save = wrapped  # ty: ignore
+            setattr(canvas_inst, "save", wrapped)
             drawlib._core.l4_canvas.save = wrapped  # ty: ignore
             drawlib.canvas.save = wrapped  # ty: ignore
 
@@ -425,7 +425,7 @@ class DrawlibExecuter:
 
             self._execute_target_path(path)
         finally:
-            canvas_inst.save = orig_canvas_save  # ty: ignore
+            setattr(canvas_inst, "save", orig_canvas_save)
             drawlib._core.l4_canvas.save = orig_core_save  # type: ignore[assignment]
             if orig_canvas_mod_save is not None:
                 drawlib.canvas.save = orig_canvas_mod_save  # type: ignore[assignment]

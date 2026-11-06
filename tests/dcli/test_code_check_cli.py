@@ -11,6 +11,8 @@
 
 from __future__ import annotations
 
+from unittest.mock import patch
+
 from typer.testing import CliRunner
 
 from tools.dcli.code_check import app
@@ -31,3 +33,29 @@ def test_check_cli_docstring() -> None:
     result = runner.invoke(app, ["docstring"])
     assert result.exit_code == 0
     assert "Docstring checks passed" in result.output
+
+
+def test_check_cli_lint_uses_no_fix_by_default() -> None:
+    """Test dcli code-check lint passes --no-fix when --fix is not specified."""
+    with patch("tools.dcli.code_check.cli.run_command") as mock_run:
+        result = runner.invoke(app, ["lint"])
+        assert result.exit_code == 0
+        cmds = [call.args[0] for call in mock_run.call_args_list]
+        assert cmds == [
+            ["uv", "run", "ruff", "check", "--no-fix", "src"],
+            ["uv", "run", "ruff", "check", "--no-fix", "tests"],
+            ["uv", "run", "ruff", "check", "--no-fix", "tools"],
+        ]
+
+
+def test_check_cli_lint_uses_fix_when_requested() -> None:
+    """Test dcli code-check lint passes --fix when --fix is specified."""
+    with patch("tools.dcli.code_check.cli.run_command") as mock_run:
+        result = runner.invoke(app, ["lint", "--fix"])
+        assert result.exit_code == 0
+        cmds = [call.args[0] for call in mock_run.call_args_list]
+        assert cmds == [
+            ["uv", "run", "ruff", "check", "--fix", "src"],
+            ["uv", "run", "ruff", "check", "--fix", "tests"],
+            ["uv", "run", "ruff", "check", "--fix", "tools"],
+        ]
