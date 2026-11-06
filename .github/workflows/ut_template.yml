@@ -42,7 +42,7 @@ jobs:
     runs-on: ${{ inputs.os }}
     steps:
     - name: Check out repository code
-      uses: actions/checkout@v4
+      uses: actions/checkout@v7
       with:
         ref: ${{ inputs.branch }}
 
