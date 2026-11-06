@@ -2,7 +2,7 @@
 
 The `drawlib.charts` module provides a declarative, pure-Python data visualization engine for comparative, statistical, relational, and project schedule charts.
 
-All nine chart families render as first-class vector canvas components that coexist on a unified coordinate plane alongside callouts, cards, and technical diagrams.
+All **10 chart classes across 9 submodules** render as first-class vector canvas components that coexist on a unified coordinate plane alongside callouts, cards, and technical diagrams.
 
 ```drawlib code=fold align=center file=charts_ecosystem_hero.png caption="Drawlib Pure-Python Chart Ecosystem: Coexisting Bar, Line, Donut Pie, and Radar Charts on One Canvas"
 from drawlib.canvas import save, setup
@@ -117,9 +117,9 @@ save()
 
 ---
 
-## 2. The Nine Chart Families & Submodule Exports
+## 2. 10 Chart Classes Across 9 Submodules & Exports
 
-Drawlib organizes charts into nine specialized submodules under `drawlib.charts`, built on a shared foundation for **[Axes, Scales & Legends](./axes_and_legends.md)**:
+Drawlib provides **10 quantitative chart classes across 9 specialized submodules** under `drawlib.charts` (with `drawlib.charts.heatmap` exporting both `HeatmapChart` and `HeatmapOverlay`), built on a shared foundation for **[Axes, Scales & Legends](./axes_and_legends.md)**:
 
 | Module | Primary Class | Companion Data Models | Exported Type Literals & Aliases | Best Suited For |
 | :--- | :--- | :--- | :--- | :--- |

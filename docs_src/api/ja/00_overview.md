@@ -175,7 +175,7 @@ utils.service_card((60, 30), "API Gateway")
 
 ## `type` drawlib.charts.DrawDirection
 
-`drawlib.charts` から公開される共通リテラル型エイリアスで、チャート要素（`BarChart`、`LineChart`、`AreaChart` など）の段階的描画や伸長方向を指定します。
+`drawlib.charts` から公開される共通リテラル型エイリアスで、チャート要素（`BarChart`、`BoxChart`、`LineChart`、`AreaChart` など）の段階的描画や伸長方向を指定します。
 
 ```python
 from typing import Literal

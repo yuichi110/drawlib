@@ -144,7 +144,7 @@
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="https://www.drawlib.com/api/" target="_blank" rel="noopener noreferrer">API &amp; CLI Reference<svg class="nav-external-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
+                                <a href="https://www.drawlib.com/api/en/" target="_blank" rel="noopener noreferrer">API &amp; CLI Reference<svg class="nav-external-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
                             </li>
                             
                             <li class="nav-item ">
@@ -696,8 +696,8 @@ Every page of prose and every illustration in this documentation was authored di
 <p>Avoid assembling hundreds of primitive shapes by hand. Drawlib provides production-ready, declarative components:</p>
 <ul>
 <li><strong>Auto-Layout Graphs (<code>drawlib.graph</code>)</strong>: Declarative graph layout solvers (<code>ArchitectureGraph</code>, <code>LayerGraph</code>, <code>TreeGraph</code>, <code>RadialGraph</code>, <code>GridGraph</code>) that compute overlap-free coordinates (<code>get_layout()</code>), nested cluster bounds, and <code>offset()</code> fine-tuning for rendering with <code>drawlib.diagrams</code> and <code>drawlib.shapes</code>.</li>
-<li><strong>SmartArts</strong>: Process pipelines (<code>ChevronProcess</code>), cyclical loops (<code>Cycle</code>), data tables (<code>Table</code>), and trees (<code>Tree</code>).</li>
-<li><strong>Data Charts</strong>: Pure-Python bar, line, area, pie, radar, scatter, and Gantt charts without external graphing dependencies.</li>
+<li><strong>SmartArts</strong>: Process pipelines (<code>ChevronProcess</code>), cyclical loops (<code>Cycle</code>), data tables (<code>Table</code>), and trees (<code>TreeNode</code>).</li>
+<li><strong>Data Charts</strong>: All 10 pure-Python chart classes—bar (<code>BarChart</code>), box/strip (<code>BoxChart</code>), line (<code>LineChart</code>), area (<code>AreaChart</code>), pie (<code>PieChart</code>), radar (<code>RadarChart</code>), scatter (<code>ScatterChart</code>), Gantt (<code>GanttChart</code>), and matrix/spatial heatmaps (<code>HeatmapChart</code> / <code>HeatmapOverlay</code>)—without external graphing dependencies.</li>
 <li><strong>Technical Diagrams</strong>: Cloud architectures (<code>ArchitectureDiagram</code>), flowcharts (<code>FlowDiagram</code>), API sequences (<code>SequenceDiagram</code>), UML class diagrams (<code>ClassDiagram</code>), ER diagrams (<code>ERDiagram</code>), and state machines (<code>StateDiagram</code>).</li>
 </ul>
 <figure class="drawlib-image" style="text-align: center;">
@@ -744,8 +744,8 @@ Every page of prose and every illustration in this documentation was authored di
 <span class="n">rectangle</span><span class="p">((</span><span class="mf">94.0</span><span class="p">,</span> <span class="mf">12.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">58.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">19.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">))</span>
 <span class="n">rectangle</span><span class="p">((</span><span class="mf">94.0</span><span class="p">,</span> <span class="mf">18.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">55.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">5.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">),</span> <span class="n">text</span><span class="o">=</span><span class="s2">"4. Pure-Python Charts (drawlib.charts)"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">hdr_dark</span><span class="p">)</span>
 <span class="n">phosphor</span><span class="o">.</span><span class="n">chart_bar</span><span class="p">((</span><span class="mf">71.5</span><span class="p">,</span> <span class="mf">9.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">5.2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">)</span>
-<span class="n">text</span><span class="p">((</span><span class="mf">76.0</span><span class="p">,</span> <span class="mf">11.0</span><span class="p">),</span> <span class="s2">"Bar • Line • Area • Pie"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">body_bold</span><span class="p">)</span>
-<span class="n">text</span><span class="p">((</span><span class="mf">76.0</span><span class="p">,</span> <span class="mf">6.8</span><span class="p">),</span> <span class="s2">"Radar • Scatter • Gantt"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">body_sub</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">76.0</span><span class="p">,</span> <span class="mf">11.0</span><span class="p">),</span> <span class="s2">"Bar • Box • Line • Area • Pie"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">body_bold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">76.0</span><span class="p">,</span> <span class="mf">6.8</span><span class="p">),</span> <span class="s2">"Radar • Scatter • Gantt • Heatmap"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">body_sub</span><span class="p">)</span>
 
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
@@ -790,7 +790,7 @@ Every page of prose and every illustration in this documentation was authored di
 </li>
 <li><a href="./05_charts/overview.html"><strong>Charts</strong></a>
 <ul>
-<li>Declarative data plotting: axes &amp; legends, bar, line, area, pie, radar, scatter, and project Gantt charts.</li>
+<li>Declarative data plotting (10 chart classes): axes &amp; legends, bar, box/strip, line, area, pie, radar, scatter, project Gantt, and matrix/spatial heatmap charts (<code>HeatmapChart</code> / <code>HeatmapOverlay</code>).</li>
 </ul>
 </li>
 <li><a href="./06_diagrams/overview.html"><strong>Technical Diagrams</strong></a>

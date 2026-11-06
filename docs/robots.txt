@@ -2,3 +2,5 @@ User-agent: *
 Allow: /
 
 Sitemap: https://www.drawlib.com/sitemap.xml
+Sitemap: https://www.drawlib.com/api/sitemap.xml
+Sitemap: https://www.drawlib.com/architecture/sitemap.xml

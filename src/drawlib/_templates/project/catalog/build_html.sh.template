@@ -27,6 +27,6 @@ if [ -z "${DRAWLIB_CMD:-}" ]; then
     fi
 fi
 
-echo "Building API Reference HTML..."
+echo "Building Catalog HTML..."
 $DRAWLIB_CMD build html __SRC_DIR__/ -o __OUT_HTML_DIR__/
-echo "API Reference HTML build complete: __OUT_HTML_DIR__/"
+echo "Catalog HTML build complete: __OUT_HTML_DIR__/"

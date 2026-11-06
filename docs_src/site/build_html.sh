@@ -34,6 +34,22 @@ fi
 $DRAWLIB_CMD build html docs_src/site/ -o docs/
 touch docs/.nojekyll
 printf "www.drawlib.com" > docs/CNAME
+if [ -f "docs/robots.txt" ]; then
+    for sm in "https://www.drawlib.com/api/sitemap.xml" "https://www.drawlib.com/architecture/sitemap.xml"; do
+        if ! grep -qxF "Sitemap: $sm" docs/robots.txt; then
+            echo "Sitemap: $sm" >> docs/robots.txt
+        fi
+    done
+fi
+if [ -f "docs/llms.txt" ] && ! grep -q "^## Companion Portals" docs/llms.txt; then
+    cat << 'EOF' >> docs/llms.txt
+
+## Companion Portals
+
+- [Official Bilingual Python API & CLI Reference](https://www.drawlib.com/api/llms.txt): Complete bilingual (`en` / `ja`) catalog reference covering all public Drawlib Python modules, classes, functions, style tokens, and CLI subcommands (`https://www.drawlib.com/api/`).
+- [Internal Software Architecture Specification](https://www.drawlib.com/architecture/llms.txt): Layered internal software architecture specification (`l1_core` through `l4_canvas`, domain engines, and multi-target builders) for Drawlib contributors and AI agents (`https://www.drawlib.com/architecture/`).
+EOF
+fi
 cat << 'EOF' > docs/404.html
 <!DOCTYPE html>
 <html lang="en">

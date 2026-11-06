@@ -40,7 +40,7 @@ init_app = typer.Typer(
 
 project_app = typer.Typer(
     name="project",
-    help="Scaffold starter drawlib projects (doc, site, api, slide, images).",
+    help="Scaffold starter drawlib projects (doc, site, catalog, slide, images).",
     epilog=HELP_EPILOG,
     no_args_is_help=True,
     context_settings=_HELP_CTX,
@@ -56,8 +56,8 @@ def _print_init_success(
     """Print initialization success message and next steps.
 
     Args:
-        project_type: Initialized project type ('doc', 'site', 'api', 'slide', 'images').
-        target: Target base name (e.g. 'doc', 'spec', 'docs', 'api').
+        project_type: Initialized project type ('doc', 'site', 'catalog', 'slide', 'images').
+        target: Target base name (e.g. 'doc', 'spec', 'docs', 'catalog').
         created: List of created file paths.
     """
     paths = resolve_project_paths(project_type=project_type, target=target)

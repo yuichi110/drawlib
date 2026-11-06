@@ -375,10 +375,21 @@ def _check_file_set_parity(
     return lang_files
 
 
-def _navbar_item_target_key(item: NavbarItem, lang_dir_abs: str) -> tuple[bool, str, str]:
+def _navbar_item_target_key(
+    item: NavbarItem,
+    lang_dir_abs: str,
+    *,
+    lang: str = "",
+    default_lang: str = "",
+) -> tuple[bool, str, str]:
     """Normalize a NavbarItem destination into a language-neutral comparison tuple."""
     if item.is_external:
-        return (True, item.url, "")
+        norm_url = item.url
+        if lang and default_lang and lang != default_lang:
+            norm_url = norm_url.replace(f"/{lang}/", f"/{default_lang}/")
+            if norm_url.endswith(f"/{lang}"):
+                norm_url = norm_url[: -len(lang)] + default_lang
+        return (True, norm_url, "")
     if item.target_file_abs is None:
         return (False, "", item.anchor)
     rel_target = os.path.relpath(item.target_file_abs, lang_dir_abs).replace(os.sep, "/")
@@ -413,8 +424,18 @@ def _check_navbar_parity(
                 f'{len(lang_sec.items)} link(s), expected {len(def_sec.items)} to match "{default_lang}/navbar.md".'
             )
         for item_idx, (def_item, lang_item) in enumerate(zip(def_sec.items, lang_sec.items), start=1):
-            def_key = _navbar_item_target_key(def_item, default_dir)
-            lang_key = _navbar_item_target_key(lang_item, lang_dir)
+            def_key = _navbar_item_target_key(
+                def_item,
+                default_dir,
+                lang=default_lang,
+                default_lang=default_lang,
+            )
+            lang_key = _navbar_item_target_key(
+                lang_item,
+                lang_dir,
+                lang=lang,
+                default_lang=default_lang,
+            )
             if def_key != lang_key:
                 raise ValueError(
                     f'[i18n navbar parity error] Link #{item_idx} in section #{sec_idx} of "{lang}/navbar.md" '

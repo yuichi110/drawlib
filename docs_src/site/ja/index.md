@@ -1825,8 +1825,8 @@ Drawlib は、AI コーディングエージェント（Claude Code、Cursor、G
 ### 2. 豊富な高水準ビジュアライゼーション
 何百もの基本図形を手作業で組み合わせる必要はありません。Drawlib は実務ですぐに使える宣言的な高水準コンポーネントを提供します。
 - **自動レイアウトグラフ (`drawlib.graph`)**: 重なりのない座標（`get_layout()`）、ネストされたクラスタ境界、および `offset()` による微調整を計算する宣言的グラフレイアウトソルバー（`ArchitectureGraph`、`LayerGraph`、`TreeGraph`、`RadialGraph`、`GridGraph`）を提供し、`drawlib.diagrams` や `drawlib.shapes` と組み合わせて描画できます。
-- **SmartArts（スマートアート）**: プロセスパイプライン（`ChevronProcess`）、サイクル図（`Cycle`）、データテーブル（`Table`）、階層ツリー（`Tree`）などを備えています。
-- **データチャート**: 外部のグラフ描画ライブラリへの追加依存なしに、ピュア Python で棒グラフ・折れ線グラフ・面グラフ・円グラフ・レーダーチャート・散布図・ガントチャートを描画できます。
+- **SmartArts（スマートアート）**: プロセスパイプライン（`ChevronProcess`）、サイクル図（`Cycle`）、データテーブル（`Table`）、階層ツリー（`TreeNode`）などを備えています。
+- **データチャート**: 外部のグラフ描画ライブラリへの追加依存なしに、ピュア Python で全 10 種類のチャートクラス——棒グラフ（`BarChart`）、箱ひげ図／ストリッププロット（`BoxChart`）、折れ線グラフ（`LineChart`）、面グラフ（`AreaChart`）、円グラフ（`PieChart`）、レーダーチャート（`RadarChart`）、散布図（`ScatterChart`）、ガントチャート（`GanttChart`）、およびマトリクス／空間ヒートマップ（`HeatmapChart` / `HeatmapOverlay`）——を描画できます。
 - **テクニカルダイアグラム**: クラウドアーキテクチャ図（`ArchitectureDiagram`）、フロー図（`FlowDiagram`）、API シーケンス図（`SequenceDiagram`）、UML クラス図（`ClassDiagram`）、ER 図（`ERDiagram`）、ステートマシン図（`StateDiagram`）をサポートします。
 
 ```drawlib code=fold align=center file=index_high_level_visualizations.png caption="Drawlib の高水準ビジュアライゼーション・エコシステム"
@@ -1868,8 +1868,8 @@ text((14.0, 6.8), "TreeNode • MindMap • GeoMap", style=body_sub)
 rectangle((94.0, 12.5), width=58.0, height=19.0, style=Styles.Neutral.patch(shape_r=2.0))
 rectangle((94.0, 18.0), width=55.0, height=5.5, style=Styles.SecondaryNeutral.patch(shape_r=1.2), text="4. Pure-Python Charts (drawlib.charts)", text_style=hdr_dark)
 phosphor.chart_bar((71.5, 9.0), width=5.2, style=Styles.Primary)
-text((76.0, 11.0), "Bar • Line • Area • Pie", style=body_bold)
-text((76.0, 6.8), "Radar • Scatter • Gantt", style=body_sub)
+text((76.0, 11.0), "Bar • Box • Line • Area • Pie", style=body_bold)
+text((76.0, 6.8), "Radar • Scatter • Gantt • Heatmap", style=body_sub)
 
 save()
 ```
@@ -1901,7 +1901,7 @@ Drawlib を導入するために Python プロジェクトである必要も、�
 4. [**SmartArts（スマートアート）**](./04_smartarts/overview.md)
    - 高水準インフォグラフィックス: プロセスパイプライン、サイクル図、データテーブル、階層ツリー、マインドマップ、グリッド、ピラミッド、リスト、ソースコードブロック、地理マップ。
 5. [**Charts（定量チャート）**](./05_charts/overview.md)
-   - 宣言的データプロット: 軸と凡例、棒グラフ、折れ線グラフ、面グラフ、円グラフ、レーダーチャート、散布図、プロジェクト用ガントチャート。
+   - 宣言的データプロット（全 10 クラス）: 軸と凡例、棒グラフ、箱ひげ図／ストリッププロット、折れ線グラフ、面グラフ、円グラフ、レーダーチャート、散布図、プロジェクト用ガントチャート、およびマトリクス／空間ヒートマップ（`HeatmapChart` / `HeatmapOverlay`）。
 6. [**テクニカルダイアグラム**](./06_diagrams/overview.md)
    - 座標制御型のエンジニアリング図版: クラウドアーキテクチャ図、フロー図、シーケンス図、UML クラス図、ER 図、ステートマシン図。
 7. [**自動レイアウトグラフ**](./07_graph/overview.md)

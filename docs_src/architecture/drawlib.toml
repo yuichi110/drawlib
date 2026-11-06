@@ -2,7 +2,7 @@
 name = "architecture"
 type = "site"
 title = ""
-description = "Internal software architecture specification of Drawlib — layered drawing engine (l1–l4), AST caching, multi-target document compiler, CLI, and developer tooling."
+description = "Internal architecture specification of Drawlib — layered engine (l1–l4), AST caching, multi-target doc compiler, CLI, and developer tooling."
 style = "default"
 
 [i18n]

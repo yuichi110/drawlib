@@ -10,7 +10,7 @@ if [ ! -f "$SCRIPT_DIR/_assets/ogp.png" ]; then
 fi
 
 echo "=== Building PNI Full Audit Report (PDF + HTML -> docs/reports/pni-full-audit/) ==="
-uv run --no-sync pni report build full_audit \
+uv run --group audit pni report build full_audit \
     --src-dir reports \
     -o reports \
     --html-output-dir docs/reports/pni-full-audit \
@@ -18,5 +18,5 @@ uv run --no-sync pni report build full_audit \
 
 cp -f docs/reports/pni-full-audit/images/00_cover/ch00_cover_scorecard.png "$SCRIPT_DIR/_assets/ogp.png"
 cp -f docs/reports/pni-full-audit/images/00_cover/ch00_cover_scorecard.png docs/reports/pni-full-audit/_assets/ogp.png
-cp -f reports/full_audit.pdf docs/reports/pni-full-audit/full_audit.pdf
+mv -f reports/full_audit.pdf docs/reports/pni-full-audit/full_audit.pdf
 echo "All report builds completed successfully!"

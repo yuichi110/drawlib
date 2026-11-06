@@ -148,6 +148,31 @@ def test_check_2_navbar_parity(tmp_path: Path) -> None:
     with pytest.raises(ValueError, match=r"\[i18n navbar parity error\]"):
         validate_i18n_site(str(src_dir), cfg)
 
+    # Localized external URL (/api/en/ vs /api/ja/) passes, while unrelated external URL fails
+    en_nav = src_dir / "en" / "navbar.md"
+    en_nav.write_text(
+        "# Documentation\n\n- [Overview](index.md)\n\n## Topics\n"
+        "- [Architecture](architecture/index.md)\n- [Workflow](workflow/index.md)\n"
+        "- [API](https://www.drawlib.com/api/en/)\n",
+        encoding="utf-8",
+    )
+    ja_nav.write_text(
+        "# ドキュメント\n\n- [概要](index.md)\n\n## トピック\n"
+        "- [アーキテクチャ](architecture/index.md)\n- [ワークフロー](workflow/index.md)\n"
+        "- [API](https://www.drawlib.com/api/ja/)\n",
+        encoding="utf-8",
+    )
+    assert set(validate_i18n_site(str(src_dir), cfg).keys()) == {"en", "ja"}
+
+    ja_nav.write_text(
+        "# ドキュメント\n\n- [概要](index.md)\n\n## トピック\n"
+        "- [アーキテクチャ](architecture/index.md)\n- [ワークフロー](workflow/index.md)\n"
+        "- [API](https://www.drawlib.com/other/)\n",
+        encoding="utf-8",
+    )
+    with pytest.raises(ValueError, match=r"\[i18n navbar parity error\]"):
+        validate_i18n_site(str(src_dir), cfg)
+
 
 def test_check_3_markdown_skeleton_sequence_parity(tmp_path: Path) -> None:
     """Verify Check 3 collapses natural prose freely while catching structural omissions."""

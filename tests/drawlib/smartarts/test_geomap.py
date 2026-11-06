@@ -151,7 +151,7 @@ class TestGeoMapCustomAndValidation:
         p2 = m.get_area_xy("A2")
         assert p2[0] > p1[0]
 
-        okinawa_path = Path("docs/docs_src/_assets/geodata/okinawa.geojson")
+        okinawa_path = Path("docs_src/site/_assets/geodata/okinawa.geojson")
         if okinawa_path.is_file():
             m_oki = GeoMap(okinawa_path, area_style=Styles.Neutral)
             assert "Naha" in m_oki.get_areas()

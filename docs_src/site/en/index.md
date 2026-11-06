@@ -1825,8 +1825,8 @@ Drawlib is built to empower AI coding agents (such as Claude Code, Cursor, Gemin
 ### 2. Rich High-Level Visualizations
 Avoid assembling hundreds of primitive shapes by hand. Drawlib provides production-ready, declarative components:
 - **Auto-Layout Graphs (`drawlib.graph`)**: Declarative graph layout solvers (`ArchitectureGraph`, `LayerGraph`, `TreeGraph`, `RadialGraph`, `GridGraph`) that compute overlap-free coordinates (`get_layout()`), nested cluster bounds, and `offset()` fine-tuning for rendering with `drawlib.diagrams` and `drawlib.shapes`.
-- **SmartArts**: Process pipelines (`ChevronProcess`), cyclical loops (`Cycle`), data tables (`Table`), and trees (`Tree`).
-- **Data Charts**: Pure-Python bar, line, area, pie, radar, scatter, and Gantt charts without external graphing dependencies.
+- **SmartArts**: Process pipelines (`ChevronProcess`), cyclical loops (`Cycle`), data tables (`Table`), and trees (`TreeNode`).
+- **Data Charts**: All 10 pure-Python chart classes—bar (`BarChart`), box/strip (`BoxChart`), line (`LineChart`), area (`AreaChart`), pie (`PieChart`), radar (`RadarChart`), scatter (`ScatterChart`), Gantt (`GanttChart`), and matrix/spatial heatmaps (`HeatmapChart` / `HeatmapOverlay`)—without external graphing dependencies.
 - **Technical Diagrams**: Cloud architectures (`ArchitectureDiagram`), flowcharts (`FlowDiagram`), API sequences (`SequenceDiagram`), UML class diagrams (`ClassDiagram`), ER diagrams (`ERDiagram`), and state machines (`StateDiagram`).
 
 ```drawlib code=fold align=center file=index_high_level_visualizations.png caption="Drawlib High-Level Visualization Ecosystem"
@@ -1868,8 +1868,8 @@ text((14.0, 6.8), "TreeNode • MindMap • GeoMap", style=body_sub)
 rectangle((94.0, 12.5), width=58.0, height=19.0, style=Styles.Neutral.patch(shape_r=2.0))
 rectangle((94.0, 18.0), width=55.0, height=5.5, style=Styles.SecondaryNeutral.patch(shape_r=1.2), text="4. Pure-Python Charts (drawlib.charts)", text_style=hdr_dark)
 phosphor.chart_bar((71.5, 9.0), width=5.2, style=Styles.Primary)
-text((76.0, 11.0), "Bar • Line • Area • Pie", style=body_bold)
-text((76.0, 6.8), "Radar • Scatter • Gantt", style=body_sub)
+text((76.0, 11.0), "Bar • Box • Line • Area • Pie", style=body_bold)
+text((76.0, 6.8), "Radar • Scatter • Gantt • Heatmap", style=body_sub)
 
 save()
 ```
@@ -1901,7 +1901,7 @@ Explore the comprehensive guides below:
 4. [**SmartArts**](./04_smartarts/overview.md)
    - High-level infographics: process pipelines, cyclical loops, data tables, hierarchical trees, mindmaps, grids, pyramids, lists, source code blocks, and geographic maps.
 5. [**Charts**](./05_charts/overview.md)
-   - Declarative data plotting: axes & legends, bar, line, area, pie, radar, scatter, and project Gantt charts.
+   - Declarative data plotting (10 chart classes): axes & legends, bar, box/strip, line, area, pie, radar, scatter, project Gantt, and matrix/spatial heatmap charts (`HeatmapChart` / `HeatmapOverlay`).
 6. [**Technical Diagrams**](./06_diagrams/overview.md)
    - Coordinate-controlled engineering diagrams: cloud architectures, flowcharts, sequence diagrams, UML class diagrams, ER diagrams, and state machines.
 7. [**Auto-Layout Graphs**](./07_graph/overview.md)

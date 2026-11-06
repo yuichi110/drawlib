@@ -17,7 +17,7 @@
 
 #### 2. サプライチェーンセキュリティ強化・非 root コンテナ・オフライン動作改善
 - **依存関係更新と非 root コンテナ化**: `pillow>=13.0.0` への引き上げによる脆弱性解消と、本番・検証用すべての Dockerfile における非 root ユーザー（`USER drawlib`, `UID 10001`）実行への強化を実施しました。
-- **エアギャップ環境での事前検証と監査レポート公開（`/reports/pni-full-audit/`）**: オフライン環境（`--network=none`）におけるネットワーク取得前の `pkg.files` メンバーシップ検証、SQLite ビルドキャッシュ接続の改善、および PNI501 ソフトウェア品質・セキュリティ監査レポートの公開を行いました。
+- **エアギャップ環境での事前検証と監査レポート公開（[`/reports/pni-full-audit/`](https://www.drawlib.com/reports/pni-full-audit/)）**: オフライン環境（`--network=none`）におけるネットワーク取得前の `pkg.files` メンバーシップ検証、SQLite ビルドキャッシュ接続の改善、および [PNI501 ソフトウェア品質・セキュリティ監査レポート](https://www.drawlib.com/reports/pni-full-audit/)の公開を行いました。
 
 ---
 
@@ -37,7 +37,7 @@
 - **宣言的 `[catalog]` 設定と専用 CSS ターゲット**: `drawlib.toml` の `[catalog]` セクション（`sidebar_expanded`・`badge_text`・`badge_url`・`breadcrumb_root`・`repo_url`・`[[catalog.header_links]]`）、専用 CSS プリセット出力 `drawlib css list|show catalog`（`get_css(target="catalog")`・`export_css(target="catalog")`）、およびエージェント規約 `drawlib rules show project-catalog` を追加しました。
 
 #### 2. 宣言的プロジェクト SEO・Open Graph・`llms.txt` 自動生成（`[seo]`, `[i18n.descriptions]`）
-- **`site`・`doc`・`catalog`・`slide` 横断の検索・SNS メタデータ自動出力**: `drawlib.toml` に `[seo]`（`site_url`・`og_image`・`twitter_card`・`twitter_site`・`robots`・`sitemap`・`llms_txt`・`json_ld`・`cname`・`nojekyll`）および `[i18n.descriptions]` を宣言するだけで、`<link rel="canonical">`・多言語 `hreflang`・Open Graph / X Card タグ・Schema.org JSON-LD 構造化データ・`sitemap.xml`・`robots.txt`・`CNAME`・`.nojekyll` を一括出力します。
+- **`site`・`doc`・`catalog`・`slide` 横断の検索・SNS メタデータ自動出力**: `drawlib.toml` に `[seo]`（`site_url`・`og_image`・`twitter_card`・`twitter_site`・`sitemap`・`robots`・`llms_txt`）および `[i18n.descriptions]` を宣言するだけで、`<meta name="description">`・`<link rel="canonical">`・多言語 `hreflang` / `og:locale`・Open Graph / X Card タグ・`sitemap.xml`・`robots.txt`・`llms.txt` を一括出力します（`www.drawlib.com` デプロイ用の `.nojekyll`・`CNAME` と連携）。
 - **AI クローラ向け `llms.txt` 自動生成**: サイト構成・言語別エントリ URL・各ページ概要を整理した `llms.txt` を自動出力し、LLM エージェントや検索クローラによるドキュメント構造の正確な把握を支援します。
 
 #### 3. ゼロインストール `uvx` フォールバックスクリプトと公式 API & CLI リファレンス公開（`/api/`, `/architecture/`）

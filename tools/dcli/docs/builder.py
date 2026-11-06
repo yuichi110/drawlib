@@ -91,7 +91,7 @@ ALL_TARGETS: tuple[BuildTarget, ...] = (
         name="reports",
         src_dir="reports/full_audit_src",
         script_rel_path="reports/full_audit_src/build.sh",
-        description="PNI501 Full Audit Report (docs/reports/pni-full-audit/ & reports/full_audit.pdf)",
+        description="PNI501 Full Audit Report (docs/reports/pni-full-audit/)",
         clean_paths=("docs/reports/pni-full-audit",),
     ),
 )

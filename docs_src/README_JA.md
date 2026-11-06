@@ -76,7 +76,7 @@ uvx drawlib serve docs_html/
 
 ### 1. SmartArt インフォグラフィック・定量チャート・宣言的アニメーション
 
-プレゼン品質のインフォグラフィック（`drawlib.smartarts`）、定量データグラフ（`drawlib.charts`）、そしてマルチフレーム **APNG / WebP / GIF** アニメーション（`drawlib.anim`）をすべて同一の座標キャンバス上で自由に組み合わせられます。
+プレゼン品質のインフォグラフィック（`drawlib.smartarts`）、定量データグラフ（`drawlib.charts`）、そしてマルチフレーム **APNG / WebP** アニメーション（`drawlib.anim`）をすべて同一の座標キャンバス上で自由に組み合わせられます。
 
 ![SmartArts Visual Showcase](../docs/readme_images/02_smartarts_showcase.png)
 
@@ -84,8 +84,8 @@ uvx drawlib serve docs_html/
 
 ![Animated Quantitative Charts](../docs/readme_images/03_anim_charts_hero.png)
 
-- **9種の定量データチャート (`drawlib.charts`)**: 低レベルな Matplotlib のボイラープレートを一切書かずに、周囲の図解と統一されたデザイントークンで `BarChart`、`LineChart`、`AreaChart`、`PieChart`、`RadarChart`、`ScatterChart`、`GanttChart`、`HeatmapChart` / `HeatmapOverlay` を描画。
-- **宣言的アニメーション (`drawlib.anim`)**: あらゆる構成図・チャート・ワークフローを鮮明な **APNG**・**WebP**・**GIF** アニメーション（`Animation(fps=..., loop=0)`）として出力し、GitHub の `README.md` や Pull Request、HTML ドキュメントサイト上でそのまま再生可能。
+- **10種の定量データチャート (`drawlib.charts`)**: 低レベルな Matplotlib のボイラープレートを一切書かずに、周囲の図解と統一されたデザイントークンで `BarChart`、`BoxChart`、`LineChart`、`AreaChart`、`PieChart`、`RadarChart`、`ScatterChart`、`GanttChart`、`HeatmapChart` / `HeatmapOverlay` を描画。
+- **宣言的アニメーション (`drawlib.anim`)**: あらゆる構成図・チャート・ワークフローを鮮明な **APNG** / **WebP** アニメーション（`Animation(fps=..., loop=0)`）として出力し、GitHub の `README.md` や Pull Request、HTML ドキュメントサイト上でそのまま再生可能。
 
 ---
 
@@ -113,7 +113,7 @@ HTML と CSS のように、Drawlib は **コンテンツ**（幾何形状・座
 
 ![34 Standardized Icon Suites Overview](../docs/readme_images/06_icons_overview_hero.png)
 
-- **34種の標準アイコンスイート (`drawlib.icons`)**: **Phosphor**（`1,512`種 × `5`ウェイト）、**主要クラウド**（`gcp`、`aws`、`azure`）、**15種の公式テックブランドスイート**（`ai`、`cicd`、`cloud`、`code`、`compute`、`container`、`data`、`database`、`k8s`、`linux`、`mobile`、`monitoring`、`network`、`security`、`workspace`）、**15種のフラット 2D スイート**（`original_*`）にわたる **4,500種以上のオフラインキャッシュ対応ベクターアイコン**。
+- **34種の標準アイコンスイート (`drawlib.icons`)**: **Phosphor**（`1,512`種 × `5`ウェイト）、**主要クラウド**（`gcp`、`aws`、`azure`）、**15種の公式テックブランドスイート**（`ai`、`business`、`client`、`cloud`、`cnative`、`code`、`data`、`devops`、`facility`、`itservice`、`network`、`security`、`server`、`social`、`workspace`）、**15種のフラット 2D スイート**（`original_*`）にわたる **4,500種以上のオフラインキャッシュ対応ベクターアイコン**。
 - **豊富な描画プリミティブ (`drawlib.shapes`, `lines`, `images`, `text`, `fonts`)**:
   - **43種の幾何学シェイプ**: `basic`、`polygon`、`arrow`、`badge`、`container`、`symbol` を網羅。
   - **コネクタ & 曲線**: 直線、カーブ（`bend`）、2次／3次ベジェ曲線、角丸ポリライン、多彩な矢尻（`"->"`、`"<-"`、`"<->"`）。
@@ -130,7 +130,7 @@ HTML と CSS のように、Drawlib は **コンテンツ**（幾何形状・座
 
 ![Multi-Locale Documentation and Slide Build Pipeline](../docs/readme_images/07_doc_build_pipeline.png)
 
-- **統一 `drawlib.toml`・多言語 (`[i18n]`)・宣言的 SEO (`[seo]`)**: プロジェクト設定、`[build]` フラグ、`[i18n]` 多言語構成（`langs = ["en", "ja"]` と構造パリティ自動検査）、および `[seo]` 公開設定（`site_url`、OGP / X カード、`hreflang`、`sitemap.xml`、`robots.txt`、AI 向け `llms.txt`）をすべて `drawlib.toml` で宣言的に管理。
+- **統一 `drawlib.toml`・多言語 (`[i18n]`)・宣言的 SEO (`[seo]`)**: `[project]` 基本設定、`[i18n]` 多言語構成（`langs = ["en", "ja"]` と構造パリティ自動検査）、`[seo]` 公開設定（`site_url`、OGP / X カード、`hreflang`、`sitemap.xml`、`robots.txt`、AI 向け `llms.txt`）、および `[catalog]` カタログ設定をすべて `drawlib.toml` で宣言的に管理。
 - **5種のプロジェクトスキャフォールド (`drawlib init project <type>`)**:
   - `drawlib init project site [-l en,ja]`: マルチページ Web ドキュメントサイト（言語切替・全文検索・目次サイドバー付き `docs_html/`）および GitHub Markdown（`docs_markdown/`）。
   - `drawlib init project catalog [-l en,ja]`: 図解付きカタログ & リファレンスサイト（`# H1` / `## H2` 自動サイドバー・50種以上のセマンティックバッジ・`/` リアルタイム絞り込み付き `catalog_html/`）。API・CLI リファレンスやスキーマ辞書、サービス台帳に最適。
@@ -216,8 +216,11 @@ save()
 スクリプトを実行して `client_server.png` を生成します：
 
 ```bash
+# ゼロインストール実行（プロジェクト未導入の任意のフォルダで動作）
+uvx drawlib show client_server.py -o client_server.png
+
+# または Python uv プロジェクト内（`uv add drawlib` 導入済みの場合）
 uv run python client_server.py
-# プロジェクト未導入環境の場合: uvx drawlib show client_server.py -o client_server.png
 ```
 
 #### 基本原則のポイント
@@ -292,6 +295,7 @@ drawlib show docs_src/ja/index.md service_routing.png -g -o preview_grid.png
 | `drawlib build <html\|markdown\|pdf\|docx\|slide\|pptx\|image>` | ソースを HTML・Markdown・PDF・Word (`.docx`)・HTML スライド・PowerPoint (`.pptx`)・画像へコンパイル |
 | `drawlib serve <html_dir> [--check]` | ビルド済み HTML ドキュメント／スライドのローカルサーバー起動とリンク切れ検証 |
 | `drawlib show <file> [target] [-g]` | 単体スクリプトまたは Markdown 内ブロックのレンダリング・座標グリッド (`-g`) 検証 |
+| `drawlib css <list\|show> [target] [preset] [-o <file>]` | 組み込み CSS テーマ（`html`, `catalog`, `slide`, `pdf`）の一覧・表示・ファイル出力 (`-o`) |
 | `drawlib rules show [topic]` | AI エージェント向けオンデマンド CLI マニュアルの参照（`overview`, `style-guide`, `review-guide`, `api`, `lib-*`） |
 | `drawlib cache <list\|download\|clear>` | フォント・アイコン・地図・ヘッドレス Chromium キャッシュの管理（`--all`, `--browser`, `--images`） |
 

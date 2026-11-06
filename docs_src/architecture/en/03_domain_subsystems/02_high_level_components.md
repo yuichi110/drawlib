@@ -1,6 +1,6 @@
 # SmartArts, Charts & Diagrams Subsystems
 
-As architectural diagrams and executive dashboards grow, hand-calculating every box margin, legend swatch, and orthogonal connector from low-level primitives becomes error-prone. Drawlib solves this through three stateful **high-level component subsystems**—**SmartArts (18)**, **Quantitative Charts (9)**, and **Technical Diagrams (6)**—that compile structured domain models directly onto the shared vector canvas.
+As architectural diagrams and executive dashboards grow, hand-calculating every box margin, legend swatch, and orthogonal connector from low-level primitives becomes error-prone. Drawlib solves this through three stateful **high-level component subsystems**—**SmartArts (18)**, **Quantitative Charts (10)**, and **Technical Diagrams (6)**—that compile structured domain models directly onto the shared vector canvas.
 
 ```drawlib align=center code=fold file=high_level_components_trio.png caption="The Three High-Level Component Subsystems in Drawlib"
 from drawlib.canvas import save, setup
@@ -29,8 +29,8 @@ trio.add(
     style=Styles.PrimaryNeutral.patch(shape_r=2.0),
 )
 trio.add(
-    "9 Quantitative Charts",
-    "Bar, Line, Area, Pie,\nRadar, Scatter, Gantt,\nHeatmap & Overlay",
+    "10 Quantitative Charts",
+    "Bar, Box, Line, Area,\nPie, Radar, Scatter,\nGantt, Heatmap & Overlay",
     icon=phosphor.chart_bar,
     style=Styles.SecondaryNeutral.patch(shape_r=2.0),
     badge_style=Styles.White.patch(shape_line_color=Colors.Secondary),
@@ -86,7 +86,7 @@ Unlike low-level primitives (which always center on `(cx, cy)`), high-level comp
 
 | Default Anchor | Components & Containers | Growth / Coordinate Semantics |
 | :--- | :--- | :--- |
-| **Bottom-Left `(x0, y0)`** | **SmartArts**: `BoxList`, `CardList`, `ChevronProcess`, `DayCalendar`, `WeekCalendar`, `MonthCalendar`, `GeoMap`, `GridLayout`, `KpiCards` (`KpiCard`), `Panel`, `Pyramid`, `Roadmap`<br>**Charts**: All 9 chart classes (`align="bottom_left"` default; `"center"` supported)<br>**Diagrams**: All 6 `d.draw(xy=...)` containers & `NodeGroup` | Bounding box extends rightward (`+x`) and upward (`+y`) across `[x0, x0 + w] × [y0, y0 + h]`. *(Individual nodes inside a Diagram use local **Center `(cx, cy)`**).* |
+| **Bottom-Left `(x0, y0)`** | **SmartArts**: `BoxList`, `CardList`, `ChevronProcess`, `DayCalendar`, `WeekCalendar`, `MonthCalendar`, `GeoMap`, `GridLayout`, `KpiCards` (`KpiCard`), `Panel`, `Pyramid`, `Roadmap`<br>**Charts**: All 10 chart classes (`align="bottom_left"` default; `"center"` supported)<br>**Diagrams**: All 6 `d.draw(xy=...)` containers & `NodeGroup` | Bounding box extends rightward (`+x`) and upward (`+y`) across `[x0, x0 + w] × [y0, y0 + h]`. *(Individual nodes inside a Diagram use local **Center `(cx, cy)`**).* |
 | **Top-Left `(x0, y1)`** | **SmartArts**: `Table`, `SourceCode` (`align="top_left"` default; `"bottom_left"` & `"center"` supported), `TreeNode`, `BulletPoints` | Starts at top-left `(x0, y1)` and flows rightward (`+x`) and downward (`-y`) as rows or tree branches accumulate. |
 | **Center `(cx, cy)`** | **SmartArts**: `MindMapNode` (fixed root center), `Cycle` (`align="center"` default; `"bottom_left"` supported) | Expands radially or along 4 cardinal branches (`"top"`, `"bottom"`, `"left"`, `"right"`) around `(cx, cy)`. |
 

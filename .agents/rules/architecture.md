@@ -13,7 +13,7 @@ This document describes the project structure and architectural principles of th
   - `_core/`: Core drawing engine implementation details (`l1_core`, `l2_types`, `l3_colors`, `l3_external`, `l3_fonts`, `l3_images`, `l3_math`, `l3_styles`, `l4_canvas`).
   - `_preset_styles/`, `_charts/`, `_diagrams/`, `_graph/`, `_smartarts/`, `_icons/`, `_anim/`, `_slide/`, `_templates/`: Domain implementations and styling/template assets.
   - `_cli/`, `_builder/`, `_http_server/`: CLI entrypoint, doc & image build engines, and local preview server.
-- `docs_src/`: Documentation and asset source projects (`site/`, `architecture/`, `readme/`, `logo/`, `ogp/`) and repository READMEs (`README_JA.md`, `README_PYPI.md`, `README_DEV.md`).
+- `docs_src/`: Documentation and asset source projects (`site/`, `api/`, `architecture/`, `readme/`, `logo/`, `ogp/`) and repository READMEs (`README_JA.md`, `README_PYPI.md`, `README_DEV.md`).
 - `docs/`: Generated public web & image outputs (`https://www.drawlib.com/`; do not edit generated outputs directly).
 - `tests/`: Contains unit and integration tests.
 - `tools/`: Project developer CLI (`tools/dcli/`).

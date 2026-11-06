@@ -26,7 +26,7 @@ Drawlib is a declarative drawing library and integrated multi-format documentati
 
 ![Autonomous AI Documentation Workflow](https://www.drawlib.com/images/index/hero_ai_doc_loop.png)
 
-- **Official Website & Documentation**: [English (`www.drawlib.com`)](https://www.drawlib.com/) | [日本語 (`www.drawlib.com/ja/`)](https://www.drawlib.com/ja/) | [Zero-Install `uvx` Guide](https://www.drawlib.com/01_getting_started/uvx_any_project.html) | [API & CLI Reference (`www.drawlib.com/api/`)](https://www.drawlib.com/api/) | [Internal Architecture Spec](https://www.drawlib.com/architecture/)
+- **Official Website & Documentation**: [English (`www.drawlib.com`)](https://www.drawlib.com/) | [日本語 (`www.drawlib.com/ja/`)](https://www.drawlib.com/ja/) | [Zero-Install `uvx` Guide](https://www.drawlib.com/en/01_getting_started/uvx_any_project.html) | [API & CLI Reference (`www.drawlib.com/api/`)](https://www.drawlib.com/api/) | [Internal Architecture Spec](https://www.drawlib.com/architecture/)
 - **Live Examples Gallery**: [Browse All Showcase Projects (`examples.drawlib.com`)](https://examples.drawlib.com/) | [Source (`drawlib-examples`)](https://github.com/yuichi110/drawlib-examples)
   - **16:9 Slide Decks**: [About Drawlib (HTML / PDF / PPTX)](https://examples.drawlib.com/about-drawlib/en/) · [DDoS Incident Postmortem (HTML / PDF / PPTX)](https://examples.drawlib.com/ddos-incident-response/en/)
   - **Guides & Whitepapers**: [Dogfooding Whitepaper — English](https://examples.drawlib.com/dogfooding/en/) / [日本語版](https://examples.drawlib.com/dogfooding/ja/) · [Quickstart Guide (HTML / PDF / DOCX)](https://examples.drawlib.com/quickstart/en/)
@@ -49,7 +49,7 @@ uvx drawlib init agent claude
 uvx drawlib serve docs_html/
 ```
 
-> **Python project or global CLI?** Install with `uv add drawlib`, `uv tool install drawlib`, or `pip install drawlib`. See the [Zero-Install Workflow with `uvx` guide](https://www.drawlib.com/01_getting_started/uvx_any_project.html) for polyglot repository and non-code documentation patterns.
+> **Python project or global CLI?** Install with `uv add drawlib`, `uv tool install drawlib`, or `pip install drawlib`. See the [Zero-Install Workflow with `uvx` guide](https://www.drawlib.com/en/01_getting_started/uvx_any_project.html) for polyglot repository and non-code documentation patterns.
 
 ---
 
@@ -57,7 +57,7 @@ uvx drawlib serve docs_html/
 
 ### 1. SmartArt Infographics, Quantitative Charts & Declarative Animations
 
-Compose executive-ready infographics (`drawlib.smartarts`), quantitative data plots (`drawlib.charts`), and multi-frame **APNG / WebP / GIF** animations (`drawlib.anim`) on the exact same coordinate canvas:
+Compose executive-ready infographics (`drawlib.smartarts`), quantitative data plots (`drawlib.charts`), and multi-frame **APNG / WebP** animations (`drawlib.anim`) on the exact same coordinate canvas:
 
 ![SmartArts Visual Showcase](https://www.drawlib.com/images/04_smartarts/overview/smartarts_showcase.png)
 
@@ -65,8 +65,8 @@ Compose executive-ready infographics (`drawlib.smartarts`), quantitative data pl
 
 ![Animated Quantitative Charts](https://www.drawlib.com/images/08_animations/charts/anim_charts_hero.png)
 
-- **9 Quantitative Charts (`drawlib.charts`)**: Pure-Python `BarChart`, `LineChart`, `AreaChart`, `PieChart`, `RadarChart`, `ScatterChart`, `GanttChart`, and `HeatmapChart` / `HeatmapOverlay` styled with the same design tokens as surrounding diagrams—no low-level Matplotlib boilerplate required.
-- **Declarative Animations (`drawlib.anim`)**: Turn any diagram, chart, or workflow into a crisp multi-frame **APNG**, **WebP**, or **GIF** animation (`Animation(fps=..., loop=0)`) that plays natively inside GitHub `README.md` files, pull requests, and HTML documentation sites.
+- **10 Quantitative Charts (`drawlib.charts`)**: Pure-Python `BarChart`, `BoxChart`, `LineChart`, `AreaChart`, `PieChart`, `RadarChart`, `ScatterChart`, `GanttChart`, and `HeatmapChart` / `HeatmapOverlay` styled with the same design tokens as surrounding diagrams—no low-level Matplotlib boilerplate required.
+- **Declarative Animations (`drawlib.anim`)**: Turn any diagram, chart, or workflow into a crisp multi-frame **APNG** or **WebP** animation (`Animation(fps=..., loop=0)`) that plays natively inside GitHub `README.md` files, pull requests, and HTML documentation sites.
 
 ---
 
@@ -94,7 +94,7 @@ At its core, Drawlib cleanly separates **Content** (geometry, coordinates, struc
 
 ![34 Standardized Icon Suites Overview](https://www.drawlib.com/images/03_icons/overview/icons_overview_hero.png)
 
-- **34 Standardized Icon Suites (`drawlib.icons`)**: Over **4,500 offline-cached vector icons** spanning **Phosphor** (`1,512` icons across `5` weights), **Cloud Providers** (`gcp`, `aws`, `azure`), **15 Official Tech Brand Suites** (`ai`, `cicd`, `cloud`, `code`, `compute`, `container`, `data`, `database`, `k8s`, `linux`, `mobile`, `monitoring`, `network`, `security`, `workspace`), and **15 Flat 2D Suites** (`original_*`).
+- **34 Standardized Icon Suites (`drawlib.icons`)**: Over **4,500 offline-cached vector icons** spanning **Phosphor** (`1,512` icons across `5` weights), **Cloud Providers** (`gcp`, `aws`, `azure`), **15 Official Tech Brand Suites** (`ai`, `business`, `client`, `cloud`, `cnative`, `code`, `data`, `devops`, `facility`, `itservice`, `network`, `security`, `server`, `social`, `workspace`), and **15 Flat 2D Suites** (`original_*`).
 - **Rich Primitives (`drawlib.shapes`, `lines`, `images`, `text`, `fonts`)**:
   - **43 Geometric Shapes**: Spanning `basic`, `polygon`, `arrow`, `badge`, `container`, and `symbol` primitives.
   - **Lines & Connectors**: Straight, curved (`bend`), quadratic/cubic Bezier, and rounded polylines with rich arrowheads (`"->"`, `"<-"`, `"<->"`).
@@ -111,7 +111,7 @@ Author Markdown files with embedded ```` ```drawlib ```` code fences inside a un
 
 ![Multi-Locale Documentation and Slide Build Pipeline](https://www.drawlib.com/images/01_getting_started/project_quicklook/doc_build_pipeline.png)
 
-- **Unified `drawlib.toml`, Multi-Locale (`[i18n]`) & Declarative SEO (`[seo]`)**: Configure project metadata, `[build]` flags, `[i18n]` locales (`langs = ["en", "ja"]` with structural parity checks), and `[seo]` publishing (`site_url`, Open Graph / X social cards, `hreflang`, `sitemap.xml`, `robots.txt`, and AI-ready `llms.txt`) directly in `drawlib.toml`.
+- **Unified `drawlib.toml`, Multi-Locale (`[i18n]`) & Declarative SEO (`[seo]`)**: Configure `[project]` metadata, `[i18n]` locales (`langs = ["en", "ja"]` with structural parity checks), `[seo]` publishing (`site_url`, Open Graph / X social cards, `hreflang`, `sitemap.xml`, `robots.txt`, and AI-ready `llms.txt`), and `[catalog]` reference navigation directly in `drawlib.toml`.
 - **5 Project Scaffolds (`drawlib init project <type>`)**:
   - `drawlib init project site [-l en,ja]`: Multi-page documentation website (`docs_html/` with language switcher, search, and sidebar TOC) and GitHub Markdown (`docs_markdown/`).
   - `drawlib init project catalog [-l en,ja]`: Illustrated catalog & reference website (`catalog_html/` with automatic `# H1` / `## H2` sidebar extraction, 50+ semantic badges, and `/` instant filter) for APIs, CLI references, schemas, and service registries.
@@ -193,8 +193,11 @@ save()
 Run the script to generate `client_server.png`:
 
 ```bash
+# Zero-install via uvx (works anywhere without project setup)
+uvx drawlib show client_server.py -o client_server.png
+
+# Or inside a Python uv project (`uv add drawlib`)
 uv run python client_server.py
-# Or without project setup: uvx drawlib show client_server.py -o client_server.png
 ```
 
 #### Core Principles at a Glance
@@ -269,6 +272,7 @@ drawlib show docs_src/en/index.md service_routing.png -g -o preview_grid.png
 | `drawlib build <html\|markdown\|pdf\|docx\|slide\|pptx\|image>` | Compile sources into HTML, Markdown, PDF, MS Word (`.docx`), HTML Slides, MS PowerPoint (`.pptx`), or PNG/APNG/WebP images |
 | `drawlib serve <html_dir> [--check]` | Start a local HTTP server for built HTML docs/slides with broken-link verification |
 | `drawlib show <file> [target] [-g]` | Render and inspect a single script or embedded Markdown diagram (with optional coordinate grid) |
+| `drawlib css <list\|show> [target] [preset] [-o <file>]` | List, preview, or export built-in CSS theme stylesheets (`html`, `catalog`, `slide`, `pdf`) |
 | `drawlib rules show [topic]` | On-demand CLI manual for AI coding agents (`overview`, `style-guide`, `review-guide`, `api`, `lib-*`) |
 | `drawlib cache <list\|download\|clear>` | Manage local font, icon, map, and headless Chromium caches (`--all`, `--browser`, `--images`) |
 

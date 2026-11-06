@@ -1,10 +1,10 @@
-# Drawlib v0.3.2 開発計画書 (Development & Refactoring Plan)
+# Drawlib 今後の機能拡張・リファクタリング計画書 (Development Backlog Plan)
 
-- **作成日**: 2026-10-23（`V0_3_1_DEVELOPMENT_PLAN.md` から未実施フェーズを移行）
-- **対象バージョン**: Drawlib `v0.3.2` (`0.3.2.dev1` → `0.3.2`)
+- **作成日**: 2026-10-23
+- **ステータス**: 未着手バックログ（`v0.3.2`〜`v0.3.6` では Office エクスポート・`i18n` 統合・`init agent`・`catalog`・`BoxChart` 等を優先リリース済み）
 - **背景**:
-  - `v0.3.1` では先行実装済みの `HeatmapChart` / `HeatmapOverlay` と、ユーザー報告のあった起動・Import パフォーマンス最適化（および Pydantic v2.11 非推奨警告解消）を優先リリースした（詳細は [`V0_3_1_DEVELOPMENT_PLAN.md`](./V0_3_1_DEVELOPMENT_PLAN.md) を参照）。
-  - 本計画書では、当初 `v0.3.1` で計画していた残りの設計改善・バグ修正・機能追加・品質整備を `v0.3.2` のスコープとして定義する。
+  - `v0.3.1` では先行実装済みの `HeatmapChart` / `HeatmapOverlay` と起動・Import パフォーマンス最適化を優先リリースした。
+  - 本計画書では、今後のリリース候補として残っている設計改善・機能追加アイデアを管理する。
 - **スコープ**:
   1. **設計の改善・バグ修正・品質整備**（API一貫性、座標・スタイルバグ修正、肥大化モジュール分割、ビルダ・CLI・`dcli`・AIルール・ドキュメント同期）
   2. **機能追加 A: `Charts` の表現力強化**（基準線 `add_reference_line`・ターゲット帯 `add_reference_band`・`BarChart` の `percent_stack`・`LineChart`/`AreaChart` の `value_format` 対応）

@@ -144,7 +144,7 @@
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="https://www.drawlib.com/api/" target="_blank" rel="noopener noreferrer">API &amp; CLI リファレンス<svg class="nav-external-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
+                                <a href="https://www.drawlib.com/api/ja/" target="_blank" rel="noopener noreferrer">API &amp; CLI リファレンス<svg class="nav-external-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
                             </li>
                             
                             <li class="nav-item ">
@@ -685,7 +685,7 @@
 <h4>2. サプライチェーンセキュリティ強化・非 root コンテナ・オフライン動作改善</h4>
 <ul>
 <li><strong>依存関係更新と非 root コンテナ化</strong>: <code>pillow&gt;=13.0.0</code> への引き上げによる脆弱性解消と、本番・検証用すべての Dockerfile における非 root ユーザー（<code>USER drawlib</code>, <code>UID 10001</code>）実行への強化を実施しました。</li>
-<li><strong>エアギャップ環境での事前検証と監査レポート公開（<code>/reports/pni-full-audit/</code>）</strong>: オフライン環境（<code>--network=none</code>）におけるネットワーク取得前の <code>pkg.files</code> メンバーシップ検証、SQLite ビルドキャッシュ接続の改善、および PNI501 ソフトウェア品質・セキュリティ監査レポートの公開を行いました。</li>
+<li><strong>エアギャップ環境での事前検証と監査レポート公開（<a href="https://www.drawlib.com/reports/pni-full-audit/"><code>/reports/pni-full-audit/</code></a>）</strong>: オフライン環境（<code>--network=none</code>）におけるネットワーク取得前の <code>pkg.files</code> メンバーシップ検証、SQLite ビルドキャッシュ接続の改善、および <a href="https://www.drawlib.com/reports/pni-full-audit/">PNI501 ソフトウェア品質・セキュリティ監査レポート</a>の公開を行いました。</li>
 </ul>
 <hr />
 <h2>バージョン 0.3.5</h2>
@@ -701,7 +701,7 @@
 </ul>
 <h4>2. 宣言的プロジェクト SEO・Open Graph・<code>llms.txt</code> 自動生成（<code>[seo]</code>, <code>[i18n.descriptions]</code>）</h4>
 <ul>
-<li><strong><code>site</code>・<code>doc</code>・<code>catalog</code>・<code>slide</code> 横断の検索・SNS メタデータ自動出力</strong>: <code>drawlib.toml</code> に <code>[seo]</code>（<code>site_url</code>・<code>og_image</code>・<code>twitter_card</code>・<code>twitter_site</code>・<code>robots</code>・<code>sitemap</code>・<code>llms_txt</code>・<code>json_ld</code>・<code>cname</code>・<code>nojekyll</code>）および <code>[i18n.descriptions]</code> を宣言するだけで、<code>&lt;link rel=&quot;canonical&quot;&gt;</code>・多言語 <code>hreflang</code>・Open Graph / X Card タグ・Schema.org JSON-LD 構造化データ・<code>sitemap.xml</code>・<code>robots.txt</code>・<code>CNAME</code>・<code>.nojekyll</code> を一括出力します。</li>
+<li><strong><code>site</code>・<code>doc</code>・<code>catalog</code>・<code>slide</code> 横断の検索・SNS メタデータ自動出力</strong>: <code>drawlib.toml</code> に <code>[seo]</code>（<code>site_url</code>・<code>og_image</code>・<code>twitter_card</code>・<code>twitter_site</code>・<code>sitemap</code>・<code>robots</code>・<code>llms_txt</code>）および <code>[i18n.descriptions]</code> を宣言するだけで、<code>&lt;meta name=&quot;description&quot;&gt;</code>・<code>&lt;link rel=&quot;canonical&quot;&gt;</code>・多言語 <code>hreflang</code> / <code>og:locale</code>・Open Graph / X Card タグ・<code>sitemap.xml</code>・<code>robots.txt</code>・<code>llms.txt</code> を一括出力します（<code>www.drawlib.com</code> デプロイ用の <code>.nojekyll</code>・<code>CNAME</code> と連携）。</li>
 <li><strong>AI クローラ向け <code>llms.txt</code> 自動生成</strong>: サイト構成・言語別エントリ URL・各ページ概要を整理した <code>llms.txt</code> を自動出力し、LLM エージェントや検索クローラによるドキュメント構造の正確な把握を支援します。</li>
 </ul>
 <h4>3. ゼロインストール <code>uvx</code> フォールバックスクリプトと公式 API &amp; CLI リファレンス公開（<code>/api/</code>, <code>/architecture/</code>）</h4>

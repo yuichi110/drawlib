@@ -76,6 +76,8 @@ dependencies = [
 [project.urls]
 Homepage = "https://www.drawlib.com"
 Documentation = "https://www.drawlib.com/en/"
+"API Reference" = "https://www.drawlib.com/api/"
+Examples = "https://examples.drawlib.com/"
 Repository = "https://github.com/yuichi110/drawlib"
 Issues = "https://github.com/yuichi110/drawlib/issues"
 Changelog = "https://www.drawlib.com/en/01_getting_started/release_notes.html"
@@ -95,7 +97,9 @@ dev = [
     "typer>=0.12.0",
     "rich>=13.0.0",
     "pytest-xdist>=3.8.0",
-    "pni501",
+]
+audit = [
+    "pni501>=0.1.1",
 ]
 
 [tool.ruff]
@@ -178,12 +182,6 @@ ignore = [
     "F403",    # import star
     "F405"     # import star usage
 ]
-"test_build_target/**.py" = [
-    "F403", # undefined-local-with-import-star
-    "F405", # undefined-local-with-import-star-usage
-    "D100", # undocumented-public-module
-    "D103", # undocumented-public-function
-]
 
 [tool.ruff.lint.pydocstyle]
 convention = "google"
@@ -204,5 +202,10 @@ markers = [
     "image_threshold(threshold): custom pixel match threshold for image comparison",
 ]
 
+[[tool.uv.index]]
+name = "pypi"
+url = "https://pypi.org/simple"
+explicit = true
+
 [tool.uv.sources]
-pni501 = { git = "https://github.com/yuichi110/pni501.git" }
+pni501 = { index = "pypi" }

@@ -82,7 +82,7 @@ When updating icon sets, fonts, or external binary assets:
 When preparing a new release version of `drawlib`:
 
 1. **Dependency, Version & Documentation Release Cleanup**:
-   - Remove any `> **Note (Upcoming in vX.Y.Z):**` callouts and `*(Upcoming in vX.Y.Z)*` badges from `docs/*_src/`, and add the release entry to `docs/docs_src/01_getting_started/release_notes.md`.
+   - Remove any `> **Note (Upcoming in vX.Y.Z):**` callouts and `*(Upcoming in vX.Y.Z)*` badges from `docs_src/*/`, and add the release entry to `docs_src/site/{en,ja}/01_getting_started/release_notes.md`.
    ```bash
    ./dcli pypi deps
    ./dcli pypi check-version

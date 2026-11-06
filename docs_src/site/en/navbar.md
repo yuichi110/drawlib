@@ -11,7 +11,7 @@
 - [Project & Build Overview](./01_getting_started/project_quicklook.md)
 - [AI-Driven Workflow & Agent Setup](./01_getting_started/agent_quicklook.md)
 - [Release Notes & Migration](./01_getting_started/release_notes.md)
-- [API & CLI Reference](https://www.drawlib.com/api/)
+- [API & CLI Reference](https://www.drawlib.com/api/en/)
 - [Examples Showcase](https://examples.drawlib.com/)
 
 ## 2. Drawing Primitives & Styles

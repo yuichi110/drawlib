@@ -39,19 +39,19 @@
     
     
     
-    <meta name="description" content="すべての直交座標系チャート（BarChart、LineChart、AreaChart、ScatterChart）および複数系列・複数スライス型チャート（PieChart、RadarChart）は、座標軸のスケーリング、目盛り・単位フォーマット、分離配置型の凡例（デカップルされた凡例）、およびバウンディングボックス計測…">
+    <meta name="description" content="すべての直交座標系チャート（BarChart、BoxChart、LineChart、AreaChart、ScatterChart）、放射・スライス型チャート（PieChart、RadarChart）、およびマトリクス・空間・スケジュール型チャート（HeatmapChart、HeatmapOverlay、GanttCh…">
     <link rel="canonical" href="https://www.drawlib.com/ja/05_charts/axes_and_legends.html">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Drawlib ドキュメント">
     <meta property="og:title" content="軸・スケール・凡例 — Drawlib ドキュメント">
-    <meta property="og:description" content="すべての直交座標系チャート（BarChart、LineChart、AreaChart、ScatterChart）および複数系列・複数スライス型チャート（PieChart、RadarChart）は、座標軸のスケーリング、目盛り・単位フォーマット、分離配置型の凡例（デカップルされた凡例）、およびバウンディングボックス計測…">
+    <meta property="og:description" content="すべての直交座標系チャート（BarChart、BoxChart、LineChart、AreaChart、ScatterChart）、放射・スライス型チャート（PieChart、RadarChart）、およびマトリクス・空間・スケジュール型チャート（HeatmapChart、HeatmapOverlay、GanttCh…">
     <meta property="og:url" content="https://www.drawlib.com/ja/05_charts/axes_and_legends.html">
     <meta property="og:image" content="https://www.drawlib.com/_assets/ogp.png">
     <meta property="og:locale" content="ja_JP">
     <meta property="og:locale:alternate" content="en_US">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="軸・スケール・凡例 — Drawlib ドキュメント">
-    <meta name="twitter:description" content="すべての直交座標系チャート（BarChart、LineChart、AreaChart、ScatterChart）および複数系列・複数スライス型チャート（PieChart、RadarChart）は、座標軸のスケーリング、目盛り・単位フォーマット、分離配置型の凡例（デカップルされた凡例）、およびバウンディングボックス計測…">
+    <meta name="twitter:description" content="すべての直交座標系チャート（BarChart、BoxChart、LineChart、AreaChart、ScatterChart）、放射・スライス型チャート（PieChart、RadarChart）、およびマトリクス・空間・スケジュール型チャート（HeatmapChart、HeatmapOverlay、GanttCh…">
     <meta name="twitter:image" content="https://www.drawlib.com/_assets/ogp.png">
     
     
@@ -144,7 +144,7 @@
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="https://www.drawlib.com/api/" target="_blank" rel="noopener noreferrer">API &amp; CLI リファレンス<svg class="nav-external-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
+                                <a href="https://www.drawlib.com/api/ja/" target="_blank" rel="noopener noreferrer">API &amp; CLI リファレンス<svg class="nav-external-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
                             </li>
                             
                             <li class="nav-item ">
@@ -671,7 +671,7 @@
             </header>
             <main class="main-content">
                 <h1>軸・スケール・凡例</h1>
-<p>すべての直交座標系チャート（<code>BarChart</code>、<code>LineChart</code>、<code>AreaChart</code>、<code>ScatterChart</code>）および複数系列・複数スライス型チャート（<code>PieChart</code>、<code>RadarChart</code>）は、<strong>座標軸のスケーリング</strong>、<strong>目盛り・単位フォーマット</strong>、<strong>分離配置型の凡例（デカップルされた凡例）</strong>、および<strong>バウンディングボックス計測</strong>のための共通基盤を備えています。</p>
+<p>すべての直交座標系チャート（<code>BarChart</code>、<code>BoxChart</code>、<code>LineChart</code>、<code>AreaChart</code>、<code>ScatterChart</code>）、放射・スライス型チャート（<code>PieChart</code>、<code>RadarChart</code>）、およびマトリクス・空間・スケジュール型チャート（<code>HeatmapChart</code>、<code>HeatmapOverlay</code>、<code>GanttChart</code>）は、<strong>座標軸のスケーリング</strong>、<strong>目盛り・単位フォーマット</strong>、<strong>分離配置型の凡例（デカップルされた凡例）</strong>、および<strong>バウンディングボックス計測</strong>のための共通設計を備えています。</p>
 <p>すべての視覚的な軸要素は Drawlib の存在ベース（Style-as-Presence）のスタイリングモデルに従っており、定義域の上下限、グリッド線、目盛りフォーマッタ、凡例座標をそれぞれ独立して制御できます。</p>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="../../images/05_charts/axes_and_legends/charts_axes_and_legends_hero.png" alt="axes_and_legends_1" />
@@ -931,7 +931,7 @@
 <hr />
 <h2>5. API リファレンス</h2>
 <h3>軸の設定（<code>configure_x_axis</code> / <code>configure_y_axis</code> と <code>Axis</code>）</h3>
-<p><code>BarChart</code>、<code>LineChart</code>、<code>AreaChart</code>、<code>ScatterChart</code> で利用可能です（内部の <code>Axis</code> インスタンスを返します）。</p>
+<p><code>BarChart</code>、<code>BoxChart</code>、<code>LineChart</code>、<code>AreaChart</code>、<code>ScatterChart</code> で利用可能です（内部の <code>Axis</code> インスタンスを返します）。</p>
 <pre><code class="language-python"><span class="n">chart</span><span class="o">.</span><span class="n">configure_x_axis</span><span class="p">(</span>
     <span class="n">scale</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">"linear"</span><span class="p">,</span> <span class="s2">"log"</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">min_value</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1049,12 +1049,12 @@
 <h3>軸プロパティへの直接アクセスと <code>Axis.format_value(val)</code></h3>
 <p><code>configure_x_axis()</code> や <code>configure_y_axis()</code> に加えて、プロパティ経由で内部の <code>Axis</code> オブジェクトを直接参照・変更することもできます。</p>
 <ul>
-<li><strong><code>chart.x_axis -&gt; Axis</code></strong> および <strong><code>chart.y_axis -&gt; Axis</code></strong>: <code>BarChart</code>、<code>LineChart</code>、<code>AreaChart</code>、<code>ScatterChart</code> の水平軸・垂直軸 <code>Axis</code> インスタンスへの直接アクセス。</li>
-<li><strong><code>bar_chart.value_axis -&gt; Axis</code></strong>: <code>BarChart</code> の向きに応じたプロパティで、<code>orientation == &quot;vertical&quot;</code> のときは <code>y_axis</code>、<code>orientation == &quot;horizontal&quot;</code> のときは <code>x_axis</code> を返します。</li>
-<li><strong><code>bar_chart.category_axis -&gt; Axis</code></strong>: <code>BarChart</code> の向きに応じたプロパティで、<code>orientation == &quot;vertical&quot;</code> のときは <code>x_axis</code>、<code>orientation == &quot;horizontal&quot;</code> のときは <code>y_axis</code> を返します。</li>
+<li><strong><code>chart.x_axis -&gt; Axis</code></strong> および <strong><code>chart.y_axis -&gt; Axis</code></strong>: <code>BarChart</code>、<code>BoxChart</code>、<code>LineChart</code>、<code>AreaChart</code>、<code>ScatterChart</code> の水平軸・垂直軸 <code>Axis</code> インスタンスへの直接アクセス。</li>
+<li><strong><code>chart.value_axis -&gt; Axis</code></strong>: <code>BarChart</code> および <code>BoxChart</code> の向きに応じたプロパティで、<code>orientation == &quot;vertical&quot;</code> のときは <code>y_axis</code>、<code>orientation == &quot;horizontal&quot;</code> のときは <code>x_axis</code> を返します。</li>
+<li><strong><code>chart.category_axis -&gt; Axis</code></strong>: <code>BarChart</code> および <code>BoxChart</code> の向きに応じたプロパティで、<code>orientation == &quot;vertical&quot;</code> のときは <code>x_axis</code>、<code>orientation == &quot;horizontal&quot;</code> のときは <code>y_axis</code> を返します。</li>
 <li><strong><code>axis.format_value(value: float) -&gt; str</code></strong>: 軸に設定された <code>format</code>（文字列／関数）と <code>unit</code> サフィックスを使って任意の数値を表示用文字列にフォーマットします（<code>format=None</code> の場合は整数に近い値を自動丸めします）。</li>
 </ul>
-<pre><code class="language-python"><span class="c1"># Orientation-independent configuration on BarChart + custom label_style and format_value()</span>
+<pre><code class="language-python"><span class="c1"># Orientation-independent configuration on BarChart / BoxChart + custom label_style and format_value()</span>
 <span class="n">chart</span><span class="o">.</span><span class="n">value_axis</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">min_value</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">max_value</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s2">"%"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Utilization"</span><span class="p">,</span> <span class="n">label_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
 <span class="n">formatted</span> <span class="o">=</span> <span class="n">chart</span><span class="o">.</span><span class="n">value_axis</span><span class="o">.</span><span class="n">format_value</span><span class="p">(</span><span class="mf">85.0</span><span class="p">)</span>  <span class="c1"># -&gt; "85 %"</span>
 </code></pre>
@@ -1062,7 +1062,7 @@
 <p><strong>放射軸の設定（<code>RadarChart</code>）</strong>: <code>RadarChart</code> には同心リングを設定するための <code>chart.configure_axis(*, min_value=None, max_value=None, levels=None, scale_format=None) -&gt; RadarChart</code> が用意されています。</p>
 </blockquote>
 <h3>分離配置型の凡例描画（<code>draw_legend</code>）</h3>
-<p><code>BarChart</code>、<code>LineChart</code>、<code>AreaChart</code>、<code>PieChart</code>、<code>RadarChart</code>、<code>ScatterChart</code> で利用可能です。</p>
+<p><code>BarChart</code>、<code>BoxChart</code>、<code>LineChart</code>、<code>AreaChart</code>、<code>PieChart</code>、<code>RadarChart</code>、<code>ScatterChart</code> で利用可能です（さらに <code>HeatmapChart</code> と <code>HeatmapOverlay</code> でも段階的なカラーストップ凡例として利用できます）。</p>
 <pre><code class="language-python"><span class="n">chart</span><span class="o">.</span><span class="n">draw_legend</span><span class="p">(</span>
     <span class="n">xy</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
     <span class="n">text_style</span><span class="p">:</span> <span class="n">Style</span><span class="p">,</span>
@@ -1077,9 +1077,10 @@
 <ul>
 <li><strong>座標アンカー <code>xy</code></strong>: <code>orientation=&quot;vertical&quot;</code> の場合、<code>xy</code> は**左上（top-left）<strong>の開始点となり、項目が下方向へ並びます。<code>orientation=&quot;horizontal&quot;</code> の場合、<code>xy</code> は</strong>左中央（middle-left）**の開始点となり、項目が <code>item_gap</code> の間隔で右方向へ並びます。</li>
 <li><strong>項目ごとのスタイルと表示制御</strong>: 各 <code>add_series(...)</code> や <code>add_slice(...)</code> は <code>legend_text_style: Style | None = None</code> と <code>show: bool = True</code> を受け取ります。要素に <code>show=False</code> が設定されている場合、横方向のレイアウト間隔を崩すことなく該当の凡例項目も自動的に非表示になります。</li>
+<li><strong>カラースケール凡例（<code>HeatmapChart</code> &amp; <code>HeatmapOverlay</code>）</strong>: <code>HeatmapChart</code> と <code>HeatmapOverlay</code> でも同じ <code>draw_legend(...)</code> 配置引数に加えてキーワード専用の <code>num_steps: int</code>（<code>HeatmapChart</code> はデフォルト <code>5</code>、<code>HeatmapOverlay</code> は <code>4</code>）と <code>labels: Sequence[str] | None = None</code> を指定して離散ステップスウォッチを描画でき、連続グラデーション用の <code>draw_colorbar(xy, text_style, ...)</code> も備えています（詳細は <strong><a href="./heatmap.html">ヒートマップと空間オーバーレイ</a></strong> を参照）。</li>
 </ul>
 <h3>レイアウト寸法の取得（<code>get_size</code>）</h3>
-<p>全 7 種類のチャートクラス（<code>BarChart</code>、<code>LineChart</code>、<code>AreaChart</code>、<code>PieChart</code>、<code>RadarChart</code>、<code>ScatterChart</code>、<code>GanttChart</code>）で利用可能です。</p>
+<p>全 10 種類のチャートクラス（<code>BarChart</code>、<code>BoxChart</code>、<code>LineChart</code>、<code>AreaChart</code>、<code>PieChart</code>、<code>RadarChart</code>、<code>ScatterChart</code>、<code>GanttChart</code>、<code>HeatmapChart</code>、<code>HeatmapOverlay</code>）で利用可能です。</p>
 <pre><code class="language-python"><span class="n">width</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="n">chart</span><span class="o">.</span><span class="n">get_size</span><span class="p">()</span>
 </code></pre>
 <p>スケーリング適用前のチャートのバウンディングボックス寸法 <code>(width, height)</code> をキャンバス単位で返します。</p>

@@ -38,6 +38,13 @@ Before opening a Pull Request, please verify:
 
 ---
 
+## Community & Security
+
+- **Code of Conduct**: Participation in this project is governed by our [Code of Conduct](../CODE_OF_CONDUCT.md).
+- **Security Vulnerabilities**: Please report suspected security issues privately following [`SECURITY.md`](../SECURITY.md) rather than opening a public issue.
+
+---
+
 ## License
 
 By contributing to Drawlib, you agree that your contributions will be licensed under the **Apache License, Version 2.0**.

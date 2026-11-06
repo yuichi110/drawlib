@@ -39,19 +39,19 @@
     
     
     
-    <meta name="description" content="All Cartesian charts (BarChart, LineChart, AreaChart, ScatterChart) and multi-series/slice charts (PieChart, RadarChart) share a unified foundation for…">
+    <meta name="description" content="All Cartesian charts (BarChart, BoxChart, LineChart, AreaChart, ScatterChart), radial/slice charts (PieChart, RadarChart), and matrix, spatial, and schedule…">
     <link rel="canonical" href="https://www.drawlib.com/en/05_charts/axes_and_legends.html">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Drawlib Documentation">
     <meta property="og:title" content="Axes, Scales &amp; Legends — Drawlib Documentation">
-    <meta property="og:description" content="All Cartesian charts (BarChart, LineChart, AreaChart, ScatterChart) and multi-series/slice charts (PieChart, RadarChart) share a unified foundation for…">
+    <meta property="og:description" content="All Cartesian charts (BarChart, BoxChart, LineChart, AreaChart, ScatterChart), radial/slice charts (PieChart, RadarChart), and matrix, spatial, and schedule…">
     <meta property="og:url" content="https://www.drawlib.com/en/05_charts/axes_and_legends.html">
     <meta property="og:image" content="https://www.drawlib.com/_assets/ogp.png">
     <meta property="og:locale" content="en_US">
     <meta property="og:locale:alternate" content="ja_JP">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Axes, Scales &amp; Legends — Drawlib Documentation">
-    <meta name="twitter:description" content="All Cartesian charts (BarChart, LineChart, AreaChart, ScatterChart) and multi-series/slice charts (PieChart, RadarChart) share a unified foundation for…">
+    <meta name="twitter:description" content="All Cartesian charts (BarChart, BoxChart, LineChart, AreaChart, ScatterChart), radial/slice charts (PieChart, RadarChart), and matrix, spatial, and schedule…">
     <meta name="twitter:image" content="https://www.drawlib.com/_assets/ogp.png">
     
     
@@ -144,7 +144,7 @@
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="https://www.drawlib.com/api/" target="_blank" rel="noopener noreferrer">API &amp; CLI Reference<svg class="nav-external-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
+                                <a href="https://www.drawlib.com/api/en/" target="_blank" rel="noopener noreferrer">API &amp; CLI Reference<svg class="nav-external-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
                             </li>
                             
                             <li class="nav-item ">
@@ -671,7 +671,7 @@
             </header>
             <main class="main-content">
                 <h1>Axes, Scales &amp; Legends</h1>
-<p>All Cartesian charts (<code>BarChart</code>, <code>LineChart</code>, <code>AreaChart</code>, <code>ScatterChart</code>) and multi-series/slice charts (<code>PieChart</code>, <code>RadarChart</code>) share a unified foundation for <strong>coordinate axis scaling</strong>, <strong>tick and unit formatting</strong>, <strong>decoupled legend placement</strong>, and <strong>bounding-box measurement</strong>.</p>
+<p>All Cartesian charts (<code>BarChart</code>, <code>BoxChart</code>, <code>LineChart</code>, <code>AreaChart</code>, <code>ScatterChart</code>), radial/slice charts (<code>PieChart</code>, <code>RadarChart</code>), and matrix, spatial, and schedule charts (<code>HeatmapChart</code>, <code>HeatmapOverlay</code>, <code>GanttChart</code>) share unified conventions for <strong>coordinate axis scaling</strong>, <strong>tick and unit formatting</strong>, <strong>decoupled legend placement</strong>, and <strong>bounding-box measurement</strong>.</p>
 <p>Every visual axis element follows Drawlib's presence-based styling model, giving you independent control over domain bounds, gridlines, tick formatters, and legend coordinates.</p>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="../../images/05_charts/axes_and_legends/charts_axes_and_legends_hero.png" alt="axes_and_legends_1" />
@@ -931,7 +931,7 @@
 <hr />
 <h2>5. API Reference</h2>
 <h3>Axis Configuration (<code>configure_x_axis</code> / <code>configure_y_axis</code> &amp; <code>Axis</code>)</h3>
-<p>Available on <code>BarChart</code>, <code>LineChart</code>, <code>AreaChart</code>, and <code>ScatterChart</code> (returns the underlying <code>Axis</code> instance):</p>
+<p>Available on <code>BarChart</code>, <code>BoxChart</code>, <code>LineChart</code>, <code>AreaChart</code>, and <code>ScatterChart</code> (returns the underlying <code>Axis</code> instance):</p>
 <pre><code class="language-python"><span class="n">chart</span><span class="o">.</span><span class="n">configure_x_axis</span><span class="p">(</span>
     <span class="n">scale</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">"linear"</span><span class="p">,</span> <span class="s2">"log"</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">min_value</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1049,12 +1049,12 @@
 <h3>Direct Axis Property Access &amp; <code>Axis.format_value(val)</code></h3>
 <p>In addition to <code>configure_x_axis()</code> and <code>configure_y_axis()</code>, you can inspect or mutate the underlying <code>Axis</code> objects directly via properties:</p>
 <ul>
-<li><strong><code>chart.x_axis -&gt; Axis</code></strong> and <strong><code>chart.y_axis -&gt; Axis</code></strong>: Direct access to the horizontal and vertical <code>Axis</code> instances on <code>BarChart</code>, <code>LineChart</code>, <code>AreaChart</code>, and <code>ScatterChart</code>.</li>
-<li><strong><code>bar_chart.value_axis -&gt; Axis</code></strong>: Orientation-aware property on <code>BarChart</code> that returns <code>y_axis</code> when <code>orientation == &quot;vertical&quot;</code> and <code>x_axis</code> when <code>orientation == &quot;horizontal&quot;</code>.</li>
-<li><strong><code>bar_chart.category_axis -&gt; Axis</code></strong>: Orientation-aware property on <code>BarChart</code> that returns <code>x_axis</code> when <code>orientation == &quot;vertical&quot;</code> and <code>y_axis</code> when <code>orientation == &quot;horizontal&quot;</code>.</li>
+<li><strong><code>chart.x_axis -&gt; Axis</code></strong> and <strong><code>chart.y_axis -&gt; Axis</code></strong>: Direct access to the horizontal and vertical <code>Axis</code> instances on <code>BarChart</code>, <code>BoxChart</code>, <code>LineChart</code>, <code>AreaChart</code>, and <code>ScatterChart</code>.</li>
+<li><strong><code>chart.value_axis -&gt; Axis</code></strong>: Orientation-aware property on <code>BarChart</code> and <code>BoxChart</code> that returns <code>y_axis</code> when <code>orientation == &quot;vertical&quot;</code> and <code>x_axis</code> when <code>orientation == &quot;horizontal&quot;</code>.</li>
+<li><strong><code>chart.category_axis -&gt; Axis</code></strong>: Orientation-aware property on <code>BarChart</code> and <code>BoxChart</code> that returns <code>x_axis</code> when <code>orientation == &quot;vertical&quot;</code> and <code>y_axis</code> when <code>orientation == &quot;horizontal&quot;</code>.</li>
 <li><strong><code>axis.format_value(value: float) -&gt; str</code></strong>: Formats any numeric value into a display string using the axis's configured <code>format</code> string/callable and <code>unit</code> suffix (automatically rounding near-integers when <code>format=None</code>).</li>
 </ul>
-<pre><code class="language-python"><span class="c1"># Orientation-independent configuration on BarChart + custom label_style and format_value()</span>
+<pre><code class="language-python"><span class="c1"># Orientation-independent configuration on BarChart / BoxChart + custom label_style and format_value()</span>
 <span class="n">chart</span><span class="o">.</span><span class="n">value_axis</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">min_value</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">max_value</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s2">"%"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Utilization"</span><span class="p">,</span> <span class="n">label_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">)</span>
 <span class="n">formatted</span> <span class="o">=</span> <span class="n">chart</span><span class="o">.</span><span class="n">value_axis</span><span class="o">.</span><span class="n">format_value</span><span class="p">(</span><span class="mf">85.0</span><span class="p">)</span>  <span class="c1"># -&gt; "85 %"</span>
 </code></pre>
@@ -1062,7 +1062,7 @@
 <p><strong>Radial Axis Configuration (<code>RadarChart</code>)</strong>: <code>RadarChart</code> provides <code>chart.configure_axis(*, min_value=None, max_value=None, levels=None, scale_format=None) -&gt; RadarChart</code> to configure concentric spoke rings.</p>
 </blockquote>
 <h3>Decoupled Legend Rendering (<code>draw_legend</code>)</h3>
-<p>Available on <code>BarChart</code>, <code>LineChart</code>, <code>AreaChart</code>, <code>PieChart</code>, <code>RadarChart</code>, and <code>ScatterChart</code>:</p>
+<p>Available on <code>BarChart</code>, <code>BoxChart</code>, <code>LineChart</code>, <code>AreaChart</code>, <code>PieChart</code>, <code>RadarChart</code>, and <code>ScatterChart</code> (plus discrete color-stop legends on <code>HeatmapChart</code> and <code>HeatmapOverlay</code>):</p>
 <pre><code class="language-python"><span class="n">chart</span><span class="o">.</span><span class="n">draw_legend</span><span class="p">(</span>
     <span class="n">xy</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
     <span class="n">text_style</span><span class="p">:</span> <span class="n">Style</span><span class="p">,</span>
@@ -1077,9 +1077,10 @@
 <ul>
 <li><strong>Coordinate Anchor <code>xy</code></strong>: For <code>orientation=&quot;vertical&quot;</code>, <code>xy</code> is the <strong>top-left</strong> starting point (items step downward). For <code>orientation=&quot;horizontal&quot;</code>, <code>xy</code> is the <strong>middle-left</strong> starting point (items flow rightward separated by <code>item_gap</code>).</li>
 <li><strong>Per-Item Styling &amp; Visibility</strong>: Each <code>add_series(...)</code> or <code>add_slice(...)</code> call accepts <code>legend_text_style: Style | None = None</code> and <code>show: bool = True</code>. If an element has <code>show=False</code>, its legend entry is automatically hidden while preserving horizontal layout spacing.</li>
+<li><strong>Color-Scale Legends (<code>HeatmapChart</code> &amp; <code>HeatmapOverlay</code>)</strong>: <code>HeatmapChart</code> and <code>HeatmapOverlay</code> accept the same <code>draw_legend(...)</code> placement parameters plus keyword-only <code>num_steps: int</code> (<code>5</code> on <code>HeatmapChart</code>, <code>4</code> on <code>HeatmapOverlay</code>) and <code>labels: Sequence[str] | None = None</code> for discrete stepped swatches, alongside <code>draw_colorbar(xy, text_style, ...)</code> for continuous gradient colorbars (see <strong><a href="./heatmap.html">Heatmap Charts &amp; Overlays</a></strong>).</li>
 </ul>
 <h3>Layout Sizing (<code>get_size</code>)</h3>
-<p>Available on all 7 chart classes (<code>BarChart</code>, <code>LineChart</code>, <code>AreaChart</code>, <code>PieChart</code>, <code>RadarChart</code>, <code>ScatterChart</code>, <code>GanttChart</code>):</p>
+<p>Available on all 10 chart classes (<code>BarChart</code>, <code>BoxChart</code>, <code>LineChart</code>, <code>AreaChart</code>, <code>PieChart</code>, <code>RadarChart</code>, <code>ScatterChart</code>, <code>GanttChart</code>, <code>HeatmapChart</code>, <code>HeatmapOverlay</code>):</p>
 <pre><code class="language-python"><span class="n">width</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="n">chart</span><span class="o">.</span><span class="n">get_size</span><span class="p">()</span>
 </code></pre>
 <p>Returns the unscaled <code>(width, height)</code> bounding box dimensions of the chart in canvas units.</p>

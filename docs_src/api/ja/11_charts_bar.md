@@ -63,7 +63,7 @@ save()
 
 ## `class` Axis
 
-[BarChart](#barchart)・[LineChart](12_charts_line.md)・[AreaChart](13_charts_area.md)・[ScatterChart](16_charts_scatter.md) で共有される直交座標軸（数値軸・カテゴリ軸）モデルです。線形／対数スケール、値域、目盛り生成、グリッド線の表示、ラベルの書式設定を制御します。
+[BarChart](#barchart)・[BoxChart](18b_charts_box.md)・[LineChart](12_charts_line.md)・[AreaChart](13_charts_area.md)・[ScatterChart](16_charts_scatter.md) で共有される直交座標軸（数値軸・カテゴリ軸）モデルです。線形／対数スケール、値域、目盛り生成、グリッド線の表示、ラベルの書式設定を制御します。
 
 ```python
 class Axis:

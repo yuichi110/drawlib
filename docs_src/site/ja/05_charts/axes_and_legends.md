@@ -1,6 +1,6 @@
 # 軸・スケール・凡例
 
-すべての直交座標系チャート（`BarChart`、`LineChart`、`AreaChart`、`ScatterChart`）および複数系列・複数スライス型チャート（`PieChart`、`RadarChart`）は、**座標軸のスケーリング**、**目盛り・単位フォーマット**、**分離配置型の凡例（デカップルされた凡例）**、および**バウンディングボックス計測**のための共通基盤を備えています。
+すべての直交座標系チャート（`BarChart`、`BoxChart`、`LineChart`、`AreaChart`、`ScatterChart`）、放射・スライス型チャート（`PieChart`、`RadarChart`）、およびマトリクス・空間・スケジュール型チャート（`HeatmapChart`、`HeatmapOverlay`、`GanttChart`）は、**座標軸のスケーリング**、**目盛り・単位フォーマット**、**分離配置型の凡例（デカップルされた凡例）**、および**バウンディングボックス計測**のための共通設計を備えています。
 
 すべての視覚的な軸要素は Drawlib の存在ベース（Style-as-Presence）のスタイリングモデルに従っており、定義域の上下限、グリッド線、目盛りフォーマッタ、凡例座標をそれぞれ独立して制御できます。
 
@@ -1079,7 +1079,7 @@ save()
 
 ### 軸の設定（`configure_x_axis` / `configure_y_axis` と `Axis`）
 
-`BarChart`、`LineChart`、`AreaChart`、`ScatterChart` で利用可能です（内部の `Axis` インスタンスを返します）。
+`BarChart`、`BoxChart`、`LineChart`、`AreaChart`、`ScatterChart` で利用可能です（内部の `Axis` インスタンスを返します）。
 
 ```python
 chart.configure_x_axis(
@@ -1122,13 +1122,13 @@ chart.configure_x_axis(
 
 `configure_x_axis()` や `configure_y_axis()` に加えて、プロパティ経由で内部の `Axis` オブジェクトを直接参照・変更することもできます。
 
-- **`chart.x_axis -> Axis`** および **`chart.y_axis -> Axis`**: `BarChart`、`LineChart`、`AreaChart`、`ScatterChart` の水平軸・垂直軸 `Axis` インスタンスへの直接アクセス。
-- **`bar_chart.value_axis -> Axis`**: `BarChart` の向きに応じたプロパティで、`orientation == "vertical"` のときは `y_axis`、`orientation == "horizontal"` のときは `x_axis` を返します。
-- **`bar_chart.category_axis -> Axis`**: `BarChart` の向きに応じたプロパティで、`orientation == "vertical"` のときは `x_axis`、`orientation == "horizontal"` のときは `y_axis` を返します。
+- **`chart.x_axis -> Axis`** および **`chart.y_axis -> Axis`**: `BarChart`、`BoxChart`、`LineChart`、`AreaChart`、`ScatterChart` の水平軸・垂直軸 `Axis` インスタンスへの直接アクセス。
+- **`chart.value_axis -> Axis`**: `BarChart` および `BoxChart` の向きに応じたプロパティで、`orientation == "vertical"` のときは `y_axis`、`orientation == "horizontal"` のときは `x_axis` を返します。
+- **`chart.category_axis -> Axis`**: `BarChart` および `BoxChart` の向きに応じたプロパティで、`orientation == "vertical"` のときは `x_axis`、`orientation == "horizontal"` のときは `y_axis` を返します。
 - **`axis.format_value(value: float) -> str`**: 軸に設定された `format`（文字列／関数）と `unit` サフィックスを使って任意の数値を表示用文字列にフォーマットします（`format=None` の場合は整数に近い値を自動丸めします）。
 
 ```python
-# Orientation-independent configuration on BarChart + custom label_style and format_value()
+# Orientation-independent configuration on BarChart / BoxChart + custom label_style and format_value()
 chart.value_axis.configure(min_value=0, max_value=100, unit="%", label="Utilization", label_style=Styles.DarkBold)
 formatted = chart.value_axis.format_value(85.0)  # -> "85 %"
 ```
@@ -1137,7 +1137,7 @@ formatted = chart.value_axis.format_value(85.0)  # -> "85 %"
 
 ### 分離配置型の凡例描画（`draw_legend`）
 
-`BarChart`、`LineChart`、`AreaChart`、`PieChart`、`RadarChart`、`ScatterChart` で利用可能です。
+`BarChart`、`BoxChart`、`LineChart`、`AreaChart`、`PieChart`、`RadarChart`、`ScatterChart` で利用可能です（さらに `HeatmapChart` と `HeatmapOverlay` でも段階的なカラーストップ凡例として利用できます）。
 
 ```python
 chart.draw_legend(
@@ -1153,10 +1153,11 @@ chart.draw_legend(
 ```
 - **座標アンカー `xy`**: `orientation="vertical"` の場合、`xy` は**左上（top-left）**の開始点となり、項目が下方向へ並びます。`orientation="horizontal"` の場合、`xy` は**左中央（middle-left）**の開始点となり、項目が `item_gap` の間隔で右方向へ並びます。
 - **項目ごとのスタイルと表示制御**: 各 `add_series(...)` や `add_slice(...)` は `legend_text_style: Style | None = None` と `show: bool = True` を受け取ります。要素に `show=False` が設定されている場合、横方向のレイアウト間隔を崩すことなく該当の凡例項目も自動的に非表示になります。
+- **カラースケール凡例（`HeatmapChart` & `HeatmapOverlay`）**: `HeatmapChart` と `HeatmapOverlay` でも同じ `draw_legend(...)` 配置引数に加えてキーワード専用の `num_steps: int`（`HeatmapChart` はデフォルト `5`、`HeatmapOverlay` は `4`）と `labels: Sequence[str] | None = None` を指定して離散ステップスウォッチを描画でき、連続グラデーション用の `draw_colorbar(xy, text_style, ...)` も備えています（詳細は **[ヒートマップと空間オーバーレイ](./heatmap.md)** を参照）。
 
 ### レイアウト寸法の取得（`get_size`）
 
-全 7 種類のチャートクラス（`BarChart`、`LineChart`、`AreaChart`、`PieChart`、`RadarChart`、`ScatterChart`、`GanttChart`）で利用可能です。
+全 10 種類のチャートクラス（`BarChart`、`BoxChart`、`LineChart`、`AreaChart`、`PieChart`、`RadarChart`、`ScatterChart`、`GanttChart`、`HeatmapChart`、`HeatmapOverlay`）で利用可能です。
 
 ```python
 width, height = chart.get_size()

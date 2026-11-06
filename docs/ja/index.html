@@ -144,7 +144,7 @@
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="https://www.drawlib.com/api/" target="_blank" rel="noopener noreferrer">API &amp; CLI リファレンス<svg class="nav-external-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
+                                <a href="https://www.drawlib.com/api/ja/" target="_blank" rel="noopener noreferrer">API &amp; CLI リファレンス<svg class="nav-external-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
                             </li>
                             
                             <li class="nav-item ">
@@ -696,8 +696,8 @@
 <p>何百もの基本図形を手作業で組み合わせる必要はありません。Drawlib は実務ですぐに使える宣言的な高水準コンポーネントを提供します。</p>
 <ul>
 <li><strong>自動レイアウトグラフ (<code>drawlib.graph</code>)</strong>: 重なりのない座標（<code>get_layout()</code>）、ネストされたクラスタ境界、および <code>offset()</code> による微調整を計算する宣言的グラフレイアウトソルバー（<code>ArchitectureGraph</code>、<code>LayerGraph</code>、<code>TreeGraph</code>、<code>RadialGraph</code>、<code>GridGraph</code>）を提供し、<code>drawlib.diagrams</code> や <code>drawlib.shapes</code> と組み合わせて描画できます。</li>
-<li><strong>SmartArts（スマートアート）</strong>: プロセスパイプライン（<code>ChevronProcess</code>）、サイクル図（<code>Cycle</code>）、データテーブル（<code>Table</code>）、階層ツリー（<code>Tree</code>）などを備えています。</li>
-<li><strong>データチャート</strong>: 外部のグラフ描画ライブラリへの追加依存なしに、ピュア Python で棒グラフ・折れ線グラフ・面グラフ・円グラフ・レーダーチャート・散布図・ガントチャートを描画できます。</li>
+<li><strong>SmartArts（スマートアート）</strong>: プロセスパイプライン（<code>ChevronProcess</code>）、サイクル図（<code>Cycle</code>）、データテーブル（<code>Table</code>）、階層ツリー（<code>TreeNode</code>）などを備えています。</li>
+<li><strong>データチャート</strong>: 外部のグラフ描画ライブラリへの追加依存なしに、ピュア Python で全 10 種類のチャートクラス——棒グラフ（<code>BarChart</code>）、箱ひげ図／ストリッププロット（<code>BoxChart</code>）、折れ線グラフ（<code>LineChart</code>）、面グラフ（<code>AreaChart</code>）、円グラフ（<code>PieChart</code>）、レーダーチャート（<code>RadarChart</code>）、散布図（<code>ScatterChart</code>）、ガントチャート（<code>GanttChart</code>）、およびマトリクス／空間ヒートマップ（<code>HeatmapChart</code> / <code>HeatmapOverlay</code>）——を描画できます。</li>
 <li><strong>テクニカルダイアグラム</strong>: クラウドアーキテクチャ図（<code>ArchitectureDiagram</code>）、フロー図（<code>FlowDiagram</code>）、API シーケンス図（<code>SequenceDiagram</code>）、UML クラス図（<code>ClassDiagram</code>）、ER 図（<code>ERDiagram</code>）、ステートマシン図（<code>StateDiagram</code>）をサポートします。</li>
 </ul>
 <figure class="drawlib-image" style="text-align: center;">
@@ -744,8 +744,8 @@
 <span class="n">rectangle</span><span class="p">((</span><span class="mf">94.0</span><span class="p">,</span> <span class="mf">12.5</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">58.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">19.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">))</span>
 <span class="n">rectangle</span><span class="p">((</span><span class="mf">94.0</span><span class="p">,</span> <span class="mf">18.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">55.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">5.5</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.2</span><span class="p">),</span> <span class="n">text</span><span class="o">=</span><span class="s2">"4. Pure-Python Charts (drawlib.charts)"</span><span class="p">,</span> <span class="n">text_style</span><span class="o">=</span><span class="n">hdr_dark</span><span class="p">)</span>
 <span class="n">phosphor</span><span class="o">.</span><span class="n">chart_bar</span><span class="p">((</span><span class="mf">71.5</span><span class="p">,</span> <span class="mf">9.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">5.2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">)</span>
-<span class="n">text</span><span class="p">((</span><span class="mf">76.0</span><span class="p">,</span> <span class="mf">11.0</span><span class="p">),</span> <span class="s2">"Bar • Line • Area • Pie"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">body_bold</span><span class="p">)</span>
-<span class="n">text</span><span class="p">((</span><span class="mf">76.0</span><span class="p">,</span> <span class="mf">6.8</span><span class="p">),</span> <span class="s2">"Radar • Scatter • Gantt"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">body_sub</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">76.0</span><span class="p">,</span> <span class="mf">11.0</span><span class="p">),</span> <span class="s2">"Bar • Box • Line • Area • Pie"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">body_bold</span><span class="p">)</span>
+<span class="n">text</span><span class="p">((</span><span class="mf">76.0</span><span class="p">,</span> <span class="mf">6.8</span><span class="p">),</span> <span class="s2">"Radar • Scatter • Gantt • Heatmap"</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">body_sub</span><span class="p">)</span>
 
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
@@ -790,7 +790,7 @@
 </li>
 <li><a href="./05_charts/overview.html"><strong>Charts（定量チャート）</strong></a>
 <ul>
-<li>宣言的データプロット: 軸と凡例、棒グラフ、折れ線グラフ、面グラフ、円グラフ、レーダーチャート、散布図、プロジェクト用ガントチャート。</li>
+<li>宣言的データプロット（全 10 クラス）: 軸と凡例、棒グラフ、箱ひげ図／ストリッププロット、折れ線グラフ、面グラフ、円グラフ、レーダーチャート、散布図、プロジェクト用ガントチャート、およびマトリクス／空間ヒートマップ（<code>HeatmapChart</code> / <code>HeatmapOverlay</code>）。</li>
 </ul>
 </li>
 <li><a href="./06_diagrams/overview.html"><strong>テクニカルダイアグラム</strong></a>

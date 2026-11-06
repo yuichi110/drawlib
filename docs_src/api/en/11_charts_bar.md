@@ -63,7 +63,7 @@ save()
 
 ## `class` Axis
 
-Represents a Cartesian coordinate axis (numerical value axis or categorical axis) shared across [BarChart](#barchart), [LineChart](12_charts_line.md), [AreaChart](13_charts_area.md), and [ScatterChart](16_charts_scatter.md). Controls linear or logarithmic scaling, domain bounds, tick generation, gridline visibility, and tick value formatting.
+Represents a Cartesian coordinate axis (numerical value axis or categorical axis) shared across [BarChart](#barchart), [BoxChart](18b_charts_box.md), [LineChart](12_charts_line.md), [AreaChart](13_charts_area.md), and [ScatterChart](16_charts_scatter.md). Controls linear or logarithmic scaling, domain bounds, tick generation, gridline visibility, and tick value formatting.
 
 ```python
 class Axis:

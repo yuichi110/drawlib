@@ -82,7 +82,7 @@
 ## 5. Charts
 
 - [Charts Overview](https://www.drawlib.com/en/05_charts/overview.html): The drawlib.charts module provides a declarative, pure-Python data visualization engine for comparative, statistical, relational, and project schedule charts.
-- [Axes, Scales & Legends](https://www.drawlib.com/en/05_charts/axes_and_legends.html): All Cartesian charts (BarChart, LineChart, AreaChart, ScatterChart) and multi-series/slice charts (PieChart, RadarChart) share a unified foundation for…
+- [Axes, Scales & Legends](https://www.drawlib.com/en/05_charts/axes_and_legends.html): All Cartesian charts (BarChart, BoxChart, LineChart, AreaChart, ScatterChart), radial/slice charts (PieChart, RadarChart), and matrix, spatial, and schedule…
 - [Bar Chart](https://www.drawlib.com/en/05_charts/bar.html): The BarChart component (drawlib.charts.bar) renders vertical columns or horizontal bars for comparing discrete categorical metrics across one or more series.…
 - [Box & Strip Chart](https://www.drawlib.com/en/05_charts/box.html): BoxChart (drawlib.charts.box) visualizes categorical numerical distributions, quartiles, dispersion, and tail latency across three composable display…
 - [Line Chart](https://www.drawlib.com/en/05_charts/line.html): The LineChart component (drawlib.charts.line) visualizes numerical trends over ordered categories or time intervals. It supports straight polygonal segments…
@@ -151,3 +151,8 @@
 
 - [English (en)](https://www.drawlib.com/en/): Pure-Python library and multi-target compiler for Illustration as Code and Illustrated Documentation as Code — built for AI coding agents and developers.
 - [日本語 (ja)](https://www.drawlib.com/ja/): AI コーディングエージェントと開発者のための「Illustration as Code」「Illustrated Documentation as Code」ピュア Python 描画ライブラリ＆ドキュメントコンパイラ。
+
+## Companion Portals
+
+- [Official Bilingual Python API & CLI Reference](https://www.drawlib.com/api/llms.txt): Complete bilingual (`en` / `ja`) catalog reference covering all public Drawlib Python modules, classes, functions, style tokens, and CLI subcommands (`https://www.drawlib.com/api/`).
+- [Internal Software Architecture Specification](https://www.drawlib.com/architecture/llms.txt): Layered internal software architecture specification (`l1_core` through `l4_canvas`, domain engines, and multi-target builders) for Drawlib contributors and AI agents (`https://www.drawlib.com/architecture/`).

@@ -75,20 +75,17 @@ jobs:
         elif [ "${{ inputs.install_from }}" == "pypi" ]; then
           echo "Resolving version..."
           if [ "${{ inputs.lib_version }}" == "latest" ]; then
-            LIB_VER=$(python tools/scripts/pypi_tools.py --get_latest_version)
+            LIB_VER=$(python -c "import json, urllib.request; print(json.load(urllib.request.urlopen('https://pypi.org/pypi/drawlib/json', timeout=30))['info']['version'])")
             echo "Latest version: $LIB_VER"
           else
             LIB_VER="${{ inputs.lib_version }}"
           fi
+          echo "LIB_VER=$LIB_VER" >> "$GITHUB_ENV"
 
           # Rename src/ to prevent local import instead of installed package
           if [ -d "src" ]; then
             mv src _src_backup
           fi
-
-          echo "Installing drawlib==$LIB_VER from PyPI via uv..."
-          uv venv
-          uv pip install "drawlib==$LIB_VER" pytest pytest-cov tomlkit
 
         else
           echo "install_from is not supported: ${{ inputs.install_from }}"
@@ -101,6 +98,6 @@ jobs:
         if [ "${{ inputs.install_from }}" == "github" ]; then
           uv run pytest -s --cov=drawlib tests/
         else
-          uv run pytest -s tests/
+          uv run --no-project --python "${{ inputs.python_version }}" --with "drawlib==$LIB_VER" --with pytest --with pytest-cov --with tomlkit pytest -s tests/drawlib/
         fi
 

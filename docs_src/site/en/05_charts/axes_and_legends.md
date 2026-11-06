@@ -1,6 +1,6 @@
 # Axes, Scales & Legends
 
-All Cartesian charts (`BarChart`, `LineChart`, `AreaChart`, `ScatterChart`) and multi-series/slice charts (`PieChart`, `RadarChart`) share a unified foundation for **coordinate axis scaling**, **tick and unit formatting**, **decoupled legend placement**, and **bounding-box measurement**.
+All Cartesian charts (`BarChart`, `BoxChart`, `LineChart`, `AreaChart`, `ScatterChart`), radial/slice charts (`PieChart`, `RadarChart`), and matrix, spatial, and schedule charts (`HeatmapChart`, `HeatmapOverlay`, `GanttChart`) share unified conventions for **coordinate axis scaling**, **tick and unit formatting**, **decoupled legend placement**, and **bounding-box measurement**.
 
 Every visual axis element follows Drawlib's presence-based styling model, giving you independent control over domain bounds, gridlines, tick formatters, and legend coordinates.
 
@@ -1079,7 +1079,7 @@ save()
 
 ### Axis Configuration (`configure_x_axis` / `configure_y_axis` & `Axis`)
 
-Available on `BarChart`, `LineChart`, `AreaChart`, and `ScatterChart` (returns the underlying `Axis` instance):
+Available on `BarChart`, `BoxChart`, `LineChart`, `AreaChart`, and `ScatterChart` (returns the underlying `Axis` instance):
 
 ```python
 chart.configure_x_axis(
@@ -1122,13 +1122,13 @@ chart.configure_x_axis(
 
 In addition to `configure_x_axis()` and `configure_y_axis()`, you can inspect or mutate the underlying `Axis` objects directly via properties:
 
-- **`chart.x_axis -> Axis`** and **`chart.y_axis -> Axis`**: Direct access to the horizontal and vertical `Axis` instances on `BarChart`, `LineChart`, `AreaChart`, and `ScatterChart`.
-- **`bar_chart.value_axis -> Axis`**: Orientation-aware property on `BarChart` that returns `y_axis` when `orientation == "vertical"` and `x_axis` when `orientation == "horizontal"`.
-- **`bar_chart.category_axis -> Axis`**: Orientation-aware property on `BarChart` that returns `x_axis` when `orientation == "vertical"` and `y_axis` when `orientation == "horizontal"`.
+- **`chart.x_axis -> Axis`** and **`chart.y_axis -> Axis`**: Direct access to the horizontal and vertical `Axis` instances on `BarChart`, `BoxChart`, `LineChart`, `AreaChart`, and `ScatterChart`.
+- **`chart.value_axis -> Axis`**: Orientation-aware property on `BarChart` and `BoxChart` that returns `y_axis` when `orientation == "vertical"` and `x_axis` when `orientation == "horizontal"`.
+- **`chart.category_axis -> Axis`**: Orientation-aware property on `BarChart` and `BoxChart` that returns `x_axis` when `orientation == "vertical"` and `y_axis` when `orientation == "horizontal"`.
 - **`axis.format_value(value: float) -> str`**: Formats any numeric value into a display string using the axis's configured `format` string/callable and `unit` suffix (automatically rounding near-integers when `format=None`).
 
 ```python
-# Orientation-independent configuration on BarChart + custom label_style and format_value()
+# Orientation-independent configuration on BarChart / BoxChart + custom label_style and format_value()
 chart.value_axis.configure(min_value=0, max_value=100, unit="%", label="Utilization", label_style=Styles.DarkBold)
 formatted = chart.value_axis.format_value(85.0)  # -> "85 %"
 ```
@@ -1137,7 +1137,7 @@ formatted = chart.value_axis.format_value(85.0)  # -> "85 %"
 
 ### Decoupled Legend Rendering (`draw_legend`)
 
-Available on `BarChart`, `LineChart`, `AreaChart`, `PieChart`, `RadarChart`, and `ScatterChart`:
+Available on `BarChart`, `BoxChart`, `LineChart`, `AreaChart`, `PieChart`, `RadarChart`, and `ScatterChart` (plus discrete color-stop legends on `HeatmapChart` and `HeatmapOverlay`):
 
 ```python
 chart.draw_legend(
@@ -1153,10 +1153,11 @@ chart.draw_legend(
 ```
 - **Coordinate Anchor `xy`**: For `orientation="vertical"`, `xy` is the **top-left** starting point (items step downward). For `orientation="horizontal"`, `xy` is the **middle-left** starting point (items flow rightward separated by `item_gap`).
 - **Per-Item Styling & Visibility**: Each `add_series(...)` or `add_slice(...)` call accepts `legend_text_style: Style | None = None` and `show: bool = True`. If an element has `show=False`, its legend entry is automatically hidden while preserving horizontal layout spacing.
+- **Color-Scale Legends (`HeatmapChart` & `HeatmapOverlay`)**: `HeatmapChart` and `HeatmapOverlay` accept the same `draw_legend(...)` placement parameters plus keyword-only `num_steps: int` (`5` on `HeatmapChart`, `4` on `HeatmapOverlay`) and `labels: Sequence[str] | None = None` for discrete stepped swatches, alongside `draw_colorbar(xy, text_style, ...)` for continuous gradient colorbars (see **[Heatmap Charts & Overlays](./heatmap.md)**).
 
 ### Layout Sizing (`get_size`)
 
-Available on all 7 chart classes (`BarChart`, `LineChart`, `AreaChart`, `PieChart`, `RadarChart`, `ScatterChart`, `GanttChart`):
+Available on all 10 chart classes (`BarChart`, `BoxChart`, `LineChart`, `AreaChart`, `PieChart`, `RadarChart`, `ScatterChart`, `GanttChart`, `HeatmapChart`, `HeatmapOverlay`):
 
 ```python
 width, height = chart.get_size()

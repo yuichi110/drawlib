@@ -243,7 +243,7 @@
             </header>
             <main class="main-content">
                 <h1>SmartArts, Charts &amp; Diagrams Subsystems</h1>
-<p>As architectural diagrams and executive dashboards grow, hand-calculating every box margin, legend swatch, and orthogonal connector from low-level primitives becomes error-prone. Drawlib solves this through three stateful <strong>high-level component subsystems</strong>—<strong>SmartArts (18)</strong>, <strong>Quantitative Charts (9)</strong>, and <strong>Technical Diagrams (6)</strong>—that compile structured domain models directly onto the shared vector canvas.</p>
+<p>As architectural diagrams and executive dashboards grow, hand-calculating every box margin, legend swatch, and orthogonal connector from low-level primitives becomes error-prone. Drawlib solves this through three stateful <strong>high-level component subsystems</strong>—<strong>SmartArts (18)</strong>, <strong>Quantitative Charts (10)</strong>, and <strong>Technical Diagrams (6)</strong>—that compile structured domain models directly onto the shared vector canvas.</p>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="../../images/03_domain_subsystems/02_high_level_components/high_level_components_trio.png" alt="02_high_level_components_1" />
   <figcaption class="drawlib-caption">The Three High-Level Component Subsystems in Drawlib</figcaption>
@@ -276,8 +276,8 @@
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">),</span>
 <span class="p">)</span>
 <span class="n">trio</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
-    <span class="s2">"9 Quantitative Charts"</span><span class="p">,</span>
-    <span class="s2">"Bar, Line, Area, Pie,</span><span class="se">\n</span><span class="s2">Radar, Scatter, Gantt,</span><span class="se">\n</span><span class="s2">Heatmap &amp; Overlay"</span><span class="p">,</span>
+    <span class="s2">"10 Quantitative Charts"</span><span class="p">,</span>
+    <span class="s2">"Bar, Box, Line, Area,</span><span class="se">\n</span><span class="s2">Pie, Radar, Scatter,</span><span class="se">\n</span><span class="s2">Gantt, Heatmap &amp; Overlay"</span><span class="p">,</span>
     <span class="n">icon</span><span class="o">=</span><span class="n">phosphor</span><span class="o">.</span><span class="n">chart_bar</span><span class="p">,</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">),</span>
     <span class="n">badge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">White</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_line_color</span><span class="o">=</span><span class="n">Colors</span><span class="o">.</span><span class="n">Secondary</span><span class="p">),</span>
@@ -335,7 +335,7 @@
 <tbody>
 <tr>
 <td style="text-align:left"><strong>Bottom-Left <code>(x0, y0)</code></strong></td>
-<td style="text-align:left"><strong>SmartArts</strong>: <code>BoxList</code>, <code>CardList</code>, <code>ChevronProcess</code>, <code>DayCalendar</code>, <code>WeekCalendar</code>, <code>MonthCalendar</code>, <code>GeoMap</code>, <code>GridLayout</code>, <code>KpiCards</code> (<code>KpiCard</code>), <code>Panel</code>, <code>Pyramid</code>, <code>Roadmap</code><br><strong>Charts</strong>: All 9 chart classes (<code>align=&quot;bottom_left&quot;</code> default; <code>&quot;center&quot;</code> supported)<br><strong>Diagrams</strong>: All 6 <code>d.draw(xy=...)</code> containers &amp; <code>NodeGroup</code></td>
+<td style="text-align:left"><strong>SmartArts</strong>: <code>BoxList</code>, <code>CardList</code>, <code>ChevronProcess</code>, <code>DayCalendar</code>, <code>WeekCalendar</code>, <code>MonthCalendar</code>, <code>GeoMap</code>, <code>GridLayout</code>, <code>KpiCards</code> (<code>KpiCard</code>), <code>Panel</code>, <code>Pyramid</code>, <code>Roadmap</code><br><strong>Charts</strong>: All 10 chart classes (<code>align=&quot;bottom_left&quot;</code> default; <code>&quot;center&quot;</code> supported)<br><strong>Diagrams</strong>: All 6 <code>d.draw(xy=...)</code> containers &amp; <code>NodeGroup</code></td>
 <td style="text-align:left">Bounding box extends rightward (<code>+x</code>) and upward (<code>+y</code>) across <code>[x0, x0 + w] × [y0, y0 + h]</code>. <em>(Individual nodes inside a Diagram use local <strong>Center <code>(cx, cy)</code></strong>).</em></td>
 </tr>
 <tr>

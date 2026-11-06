@@ -1,6 +1,6 @@
 # Drawlib Architecture
 
-> Internal software architecture specification of Drawlib — layered drawing engine (l1–l4), AST caching, multi-target document compiler, CLI, and developer tooling.
+> Internal architecture specification of Drawlib — layered engine (l1–l4), AST caching, multi-target doc compiler, CLI, and developer tooling.
 
 ## Overview
 

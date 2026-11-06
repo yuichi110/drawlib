@@ -175,7 +175,7 @@ utils.service_card((60, 30), "API Gateway")
 
 ## `type` drawlib.charts.DrawDirection
 
-Shared literal type alias exported from `drawlib.charts` specifying progressive reveal or orientation direction across chart components (such as `BarChart`, `LineChart`, and `AreaChart`).
+Shared literal type alias exported from `drawlib.charts` specifying progressive reveal or orientation direction across chart components (such as `BarChart`, `BoxChart`, `LineChart`, and `AreaChart`).
 
 ```python
 from typing import Literal

@@ -18,7 +18,7 @@ All documentation, guides, slides, and README illustrations in this repository a
 | **`site`** | `docs_src/site/` (`drawlib.toml`: `en/`, `ja/`) | `site` | `docs/` (`index.html`, `en/`, `ja/`, `images/`, `_assets/`, `pypi_images/`) | Official multi-language (`en`/`ja`) documentation website (`https://www.drawlib.com/`) |
 | **`api`** | `docs_src/api/` (`drawlib.toml`: `en/`, `ja/`) | `catalog` | `docs/api/` | Official bilingual (`en`/`ja`) Python API & CLI Reference site (`https://www.drawlib.com/api/`) |
 | **`architecture`** | `docs_src/architecture/` (`drawlib.toml`: `en/`) | `site` | `docs/architecture/` | Software architecture specification site (`https://www.drawlib.com/architecture/`) |
-| **`reports`** | `reports/full_audit_src/` (`drawlib.toml`: `en/`) | `doc` | `docs/reports/pni-full-audit/`, `reports/full_audit.pdf` | PNI501 Software Health & Security Audit Report (`https://www.drawlib.com/reports/pni-full-audit/`) |
+| **`reports`** | `reports/full_audit_src/` (`drawlib.toml`: `en/`) | `doc` | `docs/reports/pni-full-audit/` (`index.html`, `full_audit.pdf`) | PNI501 Software Health & Security Audit Report (`https://www.drawlib.com/reports/pni-full-audit/`) |
 | **`readme`** | `docs_src/readme/` | `images` | `docs/readme_images/` | Standalone Python scripts generating illustrations for `README.md` |
 | **`logo`** | `docs_src/logo/` | `images` | `docs/logo/` | Drawlib brand logo & favicon asset generator scripts |
 | **`ogp`** | `docs_src/ogp/` | `images` | `docs/ogp_images/`, `docs_src/{site,api,architecture}/_assets/ogp.png` | GitHub Social Preview & OGP banner generator scripts (`1280×640`) |

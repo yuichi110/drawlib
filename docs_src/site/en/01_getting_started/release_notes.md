@@ -17,7 +17,7 @@ Version 0.3.6 introduces **`BoxChart` and `BoxStats` (`drawlib.charts.box`)**—
 
 #### 2. Supply-Chain Security Hardening, Non-Root Containers & Offline Reliability
 - **Dependency & Container Hardening**: Upgraded `pillow>=13.0.0` to eliminate upstream image-processing CVEs and hardened all production and clean-room test Dockerfiles to execute under non-root `USER drawlib` (`UID 10001`).
-- **Air-Gapped Asset Pre-Validation & Audit Report (`/reports/pni-full-audit/`)**: Added `pkg.files` membership pre-validation before network downloads for `--network=none` environments, refined SQLite build cache connection handling, and published the PNI501 Engineering & Security Audit Report.
+- **Air-Gapped Asset Pre-Validation & Audit Report ([`/reports/pni-full-audit/`](https://www.drawlib.com/reports/pni-full-audit/))**: Added `pkg.files` membership pre-validation before network downloads for `--network=none` environments, refined SQLite build cache connection handling, and published the [PNI501 Engineering & Security Audit Report](https://www.drawlib.com/reports/pni-full-audit/).
 
 ---
 
@@ -37,7 +37,7 @@ Version 0.3.5 introduces the 5th project archetype—**Illustrated Catalog & Ref
 - **Declarative `[catalog]` Customization & Dedicated CSS Target**: Configure `sidebar_expanded`, `badge_text`, `badge_url`, `breadcrumb_root`, `repo_url`, and `[[catalog.header_links]]` in `drawlib.toml`, inspect or export catalog stylesheets via `drawlib css list|show catalog` (`get_css(target="catalog")`, `export_css(target="catalog")`), and access authoring guidance via `drawlib rules show project-catalog`.
 
 #### 2. Declarative Project SEO, Open Graph & `llms.txt` Generation (`[seo]`, `[i18n.descriptions]`)
-- **Turnkey Search & Social Metadata Across `site`, `doc`, `catalog`, and `slide`**: Configure `[seo]` (`site_url`, `og_image`, `twitter_card`, `twitter_site`, `robots`, `sitemap`, `llms_txt`, `json_ld`, `cname`, `nojekyll`) and `[i18n.descriptions]` in `drawlib.toml` to automatically emit `<link rel="canonical">`, multi-locale `hreflang` alternates, Open Graph / X Card tags, Schema.org JSON-LD structured data, `sitemap.xml`, `robots.txt`, `CNAME`, and `.nojekyll`.
+- **Turnkey Search & Social Metadata Across `site`, `doc`, `catalog`, and `slide`**: Configure `[seo]` (`site_url`, `og_image`, `twitter_card`, `twitter_site`, `sitemap`, `robots`, `llms_txt`) and `[i18n.descriptions]` in `drawlib.toml` to automatically emit `<meta name="description">`, `<link rel="canonical">`, multi-locale `hreflang` & `og:locale` alternates, Open Graph / X Card tags, `sitemap.xml`, `robots.txt`, and `llms.txt` (alongside `.nojekyll` and `CNAME` deployment assets on `www.drawlib.com`).
 - **AI-Ready `llms.txt` Discovery Index**: Automatically generates a clean `llms.txt` index summarizing site structure, localized entry URLs, and page descriptions so LLM agents and search crawlers can navigate compiled documentation sites effortlessly.
 
 #### 3. Zero-Install `uvx` Fallback Scripts & Official Bilingual API Reference (`/api/`, `/architecture/`)

@@ -144,7 +144,7 @@
                             </li>
                             
                             <li class="nav-item ">
-                                <a href="https://www.drawlib.com/api/" target="_blank" rel="noopener noreferrer">API &amp; CLI Reference<svg class="nav-external-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
+                                <a href="https://www.drawlib.com/api/en/" target="_blank" rel="noopener noreferrer">API &amp; CLI Reference<svg class="nav-external-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
                             </li>
                             
                             <li class="nav-item ">
@@ -685,7 +685,7 @@
 <h4>2. Supply-Chain Security Hardening, Non-Root Containers &amp; Offline Reliability</h4>
 <ul>
 <li><strong>Dependency &amp; Container Hardening</strong>: Upgraded <code>pillow&gt;=13.0.0</code> to eliminate upstream image-processing CVEs and hardened all production and clean-room test Dockerfiles to execute under non-root <code>USER drawlib</code> (<code>UID 10001</code>).</li>
-<li><strong>Air-Gapped Asset Pre-Validation &amp; Audit Report (<code>/reports/pni-full-audit/</code>)</strong>: Added <code>pkg.files</code> membership pre-validation before network downloads for <code>--network=none</code> environments, refined SQLite build cache connection handling, and published the PNI501 Engineering &amp; Security Audit Report.</li>
+<li><strong>Air-Gapped Asset Pre-Validation &amp; Audit Report (<a href="https://www.drawlib.com/reports/pni-full-audit/"><code>/reports/pni-full-audit/</code></a>)</strong>: Added <code>pkg.files</code> membership pre-validation before network downloads for <code>--network=none</code> environments, refined SQLite build cache connection handling, and published the <a href="https://www.drawlib.com/reports/pni-full-audit/">PNI501 Engineering &amp; Security Audit Report</a>.</li>
 </ul>
 <hr />
 <h2>Version 0.3.5</h2>
@@ -701,7 +701,7 @@
 </ul>
 <h4>2. Declarative Project SEO, Open Graph &amp; <code>llms.txt</code> Generation (<code>[seo]</code>, <code>[i18n.descriptions]</code>)</h4>
 <ul>
-<li><strong>Turnkey Search &amp; Social Metadata Across <code>site</code>, <code>doc</code>, <code>catalog</code>, and <code>slide</code></strong>: Configure <code>[seo]</code> (<code>site_url</code>, <code>og_image</code>, <code>twitter_card</code>, <code>twitter_site</code>, <code>robots</code>, <code>sitemap</code>, <code>llms_txt</code>, <code>json_ld</code>, <code>cname</code>, <code>nojekyll</code>) and <code>[i18n.descriptions]</code> in <code>drawlib.toml</code> to automatically emit <code>&lt;link rel=&quot;canonical&quot;&gt;</code>, multi-locale <code>hreflang</code> alternates, Open Graph / X Card tags, Schema.org JSON-LD structured data, <code>sitemap.xml</code>, <code>robots.txt</code>, <code>CNAME</code>, and <code>.nojekyll</code>.</li>
+<li><strong>Turnkey Search &amp; Social Metadata Across <code>site</code>, <code>doc</code>, <code>catalog</code>, and <code>slide</code></strong>: Configure <code>[seo]</code> (<code>site_url</code>, <code>og_image</code>, <code>twitter_card</code>, <code>twitter_site</code>, <code>sitemap</code>, <code>robots</code>, <code>llms_txt</code>) and <code>[i18n.descriptions]</code> in <code>drawlib.toml</code> to automatically emit <code>&lt;meta name=&quot;description&quot;&gt;</code>, <code>&lt;link rel=&quot;canonical&quot;&gt;</code>, multi-locale <code>hreflang</code> &amp; <code>og:locale</code> alternates, Open Graph / X Card tags, <code>sitemap.xml</code>, <code>robots.txt</code>, and <code>llms.txt</code> (alongside <code>.nojekyll</code> and <code>CNAME</code> deployment assets on <code>www.drawlib.com</code>).</li>
 <li><strong>AI-Ready <code>llms.txt</code> Discovery Index</strong>: Automatically generates a clean <code>llms.txt</code> index summarizing site structure, localized entry URLs, and page descriptions so LLM agents and search crawlers can navigate compiled documentation sites effortlessly.</li>
 </ul>
 <h4>3. Zero-Install <code>uvx</code> Fallback Scripts &amp; Official Bilingual API Reference (<code>/api/</code>, <code>/architecture/</code>)</h4>
