@@ -1,5 +1,5 @@
 name: unit test template
-run-name: version=${{ inputs.lib_version }}, from=${{ inputs.install_from }}, os=${{ inputs.os }}, python=${{ inputs.python_version }}, branch=${{ inputs.branch }}
+run-name: version=${{ inputs.lib_version }}, from=${{ inputs.install_from }}, os=${{ inputs.os }}, python=${{ inputs.python_version }}, branch=${{ inputs.branch || github.ref_name }}
 
 on:
   workflow_call:
@@ -23,9 +23,9 @@ on:
         type: string
 
       branch:
-        description: 'Branch to run tests on'
-        required: true
-        default: 'main'
+        description: 'Branch to run tests on (empty uses triggering event ref)'
+        required: false
+        default: ''
         type: string
 
       lib_version:
@@ -64,7 +64,7 @@ jobs:
         echo "Python version: ${{ inputs.python_version }}"
         echo "Installing from: ${{ inputs.install_from }}"
         echo "Library version: ${{ inputs.lib_version }}"
-        echo "Branch: ${{ inputs.branch }}"
+        echo "Branch / Ref: ${{ inputs.branch || github.ref }}"
 
     - name: Install dependencies and drawlib
       shell: bash
@@ -97,8 +97,8 @@ jobs:
       shell: bash
       run: |
         if [ "${{ inputs.install_from }}" == "github" ]; then
-          uv run pytest -s --cov=drawlib tests/
+          uv run pytest -s -n auto --dist loadfile --cov=drawlib tests/
         else
-          uv run --no-project --python "${{ inputs.python_version }}" --with "drawlib==$LIB_VER" --with pytest --with pytest-cov --with tomlkit pytest -s tests/drawlib/
+          uv run --no-project --python "${{ inputs.python_version }}" --with "drawlib==$LIB_VER" --with pytest --with pytest-cov --with pytest-xdist --with tomlkit pytest -s -n auto --dist loadfile tests/drawlib/
         fi
 
