@@ -68,8 +68,6 @@ def _get_docstring_text(node: Union[ast.FunctionDef, ast.AsyncFunctionDef]) -> O
     val = first_stmt.value
     if isinstance(val, ast.Constant) and isinstance(val.value, str):
         return val.value
-    if isinstance(val, ast.Str):  # type: ignore
-        return val.s  # type: ignore
     return None
 
 

@@ -65,3 +65,22 @@ def test_load_utils_file_not_found() -> None:
     """Verify load_utils raises FileNotFoundError for non-existent file."""
     with pytest.raises(FileNotFoundError):
         load_utils("/path/to/definitely/nonexistent_utils.py")
+
+
+def test_reset_utils_preserves_module_metadata() -> None:
+    """Verify _reset_utils preserves original module attributes including annotation metadata."""
+    before_keys = set(vars(drawlib.utils).keys())
+    with tempfile.NamedTemporaryFile("w", encoding="utf-8", suffix=".py", delete=False) as f:
+        f.write("TYPED_CONST: int = 123\n")
+        f.flush()
+        utils_file = f.name
+
+    try:
+        load_utils(utils_file)
+        assert getattr(drawlib.utils, "TYPED_CONST") == 123
+    finally:
+        if os.path.exists(utils_file):
+            os.remove(utils_file)
+        load_utils(None)
+
+    assert set(vars(drawlib.utils).keys()) == before_keys

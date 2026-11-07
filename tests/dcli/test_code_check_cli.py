@@ -16,6 +16,7 @@ from unittest.mock import patch
 from typer.testing import CliRunner
 
 from tools.dcli.code_check import app
+from tools.dcli.code_check.docstring import check_file
 from tools.dcli.code_check.lines import count_lines_in_file
 
 runner = CliRunner()
@@ -33,6 +34,19 @@ def test_check_cli_docstring() -> None:
     result = runner.invoke(app, ["docstring"])
     assert result.exit_code == 0
     assert "Docstring checks passed" in result.output
+
+
+def test_docstring_check_file_handles_non_docstring_first_expr(tmp_path) -> None:
+    """Verify check_file handles @validate_call functions starting with a non-string expression (Python 3.14+)."""
+    target = tmp_path / "sample.py"
+    target.write_text(
+        "@validate_call\ndef no_doc_call() -> None:\n    helper()\n\n"
+        '@validate_call\ndef bad_doc(x: int) -> None:\n    """Args: x (TypeFloat): value."""\n    pass\n',
+        encoding="utf-8",
+    )
+    violations = check_file(str(target))
+    assert len(violations) == 1
+    assert violations[0][1] == "TypeFloat"
 
 
 def test_check_cli_lint_uses_no_fix_by_default() -> None:

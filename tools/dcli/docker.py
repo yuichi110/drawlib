@@ -94,7 +94,7 @@ def build(
     pdf: bool = typer.Option(False, "--pdf", help="Include PDF conversion engine (Playwright + Chromium)."),
     assets: bool = typer.Option(False, "--assets", help="Pre-download all font and icon packages for offline usage."),
     full: bool = typer.Option(False, "--full", help="Build full offline-ready image (--pdf + --assets)."),
-    python: str = typer.Option("3.12", "--python", help="Python base version (e.g. 3.11, 3.12, 3.13)."),
+    python: str = typer.Option("3.12", "--python", help="Python base version (e.g. 3.11, 3.12, 3.13, 3.14)."),
     pypi: Optional[str] = typer.Option(
         None,
         "--pypi",
@@ -150,7 +150,7 @@ def test(
         "--test-pypi",
         help="Test specified drawlib version installed from TestPyPI.",
     ),
-    python: str = typer.Option("3.12", "--python", help="Python base version (e.g. 3.11, 3.12, 3.13)."),
+    python: str = typer.Option("3.12", "--python", help="Python base version (e.g. 3.11, 3.12, 3.13, 3.14)."),
 ) -> None:
     """Build clean-room test image (local or PyPI) and run pytest inside container."""
     if pypi and test_pypi:

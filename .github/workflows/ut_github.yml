@@ -29,6 +29,7 @@ on:
           - '3.11'
           - '3.12'
           - '3.13'
+          - '3.14'
 
       branch:
         description: 'Branch override (leave empty to test the selected UI branch)'
@@ -45,7 +46,7 @@ jobs:
       fail-fast: false
       matrix:
         os: ${{ (inputs.mode == 'full' || inputs.mode == 'all-os') && fromJSON('["ubuntu-latest", "windows-latest", "macos-latest"]') || fromJSON('["ubuntu-latest"]') }}
-        python_version: ${{ inputs.mode == 'full' && fromJSON('["3.11", "3.12", "3.13"]') || fromJSON(format('["{0}"]', inputs.python_version || '3.12')) }}
+        python_version: ${{ inputs.mode == 'full' && fromJSON('["3.11", "3.12", "3.13", "3.14"]') || fromJSON(format('["{0}"]', inputs.python_version || '3.12')) }}
     uses: ./.github/workflows/ut_template.yml
     with:
       os: "${{ matrix.os }}"
