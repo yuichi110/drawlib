@@ -2,19 +2,19 @@
 
 Releasing a graphics and document-compilation library requires strict safeguards so published wheels never depend on uncommitted local files, stale cached binaries, or host-specific system state.
 
-```drawlib align=center code=fold file=release_lifecycle_pipeline.png caption="End-to-End PyPI Release and Clean-Room Verification Pipeline"
+```drawlib align=center code=fold file=release_lifecycle_pipeline.png caption="End-to-End PyPI, Clean-Room, and GitHub Release Pipeline"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.shapes import circle
 from drawlib.smartarts import ChevronProcess
 from drawlib.styles import Styles
 
-setup(width=120, height=42)
+setup(width=122, height=42)
 
 pipeline = ChevronProcess(
     style=Styles.Neutral,
     text_style=Styles.DarkBold.patch(text_size=10.8),
-    description_style=Styles.Dark.patch(text_size=9.8),
+    description_style=Styles.Dark.patch(text_size=10.0),
     corner_angle=70.0,
     spacing=1.6,
     flat_left_end=True,
@@ -38,20 +38,20 @@ pipeline.add(
     text_style=Styles.DarkBold.patch(text_size=10.8),
 )
 pipeline.add(
-    "4. Live Release",
-    description="pypi publish &\nut_pypi.yml 3x3",
+    "4. Publish & Tag",
+    description="pypi publish, v* tag\n& release.yml",
     style=Styles.PrimaryFlat,
     text_style=Styles.WhiteBold.patch(text_size=10.8),
-    description_style=Styles.White.patch(text_size=9.8),
+    description_style=Styles.White.patch(text_size=10.0),
 )
 
-pipeline.draw(xy=(3.5, 4.0), width=113.0, height=24.0)
+pipeline.draw(xy=(3.5, 4.0), width=115.0, height=24.0)
 
 badges = [
-    (17.2, phosphor.shield_check, Styles.PrimaryNeutral, Styles.PrimaryBold),
-    (46.2, phosphor.cloud_arrow_up, Styles.SecondaryNeutral, Styles.SecondaryBold),
-    (73.8, phosphor.cube, Styles.Neutral, Styles.DarkBold),
-    (101.4, phosphor.rocket_launch, Styles.PrimaryFlat, Styles.WhiteBold),
+    (17.5, phosphor.shield_check, Styles.PrimaryNeutral, Styles.PrimaryBold),
+    (47.0, phosphor.cloud_arrow_up, Styles.SecondaryNeutral, Styles.SecondaryBold),
+    (75.0, phosphor.cube, Styles.Neutral, Styles.DarkBold),
+    (103.2, phosphor.rocket_launch, Styles.PrimaryFlat, Styles.WhiteBold),
 ]
 for cx, icon_fn, bg_style, fg_style in badges:
     circle((cx, 34.8), radius=3.9, style=bg_style)
@@ -67,17 +67,18 @@ save()
 Python library releases commonly fail in subtle ways when built directly from a developer's active workspace:
 - Downloaded runtime assets sitting inside `src/drawlib/_cached_assets/` accidentally get bundled into the wheel, inflating a `<2 MB` pure-Python distribution by hundreds of megabytes.
 - Tests pass locally because `src/` is on `PYTHONPATH`, masking missing subpackages or broken metadata in the built wheel.
-- Version numbers jump unintentionally or collide with already published PyPI artifacts.
+- Version numbers jump unintentionally, collide with already published PyPI artifacts, or drift out of sync between `release_notes.md` and GitHub Releases.
 
-Drawlib prevents these failure modes with two tightly paired `./dcli` toolsets and a cross-OS GitHub Actions verification matrix:
+Drawlib prevents these failure modes with three tightly paired `./dcli` toolsets and automated GitHub Actions workflows:
 1. **`pypi` Toolset (`tools/dcli/pypi/`)**: Performs read-only dependency and version audits against `pyproject.toml` and PyPI/TestPyPI, purges local asset caches before `uv build`, and publishes via `uv publish`.
 2. **`docker` Toolset (`tools/dcli/docker.py`)**: Builds production container variants (`Dockerfile.prod`) and isolated clean-room test containers (`Dockerfile.test_pypi` and `Dockerfile.test_local`) that run the `pytest` suite without `src/` mounted.
+3. **`github-release` Toolset (`tools/dcli/github_release/`)**: Extracts structured `## Version X.Y.Z` sections from `docs_src/site/en/01_getting_started/release_notes.md` to create, update, or chronologically backfill versioned GitHub Releases (`vX.Y.Z`)—triggered automatically by `.github/workflows/release.yml` whenever a `v*.*.*` tag is pushed.
 
 ---
 
 ## 2. Positioning: Orthogonal Production Container Variants
 
-`tools/docker/Dockerfile.prod` parameterizes two orthogonal build arguments—`WITH_PDF` and `WITH_ASSETS`—over a common `python:${PYTHON_VERSION}-slim` (default `3.12`) base where core Python dependencies (`matplotlib`, `pydantic`, `playwright`, `python-docx`, `python-pptx`, `typer`, `rich`) are always installed:
+`tools/docker/Dockerfile.prod` parameterizes two orthogonal build arguments—`WITH_PDF` and `WITH_ASSETS`—over a common `python:${PYTHON_VERSION}-slim` (default `3.12`) base where core Python dependencies (`matplotlib`, `pillow`, `pydantic`, `playwright`, `python-docx`, `python-pptx`, `typer`, `rich`) are always installed:
 
 ```drawlib align=center code=fold file=docker_container_matrix.png caption="Orthogonal Docker Build Matrix in tools/docker/Dockerfile.prod"
 from drawlib.canvas import save, setup
@@ -169,10 +170,10 @@ save()
 
 ---
 
-## 3. Details: PyPI Release Pipeline & Clean-Room Container Verification
+## 3. Details: PyPI Release Pipeline, GitHub Releases & Clean-Room Verification
 
 ### 3.1. Dependency Auditing & Version Verification (`./dcli pypi`)
-`pyproject.toml` statically configures package metadata—including `readme = "docs_src/README_PYPI.md"`, `requires-python = ">=3.11"`, and all runtime dependencies (`matplotlib`, `pydantic`, `pygments`, `markdown-it-py`, `jinja2`, `typer`, `rich`, `playwright`, `python-docx`, `python-pptx`). The `pypi` toolset inspects `pyproject.toml` strictly **read-only** without mutating project files:
+`pyproject.toml` statically configures package metadata—including `readme = "docs_src/README_PYPI.md"`, `requires-python = ">=3.11"`, and all runtime dependencies (`matplotlib`, `pillow>=13.0.0`, `numpy`, `pydantic`, `pygments`, `markdown-it-py`, `jinja2`, `markupsafe`, `typer`, `rich`, `playwright`, `python-docx`, `python-pptx`). The `pypi` toolset inspects `pyproject.toml` strictly **read-only** without mutating project files:
 - **`./dcli pypi deps` & `dep-releases <package>`**: Lists direct runtime dependencies declared in `pyproject.toml` and queries PyPI release histories (`--from YEAR`, `--to YEAR`, `--format text|json`) to audit upstream compatibility across Python 3.11–3.13.
 - **`./dcli pypi list-versions` & `latest [--test-pypi]`**: Queries published versions on live PyPI or TestPyPI.
 - **`./dcli pypi check-version [--test-pypi] [--allow-jump]`**: Validates that `project.version` in `pyproject.toml` advances monotonically from the latest published release without accidental minor or major jumps (unless `--allow-jump` is explicitly passed).
@@ -200,14 +201,27 @@ Before and after production publication, Drawlib validates the packaged artifact
 # 2. Publish to live PyPI and verify the live wheel
 ./dcli pypi publish
 ./dcli docker test --pypi <VERSION>
+
+# 3. Tag and push to trigger .github/workflows/release.yml automatically
+git tag v<VERSION> && git push origin v<VERSION>
 ```
 
 1. **Isolated Container Verification (`tools/docker/Dockerfile.test_pypi`)**:
-   - Starts from `python:3.12-slim` (configurable via `--python`), installs `pytest`, `pytest-cov`, and `pytest-xdist`, and pins `matplotlib==3.10.9` and `pillow==12.2.0` so golden-image pixel comparisons match CI baselines deterministically.
+   - Starts from `python:3.12-slim` (configurable via `--python`), installs `pytest`, `pytest-cov`, and `pytest-xdist`, pins `matplotlib==3.10.9`, and enforces `pillow>=13.0.0` so golden-image pixel comparisons match CI baselines deterministically.
    - Verifies via `pip index versions drawlib` that the exact `<VERSION>` exists on the target index, installs `drawlib==<VERSION>` (`--extra-index-url https://pypi.org/simple/` when testing TestPyPI), and runs `playwright install-deps chromium`.
    - Copies **only `pyproject.toml` and `tests/`—strictly excluding `src/`**—ensuring every import resolves exclusively against `site-packages/drawlib/`.
    - Executes `drawlib cache download --all && pytest -n auto --dist loadfile tests/drawlib/`.
 2. **9-Job Cross-OS Release Matrix (`.github/workflows/ut_pypi.yml`)**:
    - Triggered via `workflow_dispatch` with `lib_version`, delegating to `ut_template.yml` across a **3 OS × 3 Python matrix** (`ubuntu-latest`, `windows-latest`, `macos-latest` × Python `3.11`, `3.12`, `3.13`) to verify native font handling, path semantics, and headless rendering on every supported platform.
 
-Next, explore Drawlib's 159-module test layout and dual-verification engine in **[Test Architecture: Hierarchy & Strategy](../07_test_architecture/01_test_hierarchy_and_strategy.md)**.
+### 3.4. Automated GitHub Releases (`./dcli github-release` & `release.yml`)
+While `release-assets` manages unversioned external binary packs (`assets-v0.3`), `tools/dcli/github_release/` manages versioned code releases (`vX.Y.Z`) directly from `docs_src/site/en/01_getting_started/release_notes.md`:
+- **Single-Source Changelog Extraction (`notes.py`)**: Parses `## Version X.Y.Z` Markdown sections in chronological order, strips trailing horizontal rules, auto-detects `dev`/`rc` pre-releases (`is_prerelease_version()`), resolves historical commit SHAs for untagged versions via `git log -G` on `pyproject.toml`, and appends standardized links to PyPI and the English/Japanese release notes pages.
+- **CLI Subcommands (`cli.py`)**:
+  - `./dcli github-release notes [VER]`: Previews formatted GitHub Release Markdown for `VER` (defaulting to `pyproject.toml`'s `project.version`).
+  - `./dcli github-release list`: Compares every version in `release_notes.md` against published GitHub Releases (`Missing on GitHub` vs. `Published (Latest)`).
+  - `./dcli github-release create [VER] [--commit SHA] [--latest/--no-latest] [--prerelease/--no-prerelease] [--update] [--dry-run]`: Idempotently publishes a single `vX.Y.Z` release (skipping existing tags unless `--update` is specified).
+  - `./dcli github-release sync [--from VER] [--to VER] [--update] [--dry-run]`: Backfills or updates multiple releases chronologically while assigning `make_latest="true"` exclusively to the highest stable version.
+- **Tag-Driven GitHub Actions Automation (`.github/workflows/release.yml`)**: Pushing any `v[0-9]*.[0-9]*.[0-9]*` tag triggers `publish-release` on `ubuntu-latest` (Python `3.12` + `uv sync`) with `contents: write` permissions, invoking `./dcli github-release create "$RELEASE_TAG"` using `secrets.GITHUB_TOKEN` so GitHub Releases stay 100% synchronized with `release_notes.md`.
+
+Next, explore Drawlib's 163-module test layout and dual-verification engine in **[Test Architecture: Hierarchy & Strategy](../07_test_architecture/01_test_hierarchy_and_strategy.md)**.

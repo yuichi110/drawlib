@@ -21,7 +21,7 @@ import urllib.error
 import urllib.parse
 import urllib.request
 from pathlib import Path
-from typing import Any
+from typing import Any, Final
 
 from drawlib._release_assets import (
     DEFAULT_RELEASE_TAG,
@@ -31,6 +31,8 @@ from drawlib._release_assets import (
 )
 
 MANIFEST_FILE_NAME = "asset_manifest.json"
+DEFAULT_HTTP_TIMEOUT: Final[float] = 30.0
+UPLOAD_HTTP_TIMEOUT: Final[float] = 120.0
 
 
 def resolve_github_token(explicit_token: str | None = None) -> str | None:
@@ -77,6 +79,7 @@ def _resolve_token_from_git() -> str | None:
             input="protocol=https\nhost=github.com\n",
             text=True,
             capture_output=True,
+            timeout=10,
             check=True,
         )
         for line in proc.stdout.splitlines():
@@ -90,17 +93,25 @@ def _resolve_token_from_git() -> str | None:
 class GitHubReleaseClient:
     """REST API client for managing GitHub Releases and binary assets."""
 
-    def __init__(self, owner: str = "yuichi110", repo: str = "drawlib", token: str | None = None) -> None:
+    def __init__(
+        self,
+        owner: str = "yuichi110",
+        repo: str = "drawlib",
+        token: str | None = None,
+        timeout: float = DEFAULT_HTTP_TIMEOUT,
+    ) -> None:
         """Initialize client with repository credentials.
 
         Args:
             owner: Repository owner on GitHub. Defaults to 'yuichi110'.
             repo: Repository name on GitHub. Defaults to 'drawlib'.
             token: GitHub personal access token with repo scope.
+            timeout: Default HTTP socket timeout in seconds.
         """
         self.owner = owner
         self.repo = repo
         self.token = token
+        self.timeout = timeout
         self.api_base = f"https://api.github.com/repos/{owner}/{repo}"
         self.uploads_base = f"https://uploads.github.com/repos/{owner}/{repo}"
 
@@ -144,7 +155,27 @@ class GitHubReleaseClient:
         url = f"{self.api_base}/releases/tags/{tag}"
         req = urllib.request.Request(url, headers=self._headers(), method="GET")
         try:
-            with urllib.request.urlopen(req) as resp:
+            with urllib.request.urlopen(req, timeout=self.timeout) as resp:
+                data: dict[str, Any] = json.loads(resp.read().decode("utf-8"))
+                return data
+        except urllib.error.HTTPError as e:
+            if e.code == 404:
+                return None
+            raise
+
+    def get_latest_release(self) -> dict[str, Any] | None:
+        """Fetch the release officially marked as GitHub's 'Latest' release.
+
+        Returns:
+            dict[str, Any] | None: Latest release JSON dictionary if present, otherwise None.
+
+        Raises:
+            urllib.error.HTTPError: On non-404 HTTP errors.
+        """
+        url = f"{self.api_base}/releases/latest"
+        req = urllib.request.Request(url, headers=self._headers(), method="GET")
+        try:
+            with urllib.request.urlopen(req, timeout=self.timeout) as resp:
                 data: dict[str, Any] = json.loads(resp.read().decode("utf-8"))
                 return data
         except urllib.error.HTTPError as e:
@@ -164,7 +195,7 @@ class GitHubReleaseClient:
         query = urllib.parse.urlencode({"per_page": per_page})
         url = f"{self.api_base}/releases?{query}"
         req = urllib.request.Request(url, headers=self._headers(), method="GET")
-        with urllib.request.urlopen(req) as resp:
+        with urllib.request.urlopen(req, timeout=self.timeout) as resp:
             data: list[dict[str, Any]] = json.loads(resp.read().decode("utf-8"))
             return data
 
@@ -212,7 +243,7 @@ class GitHubReleaseClient:
             headers=self._headers("application/json"),
             method="POST",
         )
-        with urllib.request.urlopen(req) as resp:
+        with urllib.request.urlopen(req, timeout=self.timeout) as resp:
             res: dict[str, Any] = json.loads(resp.read().decode("utf-8"))
             return res
 
@@ -259,7 +290,7 @@ class GitHubReleaseClient:
             headers=self._headers("application/json"),
             method="PATCH",
         )
-        with urllib.request.urlopen(req) as resp:
+        with urllib.request.urlopen(req, timeout=self.timeout) as resp:
             res: dict[str, Any] = json.loads(resp.read().decode("utf-8"))
             return res
 
@@ -285,7 +316,7 @@ class GitHubReleaseClient:
         """
         url = f"{self.api_base}/releases/assets/{asset_id}"
         req = urllib.request.Request(url, headers=self._headers(), method="DELETE")
-        with urllib.request.urlopen(req):
+        with urllib.request.urlopen(req, timeout=self.timeout):
             pass
 
     def upload_asset(
@@ -311,7 +342,7 @@ class GitHubReleaseClient:
         headers = self._headers(content_type=content_type)
         headers["Content-Length"] = str(len(data))
         req = urllib.request.Request(url, data=data, headers=headers, method="POST")
-        with urllib.request.urlopen(req) as resp:
+        with urllib.request.urlopen(req, timeout=max(self.timeout, UPLOAD_HTTP_TIMEOUT)) as resp:
             res: dict[str, Any] = json.loads(resp.read().decode("utf-8"))
             return res
 
@@ -342,7 +373,7 @@ class GitHubReleaseClient:
 
         req = urllib.request.Request(url, headers=headers)
         try:
-            with urllib.request.urlopen(req) as resp:
+            with urllib.request.urlopen(req, timeout=self.timeout) as resp:
                 data = json.loads(resp.read().decode("utf-8"))
                 return AssetManifest.model_validate(data)
         except Exception:

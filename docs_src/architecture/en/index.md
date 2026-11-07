@@ -194,7 +194,7 @@ row_bot.add(
 )
 row_bot.add(
     "6. Dev Tooling",
-    "dcli 7 toolsets,\ncodegen & Docker",
+    "dcli 8 toolsets,\ncodegen & Docker",
     icon=phosphor.wrench,
     style=Styles.Neutral,
 )
@@ -216,8 +216,8 @@ save()
 | **3. Domain Subsystems** | [Primitives & Backends](03_domain_subsystems/01_primitives_and_backends.md) · [High-Level Components](03_domain_subsystems/02_high_level_components.md) · [Graph Auto-Layout](03_domain_subsystems/03_graph_autolayout.md) · [Animation & Slide Engines](03_domain_subsystems/04_animation_and_slide_engines.md) | **43 shapes**, **34 icon suites**, **18 SmartArts**, **10 Charts**, **6 Diagrams**, **5 Graph layout solvers**, multi-frame `drawlib.anim` (`WebP`/`APNG`), and 16:9 `drawlib.slide` (`HTML`/`PDF`/`.pptx`). |
 | **4. Doc Builder & Compiler** | [Compilation Pipeline](04_doc_builder_and_compiler/01_compilation_pipeline.md) · [Multi-Target Exporters](04_doc_builder_and_compiler/02_multi_target_exporters.md) · [Link & Quality Scanner](04_doc_builder_and_compiler/03_link_and_quality_scanner.md) | `markdown-it-py` compilation, multi-locale `[i18n]` routing, HTML/Markdown/PDF/`.docx`/`.pptx` exporters, `sitemap.xml`/`robots.txt`/`llms.txt` generation, and link validation. |
 | **5. CLI & Runtime** | [CLI Architecture](05_cli_and_runtime/01_cli_architecture.md) · [Preview Server & Assets](05_cli_and_runtime/02_preview_server.md) | Typer CLI (`init`, `build`, `show`, `serve`, `cache`, `rules`), zero-dependency HTTP preview server, and on-demand font/icon/Chromium asset caching. |
-| **6. Developer Tooling** | [dcli Orchestrator](06_developer_tooling/01_dcli_orchestrator.md) · [Code Generation & Assets](06_developer_tooling/02_codegen_and_assets.md) · [Publishing & Docker](06_developer_tooling/03_release_and_docker.md) | Unified `./dcli` developer CLI (`code-check`, `test`, `docs`, `codegen`, `release-assets`, `pypi`, `docker`), icon binding generators, and clean-room container verification. |
-| **7. Test Architecture & QA** | [Test Hierarchy & Strategy](07_test_architecture/01_test_hierarchy_and_strategy.md) · [Dogfooding & Quality Gates](07_test_architecture/02_dogfooding_and_quality_gates.md) | Headless `Agg` unit/integration tests, 1:1 source-to-test mirroring, Ruff/Ty/docstring static analysis, and live repository dogfooding across 5 `docs_src/` projects. |
+| **6. Developer Tooling** | [dcli Orchestrator](06_developer_tooling/01_dcli_orchestrator.md) · [Code Generation & Assets](06_developer_tooling/02_codegen_and_assets.md) · [Publishing & Docker](06_developer_tooling/03_release_and_docker.md) | Unified `./dcli` developer CLI (`code-check`, `test`, `docs`, `codegen`, `release-assets`, `github-release`, `pypi`, `docker`), icon binding generators, and clean-room container verification. |
+| **7. Test Architecture & QA** | [Test Hierarchy & Strategy](07_test_architecture/01_test_hierarchy_and_strategy.md) · [Dogfooding & Quality Gates](07_test_architecture/02_dogfooding_and_quality_gates.md) | Headless `Agg` unit/integration tests, 1:1 source-to-test mirroring, Ruff/Ty/docstring static analysis, and live repository dogfooding across 7 documentation projects (`docs_src/*/` and `reports/`). |
 
 ---
 

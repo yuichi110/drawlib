@@ -2,7 +2,7 @@
 
 Testing a 2D illustration and multi-format document engine requires verifying both exact geometric invariants in memory and rendered visual output across Linux, Windows, and macOS—without opening GUI windows or writing brittle tests.
 
-```drawlib align=center code=fold file=test_hierarchy_and_mirroring.png caption="Four-Tier Source-to-Test Structural Mirroring Across 159 Test Modules"
+```drawlib align=center code=fold file=test_hierarchy_and_mirroring.png caption="Four-Tier Source-to-Test Structural Mirroring Across 163 Test Modules"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.smartarts import Table
@@ -64,8 +64,8 @@ rows = [
     ],
     [
         "4. Dev Tooling",
-        "tools/dcli/\n(7 developer CLI toolsets)",
-        "tests/dcli/\n(11 CLI & sync test modules)",
+        "tools/dcli/\n(8 developer CLI toolsets)",
+        "tests/dcli/\n(12 CLI & sync test modules)",
         "dcli",
     ],
 ]
@@ -193,13 +193,13 @@ save()
 
 ---
 
-## 2. Positioning: The 159-Module Structural Layout
+## 2. Positioning: The 163-Module Structural Layout
 
-The repository's **159 `test_*.py` modules** (`148` under `tests/drawlib/` and `11` under `tests/dcli/`) mirror internal implementation boundaries rather than duplicating thin public re-export facades:
+The repository's **163 `test_*.py` modules** (`151` under `tests/drawlib/` and `12` under `tests/dcli/`) mirror internal implementation boundaries rather than duplicating thin public re-export facades:
 - **Core Stack (`tests/drawlib/_core/` & `tests/drawlib/preset_styles/`)**: Mirrors `src/drawlib/_core/` (`l1_core`, `l2_types`, `l3_colors`, `l3_external`, `l3_fonts`, `l3_images`, `l3_math`, `l3_styles`, and `l4_canvas`—where all 6 shape categories, lines, text, and image primitives live under `tests/drawlib/_core/l4_canvas/`).
 - **Domain Component Suites (`tests/drawlib/{charts,diagrams,smartarts,graph,slide,anim,icons,release_assets}/`)**: Mirrors `src/drawlib/_{charts,diagrams,smartarts,graph,slide,anim,icons}/` and `_release_assets.py`, pairing layout/validation tests with `<test_stem>_answers/` golden PNG directories.
-- **Builders, CLI & HTTP Server (`tests/drawlib/{doc_builder,cli,http_server}/`)**: Mirrors `src/drawlib/{_builder,_cli,_http_server}/`, exercising Markdown compilation, DOCX/PPTX/PDF exporters, link validation, and the local preview server (alongside `test_docexist.py` and `test_lazy_imports.py` at the `tests/drawlib/` root).
-- **Developer Tooling (`tests/dcli/`)**: Mirrors `tools/dcli/`, verifying toolset discovery, shell autocompletion, docstring AST scanning, deterministic ZIP manifest syncing, PyPI SemVer checks, and Docker CLI command construction.
+- **Builders, CLI & HTTP Server (`tests/drawlib/{doc_builder,cli,http_server}/`)**: Mirrors `src/drawlib/{_builder,_cli,_http_server}/`, exercising Markdown/catalog compilation, API reference completeness (`test_api_docs_completeness.py`), DOCX/PPTX/PDF exporters, link validation, and the local preview server (alongside `test_docexist.py` and `test_lazy_imports.py` at the `tests/drawlib/` root).
+- **Developer Tooling (`tests/dcli/`)**: Mirrors `tools/dcli/` across `12` test modules, verifying toolset discovery, shell autocompletion, docstring AST scanning, deterministic ZIP manifest syncing, GitHub Release note parsing and syncing (`test_github_release_cli.py`), PyPI SemVer checks, and Docker CLI command construction.
 
 ---
 

@@ -4,6 +4,17 @@ on:
   push:
     tags:
       - "v[0-9]*.[0-9]*.[0-9]*"
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Release version or tag (e.g. v0.3.6)"
+        required: true
+        type: string
+      update:
+        description: "Update release notes if the GitHub Release already exists"
+        required: false
+        default: true
+        type: boolean
 
 permissions:
   contents: read
@@ -15,16 +26,18 @@ jobs:
       contents: write
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
 
       - name: Install uv
-        uses: astral-sh/setup-uv@v5
+        uses: astral-sh/setup-uv@v7
         with:
           enable-cache: true
           cache-dependency-glob: "pyproject.toml"
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v7
         with:
           python-version: "3.12"
 
@@ -35,6 +48,11 @@ jobs:
       - name: Create GitHub Release from release_notes.md
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          RELEASE_TAG: ${{ github.ref_name }}
+          RELEASE_TAG: ${{ inputs.tag || github.ref_name }}
+          UPDATE_EXISTING: ${{ inputs.update && 'true' || 'false' }}
         run: |
-          ./dcli github-release create "$RELEASE_TAG"
+          if [ "$UPDATE_EXISTING" = "true" ]; then
+            ./dcli github-release create "$RELEASE_TAG" --update
+          else
+            ./dcli github-release create "$RELEASE_TAG"
+          fi

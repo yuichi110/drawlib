@@ -2,17 +2,17 @@
 
 The Drawlib repository eliminates ad-hoc shell scripts, undocumented CLI flags, and brittle multi-tool handoffs by consolidating every development workflow behind a single entrypoint: `./dcli`.
 
-```drawlib align=center code=fold file=dcli_toolset_orchestration.png caption="./dcli Unified Orchestrator and Seven Toolset Architecture"
+```drawlib align=center code=fold file=dcli_toolset_orchestration.png caption="./dcli Unified Orchestrator and Eight Toolset Architecture"
 from drawlib.canvas import save, setup
 from drawlib.icons import phosphor
 from drawlib.smartarts import GridLayout
 from drawlib.styles import Styles
 from drawlib.text import text
 
-setup(width=120, height=62)
+setup(width=122, height=62)
 
 grid = GridLayout(
-    num_column=12,
+    num_column=4,
     num_row=3,
     style=Styles.Neutral.patch(shape_r=1.8),
     text_style=Styles.DarkBold.patch(text_size=11.0),
@@ -21,40 +21,41 @@ grid = GridLayout(
 # Row 2 (Top): Root Bash & Typer Master Launcher
 grid.add(
     position=(0, 2),
-    width=12,
+    width=4,
     height=1,
     style=Styles.PrimaryFlat.patch(shape_r=2.0),
     text="./dcli  —  Bash Entrypoint & Dynamic Typer Module Launcher (Python 3.12 via uv)",
     text_style=Styles.WhiteBold.patch(text_size=11.2, xy_shift=(2.8, 0.0)),
 )
 
-# Row 1 (Middle): 4 Core Code, Test, Docs & Codegen Toolsets (3 columns each)
+# Row 1 (Middle): 4 Core Code, Test, Docs & Codegen Toolsets
 row1_specs = [
     (0, "code-check", "Ruff · Ty · Docstrings", phosphor.check_circle, Styles.PrimaryNeutral, Styles.PrimaryBold),
-    (3, "test", "Pytest · Cov · xdist", phosphor.flask, Styles.SecondaryNeutral, Styles.SecondaryBold),
-    (6, "docs", "5 Repo Targets · Links", phosphor.book_open, Styles.Neutral, Styles.DarkBold),
-    (9, "codegen", "35 Icon & Map Suites", phosphor.code, Styles.PrimaryNeutral, Styles.PrimaryBold),
+    (1, "test", "Pytest · Cov · xdist", phosphor.flask, Styles.SecondaryNeutral, Styles.SecondaryBold),
+    (2, "docs", "7 Repo Targets · Links", phosphor.book_open, Styles.Neutral, Styles.DarkBold),
+    (3, "codegen", "35 Icon & Map Suites", phosphor.code, Styles.PrimaryNeutral, Styles.PrimaryBold),
 ]
-for col, title, _, card_style, icon_style in [(c, t, d, s, i) for c, t, d, _, s, i in row1_specs]:
+for col, title, _, _, card_style, icon_style in row1_specs:
     grid.add(
         position=(col, 1),
-        width=3,
+        width=1,
         height=1,
         style=card_style.patch(shape_r=1.8),
         text=title,
         text_style=icon_style.patch(text_size=11.0, xy_shift=(0.0, -0.4)),
     )
 
-# Row 0 (Bottom): 3 Packaging, Release & Container Toolsets (4 columns each)
+# Row 0 (Bottom): 4 Asset, Release, PyPI & Container Toolsets
 row0_specs = [
-    (0, "release-assets", "83 Deterministic ZIPs & CDN", phosphor.package, Styles.SecondaryNeutral, Styles.SecondaryBold),
-    (4, "pypi", "Deps · SemVer · Publish", phosphor.cloud_arrow_up, Styles.PrimaryNeutral, Styles.PrimaryBold),
-    (8, "docker", "Slim · PDF · Assets · Full", phosphor.cube, Styles.Neutral, Styles.DarkBold),
+    (0, "release-assets", "83 Asset ZIPs & CDN", phosphor.package, Styles.SecondaryNeutral, Styles.SecondaryBold),
+    (1, "github-release", "vX.Y.Z Notes & Sync", phosphor.tag, Styles.Neutral, Styles.DarkBold),
+    (2, "pypi", "Deps · SemVer · Publish", phosphor.cloud_arrow_up, Styles.PrimaryNeutral, Styles.PrimaryBold),
+    (3, "docker", "Slim · PDF · Assets · Full", phosphor.cube, Styles.SecondaryNeutral, Styles.SecondaryBold),
 ]
-for col, title, _, card_style, icon_style in [(c, t, d, s, i) for c, t, d, _, s, i in row0_specs]:
+for col, title, _, _, card_style, icon_style in row0_specs:
     grid.add(
         position=(col, 0),
-        width=4,
+        width=1,
         height=1,
         style=card_style.patch(shape_r=1.8),
         text=title,
@@ -62,25 +63,25 @@ for col, title, _, card_style, icon_style in [(c, t, d, s, i) for c, t, d, _, s,
     )
 
 grid.draw_flexible(
-    xy=(3.8, 3.25),
-    column_widths=[7.35] * 12,
-    column_margins=[0.0] + [2.2] * 11 + [0.0],
+    xy=(3.5, 3.25),
+    column_widths=[27.1] * 4,
+    column_margins=[0.0, 2.2, 2.2, 2.2, 0.0],
     row_heights=[19.5, 19.5, 11.5],
     row_margins=[0.0, 2.5, 2.5, 0.0],
 )
 
 # Overlay crisp Phosphor icons and concise subtitles inside each cell
-phosphor.terminal_window((14.5, 53.0), width=4.6, style=Styles.WhiteBold)
+phosphor.terminal_window((14.8, 53.0), width=4.6, style=Styles.WhiteBold)
 
 for idx, (_, _, subtitle, icon_fn, _, icon_style) in enumerate(row1_specs):
-    cx = 17.025 + idx * 28.65
-    icon_fn((cx, 40.3), width=4.0, style=icon_style)
-    text((cx, 29.2), subtitle, style=Styles.Dark.patch(text_size=9.8))
+    cx = 17.05 + idx * 29.3
+    icon_fn((cx, 40.2), width=4.0, style=icon_style)
+    text((cx, 29.2), subtitle, style=Styles.Dark.patch(text_size=10.0))
 
 for idx, (_, _, subtitle, icon_fn, _, icon_style) in enumerate(row0_specs):
-    cx = 21.8 + idx * 38.2
-    icon_fn((cx, 18.3), width=4.0, style=icon_style)
-    text((cx, 7.2), subtitle, style=Styles.Dark.patch(text_size=9.8))
+    cx = 17.05 + idx * 29.3
+    icon_fn((cx, 18.2), width=4.0, style=icon_style)
+    text((cx, 7.2), subtitle, style=Styles.Dark.patch(text_size=10.0))
 
 save()
 ```
@@ -92,9 +93,9 @@ save()
 In a graphics, documentation compiler, and packaging repository, contributors and AI coding agents routinely invoke dozens of distinct subsystem tools:
 - **Static Quality**: `ruff check [--fix]`, `ty check`, `@validate_call` docstring AST audits, and line counters.
 - **Test Execution**: `pytest`, `pytest-cov`, and parallel `pytest-xdist` workers (`-n auto --dist loadfile`).
-- **Documentation Compilation**: Building and validating 5 repository documentation projects (`site`, `architecture`, `readme`, `logo`, `ogp`) into `docs/`.
+- **Documentation Compilation**: Building and validating 7 repository documentation targets (`site`, `api`, `architecture`, `reports`, `readme`, `logo`, `ogp`) into `docs/`.
 - **Asset & Binding Generation**: Compiling 34 vector/PNG icon suites, normalizing 23 upstream GeoJSON datasets, and synchronizing 83 deterministic `.zip` asset manifests.
-- **Release & Clean-Room Verification**: Querying PyPI versions, publishing slim wheels, and running isolated Linux container test suites.
+- **Release & Clean-Room Verification**: Querying PyPI versions, publishing slim wheels, syncing versioned GitHub Releases (`vX.Y.Z`) from `release_notes.md`, and running isolated Linux container test suites.
 
 Leaving these workflows scattered across raw terminal commands creates three recurring failure modes:
 1. **Flag Drift**: Contributors run inconsistent linter or test flags locally versus CI.
@@ -167,15 +168,16 @@ for cx, icon_fn, bg_style, fg_style in badges:
 save()
 ```
 
-Every engineering operation maps cleanly to one of the seven discovered toolsets under `tools/dcli/`:
+Every engineering operation maps cleanly to one of the eight discovered toolsets under `tools/dcli/`:
 
 | Toolset | Module (`tools/dcli/`) | Subcommands & Operational Scope |
 | :--- | :--- | :--- |
 | **`code-check`** | `code_check/` | `lint` (`uv run ruff check [--fix]` across `src`, `tests`, `tools`), `type` (`ty check` across `src/drawlib`, `tests`, `tools`), `docstring` (`@validate_call` internal alias check), `lines`, and `all` (`lint` + `type` + `docstring`). |
 | **`test`** | `test.py` | `all`, `drawlib`, `dcli`, and `target <shortcut_or_path>` (18 module shortcuts, `pytest-xdist` parallelization, and `pytest-cov` reporting). |
-| **`docs`** | `docs/` | `build` and `serve` across **5** repository targets (`site`, `architecture`, `readme`, `logo`, `ogp` -> `docs/`) with preflight link validation (`--check` / `--skip-check`; static HTTP server without a file watcher). |
+| **`docs`** | `docs/` | `build` and `serve` across **7** repository targets (`site`, `api`, `architecture`, `reports`, `readme`, `logo`, `ogp` -> `docs/`) with preflight link validation (`--check` / `--skip-check`; static HTTP server without a file watcher). |
 | **`codegen`** | `codegen/` | **35 subcommands**: `icon-phosphor`, `icon-gcp`, `icon-aws`, `icon-azure`, 15 `icon-<domain>` suites (`ai`..`workspace`), 15 `icon-original-<domain>` pastel suites, and `map`. |
 | **`release-assets`** | `release_assets/` | Deterministic **`.zip`** archive building (`build`), offline SoT manifest synchronization (`sync` / `sync --check`), remote GitHub Release SHA-256 audits (`remote`), `upload`, and `remove`. |
+| **`github-release`** | `github_release/` | Versioned GitHub Releases (`vX.Y.Z`) extracted from `docs_src/site/en/01_getting_started/release_notes.md`: `list` (sync status vs. GitHub), `notes` (preview formatted Markdown), `create` (idempotent publish/update), and `sync` (chronological backfill across `--from`/`--to`). |
 | **`pypi`** | `pypi/` | Read-only `pyproject.toml` dependency listing (`deps`), PyPI release history lookup (`dep-releases`), SemVer progression checks (`list-versions`, `latest`, `check-version`), and `publish` (`--test-pypi` or production PyPI; never mutates `pyproject.toml`). |
 | **`docker`** | `docker.py` | `status`, `build` (`slim`, `--pdf`, `--assets`, `--full`), clean-room `test` (local source, `--test-pypi <VER>`, `--pypi <VER>`), `list`, and `prune`. |
 
@@ -197,7 +199,7 @@ source ./dcli
 ```
 
 When `[Tab]` is pressed, `_dcli_completions` invokes `${SCRIPT_DIR}/dcli` with `_DCLI_COMPLETE=complete`, `COMP_WORDS`, and `COMP_CWORD`, which routes directly to `uv run python -m "tools.dcli.completion"`:
-- At **`cword == 1`**, `completion.py` completes discovered kebab-case toolset names (`code-check`, `codegen`, `docker`, `docs`, `pypi`, `release-assets`, `test`).
+- At **`cword == 1`**, `completion.py` completes discovered kebab-case toolset names (`code-check`, `codegen`, `docker`, `docs`, `github-release`, `pypi`, `release-assets`, `test`).
 - At **`cword > 1`**, `completion.py` imports `tools.dcli.<mod>` and inspects `app.registered_commands` and `app.registered_groups` on its `typer.Typer` instance to complete top-level subcommands and command groups dynamically.
 
 ### 3.3. Shared Process Runner & Exit Code Contract (`tools/dcli/common.py`)

@@ -1,5 +1,5 @@
 name: unit test template
-run-name: version=${{ inputs.lib_version }}, from=${{ inputs.install_from }}, os=${{ inputs.os }}, python=${{ inputs.python_version }}, branch=${{ inputs.branch || github.ref_name }}
+run-name: version=${{ inputs.lib_version }}, from=${{ inputs.install_from }}, os=${{ inputs.os }}, python=${{ inputs.python_version }}, branch=${{ inputs.branch || github.head_ref || github.ref_name }}
 
 on:
   workflow_call:
@@ -23,7 +23,7 @@ on:
         type: string
 
       branch:
-        description: 'Branch to run tests on (empty uses triggering event ref)'
+        description: 'Branch to run tests on (empty uses triggering event ref or v<lib_version> tag for pypi)'
         required: false
         default: ''
         type: string
@@ -42,46 +42,64 @@ jobs:
     runs-on: ${{ inputs.os }}
     steps:
     - name: Check out repository code
-      uses: actions/checkout@v4
+      uses: actions/checkout@v7
       with:
         ref: ${{ inputs.branch }}
 
     - name: Install uv
-      uses: astral-sh/setup-uv@v5
+      uses: astral-sh/setup-uv@v7
       with:
         enable-cache: true
         cache-dependency-glob: "pyproject.toml"
 
     - name: Set up Python
-      uses: actions/setup-python@v5
+      uses: actions/setup-python@v7
       with:
         python-version: ${{ inputs.python_version }}
 
     - name: Display Inputs
       shell: bash
+      env:
+        TARGET_OS: ${{ inputs.os }}
+        PYTHON_VER: ${{ inputs.python_version }}
+        INSTALL_FROM: ${{ inputs.install_from }}
+        RAW_LIB_VERSION: ${{ inputs.lib_version }}
+        TARGET_REF: ${{ inputs.branch || github.head_ref || github.ref }}
       run: |
-        echo "Running on OS: ${{ inputs.os }}"
-        echo "Python version: ${{ inputs.python_version }}"
-        echo "Installing from: ${{ inputs.install_from }}"
-        echo "Library version: ${{ inputs.lib_version }}"
-        echo "Branch / Ref: ${{ inputs.branch || github.ref }}"
+        echo "Running on OS: $TARGET_OS"
+        echo "Python version: $PYTHON_VER"
+        echo "Installing from: $INSTALL_FROM"
+        echo "Library version: $RAW_LIB_VERSION"
+        echo "Branch / Ref: $TARGET_REF"
 
     - name: Install dependencies and drawlib
       shell: bash
+      env:
+        INSTALL_FROM: ${{ inputs.install_from }}
+        RAW_LIB_VERSION: ${{ inputs.lib_version }}
+        BRANCH_OVERRIDE: ${{ inputs.branch }}
       run: |
-        if [ "${{ inputs.install_from }}" == "github" ]; then
+        if [ "$INSTALL_FROM" == "github" ]; then
           echo "Syncing dependencies with uv..."
           uv sync
 
-        elif [ "${{ inputs.install_from }}" == "pypi" ]; then
+        elif [ "$INSTALL_FROM" == "pypi" ]; then
           echo "Resolving version..."
-          if [ "${{ inputs.lib_version }}" == "latest" ]; then
+          if [ "$RAW_LIB_VERSION" == "latest" ]; then
             LIB_VER=$(python -c "import json, urllib.request; print(json.load(urllib.request.urlopen('https://pypi.org/pypi/drawlib/json', timeout=30))['info']['version'])")
-            echo "Latest version: $LIB_VER"
           else
-            LIB_VER="${{ inputs.lib_version }}"
+            LIB_VER="${RAW_LIB_VERSION#v}"
           fi
+          echo "Resolved PyPI version: $LIB_VER"
           echo "LIB_VER=$LIB_VER" >> "$GITHUB_ENV"
+
+          # Align test suite to release tag v$LIB_VER when no explicit branch override was passed
+          if [ -z "$BRANCH_OVERRIDE" ]; then
+            if git fetch --depth=1 origin "refs/tags/v$LIB_VER:refs/tags/v$LIB_VER" 2>/dev/null; then
+              echo "Checking out matching release tag v$LIB_VER for test suite alignment..."
+              git checkout --detach "refs/tags/v$LIB_VER"
+            fi
+          fi
 
           # Rename src/ to prevent local import instead of installed package
           if [ -d "src" ]; then
@@ -89,16 +107,30 @@ jobs:
           fi
 
         else
-          echo "install_from is not supported: ${{ inputs.install_from }}"
+          echo "install_from is not supported: $INSTALL_FROM"
           exit 1
+        fi
+
+    - name: Pre-download headless Chromium for parallel xdist workers
+      shell: bash
+      env:
+        INSTALL_FROM: ${{ inputs.install_from }}
+        PYTHON_VER: ${{ inputs.python_version }}
+      run: |
+        if [ "$INSTALL_FROM" == "github" ]; then
+          uv run drawlib cache download --browser
+        else
+          uv run --no-project --python "$PYTHON_VER" --with "drawlib==$LIB_VER" drawlib cache download --browser
         fi
 
     - name: Run unit test
       shell: bash
+      env:
+        INSTALL_FROM: ${{ inputs.install_from }}
+        PYTHON_VER: ${{ inputs.python_version }}
       run: |
-        if [ "${{ inputs.install_from }}" == "github" ]; then
+        if [ "$INSTALL_FROM" == "github" ]; then
           uv run pytest -s -n auto --dist loadfile --cov=drawlib tests/
         else
-          uv run --no-project --python "${{ inputs.python_version }}" --with "drawlib==$LIB_VER" --with pytest --with pytest-cov --with pytest-xdist --with tomlkit pytest -s -n auto --dist loadfile tests/drawlib/
+          uv run --no-project --python "$PYTHON_VER" --with "drawlib==$LIB_VER" --with pytest --with pytest-cov --with pytest-xdist --with tomlkit pytest -s -n auto --dist loadfile tests/drawlib/
         fi
-

@@ -246,7 +246,7 @@
 <p>The Drawlib repository eliminates ad-hoc shell scripts, undocumented CLI flags, and brittle multi-tool handoffs by consolidating every development workflow behind a single entrypoint: <code>./dcli</code>.</p>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="../../images/06_developer_tooling/01_dcli_orchestrator/dcli_toolset_orchestration.png" alt="01_dcli_orchestrator_1" />
-  <figcaption class="drawlib-caption">./dcli Unified Orchestrator and Seven Toolset Architecture</figcaption>
+  <figcaption class="drawlib-caption">./dcli Unified Orchestrator and Eight Toolset Architecture</figcaption>
 </figure>
 <details class="drawlib-code-details">
 <summary>Source Code</summary>
@@ -256,10 +256,10 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">120</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">62</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">122</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">62</span><span class="p">)</span>
 
 <span class="n">grid</span> <span class="o">=</span> <span class="n">GridLayout</span><span class="p">(</span>
-    <span class="n">num_column</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span>
+    <span class="n">num_column</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
     <span class="n">num_row</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.8</span><span class="p">),</span>
     <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">),</span>
@@ -268,40 +268,41 @@
 <span class="c1"># Row 2 (Top): Root Bash &amp; Typer Master Launcher</span>
 <span class="n">grid</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
     <span class="n">position</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
-    <span class="n">width</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
     <span class="n">height</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">2.0</span><span class="p">),</span>
     <span class="n">text</span><span class="o">=</span><span class="s2">"./dcli  —  Bash Entrypoint &amp; Dynamic Typer Module Launcher (Python 3.12 via uv)"</span><span class="p">,</span>
     <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.2</span><span class="p">,</span> <span class="n">xy_shift</span><span class="o">=</span><span class="p">(</span><span class="mf">2.8</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)),</span>
 <span class="p">)</span>
 
-<span class="c1"># Row 1 (Middle): 4 Core Code, Test, Docs &amp; Codegen Toolsets (3 columns each)</span>
+<span class="c1"># Row 1 (Middle): 4 Core Code, Test, Docs &amp; Codegen Toolsets</span>
 <span class="n">row1_specs</span> <span class="o">=</span> <span class="p">[</span>
     <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s2">"code-check"</span><span class="p">,</span> <span class="s2">"Ruff · Ty · Docstrings"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">check_circle</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="s2">"test"</span><span class="p">,</span> <span class="s2">"Pytest · Cov · xdist"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">flask</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="s2">"docs"</span><span class="p">,</span> <span class="s2">"5 Repo Targets · Links"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">book_open</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="s2">"codegen"</span><span class="p">,</span> <span class="s2">"35 Icon &amp; Map Suites"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">code</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">"test"</span><span class="p">,</span> <span class="s2">"Pytest · Cov · xdist"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">flask</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s2">"docs"</span><span class="p">,</span> <span class="s2">"7 Repo Targets · Links"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">book_open</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="s2">"codegen"</span><span class="p">,</span> <span class="s2">"35 Icon &amp; Map Suites"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">code</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">),</span>
 <span class="p">]</span>
-<span class="k">for</span> <span class="n">col</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">card_style</span><span class="p">,</span> <span class="n">icon_style</span> <span class="ow">in</span> <span class="p">[(</span><span class="n">c</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">row1_specs</span><span class="p">]:</span>
+<span class="k">for</span> <span class="n">col</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">card_style</span><span class="p">,</span> <span class="n">icon_style</span> <span class="ow">in</span> <span class="n">row1_specs</span><span class="p">:</span>
     <span class="n">grid</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
         <span class="n">position</span><span class="o">=</span><span class="p">(</span><span class="n">col</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
-        <span class="n">width</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
         <span class="n">height</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
         <span class="n">style</span><span class="o">=</span><span class="n">card_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.8</span><span class="p">),</span>
         <span class="n">text</span><span class="o">=</span><span class="n">title</span><span class="p">,</span>
         <span class="n">text_style</span><span class="o">=</span><span class="n">icon_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">11.0</span><span class="p">,</span> <span class="n">xy_shift</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.4</span><span class="p">)),</span>
     <span class="p">)</span>
 
-<span class="c1"># Row 0 (Bottom): 3 Packaging, Release &amp; Container Toolsets (4 columns each)</span>
+<span class="c1"># Row 0 (Bottom): 4 Asset, Release, PyPI &amp; Container Toolsets</span>
 <span class="n">row0_specs</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s2">"release-assets"</span><span class="p">,</span> <span class="s2">"83 Deterministic ZIPs &amp; CDN"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">package</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="s2">"pypi"</span><span class="p">,</span> <span class="s2">"Deps · SemVer · Publish"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">cloud_arrow_up</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="s2">"docker"</span><span class="p">,</span> <span class="s2">"Slim · PDF · Assets · Full"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">cube</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s2">"release-assets"</span><span class="p">,</span> <span class="s2">"83 Asset ZIPs &amp; CDN"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">package</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">"github-release"</span><span class="p">,</span> <span class="s2">"vX.Y.Z Notes &amp; Sync"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">tag</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s2">"pypi"</span><span class="p">,</span> <span class="s2">"Deps · SemVer · Publish"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">cloud_arrow_up</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="s2">"docker"</span><span class="p">,</span> <span class="s2">"Slim · PDF · Assets · Full"</span><span class="p">,</span> <span class="n">phosphor</span><span class="o">.</span><span class="n">cube</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span> <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">),</span>
 <span class="p">]</span>
-<span class="k">for</span> <span class="n">col</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">card_style</span><span class="p">,</span> <span class="n">icon_style</span> <span class="ow">in</span> <span class="p">[(</span><span class="n">c</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">row0_specs</span><span class="p">]:</span>
+<span class="k">for</span> <span class="n">col</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">card_style</span><span class="p">,</span> <span class="n">icon_style</span> <span class="ow">in</span> <span class="n">row0_specs</span><span class="p">:</span>
     <span class="n">grid</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
         <span class="n">position</span><span class="o">=</span><span class="p">(</span><span class="n">col</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
-        <span class="n">width</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
         <span class="n">height</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
         <span class="n">style</span><span class="o">=</span><span class="n">card_style</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.8</span><span class="p">),</span>
         <span class="n">text</span><span class="o">=</span><span class="n">title</span><span class="p">,</span>
@@ -309,25 +310,25 @@
     <span class="p">)</span>
 
 <span class="n">grid</span><span class="o">.</span><span class="n">draw_flexible</span><span class="p">(</span>
-    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">3.8</span><span class="p">,</span> <span class="mf">3.25</span><span class="p">),</span>
-    <span class="n">column_widths</span><span class="o">=</span><span class="p">[</span><span class="mf">7.35</span><span class="p">]</span> <span class="o">*</span> <span class="mi">12</span><span class="p">,</span>
-    <span class="n">column_margins</span><span class="o">=</span><span class="p">[</span><span class="mf">0.0</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="mf">2.2</span><span class="p">]</span> <span class="o">*</span> <span class="mi">11</span> <span class="o">+</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">],</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">3.5</span><span class="p">,</span> <span class="mf">3.25</span><span class="p">),</span>
+    <span class="n">column_widths</span><span class="o">=</span><span class="p">[</span><span class="mf">27.1</span><span class="p">]</span> <span class="o">*</span> <span class="mi">4</span><span class="p">,</span>
+    <span class="n">column_margins</span><span class="o">=</span><span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">2.2</span><span class="p">,</span> <span class="mf">2.2</span><span class="p">,</span> <span class="mf">2.2</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
     <span class="n">row_heights</span><span class="o">=</span><span class="p">[</span><span class="mf">19.5</span><span class="p">,</span> <span class="mf">19.5</span><span class="p">,</span> <span class="mf">11.5</span><span class="p">],</span>
     <span class="n">row_margins</span><span class="o">=</span><span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
 <span class="p">)</span>
 
 <span class="c1"># Overlay crisp Phosphor icons and concise subtitles inside each cell</span>
-<span class="n">phosphor</span><span class="o">.</span><span class="n">terminal_window</span><span class="p">((</span><span class="mf">14.5</span><span class="p">,</span> <span class="mf">53.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.6</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">)</span>
+<span class="n">phosphor</span><span class="o">.</span><span class="n">terminal_window</span><span class="p">((</span><span class="mf">14.8</span><span class="p">,</span> <span class="mf">53.0</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.6</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="p">)</span>
 
 <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="p">(</span><span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">subtitle</span><span class="p">,</span> <span class="n">icon_fn</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">icon_style</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">row1_specs</span><span class="p">):</span>
-    <span class="n">cx</span> <span class="o">=</span> <span class="mf">17.025</span> <span class="o">+</span> <span class="n">idx</span> <span class="o">*</span> <span class="mf">28.65</span>
-    <span class="n">icon_fn</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mf">40.3</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">icon_style</span><span class="p">)</span>
-    <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mf">29.2</span><span class="p">),</span> <span class="n">subtitle</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.8</span><span class="p">))</span>
+    <span class="n">cx</span> <span class="o">=</span> <span class="mf">17.05</span> <span class="o">+</span> <span class="n">idx</span> <span class="o">*</span> <span class="mf">29.3</span>
+    <span class="n">icon_fn</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mf">40.2</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">icon_style</span><span class="p">)</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mf">29.2</span><span class="p">),</span> <span class="n">subtitle</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
 
 <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="p">(</span><span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">subtitle</span><span class="p">,</span> <span class="n">icon_fn</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">icon_style</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">row0_specs</span><span class="p">):</span>
-    <span class="n">cx</span> <span class="o">=</span> <span class="mf">21.8</span> <span class="o">+</span> <span class="n">idx</span> <span class="o">*</span> <span class="mf">38.2</span>
-    <span class="n">icon_fn</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mf">18.3</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">icon_style</span><span class="p">)</span>
-    <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mf">7.2</span><span class="p">),</span> <span class="n">subtitle</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.8</span><span class="p">))</span>
+    <span class="n">cx</span> <span class="o">=</span> <span class="mf">17.05</span> <span class="o">+</span> <span class="n">idx</span> <span class="o">*</span> <span class="mf">29.3</span>
+    <span class="n">icon_fn</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mf">18.2</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">4.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">icon_style</span><span class="p">)</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="mf">7.2</span><span class="p">),</span> <span class="n">subtitle</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
 
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
@@ -338,9 +339,9 @@
 <ul>
 <li><strong>Static Quality</strong>: <code>ruff check [--fix]</code>, <code>ty check</code>, <code>@validate_call</code> docstring AST audits, and line counters.</li>
 <li><strong>Test Execution</strong>: <code>pytest</code>, <code>pytest-cov</code>, and parallel <code>pytest-xdist</code> workers (<code>-n auto --dist loadfile</code>).</li>
-<li><strong>Documentation Compilation</strong>: Building and validating 5 repository documentation projects (<code>site</code>, <code>architecture</code>, <code>readme</code>, <code>logo</code>, <code>ogp</code>) into <code>docs/</code>.</li>
+<li><strong>Documentation Compilation</strong>: Building and validating 7 repository documentation targets (<code>site</code>, <code>api</code>, <code>architecture</code>, <code>reports</code>, <code>readme</code>, <code>logo</code>, <code>ogp</code>) into <code>docs/</code>.</li>
 <li><strong>Asset &amp; Binding Generation</strong>: Compiling 34 vector/PNG icon suites, normalizing 23 upstream GeoJSON datasets, and synchronizing 83 deterministic <code>.zip</code> asset manifests.</li>
-<li><strong>Release &amp; Clean-Room Verification</strong>: Querying PyPI versions, publishing slim wheels, and running isolated Linux container test suites.</li>
+<li><strong>Release &amp; Clean-Room Verification</strong>: Querying PyPI versions, publishing slim wheels, syncing versioned GitHub Releases (<code>vX.Y.Z</code>) from <code>release_notes.md</code>, and running isolated Linux container test suites.</li>
 </ul>
 <p>Leaving these workflows scattered across raw terminal commands creates three recurring failure modes:</p>
 <ol>
@@ -415,7 +416,7 @@
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 </details>
-<p>Every engineering operation maps cleanly to one of the seven discovered toolsets under <code>tools/dcli/</code>:</p>
+<p>Every engineering operation maps cleanly to one of the eight discovered toolsets under <code>tools/dcli/</code>:</p>
 <table>
 <thead>
 <tr>
@@ -438,7 +439,7 @@
 <tr>
 <td style="text-align:left"><strong><code>docs</code></strong></td>
 <td style="text-align:left"><code>docs/</code></td>
-<td style="text-align:left"><code>build</code> and <code>serve</code> across <strong>5</strong> repository targets (<code>site</code>, <code>architecture</code>, <code>readme</code>, <code>logo</code>, <code>ogp</code> -&gt; <code>docs/</code>) with preflight link validation (<code>--check</code> / <code>--skip-check</code>; static HTTP server without a file watcher).</td>
+<td style="text-align:left"><code>build</code> and <code>serve</code> across <strong>7</strong> repository targets (<code>site</code>, <code>api</code>, <code>architecture</code>, <code>reports</code>, <code>readme</code>, <code>logo</code>, <code>ogp</code> -&gt; <code>docs/</code>) with preflight link validation (<code>--check</code> / <code>--skip-check</code>; static HTTP server without a file watcher).</td>
 </tr>
 <tr>
 <td style="text-align:left"><strong><code>codegen</code></strong></td>
@@ -449,6 +450,11 @@
 <td style="text-align:left"><strong><code>release-assets</code></strong></td>
 <td style="text-align:left"><code>release_assets/</code></td>
 <td style="text-align:left">Deterministic <strong><code>.zip</code></strong> archive building (<code>build</code>), offline SoT manifest synchronization (<code>sync</code> / <code>sync --check</code>), remote GitHub Release SHA-256 audits (<code>remote</code>), <code>upload</code>, and <code>remove</code>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>github-release</code></strong></td>
+<td style="text-align:left"><code>github_release/</code></td>
+<td style="text-align:left">Versioned GitHub Releases (<code>vX.Y.Z</code>) extracted from <code>docs_src/site/en/01_getting_started/release_notes.md</code>: <code>list</code> (sync status vs. GitHub), <code>notes</code> (preview formatted Markdown), <code>create</code> (idempotent publish/update), and <code>sync</code> (chronological backfill across <code>--from</code>/<code>--to</code>).</td>
 </tr>
 <tr>
 <td style="text-align:left"><strong><code>pypi</code></strong></td>
@@ -477,7 +483,7 @@
 </code></pre>
 <p>When <code>[Tab]</code> is pressed, <code>_dcli_completions</code> invokes <code>${SCRIPT_DIR}/dcli</code> with <code>_DCLI_COMPLETE=complete</code>, <code>COMP_WORDS</code>, and <code>COMP_CWORD</code>, which routes directly to <code>uv run python -m &quot;tools.dcli.completion&quot;</code>:</p>
 <ul>
-<li>At <strong><code>cword == 1</code></strong>, <code>completion.py</code> completes discovered kebab-case toolset names (<code>code-check</code>, <code>codegen</code>, <code>docker</code>, <code>docs</code>, <code>pypi</code>, <code>release-assets</code>, <code>test</code>).</li>
+<li>At <strong><code>cword == 1</code></strong>, <code>completion.py</code> completes discovered kebab-case toolset names (<code>code-check</code>, <code>codegen</code>, <code>docker</code>, <code>docs</code>, <code>github-release</code>, <code>pypi</code>, <code>release-assets</code>, <code>test</code>).</li>
 <li>At <strong><code>cword &gt; 1</code></strong>, <code>completion.py</code> imports <code>tools.dcli.&lt;mod&gt;</code> and inspects <code>app.registered_commands</code> and <code>app.registered_groups</code> on its <code>typer.Typer</code> instance to complete top-level subcommands and command groups dynamically.</li>
 </ul>
 <h3>3.3. Shared Process Runner &amp; Exit Code Contract (<code>tools/dcli/common.py</code>)</h3>

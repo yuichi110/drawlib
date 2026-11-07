@@ -258,7 +258,7 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.text</span><span class="w"> </span><span class="kn">import</span> <span class="n">text</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">116</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">58</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">118</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">58</span><span class="p">)</span>
 
 <span class="n">loop</span> <span class="o">=</span> <span class="n">Cycle</span><span class="p">(</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="p">,</span>
@@ -281,20 +281,20 @@
 
 <span class="n">loop</span><span class="o">.</span><span class="n">set_center</span><span class="p">(</span>
     <span class="n">text</span><span class="o">=</span><span class="s2">"Dogfood"</span><span class="p">,</span>
-    <span class="n">description</span><span class="o">=</span><span class="s2">"5 Targets"</span><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="s2">"7 Targets"</span><span class="p">,</span>
     <span class="n">radius</span><span class="o">=</span><span class="mf">8.4</span><span class="p">,</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
     <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.8</span><span class="p">),</span>
-    <span class="n">description_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.6</span><span class="p">),</span>
+    <span class="n">description_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
 <span class="p">)</span>
-<span class="n">loop</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">58.0</span><span class="p">,</span> <span class="mf">29.0</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">17.5</span><span class="p">,</span> <span class="n">align</span><span class="o">=</span><span class="s2">"center"</span><span class="p">)</span>
+<span class="n">loop</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">59.0</span><span class="p">,</span> <span class="mf">29.0</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">17.5</span><span class="p">,</span> <span class="n">align</span><span class="o">=</span><span class="s2">"center"</span><span class="p">)</span>
 
 <span class="n">cards</span> <span class="o">=</span> <span class="p">[</span>
     <span class="p">(</span>
-        <span class="mf">20.0</span><span class="p">,</span>
+        <span class="mf">20.5</span><span class="p">,</span>
         <span class="mf">41.4</span><span class="p">,</span>
-        <span class="p">(</span><span class="mf">36.5</span><span class="p">,</span> <span class="mf">41.4</span><span class="p">),</span>
-        <span class="p">(</span><span class="mf">40.4</span><span class="p">,</span> <span class="mf">41.4</span><span class="p">),</span>
+        <span class="p">(</span><span class="mf">37.5</span><span class="p">,</span> <span class="mf">41.4</span><span class="p">),</span>
+        <span class="p">(</span><span class="mf">41.4</span><span class="p">,</span> <span class="mf">41.4</span><span class="p">),</span>
         <span class="s2">"1. Engine &amp; API Edit"</span><span class="p">,</span>
         <span class="s2">"src/drawlib/ core &amp;</span><span class="se">\n</span><span class="s2">domain components"</span><span class="p">,</span>
         <span class="n">phosphor</span><span class="o">.</span><span class="n">pencil_simple</span><span class="p">,</span>
@@ -303,22 +303,22 @@
         <span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="p">,</span>
     <span class="p">),</span>
     <span class="p">(</span>
-        <span class="mf">96.0</span><span class="p">,</span>
+        <span class="mf">97.5</span><span class="p">,</span>
         <span class="mf">41.4</span><span class="p">,</span>
-        <span class="p">(</span><span class="mf">75.6</span><span class="p">,</span> <span class="mf">41.4</span><span class="p">),</span>
-        <span class="p">(</span><span class="mf">79.5</span><span class="p">,</span> <span class="mf">41.4</span><span class="p">),</span>
-        <span class="s2">"2. Build 5 Targets"</span><span class="p">,</span>
-        <span class="s2">"docs_src/ -&gt; docs/</span><span class="se">\n</span><span class="s2">site · arch · readme · logo · ogp"</span><span class="p">,</span>
+        <span class="p">(</span><span class="mf">76.6</span><span class="p">,</span> <span class="mf">41.4</span><span class="p">),</span>
+        <span class="p">(</span><span class="mf">80.5</span><span class="p">,</span> <span class="mf">41.4</span><span class="p">),</span>
+        <span class="s2">"2. Build 7 Targets"</span><span class="p">,</span>
+        <span class="s2">"site · api · arch · reports</span><span class="se">\n</span><span class="s2">readme · logo · ogp"</span><span class="p">,</span>
         <span class="n">phosphor</span><span class="o">.</span><span class="n">book_open</span><span class="p">,</span>
         <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
         <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">,</span>
         <span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="p">,</span>
     <span class="p">),</span>
     <span class="p">(</span>
-        <span class="mf">96.0</span><span class="p">,</span>
+        <span class="mf">97.5</span><span class="p">,</span>
         <span class="mf">16.6</span><span class="p">,</span>
-        <span class="p">(</span><span class="mf">75.6</span><span class="p">,</span> <span class="mf">16.6</span><span class="p">),</span>
-        <span class="p">(</span><span class="mf">79.5</span><span class="p">,</span> <span class="mf">16.6</span><span class="p">),</span>
+        <span class="p">(</span><span class="mf">76.6</span><span class="p">,</span> <span class="mf">16.6</span><span class="p">),</span>
+        <span class="p">(</span><span class="mf">80.5</span><span class="p">,</span> <span class="mf">16.6</span><span class="p">),</span>
         <span class="s2">"3. Visual Grid Review"</span><span class="p">,</span>
         <span class="s2">"drawlib show -g &amp;</span><span class="se">\n</span><span class="s2">16px HTML parity"</span><span class="p">,</span>
         <span class="n">phosphor</span><span class="o">.</span><span class="n">eye</span><span class="p">,</span>
@@ -327,10 +327,10 @@
         <span class="n">Styles</span><span class="o">.</span><span class="n">Dark</span><span class="p">,</span>
     <span class="p">),</span>
     <span class="p">(</span>
-        <span class="mf">20.0</span><span class="p">,</span>
+        <span class="mf">20.5</span><span class="p">,</span>
         <span class="mf">16.6</span><span class="p">,</span>
-        <span class="p">(</span><span class="mf">36.5</span><span class="p">,</span> <span class="mf">16.6</span><span class="p">),</span>
-        <span class="p">(</span><span class="mf">40.4</span><span class="p">,</span> <span class="mf">16.6</span><span class="p">),</span>
+        <span class="p">(</span><span class="mf">37.5</span><span class="p">,</span> <span class="mf">16.6</span><span class="p">),</span>
+        <span class="p">(</span><span class="mf">41.4</span><span class="p">,</span> <span class="mf">16.6</span><span class="p">),</span>
         <span class="s2">"4. Static &amp; Link Gates"</span><span class="p">,</span>
         <span class="s2">"dcli code-check all &amp;</span><span class="se">\n</span><span class="s2">docs serve --check"</span><span class="p">,</span>
         <span class="n">phosphor</span><span class="o">.</span><span class="n">shield_check</span><span class="p">,</span>
@@ -342,10 +342,10 @@
 
 <span class="k">for</span> <span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="p">,</span> <span class="n">p0</span><span class="p">,</span> <span class="n">p1</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">desc</span><span class="p">,</span> <span class="n">icon_fn</span><span class="p">,</span> <span class="n">box_st</span><span class="p">,</span> <span class="n">head_st</span><span class="p">,</span> <span class="n">body_st</span> <span class="ow">in</span> <span class="n">cards</span><span class="p">:</span>
     <span class="n">line</span><span class="p">(</span><span class="n">p0</span><span class="p">,</span> <span class="n">p1</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">MutedDashed</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_width</span><span class="o">=</span><span class="mf">1.1</span><span class="p">))</span>
-    <span class="n">rectangle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">33.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">20.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">box_st</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.8</span><span class="p">))</span>
-    <span class="n">icon_fn</span><span class="p">((</span><span class="n">cx</span> <span class="o">-</span> <span class="mf">12.8</span><span class="p">,</span> <span class="n">cy</span> <span class="o">+</span> <span class="mf">4.8</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">head_st</span><span class="p">)</span>
-    <span class="n">text</span><span class="p">((</span><span class="n">cx</span> <span class="o">-</span> <span class="mf">9.8</span><span class="p">,</span> <span class="n">cy</span> <span class="o">+</span> <span class="mf">4.8</span><span class="p">),</span> <span class="n">title</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">head_st</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">10.6</span><span class="p">))</span>
-    <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span> <span class="o">-</span> <span class="mf">3.6</span><span class="p">),</span> <span class="n">desc</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">body_st</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">9.8</span><span class="p">))</span>
+    <span class="n">rectangle</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">34.0</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">20.0</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">box_st</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_r</span><span class="o">=</span><span class="mf">1.8</span><span class="p">))</span>
+    <span class="n">icon_fn</span><span class="p">((</span><span class="n">cx</span> <span class="o">-</span> <span class="mf">13.2</span><span class="p">,</span> <span class="n">cy</span> <span class="o">+</span> <span class="mf">4.8</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mf">3.8</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">head_st</span><span class="p">)</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">cx</span> <span class="o">-</span> <span class="mf">10.2</span><span class="p">,</span> <span class="n">cy</span> <span class="o">+</span> <span class="mf">4.8</span><span class="p">),</span> <span class="n">title</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">head_st</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">halign</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">text_size</span><span class="o">=</span><span class="mf">10.6</span><span class="p">))</span>
+    <span class="n">text</span><span class="p">((</span><span class="n">cx</span><span class="p">,</span> <span class="n">cy</span> <span class="o">-</span> <span class="mf">3.6</span><span class="p">),</span> <span class="n">desc</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">body_st</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">))</span>
 
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
@@ -355,12 +355,12 @@
 <p>Isolated unit tests cannot answer macro-level quality questions:</p>
 <ul>
 <li>Do embedded diagram labels maintain crisp typography parity alongside <code>16px</code> HTML body prose?</li>
-<li>Do localized multi-page navigation trees (<code>en/</code> and <code>ja/</code>), sitemaps, OGP banners, and <code>llms.txt</code> indexes compile cleanly together?</li>
+<li>Do localized multi-page navigation trees (<code>en/</code> and <code>ja/</code>), API catalogs, sitemaps, OGP banners, and <code>llms.txt</code> indexes compile cleanly together?</li>
 <li>Does modifying a shared primitive or style preset introduce subtle visual crowding across real architectural and tutorial illustrations?</li>
 </ul>
-<p>Drawlib closes this gap by using the repository itself as a <strong>live dogfooding environment</strong>: five production documentation targets under <code>docs_src/</code> compile directly into <code>docs/</code> using the local <code>src/drawlib/</code> source tree, and GitHub Pages serves <code>main:/docs</code> directly (<code>https://www.drawlib.com/</code>) without requiring a separate <code>pages.yml</code> build workflow.</p>
+<p>Drawlib closes this gap by using the repository itself as a <strong>live dogfooding environment</strong>: seven production documentation targets (<code>docs_src/*/</code> and <code>reports/full_audit_src/</code>) compile directly into <code>docs/</code> using the local <code>src/drawlib/</code> source tree, and GitHub Pages serves <code>main:/docs</code> directly (<code>https://www.drawlib.com/</code>) without requiring a separate <code>pages.yml</code> build workflow.</p>
 <hr />
-<h2>2. Positioning: The 5 Repository Targets &amp; Companion Examples</h2>
+<h2>2. Positioning: The 7 Repository Targets &amp; Companion Examples</h2>
 <p>Together with the companion <code>yuichi110/drawlib-examples</code> repository (<code>https://examples.drawlib.com/</code>), Drawlib's dogfooding suite exercises every <code>drawlib init project</code> archetype in production:</p>
 <table>
 <thead>
@@ -378,7 +378,14 @@
 <td style="text-align:left"><code>docs_src/site/</code> (<code>en/</code>, <code>ja/</code>)</td>
 <td style="text-align:left"><code>site</code></td>
 <td style="text-align:left"><code>docs/</code> (<code>en/</code>, <code>ja/</code>, <code>images/</code>, <code>_assets/</code>, <code>pypi_images/</code>)</td>
-<td style="text-align:left">Multi-locale (<code>en</code>/<code>ja</code>) user guide, API reference, animations, and SEO artifacts (<code>www.drawlib.com</code>).</td>
+<td style="text-align:left">Multi-locale (<code>en</code>/<code>ja</code>) user guide, tutorials, animations, and SEO artifacts (<code>www.drawlib.com</code>).</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>api</code></strong></td>
+<td style="text-align:left"><code>docs_src/api/</code> (<code>en/</code>, <code>ja/</code>)</td>
+<td style="text-align:left"><code>catalog</code></td>
+<td style="text-align:left"><code>docs/api/</code></td>
+<td style="text-align:left">Bilingual (<code>en</code>/<code>ja</code>) Python API &amp; CLI Reference catalog verified for 100% symbol completeness (<code>www.drawlib.com/api/</code>).</td>
 </tr>
 <tr>
 <td style="text-align:left"><strong><code>architecture</code></strong></td>
@@ -386,6 +393,13 @@
 <td style="text-align:left"><code>site</code></td>
 <td style="text-align:left"><code>docs/architecture/</code></td>
 <td style="text-align:left">Single-locale (<code>en</code>) software architecture specification (<code>www.drawlib.com/architecture/</code>).</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>reports</code></strong></td>
+<td style="text-align:left"><code>reports/full_audit_src/</code> (<code>en/</code>)</td>
+<td style="text-align:left"><code>doc</code></td>
+<td style="text-align:left"><code>docs/reports/pni-full-audit/</code> (<code>index.html</code>, <code>full_audit.pdf</code>)</td>
+<td style="text-align:left">PNI501 software health &amp; security audit report in linear HTML and A4 PDF (<code>www.drawlib.com/reports/pni-full-audit/</code>).</td>
 </tr>
 <tr>
 <td style="text-align:left"><strong><code>readme</code></strong></td>
@@ -405,7 +419,7 @@
 <td style="text-align:left"><strong><code>ogp</code></strong></td>
 <td style="text-align:left"><code>docs_src/ogp/</code></td>
 <td style="text-align:left"><code>images</code></td>
-<td style="text-align:left"><code>docs/ogp_images/</code>, <code>docs_src/{site,architecture}/_assets/ogp.png</code></td>
+<td style="text-align:left"><code>docs/ogp_images/</code>, <code>docs_src/{site,api,architecture}/_assets/ogp.png</code></td>
 <td style="text-align:left"><code>1280×640</code> GitHub Social Preview and Open Graph banner generators.</td>
 </tr>
 <tr>
@@ -496,7 +510,7 @@
 <p>Two domain-specific verification commands guard external assets and compiled HTML sites:</p>
 <ol>
 <li><strong>Offline Release Asset Sync Gate (<code>./dcli release-assets sync --check</code>)</strong>: Recomputes deterministic <code>.zip</code> hashes across <code>tools/release_assets/v0.3/</code> offline and fails with exit code <code>1</code> if <code>src/drawlib/_release_assets.py</code> is out of sync with any of the 83 asset packages.</li>
-<li><strong>Headless Link &amp; Path Hygiene Scanner (<code>./dcli docs serve &lt;target&gt; --check</code>)</strong>: Invokes <code>drawlib serve &lt;out_dir&gt; --check</code> on compiled <code>docs/</code> or <code>docs/architecture/</code> outputs without starting the interactive HTTP server—verifying every relative link, image <code>src</code>, and heading anchor while build-time Markdown scanners reject forbidden machine-local filesystem paths and local-file URL schemes.</li>
+<li><strong>Headless Link &amp; Path Hygiene Scanner (<code>./dcli docs serve &lt;target&gt; --check</code>)</strong>: Invokes <code>drawlib serve &lt;out_dir&gt; --check</code> on compiled <code>docs/</code>, <code>docs/api/</code>, <code>docs/architecture/</code>, or <code>docs/reports/pni-full-audit/</code> outputs without starting the interactive HTTP server—verifying every relative link, image <code>src</code>, and heading anchor while build-time Markdown scanners reject forbidden machine-local filesystem paths and local-file URL schemes.</li>
 </ol>
 <hr />
 <h2>4. Conclusion: Architecture as a Closed Verification Loop</h2>
@@ -504,8 +518,8 @@
 <ol>
 <li><strong>Strict Unidirectional Core Layers</strong> (<code>l1_core</code> -&gt; <code>l2_types</code> -&gt; <code>l3_*</code> -&gt; <code>l4_canvas</code> -&gt; domain modules -&gt; public facades).</li>
 <li><strong>Headless In-Process Compilation</strong> (Agg virtual canvas, AST dependency hashing, and SQLite build caching).</li>
-<li><strong>Unified Developer Orchestration</strong> (<code>./dcli</code> routing 7 specialized toolsets and 83 deterministic release asset packs).</li>
-<li><strong>Dual-Verification Testing &amp; Live Dogfooding</strong> (159 test modules, <code>0.0</code>–<code>100.0%</code> golden pixel matching, 5 dogfooded documentation targets, and 3-stage multimodal AI review).</li>
+<li><strong>Unified Developer Orchestration</strong> (<code>./dcli</code> routing 8 specialized toolsets and 83 deterministic release asset packs).</li>
+<li><strong>Dual-Verification Testing &amp; Live Dogfooding</strong> (163 test modules, <code>0.0</code>–<code>100.0%</code> golden pixel matching, 7 dogfooded documentation targets, and 3-stage multimodal AI review).</li>
 </ol>
 <p>Together, these pillars turn <strong>Illustration as Code</strong> and <strong>Illustrated Documentation as Code</strong> into a deterministic, self-verifying software engineering discipline.</p>
 

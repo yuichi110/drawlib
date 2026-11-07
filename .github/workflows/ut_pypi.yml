@@ -1,16 +1,16 @@
 name: "ut from:pypi, os:all, python:all"
-run-name: version=${{ github.event.inputs.lib_version }}, branch=${{ github.event.inputs.branch }}
+run-name: version=${{ inputs.lib_version || 'latest' }}, branch=${{ inputs.branch || 'release-tag' }}
 
 on:
   workflow_dispatch:
     inputs:
       branch:
-        description: 'Branch'
-        required: true
-        default: 'main'
+        description: 'Branch/tag override for test suite (leave empty to match release tag v<version>)'
+        required: false
+        default: ''
         type: string
       lib_version:
-        description: 'Lib version'
+        description: 'Lib version on PyPI (e.g. latest or 0.3.6)'
         required: true
         default: 'latest'
         type: string
@@ -30,6 +30,5 @@ jobs:
       os: "${{ matrix.os }}"
       python_version: "${{ matrix.python_version }}"
       install_from: 'pypi'
-      branch: "${{ github.event.inputs.branch }}"
-      lib_version: "${{ github.event.inputs.lib_version }}"
-
+      branch: "${{ inputs.branch || '' }}"
+      lib_version: "${{ inputs.lib_version }}"

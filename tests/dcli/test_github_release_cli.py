@@ -11,6 +11,7 @@
 
 from __future__ import annotations
 
+import urllib.error
 from pathlib import Path
 from unittest.mock import patch
 
@@ -108,10 +109,13 @@ def test_cli_list_mocked(tmp_path: Path) -> None:
     notes_file.write_text(SAMPLE_NOTES, encoding="utf-8")
 
     fake_releases = [
+        {"id": 1, "tag_name": "v0.3", "draft": False, "prerelease": False, "published_at": "2026-11-01T00:00:00Z"},
         {"id": 10, "tag_name": "v0.3.2", "draft": False, "prerelease": False, "published_at": "2026-10-30T00:00:00Z"},
-        {"id": 1, "tag_name": "v0.3", "draft": False, "prerelease": False, "published_at": "2026-09-20T00:00:00Z"},
     ]
-    with patch.object(GitHubReleaseClient, "list_releases", return_value=fake_releases):
+    with (
+        patch.object(GitHubReleaseClient, "list_releases", return_value=fake_releases),
+        patch.object(GitHubReleaseClient, "get_latest_release", return_value=fake_releases[1]),
+    ):
         result = runner.invoke(app, ["list", "--notes-file", str(notes_file), "--token", "dummy"])
 
     assert result.exit_code == 0
@@ -121,7 +125,7 @@ def test_cli_list_mocked(tmp_path: Path) -> None:
 
 
 def test_cli_create_idempotent_and_update(tmp_path: Path) -> None:
-    """Test 'github-release create' creates missing, skips existing, and updates with --update."""
+    """Test 'github-release create' creates missing, skips existing, and protects Latest on older --update."""
     notes_file = tmp_path / "release_notes.md"
     notes_file.write_text(SAMPLE_NOTES, encoding="utf-8")
 
@@ -153,6 +157,43 @@ def test_cli_create_idempotent_and_update(tmp_path: Path) -> None:
         )
         assert res_upd.exit_code == 0
         mock_update.assert_called_once()
+        assert mock_update.call_args.kwargs["make_latest"] == "true"
+
+    # Updating an older historical release (v0.3.1) defaults to make_latest="false" so v0.3.2 stays Latest
+    existing_old = {"id": 50, "tag_name": "v0.3.1"}
+    with (
+        patch("tools.dcli.github_release.cli.resolve_commit_for_version", return_value=None),
+        patch.object(GitHubReleaseClient, "get_release_by_tag", return_value=existing_old),
+        patch.object(GitHubReleaseClient, "update_release", return_value=existing_old) as mock_update_old,
+    ):
+        res_old = runner.invoke(
+            app, ["create", "v0.3.1", "--update", "--notes-file", str(notes_file), "--token", "dummy"]
+        )
+        assert res_old.exit_code == 0
+        mock_update_old.assert_called_once()
+        assert mock_update_old.call_args.kwargs["make_latest"] == "false"
+
+
+def test_cli_dry_run_offline_safe(tmp_path: Path) -> None:
+    """Verify 'create --dry-run' and 'sync --dry-run' succeed offline without token or network calls."""
+    notes_file = tmp_path / "release_notes.md"
+    notes_file.write_text(SAMPLE_NOTES, encoding="utf-8")
+
+    with (
+        patch("tools.dcli.github_release.cli.resolve_commit_for_version", return_value=None),
+        patch.object(GitHubReleaseClient, "get_release_by_tag", side_effect=urllib.error.URLError("offline")),
+        patch.object(GitHubReleaseClient, "list_releases", side_effect=urllib.error.URLError("offline")),
+    ):
+        res_create = runner.invoke(app, ["create", "v0.3.1", "--dry-run", "--notes-file", str(notes_file)])
+        assert res_create.exit_code == 0
+        assert "[DRY-RUN]" in res_create.output
+        assert "make_latest=false" in res_create.output
+
+        res_sync = runner.invoke(
+            app, ["sync", "--from", "0.3.1", "--dry-run", "--notes-file", str(notes_file)]
+        )
+        assert res_sync.exit_code == 0
+        assert "[DRY-RUN]" in res_sync.output
 
 
 def test_cli_sync_backfill_order_and_latest_flag(tmp_path: Path) -> None:

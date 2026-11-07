@@ -12,12 +12,15 @@
 from __future__ import annotations
 
 import subprocess  # noqa: S404
+import sys
+import types
 from pathlib import Path
 from unittest.mock import MagicMock
 
 import pytest
 
 from drawlib._builder._common.browser import (
+    _browser_install_lock,
     install_headless_chromium,
     launch_headless_chromium,
 )
@@ -277,3 +280,58 @@ def test_cli_cache_download_help_exposes_browser_option(tmp_path: Path) -> None:
     res = run_drawlib_cli(["cache", "download", "--help"], cwd=str(tmp_path))
     assert res.returncode == 0
     assert "--browser" in res.stdout
+
+
+def test_install_headless_chromium_skips_when_sentinel_present(monkeypatch, tmp_path: Path) -> None:
+    """Verify waiting worker skips subprocess install if sentinel already exists after lock acquisition."""
+    fake_node = tmp_path / "node"
+    fake_cli = tmp_path / "cli.js"
+    browsers_json = tmp_path / "browsers.json"
+    fake_node.write_text("#!/bin/sh\n", encoding="utf-8")
+    fake_cli.write_text("// cli\n", encoding="utf-8")
+    browsers_json.write_text(
+        '{"browsers": [{"name": "chromium-headless-shell", "revision": "1248"}]}',
+        encoding="utf-8",
+    )
+
+    browsers_dir = tmp_path / "pw-browsers"
+    sentinel = browsers_dir / "chromium_headless_shell-1248" / "INSTALLATION_COMPLETE"
+    sentinel.parent.mkdir(parents=True, exist_ok=True)
+    sentinel.write_text("", encoding="utf-8")
+
+    monkeypatch.setenv("PLAYWRIGHT_BROWSERS_PATH", str(browsers_dir))
+    monkeypatch.setattr(
+        "playwright._impl._driver.compute_driver_executable",
+        lambda: (str(fake_node), str(fake_cli)),
+    )
+    monkeypatch.setattr("playwright._impl._driver.get_driver_env", lambda: {})
+
+    mock_run = MagicMock()
+    monkeypatch.setattr("drawlib._builder._common.browser.subprocess.run", mock_run)
+
+    install_headless_chromium()
+    mock_run.assert_not_called()
+
+
+def test_browser_install_lock_windows_msvcrt_branch(monkeypatch, tmp_path: Path) -> None:
+    """Verify _browser_install_lock acquires and releases msvcrt.locking on win32."""
+    calls: list[tuple[int, int, int]] = []
+    fake_msvcrt = types.ModuleType("msvcrt")
+    setattr(fake_msvcrt, "LK_NBLCK", 2)
+    setattr(fake_msvcrt, "LK_UNLCK", 0)
+
+    def _fake_locking(fd: int, mode: int, nbytes: int) -> None:
+        calls.append((fd, mode, nbytes))
+
+    setattr(fake_msvcrt, "locking", _fake_locking)
+
+    monkeypatch.setenv("PLAYWRIGHT_BROWSERS_PATH", str(tmp_path / "win-browsers"))
+    monkeypatch.setattr(sys, "platform", "win32")
+    monkeypatch.setitem(sys.modules, "msvcrt", fake_msvcrt)
+
+    with _browser_install_lock():
+        assert len(calls) == 1
+        assert calls[0][1] == 2
+
+    assert len(calls) == 2
+    assert calls[1][1] == 0

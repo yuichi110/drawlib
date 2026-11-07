@@ -11,6 +11,7 @@
 
 from __future__ import annotations
 
+import urllib.error
 from pathlib import Path
 from typing import Any, Optional
 
@@ -40,6 +41,8 @@ app = typer.Typer(
 
 def _require_token(token: str | None, dry_run: bool) -> str | None:
     """Resolve GitHub token and exit with helpful error when missing in non-dry-run mode."""
+    if dry_run and not token:
+        return None
     resolved = resolve_github_token(token)
     if not dry_run and not resolved:
         err_console.print(
@@ -48,6 +51,27 @@ def _require_token(token: str | None, dry_run: bool) -> str | None:
         )
         raise typer.Exit(code=1)
     return resolved
+
+
+def _highest_stable_tag(entries: list[ReleaseNoteEntry]) -> str | None:
+    """Return the tag of the highest stable (non-prerelease) version in chronologically sorted entries."""
+    stable_entries = [e for e in entries if not is_prerelease_version(e.version)]
+    return stable_entries[-1].tag if stable_entries else None
+
+
+def _exit_on_http_error(err: BaseException) -> None:
+    """Format GitHub API network / HTTP errors cleanly via err_console and exit."""
+    if isinstance(err, urllib.error.HTTPError):
+        detail = ""
+        try:
+            detail = err.read().decode("utf-8", errors="replace").strip()
+        except Exception:
+            detail = ""
+        suffix = f" — {detail}" if detail else ""
+        err_console.print(f"[bold red]GitHub API HTTP {err.code}: {err.reason}{suffix}[/bold red]")
+    else:
+        err_console.print(f"[bold red]GitHub API network error: {err}[/bold red]")
+    raise typer.Exit(code=1) from err
 
 
 def _publish_single_entry(
@@ -161,14 +185,16 @@ def list_github_releases(
     resolved_token = resolve_github_token(token)
     client = GitHubReleaseClient(token=resolved_token)
     entries = parse_release_notes(notes_file)
-    remote_releases = client.list_releases()
-    remote_by_tag = {r["tag_name"]: r for r in remote_releases}
-
-    latest_rel = None
     try:
+        remote_releases = client.list_releases()
+        latest_rel = client.get_latest_release()
+    except (urllib.error.URLError, TimeoutError, OSError) as err:
+        _exit_on_http_error(err)
+        return
+
+    remote_by_tag = {r["tag_name"]: r for r in remote_releases}
+    if latest_rel is None:
         latest_rel = next((r for r in remote_releases if not r.get("draft") and not r.get("prerelease")), None)
-    except Exception:
-        latest_rel = None
     latest_tag = latest_rel["tag_name"] if latest_rel else None
 
     table = Table(title="GitHub Releases Sync Status", show_header=True, header_style="bold blue")
@@ -205,7 +231,7 @@ def create_github_release(
     latest: Optional[bool] = typer.Option(
         None,
         "--latest/--no-latest",
-        help="Mark as GitHub Latest release (defaults to True for stable, False for pre-releases).",
+        help="Mark as GitHub Latest release (defaults to True only for the newest stable entry).",
     ),
     prerelease: Optional[bool] = typer.Option(
         None,
@@ -237,6 +263,7 @@ def create_github_release(
     """Create (or idempotently skip/update) a single GitHub Release from release_notes.md."""
     target = version or get_new_version()
     try:
+        all_entries = parse_release_notes(notes_file)
         entry = extract_release_note(target, notes_path=notes_file)
     except (ValueError, KeyError) as e:
         err_console.print(f"[bold red]Error: {e}[/bold red]")
@@ -246,21 +273,35 @@ def create_github_release(
     client = GitHubReleaseClient(token=resolved_token)
 
     is_pre = prerelease if prerelease is not None else is_prerelease_version(entry.version)
-    is_latest = latest if latest is not None else (not is_pre)
+    if latest is not None:
+        is_latest = latest
+    else:
+        is_latest = (not is_pre) and (entry.tag == _highest_stable_tag(all_entries))
     make_latest_val = "true" if is_latest else "false"
     resolved_commit = commit or resolve_commit_for_version(entry.version)
 
-    existing = client.get_release_by_tag(entry.tag) if (resolved_token or not dry_run) else None
-    _publish_single_entry(
-        client,
-        entry,
-        existing_release=existing,
-        commit=resolved_commit,
-        make_latest=make_latest_val,
-        prerelease=is_pre,
-        update=update,
-        dry_run=dry_run,
-    )
+    existing: dict[str, Any] | None = None
+    if not dry_run or resolved_token:
+        try:
+            existing = client.get_release_by_tag(entry.tag)
+        except (urllib.error.URLError, TimeoutError, OSError) as err:
+            if not dry_run:
+                _exit_on_http_error(err)
+            existing = None
+
+    try:
+        _publish_single_entry(
+            client,
+            entry,
+            existing_release=existing,
+            commit=resolved_commit,
+            make_latest=make_latest_val,
+            prerelease=is_pre,
+            update=update,
+            dry_run=dry_run,
+        )
+    except (urllib.error.URLError, TimeoutError, OSError) as err:
+        _exit_on_http_error(err)
 
 
 @app.command("sync")
@@ -311,30 +352,38 @@ def sync_github_releases(
 
     resolved_token = _require_token(token, dry_run=dry_run)
     client = GitHubReleaseClient(token=resolved_token)
-    remote_by_tag = {r["tag_name"]: r for r in client.list_releases()}
+    remote_by_tag: dict[str, dict[str, Any]] = {}
+    if not dry_run or resolved_token:
+        try:
+            remote_by_tag = {r["tag_name"]: r for r in client.list_releases()}
+        except (urllib.error.URLError, TimeoutError, OSError) as err:
+            if not dry_run:
+                _exit_on_http_error(err)
+            remote_by_tag = {}
 
-    # Highest stable version in all_entries determines which release gets make_latest="true"
-    stable_entries = [e for e in all_entries if not is_prerelease_version(e.version)]
-    highest_stable_tag = stable_entries[-1].tag if stable_entries else None
+    highest_stable = _highest_stable_tag(all_entries)
 
     counts = {"created": 0, "updated": 0, "skipped": 0}
     console.print(f"[bold cyan]Synchronizing {len(targets)} release(s) from {notes_file.name}...[/bold cyan]")
 
-    for entry in targets:
-        is_pre = is_prerelease_version(entry.version)
-        make_latest_val = "true" if entry.tag == highest_stable_tag else "false"
-        resolved_commit = resolve_commit_for_version(entry.version)
-        action = _publish_single_entry(
-            client,
-            entry,
-            existing_release=remote_by_tag.get(entry.tag),
-            commit=resolved_commit,
-            make_latest=make_latest_val,
-            prerelease=is_pre,
-            update=update,
-            dry_run=dry_run,
-        )
-        counts[action] += 1
+    try:
+        for entry in targets:
+            is_pre = is_prerelease_version(entry.version)
+            make_latest_val = "true" if entry.tag == highest_stable else "false"
+            resolved_commit = resolve_commit_for_version(entry.version)
+            action = _publish_single_entry(
+                client,
+                entry,
+                existing_release=remote_by_tag.get(entry.tag),
+                commit=resolved_commit,
+                make_latest=make_latest_val,
+                prerelease=is_pre,
+                update=update,
+                dry_run=dry_run,
+            )
+            counts[action] += 1
+    except (urllib.error.URLError, TimeoutError, OSError) as err:
+        _exit_on_http_error(err)
 
     console.print(
         f"\n[bold green]★ Sync complete! Created: {counts['created']}, "

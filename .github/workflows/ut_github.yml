@@ -1,5 +1,5 @@
 name: "Unit Tests"
-run-name: mode=${{ inputs.mode || 'ubuntu-only' }}, python=${{ inputs.mode == 'full' && 'all' || inputs.python_version || '3.12' }}, branch=${{ inputs.branch || github.ref_name }}
+run-name: mode=${{ inputs.mode || 'ubuntu-only' }}, python=${{ inputs.mode == 'full' && 'all' || inputs.python_version || '3.12' }}, branch=${{ inputs.branch || github.head_ref || github.ref_name }}
 
 on:
   push:
@@ -31,9 +31,9 @@ on:
           - '3.13'
 
       branch:
-        description: 'Branch'
-        required: true
-        default: 'main'
+        description: 'Branch override (leave empty to test the selected UI branch)'
+        required: false
+        default: ''
         type: string
 
 permissions:

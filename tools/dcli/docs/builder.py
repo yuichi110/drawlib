@@ -144,7 +144,9 @@ def build_docs(
     """Build specified documentation targets or all targets.
 
     Args:
-        target_name: Specific target name ('site', 'api', 'architecture', 'readme', 'logo', 'ogp', or 'all').
+        target_name: Specific target name (
+            'site', 'api', 'architecture', 'reports', 'readme', 'logo', 'ogp', or 'all'
+        ).
         build_all: If True, build all available targets in sequence.
         clean: If True, remove previous build artifacts before building.
     """

@@ -246,7 +246,7 @@
 <p>Testing a 2D illustration and multi-format document engine requires verifying both exact geometric invariants in memory and rendered visual output across Linux, Windows, and macOS—without opening GUI windows or writing brittle tests.</p>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="../../images/07_test_architecture/01_test_hierarchy_and_strategy/test_hierarchy_and_mirroring.png" alt="01_test_hierarchy_and_strategy_1" />
-  <figcaption class="drawlib-caption">Four-Tier Source-to-Test Structural Mirroring Across 159 Test Modules</figcaption>
+  <figcaption class="drawlib-caption">Four-Tier Source-to-Test Structural Mirroring Across 163 Test Modules</figcaption>
 </figure>
 <details class="drawlib-code-details">
 <summary>Source Code</summary>
@@ -311,8 +311,8 @@
     <span class="p">],</span>
     <span class="p">[</span>
         <span class="s2">"4. Dev Tooling"</span><span class="p">,</span>
-        <span class="s2">"tools/dcli/</span><span class="se">\n</span><span class="s2">(7 developer CLI toolsets)"</span><span class="p">,</span>
-        <span class="s2">"tests/dcli/</span><span class="se">\n</span><span class="s2">(11 CLI &amp; sync test modules)"</span><span class="p">,</span>
+        <span class="s2">"tools/dcli/</span><span class="se">\n</span><span class="s2">(8 developer CLI toolsets)"</span><span class="p">,</span>
+        <span class="s2">"tests/dcli/</span><span class="se">\n</span><span class="s2">(12 CLI &amp; sync test modules)"</span><span class="p">,</span>
         <span class="s2">"dcli"</span><span class="p">,</span>
     <span class="p">],</span>
 <span class="p">]</span>
@@ -441,13 +441,13 @@
 <li><strong>Branch 2 — Automatic Golden-Image Regression (<code>pytest_runtest_call</code>)</strong>: Whenever a test saves a PNG under <code>output_tests/</code>, <code>tests/conftest.py</code> automatically compares the rendered bytes against the committed reference PNG in <code>&lt;test_module&gt;_answers/</code> via <code>check_image_match()</code>.</li>
 </ol>
 <hr />
-<h2>2. Positioning: The 159-Module Structural Layout</h2>
-<p>The repository's <strong>159 <code>test_*.py</code> modules</strong> (<code>148</code> under <code>tests/drawlib/</code> and <code>11</code> under <code>tests/dcli/</code>) mirror internal implementation boundaries rather than duplicating thin public re-export facades:</p>
+<h2>2. Positioning: The 163-Module Structural Layout</h2>
+<p>The repository's <strong>163 <code>test_*.py</code> modules</strong> (<code>151</code> under <code>tests/drawlib/</code> and <code>12</code> under <code>tests/dcli/</code>) mirror internal implementation boundaries rather than duplicating thin public re-export facades:</p>
 <ul>
 <li><strong>Core Stack (<code>tests/drawlib/_core/</code> &amp; <code>tests/drawlib/preset_styles/</code>)</strong>: Mirrors <code>src/drawlib/_core/</code> (<code>l1_core</code>, <code>l2_types</code>, <code>l3_colors</code>, <code>l3_external</code>, <code>l3_fonts</code>, <code>l3_images</code>, <code>l3_math</code>, <code>l3_styles</code>, and <code>l4_canvas</code>—where all 6 shape categories, lines, text, and image primitives live under <code>tests/drawlib/_core/l4_canvas/</code>).</li>
 <li><strong>Domain Component Suites (<code>tests/drawlib/{charts,diagrams,smartarts,graph,slide,anim,icons,release_assets}/</code>)</strong>: Mirrors <code>src/drawlib/_{charts,diagrams,smartarts,graph,slide,anim,icons}/</code> and <code>_release_assets.py</code>, pairing layout/validation tests with <code>&lt;test_stem&gt;_answers/</code> golden PNG directories.</li>
-<li><strong>Builders, CLI &amp; HTTP Server (<code>tests/drawlib/{doc_builder,cli,http_server}/</code>)</strong>: Mirrors <code>src/drawlib/{_builder,_cli,_http_server}/</code>, exercising Markdown compilation, DOCX/PPTX/PDF exporters, link validation, and the local preview server (alongside <code>test_docexist.py</code> and <code>test_lazy_imports.py</code> at the <code>tests/drawlib/</code> root).</li>
-<li><strong>Developer Tooling (<code>tests/dcli/</code>)</strong>: Mirrors <code>tools/dcli/</code>, verifying toolset discovery, shell autocompletion, docstring AST scanning, deterministic ZIP manifest syncing, PyPI SemVer checks, and Docker CLI command construction.</li>
+<li><strong>Builders, CLI &amp; HTTP Server (<code>tests/drawlib/{doc_builder,cli,http_server}/</code>)</strong>: Mirrors <code>src/drawlib/{_builder,_cli,_http_server}/</code>, exercising Markdown/catalog compilation, API reference completeness (<code>test_api_docs_completeness.py</code>), DOCX/PPTX/PDF exporters, link validation, and the local preview server (alongside <code>test_docexist.py</code> and <code>test_lazy_imports.py</code> at the <code>tests/drawlib/</code> root).</li>
+<li><strong>Developer Tooling (<code>tests/dcli/</code>)</strong>: Mirrors <code>tools/dcli/</code> across <code>12</code> test modules, verifying toolset discovery, shell autocompletion, docstring AST scanning, deterministic ZIP manifest syncing, GitHub Release note parsing and syncing (<code>test_github_release_cli.py</code>), PyPI SemVer checks, and Docker CLI command construction.</li>
 </ul>
 <hr />
 <h2>3. Details: Fixtures, RGB Histogram Diffing, and <code>./dcli test</code></h2>
@@ -488,7 +488,7 @@ $$\text{match_percentage} = \frac{\text{hist}[0]}{\text{width} \times \text{heig
 </code></pre>
 <ul>
 <li><strong>Default Parallelism &amp; Coverage</strong>: On <code>./dcli test all</code> and <code>./dcli test drawlib</code>, <code>--parallel</code> (<code>-n auto --dist loadfile</code>, grouping each test module onto a single worker so module-scoped <code>output_tests/</code> directories never race) and <code>--cov</code> (<code>--cov=drawlib</code>, with <code>--cov-report</code> adding <code>--cov-report=term-missing</code>) are <strong>enabled by default</strong>.</li>
-<li><strong>Cross-OS Continuous Integration (<code>.github/workflows/ut_github.yml</code>)</strong>: Runs the full test suite on every push and pull request to <code>main</code> across <code>ubuntu-latest</code>, <code>windows-latest</code>, and <code>macos-latest</code> via <code>ut_template.yml</code> (default Python <code>3.12</code>, with <code>workflow_dispatch</code> support for <code>3.11</code>, <code>3.12</code>, and <code>3.13</code>).</li>
+<li><strong>Continuous Integration &amp; On-Demand Cross-OS Matrix (<code>.github/workflows/ut_github.yml</code>)</strong>: Runs the full test suite in parallel on every push and pull request to <code>main</code> on <code>ubuntu-latest</code> (Python <code>3.12</code>) via <code>ut_template.yml</code>, while exposing <code>workflow_dispatch</code> modes (<code>full</code> for all 3 OSes × Python <code>3.11</code>/<code>3.12</code>/<code>3.13</code>, <code>all-os</code>, or <code>ubuntu-only</code>) for on-demand cross-platform verification.</li>
 </ul>
 <p>Next, explore how live repository dogfooding and static quality gates verify end-to-end documentation builds in <strong><a href="02_dogfooding_and_quality_gates.html">Dogfooding &amp; Quality Gates</a></strong>.</p>
 

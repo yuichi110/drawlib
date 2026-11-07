@@ -65,7 +65,7 @@ When working with an AI coding assistant (Antigravity, Gemini, Claude, etc.), th
 
 ### Specification References
 If you prefer browsing the rule specifications directly:
-- **Developer CLI (`dcli`)**: [`.agents/rules/dcli.md`](../.agents/rules/dcli.md) — Exhaustive command reference for `code-check`, `codegen`, `docker`, `docs`, `pypi`, `release-assets`, and `test`.
+- **Developer CLI (`dcli`)**: [`.agents/rules/dcli.md`](../.agents/rules/dcli.md) — Exhaustive command reference for `code-check`, `codegen`, `docker`, `docs`, `github-release`, `pypi`, `release-assets`, and `test`.
 - **Development Workflow**: [`.agents/rules/workflow.md`](../.agents/rules/workflow.md) — Lifecycles for code changes, doc sync, asset management, and releases.
 - **System Architecture**: [`.agents/rules/architecture.md`](../.agents/rules/architecture.md) — Package hierarchy, public facades, and internal layered engine (`l1` ~ `l4`).
 - **Coding & Style Guidelines**: [`.agents/rules/code-style-guide.md`](../.agents/rules/code-style-guide.md) — Python 3.11+ standards, naming conventions, type hints, and docstrings.
@@ -85,6 +85,7 @@ drawlib/
 ├── tools/              # Developer CLI (dcli), release_assets/, and original_assets/
 ├── dcli                # Shell launcher & autocompletion wrapper
 ├── docs_src/           # Documentation & asset sources (site/, api/, architecture/, readme/, logo/, ogp/) & README_*.md
+├── reports/            # PNI501 audit report source (full_audit_src/ -> docs/reports/pni-full-audit/)
 ├── docs/               # Generated GitHub Pages web root (www.drawlib.com) & static assets
 ├── .agents/rules/      # Living developer guidelines and AI instructions
 └── pyproject.toml      # Project metadata, dependencies, and tool configs

@@ -12,14 +12,16 @@
 from __future__ import annotations
 
 import contextlib
+import json
 import os
 import subprocess  # noqa: S404
 import sys
 import tempfile
 import threading
+import time
 from collections.abc import Callable, Generator, Sequence
 from pathlib import Path
-from typing import TYPE_CHECKING, Final
+from typing import IO, TYPE_CHECKING, Final
 
 from drawlib._core.l1_core import logger
 
@@ -32,6 +34,51 @@ _DEFAULT_CHROMIUM_ARGS: Final[tuple[str, ...]] = (
     "--enable-font-antialiasing",
 )
 _INSTALL_THREAD_LOCK = threading.Lock()
+_WIN_LOCK_TIMEOUT_SEC: Final[float] = 300.0
+_WIN_LOCK_POLL_SEC: Final[float] = 0.1
+
+
+def _resolve_playwright_browsers_dir() -> Path:
+    """Resolve the active Playwright browser cache directory for the current platform."""
+    env_path = os.environ.get("PLAYWRIGHT_BROWSERS_PATH", "").strip()
+    if env_path and env_path != "0":
+        return Path(env_path).expanduser()
+
+    if sys.platform == "win32":
+        local_app_data = os.environ.get("LOCALAPPDATA", str(Path.home() / "AppData" / "Local"))
+        return Path(local_app_data) / "ms-playwright"
+    if sys.platform == "darwin":
+        return Path.home() / "Library" / "Caches" / "ms-playwright"
+
+    xdg_cache = os.environ.get("XDG_CACHE_HOME", str(Path.home() / ".cache"))
+    return Path(xdg_cache) / "ms-playwright"
+
+
+def _is_headless_shell_installed(cli_path: Path) -> bool:
+    """Return True if Playwright's expected chromium-headless-shell revision is already installed."""
+    browsers_json = cli_path.parent / "browsers.json"
+    if not browsers_json.is_file():
+        return False
+
+    try:
+        metadata = json.loads(browsers_json.read_text(encoding="utf-8"))
+    except (OSError, ValueError, TypeError):
+        return False
+
+    revision: str | None = None
+    for entry in metadata.get("browsers", []):
+        if isinstance(entry, dict) and entry.get("name") == "chromium-headless-shell":
+            rev_val = entry.get("revision")
+            if isinstance(rev_val, str) and rev_val:
+                revision = rev_val
+                break
+
+    if not revision:
+        return False
+
+    browsers_dir = _resolve_playwright_browsers_dir()
+    sentinel = browsers_dir / f"chromium_headless_shell-{revision}" / "INSTALLATION_COMPLETE"
+    return sentinel.is_file()
 
 
 def _resolve_lock_file_paths() -> list[Path]:
@@ -53,15 +100,69 @@ def _resolve_lock_file_paths() -> list[Path]:
     return candidates
 
 
+def _acquire_os_file_lock(lock_handle: IO[bytes]) -> str | None:
+    """Acquire an exclusive cross-process lock on POSIX (fcntl) or Windows (msvcrt)."""
+    if sys.platform == "win32":
+        with contextlib.suppress(ImportError, OSError):
+            import msvcrt  # noqa: PLC0415
+
+            locking_fn = getattr(msvcrt, "locking", None)
+            lk_nblck = getattr(msvcrt, "LK_NBLCK", 2)
+            if locking_fn is None:
+                return None
+
+            lock_handle.seek(0, os.SEEK_END)
+            if lock_handle.tell() == 0:
+                lock_handle.write(b"0")
+                lock_handle.flush()
+
+            deadline = time.monotonic() + _WIN_LOCK_TIMEOUT_SEC
+            while True:
+                try:
+                    lock_handle.seek(0)
+                    locking_fn(lock_handle.fileno(), lk_nblck, 1)
+                    return "msvcrt"
+                except OSError:
+                    if time.monotonic() >= deadline:
+                        return None
+                    time.sleep(_WIN_LOCK_POLL_SEC)
+        return None
+
+    with contextlib.suppress(ImportError, OSError):
+        import fcntl  # noqa: PLC0415
+
+        fcntl.flock(lock_handle.fileno(), fcntl.LOCK_EX)
+        return "fcntl"
+    return None
+
+
+def _release_os_file_lock(lock_handle: IO[bytes], backend: str | None) -> None:
+    """Release an exclusive cross-process file lock acquired by `_acquire_os_file_lock`."""
+    if backend == "msvcrt":
+        with contextlib.suppress(ImportError, OSError):
+            import msvcrt  # noqa: PLC0415
+
+            locking_fn = getattr(msvcrt, "locking", None)
+            lk_unlck = getattr(msvcrt, "LK_UNLCK", 0)
+            if locking_fn is not None:
+                lock_handle.seek(0)
+                locking_fn(lock_handle.fileno(), lk_unlck, 1)
+    elif backend == "fcntl":
+        with contextlib.suppress(ImportError, OSError):
+            import fcntl  # noqa: PLC0415
+
+            fcntl.flock(lock_handle.fileno(), fcntl.LOCK_UN)
+
+
 @contextlib.contextmanager
 def _browser_install_lock() -> Generator[None, None, None]:
     """Serialize concurrent headless Chromium downloads across threads and processes."""
     with _INSTALL_THREAD_LOCK:
-        lock_handle = None
+        lock_handle: IO[bytes] | None = None
         for lock_path in _resolve_lock_file_paths():
             try:
                 lock_path.parent.mkdir(parents=True, exist_ok=True)
-                lock_handle = lock_path.open("a+", encoding="utf-8")
+                lock_handle = lock_path.open("a+b")
                 break
             except OSError:
                 continue
@@ -70,20 +171,12 @@ def _browser_install_lock() -> Generator[None, None, None]:
             yield
             return
 
-        locked = False
+        backend: str | None = None
         try:
-            with contextlib.suppress(ImportError, OSError):
-                import fcntl
-
-                fcntl.flock(lock_handle.fileno(), fcntl.LOCK_EX)
-                locked = True
+            backend = _acquire_os_file_lock(lock_handle)
             yield
         finally:
-            if locked:
-                with contextlib.suppress(ImportError, OSError):
-                    import fcntl
-
-                    fcntl.flock(lock_handle.fileno(), fcntl.LOCK_UN)
+            _release_os_file_lock(lock_handle, backend)
             with contextlib.suppress(OSError):
                 lock_handle.close()
 
@@ -206,6 +299,9 @@ def install_headless_chromium(context_label: str = "Browser Setup") -> None:
         raise RuntimeError(_format_missing_browser_error(context_label, detail=detail))
 
     with _browser_install_lock():
+        if _is_headless_shell_installed(cli_path):
+            return
+
         logger.info("Downloading headless Chromium browser (first-time setup)...")
         proc = subprocess.run(  # noqa: S603
             [str(exec_path), str(cli_path), *_INSTALL_ARGS],

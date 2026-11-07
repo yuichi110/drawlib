@@ -60,7 +60,7 @@ GitHub Actions の `on: schedule` には YAML レベルの `paths:` フィルタ
 
 ```yaml
 name: "Unit Tests (Full Matrix)"
-run-name: event=${{ github.event_name }}, mode=${{ inputs.mode || 'full' }}, branch=${{ inputs.branch || github.ref_name }}
+run-name: event=${{ github.event_name }}, mode=${{ inputs.mode || 'full' }}, branch=${{ inputs.branch || github.head_ref || github.ref_name }}
 
 on:
   schedule:
@@ -89,9 +89,9 @@ on:
           - '3.13'
 
       branch:
-        description: 'Branch'
-        required: true
-        default: 'main'
+        description: 'Branch override (leave empty to test the selected UI branch)'
+        required: false
+        default: ''
         type: string
 
 permissions:
@@ -105,9 +105,9 @@ jobs:
       should_run: ${{ steps.diff.outputs.should_run }}
     steps:
       - name: Check out recent commit history
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
-          fetch-depth: 50
+          fetch-depth: 0
 
       - name: Check commits in last 25 hours
         id: diff

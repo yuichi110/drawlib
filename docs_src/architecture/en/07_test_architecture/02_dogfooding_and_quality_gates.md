@@ -11,7 +11,7 @@ from drawlib.smartarts import Cycle
 from drawlib.styles import Styles
 from drawlib.text import text
 
-setup(width=116, height=58)
+setup(width=118, height=58)
 
 loop = Cycle(
     style=Styles.Neutral,
@@ -34,20 +34,20 @@ loop.add("4", style=Styles.PrimaryFlat, text_style=Styles.WhiteBold.patch(text_s
 
 loop.set_center(
     text="Dogfood",
-    description="5 Targets",
+    description="7 Targets",
     radius=8.4,
     style=Styles.PrimaryNeutral,
     text_style=Styles.PrimaryBold.patch(text_size=10.8),
-    description_style=Styles.Dark.patch(text_size=9.6),
+    description_style=Styles.Dark.patch(text_size=10.0),
 )
-loop.draw(xy=(58.0, 29.0), radius=17.5, align="center")
+loop.draw(xy=(59.0, 29.0), radius=17.5, align="center")
 
 cards = [
     (
-        20.0,
+        20.5,
         41.4,
-        (36.5, 41.4),
-        (40.4, 41.4),
+        (37.5, 41.4),
+        (41.4, 41.4),
         "1. Engine & API Edit",
         "src/drawlib/ core &\ndomain components",
         phosphor.pencil_simple,
@@ -56,22 +56,22 @@ cards = [
         Styles.Dark,
     ),
     (
-        96.0,
+        97.5,
         41.4,
-        (75.6, 41.4),
-        (79.5, 41.4),
-        "2. Build 5 Targets",
-        "docs_src/ -> docs/\nsite · arch · readme · logo · ogp",
+        (76.6, 41.4),
+        (80.5, 41.4),
+        "2. Build 7 Targets",
+        "site · api · arch · reports\nreadme · logo · ogp",
         phosphor.book_open,
         Styles.SecondaryNeutral,
         Styles.SecondaryBold,
         Styles.Dark,
     ),
     (
-        96.0,
+        97.5,
         16.6,
-        (75.6, 16.6),
-        (79.5, 16.6),
+        (76.6, 16.6),
+        (80.5, 16.6),
         "3. Visual Grid Review",
         "drawlib show -g &\n16px HTML parity",
         phosphor.eye,
@@ -80,10 +80,10 @@ cards = [
         Styles.Dark,
     ),
     (
-        20.0,
+        20.5,
         16.6,
-        (36.5, 16.6),
-        (40.4, 16.6),
+        (37.5, 16.6),
+        (41.4, 16.6),
         "4. Static & Link Gates",
         "dcli code-check all &\ndocs serve --check",
         phosphor.shield_check,
@@ -95,10 +95,10 @@ cards = [
 
 for cx, cy, p0, p1, title, desc, icon_fn, box_st, head_st, body_st in cards:
     line(p0, p1, style=Styles.MutedDashed.patch(line_width=1.1))
-    rectangle((cx, cy), width=33.0, height=20.0, style=box_st.patch(shape_r=1.8))
-    icon_fn((cx - 12.8, cy + 4.8), width=3.8, style=head_st)
-    text((cx - 9.8, cy + 4.8), title, style=head_st.patch(halign="left", text_size=10.6))
-    text((cx, cy - 3.6), desc, style=body_st.patch(text_size=9.8))
+    rectangle((cx, cy), width=34.0, height=20.0, style=box_st.patch(shape_r=1.8))
+    icon_fn((cx - 13.2, cy + 4.8), width=3.8, style=head_st)
+    text((cx - 10.2, cy + 4.8), title, style=head_st.patch(halign="left", text_size=10.6))
+    text((cx, cy - 3.6), desc, style=body_st.patch(text_size=10.0))
 
 save()
 ```
@@ -109,24 +109,26 @@ save()
 
 Isolated unit tests cannot answer macro-level quality questions:
 - Do embedded diagram labels maintain crisp typography parity alongside `16px` HTML body prose?
-- Do localized multi-page navigation trees (`en/` and `ja/`), sitemaps, OGP banners, and `llms.txt` indexes compile cleanly together?
+- Do localized multi-page navigation trees (`en/` and `ja/`), API catalogs, sitemaps, OGP banners, and `llms.txt` indexes compile cleanly together?
 - Does modifying a shared primitive or style preset introduce subtle visual crowding across real architectural and tutorial illustrations?
 
-Drawlib closes this gap by using the repository itself as a **live dogfooding environment**: five production documentation targets under `docs_src/` compile directly into `docs/` using the local `src/drawlib/` source tree, and GitHub Pages serves `main:/docs` directly (`https://www.drawlib.com/`) without requiring a separate `pages.yml` build workflow.
+Drawlib closes this gap by using the repository itself as a **live dogfooding environment**: seven production documentation targets (`docs_src/*/` and `reports/full_audit_src/`) compile directly into `docs/` using the local `src/drawlib/` source tree, and GitHub Pages serves `main:/docs` directly (`https://www.drawlib.com/`) without requiring a separate `pages.yml` build workflow.
 
 ---
 
-## 2. Positioning: The 5 Repository Targets & Companion Examples
+## 2. Positioning: The 7 Repository Targets & Companion Examples
 
 Together with the companion `yuichi110/drawlib-examples` repository (`https://examples.drawlib.com/`), Drawlib's dogfooding suite exercises every `drawlib init project` archetype in production:
 
 | Build Target / Repo | Source Directory | Archetype | Generated Output | Dogfooding Coverage |
 | :--- | :--- | :--- | :--- | :--- |
-| **`site`** | `docs_src/site/` (`en/`, `ja/`) | `site` | `docs/` (`en/`, `ja/`, `images/`, `_assets/`, `pypi_images/`) | Multi-locale (`en`/`ja`) user guide, API reference, animations, and SEO artifacts (`www.drawlib.com`). |
+| **`site`** | `docs_src/site/` (`en/`, `ja/`) | `site` | `docs/` (`en/`, `ja/`, `images/`, `_assets/`, `pypi_images/`) | Multi-locale (`en`/`ja`) user guide, tutorials, animations, and SEO artifacts (`www.drawlib.com`). |
+| **`api`** | `docs_src/api/` (`en/`, `ja/`) | `catalog` | `docs/api/` | Bilingual (`en`/`ja`) Python API & CLI Reference catalog verified for 100% symbol completeness (`www.drawlib.com/api/`). |
 | **`architecture`** | `docs_src/architecture/` (`en/`) | `site` | `docs/architecture/` | Single-locale (`en`) software architecture specification (`www.drawlib.com/architecture/`). |
+| **`reports`** | `reports/full_audit_src/` (`en/`) | `doc` | `docs/reports/pni-full-audit/` (`index.html`, `full_audit.pdf`) | PNI501 software health & security audit report in linear HTML and A4 PDF (`www.drawlib.com/reports/pni-full-audit/`). |
 | **`readme`** | `docs_src/readme/` | `images` | `docs/readme_images/` | Standalone Python scripts rendering hero banners and feature showcases for `README.md`. |
 | **`logo`** | `docs_src/logo/` | `images` | `docs/logo/` | Brand mark, wordmark, and favicon vector/raster asset generators. |
-| **`ogp`** | `docs_src/ogp/` | `images` | `docs/ogp_images/`, `docs_src/{site,architecture}/_assets/ogp.png` | `1280×640` GitHub Social Preview and Open Graph banner generators. |
+| **`ogp`** | `docs_src/ogp/` | `images` | `docs/ogp_images/`, `docs_src/{site,api,architecture}/_assets/ogp.png` | `1280×640` GitHub Social Preview and Open Graph banner generators. |
 | **`drawlib-examples`** *(companion repo)* | `yuichi110/drawlib-examples` | `doc` & `slide` | HTML, A4 PDF, `.docx`, `.pptx` | Linear technical guides and `16:9` presentation decks (`examples.drawlib.com`). |
 
 ---
@@ -204,7 +206,7 @@ Running `./dcli code-check all` executes three deterministic checks in sequence 
 ### 3.2. Asset Manifest & Link Hygiene Gates (`sync --check` & `serve --check`)
 Two domain-specific verification commands guard external assets and compiled HTML sites:
 1. **Offline Release Asset Sync Gate (`./dcli release-assets sync --check`)**: Recomputes deterministic `.zip` hashes across `tools/release_assets/v0.3/` offline and fails with exit code `1` if `src/drawlib/_release_assets.py` is out of sync with any of the 83 asset packages.
-2. **Headless Link & Path Hygiene Scanner (`./dcli docs serve <target> --check`)**: Invokes `drawlib serve <out_dir> --check` on compiled `docs/` or `docs/architecture/` outputs without starting the interactive HTTP server—verifying every relative link, image `src`, and heading anchor while build-time Markdown scanners reject forbidden machine-local filesystem paths and local-file URL schemes.
+2. **Headless Link & Path Hygiene Scanner (`./dcli docs serve <target> --check`)**: Invokes `drawlib serve <out_dir> --check` on compiled `docs/`, `docs/api/`, `docs/architecture/`, or `docs/reports/pni-full-audit/` outputs without starting the interactive HTTP server—verifying every relative link, image `src`, and heading anchor while build-time Markdown scanners reject forbidden machine-local filesystem paths and local-file URL schemes.
 
 ---
 
@@ -213,7 +215,7 @@ Two domain-specific verification commands guard external assets and compiled HTM
 Across all seven chapters of this specification, Drawlib unifies four architectural pillars:
 1. **Strict Unidirectional Core Layers** (`l1_core` -> `l2_types` -> `l3_*` -> `l4_canvas` -> domain modules -> public facades).
 2. **Headless In-Process Compilation** (Agg virtual canvas, AST dependency hashing, and SQLite build caching).
-3. **Unified Developer Orchestration** (`./dcli` routing 7 specialized toolsets and 83 deterministic release asset packs).
-4. **Dual-Verification Testing & Live Dogfooding** (159 test modules, `0.0`–`100.0%` golden pixel matching, 5 dogfooded documentation targets, and 3-stage multimodal AI review).
+3. **Unified Developer Orchestration** (`./dcli` routing 8 specialized toolsets and 83 deterministic release asset packs).
+4. **Dual-Verification Testing & Live Dogfooding** (163 test modules, `0.0`–`100.0%` golden pixel matching, 7 dogfooded documentation targets, and 3-stage multimodal AI review).
 
 Together, these pillars turn **Illustration as Code** and **Illustrated Documentation as Code** into a deterministic, self-verifying software engineering discipline.
