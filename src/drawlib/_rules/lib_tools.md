@@ -160,6 +160,7 @@ from drawlib.tools import build_image
 build_image(
     input_path="images_src/",
     output_path="images/",
+    format=None,  # Optional override: "png", "webp", "gif", "jpg", or "pdf"
     styles_path="images_src/styles.py",
     utils_path="images_src/utils.py",
     grid=False,

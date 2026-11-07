@@ -136,7 +136,7 @@ The `drawlib.canvas` module manages global drawing state:
 | :--- | :--- | :--- |
 | `setup()` | `width=100, height=100, dpi=100, background_color=(255, 255, 255), background_alpha=1.0, grid=False, ...` | Configures dimensions, canvas background color/alpha, rasterization resolution (default 100 DPI), and coordinate grid settings. |
 | `clear()` | *(no arguments)* | Flushes all buffered shapes and resets canvas state. Essential in multi-image batch scripts to prevent bleeding. |
-| `save()` | `file=None, format=None` | Renders the display list to disk (`.png`, `.jpg`, `.webp`, `.pdf`). When `file` is omitted, saves as `<script_name>.png`. |
+| `save()` | `file=None, format=None` | Renders the display list to disk (`.png`, `.apng`, `.jpg`, `.webp`, `.gif`, `.pdf`, `.svg`). When `file` is omitted, saves as `<script_name>.png`. |
 | `get_dimage()` | *(no arguments)* | Returns an in-memory `Dimage` representation of the current canvas without saving to disk. |
 | `show()` | *(no arguments)* | Opens an interactive local GUI desktop window displaying the rendered canvas. |
 

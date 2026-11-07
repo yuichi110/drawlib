@@ -27,12 +27,15 @@ class TestImageTypeFormat:
         """Test valid and invalid image formats."""
         adapter: TypeAdapter[ImageFormat] = TypeAdapter(ImageFormat)
         assert adapter.validate_python("png") == "png"
+        assert adapter.validate_python("apng") == "apng"
         assert adapter.validate_python("jpg") == "jpg"
         assert adapter.validate_python("webp") == "webp"
+        assert adapter.validate_python("gif") == "gif"
         assert adapter.validate_python("pdf") == "pdf"
+        assert adapter.validate_python("svg") == "svg"
 
         with pytest.raises(ValidationError):
-            adapter.validate_python("gif")
+            adapter.validate_python("bmp")
 
 
 class TestImageTypeZoom:

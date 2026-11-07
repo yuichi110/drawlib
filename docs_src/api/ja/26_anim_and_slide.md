@@ -1,6 +1,6 @@
 # drawlib.anim & drawlib.slide（アニメーションとスライド）
 
-`drawlib.anim` は `Animation` フレームマネージャを通じてロスレスなマルチフレーム **APNG**（`.png`）および **Animated WebP**（`.webp`）イラストを生成し、`drawlib.slide` は `1920×1080` プレゼンテーションステージ用のヘルパー（`current_slide`・`draw_page_number`・`draw_section_header`）と HTML／編集可能 PowerPoint コンパイラ（`build_slide`・`build_pptx`）を提供します。
+`drawlib.anim` は `Animation` フレームマネージャを通じてマルチフレーム **APNG**（`.png`）・**Animated WebP**（`.webp`）・ディザノイズのない **Animated GIF**（`.gif`）イラストを生成し、`drawlib.slide` は `1920×1080` プレゼンテーションステージ用のヘルパー（`current_slide`・`draw_page_number`・`draw_section_header`）と HTML／編集可能 PowerPoint コンパイラ（`build_slide`・`build_pptx`）を提供します。
 
 ```drawlib align=center code=fold file=26_anim_and_slide_hero.png caption="drawlib.anim のキーフレームタイムラインと drawlib.slide の 16:9 ステージ構成の概要図"
 from drawlib.canvas import save, setup
@@ -68,7 +68,7 @@ save()
 
 ## `class` Animation
 
-`drawlib.anim` からインポートされるマルチフレーム・アニメーション管理クラスです。インスタンス化するとアクティブな Drawlib キャンバスへ自動登録され、通常の `drawlib.canvas.save()` を呼ぶだけで蓄積された全フレームをロスレスな **APNG**（`.png` / `.apng`）または **Animated WebP**（`.webp`）として書き出します。
+`drawlib.anim` からインポートされるマルチフレーム・アニメーション管理クラスです。インスタンス化するとアクティブな Drawlib キャンバスへ自動登録され、通常の `drawlib.canvas.save()` を呼ぶだけで蓄積された全フレームをロスレスな **APNG**（`.png` / `.apng`）・**Animated WebP**（`.webp`）またはディザノイズのない **Animated GIF**（`.gif`）として書き出します。
 
 ```python
 from drawlib.anim import Animation

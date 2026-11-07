@@ -39,19 +39,19 @@
     
     
     
-    <meta name="description" content="Release Date: 2026/11/06">
+    <meta name="description" content="Release Date: 2026/11/07">
     <link rel="canonical" href="https://www.drawlib.com/en/01_getting_started/release_notes.html">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Drawlib Documentation">
     <meta property="og:title" content="Release Notes &amp; Migration Guide — Drawlib Documentation">
-    <meta property="og:description" content="Release Date: 2026/11/06">
+    <meta property="og:description" content="Release Date: 2026/11/07">
     <meta property="og:url" content="https://www.drawlib.com/en/01_getting_started/release_notes.html">
     <meta property="og:image" content="https://www.drawlib.com/_assets/ogp.png">
     <meta property="og:locale" content="en_US">
     <meta property="og:locale:alternate" content="ja_JP">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Release Notes &amp; Migration Guide — Drawlib Documentation">
-    <meta name="twitter:description" content="Release Date: 2026/11/06">
+    <meta name="twitter:description" content="Release Date: 2026/11/07">
     <meta name="twitter:image" content="https://www.drawlib.com/_assets/ogp.png">
     
     
@@ -88,7 +88,7 @@
                 
                 <a href="../01_getting_started/release_notes.html" class="sidebar-version-badge" title="View Release Notes">
                     <span class="sidebar-version-dot" aria-hidden="true"></span>
-                    <span class="sidebar-version-text">v0.3.6</span>
+                    <span class="sidebar-version-text">v0.3.7</span>
                 </a>
                 <a href="https://github.com/yuichi110/drawlib" target="_blank" rel="noopener noreferrer" class="sidebar-github-link" aria-label="GitHub Repository" title="GitHub Repository">
                     <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
@@ -671,6 +671,27 @@
             </header>
             <main class="main-content">
                 <h1>Release Notes &amp; Migration Guide</h1>
+<h2>Version 0.3.7</h2>
+<p><em>Release Date: 2026/11/07</em></p>
+<p>Version 0.3.7 introduces <strong>dither-free Animated &amp; Static GIF export (<code>.gif</code>)</strong> across <code>Animation</code>, <code>canvas.save()</code>, Markdown code fences, and CLI batch builds for universal social, presentation, and wiki playback, alongside <strong>cross-platform parallel headless Chromium locking</strong>, <strong>localized external <code>navbar.md</code> URL validation</strong>, and <strong>multi-portal SEO / <code>llms.txt</code> discovery enhancements</strong>.</p>
+<hr />
+<h3>Highlights &amp; New Features</h3>
+<h4>1. Dither-Free Animated &amp; Static GIF Export (<code>Animation</code>, <code>save(&quot;*.gif&quot;)</code>, <code>drawlib build image -f gif</code>)</h4>
+<ul>
+<li><strong>Crisp Diagram-Tuned Palette Quantization (<code>l3_images._gif</code>)</strong>: Added native <code>.gif</code> export (<code>ImageFormat</code> includes <code>&quot;gif&quot;</code>, <code>&quot;apng&quot;</code>, and <code>&quot;svg&quot;</code>) powered by Median Cut 256-color quantization with dithering disabled (<code>Image.Quantize.MEDIANCUT</code> + <code>Image.Dither.NONE</code>), preserving flat <code>Styles.Neutral</code> surfaces and anti-aliased text without Floyd-Steinberg grain noise.</li>
+<li><strong>End-to-End Animation, Markdown &amp; CLI Support</strong>: Export multi-frame GIF animations via <code>save(&quot;flow.gif&quot;)</code> or <code>save(&quot;flow&quot;, format=&quot;gif&quot;)</code> (with automatic <code>10ms</code> GIF tick rounding and reserved palette index <code>255</code> + <code>disposal=2</code> 1-bit transparency on transparent canvases), embed <code>file=demo.gif</code> / <code>format=gif</code> inside Markdown <code>```drawlib</code> blocks (with automatic static PNG extraction for <code>.docx</code> / <code>.pptx</code>), and batch-render via <code>drawlib build image -f gif</code>.</li>
+</ul>
+<h4>2. Cross-Platform Parallel Browser Locking &amp; Multi-Locale Navbar Parity</h4>
+<ul>
+<li><strong>Cross-Process Headless Chromium Locking &amp; Sentinel Verification (<code>browser.py</code>)</strong>: Extended <code>_browser_install_lock()</code> with Windows <code>msvcrt.locking</code> support alongside POSIX <code>fcntl.flock</code>, and added post-lock <code>INSTALLATION_COMPLETE</code> sentinel verification so parallel workers (such as <code>pytest-xdist</code> or concurrent PDF/PPTX builds) safely serialize first-time <code>chromium-headless-shell</code> downloads and skip redundant CLI invocations.</li>
+<li><strong>Localized External Navbar Links (<code>i18n.py</code>)</strong>: Multi-locale <code>site</code> parity validation now permits localized <code>/{lang}/</code> path segments in external <code>navbar.md</code> URLs (for example, linking to <code>/api/en/</code> in <code>en/navbar.md</code> and <code>/api/ja/</code> in <code>ja/navbar.md</code>).</li>
+</ul>
+<h4>3. CLI, Scaffolding, SEO Discovery &amp; Documentation Refinements</h4>
+<ul>
+<li><strong>Catalog Scaffolding &amp; CLI Help Polish</strong>: Updated <code>drawlib init project</code> help descriptions and <code>catalog</code> project build script progress messages (<code>Catalog HTML</code>), and refined Bezier/line coordinate tuple narrowing in <code>l3_math</code> and <code>l4_canvas</code>.</li>
+<li><strong>Multi-Portal Sitemap &amp; <code>llms.txt</code> Discovery</strong>: Root <code>robots.txt</code> and <code>llms.txt</code> on <code>www.drawlib.com</code> now reference <code>/api/</code> and <code>/architecture/</code> sitemaps and LLM discovery indexes, alongside updated <code>BoxChart</code> (10-chart) and 15 tech-brand icon suite references across GitHub and PyPI READMEs.</li>
+</ul>
+<hr />
 <h2>Version 0.3.6</h2>
 <p><em>Release Date: 2026/11/06</em></p>
 <p>Version 0.3.6 introduces <strong><code>BoxChart</code> and <code>BoxStats</code> (<code>drawlib.charts.box</code>)</strong>—a unified statistical distribution chart engine for box plots, strip/jitter plots, and hybrid benchmark overlays—alongside <strong>supply-chain security hardening, non-root container images, and offline reliability enhancements</strong> validated by the PNI501 full engineering audit.</p>

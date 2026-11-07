@@ -1,6 +1,6 @@
-# Animations Overview (APNG & WebP)
+# Animations Overview (APNG, WebP & GIF)
 
-Drawlib provides native support for generating multi-frame animations in both **Animated Portable Network Graphics (APNG)** and **Animated WebP** formats.  
+Drawlib provides native support for generating multi-frame animations in **Animated Portable Network Graphics (APNG)**, **Animated WebP**, and **Animated GIF** formats.  
 Animations empower developers and AI coding agents to create clean, high-framerate, multi-step architectural illustrations, data visualizations, and interactive walkthroughs using declarative Python code.
 
 ```drawlib code=fold align=center file=animation_step_architecture.png caption="Step-by-Step Architecture Reveal"
@@ -83,8 +83,9 @@ save()
 
 | Format | Extension | Primary Advantage | Best Use Cases |
 | :--- | :--- | :--- | :--- |
-| **APNG** | `.png`, `.apng` | **Universal Compatibility**: Renders natively in all modern web browsers and GitHub Markdown previews. Safe static fallback to Frame 1 in PDF compilers and legacy viewers. | GitHub READMEs, markdown documentation, printable technical documents. |
-| **Animated WebP** | `.webp` | **Ultra-Compact File Size**: Typically ~50% smaller than APNG with lossless quality. | Web-hosted documentation sites, high-performance web applications, mobile platforms. |
+| **APNG** | `.png`, `.apng` | **Lossless Full Color & Static Fallback**: Renders natively in all modern web browsers and GitHub Markdown with 24-bit RGB + 8-bit alpha; falls back safely to Frame 1 in PDFs. | GitHub READMEs, technical documentation sites, printable PDF documents. |
+| **Animated WebP** | `.webp` | **Ultra-Compact Lossless Size**: Typically ~50% smaller than APNG while preserving lossless 24-bit RGB + 8-bit alpha quality. | Web-hosted documentation sites, high-performance web applications, mobile platforms. |
+| **Animated GIF** | `.gif` | **Universal Legacy & Social Compatibility**: Plays everywhere—including X/Twitter, LinkedIn, PowerPoint, Google Slides, Notion, Confluence, and email clients—using dither-free 256-color Median Cut quantization (`Image.Dither.NONE`). | Social media posts, presentation slide decks, enterprise wikis, chat & email sharing. |
 
 ---
 
@@ -115,7 +116,10 @@ save("animation.apng")
 # Saves as Animated WebP (.webp):
 save("animation.webp")
 
-# Or specify format explicitly ("webp", "png", or "apng"):
+# Saves as dither-free Animated GIF (.gif):
+save("animation.gif")
+
+# Or specify format explicitly ("webp", "png", "apng", or "gif"):
 save("pipeline", format="webp")
 ```
 
@@ -257,10 +261,11 @@ save()
 2. **Hold the Final Completed Frame**:
    To give readers time to absorb the completed diagram before the loop restarts, set an extended `duration` (`2.0` to `3.0` seconds) on the final frame.
 3. **Embedded Markdown Blocks**:
-   Any ````drawlib```` block that initializes `Animation()` automatically outputs an animated `.png` (APNG) or `.webp` file during `drawlib build`.
-4. **Built-in Lossless Compression**:
-   - **APNG (`.png` / `.apng`)**: Automatically crops sub-frame delta bounding boxes and applies maximum Zlib (`compress_level=9`) + Huffman (`optimize=True`) compression.
+   Any ````drawlib```` block that initializes `Animation()` automatically outputs an animated `.png` (APNG), `.webp`, or `.gif` file during `drawlib build`.
+4. **Built-in Format Encoding**:
+   - **APNG (`.png` / `.apng`)**: Automatically crops sub-frame delta bounding boxes and applies maximum Zlib (`compress_level=9`) + Huffman (`optimize=True`) lossless compression.
    - **Animated WebP (`.webp`)**: Encodes with lossless sub-frame minimization (`lossless=True`, `minimize_size=True`), typically ~50% smaller than APNG.
+   - **Animated GIF (`.gif`)**: Quantizes each frame with dither-free 256-color Median Cut (`Image.Quantize.MEDIANCUT` + `Image.Dither.NONE`), rounds frame durations to `10ms` GIF spec ticks, and reserves palette index `255` (`disposal=2`) when canvas pixels are transparent.
 
 ---
 

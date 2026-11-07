@@ -305,7 +305,7 @@ The canvas operates in a Cartesian coordinate space with the origin `(0, 0)` loc
 | Function | Parameters | Description |
 | :--- | :--- | :--- |
 | `setup(...)` | `width: int \| None = None`, `height: int \| None = None`, `dpi: int \| None = None`, `background_color: Color \| tuple \| str \| None = None`, `background_alpha: float \| None = None`, `grid: bool \| None = None`, `grid_only: bool \| None = None`, `grid_style: Style \| None = None`, `grid_centerstyle: Style \| None = None`, `grid_xpitch: int \| None = None`, `grid_ypitch: int \| None = None` | Initializes canvas dimensions (default `100×100`), DPI (`100`), background color/alpha, and optional coordinate grid. |
-| `save(...)` | `file: str \| Path \| None = None`, `format: Literal["jpg", "png", "webp", "pdf"] \| None = None` | Exports the drawn canvas to an image file (`.png`, `.jpg`, `.webp`, `.pdf`). |
+| `save(...)` | `file: str \| Path \| None = None`, `format: Literal["jpg", "png", "apng", "webp", "gif", "pdf", "svg"] \| None = None` | Exports the drawn canvas to an image file (`.png`, `.apng`, `.jpg`, `.webp`, `.gif`, `.pdf`, `.svg`). |
 | `clear()` | None | Clears the active canvas and resets state for the next diagram. |
 | `show()` | None | Displays the interactive GUI preview window (avoid in headless CI / agents). |
 | `get_dimage()` | None | Returns the current canvas as an in-memory `Dimage` object. |
@@ -801,7 +801,7 @@ text((50, 15), "AVENGER FONT", style=avenger_style)
 
 ## 11. Multi-Frame Animations (`drawlib.anim`)
 
-Drawlib natively supports multi-frame animations in **APNG** (`.png`) and **Animated WebP** (`.webp`) formats.
+Drawlib natively supports multi-frame animations in **APNG** (`.png`), **Animated WebP** (`.webp`), and **Animated GIF** (`.gif`) formats.
 
 | Class / Method / Property | Parameters / Type | Description |
 | :--- | :--- | :--- |
@@ -823,7 +823,7 @@ for x in range(15, 86, 10):
     with anim.frame():
         circle((x, 20), radius=6, style=Styles.Primary)
 
-save("motion.png")  # Automatically writes APNG or WebP based on extension
+save("motion.png")  # Automatically writes APNG, WebP, or GIF based on extension
 ```
 
 ---

@@ -51,7 +51,7 @@ def extract_code_blocks(
             info_str = (match.group(1) + " " + match.group(2)).strip()
             code = match.group(3).strip()
             options = parse_block_info(info_str)
-            ext = "webp" if (options.format == "webp") else "png"
+            ext = options.format if options.format in {"webp", "gif", "svg", "apng"} else "png"
             if options.file:
                 fn = options.file if ("." in options.file) else f"{options.file}.{ext}"
             else:
@@ -93,7 +93,7 @@ def extract_code_blocks(
                 i += 1
             code = "\n".join(code_lines).strip()
 
-            ext = "webp" if (options.format == "webp") else "png"
+            ext = options.format if options.format in {"webp", "gif", "svg", "apng"} else "png"
             if options.file:
                 fn = options.file if ("." in options.file) else f"{options.file}.{ext}"
             else:

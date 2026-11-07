@@ -67,7 +67,7 @@ _PATTERN_DRAWLIB: Final[re.Pattern[str]] = re.compile(
 )
 _PATTERN_H1: Final[re.Pattern[str]] = re.compile(r"^[ \t]*#(?!#)[ \t]+(.+?)[ \t#]*$")
 _PATTERN_FENCE_LINE: Final[re.Pattern[str]] = re.compile(r"^[ \t]{0,3}(`{3,}|~{3,})")
-_KNOWN_DIAGRAM_EXTS: Final[tuple[str, ...]] = (".svg", ".png", ".apng", ".webp", ".jpg", ".jpeg")
+_KNOWN_DIAGRAM_EXTS: Final[tuple[str, ...]] = (".svg", ".png", ".apng", ".webp", ".gif", ".jpg", ".jpeg")
 
 
 @dataclass(frozen=True)

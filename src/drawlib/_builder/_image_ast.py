@@ -307,7 +307,7 @@ def _normalize_build_inputs_and_output(
     if output:
         ext = os.path.splitext(output)[1].lower()
         is_single = len(targets) == 1 and os.path.isfile(targets[0])
-        if is_single and ext in {".png", ".webp", ".jpg", ".jpeg", ".pdf"} and not os.path.isdir(output):
+        if is_single and ext in {".png", ".webp", ".gif", ".jpg", ".jpeg", ".pdf"} and not os.path.isdir(output):
             output_file = output
         else:
             output_dir = output

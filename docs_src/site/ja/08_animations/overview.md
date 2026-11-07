@@ -1,6 +1,6 @@
-# アニメーション概要 (APNG & WebP)
+# アニメーション概要 (APNG, WebP & GIF)
 
-Drawlib は、**APNG (Animated Portable Network Graphics)** と **Animated WebP** の両フォーマットによるマルチフレームアニメーション生成をネイティブにサポートしています。  
+Drawlib は、**APNG (Animated Portable Network Graphics)**・**Animated WebP**・**Animated GIF** の 3 フォーマットによるマルチフレームアニメーション生成をネイティブにサポートしています。  
 宣言的な Python コードを用いることで、開発者や AI コーディングエージェントは、高フレームレートで明快なステップバイステップのアーキテクチャ図解、データビジュアライゼーション、インタラクティブなウォークスルーを作成できます。
 
 ```drawlib code=fold align=center file=animation_step_architecture.png caption="ステップバイステップのアーキテクチャ段階表示"
@@ -83,8 +83,9 @@ save()
 
 | フォーマット | 拡張子 | 主な利点 | 最適なユースケース |
 | :--- | :--- | :--- | :--- |
-| **APNG** | `.png`, `.apng` | **高い互換性**: すべてのモダン Web ブラウザや GitHub の Markdown プレビューでネイティブに再生されます。PDF コンパイラやレガシービューアでは、第 1 フレームへ安全に静止画フォールバックします。 | GitHub README、Markdown ドキュメント、印刷対応の技術文書。 |
-| **Animated WebP** | `.webp` | **極めてコンパクトなファイルサイズ**: ロスレス品質を保ちながら、通常 APNG より約 50% 小さなサイズになります。 | Web ホスティング型のドキュメントサイト、高パフォーマンス Web アプリケーション、モバイル環境。 |
+| **APNG** | `.png`, `.apng` | **ロスレス・フルカラー & 静止画フォールバック**: モダン Web ブラウザや GitHub Markdown で 24-bit RGB + 8-bit α のフルカラー再生が可能。PDF 出力時は第 1 フレームへ安全にフォールバックします。 | GitHub README、技術ドキュメントサイト、印刷・PDF 対応文書。 |
+| **Animated WebP** | `.webp` | **極めてコンパクトなロスレス品質**: 24-bit RGB + 8-bit α のロスレス品質を保ちながら、通常 APNG より約 50% 小さなサイズになります。 | Web ホスティング型ドキュメントサイト、高パフォーマンス Web アプリケーション、モバイル環境。 |
+| **Animated GIF** | `.gif` | **SNS・スライド・レガシー環境での圧倒的互換性**: ディザリング無効の 256 色 Median Cut 減色（`Image.Dither.NONE`）によりフラットな図版を粒状ノイズなく保持し、X / LinkedIn・PowerPoint・Google スライド・Notion・Confluence・メール等あらゆる環境で再生されます。 | SNS 投稿、プレゼンテーション資料、社内 Wiki、チャット・メール共有。 |
 
 ---
 
@@ -115,7 +116,10 @@ save("animation.apng")
 # Saves as Animated WebP (.webp):
 save("animation.webp")
 
-# Or specify format explicitly ("webp", "png", or "apng"):
+# Saves as dither-free Animated GIF (.gif):
+save("animation.gif")
+
+# Or specify format explicitly ("webp", "png", "apng", or "gif"):
 save("pipeline", format="webp")
 ```
 
@@ -257,10 +261,11 @@ save()
 2. **完成した最終フレームの保持（ホールド）**:
    ループが再開する前に読み手が完成図を十分に把握できるよう、最終フレームには長めの `duration`（`2.0`〜`3.0` 秒）を設定してください。
 3. **埋め込み Markdown ブロックとの統合**:
-   `Animation()` を初期化する ````drawlib```` ブロックは、`drawlib build` の実行時に自動的にアニメーション `.png`（APNG）または `.webp` ファイルを出力します。
-4. **組み込みのロスレス圧縮**:
+   `Animation()` を初期化する ````drawlib```` ブロックは、`drawlib build` の実行時に自動的にアニメーション `.png`（APNG）、`.webp`、または `.gif` ファイルを出力します。
+4. **フォーマット別の自動エンコード最適化**:
    - **APNG (`.png` / `.apng`)**: サブフレームの差分境界ボックスを自動で切り出し、最大の Zlib 圧縮（`compress_level=9`）とハフマン最適化（`optimize=True`）を適用します。
    - **Animated WebP (`.webp`)**: ロスレスのサブフレーム最小化（`lossless=True`, `minimize_size=True`）でエンコードし、通常 APNG より約 50% 小さなファイルサイズを実現します。
+   - **Animated GIF (`.gif`)**: ディザリング無効の 256 色 Median Cut 減色（`Image.Quantize.MEDIANCUT` + `Image.Dither.NONE`）を適用し、GIF 仕様に合わせてフレーム時間を `10ms` 単位へ丸めるほか、透過背景時はパレット `255` 番予約と `disposal=2` によって残像を防ぎます。
 
 ---
 

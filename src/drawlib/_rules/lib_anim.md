@@ -1,6 +1,6 @@
 # Drawlib Animation Guidelines
 
-Drawlib provides native support for generating multi-frame animations in both **Animated Portable Network Graphics (APNG)** and **Animated WebP** formats.  
+Drawlib provides native support for generating multi-frame animations in **Animated Portable Network Graphics (APNG)**, **Animated WebP**, and **Animated GIF** formats.  
 Animations empower developers and AI coding agents to create clean, high-framerate, multi-step architectural illustrations and animated technical visualizations using declarative Python code.
 
 ---
@@ -9,8 +9,9 @@ Animations empower developers and AI coding agents to create clean, high-framera
 
 | Format | File Extension | Primary Strength | Use Cases |
 | :--- | :--- | :--- | :--- |
-| **APNG** | `.png` | **Universal Compatibility**: Renders natively in all modern browsers and GitHub Markdown. Safe static fallback to frame 1 in PDF or legacy viewers. | GitHub READMEs, markdown documentation, printable technical documents. |
-| **Animated WebP** | `.webp` | **Ultra-Compact File Size**: Typically ~50% smaller than APNG with lossless quality. Lossy compression also available. | Modern web applications, mobile platforms, web-hosted documentation sites. |
+| **APNG** | `.png` / `.apng` | **Lossless Full Color & Static Fallback**: Renders natively in all modern browsers and GitHub Markdown with full 24-bit RGB + 8-bit alpha; gracefully falls back to frame 1 in PDFs. | GitHub READMEs, technical documentation sites, printable PDF documents. |
+| **Animated WebP** | `.webp` | **Ultra-Compact Lossless Quality**: Typically ~50% smaller than APNG with full 24-bit RGB + 8-bit alpha lossless encoding. | Modern web applications, mobile platforms, web-hosted documentation sites. |
+| **Animated GIF** | `.gif` | **Universal Legacy & Social Compatibility**: Plays everywhere—including X/Twitter, LinkedIn, PowerPoint, Google Slides, Notion, Confluence, and email clients—using dither-free 256-color Median Cut quantization (`Image.Dither.NONE`). | Social media posts, slide presentations, internal wikis, legacy enterprise portals. |
 
 ---
 
@@ -37,8 +38,11 @@ with anim.frame():
 # Saves as APNG:
 save("animation.png")
 
-# Or saves as Animated WebP:
+# Saves as Animated WebP:
 save("animation.webp")
+
+# Or saves as dither-free Animated GIF:
+save("animation.gif")
 ```
 
 ---
@@ -141,14 +145,18 @@ save("architecture_flow.png")
 # Save as Animated WebP
 save("architecture_flow.webp")
 
+# Save as Animated GIF (for X/Twitter, LinkedIn, PowerPoint, or legacy viewers)
+save("architecture_flow.gif")
+
 # Or explicit format override
 save("pipeline", format="webp")
 ```
 
-* Supported extensions: `.png` (APNG), `.webp` (Animated WebP), `.apng`.
-* **Automatic Lossless Compression**:
-  - **APNG**: Encoded with maximum zlib compression (`compress_level=9`), Huffman optimization (`optimize=True`), and native delta bounding box cropping.
-  - **WebP**: Encoded with lossless compression (`lossless=True`) and size minimization (`minimize_size=True`).
+* Supported extensions: `.png` / `.apng` (APNG), `.webp` (Animated WebP), `.gif` (Animated GIF).
+* **Format Encoding Details**:
+  - **APNG**: Lossless 24-bit RGB + 8-bit alpha with maximum zlib compression (`compress_level=9`) and Huffman optimization (`optimize=True`).
+  - **WebP**: Lossless 24-bit RGB + 8-bit alpha (`lossless=True`) with size minimization (`minimize_size=True`).
+  - **GIF**: Dither-free 256-color Median Cut quantization (`Image.Quantize.MEDIANCUT`, `Image.Dither.NONE`) preserving crisp flat `Styles.Neutral` cards and anti-aliased text without Floyd-Steinberg grain noise. Frame durations are rounded to `10ms` GIF spec ticks (`>= 10ms`), and transparent canvases reserve palette index `255` with `disposal=2` to prevent frame ghosting.
 * After `save()` completes, the active animation registry is automatically reset.
 
 ---
@@ -181,7 +189,7 @@ save()
 ```
 ````
 
-To output WebP animations in Markdown, simply name the target file with `.webp` (e.g. `file=packet_pipeline.webp`) or specify `--format webp` in `drawlib build`.
+To output WebP or GIF animations in Markdown, simply name the target file with `.webp` or `.gif` (e.g. `file=packet_pipeline.webp` or `file=packet_pipeline.gif`).
 
 ---
 

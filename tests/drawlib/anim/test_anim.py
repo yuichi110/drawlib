@@ -7,7 +7,7 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Tests for drawlib.anim module supporting APNG and Animated WebP."""
+"""Tests for drawlib.anim module supporting APNG, Animated WebP, and GIF."""
 
 from __future__ import annotations
 
@@ -20,7 +20,7 @@ from PIL import Image
 from drawlib.anim import Animation
 from drawlib.canvas import canvas, clear, save, setup
 from drawlib.shapes import circle, rectangle
-from drawlib.styles import Styles
+from drawlib.styles import Colors, Styles
 
 
 class TestAnimation:
@@ -157,6 +157,65 @@ class TestAnimation:
             assert getattr(im, "is_animated", False) is True
             assert getattr(im, "n_frames", 1) == 3
 
+    def test_save_gif_opaque_and_dither_free(self, tmp_path: Path) -> None:
+        """Test saving dither-free Animated GIF on an opaque canvas via canvas.save()."""
+        clear()
+        setup(width=100, height=50)
+        anim = Animation(fps=10.0, loop=0)
+
+        for x in [20, 50, 80]:
+            with anim.frame():
+                rectangle((50, 25), width=80, height=34, style=Styles.Neutral)
+                circle((x, 25), radius=5, style=Styles.PrimaryFlat)
+
+        out_path = str(tmp_path / "test_anim.gif")
+        save(out_path)
+
+        assert os.path.exists(out_path)
+        assert canvas._active_animation is None
+
+        with Image.open(out_path) as im:
+            assert im.format == "GIF"
+            assert getattr(im, "is_animated", False) is True
+            assert getattr(im, "n_frames", 1) == 3
+
+    def test_save_gif_transparent_canvas(self, tmp_path: Path) -> None:
+        """Test saving Animated GIF with 1-bit transparency when background_color is transparent."""
+        clear()
+        setup(width=80, height=40, background_color=Colors.Transparent)
+        anim = Animation(fps=12.0, loop=2)
+
+        for x in [25, 55]:
+            with anim.frame():
+                circle((x, 20), radius=6, style=Styles.PrimaryFlat)
+
+        out_path = str(tmp_path / "transparent_anim.gif")
+        save(out_path)
+
+        with Image.open(out_path) as im:
+            assert im.format == "GIF"
+            assert getattr(im, "is_animated", False) is True
+            assert getattr(im, "n_frames", 1) == 2
+            assert im.info.get("transparency") == 255
+
+    def test_save_static_gif_with_grid(self, tmp_path: Path) -> None:
+        """Test saving a static canvas (plus companion _grid.gif) to GIF via canvas.save()."""
+        clear()
+        setup(width=80, height=40, grid=True)
+        rectangle((40, 20), width=50, height=20, style=Styles.Neutral, text="GIF")
+
+        out_path = str(tmp_path / "static_diagram.gif")
+        grid_path = str(tmp_path / "static_diagram_grid.gif")
+        save(out_path)
+
+        assert os.path.exists(out_path)
+        assert os.path.exists(grid_path)
+        with Image.open(out_path) as im:
+            assert im.format == "GIF"
+            assert getattr(im, "is_animated", False) is False
+        with Image.open(grid_path) as im_grid:
+            assert im_grid.format == "GIF"
+
     def test_save_format_override(self, tmp_path: Path) -> None:
         """Test saving with explicit format override."""
         clear()
@@ -171,6 +230,16 @@ class TestAnimation:
 
         with Image.open(out_path) as im:
             assert im.format == "WEBP"
+
+        clear()
+        setup(width=100, height=50)
+        anim_gif = Animation(fps=10.0)
+        with anim_gif.frame():
+            circle((50, 25), radius=5, style=Styles.Primary)
+        out_gif = str(tmp_path / "output_gif_no_ext")
+        save(out_gif, format="gif")
+        with Image.open(out_gif) as im_gif:
+            assert im_gif.format == "GIF"
 
     def test_save_without_frames_raises(self, tmp_path: Path) -> None:
         """Test that calling save() without any captured frames raises ValueError."""

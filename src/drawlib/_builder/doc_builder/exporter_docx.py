@@ -769,7 +769,7 @@ class _DocxChapterRenderer:
                         line_number=line_no,
                     )
                     cand_ext = os.path.splitext(canonical_target)[1].lower()
-                    render_ext = cand_ext if cand_ext in {".png", ".webp", ".apng"} else ".png"
+                    render_ext = cand_ext if cand_ext in {".png", ".webp", ".apng", ".gif"} else ".png"
                     tmp_render_path = os.path.join(
                         self.scratch_dir,
                         f"{doc_base_name}_{drawlib_counter}_{os.getpid()}{render_ext}",

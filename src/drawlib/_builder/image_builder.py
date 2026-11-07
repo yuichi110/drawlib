@@ -74,7 +74,7 @@ class DrawlibExecuter:
         utils_path: str | None = None,
         output_dir: str | None = None,
         output_file: str | None = None,
-        image_format: Literal["png", "webp", "jpg", "pdf"] | None = None,
+        image_format: Literal["png", "webp", "gif", "jpg", "pdf"] | None = None,
         grid: bool = False,
         no_cache: bool = False,
         target_roots: Sequence[str] | None = None,
@@ -91,7 +91,7 @@ class DrawlibExecuter:
             utils_path (str | None): Optional path to Python utils script.
             output_dir (str | None): Optional path to directory where images should be saved.
             output_file (str | None): Optional explicit output file path when executing a single script.
-            image_format (Literal["png", "webp", "jpg", "pdf"] | None): Optional image format override.
+            image_format (Literal["png", "webp", "gif", "jpg", "pdf"] | None): Optional image format override.
             grid (bool): Whether to generate coordinate grid overlaid images in addition to normal images.
             no_cache (bool): If True, disable reading/writing the SQLite build image cache.
             target_roots (Sequence[str] | None): Optional base directory paths for preserving subdirectories.
@@ -109,7 +109,7 @@ class DrawlibExecuter:
         self._config_hash = f"{s_hash}:{u_hash}"
         self._output_dir = output_dir
         self._output_file = output_file
-        self._image_format: Literal["png", "webp", "jpg", "pdf"] | None = image_format
+        self._image_format: Literal["png", "webp", "gif", "jpg", "pdf"] | None = image_format
         self._grid = grid
         self._no_cache = no_cache
         self._cache = BuildImageCache(enabled=not no_cache)
@@ -180,9 +180,9 @@ class DrawlibExecuter:
 
         def _wrapped_save(
             file: str | None = None,
-            format: Literal["png", "webp", "jpg", "pdf"] | None = None,
+            format: Literal["png", "webp", "gif", "jpg", "pdf"] | None = None,
         ) -> None:
-            eff_format: Literal["png", "webp", "jpg", "pdf"] | None = (
+            eff_format: Literal["png", "webp", "gif", "jpg", "pdf"] | None = (
                 self._image_format if self._image_format else format
             )
             if self._output_file is not None:
@@ -304,7 +304,7 @@ class DrawlibExecuter:
         call_file, call_format = parsed_save
         target_abs = self._resolve_static_save_target(file_path, call_file, call_format)
         ext = os.path.splitext(target_abs)[1].lower().lstrip(".")
-        if ext not in {"png", "webp"}:
+        if ext not in {"png", "webp", "gif"}:
             return False
 
         need_grid = self._grid or drawlib_settings.get_force_grid() or bool(re.search(r"\bgrid\s*=\s*True\b", code))
@@ -594,7 +594,7 @@ def build_image(
     input_path: str | Sequence[str],
     output_path: str | None = None,
     *,
-    format: Literal["png", "webp", "jpg", "pdf"] | None = None,
+    format: Literal["png", "webp", "gif", "jpg", "pdf"] | None = None,
     styles_path: str | None = None,
     utils_path: str | None = None,
     grid: bool = False,
@@ -607,7 +607,8 @@ def build_image(
     Args:
         input_path (str | Sequence[str]): Target Python file(s) or directories.
         output_path (str | None): Output image file path or output directory path.
-        format (Literal["png", "webp", "jpg", "pdf"] | None): Image format override ('png', 'webp', 'jpg', 'pdf').
+        format (Literal["png", "webp", "gif", "jpg", "pdf"] | None):
+            Image format override ('png', 'webp', 'gif', 'jpg', 'pdf').
         styles_path (str | None): Optional path to Python styles script.
         utils_path (str | None): Optional path to Python utils script.
         grid (bool): Whether to save companion *_grid.<ext> images with coordinate grid overlaid.
@@ -683,7 +684,7 @@ _SLIDE_DRAWLIB_PATTERN: Final[re.Pattern[str]] = re.compile(
     r"(?<=\n)[ \t]*```drawlib([^\n]*)\n(.*?)\n[ \t]*```",
     re.DOTALL,
 )
-_SLIDE_DIAGRAM_EXTS: Final[tuple[str, ...]] = (".svg", ".png", ".apng", ".webp", ".jpg", ".jpeg", ".pdf")
+_SLIDE_DIAGRAM_EXTS: Final[tuple[str, ...]] = (".svg", ".png", ".apng", ".webp", ".gif", ".jpg", ".jpeg", ".pdf")
 
 
 @dataclass(frozen=True)

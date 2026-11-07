@@ -13,7 +13,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Animations Overview (APNG &amp; WebP)</title>
+    <title>Animations Overview (APNG, WebP &amp; GIF)</title>
     <script>
         (function() {
             const saved = localStorage.getItem('drawlib-theme');
@@ -39,19 +39,19 @@
     
     
     
-    <meta name="description" content="Drawlib provides native support for generating multi-frame animations in both Animated Portable Network Graphics (APNG) and Animated WebP formats. Animations…">
+    <meta name="description" content="Drawlib provides native support for generating multi-frame animations in Animated Portable Network Graphics (APNG), Animated WebP, and Animated GIF formats.…">
     <link rel="canonical" href="https://www.drawlib.com/en/08_animations/overview.html">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Drawlib Documentation">
-    <meta property="og:title" content="Animations Overview (APNG &amp; WebP) — Drawlib Documentation">
-    <meta property="og:description" content="Drawlib provides native support for generating multi-frame animations in both Animated Portable Network Graphics (APNG) and Animated WebP formats. Animations…">
+    <meta property="og:title" content="Animations Overview (APNG, WebP &amp; GIF) — Drawlib Documentation">
+    <meta property="og:description" content="Drawlib provides native support for generating multi-frame animations in Animated Portable Network Graphics (APNG), Animated WebP, and Animated GIF formats.…">
     <meta property="og:url" content="https://www.drawlib.com/en/08_animations/overview.html">
     <meta property="og:image" content="https://www.drawlib.com/_assets/ogp.png">
     <meta property="og:locale" content="en_US">
     <meta property="og:locale:alternate" content="ja_JP">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Animations Overview (APNG &amp; WebP) — Drawlib Documentation">
-    <meta name="twitter:description" content="Drawlib provides native support for generating multi-frame animations in both Animated Portable Network Graphics (APNG) and Animated WebP formats. Animations…">
+    <meta name="twitter:title" content="Animations Overview (APNG, WebP &amp; GIF) — Drawlib Documentation">
+    <meta name="twitter:description" content="Drawlib provides native support for generating multi-frame animations in Animated Portable Network Graphics (APNG), Animated WebP, and Animated GIF formats.…">
     <meta name="twitter:image" content="https://www.drawlib.com/_assets/ogp.png">
     
     
@@ -88,7 +88,7 @@
                 
                 <a href="../01_getting_started/release_notes.html" class="sidebar-version-badge" title="View Release Notes">
                     <span class="sidebar-version-dot" aria-hidden="true"></span>
-                    <span class="sidebar-version-text">v0.3.6</span>
+                    <span class="sidebar-version-text">v0.3.7</span>
                 </a>
                 <a href="https://github.com/yuichi110/drawlib" target="_blank" rel="noopener noreferrer" class="sidebar-github-link" aria-label="GitHub Repository" title="GitHub Repository">
                     <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
@@ -640,7 +640,7 @@
                 <div class="breadcrumbs">
                     <span class="crumb">Docs</span>
                     <span class="crumb-separator">&raquo;</span>
-                    <span class="crumb active">Animations Overview (APNG &amp; WebP)</span>
+                    <span class="crumb active">Animations Overview (APNG, WebP &amp; GIF)</span>
                 </div>
                 
                 <div class="lang-switcher">
@@ -670,8 +670,8 @@
                 
             </header>
             <main class="main-content">
-                <h1>Animations Overview (APNG &amp; WebP)</h1>
-<p>Drawlib provides native support for generating multi-frame animations in both <strong>Animated Portable Network Graphics (APNG)</strong> and <strong>Animated WebP</strong> formats.<br />
+                <h1>Animations Overview (APNG, WebP &amp; GIF)</h1>
+<p>Drawlib provides native support for generating multi-frame animations in <strong>Animated Portable Network Graphics (APNG)</strong>, <strong>Animated WebP</strong>, and <strong>Animated GIF</strong> formats.<br />
 Animations empower developers and AI coding agents to create clean, high-framerate, multi-step architectural illustrations, data visualizations, and interactive walkthroughs using declarative Python code.</p>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="../../images/08_animations/overview/animation_step_architecture.png" alt="overview_1" />
@@ -767,14 +767,20 @@ Animations empower developers and AI coding agents to create clean, high-framera
 <tr>
 <td style="text-align:left"><strong>APNG</strong></td>
 <td style="text-align:left"><code>.png</code>, <code>.apng</code></td>
-<td style="text-align:left"><strong>Universal Compatibility</strong>: Renders natively in all modern web browsers and GitHub Markdown previews. Safe static fallback to Frame 1 in PDF compilers and legacy viewers.</td>
-<td style="text-align:left">GitHub READMEs, markdown documentation, printable technical documents.</td>
+<td style="text-align:left"><strong>Lossless Full Color &amp; Static Fallback</strong>: Renders natively in all modern web browsers and GitHub Markdown with 24-bit RGB + 8-bit alpha; falls back safely to Frame 1 in PDFs.</td>
+<td style="text-align:left">GitHub READMEs, technical documentation sites, printable PDF documents.</td>
 </tr>
 <tr>
 <td style="text-align:left"><strong>Animated WebP</strong></td>
 <td style="text-align:left"><code>.webp</code></td>
-<td style="text-align:left"><strong>Ultra-Compact File Size</strong>: Typically ~50% smaller than APNG with lossless quality.</td>
+<td style="text-align:left"><strong>Ultra-Compact Lossless Size</strong>: Typically ~50% smaller than APNG while preserving lossless 24-bit RGB + 8-bit alpha quality.</td>
 <td style="text-align:left">Web-hosted documentation sites, high-performance web applications, mobile platforms.</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Animated GIF</strong></td>
+<td style="text-align:left"><code>.gif</code></td>
+<td style="text-align:left"><strong>Universal Legacy &amp; Social Compatibility</strong>: Plays everywhere—including X/Twitter, LinkedIn, PowerPoint, Google Slides, Notion, Confluence, and email clients—using dither-free 256-color Median Cut quantization (<code>Image.Dither.NONE</code>).</td>
+<td style="text-align:left">Social media posts, presentation slide decks, enterprise wikis, chat &amp; email sharing.</td>
 </tr>
 </tbody>
 </table>
@@ -800,7 +806,10 @@ Animations empower developers and AI coding agents to create clean, high-framera
 <span class="c1"># Saves as Animated WebP (.webp):</span>
 <span class="n">save</span><span class="p">(</span><span class="s2">"animation.webp"</span><span class="p">)</span>
 
-<span class="c1"># Or specify format explicitly ("webp", "png", or "apng"):</span>
+<span class="c1"># Saves as dither-free Animated GIF (.gif):</span>
+<span class="n">save</span><span class="p">(</span><span class="s2">"animation.gif"</span><span class="p">)</span>
+
+<span class="c1"># Or specify format explicitly ("webp", "png", "apng", or "gif"):</span>
 <span class="n">save</span><span class="p">(</span><span class="s2">"pipeline"</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">"webp"</span><span class="p">)</span>
 </code></pre>
 <blockquote>
@@ -1028,11 +1037,12 @@ Standard image viewers and vector PDF exports render <strong>Frame 1</strong> as
 <li><strong>Hold the Final Completed Frame</strong>:
 To give readers time to absorb the completed diagram before the loop restarts, set an extended <code>duration</code> (<code>2.0</code> to <code>3.0</code> seconds) on the final frame.</li>
 <li><strong>Embedded Markdown Blocks</strong>:
-Any <code>drawlib</code> block that initializes <code>Animation()</code> automatically outputs an animated <code>.png</code> (APNG) or <code>.webp</code> file during <code>drawlib build</code>.</li>
-<li><strong>Built-in Lossless Compression</strong>:
+Any <code>drawlib</code> block that initializes <code>Animation()</code> automatically outputs an animated <code>.png</code> (APNG), <code>.webp</code>, or <code>.gif</code> file during <code>drawlib build</code>.</li>
+<li><strong>Built-in Format Encoding</strong>:
 <ul>
-<li><strong>APNG (<code>.png</code> / <code>.apng</code>)</strong>: Automatically crops sub-frame delta bounding boxes and applies maximum Zlib (<code>compress_level=9</code>) + Huffman (<code>optimize=True</code>) compression.</li>
+<li><strong>APNG (<code>.png</code> / <code>.apng</code>)</strong>: Automatically crops sub-frame delta bounding boxes and applies maximum Zlib (<code>compress_level=9</code>) + Huffman (<code>optimize=True</code>) lossless compression.</li>
 <li><strong>Animated WebP (<code>.webp</code>)</strong>: Encodes with lossless sub-frame minimization (<code>lossless=True</code>, <code>minimize_size=True</code>), typically ~50% smaller than APNG.</li>
+<li><strong>Animated GIF (<code>.gif</code>)</strong>: Quantizes each frame with dither-free 256-color Median Cut (<code>Image.Quantize.MEDIANCUT</code> + <code>Image.Dither.NONE</code>), rounds frame durations to <code>10ms</code> GIF spec ticks, and reserves palette index <code>255</code> (<code>disposal=2</code>) when canvas pixels are transparent.</li>
 </ul>
 </li>
 </ol>

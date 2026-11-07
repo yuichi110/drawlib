@@ -1140,7 +1140,7 @@ Options are specified as space-delimited `key=value` pairs on the opening code f
 | Category | Attribute Syntax | Default | Description |
 |---|---|---|---|
 | **Filename** | `file=<name.png>` | *(Required in docs)* | Explicit output filename in `<doc_stem>_images/<name.png>` (or `images/<slide_stem>/<name>` in slides). |
-| **Image Format** | `format=<fmt>` | `png` (`svg` in slides) | Output image format (`png`, `webp`, `svg`, `apng`) if not inferred from `file=` extension. |
+| **Image Format** | `format=<fmt>` | `png` (`svg` in slides) | Output image format (`png`, `webp`, `gif`, `svg`, `apng`) if not inferred from `file=` extension. |
 | **Width** | `width=650px`, `width=80%` | `None` (natural size) | CSS display width (`px`, `%`, `rem`, `vw`, or bare number → `px`). |
 | **Height** | `height=400px` | `None` | Optional CSS display height override. |
 | **Alignment** | `align=center`, `align=left`, `align=right` | `center` | Horizontal figure alignment on the page (`left`, `center`, `right`). |
@@ -1154,8 +1154,8 @@ Options are specified as space-delimited `key=value` pairs on the opening code f
 > Always specify an explicit `file=<name.png>` attribute for every embedded block. Named blocks prevent numbering shifts when diagrams are inserted or removed, produce clean asset directories, and allow individual diagrams to be verified deterministically via `drawlib show <file.md> <image_name.png>`.
 
 > [!NOTE]
-> **Animations in Code Blocks (APNG & WebP)**:
-> Embedded `drawlib` blocks fully support generating multi-frame animated illustrations using `from drawlib.anim import Animation`. The document compiler automatically outputs an animated PNG (APNG) or Animated WebP file based on the `file=` extension (`.png`, `.apng`, or `.webp`). See [Animations Overview (APNG & WebP)](../08_animations/overview.md) for full details.
+> **Animations in Code Blocks (APNG, WebP & GIF)**:
+> Embedded `drawlib` blocks fully support generating multi-frame animated illustrations using `from drawlib.anim import Animation`. The document compiler automatically outputs an animated PNG (APNG), Animated WebP, or Animated GIF file based on the `file=` extension (`.png`, `.apng`, `.webp`, or `.gif`). See [Animations Overview (APNG, WebP & GIF)](../08_animations/overview.md) for full details.
 
 ### 3.3 HTML `<script type="text/drawlib">` Alternative Syntax
 When authoring raw `.html` documents instead of `.md` files, you can embed Drawlib blocks using `<script type="text/drawlib">` tags with standard HTML attributes (`width="600px"`, `align="center"`, `file="arch.png"`, `caption="Architecture"`, `code="fold"`).

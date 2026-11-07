@@ -35,7 +35,7 @@ from drawlib._core.l2_types import (
     ImageFormat,
 )
 from drawlib._core.l3_colors import ColorUtils
-from drawlib._core.l3_images import Dimage
+from drawlib._core.l3_images import Dimage, quantize_pil_for_gif
 from drawlib._core.l4_canvas._base import CanvasBase
 from drawlib._core.l4_canvas._image import CanvasImageFeature
 from drawlib._core.l4_canvas._line import CanvasLineFeature
@@ -82,7 +82,7 @@ class Canvas(
     def show(self) -> None:
         """Show canvas illustration."""
         if self._active_animation is not None:
-            logger.warning("APNG animation cannot be previewed in GUI. Use save() to export as an APNG file.")
+            logger.warning("Animation cannot be previewed in GUI. Use save() to export as an APNG, WebP, or GIF file.")
 
         self._set_background()
         zorder = self._draw_items()
@@ -163,19 +163,9 @@ class Canvas(
 
         is_grid = self._grid or drawlib_settings.get_force_grid()
 
-        save_kwargs: dict[str, Any] = {"format": format} if format is not None else {}
-        _, ext = os.path.splitext(file_path)
-        is_svg = bool((format and str(format).lower() == "svg") or ext.lower() == ".svg")
-        svg_font_records: list[dict[str, str]] = []
-        if is_svg:
-            save_kwargs["metadata"] = {"Date": None}
-            svg_font_records = self._collect_svg_font_metadata()
-
         # save normal image
         if not self._grid_only:
-            pyplot.savefig(file_path, **save_kwargs)
-            if is_svg and svg_font_records:
-                self._inject_svg_font_metadata(file_path, svg_font_records)
+            self._save_figure_target(file_path, format=format)
             if not is_grid:
                 self._remove_artists_from_ax()  # remove drawing items
                 return
@@ -186,11 +176,38 @@ class Canvas(
             else:
                 name, extension = os.path.splitext(file_path)
                 target_path = f"{name}_grid{extension}"
-            pyplot.savefig(target_path, **save_kwargs)
-            if is_svg and svg_font_records:
-                self._inject_svg_font_metadata(target_path, svg_font_records)
+            self._save_figure_target(target_path, format=format)
 
         self._render_with_grid(zorder, save_grid_image)
+
+    def _save_figure_target(self, target_path: str, format: ImageFormat | None = None) -> None:
+        """Write the active Matplotlib figure to disk in the resolved format (including GIF and SVG)."""
+        norm_fmt = str(format).lower() if format is not None else None
+        _, ext = os.path.splitext(target_path)
+        ext_lower = ext.lower()
+
+        if norm_fmt == "gif" or ext_lower == ".gif":
+            buf = io.BytesIO()
+            pyplot.savefig(buf, format="png")
+            buf.seek(0)
+            with Image.open(buf) as raw_im:
+                q_frame, trans_idx = quantize_pil_for_gif(raw_im)
+                gif_opts: dict[str, Any] = {"format": "GIF", "optimize": trans_idx is None}
+                if trans_idx is not None:
+                    gif_opts["transparency"] = trans_idx
+                q_frame.save(target_path, **gif_opts)
+            return
+
+        is_svg = bool(norm_fmt == "svg" or ext_lower == ".svg")
+        eff_mpl_fmt = "png" if (norm_fmt == "apng" or ext_lower == ".apng") else format
+        save_kwargs: dict[str, Any] = {"format": eff_mpl_fmt} if eff_mpl_fmt is not None else {}
+        svg_font_records: list[dict[str, str]] = []
+        if is_svg:
+            save_kwargs["metadata"] = {"Date": None}
+            svg_font_records = self._collect_svg_font_metadata()
+        pyplot.savefig(target_path, **save_kwargs)
+        if is_svg and svg_font_records:
+            self._inject_svg_font_metadata(target_path, svg_font_records)
 
     def _collect_svg_font_metadata(self) -> list[dict[str, str]]:
         """Collect unique font metadata records from active Text artists on the canvas."""

@@ -1140,7 +1140,7 @@ save()
 | カテゴリ | 属性構文 | デフォルト値 | 説明 |
 |---|---|---|---|
 | **ファイル名** | `file=<name.png>` | *（ドキュメントでは推奨・事実上必須）* | `<doc_stem>_images/<name.png>`（スライドでは `images/<slide_stem>/<name>`）に出力される明示的な画像ファイル名。 |
-| **画像フォーマット** | `format=<fmt>` | `png`（スライドでは `svg`） | `file=` の拡張子から自動判定しない場合の出力フォーマット（`png`、`webp`、`svg`、`apng`）。 |
+| **画像フォーマット** | `format=<fmt>` | `png`（スライドでは `svg`） | `file=` の拡張子から自動判定しない場合の出力フォーマット（`png`、`webp`、`gif`、`svg`、`apng`）。 |
 | **表示幅** | `width=650px`, `width=80%` | `None`（本来のサイズ） | CSS 表示幅（`px`、`%`、`rem`、`vw`、または単位なし数値 → `px` 扱い）。 |
 | **表示高さ** | `height=400px` | `None` | 任意の CSS 表示高さの上書き指定。 |
 | **水平配置** | `align=center`, `align=left`, `align=right` | `center` | ページ上での図の水平配置（`left`、`center`、`right`）。 |
@@ -1154,8 +1154,8 @@ save()
 > すべての埋め込みブロックには、必ず明示的な `file=<name.png>` 属性を指定してください。名前付きブロックにしておくことで、図の挿入や削除に伴う連番ずれを防ぎ、アセットディレクトリを整理された状態に保てるほか、`drawlib show <file.md> <image_name.png>` によって特定の図を決定論的に検証できます。
 
 > [!NOTE]
-> **コードブロック内のアニメーション（APNG & WebP）**:
-> 埋め込み `drawlib` ブロックでは、`from drawlib.anim import Animation` を使用したマルチフレームのアニメーション図解生成を完全にサポートしています。ドキュメントコンパイラは `file=` の拡張子（`.png`、`.apng`、`.webp`）に応じて、アニメーション PNG（APNG）またはアニメーション WebP ファイルを自動的に出力します。詳細は[アニメーション概要](../08_animations/overview.md)を参照してください。
+> **コードブロック内のアニメーション（APNG, WebP & GIF）**:
+> 埋め込み `drawlib` ブロックでは、`from drawlib.anim import Animation` を使用したマルチフレームのアニメーション図解生成を完全にサポートしています。ドキュメントコンパイラは `file=` の拡張子（`.png`、`.apng`、`.webp`、`.gif`）に応じて、アニメーション PNG（APNG）・アニメーション WebP・アニメーション GIF ファイルを自動的に出力します。詳細は[アニメーション概要](../08_animations/overview.md)を参照してください。
 
 ### 3.3 HTML `<script type="text/drawlib">` による代替構文
 `.md` ファイルではなく生の `.html` ドキュメントを直接執筆する場合は、標準の HTML 属性（`width="600px"`、`align="center"`、`file="arch.png"`、`caption="Architecture"`、`code="fold"`）を備えた `<script type="text/drawlib">` タグを使って Drawlib ブロックを埋め込むことができます。

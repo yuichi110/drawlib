@@ -14,7 +14,11 @@ from __future__ import annotations
 from drawlib._core.l3_images._dimage import (
     Dimage,
 )
+from drawlib._core.l3_images._gif import (
+    quantize_pil_for_gif,
+)
 
 __all__ = [
     "Dimage",
+    "quantize_pil_for_gif",
 ]

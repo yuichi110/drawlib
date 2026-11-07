@@ -9,7 +9,10 @@
 
 """Unit tests for DrawlibBlockProcessor in doc_builder."""
 
+from pathlib import Path
+
 import pytest
+from PIL import Image
 
 from drawlib._builder.doc_builder.processor import (
     DrawlibBlockProcessor,
@@ -460,3 +463,51 @@ def test_parse_block_info_anim_options() -> None:
     assert opts3.anim_trigger == "click"
     assert opts3.anim_loop == "once"
     assert opts3.anim_pause == [3]
+
+
+def test_block_processor_gif_animation_and_data_url(tmp_path: Path) -> None:
+    """Verify embedded drawlib blocks support animated GIF output and GIF Data URLs."""
+    out_dir = tmp_path / "out"
+    out_dir.mkdir()
+    processor = DrawlibBlockProcessor(no_cache=True)
+
+    opts_gif = parse_block_info("file=demo.gif format=gif")
+    assert opts_gif.file == "demo.gif"
+    assert opts_gif.format == "gif"
+
+    md_input = """# GIF Demo
+
+```drawlib file=demo.gif
+from drawlib.anim import Animation
+from drawlib.canvas import setup
+from drawlib.shapes import circle, rectangle
+from drawlib.styles import Styles
+
+setup(width=80, height=40)
+anim = Animation(fps=10.0)
+for x in [25, 55]:
+    with anim.frame():
+        rectangle((40, 20), width=64, height=26, style=Styles.Neutral)
+        circle((x, 20), radius=6, style=Styles.PrimaryFlat)
+```
+"""
+    processed_md = processor.process_markdown(md_input, doc_base_name="gif_doc", output_dir=str(out_dir))
+    gif_file = out_dir / "gif_doc_images" / "demo.gif"
+    assert 'src="gif_doc_images/demo.gif"' in processed_md
+    assert gif_file.exists()
+    with Image.open(gif_file) as im:
+        assert im.format == "GIF"
+        assert getattr(im, "is_animated", False) is True
+        assert getattr(im, "n_frames", 1) == 2
+
+    data_url = processor.render_block_to_data_url(
+        (
+            "from drawlib.shapes import circle\n"
+            "from drawlib.styles import Styles\n"
+            "circle((50, 50), 10, style=Styles.Primary)"
+        ),
+        image_format="gif",
+        no_cache=True,
+    )
+    assert data_url.startswith("data:image/gif;base64,")
+

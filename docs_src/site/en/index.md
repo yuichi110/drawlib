@@ -1906,7 +1906,7 @@ Explore the comprehensive guides below:
    - Coordinate-controlled engineering diagrams: cloud architectures, flowcharts, sequence diagrams, UML class diagrams, ER diagrams, and state machines.
 7. [**Auto-Layout Graphs**](./07_graph/overview.md)
    - Declarative graph layout solvers (`ArchitectureGraph`, `LayerGraph`, `TreeGraph`, `RadialGraph`, `GridGraph`), nested clusters, `offset()` fine-tuning, and code export.
-8. [**Animations (APNG & WebP)**](./08_animations/overview.md)
+8. [**Animations (APNG, WebP & GIF)**](./08_animations/overview.md)
    - Multi-frame animations, smooth color transitions, progressive component reveals, arrow growth (`draw_ratio`), and camera pan/zoom across all Drawlib modules.
 9. [**Document Builder & CLI**](./09_doc_builder_and_cli/overview.md)
    - Illustrated Documentation as Code: Markdown block syntax, CLI reference, project templates (`doc`, `site`, `catalog`, `slide`, `images`), 1920×1080 slide stage layout, customization, and two-tier caching & CI/CD.

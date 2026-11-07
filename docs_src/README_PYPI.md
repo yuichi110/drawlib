@@ -57,7 +57,7 @@ uvx drawlib serve docs_html/
 
 ### 1. SmartArt Infographics, Quantitative Charts & Declarative Animations
 
-Compose executive-ready infographics (`drawlib.smartarts`), quantitative data plots (`drawlib.charts`), and multi-frame **APNG / WebP** animations (`drawlib.anim`) on the exact same coordinate canvas:
+Compose executive-ready infographics (`drawlib.smartarts`), quantitative data plots (`drawlib.charts`), and multi-frame **APNG / WebP / GIF** animations (`drawlib.anim`) on the exact same coordinate canvas:
 
 ![SmartArts Visual Showcase](https://www.drawlib.com/images/04_smartarts/overview/smartarts_showcase.png)
 
@@ -66,7 +66,7 @@ Compose executive-ready infographics (`drawlib.smartarts`), quantitative data pl
 ![Animated Quantitative Charts](https://www.drawlib.com/images/08_animations/charts/anim_charts_hero.png)
 
 - **10 Quantitative Charts (`drawlib.charts`)**: Pure-Python `BarChart`, `BoxChart`, `LineChart`, `AreaChart`, `PieChart`, `RadarChart`, `ScatterChart`, `GanttChart`, and `HeatmapChart` / `HeatmapOverlay` styled with the same design tokens as surrounding diagrams—no low-level Matplotlib boilerplate required.
-- **Declarative Animations (`drawlib.anim`)**: Turn any diagram, chart, or workflow into a crisp multi-frame **APNG** or **WebP** animation (`Animation(fps=..., loop=0)`) that plays natively inside GitHub `README.md` files, pull requests, and HTML documentation sites.
+- **Declarative Animations (`drawlib.anim`)**: Turn any diagram, chart, or workflow into a crisp multi-frame **APNG**, **WebP**, or dither-free **GIF** animation (`Animation(fps=..., loop=0)`) for GitHub `README.md` files, HTML docs, X/LinkedIn posts, PowerPoint decks, and enterprise wikis.
 
 ---
 
@@ -269,7 +269,7 @@ drawlib show docs_src/en/index.md service_routing.png -g -o preview_grid.png
 | :--- | :--- |
 | `drawlib init project <site\|catalog\|doc\|slide\|images\|list> [-l <langs>]` | Scaffold a documentation site, catalog/reference, linear spec, 16:9 slide deck, or image project (`drawlib.toml`) |
 | `drawlib init agent <agent...\|all\|list> [-m <auto\|always>]` | Generate workspace rule/instruction files for AI coding agents (`claude`, `cursor`, `antigravity`, `copilot`, `windsurf`, `cline`, `roo`, `codex`, `gemini`) |
-| `drawlib build <html\|markdown\|pdf\|docx\|slide\|pptx\|image>` | Compile sources into HTML, Markdown, PDF, MS Word (`.docx`), HTML Slides, MS PowerPoint (`.pptx`), or PNG/APNG/WebP images |
+| `drawlib build <html\|markdown\|pdf\|docx\|slide\|pptx\|image>` | Compile sources into HTML, Markdown, PDF, MS Word (`.docx`), HTML Slides, MS PowerPoint (`.pptx`), or PNG/APNG/WebP/GIF images |
 | `drawlib serve <html_dir> [--check]` | Start a local HTTP server for built HTML docs/slides with broken-link verification |
 | `drawlib show <file> [target] [-g]` | Render and inspect a single script or embedded Markdown diagram (with optional coordinate grid) |
 | `drawlib css <list\|show> [target] [preset] [-o <file>]` | List, preview, or export built-in CSS theme stylesheets (`html`, `catalog`, `slide`, `pdf`) |

@@ -1,6 +1,6 @@
 # drawlib.anim & drawlib.slide
 
-`drawlib.anim` generates lossless multi-frame **APNG** (`.png`) and **Animated WebP** (`.webp`) illustrations via the `Animation` frame manager, while `drawlib.slide` provides `1920×1080` presentation stage helpers (`current_slide`, `draw_page_number`, `draw_section_header`) and compilers (`build_slide`, `build_pptx`) for interactive HTML and native editable PowerPoint decks.
+`drawlib.anim` generates multi-frame **APNG** (`.png`), **Animated WebP** (`.webp`), and dither-free **Animated GIF** (`.gif`) illustrations via the `Animation` frame manager, while `drawlib.slide` provides `1920×1080` presentation stage helpers (`current_slide`, `draw_page_number`, `draw_section_header`) and compilers (`build_slide`, `build_pptx`) for interactive HTML and native editable PowerPoint decks.
 
 ```drawlib align=center code=fold file=26_anim_and_slide_hero.png caption="Static Overview of drawlib.anim Keyframe Timeline and drawlib.slide 16:9 Stage Architecture"
 from drawlib.canvas import save, setup
@@ -68,7 +68,7 @@ save()
 
 ## `class` Animation
 
-Multi-frame animation coordinator imported from `drawlib.anim`. Initializing an `Animation` instance registers it with the active Drawlib canvas so calling `drawlib.canvas.save()` writes all captured frames into a lossless **APNG** (`.png`, `.apng`) or **Animated WebP** (`.webp`) file.
+Multi-frame animation coordinator imported from `drawlib.anim`. Initializing an `Animation` instance registers it with the active Drawlib canvas so calling `drawlib.canvas.save()` writes all captured frames into a lossless **APNG** (`.png`, `.apng`), lossless **Animated WebP** (`.webp`), or dither-free **Animated GIF** (`.gif`) file.
 
 ```python
 from drawlib.anim import Animation

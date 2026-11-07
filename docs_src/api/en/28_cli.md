@@ -111,7 +111,7 @@ drawlib build COMMAND [ARGS]...
 | :--- | :--- |
 | [`drawlib build docx`](#drawlib-build-docx) | Editable Microsoft Word (`.docx`) document with high-DPI rasterized diagrams. |
 | [`drawlib build html`](#drawlib-build-html) | Static multi-page or single-page HTML documentation site (`site`, `catalog`, `doc`). |
-| [`drawlib build image`](#drawlib-build-image) | Standalone `.png`, `.webp`, `.jpg`, or `.pdf` illustrations from `.py` scripts. |
+| [`drawlib build image`](#drawlib-build-image) | Standalone `.png`, `.webp`, `.gif`, `.jpg`, or `.pdf` illustrations from `.py` scripts. |
 | [`drawlib build markdown`](#drawlib-build-markdown) | Rendered Markdown files with `drawlib` code fences replaced by `<img>` / `![]()` tags. |
 | [`drawlib build pdf`](#drawlib-build-pdf) | Print-ready vector PDF compiled via Headless Chromium (`doc`, `.md`, or `slide`). |
 | [`drawlib build pptx`](#drawlib-build-pptx) | Editable Microsoft PowerPoint (`.pptx`) presentation deck (`960×540 pt` 16:9). |
@@ -185,7 +185,7 @@ uv run drawlib build image images_src/architecture.py -o out/architecture.pdf
 | :--- | :--- | :--- | :--- |
 | `INPUT` | `str` *(required)* | — | Target Python script (`.py`) or directory containing Python drawing scripts. |
 | `-o, --output` | `str \| None` | `None` | Output image file path (for single `.py` input) or output directory path. |
-| `-f, --format` | `'png' \| 'webp' \| 'jpg' \| 'pdf' \| None` | `None` | Override the output format defined in `save()` calls. |
+| `-f, --format` | `'png' \| 'webp' \| 'gif' \| 'jpg' \| 'pdf' \| None` | `None` | Override the output format defined in `save()` calls. |
 | `-s, --styles` | `str \| None` | `None` | Path to shared `styles.py` executed before each drawing script. |
 | `-u, --utils` | `str \| None` | `None` | Path to shared `utils.py` executed before each drawing script. |
 | `-g, --grid` | `bool` | `False` | Also save companion `*_grid.<ext>` files with the coordinate grid overlaid. |

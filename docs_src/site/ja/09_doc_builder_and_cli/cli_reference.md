@@ -1052,7 +1052,7 @@ drawlib build image images_src/ -o images/ --grid
 | オプション | 短縮形 | デフォルト値 | 説明 |
 |---|---|---|---|
 | `--output`, `--output-dir` | `-o` | `None` | 出力ファイルパス（単一スクリプト時）または出力先ディレクトリ。 |
-| `--format` | `-f` | スクリプト設定（`png`） | 出力画像フォーマットの一括上書き指定（`png`、`webp`、`jpg`、`pdf`）。 |
+| `--format` | `-f` | スクリプト設定（`png`） | 出力画像フォーマットの一括上書き指定（`png`、`webp`、`gif`、`jpg`、`pdf`）。 |
 | `--styles` / `--utils` | `-s` / `-u` | 自動解決 | `styles.py` および `utils.py` へのパス。 |
 | `--grid` | `-g` | `False` | 座標グリッドを重ね合わせた補助画像 `*_grid.<ext>` を同時に保存します。 |
 | `--disable-auto-clear` | | `False` | 実行される `.py` ファイル間の自動 `canvas.clear()` を無効化します。 |

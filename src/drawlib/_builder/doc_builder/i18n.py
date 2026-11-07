@@ -162,12 +162,12 @@ def collect_locale_doc_files(lang_dir_abs: str, *, markdown_only: bool = False) 
 
 def _normalize_block_filename(raw_file: str | None, fmt_opt: str | None, default_format: str, index: int) -> str:
     """Resolve canonical output filename for a drawlib block."""
-    eff_fmt = fmt_opt if fmt_opt in {"png", "webp", "svg", "apng", "jpg", "pdf"} else default_format
-    ext = eff_fmt if eff_fmt in {"svg", "webp", "apng", "jpg", "pdf"} else "png"
+    eff_fmt = fmt_opt if fmt_opt in {"png", "webp", "svg", "apng", "gif", "jpg", "pdf"} else default_format
+    ext = eff_fmt if eff_fmt in {"svg", "webp", "apng", "gif", "jpg", "pdf"} else "png"
     if raw_file:
         cleaned = raw_file.strip()
         _, file_ext = os.path.splitext(cleaned)
-        if file_ext.lower() in {".png", ".webp", ".svg", ".apng", ".jpg", ".pdf"}:
+        if file_ext.lower() in {".png", ".webp", ".svg", ".apng", ".gif", ".jpg", ".pdf"}:
             return cleaned
         return f"{cleaned}.{ext}"
     return f"{index}.{ext}"

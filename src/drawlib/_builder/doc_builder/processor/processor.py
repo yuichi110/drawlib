@@ -154,6 +154,8 @@ class DrawlibBlockProcessor:
             fmt = "webp"
         elif ext_lower == ".apng":
             fmt = "apng"
+        elif ext_lower == ".gif":
+            fmt = "gif"
         else:
             fmt = "png"
         grid_abs_path = f"{stem}_grid{ext_dot}"
@@ -254,6 +256,9 @@ class DrawlibBlockProcessor:
         elif image_format == "webp":
             ext = "webp"
             mime = "image/webp"
+        elif image_format == "gif":
+            ext = "gif"
+            mime = "image/gif"
         else:
             ext = "png"
             mime = "image/png"

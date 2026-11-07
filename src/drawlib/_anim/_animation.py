@@ -7,24 +7,25 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
-"""Animation generator implementation module supporting APNG and Animated WebP."""
+"""Animation generator implementation module supporting APNG, Animated WebP, and GIF."""
 
 from __future__ import annotations
 
 import os
 from collections.abc import Generator
 from contextlib import contextmanager
-from typing import Literal
+from typing import Any, Literal
 
 from PIL import Image
 
 from drawlib._core.l1_core import validate_call
 from drawlib._core.l2_types import PosInt
+from drawlib._core.l3_images import quantize_pil_for_gif
 from drawlib._core.l4_canvas import canvas
 
 
 class Animation:
-    """Animation generator for drawlib supporting APNG and Animated WebP.
+    """Animation generator for drawlib supporting APNG, Animated WebP, and GIF.
 
     This class manages animation frames and coordinates with the drawlib canvas
     to output high-quality, multi-frame animated illustrations.
@@ -139,13 +140,13 @@ class Animation:
     def _save(
         self,
         file_path: str,
-        format: Literal["png", "apng", "webp"] | str | None = None,
+        format: Literal["png", "apng", "webp", "gif"] | str | None = None,
     ) -> None:
         """Internal save method called by canvas.save().
 
         Args:
             file_path: Destination file path.
-            format: Optional format override ('png', 'apng', 'webp'). If None,
+            format: Optional format override ('png', 'apng', 'webp', 'gif'). If None,
                 inferred from file extension.
 
         Raises:
@@ -166,7 +167,7 @@ class Animation:
         first_frame = self._frames[0]
         append_frames = self._frames[1:]
 
-        if eff_format in {"webp"}:
+        if eff_format == "webp":
             # Animated WebP: Lossless with size minimization
             first_frame.save(
                 file_path,
@@ -190,11 +191,32 @@ class Animation:
                 compress_level=9,
                 optimize=True,
             )
+        elif eff_format == "gif":
+            # Animated GIF: Dither-free Median Cut 256-color quantization per frame
+            quantized_pairs = [quantize_pil_for_gif(frame) for frame in self._frames]
+            quantized_frames = [pair[0] for pair in quantized_pairs]
+            has_transparency = any(pair[1] is not None for pair in quantized_pairs)
+            gif_durations = [max(10, round(d / 10.0) * 10) for d in self._durations]
+
+            gif_kwargs: dict[str, Any] = {
+                "save_all": True,
+                "append_images": quantized_frames[1:],
+                "duration": gif_durations,
+                "loop": self._loop,
+                "format": "GIF",
+                "optimize": not has_transparency,
+            }
+            if has_transparency:
+                gif_kwargs["transparency"] = 255
+                gif_kwargs["disposal"] = 2
+
+            quantized_frames[0].save(file_path, **gif_kwargs)
         elif eff_format == "svg":
             raise ValueError(
-                "Animations cannot be saved in SVG format. Please use 'webp' or 'png' (APNG) for animations."
+                "Animations cannot be saved in SVG format. Please use 'png' (APNG), 'webp', or 'gif' for animations."
             )
         else:
             raise ValueError(
-                f"Unsupported animation format '{eff_format}'. Supported animation formats: 'png', 'webp', 'apng'."
+                f"Unsupported animation format '{eff_format}'. "
+                "Supported animation formats: 'png', 'webp', 'apng', 'gif'."
             )

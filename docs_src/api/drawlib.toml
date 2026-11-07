@@ -20,7 +20,7 @@ ja = "Drawlib 公式 Python API・CLI リファレンス — すべての公開�
 [catalog]
 sidebar_expanded = true
 breadcrumb_root = { en = "API Reference", ja = "API リファレンス" }
-badge_text = { en = "API Reference · v0.3.6", ja = "API リファレンス · v0.3.6" }
+badge_text = { en = "API Reference · v0.3.7", ja = "API リファレンス · v0.3.7" }
 badge_url = "index.html"
 repo_url = "https://github.com/yuichi110/drawlib"
 header_links = [

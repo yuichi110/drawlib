@@ -51,8 +51,8 @@ def cmd_build_image(
         typer.Option("-o", "--output", help="Output image file path or output directory path."),
     ] = None,
     format: Annotated[
-        Literal["png", "webp", "jpg", "pdf"] | None,
-        typer.Option("-f", "--format", help="Output image format override (png, webp, jpg, pdf)."),
+        Literal["png", "webp", "gif", "jpg", "pdf"] | None,
+        typer.Option("-f", "--format", help="Output image format override (png, webp, gif, jpg, pdf)."),
     ] = None,
     styles: Annotated[
         str | None,

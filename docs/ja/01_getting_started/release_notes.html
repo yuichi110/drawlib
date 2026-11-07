@@ -39,19 +39,19 @@
     
     
     
-    <meta name="description" content="リリース日: 2026/11/06">
+    <meta name="description" content="リリース日: 2026/11/07">
     <link rel="canonical" href="https://www.drawlib.com/ja/01_getting_started/release_notes.html">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Drawlib ドキュメント">
     <meta property="og:title" content="リリースノートと移行ガイド — Drawlib ドキュメント">
-    <meta property="og:description" content="リリース日: 2026/11/06">
+    <meta property="og:description" content="リリース日: 2026/11/07">
     <meta property="og:url" content="https://www.drawlib.com/ja/01_getting_started/release_notes.html">
     <meta property="og:image" content="https://www.drawlib.com/_assets/ogp.png">
     <meta property="og:locale" content="ja_JP">
     <meta property="og:locale:alternate" content="en_US">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="リリースノートと移行ガイド — Drawlib ドキュメント">
-    <meta name="twitter:description" content="リリース日: 2026/11/06">
+    <meta name="twitter:description" content="リリース日: 2026/11/07">
     <meta name="twitter:image" content="https://www.drawlib.com/_assets/ogp.png">
     
     
@@ -88,7 +88,7 @@
                 
                 <a href="../01_getting_started/release_notes.html" class="sidebar-version-badge" title="View Release Notes">
                     <span class="sidebar-version-dot" aria-hidden="true"></span>
-                    <span class="sidebar-version-text">v0.3.6</span>
+                    <span class="sidebar-version-text">v0.3.7</span>
                 </a>
                 <a href="https://github.com/yuichi110/drawlib" target="_blank" rel="noopener noreferrer" class="sidebar-github-link" aria-label="GitHub Repository" title="GitHub Repository">
                     <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
@@ -671,6 +671,27 @@
             </header>
             <main class="main-content">
                 <h1>リリースノートと移行ガイド</h1>
+<h2>バージョン 0.3.7</h2>
+<p><em>リリース日: 2026/11/07</em></p>
+<p>バージョン 0.3.7 では、SNS・プレゼン資料・社内 Wiki 等あらゆる環境で再生できる <strong>ディザノイズのないアニメーション／静止画 GIF 出力（<code>.gif</code>）</strong> を <code>Animation</code>・<code>canvas.save()</code>・Markdown コードブロック・CLI バッチビルドへ新搭載したほか、Windows / POSIX 横断での <strong>Headless Chromium 並列セットアップ排他ロック強化</strong>、多言語 <strong><code>navbar.md</code> のロケール別外部 URL 対応</strong>、および <strong>マルチポータル SEO / <code>llms.txt</code> 導線と README の整備</strong> を実施しました。</p>
+<hr />
+<h3>ハイライトと新機能</h3>
+<h4>1. ディザノイズのないアニメーション &amp; 静止画 GIF 出力（<code>Animation</code>, <code>save(&quot;*.gif&quot;)</code>, <code>drawlib build image -f gif</code>）</h4>
+<ul>
+<li><strong>図解・テキストに最適化された 256 色パレット量子化（<code>l3_images._gif</code>）</strong>: ディザリングを無効化した Median Cut 減色（<code>Image.Quantize.MEDIANCUT</code> + <code>Image.Dither.NONE</code>）による <code>.gif</code> 出力（<code>ImageFormat</code> に <code>&quot;gif&quot;</code>・<code>&quot;apng&quot;</code>・<code>&quot;svg&quot;</code> を追加）に対応し、<code>Styles.Neutral</code> 等のフラットなカード塗りに粒状ノイズを発生させず鮮明な文字エッジを維持します。</li>
+<li><strong>アニメーション・Markdown フェンス・CLI の一貫対応</strong>: <code>save(&quot;flow.gif&quot;)</code> や <code>save(&quot;flow&quot;, format=&quot;gif&quot;)</code> によるマルチフレーム GIF 書き出し（<code>10ms</code> 単位の GIF 仕様フレーム間隔丸め、および透過背景時のパレット <code>255</code> 番予約＋<code>disposal=2</code> による残像防止）、Markdown <code>```drawlib</code> ブロックでの <code>file=demo.gif</code> / <code>format=gif</code> 指定（<code>.docx</code> / <code>.pptx</code> 変換時は静止 PNG フレームを自動抽出）、および <code>drawlib build image -f gif</code> での一括変換をサポートします。</li>
+</ul>
+<h4>2. クロスプラットフォーム並列ブラウザロックと多言語ナビゲーション改善</h4>
+<ul>
+<li><strong>Headless Chromium のプロセス間排他ロックとセンチネル検証（<code>browser.py</code>）</strong>: POSIX の <code>fcntl.flock</code> に加えて Windows の <code>msvcrt.locking</code> によるプロセス間ファイルロックに対応し、ロック取得後に <code>INSTALLATION_COMPLETE</code> センチネルを確認することで、<code>pytest-xdist</code> 等の並列ワーカーや同時 PDF / PPTX ビルドにおける初回 <code>chromium-headless-shell</code> 取得の競合と重複起動を防止しました。</li>
+<li><strong>多言語 <code>navbar.md</code> でのロケール別外部リンク対応（<code>i18n.py</code>）</strong>: 多言語 <code>site</code> プロジェクトの構造パリティ検証において、外部 URL 内の <code>/{lang}/</code> パス切り替え（例：<code>en/navbar.md</code> で <code>/api/en/</code>、<code>ja/navbar.md</code> で <code>/api/ja/</code> を指定）を正規化して許容するようになりました。</li>
+</ul>
+<h4>3. CLI・テンプレート・SEO 発見性・ドキュメントの整備</h4>
+<ul>
+<li><strong>Catalog 雛形メッセージ・CLI ヘルプ・型処理の整理</strong>: <code>drawlib init project</code> のヘルプ表記および <code>catalog</code> テンプレートのビルドスクリプト出力（<code>Catalog HTML</code>）を統一し、<code>l3_math</code>・<code>l4_canvas</code> のベジェ／座標タプル判定を改善しました。</li>
+<li><strong>マルチポータル <code>sitemap.xml</code> / <code>llms.txt</code> 導線と README 刷新</strong>: <code>www.drawlib.com</code> ルートの <code>robots.txt</code> および <code>llms.txt</code> から <code>/api/</code>・<code>/architecture/</code> への導線を追加し、GitHub / PyPI README の全 10 種チャート（<code>BoxChart</code> 含む）・15 種テックブランドアイコンスイート表記および <code>uvx</code> クイックスタート案内を更新しました。</li>
+</ul>
+<hr />
 <h2>バージョン 0.3.6</h2>
 <p><em>リリース日: 2026/11/06</em></p>
 <p>バージョン 0.3.6 では、箱ひげ図・ストリップ／ジッタープロット・ベンチマーク向けハイブリッド重ね描きを 1 クラスに統合した統計分布チャート <strong><code>BoxChart</code> および <code>BoxStats</code>（<code>drawlib.charts.box</code>）</strong> を新搭載したほか、PNI501 ソフトウェア監査に基づく <strong>サプライチェーンセキュリティ強化・非 root コンテナ実行・オフライン動作信頼性の改善</strong> を実施しました。</p>

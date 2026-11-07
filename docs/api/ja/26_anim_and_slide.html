@@ -29,19 +29,19 @@
     
     
     
-    <meta name="description" content="drawlib.anim は Animation フレームマネージャを通じてロスレスなマルチフレーム APNG（.png）および Animated WebP（.webp）イラストを生成し、drawlib.slide は 1920×1080…">
+    <meta name="description" content="drawlib.anim は Animation フレームマネージャを通じてマルチフレーム APNG（.png）・Animated WebP（.webp）・ディザノイズのない Animated GIF（.gif）イラストを生成し、drawlib.slide は 1920×1080…">
     <link rel="canonical" href="https://www.drawlib.com/api/ja/26_anim_and_slide.html">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Drawlib API">
     <meta property="og:title" content="drawlib.anim &amp; drawlib.slide（アニメーションとスライド） — Drawlib API">
-    <meta property="og:description" content="drawlib.anim は Animation フレームマネージャを通じてロスレスなマルチフレーム APNG（.png）および Animated WebP（.webp）イラストを生成し、drawlib.slide は 1920×1080…">
+    <meta property="og:description" content="drawlib.anim は Animation フレームマネージャを通じてマルチフレーム APNG（.png）・Animated WebP（.webp）・ディザノイズのない Animated GIF（.gif）イラストを生成し、drawlib.slide は 1920×1080…">
     <meta property="og:url" content="https://www.drawlib.com/api/ja/26_anim_and_slide.html">
     <meta property="og:image" content="https://www.drawlib.com/api/_assets/ogp.png">
     <meta property="og:locale" content="ja_JP">
     <meta property="og:locale:alternate" content="en_US">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="drawlib.anim &amp; drawlib.slide（アニメーションとスライド） — Drawlib API">
-    <meta name="twitter:description" content="drawlib.anim は Animation フレームマネージャを通じてロスレスなマルチフレーム APNG（.png）および Animated WebP（.webp）イラストを生成し、drawlib.slide は 1920×1080…">
+    <meta name="twitter:description" content="drawlib.anim は Animation フレームマネージャを通じてマルチフレーム APNG（.png）・Animated WebP（.webp）・ディザノイズのない Animated GIF（.gif）イラストを生成し、drawlib.slide は 1920×1080…">
     <meta name="twitter:image" content="https://www.drawlib.com/api/_assets/ogp.png">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -83,7 +83,7 @@
                 
                 <a href="index.html" class="sidebar-version-badge">
                     <span class="sidebar-version-dot"></span>
-                    <span>API リファレンス · v0.3.6</span>
+                    <span>API リファレンス · v0.3.7</span>
                 </a>
                 
                 
@@ -4399,7 +4399,7 @@
 
             <main class="main-content catalog-main-content">
                 <h1 class="catalog-page-title is-module">drawlib.anim &amp; drawlib.slide（アニメーションとスライド）</h1>
-<p><code>drawlib.anim</code> は <code>Animation</code> フレームマネージャを通じてロスレスなマルチフレーム <strong>APNG</strong>（<code>.png</code>）および <strong>Animated WebP</strong>（<code>.webp</code>）イラストを生成し、<code>drawlib.slide</code> は <code>1920×1080</code> プレゼンテーションステージ用のヘルパー（<code>current_slide</code>・<code>draw_page_number</code>・<code>draw_section_header</code>）と HTML／編集可能 PowerPoint コンパイラ（<code>build_slide</code>・<code>build_pptx</code>）を提供します。</p>
+<p><code>drawlib.anim</code> は <code>Animation</code> フレームマネージャを通じてマルチフレーム <strong>APNG</strong>（<code>.png</code>）・<strong>Animated WebP</strong>（<code>.webp</code>）・ディザノイズのない <strong>Animated GIF</strong>（<code>.gif</code>）イラストを生成し、<code>drawlib.slide</code> は <code>1920×1080</code> プレゼンテーションステージ用のヘルパー（<code>current_slide</code>・<code>draw_page_number</code>・<code>draw_section_header</code>）と HTML／編集可能 PowerPoint コンパイラ（<code>build_slide</code>・<code>build_pptx</code>）を提供します。</p>
 <figure class="drawlib-image" style="text-align: center;">
   <img src="../images/26_anim_and_slide/26_anim_and_slide_hero.png" alt="26_anim_and_slide_1" />
   <figcaption class="drawlib-caption">drawlib.anim のキーフレームタイムラインと drawlib.slide の 16:9 ステージ構成の概要図</figcaption>
@@ -4470,7 +4470,7 @@
 </code></pre>
 </details>
 <h2 id="animation" class="catalog-symbol-heading"><span class="catalog-badge catalog-badge-class">class</span><code class="catalog-sig"><span class="catalog-sig-name">Animation</span></code><a class="header-anchor" href="#animation" aria-label="Permalink to Animation">#</a></h2>
-<p><code>drawlib.anim</code> からインポートされるマルチフレーム・アニメーション管理クラスです。インスタンス化するとアクティブな Drawlib キャンバスへ自動登録され、通常の <code>drawlib.canvas.save()</code> を呼ぶだけで蓄積された全フレームをロスレスな <strong>APNG</strong>（<code>.png</code> / <code>.apng</code>）または <strong>Animated WebP</strong>（<code>.webp</code>）として書き出します。</p>
+<p><code>drawlib.anim</code> からインポートされるマルチフレーム・アニメーション管理クラスです。インスタンス化するとアクティブな Drawlib キャンバスへ自動登録され、通常の <code>drawlib.canvas.save()</code> を呼ぶだけで蓄積された全フレームをロスレスな <strong>APNG</strong>（<code>.png</code> / <code>.apng</code>）・<strong>Animated WebP</strong>（<code>.webp</code>）またはディザノイズのない <strong>Animated GIF</strong>（<code>.gif</code>）として書き出します。</p>
 <pre><code class="language-python"><span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.anim</span><span class="w"> </span><span class="kn">import</span> <span class="n">Animation</span>
 
 <span class="n">Animation</span><span class="p">(</span>

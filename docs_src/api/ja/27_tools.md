@@ -183,7 +183,7 @@ build_image(
     input_path: str | Sequence[str],
     output_path: str | None = None,
     *,
-    format: Literal["png", "webp", "jpg", "pdf"] | None = None,
+    format: Literal["png", "webp", "gif", "jpg", "pdf"] | None = None,
     styles_path: str | None = None,
     utils_path: str | None = None,
     grid: bool = False,
@@ -197,7 +197,7 @@ build_image(
 | :--- | :--- | :--- | :--- |
 | `input_path` | `str \| Sequence[str]` | *(必須)* | 対象の Python スクリプト、Markdown ファイル、またはディレクトリパス。 |
 | `output_path` | `str \| None` | `None` | 出力画像ファイルパス（単一ファイル時）または出力先ディレクトリパス。 |
-| `format` | `Literal["png", "webp", "jpg", "pdf"] \| None` | `None` | 出力画像フォーマットの一括上書き指定（`None` 時はスクリプト側の設定を維持）。 |
+| `format` | `Literal["png", "webp", "gif", "jpg", "pdf"] \| None` | `None` | 出力画像フォーマットの一括上書き指定（`None` 時はスクリプト側の設定を維持）。 |
 | `styles_path` | `str \| None` | `None` | カスタム `styles.py` スクリプトへのパス。 |
 | `utils_path` | `str \| None` | `None` | カスタム `utils.py` スクリプトへのパス。 |
 | `grid` | `bool` | `False` | 座標グリッドを重ねた `*_grid.<ext>` 画像を同時に出力します。 |

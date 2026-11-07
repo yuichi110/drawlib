@@ -1,5 +1,29 @@
 # Release Notes & Migration Guide
 
+## Version 0.3.7
+
+*Release Date: 2026/11/07*
+
+Version 0.3.7 introduces **dither-free Animated & Static GIF export (`.gif`)** across `Animation`, `canvas.save()`, Markdown code fences, and CLI batch builds for universal social, presentation, and wiki playback, alongside **cross-platform parallel headless Chromium locking**, **localized external `navbar.md` URL validation**, and **multi-portal SEO / `llms.txt` discovery enhancements**.
+
+---
+
+### Highlights & New Features
+
+#### 1. Dither-Free Animated & Static GIF Export (`Animation`, `save("*.gif")`, `drawlib build image -f gif`)
+- **Crisp Diagram-Tuned Palette Quantization (`l3_images._gif`)**: Added native `.gif` export (`ImageFormat` includes `"gif"`, `"apng"`, and `"svg"`) powered by Median Cut 256-color quantization with dithering disabled (`Image.Quantize.MEDIANCUT` + `Image.Dither.NONE`), preserving flat `Styles.Neutral` surfaces and anti-aliased text without Floyd-Steinberg grain noise.
+- **End-to-End Animation, Markdown & CLI Support**: Export multi-frame GIF animations via `save("flow.gif")` or `save("flow", format="gif")` (with automatic `10ms` GIF tick rounding and reserved palette index `255` + `disposal=2` 1-bit transparency on transparent canvases), embed `file=demo.gif` / `format=gif` inside Markdown ```` ```drawlib ```` blocks (with automatic static PNG extraction for `.docx` / `.pptx`), and batch-render via `drawlib build image -f gif`.
+
+#### 2. Cross-Platform Parallel Browser Locking & Multi-Locale Navbar Parity
+- **Cross-Process Headless Chromium Locking & Sentinel Verification (`browser.py`)**: Extended `_browser_install_lock()` with Windows `msvcrt.locking` support alongside POSIX `fcntl.flock`, and added post-lock `INSTALLATION_COMPLETE` sentinel verification so parallel workers (such as `pytest-xdist` or concurrent PDF/PPTX builds) safely serialize first-time `chromium-headless-shell` downloads and skip redundant CLI invocations.
+- **Localized External Navbar Links (`i18n.py`)**: Multi-locale `site` parity validation now permits localized `/{lang}/` path segments in external `navbar.md` URLs (for example, linking to `/api/en/` in `en/navbar.md` and `/api/ja/` in `ja/navbar.md`).
+
+#### 3. CLI, Scaffolding, SEO Discovery & Documentation Refinements
+- **Catalog Scaffolding & CLI Help Polish**: Updated `drawlib init project` help descriptions and `catalog` project build script progress messages (`Catalog HTML`), and refined Bezier/line coordinate tuple narrowing in `l3_math` and `l4_canvas`.
+- **Multi-Portal Sitemap & `llms.txt` Discovery**: Root `robots.txt` and `llms.txt` on `www.drawlib.com` now reference `/api/` and `/architecture/` sitemaps and LLM discovery indexes, alongside updated `BoxChart` (10-chart) and 15 tech-brand icon suite references across GitHub and PyPI READMEs.
+
+---
+
 ## Version 0.3.6
 
 *Release Date: 2026/11/06*

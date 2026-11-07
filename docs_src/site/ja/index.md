@@ -1906,7 +1906,7 @@ Drawlib を導入するために Python プロジェクトである必要も、�
    - 座標制御型のエンジニアリング図版: クラウドアーキテクチャ図、フロー図、シーケンス図、UML クラス図、ER 図、ステートマシン図。
 7. [**自動レイアウトグラフ**](./07_graph/overview.md)
    - 宣言的グラフレイアウトソルバー（`ArchitectureGraph`、`LayerGraph`、`TreeGraph`、`RadialGraph`、`GridGraph`）、ネストされたクラスタ、`offset()` による微調整、コードエクスポート。
-8. [**アニメーション（APNG & WebP）**](./08_animations/overview.md)
+8. [**アニメーション（APNG, WebP & GIF）**](./08_animations/overview.md)
    - マルチフレームアニメーション、滑らかな色遷移、コンポーネントの段階的表示、矢印の伸長（`draw_ratio`）、および全 Drawlib モジュール横断のカメラパン・ズーム。
 9. [**ドキュメントビルダと CLI**](./09_doc_builder_and_cli/overview.md)
    - コードとしての図解ドキュメント: Markdown コードブロック構文、CLI リファレンス、プロジェクトテンプレート（`doc`、`site`、`catalog`、`slide`、`images`）、1920×1080 スライドステージレイアウト、カスタマイズ、2 層キャッシュ機構と CI/CD。

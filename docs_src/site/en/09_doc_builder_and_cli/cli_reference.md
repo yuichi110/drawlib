@@ -1052,7 +1052,7 @@ drawlib build image images_src/ -o images/ --grid
 | Option | Shorthand | Default | Description |
 |---|---|---|---|
 | `--output`, `--output-dir` | `-o` | `None` | Output file path (single script) or destination directory. |
-| `--format` | `-f` | Script setting (`png`) | Global output image format override (`png`, `webp`, `jpg`, `pdf`). |
+| `--format` | `-f` | Script setting (`png`) | Global output image format override (`png`, `webp`, `gif`, `jpg`, `pdf`). |
 | `--styles` / `--utils` | `-s` / `-u` | Auto-resolved | Path to `styles.py` and `utils.py`. |
 | `--grid` | `-g` | `False` | Save companion `*_grid.<ext>` images overlaid with coordinate grids. |
 | `--disable-auto-clear` | | `False` | Disable automatic `canvas.clear()` between executed `.py` files. |

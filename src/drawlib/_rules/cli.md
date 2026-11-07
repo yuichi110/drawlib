@@ -376,7 +376,7 @@ drawlib build image <INPUT> [OPTIONS]
 | Option | Shorthand | Type | Default | Description |
 | :--- | :--- | :--- | :--- | :--- |
 | `--output` | `-o` | `<path>` | `None` | Output file path (for single script) or destination directory path. |
-| `--format` | `-f` | `png \| webp \| jpg \| pdf` | `None` (uses script setting) | Global output image format override. |
+| `--format` | `-f` | `png \| webp \| gif \| jpg \| pdf` | `None` (uses script setting) | Global output image format override. |
 | `--styles` | `-s` | `<path>` | `None` | Path to Python styles script (e.g. `styles.py`). |
 | `--utils` | `-u` | `<path>` | `None` | Path to Python utils script (e.g. `utils.py`). |
 | `--grid` | `-g` | flag | `False` | Save companion `*_grid.<ext>` images with coordinate grid overlaid. |
@@ -401,8 +401,9 @@ drawlib build image scripts/ -o assets/
 # Batch build illustrations with coordinate grid companion images:
 drawlib build image scripts/ -o assets/ --grid
 
-# Override output format to WebP across all scripts:
+# Override output format to WebP or GIF across all scripts:
 drawlib build image scripts/ -o assets/ -f webp
+drawlib build image scripts/ -o assets/ -f gif
 ```
 
 ---

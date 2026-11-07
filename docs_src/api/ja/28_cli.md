@@ -111,7 +111,7 @@ drawlib build COMMAND [ARGS]...
 | :--- | :--- |
 | [`drawlib build docx`](#drawlib-build-docx) | 高 DPI ラスタライズ図版を埋め込んだ編集可能な Microsoft Word（`.docx`）文書。 |
 | [`drawlib build html`](#drawlib-build-html) | 複数ページまたは単一ページの静的 HTML ドキュメントサイト（`site`・`catalog`・`doc`）。 |
-| [`drawlib build image`](#drawlib-build-image) | `.py` 描画スクリプトから生成される単体 `.png`・`.webp`・`.jpg`・`.pdf` 画像。 |
+| [`drawlib build image`](#drawlib-build-image) | `.py` 描画スクリプトから生成される単体 `.png`・`.webp`・`.gif`・`.jpg`・`.pdf` 画像。 |
 | [`drawlib build markdown`](#drawlib-build-markdown) | `drawlib` コードフェンスを画像リンクへ置換したレンダリング済み Markdown ファイル群。 |
 | [`drawlib build pdf`](#drawlib-build-pdf) | Headless Chromium で組版される印刷対応ベクター PDF（`doc`・`.md`・`slide`）。 |
 | [`drawlib build pptx`](#drawlib-build-pptx) | 編集可能な Microsoft PowerPoint（`.pptx`）ワイドスクリーン資料（`960×540 pt` 16:9）。 |
@@ -185,7 +185,7 @@ uv run drawlib build image images_src/architecture.py -o out/architecture.pdf
 | :--- | :--- | :--- | :--- |
 | `INPUT` | `str` *(必須)* | — | 対象の Python 描画スクリプト（`.py`）またはスクリプト格納ディレクトリ。 |
 | `-o, --output` | `str \| None` | `None` | 出力画像ファイルパス（単一 `.py` 指定時）または出力ディレクトリパス。 |
-| `-f, --format` | `'png' \| 'webp' \| 'jpg' \| 'pdf' \| None` | `None` | スクリプト内の `save()` で指定された出力フォーマットを一括上書きします。 |
+| `-f, --format` | `'png' \| 'webp' \| 'gif' \| 'jpg' \| 'pdf' \| None` | `None` | スクリプト内の `save()` で指定された出力フォーマットを一括上書きします。 |
 | `-s, --styles` | `str \| None` | `None` | 各描画スクリプト実行前に読み込む共通 `styles.py` のパス。 |
 | `-u, --utils` | `str \| None` | `None` | 各描画スクリプト実行前に読み込む共通 `utils.py` のパス。 |
 | `-g, --grid` | `bool` | `False` | 座標グリッドを重ねた確認用画像 `*_grid.<ext>` を併せて保存します。 |

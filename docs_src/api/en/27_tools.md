@@ -183,7 +183,7 @@ build_image(
     input_path: str | Sequence[str],
     output_path: str | None = None,
     *,
-    format: Literal["png", "webp", "jpg", "pdf"] | None = None,
+    format: Literal["png", "webp", "gif", "jpg", "pdf"] | None = None,
     styles_path: str | None = None,
     utils_path: str | None = None,
     grid: bool = False,
@@ -197,7 +197,7 @@ build_image(
 | :--- | :--- | :--- | :--- |
 | `input_path` | `str \| Sequence[str]` | *(required)* | Target Python script(s), Markdown file(s), or directory path(s). |
 | `output_path` | `str \| None` | `None` | Output image file path (for a single script) or destination directory path. |
-| `format` | `Literal["png", "webp", "jpg", "pdf"] \| None` | `None` | Global output image format override (`None` preserves script `save()` setting). |
+| `format` | `Literal["png", "webp", "gif", "jpg", "pdf"] \| None` | `None` | Global output image format override (`None` preserves script `save()` setting). |
 | `styles_path` | `str \| None` | `None` | Optional path to a custom `styles.py` script. |
 | `utils_path` | `str \| None` | `None` | Optional path to a custom `utils.py` script. |
 | `grid` | `bool` | `False` | Also save companion `*_grid.<ext>` images with the coordinate grid overlaid. |

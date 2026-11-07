@@ -141,7 +141,7 @@ def save(
 | Parameter | Type | Default | Description |
 | :--- | :--- | :--- | :--- |
 | `file` | `str \| None` | `None` | Output file path. When `None`, defaults to `"<caller_script_stem>.png"` in the caller script's directory. |
-| `format` | `Literal["png", "jpg", "jpeg", "webp", "pdf"] \| None` | `None` | Explicit output format. Inferred from `file` extension when omitted, falling back to `"png"`. |
+| `format` | `Literal["jpg", "png", "apng", "webp", "gif", "pdf", "svg"] \| None` | `None` | Explicit output format. Inferred from `file` extension when omitted, falling back to `"png"`. |
 
 ---
 

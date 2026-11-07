@@ -120,14 +120,14 @@ Exports the current canvas drawing to an image file on disk.
 ```python
 save(
     file: str | Path | None = None,
-    format: Literal["jpg", "png", "webp", "pdf"] | None = None,
+    format: Literal["jpg", "png", "apng", "webp", "gif", "pdf", "svg"] | None = None,
 )
 ```
 
 - **`file`**: Path to the output image file.
   - If omitted, Drawlib saves the image as `<script_name>.png` in the directory of the running script.
   - Supports absolute paths or relative paths.
-- **`format`**: File format (`"png"`, `"jpg"`, `"webp"`, `"pdf"`). If omitted, inferred from the filename extension or defaults to `"png"`.
+- **`format`**: File format (`"png"`, `"apng"`, `"jpg"`, `"webp"`, `"gif"`, `"pdf"`, `"svg"`). If omitted, inferred from the filename extension or defaults to `"png"`.
 
 > [!NOTE]
 > **Handling `save()` in Markdown Embedded Blocks (` ```drawlib `)**:

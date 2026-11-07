@@ -1,6 +1,6 @@
 # Drawlib Animation Design & Best Practices Guide
 
-This guide defines the architectural principles, loop idioms, and component-specific patterns for creating multi-frame animations (`APNG` and `Animated WebP`) across all Drawlib modules.
+This guide defines the architectural principles, loop idioms, and component-specific patterns for creating multi-frame animations (`APNG`, `Animated WebP`, and `Animated GIF`) across all Drawlib modules.
 
 *(For the core `Animation` class API, `with anim.frame()`, and file saving options, run `uv run drawlib rules show lib-anim`.)*
 

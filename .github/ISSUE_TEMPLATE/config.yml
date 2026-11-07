@@ -1,5 +1,8 @@
 blank_issues_enabled: true
 contact_links:
-  - name: Official Documentation & Guides (www.drawlib.com)
+  - name: Official Documentation & API Reference (www.drawlib.com)
     url: https://www.drawlib.com/
-    about: Browse tutorials, API manuals, gallery examples, and Japanese documentation (www.drawlib.com/ja/)
+    about: Browse tutorials, Python API & CLI reference (www.drawlib.com/api/), and Japanese docs (www.drawlib.com/ja/)
+  - name: Live Examples & Starter Templates (examples.drawlib.com)
+    url: https://examples.drawlib.com/
+    about: Explore ready-to-use 16:9 slide decks, technical whitepapers, and architecture diagram projects

@@ -124,7 +124,7 @@ def parse_block_info(info_str: str) -> DrawlibBlockOptions:
                 options.align = val_clean.lower()
         elif key_lower == "format":
             fmt = val_clean.lower()
-            if fmt in {"png", "webp", "svg", "apng"}:
+            if fmt in {"png", "webp", "svg", "apng", "gif"}:
                 options.format = fmt
         elif key_lower == "caption":
             options.caption = val_clean
@@ -194,13 +194,13 @@ def resolve_block_image_paths(
     Raises:
         ValueError: If require_file is True and options.file is missing.
     """
-    eff_format = options.format if options.format in {"png", "webp", "svg", "apng"} else default_format
-    ext = eff_format if eff_format in {"svg", "webp", "apng"} else "png"
+    eff_format = options.format if options.format in {"png", "webp", "svg", "apng", "gif"} else default_format
+    ext = eff_format if eff_format in {"svg", "webp", "apng", "gif"} else "png"
 
     if options.file:
         raw_file = options.file.strip()
         _, file_ext = os.path.splitext(raw_file)
-        if file_ext.lower() in {".png", ".webp", ".svg", ".apng"}:
+        if file_ext.lower() in {".png", ".webp", ".svg", ".apng", ".gif"}:
             img_name = raw_file
         else:
             img_name = f"{raw_file}.{ext}"

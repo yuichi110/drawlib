@@ -76,7 +76,7 @@ uvx drawlib serve docs_html/
 
 ### 1. SmartArt インフォグラフィック・定量チャート・宣言的アニメーション
 
-プレゼン品質のインフォグラフィック（`drawlib.smartarts`）、定量データグラフ（`drawlib.charts`）、そしてマルチフレーム **APNG / WebP** アニメーション（`drawlib.anim`）をすべて同一の座標キャンバス上で自由に組み合わせられます。
+プレゼン品質のインフォグラフィック（`drawlib.smartarts`）、定量データグラフ（`drawlib.charts`）、そしてマルチフレーム **APNG / WebP / GIF** アニメーション（`drawlib.anim`）をすべて同一の座標キャンバス上で自由に組み合わせられます。
 
 ![SmartArts Visual Showcase](../docs/readme_images/02_smartarts_showcase.png)
 
@@ -85,7 +85,7 @@ uvx drawlib serve docs_html/
 ![Animated Quantitative Charts](../docs/readme_images/03_anim_charts_hero.png)
 
 - **10種の定量データチャート (`drawlib.charts`)**: 低レベルな Matplotlib のボイラープレートを一切書かずに、周囲の図解と統一されたデザイントークンで `BarChart`、`BoxChart`、`LineChart`、`AreaChart`、`PieChart`、`RadarChart`、`ScatterChart`、`GanttChart`、`HeatmapChart` / `HeatmapOverlay` を描画。
-- **宣言的アニメーション (`drawlib.anim`)**: あらゆる構成図・チャート・ワークフローを鮮明な **APNG** / **WebP** アニメーション（`Animation(fps=..., loop=0)`）として出力し、GitHub の `README.md` や Pull Request、HTML ドキュメントサイト上でそのまま再生可能。
+- **宣言的アニメーション (`drawlib.anim`)**: あらゆる構成図・チャート・ワークフローを鮮明な **APNG**・**WebP**・ディザノイズのない **GIF** アニメーション（`Animation(fps=..., loop=0)`）として出力し、GitHub `README.md`・HTML ドキュメントサイトから X / LinkedIn 投稿・PowerPoint 資料・社内 Wiki まで幅広く再生可能。
 
 ---
 
@@ -292,7 +292,7 @@ drawlib show docs_src/ja/index.md service_routing.png -g -o preview_grid.png
 | :--- | :--- |
 | `drawlib init project <site\|catalog\|doc\|slide\|images\|list> [-l <langs>]` | ドキュメントサイト・カタログ／リファレンス・技術文書・16:9 スライド・画像プロジェクトの雛形を生成（`drawlib.toml`） |
 | `drawlib init agent <agent...\|all\|list> [-m <auto\|always>]` | AI コーディングエージェント向けルールを生成（`claude`, `cursor`, `antigravity`, `copilot`, `windsurf`, `cline`, `roo`, `codex`, `gemini`） |
-| `drawlib build <html\|markdown\|pdf\|docx\|slide\|pptx\|image>` | ソースを HTML・Markdown・PDF・Word (`.docx`)・HTML スライド・PowerPoint (`.pptx`)・画像へコンパイル |
+| `drawlib build <html\|markdown\|pdf\|docx\|slide\|pptx\|image>` | ソースを HTML・Markdown・PDF・Word (`.docx`)・HTML スライド・PowerPoint (`.pptx`)・PNG/APNG/WebP/GIF 画像へコンパイル |
 | `drawlib serve <html_dir> [--check]` | ビルド済み HTML ドキュメント／スライドのローカルサーバー起動とリンク切れ検証 |
 | `drawlib show <file> [target] [-g]` | 単体スクリプトまたは Markdown 内ブロックのレンダリング・座標グリッド (`-g`) 検証 |
 | `drawlib css <list\|show> [target] [preset] [-o <file>]` | 組み込み CSS テーマ（`html`, `catalog`, `slide`, `pdf`）の一覧・表示・ファイル出力 (`-o`) |

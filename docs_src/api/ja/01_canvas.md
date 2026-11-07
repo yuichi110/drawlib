@@ -141,7 +141,7 @@ def save(
 | 引数 | 型 | デフォルト | 説明 |
 | :--- | :--- | :--- | :--- |
 | `file` | `str \| None` | `None` | 保存先ファイルパス。`None` の場合は呼び出し元スクリプトと同じディレクトリに `"<スクリプト名>.png"` として保存されます。 |
-| `format` | `Literal["png", "jpg", "jpeg", "webp", "pdf"] \| None` | `None` | 出力フォーマット。省略時は `file` の拡張子から自動判定され、拡張子もない場合は `"png"` となります。 |
+| `format` | `Literal["jpg", "png", "apng", "webp", "gif", "pdf", "svg"] \| None` | `None` | 出力フォーマット。省略時は `file` の拡張子から自動判定され、拡張子もない場合は `"png"` となります。 |
 
 ---
 

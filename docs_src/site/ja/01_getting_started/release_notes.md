@@ -1,5 +1,29 @@
 # リリースノートと移行ガイド
 
+## バージョン 0.3.7
+
+*リリース日: 2026/11/07*
+
+バージョン 0.3.7 では、SNS・プレゼン資料・社内 Wiki 等あらゆる環境で再生できる **ディザノイズのないアニメーション／静止画 GIF 出力（`.gif`）** を `Animation`・`canvas.save()`・Markdown コードブロック・CLI バッチビルドへ新搭載したほか、Windows / POSIX 横断での **Headless Chromium 並列セットアップ排他ロック強化**、多言語 **`navbar.md` のロケール別外部 URL 対応**、および **マルチポータル SEO / `llms.txt` 導線と README の整備** を実施しました。
+
+---
+
+### ハイライトと新機能
+
+#### 1. ディザノイズのないアニメーション & 静止画 GIF 出力（`Animation`, `save("*.gif")`, `drawlib build image -f gif`）
+- **図解・テキストに最適化された 256 色パレット量子化（`l3_images._gif`）**: ディザリングを無効化した Median Cut 減色（`Image.Quantize.MEDIANCUT` + `Image.Dither.NONE`）による `.gif` 出力（`ImageFormat` に `"gif"`・`"apng"`・`"svg"` を追加）に対応し、`Styles.Neutral` 等のフラットなカード塗りに粒状ノイズを発生させず鮮明な文字エッジを維持します。
+- **アニメーション・Markdown フェンス・CLI の一貫対応**: `save("flow.gif")` や `save("flow", format="gif")` によるマルチフレーム GIF 書き出し（`10ms` 単位の GIF 仕様フレーム間隔丸め、および透過背景時のパレット `255` 番予約＋`disposal=2` による残像防止）、Markdown ```` ```drawlib ```` ブロックでの `file=demo.gif` / `format=gif` 指定（`.docx` / `.pptx` 変換時は静止 PNG フレームを自動抽出）、および `drawlib build image -f gif` での一括変換をサポートします。
+
+#### 2. クロスプラットフォーム並列ブラウザロックと多言語ナビゲーション改善
+- **Headless Chromium のプロセス間排他ロックとセンチネル検証（`browser.py`）**: POSIX の `fcntl.flock` に加えて Windows の `msvcrt.locking` によるプロセス間ファイルロックに対応し、ロック取得後に `INSTALLATION_COMPLETE` センチネルを確認することで、`pytest-xdist` 等の並列ワーカーや同時 PDF / PPTX ビルドにおける初回 `chromium-headless-shell` 取得の競合と重複起動を防止しました。
+- **多言語 `navbar.md` でのロケール別外部リンク対応（`i18n.py`）**: 多言語 `site` プロジェクトの構造パリティ検証において、外部 URL 内の `/{lang}/` パス切り替え（例：`en/navbar.md` で `/api/en/`、`ja/navbar.md` で `/api/ja/` を指定）を正規化して許容するようになりました。
+
+#### 3. CLI・テンプレート・SEO 発見性・ドキュメントの整備
+- **Catalog 雛形メッセージ・CLI ヘルプ・型処理の整理**: `drawlib init project` のヘルプ表記および `catalog` テンプレートのビルドスクリプト出力（`Catalog HTML`）を統一し、`l3_math`・`l4_canvas` のベジェ／座標タプル判定を改善しました。
+- **マルチポータル `sitemap.xml` / `llms.txt` 導線と README 刷新**: `www.drawlib.com` ルートの `robots.txt` および `llms.txt` から `/api/`・`/architecture/` への導線を追加し、GitHub / PyPI README の全 10 種チャート（`BoxChart` 含む）・15 種テックブランドアイコンスイート表記および `uvx` クイックスタート案内を更新しました。
+
+---
+
 ## バージョン 0.3.6
 
 *リリース日: 2026/11/06*
