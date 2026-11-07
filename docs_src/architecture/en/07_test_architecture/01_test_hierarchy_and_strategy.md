@@ -242,6 +242,6 @@ def test_precision_badge_alignment() -> None:
 ```
 
 - **Default Parallelism & Coverage**: On `./dcli test all` and `./dcli test drawlib`, `--parallel` (`-n auto --dist loadfile`, grouping each test module onto a single worker so module-scoped `output_tests/` directories never race) and `--cov` (`--cov=drawlib`, with `--cov-report` adding `--cov-report=term-missing`) are **enabled by default**.
-- **Continuous Integration & On-Demand Cross-OS Matrix (`.github/workflows/ut_github.yml`)**: Runs the full test suite in parallel on every push and pull request to `main` on `ubuntu-latest` (Python `3.12`) via `ut_template.yml`, while exposing `workflow_dispatch` modes (`full` for all 3 OSes × Python `3.11`/`3.12`/`3.13`, `all-os`, or `ubuntu-only`) for on-demand cross-platform verification.
+- **Continuous Integration & On-Demand Cross-OS Matrix (`.github/workflows/ut_github.yml`)**: Runs the full test suite in parallel on every push and pull request to `main` on `ubuntu-latest` (Python `3.12`) via `ut_template.yml`, while exposing `workflow_dispatch` modes (`full` for all 3 OSes × Python `3.11`/`3.12`/`3.13`/`3.14`, `all-os`, or `ubuntu-only`) for on-demand cross-platform verification.
 
 Next, explore how live repository dogfooding and static quality gates verify end-to-end documentation builds in **[Dogfooding & Quality Gates](02_dogfooding_and_quality_gates.md)**.

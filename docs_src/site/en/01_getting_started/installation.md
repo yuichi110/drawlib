@@ -76,7 +76,7 @@ save()
 
 ## Requirements
 
-- **Python**: Version 3.11 or higher (automatically managed when using [`uv` / `uvx`](https://docs.astral.sh/uv/)).
+- **Python**: Version 3.11 or higher — Python `3.11`, `3.12`, `3.13`, and `3.14` supported (automatically managed when using [`uv` / `uvx`](https://docs.astral.sh/uv/)).
 - **Operating System**: Linux, macOS, or Windows.
 
 ---

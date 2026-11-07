@@ -7,7 +7,7 @@
 
   <p>
     <a href="https://pypi.org/project/drawlib/"><img alt="PyPI version" src="https://img.shields.io/pypi/v/drawlib.svg"></a>
-    <a href="https://pypi.org/project/drawlib/"><img alt="Python 3.11–3.13" src="https://img.shields.io/pypi/pyversions/drawlib.svg"></a>
+    <a href="https://pypi.org/project/drawlib/"><img alt="Python 3.11–3.14" src="https://img.shields.io/pypi/pyversions/drawlib.svg"></a>
     <a href="https://github.com/yuichi110/drawlib/actions/workflows/quality.yml"><img alt="Code Quality" src="https://github.com/yuichi110/drawlib/actions/workflows/quality.yml/badge.svg?branch=main"></a>
     <a href="https://github.com/yuichi110/drawlib/actions/workflows/ut_github.yml"><img alt="Unit Tests" src="https://github.com/yuichi110/drawlib/actions/workflows/ut_github.yml/badge.svg?branch=main"></a>
     <a href="https://opensource.org/licenses/Apache-2.0"><img alt="License: Apache-2.0" src="https://img.shields.io/badge/License-Apache_2.0-blue.svg"></a>

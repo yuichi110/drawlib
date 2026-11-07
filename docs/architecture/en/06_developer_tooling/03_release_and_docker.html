@@ -422,7 +422,7 @@
 <h3>3.1. Dependency Auditing &amp; Version Verification (<code>./dcli pypi</code>)</h3>
 <p><code>pyproject.toml</code> statically configures package metadata—including <code>readme = &quot;docs_src/README_PYPI.md&quot;</code>, <code>requires-python = &quot;&gt;=3.11&quot;</code>, and all runtime dependencies (<code>matplotlib</code>, <code>pillow&gt;=13.0.0</code>, <code>numpy</code>, <code>pydantic</code>, <code>pygments</code>, <code>markdown-it-py</code>, <code>jinja2</code>, <code>markupsafe</code>, <code>typer</code>, <code>rich</code>, <code>playwright</code>, <code>python-docx</code>, <code>python-pptx</code>). The <code>pypi</code> toolset inspects <code>pyproject.toml</code> strictly <strong>read-only</strong> without mutating project files:</p>
 <ul>
-<li><strong><code>./dcli pypi deps</code> &amp; <code>dep-releases &lt;package&gt;</code></strong>: Lists direct runtime dependencies declared in <code>pyproject.toml</code> and queries PyPI release histories (<code>--from YEAR</code>, <code>--to YEAR</code>, <code>--format text|json</code>) to audit upstream compatibility across Python 3.11–3.13.</li>
+<li><strong><code>./dcli pypi deps</code> &amp; <code>dep-releases &lt;package&gt;</code></strong>: Lists direct runtime dependencies declared in <code>pyproject.toml</code> and queries PyPI release histories (<code>--from YEAR</code>, <code>--to YEAR</code>, <code>--format text|json</code>) to audit upstream compatibility across Python 3.11–3.14.</li>
 <li><strong><code>./dcli pypi list-versions</code> &amp; <code>latest [--test-pypi]</code></strong>: Queries published versions on live PyPI or TestPyPI.</li>
 <li><strong><code>./dcli pypi check-version [--test-pypi] [--allow-jump]</code></strong>: Validates that <code>project.version</code> in <code>pyproject.toml</code> advances monotonically from the latest published release without accidental minor or major jumps (unless <code>--allow-jump</code> is explicitly passed).</li>
 <li><strong><code>./dcli pypi publish [--test-pypi] [--allow-jump]</code></strong>: Resolves <code>TEST_PYPI_TOKEN</code> or <code>PYPI_TOKEN</code> (from <code>.env</code>, environment variables, or <code>--token</code>) and executes a deterministic 4-step sequence:
@@ -435,7 +435,7 @@
 </li>
 </ul>
 <h3>3.2. Production Docker Variants (<code>./dcli docker build</code>)</h3>
-<p><code>./dcli docker</code> (<code>status</code>, <code>build</code>, <code>test</code>, <code>list</code>, <code>prune</code>) builds four production tags from <code>tools/docker/Dockerfile.prod</code> (supporting <code>--python 3.11|3.12|3.13</code> and <code>--pypi &lt;VER&gt;</code> to install from PyPI instead of local source):</p>
+<p><code>./dcli docker</code> (<code>status</code>, <code>build</code>, <code>test</code>, <code>list</code>, <code>prune</code>) builds four production tags from <code>tools/docker/Dockerfile.prod</code> (supporting <code>--python 3.11|3.12|3.13|3.14</code> and <code>--pypi &lt;VER&gt;</code> to install from PyPI instead of local source):</p>
 <ul>
 <li><strong><code>drawlib:slim</code></strong> <em>(default)</em>: <code>python:3.12-slim</code> + Mesa/GLib libraries (<code>libgl1</code>, <code>libglx-mesa0</code>, <code>libglib2.0-0</code>) + core <code>drawlib</code> wheel (<code>playwright</code>, <code>python-docx</code>, and <code>python-pptx</code> Python packages included). Ideal for PNG/SVG/HTML/DOCX builds.</li>
 <li><strong><code>drawlib:pdf</code></strong> (<code>--pdf</code> -&gt; <code>WITH_PDF=true</code>): Runs <code>playwright install --with-deps --only-shell chromium</code> to add the headless Chromium shell and Linux shared libraries required for PDF compilation and PPTX DOM slide rasterization.</li>
@@ -464,9 +464,9 @@ git<span class="w"> </span>tag<span class="w"> </span>v&lt;VERSION&gt;<span clas
 <li>Executes <code>drawlib cache download --all &amp;&amp; pytest -n auto --dist loadfile tests/drawlib/</code>.</li>
 </ul>
 </li>
-<li><strong>9-Job Cross-OS Release Matrix (<code>.github/workflows/ut_pypi.yml</code>)</strong>:
+<li><strong>12-Job Cross-OS Release Matrix (<code>.github/workflows/ut_pypi.yml</code>)</strong>:
 <ul>
-<li>Triggered via <code>workflow_dispatch</code> with <code>lib_version</code>, delegating to <code>ut_template.yml</code> across a <strong>3 OS × 3 Python matrix</strong> (<code>ubuntu-latest</code>, <code>windows-latest</code>, <code>macos-latest</code> × Python <code>3.11</code>, <code>3.12</code>, <code>3.13</code>) to verify native font handling, path semantics, and headless rendering on every supported platform.</li>
+<li>Triggered via <code>workflow_dispatch</code> with <code>lib_version</code>, delegating to <code>ut_template.yml</code> across a <strong>3 OS × 4 Python matrix</strong> (<code>ubuntu-latest</code>, <code>windows-latest</code>, <code>macos-latest</code> × Python <code>3.11</code>, <code>3.12</code>, <code>3.13</code>, <code>3.14</code>) to verify native font handling, path semantics, and headless rendering on every supported platform.</li>
 </ul>
 </li>
 </ol>

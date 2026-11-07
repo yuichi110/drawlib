@@ -30,7 +30,7 @@ For the complete developer workflow, repository layout, and AI pair-programming 
 Before opening a Pull Request, please verify:
 
 1. **Code Quality**: `./dcli code-check all` passes with zero errors.
-2. **Python 3.11+ Compatibility**: Library code under `src/drawlib/` maintains compatibility with Python `3.11`, `3.12`, and `3.13`.
+2. **Python 3.11+ Compatibility**: Library code under `src/drawlib/` maintains compatibility with Python `3.11`, `3.12`, `3.13`, and `3.14`.
 3. **Unit Tests**: Relevant tests pass via `./dcli test target <module_or_path>` (add unit tests under `tests/drawlib/` for new functionality or bug fixes).
 4. **Visual & Documentation Check *(when modifying rendering or public APIs)***:
    - Preview affected diagrams with `-g` (`uv run drawlib show ... -g`) to ensure crisp alignment and zero text clipping.

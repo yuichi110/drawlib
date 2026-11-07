@@ -174,7 +174,7 @@ save()
 
 ### 3.1. Dependency Auditing & Version Verification (`./dcli pypi`)
 `pyproject.toml` statically configures package metadata—including `readme = "docs_src/README_PYPI.md"`, `requires-python = ">=3.11"`, and all runtime dependencies (`matplotlib`, `pillow>=13.0.0`, `numpy`, `pydantic`, `pygments`, `markdown-it-py`, `jinja2`, `markupsafe`, `typer`, `rich`, `playwright`, `python-docx`, `python-pptx`). The `pypi` toolset inspects `pyproject.toml` strictly **read-only** without mutating project files:
-- **`./dcli pypi deps` & `dep-releases <package>`**: Lists direct runtime dependencies declared in `pyproject.toml` and queries PyPI release histories (`--from YEAR`, `--to YEAR`, `--format text|json`) to audit upstream compatibility across Python 3.11–3.13.
+- **`./dcli pypi deps` & `dep-releases <package>`**: Lists direct runtime dependencies declared in `pyproject.toml` and queries PyPI release histories (`--from YEAR`, `--to YEAR`, `--format text|json`) to audit upstream compatibility across Python 3.11–3.14.
 - **`./dcli pypi list-versions` & `latest [--test-pypi]`**: Queries published versions on live PyPI or TestPyPI.
 - **`./dcli pypi check-version [--test-pypi] [--allow-jump]`**: Validates that `project.version` in `pyproject.toml` advances monotonically from the latest published release without accidental minor or major jumps (unless `--allow-jump` is explicitly passed).
 - **`./dcli pypi publish [--test-pypi] [--allow-jump]`**: Resolves `TEST_PYPI_TOKEN` or `PYPI_TOKEN` (from `.env`, environment variables, or `--token`) and executes a deterministic 4-step sequence:
@@ -184,7 +184,7 @@ save()
   4. Runs `uv build` (`uv_build` backend) followed by `uv publish` (targeting `https://test.pypi.org/legacy/` when `--test-pypi` is set).
 
 ### 3.2. Production Docker Variants (`./dcli docker build`)
-`./dcli docker` (`status`, `build`, `test`, `list`, `prune`) builds four production tags from `tools/docker/Dockerfile.prod` (supporting `--python 3.11|3.12|3.13` and `--pypi <VER>` to install from PyPI instead of local source):
+`./dcli docker` (`status`, `build`, `test`, `list`, `prune`) builds four production tags from `tools/docker/Dockerfile.prod` (supporting `--python 3.11|3.12|3.13|3.14` and `--pypi <VER>` to install from PyPI instead of local source):
 - **`drawlib:slim`** *(default)*: `python:3.12-slim` + Mesa/GLib libraries (`libgl1`, `libglx-mesa0`, `libglib2.0-0`) + core `drawlib` wheel (`playwright`, `python-docx`, and `python-pptx` Python packages included). Ideal for PNG/SVG/HTML/DOCX builds.
 - **`drawlib:pdf`** (`--pdf` -> `WITH_PDF=true`): Runs `playwright install --with-deps --only-shell chromium` to add the headless Chromium shell and Linux shared libraries required for PDF compilation and PPTX DOM slide rasterization.
 - **`drawlib:assets`** (`--assets` -> `WITH_ASSETS=true`): Runs `drawlib cache download --all` at image build time, pre-populating all **83** verified font, icon, and map packages directly into **`drawlib._cached_assets/`** inside the installed package directory.
@@ -211,8 +211,8 @@ git tag v<VERSION> && git push origin v<VERSION>
    - Verifies via `pip index versions drawlib` that the exact `<VERSION>` exists on the target index, installs `drawlib==<VERSION>` (`--extra-index-url https://pypi.org/simple/` when testing TestPyPI), and runs `playwright install-deps chromium`.
    - Copies **only `pyproject.toml` and `tests/`—strictly excluding `src/`**—ensuring every import resolves exclusively against `site-packages/drawlib/`.
    - Executes `drawlib cache download --all && pytest -n auto --dist loadfile tests/drawlib/`.
-2. **9-Job Cross-OS Release Matrix (`.github/workflows/ut_pypi.yml`)**:
-   - Triggered via `workflow_dispatch` with `lib_version`, delegating to `ut_template.yml` across a **3 OS × 3 Python matrix** (`ubuntu-latest`, `windows-latest`, `macos-latest` × Python `3.11`, `3.12`, `3.13`) to verify native font handling, path semantics, and headless rendering on every supported platform.
+2. **12-Job Cross-OS Release Matrix (`.github/workflows/ut_pypi.yml`)**:
+   - Triggered via `workflow_dispatch` with `lib_version`, delegating to `ut_template.yml` across a **3 OS × 4 Python matrix** (`ubuntu-latest`, `windows-latest`, `macos-latest` × Python `3.11`, `3.12`, `3.13`, `3.14`) to verify native font handling, path semantics, and headless rendering on every supported platform.
 
 ### 3.4. Automated GitHub Releases (`./dcli github-release` & `release.yml`)
 While `release-assets` manages unversioned external binary packs (`assets-v0.3`), `tools/dcli/github_release/` manages versioned code releases (`vX.Y.Z`) directly from `docs_src/site/en/01_getting_started/release_notes.md`:

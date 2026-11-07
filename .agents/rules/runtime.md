@@ -10,11 +10,11 @@ This document describes the runtime environment, Python versions, and command ex
 
 - **Development Environment**: **Python 3.12**
   - The primary local development and CI quality check environment uses **Python 3.12** (managed via `uv`).
-- **Supported Library Runtime**: **Python 3.11, 3.12, 3.13** (`>=3.11`)
+- **Supported Library Runtime**: **Python 3.11, 3.12, 3.13, 3.14** (`>=3.11`)
   - Specified in `pyproject.toml` as `requires-python = ">=3.11"`.
   - The published library code (`src/drawlib/`) **must maintain strict compatibility with Python 3.11+**.
   - Do not introduce Python 3.12+-only syntax or standard library features into `src/drawlib/` without compatibility fallbacks.
-  - Cross-version and cross-platform compatibility is verified in CI across Linux, Windows, and macOS for Python 3.11, 3.12, and 3.13.
+  - Cross-version and cross-platform compatibility is verified in CI across Linux, Windows, and macOS for Python 3.11, 3.12, 3.13, and 3.14.
 
 ## 2. Package Management
 - **Tool**: Use `uv` for dependency management and environment isolation.

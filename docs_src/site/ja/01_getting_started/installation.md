@@ -76,7 +76,7 @@ save()
 
 ## 動作要件
 
-- **Python**: バージョン 3.11 以上（[`uv` / `uvx`](https://docs.astral.sh/uv/) を利用する場合は自動的に管理されます）。
+- **Python**: バージョン 3.11 以上 — Python `3.11` / `3.12` / `3.13` / `3.14` 対応（[`uv` / `uvx`](https://docs.astral.sh/uv/) を利用する場合は自動的に管理されます）。
 - **OS**: Linux、macOS、または Windows。
 
 ---
