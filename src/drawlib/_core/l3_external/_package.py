@@ -13,9 +13,11 @@ from __future__ import annotations
 
 import hashlib
 import io
+import os
+import threading
 import urllib.request
 import zipfile
-from collections.abc import Iterator, Sequence
+from collections.abc import Sequence
 from pathlib import Path
 from typing import Literal
 
@@ -131,9 +133,26 @@ class ReleaseAssetPackage(BaseModel):
 
         local_dir = self.get_local_dir()
         local_dir.mkdir(parents=True, exist_ok=True)
+        local_dir_resolved = local_dir.resolve()
         try:
             with zipfile.ZipFile(io.BytesIO(data)) as zf:
-                zf.extractall(local_dir)
+                for member in zf.infolist():
+                    dest_path = (local_dir_resolved / member.filename).resolve()
+                    if not dest_path.is_relative_to(local_dir_resolved):
+                        msg = f"Unsafe archive member path '{member.filename}' in '{self.archive_name}'"
+                        raise ValueError(msg)
+                    if member.is_dir():
+                        dest_path.mkdir(parents=True, exist_ok=True)
+                        continue
+                    dest_path.parent.mkdir(parents=True, exist_ok=True)
+                    tmp_path = dest_path.parent / f".tmp_{os.getpid()}_{threading.get_ident()}_{dest_path.name}"
+                    try:
+                        tmp_path.write_bytes(zf.read(member))
+                        os.replace(tmp_path, dest_path)
+                    except BaseException:
+                        if tmp_path.exists():
+                            tmp_path.unlink(missing_ok=True)
+                        raise
         except Exception as e:
             msg = f"Failed to extract asset package '{self.archive_name}' to '{local_dir}': {e}"
             raise RuntimeError(msg) from e

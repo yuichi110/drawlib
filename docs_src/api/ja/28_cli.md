@@ -142,6 +142,7 @@ uv run drawlib build docx doc_src -o doc.docx --generate-index --dpi 240
 | `-u, --utils` | `str \| None` | `None` | カスタム `utils.py` のパス（`INPUT` 内に存在する場合は自動検出）。 |
 | `--no-cache` | `bool` | `False` | SQLite ビルド画像キャッシュ（`.drawlib/cache.db`）の読み書きを無効化します。 |
 | `--timestamp` | `bool` | `False` | 決定論的ビルド用の固定日時ではなく、現在時刻を OpenXML メタデータに記録します。 |
+| `-w, --workers` | `str` | `'auto'` | 並列ワーカープロセス数（`'auto'` は `DRAWLIB_BUILD_WORKERS` または `1 <= (CPUコア数 - 1) <= 8` に解決、`'1'` は逐次実行）。 |
 
 ---
 
@@ -164,6 +165,7 @@ uv run drawlib build html docs_src -o docs_html -f webp
 | `-s, --styles` | `str \| None` | `None` | 各 `drawlib` ブロック実行前に読み込む `styles.py` のパス。 |
 | `-u, --utils` | `str \| None` | `None` | 各 `drawlib` ブロック実行前に読み込む `utils.py` のパス。 |
 | `--no-cache` | `bool` | `False` | `.drawlib/cache.db` の読み書きをバイパスします。 |
+| `-w, --workers` | `str` | `'auto'` | 並列ワーカープロセス数（`'auto'` は `DRAWLIB_BUILD_WORKERS` または `1 <= (CPUコア数 - 1) <= 8` に解決、`'1'` は逐次実行）。 |
 
 ---
 
@@ -189,9 +191,10 @@ uv run drawlib build image images_src/architecture.py -o out/architecture.pdf
 | `-s, --styles` | `str \| None` | `None` | 各描画スクリプト実行前に読み込む共通 `styles.py` のパス。 |
 | `-u, --utils` | `str \| None` | `None` | 各描画スクリプト実行前に読み込む共通 `utils.py` のパス。 |
 | `-g, --grid` | `bool` | `False` | 座標グリッドを重ねた確認用画像 `*_grid.<ext>` を併せて保存します。 |
-| `--disable-auto-clear` | `bool` | `False` | 連続するスクリプト実行間の自動 `clear()` 呼び出しを無効化します。 |
+| `--disable-auto-clear` | `bool` | `False` | 連続するスクリプト実行間の自動 `clear()` 呼び出しを無効化します（逐次実行へ自動フォールバック）。 |
 | `--enable-auto-initialize` | `bool` | `False` | 各スクリプト実行前にグローバル `config()` 設定を初期状態へリセットします。 |
 | `--no-cache` | `bool` | `False` | SQLite ビルド画像キャッシュの読み書きを無効化します。 |
+| `-w, --workers` | `str` | `'auto'` | 並列ワーカープロセス数（`'auto'` は `DRAWLIB_BUILD_WORKERS` または `1 <= (CPUコア数 - 1) <= 8` に解決、`'1'` は逐次実行）。 |
 
 ---
 
@@ -213,6 +216,7 @@ uv run drawlib build markdown doc_src -o doc_markdown -f png
 | `-s, --styles` | `str \| None` | `None` | Python `styles.py` スクリプトのパス。 |
 | `-u, --utils` | `str \| None` | `None` | Python `utils.py` スクリプトのパス。 |
 | `--no-cache` | `bool` | `False` | SQLite ビルド画像キャッシュの読み書きを無効化します。 |
+| `-w, --workers` | `str` | `'auto'` | 並列ワーカープロセス数（`'auto'` は `DRAWLIB_BUILD_WORKERS` または `1 <= (CPUコア数 - 1) <= 8` に解決、`'1'` は逐次実行）。 |
 
 ---
 
@@ -241,6 +245,7 @@ uv run drawlib build pdf slide_src -o presentation.pdf
 | `-u, --utils` | `str \| None` | `None` | Python `utils.py` スクリプトのパス。 |
 | `--no-cache` | `bool` | `False` | SQLite ビルド画像キャッシュの読み書きを無効化します。 |
 | `--timestamp` | `bool` | `False` | PDF メタデータ（`/CreationDate`・`/ModDate`）の正規化を行わず現在時刻を記録します。 |
+| `-w, --workers` | `str` | `'auto'` | 並列ワーカープロセス数（`'auto'` は `DRAWLIB_BUILD_WORKERS` または `1 <= (CPUコア数 - 1) <= 8` に解決、`'1'` は逐次実行）。 |
 
 ---
 
@@ -266,6 +271,7 @@ uv run drawlib build pptx slide_src -o deck.pptx --theme google --dpi 240 --anim
 | `-u, --utils` | `str \| None` | `None` | Python `utils.py` スクリプトのパス。 |
 | `--no-cache` | `bool` | `False` | SQLite ビルド画像キャッシュの読み書きを無効化します。 |
 | `--timestamp` | `bool` | `False` | PowerPoint OpenXML メタデータに現在時刻のビルドタイムスタンプを含めます。 |
+| `-w, --workers` | `str` | `'auto'` | 並列ワーカープロセス数（`'auto'` は `DRAWLIB_BUILD_WORKERS` または `1 <= (CPUコア数 - 1) <= 8` に解決、`'1'` は逐次実行）。 |
 
 ---
 
@@ -288,6 +294,7 @@ uv run drawlib build slide slide_src -o slide_html --theme google -f svg
 | `-s, --styles` | `str \| None` | `None` | Python `styles.py` スクリプトのパス。 |
 | `-u, --utils` | `str \| None` | `None` | Python `utils.py` スクリプトのパス。 |
 | `--no-cache` | `bool` | `False` | SQLite ビルド画像キャッシュの読み書きを無効化します。 |
+| `-w, --workers` | `str` | `'auto'` | 並列ワーカープロセス数（`'auto'` は `DRAWLIB_BUILD_WORKERS` または `1 <= (CPUコア数 - 1) <= 8` に解決、`'1'` は逐次実行）。 |
 
 ---
 

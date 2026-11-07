@@ -12,12 +12,17 @@
 from __future__ import annotations
 
 import os
+from typing import Literal
 
 from drawlib._builder._common import (
+    BlockRenderJob,
     BuildImageCache,
     ProjectManifest,
+    collect_docx_chapter_block_jobs,
     find_project_manifest,
     load_project_manifest,
+    prerender_document_blocks,
+    resolve_build_workers,
     resolve_styles_and_utils,
 )
 from drawlib._builder.doc_builder.compiler.base import (
@@ -26,6 +31,7 @@ from drawlib._builder.doc_builder.compiler.base import (
     resolve_multi_locale_dest,
 )
 from drawlib._builder.doc_builder.i18n import validate_i18n_project
+from drawlib._builder.doc_builder.merger import expand_input_files
 
 
 def _resolve_docx_dest(default_base_dir: str, default_stem: str, output_file: str | None) -> str:
@@ -51,6 +57,7 @@ def _build_i18n_doc_docx(
     utils_path: str | None,
     no_cache: bool,
     timestamp: bool,
+    workers: int = 1,
 ) -> str:
     """Compile all locales of a ``doc`` project into ``<base>_<lang>.docx`` files."""
     from drawlib._builder.doc_builder.exporter_docx import export_chapters_to_docx  # noqa: PLC0415
@@ -64,10 +71,37 @@ def _build_i18n_doc_docx(
     cache = BuildImageCache(enabled=not no_cache)
     default_parent = os.path.dirname(input_dir_abs)
     generated_paths: dict[str, str] = {}
+    locale_styles_utils: dict[str, tuple[str | None, str | None]] = {
+        lang: resolve_styles_and_utils(os.path.join(input_dir_abs, lang), styles_path, utils_path)
+        for lang in manifest.i18n.langs
+    }
+
+    if workers > 1:
+        docx_jobs: list[BlockRenderJob] = []
+        for lang in manifest.i18n.langs:
+            lang_dir_abs = os.path.join(input_dir_abs, lang)
+            loc_styles, loc_utils = locale_styles_utils[lang]
+            for s_abs in expand_input_files([lang_dir_abs]):
+                if os.path.splitext(s_abs)[1].lower() not in {".md", ".markdown"}:
+                    continue
+                with open(s_abs, "r", encoding="utf-8") as mf:
+                    md_text = mf.read()
+                docx_jobs.extend(
+                    collect_docx_chapter_block_jobs(
+                        src_abs=s_abs,
+                        markdown_text=md_text,
+                        dpi=dpi,
+                        styles_path=loc_styles,
+                        utils_path=loc_utils,
+                        project_root=input_dir_abs,
+                        no_cache_global=no_cache,
+                    )
+                )
+        prerender_document_blocks(docx_jobs, cache=cache, workers=workers)
 
     for lang in manifest.i18n.langs:
         lang_dir_abs = os.path.join(input_dir_abs, lang)
-        loc_styles, loc_utils = resolve_styles_and_utils(lang_dir_abs, styles_path, utils_path)
+        loc_styles, loc_utils = locale_styles_utils[lang]
         dest_abs = resolve_multi_locale_dest(default_parent, base_name, output_file, lang, ".docx")
         export_chapters_to_docx(
             inputs=[lang_dir_abs],
@@ -84,6 +118,7 @@ def _build_i18n_doc_docx(
             lang=lang,
             project_root=input_dir_abs,
             cache=cache,
+            workers=1,
         )
         generated_paths[lang] = dest_abs
 
@@ -102,6 +137,7 @@ def _compile_single_file_docx(
     utils_path: str | None,
     no_cache: bool,
     timestamp: bool,
+    workers: int = 1,
 ) -> str:
     """Compile a standalone Markdown file into a native MS Word (.docx) document."""
     from drawlib._builder.doc_builder.exporter_docx import export_chapters_to_docx  # noqa: PLC0415
@@ -136,6 +172,7 @@ def _compile_single_file_docx(
         timestamp=timestamp,
         lang=doc_lang,
         project_root=proj_root,
+        workers=workers,
     )
     return dest_abs
 
@@ -153,6 +190,7 @@ def build_docx(
     utils_path: str | None = None,
     no_cache: bool = False,
     timestamp: bool = False,
+    workers: int | Literal["auto"] = "auto",
 ) -> str:
     """Compile a ``doc`` project directory or standalone Markdown file into MS Word (.docx).
 
@@ -171,6 +209,7 @@ def build_docx(
         utils_path (Optional[str]): Path to custom utils.py script.
         no_cache (bool): If True, disable reading/writing the SQLite build image cache.
         timestamp (bool): If True, include current build timestamp in document metadata.
+        workers (int | Literal["auto"]): Number of parallel rendering worker processes ('auto' or int >= 1).
 
     Returns:
         str: Absolute path of generated .docx file (or default-locale .docx for ``doc`` projects).
@@ -178,6 +217,7 @@ def build_docx(
     Raises:
         ValueError: If input_path does not exist, lacks ``drawlib.toml`` for directories, or has an unsupported type.
     """
+    eff_workers = resolve_build_workers(workers)
     resolved_input = input_path if input_path is not None else input_dir
     if not resolved_input:
         raise ValueError("No input directory or file specified for build_docx.")
@@ -199,6 +239,7 @@ def build_docx(
             utils_path=utils_path,
             no_cache=no_cache,
             timestamp=timestamp,
+            workers=eff_workers,
         )
 
     input_dir_abs = require_directory(resolved_input, "build_docx")
@@ -251,4 +292,5 @@ def build_docx(
         utils_path=utils_path,
         no_cache=no_cache,
         timestamp=timestamp,
+        workers=eff_workers,
     )

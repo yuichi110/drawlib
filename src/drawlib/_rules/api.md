@@ -839,8 +839,8 @@ Drawlib presentation slides operate on a universal **16:9 widescreen stage (`192
 | `draw_section_header(...)` | Renders a full-bleed 16:9 section header slide (`192×108`) with 4 variants (`"split"`, `"centered"`, `"banner"`, `"minimal"`). | `draw_section_header(1, "Intro", "Overview", ["A", "B"], total_sections=4)` |
 | `BoundingBox` | Dataclass representing rectangular stage bounds `(x, y, width, height)` in `1920×1080` pixels. | `box = BoundingBox(x=100, y=200, width=800, height=600)` |
 | `SlideContext` | Slide execution state container (`index`, `total`). | Internal slide runtime context |
-| `build_slide(...)` | Programmatic multi-locale slide deck compiler (`input_dir`, `output_dir`, `image_format`). | `build_slide("slide_src/", "slide_html/")` |
-| `build_pptx(...)` | Programmatic 16:9 editable MS PowerPoint (`<stem>_<lang>.pptx`) exporter (`input_dir`, `output_file`, `dpi=240`, `anim_frame="last"`). | `build_pptx("slide_src/", "slide.pptx")` |
+| `build_slide(...)` | Programmatic multi-locale slide deck compiler (`input_dir`, `output_dir`, `image_format`, `workers="auto"`). | `build_slide("slide_src/", "slide_html/")` |
+| `build_pptx(...)` | Programmatic 16:9 editable MS PowerPoint (`<stem>_<lang>.pptx`) exporter (`input_dir`, `output_file`, `dpi=240`, `anim_frame="last"`, `workers="auto"`). | `build_pptx("slide_src/", "slide.pptx")` |
 
 ```python
 from drawlib.slide import draw_page_number, draw_section_header
@@ -883,7 +883,7 @@ Programmatic Python tools for compilation, diagram extraction, project scaffoldi
 
 | Category | Functions | Primary Usage |
 | :--- | :--- | :--- |
-| **Compilation** | `build_document`, `build_html`, `build_markdown`, `build_pdf`, `build_docx`, `build_slide`, `build_pptx`, `build_image`, `detect_document_type` | `build_html(input_dir="docs_src/", output_dir="docs_html/")`, `build_docx("doc_src/", "doc.docx")`, `build_slide("slide_src/", "slide_html/")`, `build_pptx("slide_src/", "slide.pptx")` |
+| **Compilation** | `build_document`, `build_html`, `build_markdown`, `build_pdf`, `build_docx`, `build_slide`, `build_pptx`, `build_image`, `detect_document_type` | `build_html("docs_src/", "docs_html/", workers="auto")`, `build_docx("doc_src/", "doc.docx")`, `build_slide("slide_src/", "slide_html/")`, `build_pptx("slide_src/", "slide.pptx")` |
 | **Diagram Export** | `export_code_block`, `show_code_block` | `export_code_block("docs_src/en/arch.md", "arch.png", ".drawlib/scratch/preview.png", grid=True)` |
 | **Scaffolding** | `init_project`, `list_project_types` | `init_project("site", target="docs", lang="en,ja", style="google")` |
 | **AI Agent Rules** | `init_agent_instruction`, `list_agent_targets`, `detect_agent_targets`, `get_agent_instruction` | `init_agent_instruction("antigravity", mode="auto")` |

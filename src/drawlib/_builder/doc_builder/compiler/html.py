@@ -14,9 +14,10 @@ from __future__ import annotations
 import os
 import re
 import sys
-from typing import Any
+from typing import Any, Literal
 
 from drawlib._builder._common import (
+    BlockRenderJob,
     BuildImageCache,
     CatalogConfig,
     FileBuildProgress,
@@ -25,11 +26,14 @@ from drawlib._builder._common import (
     ProjectManifest,
     SitemapEntry,
     build_page_seo_metadata,
+    collect_standard_document_block_jobs,
     ensure_seo_og_image_copied,
     extract_markdown_description,
     find_project_manifest,
     load_project_manifest,
+    prerender_document_blocks,
     render_seo_head_tags,
+    resolve_build_workers,
     resolve_localized_description,
     resolve_public_page_url,
     resolve_styles_and_utils,
@@ -130,6 +134,7 @@ def build_html(
     utils_path: str | None = None,
     no_cache: bool = False,
     css_mode: str = "external",
+    workers: int | Literal["auto"] = "auto",
 ) -> str:
     """Compile an i18n-native ``site``, ``doc``, or ``catalog`` project directory into static HTML.
 
@@ -145,6 +150,7 @@ def build_html(
         utils_path (Optional[str]): Path to custom utils.py script.
         no_cache (bool): If True, disable reading/writing the SQLite build image cache.
         css_mode (str): CSS linking mode ('external' by default, or 'embed').
+        workers (int | Literal["auto"]): Number of parallel rendering worker processes ('auto' or int >= 1).
 
     Returns:
         str: Absolute path of generated HTML output directory.
@@ -152,6 +158,7 @@ def build_html(
     Raises:
         ValueError: If input_dir is not a valid ``doc``, ``site``, or ``catalog`` project root directory.
     """
+    eff_workers = resolve_build_workers(workers)
     input_abs = require_directory(input_dir, "build_html")
     out_dir_abs = _resolve_default_html_out_dir(input_abs, output_dir)
 
@@ -194,6 +201,7 @@ def build_html(
             utils_path=utils_path,
             no_cache=no_cache,
             css_mode=css_mode,
+            workers=eff_workers,
         )
     if manifest.project.type == "catalog":
         return _build_i18n_catalog_html(
@@ -206,6 +214,7 @@ def build_html(
             utils_path=utils_path,
             no_cache=no_cache,
             css_mode=css_mode,
+            workers=eff_workers,
         )
     return _build_i18n_site_html(
         input_abs=input_abs,
@@ -217,6 +226,7 @@ def build_html(
         utils_path=utils_path,
         no_cache=no_cache,
         css_mode=css_mode,
+        workers=eff_workers,
     )
 
 
@@ -318,6 +328,7 @@ def _build_i18n_site_html(
     utils_path: str | None,
     no_cache: bool,
     css_mode: str,
+    workers: int = 1,
 ) -> str:
     """Compile an i18n-native ``site`` directory into HTML."""
     if out_dir_abs == input_abs:
@@ -355,6 +366,29 @@ def _build_i18n_site_html(
     locale_styles_utils: dict[str, tuple[str | None, str | None]] = {
         lc: resolve_styles_and_utils(os.path.join(input_abs, lc), styles_path, utils_path) for lc in ordered_langs
     }
+
+    if workers > 1:
+        site_jobs: list[BlockRenderJob] = []
+        for lang, rel_path, src_abs, dest_abs, is_md in all_tasks:
+            loc_styles, loc_utils = locale_styles_utils[lang]
+            rel_stem, _ = os.path.splitext(rel_path)
+            shared_dir = os.path.join(out_dir_abs, "images", *rel_stem.split("/"))
+            site_jobs.extend(
+                collect_standard_document_block_jobs(
+                    src_abs=src_abs,
+                    dest_abs=dest_abs,
+                    is_md=is_md,
+                    image_format=image_format,
+                    embed_images=False,
+                    styles_path=loc_styles,
+                    utils_path=loc_utils,
+                    project_root=input_abs,
+                    shared_images_dir=shared_dir,
+                    require_file=True,
+                    no_cache_global=no_cache,
+                )
+            )
+        prerender_document_blocks(site_jobs, cache=cache, workers=workers)
 
     rel_htmls_by_lang: dict[str, list[str]] = {lc: [] for lc in ordered_langs}
     page_meta_by_src: dict[str, tuple[str, str, str]] = {}
@@ -637,6 +671,7 @@ def _build_i18n_doc_html(
     utils_path: str | None,
     no_cache: bool,
     css_mode: str,
+    workers: int = 1,
 ) -> str:
     """Compile a multi-locale (i18n) linear ``doc`` directory into merged HTML documents per locale."""
     if out_dir_abs == input_abs:
@@ -671,6 +706,37 @@ def _build_i18n_doc_html(
     image_width = len(str(max(max_blocks, 0)))
     cache = BuildImageCache(enabled=not no_cache)
     processors_by_cfg: dict[tuple[str | None, str | None], DrawlibBlockProcessor | None] = {}
+    locale_styles_utils: dict[str, tuple[str | None, str | None]] = {
+        lc: resolve_styles_and_utils(os.path.join(input_abs, lc), styles_path, utils_path) for lc in ordered_langs
+    }
+
+    if workers > 1:
+        doc_jobs: list[BlockRenderJob] = []
+        for lang in ordered_langs:
+            loc_styles, loc_utils = locale_styles_utils[lang]
+            lang_out_dir = os.path.join(out_dir_abs, lang)
+            for rel_path in locale_files[lang]:
+                src_abs = os.path.join(input_abs, lang, *rel_path.split("/"))
+                is_md = rel_path.lower().endswith((".md", ".markdown"))
+                rel_stem, _ = os.path.splitext(rel_path)
+                dest_abs = os.path.join(lang_out_dir, f"{os.path.basename(rel_stem)}.html")
+                shared_dir = os.path.join(out_dir_abs, "images", *rel_stem.split("/"))
+                doc_jobs.extend(
+                    collect_standard_document_block_jobs(
+                        src_abs=src_abs,
+                        dest_abs=dest_abs,
+                        is_md=is_md,
+                        image_format=image_format,
+                        embed_images=False,
+                        styles_path=loc_styles,
+                        utils_path=loc_utils,
+                        project_root=input_abs,
+                        shared_images_dir=shared_dir,
+                        require_file=True,
+                        no_cache_global=no_cache,
+                    )
+                )
+        prerender_document_blocks(doc_jobs, cache=cache, workers=workers)
 
     global_step = 0
     default_combined_body = ""
@@ -683,7 +749,7 @@ def _build_i18n_doc_html(
     for lang in ordered_langs:
         lang_out_dir = os.path.join(out_dir_abs, lang)
         lang_index_dest = os.path.join(lang_out_dir, "index.html")
-        loc_styles, loc_utils = resolve_styles_and_utils(os.path.join(input_abs, lang), styles_path, utils_path)
+        loc_styles, loc_utils = locale_styles_utils[lang]
         cfg_key = (loc_styles, loc_utils)
 
         combined_body, resolved_title, first_desc, chapters_meta, global_step, next_proc = _compile_doc_locale_combined(
@@ -1919,6 +1985,7 @@ def _build_i18n_catalog_html(
     utils_path: str | None,
     no_cache: bool,
     css_mode: str,
+    workers: int = 1,
 ) -> str:
     """Compile an i18n-native ``catalog`` directory into multi-page HTML."""
     if out_dir_abs == input_abs:
@@ -1949,6 +2016,38 @@ def _build_i18n_catalog_html(
     image_width = len(str(max(max_blocks, 0)))
     cache = BuildImageCache(enabled=not no_cache)
     processors_by_cfg: dict[tuple[str | None, str | None], DrawlibBlockProcessor | None] = {}
+    locale_styles_utils: dict[str, tuple[str | None, str | None]] = {
+        lc: resolve_styles_and_utils(os.path.join(input_abs, lc), styles_path, utils_path) for lc in ordered_langs
+    }
+
+    if workers > 1:
+        cat_jobs: list[BlockRenderJob] = []
+        for lang in ordered_langs:
+            loc_styles, loc_utils = locale_styles_utils[lang]
+            lang_dir = os.path.join(input_abs, lang)
+            for rel_path, _ in ordered_by_lang[lang]:
+                src_abs = os.path.join(lang_dir, *rel_path.split("/"))
+                is_md = rel_path.lower().endswith((".md", ".markdown"))
+                rel_stem, _ = os.path.splitext(rel_path)
+                rel_html = f"{rel_stem}.html" if is_md else rel_path
+                dest_abs = os.path.join(out_dir_abs, lang, *rel_html.split("/"))
+                shared_dir = os.path.join(out_dir_abs, "images", *rel_stem.split("/"))
+                cat_jobs.extend(
+                    collect_standard_document_block_jobs(
+                        src_abs=src_abs,
+                        dest_abs=dest_abs,
+                        is_md=is_md,
+                        image_format=image_format,
+                        embed_images=False,
+                        styles_path=loc_styles,
+                        utils_path=loc_utils,
+                        project_root=input_abs,
+                        shared_images_dir=shared_dir,
+                        require_file=True,
+                        no_cache_global=no_cache,
+                    )
+                )
+        prerender_document_blocks(cat_jobs, cache=cache, workers=workers)
 
     pages_by_lang: dict[str, list[CompiledCatalogPage]] = {}
     rel_htmls_by_lang: dict[str, list[str]] = {}
@@ -1956,7 +2055,7 @@ def _build_i18n_catalog_html(
     step_idx = 0
 
     for lang in ordered_langs:
-        loc_styles, loc_utils = resolve_styles_and_utils(os.path.join(input_abs, lang), styles_path, utils_path)
+        loc_styles, loc_utils = locale_styles_utils[lang]
         cfg_key = (loc_styles, loc_utils)
         pages, step_idx, next_proc = _compile_catalog_locale_pages(
             lang=lang,

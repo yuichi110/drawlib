@@ -4655,6 +4655,12 @@ uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </s
 <td style="text-align:left"><code>False</code></td>
 <td style="text-align:left">決定論的ビルド用の固定日時ではなく、現在時刻を OpenXML メタデータに記録します。</td>
 </tr>
+<tr>
+<td style="text-align:left"><code>-w, --workers</code></td>
+<td style="text-align:left"><code>str</code></td>
+<td style="text-align:left"><code>'auto'</code></td>
+<td style="text-align:left">並列ワーカープロセス数（<code>'auto'</code> は <code>DRAWLIB_BUILD_WORKERS</code> または <code>1 &lt;= (CPUコア数 - 1) &lt;= 8</code> に解決、<code>'1'</code> は逐次実行）。</td>
+</tr>
 </tbody>
 </table>
 <hr />
@@ -4710,6 +4716,12 @@ uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </s
 <td style="text-align:left"><code>bool</code></td>
 <td style="text-align:left"><code>False</code></td>
 <td style="text-align:left"><code>.drawlib/cache.db</code> の読み書きをバイパスします。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>-w, --workers</code></td>
+<td style="text-align:left"><code>str</code></td>
+<td style="text-align:left"><code>'auto'</code></td>
+<td style="text-align:left">並列ワーカープロセス数（<code>'auto'</code> は <code>DRAWLIB_BUILD_WORKERS</code> または <code>1 &lt;= (CPUコア数 - 1) &lt;= 8</code> に解決、<code>'1'</code> は逐次実行）。</td>
 </tr>
 </tbody>
 </table>
@@ -4774,7 +4786,7 @@ uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </s
 <td style="text-align:left"><code>--disable-auto-clear</code></td>
 <td style="text-align:left"><code>bool</code></td>
 <td style="text-align:left"><code>False</code></td>
-<td style="text-align:left">連続するスクリプト実行間の自動 <code>clear()</code> 呼び出しを無効化します。</td>
+<td style="text-align:left">連続するスクリプト実行間の自動 <code>clear()</code> 呼び出しを無効化します（逐次実行へ自動フォールバック）。</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>--enable-auto-initialize</code></td>
@@ -4787,6 +4799,12 @@ uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </s
 <td style="text-align:left"><code>bool</code></td>
 <td style="text-align:left"><code>False</code></td>
 <td style="text-align:left">SQLite ビルド画像キャッシュの読み書きを無効化します。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>-w, --workers</code></td>
+<td style="text-align:left"><code>str</code></td>
+<td style="text-align:left"><code>'auto'</code></td>
+<td style="text-align:left">並列ワーカープロセス数（<code>'auto'</code> は <code>DRAWLIB_BUILD_WORKERS</code> または <code>1 &lt;= (CPUコア数 - 1) &lt;= 8</code> に解決、<code>'1'</code> は逐次実行）。</td>
 </tr>
 </tbody>
 </table>
@@ -4842,6 +4860,12 @@ uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </s
 <td style="text-align:left"><code>bool</code></td>
 <td style="text-align:left"><code>False</code></td>
 <td style="text-align:left">SQLite ビルド画像キャッシュの読み書きを無効化します。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>-w, --workers</code></td>
+<td style="text-align:left"><code>str</code></td>
+<td style="text-align:left"><code>'auto'</code></td>
+<td style="text-align:left">並列ワーカープロセス数（<code>'auto'</code> は <code>DRAWLIB_BUILD_WORKERS</code> または <code>1 &lt;= (CPUコア数 - 1) &lt;= 8</code> に解決、<code>'1'</code> は逐次実行）。</td>
 </tr>
 </tbody>
 </table>
@@ -4919,6 +4943,12 @@ uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </s
 <td style="text-align:left"><code>bool</code></td>
 <td style="text-align:left"><code>False</code></td>
 <td style="text-align:left">PDF メタデータ（<code>/CreationDate</code>・<code>/ModDate</code>）の正規化を行わず現在時刻を記録します。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>-w, --workers</code></td>
+<td style="text-align:left"><code>str</code></td>
+<td style="text-align:left"><code>'auto'</code></td>
+<td style="text-align:left">並列ワーカープロセス数（<code>'auto'</code> は <code>DRAWLIB_BUILD_WORKERS</code> または <code>1 &lt;= (CPUコア数 - 1) &lt;= 8</code> に解決、<code>'1'</code> は逐次実行）。</td>
 </tr>
 </tbody>
 </table>
@@ -4999,6 +5029,12 @@ uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </s
 <td style="text-align:left"><code>False</code></td>
 <td style="text-align:left">PowerPoint OpenXML メタデータに現在時刻のビルドタイムスタンプを含めます。</td>
 </tr>
+<tr>
+<td style="text-align:left"><code>-w, --workers</code></td>
+<td style="text-align:left"><code>str</code></td>
+<td style="text-align:left"><code>'auto'</code></td>
+<td style="text-align:left">並列ワーカープロセス数（<code>'auto'</code> は <code>DRAWLIB_BUILD_WORKERS</code> または <code>1 &lt;= (CPUコア数 - 1) &lt;= 8</code> に解決、<code>'1'</code> は逐次実行）。</td>
+</tr>
 </tbody>
 </table>
 <hr />
@@ -5059,6 +5095,12 @@ uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </s
 <td style="text-align:left"><code>bool</code></td>
 <td style="text-align:left"><code>False</code></td>
 <td style="text-align:left">SQLite ビルド画像キャッシュの読み書きを無効化します。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>-w, --workers</code></td>
+<td style="text-align:left"><code>str</code></td>
+<td style="text-align:left"><code>'auto'</code></td>
+<td style="text-align:left">並列ワーカープロセス数（<code>'auto'</code> は <code>DRAWLIB_BUILD_WORKERS</code> または <code>1 &lt;= (CPUコア数 - 1) &lt;= 8</code> に解決、<code>'1'</code> は逐次実行）。</td>
 </tr>
 </tbody>
 </table>

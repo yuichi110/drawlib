@@ -923,6 +923,12 @@ drawlib<span class="w"> </span>rules<span class="w"> </span>list<span class="w">
 <td><code>False</code></td>
 <td>Force clean diagram rendering, ignoring <code>.drawlib/cache.db</code>.</td>
 </tr>
+<tr>
+<td><code>--workers</code></td>
+<td><code>-w</code></td>
+<td><code>auto</code></td>
+<td>Parallel worker process count (<code>auto</code> uses <code>1 &lt;= (CPU cores - 1) &lt;= 8</code> or <code>DRAWLIB_BUILD_WORKERS</code>; <code>1</code> runs sequentially).</td>
+</tr>
 </tbody>
 </table>
 <h3>4.2 <code>drawlib build markdown</code></h3>
@@ -930,7 +936,7 @@ drawlib<span class="w"> </span>rules<span class="w"> </span>list<span class="w">
 <pre><code class="language-bash">drawlib<span class="w"> </span>build<span class="w"> </span>markdown<span class="w"> </span>docs_src/<span class="w"> </span>-o<span class="w"> </span>docs/<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span>
 </code></pre>
 <ul>
-<li>Supports <code>-o/--output</code>, <code>-f/--format &lt;png|webp&gt;</code>, <code>-s/--styles</code>, <code>-u/--utils</code>, and <code>--no-cache</code>.</li>
+<li>Supports <code>-o/--output</code>, <code>-f/--format &lt;png|webp&gt;</code>, <code>-s/--styles</code>, <code>-u/--utils</code>, <code>--no-cache</code>, and <code>-w/--workers &lt;auto|N&gt;</code>.</li>
 <li><strong>Overwrite Protection</strong>: Refuses to overwrite source files in-place (<code>src_abs == dest_abs</code>). Always compile to a distinct output directory (e.g. <code>docs/</code> or <code>docs_markdown/</code>).</li>
 </ul>
 <h3>4.3 <code>drawlib build pdf</code></h3>
@@ -988,6 +994,12 @@ drawlib<span class="w"> </span>rules<span class="w"> </span>list<span class="w">
 <td></td>
 <td><code>False</code></td>
 <td>Include current build timestamp in PDF metadata (omitted by default for deterministic builds).</td>
+</tr>
+<tr>
+<td><code>--workers</code></td>
+<td><code>-w</code></td>
+<td><code>auto</code></td>
+<td>Parallel worker process count (<code>auto</code> uses <code>1 &lt;= (CPU cores - 1) &lt;= 8</code> or <code>DRAWLIB_BUILD_WORKERS</code>; <code>1</code> runs sequentially).</td>
 </tr>
 </tbody>
 </table>
@@ -1053,6 +1065,12 @@ drawlib<span class="w"> </span>rules<span class="w"> </span>list<span class="w">
 <td><code>False</code></td>
 <td>Include current build timestamp in Word metadata instead of normalizing it.</td>
 </tr>
+<tr>
+<td><code>--workers</code></td>
+<td><code>-w</code></td>
+<td><code>auto</code></td>
+<td>Parallel worker process count (<code>auto</code> uses <code>1 &lt;= (CPU cores - 1) &lt;= 8</code> or <code>DRAWLIB_BUILD_WORKERS</code>; <code>1</code> runs sequentially).</td>
+</tr>
 </tbody>
 </table>
 <h3>4.5 <code>drawlib build slide</code></h3>
@@ -1098,6 +1116,12 @@ drawlib<span class="w"> </span>rules<span class="w"> </span>list<span class="w">
 <td></td>
 <td><code>False</code></td>
 <td>Disable reading and writing <code>.drawlib/cache.db</code>.</td>
+</tr>
+<tr>
+<td><code>--workers</code></td>
+<td><code>-w</code></td>
+<td><code>auto</code></td>
+<td>Parallel worker process count (<code>auto</code> uses <code>1 &lt;= (CPU cores - 1) &lt;= 8</code> or <code>DRAWLIB_BUILD_WORKERS</code>; <code>1</code> runs sequentially).</td>
 </tr>
 </tbody>
 </table>
@@ -1163,6 +1187,12 @@ drawlib<span class="w"> </span>rules<span class="w"> </span>list<span class="w">
 <td><code>False</code></td>
 <td>Include current build timestamp in PowerPoint metadata instead of normalizing it.</td>
 </tr>
+<tr>
+<td><code>--workers</code></td>
+<td><code>-w</code></td>
+<td><code>auto</code></td>
+<td>Parallel worker process count (<code>auto</code> uses <code>1 &lt;= (CPU cores - 1) &lt;= 8</code> or <code>DRAWLIB_BUILD_WORKERS</code>; <code>1</code> runs sequentially).</td>
+</tr>
 </tbody>
 </table>
 <h3>4.7 <code>drawlib build image</code></h3>
@@ -1207,7 +1237,7 @@ drawlib<span class="w"> </span>rules<span class="w"> </span>list<span class="w">
 <td><code>--disable-auto-clear</code></td>
 <td></td>
 <td><code>False</code></td>
-<td>Disable automatic <code>canvas.clear()</code> between executed <code>.py</code> files.</td>
+<td>Disable automatic <code>canvas.clear()</code> between executed <code>.py</code> files (forces sequential execution).</td>
 </tr>
 <tr>
 <td><code>--enable-auto-initialize</code></td>
@@ -1220,6 +1250,12 @@ drawlib<span class="w"> </span>rules<span class="w"> </span>list<span class="w">
 <td></td>
 <td><code>False</code></td>
 <td>Bypass <code>.drawlib/cache.db</code>.</td>
+</tr>
+<tr>
+<td><code>--workers</code></td>
+<td><code>-w</code></td>
+<td><code>auto</code></td>
+<td>Parallel worker process count (<code>auto</code> uses <code>1 &lt;= (CPU cores - 1) &lt;= 8</code> or <code>DRAWLIB_BUILD_WORKERS</code>; <code>1</code> runs sequentially).</td>
 </tr>
 </tbody>
 </table>

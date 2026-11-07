@@ -110,6 +110,7 @@ Common build behavior:
 - **Required `drawlib.toml` + `[i18n]` on `doc`, `site`, `catalog`, and `slide` Directories**: All directory builds for `doc`, `site`, `catalog`, and `slide` require `drawlib.toml` with `[i18n]` (`default_lang`, `langs`) and read Markdown sources from `<DIR>/<lang>/`.
 - **Automatic Clear / Reset**: Between separate code blocks or Python files, canvas state is automatically reset to avoid cross-diagram side effects.
 - **SQLite Build Cache**: Rendered illustrations are hashed and stored in a local SQLite database (`.drawlib/cache.db`). Unchanged code blocks skip re-rendering automatically unless `--no-cache` is specified.
+- **Multi-Core Parallel Rendering (`-w` / `--workers`)**: By default (`-w auto`), cache misses across embedded blocks and standalone `.py` scripts render concurrently in isolated `spawn` worker processes (`1 <= (CPU cores - 1) <= 8`, overrideable via `DRAWLIB_BUILD_WORKERS` or `-w <N>`), while all `.drawlib/cache.db` writes remain serialized in the parent process. Pass `-w 1` for sequential in-process execution.
 - **Working Directory Parity**: When compiling blocks, drawlib switches the current working directory (`os.chdir`) to the document's directory and prepends it to `sys.path[0]`, ensuring relative asset references and module imports resolve identically to standalone execution.
 
 ---
@@ -134,6 +135,7 @@ drawlib build html <DIR> [OPTIONS]
 | `--styles` | `-s` | `<path>` | `None` | Path to Python styles script (e.g. `styles.py`). |
 | `--utils` | `-u` | `<path>` | `None` | Path to Python utils script (e.g. `utils.py`). |
 | `--no-cache` | | flag | `False` | Disable reading and writing the SQLite image build cache (forces clean re-rendering). |
+| `--workers` | `-w` | `auto \| <int>` | `auto` | Parallel worker process count (`auto` uses `1 <= (CPU cores - 1) <= 8`, honoring `DRAWLIB_BUILD_WORKERS`; `1` runs sequentially). |
 
 > **Mandatory Files**: `drawlib.toml` (with `[i18n]`), `template.html`, and `style.css` must exist in the input directory. Run `drawlib init project <site|catalog|doc>` to scaffold them.
 
@@ -184,6 +186,7 @@ drawlib build markdown <DIR> [OPTIONS]
 | `--styles` | `-s` | `<path>` | `None` | Path to Python styles script (e.g. `styles.py`). |
 | `--utils` | `-u` | `<path>` | `None` | Path to Python utils script (e.g. `utils.py`). |
 | `--no-cache` | | flag | `False` | Disable reading and writing the SQLite image build cache. |
+| `--workers` | `-w` | `auto \| <int>` | `auto` | Parallel worker process count (`auto` uses `1 <= (CPU cores - 1) <= 8`, honoring `DRAWLIB_BUILD_WORKERS`; `1` runs sequentially). |
 
 #### Overwrite Protection:
 To safeguard author source files, `drawlib build markdown` strictly refuses to overwrite source Markdown directories in-place (`src_abs == dest_abs`). Always specify a separate destination directory (e.g. `-o docs_markdown/`).
@@ -230,6 +233,7 @@ drawlib build pdf <INPUT> [OPTIONS]
 | `--utils` | `-u` | `<path>` | `None` | Path to Python utils script (e.g. `utils.py`). |
 | `--no-cache` | | flag | `False` | Force clean diagram generation ignoring SQLite cache. |
 | `--timestamp` | | flag | `False` | Include current build timestamp in PDF metadata instead of normalizing for deterministic builds. |
+| `--workers` | `-w` | `auto \| <int>` | `auto` | Parallel worker process count (`auto` uses `1 <= (CPU cores - 1) <= 8`, honoring `DRAWLIB_BUILD_WORKERS`; `1` runs sequentially). |
 
 > **Mandatory Files**: `doc` and `slide` directory builds require `drawlib.toml` (with `[i18n]`), plus `template.html` and `style.css` for `doc` projects. Run `drawlib init project <doc|slide>` to scaffold them.
 
@@ -276,6 +280,7 @@ drawlib build docx <INPUT> [OPTIONS]
 | `--utils` | `-u` | `<path>` | `None` | Path to Python utils script (e.g. `utils.py`). |
 | `--no-cache` | | flag | `False` | Force clean diagram generation ignoring SQLite cache. |
 | `--timestamp` | | flag | `False` | Include current build timestamp in `.docx` metadata instead of normalizing for deterministic builds. |
+| `--workers` | `-w` | `auto \| <int>` | `auto` | Parallel worker process count (`auto` uses `1 <= (CPU cores - 1) <= 8`, honoring `DRAWLIB_BUILD_WORKERS`; `1` runs sequentially). |
 
 #### Examples:
 ```bash
@@ -309,6 +314,7 @@ drawlib build slide <DIR> [OPTIONS]
 | `--styles` | `-s` | `<path>` | `None` | Path to Python styles script (e.g. `styles.py`). |
 | `--utils` | `-u` | `<path>` | `None` | Path to Python utils script (e.g. `utils.py`). |
 | `--no-cache` | | flag | `False` | Disable reading and writing the SQLite build image cache. |
+| `--workers` | `-w` | `auto \| <int>` | `auto` | Parallel worker process count (`auto` uses `1 <= (CPU cores - 1) <= 8`, honoring `DRAWLIB_BUILD_WORKERS`; `1` runs sequentially). |
 
 #### Examples:
 ```bash
@@ -348,6 +354,7 @@ drawlib build pptx <DIR> [OPTIONS]
 | `--utils` | `-u` | `<path>` | `None` | Path to Python utils script (e.g. `utils.py`). |
 | `--no-cache` | | flag | `False` | Disable reading and writing the SQLite build image cache. |
 | `--timestamp` | | flag | `False` | Include current build timestamp in `.pptx` metadata instead of normalizing for deterministic builds. |
+| `--workers` | `-w` | `auto \| <int>` | `auto` | Parallel worker process count (`auto` uses `1 <= (CPU cores - 1) <= 8`, honoring `DRAWLIB_BUILD_WORKERS`; `1` runs sequentially). |
 
 #### Examples:
 ```bash
@@ -380,9 +387,10 @@ drawlib build image <INPUT> [OPTIONS]
 | `--styles` | `-s` | `<path>` | `None` | Path to Python styles script (e.g. `styles.py`). |
 | `--utils` | `-u` | `<path>` | `None` | Path to Python utils script (e.g. `utils.py`). |
 | `--grid` | `-g` | flag | `False` | Save companion `*_grid.<ext>` images with coordinate grid overlaid. |
-| `--disable-auto-clear` | | flag | `False` | Disable clearing canvas per executing drawing code files. |
+| `--disable-auto-clear` | | flag | `False` | Disable clearing canvas per executing drawing code files (forces sequential execution). |
 | `--enable-auto-initialize` | | flag | `False` | Enable complete canvas re-initialization per executing code file. |
 | `--no-cache` | | flag | `False` | Disable reading and writing the SQLite build image cache. |
+| `--workers` | `-w` | `auto \| <int>` | `auto` | Parallel worker process count (`auto` uses `1 <= (CPU cores - 1) <= 8`, honoring `DRAWLIB_BUILD_WORKERS`; `1` runs sequentially). |
 
 #### Directory Hierarchy Preservation:
 When pointing `drawlib build image` at a directory containing subdirectories (e.g. `scripts/chapter1/diagram1.py`), specifying an output directory `-o build/images/` mirrors the relative directory structure (`build/images/chapter1/diagram1.png`), preventing namespace collisions.

@@ -4667,6 +4667,7 @@
     <span class="n">utils_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">no_cache</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">timestamp</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">workers</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">"auto"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"auto"</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span>
 </code></pre>
 <table>
@@ -4739,11 +4740,17 @@
 <td style="text-align:left"><code>False</code></td>
 <td style="text-align:left">決定論的正規化の代わりに現在時刻を OpenXML メタデータへ記録します。</td>
 </tr>
+<tr>
+<td style="text-align:left"><code>workers</code></td>
+<td style="text-align:left"><code>int | Literal[&quot;auto&quot;]</code></td>
+<td style="text-align:left"><code>&quot;auto&quot;</code></td>
+<td style="text-align:left">並列ワーカープロセス数（<code>&quot;auto&quot;</code> は環境変数 <code>DRAWLIB_BUILD_WORKERS</code> を考慮し <code>1 &lt;= (CPUコア数 - 1) &lt;= 8</code> に解決、<code>1</code> は同一プロセス内で逐次実行）。</td>
+</tr>
 </tbody>
 </table>
 <ul>
 <li><strong>戻り値（<code>str</code>）</strong>: 生成されたデフォルト言語の <code>&lt;stem&gt;_&lt;default_lang&gt;.pptx</code> ファイルの絶対パス。</li>
-<li><strong>送出例外</strong>: <code>input_dir</code> 不正・<code>drawlib.toml</code> 欠落・<code>dpi &lt;= 0</code>・<code>anim_frame</code> 不正時は <code>ValueError</code>、Playwright／Chromium／<code>python-pptx</code> 実行失敗時は <code>RuntimeError</code>。</li>
+<li><strong>送出例外</strong>: <code>input_dir</code> 不正・<code>drawlib.toml</code> 欠落・<code>dpi &lt;= 0</code>・<code>anim_frame</code> 不正・<code>workers</code> 不正時は <code>ValueError</code>、Playwright／Chromium／<code>python-pptx</code> 実行失敗時は <code>RuntimeError</code>。</li>
 </ul>
 <h2 id="build-slide" class="catalog-symbol-heading"><span class="catalog-badge catalog-badge-def">def</span><code class="catalog-sig"><span class="catalog-sig-name">build_slide</span><span class="catalog-sig-params">(input_dir, output_dir=None, *, ...)</span></code><a class="header-anchor" href="#build-slide" aria-label="Permalink to build_slide()">#</a></h2>
 <p><code>i18n</code> 対応の Markdown <code>slide</code> プロジェクトディレクトリを、プレゼンタービュー（<code>?presenter=1</code>）・キーボード HUD・インライン SVG フォント自動バンドル・<code>&lt;canvas&gt;</code> アニメーション再生を備えた多言語 16:9 HTML スライドデッキへコンパイルします（<a href="27_tools.html"><code>drawlib.tools</code></a> からも再エクスポートされています）。</p>
@@ -4762,6 +4769,7 @@
     <span class="n">styles_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">utils_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">no_cache</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">workers</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">"auto"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"auto"</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span>
 </code></pre>
 <table>
@@ -4840,11 +4848,17 @@
 <td style="text-align:left"><code>False</code></td>
 <td style="text-align:left">SQLite 画像ビルドキャッシュの読み書きを無効化します。</td>
 </tr>
+<tr>
+<td style="text-align:left"><code>workers</code></td>
+<td style="text-align:left"><code>int | Literal[&quot;auto&quot;]</code></td>
+<td style="text-align:left"><code>&quot;auto&quot;</code></td>
+<td style="text-align:left">並列ワーカープロセス数（<code>&quot;auto&quot;</code> は環境変数 <code>DRAWLIB_BUILD_WORKERS</code> を考慮し <code>1 &lt;= (CPUコア数 - 1) &lt;= 8</code> に解決、<code>1</code> は同一プロセス内で逐次実行）。</td>
+</tr>
 </tbody>
 </table>
 <ul>
 <li><strong>戻り値（<code>str</code>）</strong>: <code>&lt;output_dir&gt;/&lt;default_lang&gt;/index.html</code> の絶対パス（ルートの <code>&lt;output_dir&gt;/index.html</code> リダイレクトも同時に生成されます）。</li>
-<li><strong>送出例外</strong>: <code>input_dir</code> 不正・<code>drawlib.toml</code> 欠落・多言語構造パリティ不一致時は <code>ValueError</code>。</li>
+<li><strong>送出例外</strong>: <code>input_dir</code> 不正・<code>drawlib.toml</code> 欠落・多言語構造パリティ不一致・<code>workers</code> 不正時は <code>ValueError</code>。</li>
 </ul>
 <h2 id="current-slide" class="catalog-symbol-heading"><span class="catalog-badge catalog-badge-const">const</span><code class="catalog-sig"><span class="catalog-sig-name">current_slide</span></code><a class="header-anchor" href="#current-slide" aria-label="Permalink to current_slide">#</a></h2>
 <p><code>build_slide()</code> や <code>build_pptx()</code> の実行中にアクティブな <a href="#slidecontext"><code>SlideContext</code></a> を動的に参照するランタイムプロキシ（<code>drawlib.slide</code> の <code>_CurrentSlideProxy</code> インスタンス）です。スライドビルド外（単体スクリプトや <code>drawlib show</code> 実行時など）では安全に <code>SlideContext(index=1, total=1)</code> へフォールバックします。</p>

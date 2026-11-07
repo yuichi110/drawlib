@@ -16,10 +16,14 @@ import sys
 from typing import Literal
 
 from drawlib._builder._common import (
+    BlockRenderJob,
     BuildImageCache,
     FileBuildProgress,
+    collect_standard_document_block_jobs,
     find_project_manifest,
     load_project_manifest,
+    prerender_document_blocks,
+    resolve_build_workers,
     resolve_styles_and_utils,
 )
 from drawlib._builder.doc_builder.compiler.base import (
@@ -56,6 +60,7 @@ def build_markdown(
     styles_path: str | None = None,
     utils_path: str | None = None,
     no_cache: bool = False,
+    workers: int | Literal["auto"] = "auto",
 ) -> str:
     """Compile an i18n-native ``site`` or ``doc`` directory into rendered Markdown.
 
@@ -66,6 +71,7 @@ def build_markdown(
         styles_path (Optional[str]): Path to custom styles.py script.
         utils_path (Optional[str]): Path to custom utils.py script.
         no_cache (bool): If True, disable reading/writing the SQLite build image cache.
+        workers (int | Literal["auto"]): Number of parallel rendering worker processes ('auto' or int >= 1).
 
     Returns:
         str: Absolute path of generated Markdown output directory.
@@ -73,6 +79,7 @@ def build_markdown(
     Raises:
         ValueError: If input_dir is not a valid ``doc`` or ``site`` project root directory or output overwrites source.
     """
+    eff_workers = resolve_build_workers(workers)
     input_abs = require_directory(input_dir, "build_markdown")
     out_dir_abs = _resolve_default_markdown_out_dir(input_abs, output_dir)
 
@@ -121,6 +128,7 @@ def build_markdown(
         styles_path=styles_path,
         utils_path=utils_path,
         no_cache=no_cache,
+        workers=eff_workers,
     )
 
 
@@ -186,6 +194,7 @@ def _build_i18n_markdown(
     styles_path: str | None,
     utils_path: str | None,
     no_cache: bool,
+    workers: int = 1,
 ) -> str:
     """Compile a multi-locale (i18n) site, doc, or catalog directory into rendered Markdown."""
     locale_files = validate_i18n_project(
@@ -221,6 +230,27 @@ def _build_i18n_markdown(
 
     cache = BuildImageCache(enabled=not no_cache)
     processors_by_cfg: dict[tuple[str | None, str | None], DrawlibBlockProcessor | None] = {}
+
+    if workers > 1:
+        md_jobs: list[BlockRenderJob] = []
+        for lang, src_abs, dest_abs, shared_dir in all_tasks:
+            loc_styles, loc_utils = locale_styles_utils[lang]
+            md_jobs.extend(
+                collect_standard_document_block_jobs(
+                    src_abs=src_abs,
+                    dest_abs=dest_abs,
+                    is_md=True,
+                    image_format=image_format,
+                    embed_images=False,
+                    styles_path=loc_styles,
+                    utils_path=loc_utils,
+                    project_root=input_abs,
+                    shared_images_dir=shared_dir,
+                    require_file=True,
+                    no_cache_global=no_cache,
+                )
+            )
+        prerender_document_blocks(md_jobs, cache=cache, workers=workers)
 
     for idx, ((lang, src_abs, dest_abs, shared_dir), disp_name) in enumerate(zip(all_tasks, display_names), start=1):
         loc_styles, loc_utils = locale_styles_utils[lang]

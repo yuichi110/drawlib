@@ -85,6 +85,7 @@ build_document(
     utils_path: str | None = None,
     no_cache: bool = False,
     timestamp: bool = False,
+    workers: int | Literal["auto"] = "auto",
 ) -> str
 ```
 
@@ -99,6 +100,7 @@ build_document(
 | `utils_path` | `str \| None` | `None` | Optional path to a custom `utils.py` file. |
 | `no_cache` | `bool` | `False` | Bypass the SQLite image build cache when `True`. |
 | `timestamp` | `bool` | `False` | Include current build timestamp in PDF or Word metadata when `True`. |
+| `workers` | `int \| Literal["auto"]` | `"auto"` | Parallel worker process count (`"auto"` resolves to `1 <= (CPU cores - 1) <= 8`, honoring `DRAWLIB_BUILD_WORKERS`; `1` runs sequentially). |
 
 - **Returns (`str`)**: Absolute path of the generated output directory or file.
 
@@ -122,6 +124,7 @@ build_docx(
     utils_path: str | None = None,
     no_cache: bool = False,
     timestamp: bool = False,
+    workers: int | Literal["auto"] = "auto",
 ) -> str
 ```
 
@@ -138,6 +141,7 @@ build_docx(
 | `utils_path` | `str \| None` | `None` | Optional path to a custom `utils.py` script. |
 | `no_cache` | `bool` | `False` | Disable reading and writing the `.drawlib/cache.db` SQLite image cache. |
 | `timestamp` | `bool` | `False` | Include current build timestamp in `.docx` metadata instead of deterministic normalization. |
+| `workers` | `int \| Literal["auto"]` | `"auto"` | Parallel worker process count (`"auto"` resolves to `1 <= (CPU cores - 1) <= 8`, honoring `DRAWLIB_BUILD_WORKERS`; `1` runs sequentially). |
 
 - **Returns (`str`)**: Absolute path to the generated `.docx` file (or `default_lang` `.docx` for `doc` projects).
 
@@ -157,6 +161,7 @@ build_html(
     utils_path: str | None = None,
     no_cache: bool = False,
     css_mode: str = "external",
+    workers: int | Literal["auto"] = "auto",
 ) -> str
 ```
 
@@ -169,6 +174,7 @@ build_html(
 | `utils_path` | `str \| None` | `None` | Optional path to a custom `utils.py` script. |
 | `no_cache` | `bool` | `False` | Disable reading and writing the SQLite build image cache. |
 | `css_mode` | `str` | `"external"` | CSS linking mode (`"external"` or `"embed"`). |
+| `workers` | `int \| Literal["auto"]` | `"auto"` | Parallel worker process count (`"auto"` resolves to `1 <= (CPU cores - 1) <= 8`, honoring `DRAWLIB_BUILD_WORKERS`; `1` runs sequentially). |
 
 - **Returns (`str`)**: Absolute path of the generated HTML output directory.
 
@@ -190,6 +196,7 @@ build_image(
     disable_auto_clear: bool = False,
     enable_auto_initialize: bool = False,
     no_cache: bool = False,
+    workers: int | Literal["auto"] = "auto",
 ) -> list[str]
 ```
 
@@ -201,9 +208,10 @@ build_image(
 | `styles_path` | `str \| None` | `None` | Optional path to a custom `styles.py` script. |
 | `utils_path` | `str \| None` | `None` | Optional path to a custom `utils.py` script. |
 | `grid` | `bool` | `False` | Also save companion `*_grid.<ext>` images with the coordinate grid overlaid. |
-| `disable_auto_clear` | `bool` | `False` | Skip automatic canvas artist clearing between consecutive files. |
+| `disable_auto_clear` | `bool` | `False` | Skip automatic canvas artist clearing between consecutive files (forces sequential in-process execution). |
 | `enable_auto_initialize` | `bool` | `False` | Perform full canvas re-initialization before each executed file. |
 | `no_cache` | `bool` | `False` | Bypass the SQLite build image cache. |
+| `workers` | `int \| Literal["auto"]` | `"auto"` | Parallel worker process count (`"auto"` resolves to `1 <= (CPU cores - 1) <= 8`, honoring `DRAWLIB_BUILD_WORKERS`; `1` runs sequentially). |
 
 - **Returns (`list[str]`)**: List of executed target file paths.
 
@@ -222,6 +230,7 @@ build_markdown(
     styles_path: str | None = None,
     utils_path: str | None = None,
     no_cache: bool = False,
+    workers: int | Literal["auto"] = "auto",
 ) -> str
 ```
 
@@ -233,6 +242,7 @@ build_markdown(
 | `styles_path` | `str \| None` | `None` | Optional path to a custom `styles.py` script. |
 | `utils_path` | `str \| None` | `None` | Optional path to a custom `utils.py` script. |
 | `no_cache` | `bool` | `False` | Bypass the SQLite build image cache. |
+| `workers` | `int \| Literal["auto"]` | `"auto"` | Parallel worker process count (`"auto"` resolves to `1 <= (CPU cores - 1) <= 8`, honoring `DRAWLIB_BUILD_WORKERS`; `1` runs sequentially). |
 
 - **Returns (`str`)**: Absolute path of the generated Markdown output directory.
 
@@ -255,6 +265,7 @@ build_pdf(
     utils_path: str | None = None,
     no_cache: bool = False,
     timestamp: bool = False,
+    workers: int | Literal["auto"] = "auto",
 ) -> str
 ```
 
@@ -270,6 +281,7 @@ build_pdf(
 | `utils_path` | `str \| None` | `None` | Optional path to a custom `utils.py` script. |
 | `no_cache` | `bool` | `False` | Bypass the SQLite build image cache. |
 | `timestamp` | `bool` | `False` | Include current build timestamp in PDF metadata instead of deterministic normalization. |
+| `workers` | `int \| Literal["auto"]` | `"auto"` | Parallel worker process count (`"auto"` resolves to `1 <= (CPU cores - 1) <= 8`, honoring `DRAWLIB_BUILD_WORKERS`; `1` runs sequentially). |
 
 - **Returns (`str`)**: Absolute path of the generated PDF file (or `default_lang` PDF for project directories).
 
@@ -292,6 +304,7 @@ build_pptx(
     utils_path: str | None = None,
     no_cache: bool = False,
     timestamp: bool = False,
+    workers: int | Literal["auto"] = "auto",
 ) -> str
 ```
 
@@ -307,6 +320,7 @@ build_pptx(
 | `utils_path` | `str \| None` | `None` | Optional path to a custom `utils.py` script. |
 | `no_cache` | `bool` | `False` | Disable reading and writing the SQLite build image cache. |
 | `timestamp` | `bool` | `False` | Write current build timestamp into OpenXML metadata. |
+| `workers` | `int \| Literal["auto"]` | `"auto"` | Parallel worker process count (`"auto"` resolves to `1 <= (CPU cores - 1) <= 8`, honoring `DRAWLIB_BUILD_WORKERS`; `1` runs sequentially). |
 
 - **Returns (`str`)**: Absolute path to the generated `<stem>_<default_lang>.pptx` file.
 
@@ -330,6 +344,7 @@ build_slide(
     styles_path: str | None = None,
     utils_path: str | None = None,
     no_cache: bool = False,
+    workers: int | Literal["auto"] = "auto",
 ) -> str
 ```
 
@@ -346,6 +361,7 @@ build_slide(
 | `styles_path` | `str \| None` | `None` | Optional path to a custom `styles.py` script. |
 | `utils_path` | `str \| None` | `None` | Optional path to a custom `utils.py` script. |
 | `no_cache` | `bool` | `False` | Bypass the SQLite build cache. |
+| `workers` | `int \| Literal["auto"]` | `"auto"` | Parallel worker process count (`"auto"` resolves to `1 <= (CPU cores - 1) <= 8`, honoring `DRAWLIB_BUILD_WORKERS`; `1` runs sequentially). |
 
 - **Returns (`str`)**: Absolute path to `<output_dir>/<default_lang>/index.html`.
 

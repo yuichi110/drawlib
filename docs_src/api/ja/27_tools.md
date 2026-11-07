@@ -85,6 +85,7 @@ build_document(
     utils_path: str | None = None,
     no_cache: bool = False,
     timestamp: bool = False,
+    workers: int | Literal["auto"] = "auto",
 ) -> str
 ```
 
@@ -99,6 +100,7 @@ build_document(
 | `utils_path` | `str \| None` | `None` | カスタム `utils.py` ファイルのパス。 |
 | `no_cache` | `bool` | `False` | `True` の場合、SQLite 画像ビルドキャッシュを無効化します。 |
 | `timestamp` | `bool` | `False` | `True` の場合、PDF や Word メタデータに現在時刻を記録します。 |
+| `workers` | `int \| Literal["auto"]` | `"auto"` | 並列ワーカープロセス数（`"auto"` は環境変数 `DRAWLIB_BUILD_WORKERS` を考慮し `1 <= (CPUコア数 - 1) <= 8` に解決、`1` は同一プロセス内で逐次実行）。 |
 
 - **戻り値（`str`）**: 生成された出力ディレクトリまたはファイルの絶対パス。
 
@@ -122,6 +124,7 @@ build_docx(
     utils_path: str | None = None,
     no_cache: bool = False,
     timestamp: bool = False,
+    workers: int | Literal["auto"] = "auto",
 ) -> str
 ```
 
@@ -138,6 +141,7 @@ build_docx(
 | `utils_path` | `str \| None` | `None` | カスタム `utils.py` スクリプトへのパス。 |
 | `no_cache` | `bool` | `False` | `.drawlib/cache.db` の SQLite ビルド画像キャッシュを無効化します。 |
 | `timestamp` | `bool` | `False` | 決定論的正規化の代わりに現在時刻を `.docx` メタデータへ記録します。 |
+| `workers` | `int \| Literal["auto"]` | `"auto"` | 並列ワーカープロセス数（`"auto"` は環境変数 `DRAWLIB_BUILD_WORKERS` を考慮し `1 <= (CPUコア数 - 1) <= 8` に解決、`1` は同一プロセス内で逐次実行）。 |
 
 - **戻り値（`str`）**: 生成された `.docx` ファイル（`doc` プロジェクト時は `default_lang` の `.docx`）の絶対パス。
 
@@ -157,6 +161,7 @@ build_html(
     utils_path: str | None = None,
     no_cache: bool = False,
     css_mode: str = "external",
+    workers: int | Literal["auto"] = "auto",
 ) -> str
 ```
 
@@ -169,6 +174,7 @@ build_html(
 | `utils_path` | `str \| None` | `None` | カスタム `utils.py` スクリプトへのパス。 |
 | `no_cache` | `bool` | `False` | SQLite 画像ビルドキャッシュの読み書きを無効化します。 |
 | `css_mode` | `str` | `"external"` | CSS リンク方式（`"external"` または `"embed"`）。 |
+| `workers` | `int \| Literal["auto"]` | `"auto"` | 並列ワーカープロセス数（`"auto"` は環境変数 `DRAWLIB_BUILD_WORKERS` を考慮し `1 <= (CPUコア数 - 1) <= 8` に解決、`1` は同一プロセス内で逐次実行）。 |
 
 - **戻り値（`str`）**: 生成された HTML 出力ディレクトリの絶対パス。
 
@@ -190,6 +196,7 @@ build_image(
     disable_auto_clear: bool = False,
     enable_auto_initialize: bool = False,
     no_cache: bool = False,
+    workers: int | Literal["auto"] = "auto",
 ) -> list[str]
 ```
 
@@ -201,9 +208,10 @@ build_image(
 | `styles_path` | `str \| None` | `None` | カスタム `styles.py` スクリプトへのパス。 |
 | `utils_path` | `str \| None` | `None` | カスタム `utils.py` スクリプトへのパス。 |
 | `grid` | `bool` | `False` | 座標グリッドを重ねた `*_grid.<ext>` 画像を同時に出力します。 |
-| `disable_auto_clear` | `bool` | `False` | ファイル実行ごとのキャンバス自動クリアを無効化します。 |
+| `disable_auto_clear` | `bool` | `False` | ファイル実行ごとのキャンバス自動クリアを無効化します（同一プロセス内での逐次実行へ自動フォールバック）。 |
 | `enable_auto_initialize` | `bool` | `False` | ファイル実行ごとにキャンバスの完全再初期化を行います。 |
 | `no_cache` | `bool` | `False` | SQLite 画像ビルドキャッシュを無効化します。 |
+| `workers` | `int \| Literal["auto"]` | `"auto"` | 並列ワーカープロセス数（`"auto"` は環境変数 `DRAWLIB_BUILD_WORKERS` を考慮し `1 <= (CPUコア数 - 1) <= 8` に解決、`1` は同一プロセス内で逐次実行）。 |
 
 - **戻り値（`list[str]`）**: 実行されたターゲットファイルパスのリスト。
 
@@ -222,6 +230,7 @@ build_markdown(
     styles_path: str | None = None,
     utils_path: str | None = None,
     no_cache: bool = False,
+    workers: int | Literal["auto"] = "auto",
 ) -> str
 ```
 
@@ -233,6 +242,7 @@ build_markdown(
 | `styles_path` | `str \| None` | `None` | カスタム `styles.py` スクリプトへのパス。 |
 | `utils_path` | `str \| None` | `None` | カスタム `utils.py` スクリプトへのパス。 |
 | `no_cache` | `bool` | `False` | SQLite 画像ビルドキャッシュを無効化します。 |
+| `workers` | `int \| Literal["auto"]` | `"auto"` | 並列ワーカープロセス数（`"auto"` は環境変数 `DRAWLIB_BUILD_WORKERS` を考慮し `1 <= (CPUコア数 - 1) <= 8` に解決、`1` は同一プロセス内で逐次実行）。 |
 
 - **戻り値（`str`）**: 生成された Markdown 出力ディレクトリの絶対パス。
 
@@ -255,6 +265,7 @@ build_pdf(
     utils_path: str | None = None,
     no_cache: bool = False,
     timestamp: bool = False,
+    workers: int | Literal["auto"] = "auto",
 ) -> str
 ```
 
@@ -270,6 +281,7 @@ build_pdf(
 | `utils_path` | `str \| None` | `None` | カスタム `utils.py` スクリプトへのパス。 |
 | `no_cache` | `bool` | `False` | SQLite 画像ビルドキャッシュを無効化します。 |
 | `timestamp` | `bool` | `False` | 決定論的正規化の代わりに現在時刻を PDF メタデータへ記録します。 |
+| `workers` | `int \| Literal["auto"]` | `"auto"` | 並列ワーカープロセス数（`"auto"` は環境変数 `DRAWLIB_BUILD_WORKERS` を考慮し `1 <= (CPUコア数 - 1) <= 8` に解決、`1` は同一プロセス内で逐次実行）。 |
 
 - **戻り値（`str`）**: 生成された PDF ファイル（プロジェクト指定時は `default_lang` の PDF）の絶対パス。
 
@@ -292,6 +304,7 @@ build_pptx(
     utils_path: str | None = None,
     no_cache: bool = False,
     timestamp: bool = False,
+    workers: int | Literal["auto"] = "auto",
 ) -> str
 ```
 
@@ -307,6 +320,7 @@ build_pptx(
 | `utils_path` | `str \| None` | `None` | カスタム `utils.py` スクリプトへのパス。 |
 | `no_cache` | `bool` | `False` | SQLite 画像ビルドキャッシュを無効化します。 |
 | `timestamp` | `bool` | `False` | 現在時刻を OpenXML メタデータへ記録します。 |
+| `workers` | `int \| Literal["auto"]` | `"auto"` | 並列ワーカープロセス数（`"auto"` は環境変数 `DRAWLIB_BUILD_WORKERS` を考慮し `1 <= (CPUコア数 - 1) <= 8` に解決、`1` は同一プロセス内で逐次実行）。 |
 
 - **戻り値（`str`）**: 生成された `<stem>_<default_lang>.pptx` ファイルの絶対パス。
 
@@ -330,6 +344,7 @@ build_slide(
     styles_path: str | None = None,
     utils_path: str | None = None,
     no_cache: bool = False,
+    workers: int | Literal["auto"] = "auto",
 ) -> str
 ```
 
@@ -346,6 +361,7 @@ build_slide(
 | `styles_path` | `str \| None` | `None` | カスタム `styles.py` スクリプトへのパス。 |
 | `utils_path` | `str \| None` | `None` | カスタム `utils.py` スクリプトへのパス。 |
 | `no_cache` | `bool` | `False` | SQLite ビルドキャッシュを無効化します。 |
+| `workers` | `int \| Literal["auto"]` | `"auto"` | 並列ワーカープロセス数（`"auto"` は環境変数 `DRAWLIB_BUILD_WORKERS` を考慮し `1 <= (CPUコア数 - 1) <= 8` に解決、`1` は同一プロセス内で逐次実行）。 |
 
 - **戻り値（`str`）**: `<output_dir>/<default_lang>/index.html` の絶対パス。
 

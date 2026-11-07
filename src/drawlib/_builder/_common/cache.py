@@ -172,6 +172,7 @@ class BuildImageCache:
         resolved_path = db_path or DEFAULT_CACHE_REL_PATH
         self._db_path = os.path.abspath(resolved_path)
         self.rendered_targets: set[str] = set()
+        self.prerendered_blobs: dict[str, tuple[bytes, bytes | None]] = {}
 
         if self._enabled:
             self._init_db_and_evict()
@@ -325,6 +326,30 @@ class BuildImageCache:
             composite = f"{composite}:{extra_salt}"
         cache_key = hash_text(composite)
         return cache_key, code_hash
+
+    @staticmethod
+    def compute_prerender_key(
+        code: str,
+        config_hash: str,
+        source_file: str | None,
+        target_file: str | None,
+        image_format: str,
+        dpi: int | None = None,
+        extra_salt: str = "",
+    ) -> str:
+        """Compute deterministic lookup key for in-memory pre-rendered block blobs."""
+        code_hash = hash_text(code)
+        source_abs = os.path.abspath(source_file) if source_file and source_file != "<drawlib_block>" else ""
+        if target_file:
+            if os.path.isabs(target_file) or not source_abs:
+                target_abs = os.path.abspath(target_file)
+            else:
+                target_abs = os.path.abspath(os.path.join(os.path.dirname(source_abs), target_file))
+        else:
+            target_abs = ""
+        dpi_val = int(dpi) if dpi is not None and dpi != 100 else 100
+        composite = f"{code_hash}:{config_hash}:{source_abs}:{target_abs}:{image_format.lower()}:{dpi_val}:{extra_salt}"
+        return hash_text(composite)
 
     def get(
         self,

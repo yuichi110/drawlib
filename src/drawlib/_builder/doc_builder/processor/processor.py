@@ -160,6 +160,29 @@ class DrawlibBlockProcessor:
             fmt = "png"
         grid_abs_path = f"{stem}_grid{ext_dot}"
 
+        if grid is None and self._cache.prerendered_blobs:
+            eff_pre_target = cache_target_file or target_abs_path
+            pre_key = self._cache.compute_prerender_key(
+                code=code,
+                config_hash=self.config_hash,
+                source_file=source_filename,
+                target_file=eff_pre_target,
+                image_format=fmt,
+                dpi=dpi,
+                extra_salt=extra_cache_salt,
+            )
+            pre_hit = self._cache.prerendered_blobs.get(pre_key)
+            if pre_hit is not None:
+                normal_bytes, grid_bytes = pre_hit
+                os.makedirs(os.path.dirname(target_abs_path), exist_ok=True)
+                with open(target_abs_path, "wb") as f:
+                    f.write(normal_bytes)
+                if grid_bytes is not None:
+                    with open(grid_abs_path, "wb") as gf:
+                        gf.write(grid_bytes)
+                self._rendered_targets.add(target_abs_path)
+                return
+
         use_cache = self._cache.enabled and grid is None and not no_cache
         cache_key = ""
         code_hash = ""

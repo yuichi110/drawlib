@@ -4485,6 +4485,7 @@
     <span class="n">utils_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">no_cache</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">timestamp</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">workers</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">"auto"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"auto"</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span>
 </code></pre>
 <table>
@@ -4551,6 +4552,12 @@
 <td style="text-align:left"><code>False</code></td>
 <td style="text-align:left"><code>True</code> の場合、PDF や Word メタデータに現在時刻を記録します。</td>
 </tr>
+<tr>
+<td style="text-align:left"><code>workers</code></td>
+<td style="text-align:left"><code>int | Literal[&quot;auto&quot;]</code></td>
+<td style="text-align:left"><code>&quot;auto&quot;</code></td>
+<td style="text-align:left">並列ワーカープロセス数（<code>&quot;auto&quot;</code> は環境変数 <code>DRAWLIB_BUILD_WORKERS</code> を考慮し <code>1 &lt;= (CPUコア数 - 1) &lt;= 8</code> に解決、<code>1</code> は同一プロセス内で逐次実行）。</td>
+</tr>
 </tbody>
 </table>
 <ul>
@@ -4573,6 +4580,7 @@
     <span class="n">utils_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">no_cache</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">timestamp</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">workers</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">"auto"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"auto"</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span>
 </code></pre>
 <table>
@@ -4651,6 +4659,12 @@
 <td style="text-align:left"><code>False</code></td>
 <td style="text-align:left">決定論的正規化の代わりに現在時刻を <code>.docx</code> メタデータへ記録します。</td>
 </tr>
+<tr>
+<td style="text-align:left"><code>workers</code></td>
+<td style="text-align:left"><code>int | Literal[&quot;auto&quot;]</code></td>
+<td style="text-align:left"><code>&quot;auto&quot;</code></td>
+<td style="text-align:left">並列ワーカープロセス数（<code>&quot;auto&quot;</code> は環境変数 <code>DRAWLIB_BUILD_WORKERS</code> を考慮し <code>1 &lt;= (CPUコア数 - 1) &lt;= 8</code> に解決、<code>1</code> は同一プロセス内で逐次実行）。</td>
+</tr>
 </tbody>
 </table>
 <ul>
@@ -4669,6 +4683,7 @@
     <span class="n">utils_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">no_cache</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">css_mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"external"</span><span class="p">,</span>
+    <span class="n">workers</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">"auto"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"auto"</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span>
 </code></pre>
 <table>
@@ -4723,6 +4738,12 @@
 <td style="text-align:left"><code>&quot;external&quot;</code></td>
 <td style="text-align:left">CSS リンク方式（<code>&quot;external&quot;</code> または <code>&quot;embed&quot;</code>）。</td>
 </tr>
+<tr>
+<td style="text-align:left"><code>workers</code></td>
+<td style="text-align:left"><code>int | Literal[&quot;auto&quot;]</code></td>
+<td style="text-align:left"><code>&quot;auto&quot;</code></td>
+<td style="text-align:left">並列ワーカープロセス数（<code>&quot;auto&quot;</code> は環境変数 <code>DRAWLIB_BUILD_WORKERS</code> を考慮し <code>1 &lt;= (CPUコア数 - 1) &lt;= 8</code> に解決、<code>1</code> は同一プロセス内で逐次実行）。</td>
+</tr>
 </tbody>
 </table>
 <ul>
@@ -4743,6 +4764,7 @@
     <span class="n">disable_auto_clear</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">enable_auto_initialize</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">no_cache</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">workers</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">"auto"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"auto"</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
 </code></pre>
 <table>
@@ -4795,7 +4817,7 @@
 <td style="text-align:left"><code>disable_auto_clear</code></td>
 <td style="text-align:left"><code>bool</code></td>
 <td style="text-align:left"><code>False</code></td>
-<td style="text-align:left">ファイル実行ごとのキャンバス自動クリアを無効化します。</td>
+<td style="text-align:left">ファイル実行ごとのキャンバス自動クリアを無効化します（同一プロセス内での逐次実行へ自動フォールバック）。</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>enable_auto_initialize</code></td>
@@ -4808,6 +4830,12 @@
 <td style="text-align:left"><code>bool</code></td>
 <td style="text-align:left"><code>False</code></td>
 <td style="text-align:left">SQLite 画像ビルドキャッシュを無効化します。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>workers</code></td>
+<td style="text-align:left"><code>int | Literal[&quot;auto&quot;]</code></td>
+<td style="text-align:left"><code>&quot;auto&quot;</code></td>
+<td style="text-align:left">並列ワーカープロセス数（<code>&quot;auto&quot;</code> は環境変数 <code>DRAWLIB_BUILD_WORKERS</code> を考慮し <code>1 &lt;= (CPUコア数 - 1) &lt;= 8</code> に解決、<code>1</code> は同一プロセス内で逐次実行）。</td>
 </tr>
 </tbody>
 </table>
@@ -4826,6 +4854,7 @@
     <span class="n">styles_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">utils_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">no_cache</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">workers</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">"auto"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"auto"</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span>
 </code></pre>
 <table>
@@ -4874,6 +4903,12 @@
 <td style="text-align:left"><code>False</code></td>
 <td style="text-align:left">SQLite 画像ビルドキャッシュを無効化します。</td>
 </tr>
+<tr>
+<td style="text-align:left"><code>workers</code></td>
+<td style="text-align:left"><code>int | Literal[&quot;auto&quot;]</code></td>
+<td style="text-align:left"><code>&quot;auto&quot;</code></td>
+<td style="text-align:left">並列ワーカープロセス数（<code>&quot;auto&quot;</code> は環境変数 <code>DRAWLIB_BUILD_WORKERS</code> を考慮し <code>1 &lt;= (CPUコア数 - 1) &lt;= 8</code> に解決、<code>1</code> は同一プロセス内で逐次実行）。</td>
+</tr>
 </tbody>
 </table>
 <ul>
@@ -4895,6 +4930,7 @@
     <span class="n">utils_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">no_cache</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">timestamp</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">workers</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">"auto"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"auto"</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span>
 </code></pre>
 <table>
@@ -4967,6 +5003,12 @@
 <td style="text-align:left"><code>False</code></td>
 <td style="text-align:left">決定論的正規化の代わりに現在時刻を PDF メタデータへ記録します。</td>
 </tr>
+<tr>
+<td style="text-align:left"><code>workers</code></td>
+<td style="text-align:left"><code>int | Literal[&quot;auto&quot;]</code></td>
+<td style="text-align:left"><code>&quot;auto&quot;</code></td>
+<td style="text-align:left">並列ワーカープロセス数（<code>&quot;auto&quot;</code> は環境変数 <code>DRAWLIB_BUILD_WORKERS</code> を考慮し <code>1 &lt;= (CPUコア数 - 1) &lt;= 8</code> に解決、<code>1</code> は同一プロセス内で逐次実行）。</td>
+</tr>
 </tbody>
 </table>
 <ul>
@@ -4988,6 +5030,7 @@
     <span class="n">utils_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">no_cache</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">timestamp</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">workers</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">"auto"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"auto"</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span>
 </code></pre>
 <table>
@@ -5060,6 +5103,12 @@
 <td style="text-align:left"><code>False</code></td>
 <td style="text-align:left">現在時刻を OpenXML メタデータへ記録します。</td>
 </tr>
+<tr>
+<td style="text-align:left"><code>workers</code></td>
+<td style="text-align:left"><code>int | Literal[&quot;auto&quot;]</code></td>
+<td style="text-align:left"><code>&quot;auto&quot;</code></td>
+<td style="text-align:left">並列ワーカープロセス数（<code>&quot;auto&quot;</code> は環境変数 <code>DRAWLIB_BUILD_WORKERS</code> を考慮し <code>1 &lt;= (CPUコア数 - 1) &lt;= 8</code> に解決、<code>1</code> は同一プロセス内で逐次実行）。</td>
+</tr>
 </tbody>
 </table>
 <ul>
@@ -5082,6 +5131,7 @@
     <span class="n">styles_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">utils_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">no_cache</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">workers</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">"auto"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"auto"</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span>
 </code></pre>
 <table>
@@ -5159,6 +5209,12 @@
 <td style="text-align:left"><code>bool</code></td>
 <td style="text-align:left"><code>False</code></td>
 <td style="text-align:left">SQLite ビルドキャッシュを無効化します。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>workers</code></td>
+<td style="text-align:left"><code>int | Literal[&quot;auto&quot;]</code></td>
+<td style="text-align:left"><code>&quot;auto&quot;</code></td>
+<td style="text-align:left">並列ワーカープロセス数（<code>&quot;auto&quot;</code> は環境変数 <code>DRAWLIB_BUILD_WORKERS</code> を考慮し <code>1 &lt;= (CPUコア数 - 1) &lt;= 8</code> に解決、<code>1</code> は同一プロセス内で逐次実行）。</td>
 </tr>
 </tbody>
 </table>

@@ -161,6 +161,7 @@ build_pptx(
     utils_path: str | None = None,
     no_cache: bool = False,
     timestamp: bool = False,
+    workers: int | Literal["auto"] = "auto",
 ) -> str
 ```
 
@@ -176,9 +177,10 @@ build_pptx(
 | `utils_path` | `str \| None` | `None` | Optional path to a custom `utils.py` script. |
 | `no_cache` | `bool` | `False` | Bypass reading and writing the `.drawlib/cache.db` SQLite image cache. |
 | `timestamp` | `bool` | `False` | Write the current build timestamp into OpenXML metadata instead of deterministic normalization. |
+| `workers` | `int \| Literal["auto"]` | `"auto"` | Parallel worker process count (`"auto"` resolves to `1 <= (CPU cores - 1) <= 8`, honoring `DRAWLIB_BUILD_WORKERS`; `1` runs sequentially in-process). |
 
 - **Returns (`str`)**: Absolute path to the generated default-locale `<stem>_<default_lang>.pptx` file.
-- **Raises**: `ValueError` if `input_dir` is invalid, lacks `drawlib.toml`, `dpi <= 0`, or `anim_frame` is invalid; `RuntimeError` if Playwright, Chromium, or `python-pptx` fails.
+- **Raises**: `ValueError` if `input_dir` is invalid, lacks `drawlib.toml`, `dpi <= 0`, `anim_frame` is invalid, or `workers` is invalid; `RuntimeError` if Playwright, Chromium, or `python-pptx` fails.
 
 ## `def` build_slide(input_dir, output_dir=None, *, ...)
 
@@ -200,6 +202,7 @@ build_slide(
     styles_path: str | None = None,
     utils_path: str | None = None,
     no_cache: bool = False,
+    workers: int | Literal["auto"] = "auto",
 ) -> str
 ```
 
@@ -216,9 +219,10 @@ build_slide(
 | `styles_path` | `str \| None` | `None` | Optional path to a custom `styles.py` script. |
 | `utils_path` | `str \| None` | `None` | Optional path to a custom `utils.py` script. |
 | `no_cache` | `bool` | `False` | Bypass reading and writing the SQLite diagram build cache. |
+| `workers` | `int \| Literal["auto"]` | `"auto"` | Parallel worker process count (`"auto"` resolves to `1 <= (CPU cores - 1) <= 8`, honoring `DRAWLIB_BUILD_WORKERS`; `1` runs sequentially in-process). |
 
 - **Returns (`str`)**: Absolute path to `<output_dir>/<default_lang>/index.html` (an automatic root `<output_dir>/index.html` redirector is also written).
-- **Raises**: `ValueError` if `input_dir` is invalid, lacks `drawlib.toml`, or fails i18n structural parity validation.
+- **Raises**: `ValueError` if `input_dir` is invalid, lacks `drawlib.toml`, fails i18n structural parity validation, or `workers` is invalid.
 
 ## `const` current_slide
 

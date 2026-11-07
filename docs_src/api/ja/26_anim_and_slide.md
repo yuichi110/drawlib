@@ -161,6 +161,7 @@ build_pptx(
     utils_path: str | None = None,
     no_cache: bool = False,
     timestamp: bool = False,
+    workers: int | Literal["auto"] = "auto",
 ) -> str
 ```
 
@@ -176,9 +177,10 @@ build_pptx(
 | `utils_path` | `str \| None` | `None` | カスタム `utils.py` スクリプトへのパス。 |
 | `no_cache` | `bool` | `False` | `.drawlib/cache.db` の SQLite ビルド画像キャッシュを無効化します。 |
 | `timestamp` | `bool` | `False` | 決定論的正規化の代わりに現在時刻を OpenXML メタデータへ記録します。 |
+| `workers` | `int \| Literal["auto"]` | `"auto"` | 並列ワーカープロセス数（`"auto"` は環境変数 `DRAWLIB_BUILD_WORKERS` を考慮し `1 <= (CPUコア数 - 1) <= 8` に解決、`1` は同一プロセス内で逐次実行）。 |
 
 - **戻り値（`str`）**: 生成されたデフォルト言語の `<stem>_<default_lang>.pptx` ファイルの絶対パス。
-- **送出例外**: `input_dir` 不正・`drawlib.toml` 欠落・`dpi <= 0`・`anim_frame` 不正時は `ValueError`、Playwright／Chromium／`python-pptx` 実行失敗時は `RuntimeError`。
+- **送出例外**: `input_dir` 不正・`drawlib.toml` 欠落・`dpi <= 0`・`anim_frame` 不正・`workers` 不正時は `ValueError`、Playwright／Chromium／`python-pptx` 実行失敗時は `RuntimeError`。
 
 ## `def` build_slide(input_dir, output_dir=None, *, ...)
 
@@ -200,6 +202,7 @@ build_slide(
     styles_path: str | None = None,
     utils_path: str | None = None,
     no_cache: bool = False,
+    workers: int | Literal["auto"] = "auto",
 ) -> str
 ```
 
@@ -216,9 +219,10 @@ build_slide(
 | `styles_path` | `str \| None` | `None` | カスタム `styles.py` スクリプトへのパス。 |
 | `utils_path` | `str \| None` | `None` | カスタム `utils.py` スクリプトへのパス。 |
 | `no_cache` | `bool` | `False` | SQLite 画像ビルドキャッシュの読み書きを無効化します。 |
+| `workers` | `int \| Literal["auto"]` | `"auto"` | 並列ワーカープロセス数（`"auto"` は環境変数 `DRAWLIB_BUILD_WORKERS` を考慮し `1 <= (CPUコア数 - 1) <= 8` に解決、`1` は同一プロセス内で逐次実行）。 |
 
 - **戻り値（`str`）**: `<output_dir>/<default_lang>/index.html` の絶対パス（ルートの `<output_dir>/index.html` リダイレクトも同時に生成されます）。
-- **送出例外**: `input_dir` 不正・`drawlib.toml` 欠落・多言語構造パリティ不一致時は `ValueError`。
+- **送出例外**: `input_dir` 不正・`drawlib.toml` 欠落・多言語構造パリティ不一致・`workers` 不正時は `ValueError`。
 
 ## `const` current_slide
 

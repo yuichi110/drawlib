@@ -208,7 +208,7 @@ def test_i18n_doc_end_to_end_all_outputs_and_per_locale_styles(tmp_path: Path) -
         orig_exec(code=code, source_filename=source_filename, shared_globals=shared_globals)
 
     with patch.object(DrawlibBlockProcessor, "_exec_code_block", staticmethod(_counting_exec)):
-        build_html(str(src_dir), str(out_html), no_cache=True)
+        build_html(str(src_dir), str(out_html), no_cache=True, workers=1)
 
     # 2 diagrams in en (system_overview.png + component_architecture.png) + 1 localized diagram in ja = 3 executions!
     assert exec_count == 3

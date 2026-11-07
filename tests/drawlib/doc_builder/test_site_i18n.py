@@ -325,7 +325,7 @@ def test_i18n_build_html_markdown_image_and_link_integrity(tmp_path: Path) -> No
         orig_exec(code=code, source_filename=source_filename, shared_globals=shared_globals)
 
     with patch.object(DrawlibBlockProcessor, "_exec_code_block", staticmethod(_counting_exec)):
-        build_html(str(src_dir), str(out_html), no_cache=True)
+        build_html(str(src_dir), str(out_html), no_cache=True, workers=1)
 
     # 4 shared diagrams rendered on 'en' (2 in en/index.md, 1 in architecture/index.md, 1 in workflow/index.md)
     # + 1 localized diagram rendered on 'ja' (1 in workflow/index.md) = 5 total code executions across 7 HTML pages!

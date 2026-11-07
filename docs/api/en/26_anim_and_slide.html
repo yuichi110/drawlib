@@ -4665,6 +4665,7 @@
     <span class="n">utils_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">no_cache</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">timestamp</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">workers</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">"auto"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"auto"</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span>
 </code></pre>
 <table>
@@ -4737,11 +4738,17 @@
 <td style="text-align:left"><code>False</code></td>
 <td style="text-align:left">Write the current build timestamp into OpenXML metadata instead of deterministic normalization.</td>
 </tr>
+<tr>
+<td style="text-align:left"><code>workers</code></td>
+<td style="text-align:left"><code>int | Literal[&quot;auto&quot;]</code></td>
+<td style="text-align:left"><code>&quot;auto&quot;</code></td>
+<td style="text-align:left">Parallel worker process count (<code>&quot;auto&quot;</code> resolves to <code>1 &lt;= (CPU cores - 1) &lt;= 8</code>, honoring <code>DRAWLIB_BUILD_WORKERS</code>; <code>1</code> runs sequentially in-process).</td>
+</tr>
 </tbody>
 </table>
 <ul>
 <li><strong>Returns (<code>str</code>)</strong>: Absolute path to the generated default-locale <code>&lt;stem&gt;_&lt;default_lang&gt;.pptx</code> file.</li>
-<li><strong>Raises</strong>: <code>ValueError</code> if <code>input_dir</code> is invalid, lacks <code>drawlib.toml</code>, <code>dpi &lt;= 0</code>, or <code>anim_frame</code> is invalid; <code>RuntimeError</code> if Playwright, Chromium, or <code>python-pptx</code> fails.</li>
+<li><strong>Raises</strong>: <code>ValueError</code> if <code>input_dir</code> is invalid, lacks <code>drawlib.toml</code>, <code>dpi &lt;= 0</code>, <code>anim_frame</code> is invalid, or <code>workers</code> is invalid; <code>RuntimeError</code> if Playwright, Chromium, or <code>python-pptx</code> fails.</li>
 </ul>
 <h2 id="build-slide" class="catalog-symbol-heading"><span class="catalog-badge catalog-badge-def">def</span><code class="catalog-sig"><span class="catalog-sig-name">build_slide</span><span class="catalog-sig-params">(input_dir, output_dir=None, *, ...)</span></code><a class="header-anchor" href="#build-slide" aria-label="Permalink to build_slide()">#</a></h2>
 <p>Compile an <code>i18n</code>-native Markdown <code>slide</code> project directory into a standalone multi-locale 16:9 HTML presentation deck with Presenter View (<code>?presenter=1</code>), keyboard HUD controls, inline SVG font bundling, and <code>&lt;canvas&gt;</code> animation playback (also re-exported in <a href="27_tools.html"><code>drawlib.tools</code></a>).</p>
@@ -4760,6 +4767,7 @@
     <span class="n">styles_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">utils_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">no_cache</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">workers</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">"auto"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"auto"</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span>
 </code></pre>
 <table>
@@ -4838,11 +4846,17 @@
 <td style="text-align:left"><code>False</code></td>
 <td style="text-align:left">Bypass reading and writing the SQLite diagram build cache.</td>
 </tr>
+<tr>
+<td style="text-align:left"><code>workers</code></td>
+<td style="text-align:left"><code>int | Literal[&quot;auto&quot;]</code></td>
+<td style="text-align:left"><code>&quot;auto&quot;</code></td>
+<td style="text-align:left">Parallel worker process count (<code>&quot;auto&quot;</code> resolves to <code>1 &lt;= (CPU cores - 1) &lt;= 8</code>, honoring <code>DRAWLIB_BUILD_WORKERS</code>; <code>1</code> runs sequentially in-process).</td>
+</tr>
 </tbody>
 </table>
 <ul>
 <li><strong>Returns (<code>str</code>)</strong>: Absolute path to <code>&lt;output_dir&gt;/&lt;default_lang&gt;/index.html</code> (an automatic root <code>&lt;output_dir&gt;/index.html</code> redirector is also written).</li>
-<li><strong>Raises</strong>: <code>ValueError</code> if <code>input_dir</code> is invalid, lacks <code>drawlib.toml</code>, or fails i18n structural parity validation.</li>
+<li><strong>Raises</strong>: <code>ValueError</code> if <code>input_dir</code> is invalid, lacks <code>drawlib.toml</code>, fails i18n structural parity validation, or <code>workers</code> is invalid.</li>
 </ul>
 <h2 id="current-slide" class="catalog-symbol-heading"><span class="catalog-badge catalog-badge-const">const</span><code class="catalog-sig"><span class="catalog-sig-name">current_slide</span></code><a class="header-anchor" href="#current-slide" aria-label="Permalink to current_slide">#</a></h2>
 <p>Dynamic runtime proxy (<code>_CurrentSlideProxy</code> instance imported from <code>drawlib.slide</code>) that reads the active <a href="#slidecontext"><code>SlideContext</code></a> during <code>build_slide()</code> or <code>build_pptx()</code> execution. Outside slide compilation (e.g., standalone <code>drawlib show</code>), it safely falls back to <code>SlideContext(index=1, total=1)</code>.</p>

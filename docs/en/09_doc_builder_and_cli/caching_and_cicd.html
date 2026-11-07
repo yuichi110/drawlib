@@ -828,6 +828,7 @@
 <li><strong>Library Version Invalidation</strong>: Cache tables are automatically invalidated whenever the installed <code>drawlib</code> or <code>matplotlib</code> version changes.</li>
 <li><strong>1 GiB Size Cap</strong>: When cached image blobs exceed <code>1 GiB</code>, Drawlib automatically evicts the oldest 50% of entries.</li>
 <li><strong>Custom Cache Path</strong>: Override the SQLite database location in CI/CD runners via <code>DRAWLIB_CACHE_DB=/path/to/cache.db</code> or <code>DRAWLIB_CACHE_DIR=/path/to/dir</code>.</li>
+<li><strong>Multi-Core Worker Concurrency (<code>DRAWLIB_BUILD_WORKERS</code> / <code>-w</code>, <code>--workers</code>)</strong>: When 2 or more uncached diagrams need rendering, <code>drawlib build</code> automatically dispatches them across <code>1 &lt;= (CPU cores - 1) &lt;= 8</code> <code>spawn</code> worker processes (<code>-w auto</code>), keeping all <code>.drawlib/cache.db</code> writes serialized in the parent process and synchronizing first-run font/icon downloads with cross-process advisory file locks. Tune concurrency in CI containers via <code>DRAWLIB_BUILD_WORKERS=4</code> or <code>-w 1</code>.</li>
 </ul>
 <h3>2.3. When to Bypass or Clear Layer 1 Cache</h3>
 <p>If a drawing script imports a custom external Python module <em>outside</em> <code>styles.py</code> and <code>utils.py</code>, editing that external module will not alter the block's SHA-256 hash automatically. Force a fresh render using <code>--no-cache</code> or <code>drawlib cache clear --images</code>:</p>

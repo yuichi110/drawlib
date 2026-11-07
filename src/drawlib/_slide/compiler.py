@@ -21,17 +21,21 @@ from pathlib import Path
 from typing import TYPE_CHECKING, Any, Final, Literal
 
 from drawlib._builder._common import (
+    BlockRenderJob,
     BuildImageCache,
     LlmsLink,
     LlmsSection,
     SitemapEntry,
+    build_block_render_job,
     build_page_seo_metadata,
     ensure_seo_og_image_copied,
     extract_markdown_description,
     find_project_manifest,
     load_project_manifest,
     load_styles_and_utils,
+    prerender_document_blocks,
     render_seo_head_tags,
+    resolve_build_workers,
     resolve_localized_description,
     resolve_public_page_url,
     resolve_styles_and_utils,
@@ -802,6 +806,93 @@ def _emit_slide_seo_files(
         write_llms_txt(output_abs, title=llms_title, summary=llms_summary, sections=sections)
 
 
+def _collect_slide_deck_jobs(
+    *,
+    input_abs: str,
+    ordered_langs: list[str],
+    locale_files: dict[str, list[str]],
+    styles_path: str | None,
+    utils_path: str | None,
+    no_cache: bool,
+    render_opts: _SlideRenderOptions,
+) -> list[BlockRenderJob]:
+    """Collect deduplicable `BlockRenderJob` items across all slides and locales in `build_slide`."""
+    jobs: list[BlockRenderJob] = []
+    for lang in ordered_langs:
+        rel_files = locale_files[lang]
+        total_slides = len(rel_files)
+        lang_src_dir = os.path.join(input_abs, lang)
+        loc_styles, loc_utils = resolve_styles_and_utils(lang_src_dir, styles_path, utils_path)
+        extra_cfg_hash = f"total_slides:{total_slides}"
+
+        for idx, rel_path in enumerate(rel_files, start=1):
+            file_path = os.path.join(lang_src_dir, *rel_path.split("/"))
+            try:
+                with open(file_path, "r", encoding="utf-8") as f:
+                    raw_content = f.read()
+            except OSError:
+                continue
+
+            md_stem = os.path.splitext(rel_path)[0] or Path(file_path).stem
+            content_without_notes, _ = extract_slide_notes(raw_content)
+            text_to_search = (
+                "\n" + content_without_notes if not content_without_notes.startswith("\n") else content_without_notes
+            )
+            if not PATTERN_CONTAINER_BOX.search(text_to_search):
+                text_to_search = f"::: block xy=(80, 140) width=1760 height=840\n{text_to_search.strip()}\n:::"
+
+            masked_text, _ = preserve_outer_fences(text_to_search)
+            for counter, match in enumerate(_PATTERN_DRAWLIB.finditer(masked_text), start=1):
+                info_str = match.group(1).strip()
+                code = match.group(2).strip()
+                options = parse_block_info(info_str)
+                line_no = masked_text[: match.start()].count("\n") + 1
+                has_anim = (
+                    options.anim_trigger is not None
+                    or options.anim_loop is not None
+                    or bool(options.anim_pause)
+                    or "Animation(" in code
+                )
+                dl_file = _resolve_drawlib_filename(
+                    options,
+                    idx,
+                    counter,
+                    render_opts.default_format,
+                    has_anim=has_anim,
+                    force_image_format=render_opts.force_image_format,
+                )
+                rel_asset_path = (
+                    dl_file.replace("\\", "/")
+                    if ("/" in dl_file or "\\" in dl_file)
+                    else f"images/{md_stem}/{dl_file}"
+                )
+                target_abs = os.path.abspath(os.path.normpath(os.path.join(render_opts.output_abs, rel_asset_path)))
+                ext_fmt = os.path.splitext(target_abs)[1].lower().lstrip(".") or "svg"
+
+                jobs.append(
+                    build_block_render_job(
+                        code=code,
+                        source_filename=file_path,
+                        working_dir=input_abs,
+                        line_number=line_no,
+                        target_abs_path=target_abs,
+                        cache_target_file=target_abs,
+                        image_format=ext_fmt,
+                        dpi=render_opts.dpi,
+                        styles_path=loc_styles,
+                        utils_path=loc_utils,
+                        project_root=input_abs,
+                        extra_config_hash=extra_cfg_hash,
+                        slide_ctx=(idx, total_slides),
+                        static_anim_frame=render_opts.static_anim_frame,
+                        no_cache_global=no_cache,
+                        no_cache_block=options.no_cache,
+                    )
+                )
+
+    return jobs
+
+
 def build_slide(
     input_dir: str,
     output_dir: str | None = None,
@@ -815,6 +906,7 @@ def build_slide(
     styles_path: str | None = None,
     utils_path: str | None = None,
     no_cache: bool = False,
+    workers: int | Literal["auto"] = "auto",
 ) -> str:
     """Compile an ``i18n``-native presentation project into a multi-locale HTML slide deck.
 
@@ -830,6 +922,7 @@ def build_slide(
         styles_path: Optional path to custom styles.py script.
         utils_path: Optional path to custom utils.py script.
         no_cache: If True, disable reading/writing build cache.
+        workers: Number of parallel rendering worker processes ('auto' or positive integer >= 1).
 
     Returns:
         str: Absolute path to ``<output_abs>/<default_lang>/index.html``.
@@ -837,6 +930,7 @@ def build_slide(
     Raises:
         ValueError: If ``input_dir`` is invalid, lacks ``drawlib.toml``, or fails i18n parity checks.
     """
+    eff_workers = resolve_build_workers(workers)
     input_abs = os.path.abspath(input_dir)
     if not os.path.isdir(input_abs):
         raise ValueError(f"Input directory does not exist: '{input_dir}'")
@@ -867,8 +961,20 @@ def build_slide(
         force_image_format=force_image_format,
         static_anim_frame=static_anim_frame,
     )
-    rendered_targets: set[str] = set()
     cache = BuildImageCache(enabled=not no_cache)
+    rendered_targets: set[str] = cache.rendered_targets
+    if eff_workers > 1:
+        slide_jobs = _collect_slide_deck_jobs(
+            input_abs=input_abs,
+            ordered_langs=ordered_langs,
+            locale_files=locale_files,
+            styles_path=styles_path,
+            utils_path=utils_path,
+            no_cache=no_cache,
+            render_opts=render_opts,
+        )
+        prerender_document_blocks(slide_jobs, cache=cache, workers=eff_workers)
+
     compiled_locales: dict[str, tuple[str, str, str, str, list[tuple[int, str, str]]]] = {}
 
     orig_cwd = os.getcwd()

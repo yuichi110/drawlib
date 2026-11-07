@@ -27,13 +27,20 @@ from typing import Final, Literal
 import drawlib._core.l4_canvas
 import drawlib.canvas
 from drawlib._builder._common import (
+    BlockRenderJob,
     BuildImageCache,
     FileBuildProgress,
+    ScriptRenderJob,
+    build_block_render_job,
+    collect_standard_document_block_jobs,
+    execute_scripts_parallel,
     find_project_manifest,
     format_duplicate_output_error,
     hash_file,
     load_project_manifest,
     load_styles_and_utils,
+    prerender_document_blocks,
+    resolve_build_workers,
     resolve_styles_and_utils,
 )
 from drawlib._builder._image_ast import (
@@ -78,6 +85,7 @@ class DrawlibExecuter:
         grid: bool = False,
         no_cache: bool = False,
         target_roots: Sequence[str] | None = None,
+        workers: int | Literal["auto"] = "auto",
     ) -> None:
         """Initialize a DrawlibExecuter instance.
 
@@ -95,12 +103,14 @@ class DrawlibExecuter:
             grid (bool): Whether to generate coordinate grid overlaid images in addition to normal images.
             no_cache (bool): If True, disable reading/writing the SQLite build image cache.
             target_roots (Sequence[str] | None): Optional base directory paths for preserving subdirectories.
+            workers (int | Literal["auto"]): Number of parallel worker processes ('auto' or int >= 1).
 
         Raises:
-            ValueError: If mode is not one of ["none", "auto_clear", "auto_initialize"].
+            ValueError: If mode is not one of ["none", "auto_clear", "auto_initialize"] or workers is invalid.
         """
         if mode not in {"none", "auto_clear", "auto_initialize"}:
             raise ValueError(f'Arg mode is "{mode}". But it must be one of ["none", "auto_clear", "auto_initialize"].')
+        self._workers = resolve_build_workers(workers)
         self._mode = mode
         self._styles_path = styles_path
         self._utils_path = utils_path
@@ -364,6 +374,12 @@ class DrawlibExecuter:
         total_files = len(file_paths)
         display_names = ["/" + os.path.relpath(fp, path).replace(os.sep, "/") for fp in file_paths]
         save_counts = self._check_duplicate_outputs(file_paths, display_names)
+
+        eff_workers = 1 if self._mode == "none" else self._workers
+        if eff_workers >= 2 and total_files >= 2:
+            self._execute_script_batch_parallel(file_paths, display_names, save_counts, eff_workers)
+            return
+
         max_saves = max(save_counts.values(), default=0)
         image_width = len(str(max(max_saves, 0)))
         name_width = max((len(n) for n in display_names), default=0)
@@ -391,6 +407,128 @@ class DrawlibExecuter:
             final_saves = max(total_saves, self._current_save_step)
             progress.update(final_saves, final_saves, done=True)
             self._current_progress = None
+
+    def _execute_script_batch_parallel(
+        self,
+        file_paths: Sequence[str],
+        display_names: Sequence[str],
+        save_counts: dict[str, int],
+        workers: int,
+    ) -> None:
+        """Check cache in parent process and run >=2 missed standalone `.py` scripts in parallel."""
+        if self._mode == "none":
+            return
+        mode_lit: Literal["auto_clear", "auto_initialize"] = (
+            "auto_initialize" if self._mode == "auto_initialize" else "auto_clear"
+        )
+        total_files = len(file_paths)
+        max_saves = max(save_counts.values(), default=0)
+        image_width = len(str(max(max_saves, 0)))
+        name_width = max((len(n) for n in display_names), default=0)
+        log_mode = drawlib_settings.get_logging_mode()
+        force_grid_flag = drawlib_settings.get_force_grid()
+
+        miss_jobs: list[ScriptRenderJob] = []
+        hit_entries: list[tuple[int, str, int]] = []
+
+        for idx, (file_path, disp_name) in enumerate(zip(file_paths, display_names), start=1):
+            total_saves = save_counts.get(file_path, 0)
+            self._current_source_label = disp_name
+            self._current_save_step = 0
+            self._current_total_saves = total_saves
+            self._current_progress = None
+            if self._try_cache_or_prepare(file_path, total_saves):
+                hit_entries.append((idx, disp_name, max(total_saves, self._current_save_step)))
+                continue
+
+            cache_info = self._current_cache_info
+            self._current_cache_info = None
+            try:
+                with open(file_path, "r", encoding="utf-8") as sf:
+                    src_code = sf.read()
+            except OSError:
+                src_code = ""
+            miss_jobs.append(
+                ScriptRenderJob(
+                    job_index=idx,
+                    file_path=file_path,
+                    disp_name=disp_name,
+                    code_len=len(src_code),
+                    has_anim=("Animation(" in src_code),
+                    mode=mode_lit,
+                    styles_path=self._styles_path,
+                    utils_path=self._utils_path,
+                    output_dir=self._output_dir,
+                    output_file=self._output_file,
+                    image_format=self._image_format,
+                    grid=self._grid,
+                    force_grid=force_grid_flag,
+                    target_roots=tuple(self._target_roots),
+                    current_target_root=self._current_target_root,
+                    cache_info=cache_info,
+                    logging_mode=log_mode,
+                )
+            )
+
+        self._current_cache_info = None
+
+        if len(miss_jobs) <= 1:
+            miss_by_idx = {j.job_index: j for j in miss_jobs}
+            hit_by_idx = {h_idx: h_saves for h_idx, _, h_saves in hit_entries}
+            for idx, (file_path, disp_name) in enumerate(zip(file_paths, display_names), start=1):
+                total_saves = save_counts.get(file_path, 0)
+                progress = FileBuildProgress(
+                    idx,
+                    total_files,
+                    file_name=disp_name,
+                    name_width=name_width,
+                    image_width=image_width,
+                )
+                if idx in hit_by_idx:
+                    h_saves = hit_by_idx[idx]
+                    progress.update(h_saves, h_saves, done=True)
+                    continue
+
+                m_job = miss_by_idx[idx]
+                self._current_source_label = disp_name
+                self._current_save_step = 0
+                self._current_total_saves = total_saves
+                eff_out = self._get_effective_output_dir(file_path)
+                if eff_out is not None:
+                    drawlib_settings.set_output_dir(eff_out)
+                    os.makedirs(eff_out, exist_ok=True)
+                self._current_progress = progress
+                progress.update(0, total_saves, done=False)
+                self._current_cache_info = m_job.cache_info
+                self._exec_module(file_path)
+                self._current_cache_info = None
+                final_saves = max(total_saves, self._current_save_step)
+                progress.update(final_saves, final_saves, done=True)
+                self._current_progress = None
+            return
+
+        results = execute_scripts_parallel(miss_jobs, workers=workers)
+        for res in results:
+            for saved in res.saved_files:
+                if saved.resolved_abs in self._runtime_seen_outputs:
+                    raise ValueError(
+                        format_duplicate_output_error(
+                            saved.resolved_abs,
+                            self._runtime_seen_outputs[saved.resolved_abs],
+                            res.disp_name,
+                        )
+                    )
+                self._runtime_seen_outputs[saved.resolved_abs] = res.disp_name
+                if res.cache_info is not None and saved.normal_bytes is not None:
+                    c_key, c_code_hash, c_cfg_hash, c_ext = res.cache_info
+                    self._cache.put(
+                        cache_key=c_key,
+                        code_hash=c_code_hash,
+                        config_hash=c_cfg_hash,
+                        image_format=c_ext,
+                        image_blob=saved.normal_bytes,
+                        grid_blob=saved.grid_bytes,
+                    )
 
     @validate_call
     def execute(self, file_or_directory: str) -> None:
@@ -601,6 +739,7 @@ def build_image(
     disable_auto_clear: bool = False,
     enable_auto_initialize: bool = False,
     no_cache: bool = False,
+    workers: int | Literal["auto"] = "auto",
 ) -> list[str]:
     """Execute one or more Python drawing scripts or directories to generate images.
 
@@ -615,13 +754,15 @@ def build_image(
         disable_auto_clear (bool): Disable clearing canvas per executing drawing code file.
         enable_auto_initialize (bool): Enable full canvas re-initialization per executing drawing code file.
         no_cache (bool): If True, disable reading/writing the SQLite build image cache.
+        workers (int | Literal["auto"]): Number of parallel rendering worker processes ('auto' or int >= 1).
 
     Returns:
         list[str]: List of executed target paths.
 
     Raises:
-        ValueError: If no valid target files or directories are provided.
+        ValueError: If no valid target files or directories are provided, or workers is invalid.
     """
+    eff_workers = resolve_build_workers(workers)
     if not input_path:
         raise ValueError("No input files or directories specified for build_image.")
     raw_targets: list[str] = [input_path] if isinstance(input_path, str) else list(input_path)
@@ -643,6 +784,7 @@ def build_image(
         grid=grid,
         no_cache=no_cache,
         target_roots=target_roots,
+        workers=eff_workers,
     )
 
     resolved_targets, all_py_files, all_md_files = _collect_target_files(target_list, executer)
@@ -672,6 +814,7 @@ def build_image(
             utils_abs=utils_abs,
             no_cache=no_cache,
             executed=executed,
+            workers=eff_workers,
         )
 
     if not executed:
@@ -981,6 +1124,102 @@ def _build_single_markdown_job(
     )
 
 
+def _collect_md_image_block_jobs(
+    *,
+    md_jobs: Sequence[_MarkdownImageJob],
+    out_img_dir: str,
+    image_format: str | None,
+    no_cache: bool,
+) -> list[BlockRenderJob]:
+    """Collect `BlockRenderJob` items across all `_MarkdownImageJob` targets for `build_image`."""
+    from drawlib._slide._blocks import extract_slide_notes  # noqa: PLC0415
+
+    doc_img_format = image_format or "png"
+    md_pattern = re.compile(r"(?:^|\n)[ \t]*```drawlib\b", re.IGNORECASE)
+    collected: list[BlockRenderJob] = []
+
+    for job in md_jobs:
+        try:
+            with open(job.md_file, "r", encoding="utf-8") as f:
+                content = f.read()
+        except OSError:
+            continue
+        if not md_pattern.search(content):
+            continue
+
+        if job.slide_ctx is None:
+            collected.extend(
+                collect_standard_document_block_jobs(
+                    src_abs=job.md_file,
+                    dest_abs=os.path.join(out_img_dir, f"{job.stem}.md"),
+                    is_md=True,
+                    image_format=doc_img_format,
+                    embed_images=False,
+                    styles_path=job.styles_path,
+                    utils_path=job.utils_path,
+                    project_root=job.project_root,
+                    shared_images_dir=job.shared_dir,
+                    require_file=False,
+                    no_cache_global=no_cache,
+                )
+            )
+            continue
+
+        slide_idx, total_slides = job.slide_ctx
+        extra_hash = f"total_slides:{total_slides}"
+        content_without_notes, _ = extract_slide_notes(content)
+        masked_text, _ = preserve_outer_fences(content_without_notes)
+        text_to_search = "\n" + masked_text if not masked_text.startswith("\n") else masked_text
+        src_dir = os.path.dirname(os.path.abspath(job.md_file))
+
+        for counter, match in enumerate(_SLIDE_DRAWLIB_PATTERN.finditer(text_to_search), start=1):
+            info_str = match.group(1).strip()
+            code = match.group(2).strip()
+            options = parse_block_info(info_str)
+            line_no = text_to_search[: match.start()].count("\n") + 1
+            has_anim = (
+                options.anim_trigger is not None
+                or options.anim_loop is not None
+                or bool(options.anim_pause)
+                or "Animation(" in code
+            )
+            dl_file = _resolve_slide_block_filename(
+                options,
+                slide_idx,
+                counter,
+                image_format,
+                has_anim=has_anim,
+            )
+            if "/" in dl_file or "\\" in dl_file:
+                target_img_path = os.path.abspath(os.path.join(out_img_dir, dl_file.replace("\\", "/")))
+            elif job.shared_dir is not None:
+                target_img_path = os.path.abspath(os.path.join(job.shared_dir, dl_file))
+            else:
+                target_img_path = os.path.abspath(os.path.join(out_img_dir, f"{job.stem}_images", dl_file))
+            ext_fmt = os.path.splitext(target_img_path)[1].lower().lstrip(".") or "svg"
+
+            collected.append(
+                build_block_render_job(
+                    code=code,
+                    source_filename=job.md_file,
+                    working_dir=src_dir,
+                    line_number=line_no,
+                    target_abs_path=target_img_path,
+                    cache_target_file=target_img_path,
+                    image_format=ext_fmt,
+                    styles_path=job.styles_path,
+                    utils_path=job.utils_path,
+                    project_root=job.project_root,
+                    extra_config_hash=extra_hash,
+                    slide_ctx=(slide_idx, total_slides),
+                    no_cache_global=no_cache,
+                    no_cache_block=options.no_cache,
+                )
+            )
+
+    return collected
+
+
 def _execute_markdown_image_targets(
     *,
     all_md_files: list[str],
@@ -993,6 +1232,7 @@ def _execute_markdown_image_targets(
     utils_abs: str | None,
     no_cache: bool,
     executed: list[str],
+    workers: int = 1,
 ) -> None:
     """Render embedded drawlib blocks inside Markdown targets, deduplicating shared i18n images."""
     out_img_dir = os.path.abspath(
@@ -1029,6 +1269,15 @@ def _execute_markdown_image_targets(
 
     os.makedirs(out_img_dir, exist_ok=True)
     cache = BuildImageCache(enabled=not no_cache)
+    if workers > 1:
+        pre_jobs = _collect_md_image_block_jobs(
+            md_jobs=md_jobs,
+            out_img_dir=out_img_dir,
+            image_format=image_format,
+            no_cache=no_cache,
+        )
+        prerender_document_blocks(pre_jobs, cache=cache, workers=workers)
+
     processors_by_cfg: dict[tuple[str | None, str | None, str | None, str], DrawlibBlockProcessor] = {}
     md_pattern = re.compile(r"(?:^|\n)[ \t]*```drawlib\b", re.IGNORECASE)
     doc_img_format = image_format or "png"

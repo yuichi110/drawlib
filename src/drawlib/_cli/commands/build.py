@@ -40,6 +40,11 @@ def _handle_build_error(prefix: str, exc: Exception) -> None:
     raise typer.Exit(code=1)
 
 
+_WORKERS_HELP = (
+    "Number of parallel worker processes for diagram rendering ('auto' or positive integer; 1 = sequential)."
+)
+
+
 @build_app.command("image", epilog=HELP_EPILOG)
 def cmd_build_image(
     input_path: Annotated[
@@ -84,11 +89,17 @@ def cmd_build_image(
         bool,
         typer.Option("--no-cache", help="Disable reading and writing the SQLite build image cache."),
     ] = False,
+    workers: Annotated[
+        str,
+        typer.Option("-w", "--workers", help=_WORKERS_HELP),
+    ] = "auto",
 ) -> None:
     """Execute a Python drawing script (.py) or directory containing scripts to generate images."""
     try:
+        from drawlib._builder._common import resolve_build_workers  # noqa: PLC0415
         from drawlib._builder.image_builder import build_image  # noqa: PLC0415
 
+        eff_workers = resolve_build_workers(workers)
         executed = build_image(
             input_path=input_path,
             output_path=output,
@@ -99,6 +110,7 @@ def cmd_build_image(
             disable_auto_clear=disable_auto_clear,
             enable_auto_initialize=enable_auto_initialize,
             no_cache=no_cache,
+            workers=eff_workers,
         )
         print(f"Successfully executed image build for {len(executed)} target(s).")
     except Exception as e:
@@ -131,11 +143,17 @@ def cmd_build_markdown(
         bool,
         typer.Option("--no-cache", help="Disable reading and writing the SQLite build image cache."),
     ] = False,
+    workers: Annotated[
+        str,
+        typer.Option("-w", "--workers", help=_WORKERS_HELP),
+    ] = "auto",
 ) -> None:
     """Compile a directory containing Markdown files with drawlib code blocks into rendered Markdown."""
     try:
+        from drawlib._builder._common import resolve_build_workers  # noqa: PLC0415
         from drawlib._builder.doc_builder import build_markdown  # noqa: PLC0415
 
+        eff_workers = resolve_build_workers(workers)
         out_file = build_markdown(
             input_dir=input_dir,
             output_dir=output,
@@ -143,6 +161,7 @@ def cmd_build_markdown(
             styles_path=styles,
             utils_path=utils,
             no_cache=no_cache,
+            workers=eff_workers,
         )
         print(f"Successfully compiled Markdown document(s): {out_file}")
     except Exception as e:
@@ -175,11 +194,17 @@ def cmd_build_html(
         bool,
         typer.Option("--no-cache", help="Disable reading and writing the SQLite build image cache."),
     ] = False,
+    workers: Annotated[
+        str,
+        typer.Option("-w", "--workers", help=_WORKERS_HELP),
+    ] = "auto",
 ) -> None:
     """Compile a Markdown/HTML documentation directory into a static HTML site."""
     try:
+        from drawlib._builder._common import resolve_build_workers  # noqa: PLC0415
         from drawlib._builder.doc_builder import build_html  # noqa: PLC0415
 
+        eff_workers = resolve_build_workers(workers)
         out_file = build_html(
             input_dir=input_dir,
             output_dir=output,
@@ -187,6 +212,7 @@ def cmd_build_html(
             styles_path=styles,
             utils_path=utils,
             no_cache=no_cache,
+            workers=eff_workers,
         )
         print(f"Successfully compiled HTML document(s): {out_file}")
     except Exception as e:
@@ -273,11 +299,17 @@ def cmd_build_pdf(
             help="Include current build timestamp in PDF metadata instead of normalizing it.",
         ),
     ] = False,
+    workers: Annotated[
+        str,
+        typer.Option("-w", "--workers", help=_WORKERS_HELP),
+    ] = "auto",
 ) -> None:
     """Compile Markdown chapters, single Markdown file, or slide deck into a print-ready vector PDF."""
     try:
+        from drawlib._builder._common import resolve_build_workers  # noqa: PLC0415
         from drawlib._builder.doc_builder import build_pdf  # noqa: PLC0415
 
+        eff_workers = resolve_build_workers(workers)
         out_file = build_pdf(
             input_path=input_path,
             output_file=output,
@@ -288,6 +320,7 @@ def cmd_build_pdf(
             utils_path=utils,
             no_cache=no_cache,
             timestamp=timestamp,
+            workers=eff_workers,
         )
         summary = _format_multi_locale_build_summary(input_path, output, out_file, ".pdf")
         print(f"Successfully compiled PDF document: {summary}")
@@ -350,11 +383,17 @@ def cmd_build_docx(
             help="Include current build timestamp in Word metadata instead of normalizing it.",
         ),
     ] = False,
+    workers: Annotated[
+        str,
+        typer.Option("-w", "--workers", help=_WORKERS_HELP),
+    ] = "auto",
 ) -> None:
     """Compile Markdown chapters or a single Markdown file into an editable MS Word (.docx) document."""
     try:
+        from drawlib._builder._common import resolve_build_workers  # noqa: PLC0415
         from drawlib._builder.doc_builder import build_docx  # noqa: PLC0415
 
+        eff_workers = resolve_build_workers(workers)
         out_file = build_docx(
             input_path=input_path,
             output_file=output,
@@ -366,6 +405,7 @@ def cmd_build_docx(
             utils_path=utils,
             no_cache=no_cache,
             timestamp=timestamp,
+            workers=eff_workers,
         )
         summary = _format_multi_locale_build_summary(input_path, output, out_file, ".docx")
         print(f"Successfully compiled Word document: {summary}")
@@ -403,11 +443,17 @@ def cmd_build_slide(
         bool,
         typer.Option("--no-cache", help="Disable reading and writing the SQLite build image cache."),
     ] = False,
+    workers: Annotated[
+        str,
+        typer.Option("-w", "--workers", help=_WORKERS_HELP),
+    ] = "auto",
 ) -> None:
     """Compile a directory of Markdown slide files into a standalone HTML presentation deck."""
     try:
+        from drawlib._builder._common import resolve_build_workers  # noqa: PLC0415
         from drawlib._slide import build_slide  # noqa: PLC0415
 
+        eff_workers = resolve_build_workers(workers)
         out_file = build_slide(
             input_dir=input_dir,
             output_dir=output,
@@ -416,6 +462,7 @@ def cmd_build_slide(
             styles_path=styles,
             utils_path=utils,
             no_cache=no_cache,
+            workers=eff_workers,
         )
         print(f"Successfully compiled presentation deck: {out_file}")
     except Exception as e:
@@ -471,11 +518,17 @@ def cmd_build_pptx(
             help="Include current build timestamp in PowerPoint metadata instead of normalizing it.",
         ),
     ] = False,
+    workers: Annotated[
+        str,
+        typer.Option("-w", "--workers", help=_WORKERS_HELP),
+    ] = "auto",
 ) -> None:
     """Compile a directory of Markdown slide files into an editable MS PowerPoint (.pptx) deck."""
     try:
+        from drawlib._builder._common import resolve_build_workers  # noqa: PLC0415
         from drawlib._slide import build_pptx  # noqa: PLC0415
 
+        eff_workers = resolve_build_workers(workers)
         out_file = build_pptx(
             input_dir=input_dir,
             output_file=output,
@@ -487,6 +540,7 @@ def cmd_build_pptx(
             utils_path=utils,
             no_cache=no_cache,
             timestamp=timestamp,
+            workers=eff_workers,
         )
         summary = _format_multi_locale_build_summary(input_dir, output, out_file, ".pptx")
         print(f"Successfully compiled PowerPoint presentation: {summary}")

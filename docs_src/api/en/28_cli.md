@@ -142,6 +142,7 @@ uv run drawlib build docx doc_src -o doc.docx --generate-index --dpi 240
 | `-u, --utils` | `str \| None` | `None` | Path to custom `utils.py` script (auto-detected if present in `INPUT`). |
 | `--no-cache` | `bool` | `False` | Disable reading and writing the SQLite build image cache (`.drawlib/cache.db`). |
 | `--timestamp` | `bool` | `False` | Include current build timestamp in OpenXML metadata instead of deterministic normalization. |
+| `-w, --workers` | `str` | `'auto'` | Parallel worker processes (`'auto'` resolves to `1 <= (CPU cores - 1) <= 8` via `DRAWLIB_BUILD_WORKERS` or CPU count; `'1'` runs sequentially). |
 
 ---
 
@@ -164,6 +165,7 @@ uv run drawlib build html docs_src -o docs_html -f webp
 | `-s, --styles` | `str \| None` | `None` | Path to Python `styles.py` script injected before executing `drawlib` blocks. |
 | `-u, --utils` | `str \| None` | `None` | Path to Python `utils.py` script injected before executing `drawlib` blocks. |
 | `--no-cache` | `bool` | `False` | Bypass reading and writing `.drawlib/cache.db`. |
+| `-w, --workers` | `str` | `'auto'` | Parallel worker processes (`'auto'` resolves to `1 <= (CPU cores - 1) <= 8` via `DRAWLIB_BUILD_WORKERS` or CPU count; `'1'` runs sequentially). |
 
 ---
 
@@ -189,9 +191,10 @@ uv run drawlib build image images_src/architecture.py -o out/architecture.pdf
 | `-s, --styles` | `str \| None` | `None` | Path to shared `styles.py` executed before each drawing script. |
 | `-u, --utils` | `str \| None` | `None` | Path to shared `utils.py` executed before each drawing script. |
 | `-g, --grid` | `bool` | `False` | Also save companion `*_grid.<ext>` files with the coordinate grid overlaid. |
-| `--disable-auto-clear` | `bool` | `False` | Disable automatic `clear()` between consecutive drawing script executions. |
+| `--disable-auto-clear` | `bool` | `False` | Disable automatic `clear()` between consecutive drawing script executions (forces sequential execution). |
 | `--enable-auto-initialize` | `bool` | `False` | Reset global `config()` state to library defaults before each drawing script. |
 | `--no-cache` | `bool` | `False` | Disable reading and writing the SQLite build image cache. |
+| `-w, --workers` | `str` | `'auto'` | Parallel worker processes (`'auto'` resolves to `1 <= (CPU cores - 1) <= 8` via `DRAWLIB_BUILD_WORKERS` or CPU count; `'1'` runs sequentially). |
 
 ---
 
@@ -213,6 +216,7 @@ uv run drawlib build markdown doc_src -o doc_markdown -f png
 | `-s, --styles` | `str \| None` | `None` | Path to Python `styles.py` script. |
 | `-u, --utils` | `str \| None` | `None` | Path to Python `utils.py` script. |
 | `--no-cache` | `bool` | `False` | Disable reading and writing the SQLite build image cache. |
+| `-w, --workers` | `str` | `'auto'` | Parallel worker processes (`'auto'` resolves to `1 <= (CPU cores - 1) <= 8` via `DRAWLIB_BUILD_WORKERS` or CPU count; `'1'` runs sequentially). |
 
 ---
 
@@ -241,6 +245,7 @@ uv run drawlib build pdf slide_src -o presentation.pdf
 | `-u, --utils` | `str \| None` | `None` | Path to Python `utils.py` script. |
 | `--no-cache` | `bool` | `False` | Disable reading and writing the SQLite build image cache. |
 | `--timestamp` | `bool` | `False` | Include current build timestamp in PDF `/CreationDate` and `/ModDate` metadata instead of normalizing. |
+| `-w, --workers` | `str` | `'auto'` | Parallel worker processes (`'auto'` resolves to `1 <= (CPU cores - 1) <= 8` via `DRAWLIB_BUILD_WORKERS` or CPU count; `'1'` runs sequentially). |
 
 ---
 
@@ -266,6 +271,7 @@ uv run drawlib build pptx slide_src -o deck.pptx --theme google --dpi 240 --anim
 | `-u, --utils` | `str \| None` | `None` | Path to Python `utils.py` script. |
 | `--no-cache` | `bool` | `False` | Disable reading and writing the SQLite build image cache. |
 | `--timestamp` | `bool` | `False` | Include current build timestamp in PowerPoint OpenXML metadata. |
+| `-w, --workers` | `str` | `'auto'` | Parallel worker processes (`'auto'` resolves to `1 <= (CPU cores - 1) <= 8` via `DRAWLIB_BUILD_WORKERS` or CPU count; `'1'` runs sequentially). |
 
 ---
 
@@ -288,6 +294,7 @@ uv run drawlib build slide slide_src -o slide_html --theme google -f svg
 | `-s, --styles` | `str \| None` | `None` | Path to Python `styles.py` script. |
 | `-u, --utils` | `str \| None` | `None` | Path to Python `utils.py` script. |
 | `--no-cache` | `bool` | `False` | Disable reading and writing the SQLite build image cache. |
+| `-w, --workers` | `str` | `'auto'` | Parallel worker processes (`'auto'` resolves to `1 <= (CPU cores - 1) <= 8` via `DRAWLIB_BUILD_WORKERS` or CPU count; `'1'` runs sequentially). |
 
 ---
 

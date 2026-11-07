@@ -4483,6 +4483,7 @@
     <span class="n">utils_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">no_cache</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">timestamp</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">workers</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">"auto"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"auto"</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span>
 </code></pre>
 <table>
@@ -4549,6 +4550,12 @@
 <td style="text-align:left"><code>False</code></td>
 <td style="text-align:left">Include current build timestamp in PDF or Word metadata when <code>True</code>.</td>
 </tr>
+<tr>
+<td style="text-align:left"><code>workers</code></td>
+<td style="text-align:left"><code>int | Literal[&quot;auto&quot;]</code></td>
+<td style="text-align:left"><code>&quot;auto&quot;</code></td>
+<td style="text-align:left">Parallel worker process count (<code>&quot;auto&quot;</code> resolves to <code>1 &lt;= (CPU cores - 1) &lt;= 8</code>, honoring <code>DRAWLIB_BUILD_WORKERS</code>; <code>1</code> runs sequentially).</td>
+</tr>
 </tbody>
 </table>
 <ul>
@@ -4571,6 +4578,7 @@
     <span class="n">utils_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">no_cache</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">timestamp</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">workers</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">"auto"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"auto"</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span>
 </code></pre>
 <table>
@@ -4649,6 +4657,12 @@
 <td style="text-align:left"><code>False</code></td>
 <td style="text-align:left">Include current build timestamp in <code>.docx</code> metadata instead of deterministic normalization.</td>
 </tr>
+<tr>
+<td style="text-align:left"><code>workers</code></td>
+<td style="text-align:left"><code>int | Literal[&quot;auto&quot;]</code></td>
+<td style="text-align:left"><code>&quot;auto&quot;</code></td>
+<td style="text-align:left">Parallel worker process count (<code>&quot;auto&quot;</code> resolves to <code>1 &lt;= (CPU cores - 1) &lt;= 8</code>, honoring <code>DRAWLIB_BUILD_WORKERS</code>; <code>1</code> runs sequentially).</td>
+</tr>
 </tbody>
 </table>
 <ul>
@@ -4667,6 +4681,7 @@
     <span class="n">utils_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">no_cache</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">css_mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"external"</span><span class="p">,</span>
+    <span class="n">workers</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">"auto"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"auto"</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span>
 </code></pre>
 <table>
@@ -4721,6 +4736,12 @@
 <td style="text-align:left"><code>&quot;external&quot;</code></td>
 <td style="text-align:left">CSS linking mode (<code>&quot;external&quot;</code> or <code>&quot;embed&quot;</code>).</td>
 </tr>
+<tr>
+<td style="text-align:left"><code>workers</code></td>
+<td style="text-align:left"><code>int | Literal[&quot;auto&quot;]</code></td>
+<td style="text-align:left"><code>&quot;auto&quot;</code></td>
+<td style="text-align:left">Parallel worker process count (<code>&quot;auto&quot;</code> resolves to <code>1 &lt;= (CPU cores - 1) &lt;= 8</code>, honoring <code>DRAWLIB_BUILD_WORKERS</code>; <code>1</code> runs sequentially).</td>
+</tr>
 </tbody>
 </table>
 <ul>
@@ -4741,6 +4762,7 @@
     <span class="n">disable_auto_clear</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">enable_auto_initialize</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">no_cache</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">workers</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">"auto"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"auto"</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
 </code></pre>
 <table>
@@ -4793,7 +4815,7 @@
 <td style="text-align:left"><code>disable_auto_clear</code></td>
 <td style="text-align:left"><code>bool</code></td>
 <td style="text-align:left"><code>False</code></td>
-<td style="text-align:left">Skip automatic canvas artist clearing between consecutive files.</td>
+<td style="text-align:left">Skip automatic canvas artist clearing between consecutive files (forces sequential in-process execution).</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>enable_auto_initialize</code></td>
@@ -4806,6 +4828,12 @@
 <td style="text-align:left"><code>bool</code></td>
 <td style="text-align:left"><code>False</code></td>
 <td style="text-align:left">Bypass the SQLite build image cache.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>workers</code></td>
+<td style="text-align:left"><code>int | Literal[&quot;auto&quot;]</code></td>
+<td style="text-align:left"><code>&quot;auto&quot;</code></td>
+<td style="text-align:left">Parallel worker process count (<code>&quot;auto&quot;</code> resolves to <code>1 &lt;= (CPU cores - 1) &lt;= 8</code>, honoring <code>DRAWLIB_BUILD_WORKERS</code>; <code>1</code> runs sequentially).</td>
 </tr>
 </tbody>
 </table>
@@ -4824,6 +4852,7 @@
     <span class="n">styles_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">utils_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">no_cache</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">workers</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">"auto"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"auto"</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span>
 </code></pre>
 <table>
@@ -4872,6 +4901,12 @@
 <td style="text-align:left"><code>False</code></td>
 <td style="text-align:left">Bypass the SQLite build image cache.</td>
 </tr>
+<tr>
+<td style="text-align:left"><code>workers</code></td>
+<td style="text-align:left"><code>int | Literal[&quot;auto&quot;]</code></td>
+<td style="text-align:left"><code>&quot;auto&quot;</code></td>
+<td style="text-align:left">Parallel worker process count (<code>&quot;auto&quot;</code> resolves to <code>1 &lt;= (CPU cores - 1) &lt;= 8</code>, honoring <code>DRAWLIB_BUILD_WORKERS</code>; <code>1</code> runs sequentially).</td>
+</tr>
 </tbody>
 </table>
 <ul>
@@ -4893,6 +4928,7 @@
     <span class="n">utils_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">no_cache</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">timestamp</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">workers</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">"auto"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"auto"</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span>
 </code></pre>
 <table>
@@ -4965,6 +5001,12 @@
 <td style="text-align:left"><code>False</code></td>
 <td style="text-align:left">Include current build timestamp in PDF metadata instead of deterministic normalization.</td>
 </tr>
+<tr>
+<td style="text-align:left"><code>workers</code></td>
+<td style="text-align:left"><code>int | Literal[&quot;auto&quot;]</code></td>
+<td style="text-align:left"><code>&quot;auto&quot;</code></td>
+<td style="text-align:left">Parallel worker process count (<code>&quot;auto&quot;</code> resolves to <code>1 &lt;= (CPU cores - 1) &lt;= 8</code>, honoring <code>DRAWLIB_BUILD_WORKERS</code>; <code>1</code> runs sequentially).</td>
+</tr>
 </tbody>
 </table>
 <ul>
@@ -4986,6 +5028,7 @@
     <span class="n">utils_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">no_cache</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">timestamp</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">workers</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">"auto"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"auto"</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span>
 </code></pre>
 <table>
@@ -5058,6 +5101,12 @@
 <td style="text-align:left"><code>False</code></td>
 <td style="text-align:left">Write current build timestamp into OpenXML metadata.</td>
 </tr>
+<tr>
+<td style="text-align:left"><code>workers</code></td>
+<td style="text-align:left"><code>int | Literal[&quot;auto&quot;]</code></td>
+<td style="text-align:left"><code>&quot;auto&quot;</code></td>
+<td style="text-align:left">Parallel worker process count (<code>&quot;auto&quot;</code> resolves to <code>1 &lt;= (CPU cores - 1) &lt;= 8</code>, honoring <code>DRAWLIB_BUILD_WORKERS</code>; <code>1</code> runs sequentially).</td>
+</tr>
 </tbody>
 </table>
 <ul>
@@ -5080,6 +5129,7 @@
     <span class="n">styles_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">utils_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">no_cache</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">workers</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">"auto"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"auto"</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span>
 </code></pre>
 <table>
@@ -5157,6 +5207,12 @@
 <td style="text-align:left"><code>bool</code></td>
 <td style="text-align:left"><code>False</code></td>
 <td style="text-align:left">Bypass the SQLite build cache.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>workers</code></td>
+<td style="text-align:left"><code>int | Literal[&quot;auto&quot;]</code></td>
+<td style="text-align:left"><code>&quot;auto&quot;</code></td>
+<td style="text-align:left">Parallel worker process count (<code>&quot;auto&quot;</code> resolves to <code>1 &lt;= (CPU cores - 1) &lt;= 8</code>, honoring <code>DRAWLIB_BUILD_WORKERS</code>; <code>1</code> runs sequentially).</td>
 </tr>
 </tbody>
 </table>

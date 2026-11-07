@@ -15,6 +15,7 @@ import os
 import tempfile
 from typing import Literal
 
+from drawlib._builder._common import resolve_build_workers
 from drawlib._slide.compiler import build_slide, require_slide_manifest
 
 
@@ -30,6 +31,7 @@ def build_pptx(
     utils_path: str | None = None,
     no_cache: bool = False,
     timestamp: bool = False,
+    workers: int | Literal["auto"] = "auto",
 ) -> str:
     """Compile an ``i18n``-native Markdown slide project into native MS PowerPoint (``.pptx``) decks.
 
@@ -48,6 +50,7 @@ def build_pptx(
         utils_path: Optional path to custom utils.py script.
         no_cache: If True, disable reading/writing the SQLite build image cache.
         timestamp: If True, include current build timestamp in OpenXML metadata.
+        workers: Number of parallel rendering worker processes ('auto' or positive integer >= 1).
 
     Returns:
         str: Absolute path to the generated default-language ``<stem>_<default_lang>.pptx`` file.
@@ -56,6 +59,7 @@ def build_pptx(
         ValueError: If ``input_dir`` is invalid, lacks ``drawlib.toml``, ``dpi <= 0``, or ``anim_frame`` is invalid.
         RuntimeError: If Playwright, Chromium, or python-pptx fails.
     """
+    eff_workers = resolve_build_workers(workers)
     if not input_dir:
         raise ValueError("No input directory specified for build_pptx.")
     input_abs = os.path.abspath(input_dir)
@@ -95,6 +99,7 @@ def build_pptx(
             styles_path=styles_path,
             utils_path=utils_path,
             no_cache=no_cache,
+            workers=eff_workers,
         )
 
         for lang in i18n_cfg.langs:

@@ -963,6 +963,7 @@ drawlib build html <INPUT> [OPTIONS]
 | `--styles` | `-s` | 自動解決された `styles.py` | プロジェクトのスタイル定義スクリプトへのパス。 |
 | `--utils` | `-u` | 自動解決された `utils.py` | 描画ヘルパースクリプトへのパス。 |
 | `--no-cache` | | `False` | `.drawlib/cache.db` を無視し、すべての図解をクリーンに再レンダリングします。 |
+| `--workers` | `-w` | `auto` | 並列ワーカープロセス数（`auto` は `1 <= (CPUコア数 - 1) <= 8` または `DRAWLIB_BUILD_WORKERS` を使用、`1` は逐次実行）。 |
 
 ### 4.2 `drawlib build markdown`
 埋め込み ````drawlib```` ブロックを含むソース Markdown を、標準的な GitHub Flavored Markdown（GFM）へコンパイルします。レンダリングされた図解は、付属の画像フォルダ（`<doc>_images/`）に出力されます。
@@ -971,7 +972,7 @@ drawlib build html <INPUT> [OPTIONS]
 drawlib build markdown docs_src/ -o docs/ [OPTIONS]
 ```
 
-- `-o/--output`、`-f/--format <png|webp>`、`-s/--styles`、`-u/--utils`、`--no-cache` をサポートします。
+- `-o/--output`、`-f/--format <png|webp>`、`-s/--styles`、`-u/--utils`、`--no-cache`、`-w/--workers <auto|N>` をサポートします。
 - **上書き保護**: ソースファイルのインプレース上書き（`src_abs == dest_abs`）は拒否されます。必ずソースとは別の出力ディレクトリ（例: `docs/` や `docs_markdown/`）を指定してください。
 
 ### 4.3 `drawlib build pdf`
@@ -990,6 +991,7 @@ drawlib build pdf doc_src/ -o report.pdf --toc --page-break
 | `--styles` / `--utils` | `-s` / `-u` | 自動解決 | `styles.py` および `utils.py` へのパス。 |
 | `--no-cache` | | `False` | `.drawlib/cache.db` をバイパスし、すべての図解を再レンダリングします。 |
 | `--timestamp` | | `False` | PDF メタデータに現在のビルド日時を記録します（決定論的ビルドのためデフォルトでは省略されます）。 |
+| `--workers` | `-w` | `auto` | 並列ワーカープロセス数（`auto` は `1 <= (CPUコア数 - 1) <= 8` または `DRAWLIB_BUILD_WORKERS` を使用、`1` は逐次実行）。 |
 
 ### 4.4 `drawlib build docx`
 Markdown の章ディレクトリ（`doc` プロジェクト）または単一の `.md` ファイルを、ネイティブに編集可能な MS Word（`.docx`）ドキュメント（見出し、本文、箇条書き・番号付きリスト、テーブル、引用ブロック、シンタックスハイライト付きコードブロック、任意の表紙ページ、目次）へコンパイルします。````drawlib```` ブロック（SVG、WebP、アニメーションブロックを含む）は鮮明な高 DPI 静止画 PNG としてレンダリングされます。
@@ -1008,6 +1010,7 @@ drawlib build docx doc_src/ -o report.docx --generate-index --page-break
 | `--styles` / `--utils` | `-s` / `-u` | 自動解決 | `styles.py` および `utils.py` へのパス。 |
 | `--no-cache` | | `False` | `.drawlib/cache.db` の読み書きを無効化します。 |
 | `--timestamp` | | `False` | 正規化する代わりに、Word メタデータへ現在のビルド日時を記録します。 |
+| `--workers` | `-w` | `auto` | 並列ワーカープロセス数（`auto` は `1 <= (CPUコア数 - 1) <= 8` または `DRAWLIB_BUILD_WORKERS` を使用、`1` は逐次実行）。 |
 
 ### 4.5 `drawlib build slide`
 Markdown スライドファイルのディレクトリ（`slide_src/`）を、デュアルウィンドウ対応の発表者ビュー（`?presenter=1`）を備えたスタンドアロン 16:9 HTML プレゼンテーションデッキ（`<lang>/index.html`＋ルートの `index.html` リダイレクト）へコンパイルします。
@@ -1023,6 +1026,7 @@ drawlib build slide slide_src/ -o slide_html/ [OPTIONS]
 | `--format` | `-f` | `svg` | 埋め込み図解のデフォルト画像フォーマット（`svg`、`webp`、`png`）。 |
 | `--styles` / `--utils` | `-s` / `-u` | 自動解決 | `styles.py` および `utils.py` へのパス。 |
 | `--no-cache` | | `False` | `.drawlib/cache.db` の読み書きを無効化します。 |
+| `--workers` | `-w` | `auto` | 並列ワーカープロセス数（`auto` は `1 <= (CPUコア数 - 1) <= 8` または `DRAWLIB_BUILD_WORKERS` を使用、`1` は逐次実行）。 |
 
 ### 4.6 `drawlib build pptx`
 ヘッドレス Chromium で `1920×1080` スライドレイアウトと計算済み CSS スタイルを計測し、Markdown スライドファイルのディレクトリ（`slide_src/`）をロケール別にネイティブ編集可能な 16:9（`960×540 pt`）MS PowerPoint（`.pptx`）デッキへコンパイルします（`rgba` アルファ対応の `::: block` カード、テキストボックス、箇条書き・番号付きリスト、テーブル、インラインコード、`::: note` スピーカーノートを変換し、````drawlib```` 図解は高 DPI 静止画 PNG として埋め込みます）。
@@ -1041,6 +1045,7 @@ drawlib build pptx slide_src/ -o deck.pptx --dpi 240 --anim-frame last
 | `--styles` / `--utils` | `-s` / `-u` | 自動解決 | `styles.py` および `utils.py` へのパス。 |
 | `--no-cache` | | `False` | `.drawlib/cache.db` の読み書きを無効化します。 |
 | `--timestamp` | | `False` | 正規化する代わりに、PowerPoint メタデータへ現在のビルド日時を記録します。 |
+| `--workers` | `-w` | `auto` | 並列ワーカープロセス数（`auto` は `1 <= (CPUコア数 - 1) <= 8` または `DRAWLIB_BUILD_WORKERS` を使用、`1` は逐次実行）。 |
 
 ### 4.7 `drawlib build image`
 スタンドアロンの Python 図解スクリプト（`.py`）を一括実行するか、Markdown ファイル（`.md`）内の埋め込み描画ブロックを抽出して、画像アセットを生成します。
@@ -1055,9 +1060,10 @@ drawlib build image images_src/ -o images/ --grid
 | `--format` | `-f` | スクリプト設定（`png`） | 出力画像フォーマットの一括上書き指定（`png`、`webp`、`gif`、`jpg`、`pdf`）。 |
 | `--styles` / `--utils` | `-s` / `-u` | 自動解決 | `styles.py` および `utils.py` へのパス。 |
 | `--grid` | `-g` | `False` | 座標グリッドを重ね合わせた補助画像 `*_grid.<ext>` を同時に保存します。 |
-| `--disable-auto-clear` | | `False` | 実行される `.py` ファイル間の自動 `canvas.clear()` を無効化します。 |
+| `--disable-auto-clear` | | `False` | 実行される `.py` ファイル間の自動 `canvas.clear()` を無効化します（逐次実行へ自動フォールバック）。 |
 | `--enable-auto-initialize` | | `False` | 実行される `.py` ファイル間でキャンバスの完全な再初期化を有効化します。 |
 | `--no-cache` | | `False` | `.drawlib/cache.db` をバイパスします。 |
+| `--workers` | `-w` | `auto` | 並列ワーカープロセス数（`auto` は `1 <= (CPUコア数 - 1) <= 8` または `DRAWLIB_BUILD_WORKERS` を使用、`1` は逐次実行）。 |
 
 - **Python スクリプト**: ネストされたサブディレクトリ構造を自動的にミラーリングしながら、`save()` の出力先を `-o` 配下へリダイレクトします。実行前に全スクリプトへ静的 AST 解析を行い、複数のスクリプトが同一の出力ファイルへ書き込もうとしている場合は即座に中断します。
 - **Markdown ファイル**: 埋め込み ````drawlib```` ブロックを `<markdown_name>_images/<image_file>` サブディレクトリへ抽出します。

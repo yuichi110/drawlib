@@ -318,10 +318,10 @@
 <li><em>(Standalone Image Projects)</em>: For <code>type = &quot;images&quot;</code> (<code>image_builder.py</code>: <code>DrawlibExecuter</code>), <code>_image_ast.py</code> (<code>_SaveCallVisitor</code>) statically inspects <code>ast.Call</code> <code>save(...)</code> nodes via <code>check_duplicate_script_outputs()</code> and <code>resolve_static_save_target()</code> to detect output collisions and resolve single-target cache hits without executing Python.</li>
 </ul>
 </li>
-<li><strong>Stage 3 — In-Process Canvas Execution &amp; Fence Restoration</strong>:
+<li><strong>Stage 3 — Parallel Worker Pre-Rendering &amp; Sandboxed Canvas Execution (<code>_common/parallel.py</code> &amp; <code>processor.py</code>)</strong>:
 <ul>
-<li>Cache misses execute in-process against <code>Canvas</code>, write rendered image/animation buffers to disk and <code>.drawlib/cache.db</code>, and substitute the fence with <code>&lt;figure class=&quot;drawlib-image&quot;&gt;</code> / <code>&lt;div class=&quot;drawlib-image&quot;&gt;</code> (or standard <code>![caption](path)</code> Markdown image links).</li>
-<li><code>restore_outer_fences()</code> restores all masked 4+-backtick tutorial blocks verbatim.</li>
+<li>When <code>workers &gt; 1</code> (default <code>&quot;auto&quot;</code> -&gt; <code>1 &lt;= (CPU cores - 1) &lt;= 8</code>, overrideable via <code>-w</code>/<code>--workers</code> or <code>DRAWLIB_BUILD_WORKERS</code>) and 2+ unique cache misses exist, <code>prerender_document_blocks()</code> (and <code>execute_scripts_parallel()</code> for <code>images</code> projects) schedules uncached blocks <strong>Longest-Job-First</strong> across a <code>spawn</code> <code>ProcessPoolExecutor</code>. Workers render atomically without touching SQLite; the parent process writes <code>.drawlib/cache.db</code> (or populates <code>BuildImageCache.prerendered_blobs</code> for <code>--no-cache</code> inline <code>pdf</code>/<code>docx</code> builds), while Warm-Cache rebuilds (<code>&lt;= 1</code> miss) skip process spawning altogether.</li>
+<li>During sequential assembly (or when <code>workers=1</code>), <code>DrawlibBlockProcessor</code> materializes cached/pre-rendered images—or executes single misses in-process against <code>Canvas</code>—and substitutes fences with <code>&lt;figure class=&quot;drawlib-image&quot;&gt;</code> / <code>&lt;div class=&quot;drawlib-image&quot;&gt;</code> (or <code>![caption](path)</code> Markdown image links), before <code>restore_outer_fences()</code> restores masked 4+-backtick tutorial blocks verbatim.</li>
 </ul>
 </li>
 <li><strong>Stage 4 — Downstream Target Compilation (<code>parser.py</code> &amp; <code>exporter_docx.py</code>)</strong>:

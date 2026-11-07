@@ -16,8 +16,15 @@ import mimetypes
 import os
 import re
 import sys
+from typing import Literal
 
-from drawlib._builder._common.cache import BuildImageCache
+from drawlib._builder._common import (
+    BlockRenderJob,
+    BuildImageCache,
+    collect_standard_document_block_jobs,
+    prerender_document_blocks,
+    resolve_build_workers,
+)
 from drawlib._builder.doc_builder.compiler.base import validate_markdown_links
 from drawlib._builder.doc_builder.detector import detect_document_type
 from drawlib._builder.doc_builder.exporter_html import render_pdf_document
@@ -154,6 +161,7 @@ def build_merged_html(
     toc_title: str | None = None,
     project_root: str | None = None,
     cache: BuildImageCache | None = None,
+    workers: int | Literal["auto"] = "auto",
 ) -> tuple[str, list[str]]:
     """Compile and merge one or more Markdown/HTML inputs into a single standalone HTML document.
 
@@ -172,10 +180,12 @@ def build_merged_html(
         toc_title (Optional[str]): Optional explicit TOC heading override.
         project_root (Optional[str]): Optional root project directory for asset hashing/lookup.
         cache (Optional[BuildImageCache]): Optional shared build image cache across locales.
+        workers (int | Literal["auto"]): Number of parallel rendering worker processes ('auto' or int >= 1).
 
     Returns:
         tuple[str, List[str]]: (merged_full_html_string, ordered_source_files).
     """
+    eff_workers = resolve_build_workers(workers)
     if not inputs:
         raise ValueError("At least one input file or directory must be specified.")
 
@@ -257,6 +267,26 @@ def build_merged_html(
     )
     name_width = max((len(n) for n in display_names), default=0)
     image_width = len(str(max(max_blocks, 0)))
+
+    if eff_workers > 1:
+        merge_jobs: list[BlockRenderJob] = []
+        for s_abs in file_list:
+            is_md_doc = s_abs.lower().endswith((".md", ".markdown"))
+            merge_jobs.extend(
+                collect_standard_document_block_jobs(
+                    src_abs=s_abs,
+                    dest_abs=None,
+                    is_md=is_md_doc,
+                    image_format="png",
+                    embed_images=True,
+                    styles_path=styles_path,
+                    utils_path=utils_path,
+                    project_root=eff_project_root,
+                    require_file=True,
+                    no_cache_global=no_cache,
+                )
+            )
+        prerender_document_blocks(merge_jobs, cache=active_cache, workers=eff_workers)
 
     for idx, (src_abs, disp_name) in enumerate(zip(file_list, display_names), start=1):
         with open(src_abs, "r", encoding="utf-8") as f:

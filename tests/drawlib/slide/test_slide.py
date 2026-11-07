@@ -1088,7 +1088,7 @@ save()
             orig_exec(code=code, source_filename=source_filename, shared_globals=shared_globals)
 
         with patch.object(DrawlibBlockProcessor, "_exec_code_block", staticmethod(_counting_exec)):
-            res_html = build_slide(str(src_dir), str(out_dir), no_cache=True)
+            res_html = build_slide(str(src_dir), str(out_dir), no_cache=True, workers=1)
 
         assert Path(res_html) == out_dir / "en" / "index.html"
         # 1 shared diagram + 2 localized diagrams = 3 total executions (instead of 4)

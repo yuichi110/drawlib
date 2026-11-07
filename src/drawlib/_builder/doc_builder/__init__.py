@@ -11,6 +11,8 @@
 
 from __future__ import annotations
 
+from typing import Literal
+
 from drawlib._builder._common import (
     BuildImageCache,
     FileBuildProgress,
@@ -82,6 +84,7 @@ def build_document(
     utils_path: str | None = None,
     no_cache: bool = False,
     timestamp: bool = False,
+    workers: int | Literal["auto"] = "auto",
 ) -> str:
     """Compile input documentation directory into HTML, PDF, Word (.docx), or Markdown.
 
@@ -95,6 +98,7 @@ def build_document(
         utils_path (Optional[str]): Path to custom utils.py script.
         no_cache (bool): If True, disable image build caching.
         timestamp (bool): Include build timestamp in PDF or Word metadata.
+        workers (int | Literal["auto"]): Number of parallel rendering worker processes ('auto' or int >= 1).
 
     Returns:
         str: Absolute path of generated output directory or file.
@@ -118,6 +122,7 @@ def build_document(
             styles_path=styles_path,
             utils_path=utils_path,
             no_cache=no_cache,
+            workers=workers,
         )
     if fmt == "pdf":
         return build_pdf(
@@ -127,6 +132,7 @@ def build_document(
             utils_path=utils_path,
             no_cache=no_cache,
             timestamp=timestamp,
+            workers=workers,
         )
     if fmt in {"docx", "word"}:
         return build_docx(
@@ -136,6 +142,7 @@ def build_document(
             utils_path=utils_path,
             no_cache=no_cache,
             timestamp=timestamp,
+            workers=workers,
         )
     return build_html(
         input_dir=input_dir,
@@ -145,6 +152,7 @@ def build_document(
         utils_path=utils_path,
         no_cache=no_cache,
         css_mode=css_mode,
+        workers=workers,
     )
 
 

@@ -828,6 +828,7 @@
 <li><strong>ライブラリバージョン更新時の自動無効化</strong>: インストールされている <code>drawlib</code> または <code>matplotlib</code> のバージョンが変更されると、キャッシュテーブルは自動的に無効化されます。</li>
 <li><strong>1 GiB の容量上限</strong>: キャッシュされた画像バイナリの合計が <code>1 GiB</code> を超えると、古い方から 50% のエントリが自動的に削除（LRU 方式）されます。</li>
 <li><strong>カスタムキャッシュパス</strong>: CI/CD ランナーでは、<code>DRAWLIB_CACHE_DB=/path/to/cache.db</code> または <code>DRAWLIB_CACHE_DIR=/path/to/dir</code> 環境変数によって SQLite データベースの保存先を上書きできます。</li>
+<li><strong>マルチコア並列ワーカー制御（<code>DRAWLIB_BUILD_WORKERS</code> / <code>-w</code>, <code>--workers</code>）</strong>: 未キャッシュの図解が 2 件以上ある場合、<code>drawlib build</code> はデフォルト（<code>-w auto</code>）で <code>1 &lt;= (CPUコア数 - 1) &lt;= 8</code> 個の <code>spawn</code> ワーカープロセスへ描画を自動分散します。<code>.drawlib/cache.db</code> への書き込みは親プロセスに一本化され、初回フォント／アイコン取得もプロセス間ファイルロックで安全に同期されます。CI コンテナでは <code>DRAWLIB_BUILD_WORKERS=4</code> や <code>-w 1</code> で並列度を制御できます。</li>
 </ul>
 <h3>2.3. レイヤー 1 キャッシュをバイパスまたはクリアすべきケース</h3>
 <p>描画スクリプトが <code>styles.py</code> や <code>utils.py</code> <em>以外</em> の外部カスタム Python モジュールをインポートしている場合、その外部モジュールを編集してもブロックの SHA-256 ハッシュは自動では変化しません。その場合は <code>--no-cache</code> または <code>drawlib cache clear --images</code> を使用して強制的に再レンダリングを実行してください。</p>

@@ -4653,6 +4653,12 @@ uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </s
 <td style="text-align:left"><code>False</code></td>
 <td style="text-align:left">Include current build timestamp in OpenXML metadata instead of deterministic normalization.</td>
 </tr>
+<tr>
+<td style="text-align:left"><code>-w, --workers</code></td>
+<td style="text-align:left"><code>str</code></td>
+<td style="text-align:left"><code>'auto'</code></td>
+<td style="text-align:left">Parallel worker processes (<code>'auto'</code> resolves to <code>1 &lt;= (CPU cores - 1) &lt;= 8</code> via <code>DRAWLIB_BUILD_WORKERS</code> or CPU count; <code>'1'</code> runs sequentially).</td>
+</tr>
 </tbody>
 </table>
 <hr />
@@ -4708,6 +4714,12 @@ uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </s
 <td style="text-align:left"><code>bool</code></td>
 <td style="text-align:left"><code>False</code></td>
 <td style="text-align:left">Bypass reading and writing <code>.drawlib/cache.db</code>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>-w, --workers</code></td>
+<td style="text-align:left"><code>str</code></td>
+<td style="text-align:left"><code>'auto'</code></td>
+<td style="text-align:left">Parallel worker processes (<code>'auto'</code> resolves to <code>1 &lt;= (CPU cores - 1) &lt;= 8</code> via <code>DRAWLIB_BUILD_WORKERS</code> or CPU count; <code>'1'</code> runs sequentially).</td>
 </tr>
 </tbody>
 </table>
@@ -4772,7 +4784,7 @@ uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </s
 <td style="text-align:left"><code>--disable-auto-clear</code></td>
 <td style="text-align:left"><code>bool</code></td>
 <td style="text-align:left"><code>False</code></td>
-<td style="text-align:left">Disable automatic <code>clear()</code> between consecutive drawing script executions.</td>
+<td style="text-align:left">Disable automatic <code>clear()</code> between consecutive drawing script executions (forces sequential execution).</td>
 </tr>
 <tr>
 <td style="text-align:left"><code>--enable-auto-initialize</code></td>
@@ -4785,6 +4797,12 @@ uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </s
 <td style="text-align:left"><code>bool</code></td>
 <td style="text-align:left"><code>False</code></td>
 <td style="text-align:left">Disable reading and writing the SQLite build image cache.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>-w, --workers</code></td>
+<td style="text-align:left"><code>str</code></td>
+<td style="text-align:left"><code>'auto'</code></td>
+<td style="text-align:left">Parallel worker processes (<code>'auto'</code> resolves to <code>1 &lt;= (CPU cores - 1) &lt;= 8</code> via <code>DRAWLIB_BUILD_WORKERS</code> or CPU count; <code>'1'</code> runs sequentially).</td>
 </tr>
 </tbody>
 </table>
@@ -4840,6 +4858,12 @@ uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </s
 <td style="text-align:left"><code>bool</code></td>
 <td style="text-align:left"><code>False</code></td>
 <td style="text-align:left">Disable reading and writing the SQLite build image cache.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>-w, --workers</code></td>
+<td style="text-align:left"><code>str</code></td>
+<td style="text-align:left"><code>'auto'</code></td>
+<td style="text-align:left">Parallel worker processes (<code>'auto'</code> resolves to <code>1 &lt;= (CPU cores - 1) &lt;= 8</code> via <code>DRAWLIB_BUILD_WORKERS</code> or CPU count; <code>'1'</code> runs sequentially).</td>
 </tr>
 </tbody>
 </table>
@@ -4917,6 +4941,12 @@ uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </s
 <td style="text-align:left"><code>bool</code></td>
 <td style="text-align:left"><code>False</code></td>
 <td style="text-align:left">Include current build timestamp in PDF <code>/CreationDate</code> and <code>/ModDate</code> metadata instead of normalizing.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>-w, --workers</code></td>
+<td style="text-align:left"><code>str</code></td>
+<td style="text-align:left"><code>'auto'</code></td>
+<td style="text-align:left">Parallel worker processes (<code>'auto'</code> resolves to <code>1 &lt;= (CPU cores - 1) &lt;= 8</code> via <code>DRAWLIB_BUILD_WORKERS</code> or CPU count; <code>'1'</code> runs sequentially).</td>
 </tr>
 </tbody>
 </table>
@@ -4997,6 +5027,12 @@ uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </s
 <td style="text-align:left"><code>False</code></td>
 <td style="text-align:left">Include current build timestamp in PowerPoint OpenXML metadata.</td>
 </tr>
+<tr>
+<td style="text-align:left"><code>-w, --workers</code></td>
+<td style="text-align:left"><code>str</code></td>
+<td style="text-align:left"><code>'auto'</code></td>
+<td style="text-align:left">Parallel worker processes (<code>'auto'</code> resolves to <code>1 &lt;= (CPU cores - 1) &lt;= 8</code> via <code>DRAWLIB_BUILD_WORKERS</code> or CPU count; <code>'1'</code> runs sequentially).</td>
+</tr>
 </tbody>
 </table>
 <hr />
@@ -5057,6 +5093,12 @@ uv<span class="w"> </span>run<span class="w"> </span>drawlib<span class="w"> </s
 <td style="text-align:left"><code>bool</code></td>
 <td style="text-align:left"><code>False</code></td>
 <td style="text-align:left">Disable reading and writing the SQLite build image cache.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>-w, --workers</code></td>
+<td style="text-align:left"><code>str</code></td>
+<td style="text-align:left"><code>'auto'</code></td>
+<td style="text-align:left">Parallel worker processes (<code>'auto'</code> resolves to <code>1 &lt;= (CPU cores - 1) &lt;= 8</code> via <code>DRAWLIB_BUILD_WORKERS</code> or CPU count; <code>'1'</code> runs sequentially).</td>
 </tr>
 </tbody>
 </table>

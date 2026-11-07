@@ -13,12 +13,17 @@ from __future__ import annotations
 
 import os
 import tempfile
+from typing import Literal
 
 from drawlib._builder._common import (
+    BlockRenderJob,
     BuildImageCache,
     ProjectManifest,
+    collect_standard_document_block_jobs,
     find_project_manifest,
     load_project_manifest,
+    prerender_document_blocks,
+    resolve_build_workers,
     resolve_styles_and_utils,
 )
 from drawlib._builder.doc_builder.compiler.base import (
@@ -29,7 +34,7 @@ from drawlib._builder.doc_builder.compiler.base import (
 )
 from drawlib._builder.doc_builder.exporter_pdf import export_html_file_to_pdf, export_html_to_pdf
 from drawlib._builder.doc_builder.i18n import validate_i18n_project
-from drawlib._builder.doc_builder.merger import build_merged_html
+from drawlib._builder.doc_builder.merger import build_merged_html, expand_input_files
 
 
 def _build_i18n_doc_pdfs(
@@ -45,6 +50,7 @@ def _build_i18n_doc_pdfs(
     utils_path: str | None,
     no_cache: bool,
     timestamp: bool,
+    workers: int = 1,
 ) -> str:
     """Compile all locales of a ``doc`` project into ``<base>_<lang>.pdf`` files."""
     if manifest.i18n is None:
@@ -55,10 +61,37 @@ def _build_i18n_doc_pdfs(
     cache = BuildImageCache(enabled=not no_cache)
     default_parent = os.path.dirname(input_dir_abs)
     generated_paths: dict[str, str] = {}
+    locale_styles_utils: dict[str, tuple[str | None, str | None]] = {
+        lang: resolve_styles_and_utils(os.path.join(input_dir_abs, lang), styles_path, utils_path)
+        for lang in manifest.i18n.langs
+    }
+
+    if workers > 1:
+        pdf_jobs: list[BlockRenderJob] = []
+        for lang in manifest.i18n.langs:
+            lang_dir_abs = os.path.join(input_dir_abs, lang)
+            loc_styles, loc_utils = locale_styles_utils[lang]
+            for s_abs in expand_input_files([lang_dir_abs]):
+                is_md_doc = s_abs.lower().endswith((".md", ".markdown"))
+                pdf_jobs.extend(
+                    collect_standard_document_block_jobs(
+                        src_abs=s_abs,
+                        dest_abs=None,
+                        is_md=is_md_doc,
+                        image_format="png",
+                        embed_images=True,
+                        styles_path=loc_styles,
+                        utils_path=loc_utils,
+                        project_root=input_dir_abs,
+                        require_file=True,
+                        no_cache_global=no_cache,
+                    )
+                )
+        prerender_document_blocks(pdf_jobs, cache=cache, workers=workers)
 
     for lang in manifest.i18n.langs:
         lang_dir_abs = os.path.join(input_dir_abs, lang)
-        loc_styles, loc_utils = resolve_styles_and_utils(lang_dir_abs, styles_path, utils_path)
+        loc_styles, loc_utils = locale_styles_utils[lang]
         merged_html, _ = build_merged_html(
             inputs=[lang_dir_abs],
             title=title,
@@ -72,6 +105,7 @@ def _build_i18n_doc_pdfs(
             lang=lang,
             project_root=input_dir_abs,
             cache=cache,
+            workers=1,
         )
         dest_abs = resolve_multi_locale_dest(default_parent, base_name, output_file, lang, ".pdf")
         os.makedirs(os.path.dirname(dest_abs), exist_ok=True)
@@ -92,6 +126,7 @@ def _build_i18n_slide_pdfs(
     utils_path: str | None,
     no_cache: bool,
     timestamp: bool,
+    workers: int = 1,
 ) -> str:
     """Compile all locales of a ``slide`` project into ``<stem>_<lang>.pdf`` files."""
     from drawlib._slide import build_slide  # noqa: PLC0415
@@ -110,6 +145,7 @@ def _build_i18n_slide_pdfs(
             styles_path=styles_path,
             utils_path=utils_path,
             no_cache=no_cache,
+            workers=workers,
         )
         for lang in manifest.i18n.langs:
             dest_abs = resolve_multi_locale_dest(default_base_dir, default_stem, output_file, lang, ".pdf")
@@ -137,6 +173,7 @@ def _compile_single_file_pdf(
     utils_path: str | None,
     no_cache: bool,
     timestamp: bool,
+    workers: int = 1,
 ) -> str:
     """Compile a standalone ``.md`` or ``.html`` file into a vector PDF."""
     ext = os.path.splitext(input_abs)[1].lower()
@@ -166,6 +203,7 @@ def _compile_single_file_pdf(
         no_cache=no_cache,
         lang=doc_lang,
         project_root=proj_root,
+        workers=workers,
     )
 
     stem = os.path.splitext(os.path.basename(input_abs))[0]
@@ -194,6 +232,7 @@ def build_pdf(
     utils_path: str | None = None,
     no_cache: bool = False,
     timestamp: bool = False,
+    workers: int | Literal["auto"] = "auto",
 ) -> str:
     """Compile a ``doc`` project, ``slide`` project, or standalone Markdown/HTML file into vector PDF(s).
 
@@ -211,6 +250,7 @@ def build_pdf(
         utils_path (Optional[str]): Path to custom utils.py script.
         no_cache (bool): If True, disable reading/writing the SQLite build image cache.
         timestamp (bool): If True, include current build timestamp in PDF metadata.
+        workers (int | Literal["auto"]): Number of parallel rendering worker processes ('auto' or int >= 1).
 
     Returns:
         str: Absolute path of generated PDF file (or default-locale PDF for project directories).
@@ -218,6 +258,7 @@ def build_pdf(
     Raises:
         ValueError: If input_path does not exist, lacks ``drawlib.toml`` for directories, or has an unsupported type.
     """
+    eff_workers = resolve_build_workers(workers)
     resolved_input = input_path if input_path is not None else input_dir
     if not resolved_input:
         raise ValueError("No input directory or file specified for build_pdf.")
@@ -236,6 +277,7 @@ def build_pdf(
             utils_path=utils_path,
             no_cache=no_cache,
             timestamp=timestamp,
+            workers=eff_workers,
         )
 
     input_dir_abs = require_directory(resolved_input, "build_pdf")
@@ -279,6 +321,7 @@ def build_pdf(
             utils_path=utils_path,
             no_cache=no_cache,
             timestamp=timestamp,
+            workers=eff_workers,
         )
 
     return _build_i18n_doc_pdfs(
@@ -293,4 +336,5 @@ def build_pdf(
         utils_path=utils_path,
         no_cache=no_cache,
         timestamp=timestamp,
+        workers=eff_workers,
     )

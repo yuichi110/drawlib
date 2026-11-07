@@ -16,16 +16,20 @@ import re
 import sys
 import tempfile
 from collections.abc import Callable
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING, Any, Literal
 
 from markdown_it import MarkdownIt
 from markdown_it.token import Token
 from pygments import lex
 
-from drawlib._builder._common.cache import BuildImageCache
-from drawlib._builder._common.office import (
+from drawlib._builder._common import (
+    BlockRenderJob,
+    BuildImageCache,
+    collect_docx_chapter_block_jobs,
     ensure_static_office_image,
     normalize_opc_zip_timestamps,
+    prerender_document_blocks,
+    resolve_build_workers,
     resolve_office_datetime,
 )
 from drawlib._builder.doc_builder.compiler.base import validate_markdown_links
@@ -898,6 +902,7 @@ def export_chapters_to_docx(
     toc_title: str | None = None,
     project_root: str | None = None,
     cache: BuildImageCache | None = None,
+    workers: int | Literal["auto"] = "auto",
 ) -> list[str]:
     """Compile and merge Markdown inputs into a single native MS Word (.docx) document.
 
@@ -917,6 +922,7 @@ def export_chapters_to_docx(
         toc_title: Optional explicit TOC heading override.
         project_root: Optional root project directory for asset hashing/lookup.
         cache: Optional shared build image cache across locales.
+        workers: Number of parallel rendering worker processes ('auto' or positive integer >= 1).
 
     Returns:
         list[str]: Ordered list of compiled absolute Markdown file paths.
@@ -928,6 +934,7 @@ def export_chapters_to_docx(
     )
     from drawlib._templates.langs import get_language_config
 
+    eff_workers = resolve_build_workers(workers)
     if not inputs:
         raise ValueError("At least one input file or directory must be specified.")
     if dpi <= 0:
@@ -1011,6 +1018,24 @@ def export_chapters_to_docx(
     doc.core_properties.modified = meta_dt
 
     active_cache = cache if cache is not None else BuildImageCache(enabled=not no_cache)
+    if eff_workers > 1:
+        docx_jobs: list[BlockRenderJob] = []
+        for src_abs, _, content, _, doc_info in chapters_meta:
+            if not doc_info.has_drawlib:
+                continue
+            docx_jobs.extend(
+                collect_docx_chapter_block_jobs(
+                    src_abs=src_abs,
+                    markdown_text=content,
+                    dpi=dpi,
+                    styles_path=styles_path,
+                    utils_path=utils_path,
+                    project_root=eff_project_root,
+                    no_cache_global=no_cache,
+                )
+            )
+        prerender_document_blocks(docx_jobs, cache=active_cache, workers=eff_workers)
+
     processor: DrawlibBlockProcessor | None = None
     total_files = len(chapters_meta)
     resolved_toc_title = toc_title or get_language_config(lang).toc_title
