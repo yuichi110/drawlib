@@ -93,10 +93,11 @@ When preparing a new release version of `drawlib`:
    ./dcli test all
    ./dcli docs build --all
    ```
-3. **Publish & Clean-Room Verification**:
+3. **Publish, Tag & Clean-Room Verification**:
    ```bash
    ./dcli pypi publish --test-pypi
    ./dcli docker test --test-pypi <VER>
    ./dcli pypi publish
    ./dcli docker test --pypi <VER>
+   git tag v<VER> && git push origin v<VER>   # Triggers .github/workflows/release.yml (or run ./dcli github-release create v<VER>)
    ```

@@ -12,7 +12,7 @@ Always use `./dcli` instead of running raw tool commands manually.
 
 ## 1. Quick Overview & Shell Setup
 
-Run `./dcli` with no arguments to display the summary table of all 7 toolsets:
+Run `./dcli` with no arguments to display the summary table of all 8 toolsets:
 
 ```bash
 ./dcli                    # Display available toolsets table
@@ -26,6 +26,7 @@ source ./dcli             # Register 'dcli' alias and dynamic Tab autocompletion
 | **`docs`** | `docs/` | Building documentation projects (`site`, `api`, `architecture`, `readme`, `logo`, `ogp`) & preview server |
 | **`codegen`** | `codegen/` | Code generation utilities for Phosphor and GCP icon Python bindings |
 | **`release-assets`**| `release_assets/` | Building, verifying, uploading, and syncing font/icon archives on GitHub Releases |
+| **`github-release`**| `github_release/` | Creating, inspecting, and backfilling versioned GitHub Releases (`vX.Y.Z`) from `release_notes.md` |
 | **`pypi`** | `pypi/` | Dependency auditing, version checks, `pyproject.toml` updates, and TestPyPI/PyPI publishing |
 | **`docker`** | `docker.py` | Clean-room Linux container image building and testing for published releases |
 
@@ -87,7 +88,16 @@ Manages external binary packages (fonts & icons) stored in `tools/release_assets
 ./dcli release-assets remove [PACKAGE] [--all] [--tag VER] [--yes] [--dry-run] [--token TOKEN]
 ```
 
-### 2.6. `pypi` — Dependency & PyPI Release Management
+### 2.6. `github-release` — Versioned GitHub Releases Management
+Publishes versioned code releases (`vX.Y.Z`) extracted from `docs_src/site/en/01_getting_started/release_notes.md` (also triggered automatically via `.github/workflows/release.yml` when pushing `v*.*.*` tags):
+```bash
+./dcli github-release list [--token TOKEN]
+./dcli github-release notes [VER]
+./dcli github-release create [VER] [--commit SHA] [--latest/--no-latest] [--update] [--dry-run] [--token TOKEN]
+./dcli github-release sync [--from VER] [--to VER] [--update] [--dry-run] [--token TOKEN]
+```
+
+### 2.7. `pypi` — Dependency & PyPI Release Management
 ```bash
 ./dcli pypi deps                                     # Show dependency tree and outdated packages
 ./dcli pypi dep-releases <package> [--from YEAR]     # Query PyPI release history & Python version requirements
@@ -97,7 +107,7 @@ Manages external binary packages (fonts & icons) stored in `tools/release_assets
 ./dcli pypi publish [--allow-jump] [--test-pypi]     # Build and publish package to TestPyPI or PyPI
 ```
 
-### 2.7. `docker` — Production Image Build & Clean-Room Container Testing
+### 2.8. `docker` — Production Image Build & Clean-Room Container Testing
 ```bash
 ./dcli docker status                                 # Verify Docker CLI & daemon availability
 ./dcli docker build [--pdf] [--assets] [--full] [--python 3.12] [--pypi VER] [--tag TAG]

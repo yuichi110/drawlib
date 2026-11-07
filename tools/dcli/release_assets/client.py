@@ -152,6 +152,22 @@ class GitHubReleaseClient:
                 return None
             raise
 
+    def list_releases(self, per_page: int = 100) -> list[dict[str, Any]]:
+        """Fetch list of releases from the repository.
+
+        Args:
+            per_page: Maximum number of releases to retrieve per page (up to 100).
+
+        Returns:
+            list[dict[str, Any]]: List of release metadata dictionaries.
+        """
+        query = urllib.parse.urlencode({"per_page": per_page})
+        url = f"{self.api_base}/releases?{query}"
+        req = urllib.request.Request(url, headers=self._headers(), method="GET")
+        with urllib.request.urlopen(req) as resp:
+            data: list[dict[str, Any]] = json.loads(resp.read().decode("utf-8"))
+            return data
+
     def create_release(
         self,
         tag: str,
@@ -159,27 +175,36 @@ class GitHubReleaseClient:
         body: str | None = None,
         draft: bool = False,
         prerelease: bool = False,
+        target_commitish: str | None = None,
+        make_latest: str | None = None,
     ) -> dict[str, Any]:
         """Create a new release for the given tag.
 
         Args:
-            tag: Git tag name, e.g. 'v0.3'.
+            tag: Git tag name, e.g. 'v0.3' or 'v0.3.6'.
             name: Release title, defaults to tag.
             body: Release description body.
             draft: Whether to create as a draft release.
             prerelease: Whether to create as a pre-release.
+            target_commitish: Optional commit SHA or branch name if tag does not exist yet.
+            make_latest: Optional GitHub 'make_latest' value ('true', 'false', or 'legacy').
 
         Returns:
             dict[str, Any]: Newly created release dictionary.
         """
         url = f"{self.api_base}/releases"
-        payload = {
+        payload: dict[str, Any] = {
             "tag_name": tag,
             "name": name or tag,
             "body": body or f"Drawlib release assets for {tag}",
             "draft": draft,
             "prerelease": prerelease,
         }
+        if target_commitish is not None:
+            payload["target_commitish"] = target_commitish
+        if make_latest is not None:
+            payload["make_latest"] = make_latest
+
         data_bytes = json.dumps(payload).encode("utf-8")
         req = urllib.request.Request(
             url,
@@ -191,8 +216,55 @@ class GitHubReleaseClient:
             res: dict[str, Any] = json.loads(resp.read().decode("utf-8"))
             return res
 
+    def update_release(
+        self,
+        release_id: int,
+        *,
+        name: str | None = None,
+        body: str | None = None,
+        draft: bool | None = None,
+        prerelease: bool | None = None,
+        make_latest: str | None = None,
+    ) -> dict[str, Any]:
+        """Update metadata of an existing GitHub Release.
+
+        Args:
+            release_id: Numeric GitHub Release ID.
+            name: Optional updated release title.
+            body: Optional updated release Markdown body.
+            draft: Optional updated draft flag.
+            prerelease: Optional updated prerelease flag.
+            make_latest: Optional 'make_latest' flag ('true', 'false', or 'legacy').
+
+        Returns:
+            dict[str, Any]: Updated release dictionary.
+        """
+        url = f"{self.api_base}/releases/{release_id}"
+        payload: dict[str, Any] = {}
+        if name is not None:
+            payload["name"] = name
+        if body is not None:
+            payload["body"] = body
+        if draft is not None:
+            payload["draft"] = draft
+        if prerelease is not None:
+            payload["prerelease"] = prerelease
+        if make_latest is not None:
+            payload["make_latest"] = make_latest
+
+        data_bytes = json.dumps(payload).encode("utf-8")
+        req = urllib.request.Request(
+            url,
+            data=data_bytes,
+            headers=self._headers("application/json"),
+            method="PATCH",
+        )
+        with urllib.request.urlopen(req) as resp:
+            res: dict[str, Any] = json.loads(resp.read().decode("utf-8"))
+            return res
+
     def get_or_create_release(self, tag: str = DEFAULT_RELEASE_TAG) -> dict[str, Any]:
-        """Retrieve existing release by tag, or create it if not found.
+        """Retrieve existing release by tag, or create it as non-latest asset bundle if not found.
 
         Args:
             tag: Git tag name. Defaults to DEFAULT_RELEASE_TAG.
@@ -203,7 +275,7 @@ class GitHubReleaseClient:
         rel = self.get_release_by_tag(tag)
         if rel is not None:
             return rel
-        return self.create_release(tag=tag)
+        return self.create_release(tag=tag, make_latest="false")
 
     def delete_asset(self, asset_id: int) -> None:
         """Delete an existing release asset by its ID.
