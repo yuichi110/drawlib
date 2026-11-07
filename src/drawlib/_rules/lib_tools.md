@@ -61,6 +61,7 @@ build_html(
     utils_path=None,         # Optional custom utils.py override
     no_cache=False,          # Force re-rendering all code blocks
     css_mode="external",     # "external" (default) or "embed"
+    workers="auto",          # "auto" (1 <= cores-1 <= 8) or int >= 1 (1 = sequential)
 )
 ```
 
@@ -77,6 +78,7 @@ build_markdown(
     styles_path=None,
     utils_path=None,
     no_cache=False,
+    workers="auto",
 )
 ```
 
@@ -93,6 +95,7 @@ pdf_path = build_pdf(
     generate_index=True,
     styles_path=None,
     utils_path=None,
+    workers="auto",
 )
 
 # Or compile a single Markdown page -> writes exact output.pdf:
@@ -121,6 +124,7 @@ output_docx = build_docx(
     utils_path=None,
     no_cache=False,
     timestamp=False,
+    workers="auto",
 )
 ```
 
@@ -135,6 +139,7 @@ default_index_html = build_slide(
     output_dir="slide_html/",
     styles_path=None,
     utils_path=None,
+    workers="auto",
 )
 
 output_pptx = build_pptx(
@@ -148,6 +153,7 @@ output_pptx = build_pptx(
     utils_path=None,
     no_cache=False,
     timestamp=False,
+    workers="auto",
 )
 ```
 
@@ -164,6 +170,7 @@ build_image(
     styles_path="images_src/styles.py",
     utils_path="images_src/utils.py",
     grid=False,
+    workers="auto",
 )
 ```
 

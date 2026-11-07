@@ -1,5 +1,28 @@
 # Release Notes & Migration Guide
 
+## Version 0.3.8
+
+*Release Date: 2026/11/07*
+
+Version 0.3.8 introduces **multi-core parallel diagram rendering (`-w` / `--workers`, `DRAWLIB_BUILD_WORKERS`)** across all 7 `drawlib build` CLI subcommands and programmatic `build_*` APIs—accelerating cold builds by **3x–6x** on multi-core machines while keeping warm-cache builds instantaneous—alongside **cross-process asset download locking & atomic Zip-Slip-safe archive extraction** and **official Python 3.14 support (`Python 3.11–3.14`)**.
+
+---
+
+### Highlights & New Features
+
+#### 1. Multi-Core Parallel Rendering Across All 7 `drawlib build` Targets (`-w` / `--workers`, `DRAWLIB_BUILD_WORKERS`)
+- **2-Phase Multi-Process Pre-Renderer (`_builder._common.parallel`)**: Uncached embedded ```` ```drawlib ```` code blocks and standalone `.py` scripts now render concurrently across isolated `spawn` `ProcessPoolExecutor` worker processes (`html`, `markdown`, `pdf`, `docx`, `slide`, `pptx`, and `image`) using **Longest-Job-First** scheduling (prioritizing multi-frame `Animation` blocks) and cross-locale shared diagram deduplication. Non-daemonic workers preserve full compatibility with nested `get_dimage_from_code()` subprocesses.
+- **Smart `"auto"` Concurrency & Zero-Overhead Warm Cache**: Defaults to `-w auto` / `workers="auto"`, automatically resolving to **`1 <= (CPU cores - 1) <= 8`** (overridable via `-w <N>`, `workers=<N>`, or `DRAWLIB_BUILD_WORKERS=<N>`; `-w 1` runs sequentially in-process). When `<= 1` cache misses remain, process pool startup is bypassed entirely for sub-millisecond warm-cache rebuilds, while all `.drawlib/cache.db` SQLite WAL writes stay serialized in the parent process (and `BuildImageCache.prerendered_blobs` eliminates duplicate rendering during `--no-cache` inline `pdf` / `docx` builds).
+
+#### 2. Cross-Process Asset Locking & Atomic Zip-Slip-Safe Extraction (`l3_external`)
+- **Cross-Process Advisory File Lock (`_download.py`)**: Added per-package cross-process advisory locks (POSIX `fcntl.flock` and Windows `msvcrt.locking` under `<cached_assets>/.locks/`, with XDG / `LOCALAPPDATA` / tempdir fallbacks for read-only containers) plus post-lock checksum re-verification so parallel build workers never race on first-run font, icon, or GeoMap downloads.
+- **Zip-Slip Guard & Atomic File Replacement (`_package.py`)**: Hardened `ReleaseAssetPackage.download_and_extract()` with strict `Path.is_relative_to()` archive entry boundary checks and atomic `.tmp_<pid>_<tid>_*` + `os.replace()` writes so concurrent readers never observe partially written font or icon files.
+
+#### 3. Official Python 3.14 Runtime Support (`Python 3.11–3.14`)
+- **Verified Cross-Platform Python 3.14 Compatibility**: Added official `Programming Language :: Python :: 3.14` package metadata, expanded Linux/Windows/macOS GitHub Actions test matrices and `./dcli docker` clean-room container testing to Python `3.11`–`3.14`, modernized AST string/constant node checks (`ast.Constant`), and preserved `__spec__` across `drawlib.utils` module resets for `importlib.reload()` compatibility.
+
+---
+
 ## Version 0.3.7
 
 *Release Date: 2026/11/07*

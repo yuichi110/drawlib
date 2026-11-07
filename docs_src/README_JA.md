@@ -136,7 +136,8 @@ HTML と CSS のように、Drawlib は **コンテンツ**（幾何形状・座
   - `drawlib init project catalog [-l en,ja]`: 図解付きカタログ & リファレンスサイト（`# H1` / `## H2` 自動サイドバー・50種以上のセマンティックバッジ・`/` リアルタイム絞り込み付き `catalog_html/`）。API・CLI リファレンスやスキーマ辞書、サービス台帳に最適。
   - `drawlib init project doc [-l en,ja]`: 技術仕様書・ホワイトペーパー（`*_html/`、`*_markdown/`、ベクター `*_<lang>.pdf`、さらに `./<target>_src/build_docx.sh` による編集可能な MS Word `*_<lang>.docx`）。
   - `drawlib init project slide [-l en,ja]`: 16:9 プレゼンスライド（`::: block` + `::: note` スピーカーノート）、ネイティブ SVG タイポグラフィ・発表者ビュー付き `slide_html/`、ベクター `slide_<lang>.pdf`、および `./<target>_src/build_pptx.sh` による編集可能な MS PowerPoint `slide_<lang>.pptx`。
-  - `drawlib init project images`: `.drawlib/cache.db` による高速差分キャッシュを備えたバッチ画像生成プロジェクト（`images_src/` -> `images/`）。
+  - `drawlib init project images`: マルチコア並列レンダリング（`-w auto`）と `.drawlib/cache.db` による高速差分キャッシュを備えたバッチ画像生成プロジェクト（`images_src/` -> `images/`）。
+- **マルチコア並列ビルド & 1ミリ秒未満の差分キャッシュ (`drawlib build -w auto`)**: 初回・変更時の図解描画は全 7 種のビルドターゲットで CPU コア（`1 <= コア数 - 1 <= 8`）へ自動並列分散され、未変更の図解は `.drawlib/cache.db` から `1 ms` 未満で瞬時に復元されます。
 - **AI インナーループ & 人間アウターループ (`drawlib init agent <agent>`)**: Claude Code、Cursor、Antigravity、Copilot、Windsurf、Cline、Roo、Codex、Gemini などの AI コーディングエージェント向けにゼロから設計。`drawlib init agent claude` 1行でワークスペース指示書を生成でき、AI が `drawlib rules show <topic>` で仕様をオンデマンド参照し、`drawlib show -g` の座標グリッド画像を目視確認して文字切れやレイアウト崩れを自律修正します。
 
 ---

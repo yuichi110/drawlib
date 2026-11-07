@@ -1,5 +1,28 @@
 # リリースノートと移行ガイド
 
+## バージョン 0.3.8
+
+*リリース日: 2026/11/07*
+
+バージョン 0.3.8 では、`drawlib build` の全 7 サブコマンドおよびプログラマティック `build_*` API に **マルチコア並列レンダリング（`-w` / `--workers`、`DRAWLIB_BUILD_WORKERS`）** を新搭載し、ウォームキャッシュ時の瞬時ビルドを維持したままマルチコア環境でのコールドビルドを **約 3〜6 倍高速化** したほか、**外部アセット取得のプロセス間排他ロック & Zip Slip 対策付きアトミック展開**、および **Python 3.14 公式サポート（`Python 3.11–3.14`）** を追加しました。
+
+---
+
+### ハイライトと新機能
+
+#### 1. 全 7 種の `drawlib build` ターゲットにおけるマルチコア並列レンダリング（`-w` / `--workers`, `DRAWLIB_BUILD_WORKERS`）
+- **2 フェーズ・マルチプロセス事前レンダリングエンジン（`_builder._common.parallel`）**: 未キャッシュの埋め込み ```` ```drawlib ```` コードブロックおよび単体 `.py` スクリプトを、`spawn` 方式の `ProcessPoolExecutor` ワーカー群で並列描画します（`html`・`markdown`・`pdf`・`docx`・`slide`・`pptx`・`image` すべてに対応）。多言語間の共有図解を事前重複排除したうえで `Animation` 等の重いジョブから優先投入する **Longest-Job-First** スケジューリングを採用し、非デーモンワーカーにより `get_dimage_from_code()` のネスト子プロセス実行にも完全対応しています。
+- **スマートな `"auto"` ワーカー数解決とウォームキャッシュ時オーバーヘッドゼロ**: デフォルトの `-w auto` / `workers="auto"` は **`1 <= (CPUコア数 - 1) <= 8`** へ自動解決され、`-w <N>`・`workers=<N>`・環境変数 `DRAWLIB_BUILD_WORKERS=<N>` で明示制御できます（`-w 1` で同一プロセス内の逐次実行）。キャッシュミスが 1 件以下のウォームビルド時はプロセスプール起動を完全にスキップし、`.drawlib/cache.db`（SQLite WAL）への書き込みは親プロセスへ一本化されます（`--no-cache` 指定の `pdf` / `docx` インラインビルド時も `BuildImageCache.prerendered_blobs` により親プロセスの二重描画を防止）。
+
+#### 2. 外部アセットのプロセス間ロックと Zip Slip 防止アトミック展開（`l3_external`）
+- **パッケージ単位のプロセス間アドバイザリロック（`_download.py`）**: POSIX の `fcntl.flock` と Windows の `msvcrt.locking` によるプロセス間ファイルロック（読み取り専用コンテナ環境向けの XDG / `LOCALAPPDATA` / 一時ディレクトリへのフォールバック付き）とロック取得後のチェックサム再確認を導入し、並列ビルドワーカー間での初回フォント・アイコン・地図アーカイブ取得の競合を完全に排除しました。
+- **Zip Slip 境界検証とアトミック置換（`_package.py`）**: `ReleaseAssetPackage.download_and_extract()` に `Path.is_relative_to()` によるパストラバーサル検証と `.tmp_<pid>_<tid>_*` + `os.replace()` アトミック書き込みを導入し、並列読み込み中の中途半端なファイル参照を防止しました。
+
+#### 3. Python 3.14 公式ランタイムサポート（`Python 3.11–3.14`）
+- **クロスプラットフォーム Python 3.14 互換性の検証と対応**: `pyproject.toml` の PyPI 分類子・GitHub Actions（Linux / Windows / macOS）テストマトリクス・`./dcli docker` クリーンルーム検証を Python `3.11`〜`3.14` へ拡張し、Python 3.14 で廃止された旧 AST ノード参照の `ast.Constant` 統一および `drawlib.utils` リセット時の `__spec__` 保持（`importlib.reload()` 互換性）を実施しました。
+
+---
+
 ## バージョン 0.3.7
 
 *リリース日: 2026/11/07*

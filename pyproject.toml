@@ -4,7 +4,7 @@ build-backend = "uv_build"
 
 [project]
 name = "drawlib"
-version = "0.3.7"
+version = "0.3.8"
 description = "Pure-Python library for Illustration, Diagrams, Documentation, and Slides as Code (HTML/PDF/DOCX/PPTX) for developers and AI agents."
 readme = "docs_src/README_PYPI.md"
 requires-python = ">=3.11"
