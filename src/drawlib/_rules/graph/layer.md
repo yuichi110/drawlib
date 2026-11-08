@@ -32,7 +32,7 @@ g = LayerGraph(
 | Parameter | Type | Default | Description |
 | :--- | :--- | :--- | :--- |
 | `direction` | `Literal["LR", "TB"]` | `"LR"` | Flow progression axis (`"LR"` Left-to-Right or `"TB"` Top-to-Bottom). |
-| `rank_sep` | `float \| None` | `None` | Fixed distance between successive layers/ranks (auto-scales to canvas if `None`). |
+| `rank_sep` | `float \| None` | `None` | Fixed distance between successive layers/ranks (auto-scales to canvas if `None`). For `"orthogonal"` routing with default `scale=20` arrowheads, keep `rank_sep >= 6.0` (or lower `line_arrow_head_scale` in mini-cards) so `rank_sep / 2` clears the arrowhead. |
 | `node_sep` | `float \| None` | `None` | Fixed minimum distance between parallel nodes in the same layer (auto-scales if `None`). |
 | `edge_routing` | `Literal["orthogonal", "straight"]` | `"orthogonal"` | Edge path algorithm (`"orthogonal"` Manhattan right-angles or `"straight"` direct ports). |
 | `default_node_width` | `float` | `22.0` | Default node width in canvas units. |

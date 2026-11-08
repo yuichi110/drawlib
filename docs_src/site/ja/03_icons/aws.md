@@ -140,7 +140,7 @@ from drawlib.canvas import save, setup
 from drawlib.diagrams.architecture import ArchitectureDiagram, AwsIcon, Node, NodeGroup
 from drawlib.styles import Styles
 
-setup(width=150, height=66)
+setup(width=158, height=68)
 
 d = ArchitectureDiagram(
     node_style=Styles.Primary,
@@ -153,13 +153,13 @@ d = ArchitectureDiagram(
 
 cf = d.add(
     Node("Amazon\nCloudFront", width=23, height=18, icon=AwsIcon.CLOUDFRONT, icon_size=7.5),
-    xy=(14.0, 22.0),
+    xy=(13.5, 25.0),
 )
 
-vpc = d.add(NodeGroup(title="Production AWS Region (us-east-1)", padding=5.0), xy=(40.0, 4.0))
+vpc = d.add(NodeGroup(title="Production AWS Region (us-east-1)", padding=5.0), xy=(39.0, 4.0))
 apigw = vpc.add(
     Node("API Gateway", width=23, height=18, icon=AwsIcon.API_GATEWAY, icon_size=7.5),
-    xy=(16.5, 18.0),
+    xy=(16.5, 21.0),
 )
 fn = vpc.add(
     Node(
@@ -170,7 +170,7 @@ fn = vpc.add(
         icon_size=7.5,
         card_style=Styles.PrimaryNeutral,
     ),
-    xy=(50.0, 18.0),
+    xy=(49.5, 21.0),
 )
 ddb = vpc.add(
     Node(
@@ -181,16 +181,16 @@ ddb = vpc.add(
         icon_size=7.5,
         card_style=Styles.SecondaryNeutral,
     ),
-    xy=(85.0, 29.0),
+    xy=(92.5, 32.0),
 )
 s3 = vpc.add(
     Node("Amazon S3", width=23, height=18, icon=AwsIcon.SIMPLE_STORAGE_SERVICE, icon_size=7.5),
-    xy=(85.0, 7.0),
+    xy=(92.5, 10.0),
 )
 
 d.connect(cf, apigw, label="HTTPS", padding=1.5)
 d.connect(apigw, fn, padding=1.5)
-fn.fork([ddb, s3], at_x=107.5, padding=1.5)
+fn.fork([ddb, s3], at_x=105.0, padding=1.5)
 
 d.draw(xy=(4.0, 4.0))
 save()

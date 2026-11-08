@@ -16,6 +16,7 @@ from PIL import Image
 
 from drawlib._builder.doc_builder.processor import (
     DrawlibBlockProcessor,
+    export_code_block,
     extract_code_blocks,
     parse_block_info,
 )
@@ -511,3 +512,24 @@ for x in [25, 55]:
     )
     assert data_url.startswith("data:image/gif;base64,")
 
+
+def test_export_code_block_geometry_warning_is_non_fatal(tmp_path, capsys) -> None:
+    """Verify drawlib show export emits [Geometry Warning] to stderr without failing on short arrow segments."""
+    script = tmp_path / "short_arrow.py"
+    out_png = tmp_path / "short_arrow.png"
+    script.write_text(
+        "from drawlib.canvas import save, setup\n"
+        "from drawlib.lines import lines\n"
+        "from drawlib.styles import Styles\n"
+        "setup(width=140, height=60)\n"
+        "lines([(10, 20), (20, 20), (20, 40), (21.5, 40)], arrow_head='->', style=Styles.DarkBold)\n"
+        "save()\n",
+        encoding="utf-8",
+    )
+
+    result = export_code_block(file_path=str(script), output_path=str(out_png), grid=True, no_cache=True)
+    captured = capsys.readouterr()
+    assert out_png.exists()
+    assert result == str(out_png)
+    assert "[Geometry Warning]" in captured.err
+    assert "terminal polyline segment" in captured.err

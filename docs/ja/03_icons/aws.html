@@ -888,7 +888,7 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.diagrams.architecture</span><span class="w"> </span><span class="kn">import</span> <span class="n">ArchitectureDiagram</span><span class="p">,</span> <span class="n">AwsIcon</span><span class="p">,</span> <span class="n">Node</span><span class="p">,</span> <span class="n">NodeGroup</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Styles</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">66</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">158</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">68</span><span class="p">)</span>
 
 <span class="n">d</span> <span class="o">=</span> <span class="n">ArchitectureDiagram</span><span class="p">(</span>
     <span class="n">node_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">,</span>
@@ -901,13 +901,13 @@
 
 <span class="n">cf</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
     <span class="n">Node</span><span class="p">(</span><span class="s2">"Amazon</span><span class="se">\n</span><span class="s2">CloudFront"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">23</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">AwsIcon</span><span class="o">.</span><span class="n">CLOUDFRONT</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">7.5</span><span class="p">),</span>
-    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">14.0</span><span class="p">,</span> <span class="mf">22.0</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">13.5</span><span class="p">,</span> <span class="mf">25.0</span><span class="p">),</span>
 <span class="p">)</span>
 
-<span class="n">vpc</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">NodeGroup</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">"Production AWS Region (us-east-1)"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">5.0</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">40.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">))</span>
+<span class="n">vpc</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">NodeGroup</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">"Production AWS Region (us-east-1)"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">5.0</span><span class="p">),</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">39.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">))</span>
 <span class="n">apigw</span> <span class="o">=</span> <span class="n">vpc</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
     <span class="n">Node</span><span class="p">(</span><span class="s2">"API Gateway"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">23</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">AwsIcon</span><span class="o">.</span><span class="n">API_GATEWAY</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">7.5</span><span class="p">),</span>
-    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">16.5</span><span class="p">,</span> <span class="mf">18.0</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">16.5</span><span class="p">,</span> <span class="mf">21.0</span><span class="p">),</span>
 <span class="p">)</span>
 <span class="n">fn</span> <span class="o">=</span> <span class="n">vpc</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
     <span class="n">Node</span><span class="p">(</span>
@@ -918,7 +918,7 @@
         <span class="n">icon_size</span><span class="o">=</span><span class="mf">7.5</span><span class="p">,</span>
         <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
     <span class="p">),</span>
-    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">50.0</span><span class="p">,</span> <span class="mf">18.0</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">49.5</span><span class="p">,</span> <span class="mf">21.0</span><span class="p">),</span>
 <span class="p">)</span>
 <span class="n">ddb</span> <span class="o">=</span> <span class="n">vpc</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
     <span class="n">Node</span><span class="p">(</span>
@@ -929,16 +929,16 @@
         <span class="n">icon_size</span><span class="o">=</span><span class="mf">7.5</span><span class="p">,</span>
         <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
     <span class="p">),</span>
-    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">85.0</span><span class="p">,</span> <span class="mf">29.0</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">92.5</span><span class="p">,</span> <span class="mf">32.0</span><span class="p">),</span>
 <span class="p">)</span>
 <span class="n">s3</span> <span class="o">=</span> <span class="n">vpc</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
     <span class="n">Node</span><span class="p">(</span><span class="s2">"Amazon S3"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">23</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">AwsIcon</span><span class="o">.</span><span class="n">SIMPLE_STORAGE_SERVICE</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">7.5</span><span class="p">),</span>
-    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">85.0</span><span class="p">,</span> <span class="mf">7.0</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">92.5</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">),</span>
 <span class="p">)</span>
 
 <span class="n">d</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">cf</span><span class="p">,</span> <span class="n">apigw</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"HTTPS"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
 <span class="n">d</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">apigw</span><span class="p">,</span> <span class="n">fn</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
-<span class="n">fn</span><span class="o">.</span><span class="n">fork</span><span class="p">([</span><span class="n">ddb</span><span class="p">,</span> <span class="n">s3</span><span class="p">],</span> <span class="n">at_x</span><span class="o">=</span><span class="mf">107.5</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
+<span class="n">fn</span><span class="o">.</span><span class="n">fork</span><span class="p">([</span><span class="n">ddb</span><span class="p">,</span> <span class="n">s3</span><span class="p">],</span> <span class="n">at_x</span><span class="o">=</span><span class="mf">105.0</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
 
 <span class="n">d</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">))</span>
 <span class="n">save</span><span class="p">()</span>

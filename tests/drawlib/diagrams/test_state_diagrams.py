@@ -117,6 +117,10 @@ class TestStateNode:
         assert state.get_anchor("bottom") == (10.0, 15.0)
         assert state.get_anchor("left") == (0.0, 20.0)
         assert state.get_anchor("right") == (20.0, 20.0)
+        assert state.get_anchor("top_right") == (20.0, pytest.approx(21.75))
+        assert state.get_anchor("top_left") == (0.0, pytest.approx(21.75))
+        assert state.get_anchor("bottom_right") == (20.0, pytest.approx(18.25))
+        assert state.get_anchor("bottom_left") == (0.0, pytest.approx(18.25))
 
 
 class TestPseudoStates:

@@ -357,7 +357,7 @@ def render_tree_cards(
     for e in lay.edges:
         if e.src in visible_nodes and e.dst in visible_nodes:
             pts = [(px + ox, py + oy) for px, py in e.points]
-            lines(pts, arrow_head="->", style=Styles.DarkBold.patch(line_width=1.2))
+            lines(pts, arrow_head="->", style=Styles.DarkBold.patch(line_width=1.2, line_arrow_head_scale=11.5))
 
     for nid in lay.nodes:
         if nid not in visible_nodes:
@@ -529,7 +529,7 @@ PART2_STATES = [
         [
             "g = TreeGraph(",
             '    root="VP", direction="TB",',
-            "    level_sep=3.4,",
+            "    level_sep=3.6,",
             "    sibling_sep=1.6)",
             "# 3 leaves under App (Web/API/Mob)",
             "# 1 leaf under Ops (SRE)",
@@ -595,10 +595,10 @@ for p2_idx, (m2, dur, code_2, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) in enu
             g_p2 = TreeGraph(
                 root="VP",
                 direction="TB",
-                level_sep=5.0 if wide else 3.2,
+                level_sep=5.0 if wide else 3.6,
                 sibling_sep=3.6 if wide else 1.5,
                 default_node_width=8.6,
-                default_node_height=4.9,
+                default_node_height=4.9 if wide else 4.7,
             )
             for p_id, c_id in [
                 ("VP", "App"),
@@ -622,13 +622,18 @@ for p2_idx, (m2, dur, code_2, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) in enu
                 x1 = lay_p2["App"].right + OX + 0.3
                 x2 = lay_p2["Ops"].left + OX - 0.3
                 y_br = lay_p2["App"].y + OY
-                line((x1, y_br), (x2, y_br), arrow_head="<->", style=Styles.DangerBold.patch(line_width=1.2))
+                line(
+                    (x1, y_br),
+                    (x2, y_br),
+                    arrow_head="<->",
+                    style=Styles.DangerBold.patch(line_width=1.2, line_arrow_head_scale=11.5),
+                )
                 rx_sep = lay_p2["Ops"].right + OX + 1.6
                 line(
                     (rx_sep, lay_p2["Ops"].bottom + OY),
                     (rx_sep, lay_p2["SRE"].top + OY),
                     arrow_head="<->",
-                    style=Styles.DangerBold.patch(line_width=1.2),
+                    style=Styles.DangerBold.patch(line_width=1.2, line_arrow_head_scale=11.5),
                 )
                 text(
                     (scx, 18.0),
@@ -929,7 +934,7 @@ for p4_idx, (m4, dur, code_4, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) in enu
 
         fd = FlowDiagram(
             node_style=Styles.Neutral,
-            edge_style=Styles.DarkBold.patch(line_width=1.2),
+            edge_style=Styles.DarkBold.patch(line_width=1.2, line_arrow_head_scale=12.0),
             edge_text_style=Styles.DarkBold.patch(text_size=9.5),
         )
         f_nodes = {}
@@ -960,11 +965,11 @@ for p4_idx, (m4, dur, code_4, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) in enu
         crit_edges = {("VP", "Infra"), ("Infra", "K8s")}
         for e in lay_p4.edges:
             if m4 == "flow_cards":
-                est = Styles.DarkBold.patch(line_width=1.2)
+                est = Styles.DarkBold.patch(line_width=1.2, line_arrow_head_scale=12.0)
             elif (e.src, e.dst) in crit_edges:
-                est = Styles.PrimaryBold.patch(line_width=1.5)
+                est = Styles.PrimaryBold.patch(line_width=1.5, line_arrow_head_scale=12.0)
             else:
-                est = Styles.Muted.patch(line_width=1.0)
+                est = Styles.Muted.patch(line_width=1.0, line_arrow_head_scale=12.0)
             fd.connect(f_nodes[e.src], f_nodes[e.dst], start_side="bottom", end_side="top", style=est)
 
         fd.draw(xy=(ox_p4, oy_p4))
@@ -988,7 +993,12 @@ for p4_idx, (m4, dur, code_4, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) in enu
             t_st = Styles.DangerBold.patch(line_width=1.1)
             line((ox_c, ky - 0.7), (ox_c, ky + 0.7), style=t_st)
             line((nx_c, ky - 0.7), (nx_c, ky + 0.7), style=t_st)
-            line((ox_c, ky), (nx_c, ky), arrow_head="->", style=Styles.DangerBold.patch(line_width=1.3))
+            line(
+                (ox_c, ky),
+                (nx_c, ky),
+                arrow_head="->",
+                style=Styles.DangerBold.patch(line_width=1.3, line_arrow_head_scale=10.5),
+            )
             text(
                 (nx_c + 1.0, ky),
                 "+2.0 dx",

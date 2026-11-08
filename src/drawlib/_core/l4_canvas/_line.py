@@ -88,7 +88,7 @@ class CanvasLineFeature(CanvasBase):
         """
         style.validate_for("line")
 
-        options = LineUtils.get_fancyarrowpatch_options(arrow_head, style)
+        options = LineUtils.get_fancyarrowpatch_options(arrow_head, style, curved=(bend != 0))
         self._artists.append(
             FancyArrowPatch(
                 posA=xy1,
@@ -330,7 +330,8 @@ class CanvasLineFeature(CanvasBase):
                 codes.extend([Path.CURVE4] * 3)
 
         path = Path(vertices=vertices, codes=codes)
-        options = LineUtils.get_fancyarrowpatch_options(arrow_head, style)
+        is_curved = Path.CURVE3 in codes or Path.CURVE4 in codes
+        options = LineUtils.get_fancyarrowpatch_options(arrow_head, style, curved=is_curved)
         self._artists.append(FancyArrowPatch(path=path, **options))
 
 

@@ -62,10 +62,14 @@ def trim_polyline(
     return out
 
 
+STEM_STYLE = Styles.DarkBold.patch(line_width=1.6, line_arrow_head_scale=11.0)
+STEM_PRIMARY = Styles.PrimaryBold.patch(line_width=1.6, line_arrow_head_scale=11.0)
+
+
 def draw_stem(
     pts: list[tuple[float, float]],
     frac: float,
-    style: Style = Styles.DarkBold,
+    style: Style = STEM_STYLE,
     bud_style: Style = Styles.PrimaryFlat,
 ) -> None:
     """Draw either a partial sprouting stem with a bud tip or a completed arrow."""
@@ -125,9 +129,9 @@ def map_arch(pt: tuple[float, float]) -> tuple[float, float]:
 # (B) LayerGraph: 4-Rank DAG with Fan-Out & 3-into-1 Merge + Split
 g_layer = LayerGraph(
     direction="LR",
-    rank_sep=3.6,
+    rank_sep=4.2,
     node_sep=2.7,
-    default_node_width=5.8,
+    default_node_width=5.4,
     default_node_height=3.5,
 )
 g_layer.edge("S1", "E1")
@@ -153,9 +157,9 @@ g_tree = TreeGraph(
     direction="TB",
     edge_routing="orthogonal",
     default_node_width=5.9,
-    default_node_height=3.5,
+    default_node_height=3.3,
     sibling_sep=1.9,
-    level_sep=4.3,
+    level_sep=4.6,
 )
 g_tree.child("Root", "B1")
 g_tree.child("Root", "B2")
@@ -179,9 +183,9 @@ g_rad = RadialGraph(
     default_node_width=4.2,
     default_node_height=2.8,
 )
-g_rad.node("Hub", width=4.6, height=4.6)
+g_rad.node("Hub", width=3.25, height=3.25)
 for sp_id in ["A", "B", "C", "D"]:
-    g_rad.spoke("Hub", sp_id, ring=1, width=3.5, height=3.5)
+    g_rad.spoke("Hub", sp_id, ring=1, width=2.5, height=2.5)
 for sp_id, sat_ids in [
     ("A", ["A1", "A2"]),
     ("B", ["B1", "B2"]),
@@ -396,7 +400,7 @@ def render_arch_card(f_idx: int) -> None:
                 height=cs.height * ARCH_S,
                 style=(GUIDE_DASH if f_idx == 1 else sub_st).patch(shape_r=0.8),
             )
-        draw_stem(e_map[("api", "db")], 0.55 if f_idx == 1 else 1.0, Styles.DarkBold)
+        draw_stem(e_map[("api", "db")], 0.55 if f_idx == 1 else 1.0, STEM_STYLE)
 
     if f_idx >= 2:
         for nid, lbl, is_hero in [("api", "API", True), ("db", "DB", False)]:
@@ -422,10 +426,10 @@ def render_arch_card(f_idx: int) -> None:
     # Stage 4+: Cross-boundary compass edges snake across zone gaps
     if f_idx >= 5:
         c_frac = 0.55 if f_idx == 5 else 1.0
-        draw_stem(e_map[("waf", "api")], c_frac, Styles.DarkBold)
-        draw_stem(e_map[("db", "dr")], c_frac, Styles.DarkBold)
-        draw_stem(e_map[("iam", "api")], c_frac, Styles.PrimaryBold)
-        draw_stem(e_map[("api", "log")], c_frac, Styles.PrimaryBold)
+        draw_stem(e_map[("waf", "api")], c_frac, STEM_STYLE)
+        draw_stem(e_map[("db", "dr")], c_frac, STEM_STYLE)
+        draw_stem(e_map[("iam", "api")], c_frac, STEM_PRIMARY)
+        draw_stem(e_map[("api", "log")], c_frac, STEM_PRIMARY)
 
     if f_idx >= 4:
         for nid, lbl in [("iam", "IAM"), ("waf", "WAF"), ("dr", "DR"), ("log", "Log")]:
@@ -467,15 +471,15 @@ def render_layer_card(f_idx: int) -> None:
     if f_idx >= 1:
         f1 = 0.55 if f_idx == 1 else 1.0
         for pair in [("S1", "E1"), ("S1", "E2"), ("S2", "E2"), ("S2", "E3")]:
-            draw_stem(e_map[pair], f1, Styles.DarkBold)
+            draw_stem(e_map[pair], f1, STEM_STYLE)
     if f_idx >= 3:
         f2 = 0.55 if f_idx == 3 else 1.0
         for pair in [("E1", "Join"), ("E2", "Join"), ("E3", "Join")]:
-            draw_stem(e_map[pair], f2, Styles.PrimaryBold if f_idx in {3, 4} else Styles.DarkBold)
+            draw_stem(e_map[pair], f2, STEM_PRIMARY if f_idx in {3, 4} else STEM_STYLE)
     if f_idx >= 5:
         f3 = 0.55 if f_idx == 5 else 1.0
         for pair in [("Join", "O1"), ("Join", "O2")]:
-            draw_stem(e_map[pair], f3, Styles.DarkBold)
+            draw_stem(e_map[pair], f3, STEM_STYLE)
 
     def draw_lnode(nid: str, st: Style, tst: Style, pulse: bool = False) -> None:
         nl = lay_layer.nodes[nid]
@@ -531,11 +535,11 @@ def render_tree_card(f_idx: int) -> None:
     if f_idx >= 1:
         f1 = 0.55 if f_idx == 1 else 1.0
         for pair in [("Root", "B1"), ("Root", "B2")]:
-            draw_stem(e_map[pair], f1, Styles.DarkBold)
+            draw_stem(e_map[pair], f1, STEM_STYLE)
     if f_idx >= 3:
         f2 = 0.55 if f_idx == 3 else 1.0
         for pair in [("B1", "L1"), ("B1", "L2"), ("B2", "L3"), ("B2", "L4")]:
-            draw_stem(e_map[pair], f2, Styles.DarkBold)
+            draw_stem(e_map[pair], f2, STEM_STYLE)
 
     dark_t = Styles.DarkBold.patch(text_size=9.5)
     white_t = Styles.WhiteBold.patch(text_size=9.5)
@@ -644,7 +648,7 @@ def render_radial_card(f_idx: int) -> None:
     if f_idx >= 1:
         f1 = 0.55 if f_idx == 1 else 1.0
         for sp_id in ["A", "B", "C", "D"]:
-            draw_stem(e_map[("Hub", sp_id)], f1, Styles.DarkBold)
+            draw_stem(e_map[("Hub", sp_id)], f1, STEM_STYLE)
     if f_idx >= 3:
         f2 = 0.55 if f_idx == 3 else 1.0
         for sp_id, sat_ids in [
@@ -654,7 +658,7 @@ def render_radial_card(f_idx: int) -> None:
             ("D", ["D1", "D2"]),
         ]:
             for sat_id in sat_ids:
-                draw_stem(e_map[(sp_id, sat_id)], f2, Styles.PrimaryBold if f_idx in {3, 4} else Styles.DarkBold)
+                draw_stem(e_map[(sp_id, sat_id)], f2, STEM_PRIMARY if f_idx in {3, 4} else STEM_STYLE)
 
     # r=0 Hub
     circle(
@@ -732,20 +736,20 @@ def render_grid_card(f_idx: int) -> None:
     # Orthogonal neighbor stems
     if f_idx >= 1:
         f1 = 0.55 if f_idx == 1 else 1.0
-        draw_stem(e_map[("0,0", "0,1")], f1, Styles.DarkBold)
-        draw_stem(e_map[("0,0", "1,0")], f1, Styles.DarkBold)
+        draw_stem(e_map[("0,0", "0,1")], f1, STEM_STYLE)
+        draw_stem(e_map[("0,0", "1,0")], f1, STEM_STYLE)
     if f_idx >= 2:
-        draw_stem(e_map[("0,1", "0,2")], 1.0, Styles.DarkBold)
+        draw_stem(e_map[("0,1", "0,2")], 1.0, STEM_STYLE)
     if f_idx >= 3:
         f2 = 0.55 if f_idx == 3 else 1.0
-        draw_stem(e_map[("1,0", "1,1")], f2, Styles.DarkBold)
+        draw_stem(e_map[("1,0", "1,1")], f2, STEM_STYLE)
     if f_idx >= 4:
-        draw_stem(e_map[("1,1", "1,2")], 1.0, Styles.DarkBold)
+        draw_stem(e_map[("1,1", "1,2")], 1.0, STEM_STYLE)
 
     # Stage 4+: Smart corridor cross-edge (0,0) -> (1,2)
     if f_idx >= 5:
         fc = 0.55 if f_idx == 5 else 1.0
-        draw_stem(e_map[("0,0", "1,2")], fc, Styles.PrimaryBold.patch(line_width=1.9))
+        draw_stem(e_map[("0,0", "1,2")], fc, STEM_PRIMARY.patch(line_width=1.8))
     if f_idx >= 6:
         text(
             (103.2, corridor_y + 1.85),

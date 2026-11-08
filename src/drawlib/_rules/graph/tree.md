@@ -41,7 +41,7 @@ g = TreeGraph(
 | :--- | :--- | :--- | :--- |
 | `root` | `str \| None` | `None` | Optional explicit root node ID. If `None`, automatically detects nodes with in-degree `0`. |
 | `direction` | `Literal["TB", "LR"]` | `"TB"` | Tree growth axis (`"TB"` Top-to-Bottom or `"LR"` Left-to-Right). |
-| `level_sep` | `float \| None` | `None` | Fixed gap between generational levels (auto-scales to fit canvas if `None`). |
+| `level_sep` | `float \| None` | `None` | Fixed gap between generational levels (auto-scales to fit canvas if `None`). For `"orthogonal"` routing with default `scale=20` arrowheads, keep `level_sep >= 6.0` (or lower `line_arrow_head_scale` in mini-cards) so `level_sep / 2` clears the arrowhead. |
 | `sibling_sep` | `float \| None` | `None` | Fixed minimum gap between sibling nodes (auto-scales to fit canvas if `None`). |
 | `default_node_width` | `float` | `22.0` | Default node width in canvas units. |
 | `default_node_height` | `float` | `12.0` | Default node height in canvas units. |

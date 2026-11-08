@@ -245,7 +245,7 @@ from drawlib.diagrams.architecture import (
 from drawlib.styles import Styles
 
 clear()
-setup(width=128, height=64)
+setup(width=142, height=66)
 
 d = ArchitectureDiagram(
     node_style=Styles.Primary,
@@ -265,7 +265,7 @@ guard = cluster.add(
         icon=OriginalAiIcon.PROMPT_GUARDRAIL,
         icon_size=7.5,
     ),
-    xy=(12.0, 18.0),
+    xy=(15.0, 20.0),
 )
 agent = cluster.add(
     Node(
@@ -276,7 +276,7 @@ agent = cluster.add(
         icon_size=7.5,
         card_style=Styles.PrimaryNeutral,
     ),
-    xy=(56.0, 18.0),
+    xy=(61.0, 20.0),
 )
 llm = cluster.add(
     Node(
@@ -287,7 +287,7 @@ llm = cluster.add(
         icon_size=7.5,
         card_style=Styles.SecondaryNeutral,
     ),
-    xy=(98.0, 28.0),
+    xy=(111.0, 30.0),
 )
 rag = cluster.add(
     Node(
@@ -297,11 +297,11 @@ rag = cluster.add(
         icon=AiIcon.MCP,
         icon_size=7.5,
     ),
-    xy=(98.0, 8.0),
+    xy=(111.0, 10.0),
 )
 
 d.connect(guard, agent, label="Validated", padding=1.5)
-agent.fork([llm, rag], at_x=88.0, padding=1.5)
+agent.fork([llm, rag], at_x=84.5, padding=1.5)
 
 d.draw(xy=(4.0, 4.0))
 save()

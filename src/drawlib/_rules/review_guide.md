@@ -163,7 +163,10 @@ uv run drawlib show images_src/topology.py \
 Then call `view_file` on `.drawlib/scratch/preview_grid.png`:
 - **Read Exact Coordinates from the Grid**: The `-g` overlay draws **10-unit major lines** with numeric labels and **5-unit minor dashed lines**. If a label at `y=42` overlaps a box top edge at `y=40`, you can read off the exact target coordinate (`y=45`) in a single iteration.
 - **Check All 4 Perimeter Margins**: Ensure no shape, shadow, or text label comes within `4–6` virtual coordinate units of `x=0`, `x=width`, `y=0`, or `y=height`.
-- **Check Arrow Routing & Label Clearance**: Ensure connectors terminate cleanly on shape boundaries (`cx ± w/2`, `cy ± h/2`) and edge labels do not sit directly on top of arrowheads or borders.
+- **Check Arrow Routing, Orthogonal Corner Clearance & `[Geometry Warning]`**:
+  - Ensure connectors terminate cleanly on shape boundaries (`cx ± w/2`, `cy ± h/2`) and edge labels do not sit directly on top of arrowheads or borders.
+  - **Never bury arrowheads in orthogonal corner bends**: Midpoint Z-bends split a node-to-node `gap` in half (`L_last = gap / 2`), whereas a default `line_arrow_head_scale=20` (`Styles.DarkBold`) arrowhead spans `~13pt` (`~2.5` units at `W=140`, `~3.3` units at `W=192`). Always keep orthogonal node gaps **`>= 6.0` units** (`>= 7.0` on slides), or use `canvas.transform(scale=...)` / `style.patch(line_arrow_head_scale=11, line_width=1.5)` inside compact mini-cards.
+  - Resolve any `[Geometry Warning]` printed to `stderr` by `drawlib show` before proceeding.
 
 ---
 

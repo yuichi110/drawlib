@@ -220,6 +220,7 @@ class CanvasBase:
         self._transform_stack: list[tuple[float, float, float]] = []
         self._artists: list[matplotlib.artist.Artist] = _TransformArtistList(self)
         self._active_animation: Any | None = None
+        self._geometry_warnings: list[str] = []
 
         # it is decleared only for typing system
         self._fig = pyplot.figure()
@@ -338,6 +339,7 @@ class CanvasBase:
         """
         if len(self._artists) != 0:
             self._artists.clear()
+        self._geometry_warnings.clear()
 
         pyplot.close()
         self._setup_size_dpi(width=width, height=height, dpi=dpi)

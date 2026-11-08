@@ -93,7 +93,7 @@ Never consider a documentation or diagram update complete after only writing cod
    Open the generated image using `view_file` and verify:
    - No text clipping, overlapping labels, or overflowing boxes.
    - Tight, balanced perimeter margins (no excessive empty whitespace around the drawing).
-   - Arrows and connectors attach cleanly to shape edges without crossing through unrelated nodes.
+   - Arrows and connectors attach cleanly to shape edges without crossing through unrelated nodes or burying arrowhead wings into short orthogonal corner bends (resolve any `[Geometry Warning]` emitted by `drawlib show`; keep orthogonal node gaps `>= 6.0` units or lower `line_arrow_head_scale` in mini-cards).
    - Strict adherence to the 50%+ neutral style guide, high text contrast, and readable `text_size >= 10.0`.
 3. **Browser HTML Verification (Compare Against `16px` Body Text)**:
    - Build the HTML output (`./dcli docs build site --no-clean`) and inspect the rendered HTML page in a browser (or capture a `1280x900` headless Playwright screenshot of `docs/.../*.html` and view it via `view_file`).

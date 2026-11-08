@@ -255,14 +255,14 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.diagrams.flow</span><span class="w"> </span><span class="kn">import</span> <span class="n">Decision</span><span class="p">,</span> <span class="n">End</span><span class="p">,</span> <span class="n">FlowDiagram</span><span class="p">,</span> <span class="n">Process</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Colors</span><span class="p">,</span> <span class="n">Styles</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">124</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">64</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">124</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">68</span><span class="p">)</span>
 
 <span class="n">flow</span> <span class="o">=</span> <span class="n">FlowDiagram</span><span class="p">(</span>
     <span class="n">node_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
     <span class="n">edge_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="p">,</span>
     <span class="n">edge_text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.0</span><span class="p">),</span>
     <span class="n">width</span><span class="o">=</span><span class="mi">118</span><span class="p">,</span>
-    <span class="n">height</span><span class="o">=</span><span class="mi">58</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">62</span><span class="p">,</span>
     <span class="n">lane_orientation</span><span class="o">=</span><span class="s2">"vertical"</span><span class="p">,</span>
 <span class="p">)</span>
 
@@ -291,7 +291,7 @@
         <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
         <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
     <span class="p">),</span>
-    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">29.0</span><span class="p">,</span> <span class="mf">42.5</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">29.0</span><span class="p">,</span> <span class="mf">46.0</span><span class="p">),</span>
 <span class="p">)</span>
 <span class="n">mask_step</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
     <span class="n">Process</span><span class="p">(</span>
@@ -301,7 +301,7 @@
         <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Neutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">shape_fill_color</span><span class="o">=</span><span class="n">Colors</span><span class="o">.</span><span class="n">White</span><span class="p">),</span>
         <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
     <span class="p">),</span>
-    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">29.0</span><span class="p">,</span> <span class="mf">26.0</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">29.0</span><span class="p">,</span> <span class="mf">28.0</span><span class="p">),</span>
 <span class="p">)</span>
 <span class="n">src_lint</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
     <span class="n">Process</span><span class="p">(</span>
@@ -311,18 +311,18 @@
         <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
         <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
     <span class="p">),</span>
-    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">29.0</span><span class="p">,</span> <span class="mf">9.5</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">29.0</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">),</span>
 <span class="p">)</span>
 
 <span class="n">html_scan</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
     <span class="n">Process</span><span class="p">(</span>
         <span class="s2">"scan_broken_links()</span><span class="se">\n</span><span class="s2">Parse &lt;a/img/link&gt; in HTML"</span><span class="p">,</span>
         <span class="n">width</span><span class="o">=</span><span class="mi">48</span><span class="p">,</span>
-        <span class="n">height</span><span class="o">=</span><span class="mf">11.5</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mf">11.0</span><span class="p">,</span>
         <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryFlat</span><span class="p">,</span>
         <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">WhiteBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
     <span class="p">),</span>
-    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">88.0</span><span class="p">,</span> <span class="mf">42.5</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">88.0</span><span class="p">,</span> <span class="mf">46.0</span><span class="p">),</span>
 <span class="p">)</span>
 <span class="n">disk_chk</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
     <span class="n">Decision</span><span class="p">(</span>
@@ -332,7 +332,7 @@
         <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
         <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">DarkBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.5</span><span class="p">),</span>
     <span class="p">),</span>
-    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">77.5</span><span class="p">,</span> <span class="mf">25.0</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">77.5</span><span class="p">,</span> <span class="mf">26.5</span><span class="p">),</span>
 <span class="p">)</span>
 <span class="n">ok_end</span> <span class="o">=</span> <span class="n">flow</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
     <span class="n">End</span><span class="p">(</span>
@@ -357,7 +357,7 @@
 
 <span class="n">dup_gate</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">mask_step</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
 <span class="n">mask_step</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">src_lint</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
-<span class="n">src_lint</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">html_scan</span><span class="p">,</span> <span class="n">start_side</span><span class="o">=</span><span class="s2">"right"</span><span class="p">,</span> <span class="n">end_side</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span><span class="o">.</span><span class="n">via</span><span class="p">((</span><span class="mf">56.0</span><span class="p">,</span> <span class="mf">9.5</span><span class="p">),</span> <span class="p">(</span><span class="mf">56.0</span><span class="p">,</span> <span class="mf">42.5</span><span class="p">))</span>
+<span class="n">src_lint</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">html_scan</span><span class="p">,</span> <span class="n">start_side</span><span class="o">=</span><span class="s2">"right"</span><span class="p">,</span> <span class="n">end_side</span><span class="o">=</span><span class="s2">"left"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span><span class="o">.</span><span class="n">via</span><span class="p">((</span><span class="mf">56.0</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">),</span> <span class="p">(</span><span class="mf">56.0</span><span class="p">,</span> <span class="mf">46.0</span><span class="p">))</span>
 <span class="n">html_scan</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">disk_chk</span><span class="p">,</span> <span class="n">start_side</span><span class="o">=</span><span class="s2">"bottom"</span><span class="p">,</span> <span class="n">end_side</span><span class="o">=</span><span class="s2">"top"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
 <span class="n">disk_chk</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">ok_end</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Yes"</span><span class="p">,</span> <span class="n">start_side</span><span class="o">=</span><span class="s2">"bottom"</span><span class="p">,</span> <span class="n">end_side</span><span class="o">=</span><span class="s2">"top"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
 <span class="n">disk_chk</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">err_end</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"No"</span><span class="p">,</span> <span class="n">start_side</span><span class="o">=</span><span class="s2">"right"</span><span class="p">,</span> <span class="n">end_side</span><span class="o">=</span><span class="s2">"top"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>

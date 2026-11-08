@@ -223,7 +223,7 @@ from drawlib.diagrams.architecture import (
 )
 from drawlib.styles import Styles
 
-setup(width=150, height=66)
+setup(width=158, height=68)
 
 d = ArchitectureDiagram(
     node_style=Styles.Primary,
@@ -236,13 +236,13 @@ d = ArchitectureDiagram(
 
 cf = d.add(
     Node("Cloudflare\nEdge CDN", width=23, height=18, icon=CloudIcon.CLOUDFLARE, icon_size=7.5),
-    xy=(14.0, 22.0),
+    xy=(13.5, 25.0),
 )
 
-vpc = d.add(NodeGroup(title="Vendor-Neutral Cloud Core (OriginalCloudIcon)", padding=5.0), xy=(40.0, 4.0))
+vpc = d.add(NodeGroup(title="Vendor-Neutral Cloud Core (OriginalCloudIcon)", padding=5.0), xy=(39.0, 4.0))
 gw = vpc.add(
     Node("API Gateway", width=23, height=18, icon=OriginalCloudIcon.API_GATEWAY, icon_size=7.5),
-    xy=(16.5, 18.0),
+    xy=(16.5, 21.0),
 )
 k8s = vpc.add(
     Node(
@@ -253,7 +253,7 @@ k8s = vpc.add(
         icon_size=7.5,
         card_style=Styles.PrimaryNeutral,
     ),
-    xy=(50.0, 18.0),
+    xy=(49.5, 21.0),
 )
 db = vpc.add(
     Node(
@@ -264,16 +264,16 @@ db = vpc.add(
         icon_size=7.5,
         card_style=Styles.SecondaryNeutral,
     ),
-    xy=(85.0, 29.0),
+    xy=(92.5, 32.0),
 )
 obj = vpc.add(
     Node("Object\nStorage", width=23, height=18, icon=OriginalCloudIcon.OBJECT_STORAGE, icon_size=7.5),
-    xy=(85.0, 7.0),
+    xy=(92.5, 10.0),
 )
 
 d.connect(cf, gw, label="TLS", padding=1.5)
 d.connect(gw, k8s, padding=1.5)
-k8s.fork([db, obj], at_x=107.5, padding=1.5)
+k8s.fork([db, obj], at_x=105.0, padding=1.5)
 
 d.draw(xy=(4.0, 4.0))
 save()

@@ -139,7 +139,7 @@ tr = sd.connect(
 | `action` | `str` | `""` | Transition effect behavior (prefixed with `/ action`). |
 | `routing` | `RoutingType` | `"curved"` | `"curved"` (smooth arc using `bend`), `"orthogonal"` (Manhattan right angles), or `"direct"` (straight line). |
 | `bend` | `float` | `0.0` | Arc deflection for `"curved"` transitions (`-2.0 < bend < 2.0`, typically `0.2`–`0.4`). Positive values curve toward one side; use positive `bend` on both `A -> B` and `B -> A` (or opposite signs depending on port sides) to create non-overlapping bidirectional arcs. |
-| `start_side` / `end_side` | `Side` | `"auto"` | Attachment side on `source` and `target` (`"auto"`, `"left"`, `"right"`, `"top"`, `"bottom"`). |
+| `start_side` / `end_side` | `Side` | `"auto"` | Attachment side on `source` and `target` (`"auto"`, `"left"`, `"right"`, `"top"`, `"bottom"`, `"top_right"`, `"top_left"`, `"bottom_right"`, `"bottom_left"`). Use `"top_right"`/`"top_left"` and `"bottom_left"`/`"bottom_right"` to separate opposing bidirectional curved transitions cleanly. |
 | `side` | `LoopSide` | `"top"` | Attachment side for **self-transitions** (`source is target`): `"top"`, `"bottom"`, `"left"`, or `"right"`. |
 | `loop_width` / `loop_height` / `loop_ratio` | `float \| None` | `None` / `None` / `0.88` | Custom geometry controls for self-transition loops (`source is target`). |
 | `style` | `Style \| None` | `None` | Stroke style override for the transition curve and arrowhead. |

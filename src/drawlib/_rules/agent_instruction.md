@@ -86,7 +86,7 @@ save()
 
 Never deliver unverified diagrams or docs (`uv run drawlib rules show review-guide`):
 1. **Stage 1 — Static & Anchor Check**: Verify `2+` diagrams/page, Top Hero at Lines 5–15 (`code=fold`), no narrow `px` caps, `text_size >= 10.0`, and coordinate anchors (`shapes`/`text`/`icons`/`images` = **Center `(cx, cy)`**; `Charts`/`Diagrams`/most `SmartArts` = **Bottom-Left `(x0, y0)`**; `Table`/`TreeNode`/`BulletPoints`/`SourceCode` = **Top-Left**; `MindMapNode`/`Cycle` = **Center**; `graph.get_layout()` exposes `.xy` centers & `.bottom_left` corners).
-2. **Stage 2 — Micro-Geometry Grid Review (`-g`)**: Export with the 10/5-unit grid (`uv run drawlib show <file> [block.png] -s styles.py -u utils.py -g -o .drawlib/scratch/<unique_name>_grid.png`) and visually inspect to fix clipping, overlaps, margins (`>= 4–6` units), and `50%+` neutral balance.
+2. **Stage 2 — Micro-Geometry Grid Review (`-g`)**: Export with the 10/5-unit grid (`uv run drawlib show <file> [block.png] -s styles.py -u utils.py -g -o .drawlib/scratch/<unique_name>_grid.png`), fix any `[Geometry Warning]` on `stderr`, and inspect for clipping, overlaps, buried arrowheads (orthogonal gaps `>= 6.0`), margins (`>= 4–6`), and `50%+` neutral balance.
 3. **Stage 3 — Macro-Page Review**: Run `./build.sh`, check links (`uv run drawlib serve <out_html>/ --check`), and inspect a `1280×920` browser screenshot of built HTML (or PDF/PPTX/DOCX) for Hero placement and font parity.
 
 ---

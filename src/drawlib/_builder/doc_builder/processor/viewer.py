@@ -60,6 +60,10 @@ def render_code_with_context(
                 added_paths.append(p)
 
         processor.render_block_to_file(code, dest_abs, source_filename=source_filename, grid=grid)
+        import drawlib._core.l4_canvas as _l4_canvas  # noqa: PLC0415
+
+        for warn_msg in _l4_canvas.canvas._geometry_warnings:
+            print(f"[Geometry Warning] {warn_msg}", file=sys.stderr)
     finally:
         os.chdir(orig_cwd)
         for p in added_paths:

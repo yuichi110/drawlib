@@ -511,7 +511,7 @@ for var, hr, dur in (("teardrop", 0.25, 0.50), ("pointer", 0.52, 3.4)):
                 (scx - hole_r + 0.4, head_cy),
                 (scx + hole_r - 0.4, head_cy),
                 arrow_head="<->",
-                style=Styles.DarkBold.patch(line_width=1.4),
+                style=Styles.DarkBold.patch(line_width=1.4, line_arrow_head_scale=11),
             )
             line((scx + 1.8, cy_p), (scx + 10.6, cy_p), style=Styles.PrimaryDashed.patch(line_width=1.0))
             text((scx, cy_p + 16.0), "hole_ratio = 0.52 (Head Ring)", style=Styles.DangerBold.patch(text_size=9.6))
@@ -568,7 +568,12 @@ for var, mir, st_name, st_obj, txt_st, dur in (
         if mir:
             line((scx, cy_t - 13.0), (scx, cy_t - 9.0), style=Styles.MutedDashed.patch(line_width=1.2))
             line((scx, cy_t + 9.0), (scx, cy_t + 11.4), style=Styles.MutedDashed.patch(line_width=1.2))
-            line((scx + 9.5, cy_t + 12.2), (scx - 9.5, cy_t + 12.2), arrow_head="->", style=Styles.PrimaryBold.patch(line_width=1.5))
+            line(
+                (scx + 9.5, cy_t + 12.2),
+                (scx - 9.5, cy_t + 12.2),
+                arrow_head="->",
+                style=Styles.PrimaryBold.patch(line_width=1.5, line_arrow_head_scale=12),
+            )
             text((scx, cy_t + 15.6), "mirror=True (+X → -X)", style=Styles.PrimaryBold.patch(text_size=9.6))
         else:
             text((scx, cy_t + 13.5), "Collar & Punch Hole Point +X (Right)", style=Styles.DarkBold.patch(text_size=9.5))
@@ -630,7 +635,12 @@ for var, dr, st_name, st_obj, txt_val, txt_st, dur in (
             lbl_y = y_hi + 3.2
         line((rcx + 9.0, y_lo), (rx_guide + 1.2, y_lo), style=Styles.DangerDashed.patch(line_width=1.0))
         line((rcx + 9.0, y_hi), (rx_guide + 1.2, y_hi), style=Styles.DangerDashed.patch(line_width=1.0))
-        line((rx_guide, y_lo), (rx_guide, y_hi), arrow_head="<->", style=Styles.DangerBold.patch(line_width=1.5))
+        line(
+            (rx_guide, y_lo),
+            (rx_guide, y_hi),
+            arrow_head="<->",
+            style=Styles.DangerBold.patch(line_width=1.3, line_arrow_head_scale=10),
+        )
         text((scx, lbl_y), f"drop_ratio = {dr:.2f} ({step_dir})", style=Styles.DangerBold.patch(text_size=9.6))
 
 for var, st_name, st_obj, lbl_txt, txt_st, crest_note, dur in (

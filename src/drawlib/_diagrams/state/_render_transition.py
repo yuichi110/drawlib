@@ -374,7 +374,7 @@ def _get_node_border_point(
     hw = node.effective_width / 2.0 + padding
     hh = node.effective_height / 2.0 + padding
 
-    explicit_point = _get_explicit_side_point(center, hw, hh, side)
+    explicit_point = _get_explicit_side_point(node, center, target_xy, hw, hh, side)
     if explicit_point is not None:
         return explicit_point
 
@@ -382,7 +382,9 @@ def _get_node_border_point(
 
 
 def _get_explicit_side_point(
+    node: StateNodeBase,
     center: tuple[float, float],
+    target_xy: tuple[float, float],
     hw: float,
     hh: float,
     side: Side,
@@ -390,7 +392,9 @@ def _get_explicit_side_point(
     """Calculate boundary coordinate for explicitly requested side.
 
     Args:
+        node: StateNodeBase instance.
         center: Node center coordinate (cx, cy).
+        target_xy: Opposite endpoint reference coordinate (x, y).
         hw: Half width of node.
         hh: Half height of node.
         side: Side name.
@@ -407,6 +411,23 @@ def _get_explicit_side_point(
         return (cx - hw, cy)
     if side == "right":
         return (cx + hw, cy)
+
+    offset_signs: dict[str, tuple[float, float]] = {
+        "top_right": (1.0, 1.0),
+        "top_left": (-1.0, 1.0),
+        "bottom_right": (1.0, -1.0),
+        "bottom_left": (-1.0, -1.0),
+    }
+    if side in offset_signs:
+        sx, sy = offset_signs[side]
+        dx = target_xy[0] - cx
+        dy = target_xy[1] - cy
+        if abs(dx) >= abs(dy):
+            ray_dx, ray_dy = sx * hw, sy * 0.35 * hh
+        else:
+            ray_dx, ray_dy = sx * 0.35 * hw, sy * hh
+        return _get_auto_border_point(node, center, (cx + ray_dx, cy + ray_dy), hw, hh)
+
     return None
 
 

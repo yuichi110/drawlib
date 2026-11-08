@@ -383,11 +383,12 @@ def draw_mini_diagram_card(cx: float, cy: float, w: float, h: float) -> None:
             shape_r=1.3,
         ),
     )
-    nw = min(17.5, w * 0.34)
+    cw = min(14.5, w * 0.28)
+    gw = min(19.6, w * 0.40)
     nh = min(6.6, h * 0.62)
     rectangle(
-        (cx - w * 0.23, cy),
-        width=nw,
+        (cx - w * 0.27, cy),
+        width=cw,
         height=nh,
         style=Styles.Neutral.patch(shape_r=1.0),
         text="Client",
@@ -395,17 +396,17 @@ def draw_mini_diagram_card(cx: float, cy: float, w: float, h: float) -> None:
     )
     rectangle(
         (cx + w * 0.21, cy),
-        width=nw + 2.6,
+        width=gw,
         height=nh,
         style=Styles.PrimaryNeutral.patch(shape_r=1.0),
         text="API Gateway",
         text_style=Styles.PrimaryBold.patch(text_size=9.5),
     )
     line(
-        (cx - w * 0.23 + nw / 2.0 + 0.5, cy),
-        (cx + w * 0.21 - (nw + 2.6) / 2.0 - 0.5, cy),
+        (cx - w * 0.27 + cw / 2.0 + 0.4, cy),
+        (cx + w * 0.21 - gw / 2.0 - 0.4, cy),
         arrow_head="->",
-        style=Styles.DarkBold,
+        style=Styles.DarkBold.patch(line_arrow_head_scale=11),
     )
 
 
@@ -831,7 +832,12 @@ for p3_idx, (mode_3, dur, code_3, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) in
                     text_style=ftxt.patch(text_size=9.6),
                 )
                 if f_i < 3:
-                    line((fx + 7.4, 33.4), (fx + 10.1, 33.4), arrow_head="->", style=Styles.PrimaryBold)
+                    line(
+                        (fx + 7.4, 33.4),
+                        (fx + 10.1, 33.4),
+                        arrow_head="->",
+                        style=Styles.PrimaryBold.patch(line_arrow_head_scale=11),
+                    )
 
             rectangle(
                 (88.2, 21.4),
@@ -1077,7 +1083,7 @@ for p4_idx, (mode_4, dur, code_4, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2, ur
                 (gx0 + 19.3, gy0 + 10.8),
                 (gx0 + 23.9, gy0 + 10.8),
                 arrow_head="->",
-                style=Styles.DarkBold,
+                style=Styles.DarkBold.patch(line_arrow_head_scale=12),
             )
             rectangle(
                 (123.6, 46.6),

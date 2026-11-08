@@ -328,6 +328,12 @@ class Canvas(
         Returns:
             int: Z-order of the last drawn item.
         """
+        from drawlib._core.l4_canvas._line_utils import LineUtils  # noqa: PLC0415
+
+        for msg in LineUtils.check_arrowhead_segment_warnings(self._artists, self._width):
+            if msg not in self._geometry_warnings:
+                self._geometry_warnings.append(msg)
+
         zorder = 0
         for artist in self._artists:
             artist.zorder = zorder

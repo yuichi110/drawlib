@@ -139,7 +139,7 @@ from drawlib.canvas import save, setup
 from drawlib.diagrams.architecture import ArchitectureDiagram, AzureIcon, Node, NodeGroup
 from drawlib.styles import Styles
 
-setup(width=150, height=66)
+setup(width=158, height=68)
 
 d = ArchitectureDiagram(
     node_style=Styles.Primary,
@@ -158,13 +158,13 @@ fd = d.add(
         icon=AzureIcon.FRONT_DOOR_AND_CDN_PROFILES,
         icon_size=7.5,
     ),
-    xy=(14.0, 22.0),
+    xy=(13.5, 25.0),
 )
 
-vnet = d.add(NodeGroup(title="Production Azure VNet (eastus2)", padding=5.0), xy=(40.0, 4.0))
+vnet = d.add(NodeGroup(title="Production Azure VNet (eastus2)", padding=5.0), xy=(39.0, 4.0))
 apim = vnet.add(
     Node("API\nManagement", width=23, height=18, icon=AzureIcon.API_MANAGEMENT_SERVICES, icon_size=7.5),
-    xy=(16.5, 18.0),
+    xy=(16.5, 21.0),
 )
 aks = vnet.add(
     Node(
@@ -175,7 +175,7 @@ aks = vnet.add(
         icon_size=7.5,
         card_style=Styles.PrimaryNeutral,
     ),
-    xy=(50.0, 18.0),
+    xy=(49.5, 21.0),
 )
 aoai = vnet.add(
     Node(
@@ -186,16 +186,16 @@ aoai = vnet.add(
         icon_size=7.5,
         card_style=Styles.SecondaryNeutral,
     ),
-    xy=(85.0, 29.0),
+    xy=(92.5, 32.0),
 )
 cosmos = vnet.add(
     Node("Azure\nCosmos DB", width=23, height=18, icon=AzureIcon.COSMOS_DB, icon_size=7.5),
-    xy=(85.0, 7.0),
+    xy=(92.5, 10.0),
 )
 
 d.connect(fd, apim, label="HTTPS", padding=1.5)
 d.connect(apim, aks, padding=1.5)
-aks.fork([aoai, cosmos], at_x=107.5, padding=1.5)
+aks.fork([aoai, cosmos], at_x=105.0, padding=1.5)
 
 d.draw(xy=(4.0, 4.0))
 save()

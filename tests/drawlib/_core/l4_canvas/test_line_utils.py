@@ -7,10 +7,18 @@
 # express or implied, including but not limited to the warranties of
 # merchantability, fitness for a particular purpose and noninfringement.
 
+import math
+from typing import Any, cast
+
 import pytest
+from matplotlib.path import Path
 
 from drawlib._core.l3_styles import Style
+from drawlib._core.l4_canvas import canvas as global_canvas
 from drawlib._core.l4_canvas._line_utils import LineUtils
+from drawlib.canvas import clear, setup
+from drawlib.lines import line, line_arc, lines
+from drawlib.styles import Styles
 
 
 class TestLineUtils:
@@ -116,3 +124,67 @@ class TestLineUtils:
         unfilled_style = Style(line_width=3.5, line_color=(0, 0, 0), line_style="solid", line_arrow_head_fill=False)
         options_unfilled = LineUtils.get_fancyarrowpatch_options("->", unfilled_style)
         assert options_unfilled["arrowstyle"] == "->"
+
+        # 6. Test curved=True uses _SecantCurveArrowStyle
+        options_curved = LineUtils.get_fancyarrowpatch_options("->", unfilled_style, curved=True)
+        assert options_curved["arrowstyle"] != "->"
+        assert getattr(options_curved["arrowstyle"], "_endarrow_head", False) is True
+        assert getattr(options_curved["arrowstyle"], "fillend", True) is False
+
+        options_curved_filled = LineUtils.get_fancyarrowpatch_options("<->", style, curved=True)
+        assert getattr(options_curved_filled["arrowstyle"], "_beginarrow_head", False) is True
+        assert getattr(options_curved_filled["arrowstyle"], "_endarrow_head", False) is True
+        assert getattr(options_curved_filled["arrowstyle"], "fillbegin", False) is True
+        assert getattr(options_curved_filled["arrowstyle"], "fillend", False) is True
+
+    def test_secant_curve_arrow_transmute(self) -> None:
+        """Verifies _SecantCurveArrowStyle aligns curved arrowheads along the secant over head_length."""
+        style = Style(line_width=2.5, line_color=(0, 0, 0), line_style="solid", line_arrow_head_scale=20.0)
+        arrow_style = LineUtils.get_fancyarrowpatch_options("->", style, curved=True)["arrowstyle"]
+
+        # Tight quadratic Bezier curve in display coords: (0, 0) -> cp(15, 16) -> (30, 0)
+        q_path = Path([(0.0, 0.0), (15.0, 16.0), (30.0, 0.0)], [Path.MOVETO, Path.CURVE3, Path.CURVE3])
+        paths, fills = cast(
+            "tuple[list[Path], list[bool]]", arrow_style.transmute(q_path, mutation_size=20.0, linewidth=2.5)
+        )
+        assert len(paths) == 2
+        assert fills == [False, False]
+
+        wedge_verts = cast(Any, paths[1].vertices)
+        w1, tip, w2 = wedge_verts[0], wedge_verts[1], wedge_verts[2]
+        mid_wing = ((w1[0] + w2[0]) / 2.0, (w1[1] + w2[1]) / 2.0)
+        axis_deg = math.degrees(math.atan2(tip[1] - mid_wing[1], tip[0] - mid_wing[0]))
+        endpoint_tangent_deg = math.degrees(math.atan2(0.0 - 16.0, 30.0 - 15.0))  # -46.8 deg
+        # Secant axis should be noticeably shallower than the raw endpoint tangent (-46.8 deg)
+        assert endpoint_tangent_deg < axis_deg < -10.0
+
+    def test_check_arrowhead_segment_warnings(self) -> None:
+        """Verifies non-fatal geometry warning detection for buried polyline arrowheads."""
+        clear()
+        setup(width=140, height=80)
+
+        # 1. Sufficiently spaced orthogonal polyline -> no warning
+        lines([(10.0, 20.0), (25.0, 20.0), (25.0, 40.0), (32.0, 40.0)], arrow_head="->", style=Styles.DarkBold)
+        # 2. Full 360-degree closed arc -> no false positive warning
+        line_arc(
+            (70.0, 40.0),
+            width=20.0,
+            height=20.0,
+            angle_start=0,
+            angle_end=360,
+            arrow_head="->",
+            style=Styles.DarkBold,
+        )
+        assert LineUtils.check_arrowhead_segment_warnings(global_canvas._artists, 140.0) == []
+
+        # 3. Buried terminal segment (1.5u < ~2.56u required on W=140 with DarkBold) -> emits warning
+        lines([(40.0, 20.0), (45.0, 20.0), (45.0, 35.0), (46.5, 35.0)], arrow_head="->", style=Styles.DarkBold)
+        warnings_list = LineUtils.check_arrowhead_segment_warnings(global_canvas._artists, 140.0)
+        assert len(warnings_list) == 1
+        assert "terminal polyline segment" in warnings_list[0]
+
+        # 4. Ultra-short direct line -> emits warning
+        line((80.0, 20.0), (81.0, 20.0), arrow_head="->", style=Styles.DarkBold)
+        warnings_list2 = LineUtils.check_arrowhead_segment_warnings(global_canvas._artists, 140.0)
+        assert len(warnings_list2) == 2
+        clear()

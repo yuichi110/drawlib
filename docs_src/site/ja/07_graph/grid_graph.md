@@ -363,6 +363,10 @@ def draw_sub_pills(scx: float, labels: list[str], active_idx: int) -> None:
 
 
 GRP_TXT = Styles.DarkBold.patch(text_size=9.5, halign="left", valign="top")
+EDGE_DARK = Styles.DarkBold.patch(line_width=1.4, line_arrow_head_scale=12.0)
+EDGE_PRIMARY = Styles.PrimaryBold.patch(line_width=1.5, line_arrow_head_scale=12.0)
+EDGE_SECONDARY = Styles.SecondaryBold.patch(line_width=1.5, line_arrow_head_scale=12.0)
+EDGE_DANGER_DASH = Styles.DangerDashed.patch(line_width=1.5, line_arrow_head_scale=12.0)
 
 
 # =========================================================================
@@ -494,7 +498,7 @@ for p1_idx, (mode_1, dur, code_1, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) in
 
         if mode_1 == "edges":
             for e in P1_GRID.edges:
-                lines(e.points, arrow_head="->", style=Styles.DarkBold)
+                lines(e.points, arrow_head="->", style=EDGE_DARK)
 
         for cid, rc_lbl, box_st, txt_st in ROW0_META:
             nl = P1_GRID[cid]
@@ -643,9 +647,9 @@ for p2_idx, (mode_2, dur, code_2, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) in
             for a_id, b_id in flow_pairs:
                 na, nb = lay2[a_id], lay2[b_id]
                 if mode_2 == "row_major":
-                    line((na.right, na.y), (nb.left, nb.y), arrow_head="->", style=Styles.PrimaryBold)
+                    line((na.right, na.y), (nb.left, nb.y), arrow_head="->", style=EDGE_PRIMARY)
                 else:
-                    line((na.x, na.bottom), (nb.x, nb.top), arrow_head="->", style=Styles.PrimaryBold)
+                    line((na.x, na.bottom), (nb.x, nb.top), arrow_head="->", style=EDGE_PRIMARY)
 
             slot_labels = (
                 ["(0,0)", "(0,1)", "(0,2)", "(1,0)", "(1,1)"]
@@ -721,10 +725,20 @@ for p2_idx, (mode_2, dur, code_2, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) in
                     text_style=Styles.DarkBold.patch(text_size=9.6),
                 )
 
-            line((n1.right, n1.y), (n2.left, n2.y), arrow_head="<->", style=Styles.PrimaryBold)
+            line(
+                (n1.right, n1.y),
+                (n2.left, n2.y),
+                arrow_head="<->",
+                style=Styles.PrimaryBold.patch(line_width=1.4, line_arrow_head_scale=12.0),
+            )
             text((gx_mid, n1.top + 1.8), "col_sep", style=Styles.PrimaryBold.patch(text_size=9.5))
 
-            line((n2.x, n2.bottom), (lay2["N5"].x, lay2["N5"].top), arrow_head="<->", style=Styles.DangerBold)
+            line(
+                (n2.x, n2.bottom),
+                (lay2["N5"].x, lay2["N5"].top),
+                arrow_head="<->",
+                style=Styles.DangerBold.patch(line_width=1.4, line_arrow_head_scale=12.0),
+            )
             text((n2.x + 6.2, gy_mid), "row_sep", style=Styles.DangerBold.patch(text_size=9.5))
 
             text(
@@ -868,7 +882,7 @@ for p3_idx, (mode_3, dur, code_3, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) in
             lines(
                 e3.points,
                 arrow_head="->",
-                style=Styles.DangerDashed if is_straight else Styles.PrimaryBold,
+                style=EDGE_DANGER_DASH if is_straight else EDGE_PRIMARY,
             )
             text(
                 (scx, 18.2),
@@ -883,10 +897,10 @@ for p3_idx, (mode_3, dur, code_3, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) in
             g3 = GridGraph(
                 columns=3,
                 col_sep=4.2,
-                row_sep=4.8,
+                row_sep=5.2,
                 edge_routing="smart",
                 default_node_width=10.8,
-                default_node_height=5.0,
+                default_node_height=4.7,
             )
             cells_3x3 = [
                 ("Web", 0, 0),
@@ -914,8 +928,8 @@ for p3_idx, (mode_3, dur, code_3, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) in
                     style=Styles.Neutral.patch(shape_fill_color=(233, 241, 255), shape_line_width=0),
                 )
 
-            lines(lay3.edges[0].points, arrow_head="->", style=Styles.PrimaryBold)
-            lines(lay3.edges[1].points, arrow_head="->", style=Styles.SecondaryBold)
+            lines(lay3.edges[0].points, arrow_head="->", style=EDGE_PRIMARY)
+            lines(lay3.edges[1].points, arrow_head="->", style=EDGE_SECONDARY)
 
             for cid, _, _ in cells_3x3:
                 nl = lay3[cid]
@@ -1081,7 +1095,7 @@ for p4_idx, (mode_4, dur, code_4, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) in
                 )
             d4.draw()
             for e in lay4.edges:
-                lines(e.points, arrow_head="->", style=Styles.DarkBold)
+                lines(e.points, arrow_head="->", style=EDGE_DARK)
             text(
                 (scx, 18.0),
                 "cluster_row(0..1) -> horizontal NodeGroup bands",
@@ -1117,7 +1131,7 @@ for p4_idx, (mode_4, dur, code_4, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) in
             d4 = ArchitectureDiagram(
                 node_style=Styles.Primary,
                 node_text_style=Styles.DarkBold.patch(text_size=9.5),
-                edge_style=Styles.DarkBold,
+                edge_style=EDGE_DARK,
                 edge_text_style=Styles.DarkBold.patch(text_size=9.5),
                 node_card_style=Styles.White,
             )
@@ -1148,7 +1162,7 @@ for p4_idx, (mode_4, dur, code_4, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) in
                 )
             d4.draw()
             for e in lay4.edges:
-                lines(e.points, arrow_head="->", style=Styles.DarkBold)
+                lines(e.points, arrow_head="->", style=EDGE_DARK)
             text(
                 (scx, 18.0),
                 "cluster_column(0..2) -> vertical zone NodeGroups",
@@ -1191,7 +1205,7 @@ for p4_idx, (mode_4, dur, code_4, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) in
             d4 = ArchitectureDiagram(
                 node_style=Styles.Primary,
                 node_text_style=Styles.DarkBold.patch(text_size=9.5),
-                edge_style=Styles.DarkBold,
+                edge_style=EDGE_DARK,
                 edge_text_style=Styles.DarkBold.patch(text_size=9.5),
                 node_card_style=Styles.Neutral,
             )
@@ -1217,7 +1231,7 @@ for p4_idx, (mode_4, dur, code_4, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) in
                 lines(
                     e.points,
                     arrow_head="->",
-                    style=Styles.PrimaryBold if idx == 0 else Styles.DarkBold,
+                    style=EDGE_PRIMARY if idx == 0 else EDGE_DARK,
                 )
 
             db_nl = lay4["DB"]

@@ -4408,7 +4408,7 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.diagrams.architecture</span><span class="w"> </span><span class="kn">import</span> <span class="n">ArchitectureDiagram</span><span class="p">,</span> <span class="n">GcpIcon</span><span class="p">,</span> <span class="n">Node</span><span class="p">,</span> <span class="n">NodeGroup</span><span class="p">,</span> <span class="n">PhosphorIcon</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">drawlib.styles</span><span class="w"> </span><span class="kn">import</span> <span class="n">Colors</span><span class="p">,</span> <span class="n">Styles</span>
 
-<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">120</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">64</span><span class="p">)</span>
+<span class="n">setup</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">124</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">64</span><span class="p">)</span>
 
 <span class="n">d</span> <span class="o">=</span> <span class="n">ArchitectureDiagram</span><span class="p">(</span>
     <span class="n">node_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">Primary</span><span class="p">,</span>
@@ -4426,7 +4426,7 @@
 <span class="n">vpc</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
     <span class="n">NodeGroup</span><span class="p">(</span>
         <span class="n">title</span><span class="o">=</span><span class="s2">"VPC Network"</span><span class="p">,</span>
-        <span class="n">width</span><span class="o">=</span><span class="mi">56</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span>
         <span class="n">height</span><span class="o">=</span><span class="mi">54</span><span class="p">,</span>
         <span class="n">padding</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span>
         <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">line_style</span><span class="o">=</span><span class="s2">"dashed"</span><span class="p">),</span>
@@ -4449,7 +4449,7 @@
 <span class="p">)</span>
 <span class="n">auth_pod</span> <span class="o">=</span> <span class="n">vpc</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
     <span class="n">Node</span><span class="p">(</span><span class="s2">"Auth Pod"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">19</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">GcpIcon</span><span class="o">.</span><span class="n">GOOGLE_KUBERNETES_ENGINE</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">6.5</span><span class="p">),</span>
-    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">43.0</span><span class="p">,</span> <span class="mf">36.5</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">47.0</span><span class="p">,</span> <span class="mf">36.5</span><span class="p">),</span>
 <span class="p">)</span>
 <span class="n">order_pod</span> <span class="o">=</span> <span class="n">vpc</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
     <span class="n">Node</span><span class="p">(</span>
@@ -4460,20 +4460,20 @@
         <span class="n">icon_size</span><span class="o">=</span><span class="mf">6.5</span><span class="p">,</span>
         <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
     <span class="p">),</span>
-    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">43.0</span><span class="p">,</span> <span class="mf">13.5</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">47.0</span><span class="p">,</span> <span class="mf">13.5</span><span class="p">),</span>
 <span class="p">)</span>
 
 <span class="n">db</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
     <span class="n">Node</span><span class="p">(</span><span class="s2">"Cloud SQL"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="n">GcpIcon</span><span class="o">.</span><span class="n">CLOUD_SQL</span><span class="p">,</span> <span class="n">icon_size</span><span class="o">=</span><span class="mf">7.0</span><span class="p">,</span> <span class="n">card_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">),</span>
-    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">102.0</span><span class="p">,</span> <span class="mf">25.0</span><span class="p">),</span>
+    <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">106.5</span><span class="p">,</span> <span class="mf">25.0</span><span class="p">),</span>
 <span class="p">)</span>
 
 <span class="n">d</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">client</span><span class="p">,</span> <span class="n">gateway</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"HTTPS"</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
-<span class="n">gateway</span><span class="o">.</span><span class="n">fork</span><span class="p">([</span><span class="n">auth_pod</span><span class="p">,</span> <span class="n">order_pod</span><span class="p">],</span> <span class="n">at_x</span><span class="o">=</span><span class="mf">58.0</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="n">gateway</span><span class="o">.</span><span class="n">fork</span><span class="p">([</span><span class="n">auth_pod</span><span class="p">,</span> <span class="n">order_pod</span><span class="p">],</span> <span class="n">at_x</span><span class="o">=</span><span class="mf">57.5</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
 <span class="n">d</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">auth_pod</span><span class="p">,</span> <span class="n">db</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
 <span class="n">d</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">order_pod</span><span class="p">,</span> <span class="n">db</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
 
-<span class="n">d</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">60.0</span><span class="p">,</span> <span class="mf">32.0</span><span class="p">),</span> <span class="n">align</span><span class="o">=</span><span class="s2">"center"</span><span class="p">)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">62.0</span><span class="p">,</span> <span class="mf">32.0</span><span class="p">),</span> <span class="n">align</span><span class="o">=</span><span class="s2">"center"</span><span class="p">)</span>
 <span class="n">save</span><span class="p">()</span>
 </code></pre>
 </details>

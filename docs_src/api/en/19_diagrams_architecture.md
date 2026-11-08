@@ -7,7 +7,7 @@ from drawlib.canvas import save, setup
 from drawlib.diagrams.architecture import ArchitectureDiagram, GcpIcon, Node, NodeGroup, PhosphorIcon
 from drawlib.styles import Colors, Styles
 
-setup(width=120, height=64)
+setup(width=124, height=64)
 
 d = ArchitectureDiagram(
     node_style=Styles.Primary,
@@ -25,7 +25,7 @@ client = d.add(
 vpc = d.add(
     NodeGroup(
         title="VPC Network",
-        width=56,
+        width=60,
         height=54,
         padding=5.0,
         style=Styles.PrimaryNeutral.patch(line_style="dashed"),
@@ -48,7 +48,7 @@ gateway = vpc.add(
 )
 auth_pod = vpc.add(
     Node("Auth Pod", width=19, height=15, icon=GcpIcon.GOOGLE_KUBERNETES_ENGINE, icon_size=6.5),
-    xy=(43.0, 36.5),
+    xy=(47.0, 36.5),
 )
 order_pod = vpc.add(
     Node(
@@ -59,20 +59,20 @@ order_pod = vpc.add(
         icon_size=6.5,
         card_style=Styles.SecondaryNeutral,
     ),
-    xy=(43.0, 13.5),
+    xy=(47.0, 13.5),
 )
 
 db = d.add(
     Node("Cloud SQL", width=20, height=16, icon=GcpIcon.CLOUD_SQL, icon_size=7.0, card_style=Styles.SecondaryNeutral),
-    xy=(102.0, 25.0),
+    xy=(106.5, 25.0),
 )
 
 d.connect(client, gateway, label="HTTPS", padding=1.0)
-gateway.fork([auth_pod, order_pod], at_x=58.0, padding=1.0)
+gateway.fork([auth_pod, order_pod], at_x=57.5, padding=1.0)
 d.connect(auth_pod, db, padding=1.0)
 d.connect(order_pod, db, padding=1.0)
 
-d.draw(xy=(60.0, 32.0), align="center")
+d.draw(xy=(62.0, 32.0), align="center")
 save()
 ```
 

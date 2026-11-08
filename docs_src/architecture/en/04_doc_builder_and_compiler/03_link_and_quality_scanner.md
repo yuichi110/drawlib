@@ -9,14 +9,14 @@ from drawlib.canvas import save, setup
 from drawlib.diagrams.flow import Decision, End, FlowDiagram, Process
 from drawlib.styles import Colors, Styles
 
-setup(width=124, height=64)
+setup(width=124, height=68)
 
 flow = FlowDiagram(
     node_style=Styles.Neutral.patch(text_size=10.5),
     edge_style=Styles.DarkBold,
     edge_text_style=Styles.DarkBold.patch(text_size=10.0),
     width=118,
-    height=58,
+    height=62,
     lane_orientation="vertical",
 )
 
@@ -45,7 +45,7 @@ dup_gate = flow.add(
         style=Styles.PrimaryNeutral,
         text_style=Styles.DarkBold.patch(text_size=10.5),
     ),
-    xy=(29.0, 42.5),
+    xy=(29.0, 46.0),
 )
 mask_step = flow.add(
     Process(
@@ -55,7 +55,7 @@ mask_step = flow.add(
         style=Styles.Neutral.patch(shape_fill_color=Colors.White),
         text_style=Styles.DarkBold.patch(text_size=10.5),
     ),
-    xy=(29.0, 26.0),
+    xy=(29.0, 28.0),
 )
 src_lint = flow.add(
     Process(
@@ -65,18 +65,18 @@ src_lint = flow.add(
         style=Styles.SecondaryNeutral,
         text_style=Styles.DarkBold.patch(text_size=10.5),
     ),
-    xy=(29.0, 9.5),
+    xy=(29.0, 10.0),
 )
 
 html_scan = flow.add(
     Process(
         "scan_broken_links()\nParse <a/img/link> in HTML",
         width=48,
-        height=11.5,
+        height=11.0,
         style=Styles.PrimaryFlat,
         text_style=Styles.WhiteBold.patch(text_size=10.5),
     ),
-    xy=(88.0, 42.5),
+    xy=(88.0, 46.0),
 )
 disk_chk = flow.add(
     Decision(
@@ -86,7 +86,7 @@ disk_chk = flow.add(
         style=Styles.PrimaryNeutral,
         text_style=Styles.DarkBold.patch(text_size=10.5),
     ),
-    xy=(77.5, 25.0),
+    xy=(77.5, 26.5),
 )
 ok_end = flow.add(
     End(
@@ -111,7 +111,7 @@ err_end = flow.add(
 
 dup_gate.connect(mask_step, padding=0.4)
 mask_step.connect(src_lint, padding=0.4)
-src_lint.connect(html_scan, start_side="right", end_side="left", padding=0.5).via((56.0, 9.5), (56.0, 42.5))
+src_lint.connect(html_scan, start_side="right", end_side="left", padding=0.5).via((56.0, 10.0), (56.0, 46.0))
 html_scan.connect(disk_chk, start_side="bottom", end_side="top", padding=0.4)
 disk_chk.connect(ok_end, label="Yes", start_side="bottom", end_side="top", padding=0.4)
 disk_chk.connect(err_end, label="No", start_side="right", end_side="top", padding=0.4)

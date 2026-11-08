@@ -368,9 +368,9 @@ def render_solved_dag(
         if e.src in visible_nodes and e.dst in visible_nodes:
             pts = [(px + OX, py + OY) for px, py in e.points]
             est = (
-                Styles.PrimaryBold.patch(line_width=1.4)
+                Styles.PrimaryBold.patch(line_width=1.4, line_arrow_head_scale=12.0)
                 if hl_edges and (e.src, e.dst) in hl_edges
-                else Styles.DarkBold.patch(line_width=1.2)
+                else Styles.DarkBold.patch(line_width=1.2, line_arrow_head_scale=12.0)
             )
             lines(pts, arrow_head="->", style=est)
 
@@ -739,7 +739,7 @@ PART3_STATES = [
             "g = LayerGraph(",
             '    direction="TB",',
             '    edge_routing="orthogonal",',
-            "    rank_sep=3.6, node_sep=6.0)",
+            "    rank_sep=4.4, node_sep=6.0)",
             "# Vertical top-down DAG:",
             "# R0 (top) -> R1 -> R2 (bottom)",
             "layout = g.get_layout(margin=2)",
@@ -788,7 +788,12 @@ for p3_idx, (m3, dur, code_3, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) in enu
                 t_st = Styles.DangerBold.patch(line_width=1.1)
                 line((x_l, y_dim - 0.9), (x_l, y_dim + 0.9), style=t_st)
                 line((x_r, y_dim - 0.9), (x_r, y_dim + 0.9), style=t_st)
-                line((x_l, y_dim), (x_r, y_dim), arrow_head="<->", style=Styles.DangerBold.patch(line_width=1.2))
+                line(
+                    (x_l, y_dim),
+                    (x_r, y_dim),
+                    arrow_head="<->",
+                    style=Styles.DangerBold.patch(line_width=1.2, line_arrow_head_scale=12.0),
+                )
                 text(
                     (scx, 18.0),
                     "straight port segments  •  rank_sep=9.2, node_sep=5.4",
@@ -804,10 +809,10 @@ for p3_idx, (m3, dur, code_3, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) in enu
             g_tb = LayerGraph(
                 direction="TB",
                 edge_routing="orthogonal",
-                rank_sep=3.6,
+                rank_sep=4.4,
                 node_sep=6.2,
                 default_node_width=11.0,
-                default_node_height=5.2,
+                default_node_height=4.8,
             )
             for s_id, d_id in [("API", "Auth"), ("API", "Rate"), ("Auth", "DB"), ("Rate", "DB")]:
                 g_tb.edge(s_id, d_id)
@@ -820,7 +825,7 @@ for p3_idx, (m3, dur, code_3, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) in enu
 
             for e in lay_tb.edges:
                 pts = [(px + ox_tb, py + oy_tb) for px, py in e.points]
-                lines(pts, arrow_head="->", style=Styles.DarkBold.patch(line_width=1.2))
+                lines(pts, arrow_head="->", style=Styles.DarkBold.patch(line_width=1.2, line_arrow_head_scale=12.0))
             for nid in ("API", "Auth", "Rate", "DB"):
                 nl = lay_tb[nid]
                 bst = (
@@ -952,7 +957,7 @@ for p4_idx, (m4, dur, code_4, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) in enu
 
         fd = FlowDiagram(
             node_style=Styles.Neutral,
-            edge_style=Styles.DarkBold.patch(line_width=1.2),
+            edge_style=Styles.DarkBold.patch(line_width=1.2, line_arrow_head_scale=12.0),
             edge_text_style=Styles.PrimaryBold.patch(text_size=9.5),
         )
         req_n = fd.add(
@@ -982,7 +987,7 @@ for p4_idx, (m4, dur, code_4, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) in enu
                 label="no",
                 start_side="bottom",
                 end_side="left",
-                style=Styles.MutedDashed.patch(line_width=1.2),
+                style=Styles.MutedDashed.patch(line_width=1.2, line_arrow_head_scale=12.0),
                 text_style=Styles.DangerBold.patch(text_size=9.5),
             )
         else:
@@ -1003,7 +1008,7 @@ for p4_idx, (m4, dur, code_4, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) in enu
                 (gx_arrow, orig_err_xy[1] + OY),
                 (gx_arrow, lay_p4["err"].y + OY),
                 arrow_head="->",
-                style=Styles.DangerBold.patch(line_width=1.3),
+                style=Styles.DangerBold.patch(line_width=1.3, line_arrow_head_scale=11.0),
             )
             text(
                 (scx, 18.0),

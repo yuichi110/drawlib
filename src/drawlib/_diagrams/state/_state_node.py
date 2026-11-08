@@ -92,15 +92,18 @@ class StateNodeBase:
         half_w = self.effective_width / 2.0
         half_h = self.effective_height / 2.0
 
-        if side == "top":
-            return (cx, cy + half_h)
-        if side == "bottom":
-            return (cx, cy - half_h)
-        if side == "left":
-            return (cx - half_w, cy)
-        if side == "right":
-            return (cx + half_w, cy)
-        return (cx, cy)
+        offsets: dict[str, tuple[float, float]] = {
+            "top": (0.0, half_h),
+            "bottom": (0.0, -half_h),
+            "left": (-half_w, 0.0),
+            "right": (half_w, 0.0),
+            "top_right": (half_w, half_h * 0.35),
+            "top_left": (-half_w, half_h * 0.35),
+            "bottom_right": (half_w, -half_h * 0.35),
+            "bottom_left": (-half_w, -half_h * 0.35),
+        }
+        dx, dy = offsets.get(side, (0.0, 0.0))
+        return (cx + dx, cy + dy)
 
 
 class State(StateNodeBase):

@@ -1102,6 +1102,11 @@ save()
 - **Why**: `ArrowHead` is strictly validated to `Literal["->", "<-", "<->", "-"] | str` (including `""`).
 - **Fix**: Use only the supported literal strings (`""`, `"-"`, `"->"`, `"<-"`, `"<->"`). For filled heads, configure `Style(line_arrow_head_fill=True)`.
 
+#### Pitfall 6: Buried Arrowheads on Short Orthogonal (Z-Bend / Dogleg) Terminal Segments
+- **Symptom**: Arrowhead wings (`>`) collide with or poke backward past the perpendicular corner trunk line (and `drawlib show` emits `[Geometry Warning] Arrowhead footprint ... exceeds terminal polyline segment`).
+- **Why**: Default arrowheads (`line_arrow_head_scale=20.0`, `Styles.DarkBold` `line_width=2.5`) occupy `~13 pt` (`W * 13 / 720` virtual units: `~2.5` units at `W=140`, `~3.5` units at `W=192`). Because midpoint dogleg routing (`mid_x = (x1 + x2) / 2`) cuts the node gap in half (`L_last = gap / 2`), any orthogonal gap `< 5.0–6.0` units leaves a terminal segment shorter than the arrowhead itself.
+- **Fix**: Keep orthogonal node-to-node gaps **`>= 6.0` units** (`>= 7.0` on `W=192` slides). When drawing compact mini-diagrams or multi-card panels, either wrap the sub-diagram in `with canvas.transform(origin=..., scale=...):` (which scales `line_arrow_head_scale` and `line_width` proportionally) or pass `style=Styles.DarkBold.patch(line_arrow_head_scale=11, line_width=1.5)`. For bidirectional `line_curved()` pairs on narrow gaps, also offset the two anchor pairs slightly (`y ± 1.0`) so opposing arrowheads have vertical breathing room.
+
 ### 13.3. Best Practices Checklist for AI Agents & Developers
 1. **Always Set Canvas Bounds First**: Begin every drawing script with `setup(width=..., height=...)` to establish the virtual coordinate scale.
 2. **Prefer Declarative Overrides**: Use `Style(line_width=..., line_style=...)` to maintain centralized design coherence instead of scattered ad-hoc overrides.

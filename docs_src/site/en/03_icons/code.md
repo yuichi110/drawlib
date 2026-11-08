@@ -249,7 +249,7 @@ from drawlib.diagrams.architecture import (
 from drawlib.styles import Styles
 
 clear()
-setup(width=128, height=64)
+setup(width=142, height=66)
 
 d = ArchitectureDiagram(
     node_style=Styles.Primary,
@@ -269,7 +269,7 @@ web = backend.add(
         icon=CodeIcon.NEXTJS,
         icon_size=7.5,
     ),
-    xy=(12.0, 18.0),
+    xy=(15.0, 20.0),
 )
 api = backend.add(
     Node(
@@ -280,7 +280,7 @@ api = backend.add(
         icon_size=7.5,
         card_style=Styles.PrimaryNeutral,
     ),
-    xy=(56.0, 18.0),
+    xy=(61.0, 20.0),
 )
 engine = backend.add(
     Node(
@@ -291,7 +291,7 @@ engine = backend.add(
         icon_size=7.5,
         card_style=Styles.SecondaryNeutral,
     ),
-    xy=(98.0, 28.0),
+    xy=(111.0, 30.0),
 )
 worker = backend.add(
     Node(
@@ -301,11 +301,11 @@ worker = backend.add(
         icon=OriginalCodeIcon.BACKGROUND_WORKER,
         icon_size=7.5,
     ),
-    xy=(98.0, 8.0),
+    xy=(111.0, 10.0),
 )
 
 d.connect(web, api, label="REST / JSON", padding=1.5)
-api.fork([engine, worker], at_x=88.0, padding=1.5)
+api.fork([engine, worker], at_x=84.5, padding=1.5)
 
 d.draw(xy=(4.0, 4.0))
 save()

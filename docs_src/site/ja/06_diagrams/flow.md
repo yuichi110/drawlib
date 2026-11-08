@@ -326,6 +326,7 @@ def draw_sub_pills(scx: float, labels: list[str], active_idx: int) -> None:
 
 NODE_BASE = Styles.Neutral.patch(text_size=9.7)
 EDGE_TXT = Styles.DarkBold.patch(text_size=9.5)
+MINI_EDGE = Styles.DarkBold.patch(line_arrow_head_scale=12)
 LANE_TXT = Styles.DarkBold.patch(text_size=9.6)
 
 # =========================================================================
@@ -414,7 +415,7 @@ for p1_idx, (mode_1, dur, code_1, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) in
             bx, by, dw, dh = 80.5, 23.0, 44.0, 21.0
             flow = FlowDiagram(
                 node_style=NODE_BASE,
-                edge_style=Styles.DarkBold,
+                edge_style=MINI_EDGE,
                 edge_text_style=EDGE_TXT,
                 width=dw,
                 height=dh,
@@ -451,7 +452,7 @@ for p1_idx, (mode_1, dur, code_1, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) in
             bx, by, dw, dh = 79.2, 22.0, 45.6, 23.2
             flow = FlowDiagram(
                 node_style=NODE_BASE,
-                edge_style=Styles.DarkBold,
+                edge_style=MINI_EDGE,
                 edge_text_style=EDGE_TXT,
                 width=dw,
                 height=dh,
@@ -563,7 +564,7 @@ for p2_idx, (mode_2, dur, code_2, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) in
 
         if mode_2 == "ports":
             bx, by = 77.6, 22.0
-            flow = FlowDiagram(node_style=NODE_BASE, edge_style=Styles.DarkBold, edge_text_style=EDGE_TXT)
+            flow = FlowDiagram(node_style=NODE_BASE, edge_style=MINI_EDGE, edge_text_style=EDGE_TXT)
             proc = flow.add(Process("Check", width=10.6, height=6.8), xy=(5.3, 16.5))
             dec = flow.add(
                 Decision("Pass?", width=13.4, height=9.4, style=Styles.SecondaryNeutral.patch(text_size=9.7)),
@@ -596,7 +597,7 @@ for p2_idx, (mode_2, dur, code_2, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) in
             )
         elif mode_2 == "junction":
             bx, by = 77.4, 22.2
-            flow = FlowDiagram(node_style=NODE_BASE, edge_style=Styles.DarkBold, edge_text_style=EDGE_TXT)
+            flow = FlowDiagram(node_style=NODE_BASE, edge_style=MINI_EDGE, edge_text_style=EDGE_TXT)
             proc = flow.add(Process("Attempt", width=12.0, height=7.0), xy=(7.0, 17.0))
             dec = flow.add(
                 Decision("OK?", width=13.2, height=9.2, style=Styles.SecondaryNeutral.patch(text_size=9.7)),
@@ -626,7 +627,7 @@ for p2_idx, (mode_2, dur, code_2, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) in
             )
         else:
             bx, by = 79.5, 22.0
-            flow = FlowDiagram(node_style=NODE_BASE, edge_style=Styles.DarkBold, edge_text_style=EDGE_TXT)
+            flow = FlowDiagram(node_style=NODE_BASE, edge_style=MINI_EDGE, edge_text_style=EDGE_TXT)
             s = flow.add(
                 Start("In", width=10.0, height=6.4, style=Styles.PrimaryNeutral.patch(text_size=9.7)),
                 xy=(6.5, 7.5),
@@ -733,7 +734,7 @@ for p3_idx, (mode_3, dur, code_3, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) in
             bx, by, dw, dh = 80.0, 22.0, 44.0, 24.0
             flow = FlowDiagram(
                 node_style=NODE_BASE,
-                edge_style=Styles.DarkBold,
+                edge_style=MINI_EDGE,
                 edge_text_style=EDGE_TXT,
                 lane_orientation="vertical",
                 width=dw,
@@ -782,7 +783,7 @@ for p3_idx, (mode_3, dur, code_3, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) in
             bx, by, dw, dh = 79.0, 22.2, 46.0, 23.0
             flow = FlowDiagram(
                 node_style=NODE_BASE,
-                edge_style=Styles.DarkBold,
+                edge_style=MINI_EDGE,
                 edge_text_style=EDGE_TXT,
                 lane_orientation="horizontal",
                 width=dw,
@@ -900,7 +901,7 @@ for p4_idx, (mode_4, dur, code_4, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) in
             bx, by, dw, dh = 79.0, 22.0, 46.0, 23.0
             flow = FlowDiagram(
                 node_style=NODE_BASE,
-                edge_style=Styles.DarkBold,
+                edge_style=MINI_EDGE,
                 edge_text_style=EDGE_TXT,
                 width=dw,
                 height=dh,
@@ -957,7 +958,7 @@ for p4_idx, (mode_4, dur, code_4, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) in
             dw, dh, sc = 46.0, 22.0, 0.92
             flow = FlowDiagram(
                 node_style=Styles.Neutral.patch(text_size=10.5),
-                edge_style=Styles.DarkBold,
+                edge_style=MINI_EDGE,
                 edge_text_style=Styles.DarkBold.patch(text_size=10.4),
                 width=dw,
                 height=dh,
@@ -980,10 +981,10 @@ for p4_idx, (mode_4, dur, code_4, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) in
                 ),
                 xy=(40.4, 16.4),
             )
-            retry = flow.add(Process("Retry", width=12.0, height=6.2), xy=(13.0, 4.8))
+            retry = flow.add(Process("Retry", width=12.0, height=6.2), xy=(19.4, 4.8))
             s.connect(dec)
             dec.connect(ok, label="Yes", start_side="right", end_side="left")
-            dec.connect(retry, start_side="bottom", end_side="right")
+            dec.connect(retry, start_side="bottom", end_side="top")
             retry.connect(s, start_side="left", end_side="bottom")
             flow.draw(xy=(cx_a, cy_a), align="center", scale=sc)
 

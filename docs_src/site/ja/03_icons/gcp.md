@@ -241,7 +241,7 @@ from drawlib.diagrams.architecture import ArchitectureDiagram, GcpIcon, Node, No
 from drawlib.styles import Styles
 
 clear()
-setup(width=136, height=64)
+setup(width=142, height=66)
 
 d = ArchitectureDiagram(
     node_style=Styles.Primary,
@@ -255,7 +255,7 @@ d = ArchitectureDiagram(
 vpc = d.add(NodeGroup(title="Production VPC", padding=5.0), xy=(4.0, 4.0))
 lb = vpc.add(
     Node("Cloud Load\nBalancing", width=25, height=18, icon=GcpIcon.CLOUD_LOAD_BALANCING, icon_size=7.5),
-    xy=(12.0, 18.0),
+    xy=(15.0, 20.0),
 )
 run = vpc.add(
     Node(
@@ -266,7 +266,7 @@ run = vpc.add(
         icon_size=7.5,
         card_style=Styles.PrimaryNeutral,
     ),
-    xy=(56.0, 18.0),
+    xy=(61.0, 20.0),
 )
 sql = vpc.add(
     Node(
@@ -277,15 +277,15 @@ sql = vpc.add(
         icon_size=7.5,
         card_style=Styles.SecondaryNeutral,
     ),
-    xy=(98.0, 28.0),
+    xy=(111.0, 30.0),
 )
 gcs = vpc.add(
     Node("Cloud Storage", width=25, height=18, icon=GcpIcon.CLOUD_STORAGE, icon_size=7.5),
-    xy=(98.0, 8.0),
+    xy=(111.0, 10.0),
 )
 
 d.connect(lb, run, label="HTTPS", padding=1.5)
-run.fork([sql, gcs], at_x=88.0, padding=1.5)
+run.fork([sql, gcs], at_x=84.5, padding=1.5)
 
 d.draw(xy=(4.0, 4.0))
 save()

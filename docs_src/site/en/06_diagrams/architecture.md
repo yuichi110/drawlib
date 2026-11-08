@@ -338,6 +338,7 @@ def draw_sub_pills(scx: float, labels: list[str], active_idx: int) -> None:
 
 NODE_TXT = Styles.DarkBold.patch(text_size=9.6)
 EDGE_TXT = Styles.DarkBold.patch(text_size=9.5)
+MINI_EDGE = Styles.DarkBold.patch(line_arrow_head_scale=12)
 GRP_TXT = Styles.DarkBold.patch(text_size=9.6, halign="left", valign="top")
 
 # =========================================================================
@@ -425,7 +426,7 @@ for p1_idx, (mode_1, dur, code_1, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) in
             d = ArchitectureDiagram(
                 node_style=Styles.Primary,
                 node_text_style=NODE_TXT,
-                edge_style=Styles.DarkBold,
+                edge_style=MINI_EDGE,
                 edge_text_style=EDGE_TXT,
                 node_card_style=Styles.Neutral,
                 width=dw,
@@ -469,7 +470,7 @@ for p1_idx, (mode_1, dur, code_1, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) in
             d = ArchitectureDiagram(
                 node_style=Styles.Primary,
                 node_text_style=NODE_TXT,
-                edge_style=Styles.DarkBold,
+                edge_style=MINI_EDGE,
                 edge_text_style=EDGE_TXT,
                 node_card_style=Styles.Neutral,
                 width=dw,
@@ -495,7 +496,7 @@ for p1_idx, (mode_1, dur, code_1, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) in
             d = ArchitectureDiagram(
                 node_style=Styles.Primary,
                 node_text_style=NODE_TXT,
-                edge_style=Styles.DarkBold,
+                edge_style=MINI_EDGE,
                 edge_text_style=EDGE_TXT,
                 node_card_style=Styles.Neutral,
                 width=dw,
@@ -586,10 +587,10 @@ PART2_STATES = [
             "client = d.add(Node(",
             '    "Client", icon=(',
             "        PhosphorIcon.USER)),",
-            "    xy=(5.2, 9.2))",
+            "    xy=(5.0, 9.2))",
             "vpc = d.add(NodeGroup(",
             '    title="VPC", padding=2.2),',
-            "    xy=(21.6, 0.0))",
+            "    xy=(22.2, 0.0))",
             "# Connect straight to VPC border!",
             "client.connect(",
             '    vpc, label="HTTPS")',
@@ -615,7 +616,7 @@ for p2_idx, (mode_2, dur, code_2, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) in
             d = ArchitectureDiagram(
                 node_style=Styles.Primary,
                 node_text_style=NODE_TXT,
-                edge_style=Styles.DarkBold,
+                edge_style=MINI_EDGE,
                 edge_text_style=EDGE_TXT,
                 node_card_style=Styles.White,
             )
@@ -635,7 +636,7 @@ for p2_idx, (mode_2, dur, code_2, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) in
             d = ArchitectureDiagram(
                 node_style=Styles.Primary,
                 node_text_style=NODE_TXT,
-                edge_style=Styles.DarkBold,
+                edge_style=MINI_EDGE,
                 edge_text_style=EDGE_TXT,
                 node_card_style=Styles.White,
             )
@@ -664,28 +665,28 @@ for p2_idx, (mode_2, dur, code_2, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) in
                 style=Styles.PrimaryBold.patch(text_size=9.5),
             )
         else:
-            bx, by = 77.2, 24.0
+            bx, by = 77.1, 24.0
             d = ArchitectureDiagram(
                 node_style=Styles.Primary,
                 node_text_style=NODE_TXT,
-                edge_style=Styles.DarkBold,
+                edge_style=MINI_EDGE,
                 edge_text_style=EDGE_TXT,
                 node_card_style=Styles.White,
             )
             client = d.add(
-                Node("Client", width=10.4, height=10.0, icon=PhosphorIcon.USER, icon_size=4.4, card_style=Styles.Neutral),
-                xy=(5.2, 9.2),
+                Node("Client", width=10.0, height=10.0, icon=PhosphorIcon.USER, icon_size=4.4, card_style=Styles.Neutral),
+                xy=(5.0, 9.2),
             )
             vpc = d.add(
                 NodeGroup(title="VPC", padding=2.2, style=Styles.PrimaryNeutral, text_style=GRP_TXT),
-                xy=(21.6, 0.0),
+                xy=(22.2, 0.0),
             )
-            gw = vpc.add(Node("API", width=10.4, height=9.8, icon=GcpIcon.CLOUD_RUN, icon_size=4.4), xy=(7.4, 7.1))
-            db = vpc.add(Node("DB", width=10.4, height=9.8, icon=GcpIcon.CLOUD_SQL, icon_size=4.4), xy=(20.2, 7.1))
-            gw.connect(db, padding=0.5)
-            client.connect(vpc, label="HTTPS", padding=0.5)
+            gw = vpc.add(Node("API", width=9.6, height=9.8, icon=GcpIcon.CLOUD_RUN, icon_size=4.4), xy=(7.0, 7.1))
+            db = vpc.add(Node("DB", width=9.6, height=9.8, icon=GcpIcon.CLOUD_SQL, icon_size=4.4), xy=(20.6, 7.1))
+            gw.connect(db, padding=0.4)
+            client.connect(vpc, label="HTTPS", padding=(0.4, 1.0))
             d.draw(xy=(bx, by))
-            circle((bx + 21.6, by + 9.2), radius=1.0, style=Styles.DangerFlat)
+            circle((bx + 22.2, by + 9.2), radius=0.9, style=Styles.DangerFlat)
             text(
                 (scx, 18.4),
                 "client.connect(vpc) attaches to VPC left border",
@@ -778,7 +779,7 @@ for p3_idx, (mode_3, dur, code_3, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) in
             d = ArchitectureDiagram(
                 node_style=Styles.Primary,
                 node_text_style=NODE_TXT,
-                edge_style=Styles.DarkBold,
+                edge_style=MINI_EDGE,
                 edge_text_style=EDGE_TXT,
                 node_card_style=Styles.Neutral,
             )
@@ -811,7 +812,7 @@ for p3_idx, (mode_3, dur, code_3, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) in
             d = ArchitectureDiagram(
                 node_style=Styles.Primary,
                 node_text_style=NODE_TXT,
-                edge_style=Styles.DarkBold,
+                edge_style=MINI_EDGE,
                 edge_text_style=EDGE_TXT,
                 node_card_style=Styles.Neutral,
             )
@@ -965,7 +966,7 @@ for p4_idx, (mode_4, dur, code_4, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) in
             d = ArchitectureDiagram(
                 node_style=Styles.Primary,
                 node_text_style=NODE_TXT,
-                edge_style=Styles.DarkBold,
+                edge_style=MINI_EDGE,
                 edge_text_style=EDGE_TXT,
                 node_card_style=Styles.Neutral,
             )
@@ -1020,7 +1021,7 @@ for p4_idx, (mode_4, dur, code_4, hl_rng, badge_txt, foot_txt, s_t, s_1, s_2) in
             d = ArchitectureDiagram(
                 node_style=Styles.Primary,
                 node_text_style=Styles.DarkBold.patch(text_size=10.6),
-                edge_style=Styles.DarkBold,
+                edge_style=MINI_EDGE,
                 edge_text_style=Styles.DarkBold.patch(text_size=10.6),
                 node_card_style=Styles.Neutral,
                 width=dw,
@@ -1201,7 +1202,7 @@ from drawlib.canvas import save, setup
 from drawlib.diagrams.architecture import ArchitectureDiagram, GcpIcon, Node, NodeGroup, PhosphorIcon
 from drawlib.styles import Styles
 
-setup(width=132, height=88)
+setup(width=134, height=88)
 
 d = ArchitectureDiagram(
     node_style=Styles.Primary,
@@ -1219,7 +1220,7 @@ vpc = d.add(
         padding=5.5,
         text_style=Styles.DarkBold.patch(text_size=11.0, halign="left", valign="top"),
     ),
-    xy=(28.0, 6.0),
+    xy=(26.5, 6.0),
 )
 
 # 2. Public Subnet with Load Balancer (local coordinates inside vpc)
@@ -1243,7 +1244,7 @@ private_subnet = vpc.add(
         padding=4.0,
         text_style=Styles.DarkBold.patch(text_size=10.0, halign="left", valign="top"),
     ),
-    xy=(36.5, 4.5),
+    xy=(40.5, 4.5),
 )
 gke1 = private_subnet.add(
     Node("API Pod 1", width=18, height=15, icon=GcpIcon.GOOGLE_KUBERNETES_ENGINE, icon_size=6.5),
@@ -1256,12 +1257,12 @@ gke2 = private_subnet.add(
 
 # 4. External Actor and Managed Services (global diagram coordinates outside vpc)
 user = d.add(Node("Client User", width=18, height=15, icon=PhosphorIcon.USER, icon_size=6.5), xy=(9.0, 35.5))
-db = d.add(Node("Cloud SQL\n(PostgreSQL)", width=22, height=16, icon=GcpIcon.CLOUD_SQL, icon_size=6.5), xy=(114.0, 47.5))
-storage = d.add(Node("Cloud Storage\n(Assets)", width=22, height=16, icon=GcpIcon.CLOUD_STORAGE, icon_size=6.5), xy=(114.0, 23.5))
+db = d.add(Node("Cloud SQL\n(PostgreSQL)", width=22, height=16, icon=GcpIcon.CLOUD_SQL, icon_size=6.5), xy=(116.0, 47.5))
+storage = d.add(Node("Cloud Storage\n(Assets)", width=22, height=16, icon=GcpIcon.CLOUD_STORAGE, icon_size=6.5), xy=(116.0, 23.5))
 
 # 5. Connections
 d.connect(user, lb, label="HTTPS", padding=1.2)
-lb.fork([gke1, gke2], at_x=60.5, padding=1.2)
+lb.fork([gke1, gke2], at_x=58.5, padding=1.2)
 d.connect(gke1, db, label="SQL", padding=1.2)
 d.connect(gke2, storage, label="Assets", padding=1.2)
 
