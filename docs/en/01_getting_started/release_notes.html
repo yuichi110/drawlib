@@ -39,19 +39,19 @@
     
     
     
-    <meta name="description" content="Release Date: 2026/11/07">
+    <meta name="description" content="Release Date: 2026/11/08">
     <link rel="canonical" href="https://www.drawlib.com/en/01_getting_started/release_notes.html">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Drawlib Documentation">
     <meta property="og:title" content="Release Notes &amp; Migration Guide — Drawlib Documentation">
-    <meta property="og:description" content="Release Date: 2026/11/07">
+    <meta property="og:description" content="Release Date: 2026/11/08">
     <meta property="og:url" content="https://www.drawlib.com/en/01_getting_started/release_notes.html">
     <meta property="og:image" content="https://www.drawlib.com/_assets/ogp.png">
     <meta property="og:locale" content="en_US">
     <meta property="og:locale:alternate" content="ja_JP">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Release Notes &amp; Migration Guide — Drawlib Documentation">
-    <meta name="twitter:description" content="Release Date: 2026/11/07">
+    <meta name="twitter:description" content="Release Date: 2026/11/08">
     <meta name="twitter:image" content="https://www.drawlib.com/_assets/ogp.png">
     
     
@@ -88,7 +88,7 @@
                 
                 <a href="../01_getting_started/release_notes.html" class="sidebar-version-badge" title="View Release Notes">
                     <span class="sidebar-version-dot" aria-hidden="true"></span>
-                    <span class="sidebar-version-text">v0.3.8</span>
+                    <span class="sidebar-version-text">v0.3.9</span>
                 </a>
                 <a href="https://github.com/yuichi110/drawlib" target="_blank" rel="noopener noreferrer" class="sidebar-github-link" aria-label="GitHub Repository" title="GitHub Repository">
                     <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
@@ -671,6 +671,26 @@
             </header>
             <main class="main-content">
                 <h1>Release Notes &amp; Migration Guide</h1>
+<h2>Version 0.3.9</h2>
+<p><em>Release Date: 2026/11/08</em></p>
+<p>Version 0.3.9 introduces <strong>secant-aligned curved arrowhead rendering with exact de Casteljau Bezier subdivision</strong> across all curved line and diagram primitives, <strong>offset side anchors (<code>top_right</code>, <code>top_left</code>, <code>bottom_right</code>, <code>bottom_left</code>) on normal <code>StateDiagram</code> transitions</strong>, and <strong>non-fatal <code>[Geometry Warning]</code> arrowhead clearance diagnostics in <code>drawlib show</code></strong>, alongside updated AI agent geometry rules and refined orthogonal routing across bilingual documentation.</p>
+<hr />
+<h3>Highlights &amp; New Features</h3>
+<h4>1. Secant-Aligned Curved Arrowheads &amp; <code>StateDiagram</code> Offset Anchors (<code>l4_canvas</code>, <code>diagrams.state</code>)</h4>
+<ul>
+<li><strong>Secant Orientation &amp; de Casteljau Tip Subdivision (<code>_SecantCurveArrowStyle</code>)</strong>: Curved arrow lines (<code>line_curved</code>, <code>line_bezier1</code>, <code>line_bezier2</code>, <code>line_arc</code>, <code>lines_curved</code>, and curved <code>lines_bezier</code>) now align arrowhead wings along the secant vector from <code>P_base</code> (one <code>head_length</code> back along the curve) to the retracted tip <code>P_tip</code>, while subdividing the underlying Bezier shaft via de Casteljau's algorithm. Curved shafts stay cleanly centered between both wings on tight or short arcs without requiring manual angle parameters or shrinking arrowhead scale.</li>
+<li><strong>Bidirectional Offset Side Anchors in <code>StateDiagram</code> (<code>_state_node.py</code>, <code>_render_transition.py</code>)</strong>: Normal <code>StateDiagram.connect(...)</code> transitions now resolve <code>&quot;top_right&quot;</code>, <code>&quot;top_left&quot;</code>, <code>&quot;bottom_right&quot;</code>, and <code>&quot;bottom_left&quot;</code> perimeter offsets (<code>±0.35</code> along the secondary axis) on box, ellipse, circle, and diamond state nodes, cleanly separating opposing <code>A &lt;-&gt; B</code> transition arcs on compact cards.</li>
+</ul>
+<h4>2. Non-Fatal Arrowhead Clearance Geometry Warnings (<code>drawlib show</code>)</h4>
+<ul>
+<li><strong>Terminal Segment Footprint Checker (<code>LineUtils.check_arrowhead_segment_warnings</code>)</strong>: <code>Canvas</code> now evaluates rendered <code>FancyArrowPatch</code> paths against Drawlib's <code>720pt</code> reference canvas geometry and prints non-fatal <code>[Geometry Warning]</code> messages to <code>stderr</code> during <code>drawlib show</code> whenever an orthogonal corner's final segment (or total line/curve length) is shorter than the arrowhead's physical footprint—preserving declarative <code>line_arrow_head_scale</code> uniformity without failing builds.</li>
+</ul>
+<h4>3. AI Agent Geometry Rules &amp; Bilingual Documentation Refinements</h4>
+<ul>
+<li><strong>Stage 2 Orthogonal Clearance Guidance (<code>_rules/</code>)</strong>: Updated <code>review-guide</code>, <code>lib-lines</code>, <code>lib-graph-layer</code>, <code>lib-graph-tree</code>, <code>lib-diagrams-state</code>, and <code>drawlib init agent</code> workspace instructions with <code>[Geometry Warning]</code> verification and minimum orthogonal routing gap guidelines (<code>&gt;= 6.0</code> units for midpoint Z-routing).</li>
+<li><strong>Documentation Diagram Polish (<code>docs_src/</code>)</strong>: Refined orthogonal fork positions, rank/level separations, and mini-card arrowhead scales across bilingual <code>site</code>, <code>api</code>, <code>architecture</code>, and <code>readme</code> diagrams to achieve zero geometry warnings repo-wide.</li>
+</ul>
+<hr />
 <h2>Version 0.3.8</h2>
 <p><em>Release Date: 2026/11/07</em></p>
 <p>Version 0.3.8 introduces <strong>multi-core parallel diagram rendering (<code>-w</code> / <code>--workers</code>, <code>DRAWLIB_BUILD_WORKERS</code>)</strong> across all 7 <code>drawlib build</code> CLI subcommands and programmatic <code>build_*</code> APIs—accelerating cold builds by <strong>3x–6x</strong> on multi-core machines while keeping warm-cache builds instantaneous—alongside <strong>cross-process asset download locking &amp; atomic Zip-Slip-safe archive extraction</strong> and <strong>official Python 3.14 support (<code>Python 3.11–3.14</code>)</strong>.</p>

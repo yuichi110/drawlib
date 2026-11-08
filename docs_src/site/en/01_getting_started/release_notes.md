@@ -1,5 +1,28 @@
 # Release Notes & Migration Guide
 
+## Version 0.3.9
+
+*Release Date: 2026/11/08*
+
+Version 0.3.9 introduces **secant-aligned curved arrowhead rendering with exact de Casteljau Bezier subdivision** across all curved line and diagram primitives, **offset side anchors (`top_right`, `top_left`, `bottom_right`, `bottom_left`) on normal `StateDiagram` transitions**, and **non-fatal `[Geometry Warning]` arrowhead clearance diagnostics in `drawlib show`**, alongside updated AI agent geometry rules and refined orthogonal routing across bilingual documentation.
+
+---
+
+### Highlights & New Features
+
+#### 1. Secant-Aligned Curved Arrowheads & `StateDiagram` Offset Anchors (`l4_canvas`, `diagrams.state`)
+- **Secant Orientation & de Casteljau Tip Subdivision (`_SecantCurveArrowStyle`)**: Curved arrow lines (`line_curved`, `line_bezier1`, `line_bezier2`, `line_arc`, `lines_curved`, and curved `lines_bezier`) now align arrowhead wings along the secant vector from `P_base` (one `head_length` back along the curve) to the retracted tip `P_tip`, while subdividing the underlying Bezier shaft via de Casteljau's algorithm. Curved shafts stay cleanly centered between both wings on tight or short arcs without requiring manual angle parameters or shrinking arrowhead scale.
+- **Bidirectional Offset Side Anchors in `StateDiagram` (`_state_node.py`, `_render_transition.py`)**: Normal `StateDiagram.connect(...)` transitions now resolve `"top_right"`, `"top_left"`, `"bottom_right"`, and `"bottom_left"` perimeter offsets (`±0.35` along the secondary axis) on box, ellipse, circle, and diamond state nodes, cleanly separating opposing `A <-> B` transition arcs on compact cards.
+
+#### 2. Non-Fatal Arrowhead Clearance Geometry Warnings (`drawlib show`)
+- **Terminal Segment Footprint Checker (`LineUtils.check_arrowhead_segment_warnings`)**: `Canvas` now evaluates rendered `FancyArrowPatch` paths against Drawlib's `720pt` reference canvas geometry and prints non-fatal `[Geometry Warning]` messages to `stderr` during `drawlib show` whenever an orthogonal corner's final segment (or total line/curve length) is shorter than the arrowhead's physical footprint—preserving declarative `line_arrow_head_scale` uniformity without failing builds.
+
+#### 3. AI Agent Geometry Rules & Bilingual Documentation Refinements
+- **Stage 2 Orthogonal Clearance Guidance (`_rules/`)**: Updated `review-guide`, `lib-lines`, `lib-graph-layer`, `lib-graph-tree`, `lib-diagrams-state`, and `drawlib init agent` workspace instructions with `[Geometry Warning]` verification and minimum orthogonal routing gap guidelines (`>= 6.0` units for midpoint Z-routing).
+- **Documentation Diagram Polish (`docs_src/`)**: Refined orthogonal fork positions, rank/level separations, and mini-card arrowhead scales across bilingual `site`, `api`, `architecture`, and `readme` diagrams to achieve zero geometry warnings repo-wide.
+
+---
+
 ## Version 0.3.8
 
 *Release Date: 2026/11/07*

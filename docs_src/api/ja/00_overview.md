@@ -17,7 +17,7 @@ rectangle((60, 29), width=112, height=50, style=Styles.MutedDashed.patch(shape_r
 phosphor.package((38.0, 48.5), width=4.4, style=Styles.DarkBold)
 text(
     (63.5, 48.5),
-    "Drawlib Package Architecture (v0.3.8)",
+    "Drawlib Package Architecture (v0.3.9)",
     style=Styles.DarkBold.patch(text_size=12.5),
 )
 
@@ -112,12 +112,12 @@ Drawlib は `PEP 562` に基づく遅延モジュールロードを採用して�
 ```python
 from drawlib import __version__
 
-__version__: Final[str] = "0.3.8"
+__version__: Final[str] = "0.3.9"
 ```
 
 | 定数名 | 型 | 値 | 説明 |
 | :--- | :--- | :--- | :--- |
-| `__version__` | `Final[str]` | `'0.3.8'` | インストールされている Drawlib のセマンティックバージョン文字列。 |
+| `__version__` | `Final[str]` | `'0.3.9'` | インストールされている Drawlib のセマンティックバージョン文字列。 |
 
 ---
 
@@ -144,12 +144,12 @@ LIB_NAME: Final[str] = "drawlib"
 ```python
 from drawlib import LIB_VERSION
 
-LIB_VERSION: Final[str] = "0.3.8"
+LIB_VERSION: Final[str] = "0.3.9"
 ```
 
 | 定数名 | 型 | 値 | 説明 |
 | :--- | :--- | :--- | :--- :---
-| `LIB_VERSION` | `Final[str]` | `'0.3.8'` | `drawlib.__version__` と同一のセマンティックバージョン文字列。 |
+| `LIB_VERSION` | `Final[str]` | `'0.3.9'` | `drawlib.__version__` と同一のセマンティックバージョン文字列。 |
 
 ---
 

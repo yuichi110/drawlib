@@ -1,5 +1,28 @@
 # リリースノートと移行ガイド
 
+## バージョン 0.3.9
+
+*リリース日: 2026/11/08*
+
+バージョン 0.3.9 では、すべての曲線ラインおよびダイアグラムプリミティブに対する **割線（Secant）基準の曲線矢頭角度計算と de Casteljau ベジェ分割トリミング**、**`StateDiagram` 通常遷移でのオフセット辺アンカー（`top_right`・`top_left`・`bottom_right`・`bottom_left`）対応**、および **`drawlib show` 実行時の非致命的な矢頭埋もれ検出警告（`[Geometry Warning]`）** を追加したほか、AI エージェント向け幾何レビュー規約と日英ドキュメント図表の直交ルーティング品質を強化しました。
+
+---
+
+### ハイライトと新機能
+
+#### 1. 割線基準の曲線矢頭レンダリング & `StateDiagram` オフセットアンカー対応（`l4_canvas`, `diagrams.state`）
+- **割線角度アライメントと de Casteljau 先端分割（`_SecantCurveArrowStyle`）**: 曲線矢印（`line_curved`・`line_bezier1`・`line_bezier2`・`line_arc`・`lines_curved`・曲線を含む `lines_bezier`）において、後退させた先端 `P_tip` から曲線に沿って矢頭長分戻った `P_base` への割線ベクトルに矢の羽根を揃え、同時にベジェ曲線本体を de Casteljau アルゴリズムで正確に分割するよう改善しました。手動の角度調整オプションを追加したり矢頭サイズを縮小したりすることなく、急カーブや短い円弧でも曲線が左右の羽根の中央へ綺麗に収まります。
+- **`StateDiagram` 通常遷移での双方向オフセットアンカー（`_state_node.py`, `_render_transition.py`）**: `StateDiagram.connect(...)` の通常遷移でも `"top_right"`・`"top_left"`・`"bottom_right"`・`"bottom_left"` の境界オフセット（副軸方向 `±0.35`）を解決するようになり、コンパクトな状態ノード間の双方向遷移アーク（`A <-> B`）を重なりなく分離できます。
+
+#### 2. 矢頭クリアランスの非致命的ジオメトリ警告（`drawlib show`）
+- **末端セグメント長チェッカー（`LineUtils.check_arrowhead_segment_warnings`）**: Drawlib の `720pt` 基準キャンバス幅に基づき描画済み `FancyArrowPatch` の物理矢頭サイズを判定し、直交折れ線の最終セグメント（または線・曲線の全長）が矢頭サイズを下回る場合に、`drawlib show` 実行時の `stderr` へ非致命的な `[Geometry Warning]` を出力します（`line_arrow_head_scale` の自動縮小やビルドエラー化は行わず、宣言的スタイルの統一性を維持します）。
+
+#### 3. AI エージェント向け幾何レビュー規約と日英ドキュメント図表の品質改善
+- **Stage 2 直交クリアランス規約の整備（`_rules/`）**: `review-guide`・`lib-lines`・`lib-graph-layer`・`lib-graph-tree`・`lib-diagrams-state` および `drawlib init agent` テンプレートに、`[Geometry Warning]` の確認手順と直交 Z ルーティング時の最小ノード間隔目安（`>= 6.0` 単位）を追記しました。
+- **日英ドキュメント図表の一斉ブラッシュアップ（`docs_src/`）**: `site`・`api`・`architecture`・`readme` 全プロジェクトの直交分岐位置やランク／レベル間隔を最適化し、リポジトリ全体でジオメトリ警告ゼロを達成しました。
+
+---
+
 ## バージョン 0.3.8
 
 *リリース日: 2026/11/07*
