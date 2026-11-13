@@ -1153,7 +1153,7 @@ Options are specified as space-delimited `key=value` pairs on the opening code f
 | **Caption** | `caption="Text"` or `caption='Text'` | `None` | Wraps the figure in semantic `<figure>` and `<figcaption>` elements. |
 | **CSS Class** | `class=hero-fig`, `class="card shadow"` | `None` | Appends custom CSS classes to the figure wrapper. |
 | **Cache Control** | `no_cache=true` | `False` | Forces this specific block to re-execute on every build, bypassing `.drawlib/cache.db`. |
-| **Slide Animation Controls** | `anim_trigger=auto\|click`, `anim_loop=once\|infinite`, `anim_pause=(2, 4)` | `auto`, `infinite`, `()` | Controls interactive `<canvas>` animation playback in HTML slide decks (see [Slide Deck Project Guide](./project_slide.md)). |
+| **Slide Animation Controls** | `anim_trigger=auto\|click`, `anim_loop=once\|infinite`, `anim_pause=(2, 4)` or `(0-3, 4-7)` | `auto`, `infinite`, `()` | Controls interactive `<canvas>` animation playback (single-frame pauses and `start-end` loop ranges) in HTML slide decks (see [Slide Deck Project Guide](./project_slide.md)). |
 
 > [!TIP]
 > **Best Practice for AI & Automation**:

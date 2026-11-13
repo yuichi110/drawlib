@@ -284,7 +284,7 @@ from drawlib.anim import Animation
 | :--- | :--- | :--- | :--- |
 | **`anim-trigger`** | `auto` \| `click` | `auto` | `auto` はスライド表示と同時に再生を開始し、`click` は発表者が図をクリックするまでフレーム 0（`READY`）で待機します。 |
 | **`anim-loop`** | `once` \| `infinite` | `infinite`（`anim-pause` 指定時は `once`） | `once` は最終フレームで停止し（`ENDED`、クリックするとフレーム 0 から再生）、`infinite` は連続ループ再生します。 |
-| **`anim-pause`** | カンマ区切りの 0 始まりフレーム番号（例: `2,4`） | `None` | 指定された各フレーム番号の描画直後に再生を一時停止（`PAUSED`）します。図をクリックすると `frame + 1` から次の一時停止位置または末尾まで再生を再開します。 |
+| **`anim-pause`** | カンマ区切りの 0 始まりフレーム番号または `start-end` ループ範囲（例: `(2, 4)` や `(0-3, 4-7)`） | `None` | 単一のフレーム番号はそのフレーム描画直後に一時停止（`PAUSED`）し、ハイフン区切りの `start-end` 範囲は `start..end` を連続ループ再生（`LOOPING`）しながら待機し、クリックや `A` キーで即座に `end + 1` へ進みます。 |
 
 ```drawlib code=fold align=center file=anim_overview_slide_playback_states.png caption="インタラクティブなスライドアニメーション再生ステートマシン (READY, PLAYING, PAUSED, ENDED)"
 from drawlib.canvas import save, setup

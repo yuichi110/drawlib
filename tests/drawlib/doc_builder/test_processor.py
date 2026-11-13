@@ -442,7 +442,7 @@ def test_block_processor_honors_no_cache(tmp_path) -> None:
 
 
 def test_parse_block_info_anim_options() -> None:
-    """Verify parse_block_info parses anim_trigger, anim_loop, and anim_pause options."""
+    """Verify parse_block_info parses anim_trigger, anim_loop, and anim_pause (single frames and ranges)."""
     default_opts = parse_block_info("file=flow.png")
     assert default_opts.anim_trigger is None
     assert default_opts.anim_loop is None
@@ -453,17 +453,28 @@ def test_parse_block_info_anim_options() -> None:
     assert opts1.anim_loop == "once"
     assert opts1.anim_pause == [2, 4]
 
-    opts2 = parse_block_info("file=flow.apng format=apng anim_trigger=auto anim_loop=infinite anim_pause=(4, 9, 0, 4)")
+    opts2 = parse_block_info(
+        "file=flow.apng format=apng anim_trigger=auto anim_loop=infinite anim_pause=(4, 9, 0, 4, -1)"
+    )
     assert opts2.file == "flow.apng"
     assert opts2.format == "apng"
     assert opts2.anim_trigger == "auto"
     assert opts2.anim_loop == "infinite"
-    assert opts2.anim_pause == [4, 9]
+    assert opts2.anim_pause == [0, 4, 9]
 
     opts3 = parse_block_info("file=flow.webp anim_trigger=click anim_loop=once anim_pause=3")
     assert opts3.anim_trigger == "click"
     assert opts3.anim_loop == "once"
     assert opts3.anim_pause == [3]
+
+    opts4 = parse_block_info("file=flow.png anim_pause=(0-3, 4-7, 8-11)")
+    assert opts4.anim_pause == [(0, 3), (4, 7), (8, 11)]
+
+    opts5 = parse_block_info("file=flow.png anim_pause=(0, 1-4, 5-5, 6-8, 9, 8-2)")
+    assert opts5.anim_pause == [0, (1, 4), 5, (6, 8), 9]
+
+    opts6 = parse_block_info("file=flow.png anim_pause=0-3")
+    assert opts6.anim_pause == [(0, 3)]
 
 
 def test_block_processor_gif_animation_and_data_url(tmp_path: Path) -> None:

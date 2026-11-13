@@ -159,7 +159,7 @@ When a Markdown or Slide ````drawlib```` fence configures interactive playback o
 
 - **Zero-Server `file://` Base64 Hydration**: To avoid browser `fetch()` CORS restrictions when opening local `index.html` decks directly from disk (`file://`), the compiler embeds the encoded APNG/WebP payload inside `data-base64="..."` alongside `data-trigger`, `data-loop`, and `data-pause` attributes (`anim_loop` automatically defaults to `"once"` whenever `anim_pause` checkpoints are specified).
 - **Dual-Path Frame Decoder (`slide.js`: `createAnimPlayer`)**: At runtime, the browser player decodes frames via the hardware-accelerated WebCodecs `ImageDecoder` API (`image/apng` or `image/webp`), falling back automatically to an embedded pure-JavaScript APNG binary chunk parser (`parseApngBuffer`) that reconstructs standalone PNG frames (`IHDR` + `fcTL` + `IDAT`/`fdAT` with recomputed IEEE 802.3 CRC32 checksums).
-- **4-State Playback Machine**: Each player transitions deterministically across `READY -> PLAYING -> PAUSED -> ENDED`, pausing automatically at frame indices listed in `anim_pause` and advancing on click or keyboard trigger (`A`).
+- **Playback State Machine**: Each player transitions deterministically across `READY -> PLAYING / LOOPING -> PAUSED -> ENDED`, pausing statically at single frame indices or continuously looping `start-end` frame ranges listed in `anim_pause` and advancing immediately to the next step on click or keyboard trigger (`A`).
 
 ---
 

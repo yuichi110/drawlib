@@ -1042,7 +1042,7 @@ When embedding APNG (`.png` / `.apng`) or Animated WebP (`.webp`) diagrams insid
 
 - **`anim_trigger=click`** (`auto` | `click`): Holds on Frame 0 until clicked by the presenter.
 - **`anim_loop=once`** (`once` | `infinite`): Stops on the final frame (`ENDED`); clicking again replays from Frame 0.
-- **`anim_pause=(2, 4)`**: Pauses at 0-based frame indices `2` and `4` (`PAUSED`); clicking resumes to the next step.
+- **`anim_pause=(2, 4)` or `anim_pause=(0-3, 4-7)`**: Single 0-based frame indices (`2`, `4`) pause statically at that frame (`PAUSED`), whereas hyphenated ranges (`0-3`, `4-7`) continuously loop frames `start..end` (`LOOPING`) until clicking or pressing `A` immediately advances to `end + 1`.
 - **Vector PDF Export (`build_pdf.sh`)**: Automatically renders Frame 0 onto the slide without the interactive play badge.
 - **MS PowerPoint Export (`drawlib build pptx`)**: Extracts a crisp static PNG at `--dpi 240` using the final frame by default (`--anim-frame last`), or the initial frame when `--anim-frame first` is specified.
 

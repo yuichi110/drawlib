@@ -306,7 +306,7 @@ When a ````drawlib```` block outputs an animated image (**`.png` APNG recommende
 | :--- | :--- | :--- | :--- |
 | `anim_trigger=<mode>` | `auto` \| `click` | `auto` | `click` holds playback at Frame 0 (`READY` badge) until the user clicks the diagram, presses `A`, or clicks **Play Animation** in Presenter View. |
 | `anim_loop=<mode>` | `infinite` \| `once` | `infinite` | `once` stops at the final frame (`ENDED` badge); clicking again or pressing `A` resets to Frame 0 (`READY` state). |
-| `anim_pause=<frames>` | Tuple of 0-based indices (e.g. `anim_pause=(2, 4)`) | *(none)* | Automatically pauses playback upon reaching the specified 0-based frame indices (`PAUSED` badge); click or press `A` to resume to the next step. |
+| `anim_pause=<steps>` | Tuple of 0-based indices or `start-end` loop ranges (e.g. `anim_pause=(2, 4)` or `anim_pause=(0-3, 4-7)`) | *(none)* | Single indices (`2`) pause statically at that frame (`PAUSED` badge); hyphenated ranges (`0-3`) continuously loop frames `0..3` (`LOOPING`) until click or `A` immediately jumps to `end + 1` (`4`). |
 
 #### Interactive Animation Example in a Slide:
 ````markdown

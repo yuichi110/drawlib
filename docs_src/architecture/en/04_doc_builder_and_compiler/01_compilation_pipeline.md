@@ -345,7 +345,7 @@ save()
 | **`no_cache`** | `bool` | `False` | Forces fresh execution of this specific block even when `.drawlib/cache.db` holds a matching digest. |
 | **`anim_trigger`** | `"auto" \| "click" \| None` | `None` | Activates `<canvas class="drawlib-anim-canvas">` interactive playback (`"auto"` on slide entry or `"click"`). |
 | **`anim_loop`** | `"once" \| "infinite" \| None` | `None` | Controls playback looping (automatically defaults to `"once"` whenever `anim_pause` is provided). |
-| **`anim_pause`** | `list[int] \| None` | `None` | Sorted positive frame indices (e.g., `anim_pause=[2, 5]`) where interactive playback pauses awaiting user advance. |
+| **`anim_pause`** | `list[int \| tuple[int, int]] \| None` | `None` | Sorted 0-based frame indices or `(start, end)` loop ranges (e.g., `anim_pause=(2, 5)` or `anim_pause=(0-3, 4-7)`) where interactive playback holds or loops awaiting user advance. |
 
 ---
 

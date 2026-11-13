@@ -216,7 +216,11 @@ def format_asset_markup(
     if has_anim_opts and options is not None and file_name.lower().endswith((".png", ".apng", ".webp")):
         trigger = html.escape(options.anim_trigger or "auto", quote=True)
         loop = html.escape(options.anim_loop or ("once" if options.anim_pause else "infinite"), quote=True)
-        pause_attr = f' data-anim-pause="{",".join(str(p) for p in options.anim_pause)}"' if options.anim_pause else ""
+        pause_tokens = [
+            f"{p[0]}-{p[1]}" if isinstance(p, tuple) else str(p)
+            for p in (options.anim_pause or [])
+        ]
+        pause_attr = f' data-anim-pause="{",".join(pause_tokens)}"' if pause_tokens else ""
         base64_attr = ""
         if output_abs:
             anim_disk = os.path.normpath(os.path.join(output_abs, file_name))

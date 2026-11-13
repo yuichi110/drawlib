@@ -275,6 +275,10 @@ hr {
   pointer-events: none;
 }
 
+.drawlib-anim-container.looping:hover .anim-play-badge {
+  opacity: 0.9;
+}
+
 .drawlib-anim-container.paused .anim-play-badge {
   opacity: 0.8;
 }

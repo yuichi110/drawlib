@@ -396,16 +396,46 @@
     const trigger = (container.getAttribute('data-anim-trigger') || 'auto').toLowerCase();
     const loopMode = (container.getAttribute('data-anim-loop') || 'infinite').toLowerCase();
     const rawPause = container.getAttribute('data-anim-pause') || '';
-    const pauseFrames = new Set(
-      rawPause
-        .split(',')
-        .map(s => parseInt(s.trim(), 10))
-        .filter(n => !isNaN(n) && n >= 0)
-    );
+    const pauseFrames = new Set();
+    const loopRanges = [];
+    rawPause.split(',').forEach(token => {
+      const s = token.trim();
+      if (!s) return;
+      const rangeMatch = /^(\d+)\s*-\s*(\d+)$/.exec(s);
+      if (rangeMatch) {
+        const start = parseInt(rangeMatch[1], 10);
+        const end = parseInt(rangeMatch[2], 10);
+        if (!isNaN(start) && !isNaN(end) && start >= 0) {
+          if (end > start) {
+            loopRanges.push({ start, end });
+          } else if (end === start) {
+            pauseFrames.add(start);
+          }
+        }
+        return;
+      }
+      if (/^\d+$/.test(s)) {
+        const n = parseInt(s, 10);
+        if (!isNaN(n) && n >= 0) {
+          pauseFrames.add(n);
+        }
+      }
+    });
+    loopRanges.sort((a, b) => (a.start - b.start) || (a.end - b.end));
+
+    function findLoopRangeForFrame(frameIndex) {
+      for (let i = 0; i < loopRanges.length; i++) {
+        const r = loopRanges[i];
+        if (frameIndex >= r.start && frameIndex <= r.end) {
+          return r;
+        }
+      }
+      return null;
+    }
 
     let frames = [];
     let currentFrame = 0;
-    let state = 'READY'; // 'READY' | 'PLAYING' | 'PAUSED' | 'ENDED'
+    let state = 'READY'; // 'READY' | 'PLAYING' | 'LOOPING' | 'PAUSED' | 'ENDED'
     let timerId = null;
 
     function clearTimer() {
@@ -416,14 +446,25 @@
     }
 
     function setState(newState) {
+      const prevState = state;
       state = newState;
-      container.classList.remove('playing', 'paused', 'ended');
+      if (newState === 'PAUSED') {
+        if (badge) badge.setAttribute('title', `Paused at frame ${currentFrame} — click to continue`);
+      } else if (newState === 'LOOPING') {
+        const activeRange = findLoopRangeForFrame(currentFrame);
+        const rangeLabel = activeRange ? `${activeRange.start}–${activeRange.end}` : String(currentFrame);
+        if (badge) badge.setAttribute('title', `Looping frames ${rangeLabel} — click to advance`);
+      }
+      if (prevState === newState) return;
+
+      container.classList.remove('playing', 'looping', 'paused', 'ended');
       if (newState === 'PLAYING') {
         container.classList.add('playing');
         if (badge) badge.setAttribute('title', 'Click to pause animation');
+      } else if (newState === 'LOOPING') {
+        container.classList.add('playing', 'looping');
       } else if (newState === 'PAUSED') {
         container.classList.add('paused');
-        if (badge) badge.setAttribute('title', `Paused at frame ${currentFrame} — click to continue`);
       } else if (newState === 'ENDED') {
         container.classList.add('ended');
         if (badge) badge.setAttribute('title', 'Click to reset to first frame');
@@ -454,6 +495,20 @@
 
       drawFrame(nextIndex);
       const isLastFrame = currentFrame >= frames.length - 1;
+      const activeRange = findLoopRangeForFrame(currentFrame);
+
+      // Check if this frame belongs to a designated loop range (start-end)
+      if (activeRange) {
+        setState('LOOPING');
+        const delay = frames[currentFrame].duration || 100;
+        timerId = setTimeout(() => {
+          if (state !== 'LOOPING') return;
+          const rangeEnd = Math.min(activeRange.end, frames.length - 1);
+          const upcoming = currentFrame >= rangeEnd ? activeRange.start : currentFrame + 1;
+          stepToFrame(upcoming);
+        }, delay);
+        return;
+      }
 
       // Check if we reached the final frame in 'once' mode
       if (isLastFrame && loopMode === 'once') {
@@ -467,6 +522,7 @@
         return;
       }
 
+      setState('PLAYING');
       // Otherwise schedule the next frame after current frame's duration
       const delay = frames[currentFrame].duration || 100;
       timerId = setTimeout(() => {
@@ -498,6 +554,23 @@
       stepToFrame(nextIdx);
     }
 
+    function advanceFromLoop() {
+      clearTimer();
+      if (!frames.length) return;
+      const activeRange = findLoopRangeForFrame(currentFrame);
+      const nextIdx = activeRange ? (activeRange.end + 1) : (currentFrame + 1);
+      if (nextIdx < frames.length) {
+        setState('PLAYING');
+        stepToFrame(nextIdx);
+      } else if (loopMode === 'infinite') {
+        setState('PLAYING');
+        stepToFrame(0);
+      } else {
+        drawFrame(frames.length - 1);
+        setState('ENDED');
+      }
+    }
+
     function handleClick(e, skipSync) {
       if (e) {
         e.stopPropagation();
@@ -510,6 +583,9 @@
       } else if (state === 'PAUSED') {
         // Resume from the frame after the paused frame
         advanceFromWait();
+      } else if (state === 'LOOPING') {
+        // Jump immediately to the first frame after the active loop range
+        advanceFromLoop();
       } else if (state === 'ENDED') {
         // Reset to Frame 0 and hold in READY state
         clearTimer();
@@ -730,6 +806,10 @@
       btnAnim.classList.add('playing');
       btnAnim.innerHTML = '<span class="pv-anim-icon">⏸</span><span class="pv-anim-label">Pause Animation</span>';
       btnAnim.setAttribute('title', 'Pause animation on both screens (A)');
+    } else if (st === 'LOOPING') {
+      btnAnim.classList.add('paused');
+      btnAnim.innerHTML = '<span class="pv-anim-icon">⏭</span><span class="pv-anim-label">Next Step</span>';
+      btnAnim.setAttribute('title', 'Advance from current loop range to next step (A)');
     } else if (st === 'PAUSED') {
       btnAnim.classList.add('paused');
       btnAnim.innerHTML = '<span class="pv-anim-icon">▶</span><span class="pv-anim-label">Resume Animation</span>';

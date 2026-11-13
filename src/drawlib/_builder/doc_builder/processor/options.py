@@ -76,7 +76,7 @@ class DrawlibBlockOptions(BaseModel):
     no_cache: bool = False
     anim_trigger: Literal["auto", "click"] | None = None
     anim_loop: Literal["once", "infinite"] | None = None
-    anim_pause: list[int] | None = None
+    anim_pause: list[int | tuple[int, int]] | None = None
 
 
 class ExtractedBlockInfo(BaseModel):
@@ -151,17 +151,32 @@ def parse_block_info(info_str: str) -> DrawlibBlockOptions:
             elif val_loop == "infinite":
                 options.anim_loop = "infinite"
         elif key_lower == "anim_pause":
-            pauses: list[int] = []
+            pauses: list[int | tuple[int, int]] = []
             for part in val_clean.strip("()[]").split(","):
                 part_s = part.strip()
-                if not part_s:
+                if not part_s or part_s.startswith("-"):
                     continue
-                with contextlib.suppress(ValueError):
-                    p_val = int(part_s)
-                    if p_val > 0:
-                        pauses.append(p_val)
+                if "-" in part_s:
+                    bounds = part_s.split("-")
+                    if len(bounds) != 2:
+                        continue
+                    with contextlib.suppress(ValueError):
+                        start_val = int(bounds[0].strip())
+                        end_val = int(bounds[1].strip())
+                        if start_val >= 0 and end_val > start_val:
+                            pauses.append((start_val, end_val))
+                        elif start_val >= 0 and end_val == start_val:
+                            pauses.append(start_val)
+                else:
+                    with contextlib.suppress(ValueError):
+                        p_val = int(part_s)
+                        if p_val >= 0:
+                            pauses.append(p_val)
             if pauses:
-                options.anim_pause = sorted(set(pauses))
+                options.anim_pause = sorted(
+                    set(pauses),
+                    key=lambda item: (item, item) if isinstance(item, int) else item,
+                )
 
     return options
 

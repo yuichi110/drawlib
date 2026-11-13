@@ -749,6 +749,44 @@ rectangle((20, 10), width=10, height=10, style=Styles.Neutral)
         # Static block without playback options -> standard <img>
         assert '<img src="../images/01_anim/static_box.png"' in html_content
 
+    def test_build_slide_anim_range_loop_markup(self, tmp_path: Path) -> None:
+        """Verify anim_pause with hyphenated ranges (e.g. (0-2, 3-5, 6)) emits data-anim-pause with ranges."""
+        src_dir = tmp_path / "slide_src"
+        out_dir = tmp_path / "slide"
+        en_dir = _write_slide_manifest(src_dir)
+
+        (en_dir / "01_range_anim.md").write_text(
+            """::: block xy=(80, 140) width=800 height=500
+```drawlib file=range_flow.png anim_trigger=auto anim_pause=(0-2, 3-4, 5)
+from drawlib.anim import Animation
+from drawlib.canvas import clear, save, setup
+from drawlib.shapes import rectangle
+from drawlib.styles import Styles
+
+clear()
+setup(width=40, height=20)
+anim = Animation(fps=4.0, loop=0)
+for i in range(6):
+    with anim.frame(duration=0.25):
+        rectangle((10 + i * 3, 10), width=6, height=6, style=Styles.PrimaryFlat)
+save()
+```
+:::
+""",
+            encoding="utf-8",
+        )
+
+        result_html = build_slide(str(src_dir), str(out_dir), no_cache=True)
+        html_content = Path(result_html).read_text(encoding="utf-8")
+        js_content = (out_dir / "slide.js").read_text(encoding="utf-8")
+
+        assert 'data-anim-trigger="auto"' in html_content
+        assert 'data-anim-loop="once"' in html_content
+        assert 'data-anim-pause="0-2,3-4,5"' in html_content
+        assert "findLoopRangeForFrame" in js_content
+        assert "advanceFromLoop" in js_content
+        assert "Next Step" in js_content
+
     def test_extract_slide_notes_single_and_multiple(self) -> None:
         """Verify extract_slide_notes extracts ::: note and joins multiple blocks with a blank line."""
         raw = """::: block xy=(80, 40) width=1760 height=60

@@ -331,5 +331,5 @@ When embedding animated `.png` (APNG) or `.webp` blocks inside a `slide` present
 
 - **`anim_trigger=auto | click`**: `click` holds on Frame 0 (`READY`) until the presenter clicks the diagram or presses `A`; `auto` starts playback on slide entry.
 - **`anim_loop=once | infinite`**: `once` stops on the final frame (`ENDED`, click to replay from Frame 0); `infinite` loops continuously.
-- **`anim_pause=<frame_indices>`**: Tuple of 0-based frame indices (e.g. `anim_pause=(2, 4)`) where playback pauses (`PAUSED`) until the next click or `A` keypress.
+- **`anim_pause=<steps>`**: Tuple of 0-based frame indices or hyphenated `start-end` loop ranges (e.g. `anim_pause=(2, 4)` or `anim_pause=(0-3, 4-7)`). Single indices pause statically at that frame (`PAUSED`), whereas `start-end` ranges continuously loop `start..end` (`LOOPING`) until the next click or `A` keypress immediately advances to `end + 1`.
 

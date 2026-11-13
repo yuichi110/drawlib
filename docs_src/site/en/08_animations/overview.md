@@ -284,7 +284,7 @@ from drawlib.anim import Animation
 | :--- | :--- | :--- | :--- |
 | **`anim-trigger`** | `auto` \| `click` | `auto` | `auto` starts playback as soon as the slide appears; `click` holds on Frame 0 (`READY`) until the presenter clicks the diagram. |
 | **`anim-loop`** | `once` \| `infinite` | `infinite` (`once` when `anim-pause` is set) | `once` stops on the final frame (`ENDED`, click to replay from Frame 0); `infinite` loops continuously. |
-| **`anim-pause`** | Comma-separated 0-based frame indices (e.g. `2,4`) | `None` | Pauses playback (`PAUSED`) immediately upon rendering each listed frame index. Clicking the diagram resumes playback from `frame + 1` until the next pause point or end. |
+| **`anim-pause`** | Comma-separated 0-based frame indices or `start-end` loop ranges (e.g. `(2, 4)` or `(0-3, 4-7)`) | `None` | Single frame indices pause playback (`PAUSED`) at that frame; hyphenated `start-end` ranges continuously loop frames `start..end` (`LOOPING`) until clicking or pressing `A` immediately jumps to `end + 1`. |
 
 ```drawlib code=fold align=center file=anim_overview_slide_playback_states.png caption="Interactive Slide Animation Playback State Machine (READY, PLAYING, PAUSED, ENDED)"
 from drawlib.canvas import save, setup

@@ -1153,7 +1153,7 @@ save()
 | **キャプション** | `caption="Text"` または `caption='Text'` | `None` | 図をセマンティックな `<figure>` および `<figcaption>` 要素でラップしてキャプションを表示します。 |
 | **CSS クラス** | `class=hero-fig`, `class="card shadow"` | `None` | 図のラッパー要素にカスタム CSS クラスを追加します。 |
 | **キャッシュ制御** | `no_cache=true` | `False` | `.drawlib/cache.db` をバイパスし、ビルドのたびに該当ブロックを強制的に再実行します。 |
-| **スライドアニメーション制御** | `anim_trigger=auto\|click`, `anim_loop=once\|infinite`, `anim_pause=(2, 4)` | `auto`, `infinite`, `()` | HTML スライドデッキにおけるインタラクティブな `<canvas>` アニメーション再生を制御します（詳細は[スライドデッキプロジェクト (`slide`)](./project_slide.md)を参照）。 |
+| **スライドアニメーション制御** | `anim_trigger=auto\|click`, `anim_loop=once\|infinite`, `anim_pause=(2, 4)` または `(0-3, 4-7)` | `auto`, `infinite`, `()` | HTML スライドデッキにおけるインタラクティブな `<canvas>` アニメーション再生（単一フレーム停止および `start-end` ループ範囲）を制御します（詳細は[スライドデッキプロジェクト (`slide`)](./project_slide.md)を参照）。 |
 
 > [!TIP]
 > **AI エージェントおよび自動化におけるベストプラクティス**:
