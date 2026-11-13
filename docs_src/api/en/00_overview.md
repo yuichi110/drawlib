@@ -17,7 +17,7 @@ rectangle((60, 29), width=112, height=50, style=Styles.MutedDashed.patch(shape_r
 phosphor.package((38.0, 48.5), width=4.4, style=Styles.DarkBold)
 text(
     (63.5, 48.5),
-    "Drawlib Package Architecture (v0.3.9)",
+    "Drawlib Package Architecture (v0.3.10)",
     style=Styles.DarkBold.patch(text_size=12.5),
 )
 
@@ -112,12 +112,12 @@ Standard PEP 396 package version string exposed at `drawlib.__version__` (aliase
 ```python
 from drawlib import __version__
 
-__version__: Final[str] = "0.3.9"
+__version__: Final[str] = "0.3.10"
 ```
 
 | Attribute | Type | Value | Description |
 | :--- | :--- | :--- | :--- |
-| `__version__` | `Final[str]` | `'0.3.9'` | Installed Drawlib semantic version string. |
+| `__version__` | `Final[str]` | `'0.3.10'` | Installed Drawlib semantic version string. |
 
 ---
 
@@ -144,12 +144,12 @@ Canonical semantic version constant exposed at `drawlib.LIB_VERSION`.
 ```python
 from drawlib import LIB_VERSION
 
-LIB_VERSION: Final[str] = "0.3.9"
+LIB_VERSION: Final[str] = "0.3.10"
 ```
 
 | Attribute | Type | Value | Description |
 | :--- | :--- | :--- | :--- |
-| `LIB_VERSION` | `Final[str]` | `'0.3.9'` | Semantic version string matching `drawlib.__version__`. |
+| `LIB_VERSION` | `Final[str]` | `'0.3.10'` | Semantic version string matching `drawlib.__version__`. |
 
 ---
 

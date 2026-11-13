@@ -1,5 +1,24 @@
 # Release Notes & Migration Guide
 
+## Version 0.3.10
+
+*Release Date: 2026/11/13*
+
+Version 0.3.10 introduces **interactive animation range looping (`anim_pause=(0-3, 4-7)`) for 16:9 HTML slide decks**, allowing presentations to continuously loop specific frame segments (such as steady-state data flows or request/response cycles) and advance immediately to the next phase on click, `A` key, or Presenter View's `⏭ Next Step` control, alongside **documentation portal analytics and updated bilingual guides**.
+
+---
+
+### Highlights & New Features
+
+#### 1. Interactive Slide Animation Range Looping (`anim_pause=(0-3, 4-7)`, `slide`)
+- **Hyphenated Frame Range Syntax (`options.py`, `_assets.py`)**: Extended `anim_pause` on ```` ```drawlib ```` slide code blocks to accept 0-based hyphenated loop ranges (`start-end`, where `0 <= start < end`) in addition to single pause frames (`0`, `2`, `4`), freely combinable in a single declaration such as `anim_pause=(0, 1-4, 5-8)`.
+- **Canvas-Driven Loop Engine & Instant Advance (`slide.js`, `slide.css`)**: Added a dedicated `LOOPING` playback state to the HTML slide `<canvas>` WebP/GIF frame engine. When playback reaches `end` of an active `start-end` range, the engine wraps seamlessly back to `start` until the presenter clicks the canvas, presses `A`, or triggers `⏭ Next Step` in Presenter View (`?presenter=1`), which immediately jumps to frame `end + 1` without waiting for the end of the cycle (while keeping `→` / `Space` strictly bound to slide navigation). Hovering over a looping animation reveals the `▶Click` badge as an interactive cue.
+
+#### 2. Documentation Portal Analytics & Bilingual Guide Updates
+- **Documentation Portal Enhancements (`docs_src/`)**: Added Google Analytics (`gtag.js`) integration across documentation templates (`site`, `api`, `architecture`) and expanded bilingual documentation and AI agent rules (`anim-guide`, `project-slide`, `08_animations/overview`, `09_doc_builder_and_cli/code_blocks`, and `09_doc_builder_and_cli/project_slide`) with range-loop patterns and state machine specifications.
+
+---
+
 ## Version 0.3.9
 
 *Release Date: 2026/11/08*
