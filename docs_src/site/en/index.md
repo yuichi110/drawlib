@@ -1893,7 +1893,7 @@ You do not need a Python project—or even a software codebase—to adopt Drawli
 Explore the comprehensive guides below:
 
 1. [**Getting Started**](./01_getting_started/overview.md)
-   - Core philosophy, installation, [zero-install `uvx` workflows for any language & non-code docs](./01_getting_started/uvx_any_project.md), quickstart, coordinate principles, project scaffolding, AI agent configuration, the [API & CLI Reference (`www.drawlib.com/api/`)](https://www.drawlib.com/api/en/), and the live [Examples Showcase (`examples.drawlib.com`)](https://examples.drawlib.com/).
+   - Core philosophy, installation, [zero-install `uvx` workflows for any language & non-code docs](./01_getting_started/uvx_any_project.md), quickstart, coordinate principles, project scaffolding, AI agent configuration, the [API & CLI Reference (`www.drawlib.com/api/`)](https://www.drawlib.com/api/en/), the 16-chapter [Quickstart Handbook (`www.drawlib.com/quickstart/`)](https://www.drawlib.com/quickstart/en/), the [About Drawlib Slide Deck (`www.drawlib.com/about-drawlib/`)](https://www.drawlib.com/about-drawlib/en/), and the live [Examples Showcase (`examples.drawlib.com`)](https://examples.drawlib.com/).
 2. [**Drawing Primitives & Styles**](./02_drawing_primitives/canvas.md)
    - Low-level vector shapes, polygons, domain primitives, block arrows, lines, typography, fonts, image processing, preset themes, and color palettes.
 3. [**Icons & Brand Suites**](./03_icons/overview.md)

@@ -34,7 +34,7 @@ loop.add("4", style=Styles.PrimaryFlat, text_style=Styles.WhiteBold.patch(text_s
 
 loop.set_center(
     text="Dogfood",
-    description="7 Targets",
+    description="9 Targets",
     radius=8.4,
     style=Styles.PrimaryNeutral,
     text_style=Styles.PrimaryBold.patch(text_size=10.8),
@@ -60,8 +60,8 @@ cards = [
         41.4,
         (76.6, 41.4),
         (80.5, 41.4),
-        "2. Build 7 Targets",
-        "site · api · arch · reports\nreadme · logo · ogp",
+        "2. Build 9 Targets",
+        "site · api · arch · quickstart\nslide · reports · readme · ...",
         phosphor.book_open,
         Styles.SecondaryNeutral,
         Styles.SecondaryBold,
@@ -112,11 +112,11 @@ Isolated unit tests cannot answer macro-level quality questions:
 - Do localized multi-page navigation trees (`en/` and `ja/`), API catalogs, sitemaps, OGP banners, and `llms.txt` indexes compile cleanly together?
 - Does modifying a shared primitive or style preset introduce subtle visual crowding across real architectural and tutorial illustrations?
 
-Drawlib closes this gap by using the repository itself as a **live dogfooding environment**: seven production documentation targets (`docs_src/*/` and `reports/full_audit_src/`) compile directly into `docs/` using the local `src/drawlib/` source tree, and GitHub Pages serves `main:/docs` directly (`https://www.drawlib.com/`) without requiring a separate `pages.yml` build workflow.
+Drawlib closes this gap by using the repository itself as a **live dogfooding environment**: nine production documentation targets (`docs_src/*/` and `reports/full_audit_src/`) compile directly into `docs/` using the local `src/drawlib/` source tree, and GitHub Pages serves `main:/docs` directly (`https://www.drawlib.com/`) without requiring a separate `pages.yml` build workflow.
 
 ---
 
-## 2. Positioning: The 7 Repository Targets & Companion Examples
+## 2. Positioning: The 9 Repository Targets & Companion Examples
 
 Together with the companion `yuichi110/drawlib-examples` repository (`https://examples.drawlib.com/`), Drawlib's dogfooding suite exercises every `drawlib init project` archetype in production:
 
@@ -125,11 +125,13 @@ Together with the companion `yuichi110/drawlib-examples` repository (`https://ex
 | **`site`** | `docs_src/site/` (`en/`, `ja/`) | `site` | `docs/` (`en/`, `ja/`, `images/`, `_assets/`, `pypi_images/`) | Multi-locale (`en`/`ja`) user guide, tutorials, animations, and SEO artifacts (`www.drawlib.com`). |
 | **`api`** | `docs_src/api/` (`en/`, `ja/`) | `catalog` | `docs/api/` | Bilingual (`en`/`ja`) Python API & CLI Reference catalog verified for 100% symbol completeness (`www.drawlib.com/api/`). |
 | **`architecture`** | `docs_src/architecture/` (`en/`) | `site` | `docs/architecture/` | Single-locale (`en`) software architecture specification (`www.drawlib.com/architecture/`). |
+| **`quickstart`** | `docs_src/quickstart/` (`en/`, `ja/`) | `doc` | `docs/quickstart/` (`index.html`, `en/`, `ja/`, `quickstart_{en,ja}.{pdf,docx}`) | 16-chapter bilingual (`en`/`ja`) engineering onboarding handbook in HTML, A4 PDF, and MS Word (`www.drawlib.com/quickstart/`). |
+| **`about-drawlib`** | `docs_src/about-drawlib/` (`en/`, `ja/`) | `slide` | `docs/about-drawlib/` (`index.html`, `en/`, `ja/`, `about-drawlib_{en,ja}.{pdf,pptx}`, `preview.png`) | 39-slide bilingual (`en`/`ja`) `16:9` showcase deck in HTML, PDF, and PowerPoint (`www.drawlib.com/about-drawlib/`). |
 | **`reports`** | `reports/full_audit_src/` (`en/`) | `doc` | `docs/reports/pni-full-audit/` (`index.html`, `full_audit.pdf`) | PNI501 software health & security audit report in linear HTML and A4 PDF (`www.drawlib.com/reports/pni-full-audit/`). |
 | **`readme`** | `docs_src/readme/` | `images` | `docs/readme_images/` | Standalone Python scripts rendering hero banners and feature showcases for `README.md`. |
 | **`logo`** | `docs_src/logo/` | `images` | `docs/logo/` | Brand mark, wordmark, and favicon vector/raster asset generators. |
-| **`ogp`** | `docs_src/ogp/` | `images` | `docs/ogp_images/`, `docs_src/{site,api,architecture}/_assets/ogp.png` | `1280×640` GitHub Social Preview and Open Graph banner generators. |
-| **`drawlib-examples`** *(companion repo)* | `yuichi110/drawlib-examples` | `doc` & `slide` | HTML, A4 PDF, `.docx`, `.pptx` | Linear technical guides and `16:9` presentation decks (`examples.drawlib.com`). |
+| **`ogp`** | `docs_src/ogp/` | `images` | `docs/ogp_images/`, `docs_src/{site,api,architecture,quickstart,about-drawlib}/_assets/ogp.png` | `1280×640` GitHub Social Preview and Open Graph banner generators. |
+| **`drawlib-examples`** *(companion repo)* | `yuichi110/drawlib-examples` | `doc`, `site`, `slide` | HTML, A4 PDF, `.docx`, `.pptx` | Domain showcase guides and `16:9` presentation decks (`examples.drawlib.com`). |
 
 ---
 
@@ -206,7 +208,7 @@ Running `./dcli code-check all` executes three deterministic checks in sequence 
 ### 3.2. Asset Manifest & Link Hygiene Gates (`sync --check` & `serve --check`)
 Two domain-specific verification commands guard external assets and compiled HTML sites:
 1. **Offline Release Asset Sync Gate (`./dcli release-assets sync --check`)**: Recomputes deterministic `.zip` hashes across `tools/release_assets/v0.3/` offline and fails with exit code `1` if `src/drawlib/_release_assets.py` is out of sync with any of the 83 asset packages.
-2. **Headless Link & Path Hygiene Scanner (`./dcli docs serve <target> --check`)**: Invokes `drawlib serve <out_dir> --check` on compiled `docs/`, `docs/api/`, `docs/architecture/`, or `docs/reports/pni-full-audit/` outputs without starting the interactive HTTP server—verifying every relative link, image `src`, and heading anchor while build-time Markdown scanners reject forbidden machine-local filesystem paths and local-file URL schemes.
+2. **Headless Link & Path Hygiene Scanner (`./dcli docs serve <target> --check`)**: Invokes `drawlib serve <out_dir> --check` on compiled `docs/`, `docs/api/`, `docs/architecture/`, `docs/quickstart/`, `docs/about-drawlib/`, or `docs/reports/pni-full-audit/` outputs without starting the interactive HTTP server—verifying every relative link, image `src`, and heading anchor while build-time Markdown scanners reject forbidden machine-local filesystem paths and local-file URL schemes.
 
 ---
 
@@ -216,6 +218,6 @@ Across all seven chapters of this specification, Drawlib unifies four architectu
 1. **Strict Unidirectional Core Layers** (`l1_core` -> `l2_types` -> `l3_*` -> `l4_canvas` -> domain modules -> public facades).
 2. **Headless In-Process Compilation** (Agg virtual canvas, AST dependency hashing, and SQLite build caching).
 3. **Unified Developer Orchestration** (`./dcli` routing 8 specialized toolsets and 83 deterministic release asset packs).
-4. **Dual-Verification Testing & Live Dogfooding** (163 test modules, `0.0`–`100.0%` golden pixel matching, 7 dogfooded documentation targets, and 3-stage multimodal AI review).
+4. **Dual-Verification Testing & Live Dogfooding** (163 test modules, `0.0`–`100.0%` golden pixel matching, 9 dogfooded documentation targets, and 3-stage multimodal AI review).
 
 Together, these pillars turn **Illustration as Code** and **Illustrated Documentation as Code** into a deterministic, self-verifying software engineering discipline.

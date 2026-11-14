@@ -35,8 +35,8 @@ def build(
     target: str | None = typer.Argument(
         None,
         help=(
-            "Target to build ('site', 'api', 'architecture', 'reports', 'readme', 'logo', 'ogp', or 'all'). "
-            "Default: 'site'."
+            "Target to build ('site', 'api', 'architecture', 'quickstart', 'about-drawlib', "
+            "'reports', 'readme', 'logo', 'ogp', or 'all'). Default: 'site'."
         ),
     ),
     all_targets: bool = typer.Option(
@@ -64,6 +64,9 @@ SERVE_TARGET_MAP: dict[str, str] = {
     "docs": "docs",
     "api": "docs/api",
     "architecture": "docs/architecture",
+    "quickstart": "docs/quickstart",
+    "about-drawlib": "docs/about-drawlib",
+    "slide": "docs/about-drawlib",
     "reports": "docs/reports/pni-full-audit",
     "report": "docs/reports/pni-full-audit",
 }
@@ -73,7 +76,10 @@ SERVE_TARGET_MAP: dict[str, str] = {
 def serve(
     target: str = typer.Argument(
         "site",
-        help="Directory or target alias to serve ('site', 'api', 'architecture', 'reports', or path).",
+        help=(
+            "Directory or target alias to serve "
+            "('site', 'api', 'architecture', 'quickstart', 'about-drawlib', 'reports', or path)."
+        ),
     ),
     port: int = typer.Option(8000, "--port", "-p", help="Port to serve the documentation on."),
     no_browser: bool = typer.Option(False, "--no-browser", help="Do not automatically open the browser."),

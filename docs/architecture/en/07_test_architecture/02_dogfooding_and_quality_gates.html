@@ -290,7 +290,7 @@
 
 <span class="n">loop</span><span class="o">.</span><span class="n">set_center</span><span class="p">(</span>
     <span class="n">text</span><span class="o">=</span><span class="s2">"Dogfood"</span><span class="p">,</span>
-    <span class="n">description</span><span class="o">=</span><span class="s2">"7 Targets"</span><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="s2">"9 Targets"</span><span class="p">,</span>
     <span class="n">radius</span><span class="o">=</span><span class="mf">8.4</span><span class="p">,</span>
     <span class="n">style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryNeutral</span><span class="p">,</span>
     <span class="n">text_style</span><span class="o">=</span><span class="n">Styles</span><span class="o">.</span><span class="n">PrimaryBold</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">text_size</span><span class="o">=</span><span class="mf">10.8</span><span class="p">),</span>
@@ -316,8 +316,8 @@
         <span class="mf">41.4</span><span class="p">,</span>
         <span class="p">(</span><span class="mf">76.6</span><span class="p">,</span> <span class="mf">41.4</span><span class="p">),</span>
         <span class="p">(</span><span class="mf">80.5</span><span class="p">,</span> <span class="mf">41.4</span><span class="p">),</span>
-        <span class="s2">"2. Build 7 Targets"</span><span class="p">,</span>
-        <span class="s2">"site · api · arch · reports</span><span class="se">\n</span><span class="s2">readme · logo · ogp"</span><span class="p">,</span>
+        <span class="s2">"2. Build 9 Targets"</span><span class="p">,</span>
+        <span class="s2">"site · api · arch · quickstart</span><span class="se">\n</span><span class="s2">slide · reports · readme · ..."</span><span class="p">,</span>
         <span class="n">phosphor</span><span class="o">.</span><span class="n">book_open</span><span class="p">,</span>
         <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryNeutral</span><span class="p">,</span>
         <span class="n">Styles</span><span class="o">.</span><span class="n">SecondaryBold</span><span class="p">,</span>
@@ -367,9 +367,9 @@
 <li>Do localized multi-page navigation trees (<code>en/</code> and <code>ja/</code>), API catalogs, sitemaps, OGP banners, and <code>llms.txt</code> indexes compile cleanly together?</li>
 <li>Does modifying a shared primitive or style preset introduce subtle visual crowding across real architectural and tutorial illustrations?</li>
 </ul>
-<p>Drawlib closes this gap by using the repository itself as a <strong>live dogfooding environment</strong>: seven production documentation targets (<code>docs_src/*/</code> and <code>reports/full_audit_src/</code>) compile directly into <code>docs/</code> using the local <code>src/drawlib/</code> source tree, and GitHub Pages serves <code>main:/docs</code> directly (<code>https://www.drawlib.com/</code>) without requiring a separate <code>pages.yml</code> build workflow.</p>
+<p>Drawlib closes this gap by using the repository itself as a <strong>live dogfooding environment</strong>: nine production documentation targets (<code>docs_src/*/</code> and <code>reports/full_audit_src/</code>) compile directly into <code>docs/</code> using the local <code>src/drawlib/</code> source tree, and GitHub Pages serves <code>main:/docs</code> directly (<code>https://www.drawlib.com/</code>) without requiring a separate <code>pages.yml</code> build workflow.</p>
 <hr />
-<h2>2. Positioning: The 7 Repository Targets &amp; Companion Examples</h2>
+<h2>2. Positioning: The 9 Repository Targets &amp; Companion Examples</h2>
 <p>Together with the companion <code>yuichi110/drawlib-examples</code> repository (<code>https://examples.drawlib.com/</code>), Drawlib's dogfooding suite exercises every <code>drawlib init project</code> archetype in production:</p>
 <table>
 <thead>
@@ -404,6 +404,20 @@
 <td style="text-align:left">Single-locale (<code>en</code>) software architecture specification (<code>www.drawlib.com/architecture/</code>).</td>
 </tr>
 <tr>
+<td style="text-align:left"><strong><code>quickstart</code></strong></td>
+<td style="text-align:left"><code>docs_src/quickstart/</code> (<code>en/</code>, <code>ja/</code>)</td>
+<td style="text-align:left"><code>doc</code></td>
+<td style="text-align:left"><code>docs/quickstart/</code> (<code>index.html</code>, <code>en/</code>, <code>ja/</code>, <code>quickstart_{en,ja}.{pdf,docx}</code>)</td>
+<td style="text-align:left">16-chapter bilingual (<code>en</code>/<code>ja</code>) engineering onboarding handbook in HTML, A4 PDF, and MS Word (<code>www.drawlib.com/quickstart/</code>).</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong><code>about-drawlib</code></strong></td>
+<td style="text-align:left"><code>docs_src/about-drawlib/</code> (<code>en/</code>, <code>ja/</code>)</td>
+<td style="text-align:left"><code>slide</code></td>
+<td style="text-align:left"><code>docs/about-drawlib/</code> (<code>index.html</code>, <code>en/</code>, <code>ja/</code>, <code>about-drawlib_{en,ja}.{pdf,pptx}</code>, <code>preview.png</code>)</td>
+<td style="text-align:left">39-slide bilingual (<code>en</code>/<code>ja</code>) <code>16:9</code> showcase deck in HTML, PDF, and PowerPoint (<code>www.drawlib.com/about-drawlib/</code>).</td>
+</tr>
+<tr>
 <td style="text-align:left"><strong><code>reports</code></strong></td>
 <td style="text-align:left"><code>reports/full_audit_src/</code> (<code>en/</code>)</td>
 <td style="text-align:left"><code>doc</code></td>
@@ -428,15 +442,15 @@
 <td style="text-align:left"><strong><code>ogp</code></strong></td>
 <td style="text-align:left"><code>docs_src/ogp/</code></td>
 <td style="text-align:left"><code>images</code></td>
-<td style="text-align:left"><code>docs/ogp_images/</code>, <code>docs_src/{site,api,architecture}/_assets/ogp.png</code></td>
+<td style="text-align:left"><code>docs/ogp_images/</code>, <code>docs_src/{site,api,architecture,quickstart,about-drawlib}/_assets/ogp.png</code></td>
 <td style="text-align:left"><code>1280×640</code> GitHub Social Preview and Open Graph banner generators.</td>
 </tr>
 <tr>
 <td style="text-align:left"><strong><code>drawlib-examples</code></strong> <em>(companion repo)</em></td>
 <td style="text-align:left"><code>yuichi110/drawlib-examples</code></td>
-<td style="text-align:left"><code>doc</code> &amp; <code>slide</code></td>
+<td style="text-align:left"><code>doc</code>, <code>site</code>, <code>slide</code></td>
 <td style="text-align:left">HTML, A4 PDF, <code>.docx</code>, <code>.pptx</code></td>
-<td style="text-align:left">Linear technical guides and <code>16:9</code> presentation decks (<code>examples.drawlib.com</code>).</td>
+<td style="text-align:left">Domain showcase guides and <code>16:9</code> presentation decks (<code>examples.drawlib.com</code>).</td>
 </tr>
 </tbody>
 </table>
@@ -519,7 +533,7 @@
 <p>Two domain-specific verification commands guard external assets and compiled HTML sites:</p>
 <ol>
 <li><strong>Offline Release Asset Sync Gate (<code>./dcli release-assets sync --check</code>)</strong>: Recomputes deterministic <code>.zip</code> hashes across <code>tools/release_assets/v0.3/</code> offline and fails with exit code <code>1</code> if <code>src/drawlib/_release_assets.py</code> is out of sync with any of the 83 asset packages.</li>
-<li><strong>Headless Link &amp; Path Hygiene Scanner (<code>./dcli docs serve &lt;target&gt; --check</code>)</strong>: Invokes <code>drawlib serve &lt;out_dir&gt; --check</code> on compiled <code>docs/</code>, <code>docs/api/</code>, <code>docs/architecture/</code>, or <code>docs/reports/pni-full-audit/</code> outputs without starting the interactive HTTP server—verifying every relative link, image <code>src</code>, and heading anchor while build-time Markdown scanners reject forbidden machine-local filesystem paths and local-file URL schemes.</li>
+<li><strong>Headless Link &amp; Path Hygiene Scanner (<code>./dcli docs serve &lt;target&gt; --check</code>)</strong>: Invokes <code>drawlib serve &lt;out_dir&gt; --check</code> on compiled <code>docs/</code>, <code>docs/api/</code>, <code>docs/architecture/</code>, <code>docs/quickstart/</code>, <code>docs/about-drawlib/</code>, or <code>docs/reports/pni-full-audit/</code> outputs without starting the interactive HTTP server—verifying every relative link, image <code>src</code>, and heading anchor while build-time Markdown scanners reject forbidden machine-local filesystem paths and local-file URL schemes.</li>
 </ol>
 <hr />
 <h2>4. Conclusion: Architecture as a Closed Verification Loop</h2>
@@ -528,7 +542,7 @@
 <li><strong>Strict Unidirectional Core Layers</strong> (<code>l1_core</code> -&gt; <code>l2_types</code> -&gt; <code>l3_*</code> -&gt; <code>l4_canvas</code> -&gt; domain modules -&gt; public facades).</li>
 <li><strong>Headless In-Process Compilation</strong> (Agg virtual canvas, AST dependency hashing, and SQLite build caching).</li>
 <li><strong>Unified Developer Orchestration</strong> (<code>./dcli</code> routing 8 specialized toolsets and 83 deterministic release asset packs).</li>
-<li><strong>Dual-Verification Testing &amp; Live Dogfooding</strong> (163 test modules, <code>0.0</code>–<code>100.0%</code> golden pixel matching, 7 dogfooded documentation targets, and 3-stage multimodal AI review).</li>
+<li><strong>Dual-Verification Testing &amp; Live Dogfooding</strong> (163 test modules, <code>0.0</code>–<code>100.0%</code> golden pixel matching, 9 dogfooded documentation targets, and 3-stage multimodal AI review).</li>
 </ol>
 <p>Together, these pillars turn <strong>Illustration as Code</strong> and <strong>Illustrated Documentation as Code</strong> into a deterministic, self-verifying software engineering discipline.</p>
 

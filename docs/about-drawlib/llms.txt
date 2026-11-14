@@ -1,0 +1,50 @@
+# Drawlib
+
+> About Drawlib — Official Bilingual 16:9 Showcase Presentation Deck
+
+## Slides
+
+- [Slide 1: Drawlib](https://www.drawlib.com/about-drawlib/en/#1): Pure-Python declarative visuals and multi-target documentation compiler built for software engineers and AI coding agents.
+- [Slide 2: Drawlib at a Glance](https://www.drawlib.com/about-drawlib/en/#2): Drawlib — Illustration & Documentation as Code
+- [Slide 3: Presentation Roadmap](https://www.drawlib.com/about-drawlib/en/#3): Drawlib — Illustration & Documentation as Code
+- [Slide 4: Slide 4](https://www.drawlib.com/about-drawlib/en/#4)
+- [Slide 5: Why Visual Documentation Breaks Down](https://www.drawlib.com/about-drawlib/en/#5): Drawlib — Illustration & Documentation as Code
+- [Slide 6: Illustration & Documentation as Code](https://www.drawlib.com/about-drawlib/en/#6): Drawlib — Illustration & Documentation as Code
+- [Slide 7: Tooling Landscape Comparison](https://www.drawlib.com/about-drawlib/en/#7): Drawlib — Illustration & Documentation as Code
+- [Slide 8: One Git Repository, Every Output Format](https://www.drawlib.com/about-drawlib/en/#8): Drawlib — Illustration & Documentation as Code
+- [Slide 9: Slide 9](https://www.drawlib.com/about-drawlib/en/#9)
+- [Slide 10: Cartesian Canvas & Visual Grid (-g)](https://www.drawlib.com/about-drawlib/en/#10): Drawlib — Illustration & Documentation as Code
+- [Slide 11: 43 Geometric Shapes & Smart Connectors](https://www.drawlib.com/about-drawlib/en/#11): Drawlib — Illustration & Documentation as Code
+- [Slide 12: Multilingual Typography & Raster Assets](https://www.drawlib.com/about-drawlib/en/#12): Drawlib — Illustration & Documentation as Code
+- [Slide 13: 34 Icon Suites & 4,500+ Vector Icons](https://www.drawlib.com/about-drawlib/en/#13): Drawlib — Illustration & Documentation as Code
+- [Slide 14: 8-Color Semantic Styles & Preset Themes](https://www.drawlib.com/about-drawlib/en/#14): Drawlib — Illustration & Documentation as Code
+- [Slide 15: Slide 15](https://www.drawlib.com/about-drawlib/en/#15)
+- [Slide 16: Process Pipelines, Lifecycles & Roadmaps](https://www.drawlib.com/about-drawlib/en/#16): Drawlib — Illustration & Documentation as Code
+- [Slide 17: KPIs, Feature Cards, Pyramids & MindMaps](https://www.drawlib.com/about-drawlib/en/#17): Drawlib — Illustration & Documentation as Code
+- [Slide 18: Tables, SourceCode, Calendars & GeoMap](https://www.drawlib.com/about-drawlib/en/#18): Drawlib — Illustration & Documentation as Code
+- [Slide 19: Declarative Bar, Line & Area Charts](https://www.drawlib.com/about-drawlib/en/#19): Drawlib — Illustration & Documentation as Code
+- [Slide 20: Pie, Radar, Scatter & Heatmap Charts](https://www.drawlib.com/about-drawlib/en/#20): Drawlib — Illustration & Documentation as Code
+- [Slide 21: Engineering Roadmaps with GanttChart](https://www.drawlib.com/about-drawlib/en/#21): Drawlib — Illustration & Documentation as Code
+- [Slide 22: Slide 22](https://www.drawlib.com/about-drawlib/en/#22)
+- [Slide 23: Cloud Topology with ArchitectureDiagram](https://www.drawlib.com/about-drawlib/en/#23): Drawlib — Illustration & Documentation as Code
+- [Slide 24: Workflows & Protocols: Flow and Sequence](https://www.drawlib.com/about-drawlib/en/#24): Drawlib — Illustration & Documentation as Code
+- [Slide 25: Domain Modeling: Class, ER & State Diagrams](https://www.drawlib.com/about-drawlib/en/#25): Drawlib — Illustration & Documentation as Code
+- [Slide 26: Declarative Graph Layout (drawlib.graph)](https://www.drawlib.com/about-drawlib/en/#26): Drawlib — Illustration & Documentation as Code
+- [Slide 27: Five Specialized Auto-Layout Graph Solvers](https://www.drawlib.com/about-drawlib/en/#27): Drawlib — Illustration & Documentation as Code
+- [Slide 28: Interactive Frame Animations (APNG & WebP)](https://www.drawlib.com/about-drawlib/en/#28): Drawlib — Illustration & Documentation as Code
+- [Slide 29: Slide 29](https://www.drawlib.com/about-drawlib/en/#29)
+- [Slide 30: Five Built-In Project Archetypes](https://www.drawlib.com/about-drawlib/en/#30): Drawlib — Illustration & Documentation as Code
+- [Slide 31: Web Publishing: Docs Site & API Catalog](https://www.drawlib.com/about-drawlib/en/#31): Drawlib — Illustration & Documentation as Code
+- [Slide 32: Whitepapers: HTML, Vector PDF & MS Word](https://www.drawlib.com/about-drawlib/en/#32): Drawlib — Illustration & Documentation as Code
+- [Slide 33: 16:9 Slide Stage, Presenter View & PPTX](https://www.drawlib.com/about-drawlib/en/#33): Drawlib — Illustration & Documentation as Code
+- [Slide 34: Slide 34](https://www.drawlib.com/about-drawlib/en/#34)
+- [Slide 35: Autonomous Multimodal Verification Loop](https://www.drawlib.com/about-drawlib/en/#35): Drawlib — Illustration & Documentation as Code
+- [Slide 36: Two-Tier Caching & Unified CLI](https://www.drawlib.com/about-drawlib/en/#36): Drawlib — Illustration & Documentation as Code
+- [Slide 37: Slide 37](https://www.drawlib.com/about-drawlib/en/#37)
+- [Slide 38: Key Takeaways & Quickstart](https://www.drawlib.com/about-drawlib/en/#38): Drawlib — Illustration & Documentation as Code
+- [Slide 39: Thank You](https://www.drawlib.com/about-drawlib/en/#39): Start Authoring Visuals & Docs as Code
+
+## Locales
+
+- [English (en)](https://www.drawlib.com/about-drawlib/en/): About Drawlib — Official Bilingual 16:9 Showcase Presentation Deck
+- [日本語 (ja)](https://www.drawlib.com/about-drawlib/ja/): About Drawlib — Drawlib 公式バイリンガル 16:9 ショーケーススライドデッキ

@@ -1893,7 +1893,7 @@ Drawlib を導入するために Python プロジェクトである必要も、�
 以下の包括的なガイドから各機能の詳細を確認できます。
 
 1. [**はじめに**](./01_getting_started/overview.md)
-   - 基本設計思想、インストール、[他言語・非開発プロジェクトでの `uvx` ゼロインストール活用](./01_getting_started/uvx_any_project.md)、クイックスタート、座標系の原則、プロジェクト構成、AI エージェント設定、[API & CLI リファレンス (`www.drawlib.com/api/`)](https://www.drawlib.com/api/ja/)、およびライブ公開の [サンプル・ショーケース (`examples.drawlib.com`)](https://examples.drawlib.com/)。
+   - 基本設計思想、インストール、[他言語・非開発プロジェクトでの `uvx` ゼロインストール活用](./01_getting_started/uvx_any_project.md)、クイックスタート、座標系の原則、プロジェクト構成、AI エージェント設定、[API & CLI リファレンス (`www.drawlib.com/api/`)](https://www.drawlib.com/api/ja/)、全 16 章の [クイックスタート・ハンドブック (`www.drawlib.com/quickstart/`)](https://www.drawlib.com/quickstart/ja/)、[About Drawlib スライドデッキ (`www.drawlib.com/about-drawlib/`)](https://www.drawlib.com/about-drawlib/ja/)、およびライブ公開の [サンプル・ショーケース (`examples.drawlib.com`)](https://examples.drawlib.com/)。
 2. [**描画プリミティブとスタイル**](./02_drawing_primitives/canvas.md)
    - 低レベルのベクター図形、多角形、ドメインプリミティブ、ブロック矢印、線、タイポグラフィ、フォント、画像処理、プリセットテーマ、カラーパレット。
 3. [**アイコンとブランドスイート**](./03_icons/overview.md)

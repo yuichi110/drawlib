@@ -35,6 +35,14 @@ if [ -f "docs/ogp_images/social_preview.png" ]; then
         cp "docs/ogp_images/social_preview.png" "docs_src/api/_assets/ogp.png"
         echo "  - Synced: docs_src/api/_assets/ogp.png"
     fi
+    if [ -d "docs_src/quickstart/_assets" ]; then
+        cp "docs/ogp_images/social_preview.png" "docs_src/quickstart/_assets/ogp.png"
+        echo "  - Synced: docs_src/quickstart/_assets/ogp.png"
+    fi
+    if [ -d "docs_src/about-drawlib/_assets" ]; then
+        cp "docs/ogp_images/social_preview.png" "docs_src/about-drawlib/_assets/ogp.png"
+        echo "  - Synced: docs_src/about-drawlib/_assets/ogp.png"
+    fi
 fi
 
 echo "Build complete: docs/ogp_images/"

@@ -12,6 +12,8 @@
 - [AI 駆動ワークフローとエージェント設定](./01_getting_started/agent_quicklook.md)
 - [リリースノートと移行ガイド](./01_getting_started/release_notes.md)
 - [API & CLI リファレンス](https://www.drawlib.com/api/ja/)
+- [クイックスタート・ハンドブック](https://www.drawlib.com/quickstart/ja/)
+- [About Drawlib スライドデッキ](https://www.drawlib.com/about-drawlib/ja/)
 - [サンプル・ショーケース](https://examples.drawlib.com/)
 
 ## 2. 描画プリミティブとスタイル

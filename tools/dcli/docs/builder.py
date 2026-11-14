@@ -88,6 +88,20 @@ ALL_TARGETS: tuple[BuildTarget, ...] = (
         clean_paths=("docs/api",),
     ),
     BuildTarget(
+        name="quickstart",
+        src_dir="docs_src/quickstart",
+        script_rel_path="docs_src/quickstart/build.sh",
+        description="Quickstart Guide (HTML, PDF & DOCX in docs/quickstart/)",
+        clean_paths=("docs/quickstart",),
+    ),
+    BuildTarget(
+        name="about-drawlib",
+        src_dir="docs_src/about-drawlib",
+        script_rel_path="docs_src/about-drawlib/build.sh",
+        description="About Drawlib Showcase Slide Deck (HTML, PDF & PPTX in docs/about-drawlib/)",
+        clean_paths=("docs/about-drawlib",),
+    ),
+    BuildTarget(
         name="reports",
         src_dir="reports/full_audit_src",
         script_rel_path="reports/full_audit_src/build.sh",
@@ -100,6 +114,7 @@ TARGET_MAP: dict[str, BuildTarget] = {target.name: target for target in ALL_TARG
 # Convenience aliases
 TARGET_MAP["docs"] = TARGET_MAP["site"]
 TARGET_MAP["doc"] = TARGET_MAP["site"]
+TARGET_MAP["slide"] = TARGET_MAP["about-drawlib"]
 TARGET_MAP["report"] = TARGET_MAP["reports"]
 
 
@@ -145,7 +160,8 @@ def build_docs(
 
     Args:
         target_name: Specific target name (
-            'site', 'api', 'architecture', 'reports', 'readme', 'logo', 'ogp', or 'all'
+            'site', 'api', 'architecture', 'quickstart', 'about-drawlib',
+            'reports', 'readme', 'logo', 'ogp', or 'all'
         ).
         build_all: If True, build all available targets in sequence.
         clean: If True, remove previous build artifacts before building.

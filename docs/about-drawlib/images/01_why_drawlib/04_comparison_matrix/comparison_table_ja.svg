@@ -1,0 +1,564 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="720pt" height="335.454545pt" viewBox="0 0 720 335.454545" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 335.454545 
+L 720 335.454545 
+L 720 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 12.272727 63.409091 
+L 12.272727 18.409091 
+L 200.454545 18.409091 
+L 200.454545 63.409091 
+z
+" clip-path="url(#pbd3262d396)" style="fill: #323a48"/>
+   </g>
+   <g id="text_1">
+    <g clip-path="url(#pbd3262d396)">
+     <text style="font-size: 13.8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #ffffff" x="106.363636" y="46.153091" transform="rotate(-0 106.363636 46.153091)">評価軸</text>
+    </g>
+   </g>
+   <g id="patch_3">
+    <path d="M 200.454545 63.409091 
+L 200.454545 18.409091 
+L 317.045455 18.409091 
+L 317.045455 63.409091 
+z
+" clip-path="url(#pbd3262d396)" style="fill: #323a48"/>
+   </g>
+   <g id="text_2">
+    <g clip-path="url(#pbd3262d396)">
+     <text style="font-size: 13.8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #ffffff" x="258.75" y="46.153091" transform="rotate(-0 258.75 46.153091)">GUI ツール</text>
+    </g>
+   </g>
+   <g id="patch_4">
+    <path d="M 317.045455 63.409091 
+L 317.045455 18.409091 
+L 433.636364 18.409091 
+L 433.636364 63.409091 
+z
+" clip-path="url(#pbd3262d396)" style="fill: #323a48"/>
+   </g>
+   <g id="text_3">
+    <g clip-path="url(#pbd3262d396)">
+     <text style="font-size: 13.8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #ffffff" x="375.340909" y="46.153091" transform="rotate(-0 375.340909 46.153091)">テキスト DSL</text>
+    </g>
+   </g>
+   <g id="patch_5">
+    <path d="M 433.636364 63.409091 
+L 433.636364 18.409091 
+L 550.227273 18.409091 
+L 550.227273 63.409091 
+z
+" clip-path="url(#pbd3262d396)" style="fill: #323a48"/>
+   </g>
+   <g id="text_4">
+    <g clip-path="url(#pbd3262d396)">
+     <text style="font-size: 13.8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #ffffff" x="491.931818" y="46.153091" transform="rotate(-0 491.931818 46.153091)">グラフ描画系</text>
+    </g>
+   </g>
+   <g id="patch_6">
+    <path d="M 550.227273 63.409091 
+L 550.227273 18.409091 
+L 707.727273 18.409091 
+L 707.727273 63.409091 
+z
+" clip-path="url(#pbd3262d396)" style="fill: #4862da"/>
+   </g>
+   <g id="text_5">
+    <g clip-path="url(#pbd3262d396)">
+     <text style="font-size: 14.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #ffffff" x="628.977273" y="46.419091" transform="rotate(-0 628.977273 46.419091)">Drawlib</text>
+    </g>
+   </g>
+   <g id="patch_7">
+    <path d="M 12.272727 105.954545 
+L 12.272727 63.409091 
+L 200.454545 63.409091 
+L 200.454545 105.954545 
+z
+" clip-path="url(#pbd3262d396)" style="fill: #e6fafa"/>
+   </g>
+   <g id="text_6">
+    <g clip-path="url(#pbd3262d396)">
+     <text style="font-size: 12.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="106.363636" y="89.431818" transform="rotate(-0 106.363636 89.431818)">Git 差分・PR レビュー</text>
+    </g>
+   </g>
+   <g id="patch_8">
+    <path d="M 200.454545 105.954545 
+L 200.454545 63.409091 
+L 317.045455 63.409091 
+L 317.045455 105.954545 
+z
+" clip-path="url(#pbd3262d396)" style="fill: #ffffff"/>
+   </g>
+   <g id="text_7">
+    <g clip-path="url(#pbd3262d396)">
+     <text style="font-size: 12.6px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="258.75" y="89.469818" transform="rotate(-0 258.75 89.469818)">× バイナリ不可</text>
+    </g>
+   </g>
+   <g id="patch_9">
+    <path d="M 317.045455 105.954545 
+L 317.045455 63.409091 
+L 433.636364 63.409091 
+L 433.636364 105.954545 
+z
+" clip-path="url(#pbd3262d396)" style="fill: #ffffff"/>
+   </g>
+   <g id="text_8">
+    <g clip-path="url(#pbd3262d396)">
+     <text style="font-size: 12.6px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="375.340909" y="89.469818" transform="rotate(-0 375.340909 89.469818)">✓ テキスト管理</text>
+    </g>
+   </g>
+   <g id="patch_10">
+    <path d="M 433.636364 105.954545 
+L 433.636364 63.409091 
+L 550.227273 63.409091 
+L 550.227273 105.954545 
+z
+" clip-path="url(#pbd3262d396)" style="fill: #ffffff"/>
+   </g>
+   <g id="text_9">
+    <g clip-path="url(#pbd3262d396)">
+     <text style="font-size: 12.6px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="491.931818" y="88.751224" transform="rotate(-0 491.931818 88.751224)">✓ Python コード</text>
+    </g>
+   </g>
+   <g id="patch_11">
+    <path d="M 550.227273 105.954545 
+L 550.227273 63.409091 
+L 707.727273 63.409091 
+L 707.727273 105.954545 
+z
+" clip-path="url(#pbd3262d396)" style="fill: #e8f2ff"/>
+   </g>
+   <g id="text_10">
+    <g clip-path="url(#pbd3262d396)">
+     <text style="font-size: 12.8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #4862da" x="628.977273" y="88.879818" transform="rotate(-0 628.977273 88.879818)">✓ 明快な Python</text>
+    </g>
+   </g>
+   <g id="patch_12">
+    <path d="M 12.272727 148.5 
+L 12.272727 105.954545 
+L 200.454545 105.954545 
+L 200.454545 148.5 
+z
+" clip-path="url(#pbd3262d396)" style="fill: #e6fafa"/>
+   </g>
+   <g id="text_11">
+    <g clip-path="url(#pbd3262d396)">
+     <text style="font-size: 12.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="106.363636" y="131.977273" transform="rotate(-0 106.363636 131.977273)">空間座標の精密制御</text>
+    </g>
+   </g>
+   <g id="patch_13">
+    <path d="M 200.454545 148.5 
+L 200.454545 105.954545 
+L 317.045455 105.954545 
+L 317.045455 148.5 
+z
+" clip-path="url(#pbd3262d396)" style="fill: #eef2f6"/>
+   </g>
+   <g id="text_12">
+    <g clip-path="url(#pbd3262d396)">
+     <text style="font-size: 12.6px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="258.75" y="132.015273" transform="rotate(-0 258.75 132.015273)">✓ 手動ドラッグ</text>
+    </g>
+   </g>
+   <g id="patch_14">
+    <path d="M 317.045455 148.5 
+L 317.045455 105.954545 
+L 433.636364 105.954545 
+L 433.636364 148.5 
+z
+" clip-path="url(#pbd3262d396)" style="fill: #eef2f6"/>
+   </g>
+   <g id="text_13">
+    <g clip-path="url(#pbd3262d396)">
+     <text style="font-size: 12.6px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="375.340909" y="132.015273" transform="rotate(-0 375.340909 132.015273)">× 自動配置のみ</text>
+    </g>
+   </g>
+   <g id="patch_15">
+    <path d="M 433.636364 148.5 
+L 433.636364 105.954545 
+L 550.227273 105.954545 
+L 550.227273 148.5 
+z
+" clip-path="url(#pbd3262d396)" style="fill: #eef2f6"/>
+   </g>
+   <g id="text_14">
+    <g clip-path="url(#pbd3262d396)">
+     <text style="font-size: 12.6px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="491.931818" y="132.015273" transform="rotate(-0 491.931818 132.015273)">△ グラフ軸のみ</text>
+    </g>
+   </g>
+   <g id="patch_16">
+    <path d="M 550.227273 148.5 
+L 550.227273 105.954545 
+L 707.727273 105.954545 
+L 707.727273 148.5 
+z
+" clip-path="url(#pbd3262d396)" style="fill: #e8f2ff"/>
+   </g>
+   <g id="text_15">
+    <g clip-path="url(#pbd3262d396)">
+     <text style="font-size: 12.8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #4862da" x="628.977273" y="132.091273" transform="rotate(-0 628.977273 132.091273)">✓ 座標指定＋自動</text>
+    </g>
+   </g>
+   <g id="patch_17">
+    <path d="M 12.272727 191.045455 
+L 12.272727 148.5 
+L 200.454545 148.5 
+L 200.454545 191.045455 
+z
+" clip-path="url(#pbd3262d396)" style="fill: #e6fafa"/>
+   </g>
+   <g id="text_16">
+    <g clip-path="url(#pbd3262d396)">
+     <text style="font-size: 12.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="106.363636" y="174.522727" transform="rotate(-0 106.363636 174.522727)">クラウド構成図・UML</text>
+    </g>
+   </g>
+   <g id="patch_18">
+    <path d="M 200.454545 191.045455 
+L 200.454545 148.5 
+L 317.045455 148.5 
+L 317.045455 191.045455 
+z
+" clip-path="url(#pbd3262d396)" style="fill: #ffffff"/>
+   </g>
+   <g id="text_17">
+    <g clip-path="url(#pbd3262d396)">
+     <text style="font-size: 12.6px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="258.75" y="174.560727" transform="rotate(-0 258.75 174.560727)">✓ 手動アイコン</text>
+    </g>
+   </g>
+   <g id="patch_19">
+    <path d="M 317.045455 191.045455 
+L 317.045455 148.5 
+L 433.636364 148.5 
+L 433.636364 191.045455 
+z
+" clip-path="url(#pbd3262d396)" style="fill: #ffffff"/>
+   </g>
+   <g id="text_18">
+    <g clip-path="url(#pbd3262d396)">
+     <text style="font-size: 12.6px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="375.340909" y="174.560727" transform="rotate(-0 375.340909 174.560727)">△ 簡易ボックス</text>
+    </g>
+   </g>
+   <g id="patch_20">
+    <path d="M 433.636364 191.045455 
+L 433.636364 148.5 
+L 550.227273 148.5 
+L 550.227273 191.045455 
+z
+" clip-path="url(#pbd3262d396)" style="fill: #ffffff"/>
+   </g>
+   <g id="text_19">
+    <g clip-path="url(#pbd3262d396)">
+     <text style="font-size: 12.6px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="491.931818" y="174.560727" transform="rotate(-0 491.931818 174.560727)">× 非対応</text>
+    </g>
+   </g>
+   <g id="patch_21">
+    <path d="M 550.227273 191.045455 
+L 550.227273 148.5 
+L 707.727273 148.5 
+L 707.727273 191.045455 
+z
+" clip-path="url(#pbd3262d396)" style="fill: #e8f2ff"/>
+   </g>
+   <g id="text_20">
+    <g clip-path="url(#pbd3262d396)">
+     <text style="font-size: 12.8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #4862da" x="628.977273" y="174.636727" transform="rotate(-0 628.977273 174.636727)">✓ 6種エンジン内蔵</text>
+    </g>
+   </g>
+   <g id="patch_22">
+    <path d="M 12.272727 233.590909 
+L 12.272727 191.045455 
+L 200.454545 191.045455 
+L 200.454545 233.590909 
+z
+" clip-path="url(#pbd3262d396)" style="fill: #e6fafa"/>
+   </g>
+   <g id="text_21">
+    <g clip-path="url(#pbd3262d396)">
+     <text style="font-size: 12.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="106.363636" y="217.068182" transform="rotate(-0 106.363636 217.068182)">チャート・情報図解</text>
+    </g>
+   </g>
+   <g id="patch_23">
+    <path d="M 200.454545 233.590909 
+L 200.454545 191.045455 
+L 317.045455 191.045455 
+L 317.045455 233.590909 
+z
+" clip-path="url(#pbd3262d396)" style="fill: #eef2f6"/>
+   </g>
+   <g id="text_22">
+    <g clip-path="url(#pbd3262d396)">
+     <text style="font-size: 12.6px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="258.75" y="217.106182" transform="rotate(-0 258.75 217.106182)">△ 手動で作図</text>
+    </g>
+   </g>
+   <g id="patch_24">
+    <path d="M 317.045455 233.590909 
+L 317.045455 191.045455 
+L 433.636364 191.045455 
+L 433.636364 233.590909 
+z
+" clip-path="url(#pbd3262d396)" style="fill: #eef2f6"/>
+   </g>
+   <g id="text_23">
+    <g clip-path="url(#pbd3262d396)">
+     <text style="font-size: 12.6px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="375.340909" y="217.106182" transform="rotate(-0 375.340909 217.106182)">× ごく一部のみ</text>
+    </g>
+   </g>
+   <g id="patch_25">
+    <path d="M 433.636364 233.590909 
+L 433.636364 191.045455 
+L 550.227273 191.045455 
+L 550.227273 233.590909 
+z
+" clip-path="url(#pbd3262d396)" style="fill: #eef2f6"/>
+   </g>
+   <g id="text_24">
+    <g clip-path="url(#pbd3262d396)">
+     <text style="font-size: 12.6px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="491.931818" y="217.106182" transform="rotate(-0 491.931818 217.106182)">✓ 統計図のみ</text>
+    </g>
+   </g>
+   <g id="patch_26">
+    <path d="M 550.227273 233.590909 
+L 550.227273 191.045455 
+L 707.727273 191.045455 
+L 707.727273 233.590909 
+z
+" clip-path="url(#pbd3262d396)" style="fill: #e8f2ff"/>
+   </g>
+   <g id="text_25">
+    <g clip-path="url(#pbd3262d396)">
+     <text style="font-size: 12.8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #4862da" x="628.977273" y="217.182182" transform="rotate(-0 628.977273 217.182182)">✓ Charts &amp; SmartArts</text>
+    </g>
+   </g>
+   <g id="patch_27">
+    <path d="M 12.272727 276.136364 
+L 12.272727 233.590909 
+L 200.454545 233.590909 
+L 200.454545 276.136364 
+z
+" clip-path="url(#pbd3262d396)" style="fill: #e6fafa"/>
+   </g>
+   <g id="text_26">
+    <g clip-path="url(#pbd3262d396)">
+     <text style="font-size: 12.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="106.363636" y="258.845082" transform="rotate(-0 106.363636 258.845082)">Site / Catalog / Slide / Office</text>
+    </g>
+   </g>
+   <g id="patch_28">
+    <path d="M 200.454545 276.136364 
+L 200.454545 233.590909 
+L 317.045455 233.590909 
+L 317.045455 276.136364 
+z
+" clip-path="url(#pbd3262d396)" style="fill: #ffffff"/>
+   </g>
+   <g id="text_27">
+    <g clip-path="url(#pbd3262d396)">
+     <text style="font-size: 12.6px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="258.75" y="259.651636" transform="rotate(-0 258.75 259.651636)">× 画像書き出し</text>
+    </g>
+   </g>
+   <g id="patch_29">
+    <path d="M 317.045455 276.136364 
+L 317.045455 233.590909 
+L 433.636364 233.590909 
+L 433.636364 276.136364 
+z
+" clip-path="url(#pbd3262d396)" style="fill: #ffffff"/>
+   </g>
+   <g id="text_28">
+    <g clip-path="url(#pbd3262d396)">
+     <text style="font-size: 12.6px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="375.340909" y="259.651636" transform="rotate(-0 375.340909 259.651636)">× 図単体のみ</text>
+    </g>
+   </g>
+   <g id="patch_30">
+    <path d="M 433.636364 276.136364 
+L 433.636364 233.590909 
+L 550.227273 233.590909 
+L 550.227273 276.136364 
+z
+" clip-path="url(#pbd3262d396)" style="fill: #ffffff"/>
+   </g>
+   <g id="text_29">
+    <g clip-path="url(#pbd3262d396)">
+     <text style="font-size: 12.6px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="491.931818" y="259.651636" transform="rotate(-0 491.931818 259.651636)">× 画像出力のみ</text>
+    </g>
+   </g>
+   <g id="patch_31">
+    <path d="M 550.227273 276.136364 
+L 550.227273 233.590909 
+L 707.727273 233.590909 
+L 707.727273 276.136364 
+z
+" clip-path="url(#pbd3262d396)" style="fill: #e8f2ff"/>
+   </g>
+   <g id="text_30">
+    <g clip-path="url(#pbd3262d396)">
+     <text style="font-size: 12.8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #4862da" x="628.977273" y="259.727636" transform="rotate(-0 628.977273 259.727636)">✓ 5型マルチ出力</text>
+    </g>
+   </g>
+   <g id="patch_32">
+    <path d="M 12.272727 318.681818 
+L 12.272727 276.136364 
+L 200.454545 276.136364 
+L 200.454545 318.681818 
+z
+" clip-path="url(#pbd3262d396)" style="fill: #e6fafa"/>
+   </g>
+   <g id="text_31">
+    <g clip-path="url(#pbd3262d396)">
+     <text style="font-size: 12.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="106.363636" y="301.390536" transform="rotate(-0 106.363636 301.390536)">AI 視覚自己検証 (-g)</text>
+    </g>
+   </g>
+   <g id="patch_33">
+    <path d="M 200.454545 318.681818 
+L 200.454545 276.136364 
+L 317.045455 276.136364 
+L 317.045455 318.681818 
+z
+" clip-path="url(#pbd3262d396)" style="fill: #eef2f6"/>
+   </g>
+   <g id="text_32">
+    <g clip-path="url(#pbd3262d396)">
+     <text style="font-size: 12.6px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="258.75" y="302.197091" transform="rotate(-0 258.75 302.197091)">× GUI 操作必須</text>
+    </g>
+   </g>
+   <g id="patch_34">
+    <path d="M 317.045455 318.681818 
+L 317.045455 276.136364 
+L 433.636364 276.136364 
+L 433.636364 318.681818 
+z
+" clip-path="url(#pbd3262d396)" style="fill: #eef2f6"/>
+   </g>
+   <g id="text_33">
+    <g clip-path="url(#pbd3262d396)">
+     <text style="font-size: 12.6px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="375.340909" y="302.197091" transform="rotate(-0 375.340909 302.197091)">× 座標調整不可</text>
+    </g>
+   </g>
+   <g id="patch_35">
+    <path d="M 433.636364 318.681818 
+L 433.636364 276.136364 
+L 550.227273 276.136364 
+L 550.227273 318.681818 
+z
+" clip-path="url(#pbd3262d396)" style="fill: #eef2f6"/>
+   </g>
+   <g id="text_34">
+    <g clip-path="url(#pbd3262d396)">
+     <text style="font-size: 12.6px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="491.931818" y="302.197091" transform="rotate(-0 491.931818 302.197091)">△ 個別実装のみ</text>
+    </g>
+   </g>
+   <g id="patch_36">
+    <path d="M 550.227273 318.681818 
+L 550.227273 276.136364 
+L 707.727273 276.136364 
+L 707.727273 318.681818 
+z
+" clip-path="url(#pbd3262d396)" style="fill: #e8f2ff"/>
+   </g>
+   <g id="text_35">
+    <g clip-path="url(#pbd3262d396)">
+     <text style="font-size: 12.8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #4862da" x="628.977273" y="301.486091" transform="rotate(-0 628.977273 301.486091)">✓ 標準 -g CLI</text>
+    </g>
+   </g>
+   <g id="patch_37">
+    <path d="M 12.272727 18.409091 
+L 12.272727 318.681818 
+" clip-path="url(#pbd3262d396)" style="fill: none; stroke: #dce2eb; stroke-width: 0.7; stroke-linecap: round"/>
+   </g>
+   <g id="patch_38">
+    <path d="M 200.454545 18.409091 
+L 200.454545 318.681818 
+" clip-path="url(#pbd3262d396)" style="fill: none; stroke: #8c98aa; stroke-linecap: round"/>
+   </g>
+   <g id="patch_39">
+    <path d="M 317.045455 18.409091 
+L 317.045455 318.681818 
+" clip-path="url(#pbd3262d396)" style="fill: none; stroke: #dce2eb; stroke-width: 0.7; stroke-linecap: round"/>
+   </g>
+   <g id="patch_40">
+    <path d="M 433.636364 18.409091 
+L 433.636364 318.681818 
+" clip-path="url(#pbd3262d396)" style="fill: none; stroke: #dce2eb; stroke-width: 0.7; stroke-linecap: round"/>
+   </g>
+   <g id="patch_41">
+    <path d="M 550.227273 18.409091 
+L 550.227273 318.681818 
+" clip-path="url(#pbd3262d396)" style="fill: none; stroke: #dce2eb; stroke-width: 0.7; stroke-linecap: round"/>
+   </g>
+   <g id="patch_42">
+    <path d="M 707.727273 18.409091 
+L 707.727273 318.681818 
+" clip-path="url(#pbd3262d396)" style="fill: none; stroke: #dce2eb; stroke-width: 0.7; stroke-linecap: round"/>
+   </g>
+   <g id="patch_43">
+    <path d="M 12.272727 18.409091 
+L 707.727273 18.409091 
+" clip-path="url(#pbd3262d396)" style="fill: none; stroke: #323a48; stroke-width: 1.8; stroke-linecap: round"/>
+   </g>
+   <g id="patch_44">
+    <path d="M 12.272727 63.409091 
+L 707.727273 63.409091 
+" clip-path="url(#pbd3262d396)" style="fill: none; stroke: #323a48; stroke-width: 1.4; stroke-linecap: round"/>
+   </g>
+   <g id="patch_45">
+    <path d="M 12.272727 105.954545 
+L 707.727273 105.954545 
+" clip-path="url(#pbd3262d396)" style="fill: none; stroke: #dce2eb; stroke-width: 0.7; stroke-linecap: round"/>
+   </g>
+   <g id="patch_46">
+    <path d="M 12.272727 148.5 
+L 707.727273 148.5 
+" clip-path="url(#pbd3262d396)" style="fill: none; stroke: #dce2eb; stroke-width: 0.7; stroke-linecap: round"/>
+   </g>
+   <g id="patch_47">
+    <path d="M 12.272727 191.045455 
+L 707.727273 191.045455 
+" clip-path="url(#pbd3262d396)" style="fill: none; stroke: #dce2eb; stroke-width: 0.7; stroke-linecap: round"/>
+   </g>
+   <g id="patch_48">
+    <path d="M 12.272727 233.590909 
+L 707.727273 233.590909 
+" clip-path="url(#pbd3262d396)" style="fill: none; stroke: #dce2eb; stroke-width: 0.7; stroke-linecap: round"/>
+   </g>
+   <g id="patch_49">
+    <path d="M 12.272727 276.136364 
+L 707.727273 276.136364 
+" clip-path="url(#pbd3262d396)" style="fill: none; stroke: #dce2eb; stroke-width: 0.7; stroke-linecap: round"/>
+   </g>
+   <g id="patch_50">
+    <path d="M 12.272727 318.681818 
+L 707.727273 318.681818 
+" clip-path="url(#pbd3262d396)" style="fill: none; stroke: #323a48; stroke-width: 1.8; stroke-linecap: round"/>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pbd3262d396">
+   <rect x="0" y="0" width="720" height="335.454545"/>
+  </clipPath>
+ </defs>
+<!-- drawlib-svg-fonts: [{"family":"drawlib-cjk-japanese-noto-sans-bold","rel_path":"_assets/fonts/cjk_japanese_noto_sans/bold.otf","src":"builtin:fonts/cjk_japanese_noto_sans/bold.otf","format":"opentype"},{"family":"drawlib-cjk-japanese-noto-sans-regular","rel_path":"_assets/fonts/cjk_japanese_noto_sans/regular.otf","src":"builtin:fonts/cjk_japanese_noto_sans/regular.otf","format":"opentype"}] -->
+</svg>

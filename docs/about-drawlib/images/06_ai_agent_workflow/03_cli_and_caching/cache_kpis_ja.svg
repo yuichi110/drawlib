@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="720pt" height="900pt" viewBox="0 0 720 900" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 900 
+L 720 900 
+L 720 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 360 286.5 
+L 42.525 286.5 
+Q 14.4 286.5 14.4 258.375 
+L 14.4 64.125 
+Q 14.4 36 42.525 36 
+L 677.475 36 
+Q 705.6 36 705.6 64.125 
+L 705.6 258.375 
+Q 705.6 286.5 677.475 286.5 
+z
+" clip-path="url(#p23fd0f019e)" style="fill: #eef2f6; stroke: #bac4d2; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 33.408 246.42 
+L 33.408 246.42 
+Q 25.8048 246.42 25.8048 238.8168 
+L 25.8048 83.6832 
+Q 25.8048 76.08 33.408 76.08 
+L 33.408 76.08 
+Q 41.0112 76.08 41.0112 83.6832 
+L 41.0112 238.8168 
+Q 41.0112 246.42 33.408 246.42 
+z
+" clip-path="url(#p23fd0f019e)" style="fill: #4862da"/>
+   </g>
+   <g id="text_1">
+    <g clip-path="url(#p23fd0f019e)">
+     <text style="font-size: 27px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #4862da" x="56.14848" y="171.51" transform="rotate(-0 56.14848 171.51)">&lt; 1s</text>
+    </g>
+   </g>
+   <g id="patch_4">
+    <path d="M 249.408 241.41 
+L 249.408 81.09 
+" clip-path="url(#p23fd0f019e)" style="fill: none; stroke: #bac4d2; stroke-width: 0.975; stroke-linecap: round"/>
+   </g>
+   <g id="text_2">
+    <g clip-path="url(#p23fd0f019e)">
+     <text style="font-size: 18px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #323a48" x="273.6" y="123" transform="rotate(-0 273.6 123)">高速差分ビルド</text>
+    </g>
+   </g>
+   <g id="text_3">
+    <g clip-path="url(#p23fd0f019e)">
+     <text style="font-size: 14.2px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: start; fill: #323a48" x="273.6" y="211.281156" transform="rotate(-0 273.6 211.281156)">SQLite SHA-256 .drawlib/cache.db</text>
+    </g>
+   </g>
+   <g id="patch_5">
+    <path d="M 360 575.25 
+L 42.525 575.25 
+Q 14.4 575.25 14.4 547.125 
+L 14.4 352.875 
+Q 14.4 324.75 42.525 324.75 
+L 677.475 324.75 
+Q 705.6 324.75 705.6 352.875 
+L 705.6 547.125 
+Q 705.6 575.25 677.475 575.25 
+z
+" clip-path="url(#p23fd0f019e)" style="fill: #eef2f6; stroke: #bac4d2; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 33.408 535.17 
+L 33.408 535.17 
+Q 25.8048 535.17 25.8048 527.5668 
+L 25.8048 372.4332 
+Q 25.8048 364.83 33.408 364.83 
+L 33.408 364.83 
+Q 41.0112 364.83 41.0112 372.4332 
+L 41.0112 527.5668 
+Q 41.0112 535.17 33.408 535.17 
+z
+" clip-path="url(#p23fd0f019e)" style="fill: #4862da"/>
+   </g>
+   <g id="text_4">
+    <g clip-path="url(#p23fd0f019e)">
+     <text style="font-size: 27px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #4862da" x="56.14848" y="460.26" transform="rotate(-0 56.14848 460.26)">50+</text>
+    </g>
+   </g>
+   <g id="patch_7">
+    <path d="M 249.408 530.16 
+L 249.408 369.84 
+" clip-path="url(#p23fd0f019e)" style="fill: none; stroke: #bac4d2; stroke-width: 0.975; stroke-linecap: round"/>
+   </g>
+   <g id="text_5">
+    <g clip-path="url(#p23fd0f019e)">
+     <text style="font-size: 18px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #323a48" x="273.6" y="411.75" transform="rotate(-0 273.6 411.75)">AIルールトピック</text>
+    </g>
+   </g>
+   <g id="text_6">
+    <g clip-path="url(#p23fd0f019e)">
+     <text style="font-size: 14.2px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: start; fill: #323a48" x="273.6" y="500.486" transform="rotate(-0 273.6 500.486)">drawlib rules show で都度参照</text>
+    </g>
+   </g>
+   <g id="patch_8">
+    <path d="M 360 864 
+L 42.525 864 
+Q 14.4 864 14.4 835.875 
+L 14.4 641.625 
+Q 14.4 613.5 42.525 613.5 
+L 677.475 613.5 
+Q 705.6 613.5 705.6 641.625 
+L 705.6 835.875 
+Q 705.6 864 677.475 864 
+z
+" clip-path="url(#p23fd0f019e)" style="fill: #eef2f6; stroke: #bac4d2; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 33.408 823.92 
+L 33.408 823.92 
+Q 25.8048 823.92 25.8048 816.3168 
+L 25.8048 661.1832 
+Q 25.8048 653.58 33.408 653.58 
+L 33.408 653.58 
+Q 41.0112 653.58 41.0112 661.1832 
+L 41.0112 816.3168 
+Q 41.0112 823.92 33.408 823.92 
+z
+" clip-path="url(#p23fd0f019e)" style="fill: #4862da"/>
+   </g>
+   <g id="text_7">
+    <g clip-path="url(#p23fd0f019e)">
+     <text style="font-size: 27px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #4862da" x="56.14848" y="749.01" transform="rotate(-0 56.14848 749.01)">Zero</text>
+    </g>
+   </g>
+   <g id="patch_10">
+    <path d="M 249.408 818.91 
+L 249.408 658.59 
+" clip-path="url(#p23fd0f019e)" style="fill: none; stroke: #bac4d2; stroke-width: 0.975; stroke-linecap: round"/>
+   </g>
+   <g id="text_8">
+    <g clip-path="url(#p23fd0f019e)">
+     <text style="font-size: 18px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #323a48" x="273.6" y="700.5" transform="rotate(-0 273.6 700.5)">リンク切れゼロ</text>
+    </g>
+   </g>
+   <g id="text_9">
+    <g clip-path="url(#p23fd0f019e)">
+     <text style="font-size: 14.2px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: start; fill: #323a48" x="273.6" y="789.236" transform="rotate(-0 273.6 789.236)">drawlib serve --check で自動検証</text>
+    </g>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p23fd0f019e">
+   <rect x="0" y="0" width="720" height="900"/>
+  </clipPath>
+ </defs>
+<!-- drawlib-svg-fonts: [{"family":"drawlib-cjk-japanese-noto-sans-bold","rel_path":"_assets/fonts/cjk_japanese_noto_sans/bold.otf","src":"builtin:fonts/cjk_japanese_noto_sans/bold.otf","format":"opentype"},{"family":"drawlib-cjk-japanese-noto-sans-regular","rel_path":"_assets/fonts/cjk_japanese_noto_sans/regular.otf","src":"builtin:fonts/cjk_japanese_noto_sans/regular.otf","format":"opentype"}] -->
+</svg>

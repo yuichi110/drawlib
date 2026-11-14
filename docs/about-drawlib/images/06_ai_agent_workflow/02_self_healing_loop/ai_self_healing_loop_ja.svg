@@ -1,0 +1,596 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="720pt" height="278.181818pt" viewBox="0 0 720 278.181818" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 278.181818 
+L 720 278.181818 
+L 720 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 69.545455 169.772727 
+L 16.363636 169.772727 
+Q 8.181818 169.772727 8.181818 161.590909 
+L 8.181818 18.409091 
+Q 8.181818 10.227273 16.363636 10.227273 
+L 122.727273 10.227273 
+Q 130.909091 10.227273 130.909091 18.409091 
+L 130.909091 161.590909 
+Q 130.909091 169.772727 122.727273 169.772727 
+z
+" clip-path="url(#pdfc53d03f2)" style="fill: #ffffff; stroke: #272727; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 69.545455 44.590909 
+L 8.181818 44.590909 
+L 8.181818 18.409091 
+Q 8.181818 10.227273 16.363636 10.227273 
+L 122.727273 10.227273 
+Q 130.909091 10.227273 130.909091 18.409091 
+L 130.909091 44.590909 
+z
+" clip-path="url(#pdfc53d03f2)" style="fill: #e6fafa"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 8.181818 44.590909 
+L 130.909091 44.590909 
+" clip-path="url(#pdfc53d03f2)" style="fill: none; stroke: #55c3c3; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 69.545455 169.772727 
+L 16.363636 169.772727 
+Q 8.181818 169.772727 8.181818 161.590909 
+L 8.181818 18.409091 
+Q 8.181818 10.227273 16.363636 10.227273 
+L 122.727273 10.227273 
+Q 130.909091 10.227273 130.909091 18.409091 
+L 130.909091 161.590909 
+Q 130.909091 169.772727 122.727273 169.772727 
+L 69.545455 169.772727 
+z
+" clip-path="url(#pdfc53d03f2)" style="fill: none; stroke: #55c3c3; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_1">
+    <g clip-path="url(#pdfc53d03f2)">
+     <text style="font-size: 13px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="69.545455" y="32.349091" transform="rotate(-0 69.545455 32.349091)">1. ルール参照</text>
+    </g>
+   </g>
+   <g id="patch_6">
+    <path d="M 69.545455 90.818182 
+C 74.31911 90.818182 78.897892 88.921588 82.273377 85.546104 
+C 85.648861 82.170619 87.545455 77.591838 87.545455 72.818182 
+C 87.545455 68.044526 85.648861 63.465744 82.273377 60.09026 
+C 78.897892 56.714775 74.31911 54.818182 69.545455 54.818182 
+C 64.771799 54.818182 60.193017 56.714775 56.817532 60.09026 
+C 53.442048 63.465744 51.545455 68.044526 51.545455 72.818182 
+C 51.545455 77.591838 53.442048 82.170619 56.817532 85.546104 
+C 60.193017 88.921588 64.771799 90.818182 69.545455 90.818182 
+z
+" clip-path="url(#pdfc53d03f2)" style="fill: #e8f2ff; stroke: #7891f2; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_2">
+    <g clip-path="url(#pdfc53d03f2)">
+     <text style="font-size: 21px; font-family: 'drawlib-phosphor-bold', 'Phosphor-Bold'; text-anchor: middle; fill: #4862da" x="69.545455" y="82.005682" transform="rotate(-0 69.545455 82.005682)"></text>
+    </g>
+   </g>
+   <g id="patch_7">
+    <path d="M 69.545455 120.272727 
+L 20.454545 120.272727 
+Q 15.545455 120.272727 15.545455 115.363636 
+L 15.545455 103.909091 
+Q 15.545455 99 20.454545 99 
+L 118.636364 99 
+Q 123.545455 99 123.545455 103.909091 
+L 123.545455 115.363636 
+Q 123.545455 120.272727 118.636364 120.272727 
+z
+" clip-path="url(#pdfc53d03f2)" style="fill: #eef2f6; stroke: #bac4d2; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_3">
+    <g clip-path="url(#pdfc53d03f2)">
+     <text style="font-size: 10.8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #4862da" x="69.545455" y="113.740364" transform="rotate(-0 69.545455 113.740364)">drawlib rules show</text>
+    </g>
+   </g>
+   <g id="text_4">
+    <g clip-path="url(#pdfc53d03f2)">
+     <text style="font-size: 10.8px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(12.662361 138.531273)">必要なAPIと設計規約を</text>
+    </g>
+    <g clip-path="url(#pdfc53d03f2)">
+     <text style="font-size: 10.8px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(20.945455 149.331273)">オンデマンドで取得</text>
+    </g>
+    <g clip-path="url(#pdfc53d03f2)">
+     <text style="font-size: 10.8px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(26.507455 160.131273)">コンテキスト節約</text>
+    </g>
+   </g>
+   <g id="patch_8">
+    <path d="M 132.136364 90 
+L 144.068551 90 
+" clip-path="url(#pdfc53d03f2)" style="fill: none; stroke: #4862da; stroke-width: 2.5; stroke-linecap: round"/>
+    <path d="M 136.068551 86 
+L 144.068551 90 
+L 136.068551 94 
+" clip-path="url(#pdfc53d03f2)" style="fill: none; stroke: #4862da; stroke-width: 2.5; stroke-linecap: round"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 209.454545 169.772727 
+L 156.272727 169.772727 
+Q 148.090909 169.772727 148.090909 161.590909 
+L 148.090909 18.409091 
+Q 148.090909 10.227273 156.272727 10.227273 
+L 262.636364 10.227273 
+Q 270.818182 10.227273 270.818182 18.409091 
+L 270.818182 161.590909 
+Q 270.818182 169.772727 262.636364 169.772727 
+z
+" clip-path="url(#pdfc53d03f2)" style="fill: #ffffff; stroke: #272727; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 209.454545 44.590909 
+L 148.090909 44.590909 
+L 148.090909 18.409091 
+Q 148.090909 10.227273 156.272727 10.227273 
+L 262.636364 10.227273 
+Q 270.818182 10.227273 270.818182 18.409091 
+L 270.818182 44.590909 
+z
+" clip-path="url(#pdfc53d03f2)" style="fill: #e6fafa"/>
+   </g>
+   <g id="patch_11">
+    <path d="M 148.090909 44.590909 
+L 270.818182 44.590909 
+" clip-path="url(#pdfc53d03f2)" style="fill: none; stroke: #55c3c3; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="patch_12">
+    <path d="M 209.454545 169.772727 
+L 156.272727 169.772727 
+Q 148.090909 169.772727 148.090909 161.590909 
+L 148.090909 18.409091 
+Q 148.090909 10.227273 156.272727 10.227273 
+L 262.636364 10.227273 
+Q 270.818182 10.227273 270.818182 18.409091 
+L 270.818182 161.590909 
+Q 270.818182 169.772727 262.636364 169.772727 
+L 209.454545 169.772727 
+z
+" clip-path="url(#pdfc53d03f2)" style="fill: none; stroke: #55c3c3; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_5">
+    <g clip-path="url(#pdfc53d03f2)">
+     <text style="font-size: 13px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="209.454545" y="32.349091" transform="rotate(-0 209.454545 32.349091)">2. コード生成</text>
+    </g>
+   </g>
+   <g id="patch_13">
+    <path d="M 209.454545 90.818182 
+C 214.228201 90.818182 218.806983 88.921588 222.182468 85.546104 
+C 225.557952 82.170619 227.454545 77.591838 227.454545 72.818182 
+C 227.454545 68.044526 225.557952 63.465744 222.182468 60.09026 
+C 218.806983 56.714775 214.228201 54.818182 209.454545 54.818182 
+C 204.68089 54.818182 200.102108 56.714775 196.726623 60.09026 
+C 193.351139 63.465744 191.454545 68.044526 191.454545 72.818182 
+C 191.454545 77.591838 193.351139 82.170619 196.726623 85.546104 
+C 200.102108 88.921588 204.68089 90.818182 209.454545 90.818182 
+z
+" clip-path="url(#pdfc53d03f2)" style="fill: #e8f2ff; stroke: #7891f2; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_6">
+    <g clip-path="url(#pdfc53d03f2)">
+     <text style="font-size: 21px; font-family: 'drawlib-phosphor-bold', 'Phosphor-Bold'; text-anchor: middle; fill: #4862da" x="209.454545" y="82.005682" transform="rotate(-0 209.454545 82.005682)"></text>
+    </g>
+   </g>
+   <g id="patch_14">
+    <path d="M 209.454545 120.272727 
+L 160.363636 120.272727 
+Q 155.454545 120.272727 155.454545 115.363636 
+L 155.454545 103.909091 
+Q 155.454545 99 160.363636 99 
+L 258.545455 99 
+Q 263.454545 99 263.454545 103.909091 
+L 263.454545 115.363636 
+Q 263.454545 120.272727 258.545455 120.272727 
+z
+" clip-path="url(#pdfc53d03f2)" style="fill: #eef2f6; stroke: #bac4d2; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_7">
+    <g clip-path="url(#pdfc53d03f2)">
+     <text style="font-size: 10.8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #4862da" x="209.454545" y="113.178426" transform="rotate(-0 209.454545 113.178426)">Write Python / MD</text>
+    </g>
+   </g>
+   <g id="text_8">
+    <g clip-path="url(#pdfc53d03f2)">
+     <text style="font-size: 10.8px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(149.581202 137.829273)">SmartArts・Diagramsと</text>
+    </g>
+    <g clip-path="url(#pdfc53d03f2)">
+     <text style="font-size: 10.8px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(172.453577 150.033273)">::: block 座標を</text>
+    </g>
+    <g clip-path="url(#pdfc53d03f2)">
+     <text style="font-size: 10.8px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(177.054545 160.833273)">型安全に記述</text>
+    </g>
+   </g>
+   <g id="patch_15">
+    <path d="M 272.045455 90 
+L 283.977642 90 
+" clip-path="url(#pdfc53d03f2)" style="fill: none; stroke: #4862da; stroke-width: 2.5; stroke-linecap: round"/>
+    <path d="M 275.977642 86 
+L 283.977642 90 
+L 275.977642 94 
+" clip-path="url(#pdfc53d03f2)" style="fill: none; stroke: #4862da; stroke-width: 2.5; stroke-linecap: round"/>
+   </g>
+   <g id="patch_16">
+    <path d="M 349.363636 169.772727 
+L 296.181818 169.772727 
+Q 288 169.772727 288 161.590909 
+L 288 18.409091 
+Q 288 10.227273 296.181818 10.227273 
+L 402.545455 10.227273 
+Q 410.727273 10.227273 410.727273 18.409091 
+L 410.727273 161.590909 
+Q 410.727273 169.772727 402.545455 169.772727 
+z
+" clip-path="url(#pdfc53d03f2)" style="fill: #ffffff; stroke: #272727; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_17">
+    <path d="M 349.363636 44.590909 
+L 288 44.590909 
+L 288 18.409091 
+Q 288 10.227273 296.181818 10.227273 
+L 402.545455 10.227273 
+Q 410.727273 10.227273 410.727273 18.409091 
+L 410.727273 44.590909 
+z
+" clip-path="url(#pdfc53d03f2)" style="fill: #e6fafa"/>
+   </g>
+   <g id="patch_18">
+    <path d="M 288 44.590909 
+L 410.727273 44.590909 
+" clip-path="url(#pdfc53d03f2)" style="fill: none; stroke: #55c3c3; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="patch_19">
+    <path d="M 349.363636 169.772727 
+L 296.181818 169.772727 
+Q 288 169.772727 288 161.590909 
+L 288 18.409091 
+Q 288 10.227273 296.181818 10.227273 
+L 402.545455 10.227273 
+Q 410.727273 10.227273 410.727273 18.409091 
+L 410.727273 161.590909 
+Q 410.727273 169.772727 402.545455 169.772727 
+L 349.363636 169.772727 
+z
+" clip-path="url(#pdfc53d03f2)" style="fill: none; stroke: #55c3c3; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_9">
+    <g clip-path="url(#pdfc53d03f2)">
+     <text style="font-size: 13px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="349.363636" y="32.349091" transform="rotate(-0 349.363636 32.349091)">3. グリッド描画</text>
+    </g>
+   </g>
+   <g id="patch_20">
+    <path d="M 349.363636 90.818182 
+C 354.137292 90.818182 358.716074 88.921588 362.091558 85.546104 
+C 365.467043 82.170619 367.363636 77.591838 367.363636 72.818182 
+C 367.363636 68.044526 365.467043 63.465744 362.091558 60.09026 
+C 358.716074 56.714775 354.137292 54.818182 349.363636 54.818182 
+C 344.589981 54.818182 340.011199 56.714775 336.635714 60.09026 
+C 333.26023 63.465744 331.363636 68.044526 331.363636 72.818182 
+C 331.363636 77.591838 333.26023 82.170619 336.635714 85.546104 
+C 340.011199 88.921588 344.589981 90.818182 349.363636 90.818182 
+z
+" clip-path="url(#pdfc53d03f2)" style="fill: #e8f2ff; stroke: #7891f2; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_10">
+    <g clip-path="url(#pdfc53d03f2)">
+     <text style="font-size: 21px; font-family: 'drawlib-phosphor-bold', 'Phosphor-Bold'; text-anchor: middle; fill: #4862da" x="349.363636" y="82.005682" transform="rotate(-0 349.363636 82.005682)"></text>
+    </g>
+   </g>
+   <g id="patch_21">
+    <path d="M 349.363636 120.272727 
+L 300.272727 120.272727 
+Q 295.363636 120.272727 295.363636 115.363636 
+L 295.363636 103.909091 
+Q 295.363636 99 300.272727 99 
+L 398.454545 99 
+Q 403.363636 99 403.363636 103.909091 
+L 403.363636 115.363636 
+Q 403.363636 120.272727 398.454545 120.272727 
+z
+" clip-path="url(#pdfc53d03f2)" style="fill: #eef2f6; stroke: #bac4d2; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_11">
+    <g clip-path="url(#pdfc53d03f2)">
+     <text style="font-size: 10.8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #4862da" x="349.363636" y="113.076332" transform="rotate(-0 349.363636 113.076332)">drawlib show -g</text>
+    </g>
+   </g>
+   <g id="text_12">
+    <g clip-path="url(#pdfc53d03f2)">
+     <text style="font-size: 10.8px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(303.431574 138.12121)">(X, Y) 目盛り付きの</text>
+    </g>
+    <g clip-path="url(#pdfc53d03f2)">
+     <text style="font-size: 10.8px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(305.920636 149.741335)">検証用PNG画像を</text>
+    </g>
+    <g clip-path="url(#pdfc53d03f2)">
+     <text style="font-size: 10.8px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(313.966636 160.541335)">1秒未満で出力</text>
+    </g>
+   </g>
+   <g id="patch_22">
+    <path d="M 411.954545 90 
+L 423.886733 90 
+" clip-path="url(#pdfc53d03f2)" style="fill: none; stroke: #4862da; stroke-width: 2.5; stroke-linecap: round"/>
+    <path d="M 415.886733 86 
+L 423.886733 90 
+L 415.886733 94 
+" clip-path="url(#pdfc53d03f2)" style="fill: none; stroke: #4862da; stroke-width: 2.5; stroke-linecap: round"/>
+   </g>
+   <g id="patch_23">
+    <path d="M 493.363636 169.772727 
+L 436.090909 169.772727 
+Q 427.909091 169.772727 427.909091 161.590909 
+L 427.909091 18.409091 
+Q 427.909091 10.227273 436.090909 10.227273 
+L 550.636364 10.227273 
+Q 558.818182 10.227273 558.818182 18.409091 
+L 558.818182 161.590909 
+Q 558.818182 169.772727 550.636364 169.772727 
+z
+" clip-path="url(#pdfc53d03f2)" style="fill: #e8f2ff; stroke: #7891f2; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_24">
+    <path d="M 493.363636 44.590909 
+L 427.909091 44.590909 
+L 427.909091 18.409091 
+Q 427.909091 10.227273 436.090909 10.227273 
+L 550.636364 10.227273 
+Q 558.818182 10.227273 558.818182 18.409091 
+L 558.818182 44.590909 
+z
+" clip-path="url(#pdfc53d03f2)" style="fill: #4862da"/>
+   </g>
+   <g id="text_13">
+    <g clip-path="url(#pdfc53d03f2)">
+     <text style="font-size: 13px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #ffffff" x="493.363636" y="32.349091" transform="rotate(-0 493.363636 32.349091)">4. 視覚検品</text>
+    </g>
+   </g>
+   <g id="patch_25">
+    <path d="M 493.363636 90.818182 
+C 498.137292 90.818182 502.716074 88.921588 506.091558 85.546104 
+C 509.467043 82.170619 511.363636 77.591838 511.363636 72.818182 
+C 511.363636 68.044526 509.467043 63.465744 506.091558 60.09026 
+C 502.716074 56.714775 498.137292 54.818182 493.363636 54.818182 
+C 488.589981 54.818182 484.011199 56.714775 480.635714 60.09026 
+C 477.26023 63.465744 475.363636 68.044526 475.363636 72.818182 
+C 475.363636 77.591838 477.26023 82.170619 480.635714 85.546104 
+C 484.011199 88.921588 488.589981 90.818182 493.363636 90.818182 
+z
+" clip-path="url(#pdfc53d03f2)" style="fill: #ffffff"/>
+   </g>
+   <g id="text_14">
+    <g clip-path="url(#pdfc53d03f2)">
+     <text style="font-size: 21px; font-family: 'drawlib-phosphor-bold', 'Phosphor-Bold'; text-anchor: middle; fill: #4862da" x="493.363636" y="82.005682" transform="rotate(-0 493.363636 82.005682)"></text>
+    </g>
+   </g>
+   <g id="patch_26">
+    <path d="M 493.363636 120.272727 
+L 440.181818 120.272727 
+Q 435.272727 120.272727 435.272727 115.363636 
+L 435.272727 103.909091 
+Q 435.272727 99 440.181818 99 
+L 546.545455 99 
+Q 551.454545 99 551.454545 103.909091 
+L 551.454545 115.363636 
+Q 551.454545 120.272727 546.545455 120.272727 
+z
+" clip-path="url(#pdfc53d03f2)" style="fill: #4862da"/>
+   </g>
+   <g id="text_15">
+    <g clip-path="url(#pdfc53d03f2)">
+     <text style="font-size: 10.8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #ffffff" x="493.363636" y="113.740364" transform="rotate(-0 493.363636 113.740364)">Multimodal 検査</text>
+    </g>
+   </g>
+   <g id="text_16">
+    <g clip-path="url(#pdfc53d03f2)">
+     <text style="font-size: 10.8px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(428.833636 138.531273)">余白バランス・文字サイズ</text>
+    </g>
+    <g clip-path="url(#pdfc53d03f2)">
+     <text style="font-size: 10.8px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(444.763636 149.331273)">要素の重なり有無を</text>
+    </g>
+    <g clip-path="url(#pdfc53d03f2)">
+     <text style="font-size: 10.8px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(455.563636 160.131273)">画像認識で判定</text>
+    </g>
+   </g>
+   <g id="patch_27">
+    <path d="M 560.045455 90 
+L 585.068551 90 
+" clip-path="url(#pdfc53d03f2)" style="fill: none; stroke: #3a964b; stroke-width: 2.5; stroke-linecap: round"/>
+    <path d="M 577.068551 86 
+L 585.068551 90 
+L 577.068551 94 
+" clip-path="url(#pdfc53d03f2)" style="fill: none; stroke: #3a964b; stroke-width: 2.5; stroke-linecap: round"/>
+   </g>
+   <g id="text_17">
+    <g clip-path="url(#pdfc53d03f2)">
+     <text style="font-size: 11px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #3a964b" x="573.954545" y="81.089091" transform="rotate(-0 573.954545 81.089091)">合格</text>
+    </g>
+   </g>
+   <g id="patch_28">
+    <path d="M 650.454545 169.772727 
+L 597.272727 169.772727 
+Q 589.090909 169.772727 589.090909 161.590909 
+L 589.090909 18.409091 
+Q 589.090909 10.227273 597.272727 10.227273 
+L 703.636364 10.227273 
+Q 711.818182 10.227273 711.818182 18.409091 
+L 711.818182 161.590909 
+Q 711.818182 169.772727 703.636364 169.772727 
+z
+" clip-path="url(#pdfc53d03f2)" style="fill: #ffffff; stroke: #272727; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_29">
+    <path d="M 650.454545 44.590909 
+L 589.090909 44.590909 
+L 589.090909 18.409091 
+Q 589.090909 10.227273 597.272727 10.227273 
+L 703.636364 10.227273 
+Q 711.818182 10.227273 711.818182 18.409091 
+L 711.818182 44.590909 
+z
+" clip-path="url(#pdfc53d03f2)" style="fill: #3a964b"/>
+   </g>
+   <g id="text_18">
+    <g clip-path="url(#pdfc53d03f2)">
+     <text style="font-size: 13px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #ffffff" x="650.454545" y="32.349091" transform="rotate(-0 650.454545 32.349091)">検品済み成果物</text>
+    </g>
+   </g>
+   <g id="patch_30">
+    <path d="M 650.454545 91.636364 
+C 655.445186 91.636364 660.232094 89.653561 663.761009 86.124646 
+C 667.289925 82.59573 669.272727 77.808822 669.272727 72.818182 
+C 669.272727 67.827542 667.289925 63.040633 663.761009 59.511718 
+C 660.232094 55.982802 655.445186 54 650.454545 54 
+C 645.463905 54 640.676997 55.982802 637.148081 59.511718 
+C 633.619166 63.040633 631.636364 67.827542 631.636364 72.818182 
+C 631.636364 77.808822 633.619166 82.59573 637.148081 86.124646 
+C 640.676997 89.653561 645.463905 91.636364 650.454545 91.636364 
+z
+" clip-path="url(#pdfc53d03f2)" style="fill: #e6fafa; stroke: #55c3c3; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_19">
+    <g clip-path="url(#pdfc53d03f2)">
+     <text style="font-size: 23px; font-family: 'drawlib-phosphor-bold', 'Phosphor-Bold'; text-anchor: middle; fill: #3a964b" x="650.454545" y="82.880682" transform="rotate(-0 650.454545 82.880682)"></text>
+    </g>
+   </g>
+   <g id="patch_31">
+    <path d="M 650.454545 120.272727 
+L 601.772727 120.272727 
+Q 596.863636 120.272727 596.863636 115.363636 
+L 596.863636 103.909091 
+Q 596.863636 99 601.772727 99 
+L 699.136364 99 
+Q 704.045455 99 704.045455 103.909091 
+L 704.045455 115.363636 
+Q 704.045455 120.272727 699.136364 120.272727 
+z
+" clip-path="url(#pdfc53d03f2)" style="fill: #e6fafa; stroke: #55c3c3; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_20">
+    <g clip-path="url(#pdfc53d03f2)">
+     <text style="font-size: 10.8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="650.454545" y="113.740364" transform="rotate(-0 650.454545 113.740364)">✓ 公開ビルド完了</text>
+    </g>
+   </g>
+   <g id="text_21">
+    <g clip-path="url(#pdfc53d03f2)">
+     <text style="font-size: 10.8px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(598.857545 138.531273)">高品質なHTML・PDF</text>
+    </g>
+    <g clip-path="url(#pdfc53d03f2)">
+     <text style="font-size: 10.8px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(601.65542 149.331273)">Word・16:9 PPTXを</text>
+    </g>
+    <g clip-path="url(#pdfc53d03f2)">
+     <text style="font-size: 10.8px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; fill: #323a48" transform="translate(612.654545 160.131273)">一括コンパイル</text>
+    </g>
+   </g>
+   <g id="patch_32">
+    <path d="M 505.227273 169.772727 
+L 505.227273 230.113636 
+" clip-path="url(#pdfc53d03f2)" style="fill: none; stroke: #d78614; stroke-width: 2.5; stroke-linecap: round"/>
+   </g>
+   <g id="patch_33">
+    <path d="M 505.227273 230.113636 
+L 474.885994 230.113636 
+" clip-path="url(#pdfc53d03f2)" style="fill: none; stroke: #d78614; stroke-width: 2.5; stroke-linecap: round"/>
+    <path d="M 482.885994 234.113636 
+L 474.885994 230.113636 
+L 482.885994 226.113636 
+" clip-path="url(#pdfc53d03f2)" style="fill: none; stroke: #d78614; stroke-width: 2.5; stroke-linecap: round"/>
+   </g>
+   <g id="text_22">
+    <g clip-path="url(#pdfc53d03f2)">
+     <text style="font-size: 10.8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #323a48" x="517.5" y="221.740364" transform="rotate(-0 517.5 221.740364)">重なり・見切れを検知</text>
+    </g>
+   </g>
+   <g id="patch_34">
+    <path d="M 352.840909 263.863636 
+L 243.409091 263.863636 
+Q 235.227273 263.863636 235.227273 255.681818 
+L 235.227273 204.545455 
+Q 235.227273 196.363636 243.409091 196.363636 
+L 462.272727 196.363636 
+Q 470.454545 196.363636 470.454545 204.545455 
+L 470.454545 255.681818 
+Q 470.454545 263.863636 462.272727 263.863636 
+z
+" clip-path="url(#pdfc53d03f2)" style="fill: #e6fafa; stroke: #55c3c3; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_35">
+    <path d="M 261.818182 247.295455 
+C 266.374853 247.295455 270.745509 245.48507 273.967562 242.263017 
+C 277.189615 239.040963 279 234.670308 279 230.113636 
+C 279 225.556965 277.189615 221.186309 273.967562 217.964256 
+C 270.745509 214.742203 266.374853 212.931818 261.818182 212.931818 
+C 257.26151 212.931818 252.890855 214.742203 249.668802 217.964256 
+C 246.446748 221.186309 244.636364 225.556965 244.636364 230.113636 
+C 244.636364 234.670308 246.446748 239.040963 249.668802 242.263017 
+C 252.890855 245.48507 257.26151 247.295455 261.818182 247.295455 
+z
+" clip-path="url(#pdfc53d03f2)" style="fill: #ffffff"/>
+   </g>
+   <g id="text_23">
+    <g clip-path="url(#pdfc53d03f2)">
+     <text style="font-size: 20px; font-family: 'drawlib-phosphor-bold', 'Phosphor-Bold'; text-anchor: middle; fill: #4862da" x="261.818182" y="238.863636" transform="rotate(-0 261.818182 238.863636)"></text>
+    </g>
+   </g>
+   <g id="text_24">
+    <g clip-path="url(#pdfc53d03f2)">
+     <text style="font-size: 12.6px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #323a48" x="286.363636" y="221.810727" transform="rotate(-0 286.363636 221.810727)">5. 座標・サイズの自己修正</text>
+    </g>
+   </g>
+   <g id="text_25">
+    <g clip-path="url(#pdfc53d03f2)">
+     <text style="font-size: 10.6px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: start; fill: #323a48" x="286.363636" y="244.089" transform="rotate(-0 286.363636 244.089)">-g 目盛りから (x, y) とサイズを自動補正</text>
+    </g>
+   </g>
+   <g id="patch_36">
+    <path d="M 235.227273 230.113636 
+L 209.454545 230.113636 
+" clip-path="url(#pdfc53d03f2)" style="fill: none; stroke: #4862da; stroke-width: 2.5; stroke-linecap: round"/>
+   </g>
+   <g id="patch_37">
+    <path d="M 209.454545 230.113636 
+L 209.454545 174.204176 
+" clip-path="url(#pdfc53d03f2)" style="fill: none; stroke: #4862da; stroke-width: 2.5; stroke-linecap: round"/>
+    <path d="M 205.454545 182.204176 
+L 209.454545 174.204176 
+L 213.454545 182.204176 
+" clip-path="url(#pdfc53d03f2)" style="fill: none; stroke: #4862da; stroke-width: 2.5; stroke-linecap: round"/>
+   </g>
+   <g id="text_26">
+    <g clip-path="url(#pdfc53d03f2)">
+     <text style="font-size: 11px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: end; fill: #4862da" x="201.272727" y="210.770909" transform="rotate(-0 201.272727 210.770909)">再検証</text>
+    </g>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pdfc53d03f2">
+   <rect x="0" y="0" width="720" height="278.181818"/>
+  </clipPath>
+ </defs>
+<!-- drawlib-svg-fonts: [{"family":"drawlib-cjk-japanese-noto-sans-bold","rel_path":"_assets/fonts/cjk_japanese_noto_sans/bold.otf","src":"builtin:fonts/cjk_japanese_noto_sans/bold.otf","format":"opentype"},{"family":"drawlib-phosphor-bold","rel_path":"_assets/fonts/phosphor/bold.ttf","src":"builtin:fonticons/phosphor/bold.ttf","format":"truetype"},{"family":"drawlib-cjk-japanese-noto-sans-regular","rel_path":"_assets/fonts/cjk_japanese_noto_sans/regular.otf","src":"builtin:fonts/cjk_japanese_noto_sans/regular.otf","format":"opentype"}] -->
+</svg>

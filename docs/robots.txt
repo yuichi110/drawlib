@@ -4,3 +4,5 @@ Allow: /
 Sitemap: https://www.drawlib.com/sitemap.xml
 Sitemap: https://www.drawlib.com/api/sitemap.xml
 Sitemap: https://www.drawlib.com/architecture/sitemap.xml
+Sitemap: https://www.drawlib.com/quickstart/sitemap.xml
+Sitemap: https://www.drawlib.com/about-drawlib/sitemap.xml

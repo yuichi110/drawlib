@@ -1,0 +1,26 @@
+[project]
+name = "about-drawlib"
+type = "slide"
+title = ""
+description = "About Drawlib — Official Bilingual 16:9 Showcase Presentation Deck"
+style = "default"
+
+[i18n]
+default_lang = "en"
+langs = ["en", "ja"]
+
+[i18n.labels]
+en = "English"
+ja = "日本語"
+
+[i18n.descriptions]
+en = "About Drawlib — Official Bilingual 16:9 Showcase Presentation Deck"
+ja = "About Drawlib — Drawlib 公式バイリンガル 16:9 ショーケーススライドデッキ"
+
+[seo]
+site_url = "https://www.drawlib.com/about-drawlib"
+og_image = "_assets/ogp.png"
+twitter_card = "summary_large_image"
+sitemap = true
+robots = false
+llms_txt = true

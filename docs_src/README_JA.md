@@ -41,10 +41,10 @@ Drawlib は、ソフトウェア開発者・テクニカルライター・**自�
 
 ![Autonomous AI Documentation Workflow](../docs/readme_images/01_hero_ai_doc_loop.png)
 
-- **公式 Web サイト & ドキュメント**: [日本語 (`www.drawlib.com/ja/`)](https://www.drawlib.com/ja/) | [English (`www.drawlib.com`)](https://www.drawlib.com/) | [`uvx` ゼロインストール活用ガイド](https://www.drawlib.com/ja/01_getting_started/uvx_any_project.html) | [API & CLI リファレンス (`www.drawlib.com/api/ja/`)](https://www.drawlib.com/api/ja/) | [内部アーキテクチャ仕様書](https://www.drawlib.com/architecture/)
+- **公式 Web サイト & ドキュメント**: [日本語 (`www.drawlib.com/ja/`)](https://www.drawlib.com/ja/) | [English (`www.drawlib.com`)](https://www.drawlib.com/) | [クイックスタートガイド（HTML / PDF / DOCX）](https://www.drawlib.com/quickstart/ja/) | [About Drawlib スライドデッキ（HTML / PDF / PPTX）](https://www.drawlib.com/about-drawlib/ja/) | [`uvx` ゼロインストール活用ガイド](https://www.drawlib.com/ja/01_getting_started/uvx_any_project.html) | [API & CLI リファレンス (`www.drawlib.com/api/ja/`)](https://www.drawlib.com/api/ja/) | [内部アーキテクチャ仕様書](https://www.drawlib.com/architecture/)
 - **ライブサンプル集 (`examples.drawlib.com`)**: [全サンプル一覧を見る（HTML / PDF / DOCX / PPTX）](https://examples.drawlib.com/) | [ソース (`drawlib-examples`)](https://github.com/yuichi110/drawlib-examples)
-  - **16:9 プレゼンスライド**: [About Drawlib（HTML / PDF / PPTX）](https://examples.drawlib.com/about-drawlib/en/) · [DDoS 障害対応ポストモーテム（HTML / PDF / PPTX）](https://examples.drawlib.com/ddos-incident-response/en/)
-  - **ガイド & ホワイトペーパー**: [Dogfooding 技術ホワイトペーパー — 日本語版](https://examples.drawlib.com/dogfooding/ja/) / [English](https://examples.drawlib.com/dogfooding/en/) · [クイックスタートガイド（HTML / PDF / DOCX）](https://examples.drawlib.com/quickstart/en/)
+  - **16:9 プレゼンスライド**: [About Drawlib（HTML / PDF / PPTX）](https://www.drawlib.com/about-drawlib/ja/) · [DDoS 障害対応ポストモーテム（HTML / PDF / PPTX）](https://examples.drawlib.com/ddos-incident-response/ja/)
+  - **ガイド & ハンドブック**: [クイックスタートガイド — 日本語版（HTML / PDF / DOCX）](https://www.drawlib.com/quickstart/ja/) / [English（HTML / PDF / DOCX）](https://www.drawlib.com/quickstart/en/)
 
 ---
 

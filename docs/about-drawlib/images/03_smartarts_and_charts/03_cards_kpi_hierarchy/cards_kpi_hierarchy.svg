@@ -1,0 +1,761 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="720pt" height="331.363636pt" viewBox="0 0 720 331.363636" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 331.363636 
+L 720 331.363636 
+L 720 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 178.977273 158.727273 
+L 14.318182 158.727273 
+Q 6.136364 158.727273 6.136364 150.545455 
+L 6.136364 13.5 
+Q 6.136364 5.318182 14.318182 5.318182 
+L 343.636364 5.318182 
+Q 351.818182 5.318182 351.818182 13.5 
+L 351.818182 150.545455 
+Q 351.818182 158.727273 343.636364 158.727273 
+z
+" clip-path="url(#p1de67ba67e)" style="fill: #eef2f6; stroke: #bac4d2; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 178.977273 31.5 
+L 6.136364 31.5 
+L 6.136364 13.5 
+Q 6.136364 5.318182 14.318182 5.318182 
+L 343.636364 5.318182 
+Q 351.818182 5.318182 351.818182 13.5 
+L 351.818182 31.5 
+z
+" clip-path="url(#p1de67ba67e)" style="fill: #e6fafa"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 6.136364 31.5 
+L 351.818182 31.5 
+" clip-path="url(#p1de67ba67e)" style="fill: none; stroke: #55c3c3; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 178.977273 158.727273 
+L 14.318182 158.727273 
+Q 6.136364 158.727273 6.136364 150.545455 
+L 6.136364 13.5 
+Q 6.136364 5.318182 14.318182 5.318182 
+L 343.636364 5.318182 
+Q 351.818182 5.318182 351.818182 13.5 
+L 351.818182 150.545455 
+Q 351.818182 158.727273 343.636364 158.727273 
+L 178.977273 158.727273 
+z
+" clip-path="url(#p1de67ba67e)" style="fill: none; stroke: #55c3c3; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_1">
+    <g clip-path="url(#p1de67ba67e)">
+     <text style="font-size: 13px; font-family: 'drawlib-phosphor-bold', 'Phosphor-Bold'; text-anchor: middle; fill: #4862da" x="28.783636" y="24.096591" transform="rotate(-0 28.783636 24.096591)"></text>
+    </g>
+   </g>
+   <g id="text_2">
+    <g clip-path="url(#p1de67ba67e)">
+     <text style="font-size: 14px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #323a48" x="43.249091" y="23.064091" transform="rotate(-0 43.249091 23.064091)">KpiCards — Metric Grid</text>
+    </g>
+   </g>
+   <g id="text_3">
+    <g clip-path="url(#p1de67ba67e)">
+     <text style="font-size: 11.2px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: end; fill: #5f6b7d" x="335.454545" y="22.026341" transform="rotate(-0 335.454545 22.026341)">2x2 Layout</text>
+    </g>
+   </g>
+   <g id="patch_6">
+    <path d="M 96.238636 90.204545 
+L 25.772727 90.204545 
+Q 18.409091 90.204545 18.409091 82.840909 
+L 18.409091 47.863636 
+Q 18.409091 40.5 25.772727 40.5 
+L 166.704545 40.5 
+Q 174.068182 40.5 174.068182 47.863636 
+L 174.068182 82.840909 
+Q 174.068182 90.204545 166.704545 90.204545 
+z
+" clip-path="url(#p1de67ba67e)" style="fill: #ffffff; stroke: #272727; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 23.522727 82.251818 
+L 23.522727 82.251818 
+Q 21.477273 82.251818 21.477273 80.206364 
+L 21.477273 50.498182 
+Q 21.477273 48.452727 23.522727 48.452727 
+L 23.522727 48.452727 
+Q 25.568182 48.452727 25.568182 50.498182 
+L 25.568182 80.206364 
+Q 25.568182 82.251818 23.522727 82.251818 
+z
+" clip-path="url(#p1de67ba67e)" style="fill: #4862da"/>
+   </g>
+   <g id="text_4">
+    <g clip-path="url(#p1de67ba67e)">
+     <text style="font-size: 16.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #4862da" x="29.277" y="71.622273" transform="rotate(-0 29.277 71.622273)">18</text>
+    </g>
+   </g>
+   <g id="patch_8">
+    <path d="M 68.22 81.257727 
+L 68.22 49.446818 
+" clip-path="url(#p1de67ba67e)" style="fill: none; stroke: #272727; stroke-width: 0.975; stroke-linecap: round"/>
+   </g>
+   <g id="text_5">
+    <g clip-path="url(#p1de67ba67e)">
+     <text style="font-size: 11.8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #323a48" x="73.668068" y="60.275486" transform="rotate(-0 73.668068 60.275486)">SmartArt Types</text>
+    </g>
+   </g>
+   <g id="text_6">
+    <g clip-path="url(#p1de67ba67e)">
+     <text style="font-size: 10.8px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: start; fill: #5f6b7d" x="73.668068" y="77.814153" transform="rotate(-0 73.668068 77.814153)">Tables to GeoMaps</text>
+    </g>
+   </g>
+   <g id="patch_9">
+    <path d="M 261.715909 90.204545 
+L 191.25 90.204545 
+Q 183.886364 90.204545 183.886364 82.840909 
+L 183.886364 47.863636 
+Q 183.886364 40.5 191.25 40.5 
+L 332.181818 40.5 
+Q 339.545455 40.5 339.545455 47.863636 
+L 339.545455 82.840909 
+Q 339.545455 90.204545 332.181818 90.204545 
+z
+" clip-path="url(#p1de67ba67e)" style="fill: #ffffff; stroke: #272727; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 189 82.251818 
+L 189 82.251818 
+Q 186.954545 82.251818 186.954545 80.206364 
+L 186.954545 50.498182 
+Q 186.954545 48.452727 189 48.452727 
+L 189 48.452727 
+Q 191.045455 48.452727 191.045455 50.498182 
+L 191.045455 80.206364 
+Q 191.045455 82.251818 189 82.251818 
+z
+" clip-path="url(#p1de67ba67e)" style="fill: #2a989a"/>
+   </g>
+   <g id="text_7">
+    <g clip-path="url(#p1de67ba67e)">
+     <text style="font-size: 16.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #4862da" x="194.754273" y="71.622273" transform="rotate(-0 194.754273 71.622273)">34</text>
+    </g>
+   </g>
+   <g id="patch_11">
+    <path d="M 233.697273 81.257727 
+L 233.697273 49.446818 
+" clip-path="url(#p1de67ba67e)" style="fill: none; stroke: #272727; stroke-width: 0.975; stroke-linecap: round"/>
+   </g>
+   <g id="text_8">
+    <g clip-path="url(#p1de67ba67e)">
+     <text style="font-size: 11.8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #323a48" x="239.145341" y="60.889455" transform="rotate(-0 239.145341 60.889455)">Icon Suites</text>
+    </g>
+   </g>
+   <g id="text_9">
+    <g clip-path="url(#p1de67ba67e)">
+     <text style="font-size: 10.8px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: start; fill: #5f6b7d" x="239.145341" y="77.814153" transform="rotate(-0 239.145341 77.814153)">Cloud &amp; Phosphor</text>
+    </g>
+   </g>
+   <g id="patch_12">
+    <path d="M 96.238636 149.727273 
+L 25.772727 149.727273 
+Q 18.409091 149.727273 18.409091 142.363636 
+L 18.409091 107.386364 
+Q 18.409091 100.022727 25.772727 100.022727 
+L 166.704545 100.022727 
+Q 174.068182 100.022727 174.068182 107.386364 
+L 174.068182 142.363636 
+Q 174.068182 149.727273 166.704545 149.727273 
+z
+" clip-path="url(#p1de67ba67e)" style="fill: #ffffff; stroke: #272727; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_13">
+    <path d="M 23.522727 141.774545 
+L 23.522727 141.774545 
+Q 21.477273 141.774545 21.477273 139.729091 
+L 21.477273 110.020909 
+Q 21.477273 107.975455 23.522727 107.975455 
+L 23.522727 107.975455 
+Q 25.568182 107.975455 25.568182 110.020909 
+L 25.568182 139.729091 
+Q 25.568182 141.774545 23.522727 141.774545 
+z
+" clip-path="url(#p1de67ba67e)" style="fill: #323a48"/>
+   </g>
+   <g id="text_10">
+    <g clip-path="url(#p1de67ba67e)">
+     <text style="font-size: 16.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #4862da" x="29.277" y="131.145" transform="rotate(-0 29.277 131.145)">0</text>
+    </g>
+   </g>
+   <g id="patch_14">
+    <path d="M 68.22 140.780455 
+L 68.22 108.969545 
+" clip-path="url(#p1de67ba67e)" style="fill: none; stroke: #272727; stroke-width: 0.975; stroke-linecap: round"/>
+   </g>
+   <g id="text_11">
+    <g clip-path="url(#p1de67ba67e)">
+     <text style="font-size: 11.8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #323a48" x="73.668068" y="120.412182" transform="rotate(-0 73.668068 120.412182)">GUI Lock-In</text>
+    </g>
+   </g>
+   <g id="text_12">
+    <g clip-path="url(#p1de67ba67e)">
+     <text style="font-size: 10.8px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: start; fill: #5f6b7d" x="73.668068" y="137.309881" transform="rotate(-0 73.668068 137.309881)">100% Git Python</text>
+    </g>
+   </g>
+   <g id="patch_15">
+    <path d="M 261.715909 149.727273 
+L 191.25 149.727273 
+Q 183.886364 149.727273 183.886364 142.363636 
+L 183.886364 107.386364 
+Q 183.886364 100.022727 191.25 100.022727 
+L 332.181818 100.022727 
+Q 339.545455 100.022727 339.545455 107.386364 
+L 339.545455 142.363636 
+Q 339.545455 149.727273 332.181818 149.727273 
+z
+" clip-path="url(#p1de67ba67e)" style="fill: #ffffff; stroke: #272727; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_16">
+    <path d="M 189 141.774545 
+L 189 141.774545 
+Q 186.954545 141.774545 186.954545 139.729091 
+L 186.954545 110.020909 
+Q 186.954545 107.975455 189 107.975455 
+L 189 107.975455 
+Q 191.045455 107.975455 191.045455 110.020909 
+L 191.045455 139.729091 
+Q 191.045455 141.774545 189 141.774545 
+z
+" clip-path="url(#p1de67ba67e)" style="fill: #8037c3"/>
+   </g>
+   <g id="text_13">
+    <g clip-path="url(#p1de67ba67e)">
+     <text style="font-size: 16.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #4862da" x="194.754273" y="131.145" transform="rotate(-0 194.754273 131.145)">4</text>
+    </g>
+   </g>
+   <g id="patch_17">
+    <path d="M 233.697273 140.780455 
+L 233.697273 108.969545 
+" clip-path="url(#p1de67ba67e)" style="fill: none; stroke: #272727; stroke-width: 0.975; stroke-linecap: round"/>
+   </g>
+   <g id="text_14">
+    <g clip-path="url(#p1de67ba67e)">
+     <text style="font-size: 11.8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #323a48" x="239.145341" y="120.412182" transform="rotate(-0 239.145341 120.412182)">Theme Palettes</text>
+    </g>
+   </g>
+   <g id="text_15">
+    <g clip-path="url(#p1de67ba67e)">
+     <text style="font-size: 10.8px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: start; fill: #5f6b7d" x="239.145341" y="137.925818" transform="rotate(-0 239.145341 137.925818)">Instant re-skin</text>
+    </g>
+   </g>
+   <g id="patch_18">
+    <path d="M 541.022727 158.727273 
+L 376.363636 158.727273 
+Q 368.181818 158.727273 368.181818 150.545455 
+L 368.181818 13.5 
+Q 368.181818 5.318182 376.363636 5.318182 
+L 705.681818 5.318182 
+Q 713.863636 5.318182 713.863636 13.5 
+L 713.863636 150.545455 
+Q 713.863636 158.727273 705.681818 158.727273 
+z
+" clip-path="url(#p1de67ba67e)" style="fill: #eef2f6; stroke: #bac4d2; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_19">
+    <path d="M 541.022727 31.5 
+L 368.181818 31.5 
+L 368.181818 13.5 
+Q 368.181818 5.318182 376.363636 5.318182 
+L 705.681818 5.318182 
+Q 713.863636 5.318182 713.863636 13.5 
+L 713.863636 31.5 
+z
+" clip-path="url(#p1de67ba67e)" style="fill: #e6fafa"/>
+   </g>
+   <g id="patch_20">
+    <path d="M 368.181818 31.5 
+L 713.863636 31.5 
+" clip-path="url(#p1de67ba67e)" style="fill: none; stroke: #55c3c3; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="patch_21">
+    <path d="M 541.022727 158.727273 
+L 376.363636 158.727273 
+Q 368.181818 158.727273 368.181818 150.545455 
+L 368.181818 13.5 
+Q 368.181818 5.318182 376.363636 5.318182 
+L 705.681818 5.318182 
+Q 713.863636 5.318182 713.863636 13.5 
+L 713.863636 150.545455 
+Q 713.863636 158.727273 705.681818 158.727273 
+L 541.022727 158.727273 
+z
+" clip-path="url(#p1de67ba67e)" style="fill: none; stroke: #55c3c3; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_16">
+    <g clip-path="url(#p1de67ba67e)">
+     <text style="font-size: 13px; font-family: 'drawlib-phosphor-bold', 'Phosphor-Bold'; text-anchor: middle; fill: #4862da" x="390.829091" y="24.096591" transform="rotate(-0 390.829091 24.096591)"></text>
+    </g>
+   </g>
+   <g id="text_17">
+    <g clip-path="url(#p1de67ba67e)">
+     <text style="font-size: 14px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #323a48" x="405.294545" y="23.729091" transform="rotate(-0 405.294545 23.729091)">CardList — Feature Stack</text>
+    </g>
+   </g>
+   <g id="text_18">
+    <g clip-path="url(#p1de67ba67e)">
+     <text style="font-size: 11.2px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: end; fill: #5f6b7d" x="697.5" y="21.937091" transform="rotate(-0 697.5 21.937091)">Icon + Badge</text>
+    </g>
+   </g>
+   <g id="patch_22">
+    <path d="M 541.022727 72 
+L 386.124545 72 
+Q 380.454545 72 380.454545 66.33 
+L 380.454545 46.17 
+Q 380.454545 40.5 386.124545 40.5 
+L 695.920909 40.5 
+Q 701.590909 40.5 701.590909 46.17 
+L 701.590909 66.33 
+Q 701.590909 72 695.920909 72 
+z
+" clip-path="url(#p1de67ba67e)" style="fill: #ffffff; stroke: #272727; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_23">
+    <path d="M 401.440909 66.96 
+L 395.871709 66.96 
+Q 390.730909 66.96 390.730909 61.8192 
+L 390.730909 50.6808 
+Q 390.730909 45.54 395.871709 45.54 
+L 407.010109 45.54 
+Q 412.150909 45.54 412.150909 50.6808 
+L 412.150909 61.8192 
+Q 412.150909 66.96 407.010109 66.96 
+z
+" clip-path="url(#p1de67ba67e)" style="fill: #4862da"/>
+   </g>
+   <g id="text_19">
+    <g clip-path="url(#p1de67ba67e)">
+     <text style="font-size: 10px; font-family: 'drawlib-phosphor-bold', 'Phosphor-Bold'; text-anchor: middle; fill: #ffffff" x="401.440909" y="57.6262" transform="rotate(-0 401.440909 57.6262)"></text>
+    </g>
+   </g>
+   <g id="text_20">
+    <g clip-path="url(#p1de67ba67e)">
+     <text style="font-size: 11px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #ffffff" x="401.440909" y="65.9992" transform="rotate(-0 401.440909 65.9992)">L1</text>
+    </g>
+   </g>
+   <g id="text_21">
+    <g clip-path="url(#p1de67ba67e)">
+     <text style="font-size: 11.8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #323a48" x="422.427273" y="54.450031" transform="rotate(-0 422.427273 54.450031)">Declarative Item Lifecycle</text>
+    </g>
+   </g>
+   <g id="text_22">
+    <g clip-path="url(#p1de67ba67e)">
+     <text style="font-size: 10.6px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: start; fill: #5f6b7d" x="422.427273" y="65.259" transform="rotate(-0 422.427273 65.259)">Register via .add() and chain .draw()</text>
+    </g>
+   </g>
+   <g id="patch_24">
+    <path d="M 541.022727 110.863636 
+L 386.124545 110.863636 
+Q 380.454545 110.863636 380.454545 105.193636 
+L 380.454545 85.033636 
+Q 380.454545 79.363636 386.124545 79.363636 
+L 695.920909 79.363636 
+Q 701.590909 79.363636 701.590909 85.033636 
+L 701.590909 105.193636 
+Q 701.590909 110.863636 695.920909 110.863636 
+z
+" clip-path="url(#p1de67ba67e)" style="fill: #ffffff; stroke: #272727; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_25">
+    <path d="M 401.440909 105.823636 
+L 395.871709 105.823636 
+Q 390.730909 105.823636 390.730909 100.682836 
+L 390.730909 89.544436 
+Q 390.730909 84.403636 395.871709 84.403636 
+L 407.010109 84.403636 
+Q 412.150909 84.403636 412.150909 89.544436 
+L 412.150909 100.682836 
+Q 412.150909 105.823636 407.010109 105.823636 
+z
+" clip-path="url(#p1de67ba67e)" style="fill: #e8f2ff; stroke: #7891f2; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_23">
+    <g clip-path="url(#p1de67ba67e)">
+     <text style="font-size: 10px; font-family: 'drawlib-phosphor-bold', 'Phosphor-Bold'; text-anchor: middle; fill: #4862da" x="401.440909" y="96.489836" transform="rotate(-0 401.440909 96.489836)"></text>
+    </g>
+   </g>
+   <g id="text_24">
+    <g clip-path="url(#p1de67ba67e)">
+     <text style="font-size: 11px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #4862da" x="401.440909" y="104.862836" transform="rotate(-0 401.440909 104.862836)">L2</text>
+    </g>
+   </g>
+   <g id="text_25">
+    <g clip-path="url(#p1de67ba67e)">
+     <text style="font-size: 11.8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #323a48" x="422.427273" y="93.202121" transform="rotate(-0 422.427273 93.202121)">Semantic Design Tokens</text>
+    </g>
+   </g>
+   <g id="text_26">
+    <g clip-path="url(#p1de67ba67e)">
+     <text style="font-size: 10.6px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: start; fill: #5f6b7d" x="422.427273" y="104.122636" transform="rotate(-0 422.427273 104.122636)">50%+ neutral base with focal highlights</text>
+    </g>
+   </g>
+   <g id="patch_26">
+    <path d="M 541.022727 149.727273 
+L 386.124545 149.727273 
+Q 380.454545 149.727273 380.454545 144.057273 
+L 380.454545 123.897273 
+Q 380.454545 118.227273 386.124545 118.227273 
+L 695.920909 118.227273 
+Q 701.590909 118.227273 701.590909 123.897273 
+L 701.590909 144.057273 
+Q 701.590909 149.727273 695.920909 149.727273 
+z
+" clip-path="url(#p1de67ba67e)" style="fill: #ffffff; stroke: #272727; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_27">
+    <path d="M 401.440909 144.687273 
+L 395.871709 144.687273 
+Q 390.730909 144.687273 390.730909 139.546473 
+L 390.730909 128.408073 
+Q 390.730909 123.267273 395.871709 123.267273 
+L 407.010109 123.267273 
+Q 412.150909 123.267273 412.150909 128.408073 
+L 412.150909 139.546473 
+Q 412.150909 144.687273 407.010109 144.687273 
+z
+" clip-path="url(#p1de67ba67e)" style="fill: #e8f2ff; stroke: #7891f2; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_27">
+    <g clip-path="url(#p1de67ba67e)">
+     <text style="font-size: 10px; font-family: 'drawlib-phosphor-bold', 'Phosphor-Bold'; text-anchor: middle; fill: #4862da" x="401.440909" y="135.353473" transform="rotate(-0 401.440909 135.353473)"></text>
+    </g>
+   </g>
+   <g id="text_28">
+    <g clip-path="url(#p1de67ba67e)">
+     <text style="font-size: 11px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #4862da" x="401.440909" y="143.726473" transform="rotate(-0 401.440909 143.726473)">L3</text>
+    </g>
+   </g>
+   <g id="text_29">
+    <g clip-path="url(#p1de67ba67e)">
+     <text style="font-size: 11.8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #323a48" x="422.427273" y="132.177304" transform="rotate(-0 422.427273 132.177304)">Animation-Ready Visibility</text>
+    </g>
+   </g>
+   <g id="text_30">
+    <g clip-path="url(#p1de67ba67e)">
+     <text style="font-size: 10.6px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: start; fill: #5f6b7d" x="422.427273" y="142.986273" transform="rotate(-0 422.427273 142.986273)">Toggle item.show without shifting layout</text>
+    </g>
+   </g>
+   <g id="patch_28">
+    <path d="M 178.977273 325.227273 
+L 14.318182 325.227273 
+Q 6.136364 325.227273 6.136364 317.045455 
+L 6.136364 180 
+Q 6.136364 171.818182 14.318182 171.818182 
+L 343.636364 171.818182 
+Q 351.818182 171.818182 351.818182 180 
+L 351.818182 317.045455 
+Q 351.818182 325.227273 343.636364 325.227273 
+z
+" clip-path="url(#p1de67ba67e)" style="fill: #eef2f6; stroke: #bac4d2; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_29">
+    <path d="M 178.977273 198 
+L 6.136364 198 
+L 6.136364 180 
+Q 6.136364 171.818182 14.318182 171.818182 
+L 343.636364 171.818182 
+Q 351.818182 171.818182 351.818182 180 
+L 351.818182 198 
+z
+" clip-path="url(#p1de67ba67e)" style="fill: #e6fafa"/>
+   </g>
+   <g id="patch_30">
+    <path d="M 6.136364 198 
+L 351.818182 198 
+" clip-path="url(#p1de67ba67e)" style="fill: none; stroke: #55c3c3; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="patch_31">
+    <path d="M 178.977273 325.227273 
+L 14.318182 325.227273 
+Q 6.136364 325.227273 6.136364 317.045455 
+L 6.136364 180 
+Q 6.136364 171.818182 14.318182 171.818182 
+L 343.636364 171.818182 
+Q 351.818182 171.818182 351.818182 180 
+L 351.818182 317.045455 
+Q 351.818182 325.227273 343.636364 325.227273 
+L 178.977273 325.227273 
+z
+" clip-path="url(#p1de67ba67e)" style="fill: none; stroke: #55c3c3; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_31">
+    <g clip-path="url(#p1de67ba67e)">
+     <text style="font-size: 13px; font-family: 'drawlib-phosphor-bold', 'Phosphor-Bold'; text-anchor: middle; fill: #4862da" x="28.783636" y="190.596591" transform="rotate(-0 28.783636 190.596591)"></text>
+    </g>
+   </g>
+   <g id="text_32">
+    <g clip-path="url(#p1de67ba67e)">
+     <text style="font-size: 14px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #323a48" x="43.249091" y="189.500653" transform="rotate(-0 43.249091 189.500653)">Pyramid — Layered Hierarchy</text>
+    </g>
+   </g>
+   <g id="text_33">
+    <g clip-path="url(#p1de67ba67e)">
+     <text style="font-size: 11.2px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: end; fill: #5f6b7d" x="335.454545" y="189.165091" transform="rotate(-0 335.454545 189.165091)">3 Tiers</text>
+    </g>
+   </g>
+   <g id="patch_32">
+    <path d="M 39.886364 316.227273 
+L 81.387896 283.636364 
+L 276.56665 283.636364 
+L 318.068182 316.227273 
+z
+" clip-path="url(#p1de67ba67e)" style="fill: #e6fafa; stroke: #55c3c3; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_34">
+    <g clip-path="url(#p1de67ba67e)">
+     <text style="font-size: 12px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="178.977273" y="304.491818" transform="rotate(-0 178.977273 304.491818)">Vector Canvas</text>
+    </g>
+   </g>
+   <g id="patch_33">
+    <path d="M 88.681052 277.909091 
+L 130.182584 245.318182 
+L 227.771961 245.318182 
+L 269.273493 277.909091 
+z
+" clip-path="url(#p1de67ba67e)" style="fill: #e8f2ff; stroke: #7891f2; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_35">
+    <g clip-path="url(#p1de67ba67e)">
+     <text style="font-size: 12px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="178.977273" y="266.173636" transform="rotate(-0 178.977273 266.173636)">SmartArts</text>
+    </g>
+   </g>
+   <g id="patch_34">
+    <path d="M 137.475741 239.590909 
+L 178.977273 207 
+L 220.478805 239.590909 
+z
+" clip-path="url(#p1de67ba67e)" style="fill: #4862da"/>
+   </g>
+   <g id="text_36">
+    <g clip-path="url(#p1de67ba67e)">
+     <text style="font-size: 11.2px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #ffffff" x="178.977273" y="227.551455" transform="rotate(-0 178.977273 227.551455)">Deck</text>
+    </g>
+   </g>
+   <g id="patch_35">
+    <path d="M 541.022727 325.227273 
+L 376.363636 325.227273 
+Q 368.181818 325.227273 368.181818 317.045455 
+L 368.181818 180 
+Q 368.181818 171.818182 376.363636 171.818182 
+L 705.681818 171.818182 
+Q 713.863636 171.818182 713.863636 180 
+L 713.863636 317.045455 
+Q 713.863636 325.227273 705.681818 325.227273 
+z
+" clip-path="url(#p1de67ba67e)" style="fill: #eef2f6; stroke: #bac4d2; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_36">
+    <path d="M 541.022727 198 
+L 368.181818 198 
+L 368.181818 180 
+Q 368.181818 171.818182 376.363636 171.818182 
+L 705.681818 171.818182 
+Q 713.863636 171.818182 713.863636 180 
+L 713.863636 198 
+z
+" clip-path="url(#p1de67ba67e)" style="fill: #e6fafa"/>
+   </g>
+   <g id="patch_37">
+    <path d="M 368.181818 198 
+L 713.863636 198 
+" clip-path="url(#p1de67ba67e)" style="fill: none; stroke: #55c3c3; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="patch_38">
+    <path d="M 541.022727 325.227273 
+L 376.363636 325.227273 
+Q 368.181818 325.227273 368.181818 317.045455 
+L 368.181818 180 
+Q 368.181818 171.818182 376.363636 171.818182 
+L 705.681818 171.818182 
+Q 713.863636 171.818182 713.863636 180 
+L 713.863636 317.045455 
+Q 713.863636 325.227273 705.681818 325.227273 
+L 541.022727 325.227273 
+z
+" clip-path="url(#p1de67ba67e)" style="fill: none; stroke: #55c3c3; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_37">
+    <g clip-path="url(#p1de67ba67e)">
+     <text style="font-size: 13px; font-family: 'drawlib-phosphor-bold', 'Phosphor-Bold'; text-anchor: middle; fill: #4862da" x="390.829091" y="190.596591" transform="rotate(-0 390.829091 190.596591)"></text>
+    </g>
+   </g>
+   <g id="text_38">
+    <g clip-path="url(#p1de67ba67e)">
+     <text style="font-size: 14px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #323a48" x="405.294545" y="189.564091" transform="rotate(-0 405.294545 189.564091)">MindMapNode — Radial Tree</text>
+    </g>
+   </g>
+   <g id="text_39">
+    <g clip-path="url(#p1de67ba67e)">
+     <text style="font-size: 11.2px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: end; fill: #5f6b7d" x="697.5" y="188.526341" transform="rotate(-0 697.5 188.526341)">2-Pass Layout</text>
+    </g>
+   </g>
+   <g id="patch_39">
+    <path d="M 541.022727 280.431818 
+C 552.414406 280.431818 563.341044 278.449016 571.396178 274.9201 
+C 579.451311 271.391185 583.977273 266.604277 583.977273 261.613636 
+C 583.977273 256.622996 579.451311 251.836088 571.396178 248.307172 
+C 563.341044 244.778257 552.414406 242.795455 541.022727 242.795455 
+C 529.631049 242.795455 518.70441 244.778257 510.649277 248.307172 
+C 502.594144 251.836088 498.068182 256.622996 498.068182 261.613636 
+C 498.068182 266.604277 502.594144 271.391185 510.649277 274.9201 
+C 518.70441 278.449016 529.631049 280.431818 541.022727 280.431818 
+z
+" clip-path="url(#p1de67ba67e)" style="fill: #4862da"/>
+   </g>
+   <g id="text_40">
+    <g clip-path="url(#p1de67ba67e)">
+     <text style="font-size: 12.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #ffffff" x="541.022727" y="266.363636" transform="rotate(-0 541.022727 266.363636)">Drawlib</text>
+    </g>
+   </g>
+   <g id="patch_40">
+    <path d="M 498.068182 261.613636 
+L 485.386364 261.613636 
+" clip-path="url(#p1de67ba67e)" style="fill: none; stroke: #323a48; stroke-width: 2.5; stroke-linecap: round"/>
+   </g>
+   <g id="patch_41">
+    <path d="M 485.386364 284.931818 
+L 485.386364 238.295455 
+" clip-path="url(#p1de67ba67e)" style="fill: none; stroke: #323a48; stroke-width: 2.5; stroke-linecap: round"/>
+   </g>
+   <g id="patch_42">
+    <path d="M 485.386364 238.295455 
+L 472.704545 238.295455 
+" clip-path="url(#p1de67ba67e)" style="fill: none; stroke: #323a48; stroke-width: 2.5; stroke-linecap: round"/>
+   </g>
+   <g id="patch_43">
+    <path d="M 485.386364 284.931818 
+L 472.704545 284.931818 
+" clip-path="url(#p1de67ba67e)" style="fill: none; stroke: #323a48; stroke-width: 2.5; stroke-linecap: round"/>
+   </g>
+   <g id="patch_44">
+    <path d="M 429.75 254.25 
+L 392.931818 254.25 
+Q 386.795455 254.25 386.795455 248.113636 
+L 386.795455 228.477273 
+Q 386.795455 222.340909 392.931818 222.340909 
+L 466.568182 222.340909 
+Q 472.704545 222.340909 472.704545 228.477273 
+L 472.704545 248.113636 
+Q 472.704545 254.25 466.568182 254.25 
+z
+" clip-path="url(#p1de67ba67e)" style="fill: #e8f2ff; stroke: #7891f2; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_41">
+    <g clip-path="url(#p1de67ba67e)">
+     <text style="font-size: 11.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="429.75" y="242.665455" transform="rotate(-0 429.75 242.665455)">SmartArts</text>
+    </g>
+   </g>
+   <g id="patch_45">
+    <path d="M 429.75 300.886364 
+L 392.931818 300.886364 
+Q 386.795455 300.886364 386.795455 294.75 
+L 386.795455 275.113636 
+Q 386.795455 268.977273 392.931818 268.977273 
+L 466.568182 268.977273 
+Q 472.704545 268.977273 472.704545 275.113636 
+L 472.704545 294.75 
+Q 472.704545 300.886364 466.568182 300.886364 
+z
+" clip-path="url(#p1de67ba67e)" style="fill: #e8f2ff; stroke: #7891f2; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_42">
+    <g clip-path="url(#p1de67ba67e)">
+     <text style="font-size: 11.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="429.75" y="289.301818" transform="rotate(-0 429.75 289.301818)">10 Charts</text>
+    </g>
+   </g>
+   <g id="patch_46">
+    <path d="M 583.977273 261.613636 
+L 596.659091 261.613636 
+" clip-path="url(#p1de67ba67e)" style="fill: none; stroke: #323a48; stroke-width: 2.5; stroke-linecap: round"/>
+   </g>
+   <g id="patch_47">
+    <path d="M 596.659091 284.931818 
+L 596.659091 238.295455 
+" clip-path="url(#p1de67ba67e)" style="fill: none; stroke: #323a48; stroke-width: 2.5; stroke-linecap: round"/>
+   </g>
+   <g id="patch_48">
+    <path d="M 596.659091 238.295455 
+L 609.340909 238.295455 
+" clip-path="url(#p1de67ba67e)" style="fill: none; stroke: #323a48; stroke-width: 2.5; stroke-linecap: round"/>
+   </g>
+   <g id="patch_49">
+    <path d="M 596.659091 284.931818 
+L 609.340909 284.931818 
+" clip-path="url(#p1de67ba67e)" style="fill: none; stroke: #323a48; stroke-width: 2.5; stroke-linecap: round"/>
+   </g>
+   <g id="patch_50">
+    <path d="M 652.295455 254.25 
+L 615.477273 254.25 
+Q 609.340909 254.25 609.340909 248.113636 
+L 609.340909 228.477273 
+Q 609.340909 222.340909 615.477273 222.340909 
+L 689.113636 222.340909 
+Q 695.25 222.340909 695.25 228.477273 
+L 695.25 248.113636 
+Q 695.25 254.25 689.113636 254.25 
+z
+" clip-path="url(#p1de67ba67e)" style="fill: #e6fafa; stroke: #55c3c3; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_43">
+    <g clip-path="url(#p1de67ba67e)">
+     <text style="font-size: 11.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="652.295455" y="241.958384" transform="rotate(-0 652.295455 241.958384)">Diagrams</text>
+    </g>
+   </g>
+   <g id="patch_51">
+    <path d="M 652.295455 300.886364 
+L 615.477273 300.886364 
+Q 609.340909 300.886364 609.340909 294.75 
+L 609.340909 275.113636 
+Q 609.340909 268.977273 615.477273 268.977273 
+L 689.113636 268.977273 
+Q 695.25 268.977273 695.25 275.113636 
+L 695.25 294.75 
+Q 695.25 300.886364 689.113636 300.886364 
+z
+" clip-path="url(#p1de67ba67e)" style="fill: #e6fafa; stroke: #55c3c3; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_44">
+    <g clip-path="url(#p1de67ba67e)">
+     <text style="font-size: 11.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="652.295455" y="289.301818" transform="rotate(-0 652.295455 289.301818)">Slide &amp; Doc</text>
+    </g>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p1de67ba67e">
+   <rect x="0" y="0" width="720" height="331.363636"/>
+  </clipPath>
+ </defs>
+<!-- drawlib-svg-fonts: [{"family":"drawlib-phosphor-bold","rel_path":"_assets/fonts/phosphor/bold.ttf","src":"builtin:fonticons/phosphor/bold.ttf","format":"truetype"},{"family":"drawlib-cjk-japanese-noto-sans-bold","rel_path":"_assets/fonts/cjk_japanese_noto_sans/bold.otf","src":"builtin:fonts/cjk_japanese_noto_sans/bold.otf","format":"opentype"},{"family":"drawlib-cjk-japanese-noto-sans-regular","rel_path":"_assets/fonts/cjk_japanese_noto_sans/regular.otf","src":"builtin:fonts/cjk_japanese_noto_sans/regular.otf","format":"opentype"}] -->
+</svg>

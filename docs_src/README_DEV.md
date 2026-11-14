@@ -84,7 +84,7 @@ drawlib/
 ├── tests/              # Test suite (tests/drawlib and tests/dcli)
 ├── tools/              # Developer CLI (dcli), release_assets/, and original_assets/
 ├── dcli                # Shell launcher & autocompletion wrapper
-├── docs_src/           # Documentation & asset sources (site/, api/, architecture/, readme/, logo/, ogp/) & README_*.md
+├── docs_src/           # Documentation & asset sources (site/, api/, architecture/, quickstart/, about-drawlib/, readme/, logo/, ogp/) & README_*.md
 ├── reports/            # PNI501 audit report source (full_audit_src/ -> docs/reports/pni-full-audit/)
 ├── docs/               # Generated GitHub Pages web root (www.drawlib.com) & static assets
 ├── .agents/rules/      # Living developer guidelines and AI instructions

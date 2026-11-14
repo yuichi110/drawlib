@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="720pt" height="553.846154pt" viewBox="0 0 720 553.846154" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 553.846154 
+L 720 553.846154 
+L 720 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 360 259.615385 
+L 27.692308 259.615385 
+Q 13.846154 259.615385 13.846154 245.769231 
+L 13.846154 27.692308 
+Q 13.846154 13.846154 27.692308 13.846154 
+L 692.307692 13.846154 
+Q 706.153846 13.846154 706.153846 27.692308 
+L 706.153846 245.769231 
+Q 706.153846 259.615385 692.307692 259.615385 
+z
+" clip-path="url(#p8cdbe589c5)" style="fill: #eef2f6; stroke: #bac4d2; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 360 66.461538 
+L 13.846154 66.461538 
+L 13.846154 27.692308 
+Q 13.846154 13.846154 27.692308 13.846154 
+L 692.307692 13.846154 
+Q 706.153846 13.846154 706.153846 27.692308 
+L 706.153846 66.461538 
+z
+" clip-path="url(#p8cdbe589c5)" style="fill: #e8f2ff"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 13.846154 66.461538 
+L 706.153846 66.461538 
+" clip-path="url(#p8cdbe589c5)" style="fill: none; stroke: #7891f2; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 360 259.615385 
+L 27.692308 259.615385 
+Q 13.846154 259.615385 13.846154 245.769231 
+L 13.846154 27.692308 
+Q 13.846154 13.846154 27.692308 13.846154 
+L 692.307692 13.846154 
+Q 706.153846 13.846154 706.153846 27.692308 
+L 706.153846 245.769231 
+Q 706.153846 259.615385 692.307692 259.615385 
+L 360 259.615385 
+z
+" clip-path="url(#p8cdbe589c5)" style="fill: none; stroke: #7891f2; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_1">
+    <g clip-path="url(#p8cdbe589c5)">
+     <text style="font-size: 16px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #323a48" x="41.538462" y="46.233846" transform="rotate(-0 41.538462 46.233846)">多言語フォントファミリーとオンデマンド自動キャッシュ</text>
+    </g>
+   </g>
+   <g id="patch_6">
+    <path d="M 128.076923 243 
+L 34.615385 243 
+Q 23.538462 243 23.538462 231.923077 
+L 23.538462 97.615385 
+Q 23.538462 86.538462 34.615385 86.538462 
+L 221.538462 86.538462 
+Q 232.615385 86.538462 232.615385 97.615385 
+L 232.615385 231.923077 
+Q 232.615385 243 221.538462 243 
+z
+" clip-path="url(#p8cdbe589c5)" style="fill: #ffffff; stroke: #272727; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_2">
+    <g clip-path="url(#p8cdbe589c5)">
+     <text style="font-size: 13.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #4862da" x="128.076923" y="119.816827" transform="rotate(-0 128.076923 119.816827)">Font.SANSSERIF_BOLD</text>
+    </g>
+   </g>
+   <g id="text_3">
+    <g clip-path="url(#p8cdbe589c5)">
+     <text style="font-size: 14.8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="128.076923" y="169.483262" transform="rotate(-0 128.076923 169.483262)">English &amp; 日本語</text>
+    </g>
+   </g>
+   <g id="text_4">
+    <g clip-path="url(#p8cdbe589c5)">
+     <text style="font-size: 13.5px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: middle; fill: #5f6b7d" x="128.076923" y="219.745385" transform="rotate(-0 128.076923 219.745385)">標準 和欧混植ゴシック</text>
+    </g>
+   </g>
+   <g id="patch_7">
+    <path d="M 360 243 
+L 266.538462 243 
+Q 255.461538 243 255.461538 231.923077 
+L 255.461538 97.615385 
+Q 255.461538 86.538462 266.538462 86.538462 
+L 453.461538 86.538462 
+Q 464.538462 86.538462 464.538462 97.615385 
+L 464.538462 231.923077 
+Q 464.538462 243 453.461538 243 
+z
+" clip-path="url(#p8cdbe589c5)" style="fill: #e8f2ff; stroke: #7891f2; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_5">
+    <g clip-path="url(#p8cdbe589c5)">
+     <text style="font-size: 13.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #4862da" x="360" y="119.411827" transform="rotate(-0 360 119.411827)">FontJapanese.SERIF</text>
+    </g>
+   </g>
+   <g id="text_6">
+    <g clip-path="url(#p8cdbe589c5)">
+     <text style="font-size: 14.8px; font-family: 'drawlib-japanese-noto-serif-bold', 'Noto Serif JP'; text-anchor: middle; fill: #323a48" x="360" y="170.393231" transform="rotate(-0 360 170.393231)">美しい明朝体表現</text>
+    </g>
+   </g>
+   <g id="text_7">
+    <g clip-path="url(#p8cdbe589c5)">
+     <text style="font-size: 13.5px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: middle; fill: #5f6b7d" x="360" y="219.745385" transform="rotate(-0 360 219.745385)">地域別・日本語明朝</text>
+    </g>
+   </g>
+   <g id="patch_8">
+    <path d="M 591.923077 243 
+L 498.461538 243 
+Q 487.384615 243 487.384615 231.923077 
+L 487.384615 97.615385 
+Q 487.384615 86.538462 498.461538 86.538462 
+L 685.384615 86.538462 
+Q 696.461538 86.538462 696.461538 97.615385 
+L 696.461538 231.923077 
+Q 696.461538 243 685.384615 243 
+z
+" clip-path="url(#p8cdbe589c5)" style="fill: #e6fafa; stroke: #55c3c3; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_8">
+    <g clip-path="url(#p8cdbe589c5)">
+     <text style="font-size: 13.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #4862da" x="591.923077" y="120.053077" transform="rotate(-0 591.923077 120.053077)">FontSourceCode</text>
+    </g>
+   </g>
+   <g id="text_9">
+    <g clip-path="url(#p8cdbe589c5)">
+     <text style="font-size: 14.8px; font-family: 'drawlib-mono-source-code-pro-regular', 'Source Code Pro'; text-anchor: middle; fill: #323a48" x="591.923077" y="168.469231" transform="rotate(-0 591.923077 168.469231)">setup(104, 80)</text>
+    </g>
+   </g>
+   <g id="text_10">
+    <g clip-path="url(#p8cdbe589c5)">
+     <text style="font-size: 13.5px; font-family: 'drawlib-cjk-japanese-noto-sans-regular', 'Noto Sans CJK JP'; text-anchor: middle; fill: #5f6b7d" x="591.923077" y="219.745385" transform="rotate(-0 591.923077 219.745385)">ソースコード等幅</text>
+    </g>
+   </g>
+   <g id="patch_9">
+    <path d="M 360 540 
+L 27.692308 540 
+Q 13.846154 540 13.846154 526.153846 
+L 13.846154 290.769231 
+Q 13.846154 276.923077 27.692308 276.923077 
+L 692.307692 276.923077 
+Q 706.153846 276.923077 706.153846 290.769231 
+L 706.153846 526.153846 
+Q 706.153846 540 692.307692 540 
+z
+" clip-path="url(#p8cdbe589c5)" style="fill: #eef2f6; stroke: #bac4d2; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 360 329.538462 
+L 13.846154 329.538462 
+L 13.846154 290.769231 
+Q 13.846154 276.923077 27.692308 276.923077 
+L 692.307692 276.923077 
+Q 706.153846 276.923077 706.153846 290.769231 
+L 706.153846 329.538462 
+z
+" clip-path="url(#p8cdbe589c5)" style="fill: #e6fafa"/>
+   </g>
+   <g id="patch_11">
+    <path d="M 13.846154 329.538462 
+L 706.153846 329.538462 
+" clip-path="url(#p8cdbe589c5)" style="fill: none; stroke: #55c3c3; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="patch_12">
+    <path d="M 360 540 
+L 27.692308 540 
+Q 13.846154 540 13.846154 526.153846 
+L 13.846154 290.769231 
+Q 13.846154 276.923077 27.692308 276.923077 
+L 692.307692 276.923077 
+Q 706.153846 276.923077 706.153846 290.769231 
+L 706.153846 526.153846 
+Q 706.153846 540 692.307692 540 
+L 360 540 
+z
+" clip-path="url(#p8cdbe589c5)" style="fill: none; stroke: #55c3c3; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_11">
+    <g clip-path="url(#p8cdbe589c5)">
+     <text style="font-size: 16px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #323a48" x="41.538462" y="308.327019" transform="rotate(-0 41.538462 308.327019)">配置アンカー制御 (halign) とラスター画像処理 (Dimage)</text>
+    </g>
+   </g>
+   <g id="patch_13">
+    <path d="M 204.230769 522.692308 
+L 45.692308 522.692308 
+Q 34.615385 522.692308 34.615385 511.615385 
+L 34.615385 360.692308 
+Q 34.615385 349.615385 45.692308 349.615385 
+L 362.769231 349.615385 
+Q 373.846154 349.615385 373.846154 360.692308 
+L 373.846154 511.615385 
+Q 373.846154 522.692308 362.769231 522.692308 
+z
+" clip-path="url(#p8cdbe589c5)" style="fill: #ffffff; stroke: #272727; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_14">
+    <path d="M 204.230769 515.076923 
+L 204.230769 448.615385 
+" clip-path="url(#p8cdbe589c5)" style="fill: none; stroke-dasharray: 5.18,2.24; stroke-dashoffset: 0; stroke: #4862da; stroke-width: 1.4; stroke-linecap: round"/>
+   </g>
+   <g id="patch_15">
+    <path d="M 204.230769 420.923077 
+L 204.230769 360 
+" clip-path="url(#p8cdbe589c5)" style="fill: none; stroke-dasharray: 5.18,2.24; stroke-dashoffset: 0; stroke: #4862da; stroke-width: 1.4; stroke-linecap: round"/>
+   </g>
+   <g id="patch_16">
+    <path d="M 204.230769 403.961538 
+C 205.791387 403.961538 207.288297 403.341498 208.391821 402.237975 
+C 209.495344 401.134451 210.115385 399.637541 210.115385 398.076923 
+C 210.115385 396.516305 209.495344 395.019395 208.391821 393.915872 
+C 207.288297 392.812348 205.791387 392.192308 204.230769 392.192308 
+C 202.670151 392.192308 201.173242 392.812348 200.069718 393.915872 
+C 198.966194 395.019395 198.346154 396.516305 198.346154 398.076923 
+C 198.346154 399.637541 198.966194 401.134451 200.069718 402.237975 
+C 201.173242 403.341498 202.670151 403.961538 204.230769 403.961538 
+z
+" clip-path="url(#p8cdbe589c5)" style="fill: #be3a44"/>
+   </g>
+   <g id="text_12">
+    <g clip-path="url(#p8cdbe589c5)">
+     <text style="font-size: 13.8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: start; fill: #323a48" x="204.230769" y="384.339339" transform="rotate(-0 204.230769 384.339339)">halign='left'</text>
+    </g>
+   </g>
+   <g id="patch_17">
+    <path d="M 204.230769 459.346154 
+C 205.791387 459.346154 207.288297 458.726114 208.391821 457.62259 
+C 209.495344 456.519066 210.115385 455.022157 210.115385 453.461538 
+C 210.115385 451.90092 209.495344 450.404011 208.391821 449.300487 
+C 207.288297 448.196963 205.791387 447.576923 204.230769 447.576923 
+C 202.670151 447.576923 201.173242 448.196963 200.069718 449.300487 
+C 198.966194 450.404011 198.346154 451.90092 198.346154 453.461538 
+C 198.346154 455.022157 198.966194 456.519066 200.069718 457.62259 
+C 201.173242 458.726114 202.670151 459.346154 204.230769 459.346154 
+z
+" clip-path="url(#p8cdbe589c5)" style="fill: #be3a44"/>
+   </g>
+   <g id="text_13">
+    <g clip-path="url(#p8cdbe589c5)">
+     <text style="font-size: 13.8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #4862da" x="204.230769" y="439.723954" transform="rotate(-0 204.230769 439.723954)">halign='center'</text>
+    </g>
+   </g>
+   <g id="patch_18">
+    <path d="M 204.230769 514.730769 
+C 205.791387 514.730769 207.288297 514.110729 208.391821 513.007205 
+C 209.495344 511.903682 210.115385 510.406772 210.115385 508.846154 
+C 210.115385 507.285536 209.495344 505.788626 208.391821 504.685102 
+C 207.288297 503.581579 205.791387 502.961538 204.230769 502.961538 
+C 202.670151 502.961538 201.173242 503.581579 200.069718 504.685102 
+C 198.966194 505.788626 198.346154 507.285536 198.346154 508.846154 
+C 198.346154 510.406772 198.966194 511.903682 200.069718 513.007205 
+C 201.173242 514.110729 202.670151 514.730769 204.230769 514.730769 
+z
+" clip-path="url(#p8cdbe589c5)" style="fill: #be3a44"/>
+   </g>
+   <g id="text_14">
+    <g clip-path="url(#p8cdbe589c5)">
+     <text style="font-size: 13.8px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: end; fill: #323a48" x="204.230769" y="495.10857" transform="rotate(-0 204.230769 495.10857)">halign='right'</text>
+    </g>
+   </g>
+   <g id="patch_19">
+    <path d="M 540 522.692308 
+L 405.692308 522.692308 
+Q 394.615385 522.692308 394.615385 511.615385 
+L 394.615385 360.692308 
+Q 394.615385 349.615385 405.692308 349.615385 
+L 674.307692 349.615385 
+Q 685.384615 349.615385 685.384615 360.692308 
+L 685.384615 511.615385 
+Q 685.384615 522.692308 674.307692 522.692308 
+z
+" clip-path="url(#p8cdbe589c5)" style="fill: #ffffff; stroke: #272727; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_15">
+    <g clip-path="url(#p8cdbe589c5)">
+     <text style="font-size: 13.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #2a989a" x="540" y="374.684576" transform="rotate(-0 540 374.684576)">_assets/linux.png</text>
+    </g>
+   </g>
+   <g id="AnnotationBbox_1">
+    <image xlink:href="data:image/png;base64,
+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" id="image7f7f529d47" transform="scale(1 -1) translate(0 -68.4)" x="444.96" y="-400.486154" width="58.32" height="68.4"/>
+   </g>
+   <g id="text_16">
+    <g clip-path="url(#p8cdbe589c5)">
+     <text style="font-size: 13.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="474.230769" y="501.376884" transform="rotate(-0 474.230769 501.376884)">image()</text>
+    </g>
+   </g>
+   <g id="AnnotationBbox_2">
+    <image xlink:href="data:image/png;base64,
+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" id="image847c8071b9" transform="scale(1 -1) translate(0 -68.4)" x="576.72" y="-400.486154" width="58.32" height="68.4"/>
+   </g>
+   <g id="text_17">
+    <g clip-path="url(#p8cdbe589c5)">
+     <text style="font-size: 13.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="605.769231" y="501.565673" transform="rotate(-0 605.769231 501.565673)">.sepia()</text>
+    </g>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p8cdbe589c5">
+   <rect x="0" y="0" width="720" height="553.846154"/>
+  </clipPath>
+ </defs>
+<!-- drawlib-svg-fonts: [{"family":"drawlib-cjk-japanese-noto-sans-bold","rel_path":"_assets/fonts/cjk_japanese_noto_sans/bold.otf","src":"builtin:fonts/cjk_japanese_noto_sans/bold.otf","format":"opentype"},{"family":"drawlib-cjk-japanese-noto-sans-regular","rel_path":"_assets/fonts/cjk_japanese_noto_sans/regular.otf","src":"builtin:fonts/cjk_japanese_noto_sans/regular.otf","format":"opentype"},{"family":"drawlib-japanese-noto-serif-bold","rel_path":"_assets/fonts/japanese_noto_serif/bold.ttf","src":"builtin:fonts/japanese_noto_serif/bold.ttf","format":"truetype"},{"family":"drawlib-mono-source-code-pro-regular","rel_path":"_assets/fonts/mono_source_code_pro/regular.otf","src":"builtin:fonts/mono_source_code_pro/regular.otf","format":"opentype"}] -->
+</svg>

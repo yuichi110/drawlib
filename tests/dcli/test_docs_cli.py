@@ -41,11 +41,12 @@ def test_target_definitions() -> None:
     assert "readme" in TARGET_MAP
     assert "logo" in TARGET_MAP
     assert "ogp" in TARGET_MAP
-    assert "quickstart" not in TARGET_MAP
+    assert "quickstart" in TARGET_MAP
+    assert "about-drawlib" in TARGET_MAP
+    assert "slide" in TARGET_MAP
     assert "dogfooding" not in TARGET_MAP
-    assert "slide" not in TARGET_MAP
     assert "slide-ddos" not in TARGET_MAP
-    assert len(ALL_TARGETS) == 7
+    assert len(ALL_TARGETS) == 9
 
 
 def test_docs_build_unknown_target() -> None:

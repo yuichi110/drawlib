@@ -65,6 +65,8 @@ source ./dcli             # Register 'dcli' alias and dynamic Tab autocompletion
   - `site` *(default)*: Main documentation site (`docs_src/site/` -> `docs/`)
   - `api`: Official API & CLI Reference site (`docs_src/api/` -> `docs/api/`)
   - `architecture`: Software architecture specification site (`docs_src/architecture/` -> `docs/architecture/`)
+  - `quickstart`: Bilingual Quickstart Handbook (`docs_src/quickstart/` -> `docs/quickstart/`)
+  - `about-drawlib` (alias `slide`): Bilingual 16:9 Showcase Slide Deck (`docs_src/about-drawlib/` -> `docs/about-drawlib/`)
   - `reports`: PNI501 Full Audit Report (`reports/full_audit_src/` -> `docs/reports/pni-full-audit/`)
   - `readme`: Standalone README illustration scripts (`docs_src/readme/` -> `docs/readme_images/`)
   - `logo`: Brand logo & favicon asset scripts (`docs_src/logo/` -> `docs/logo/`)

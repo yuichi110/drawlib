@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="720pt" height="644.210526pt" viewBox="0 0 720 644.210526" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 644.210526 
+L 720 644.210526 
+L 720 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 360 615.789474 
+L 61.578947 615.789474 
+Q 28.421053 615.789474 28.421053 582.631579 
+L 28.421053 61.578947 
+Q 28.421053 28.421053 61.578947 28.421053 
+L 658.421053 28.421053 
+Q 691.578947 28.421053 691.578947 61.578947 
+L 691.578947 582.631579 
+Q 691.578947 615.789474 658.421053 615.789474 
+z
+" clip-path="url(#pde0d7f713e)" style="fill: #e8f2ff; stroke: #7891f2; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 360 145.894737 
+L 187.578947 145.894737 
+Q 161.052632 145.894737 161.052632 119.368421 
+L 161.052632 117.473684 
+Q 161.052632 90.947368 187.578947 90.947368 
+L 532.421053 90.947368 
+Q 558.947368 90.947368 558.947368 117.473684 
+L 558.947368 119.368421 
+Q 558.947368 145.894737 532.421053 145.894737 
+z
+" clip-path="url(#pde0d7f713e)" style="fill: #ffffff"/>
+   </g>
+   <g id="text_1">
+    <g clip-path="url(#pde0d7f713e)">
+     <text style="font-size: 12.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #4862da" x="360" y="123.171053" transform="rotate(-0 360 123.171053)">ILLUSTRATION &amp; DOCS AS CODE</text>
+    </g>
+   </g>
+   <g id="patch_4">
+    <path d="M 175.263158 288.947368 
+L 544.736842 288.947368 
+" clip-path="url(#pde0d7f713e)" style="fill: none; stroke: #4862da; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 175.263158 360.947368 
+C 194.357781 360.947368 212.672909 353.360994 226.174846 339.859057 
+C 239.676784 326.357119 247.263158 308.041992 247.263158 288.947368 
+C 247.263158 269.852745 239.676784 251.537618 226.174846 238.03568 
+C 212.672909 224.533743 194.357781 216.947368 175.263158 216.947368 
+C 156.168535 216.947368 137.853407 224.533743 124.35147 238.03568 
+C 110.849532 251.537618 103.263158 269.852745 103.263158 288.947368 
+C 103.263158 308.041992 110.849532 326.357119 124.35147 339.859057 
+C 137.853407 353.360994 156.168535 360.947368 175.263158 360.947368 
+z
+" clip-path="url(#pde0d7f713e)" style="fill: #ffffff"/>
+   </g>
+   <g id="text_2">
+    <g clip-path="url(#pde0d7f713e)">
+     <text style="font-size: 80px; font-family: 'drawlib-phosphor-bold', 'Phosphor-Bold'; text-anchor: middle; fill: #4862da" x="175.263158" y="323.947368" transform="rotate(-0 175.263158 323.947368)"></text>
+    </g>
+   </g>
+   <g id="text_3">
+    <g clip-path="url(#pde0d7f713e)">
+     <text style="font-size: 14px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="175.263158" y="407.223141" transform="rotate(-0 175.263158 407.223141)">Python</text>
+    </g>
+   </g>
+   <g id="patch_6">
+    <path d="M 360 360.947368 
+C 379.094623 360.947368 397.409751 353.360994 410.911688 339.859057 
+C 424.413626 326.357119 432 308.041992 432 288.947368 
+C 432 269.852745 424.413626 251.537618 410.911688 238.03568 
+C 397.409751 224.533743 379.094623 216.947368 360 216.947368 
+C 340.905377 216.947368 322.590249 224.533743 309.088312 238.03568 
+C 295.586374 251.537618 288 269.852745 288 288.947368 
+C 288 308.041992 295.586374 326.357119 309.088312 339.859057 
+C 322.590249 353.360994 340.905377 360.947368 360 360.947368 
+z
+" clip-path="url(#pde0d7f713e)" style="fill: #4862da"/>
+   </g>
+   <g id="text_4">
+    <g clip-path="url(#pde0d7f713e)">
+     <text style="font-size: 80px; font-family: 'drawlib-phosphor-bold', 'Phosphor-Bold'; text-anchor: middle; fill: #ffffff" x="360" y="323.947368" transform="rotate(-0 360 323.947368)"></text>
+    </g>
+   </g>
+   <g id="text_5">
+    <g clip-path="url(#pde0d7f713e)">
+     <text style="font-size: 14px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="360" y="407.951579" transform="rotate(-0 360 407.951579)">AI-Native</text>
+    </g>
+   </g>
+   <g id="patch_7">
+    <path d="M 544.736842 360.947368 
+C 563.831465 360.947368 582.146593 353.360994 595.64853 339.859057 
+C 609.150468 326.357119 616.736842 308.041992 616.736842 288.947368 
+C 616.736842 269.852745 609.150468 251.537618 595.64853 238.03568 
+C 582.146593 224.533743 563.831465 216.947368 544.736842 216.947368 
+C 525.642219 216.947368 507.327091 224.533743 493.825154 238.03568 
+C 480.323216 251.537618 472.736842 269.852745 472.736842 288.947368 
+C 472.736842 308.041992 480.323216 326.357119 493.825154 339.859057 
+C 507.327091 353.360994 525.642219 360.947368 544.736842 360.947368 
+z
+" clip-path="url(#pde0d7f713e)" style="fill: #ffffff"/>
+   </g>
+   <g id="text_6">
+    <g clip-path="url(#pde0d7f713e)">
+     <text style="font-size: 80px; font-family: 'drawlib-phosphor-bold', 'Phosphor-Bold'; text-anchor: middle; fill: #4862da" x="544.736842" y="323.947368" transform="rotate(-0 544.736842 323.947368)"></text>
+    </g>
+   </g>
+   <g id="text_7">
+    <g clip-path="url(#pde0d7f713e)">
+     <text style="font-size: 14px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="544.736842" y="407.951579" transform="rotate(-0 544.736842 407.951579)">Publish</text>
+    </g>
+   </g>
+   <g id="patch_8">
+    <path d="M 123.157895 459.473684 
+L 596.842105 459.473684 
+" clip-path="url(#pde0d7f713e)" style="fill: none; stroke: #4862da; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="text_8">
+    <g clip-path="url(#pde0d7f713e)">
+     <text style="font-size: 15.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #323a48" x="360" y="521.469539" transform="rotate(-0 360 521.469539)">Drawlib — Apache 2.0 Open Source</text>
+    </g>
+   </g>
+   <g id="text_9">
+    <g clip-path="url(#pde0d7f713e)">
+     <text style="font-size: 13.5px; font-family: 'drawlib-cjk-japanese-noto-sans-bold', 'Noto Sans CJK JP'; text-anchor: middle; fill: #4862da" x="360" y="571.015066" transform="rotate(-0 360 571.015066)">pip / uv install drawlib</text>
+    </g>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pde0d7f713e">
+   <rect x="0" y="0" width="720" height="644.210526"/>
+  </clipPath>
+ </defs>
+<!-- drawlib-svg-fonts: [{"family":"drawlib-cjk-japanese-noto-sans-bold","rel_path":"_assets/fonts/cjk_japanese_noto_sans/bold.otf","src":"builtin:fonts/cjk_japanese_noto_sans/bold.otf","format":"opentype"},{"family":"drawlib-phosphor-bold","rel_path":"_assets/fonts/phosphor/bold.ttf","src":"builtin:fonticons/phosphor/bold.ttf","format":"truetype"}] -->
+</svg>

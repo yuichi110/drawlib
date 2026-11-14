@@ -1,0 +1,26 @@
+[project]
+name = "quickstart"
+type = "doc"
+title = ""
+description = "Drawlib Quickstart Onboarding Guide — Illustration & Documentation as Code in Pure Python"
+style = "google"
+
+[i18n]
+default_lang = "en"
+langs = ["en", "ja"]
+
+[i18n.labels]
+en = "English"
+ja = "日本語"
+
+[i18n.descriptions]
+en = "16-chapter engineering onboarding guide for Drawlib v0.3.10 covering primitives, 34 icon suites, SmartArts, 10 charts, diagrams, auto-layout graphs, animations, 5 project archetypes, and AI workflows."
+ja = "Drawlib v0.3.10 の基本図形・34種アイコンスイート・SmartArts・10種チャート・構成図・自動グラフレイアウト・アニメーション・5種のプロジェクト構成・AI自律ワークフローを体系的に学ぶ全16章の入門ハンドブック。"
+
+[seo]
+site_url = "https://www.drawlib.com/quickstart"
+og_image = "_assets/ogp.png"
+twitter_card = "summary_large_image"
+sitemap = true
+robots = false
+llms_txt = true

@@ -41,10 +41,10 @@ Drawlib is a declarative drawing library and integrated multi-format documentati
 
 ![Autonomous AI Documentation Workflow](docs/readme_images/01_hero_ai_doc_loop.png)
 
-- **Official Website & Documentation**: [English (`www.drawlib.com`)](https://www.drawlib.com/) | [日本語 (`www.drawlib.com/ja/`)](https://www.drawlib.com/ja/) | [Zero-Install `uvx` Guide](https://www.drawlib.com/en/01_getting_started/uvx_any_project.html) | [API & CLI Reference (`www.drawlib.com/api/`)](https://www.drawlib.com/api/) | [Internal Architecture Spec](https://www.drawlib.com/architecture/)
+- **Official Website & Documentation**: [English (`www.drawlib.com`)](https://www.drawlib.com/) | [日本語 (`www.drawlib.com/ja/`)](https://www.drawlib.com/ja/) | [Quickstart Guide (HTML / PDF / DOCX)](https://www.drawlib.com/quickstart/en/) | [About Drawlib Slide Deck (HTML / PDF / PPTX)](https://www.drawlib.com/about-drawlib/en/) | [Zero-Install `uvx` Guide](https://www.drawlib.com/en/01_getting_started/uvx_any_project.html) | [API & CLI Reference (`www.drawlib.com/api/`)](https://www.drawlib.com/api/) | [Internal Architecture Spec](https://www.drawlib.com/architecture/)
 - **Live Examples Gallery**: [Browse All Showcase Projects (`examples.drawlib.com`)](https://examples.drawlib.com/) | [Source (`drawlib-examples`)](https://github.com/yuichi110/drawlib-examples)
-  - **16:9 Slide Decks**: [About Drawlib (HTML / PDF / PPTX)](https://examples.drawlib.com/about-drawlib/en/) · [DDoS Incident Postmortem (HTML / PDF / PPTX)](https://examples.drawlib.com/ddos-incident-response/en/)
-  - **Guides & Whitepapers**: [Dogfooding Whitepaper — English](https://examples.drawlib.com/dogfooding/en/) / [日本語版](https://examples.drawlib.com/dogfooding/ja/) · [Quickstart Guide (HTML / PDF / DOCX)](https://examples.drawlib.com/quickstart/en/)
+  - **16:9 Slide Decks**: [About Drawlib (HTML / PDF / PPTX)](https://www.drawlib.com/about-drawlib/en/) · [DDoS Incident Postmortem (HTML / PDF / PPTX)](https://examples.drawlib.com/ddos-incident-response/en/)
+  - **Guides & Handbooks**: [Quickstart Guide — English (HTML / PDF / DOCX)](https://www.drawlib.com/quickstart/en/) / [日本語版 (HTML / PDF / DOCX)](https://www.drawlib.com/quickstart/ja/)
 
 ---
 

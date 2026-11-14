@@ -12,6 +12,8 @@
 - [AI-Driven Workflow & Agent Setup](./01_getting_started/agent_quicklook.md)
 - [Release Notes & Migration](./01_getting_started/release_notes.md)
 - [API & CLI Reference](https://www.drawlib.com/api/en/)
+- [Quickstart Handbook](https://www.drawlib.com/quickstart/en/)
+- [About Drawlib Slide Deck](https://www.drawlib.com/about-drawlib/en/)
 - [Examples Showcase](https://examples.drawlib.com/)
 
 ## 2. Drawing Primitives & Styles

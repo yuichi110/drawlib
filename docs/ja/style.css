@@ -1010,3 +1010,75 @@ html[data-theme="dark"] .lang-dropdown-menu {
     }
 }
 
+
+/* Auto-bundled Drawlib SVG Fonts */
+@font-face {
+  font-family: 'drawlib-phosphor-bold';
+  src: url('../_assets/fonts/phosphor/bold.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+@font-face {
+  font-family: 'drawlib-cjk-japanese-noto-sans-bold';
+  src: url('../_assets/fonts/cjk_japanese_noto_sans/bold.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+@font-face {
+  font-family: 'drawlib-cjk-japanese-noto-sans-regular';
+  src: url('../_assets/fonts/cjk_japanese_noto_sans/regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+@font-face {
+  font-family: 'drawlib-japanese-noto-serif-bold';
+  src: url('../_assets/fonts/japanese_noto_serif/bold.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+@font-face {
+  font-family: 'drawlib-mono-source-code-pro-regular';
+  src: url('../_assets/fonts/mono_source_code_pro/regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+@font-face {
+  font-family: 'drawlib-phosphor-thin';
+  src: url('../_assets/fonts/phosphor/thin.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+@font-face {
+  font-family: 'drawlib-phosphor-light';
+  src: url('../_assets/fonts/phosphor/light.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+@font-face {
+  font-family: 'drawlib-phosphor-regular';
+  src: url('../_assets/fonts/phosphor/regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+@font-face {
+  font-family: 'drawlib-phosphor-fill';
+  src: url('../_assets/fonts/phosphor/fill.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+@font-face {
+  font-family: 'drawlib-mono-source-han-code-jp-regular';
+  src: url('../_assets/fonts/mono_source_han_code_jp/regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
